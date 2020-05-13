@@ -111,7 +111,7 @@ Q_SIGNALS:
                       QAbstractProxyModel *associatedProxyModel, const QUrl &viewDefaultIcon, const QString &genreNameFilter,
                       const QString &artistNameFilter, ViewManager::ViewCanBeRated viewShowRating,
                       ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
-                      ViewManager::IsTreeModelType isTreeModel);
+                      ViewManager::IsTreeModelType isTreeModel, const QUrl &targetPathFilter);
 
     void openListView(ElisaUtils::FilterType filterType, int expectedDepth,
                       const QString &mainTitle, const QString &secondaryTitle, qulonglong databaseId,
@@ -119,7 +119,7 @@ Q_SIGNALS:
                       QAbstractProxyModel *associatedProxyModel, const QVariant &sortRole,
                       Qt::SortOrder sortOrder, ViewManager::AlbumCardinality displaySingleAlbum,
                       ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase,
-                      ViewManager::IsTreeModelType isTreeModel);
+                      ViewManager::IsTreeModelType isTreeModel, const QUrl &targetPathFilter);
 
     void switchFilesBrowserView(int expectedDepth, const QString &mainTitle, const QUrl &imageUrl);
 

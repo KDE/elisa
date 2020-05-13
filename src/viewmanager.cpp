@@ -54,6 +54,16 @@ public:
                               ViewManager::DelegateWithSecondaryText,
                               ViewManager::ViewShowRating,
                               ViewManager::IsFlatModel}},
+        {ElisaUtils::Container, {{},
+                                QUrl{QStringLiteral("image://icon/folder")},
+                                ViewManager::GridView,
+                                ViewManager::FileBrowserModel,
+                                ElisaUtils::FilterByPath,
+                                ElisaUtils::FileName,
+                                QUrl{QStringLiteral("image://icon/folder")},
+                                ViewManager::DelegateWithoutSecondaryText,
+                                ViewManager::ViewHideRating,
+                                ViewManager::IsFlatModel}},
     };
 
     int mViewIndex = 0;
@@ -148,6 +158,9 @@ void ViewManager::openChildView(const QString &innerMainTitle, const QString & i
     case ElisaUtils::FilterByArtist:
         nextViewParameters.mArtistNameFilter = innerMainTitle;
         break;
+    case ElisaUtils::FilterByPath:
+        nextViewParameters.mPathFilter = QUrl::fromLocalFile(lastView.mPathFilter.toLocalFile() + QStringLiteral("/") + innerMainTitle);
+        break;
     }
 
     d->mNextViewParameters = nextViewParameters;
@@ -201,14 +214,18 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
     switch (viewParamaters.mModelType)
     {
     case FileBrowserModel:
+    {
         newModel = new ::FileBrowserModel;
-        proxyModel = new FileBrowserProxyModel;
+        auto *realProxyModel = new FileBrowserProxyModel;
+        proxyModel = realProxyModel;
         break;
+    }
     case GenericDataModel:
         newModel = new DataModel;
         proxyModel = new GridViewProxyModel;
         break;
     case UnknownModelType:
+        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << "unknown model type";
         break;
     }
 
@@ -223,13 +240,13 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                     << viewParamaters.mModelType << viewParamaters.mFallbackItemIcon
                                     << viewParamaters.mGenreNameFilter << viewParamaters.mArtistNameFilter
                                     << viewParamaters.mViewCanBeRated << viewParamaters.mShowSecondaryTextOnDelegates
-                                    << viewParamaters.mIsTreeModel;
+                                    << viewParamaters.mIsTreeModel << viewParamaters.mPathFilter;
         Q_EMIT openGridView(viewParamaters.mFilterType, viewParamaters.mDepth,
                             viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle, viewParamaters.mMainImage,
                             viewParamaters.mDataType, newModel, proxyModel, viewParamaters.mFallbackItemIcon,
                             viewParamaters.mGenreNameFilter, viewParamaters.mArtistNameFilter,
                             viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates,
-                            viewParamaters.mIsTreeModel);
+                            viewParamaters.mIsTreeModel, viewParamaters.mPathFilter);
         break;
     case ViewPresentationType::ListView:
         qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mFilterType
@@ -238,12 +255,12 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                     << viewParamaters.mModelType << viewParamaters.mDataType
                                     << viewParamaters.mSortRole << viewParamaters.mSortOrder << viewParamaters.mAlbumCardinality
                                     << viewParamaters.mAlbumViewStyle << viewParamaters.mRadioSpecificStyle
-                                    << viewParamaters.mIsTreeModel;
+                                    << viewParamaters.mIsTreeModel << viewParamaters.mPathFilter;
         Q_EMIT openListView(viewParamaters.mFilterType, viewParamaters.mDepth, viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
                             viewParamaters.mDatabaseIdFilter, viewParamaters.mMainImage, viewParamaters.mDataType,
                             newModel, proxyModel, viewParamaters.mSortRole, viewParamaters.mSortOrder,
                             viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle, viewParamaters.mRadioSpecificStyle,
-                            viewParamaters.mIsTreeModel);
+                            viewParamaters.mIsTreeModel, viewParamaters.mPathFilter);
         break;
     case ViewPresentationType::FileBrowserView:
         qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewPresentationType
@@ -258,6 +275,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
         Q_EMIT switchContextView(viewParamaters.mDepth, viewParamaters.mMainTitle, viewParamaters.mMainImage);
         break;
     case UnknownViewPresentation:
+        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << "unknown view type";
         break;
     }
 }
@@ -268,10 +286,12 @@ void ViewManager::goBack()
 
     Q_EMIT popOneView();
 
-    if (d->mViewParametersStack.size() > 2) {
+    if (d->mViewParametersStack.size() > 1) {
         d->mViewParametersStack.pop_back();
         d->mNextViewParameters = {};
     }
+
+    qCDebug(orgKdeElisaViews()) << "ViewManager::goBack" << d->mViewParametersStack.size();
 }
 
 void ViewManager::setViewsData(ViewsListData *viewsData)

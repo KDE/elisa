@@ -78,6 +78,32 @@ public:
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
+                   QUrl fallbackItemIcon,
+                   ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
+                   ViewManager::ViewCanBeRated viewCanBeRated,
+                   ViewManager::IsTreeModelType isTreeModel,
+                   QUrl pathFilter)
+        : mMainTitle(std::move(mainTitle))
+        , mMainImage(std::move(mainImage))
+        , mViewPresentationType(viewPresentationType)
+        , mModelType(modelType)
+        , mFilterType(filterType)
+        , mDataType(dataType)
+        , mFallbackItemIcon(fallbackItemIcon)
+        , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
+        , mViewCanBeRated(viewCanBeRated)
+        , mIsTreeModel(isTreeModel)
+        , mPathFilter(std::move(pathFilter))
+        , mIsValid(true)
+    {
+    }
+
+    ViewParameters(QString mainTitle,
+                   QUrl mainImage,
+                   ViewManager::ViewPresentationType viewPresentationType,
+                   ViewManager::ModelType modelType,
+                   ElisaUtils::FilterType filterType,
+                   ElisaUtils::PlayListEntryType dataType,
                    int sortRole,
                    Qt::SortOrder sortOrder,
                    ViewManager::AlbumCardinality albumCardinality,
@@ -110,7 +136,7 @@ public:
                 mAlbumCardinality == other.mAlbumCardinality && mAlbumViewStyle == other.mAlbumViewStyle &&
                 mRadioSpecificStyle == other.mRadioSpecificStyle && mDepth == other.mDepth &&
                 mDatabaseIdFilter == other.mDatabaseIdFilter && mGenreNameFilter == other.mGenreNameFilter &&
-                mArtistNameFilter == other.mArtistNameFilter;
+                mArtistNameFilter == other.mArtistNameFilter && mPathFilter == other.mPathFilter;
     }
 
     bool operator!=(const ViewParameters &other) const {
@@ -123,7 +149,7 @@ public:
                 mAlbumCardinality != other.mAlbumCardinality || mAlbumViewStyle != other.mAlbumViewStyle ||
                 mRadioSpecificStyle != other.mRadioSpecificStyle || mDepth != other.mDepth ||
                 mDatabaseIdFilter != other.mDatabaseIdFilter || mGenreNameFilter != other.mGenreNameFilter ||
-                mArtistNameFilter != other.mArtistNameFilter;
+                mArtistNameFilter != other.mArtistNameFilter || mPathFilter != other.mPathFilter;
     }
 
     QString mMainTitle;
@@ -165,6 +191,8 @@ public:
     QString mGenreNameFilter;
 
     QString mArtistNameFilter;
+
+    QUrl mPathFilter;
 
     bool mIsValid = false;
 };

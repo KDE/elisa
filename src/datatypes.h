@@ -68,6 +68,8 @@ public:
         ElementTypeRole,
         LyricsRole,
         FullDataRole,
+        IsDirectoryRole,
+        IsPlayListRole,
     };
 
     Q_ENUM(ColumnsRoles)

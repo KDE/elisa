@@ -57,7 +57,7 @@ bool FileBrowserProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
     for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
         auto currentIndex = sourceModel()->index(source_row, column, source_parent);
 
-        const auto &nameValue = sourceModel()->data(currentIndex, FileBrowserModel::NameRole).toString();
+        const auto &nameValue = sourceModel()->data(currentIndex, DataTypes::TitleRole).toString();
 
         if (mFilterExpression.match(nameValue).hasMatch()) {
             result = true;
@@ -85,9 +85,8 @@ void FileBrowserProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
         auto allTrackUrls = DataTypes::EntryDataList{};
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0, rootIndex);
-            if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
-                allTrackUrls.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                         {DataTypes::ResourceRole, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()}}, {}, {}});
+            if (!data(currentIndex, DataTypes::IsDirectoryRole).toBool()) {
+                allTrackUrls.push_back({{}, {}, data(currentIndex, DataTypes::ResourceRole).toUrl()});
             }
         }
         Q_EMIT entriesToEnqueue(allTrackUrls, enqueueMode, triggerPlay);

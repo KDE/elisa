@@ -16,6 +16,7 @@ FocusScope {
     property alias isSubPage: listView.isSubPage
     property alias mainTitle: listView.mainTitle
     property alias secondaryTitle: listView.secondaryTitle
+    property url pathFilter
     property int databaseId
     property alias showSection: listView.showSection
     property alias expandedFilterView: listView.expandedFilterView
@@ -88,7 +89,8 @@ FocusScope {
         }
 
         realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
-                             modelType, filterType, mainTitle, secondaryTitle, databaseId)
+                             modelType, filterType, mainTitle, secondaryTitle, databaseId,
+                             pathFilter)
     }
 
     function goToBack() {

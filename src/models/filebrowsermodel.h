@@ -24,16 +24,6 @@ class ELISALIB_EXPORT FileBrowserModel : public KDirModel
 
 public:
 
-    enum ColumnsRoles {
-        NameRole = Qt::UserRole + 1,
-        FileUrlRole = Qt::UserRole + 2,
-        ImageUrlRole = Qt::UserRole + 3,
-        IsDirectoryRole = Qt::UserRole + 4,
-        IsPlayListRole = Qt::UserRole + 5
-    };
-
-    Q_ENUM(ColumnsRoles)
-
     explicit FileBrowserModel(QObject *parent = nullptr);
 
     ~FileBrowserModel() override;
@@ -58,7 +48,8 @@ public Q_SLOTS:
 
     void initialize(MusicListenersManager *manager, DatabaseInterface *database,
                     ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
-                    const QString &genre, const QString &artist, qulonglong databaseId);
+                    const QString &genre, const QString &artist, qulonglong databaseId,
+                    const QUrl &pathFilter);
 };
 
 

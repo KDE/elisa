@@ -40,6 +40,7 @@ enum PlayListEntryType {
     Composer,
     Track,
     FileName,
+    Container,
     Radio,
     Unknown,
 };
@@ -55,6 +56,7 @@ enum FilterType {
     FilterByGenreAndArtist,
     FilterByRecentlyPlayed,
     FilterByFrequentlyPlayed,
+    FilterByPath,
 };
 
 Q_ENUM_NS(FilterType)

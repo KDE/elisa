@@ -355,8 +355,11 @@ bool DataModel::isBusy() const
 
 void DataModel::initialize(MusicListenersManager *manager, DatabaseInterface *database,
                            ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
-                           const QString &genre, const QString &artist, qulonglong databaseId)
+                           const QString &genre, const QString &artist, qulonglong databaseId,
+                           const QUrl &pathFilter)
 {
+    Q_UNUSED(pathFilter)
+
     qCDebug(orgKdeElisaModel()) << "DataModel::initialize" << modelType << filter << genre << artist << databaseId;
 
     d->mDatabaseId = databaseId;

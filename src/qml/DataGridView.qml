@@ -27,6 +27,7 @@ FocusScope {
     property alias haveTreeModel: gridView.haveTreeModel
     property string genreFilterText
     property string artistFilter
+    property url pathFilter
     property bool modelIsInitialized: false
 
     focus: true
@@ -58,7 +59,8 @@ FocusScope {
         gridView.contentModel = proxyModel
 
         realModel.initialize(elisa.musicManager, elisa.musicManager.viewDatabase,
-                             modelType, filterType, genreFilterText, artistFilter, 0)
+                             modelType, filterType, genreFilterText, artistFilter, 0,
+                             pathFilter)
 
         modelIsInitialized = true
     }

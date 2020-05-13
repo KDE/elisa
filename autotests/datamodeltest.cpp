@@ -79,7 +79,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")), {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -146,7 +146,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"), QStringLiteral("/")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album3"), QStringLiteral("artist2"), QStringLiteral("/")), {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -227,7 +227,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")), {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -343,7 +343,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")), {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -411,7 +411,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track,  ElisaUtils::NoFilter, {}, {}, 0);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track,  ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -472,7 +472,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -540,7 +540,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -605,7 +605,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -685,7 +685,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -789,7 +789,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0);
+        tracksModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -855,7 +855,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album, ElisaUtils::NoFilter, {}, {}, 0);
+        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -916,7 +916,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album, ElisaUtils::NoFilter, {}, {}, 0);
+        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -982,7 +982,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album, ElisaUtils::NoFilter, {}, {}, 0);
+        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -1043,7 +1043,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album, ElisaUtils::NoFilter, {}, {}, 0);
+        albumsModel.initialize(nullptr, nullptr, ElisaUtils::Album, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -1108,7 +1108,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Artist, ElisaUtils::NoFilter, {}, {}, 0);
+        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Artist, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -1167,7 +1167,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Artist, ElisaUtils::NoFilter, {}, {}, 0);
+        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Artist, ElisaUtils::NoFilter, {}, {}, 0, {});
 
         QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -1245,7 +1245,7 @@ private Q_SLOTS:
         QCOMPARE(modelResetSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Album, ElisaUtils::FilterByArtist, {}, QStringLiteral("artist1"), 0);
+        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Album, ElisaUtils::FilterByArtist, {}, QStringLiteral("artist1"), 0, {});
 
         QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -1304,7 +1304,7 @@ private Q_SLOTS:
         QCOMPARE(modelResetSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Artist, ElisaUtils::FilterByGenre, QStringLiteral("genre1"), {}, 0);
+        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Artist, ElisaUtils::FilterByGenre, QStringLiteral("genre1"), {}, 0, {});
 
         QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -1364,7 +1364,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Album, ElisaUtils::FilterByGenreAndArtist,
-                                QStringLiteral("genre3"), QStringLiteral("artist2"), 0);
+                                QStringLiteral("genre3"), QStringLiteral("artist2"), 0, {});
 
         QCOMPARE(artistsModel.rowCount(), 0);
         QCOMPARE(beginInsertRowsSpy.count(), 0);
@@ -1440,7 +1440,7 @@ private Q_SLOTS:
 
         QVERIFY(albumId != 0);
 
-        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Track, ElisaUtils::FilterById, {}, {}, albumId);
+        artistsModel.initialize(nullptr, &musicDb, ElisaUtils::Track, ElisaUtils::FilterById, {}, {}, albumId, {});
 
         QCOMPARE(artistsModel.rowCount(), 4);
         QCOMPARE(beginInsertRowsSpy.count(), 1);
@@ -1526,7 +1526,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
 
         albumsModel.initialize(nullptr, nullptr, ElisaUtils::Track, ElisaUtils::FilterById, {}, {},
-                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")));
+                               musicDb.albumIdFromTitleAndArtist(QStringLiteral("album1"), QStringLiteral("Various Artists"), QStringLiteral("/")), {});
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);

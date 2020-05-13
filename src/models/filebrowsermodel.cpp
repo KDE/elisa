@@ -11,6 +11,8 @@
 #include <QMimeDatabase>
 #include <KIOWidgets/KDirLister>
 
+#include "models/modelLogging.h"
+
 FileBrowserModel::FileBrowserModel(QObject *parent) : KDirModel(parent)
 {
     QMimeDatabase db;
@@ -80,6 +82,9 @@ QHash<int, QByteArray> FileBrowserModel::roleNames() const
     roles[static_cast<int>(DataTypes::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(DataTypes::ColumnsRoles::FullDataRole)] = "fullData";
 
+    roles[static_cast<int>(DataTypes::ColumnsRoles::IsDirectoryRole)] = "isDirectory";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::IsPlayListRole)] = "isPlaylist";
+
     return roles;
 }
 
@@ -87,25 +92,17 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    if (role < ColumnsRoles::NameRole) {
-        result = KDirModel::data(index,role);
-    }
+    qCDebug(orgKdeElisaModel()) << "FileBrowserModel::data" << index << role;
 
     switch(role)
     {
-    case ColumnsRoles::NameRole:
-    {
-        KFileItem item = itemForIndex(index);
-        result = item.name();
-        break;
-    }
-    case ColumnsRoles::FileUrlRole:
+    case DataTypes::ColumnsRoles::ResourceRole:
     {
         KFileItem item = itemForIndex(index);
         result = item.url();
         break;
     }
-    case ColumnsRoles::ImageUrlRole:
+    case DataTypes::ColumnsRoles::ImageUrlRole:
     {
         KFileItem item = itemForIndex(index);
         if (item.isDir()) {
@@ -115,27 +112,39 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case ColumnsRoles::IsDirectoryRole:
+    case DataTypes::ColumnsRoles::IsDirectoryRole:
     {
         KFileItem item = itemForIndex(index);
         result = item.isDir();
         break;
     }
-    case ColumnsRoles::IsPlayListRole:
+    case DataTypes::ColumnsRoles::IsPlayListRole:
     {
         KFileItem item = itemForIndex(index);
         result = (item.currentMimeType().inherits(QStringLiteral("audio/x-mpegurl")));
         break;
     }
+    case DataTypes::ColumnsRoles::ElementTypeRole:
+    {
+        KFileItem item = itemForIndex(index);
+        result = (item.isDir() ? ElisaUtils::Container : ElisaUtils::FileName);
+        break;
     }
+    default:
+        result = KDirModel::data(index,role);
+    }
+
+    qCDebug(orgKdeElisaModel()) << "FileBrowserModel::data" << index << role << result;
 
     return result;
 }
 
 void FileBrowserModel::initialize(MusicListenersManager *manager, DatabaseInterface *database,
                                   ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
-                                  const QString &genre, const QString &artist, qulonglong databaseId)
+                                  const QString &genre, const QString &artist, qulonglong databaseId,
+                                  const QUrl &pathFilter)
 {
+    setUrl(pathFilter.toLocalFile());
 }
 
 

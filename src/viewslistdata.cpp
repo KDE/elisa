@@ -9,6 +9,7 @@
 #include <KI18n/KLocalizedString>
 
 #include <QUrl>
+#include <QStandardPaths>
 
 class ViewsListDataPrivate
 {
@@ -83,15 +84,16 @@ public:
                                                ViewManager::ViewHideRating,
                                                ViewManager::IsFlatModel},
                                               {{i18nc("Title of the file browser view", "Files")},
-                                               QUrl{QStringLiteral("image://icon/document-open-folder")},
+                                               QUrl{QStringLiteral("image://icon/folder")},
                                                ViewManager::GridView,
                                                ViewManager::FileBrowserModel,
                                                ElisaUtils::NoFilter,
                                                ElisaUtils::FileName,
-                                               QUrl{QStringLiteral("image://icon/view-media-genre")},
+                                               QUrl{QStringLiteral("image://icon/folder")},
                                                ViewManager::DelegateWithoutSecondaryText,
                                                ViewManager::ViewHideRating,
-                                               ViewManager::IsTreeModel
+                                               ViewManager::IsFlatModel,
+                                               QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first())
                                               },
                                               {{i18nc("Title of the file radios browser view", "Radios")},
                                                QUrl{QStringLiteral("image://icon/radio")},

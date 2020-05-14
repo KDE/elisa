@@ -28,19 +28,15 @@ public:
 
     ~FileBrowserModel() override;
 
-    QString url() const;
-
     QHash<int, QByteArray> roleNames() const override;
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    void setUrl(const QString &url);
+    void setUrl(const QUrl &url);
 
     bool isBusy() const;
 
 Q_SIGNALS:
-
-    void urlChanged();
 
     void isBusyChanged();
 

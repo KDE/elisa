@@ -31,26 +31,17 @@ FileBrowserModel::FileBrowserModel(QObject *parent) : KDirModel(parent)
 FileBrowserModel::~FileBrowserModel()
 = default;
 
-QString FileBrowserModel::url() const
+void FileBrowserModel::setUrl(const QUrl &url)
 {
-    return dirLister()->url().toString();
-}
-
-void FileBrowserModel::setUrl(const QString &url)
-{
-    QString path = QUrl(url).path();
-    path = QUrl::fromLocalFile(path).toString();
-
-    if (dirLister()->url().path() == QUrl(path).path()) {
-        dirLister()->updateDirectory(QUrl(path));
+    if (dirLister()->url() == url) {
+        dirLister()->updateDirectory(url);
         return;
     }
 
     beginResetModel();
-    dirLister()->openUrl(QUrl(path));
+    dirLister()->openUrl(url);
 
     endResetModel();
-    emit urlChanged();
 }
 
 bool FileBrowserModel::isBusy() const
@@ -92,8 +83,6 @@ QHash<int, QByteArray> FileBrowserModel::roleNames() const
 QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
-
-    qCDebug(orgKdeElisaModel()) << "FileBrowserModel::data" << index << role;
 
     switch(role)
     {
@@ -148,8 +137,6 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         result = KDirModel::data(index,role);
     }
 
-    qCDebug(orgKdeElisaModel()) << "FileBrowserModel::data" << index << role << result;
-
     return result;
 }
 
@@ -166,7 +153,7 @@ void FileBrowserModel::initialize(MusicListenersManager *manager, DatabaseInterf
     Q_UNUSED(artist)
     Q_UNUSED(databaseId)
 
-    setUrl(pathFilter.toLocalFile());
+    setUrl(pathFilter);
 }
 
 

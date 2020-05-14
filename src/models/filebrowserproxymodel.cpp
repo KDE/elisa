@@ -107,23 +107,6 @@ void FileBrowserProxyModel::replaceAndPlayOfPlayList(QModelIndex rootIndex)
                              ElisaUtils::TriggerPlay);
 }
 
-QString FileBrowserProxyModel::parentFolder() const
-{
-    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
-
-    if (!fileBrowserModel) {
-        return {};
-    }
-
-    //return to the top folder if parent directory does not exist
-    QDir dir(fileBrowserModel->dirLister()->url().toLocalFile());
-    if (dir.cdUp()) {
-        return dir.path();
-    } else {
-        return mTopFolder;
-    }
-}
-
 void FileBrowserProxyModel::disconnectPlayList()
 {
     if (mPlayList) {
@@ -140,69 +123,6 @@ void FileBrowserProxyModel::connectPlayList()
     }
 }
 
-void FileBrowserProxyModel::openParentFolder()
-{
-    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
-
-    if (!fileBrowserModel) {
-        return;
-    }
-
-    if (canGoBack()) {
-        QString parent = parentFolder();
-        fileBrowserModel->setUrl(parent);
-        if (parent == mTopFolder) {
-            Q_EMIT canGoBackChanged();
-        }
-    }
-}
-
-bool FileBrowserProxyModel::canGoBack() const
-{
-    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
-
-    if (!fileBrowserModel) {
-        return false;
-    }
-
-    return fileBrowserModel->dirLister()->url().toLocalFile() != mTopFolder;
-}
-
-void FileBrowserProxyModel::openFolder(const QString &folder, bool isDisplayRoot)
-{
-    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
-
-    if (!fileBrowserModel) {
-        return;
-    }
-
-    if (folder.isEmpty()) {
-        return;
-    }
-
-    fileBrowserModel->setUrl(folder);
-
-    if (!isDisplayRoot) {
-        Q_EMIT canGoBackChanged();
-    }
-}
-
-QString FileBrowserProxyModel::url() const
-{
-    auto fileBrowserModel = dynamic_cast<FileBrowserModel*>(sourceModel());
-
-    if (!fileBrowserModel) {
-        return {};
-    }
-
-    return fileBrowserModel->dirLister()->url().toLocalFile();
-}
-
-bool FileBrowserProxyModel::sortedAscending() const
-{
-    return sortOrder() ? false : true;
-}
-
 void FileBrowserProxyModel::setSourceModel(QAbstractItemModel *sourceModel)
 {
     KDirSortFilterProxyModel::setSourceModel(sourceModel);
@@ -212,10 +132,6 @@ void FileBrowserProxyModel::setSourceModel(QAbstractItemModel *sourceModel)
     if (!fileBrowserModel) {
         return;
     }
-
-    connect(fileBrowserModel, &FileBrowserModel::urlChanged,this, &FileBrowserProxyModel::urlChanged);
-    mTopFolder = QDir::homePath();
-    openFolder(mTopFolder, true);
 }
 
 MediaPlayListProxyModel *FileBrowserProxyModel::playList() const
@@ -228,9 +144,14 @@ int FileBrowserProxyModel::filterRating() const
     return mFilterRating;
 }
 
+bool FileBrowserProxyModel::sortedAscending() const
+{
+    return sortOrder() ? false : true;
+}
+
 void FileBrowserProxyModel::sortModel(Qt::SortOrder order)
 {
-    this->sort(0,order);
+    sort(0, order);
     Q_EMIT sortedAscendingChanged();
 }
 

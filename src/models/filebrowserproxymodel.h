@@ -32,22 +32,14 @@ class ELISALIB_EXPORT FileBrowserProxyModel : public KDirSortFilterProxyModel
                WRITE setFilterText
                NOTIFY filterTextChanged)
 
-    Q_PROPERTY(bool canGoBack
-               READ canGoBack
-               NOTIFY canGoBackChanged)
-
-    Q_PROPERTY(QString url
-               READ url
-               NOTIFY urlChanged)
-
-    Q_PROPERTY(bool sortedAscending
-               READ sortedAscending
-               NOTIFY sortedAscendingChanged)
-
     Q_PROPERTY(int filterRating
                READ filterRating
                WRITE setFilterRating
                NOTIFY filterRatingChanged)
+
+    Q_PROPERTY(bool sortedAscending
+               READ sortedAscending
+               NOTIFY sortedAscendingChanged)
 
     Q_PROPERTY(MediaPlayListProxyModel* playList READ playList WRITE setPlayList NOTIFY playListChanged)
 
@@ -59,17 +51,13 @@ public:
 
     QString filterText() const;
 
-    QString url() const;
-
-    bool canGoBack() const;
+    int filterRating() const;
 
     bool sortedAscending() const;
 
-    void setSourceModel(QAbstractItemModel *sourceModel) override;
-
     MediaPlayListProxyModel* playList() const;
 
-    int filterRating() const;
+    void setSourceModel(QAbstractItemModel *sourceModel) override;
 
 public Q_SLOTS:
 
@@ -79,15 +67,11 @@ public Q_SLOTS:
 
     void setFilterText(const QString &filterText);
 
-    void openParentFolder();
-
-    void openFolder(const QString &folder, bool isDisplayRoot = false);
-
-    void sortModel(Qt::SortOrder order);
+    void setFilterRating(int filterRating);
 
     void setPlayList(MediaPlayListProxyModel* playList);
 
-    void setFilterRating(int filterRating);
+    void sortModel(Qt::SortOrder order);
 
 Q_SIGNALS:
 
@@ -95,17 +79,13 @@ Q_SIGNALS:
                           ElisaUtils::PlayListEnqueueMode enqueueMode,
                           ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void urlChanged();
-
-    void canGoBackChanged();
-
     void filterTextChanged(const QString &filterText);
+
+    void filterRatingChanged();
 
     void sortedAscendingChanged();
 
     void playListChanged();
-
-    void filterRatingChanged();
 
 protected:
 
@@ -117,13 +97,9 @@ private:
                                   ElisaUtils::PlayListEnqueueMode enqueueMode,
                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    QString parentFolder() const;
-
     void disconnectPlayList();
 
     void connectPlayList();
-
-    QString mTopFolder;
 
     QString mFilterText;
 

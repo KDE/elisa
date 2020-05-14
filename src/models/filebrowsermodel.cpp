@@ -5,6 +5,7 @@
  */
 
 #include "filebrowsermodel.h"
+#include "datatypes.h"
 
 #include <QUrl>
 #include <QString>
@@ -144,6 +145,14 @@ void FileBrowserModel::initialize(MusicListenersManager *manager, DatabaseInterf
                                   const QString &genre, const QString &artist, qulonglong databaseId,
                                   const QUrl &pathFilter)
 {
+    Q_UNUSED(manager)
+    Q_UNUSED(database)
+    Q_UNUSED(modelType)
+    Q_UNUSED(filter)
+    Q_UNUSED(genre)
+    Q_UNUSED(artist)
+    Q_UNUSED(databaseId)
+
     setUrl(pathFilter.toLocalFile());
 }
 

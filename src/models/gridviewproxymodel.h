@@ -27,9 +27,6 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void enqueueToPlayList(QModelIndex rootIndex);
-
-    void replaceAndPlayOfPlayList(QModelIndex rootIndex);
 protected:
 
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;

@@ -29,7 +29,7 @@ FocusScope {
 
     signal enqueue(var fullData, string name)
     signal replaceAndPlay(var fullData, string name)
-    signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType, var showDiscHeader)
+    signal open(string innerMainTitle, string innerSecondaryTitle, url innerImage, int databaseId, var dataType)
     signal goBack()
 
     ColumnLayout {

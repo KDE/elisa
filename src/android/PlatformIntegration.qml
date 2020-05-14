@@ -27,6 +27,9 @@ Item {
     property var player
     property var headerBarManager
     property var manageMediaPlayerControl
+    property bool showSystemTrayIcon
+    property var elisaMainWindow
+    property bool forceCloseWindow: false
 
     signal raisePlayer()
 }

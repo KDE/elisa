@@ -46,7 +46,7 @@
 #include <KCoreAddons/KAboutData>
 
 #include <QQmlApplicationEngine>
-#include <QCoreApplication>
+#include <QGuiApplication>
 #include <QDesktopServices>
 #include <QDialog>
 #include <QPointer>
@@ -114,6 +114,9 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
 
     connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
             this, &ElisaApplication::configChanged);
+
+    connect(static_cast<QGuiApplication*>(QCoreApplication::instance()), &QGuiApplication::commitDataRequest,
+            this, &ElisaApplication::commitDataRequest);
 }
 
 ElisaApplication::~ElisaApplication()

@@ -77,7 +77,7 @@ MediaPlayListProxyModel *AbstractMediaProxyModel::playList() const
 
 void AbstractMediaProxyModel::sortModel(Qt::SortOrder order)
 {
-    this->sort(0, order);
+    sort(0, order);
     Q_EMIT sortedAscendingChanged();
 }
 

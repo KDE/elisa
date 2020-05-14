@@ -17,6 +17,8 @@ Item {
     property var headerBarManager
     property var manageMediaPlayerControl
     property alias showProgressOnTaskBar: progressBar.active
+    property var elisaMainWindow
+    property bool showSystemTrayIcon
 
     signal raisePlayer()
 

@@ -143,14 +143,22 @@ FocusScope {
                     showEnqueueButton: !model.isPlaylist
                     showPlayButton: true
 
-                    onEnqueue: isDirectory ? elisa.mediaPlayListProxyModel.enqueueDirectory(url, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay, 10) : elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                    onEnqueue: {
+                        if (model.isDirectory) {
+                            elisa.mediaPlayListProxyModel.enqueueDirectory(model.fileUrl, ElisaUtils.FileName, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay, 10)
+                        } else if (model.isPlaylist) {
+                            elisa.mediaPlayListProxyModel.loadPlayList(model.fileUrl)
+                        } else {
+                            elisa.mediaPlayListProxyModel.enqueue(model.fileUrl, ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+                        }
+                    }
                     onReplaceAndPlay: {
                         if (model.isDirectory) {
-                            elisa.mediaPlayListProxyModel.enqueueDirectory(url, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay, 10)
+                            elisa.mediaPlayListProxyModel.enqueueDirectory(model.fileUrl, ElisaUtils.FileName, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay, 10)
                         } else if (model.isPlaylist) {
-                            elisa.mediaPlayListProxyModel.loadPlaylist(url)
+                            elisa.mediaPlayListProxyModel.loadPlayList(model.fileUrl)
                         } else {
-                            elisa.mediaPlayListProxyModel.enqueue(url, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
+                            elisa.mediaPlayListProxyModel.enqueue(model.fileUrl, ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
                         }
                     }
                     onSelected: {

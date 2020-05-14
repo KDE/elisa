@@ -82,9 +82,9 @@ public Q_SLOTS:
 
 Q_SIGNALS:
 
-    void filesToEnqueue(const DataTypes::EntryDataList &newFiles,
-                        ElisaUtils::PlayListEnqueueMode enqueueMode,
-                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+    void entriesToEnqueue(const DataTypes::EntryDataList &newEntries,
+                          ElisaUtils::PlayListEnqueueMode enqueueMode,
+                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void urlChanged();
 
@@ -101,6 +101,9 @@ protected:
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
 private:
+
+    void genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     QString parentFolder() const;
 

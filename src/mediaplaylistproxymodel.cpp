@@ -791,7 +791,8 @@ void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName, ElisaUtils:
         auto fileUrl = QUrl::fromLocalFile(file.filePath());
         if (file.isFile() && d->mMimeDb.mimeTypeForUrl(fileUrl).name().startsWith(QLatin1String("audio/")))
         {
-            newFiles.append({DataTypes::EntryData{{},{},fileUrl}});
+            newFiles.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                 {DataTypes::ResourceRole, fileUrl}},{}, {}});
         }
         else if (file.isDir() && depth > 1)
         {

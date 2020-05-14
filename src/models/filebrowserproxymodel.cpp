@@ -76,7 +76,7 @@ bool FileBrowserProxyModel::filterAcceptsRow(int source_row, const QModelIndex &
     return result;
 }
 
-void FileBrowserProxyModel::enqueueToPlayList()
+void FileBrowserProxyModel::genericEnqueueToPlayList(ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
@@ -84,30 +84,24 @@ void FileBrowserProxyModel::enqueueToPlayList()
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0);
             if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
-                allTrackUrls.push_back({{}, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
+                allTrackUrls.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                         {DataTypes::ResourceRole, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()}}, {}, {}});
             }
         }
-        Q_EMIT filesToEnqueue(allTrackUrls,
-                              ElisaUtils::AppendPlayList,
-                              ElisaUtils::DoNotTriggerPlay);
+        Q_EMIT entriesToEnqueue(allTrackUrls, enqueueMode, triggerPlay);
     });
+}
+
+void FileBrowserProxyModel::enqueueToPlayList()
+{
+    genericEnqueueToPlayList(ElisaUtils::AppendPlayList,
+                             ElisaUtils::DoNotTriggerPlay);
 }
 
 void FileBrowserProxyModel::replaceAndPlayOfPlayList()
 {
-    QtConcurrent::run(&mThreadPool, [=] () {
-        QReadLocker locker(&mDataLock);
-        auto allTrackUrls = DataTypes::EntryDataList{};
-        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0);
-            if (!data(currentIndex, FileBrowserModel::IsDirectoryRole).toBool()) {
-                allTrackUrls.push_back({{}, {}, data(currentIndex, FileBrowserModel::FileUrlRole).toUrl()});
-            }
-        }
-        Q_EMIT filesToEnqueue(allTrackUrls,
-                              ElisaUtils::ReplacePlayList,
+    genericEnqueueToPlayList(ElisaUtils::ReplacePlayList,
                               ElisaUtils::TriggerPlay);
-    });
 }
 
 QString FileBrowserProxyModel::parentFolder() const
@@ -130,7 +124,7 @@ QString FileBrowserProxyModel::parentFolder() const
 void FileBrowserProxyModel::disconnectPlayList()
 {
     if (mPlayList) {
-        disconnect(this, &FileBrowserProxyModel::filesToEnqueue,
+        disconnect(this, &FileBrowserProxyModel::entriesToEnqueue,
                    mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
@@ -138,7 +132,7 @@ void FileBrowserProxyModel::disconnectPlayList()
 void FileBrowserProxyModel::connectPlayList()
 {
     if (mPlayList) {
-        connect(this, &FileBrowserProxyModel::filesToEnqueue,
+        connect(this, &FileBrowserProxyModel::entriesToEnqueue,
                 mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }

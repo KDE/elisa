@@ -29,6 +29,7 @@ class ManageMediaPlayerControl;
 class ManageHeaderBar;
 class QQmlApplicationEngine;
 class ElisaApplicationPrivate;
+class QSessionManager;
 
 class ELISALIB_EXPORT ElisaApplication : public QObject
 {
@@ -139,6 +140,8 @@ Q_SIGNALS:
     void showProgressOnTaskBarChanged();
 
     void showSystemTrayIconChanged();
+
+    void commitDataRequest(QSessionManager &manager);
 
 public Q_SLOTS:
 

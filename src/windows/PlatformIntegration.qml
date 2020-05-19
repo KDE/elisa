@@ -19,6 +19,7 @@ Item {
     property alias showProgressOnTaskBar: progressBar.active
     property var elisaMainWindow
     property bool showSystemTrayIcon
+    property bool forceCloseWindow: false
 
     signal raisePlayer()
 

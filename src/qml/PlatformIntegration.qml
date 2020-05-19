@@ -19,6 +19,7 @@ Item {
     property alias showProgressOnTaskBar: mpris2Interface.showProgressOnTaskBar
     property bool showSystemTrayIcon
     property var elisaMainWindow
+    property bool forceCloseWindow: false
 
     signal raisePlayer()
 
@@ -26,10 +27,18 @@ Item {
         target: elisaMainWindow
 
         onClosing: {
-            if (systemTrayIcon.available && showSystemTrayIcon) {
+            if (systemTrayIcon.available && showSystemTrayIcon && !forceCloseWindow) {
                 close.accepted = false
                 elisaMainWindow.hide()
             }
+        }
+    }
+
+    Connections {
+        target: elisa
+
+        onCommitDataRequest: {
+            forceCloseWindow = true
         }
     }
 

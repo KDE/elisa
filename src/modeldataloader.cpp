@@ -448,12 +448,12 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     }
 }
 
-void ModelDataLoader::updateFileMetaData(DataTypes::TrackDataType trackDataType, const QUrl &url)
+void ModelDataLoader::updateFileMetaData(const TrackDataType &trackDataType, const QUrl &url)
 {
     d->mFileWriter.writeAllMetaDataToFile(url, trackDataType);
 }
 
-void ModelDataLoader::updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, QVariant data)
+void ModelDataLoader::updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, const QVariant &data)
 {
     d->mFileWriter.writeSingleMetaDataToFile(url, role, data);
 }

@@ -34,7 +34,7 @@ public:
 
     ~FileWriter();
 
-    bool writeSingleMetaDataToFile(const QUrl &url, const DataTypes::ColumnsRoles role, const QVariant data);
+    bool writeSingleMetaDataToFile(const QUrl &url, const DataTypes::ColumnsRoles role, const QVariant &data);
 
     bool writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackDataType &data);
 

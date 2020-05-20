@@ -319,7 +319,7 @@ void TracksListener::newGenreInList(qulonglong newDatabaseId, const QString &ent
     Q_EMIT tracksListAdded(newDatabaseId, entryTitle, ElisaUtils::Genre, newTracks);
 }
 
-void TracksListener::updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, QVariant data)
+void TracksListener::updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, const QVariant &data)
 {
     d->mFileWriter.writeSingleMetaDataToFile(url, role, data);
 }

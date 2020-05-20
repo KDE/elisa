@@ -333,7 +333,7 @@ private:
 
     void manageNewDatabaseVersion();
 
-    void dropTable(QString table);
+    void dropTable(const QString &table);
 
     void setDatabaseVersionInTable(int version);
 

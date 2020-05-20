@@ -3316,7 +3316,7 @@ void DatabaseInterface::manageNewDatabaseVersion()
     checkDatabaseSchema();
 }
 
-void DatabaseInterface::dropTable(QString query)
+void DatabaseInterface::dropTable(const QString &query)
 {
     QSqlQuery dropQueryQuery(d->mTracksDatabase);
 

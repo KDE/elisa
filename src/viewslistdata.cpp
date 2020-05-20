@@ -9,7 +9,7 @@
 #include <KI18n/KLocalizedString>
 
 #include <QUrl>
-#include <QStandardPaths>
+#include <QDir>
 
 class ViewsListDataPrivate
 {
@@ -93,7 +93,7 @@ public:
                                                ViewManager::DelegateWithoutSecondaryText,
                                                ViewManager::ViewHideRating,
                                                ViewManager::IsFlatModel,
-                                               QUrl::fromLocalFile(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first())
+                                               QUrl::fromLocalFile(QDir::homePath())
                                               },
                                               {{i18nc("Title of the file radios browser view", "Radios")},
                                                QUrl{QStringLiteral("image://icon/radio")},

@@ -104,6 +104,7 @@ void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
         break;
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Container:
         break;
     case ElisaUtils::Radio:
         Q_EMIT allRadiosData(d->mDatabase->allRadiosData());
@@ -138,6 +139,7 @@ void ModelDataLoader::loadDataByAlbumId(ElisaUtils::PlayListEntryType dataType, 
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
+    case ElisaUtils::Container:
         break;
     }
 }
@@ -164,6 +166,7 @@ void ModelDataLoader::loadDataByGenre(ElisaUtils::PlayListEntryType dataType, co
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
+    case ElisaUtils::Container:
         break;
     }
 }
@@ -190,6 +193,7 @@ void ModelDataLoader::loadDataByArtist(ElisaUtils::PlayListEntryType dataType, c
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
+    case ElisaUtils::Container:
         break;
     }
 }
@@ -217,6 +221,7 @@ void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
+    case ElisaUtils::Container:
         break;
     }
 }
@@ -246,6 +251,7 @@ void ModelDataLoader::loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType d
     case ElisaUtils::Lyricist:
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Container:
         break;
     }
 }
@@ -289,6 +295,7 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
     case ElisaUtils::Genre:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Container:
         break;
     }
 }
@@ -314,6 +321,7 @@ void ModelDataLoader::loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataT
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
+    case ElisaUtils::Container:
         break;
     }
 }
@@ -339,6 +347,7 @@ void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
+    case ElisaUtils::Container:
         break;
     }
 }
@@ -365,6 +374,7 @@ void ModelDataLoader::databaseTracksAdded(const ListTrackDataType &newData)
     case ModelDataLoader::FilterType::FilterByArtist:
     case ModelDataLoader::FilterType::FilterByRecentlyPlayed:
     case ModelDataLoader::FilterType::FilterByFrequentlyPlayed:
+    case ModelDataLoader::FilterType::FilterByPath:
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
@@ -392,6 +402,7 @@ void ModelDataLoader::databaseArtistsAdded(const ListArtistDataType &newData)
     case ModelDataLoader::FilterType::FilterById:
     case ModelDataLoader::FilterType::FilterByRecentlyPlayed:
     case ModelDataLoader::FilterType::FilterByFrequentlyPlayed:
+    case ModelDataLoader::FilterType::FilterByPath:
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
@@ -432,12 +443,13 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     case ModelDataLoader::FilterType::FilterById:
     case ModelDataLoader::FilterType::FilterByRecentlyPlayed:
     case ModelDataLoader::FilterType::FilterByFrequentlyPlayed:
+    case ModelDataLoader::FilterType::FilterByPath:
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
 }
 
-void ModelDataLoader::updateFileMetaData(const TrackDataType &trackDataType, const QUrl &url)
+void ModelDataLoader::updateFileMetaData(const DataTypes::TrackDataType &trackDataType, const QUrl &url)
 {
     d->mFileWriter.writeAllMetaDataToFile(url, trackDataType);
 }

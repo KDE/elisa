@@ -89,7 +89,7 @@ public:
         , mModelType(modelType)
         , mFilterType(filterType)
         , mDataType(dataType)
-        , mFallbackItemIcon(fallbackItemIcon)
+        , mFallbackItemIcon(std::move(fallbackItemIcon))
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
         , mIsTreeModel(isTreeModel)

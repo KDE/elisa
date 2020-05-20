@@ -114,7 +114,7 @@ public Q_SLOTS:
 
     void loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 
-    void updateFileMetaData(const ModelDataLoader::TrackDataType &trackDataType, const QUrl &url);
+    void updateFileMetaData(const DataTypes::TrackDataType &trackDataType, const QUrl &url);
 
     void updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, const QVariant &data);
 

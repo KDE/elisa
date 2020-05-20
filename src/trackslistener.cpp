@@ -225,6 +225,7 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
     case ElisaUtils::Lyricist:
     case ElisaUtils::Composer:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Container:
         break;
     }
 }
@@ -275,6 +276,7 @@ void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntr
     case ElisaUtils::Composer:
     case ElisaUtils::Genre:
     case ElisaUtils::Unknown:
+    case ElisaUtils::Container:
         break;
     }
 }

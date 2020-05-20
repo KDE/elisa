@@ -149,6 +149,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
         case ElisaUtils::FileName:
+        case ElisaUtils::Container:
         case ElisaUtils::Unknown:
             break;
         }
@@ -174,6 +175,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Composer:
         case ElisaUtils::FileName:
         case ElisaUtils::Radio:
+        case ElisaUtils::Container:
         case ElisaUtils::Unknown:
             break;
         }
@@ -197,6 +199,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
         case ElisaUtils::FileName:
+        case ElisaUtils::Container:
         case ElisaUtils::Unknown:
             break;
         }
@@ -231,6 +234,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
         case ElisaUtils::FileName:
+        case ElisaUtils::Container:
         case ElisaUtils::Unknown:
             break;
         }
@@ -257,6 +261,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
         case ElisaUtils::FileName:
+        case ElisaUtils::Container:
         case ElisaUtils::Unknown:
             break;
         }
@@ -277,6 +282,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Genre:
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
+        case ElisaUtils::Container:
         case ElisaUtils::Unknown:
             result = QUrl{};
             break;
@@ -304,6 +310,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
         case ElisaUtils::FileName:
+        case ElisaUtils::Container:
         case ElisaUtils::Unknown:
             break;
         }
@@ -427,6 +434,7 @@ void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterfac
         connect(this, &DataModel::needFrequentlyPlayedData,
                 d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
         break;
+    case ElisaUtils::FilterByPath:
     case ElisaUtils::UnknownFilter:
         break;
     }
@@ -461,6 +469,7 @@ void DataModel::askModelData()
     case ElisaUtils::FilterByFrequentlyPlayed:
         Q_EMIT needFrequentlyPlayedData(d->mModelType);
         break;
+    case ElisaUtils::FilterByPath:
     case ElisaUtils::UnknownFilter:
         break;
     }

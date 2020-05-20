@@ -177,6 +177,8 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::PlayFrequency:
         case DataTypes::ElementTypeRole:
         case DataTypes::FullDataRole:
+        case DataTypes::IsDirectoryRole:
+        case DataTypes::IsPlayListRole:
             break;
         }
         break;
@@ -256,6 +258,8 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::PlayFrequency:
         case DataTypes::ElementTypeRole:
         case DataTypes::FullDataRole:
+        case DataTypes::IsDirectoryRole:
+        case DataTypes::IsPlayListRole:
             break;
         }
         break;

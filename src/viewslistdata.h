@@ -49,7 +49,7 @@ public:
         , mViewPresentationType(viewPresentationType)
         , mFilterType(filterType)
         , mDataType(dataType)
-        , mFallbackItemIcon(fallbackItemIcon)
+        , mFallbackItemIcon(std::move(fallbackItemIcon))
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
         , mIsValid(true)

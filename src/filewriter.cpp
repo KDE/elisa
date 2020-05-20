@@ -19,22 +19,6 @@
 #include <KFileMetaData/WriteData>
 #include <QHash>
 
-static const QHash<DataTypes::ColumnsRoles, KFileMetaData::Property::Property> propertyTranslation = {
-    {DataTypes::ColumnsRoles::ArtistRole, KFileMetaData::Property::Artist},
-    {DataTypes::ColumnsRoles::AlbumArtistRole, KFileMetaData::Property::AlbumArtist},
-    {DataTypes::ColumnsRoles::GenreRole, KFileMetaData::Property::Genre},
-    {DataTypes::ColumnsRoles::ComposerRole, KFileMetaData::Property::Composer},
-    {DataTypes::ColumnsRoles::LyricistRole, KFileMetaData::Property::Lyricist},
-    {DataTypes::ColumnsRoles::TitleRole, KFileMetaData::Property::Title},
-    {DataTypes::ColumnsRoles::AlbumRole, KFileMetaData::Property::Album},
-    {DataTypes::ColumnsRoles::TrackNumberRole, KFileMetaData::Property::TrackNumber},
-    {DataTypes::ColumnsRoles::DiscNumberRole, KFileMetaData::Property::DiscNumber},
-    {DataTypes::ColumnsRoles::YearRole, KFileMetaData::Property::ReleaseYear},
-    {DataTypes::ColumnsRoles::LyricsRole, KFileMetaData::Property::Lyrics},
-    {DataTypes::ColumnsRoles::CommentRole, KFileMetaData::Property::Comment},
-    {DataTypes::ColumnsRoles::RatingRole, KFileMetaData::Property::Rating},
-};
-
 #endif
 
 class FileWriterPrivate
@@ -43,6 +27,22 @@ public:
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     KFileMetaData::WriterCollection mAllWriters;
+
+    const QHash<DataTypes::ColumnsRoles, KFileMetaData::Property::Property> mPropertyTranslation = {
+        {DataTypes::ColumnsRoles::ArtistRole, KFileMetaData::Property::Artist},
+        {DataTypes::ColumnsRoles::AlbumArtistRole, KFileMetaData::Property::AlbumArtist},
+        {DataTypes::ColumnsRoles::GenreRole, KFileMetaData::Property::Genre},
+        {DataTypes::ColumnsRoles::ComposerRole, KFileMetaData::Property::Composer},
+        {DataTypes::ColumnsRoles::LyricistRole, KFileMetaData::Property::Lyricist},
+        {DataTypes::ColumnsRoles::TitleRole, KFileMetaData::Property::Title},
+        {DataTypes::ColumnsRoles::AlbumRole, KFileMetaData::Property::Album},
+        {DataTypes::ColumnsRoles::TrackNumberRole, KFileMetaData::Property::TrackNumber},
+        {DataTypes::ColumnsRoles::DiscNumberRole, KFileMetaData::Property::DiscNumber},
+        {DataTypes::ColumnsRoles::YearRole, KFileMetaData::Property::ReleaseYear},
+        {DataTypes::ColumnsRoles::LyricsRole, KFileMetaData::Property::Lyrics},
+        {DataTypes::ColumnsRoles::CommentRole, KFileMetaData::Property::Comment},
+        {DataTypes::ColumnsRoles::RatingRole, KFileMetaData::Property::Rating},
+    };
 #endif
 
     QMimeDatabase mMimeDb;
@@ -55,7 +55,7 @@ FileWriter::FileWriter() : d(std::make_unique<FileWriterPrivate>())
 
 FileWriter::~FileWriter() = default;
 
-bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::ColumnsRoles role, const QVariant data)
+bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::ColumnsRoles role, const QVariant &data)
 {
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
 
@@ -76,8 +76,8 @@ bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::Col
     }
     KFileMetaData::Writer *writer = writerList.first();
     KFileMetaData::WriteData writeData(localFileName, mimetype);
-    auto translatedKey = propertyTranslation.find(role);
-    if (translatedKey != propertyTranslation.end()) {
+    auto translatedKey = d->mPropertyTranslation.find(role);
+    if (translatedKey != d->mPropertyTranslation.end()) {
         writeData.add(translatedKey.value(), data);
     }
     writer->write(writeData);
@@ -133,8 +133,8 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
     auto rangeBegin = data.constKeyValueBegin();
     while (rangeBegin != data.constKeyValueEnd()) {
         auto key = (*rangeBegin).first;
-        auto translatedKey = propertyTranslation.find(key);
-        if (translatedKey != propertyTranslation.end()) {
+        auto translatedKey = d->mPropertyTranslation.find(key);
+        if (translatedKey != d->mPropertyTranslation.end()) {
             writeData.add(translatedKey.value(), (*rangeBegin).second);
         }
         rangeBegin++;

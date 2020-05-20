@@ -11,6 +11,8 @@
 
 class AsyncImageResponse : public QQuickImageResponse, public QRunnable
 {
+    Q_OBJECT
+
 public:
     AsyncImageResponse(QString id, QSize requestedSize)
         : QQuickImageResponse(), mId(std::move(id)), mRequestedSize(requestedSize)
@@ -52,3 +54,5 @@ QQuickImageResponse *EmbeddedCoverageImageProvider::requestImageResponse(const Q
     pool.start(response.get());
     return response.release();
 }
+
+#include "embeddedcoverageimageprovider.moc"

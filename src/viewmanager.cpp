@@ -16,6 +16,8 @@
 
 #include <KI18n/KLocalizedString>
 
+#include <QQmlEngine>
+
 class ViewManagerPrivate
 {
 public:
@@ -228,6 +230,9 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
         qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << "unknown model type";
         break;
     }
+
+    QQmlEngine::setObjectOwnership(newModel, QQmlEngine::JavaScriptOwnership);
+    QQmlEngine::setObjectOwnership(proxyModel, QQmlEngine::JavaScriptOwnership);
 
     d->mViewParametersStack.push_back(viewParamaters);
     switch (viewParamaters.mViewPresentationType)

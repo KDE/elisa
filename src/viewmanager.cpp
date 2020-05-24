@@ -126,6 +126,7 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
                                 << fullData[DataTypes::DatabaseIdRole]
                                 << fullData[DataTypes::FilePathRole]
                                 << fullData[DataTypes::ElementTypeRole]
+                                << fullData[DataTypes::IsSingleDiscAlbumRole]
                                 << d->mViewParametersStack.size();
 
     if (!d->mViewParametersStack.size()) {
@@ -169,6 +170,11 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
     case ElisaUtils::FilterByArtist:
         nextViewParameters.mDataFilter[DataTypes::ArtistRole] = title;
         break;
+    }
+
+    if (dataType == ElisaUtils::Album && nextViewParameters.mDataFilter[DataTypes::IsSingleDiscAlbumRole].toBool())
+    {
+        nextViewParameters.mAlbumViewStyle = NoDiscHeaders;
     }
 
     d->mNextViewParameters = nextViewParameters;

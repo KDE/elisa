@@ -82,14 +82,16 @@ void FileBrowserProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
 {
     QtConcurrent::run(&mThreadPool, [=] () {
         QReadLocker locker(&mDataLock);
-        auto allTrackUrls = DataTypes::EntryDataList{};
+        auto allData = DataTypes::EntryDataList{};
         for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
             auto currentIndex = index(rowIndex, 0, rootIndex);
             if (!data(currentIndex, DataTypes::IsDirectoryRole).toBool()) {
-                allTrackUrls.push_back({{}, {}, data(currentIndex, DataTypes::ResourceRole).toUrl()});
+                allData.push_back(DataTypes::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::MusicDataType>(),
+                                                       data(currentIndex, Qt::DisplayRole).toString(),
+                                                       data(currentIndex, DataTypes::ResourceRole).toUrl()});
             }
         }
-        Q_EMIT entriesToEnqueue(allTrackUrls, enqueueMode, triggerPlay);
+        Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
     });
 }
 

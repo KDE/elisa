@@ -9,18 +9,19 @@
 
 #include "filebrowsermodel.h"
 #include "mediaplaylistproxymodel.h"
-
-#include <QReadLocker>
-#include <QDir>
-#include <QtConcurrent>
-
-#include <KIOWidgets/KDirLister>
 #include "elisautils.h"
+
+#include "models/modelLogging.h"
+
+#include <KIO/ListJob>
+#include <KIO/UDSEntry>
+#include <KCoreAddons/KJob>
+
+#include <stack>
 
 FileBrowserProxyModel::FileBrowserProxyModel(QObject *parent) : KDirSortFilterProxyModel(parent)
 {
     setFilterCaseSensitivity(Qt::CaseInsensitive);
-    mThreadPool.setMaxThreadCount(1);
     setSortFoldersFirst(true);
     sort(Qt::AscendingOrder);
 }
@@ -34,8 +35,6 @@ QString FileBrowserProxyModel::filterText() const
 
 void FileBrowserProxyModel::setFilterText(const QString &filterText)
 {
-    QWriteLocker writeLocker(&mDataLock);
-
     if (mFilterText == filterText)
         return;
 
@@ -45,54 +44,64 @@ void FileBrowserProxyModel::setFilterText(const QString &filterText)
     mFilterExpression.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
     mFilterExpression.optimize();
 
-    invalidate();
+    setFilterRegularExpression(mFilterExpression);
+    setFilterRole(Qt::DisplayRole);
 
     Q_EMIT filterTextChanged(mFilterText);
-}
-
-bool FileBrowserProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
-{
-    bool result = false;
-
-    for (int column = 0, columnCount = sourceModel()->columnCount(source_parent); column < columnCount; ++column) {
-        auto currentIndex = sourceModel()->index(source_row, column, source_parent);
-
-        const auto &nameValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
-
-        if (mFilterExpression.match(nameValue).hasMatch()) {
-            result = true;
-            continue;
-        }
-
-        if (result) {
-            continue;
-        }
-
-        if (!result) {
-            break;
-        }
-    }
-
-    return result;
 }
 
 void FileBrowserProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
                                                      ElisaUtils::PlayListEnqueueMode enqueueMode,
                                                      ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    QtConcurrent::run(&mThreadPool, [=] () {
-        QReadLocker locker(&mDataLock);
-        auto allData = DataTypes::EntryDataList{};
-        for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
-            auto currentIndex = index(rowIndex, 0, rootIndex);
-            if (!data(currentIndex, DataTypes::IsDirectoryRole).toBool()) {
-                allData.push_back(DataTypes::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::MusicDataType>(),
-                                                       data(currentIndex, Qt::DisplayRole).toString(),
-                                                       data(currentIndex, DataTypes::ResourceRole).toUrl()});
+    bool firstTime = true;
+
+    for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
+        auto currentIndex = index(rowIndex, 0, rootIndex);
+        const auto rootUrl = data(currentIndex, DataTypes::FilePathRole).toUrl();
+
+        auto *job = KIO::listRecursive(rootUrl, {KIO::HideProgressInfo});
+
+        connect(job, &KJob::result,
+                this, [](KJob*) {
+        });
+
+        connect(job, &KIO::ListJob::entries,
+                this, [rootUrl, this, &enqueueMode, &triggerPlay, &firstTime](KIO::Job *job, const KIO::UDSEntryList &list) {
+            Q_UNUSED(job)
+
+            auto allData = DataTypes::EntryDataList{};
+
+            for (const auto &oneEntry : list) {
+                if (oneEntry.isDir()) {
+                    continue;
+                }
+
+                auto returnedPath = oneEntry.stringValue(KIO::UDSEntry::UDS_NAME);
+                auto fullPath = QStringLiteral("%0/%1").arg(rootUrl.toString(), returnedPath);
+                auto fullPathUrl = QUrl{fullPath};
+
+                auto mimeType = mMimeDatabase.mimeTypeForUrl(fullPathUrl);
+
+                if (!mimeType.name().startsWith(QLatin1String("audio/"))) {
+                    continue;
+                }
+
+                allData.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}}, fullPath, fullPathUrl});
             }
-        }
-        Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
-    });
+
+            if (!firstTime) {
+                enqueueMode = ElisaUtils::PlayListEnqueueMode::AppendPlayList;
+                triggerPlay = ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay;
+            }
+
+            if (!allData.isEmpty()) {
+                Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
+
+                firstTime = false;
+            }
+        });
+    }
 }
 
 void FileBrowserProxyModel::enqueueToPlayList(QModelIndex rootIndex)

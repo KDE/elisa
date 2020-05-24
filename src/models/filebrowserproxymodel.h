@@ -15,9 +15,8 @@
 
 #include <KDirSortFilterProxyModel>
 
+#include <QMimeDatabase>
 #include <QRegularExpression>
-#include <QReadWriteLock>
-#include <QThreadPool>
 
 #include <memory>
 
@@ -89,8 +88,6 @@ Q_SIGNALS:
 
 protected:
 
-    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
-
 private:
 
     void genericEnqueueToPlayList(QModelIndex rootIndex,
@@ -105,13 +102,11 @@ private:
 
     QRegularExpression mFilterExpression;
 
-    QReadWriteLock mDataLock;
-
-    QThreadPool mThreadPool;
-
     MediaPlayListProxyModel* mPlayList = nullptr;
 
     bool mFilterRating = false;
+
+    QMimeDatabase mMimeDatabase;
 
 };
 

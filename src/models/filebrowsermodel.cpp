@@ -135,6 +135,12 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
+    case DataTypes::ColumnsRoles::FilePathRole:
+    {
+        KFileItem item = itemForIndex(index);
+        result = item.url();
+        break;
+    }
     default:
         result = KDirModel::data(index,role);
     }

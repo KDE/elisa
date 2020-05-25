@@ -64,6 +64,11 @@ public Q_SLOTS:
 
     void replaceAndPlayOfPlayList(QModelIndex rootIndex);
 
+    void enqueue(const DataTypes::MusicDataType &newEntry,
+                 const QString &newEntryTitle,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
     void setFilterText(const QString &filterText);
 
     void setFilterRating(int filterRating);
@@ -97,6 +102,10 @@ private:
     void disconnectPlayList();
 
     void connectPlayList();
+
+    void recursiveEnqueue(const QUrl &rootUrl,
+                          ElisaUtils::PlayListEnqueueMode enqueueMode,
+                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, bool &firstTime);
 
     QString mFilterText;
 

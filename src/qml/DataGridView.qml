@@ -73,13 +73,13 @@ FocusScope {
 
         anchors.fill: parent
 
-        onEnqueue: elisa.mediaPlayListProxyModel.enqueue(fullData, name,
-                                                         ElisaUtils.AppendPlayList,
-                                                         ElisaUtils.DoNotTriggerPlay)
+        onEnqueue: proxyModel.enqueue(fullData, name,
+                                      ElisaUtils.AppendPlayList,
+                                      ElisaUtils.DoNotTriggerPlay)
 
-        onReplaceAndPlay: elisa.mediaPlayListProxyModel.enqueue(fullData, name,
-                                                                ElisaUtils.ReplacePlayList,
-                                                                ElisaUtils.TriggerPlay)
+        onReplaceAndPlay: proxyModel.enqueue(fullData, name,
+                                             ElisaUtils.ReplacePlayList,
+                                             ElisaUtils.TriggerPlay)
 
         onOpen: viewManager.openChildView(fullData)
 

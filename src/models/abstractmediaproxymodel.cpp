@@ -138,5 +138,14 @@ void AbstractMediaProxyModel::replaceAndPlayOfPlayList(QModelIndex rootIndex)
     genericEnqueueToPlayList(rootIndex, ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 }
 
+void AbstractMediaProxyModel::enqueue(const DataTypes::MusicDataType &newEntry, const QString &newEntryTitle, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
+    auto allData = DataTypes::EntryDataList{};
+
+    allData.push_back(DataTypes::EntryData{newEntry, newEntryTitle, {}});
+
+    Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
+}
+
 
 #include "moc_abstractmediaproxymodel.cpp"

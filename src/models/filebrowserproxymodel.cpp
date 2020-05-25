@@ -60,47 +60,7 @@ void FileBrowserProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
         auto currentIndex = index(rowIndex, 0, rootIndex);
         const auto rootUrl = data(currentIndex, DataTypes::FilePathRole).toUrl();
 
-        auto *job = KIO::listRecursive(rootUrl, {KIO::HideProgressInfo});
-
-        connect(job, &KJob::result,
-                this, [](KJob*) {
-        });
-
-        connect(job, &KIO::ListJob::entries,
-                this, [rootUrl, this, &enqueueMode, &triggerPlay, &firstTime](KIO::Job *job, const KIO::UDSEntryList &list) {
-            Q_UNUSED(job)
-
-            auto allData = DataTypes::EntryDataList{};
-
-            for (const auto &oneEntry : list) {
-                if (oneEntry.isDir()) {
-                    continue;
-                }
-
-                auto returnedPath = oneEntry.stringValue(KIO::UDSEntry::UDS_NAME);
-                auto fullPath = QStringLiteral("%0/%1").arg(rootUrl.toString(), returnedPath);
-                auto fullPathUrl = QUrl{fullPath};
-
-                auto mimeType = mMimeDatabase.mimeTypeForUrl(fullPathUrl);
-
-                if (!mimeType.name().startsWith(QLatin1String("audio/"))) {
-                    continue;
-                }
-
-                allData.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}}, fullPath, fullPathUrl});
-            }
-
-            if (!firstTime) {
-                enqueueMode = ElisaUtils::PlayListEnqueueMode::AppendPlayList;
-                triggerPlay = ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay;
-            }
-
-            if (!allData.isEmpty()) {
-                Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
-
-                firstTime = false;
-            }
-        });
+        recursiveEnqueue(rootUrl, enqueueMode, triggerPlay, firstTime);
     }
 }
 
@@ -109,6 +69,18 @@ void FileBrowserProxyModel::enqueueToPlayList(QModelIndex rootIndex)
     genericEnqueueToPlayList(rootIndex,
                              ElisaUtils::AppendPlayList,
                              ElisaUtils::DoNotTriggerPlay);
+}
+
+void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
+                                    const QString &newEntryTitle,
+                                    ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                    ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
+    Q_UNUSED(newEntryTitle)
+
+    bool firstTime = true;
+
+    recursiveEnqueue(newEntry[DataTypes::FilePathRole].toUrl(), enqueueMode, triggerPlay, firstTime);
 }
 
 void FileBrowserProxyModel::replaceAndPlayOfPlayList(QModelIndex rootIndex)
@@ -132,6 +104,54 @@ void FileBrowserProxyModel::connectPlayList()
         connect(this, &FileBrowserProxyModel::entriesToEnqueue,
                 mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
+}
+
+void FileBrowserProxyModel::recursiveEnqueue(const QUrl &rootUrl,
+                                             ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                             ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay,
+                                             bool &firstTime)
+{
+    auto *job = KIO::listRecursive(rootUrl, {KIO::HideProgressInfo});
+
+    connect(job, &KJob::result,
+            this, [](KJob*) {
+    });
+
+    connect(job, &KIO::ListJob::entries,
+            this, [rootUrl, this, &enqueueMode, &triggerPlay, &firstTime](KIO::Job *job, const KIO::UDSEntryList &list) {
+        Q_UNUSED(job)
+
+        auto allData = DataTypes::EntryDataList{};
+
+        for (const auto &oneEntry : list) {
+            if (oneEntry.isDir()) {
+                continue;
+            }
+
+            auto returnedPath = oneEntry.stringValue(KIO::UDSEntry::UDS_NAME);
+            auto fullPath = QStringLiteral("%0/%1").arg(rootUrl.toString(), returnedPath);
+            auto fullPathUrl = QUrl{fullPath};
+
+            auto mimeType = mMimeDatabase.mimeTypeForUrl(fullPathUrl);
+
+            if (!mimeType.name().startsWith(QLatin1String("audio/"))) {
+                continue;
+            }
+
+            allData.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}}, fullPath, fullPathUrl});
+        }
+
+        if (!firstTime) {
+            enqueueMode = ElisaUtils::PlayListEnqueueMode::AppendPlayList;
+            triggerPlay = ElisaUtils::PlayListEnqueueTriggerPlay::DoNotTriggerPlay;
+        }
+
+        if (!allData.isEmpty()) {
+            Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
+
+            firstTime = false;
+        }
+    });
 }
 
 void FileBrowserProxyModel::setSourceModel(QAbstractItemModel *sourceModel)

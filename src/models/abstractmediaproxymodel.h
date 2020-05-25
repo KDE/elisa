@@ -69,6 +69,11 @@ public Q_SLOTS:
 
     void replaceAndPlayOfPlayList(QModelIndex rootIndex);
 
+    void enqueue(const DataTypes::MusicDataType &newEntry,
+                 const QString &newEntryTitle,
+                 ElisaUtils::PlayListEnqueueMode enqueueMode,
+                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
 Q_SIGNALS:
 
     void filterTextChanged(const QString &filterText);

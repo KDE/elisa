@@ -45,41 +45,6 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="zh-CN">Elisa</name>
   <name xml:lang="zh-TW">Elisa</name>
   <summary>Beautiful no-nonsense music player with online radio support</summary>
-  <summary xml:lang="ar">مشغّل موسيقى بسيط</summary>
-  <summary xml:lang="ast">Un reproductor de música cenciellu</summary>
-  <summary xml:lang="ca">Reproductor de música senzill</summary>
-  <summary xml:lang="ca-valencia">Reproductor de música senzill</summary>
-  <summary xml:lang="cs">Jednoduchý přehrávač hudby</summary>
-  <summary xml:lang="da">Simpel musikafspiller</summary>
-  <summary xml:lang="de">Einfache Medienwiedergabe</summary>
-  <summary xml:lang="el">Απλή συσκευή αναπαραγωγής μουσικής</summary>
-  <summary xml:lang="en-GB">Simple Music Player</summary>
-  <summary xml:lang="es">Reproductor de música sencillo</summary>
-  <summary xml:lang="et">Lihtne muusikamängija</summary>
-  <summary xml:lang="eu">Musika jotzaile erraza</summary>
-  <summary xml:lang="fi">Yksinkertainen musiikkisoitin</summary>
-  <summary xml:lang="fr">Lecteur de musique simple</summary>
-  <summary xml:lang="gl">Reprodutor de música simple</summary>
-  <summary xml:lang="hu">Egyszerű zenelejátszó</summary>
-  <summary xml:lang="ia">Simple Reproductor de musica</summary>
-  <summary xml:lang="id">Pemutar Musik yang Sederhana</summary>
-  <summary xml:lang="it">Semplice lettore musicale</summary>
-  <summary xml:lang="ko">간편한 음악 재생기</summary>
-  <summary xml:lang="lt">Paprastas muzikos grotuvas</summary>
-  <summary xml:lang="nl">Eenvoudige muziekspeler</summary>
-  <summary xml:lang="nn">Enkel musikkspelar</summary>
-  <summary xml:lang="pl">Prosty odtwarzacz multimediów</summary>
-  <summary xml:lang="pt">Leitor de Música Simples</summary>
-  <summary xml:lang="pt-BR">Reprodutor de músicas simples</summary>
-  <summary xml:lang="ru">Простой музыкальный проигрыватель</summary>
-  <summary xml:lang="sk">Jednoduchý hudobný prehliadač</summary>
-  <summary xml:lang="sl">Enostavni predvajalnik glasbe</summary>
-  <summary xml:lang="sv">Enkel musikspelare</summary>
-  <summary xml:lang="tr">Basit Müzik Çalar</summary>
-  <summary xml:lang="uk">Простий музичний програвач</summary>
-  <summary xml:lang="x-test">xxSimple Music Playerxx</summary>
-  <summary xml:lang="zh-CN">简易音乐播放器</summary>
-  <summary xml:lang="zh-TW">簡易音樂播放器</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>

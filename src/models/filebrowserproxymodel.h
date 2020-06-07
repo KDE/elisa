@@ -14,10 +14,14 @@
 #include "elisautils.h"
 
 #include <KDirSortFilterProxyModel>
+#include <KCoreAddons/KJob>
+#include <KIO/ListJob>
+#include <KIO/UDSEntry>
 
 #include <QMimeDatabase>
 #include <QRegularExpression>
 
+#include <queue>
 #include <memory>
 
 class MediaPlayListProxyModel;
@@ -93,6 +97,12 @@ Q_SIGNALS:
 
 protected:
 
+private Q_SLOTS:
+
+    void listRecursiveResult(KJob *job);
+
+    void listRecursiveNewEntries(KIO::Job *job, const KIO::UDSEntryList &list);
+
 private:
 
     void genericEnqueueToPlayList(QModelIndex rootIndex,
@@ -103,9 +113,7 @@ private:
 
     void connectPlayList();
 
-    void recursiveEnqueue(const QUrl &rootUrl,
-                          ElisaUtils::PlayListEnqueueMode enqueueMode,
-                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, bool &firstTime);
+    void recursiveEnqueue();
 
     QString mFilterText;
 
@@ -116,6 +124,20 @@ private:
     bool mFilterRating = false;
 
     QMimeDatabase mMimeDatabase;
+
+    bool mEnqueueInProgress = false;
+
+    std::queue<std::tuple<QUrl, bool>> mPendingEntries;
+
+    DataTypes::EntryDataList mAllData;
+
+    ElisaUtils::PlayListEnqueueMode mEnqueueMode;
+
+    ElisaUtils::PlayListEnqueueTriggerPlay mTriggerPlay;
+
+    QUrl mCuurentUrl;
+
+    KIO::Job *mCurrentJob = nullptr;
 
 };
 

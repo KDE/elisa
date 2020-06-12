@@ -222,8 +222,8 @@ FocusScope {
             height: Kirigami.Units.gridUnit * 5
             width: height
 
-            visible: realModel.isBusy
-            active: realModel.isBusy
+            visible: realModel ? realModel.isBusy : true
+            active: realModel ? realModel.isBusy : true
 
             sourceComponent: BusyIndicator {
                 anchors.centerIn: parent

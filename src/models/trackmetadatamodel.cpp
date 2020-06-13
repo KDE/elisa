@@ -179,6 +179,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::FullDataRole:
         case DataTypes::IsDirectoryRole:
         case DataTypes::IsPlayListRole:
+        case DataTypes::FilePathRole:
             break;
         }
         break;
@@ -260,6 +261,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::FullDataRole:
         case DataTypes::IsDirectoryRole:
         case DataTypes::IsPlayListRole:
+        case DataTypes::FilePathRole:
             break;
         }
         break;
@@ -539,7 +541,7 @@ void TrackMetadataModel::setDatabase(DatabaseInterface *trackDatabase)
 
 void TrackMetadataModel::deleteRadio()
 {
-    if (mTrackData[DataTypes::DatabaseIdRole]>=0) {
+    if (mTrackData[DataTypes::DatabaseIdRole].toULongLong()) {
         Q_EMIT deleteRadioData(mTrackData[DataTypes::DatabaseIdRole].toULongLong());
     }
 }

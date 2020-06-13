@@ -922,6 +922,8 @@ void DataModel::initialize(MusicListenersManager *manager, DatabaseInterface *da
                            const QString &genre, const QString &artist, qulonglong databaseId,
                            const QUrl &pathFilter)
 {
+    Q_UNUSED(pathFilter)
+
     qCDebug(orgKdeElisaModel()) << "DataModel::initialize" << modelType << filter << databaseId << genre << artist;
 
     d->mDatabaseId = databaseId;

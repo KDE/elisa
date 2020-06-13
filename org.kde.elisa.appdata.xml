@@ -51,9 +51,11 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="fr">Lecteur de musique élégant et pratique avec la prise en charge de radio en ligne</summary>
   <summary xml:lang="nl">Mooie no-nonsense muziekspeler met online ondersteuning van radio</summary>
   <summary xml:lang="pt">Leitor de música bonito e sem inutilidades com suporte para rádios 'online'</summary>
+  <summary xml:lang="sk">Nádherný hudobný prehrávač bez nezmyslov s podporou online rádií</summary>
   <summary xml:lang="sv">Snygg och praktisk musikspelare med stöd för nätradio</summary>
   <summary xml:lang="uk">Красивий змістовний програвач музичних творів із підтримкою інтернет-радіо</summary>
   <summary xml:lang="x-test">xxBeautiful no-nonsense music player with online radio supportxx</summary>
+  <summary xml:lang="zh-CN">简约优雅的音乐播放器，支持网络电台。</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>

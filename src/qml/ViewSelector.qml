@@ -70,7 +70,7 @@ FocusScope {
                 id: entry
 
                 height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
-                width: viewModeView.width
+                width: scrollBar.visible ? (!LayoutMirroring.enabled ? viewModeView.width - scrollBar.width : viewModeView.width) : viewModeView.width
 
                 focus: true
 

@@ -276,7 +276,7 @@ public:
 
     QSet<qulonglong> mInsertedAlbums;
 
-    QSet<qulonglong> mInsertedArtists;
+    QSet<QPair<qulonglong, QString>> mInsertedArtists;
 
     qulonglong mAlbumId = 1;
 
@@ -1147,8 +1147,10 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
     if (!d->mInsertedArtists.isEmpty()) {
         DataTypes::ListArtistDataType newArtists;
 
-        for (auto artistId : qAsConst(d->mInsertedArtists)) {
-            newArtists.push_back({{DataTypes::DatabaseIdRole, artistId}});
+        for (auto newArtistData : qAsConst(d->mInsertedArtists)) {
+            newArtists.push_back({{DataTypes::DatabaseIdRole, newArtistData.first},
+                                  {DataTypes::TitleRole, newArtistData.second},
+                                  {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
         }
         qCInfo(orgKdeElisaDatabase) << "artistsAdded" << newArtists.size();
         Q_EMIT artistsAdded(newArtists);
@@ -1208,8 +1210,10 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
 
     if (!d->mInsertedArtists.isEmpty()) {
         DataTypes::ListArtistDataType newArtists;
-        for (auto artistId : qAsConst(d->mInsertedArtists)) {
-            newArtists.push_back({{DataTypes::DatabaseIdRole, artistId}});
+        for (auto newArtistData : qAsConst(d->mInsertedArtists)) {
+            newArtists.push_back({{DataTypes::DatabaseIdRole, newArtistData.first},
+                                  {DataTypes::TitleRole, newArtistData.second},
+                                  {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
         }
         Q_EMIT artistsAdded(newArtists);
     }
@@ -6504,7 +6508,7 @@ qulonglong DatabaseInterface::insertArtist(const QString &name)
 
     ++d->mArtistId;
 
-    d->mInsertedArtists.insert(result);
+    d->mInsertedArtists.insert({result, name});
 
     d->mInsertArtistsQuery.finish();
 
@@ -6631,7 +6635,9 @@ qulonglong DatabaseInterface::insertGenre(const QString &name)
 
     d->mInsertGenreQuery.finish();
 
-    Q_EMIT genresAdded({{{DataTypes::DatabaseIdRole, result}}});
+    Q_EMIT genresAdded({{{DataTypes::DatabaseIdRole, result},
+                         {DataTypes::TitleRole, name},
+                         {DataTypes::ElementTypeRole, ElisaUtils::Genre}}});
 
     return result;
 }

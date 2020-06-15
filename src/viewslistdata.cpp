@@ -10,6 +10,8 @@
 #include "databaseinterface.h"
 #include "musiclistenersmanager.h"
 
+#include "viewsLogging.h"
+
 #include <KI18n/KLocalizedString>
 
 #include <QUrl>
@@ -266,7 +268,7 @@ void ViewsListData::artistsAdded(DataTypes::ListArtistDataType newData)
                                        oneArtist.databaseId(),
                                        ElisaUtils::Album,
                                        ElisaUtils::Artist,
-                                       QUrl{QStringLiteral("image://icon/view-media-artist")},
+                                       QUrl{QStringLiteral("image://icon/media-optical-audio")},
                                        ViewManager::DelegateWithSecondaryText,
                                        ViewManager::ViewShowRating});
     }
@@ -369,6 +371,36 @@ void ViewsListData::albumModified(const DataTypes::AlbumDataType &modifiedAlbum)
 
             break;
         }
+    }
+}
+
+void ViewsListData::cleanedDatabase()
+{
+    qCDebug(orgKdeElisaViews) << "ViewsListData::cleanedDatabase" << d->mEmbeddedCategory;
+
+    switch (d->mEmbeddedCategory)
+    {
+    case ElisaUtils::Album:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Artist:
+        Q_EMIT dataAboutToBeReset();
+        for (int i = 0; i < d->mViewsParameters.size(); ) {
+            if (d->mViewsParameters.at(i).mEntryType == d->mEmbeddedCategory) {
+                d->mViewsParameters.removeAt(i);
+            } else {
+                ++i;
+            }
+        }
+        Q_EMIT dataReset();
+        break;
+    case ElisaUtils::Radio:
+    case ElisaUtils::Track:
+    case ElisaUtils::Unknown:
+    case ElisaUtils::Composer:
+    case ElisaUtils::FileName:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Container:
+        break;
     }
 }
 
@@ -548,6 +580,8 @@ void ViewsListData::setDatabase(DatabaseInterface *aDatabase)
                 this, &ViewsListData::albumRemoved);
         connect(d->mDatabase, &DatabaseInterface::albumModified,
                 this, &ViewsListData::albumModified);
+        connect(d->mDatabase, &DatabaseInterface::cleanedDatabase,
+                this, &ViewsListData::cleanedDatabase);
 
         connect(this, &ViewsListData::needData,
                 d->mDataLoader, &ModelDataLoader::loadData);

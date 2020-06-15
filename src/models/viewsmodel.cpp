@@ -156,6 +156,10 @@ void ViewsModel::setViewsData(ViewsListData *viewsData)
                 this, &ViewsModel::dataRemoved);
         connect(d->mViewsData, &ViewsListData::dataModified,
                 this, &ViewsModel::dataModified);
+        connect(d->mViewsData, &ViewsListData::dataAboutToBeReset,
+                this, &ViewsModel::dataAboutToBeReset);
+        connect(d->mViewsData, &ViewsListData::dataReset,
+                this, &ViewsModel::dataReset);
 
         endResetModel();
     }
@@ -184,6 +188,16 @@ void ViewsModel::dataRemoved()
 void ViewsModel::dataModified(int currentIndex)
 {
     Q_EMIT dataChanged(index(currentIndex, 0), index(currentIndex, 0));
+}
+
+void ViewsModel::dataAboutToBeReset()
+{
+    beginResetModel();
+}
+
+void ViewsModel::dataReset()
+{
+    endResetModel();
 }
 
 

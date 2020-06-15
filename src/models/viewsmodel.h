@@ -73,6 +73,10 @@ private Q_SLOTS:
 
     void dataModified(int currentIndex);
 
+    void dataAboutToBeReset();
+
+    void dataReset();
+
 private:
 
     std::unique_ptr<ViewsModelPrivate> d;

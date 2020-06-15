@@ -325,6 +325,10 @@ Q_SIGNALS:
 
     void dataModified(int index);
 
+    void dataAboutToBeReset();
+
+    void dataReset();
+
 public Q_SLOTS:
 
     void setEmbeddedCategory(ElisaUtils::PlayListEntryType aEmbeddedView);
@@ -344,6 +348,8 @@ public Q_SLOTS:
     void albumRemoved(qulonglong removedDatabaseId);
 
     void albumModified(const DataTypes::AlbumDataType &modifiedAlbum);
+
+    void cleanedDatabase();
 
 private:
 

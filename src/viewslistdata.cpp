@@ -177,6 +177,11 @@ qulonglong ViewsListData::databaseId(int index) const
     return d->mViewsParameters[index].mDataFilter.databaseId();
 }
 
+bool ViewsListData::defaultEntry(int index) const
+{
+    return d->mEmbeddedCategory == ElisaUtils::Unknown || d->mViewsParameters[index].mEntryType != d->mEmbeddedCategory;
+}
+
 int ViewsListData::indexFromEmbeddedDatabaseId(qulonglong databaseId) const
 {
     auto result = std::find_if(d->mViewsParameters.begin(), d->mViewsParameters.end(), [this, databaseId](auto data) {

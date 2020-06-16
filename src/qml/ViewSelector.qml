@@ -8,7 +8,7 @@ import QtQuick 2.11
 import QtQuick.Controls 2.4
 import QtQml.Models 2.2
 import QtGraphicalEffects 1.0
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.10 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -88,6 +88,12 @@ FocusScope {
                     entry.forceActiveFocus()
                 }
             }
+        }
+
+        section.property: 'entryCategory'
+        section.delegate: Kirigami.ListSectionHeader {
+            label: (section != 'default' ? section : '')
+            height: if (section == 'default') 0
         }
 
         onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)

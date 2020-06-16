@@ -33,6 +33,7 @@ public:
         DatabaseIdRole,
         EntryTypeRole,
         UseColorOverlayRole,
+        EntryCategoryRole,
     };
 
     explicit ViewsModel(QObject *parent = nullptr);

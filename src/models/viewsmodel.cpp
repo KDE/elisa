@@ -8,6 +8,8 @@
 
 #include "viewslistdata.h"
 
+#include <KI18n/KLocalizedString>
+
 class ViewsModelPrivate
 {
 
@@ -38,6 +40,7 @@ QHash<int, QByteArray> ViewsModel::roleNames() const
     result[DatabaseIdRole] = "databaseId";
     result[UseSecondTitleRole] = "useSecondTitle";
     result[SecondTitleRole] = "secondTitle";
+    result[EntryCategoryRole] = "entryCategory";
 
     return result;
 }
@@ -95,6 +98,33 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
         break;
     case ColumnRoles::UseSecondTitleRole:
         result = d->mViewsData->useSecondTitle(index.row());
+        break;
+    case ColumnRoles::EntryCategoryRole:
+        if (d->mViewsData->defaultEntry(index.row())) {
+            result = QStringLiteral("default");
+        } else {
+            switch (d->mViewsData->embeddedCategory())
+            {
+            case ElisaUtils::Album:
+                result = i18nc("Title of the view of all albums", "Albums");
+                break;
+            case ElisaUtils::Genre:
+                result = i18nc("Title of the view of all genres", "Genres");
+                break;
+            case ElisaUtils::Artist:
+                result = i18nc("Title of the view of all artists", "Artists");
+                break;
+            case ElisaUtils::Radio:
+            case ElisaUtils::Track:
+            case ElisaUtils::Unknown:
+            case ElisaUtils::Composer:
+            case ElisaUtils::FileName:
+            case ElisaUtils::Lyricist:
+            case ElisaUtils::Container:
+                break;
+            }
+        }
+
         break;
     }
 

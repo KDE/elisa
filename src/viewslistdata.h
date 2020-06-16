@@ -295,6 +295,8 @@ public:
 
     qulonglong databaseId(int index) const;
 
+    bool defaultEntry(int index) const;
+
     int indexFromEmbeddedDatabaseId(qulonglong databaseId) const;
 
     int indexFromEmbeddedName(const QString &name) const;

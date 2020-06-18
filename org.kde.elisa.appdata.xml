@@ -34,6 +34,7 @@
   <name xml:lang="sv">Elisa</name>
   <name xml:lang="tr">Elisa</name>
   <name xml:lang="uk">Elisa</name>
+  <name xml:lang="x-test">xxElisaxx</name>
   <name xml:lang="zh-CN">Elisa</name>
   <name xml:lang="zh-TW">Elisa</name>
   <summary>Simple Music Player</summary>
@@ -67,6 +68,7 @@
   <summary xml:lang="sv">Enkel musikspelare</summary>
   <summary xml:lang="tr">Basit Müzik Çalar</summary>
   <summary xml:lang="uk">Простий музичний програвач</summary>
+  <summary xml:lang="x-test">xxSimple Music Playerxx</summary>
   <summary xml:lang="zh-CN">简易音乐播放器</summary>
   <summary xml:lang="zh-TW">簡易音樂播放器</summary>
   <description>
@@ -101,6 +103,7 @@
     <p xml:lang="sv">En enkel musikspelare som ska vara lättanvänd. Den kräver inga inställningar innan man kan använda den.</p>
     <p xml:lang="tr">Kullanımı kolay basit bir müzik çalar. Kullanmadan önce herhangi bir yapılandırma gerektirmez.</p>
     <p xml:lang="uk">Простий у користуванні музичний програвач. Не потребує налаштовування перед користуванням.</p>
+    <p xml:lang="x-test">xxA simple music player that should be easy to use. It does not require any configuration before one can use it.xx</p>
     <p xml:lang="zh-CN">一个简单易用的音乐播放器，无需任何配置即可使用。</p>
     <p xml:lang="zh-TW">一款或許易用的簡易音樂播放器，使用前不須任何設定。</p>
   </description>
@@ -140,6 +143,7 @@
       <caption xml:lang="sk">Hudobný prehrávač Elisa</caption>
       <caption xml:lang="sv">Elisa musikspelare</caption>
       <caption xml:lang="uk">Музичний програвач Elisa</caption>
+      <caption xml:lang="x-test">xxThe Elisa music playerxx</caption>
       <caption xml:lang="zh-CN">Elisa 音乐播放器</caption>
       <caption xml:lang="zh-TW">Elisa 音樂播放器</caption>
       <image>https://cdn.kde.org/screenshots/elisa/elisa.png</image>

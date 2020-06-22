@@ -91,6 +91,7 @@ QHash<int, QByteArray> DataModel::roleNames() const
     roles[static_cast<int>(DataTypes::ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(DataTypes::ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(DataTypes::ColumnsRoles::RatingRole)] = "rating";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::YearRole)] = "year";
     roles[static_cast<int>(DataTypes::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(DataTypes::ColumnsRoles::FullDataRole)] = "fullData";
 

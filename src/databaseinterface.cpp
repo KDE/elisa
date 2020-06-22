@@ -3571,6 +3571,7 @@ void DatabaseInterface::initRequest()
                                                   "album.`ArtistName` as SecondaryText, "
                                                   "album.`CoverFileName`, "
                                                   "album.`ArtistName`, "
+                                                  "GROUP_CONCAT(tracks.`Year`, ', ') as Year, "
                                                   "COUNT(DISTINCT tracks.`ArtistName`) as ArtistsCount, "
                                                   "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                   "MAX(tracks.`Rating`) as HighestRating, "
@@ -3635,6 +3636,7 @@ void DatabaseInterface::initRequest()
                                                   "album.`ArtistName` as SecondaryText, "
                                                   "album.`CoverFileName`, "
                                                   "album.`ArtistName`, "
+                                                  "GROUP_CONCAT(tracks.`Year`, ', ') as Year, "
                                                   "COUNT(DISTINCT tracks.`ArtistName`) as ArtistsCount, "
                                                   "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                   "MAX(tracks.`Rating`) as HighestRating, "
@@ -3715,6 +3717,7 @@ void DatabaseInterface::initRequest()
                                                   "album.`ArtistName` as SecondaryText, "
                                                   "album.`CoverFileName`, "
                                                   "album.`ArtistName`, "
+                                                  "GROUP_CONCAT(tracks.`Year`, ', ') as Year, "
                                                   "COUNT(DISTINCT tracks.`ArtistName`) as ArtistsCount, "
                                                   "GROUP_CONCAT(tracks.`ArtistName`, ', ') as AllArtists, "
                                                   "MAX(tracks.`Rating`) as HighestRating, "
@@ -7979,10 +7982,10 @@ DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSq
         newData[DataTypes::TitleRole] = currentRecord.value(1);
         if (!currentRecord.value(3).toString().isEmpty()) {
             newData[DataTypes::ImageUrlRole] = currentRecord.value(3);
-        } else if (!currentRecord.value(10).toString().isEmpty()) {
-            newData[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(10).toUrl().toLocalFile()};
+        } else if (!currentRecord.value(11).toString().isEmpty()) {
+            newData[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(11).toUrl().toLocalFile()};
         }
-        auto allArtists = currentRecord.value(6).toString().split(QStringLiteral(", "));
+        auto allArtists = currentRecord.value(7).toString().split(QStringLiteral(", "));
         allArtists.removeDuplicates();
         newData[DataTypes::AllArtistsRole] = QVariant::fromValue(allArtists);
         if (!currentRecord.value(4).isNull()) {
@@ -7990,16 +7993,23 @@ DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSq
             newData[DataTypes::SecondaryTextRole] = currentRecord.value(4);
         } else {
             newData[DataTypes::IsValidAlbumArtistRole] = false;
-            if (currentRecord.value(5).toInt() == 1) {
+            if (currentRecord.value(6).toInt() == 1) {
                 newData[DataTypes::SecondaryTextRole] = allArtists.first();
-            } else if (currentRecord.value(5).toInt() > 1) {
+            } else if (currentRecord.value(6).toInt() > 1) {
                 newData[DataTypes::SecondaryTextRole] = i18n("Various Artists");
             }
         }
         newData[DataTypes::ArtistRole] = newData[DataTypes::SecondaryTextRole];
-        newData[DataTypes::HighestTrackRating] = currentRecord.value(7);
-        newData[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(9);
-        newData[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(8).toString().split(QStringLiteral(", ")));
+        newData[DataTypes::HighestTrackRating] = currentRecord.value(8);
+        newData[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(10);
+        newData[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(9).toString().split(QStringLiteral(", ")));
+        auto allYears = currentRecord.value(5).toString().split(QStringLiteral(", "));
+        allYears.removeDuplicates();
+        if (allYears.size() == 1) {
+            newData[DataTypes::YearRole] = allYears.at(0).toInt();
+        } else {
+            newData[DataTypes::YearRole] = 0;
+        }
         newData[DataTypes::ElementTypeRole] = ElisaUtils::Album;
 
         result.push_back(newData);

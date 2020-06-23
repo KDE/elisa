@@ -62,6 +62,7 @@ FocusScope {
         }
 
         property bool ignoreCurrentItemChanges: false
+        property int childWidth: scrollBar.visible ? (!LayoutMirroring.enabled ? width - scrollBar.width : width) : width
 
         model: DelegateModel {
             id: pageDelegateModel
@@ -70,7 +71,7 @@ FocusScope {
                 id: entry
 
                 height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
-                width: scrollBar.visible ? (!LayoutMirroring.enabled ? viewModeView.width - scrollBar.width : viewModeView.width) : viewModeView.width
+                width: viewModeView.childWidth
 
                 focus: true
 
@@ -94,6 +95,7 @@ FocusScope {
         section.delegate: Kirigami.ListSectionHeader {
             label: (section != 'default' ? section : '')
             height: if (section == 'default') 0
+            width: viewModeView.childWidth
         }
 
         onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)

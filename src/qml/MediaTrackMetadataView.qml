@@ -38,7 +38,7 @@ Window {
     EditableTrackMetadataModel {
         id: realModel
 
-        manager: elisa.musicManager
+        manager: ElisaApplication.musicManager
     }
 
     modality: Qt.NonModal
@@ -190,7 +190,7 @@ Window {
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                     onClicked:
                     {
-                        elisa.musicManager.deleteElementById(modelType, realModel.databaseId)
+                        ElisaApplication.musicManager.deleteElementById(modelType, realModel.databaseId)
                         trackMetadata.close()
                     }
                 }
@@ -230,7 +230,7 @@ Window {
     }
 
     Connections {
-        target: elisa
+        target: ElisaApplication
 
         onMusicManagerChanged: {
             if (isCreation) {
@@ -242,7 +242,7 @@ Window {
     }
 
     Component.onCompleted: {
-        if (elisa.musicManager) {
+        if (ElisaApplication.musicManager) {
             if (isCreation) {
                 realModel.initializeForNewRadio()
             } else {

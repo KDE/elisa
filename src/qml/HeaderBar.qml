@@ -333,7 +333,7 @@ FocusScope {
 
                     sourceComponent: SimplePlayListView {
                         anchors.fill: parent
-                        playListModel: elisa.mediaPlayListProxyModel
+                        playListModel: ElisaApplication.mediaPlayListProxyModel
                     }
 
                 }

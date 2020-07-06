@@ -335,7 +335,7 @@ FocusScope {
         Button {
             id: showHidePlaylistAction
             action: Action {
-                shortcut: elisa.action("toggle_playlist").shortcut
+                shortcut: ElisaApplication.action("toggle_playlist").shortcut
                 onTriggered: contentView.showPlaylist = !contentView.showPlaylist
             }
 
@@ -386,7 +386,7 @@ FocusScope {
             installFilter(elementList[i])
 
         function installFilter(element) {
-            elisa.installKeyEventFilter(element)
+            ElisaApplication.installKeyEventFilter(element)
         }
     }
 }

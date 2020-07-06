@@ -357,6 +357,8 @@ add_dependencies(elisaqmlplugin copy copy2)
 if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisa_SOURCES
         main.cpp
+        elisaarguments.cpp
+        elisaarguments.h
 
         windows/WindowsTheme.qml
         windows/PlatformIntegration.qml

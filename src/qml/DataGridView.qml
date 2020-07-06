@@ -43,7 +43,7 @@ FocusScope {
             return
         }
 
-        if (!elisa.musicManager) {
+        if (!ElisaApplication.musicManager) {
             return
         }
 
@@ -53,10 +53,10 @@ FocusScope {
 
         proxyModel.sourceModel = realModel
         proxyModel.dataType = modelType
-        proxyModel.playList = elisa.mediaPlayListProxyModel
+        proxyModel.playList = ElisaApplication.mediaPlayListProxyModel
         gridView.contentModel = proxyModel
 
-        realModel.initializeByData(elisa.musicManager, elisa.musicManager.viewDatabase,
+        realModel.initializeByData(ElisaApplication.musicManager, ElisaApplication.musicManager.viewDatabase,
                                    modelType, filterType, filter)
 
         modelIsInitialized = true
@@ -103,7 +103,7 @@ FocusScope {
     }
 
     Connections {
-        target: elisa
+        target: ElisaApplication
 
         onMusicManagerChanged: initializeModel()
     }

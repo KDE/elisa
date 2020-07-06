@@ -13,19 +13,19 @@ Menu {
     id: applicationMenu
     title: i18nc("open application menu", "Application Menu")
 
-    property var helpAction: elisa.action("help_contents")
-    property var quitApplication: elisa.action("file_quit")
-    property var reportBugAction: elisa.action("help_report_bug")
-    property var aboutAppAction: elisa.action("help_about_app")
-    property var configureShortcutsAction: elisa.action("options_configure_keybinding")
-    property var configureAction: elisa.action("options_configure")
+    property var helpAction: ElisaApplication.action("help_contents")
+    property var quitApplication: ElisaApplication.action("file_quit")
+    property var reportBugAction: ElisaApplication.action("help_report_bug")
+    property var aboutAppAction: ElisaApplication.action("help_about_app")
+    property var configureShortcutsAction: ElisaApplication.action("options_configure_keybinding")
+    property var configureAction: ElisaApplication.action("options_configure")
 
     Action {
         text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
         icon.name: "view-refresh"
         onTriggered: {
             applicationMenu.close()
-            elisa.musicManager.resetMusicData()
+            ElisaApplication.musicManager.resetMusicData()
         }
     }
 
@@ -35,7 +35,7 @@ Menu {
     Action {
         text: configureAction.text
         shortcut: configureAction.shortcut
-        icon.name: elisa.iconName(configureAction.icon)
+        icon.name: ElisaApplication.iconName(configureAction.icon)
         onTriggered: {
             applicationMenu.close()
             configureAction.trigger()
@@ -45,7 +45,7 @@ Menu {
     Action {
         text: configureShortcutsAction.text
         shortcut: configureShortcutsAction.shortcut
-        icon.name: elisa.iconName(configureShortcutsAction.icon)
+        icon.name: ElisaApplication.iconName(configureShortcutsAction.icon)
         onTriggered: {
             applicationMenu.close()
             configureShortcutsAction.trigger()
@@ -59,7 +59,7 @@ Menu {
     Action {
         text: reportBugAction.text
         shortcut: reportBugAction.shortcut
-        icon.name: elisa.iconName(reportBugAction.icon)
+        icon.name: ElisaApplication.iconName(reportBugAction.icon)
         onTriggered: {
             applicationMenu.close()
             reportBugAction.trigger()
@@ -73,7 +73,7 @@ Menu {
     Action {
         text: helpAction.text
         shortcut: helpAction.shortcut
-        icon.name: elisa.iconName(helpAction.icon)
+        icon.name: ElisaApplication.iconName(helpAction.icon)
         onTriggered: {
             applicationMenu.close()
             helpAction.trigger()
@@ -83,7 +83,7 @@ Menu {
     Action {
         text: aboutAppAction.text
         shortcut: aboutAppAction.shortcut
-        icon.name: elisa.iconName(aboutAppAction.icon)
+        icon.name: ElisaApplication.iconName(aboutAppAction.icon)
         onTriggered: {
             applicationMenu.close()
             aboutAppAction.trigger()
@@ -97,7 +97,7 @@ Menu {
     Action {
         text: quitApplication.text
         shortcut: quitApplication.shortcut
-        icon.name: elisa.iconName(quitApplication.icon)
+        icon.name: ElisaApplication.iconName(quitApplication.icon)
         onTriggered: quitApplication.trigger()
     }
 }

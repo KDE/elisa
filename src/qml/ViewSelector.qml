@@ -90,7 +90,7 @@ FocusScope {
     }
 
     Connections {
-        target: elisa
+        target: ElisaApplication
 
         onInitializationDone: {
             viewModeView.currentIndex = 3

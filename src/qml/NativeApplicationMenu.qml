@@ -14,18 +14,18 @@ Menu {
     id: applicationMenu
     title: i18nc("open application menu", "Application Menu")
 
-    property var helpAction: elisa.action("help_contents")
-    property var quitApplication: elisa.action("file_quit")
-    property var reportBugAction: elisa.action("help_report_bug")
-    property var aboutAppAction: elisa.action("help_about_app")
-    property var configureShortcutsAction: elisa.action("options_configure_keybinding")
-    property var configureAction: elisa.action("options_configure")
-    property var togglePlaylistAction: elisa.action("toggle_playlist")
+    property var helpAction: ElisaApplication.action("help_contents")
+    property var quitApplication: ElisaApplication.action("file_quit")
+    property var reportBugAction: ElisaApplication.action("help_report_bug")
+    property var aboutAppAction: ElisaApplication.action("help_about_app")
+    property var configureShortcutsAction: ElisaApplication.action("options_configure_keybinding")
+    property var configureAction: ElisaApplication.action("options_configure")
+    property var togglePlaylistAction: ElisaApplication.action("toggle_playlist")
 
     MenuItem {
         text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
         iconName: "view-refresh"
-        onTriggered: elisa.musicManager.resetMusicData()
+        onTriggered: ElisaApplication.musicManager.resetMusicData()
     }
 
     MenuSeparator {
@@ -34,7 +34,7 @@ Menu {
     MenuItem {
         text: configureAction.text
         shortcut: configureAction.shortcut
-        iconName: elisa.iconName(configureAction.icon)
+        iconName: ElisaApplication.iconName(configureAction.icon)
         onTriggered: configureAction.trigger()
         visible: configureAction.text !== ""
     }
@@ -42,7 +42,7 @@ Menu {
     MenuItem {
         text: configureShortcutsAction.text
         shortcut: configureShortcutsAction.shortcut
-        iconName: elisa.iconName(configureShortcutsAction.icon)
+        iconName: ElisaApplication.iconName(configureShortcutsAction.icon)
         onTriggered: configureShortcutsAction.trigger()
         visible: configureShortcutsAction.text !== ""
     }
@@ -64,7 +64,7 @@ Menu {
     MenuItem {
         text: reportBugAction.text
         shortcut: reportBugAction.shortcut
-        iconName: elisa.iconName(reportBugAction.icon)
+        iconName: ElisaApplication.iconName(reportBugAction.icon)
         onTriggered: reportBugAction.trigger()
         visible: reportBugAction.text !== ""
     }
@@ -76,7 +76,7 @@ Menu {
     MenuItem {
         text: helpAction.text
         shortcut: helpAction.shortcut
-        iconName: elisa.iconName(helpAction.icon)
+        iconName: ElisaApplication.iconName(helpAction.icon)
         onTriggered: helpAction.trigger()
         visible: helpAction.text !== ""
     }
@@ -84,7 +84,7 @@ Menu {
     MenuItem {
         text: aboutAppAction.text
         shortcut: aboutAppAction.shortcut
-        iconName: elisa.iconName(aboutAppAction.icon)
+        iconName: ElisaApplication.iconName(aboutAppAction.icon)
         onTriggered: aboutAppAction.trigger()
         visible: aboutAppAction.text !== ""
     }
@@ -96,7 +96,7 @@ Menu {
     MenuItem {
         text: quitApplication.text
         shortcut: quitApplication.shortcut
-        iconName: elisa.iconName(quitApplication.icon)
+        iconName: ElisaApplication.iconName(quitApplication.icon)
         onTriggered: quitApplication.trigger()
         visible: quitApplication.text !== ""
     }

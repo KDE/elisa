@@ -28,7 +28,7 @@ FocusScope {
     TrackContextMetaDataModel {
         id: metaDataModel
 
-        manager: elisa.musicManager
+        manager: ElisaApplication.musicManager
     }
 
     ColumnLayout {
@@ -244,7 +244,7 @@ FocusScope {
     }
 
     Connections {
-        target: elisa
+        target: ElisaApplication
 
         onMusicManagerChanged: {
             metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
@@ -252,7 +252,7 @@ FocusScope {
     }
 
     Component.onCompleted: {
-        if (elisa.musicManager) {
+        if (ElisaApplication.musicManager) {
             metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
         }
     }

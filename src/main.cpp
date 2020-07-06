@@ -7,6 +7,7 @@
 #include "config-upnp-qt.h"
 #include "elisa-version.h"
 
+#include "elisaarguments.h"
 #include "elisaapplication.h"
 #include "elisa_settings.h"
 
@@ -28,10 +29,6 @@
 #include <KCrash>
 #endif
 
-#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
-#include <KDBusService>
-#endif
-
 
 #include <QIcon>
 
@@ -40,6 +37,7 @@
 #include <QStandardPaths>
 
 #include <QQmlApplicationEngine>
+#include <QJSEngine>
 #include <QQmlFileSelector>
 #include <QQuickStyle>
 #include <QQmlContext>
@@ -142,20 +140,6 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
 
-#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
-    KDBusService elisaService(KDBusService::Unique);
-#endif
-
-    std::unique_ptr<ElisaApplication> myApp = std::make_unique<ElisaApplication>();
-
-    myApp->setQmlEngine(&engine);
-
-#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
-    QObject::connect(&elisaService, &KDBusService::activateActionRequested, myApp.get(), &ElisaApplication::activateActionRequested);
-    QObject::connect(&elisaService, &KDBusService::activateRequested, myApp.get(), &ElisaApplication::activateRequested);
-    QObject::connect(&elisaService, &KDBusService::openRequested, myApp.get(), &ElisaApplication::openRequested);
-#endif
-
     auto arguments = DataTypes::EntryDataList{};
     auto realArgumentsList = parser.positionalArguments();
 
@@ -163,9 +147,18 @@ int main(int argc, char *argv[])
         arguments.push_back(DataTypes::EntryData{{}, {}, QUrl(oneArgument)});
     }
 
-    myApp->setArguments(arguments);
+    int typeId = qmlRegisterSingletonType<ElisaArguments>("org.kde.elisa.host", 1, 0, "ElisaArguments", [](QQmlEngine *qmlEngine, QJSEngine *scriptEngine) -> QObject* {
+        Q_UNUSED(qmlEngine)
+        Q_UNUSED(scriptEngine)
 
-    engine.rootContext()->setContextProperty(QStringLiteral("elisa"), myApp.release());
+        auto *result = new ElisaArguments;
+
+        return result;
+    });
+
+    auto *argumentsSingleton = engine.singletonInstance<ElisaArguments*>(typeId);
+
+    argumentsSingleton->setArguments(arguments);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
 

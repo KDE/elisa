@@ -6,6 +6,8 @@
 
 #include "elisaqmlplugin.h"
 
+#include "config-upnp-qt.h"
+
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
 #include "upnp/upnpcontrolconnectionmanager.h"
 #include "upnp/upnpcontrolmediaserver.h"
@@ -20,6 +22,10 @@
 #include "upnpcontrolabstractdevice.h"
 #include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
+#endif
+
+#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+#include <KDBusService>
 #endif
 
 #include "elisautils.h"
@@ -183,6 +189,26 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
         return new ElisaConfigurationDialog;
     });
 
-    qmlRegisterUncreatableType<ElisaApplication>(uri, 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
+    qmlRegisterSingletonType<ElisaApplication>(uri, 1, 0, "ElisaApplication",
+                                                       [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QObject* {
+        Q_UNUSED(scriptEngine)
+
+        auto newApplication = std::make_unique<ElisaApplication>();
+
+#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+        auto *elisaService = new KDBusService(KDBusService::Unique, newApplication.get());
+#endif
+
+#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+        QObject::connect(elisaService, &KDBusService::activateActionRequested, newApplication.get(), &ElisaApplication::activateActionRequested);
+        QObject::connect(elisaService, &KDBusService::activateRequested, newApplication.get(), &ElisaApplication::activateRequested);
+        QObject::connect(elisaService, &KDBusService::openRequested, newApplication.get(), &ElisaApplication::openRequested);
+#endif
+
+        newApplication->setQmlEngine(engine);
+
+        return newApplication.release();
+    });
+
     qmlRegisterUncreatableMetaObject(ElisaUtils::staticMetaObject, uri, 1, 0, "ElisaUtils", QStringLiteral("Namespace ElisaUtils"));
 }

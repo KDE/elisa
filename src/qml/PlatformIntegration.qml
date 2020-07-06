@@ -35,7 +35,7 @@ Item {
     }
 
     Connections {
-        target: elisa
+        target: ElisaApplication
 
         onCommitDataRequest: {
             forceCloseWindow = true

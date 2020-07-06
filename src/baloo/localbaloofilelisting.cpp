@@ -97,6 +97,8 @@ LocalBalooFileListing::LocalBalooFileListing(QObject *parent)
 
 LocalBalooFileListing::~LocalBalooFileListing()
 {
+    d->mDbusAdaptor->setParent(nullptr);
+    d->mDbusAdaptor->deleteLater();
 }
 
 void LocalBalooFileListing::applicationAboutToQuit()

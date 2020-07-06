@@ -34,7 +34,8 @@
 
 #include <KCoreAddons/KAboutData>
 
-#include <QQmlApplicationEngine>
+#include <QQmlEngine>
+#include <QQmlComponent>
 #include <QGuiApplication>
 #include <QDesktopServices>
 #include <QDialog>
@@ -90,7 +91,7 @@ public:
 
     std::unique_ptr<ManageHeaderBar> mManageHeaderBar;
 
-    QQmlApplicationEngine *mEngine = nullptr;
+    QQmlEngine *mEngine = nullptr;
 
     QFileSystemWatcher mConfigFileWatcher;
 
@@ -273,7 +274,10 @@ void ElisaApplication::configureElisa()
         return;
     }
 
-    d->mEngine->load(QUrl(QStringLiteral("qrc:/qml/ElisaConfigurationDialog.qml")));
+    QQmlComponent configurationDialogComponent(d->mEngine,
+                                               QUrl(QStringLiteral("qrc:/qml/ElisaConfigurationDialog.qml")));
+
+    configurationDialogComponent.create();
 }
 
 void ElisaApplication::goBack() {}
@@ -340,7 +344,7 @@ void ElisaApplication::initialize()
     Q_EMIT initializationDone();
 }
 
-void ElisaApplication::setQmlEngine(QQmlApplicationEngine *engine)
+void ElisaApplication::setQmlEngine(QQmlEngine *engine)
 {
     d->mEngine = engine;
 }

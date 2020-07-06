@@ -28,7 +28,7 @@ class AudioWrapper;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
-class QQmlApplicationEngine;
+class QQmlEngine;
 class ElisaApplicationPrivate;
 class QSessionManager;
 
@@ -167,7 +167,7 @@ public Q_SLOTS:
 
 public:
 
-    void setQmlEngine(QQmlApplicationEngine *engine);
+    void setQmlEngine(QQmlEngine *engine);
 
 private Q_SLOTS:
 

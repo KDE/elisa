@@ -254,8 +254,8 @@ RowLayout {
 
         Layout.fillHeight: true
 
-        onStartPlayback: elisa.audioControl.ensurePlay()
-        onPausePlayback: elisa.audioControl.playPause()
+        onStartPlayback: ElisaApplication.audioControl.ensurePlay()
+        onPausePlayback: ElisaApplication.audioControl.playPause()
     }
 
     states: [
@@ -320,13 +320,13 @@ RowLayout {
         ContextView {
             StackView.onActivated: viewManager.viewIsLoaded()
 
-            databaseId: elisa.manageHeaderBar.databaseId
-            trackType: elisa.manageHeaderBar.trackType
-            title: elisa.manageHeaderBar.title
-            artistName: elisa.manageHeaderBar.artist
-            albumName: elisa.manageHeaderBar.album
-            albumArtUrl: elisa.manageHeaderBar.image
-            fileUrl: elisa.manageHeaderBar.fileUrl
+            databaseId: ElisaApplication.manageHeaderBar.databaseId
+            trackType: ElisaApplication.manageHeaderBar.trackType
+            title: ElisaApplication.manageHeaderBar.title
+            artistName: ElisaApplication.manageHeaderBar.artist
+            albumName: ElisaApplication.manageHeaderBar.album
+            albumArtUrl: ElisaApplication.manageHeaderBar.image
+            fileUrl: ElisaApplication.manageHeaderBar.fileUrl
         }
     }
 }

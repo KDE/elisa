@@ -50,7 +50,7 @@ FocusScope {
         id: undoAction
         text: i18nc("Undo", "Undo")
         icon.name: "dialog-cancel"
-        onTriggered: elisa.mediaPlayListProxyModel.undoClearPlayList()
+        onTriggered: ElisaApplication.mediaPlayListProxyModel.undoClearPlayList()
     }
 
     Kirigami.Action {
@@ -68,21 +68,21 @@ FocusScope {
     }
 
     Connections {
-        target: elisa.mediaPlayListProxyModel
+        target: ElisaApplication.mediaPlayListProxyModel
         onPlayListLoadFailed: {
             showPlayListNotification(i18nc("Message when playlist load failed", "Loading failed"), Kirigami.MessageType.Error, retryLoadAction)
         }
     }
 
     Connections {
-         target: elisa.mediaPlayListProxyModel
+         target: ElisaApplication.mediaPlayListProxyModel
          onDisplayUndoNotification: {
              showPlayListNotification(i18nc("Playlist cleared", "Playlist cleared"), Kirigami.MessageType.Information, undoAction)
          }
     }
 
     Connections {
-         target: elisa.mediaPlayListProxyModel
+         target: ElisaApplication.mediaPlayListProxyModel
          onHideUndoNotification: hideNotification()
     }
 
@@ -101,11 +101,11 @@ FocusScope {
         onAccepted:
         {
             if (fileMode === PlatformDialog.FileDialog.SaveFile) {
-                if (!elisa.mediaPlayListProxyModel.savePlayList(fileDialog.file)) {
+                if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(fileDialog.file)) {
                     showPlayListNotification(i18nc("Message when saving a playlist failed", "Saving failed"), Kirigami.MessageType.Error, retrySaveAction)
                 }
             } else {
-                elisa.mediaPlayListProxyModel.loadPlayList(fileDialog.file)
+                ElisaApplication.mediaPlayListProxyModel.loadPlayList(fileDialog.file)
             }
         }
     }
@@ -135,10 +135,10 @@ FocusScope {
                 FlatButtonWithToolTip {
                     text: i18nc("Show currently played track inside playlist", "Show Current Track")
                     icon.name: 'media-track-show-active'
-                    enabled: elisa.mediaPlayListProxyModel ? elisa.mediaPlayListProxyModel.tracksCount > 0 : false
+                    enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
                     onClicked: {
-                        playListView.positionViewAtIndex(elisa.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
-                        playListView.currentIndex = elisa.mediaPlayListProxyModel.currentTrackRow
+                        playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
+                        playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
                         playListView.currentItem.forceActiveFocus()
                     }
                 },
@@ -146,7 +146,7 @@ FocusScope {
                     id: savePlaylistButton
                     text: i18nc("Save a playlist file", "Save Playlist...")
                     icon.name: 'document-save'
-                    enabled: elisa.mediaPlayListProxyModel ? elisa.mediaPlayListProxyModel.tracksCount > 0 : false
+                    enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
                     onClicked: {
                         fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
                         fileDialog.file = ''
@@ -166,8 +166,8 @@ FocusScope {
                 FlatButtonWithToolTip {
                     text: i18nc("Remove all tracks from play list", "Clear Playlist")
                     icon.name: 'edit-clear-all'
-                    enabled: elisa.mediaPlayListProxyModel ? elisa.mediaPlayListProxyModel.tracksCount > 0 : false
-                    onClicked: elisa.mediaPlayListProxyModel.clearPlayList()
+                    enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
+                    onClicked: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
                 }
             ]
         }
@@ -175,7 +175,7 @@ FocusScope {
         Item {
             id: emptyPlaylistMessage
 
-            visible: elisa.mediaPlayListProxyModel ? elisa.mediaPlayListProxyModel.tracksCount === 0 : true
+            visible: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount === 0 : true
 
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -197,7 +197,7 @@ FocusScope {
             Layout.fillHeight: true
 
             title: viewTitle.text
-            playListModel: elisa.mediaPlayListProxyModel
+            playListModel: ElisaApplication.mediaPlayListProxyModel
 
             focus: true
 
@@ -244,7 +244,7 @@ FocusScope {
 
                     Layout.fillWidth: true
 
-                    text: i18np("1 track", "%1 tracks", (elisa.mediaPlayListProxyModel ? elisa.mediaPlayListProxyModel.tracksCount : 0))
+                    text: i18np("1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0))
                     elide: Text.ElideLeft
                 }
             ]

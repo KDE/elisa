@@ -166,7 +166,6 @@ int main(int argc, char *argv[])
     myApp->setArguments(arguments);
 
     engine.rootContext()->setContextProperty(QStringLiteral("elisa"), myApp.release());
-    engine.rootContext()->setContextProperty(QStringLiteral("config"), new ElisaConfigurationDialog);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
 

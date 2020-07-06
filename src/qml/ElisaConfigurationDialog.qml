@@ -11,6 +11,8 @@ import QtQuick.Window 2.12
 import QtQml.Models 2.3
 import org.kde.kirigami 2.5 as Kirigami
 
+import org.kde.elisa 1.0
+
 Window {
     id: dialog
 
@@ -98,7 +100,7 @@ Window {
                     icon.name: 'dialog-ok-apply'
                     DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
 
-                    enabled: config.isDirty
+                    enabled: ElisaConfigurationDialog.isDirty
                 }
 
                 Button {
@@ -108,11 +110,11 @@ Window {
                 }
 
                 onAccepted: {
-                    config.save()
+                    ElisaConfigurationDialog.save()
                     close()
                 }
 
-                onApplied: config.save()
+                onApplied: ElisaConfigurationDialog.save()
 
                 onRejected: close()
             }

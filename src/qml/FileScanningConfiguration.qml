@@ -10,6 +10,8 @@ import QtQuick.Layouts 1.3
 import QtQml.Models 2.3
 import QtQuick.Dialogs 1.2 as Dialogs
 
+import org.kde.elisa 1.0
+
 ColumnLayout {
     spacing: 0
 
@@ -18,9 +20,9 @@ ColumnLayout {
 
         text: i18n("Force filesystem indexing")
 
-        checked: !config.forceUsageOfFastFileSearch
+        checked: !ElisaConfigurationDialog.forceUsageOfFastFileSearch
 
-        onCheckedChanged: config.forceUsageOfFastFileSearch = !checked
+        onCheckedChanged: ElisaConfigurationDialog.forceUsageOfFastFileSearch = !checked
     }
 
     Label {
@@ -88,9 +90,9 @@ ColumnLayout {
 
                             onClicked:
                             {
-                                var oldPaths = config.rootPath
+                                var oldPaths = ElisaConfigurationDialog.rootPath
                                 oldPaths.splice(delegateItem.DelegateModel.itemsIndex, 1)
-                                config.rootPath = oldPaths
+                                ElisaConfigurationDialog.rootPath = oldPaths
                             }
                         }
                     }
@@ -108,7 +110,7 @@ ColumnLayout {
             clip: true
 
             model: DelegateModel {
-                model: config.rootPath
+                model: ElisaConfigurationDialog.rootPath
 
                 delegate: pathDelegate
             }
@@ -142,9 +144,9 @@ ColumnLayout {
                     visible: false
 
                     onAccepted: {
-                        var oldPaths = config.rootPath
+                        var oldPaths = ElisaConfigurationDialog.rootPath
                         oldPaths.push(fileDialog.fileUrls)
-                        config.rootPath = oldPaths
+                        ElisaConfigurationDialog.rootPath = oldPaths
                     }
                 }
             }

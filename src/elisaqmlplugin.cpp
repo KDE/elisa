@@ -174,7 +174,14 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qRegisterMetaType<TracksListener::TrackDataType>("TracksListener::TrackDataType");
     qRegisterMetaType<ViewManager::IsTreeModelType>("ViewManager::IsTreeModelType");
     qRegisterMetaType<DataTypes::DataType>("DataTypes::DataType");
-    qmlRegisterUncreatableType<ElisaConfigurationDialog>(uri, 1, 0, "ElisaConfigurationDialog", QStringLiteral("only one and done in c++"));
+
+    qmlRegisterSingletonType<ElisaConfigurationDialog>(uri, 1, 0, "ElisaConfigurationDialog",
+                                                       [](QQmlEngine *engine, QJSEngine *scriptEngine) -> QObject* {
+        Q_UNUSED(engine)
+        Q_UNUSED(scriptEngine)
+
+        return new ElisaConfigurationDialog;
+    });
 
     qmlRegisterUncreatableType<ElisaApplication>(uri, 1, 0, "ElisaApplication", QStringLiteral("only one and done in c++"));
     qmlRegisterUncreatableMetaObject(ElisaUtils::staticMetaObject, uri, 1, 0, "ElisaUtils", QStringLiteral("Namespace ElisaUtils"));

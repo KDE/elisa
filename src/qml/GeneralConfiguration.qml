@@ -8,6 +8,8 @@ import QtQuick 2.11
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
 
+import org.kde.elisa 1.0
+
 ColumnLayout {
     spacing: 0
 
@@ -17,18 +19,18 @@ ColumnLayout {
     }
 
     CheckBox {
-        checked: config.showProgressInTaskBar
+        checked: ElisaConfigurationDialog.showProgressInTaskBar
 
         text: i18n("Show progress on Task Manager entries")
 
-        onCheckedChanged: config.showProgressInTaskBar = checked
+        onCheckedChanged: ElisaConfigurationDialog.showProgressInTaskBar = checked
     }
 
     CheckBox {
-        checked: config.showSystemTrayIcon
+        checked: ElisaConfigurationDialog.showSystemTrayIcon
 
         text: i18n("Keep running in System Tray when main window is closed")
 
-        onToggled: config.showSystemTrayIcon = checked
+        onToggled: ElisaConfigurationDialog.showSystemTrayIcon = checked
     }
 }

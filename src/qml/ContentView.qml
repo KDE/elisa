@@ -144,6 +144,12 @@ RowLayout {
         viewsData: viewsData
     }
 
+    ViewsProxyModel {
+        id: pageProxyModel
+
+        sourceModel: pageModel
+    }
+
     ViewsListData {
         id: viewsData
 
@@ -155,7 +161,7 @@ RowLayout {
     ViewSelector {
         id: listViews
 
-        model: pageModel
+        model: pageProxyModel
 
         Layout.fillHeight: true
 

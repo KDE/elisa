@@ -82,10 +82,25 @@ FocusScope {
 
         height: playListEntry.height
     }
+    Loader {
+        active: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
+        visible: active
+        z: 2
+        anchors.fill: parent
+
+        sourceComponent: Rectangle {
+            property int pos: elisa.audioPlayer.position
+
+            anchors.left: parent.left
+            color: myPalette.mid
+            height: playListEntry.height
+            width: playListEntry.width * (pos/elisa.audioPlayer.duration)
+        }
+    }
 
     RowLayout {
         id: trackRow
-        z: 2
+        z: 3
 
         anchors.fill: parent
         anchors.leftMargin: Kirigami.Units.largeSpacing

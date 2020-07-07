@@ -246,10 +246,8 @@ ApplicationWindow {
                 }
             }
 
-            Rectangle {
+            Kirigami.Separator {
                 Layout.fillWidth: true
-                height: 1
-                color: myPalette.mid
             }
 
             ContentView {

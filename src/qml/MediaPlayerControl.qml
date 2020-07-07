@@ -204,7 +204,7 @@ FocusScope {
                     implicitHeight: 18
                     radius: 9
                     color: myPalette.base
-                    border.width: 1
+                    border.width: elisaTheme.hairline
                     border.color: musicProgress.pressed ? myPalette.text : myPalette.dark
 
                 }
@@ -309,7 +309,7 @@ FocusScope {
                     implicitHeight: 18
                     radius: 9
                     color: myPalette.base
-                    border.width: 1
+                    border.width: elisaTheme.hairline
                     border.color: volumeSlider.pressed ? myPalette.text : (muted ? myPalette.mid : myPalette.dark)
                 }
             }

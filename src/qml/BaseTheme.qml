@@ -5,6 +5,7 @@
  */
 
 import QtQuick 2.7
+import org.kde.kirigami 2.0 as Kirigami
 
 Item {
     property string defaultAlbumImage: 'image://icon/media-optical-audio'
@@ -25,6 +26,8 @@ Item {
     property string ratingUnratedIcon: 'image://icon/rating-unrated'
     property string errorIcon: 'image://icon/error'
     property string folderIcon: 'image://icon/document-open-folder'
+
+    property int hairline: Math.floor(Kirigami.Units.devicePixelRatio)
 
     property int playListAlbumArtSize: 60
 

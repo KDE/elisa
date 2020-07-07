@@ -154,16 +154,12 @@ FocusScope {
                     }
 
                     // Horizontal line separating title and subtitle from metadata
-                    Rectangle {
+                    Kirigami.Separator {
                         Layout.fillWidth: true
                         Layout.leftMargin: Kirigami.Units.largeSpacing* 5
                         Layout.rightMargin: Kirigami.Units.largeSpacing * 5
                         Layout.topMargin: Kirigami.Units.largeSpacing
                         Layout.bottomMargin: Kirigami.Units.largeSpacing
-
-                        height: 1
-
-                        color: myPalette.mid
                     }
 
                     // Metadata
@@ -185,16 +181,12 @@ FocusScope {
                     }
 
                     // Horizontal line separating metadata from lyrics
-                    Rectangle {
+                    Kirigami.Separator {
                         Layout.fillWidth: true
                         Layout.leftMargin: Kirigami.Units.largeSpacing * 5
                         Layout.rightMargin: Kirigami.Units.largeSpacing * 5
                         Layout.topMargin: Kirigami.Units.largeSpacing
                         Layout.bottomMargin: Kirigami.Units.largeSpacing
-
-                        height: 1
-
-                        color: myPalette.mid
 
                         visible: metaDataModel.lyrics !== ""
                     }

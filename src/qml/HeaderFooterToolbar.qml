@@ -29,11 +29,9 @@ ColumnLayout {
 
 
     // Separator line above the header
-    Rectangle {
+    Kirigami.Separator {
         visible: type == "footer" && type != "other"
         Layout.fillWidth: true
-        height: 1
-        color: myPalette.mid
     }
 
     // Background rectangle + content layout
@@ -67,10 +65,8 @@ ColumnLayout {
     }
 
     // Separator line under the header
-    Rectangle {
+    Kirigami.Separator {
         visible: type == "header" && type != "other"
         Layout.fillWidth: true
-        height: 1
-        color: myPalette.mid
     }
 }

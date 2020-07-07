@@ -89,12 +89,12 @@ FocusScope {
         anchors.fill: parent
 
         sourceComponent: Rectangle {
-            property int pos: elisa.audioPlayer.position
+            property int pos: ElisaApplication.audioPlayer.position
 
             anchors.left: parent.left
             color: myPalette.mid
             height: playListEntry.height
-            width: playListEntry.width * (pos/elisa.audioPlayer.duration)
+            width: playListEntry.width * (pos/ElisaApplication.audioPlayer.duration)
         }
     }
 

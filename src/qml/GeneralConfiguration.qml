@@ -11,8 +11,6 @@ import org.kde.kirigami 2.8 as Kirigami
 
 import org.kde.elisa 1.0
 
-import org.kde.elisa 1.0
-
 ColumnLayout {
     spacing: Kirigami.Units.smallSpacing
 
@@ -55,42 +53,42 @@ ColumnLayout {
                 i18nc("Configure dialog, embed all genres in views navigation list", "Embed Genres")]
 
             editable: false
-            currentIndex: (config.embeddedView === ElisaUtils.Genre ? 3 : (config.embeddedView === ElisaUtils.Album ? 1 : (config.embeddedView === ElisaUtils.Artist ? 2 : 0)))
+            currentIndex: (ElisaConfigurationDialog.embeddedView === ElisaUtils.Genre ? 3 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Album ? 1 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Artist ? 2 : 0)))
 
             onCurrentIndexChanged: {
                 if (!isFinished) {
                     return
                 }
 
-                config.embeddedView = (currentIndex === 0 ? ElisaUtils.Unknown : (currentIndex === 1 ? ElisaUtils.Album : (currentIndex === 2 ? ElisaUtils.Artist : ElisaUtils.Genre)))
+                ElisaConfigurationDialog.embeddedView = (currentIndex === 0 ? ElisaUtils.Unknown : (currentIndex === 1 ? ElisaUtils.Album : (currentIndex === 2 ? ElisaUtils.Artist : ElisaUtils.Genre)))
             }
         }
 
         Connections {
-            target: config
+            target: ElisaConfigurationDialog
 
             onEmbeddedViewChanged:
             {
-                if (config.embeddedView == ElisaUtils.Unknown) {
+                if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Unknown) {
                     embeddedCategoryCombo.currentIndex = 0
-                } else if (config.embeddedView == ElisaUtils.Album) {
+                } else if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Album) {
                     embeddedCategoryCombo.currentIndex = 1
-                } else if (config.embeddedView == ElisaUtils.Artist) {
+                } else if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Artist) {
                     embeddedCategoryCombo.currentIndex = 2
-                } else if (config.embeddedView == ElisaUtils.Genre) {
+                } else if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Genre) {
                     embeddedCategoryCombo.currentIndex = 3
                 }
             }
         }
 
         Component.onCompleted: {
-            if (config.embeddedView == ElisaUtils.Unknown) {
+            if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Unknown) {
                 embeddedCategoryCombo.currentIndex = 0
-            } else if (config.embeddedView == ElisaUtils.Album) {
+            } else if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Album) {
                 embeddedCategoryCombo.currentIndex = 1
-            } else if (config.embeddedView == ElisaUtils.Artist) {
+            } else if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Artist) {
                 embeddedCategoryCombo.currentIndex = 2
-            } else if (config.embeddedView == ElisaUtils.Genre) {
+            } else if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Genre) {
                 embeddedCategoryCombo.currentIndex = 3
             }
 

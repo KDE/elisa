@@ -147,9 +147,9 @@ RowLayout {
     ViewsListData {
         id: viewsData
 
-        manager: elisa.musicManager
-        database: elisa.musicManager.viewDatabase
-        embeddedCategory: elisa.embeddedView
+        manager: ElisaApplication.musicManager
+        database: ElisaApplication.musicManager.viewDatabase
+        embeddedCategory: ElisaApplication.embeddedView
     }
 
     ViewSelector {

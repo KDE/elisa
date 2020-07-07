@@ -214,9 +214,10 @@ FocusScope {
             contentLayoutSpacing: Kirigami.Units.largeSpacing
             contentItems: [
                 Image {
-                    sourceSize.width: fileNameLabel.height
-                    sourceSize.height: fileNameLabel.height
-
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+                    sourceSize.width: Kirigami.Units.iconSizes.smallMedium
+                    sourceSize.height: Kirigami.Units.iconSizes.smallMedium
                     source: elisaTheme.folderIcon
                 },
                 LabelWithToolTip {

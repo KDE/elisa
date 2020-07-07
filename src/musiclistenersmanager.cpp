@@ -139,7 +139,13 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 }
 
 MusicListenersManager::~MusicListenersManager()
-= default;
+{
+    d->mListenerThread.quit();
+    d->mListenerThread.wait();
+
+    d->mDatabaseThread.quit();
+    d->mDatabaseThread.wait();
+}
 
 DatabaseInterface *MusicListenersManager::viewDatabase() const
 {

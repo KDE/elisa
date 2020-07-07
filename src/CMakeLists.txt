@@ -354,6 +354,9 @@ add_custom_command(TARGET copy2 PRE_BUILD
 
 add_dependencies(elisaqmlplugin copy copy2)
 
+ecm_generate_qmltypes(org.kde.elisa 1.0
+                      DESTINATION <${KDE_INSTALL_QMLDIR}/org/kde/elisa>)
+
 if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisa_SOURCES
         main.cpp

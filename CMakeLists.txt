@@ -34,6 +34,7 @@ include(FeatureSummary)
 include(ECMAddAppIcon)
 include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
+include(ECMGenerateQmlTypes)
 
 if (NOT WIN32)
     find_package(Qt5DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)
@@ -165,6 +166,8 @@ configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt
 ecm_setup_version(${PROJECT_VERSION}
     VARIABLE_PREFIX ELISA
     VERSION_HEADER elisa-version.h)
+
+set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/bin CACHE STRING "" FORCE)
 
 add_subdirectory(src)
 add_subdirectory(icons)

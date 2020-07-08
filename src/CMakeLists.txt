@@ -336,9 +336,9 @@ if (NOT APPLE AND NOT WIN32)
         )
 endif()
 
-install(TARGETS elisaqmlplugin DESTINATION ${KDE_INSTALL_FULL_LIBDIR}/qml/org/kde/elisa/)
+install(TARGETS elisaqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa/)
 
-install(FILES qmldir DESTINATION ${KDE_INSTALL_FULL_LIBDIR}/qml/org/kde/elisa)
+install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa)
 
 add_custom_target(copy)
 add_custom_target(copy2)
@@ -356,7 +356,7 @@ add_custom_command(TARGET copy2 PRE_BUILD
 add_dependencies(elisaqmlplugin copy copy2)
 
 ecm_generate_qmltypes(org.kde.elisa 1.0
-                      DESTINATION ${KDE_INSTALL_FULL_LIBDIR}/qml/org/kde/elisa)
+                      DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa)
 
 if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisa_SOURCES

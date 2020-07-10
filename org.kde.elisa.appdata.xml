@@ -158,6 +158,6 @@ SPDX-License-Identifier: CC0-1.0
     <release version="20.04.0" date="2020-04-23"/>
   </releases>
   <custom>
-     <value key="KDE::windows_store">https://www.microsoft.com/p/elisa/9pb5md7zh8tl</value>
+    <value key="KDE::windows_store">https://www.microsoft.com/p/elisa/9pb5md7zh8tl</value>
   </custom>
 </component>

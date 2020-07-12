@@ -5,6 +5,7 @@
   <project_license>LGPL-3.0</project_license>
   <name>Elisa</name>
   <name xml:lang="ar">إليسّا</name>
+  <name xml:lang="ast">Elisa</name>
   <name xml:lang="ca">Elisa</name>
   <name xml:lang="ca-valencia">Elisa</name>
   <name xml:lang="cs">Elisa</name>
@@ -31,6 +32,7 @@
   <name xml:lang="pt-BR">Elisa</name>
   <name xml:lang="ru">Elisa</name>
   <name xml:lang="sk">Elisa</name>
+  <name xml:lang="sl">Elisa</name>
   <name xml:lang="sv">Elisa</name>
   <name xml:lang="tr">Elisa</name>
   <name xml:lang="uk">Elisa</name>
@@ -38,42 +40,10 @@
   <name xml:lang="zh-CN">Elisa</name>
   <name xml:lang="zh-TW">Elisa</name>
   <summary>Simple Music Player</summary>
-  <summary xml:lang="ar">مشغّل موسيقى بسيط</summary>
-  <summary xml:lang="ca">Reproductor de música senzill</summary>
-  <summary xml:lang="ca-valencia">Reproductor de música senzill</summary>
-  <summary xml:lang="cs">Jednoduchý přehrávač hudby</summary>
-  <summary xml:lang="da">Simpel musikafspiller</summary>
-  <summary xml:lang="de">Einfache Medienwiedergabe</summary>
-  <summary xml:lang="el">Απλή συσκευή αναπαραγωγής μουσικής</summary>
-  <summary xml:lang="en-GB">Simple Music Player</summary>
-  <summary xml:lang="es">Reproductor de música sencillo</summary>
-  <summary xml:lang="et">Lihtne muusikamängija</summary>
-  <summary xml:lang="eu">Musika jotzaile erraza</summary>
-  <summary xml:lang="fi">Yksinkertainen musiikkisoitin</summary>
-  <summary xml:lang="fr">Lecteur de musique simple</summary>
-  <summary xml:lang="gl">Reprodutor de música simple</summary>
-  <summary xml:lang="hu">Egyszerű zenelejátszó</summary>
-  <summary xml:lang="ia">Simple Reproductor de musica</summary>
-  <summary xml:lang="id">Pemutar Musik yang Sederhana</summary>
-  <summary xml:lang="it">Semplice lettore musicale</summary>
-  <summary xml:lang="ko">간편한 음악 재생기</summary>
-  <summary xml:lang="lt">Paprastas muzikos grotuvas</summary>
-  <summary xml:lang="nl">Eenvoudige muziekspeler</summary>
-  <summary xml:lang="nn">Enkel musikkspelar</summary>
-  <summary xml:lang="pl">Prosty odtwarzacz multimediów</summary>
-  <summary xml:lang="pt">Leitor de Música Simples</summary>
-  <summary xml:lang="pt-BR">Reprodutor de músicas simples</summary>
-  <summary xml:lang="ru">Простой музыкальный проигрыватель</summary>
-  <summary xml:lang="sk">Jednoduchý hudobný prehliadač</summary>
-  <summary xml:lang="sv">Enkel musikspelare</summary>
-  <summary xml:lang="tr">Basit Müzik Çalar</summary>
-  <summary xml:lang="uk">Простий музичний програвач</summary>
-  <summary xml:lang="x-test">xxSimple Music Playerxx</summary>
-  <summary xml:lang="zh-CN">简易音乐播放器</summary>
-  <summary xml:lang="zh-TW">簡易音樂播放器</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>
+    <p xml:lang="ast">Elisa ye un reproductor de música que debería ser fácil d'usar. Nun rique nenguna configuración enantes de poder usalu.</p>
     <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="cs">Jednoduchý snadno použitelný přehrávač hudby, Před použitím nevyžaduje jakékoliv nastavovaní.</p>
@@ -100,6 +70,7 @@
     <p xml:lang="pt-BR">Um reprodutor de músicas simples que deve ser fácil de usar. Não requer qualquer configuração antes de usá-lo.</p>
     <p xml:lang="ru">Простой в использовании проигрыватель музыки. Для использования не требуется предварительной настройки.</p>
     <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>
+    <p xml:lang="sl">Preprost predvajalnik glasbe, ki naj bi bil enostaven za uporabo. Pred uporabo ne potrebuje nastavljanja.</p>
     <p xml:lang="sv">En enkel musikspelare som ska vara lättanvänd. Den kräver inga inställningar innan man kan använda den.</p>
     <p xml:lang="tr">Kullanımı kolay basit bir müzik çalar. Kullanmadan önce herhangi bir yapılandırma gerektirmez.</p>
     <p xml:lang="uk">Простий у користуванні музичний програвач. Не потребує налаштовування перед користуванням.</p>
@@ -115,6 +86,7 @@
     <screenshot type="default">
       <caption>The Elisa music player</caption>
       <caption xml:lang="ar">مشغّل الموسيقى إليسّا</caption>
+      <caption xml:lang="ast">El reproductor de música Elisa</caption>
       <caption xml:lang="ca">El reproductor de música Elisa</caption>
       <caption xml:lang="ca-valencia">El reproductor de música Elisa</caption>
       <caption xml:lang="cs">Přehrávač hudby Elisa</caption>
@@ -141,6 +113,7 @@
       <caption xml:lang="pt-BR">O reprodutor de músicas Elisa</caption>
       <caption xml:lang="ru">Музыкальный проигрыватель Elisa</caption>
       <caption xml:lang="sk">Hudobný prehrávač Elisa</caption>
+      <caption xml:lang="sl">Glasbeni predvajalnik Elisa</caption>
       <caption xml:lang="sv">Elisa musikspelare</caption>
       <caption xml:lang="uk">Музичний програвач Elisa</caption>
       <caption xml:lang="x-test">xxThe Elisa music playerxx</caption>

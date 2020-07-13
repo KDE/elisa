@@ -9,7 +9,7 @@
 #include "musicaudiotrack.h"
 #include "databaseinterface.h"
 #include "models/albummodel.h"
-#include "qabstractitemmodeltester.h"
+#include <QAbstractItemModelTester>
 
 #include <QObject>
 #include <QUrl>

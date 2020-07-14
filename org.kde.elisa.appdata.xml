@@ -45,7 +45,25 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="zh-CN">Elisa</name>
   <name xml:lang="zh-TW">Elisa</name>
   <summary>Beautiful no-nonsense music player with online radio support</summary>
+  <summary xml:lang="ca">Reproductor musical espectacular i pràctic que accepta ràdios en línia</summary>
+  <summary xml:lang="en-GB">Beautiful no-nonsense music player with online radio support</summary>
+  <summary xml:lang="es">Reproductor de música bello y práctico con soporte para radios en línea</summary>
+  <summary xml:lang="et">Kaunis mõistliku muusika mängija veebiraadio toetusega</summary>
+  <summary xml:lang="eu">Musika jotzaile eder eta txorakeriarik gabea lerroko irratien euskarria duena</summary>
+  <summary xml:lang="fi">Kaunis konstailematon musiikkisoitin, jossa myös verkkoradioiden tuki</summary>
+  <summary xml:lang="fr">Lecteur de musique élégant et pratique avec la prise en charge de radio en ligne</summary>
+  <summary xml:lang="it">Meraviglioso letture multimediale senza fronzoli con supporto per le radio online</summary>
+  <summary xml:lang="ko">온라인 라디오를 지원하는 아름다운 음악 재생기</summary>
+  <summary xml:lang="lt">Gražus muzikos grotuvas be niekų ir su internetinio radijo palaikymu</summary>
+  <summary xml:lang="nl">Mooie no-nonsense muziekspeler met online ondersteuning van radio</summary>
   <summary xml:lang="nn">Vakker og ukomplisert musikkspelar med støtte for nettradio</summary>
+  <summary xml:lang="pt">Leitor de música bonito e sem inutilidades com suporte para rádios 'online'</summary>
+  <summary xml:lang="pt-BR">Lindo reprodutor de música descomplicado com suporte a rádio online</summary>
+  <summary xml:lang="sk">Nádherný hudobný prehrávač bez nezmyslov s podporou online rádií</summary>
+  <summary xml:lang="sv">Snygg och praktisk musikspelare med stöd för nätradio</summary>
+  <summary xml:lang="uk">Красивий змістовний програвач музичних творів із підтримкою інтернет-радіо</summary>
+  <summary xml:lang="x-test">xxBeautiful no-nonsense music player with online radio supportxx</summary>
+  <summary xml:lang="zh-CN">简约优雅的音乐播放器，支持网络电台。</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>

@@ -10,7 +10,7 @@ import QtQuick.Window 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-
+import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -151,6 +151,13 @@ FocusScope {
                     id: scrollHelper
                     flickable: contentDirectoryView
                     anchors.fill: contentDirectoryView
+                }
+
+                Kirigami.PlaceholderMessage {
+                    anchors.centerIn: parent
+                    width: parent.width - (Kirigami.Units.largeSpacing * 4)
+                    visible: contentDirectoryView.count === 0
+                    text: i18nc("e.g. 'no artists found' or 'no albums found'", "No %1 found", mainTitle)
                 }
 
                 onCountChanged: if (count === 0) {

@@ -11,7 +11,7 @@ import QtQuick.Controls 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
@@ -24,6 +24,11 @@ FocusScope {
     property string artistName: ''
     property url albumArtUrl: ''
     property url fileUrl: ''
+
+    readonly property bool nothingPlaying: albumName.length === 0
+                                        && artistName.length === 0
+                                        && albumArtUrl.toString.length === 0
+                                        && fileUrl.toString.length === 0
 
     TrackContextMetaDataModel {
         id: metaDataModel
@@ -82,6 +87,8 @@ FocusScope {
                 id: albumArtBackground
                 anchors.fill: parent
 
+                visible: !topItem.nothingPlaying
+
                 source: albumArtUrl.toString() === '' ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
 
                 sourceSize.width: topItem.width
@@ -105,6 +112,8 @@ FocusScope {
                 id: scrollView
                 anchors.fill: parent
                 clip: true
+
+                visible: !topItem.nothingPlaying
 
                 contentWidth: content.width
                 contentHeight: content.height
@@ -206,10 +215,19 @@ FocusScope {
                     }
                 }
             }
+
+            // "Nothing Playing" message
+            Kirigami.PlaceholderMessage {
+                anchors.centerIn: parent
+                width: parent.width - (Kirigami.Units.largeSpacing * 4)
+                visible: topItem.nothingPlaying
+                text: i18n("Nothing playing")
+            }
         }
 
         // Footer with file path label
         HeaderFooterToolbar {
+            visible: !topItem.nothingPlaying
             type: "footer"
             contentLayoutSpacing: Kirigami.Units.largeSpacing
             contentItems: [

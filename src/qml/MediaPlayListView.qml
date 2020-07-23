@@ -125,7 +125,7 @@ FocusScope {
 
                     Layout.fillWidth: true
 
-                    text: i18nc("Title of the view of the playlist", "Playlist")
+                    text: i18nc("@info Title of the view of the playlist; keep this string as short as possible because horizontal space is quite scarce", "Playlist")
 
                     level: 1
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter

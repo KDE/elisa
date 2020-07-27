@@ -65,6 +65,7 @@ FocusScope {
             fillMode: Image.PreserveAspectCrop
 
             sourceSize.width: imageSourceSize
+            sourceSize.height: imageSourceSize
 
             opacity: 1
 
@@ -100,6 +101,7 @@ FocusScope {
             fillMode: Image.PreserveAspectCrop
 
             sourceSize.width: imageSourceSize
+            sourceSize.height: imageSourceSize
 
             visible: false
             opacity: 0

@@ -137,8 +137,8 @@ FocusScope {
             // slider. This is done so the slider's own background can be full
             // height yet transparent, for easier clicking
             Rectangle {
-                x: musicProgress.leftPadding
-                y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
+                anchors.left: musicProgress.left
+                anchors.verticalCenter: musicProgress.verticalCenter
                 implicitWidth: seekWheelHandler.width
                 implicitHeight: 6
                 color: myPalette.dark
@@ -180,8 +180,6 @@ FocusScope {
                 // https://bugs.kde.org/show_bug.cgi?id=408703. The actual visual
                 // background is generated above ^^
                 background: Rectangle {
-                    x: musicProgress.leftPadding
-                    y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
                     anchors.fill: parent
                     implicitWidth: seekWheelHandler.width
                     implicitHeight: seekWheelHandler.height
@@ -261,8 +259,8 @@ FocusScope {
             // slider. This is done so the slider's own background can be full
             // height yet transparent, for easier clicking
             Rectangle {
-                x: volumeSlider.leftPadding
-                y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
+                anchors.left: volumeSlider.left
+                anchors.verticalCenter: volumeSlider.verticalCenter
                 implicitWidth: audioWheelHandler.width
                 implicitHeight: 6
                 radius: 3

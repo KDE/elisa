@@ -18,6 +18,14 @@ public:
         : QQuickImageResponse(), mId(std::move(id)), mRequestedSize(requestedSize)
     {
         setAutoDelete(false);
+
+        if (!mRequestedSize.width()) {
+            mRequestedSize.setWidth(mRequestedSize.height());
+        }
+
+        if (!mRequestedSize.height()) {
+            mRequestedSize.setHeight(mRequestedSize.width());
+        }
     }
 
     QQuickTextureFactory *textureFactory() const override
@@ -33,6 +41,10 @@ public:
 
         if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
             mCoverImage = QImage::fromData(imageData[KFileMetaData::EmbeddedImageData::FrontCover]);
+            auto newCoverImage = mCoverImage.scaled(mRequestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            if (!newCoverImage.isNull()) {
+                mCoverImage = std::move(newCoverImage);
+            }
         }
 
         emit finished();

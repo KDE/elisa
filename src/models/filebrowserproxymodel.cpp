@@ -68,7 +68,7 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
         }
 
         auto returnedPath = oneEntry.stringValue(KIO::UDSEntry::UDS_NAME);
-        auto fullPath = QStringLiteral("%0/%1").arg(mCuurentUrl.toString(), returnedPath);
+        auto fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toString(), returnedPath);
         auto fullPathUrl = QUrl { fullPath };
 
         auto mimeType = mMimeDatabase.mimeTypeForUrl(fullPathUrl);
@@ -164,7 +164,7 @@ void FileBrowserProxyModel::recursiveEnqueue()
     auto [rootUrl, isDirectory] = mPendingEntries.front();
     mPendingEntries.pop();
     if (isDirectory) {
-        mCuurentUrl = rootUrl;
+        mCurentUrl = rootUrl;
         mCurrentJob = KIO::listRecursive(rootUrl, { KIO::HideProgressInfo });
 
         connect(mCurrentJob, &KJob::result, this, &FileBrowserProxyModel::listRecursiveResult);

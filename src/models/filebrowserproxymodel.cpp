@@ -173,7 +173,10 @@ void FileBrowserProxyModel::recursiveEnqueue()
                 this, &FileBrowserProxyModel::listRecursiveNewEntries);
     } else {
         if (mPlayList) {
-            mAllData.push_back(DataTypes::EntryData { { { DataTypes::ElementTypeRole, ElisaUtils::FileName } }, rootUrl.toString(), rootUrl });
+            mAllData.push_back(DataTypes::EntryData { { { DataTypes::ElementTypeRole, ElisaUtils::FileName },
+                                                        { DataTypes::ResourceRole, rootUrl}},
+                                                      rootUrl.toString(),
+                                                      rootUrl });
 
             if (mPendingEntries.empty()) {
                 mEnqueueInProgress = false;

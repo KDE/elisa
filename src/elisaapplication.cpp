@@ -215,7 +215,7 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
                 continue;
             }
 
-            realArguments.push_back(DataTypes::EntryData{{}, {}, QUrl(oneArgument)});
+            realArguments.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, QUrl(oneArgument)});
         }
 
         Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory),
@@ -328,10 +328,10 @@ DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const Da
             }
 
             if (newFile.exists()) {
-                filesToOpen.push_back(DataTypes::EntryData{{}, {}, QUrl::fromLocalFile(newFile.canonicalFilePath())});
+                filesToOpen.push_back(DataTypes::EntryData{std::get<0>(oneFile), std::get<1>(oneFile), QUrl::fromLocalFile(newFile.canonicalFilePath())});
             }
         } else {
-            filesToOpen.push_back(DataTypes::EntryData{{}, {}, std::get<2>(oneFile)});
+            filesToOpen.push_back(oneFile);
         }
     }
 

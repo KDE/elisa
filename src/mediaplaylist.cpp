@@ -405,6 +405,7 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
     for (const auto &entryData : entriesData) {
+        qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << std::get<0>(entryData);
         auto trackUrl = std::get<0>(entryData)[DataTypes::ResourceRole].toUrl();
         if (!std::get<0>(entryData).databaseId() && trackUrl.isValid()) {
             auto newEntry = MediaPlayListEntry{trackUrl};

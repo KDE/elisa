@@ -428,6 +428,8 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
         }
 
         if (trackUrl.isValid()) {
+            qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << "new url" << trackUrl
+                                           << std::get<0>(entryData).elementType();
             Q_EMIT newUrlInList(trackUrl, std::get<0>(entryData).elementType());
         } else {
             Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType());

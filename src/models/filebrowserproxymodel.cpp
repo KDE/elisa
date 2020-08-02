@@ -77,7 +77,8 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
             continue;
         }
 
-        mAllData.push_back(DataTypes::EntryData { { { DataTypes::ElementTypeRole, ElisaUtils::FileName } }, fullPath, fullPathUrl });
+        mAllData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+                             {DataTypes::ResourceRole, fullPathUrl}}, fullPath, {}});
     }
 }
 
@@ -96,7 +97,7 @@ void FileBrowserProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
     for (int rowIndex = 0, maxRowCount = rowCount(); rowIndex < maxRowCount; ++rowIndex) {
         auto currentIndex = index(rowIndex, 0, rootIndex);
         mPendingEntries.emplace(currentIndex.data(DataTypes::FilePathRole).toUrl(),
-                               currentIndex.data(DataTypes::ElementTypeRole).value<ElisaUtils::PlayListEntryType>() == ElisaUtils::Container);
+                                currentIndex.data(DataTypes::ElementTypeRole).value<ElisaUtils::PlayListEntryType>() == ElisaUtils::Container);
     }
 
     mEnqueueInProgress = true;
@@ -127,8 +128,8 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
     mPendingEntries = {};
     mAllData.clear();
 
-    mPendingEntries.emplace(newEntry[DataTypes::FilePathRole].toUrl(),
-                           newEntry.elementType() == ElisaUtils::Container);
+    mPendingEntries.emplace(newEntry[DataTypes::ResourceRole].toUrl(),
+            newEntry.elementType() == ElisaUtils::Container);
 
     mEnqueueInProgress = true;
     mEnqueueMode = enqueueMode;
@@ -173,10 +174,10 @@ void FileBrowserProxyModel::recursiveEnqueue()
                 this, &FileBrowserProxyModel::listRecursiveNewEntries);
     } else {
         if (mPlayList) {
-            mAllData.push_back(DataTypes::EntryData { { { DataTypes::ElementTypeRole, ElisaUtils::FileName },
-                                                        { DataTypes::ResourceRole, rootUrl}},
-                                                      rootUrl.toString(),
-                                                      rootUrl });
+            mAllData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+                                 {DataTypes::ResourceRole, rootUrl}},
+                                rootUrl.toString(),
+                                rootUrl});
 
             if (mPendingEntries.empty()) {
                 mEnqueueInProgress = false;

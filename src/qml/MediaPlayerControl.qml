@@ -151,10 +151,10 @@ FocusScope {
 
                 id: musicProgress
 
+                anchors.fill: parent
+
                 from: 0
                 to: musicWidget.duration
-                width: parent.width
-                anchors.centerIn: parent
 
                 enabled: musicWidget.seekable && musicWidget.playEnabled
 
@@ -271,14 +271,13 @@ FocusScope {
             Slider {
                 id: volumeSlider
 
+                anchors.fill: parent
+
                 from: 0
                 to: 100
                 stepSize: 5
 
                 enabled: !muted
-
-                anchors.centerIn: parent
-                width: elisaTheme.volumeSliderWidth
 
                 // This only provides a full-height area for clicking; see
                 // https://bugs.kde.org/show_bug.cgi?id=408703. The actual visual

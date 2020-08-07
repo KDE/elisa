@@ -35,6 +35,14 @@ ColumnLayout {
         onToggled: ElisaConfigurationDialog.showSystemTrayIcon = checked
     }
 
+    CheckBox {
+        checked: ElisaConfigurationDialog.playAtStartup
+
+        text: i18n("Start playing on startup")
+
+        onToggled: ElisaConfigurationDialog.playAtStartup = checked
+    }
+
     RowLayout {
         spacing: Kirigami.Units.smallSpacing
 

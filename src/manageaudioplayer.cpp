@@ -8,6 +8,8 @@
 
 #include "mediaplaylist.h"
 
+#include "elisa_settings.h"
+
 #include <QTimer>
 #include <QDateTime>
 
@@ -570,7 +572,9 @@ void ManageAudioPlayer::restorePreviousState()
     }
 
     auto isPlaying = mPersistentState.find(QStringLiteral("isPlaying"));
-    if (isPlaying != mPersistentState.end() && mPlayingState != isPlaying->toBool()) {
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+    bool autoPlay = currentConfiguration->playAtStartup();
+    if (autoPlay && isPlaying != mPersistentState.end() && mPlayingState != isPlaying->toBool()) {
         mPlayingState = isPlaying->toBool();
     }
 

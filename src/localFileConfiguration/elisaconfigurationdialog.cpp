@@ -76,6 +76,7 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setShowProgressOnTaskBar(mShowProgressInTaskBar);
     Elisa::ElisaConfiguration::setShowSystemTrayIcon(mShowSystemTrayIcon);
     Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(mForceUsageOfFastFileSearch);
+    Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
 
     Elisa::ElisaConfiguration::setEmbeddedView(0);
     switch (mEmbeddedView)
@@ -155,11 +156,24 @@ void ElisaConfigurationDialog::setEmbeddedView(ElisaUtils::PlayListEntryType emb
     setDirty();
 }
 
+void ElisaConfigurationDialog::setPlayAtStartup(bool playAtStartup)
+{
+    if (mPlayAtStartup == playAtStartup) {
+        return;
+    }
+    mPlayAtStartup = playAtStartup;
+    Q_EMIT playAtStartupChanged();
+
+    setDirty();
+}
+
 void ElisaConfigurationDialog::configChanged()
 {
     setRootPath(Elisa::ElisaConfiguration::rootPath());
     setShowProgressInTaskBar(Elisa::ElisaConfiguration::showProgressOnTaskBar());
     setShowSystemTrayIcon(Elisa::ElisaConfiguration::showSystemTrayIcon());
+    setPlayAtStartup(Elisa::ElisaConfiguration::playAtStartup());
+
     switch (Elisa::ElisaConfiguration::embeddedView())
     {
     case 0:

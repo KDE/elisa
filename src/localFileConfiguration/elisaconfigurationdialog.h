@@ -48,6 +48,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                READ isDirty
                NOTIFY isDirtyChanged)
 
+    Q_PROPERTY(bool playAtStartup
+               READ playAtStartup
+               WRITE setPlayAtStartup
+               NOTIFY playAtStartupChanged)
+
 public:
 
     explicit ElisaConfigurationDialog(QObject *parent = nullptr);
@@ -81,6 +86,11 @@ public:
         return mEmbeddedView;
     }
 
+    bool playAtStartup() const
+    {
+        return mPlayAtStartup;
+    }
+
 Q_SIGNALS:
 
     void rootPathChanged(const QStringList &rootPath);
@@ -95,6 +105,8 @@ Q_SIGNALS:
 
     void embeddedViewChanged();
 
+    void playAtStartupChanged();
+
 public Q_SLOTS:
 
     void setRootPath(const QStringList &rootPath);
@@ -108,6 +120,8 @@ public Q_SLOTS:
     void setForceUsageOfFastFileSearch(bool forceUsageOfFastFileSearch);
 
     void setEmbeddedView(ElisaUtils::PlayListEntryType embeddedView);
+
+    void setPlayAtStartup(bool playAtStartup);
 
 private Q_SLOTS:
 
@@ -128,6 +142,8 @@ private:
     bool mShowSystemTrayIcon = false;
 
     bool mForceUsageOfFastFileSearch = true;
+
+    bool mPlayAtStartup = false;
 
     ElisaUtils::PlayListEntryType mEmbeddedView = ElisaUtils::Unknown;
 };

@@ -366,6 +366,12 @@ FocusScope {
         }
     }
 
+    onDurationChanged:
+    {
+        musicProgress.to = musicWidget.duration
+        musicProgress.value = Qt.binding(function() { return musicWidget.position })
+    }
+
     onIsMaximizedChanged:
     {
         if (musicWidget.isMaximized) {

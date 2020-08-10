@@ -89,6 +89,8 @@ QVariantMap ManageAudioPlayer::persistentState() const
     persistentStateValue[QStringLiteral("isPlaying")] = mPlayingState;
 
     persistentStateValue[QStringLiteral("playerPosition")] = mPlayerPosition;
+    persistentStateValue[QStringLiteral("playerDuration")] = mAudioDuration;
+
     if (mCurrentTrack.isValid()) {
         persistentStateValue[QStringLiteral("audioPlayerCurrentTitle")] = mCurrentTrack.data(mTitleRole);
         persistentStateValue[QStringLiteral("audioPlayerCurrentArtistName")] = mCurrentTrack.data(mArtistNameRole);
@@ -580,8 +582,12 @@ void ManageAudioPlayer::restorePreviousState()
 
     auto playerPosition = mPersistentState.find(QStringLiteral("playerPosition"));
     if (playerPosition != mPersistentState.end()) {
-        mPlayerPosition = playerPosition->toLongLong();
+        setPlayerPosition(playerPosition->toLongLong());
         Q_EMIT seek(mPlayerPosition);
+    }
+    auto playerDuration = mPersistentState.find(QStringLiteral("playerDuration"));
+    if (playerDuration != mPersistentState.end()) {
+        setAudioDuration(playerDuration->toInt());
     }
 
     mPersistentState.clear();

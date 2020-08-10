@@ -191,12 +191,12 @@ ApplicationWindow {
 
                 ratingVisible: false
 
-                playerControl.duration: ElisaApplication.audioPlayer.duration
+                playerControl.duration: ElisaApplication.audioControl.audioDuration
                 playerControl.seekable: ElisaApplication.audioPlayer.seekable
 
                 playerControl.volume: persistentSettings.playControlItemVolume
                 playerControl.muted: persistentSettings.playControlItemMuted
-                playerControl.position: ElisaApplication.audioPlayer.position
+                playerControl.position: ElisaApplication.audioControl.playerPosition
                 playerControl.skipBackwardEnabled: ElisaApplication.playerControl.skipBackwardControlEnabled
                 playerControl.skipForwardEnabled: ElisaApplication.playerControl.skipForwardControlEnabled
                 playerControl.playEnabled: ElisaApplication.playerControl.playControlEnabled

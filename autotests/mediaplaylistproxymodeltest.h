@@ -68,6 +68,8 @@ private Q_SLOTS:
 
     void testBringUpAndSkipPreviousCase();
 
+    void testBringUpAndSkipPreviousWithSeekCase();
+
     void testBringUpAndRemoveCase();
 
     void testBringUpAndRemoveLastCase();

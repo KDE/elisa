@@ -133,7 +133,7 @@ void MediaPlayer2Player::Previous()
     emit previous();
 
     if (m_playListControler) {
-        m_playListControler->skipPreviousTrack();
+        m_playListControler->skipPreviousTrack(m_audioPlayer->position());
     }
 }
 

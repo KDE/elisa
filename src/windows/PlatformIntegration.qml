@@ -52,7 +52,7 @@ Item {
 
         ThumbnailToolButton {
             iconSource: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipForwardIcon : elisaTheme.skipBackwardIcon)
-            onClicked: playListModel.skipPreviousTrack()
+            onClicked: playListModel.skipPreviousTrack(player.position)
             enabled: manageMediaPlayerControl.skipBackwardControlEnabled
         }
 

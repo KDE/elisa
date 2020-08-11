@@ -527,9 +527,14 @@ void MediaPlayListProxyModel::skipNextTrack()
     notifyCurrentTrackChanged();
 }
 
-void MediaPlayListProxyModel::skipPreviousTrack()
+void MediaPlayListProxyModel::skipPreviousTrack(qint64 position)
 {
     if (!d->mCurrentTrack.isValid()) {
+        return;
+    }
+
+    if (position > mSeekToBeginningDelay) {
+        emit seek(0);
         return;
     }
 

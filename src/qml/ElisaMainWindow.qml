@@ -209,7 +209,7 @@ ApplicationWindow {
 
                 playerControl.onPlay: ElisaApplication.audioControl.playPause()
                 playerControl.onPause: ElisaApplication.audioControl.playPause()
-                playerControl.onPlayPrevious: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack()
+                playerControl.onPlayPrevious: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position)
                 playerControl.onPlayNext: ElisaApplication.mediaPlayListProxyModel.skipNextTrack()
 
                 playerControl.isMaximized: persistentSettings.headerBarIsMaximized

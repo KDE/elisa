@@ -112,6 +112,9 @@ public:
 
     QVariantMap persistentState() const;
 
+    int mSeekToBeginningDelay = 2000;
+
+
 public Q_SLOTS:
 
     void enqueue(const QUrl &entryUrl,
@@ -135,7 +138,7 @@ public Q_SLOTS:
 
     void skipNextTrack();
 
-    void skipPreviousTrack();
+    void skipPreviousTrack(qint64 position);
 
     void switchTo(int row);
 
@@ -201,6 +204,8 @@ Q_SIGNALS:
     void displayUndoNotification();
 
     void hideUndoNotification();
+
+    void seek(qint64 position);
 
 private Q_SLOTS:
 

@@ -215,7 +215,8 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
                 continue;
             }
 
-            realArguments.push_back(DataTypes::EntryData{{}, {}, QUrl(oneArgument)});
+            realArguments.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                      {DataTypes::ResourceRole, QUrl::fromUserInput(oneArgument)}}, {}, {}});
         }
 
         Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory),
@@ -313,25 +314,28 @@ DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const Da
     auto filesToOpen = DataTypes::EntryDataList{};
 
     for (const auto &oneFile : filesList) {
-        if (std::get<2>(oneFile).scheme().isEmpty() || std::get<2>(oneFile).isLocalFile()) {
-            auto newFile = QFileInfo(std::get<2>(oneFile).toLocalFile());
-            if (std::get<2>(oneFile).scheme().isEmpty()) {
-                newFile = QFileInfo(std::get<2>(oneFile).toString());
+        auto trackUrl = std::get<0>(oneFile)[DataTypes::ResourceRole].toUrl();
+        if (trackUrl.scheme().isEmpty() || trackUrl.isLocalFile()) {
+            auto newFile = QFileInfo(trackUrl.toLocalFile());
+            if (trackUrl.scheme().isEmpty()) {
+                newFile = QFileInfo(trackUrl.toString());
             }
 
             if (newFile.isRelative()) {
-                if (std::get<2>(oneFile).scheme().isEmpty()) {
-                    newFile.setFile(workingDirectory, std::get<2>(oneFile).toString());
+                if (trackUrl.scheme().isEmpty()) {
+                    newFile.setFile(workingDirectory, trackUrl.toString());
                 } else {
-                    newFile.setFile(workingDirectory, std::get<2>(oneFile).toLocalFile());
+                    newFile.setFile(workingDirectory, trackUrl.toLocalFile());
                 }
             }
 
             if (newFile.exists()) {
-                filesToOpen.push_back(DataTypes::EntryData{{}, {}, QUrl::fromLocalFile(newFile.canonicalFilePath())});
+                auto trackData = std::get<0>(oneFile);
+                trackData[DataTypes::ResourceRole] = QUrl::fromLocalFile(newFile.canonicalFilePath());
+                filesToOpen.push_back({trackData, std::get<1>(oneFile), {}});
             }
         } else {
-            filesToOpen.push_back(DataTypes::EntryData{{}, {}, std::get<2>(oneFile)});
+            filesToOpen.push_back(oneFile);
         }
     }
 

@@ -135,7 +135,7 @@ private:
 
     ElisaUtils::PlayListEnqueueTriggerPlay mTriggerPlay;
 
-    QUrl mCuurentUrl;
+    QUrl mCurentUrl;
 
     KIO::Job *mCurrentJob = nullptr;
 

@@ -424,7 +424,7 @@ void MediaPlayListProxyModel::sourceDataChanged(const QModelIndex &topLeft, cons
     auto startSourceRow = topLeft.row();
     auto endSourceRow = bottomRight.row();
     for (int i = startSourceRow; i <= endSourceRow; i++) {
-        Q_EMIT dataChanged(index(mapRowFromSource(i), 0), index(mapRowFromSource(i), 0), roles);       
+        Q_EMIT dataChanged(index(mapRowFromSource(i), 0), index(mapRowFromSource(i), 0), roles);
         if (i == d->mCurrentTrack.row()) {
             Q_EMIT currentTrackDataChanged();
         } else if (i == d->mNextTrack.row()) {
@@ -712,9 +712,11 @@ void MediaPlayListProxyModel::loadPlayListLoaded()
     auto newTracks = DataTypes::EntryDataList{};
     for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}}}, {}, d->mLoadPlaylist.media(i).canonicalUrl()});
+        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+                               {DataTypes::ResourceRole, d->mLoadPlaylist.media(i).request().url()}}}, {}, {}});
 #else
-        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}}}, {}, d->mLoadPlaylist.media(i).request().url()});
+        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+                               {DataTypes::ResourceRole, d->mLoadPlaylist.media(i).request().url()}}}, {}, {}});
 #endif
     }
 

@@ -616,7 +616,8 @@ void MediaPlayListProxyModelTest::enqueueTrackByUrl()
 
     auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
     auto trackData = myDatabaseContent.trackDataFromDatabaseId(newTrackID);
-    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, trackData.resourceURI()}}, {}, {});
+    myPlayListProxyModel.enqueue({{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                  {DataTypes::ResourceRole, trackData.resourceURI()}}, {}, {}, {});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -717,8 +718,10 @@ void MediaPlayListProxyModelTest::enqueueTracksByUrl()
     auto firstTrackData = myDatabaseContent.trackDataFromDatabaseId(firstNewTrackID);
     auto secondNewTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
     auto secondTrackData = myDatabaseContent.trackDataFromDatabaseId(secondNewTrackID);
-    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, firstTrackData.resourceURI()},
-                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, secondTrackData.resourceURI()}}, {}, {});
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::ResourceRole, firstTrackData.resourceURI()}}, {}, {}},
+                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::ResourceRole, secondTrackData.resourceURI()}}, {}, {}}}, {}, {});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6749,8 +6752,10 @@ void MediaPlayListProxyModelTest::enqueueFiles()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, QUrl::fromLocalFile(QStringLiteral("/$1"))},
-                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, QUrl::fromLocalFile(QStringLiteral("/$2"))}}, {}, {});
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::ResourceRole, QUrl::fromLocalFile(QStringLiteral("/$1"))}}, {}, {}},
+                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::ResourceRole, QUrl::fromLocalFile(QStringLiteral("/$2"))}}, {}, {}}}, {}, {});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -6862,8 +6867,11 @@ void MediaPlayListProxyModelTest::enqueueSampleFiles()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 0);
 
-    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"))},
-                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}},
+    myPlayListProxyModel.enqueue({
+                                     {{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::ResourceRole, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"))}}, {}, {}},
+                                     {{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                       {DataTypes::ResourceRole, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}}, {}, {}}},
                                  {}, {});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);

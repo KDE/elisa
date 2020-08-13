@@ -144,7 +144,8 @@ int main(int argc, char *argv[])
     auto realArgumentsList = parser.positionalArguments();
 
     for (const auto &oneArgument : realArgumentsList) {
-        arguments.push_back(DataTypes::EntryData{{}, {}, QUrl(oneArgument)});
+        arguments.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+                                                  {DataTypes::ResourceRole, QUrl::fromUserInput(oneArgument)}}, {}, {}});
     }
 
     int typeId = qmlRegisterSingletonType<ElisaArguments>("org.kde.elisa.host", 1, 0, "ElisaArguments", [](QQmlEngine *qmlEngine, QJSEngine *scriptEngine) -> QObject* {

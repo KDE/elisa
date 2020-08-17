@@ -165,6 +165,7 @@ FocusScope {
             Layout.leftMargin: (!LayoutMirroring.enabled && !portrait && !isMaximized)? contentZone.width * 0.15: 4 * Kirigami.Units.largeSpacing
             Layout.topMargin: isMaximized? 4 * Kirigami.Units.largeSpacing : 0
             Layout.bottomMargin: isMaximized? 4 * Kirigami.Units.largeSpacing : 0
+            Layout.maximumWidth: contentZone.width - 2 * ((!portrait && !isMaximized) ? contentZone.width * 0.15 : 4 * Kirigami.Units.largeSpacing)
 
             Item {
                 id: images
@@ -238,14 +239,14 @@ FocusScope {
                 Layout.fillHeight: true
 
                 Layout.maximumHeight: (headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing) < gridLayoutContent.height ? (headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing): gridLayoutContent.height
-
+                Layout.maximumWidth: gridLayoutContent.width
 
                 LabelWithToolTip {
                     id: mainLabel
                     text: title
-                    Layout.fillWidth: true
                     wrapMode: Text.Wrap
                     Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    Layout.maximumWidth: gridLayoutContent.width
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
                     elide: Text.ElideRight
                     // Hardcoded because the headerbar blur always makes a dark-ish
@@ -269,9 +270,9 @@ FocusScope {
                 LabelWithToolTip {
                     id: authorLabel
                     text: artist
-                    Layout.fillWidth: true
                     wrapMode: Text.Wrap
                     Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    Layout.maximumWidth: gridLayoutContent.width
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
                     elide: Text.ElideRight
                     // Hardcoded because the headerbar blur always makes a dark-ish
@@ -294,9 +295,9 @@ FocusScope {
                 LabelWithToolTip {
                     id: albumLabel
                     text: album
-                    Layout.fillWidth: true
                     wrapMode: Text.Wrap
                     Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    Layout.maximumWidth: gridLayoutContent.width
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
                     elide: Text.ElideRight
                     // Hardcoded because the headerbar blur always makes a dark-ish
@@ -332,6 +333,7 @@ FocusScope {
                     Layout.fillWidth: true
                     Layout.fillHeight:  true
                     Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                    Layout.maximumWidth: gridLayoutContent.width
 
                     sourceComponent: SimplePlayListView {
                         anchors.fill: parent

@@ -711,12 +711,12 @@ void MediaPlayListProxyModel::loadPlayListLoaded()
 
     auto newTracks = DataTypes::EntryDataList{};
     for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
                                {DataTypes::ResourceRole, d->mLoadPlaylist.media(i).request().url()}}}, {}, {}});
 #else
         newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-                               {DataTypes::ResourceRole, d->mLoadPlaylist.media(i).request().url()}}}, {}, {}});
+                               {DataTypes::ResourceRole, d->mLoadPlaylist.media(i).canonicalUrl()}}}, {}, {}});
 #endif
     }
 

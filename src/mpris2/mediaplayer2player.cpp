@@ -386,11 +386,18 @@ void MediaPlayer2Player::setCurrentTrack(int newTrackPosition)
     m_currentTrackId = QDBusObjectPath(QLatin1String("/org/kde/elisa/playlist/") + QString::number(newTrackPosition)).path();
 
     emit currentTrackChanged();
+
+    m_metadata = getMetadataOfCurrentTrack();
+    signalPropertiesChange(QStringLiteral("Metadata"), Metadata());
 }
 
 QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
 {
     auto result = QVariantMap();
+
+    if (m_currentTrackId.isEmpty()) {
+        return {};
+    }
 
     result[QStringLiteral("mpris:trackid")] = QVariant::fromValue<QDBusObjectPath>(QDBusObjectPath(m_currentTrackId));
     result[QStringLiteral("mpris:length")] = qlonglong(m_manageAudioPlayer->audioDuration()) * 1000;

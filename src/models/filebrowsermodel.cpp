@@ -125,12 +125,16 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         KFileItem item = itemForIndex(index);
         if (item.isDir()) {
             result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::FilePathRole, item.url()},
-                                                                  {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::Container}});
+                                                                  {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::Container},
+                                                                  {DataTypes::TitleRole, item.name()},
+                                                                  {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://icon/folder"))}});
         } else {
             if (item.currentMimeType().inherits(QStringLiteral("audio/x-mpegurl"))) {
             } else {
                 result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::ResourceRole, item.url()},
-                                                                      {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::Track}});
+                                                                      {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::Track},
+                                                                      {DataTypes::TitleRole, item.name()},
+                                                                      {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://icon/audio-x-generic"))}});
             }
         }
         break;

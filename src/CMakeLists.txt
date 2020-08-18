@@ -196,7 +196,7 @@ if (KF5Baloo_FOUND)
     endif()
 endif()
 
-kconfig_add_kcfg_files(elisaLib_SOURCES ../src/elisa_settings.kcfgc )
+kconfig_add_kcfg_files(elisaLib_SOURCES ../src/elisa_settings.kcfgc GENERATE_MOC )
 set(elisaLib_SOURCES
     ${elisaLib_SOURCES}
     ../src/elisa_core.kcfg
@@ -481,12 +481,6 @@ endif()
 set(elisaImport_SOURCES
     elisaimport.cpp
     elisaimportapplication.cpp
-    )
-
-kconfig_add_kcfg_files(elisaImport_SOURCES ../src/elisa_settings.kcfgc )
-set(elisaImport_SOURCES
-    ${elisaImport_SOURCES}
-    ../src/elisa_core.kcfg
     )
 
 add_executable(elisaImport ${elisaImport_SOURCES})

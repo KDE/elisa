@@ -78,20 +78,20 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(mForceUsageOfFastFileSearch);
     Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
 
-    Elisa::ElisaConfiguration::setEmbeddedView(0);
+    Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::NoView);
     switch (mEmbeddedView)
     {
     case ElisaUtils::Unknown:
-        Elisa::ElisaConfiguration::setEmbeddedView(0);
+        Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::NoView);
         break;
     case ElisaUtils::Album:
-        Elisa::ElisaConfiguration::setEmbeddedView(1);
+        Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::AllAlbums);
         break;
     case ElisaUtils::Artist:
-        Elisa::ElisaConfiguration::setEmbeddedView(2);
+        Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::AllArtists);
         break;
     case ElisaUtils::Genre:
-        Elisa::ElisaConfiguration::setEmbeddedView(3);
+        Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::AllGenres);
         break;
     case ElisaUtils::Radio:
     case ElisaUtils::Track:
@@ -176,16 +176,16 @@ void ElisaConfigurationDialog::configChanged()
 
     switch (Elisa::ElisaConfiguration::embeddedView())
     {
-    case 0:
+    case Elisa::ElisaConfiguration::EnumEmbeddedView::NoView:
         setEmbeddedView(ElisaUtils::Unknown);
         break;
-    case 1:
+    case Elisa::ElisaConfiguration::EnumEmbeddedView::AllAlbums:
         setEmbeddedView(ElisaUtils::Album);
         break;
-    case 2:
+    case Elisa::ElisaConfiguration::EnumEmbeddedView::AllArtists:
         setEmbeddedView(ElisaUtils::Artist);
         break;
-    case 3:
+    case Elisa::ElisaConfiguration::EnumEmbeddedView::AllGenres:
         setEmbeddedView(ElisaUtils::Genre);
         break;
     }

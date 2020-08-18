@@ -8,6 +8,8 @@
 
 #include "manageaudioplayer.h"
 
+#include "elisa_settings.h"
+
 #include <QtTest>
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -19,6 +21,8 @@ ManageAudioPlayerTest::ManageAudioPlayerTest(QObject *parent) : QObject(parent)
 
 void ManageAudioPlayerTest::initTestCase()
 {
+    QStandardPaths::setTestModeEnabled(true);
+    Elisa::ElisaConfiguration::instance(QStringLiteral("testfoo"));
 }
 
 void ManageAudioPlayerTest::simpleInitialCase()

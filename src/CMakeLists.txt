@@ -377,7 +377,9 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
         qml/ElisaMainWindow.qml
         qml/ApplicationMenu.qml
-        qml/NativeApplicationMenu.qml
+        qml/NativeGlobalMenu.qml
+        qml/NativeTrayMenu.qml
+        qml/NativeMenuItemFromAction.qml
         qml/BaseTheme.qml
         qml/Theme.qml
         qml/PlatformIntegration.qml

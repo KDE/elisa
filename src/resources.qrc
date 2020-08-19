@@ -37,7 +37,9 @@
         <file>qml/ViewSelectorDelegate.qml</file>
         <file>qml/HeaderFooterToolbar.qml</file>
         <file>qml/TracksDiscHeader.qml</file>
-        <file>qml/NativeApplicationMenu.qml</file>
+        <file>qml/NativeMenuItemFromAction.qml</file>
+        <file>qml/NativeTrayMenu.qml</file>
+        <file>qml/NativeGlobalMenu.qml</file>
         <file>qml/ElisaConfigurationDialog.qml</file>
         <file>qml/FileScanningConfiguration.qml</file>
         <file>qml/GeneralConfiguration.qml</file>

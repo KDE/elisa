@@ -42,10 +42,8 @@ Item {
         }
     }
 
-    NativeMenu.MenuBar {
-        NativeApplicationMenu {
-            id: globalMenu
-        }
+    NativeGlobalMenu {
+        id: globalMenu
     }
 
     Mpris2 {
@@ -66,7 +64,7 @@ Item {
         tooltip: mainWindow.title
         visible: available && showSystemTrayIcon && !mainWindow.visible
 
-        menu: NativeApplicationMenu {
+        menu: NativeTrayMenu {
             id: exportedMenu
         }
 

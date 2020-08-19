@@ -27,6 +27,7 @@ void ManageAudioPlayerTest::initTestCase()
 
 void ManageAudioPlayerTest::simpleInitialCase()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -415,6 +416,7 @@ void ManageAudioPlayerTest::simpleInitialCase()
 
 void ManageAudioPlayerTest::noPlayCase()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -657,6 +659,7 @@ void ManageAudioPlayerTest::noPlayCase()
 
 void ManageAudioPlayerTest::skipNextTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -1111,6 +1114,7 @@ void ManageAudioPlayerTest::skipNextTrack()
 
 void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -1565,6 +1569,7 @@ void ManageAudioPlayerTest::skipNextTrackWithRandomPlay()
 
 void ManageAudioPlayerTest::skipPreviousTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -1960,6 +1965,7 @@ void ManageAudioPlayerTest::skipPreviousTrack()
 
 void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -2542,6 +2548,7 @@ void ManageAudioPlayerTest::playTrackAndskipNextTrack()
 
 void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -3124,6 +3131,7 @@ void ManageAudioPlayerTest::playTrackAndskipPreviousTrack()
 
 void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -3687,6 +3695,7 @@ void ManageAudioPlayerTest::skipNextTrackAndPlayTrack()
 
 void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -4250,6 +4259,7 @@ void ManageAudioPlayerTest::skipPreviousTrackAndPlayTrack()
 
 void ManageAudioPlayerTest::playLastCase()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -4719,6 +4729,7 @@ void ManageAudioPlayerTest::playLastCase()
 
 void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -5146,6 +5157,7 @@ void ManageAudioPlayerTest::playSingleAndClearPlayListTrack()
 
 void ManageAudioPlayerTest::playSingleTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -5571,6 +5583,7 @@ void ManageAudioPlayerTest::playSingleTrack()
 
 void ManageAudioPlayerTest::playRestoredTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -5870,6 +5883,8 @@ void ManageAudioPlayerTest::playRestoredTrack()
 
 void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
+    Elisa::ElisaConfiguration::self()->setPlayAtStartup(true);
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -6266,6 +6281,8 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
     QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::LoadedMedia);
 
+    QCOMPARE(playerPlaySpy.wait(), true);
+
     myPlayer.setPlayerStatus(QMediaPlayer::BufferingMedia);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
@@ -6280,7 +6297,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(playerPlaybackStateChangedSpy.count(), 0);
     QCOMPARE(playerErrorChangedSpy.count(), 0);
     QCOMPARE(persistentStateChangedSpy.count(), 1);
-    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerPlaySpy.count(), 1);
     QCOMPARE(playerPauseSpy.count(), 0);
     QCOMPARE(playerStopSpy.count(), 0);
     QCOMPARE(skipNextTrackSpy.count(), 0);
@@ -6290,8 +6307,6 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
     QCOMPARE(myPlayList.data(myPlayList.index(2, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), false);
 
     QCOMPARE(myPlayer.playerStatus(), QMediaPlayer::BufferingMedia);
-
-    QCOMPARE(playerPlaySpy.wait(), true);
 
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(playListModelChangedSpy.count(), 1);
@@ -6442,6 +6457,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlay()
 
 void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -6845,6 +6861,8 @@ void ManageAudioPlayerTest::testRestoreSettingsNoAutomaticPlay()
 
 void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
+    Elisa::ElisaConfiguration::self()->setPlayAtStartup(true);
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -7373,6 +7391,7 @@ void ManageAudioPlayerTest::testRestoreSettingsAutomaticPlayAndPosition()
 
 void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -7876,6 +7895,7 @@ void ManageAudioPlayerTest::playTrackPauseAndSkipNextTrack()
 
 void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 
@@ -8326,6 +8346,8 @@ void ManageAudioPlayerTest::testRestoreSettingsNoPlayWrongTrack()
 
 void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
 {
+    Elisa::ElisaConfiguration::self()->setDefaults();
+    Elisa::ElisaConfiguration::self()->setPlayAtStartup(true);
     ManageAudioPlayer myPlayer;
     QStandardItemModel myPlayList;
 

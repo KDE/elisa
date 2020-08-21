@@ -227,6 +227,11 @@ void ViewManager::openArtistView(const QString &artist)
     }
 }
 
+void ViewManager::openNowPlaying()
+{
+    openView(0);
+}
+
 void ViewManager::viewIsLoaded()
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::viewIsLoaded" << d->mViewParametersStack.size()

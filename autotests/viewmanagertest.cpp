@@ -845,6 +845,61 @@ private Q_SLOTS:
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
     }
+
+    void openNowPlayingViewTest()
+    {
+        ViewManager viewManager;
+        ViewsListData viewsData;
+        viewManager.setViewsData(&viewsData);
+
+        QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
+        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
+        QSignalSpy switchContextViewSpy(&viewManager, &ViewManager::switchContextView);
+        QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
+
+        viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("album1")},
+                                   {DataTypes::ArtistRole, QStringLiteral("artist1")},
+                                   {DataTypes::DatabaseIdRole, 12},
+                                   {DataTypes::ElementTypeRole, ElisaUtils::Album}});
+
+        QCOMPARE(openGridViewSpy.count(), 1);
+        QCOMPARE(switchContextViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
+        QCOMPARE(openGridViewSpy.at(0).count(), 1);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewConfigurationData*>()->filterType(), ElisaUtils::NoFilter);
+        QCOMPARE(openGridViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataType(), ElisaUtils::Album);
+
+        viewManager.viewIsLoaded();
+
+        QCOMPARE(openGridViewSpy.count(), 1);
+        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(switchContextViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
+        QCOMPARE(openListViewSpy.at(0).count(), 1);
+        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
+        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
+
+        viewManager.viewIsLoaded();
+
+        QCOMPARE(openGridViewSpy.count(), 1);
+        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(switchContextViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
+        viewManager.openNowPlaying();
+        QCOMPARE(openGridViewSpy.count(), 1);
+        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(switchContextViewSpy.count(), 1);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+    }
 };
 
 QTEST_GUILESS_MAIN(ViewManagerTests)

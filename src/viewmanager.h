@@ -128,6 +128,8 @@ public Q_SLOTS:
 
     void openArtistView(const QString &artist);
 
+    void openNowPlaying();
+
     void viewIsLoaded();
 
     void goBack();

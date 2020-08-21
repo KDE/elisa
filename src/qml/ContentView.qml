@@ -33,7 +33,7 @@ RowLayout {
     }
 
     function openNowPlaying() {
-        viewManager.closeAllViews();
+        viewManager.openNowPlaying();
     }
 
     ViewManager {

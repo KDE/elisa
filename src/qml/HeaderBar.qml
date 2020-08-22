@@ -167,6 +167,20 @@ FocusScope {
             Layout.bottomMargin: isMaximized? 4 * Kirigami.Units.largeSpacing : 0
             Layout.maximumWidth: contentZone.width - 2 * ((!portrait && !isMaximized) ? contentZone.width * 0.15 : 4 * Kirigami.Units.largeSpacing)
 
+            Behavior on Layout.topMargin {
+                NumberAnimation {
+                    easing.type: Easing.InOutQuad
+                    duration: Kirigami.Units.shortDuration
+                }
+            }
+
+            Behavior on Layout.leftMargin {
+                NumberAnimation {
+                    easing.type: Easing.InOutQuad
+                    duration: Kirigami.Units.shortDuration
+                }
+            }
+
             Item {
                 id: images
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter

@@ -146,6 +146,7 @@ FocusScope {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: playControlItem.top
+        anchors.leftMargin: Kirigami.Units.smallSpacing
 
         spacing: 0
 
@@ -357,18 +358,43 @@ FocusScope {
                 }
             }
         }
+    }
+
     LabelWithToolTip {
         id: remainingTracksLabel
 
-        text: tracksCount > 0 ? i18np("1 track remaining", "%1 tracks remaining", tracksCount) : i18n("No remaining tracks")
+        // Not inside a layout because we don't want it to cause items to
+        // get re-arranged when it changes visibility
+        anchors.left: parent.left
+        anchors.bottom: playControlItem.top
+        anchors.margins: Kirigami.Units.smallSpacing
 
+        opacity: tracksCount >= 0 ? 1.0 : 0.0
+        visible: opacity > 0
+
+        text: {
+            if (tracksCount < 0) {
+                return text;
+            }
+
+            if (tracksCount > 0) {
+                return i18np("1 track remaining", "%1 tracks remaining", tracksCount)
+            }
+
+            return i18n("No remaining tracks");
+        }
         elide: Text.ElideRight
-        visible: tracksCount >= 0
+
         // Hardcoded because the headerbar blur always makes a dark-ish
         // background, so we don't want to use a color scheme color that
         // might also be dark
         color: "white"
-    }
+
+        Behavior on opacity {
+            OpacityAnimator {
+                duration: Kirigami.Units.shortDuration
+            }
+        }
     }
 
     SequentialAnimation {

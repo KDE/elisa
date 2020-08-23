@@ -22,7 +22,7 @@ FocusScope {
     property string image
     property string newImage
     property string oldImage
-    property string tracksCount
+    property int tracksCount
     property int trackRating
     property int albumID
     property bool ratingVisible

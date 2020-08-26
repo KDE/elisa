@@ -118,100 +118,115 @@ FocusScope {
                 contentWidth: content.width
                 contentHeight: content.height
 
-                // Title + metadata + lyrics
-                ColumnLayout {
-                    id: content
-
+                // This Item holds only the content layout so we can center the
+                // ColumnLayout within it to provide appropriate margins. We
+                // can't do this if the ColumnLayout is directly inside the
+                // ScrollView
+                Item {
                     width: scrollView.width - scrollView.ScrollBar.vertical.width
 
-                    // Song title
-                    LabelWithToolTip {
-                        id: titleLabel
-
-                        level: 1
-
-                        horizontalAlignment: Label.AlignHCenter
-
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignTop
-
-                        Layout.topMargin: elisaTheme.layoutVerticalMargin
-                    }
-
-                    LabelWithToolTip {
-                        id: subtitleLabel
-
-                        text: {
-                            if (artistName !== '' && albumName !== '') {
-                                return i18nc("display of artist and album in context view", "<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>", artistName, albumName)
-                            } else if (artistName === '' && albumName !== '') {
-                                return i18nc("display of album in context view", "<i>from</i> <b>%1</b>", albumName)
-                            } else if (artistName !== '' && albumName === '') {
-                                i18nc("display of artist in context view", "<i>by</i> <b>%1</b>", artistName)
-                            }
-                        }
-
-                        level: 3
-                        opacity: 0.6
-
-                        horizontalAlignment: Label.AlignHCenter
-
-                        visible: artistName !== '' && albumName !== ''
-
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignTop
-                    }
-
-                    // Horizontal line separating title and subtitle from metadata
-                    Kirigami.Separator {
-                        Layout.fillWidth: true
-                        Layout.leftMargin: Kirigami.Units.largeSpacing* 5
-                        Layout.rightMargin: Kirigami.Units.largeSpacing * 5
-                        Layout.topMargin: Kirigami.Units.largeSpacing
-                        Layout.bottomMargin: Kirigami.Units.largeSpacing
-                    }
-
-                    // Metadata
+                    // Layout holding the Title + metadata + lyrics labels
                     ColumnLayout {
-                        id: allMetaData
+                        id: content
 
-                        spacing: 0
-                        Layout.fillWidth: true
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.leftMargin: Kirigami.Units.largeSpacing * 2
+                        anchors.right: parent.right
+                        anchors.rightMargin: Kirigami.Units.largeSpacing * 2
+                        // No bottom anchors so it can grow
 
-                        Repeater {
-                            id: trackData
+                        // Song title
+                        LabelWithToolTip {
+                            id: titleLabel
 
-                            model: metaDataModel
+                            level: 1
 
-                            delegate: MetaDataDelegate {
-                                Layout.fillWidth: true
+                            horizontalAlignment: Label.AlignHCenter
+
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignTop
+
+                            Layout.topMargin: elisaTheme.layoutVerticalMargin
+                        }
+
+                        LabelWithToolTip {
+                            id: subtitleLabel
+
+                            text: {
+                                if (artistName !== '' && albumName !== '') {
+                                    return i18nc("display of artist and album in context view", "<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>", artistName, albumName)
+                                } else if (artistName === '' && albumName !== '') {
+                                    return i18nc("display of album in context view", "<i>from</i> <b>%1</b>", albumName)
+                                } else if (artistName !== '' && albumName === '') {
+                                    i18nc("display of artist in context view", "<i>by</i> <b>%1</b>", artistName)
+                                }
+                            }
+
+                            level: 3
+                            opacity: 0.6
+
+                            horizontalAlignment: Label.AlignHCenter
+
+                            visible: artistName !== '' && albumName !== ''
+
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignTop
+                        }
+
+                        // Horizontal line separating title and subtitle from metadata
+                        Kirigami.Separator {
+                            Layout.fillWidth: true
+                            Layout.leftMargin: Kirigami.Units.largeSpacing* 5
+                            Layout.rightMargin: Kirigami.Units.largeSpacing * 5
+                            Layout.topMargin: Kirigami.Units.largeSpacing
+                            Layout.bottomMargin: Kirigami.Units.largeSpacing
+                        }
+
+                        // Metadata
+                        ColumnLayout {
+                            id: allMetaData
+
+                            spacing: 0
+                            Layout.fillWidth: true
+                            //Layout.leftMargin:Kirigami.Units.largeSpacing
+                            //Layout.rightMargin:Kirigami.Units.largeSpacing
+
+                            Repeater {
+                                id: trackData
+
+                                model: metaDataModel
+
+                                delegate: MetaDataDelegate {
+                                    Layout.fillWidth: true
+                                }
                             }
                         }
-                    }
 
-                    // Horizontal line separating metadata from lyrics
-                    Kirigami.Separator {
-                        Layout.fillWidth: true
-                        Layout.leftMargin: Kirigami.Units.largeSpacing * 5
-                        Layout.rightMargin: Kirigami.Units.largeSpacing * 5
-                        Layout.topMargin: Kirigami.Units.largeSpacing
-                        Layout.bottomMargin: Kirigami.Units.largeSpacing
+                        // Horizontal line separating metadata from lyrics
+                        Kirigami.Separator {
+                            Layout.fillWidth: true
+                            Layout.leftMargin: Kirigami.Units.largeSpacing * 5
+                            Layout.rightMargin: Kirigami.Units.largeSpacing * 5
+                            Layout.topMargin: Kirigami.Units.largeSpacing
+                            Layout.bottomMargin: Kirigami.Units.largeSpacing
 
-                        visible: metaDataModel.lyrics !== ""
-                    }
+                            visible: metaDataModel.lyrics !== ""
+                        }
 
-                    // Lyrics
-                    Label {
-                        text: metaDataModel.lyrics
+                        // Lyrics
+                        Label {
+                            text: metaDataModel.lyrics
 
-                        wrapMode: Text.WordWrap
+                            wrapMode: Text.WordWrap
 
-                        horizontalAlignment: Label.AlignHCenter
+                            horizontalAlignment: Label.AlignHCenter
 
-                        Layout.fillWidth: true
-                        Layout.bottomMargin: Kirigami.Units.smallSpacing
-                        visible: metaDataModel.lyrics !== ""
+                            Layout.fillWidth: true
+                            Layout.bottomMargin: Kirigami.Units.smallSpacing
+                            visible: metaDataModel.lyrics !== ""
 
+                        }
                     }
                 }
             }

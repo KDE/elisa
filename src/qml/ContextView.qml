@@ -148,6 +148,8 @@ FocusScope {
                             Layout.alignment: Qt.AlignTop
 
                             Layout.topMargin: elisaTheme.layoutVerticalMargin
+
+                            wrapMode: Text.Wrap
                         }
 
                         LabelWithToolTip {
@@ -172,6 +174,8 @@ FocusScope {
 
                             Layout.fillWidth: true
                             Layout.alignment: Qt.AlignTop
+
+                            wrapMode: Text.Wrap
                         }
 
                         // Horizontal line separating title and subtitle from metadata

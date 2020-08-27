@@ -58,6 +58,8 @@ FocusScope {
         anchors.fill: parent
         spacing: 0
 
+        Item { implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2) }
+
         FlatButtonWithToolTip {
             id: minimizeMaximizeButton
             text: i18nc("toggle between maximized and minimized ivre", "Toggle Maximize")
@@ -357,6 +359,8 @@ FocusScope {
             icon.name: "application-menu"
             onClicked: openMenu()
         }
+
+        Item { implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2) }
     }
 
     onPositionChanged:

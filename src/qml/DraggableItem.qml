@@ -208,7 +208,7 @@ FocusScope {
             }
         },
         State {
-            when: topDropAreaLoader.item.containsDrag
+            when: topDropAreaLoader.item && topDropAreaLoader.item.containsDrag
             name: "droppingAbove"
             PropertyChanges {
                 target: topPlaceholder

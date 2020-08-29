@@ -104,7 +104,7 @@ FocusScope {
     Connections {
         target: ElisaApplication
 
-        onInitializationDone: {
+        function onInitializationDone() {
             viewModeView.currentIndex = 3
         }
     }

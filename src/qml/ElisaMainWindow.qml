@@ -103,7 +103,7 @@ ApplicationWindow {
 
     Connections {
         target: headerBar.playerControl
-        onOpenMenu: {
+        function onOpenMenu() {
             if (applicationMenu.visible) {
                 applicationMenu.close()
             } else {
@@ -114,8 +114,7 @@ ApplicationWindow {
 
     Connections {
         target: Qt.application
-        onAboutToQuit:
-        {
+        function onAboutToQuit() {
             persistentSettings.x = mainWindow.x;
             persistentSettings.y = mainWindow.y;
             persistentSettings.width = mainWindow.width;
@@ -149,7 +148,7 @@ ApplicationWindow {
             showSystemTrayIcon: ElisaApplication.showSystemTrayIcon
             elisaMainWindow: mainWindow
 
-            onRaisePlayer: {
+            function onRaisePlayer() {
                 mainWindow.visible = true
                 mainWindow.raise()
                 mainWindow.requestActivate()
@@ -160,8 +159,12 @@ ApplicationWindow {
 
     Connections {
         target: ElisaApplication.audioPlayer
-        onVolumeChanged: headerBar.playerControl.volume = ElisaApplication.audioPlayer.volume
-        onMutedChanged: headerBar.playerControl.muted = ElisaApplication.audioPlayer.muted
+        function onVolumeChanged() {
+            headerBar.playerControl.volume = ElisaApplication.audioPlayer.volume
+        }
+        function onMutedChanged() {
+            headerBar.playerControl.muted = ElisaApplication.audioPlayer.muted
+        }
     }
 
     Rectangle {

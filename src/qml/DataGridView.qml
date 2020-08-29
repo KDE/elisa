@@ -105,7 +105,9 @@ FocusScope {
     Connections {
         target: ElisaApplication
 
-        onMusicManagerChanged: initializeModel()
+        function onMusicManagerChanged() {
+            initializeModel()
+        }
     }
 
     Component.onCompleted: {

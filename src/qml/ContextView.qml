@@ -276,7 +276,7 @@ FocusScope {
     Connections {
         target: ElisaApplication
 
-        onMusicManagerChanged: {
+        function onMusicManagerChanged() {
             metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
         }
     }

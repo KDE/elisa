@@ -69,21 +69,23 @@ FocusScope {
 
     Connections {
         target: ElisaApplication.mediaPlayListProxyModel
-        onPlayListLoadFailed: {
+        function onPlayListLoadFailed() {
             showPlayListNotification(i18nc("Message when playlist load failed", "Loading failed"), Kirigami.MessageType.Error, retryLoadAction)
         }
     }
 
     Connections {
          target: ElisaApplication.mediaPlayListProxyModel
-         onDisplayUndoNotification: {
+         function onDisplayUndoNotification() {
              showPlayListNotification(i18nc("Playlist cleared", "Playlist cleared"), Kirigami.MessageType.Information, undoAction)
          }
     }
 
     Connections {
          target: ElisaApplication.mediaPlayListProxyModel
-         onHideUndoNotification: hideNotification()
+         function onHideUndoNotification() {
+            hideNotification()
+         }
     }
 
     id: topItem

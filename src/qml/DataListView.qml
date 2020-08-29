@@ -234,13 +234,15 @@ FocusScope {
     Connections {
         target: ElisaApplication
 
-        onMusicManagerChanged: initializeModel()
+        function onMusicManagerChanged() {
+            initializeModel()
+        }
     }
 
     Connections {
         target: listView.navigationBar
 
-        onCreateRadio: {
+        function onCreateRadio() {
             openCreateRadioView()
         }
     }

@@ -26,7 +26,7 @@ Item {
     Connections {
         target: elisaMainWindow
 
-        onClosing: {
+        function onClosing() {
             if (systemTrayIcon.available && showSystemTrayIcon && !forceCloseWindow) {
                 close.accepted = false
                 elisaMainWindow.hide()
@@ -37,7 +37,7 @@ Item {
     Connections {
         target: ElisaApplication
 
-        onCommitDataRequest: {
+        function onCommitDataRequest() {
             forceCloseWindow = true
         }
     }

@@ -52,11 +52,9 @@ ColumnLayout {
             id: contentLayout
 
             anchors {
-                left: parent.left
+                fill: parent
                 leftMargin: Kirigami.Units.largeSpacing
-                right: parent.right
                 rightMargin: Kirigami.Units.largeSpacing
-                verticalCenter: parent.verticalCenter
             }
             spacing: 0
 

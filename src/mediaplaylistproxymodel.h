@@ -114,6 +114,8 @@ public:
 
     int mSeekToBeginningDelay = 2000;
 
+    Q_INVOKABLE int findTrack(const QString &searchTerm, int start = 0) const;
+
 
 public Q_SLOTS:
 

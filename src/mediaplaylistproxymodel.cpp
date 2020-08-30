@@ -746,6 +746,40 @@ QVariantMap MediaPlayListProxyModel::persistentState() const
     return currentState;
 }
 
+int MediaPlayListProxyModel::findTrack(const QString &searchTerm, int start) const
+{
+    if (start >= rowCount()) {
+        return -1;
+    }
+
+    auto find = [=](int begin, int end){
+        for (int i = begin; i < end; ++i) {
+            auto idx = index(i, 0);
+            if (data(idx, MediaPlayList::TitleRole).toString().contains(searchTerm, Qt::CaseInsensitive)
+                    || data(idx, MediaPlayList::AlbumRole).toString().contains(searchTerm, Qt::CaseInsensitive)
+                    || data(idx, MediaPlayList::AlbumArtistRole).toString().contains(searchTerm, Qt::CaseInsensitive)
+                    || data(idx, MediaPlayList::ArtistRole).toString().contains(searchTerm, Qt::CaseInsensitive)) {
+                return idx.row();
+            }
+        }
+
+        return -1;
+    };
+    // Search normally
+    auto idx = find(start, rowCount());
+    if (idx >= 0) {
+        return idx;
+    }
+
+    // Wrap the search
+    idx = find(0, start);
+    if (idx >= 0) {
+        return idx;
+    }
+
+    return -1;
+}
+
 void MediaPlayListProxyModel::setPersistentState(const QVariantMap &persistentStateValue)
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayListProxyModel::setPersistentState" << persistentStateValue;

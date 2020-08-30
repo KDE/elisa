@@ -145,33 +145,70 @@ FocusScope {
                     }
                 },
                 FlatButtonWithToolTip {
-                    id: savePlaylistButton
-                    text: i18nc("Save a playlist file", "Save Playlist...")
-                    icon.name: 'document-save'
+                    id: findTrackToggle
                     enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
-                    onClicked: {
-                        fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
-                        fileDialog.file = ''
-                        fileDialog.open()
-                    }
-                },
-                FlatButtonWithToolTip {
-                    id: loadPlaylistButton
-                    text: i18nc("Load a playlist file", "Load Playlist...")
-                    icon.name: 'document-open'
-                    onClicked: {
-                        fileDialog.fileMode = PlatformDialog.FileDialog.OpenFile
-                        fileDialog.file = ''
-                        fileDialog.open()
-                    }
-                },
-                FlatButtonWithToolTip {
-                    text: i18nc("Remove all tracks from play list", "Clear Playlist")
-                    icon.name: 'edit-clear-all'
-                    enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
-                    onClicked: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
+                    text: i18nc("Show a text field to find a track in the playlist", "Find a track")
+                    icon.name: 'search'
+                    checkable: true
                 }
             ]
+        }
+
+        HeaderFooterToolbar {
+            type: "header"
+            id: filterRow
+
+            visible: opacity > 0
+            opacity: 0.0
+
+            contentItems: [
+                Kirigami.SearchField {
+                    id: filterTextInput
+
+                    Layout.fillWidth: true
+                    focusSequence: ""
+
+                    selectByMouse: true
+
+                    Accessible.role: Accessible.EditableText
+
+                    placeholderText: i18n("Find a track")
+
+                    onAccepted: {
+                        var foundAt = playListView.playListModel.findTrack(text, playListView.currentIndex+1);
+                        if (foundAt >= 0) {
+                            playListView.positionViewAtIndex(foundAt, ListView.Beginning);
+                            playListView.currentIndex = foundAt;
+                        }
+                    }
+
+                    onVisibleChanged: {
+                        if (visible) {
+                            forceActiveFocus();
+                        }
+                    }
+                }
+            ]
+
+            states: [
+                State {
+                    when: findTrackToggle.checked
+
+                    PropertyChanges {
+                        target: filterRow
+                        opacity: 1.0
+                    }
+                }
+            ]
+
+            transitions: Transition {
+                from: ""
+
+                NumberAnimation {
+                    properties: "opacity"
+                    duration: Kirigami.Units.longDuration
+                }
+            }
         }
 
         Item {
@@ -248,6 +285,36 @@ FocusScope {
 
                     text: i18np("1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0))
                     elide: Text.ElideLeft
+                },
+                FlatButtonWithToolTip {
+                    id: savePlaylistButton
+                    Layout.fillHeight: true
+                    text: i18nc("Save a playlist file", "Save Playlist...")
+                    icon.name: 'document-save'
+                    enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
+                    onClicked: {
+                        fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
+                        fileDialog.file = ''
+                        fileDialog.open()
+                    }
+                },
+                FlatButtonWithToolTip {
+                    id: loadPlaylistButton
+                    Layout.fillHeight: true
+                    text: i18nc("Load a playlist file", "Load Playlist...")
+                    icon.name: 'document-open'
+                    onClicked: {
+                        fileDialog.fileMode = PlatformDialog.FileDialog.OpenFile
+                        fileDialog.file = ''
+                        fileDialog.open()
+                    }
+                },
+                FlatButtonWithToolTip {
+                    Layout.fillHeight: true
+                    text: i18nc("Remove all tracks from play list", "Clear Playlist")
+                    icon.name: 'edit-clear-all'
+                    enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
+                    onClicked: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
                 }
             ]
         }

@@ -11,10 +11,7 @@ import QtQuick.Layouts 1.2
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
-ColumnLayout {
-    spacing: 0
-    Layout.fillWidth: true
-
+Rectangle {
     // Is this a header or a footer? Acceptable values are
     // "header" (separator drawn on bottom)
     // "footer" (separator drawn on top)
@@ -24,49 +21,37 @@ ColumnLayout {
     // A list of items to be shown within the header or footer
     property alias contentItems: contentLayout.children
 
-    // Spacing of content items. Defaults to 0
+    // Spacing of content items. Defaults to Kirigami.Units.smallSpacing
     property alias contentLayoutSpacing: contentLayout.spacing
 
+    implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
+
+    color: myPalette.window
 
     // Separator line above the header
     Kirigami.Separator {
         visible: type == "footer" && type != "other"
-        Layout.fillWidth: true
+        width: parent.width
+        anchors.top: parent.top
     }
 
-    // Background rectangle + content layout
-    Rectangle {
-        id: headerBackground
+    // Content layout
+    RowLayout {
+        id: contentLayout
 
-        color: myPalette.window
+        anchors.fill: parent
+        anchors.leftMargin: Kirigami.Units.smallSpacing
+        anchors.rightMargin: Kirigami.Units.smallSpacing
 
-        Layout.fillWidth: true
-        height: type == "footer" ?
-            elisaTheme.footerToolbarHeight :
-            elisaTheme.headerToolbarHeight
+        spacing: Kirigami.Units.smallSpacing
 
-
-
-        // Content layout
-        RowLayout {
-            id: contentLayout
-
-            anchors {
-                left: parent.left
-                leftMargin: Kirigami.Units.largeSpacing
-                right: parent.right
-                rightMargin: Kirigami.Units.largeSpacing
-                verticalCenter: parent.verticalCenter
-            }
-            spacing: 0
-
-            // Items provided by the contentItems property will go here
-        }
+        // Items provided by the contentItems property will go here
     }
 
     // Separator line under the header
     Kirigami.Separator {
         visible: type == "header" && type != "other"
-        Layout.fillWidth: true
+        width: parent.width
+        anchors.bottom: parent.bottom
     }
 }

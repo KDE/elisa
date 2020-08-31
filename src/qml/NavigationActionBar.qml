@@ -41,6 +41,7 @@ ColumnLayout {
 
     HeaderFooterToolbar {
         type: filterRow.visible? "other" : "header"
+        Layout.fillWidth: true
         contentItems: [
 
             FlatButtonWithToolTip {
@@ -149,8 +150,9 @@ ColumnLayout {
     }
 
     HeaderFooterToolbar {
-        type: "header"
         id: filterRow
+        type: "header"
+        Layout.fillWidth: true
 
         visible: opacity > 0.0
 

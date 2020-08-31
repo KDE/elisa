@@ -43,6 +43,7 @@ FocusScope {
 
         // Header with title
         HeaderFooterToolbar {
+            Layout.fillWidth: true
             type: "header"
             contentItems: [
                 Image {
@@ -248,6 +249,8 @@ FocusScope {
         HeaderFooterToolbar {
             visible: !topItem.nothingPlaying
             type: "footer"
+            Layout.fillWidth: true
+            Layout.preferredHeight: Kirigami.Units.gridUnit * 2
             contentLayoutSpacing: Kirigami.Units.largeSpacing
             contentItems: [
                 Image {

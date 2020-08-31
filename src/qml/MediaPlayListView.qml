@@ -118,6 +118,7 @@ FocusScope {
 
         // Header with title and toolbar buttons
         HeaderFooterToolbar {
+            Layout.fillWidth: true
             type: "header"
             contentItems: [
 
@@ -240,6 +241,8 @@ FocusScope {
         // Footer with number of tracks label
         HeaderFooterToolbar {
             type: "footer"
+            Layout.fillWidth: true
+            Layout.preferredHeight: Kirigami.Units.gridUnit * 2
             contentItems: [
                 LabelWithToolTip {
                     id: trackCountLabel

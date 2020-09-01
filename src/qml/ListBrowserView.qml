@@ -157,7 +157,7 @@ FocusScope {
                     anchors.centerIn: parent
                     width: parent.width - (Kirigami.Units.largeSpacing * 4)
                     visible: contentDirectoryView.count === 0
-                    text: i18nc("e.g. 'no artists found' or 'no albums found'", "No %1 found", mainTitle)
+                    text: i18n("Nothing to display")
                 }
 
                 onCountChanged: if (count === 0) {

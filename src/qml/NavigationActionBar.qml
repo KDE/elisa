@@ -40,7 +40,8 @@ ColumnLayout {
     signal sort(var order);
 
     HeaderFooterToolbar {
-        type: filterRow.visible? "other" : "header"
+        toolbarType: filterRow.visible ? HeaderFooterToolbar.ToolbarType.Other
+                                       : HeaderFooterToolbar.ToolbarType.Header
         Layout.fillWidth: true
         contentItems: [
 
@@ -151,7 +152,7 @@ ColumnLayout {
 
     HeaderFooterToolbar {
         id: filterRow
-        type: "header"
+        toolbarType: HeaderFooterToolbar.ToolbarType.Header
         Layout.fillWidth: true
 
         visible: opacity > 0.0

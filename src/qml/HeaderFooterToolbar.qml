@@ -12,11 +12,14 @@ import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 Rectangle {
-    // Is this a header or a footer? Acceptable values are
-    // "header" (separator drawn on bottom)
-    // "footer" (separator drawn on top)
-    // "other" (no separator drawn)
-    property string type
+    enum ToolbarType {
+        Header, // separator drawn on bottom
+        Footer, // separator drawn on top
+        Other   // no separator drawn; used for stacking toolbars
+    }
+
+    // The type of toolbar it is
+    property int toolbarType: HeaderFooterToolbar.ToolbarType.Header
 
     // A list of items to be shown within the header or footer
     property alias contentItems: contentLayout.children
@@ -28,9 +31,9 @@ Rectangle {
 
     color: myPalette.window
 
-    // Separator line above the header
+    // Top separator line for a footer
     Kirigami.Separator {
-        visible: type == "footer" && type != "other"
+        visible: toolbarType == HeaderFooterToolbar.ToolbarType.Footer
         width: parent.width
         anchors.top: parent.top
     }
@@ -48,9 +51,9 @@ Rectangle {
         // Items provided by the contentItems property will go here
     }
 
-    // Separator line under the header
+    // Bottom separator line for a header
     Kirigami.Separator {
-        visible: type == "header" && type != "other"
+        visible: toolbarType == HeaderFooterToolbar.ToolbarType.Header
         width: parent.width
         anchors.bottom: parent.bottom
     }

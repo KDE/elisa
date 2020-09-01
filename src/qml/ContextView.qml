@@ -44,7 +44,7 @@ FocusScope {
         // Header with title
         HeaderFooterToolbar {
             Layout.fillWidth: true
-            type: "header"
+            toolbarType: HeaderFooterToolbar.ToolbarType.Header
             contentItems: [
                 Image {
                     id: mainIcon
@@ -248,7 +248,7 @@ FocusScope {
         // Footer with file path label
         HeaderFooterToolbar {
             visible: !topItem.nothingPlaying
-            type: "footer"
+            toolbarType: HeaderFooterToolbar.ToolbarType.Footer
             Layout.fillWidth: true
             Layout.preferredHeight: Kirigami.Units.gridUnit * 2
             contentLayoutSpacing: Kirigami.Units.largeSpacing

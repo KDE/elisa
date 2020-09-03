@@ -136,17 +136,25 @@ FocusScope {
                         id: content
 
                         anchors.top: parent.top
+                        anchors.topMargin: Kirigami.Units.largeSpacing
                         anchors.left: parent.left
                         anchors.leftMargin: Kirigami.Units.largeSpacing * 2
                         anchors.right: parent.right
                         anchors.rightMargin: Kirigami.Units.largeSpacing * 2
                         // No bottom anchors so it can grow
 
-                        // Song title
-                        RowLayout {
-                            Layout.fillWidth: false
+                        // Grid layout to hold the song, artist, and album names
+                        // This is so we can vertically align the icons
+                        GridLayout {
+                            id: gridlayout
+                            Layout.minimumWidth: Kirigami.Units.gridUnit * 12
                             Layout.alignment: Qt.AlignHCenter
-                            Layout.maximumWidth: parent.width
+
+                            columns: 2
+
+                            // Row 1: Song stuff
+                            // -----------------
+                            // Column 1: Song icon
                             Image {
                                 source: "image://icon/view-media-track"
                                 Layout.preferredWidth: sourceSize.width
@@ -156,27 +164,22 @@ FocusScope {
                                     height: Kirigami.Units.iconSizes.smallMedium
                                 }
                             }
+                            // Column 2: Song title
                             LabelWithToolTip {
                                 id: titleLabel
+                                Layout.maximumWidth: gridlayout.width
+                                Layout.alignment: Qt.AlignLeft
 
                                 level: 1
 
-                                horizontalAlignment: Label.AlignHCenter
-
-                                Layout.fillWidth: true
-                                Layout.alignment: Qt.AlignTop
-
-                                Layout.topMargin: elisaTheme.layoutVerticalMargin
-
+                                elide: Text.ElideNone
                                 wrapMode: Text.Wrap
+                                horizontalAlignment: Text.AlignLeft
                             }
-                        }
 
-                        RowLayout {
-                            visible: artistName !== ''
-                            Layout.fillWidth: false
-                            Layout.alignment: Qt.AlignHCenter
-                            Layout.maximumWidth: parent.width
+                            // Row 2: Artist stuff
+                            // -----------------
+                            // Column 1: Artist icon
                             Image {
                                 source: "image://icon/view-media-artist"
                                 visible: artistName !== ''
@@ -187,13 +190,16 @@ FocusScope {
                                     height: Kirigami.Units.iconSizes.smallMedium
                                 }
                             }
+                            // Column 2: Artist name
                             Kirigami.LinkButton {
+                                Layout.maximumWidth: gridlayout.width
+                                Layout.alignment: Qt.AlignLeft
                                 text: artistName !== '' ? artistName : ""
                                 opacity: 0.6
                                 visible: artistName !== ''
-                                Layout.fillWidth: true
                                 elide: Text.ElideNone
                                 wrapMode: Text.Wrap
+                                horizontalAlignment: Text.AlignLeft
                                 font.pointSize: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.20)
                                 font.bold: true
                                 color: Kirigami.Theme.textColor
@@ -201,12 +207,10 @@ FocusScope {
                                     openArtist();
                                 }
                             }
-                        }
-                        RowLayout {
-                            visible: albumName !== ''
-                            Layout.fillWidth: false
-                            Layout.alignment: Qt.AlignHCenter
-                            Layout.maximumWidth: parent.width
+
+                            // Row 3: Album stuff
+                            // -----------------
+                            // Column 1: Album icon
                             Image {
                                 source: "image://icon/view-media-album-cover"
                                 visible: albumName !== ''
@@ -217,13 +221,16 @@ FocusScope {
                                     height: Kirigami.Units.iconSizes.smallMedium
                                 }
                             }
+                            // Column 2: Album name
                             Kirigami.LinkButton {
+                                Layout.maximumWidth: gridlayout.width
+                                Layout.alignment: Qt.AlignLeft
                                 text: albumName !== '' ? albumName : ""
                                 opacity: 0.6
                                 visible: albumName !== ''
-                                Layout.fillWidth: true
-                                wrapMode: Text.Wrap
                                 elide: Text.ElideNone
+                                wrapMode: Text.Wrap
+                                horizontalAlignment: Text.AlignLeft
                                 font.pointSize: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.20)
                                 font.bold: true
                                 color: Kirigami.Theme.textColor

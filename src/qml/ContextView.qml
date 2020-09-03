@@ -121,7 +121,6 @@ FocusScope {
 
                 visible: !topItem.nothingPlaying
 
-                contentWidth: content.width
                 contentHeight: content.height
 
                 // This Item holds only the content layout so we can center the

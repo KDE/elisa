@@ -337,6 +337,10 @@ RowLayout {
             albumName: ElisaApplication.manageHeaderBar.album
             albumArtUrl: ElisaApplication.manageHeaderBar.image
             fileUrl: ElisaApplication.manageHeaderBar.fileUrl
+            albumId: ElisaApplication.manageHeaderBar.albumId
+            albumArtist: (ElisaApplication.manageHeaderBar.albumArtist !== undefined ? ElisaApplication.manageHeaderBar.albumArtist : '')
+            onOpenArtist: { contentViewContainer.openArtist(artistName) }
+            onOpenAlbum: { contentViewContainer.openAlbum(albumName, albumArtist, albumArtUrl, albumId) }
         }
     }
 }

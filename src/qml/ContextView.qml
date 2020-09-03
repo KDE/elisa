@@ -24,6 +24,11 @@ FocusScope {
     property string artistName: ''
     property url albumArtUrl: ''
     property url fileUrl: ''
+    property int albumId
+    property string albumArtist: ''
+
+    signal openArtist()
+    signal openAlbum()
 
     readonly property bool nothingPlaying: albumName.length === 0
                                         && artistName.length === 0
@@ -138,53 +143,102 @@ FocusScope {
                         // No bottom anchors so it can grow
 
                         // Song title
-                        LabelWithToolTip {
-                            id: titleLabel
-
-                            level: 1
-
-                            horizontalAlignment: Label.AlignHCenter
-
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignTop
-
-                            Layout.topMargin: elisaTheme.layoutVerticalMargin
-
-                            wrapMode: Text.Wrap
-                        }
-
-                        LabelWithToolTip {
-                            id: subtitleLabel
-
-                            text: {
-                                if (artistName !== '' && albumName !== '') {
-                                    return i18nc("display of artist and album in context view", "<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>", artistName, albumName)
-                                } else if (artistName === '' && albumName !== '') {
-                                    return i18nc("display of album in context view", "<i>from</i> <b>%1</b>", albumName)
-                                } else if (artistName !== '' && albumName === '') {
-                                    i18nc("display of artist in context view", "<i>by</i> <b>%1</b>", artistName)
+                        RowLayout {
+                            Layout.fillWidth: false
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.maximumWidth: parent.width
+                            Image {
+                                source: "image://icon/view-media-track"
+                                Layout.preferredWidth: sourceSize.width
+                                Layout.preferredHeight: sourceSize.height
+                                sourceSize {
+                                    width: Kirigami.Units.iconSizes.smallMedium
+                                    height: Kirigami.Units.iconSizes.smallMedium
                                 }
                             }
+                            LabelWithToolTip {
+                                id: titleLabel
 
-                            level: 3
-                            opacity: 0.6
+                                level: 1
 
-                            horizontalAlignment: Label.AlignHCenter
+                                horizontalAlignment: Label.AlignHCenter
 
-                            visible: artistName !== '' && albumName !== ''
+                                Layout.fillWidth: true
+                                Layout.alignment: Qt.AlignTop
 
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignTop
+                                Layout.topMargin: elisaTheme.layoutVerticalMargin
 
-                            wrapMode: Text.Wrap
+                                wrapMode: Text.Wrap
+                            }
+                        }
+
+                        RowLayout {
+                            visible: artistName !== ''
+                            Layout.fillWidth: false
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.maximumWidth: parent.width
+                            Image {
+                                source: "image://icon/view-media-artist"
+                                visible: artistName !== ''
+                                Layout.preferredWidth: sourceSize.width
+                                Layout.preferredHeight: sourceSize.height
+                                sourceSize {
+                                    width: Kirigami.Units.iconSizes.smallMedium
+                                    height: Kirigami.Units.iconSizes.smallMedium
+                                }
+                            }
+                            Kirigami.LinkButton {
+                                text: artistName !== '' ? artistName : ""
+                                opacity: 0.6
+                                visible: artistName !== ''
+                                Layout.fillWidth: true
+                                elide: Text.ElideNone
+                                wrapMode: Text.Wrap
+                                font.pointSize: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.20)
+                                font.bold: true
+                                color: Kirigami.Theme.textColor
+                                onClicked: {
+                                    openArtist();
+                                }
+                            }
+                        }
+                        RowLayout {
+                            visible: albumName !== ''
+                            Layout.fillWidth: false
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.maximumWidth: parent.width
+                            Image {
+                                source: "image://icon/view-media-album-cover"
+                                visible: albumName !== ''
+                                Layout.preferredWidth: sourceSize.width
+                                Layout.preferredHeight: sourceSize.height
+                                sourceSize {
+                                    width: Kirigami.Units.iconSizes.smallMedium
+                                    height: Kirigami.Units.iconSizes.smallMedium
+                                }
+                            }
+                            Kirigami.LinkButton {
+                                text: albumName !== '' ? albumName : ""
+                                opacity: 0.6
+                                visible: albumName !== ''
+                                Layout.fillWidth: true
+                                wrapMode: Text.Wrap
+                                elide: Text.ElideNone
+                                font.pointSize: Math.round(Kirigami.Theme.defaultFont.pointSize * 1.20)
+                                font.bold: true
+                                color: Kirigami.Theme.textColor
+                                onClicked: {
+                                    openAlbum();
+                                }
+                            }
                         }
 
                         // Horizontal line separating title and subtitle from metadata
                         Kirigami.Separator {
                             Layout.fillWidth: true
                             Layout.leftMargin: Kirigami.Units.largeSpacing* 5
-                            Layout.rightMargin: Kirigami.Units.largeSpacing * 5
                             Layout.topMargin: Kirigami.Units.largeSpacing
+                            Layout.rightMargin: Kirigami.Units.largeSpacing * 5
                             Layout.bottomMargin: Kirigami.Units.largeSpacing
                         }
 

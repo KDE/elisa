@@ -29,7 +29,6 @@ FocusScope {
     property alias sortRoleNames: listView.sortRoleNames
     property alias sortOrderNames: listView.sortOrderNames
     property alias sortOrder: listView.sortOrder
-    property var sortAscending
     property bool displaySingleAlbum: false
     property alias radioCase: listView.showCreateRadioButton
     property bool modelIsInitialized: false

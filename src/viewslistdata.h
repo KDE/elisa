@@ -56,6 +56,8 @@ public:
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
+                   int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                    QUrl fallbackItemIcon,
                    ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
                    ViewManager::ViewCanBeRated viewCanBeRated,
@@ -70,6 +72,11 @@ public:
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
         , mIsTreeModel(isTreeModel)
+        , mSortRole(sortRole)
+        , mSortRoles(std::move(sortRoles))
+        , mSortRoleNames(std::move(sortRoleNames))
+        , mSortOrder(sortOrder)
+        , mSortOrderNames(std::move(sortOrderNames))
         , mIsValid(true)
     {
     }
@@ -106,8 +113,8 @@ public:
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
-                   int sortRole,
-                   Qt::SortOrder sortOrder,
+                   int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle,
                    ViewManager::RadioSpecificStyle radioSpecificStyle,
@@ -120,7 +127,10 @@ public:
         , mDataType(dataType)
         , mIsTreeModel(isTreeModel)
         , mSortRole(sortRole)
+        , mSortRoles(std::move(sortRoles))
+        , mSortRoleNames(std::move(sortRoleNames))
         , mSortOrder(sortOrder)
+        , mSortOrderNames(std::move(sortOrderNames))
         , mAlbumCardinality(albumCardinality)
         , mAlbumViewStyle(albumViewStyle)
         , mRadioSpecificStyle(radioSpecificStyle)
@@ -146,7 +156,7 @@ public:
         , mFilterType(filterType)
         , mDataType(dataType)
         , mEntryType(entryType)
-        , mFallbackItemIcon(fallbackItemIcon)
+        , mFallbackItemIcon(std::move(fallbackItemIcon))
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
         , mIsValid(true)
@@ -162,8 +172,8 @@ public:
                    qulonglong databaseId,
                    ElisaUtils::PlayListEntryType dataType,
                    ElisaUtils::PlayListEntryType entryType,
-                   int sortRole,
-                   Qt::SortOrder sortOrder,
+                   int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle,
                    ViewManager::RadioSpecificStyle radioSpecificStyle,
@@ -176,7 +186,10 @@ public:
         , mDataType(dataType)
         , mEntryType(entryType)
         , mSortRole(sortRole)
+        , mSortRoles(std::move(sortRoles))
+        , mSortRoleNames(std::move(sortRoleNames))
         , mSortOrder(sortOrder)
+        , mSortOrderNames(std::move(sortOrderNames))
         , mAlbumCardinality(albumCardinality)
         , mAlbumViewStyle(albumViewStyle)
         , mRadioSpecificStyle(radioSpecificStyle)
@@ -192,7 +205,8 @@ public:
                 mModelType == other.mModelType && mFilterType == other.mFilterType &&
                 mDataType == other.mDataType && mIsTreeModel == other.mIsTreeModel && mFallbackItemIcon == other.mFallbackItemIcon &&
                 mShowSecondaryTextOnDelegates == other.mShowSecondaryTextOnDelegates && mViewCanBeRated == other.mViewCanBeRated &&
-                mSortRole == other.mSortRole && mSortOrder == other.mSortOrder &&
+                mSortRole == other.mSortRole && mSortRoles == other.mSortRoles && mSortRoleNames == other.mSortRoleNames &&
+                mSortOrder == other.mSortOrder && mSortOrderNames == other.mSortOrderNames &&
                 mAlbumCardinality == other.mAlbumCardinality && mAlbumViewStyle == other.mAlbumViewStyle &&
                 mRadioSpecificStyle == other.mRadioSpecificStyle && mDepth == other.mDepth &&
                 mDataFilter == other.mDataFilter;
@@ -204,7 +218,8 @@ public:
                 mModelType != other.mModelType || mFilterType != other.mFilterType ||
                 mDataType != other.mDataType || mIsTreeModel != other.mIsTreeModel || mFallbackItemIcon != other.mFallbackItemIcon ||
                 mShowSecondaryTextOnDelegates != other.mShowSecondaryTextOnDelegates || mViewCanBeRated != other.mViewCanBeRated ||
-                mSortRole != other.mSortRole || mSortOrder != other.mSortOrder ||
+                mSortRole != other.mSortRole || mSortRoles != other.mSortRoles || mSortRoleNames != other.mSortRoleNames ||
+                mSortOrder != other.mSortOrder || mSortOrderNames != other.mSortOrderNames ||
                 mAlbumCardinality != other.mAlbumCardinality || mAlbumViewStyle != other.mAlbumViewStyle ||
                 mRadioSpecificStyle != other.mRadioSpecificStyle || mDepth != other.mDepth ||
                 mDataFilter != other.mDataFilter;
@@ -236,7 +251,13 @@ public:
 
     int mSortRole = Qt::DisplayRole;
 
+    QVector<int> mSortRoles = {Qt::DisplayRole};
+
+    QList<QString> mSortRoleNames = {QString{}};
+
     Qt::SortOrder mSortOrder = Qt::AscendingOrder;
+
+    QList<QString> mSortOrderNames = {QStringLiteral("A-Z"), QStringLiteral("Z-A")};
 
     ViewManager::AlbumCardinality mAlbumCardinality = ViewManager::MultipleAlbum;
 

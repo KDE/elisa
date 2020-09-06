@@ -18,6 +18,8 @@ public:
                                  QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
                                  QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
                                  QUrl viewDefaultIcon, DataTypes::DataType dataFilter,
+                                 int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
+                                 Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                                  ViewManager::ViewCanBeRated viewShowRating,
                                  ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
                                  ViewManager::IsTreeModelType isTreeModel)
@@ -34,6 +36,11 @@ public:
         , mViewShowRating(viewShowRating)
         , mViewDelegateDisplaySecondaryText(viewDelegateDisplaySecondaryText)
         , mIsTreeModel(isTreeModel)
+        , mSortRole(sortRole)
+        , mSortRoles(std::move(sortRoles))
+        , mSortRoleNames(std::move(sortRoleNames))
+        , mSortOrder(sortOrder)
+        , mSortOrderNames(std::move(sortOrderNames))
     {
     }
 
@@ -41,7 +48,9 @@ public:
                                  QString mainTitle, QString secondaryTitle,
                                  QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
                                  QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
-                                 DataTypes::DataType dataFilter, int sortRole, Qt::SortOrder sortOrder,
+                                 DataTypes::DataType dataFilter,
+                                 int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
+                                 Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                                  ViewManager::AlbumCardinality displaySingleAlbum,
                                  ViewManager::AlbumViewStyle showDiscHeaders,
                                  ViewManager::RadioSpecificStyle radioCase,
@@ -57,7 +66,10 @@ public:
         , mDataFilter(std::move(dataFilter))
         , mIsTreeModel(isTreeModel)
         , mSortRole(sortRole)
+        , mSortRoles(std::move(sortRoles))
+        , mSortRoleNames(std::move(sortRoleNames))
         , mSortOrder(sortOrder)
+        , mSortOrderNames(std::move(sortOrderNames))
         , mDisplaySingleAlbum(displaySingleAlbum)
         , mShowDiscHeaders(showDiscHeaders)
         , mRadioCase(radioCase)
@@ -92,7 +104,13 @@ public:
 
     int mSortRole;
 
+    QVector<int> mSortRoles;
+
+    QList<QString> mSortRoleNames;
+
     Qt::SortOrder mSortOrder;
+
+    QList<QString> mSortOrderNames;
 
     ViewManager::AlbumCardinality mDisplaySingleAlbum;
 
@@ -112,6 +130,8 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                              QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
                                              QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
                                              QUrl viewDefaultIcon, DataTypes::DataType dataFilter,
+                                             int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
+                                             Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                                              ViewManager::ViewCanBeRated viewShowRating,
                                              ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
                                              ViewManager::IsTreeModelType isTreeModel, QObject *parent)
@@ -120,6 +140,8 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                                        std::move(secondaryTitle), std::move(imageUrl),
                                                        dataType, model, associatedProxyModel,
                                                        std::move(viewDefaultIcon), std::move(dataFilter),
+                                                       sortRole, std::move(sortRoles), std::move(sortRoleNames),
+                                                       sortOrder, std::move(sortOrderNames),
                                                        viewShowRating,viewDelegateDisplaySecondaryText,
                                                        isTreeModel))
 {
@@ -129,7 +151,9 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                              QString mainTitle, QString secondaryTitle,
                                              QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
                                              QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
-                                             DataTypes::DataType dataFilter, int sortRole, Qt::SortOrder sortOrder,
+                                             DataTypes::DataType dataFilter,
+                                             int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
+                                             Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                                              ViewManager::AlbumCardinality displaySingleAlbum,
                                              ViewManager::AlbumViewStyle showDiscHeaders,
                                              ViewManager::RadioSpecificStyle radioCase,
@@ -138,7 +162,8 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
     , d(std::make_unique<ViewConfigurationDataPrivate>(filterType, expectedDepth, std::move(mainTitle),
                                                        std::move(secondaryTitle), std::move(imageUrl),
                                                        dataType, model, associatedProxyModel, std::move(dataFilter),
-                                                       sortRole, sortOrder, displaySingleAlbum, showDiscHeaders,
+                                                       sortRole, std::move(sortRoles), std::move(sortRoleNames),
+                                                       sortOrder, std::move(sortOrderNames), displaySingleAlbum, showDiscHeaders,
                                                        radioCase, isTreeModel))
 {
 }
@@ -213,9 +238,24 @@ int ViewConfigurationData::sortRole() const
     return d->mSortRole;
 }
 
+QVector<int> ViewConfigurationData::sortRoles() const
+{
+    return d->mSortRoles;
+}
+
+QList<QString> ViewConfigurationData::sortRoleNames() const
+{
+    return d->mSortRoleNames;
+}
+
 Qt::SortOrder ViewConfigurationData::sortOrder() const
 {
     return d->mSortOrder;
+}
+
+QList<QString> ViewConfigurationData::sortOrderNames() const
+{
+    return d->mSortOrderNames;
 }
 
 ViewManager::AlbumCardinality ViewConfigurationData::displaySingleAlbum() const

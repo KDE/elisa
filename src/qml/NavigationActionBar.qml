@@ -30,9 +30,9 @@ ColumnLayout {
     property bool expandedFilterView
     property bool enableSorting: true
     property alias sortRole: sortMenu.sortRole
-    property var sortOrder
     property alias sortRoles: sortMenu.sortRoles
     property alias sortRoleNames: sortMenu.sortRoleNames
+    property alias sortOrder: sortMenu.sortOrder
     property alias sortOrderNames: sortMenu.sortOrderNames
 
     signal enqueue();
@@ -145,8 +145,6 @@ ColumnLayout {
 
                 SortMenu {
                     id: sortMenu
-
-                    onSortOrderChanged: navigationBar.sortOrder = sortOrder
                 }
             },
             FlatButtonWithToolTip {

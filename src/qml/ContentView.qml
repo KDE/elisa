@@ -66,11 +66,11 @@ RowLayout {
                                      isSubPage: (browseStackView.depth >= 2),
                                      haveTreeModel: configurationData.isTreeModel,
                                      stackView: configurationData.browseStackView,
-                                     sortRole: Qt.DisplayRole,
-                                     sortRoles: [Qt.DisplayRole],
-                                     sortRoleNames: [''],
-                                     sortOrderNames: ['A-Z', 'Z-A'],
-                                     sortOrder: Qt.AscendingOrder,
+                                     sortRole: configurationData.sortRole,
+                                     sortRoles: configurationData.sortRoles,
+                                     sortRoleNames: configurationData.sortRoleNames,
+                                     sortOrder: configurationData.sortOrder,
+                                     sortOrderNames: configurationData.sortOrderNames,
                                      opacity: 1,
                                  }, StackView.Immediate)
         }
@@ -101,11 +101,11 @@ RowLayout {
                                      showSection: configurationData.showDiscHeaders,
                                      radioCase: configurationData.radioCase,
                                      haveTreeModel: configurationData.isTreeModel,
-                                     sortRole: Qt.DisplayRole,
-                                     sortRoles: [Qt.DisplayRole],
-                                     sortRoleNames: [''],
-                                     sortOrderNames: ['A-Z', 'Z-A'],
-                                     sortOrder: Qt.AscendingOrder,
+                                     sortRole: configurationData.sortRole,
+                                     sortRoles: configurationData.sortRoles,
+                                     sortRoleNames: configurationData.sortRoleNames,
+                                     sortOrder: configurationData.sortOrder,
+                                     sortOrderNames: configurationData.sortOrderNames,
                                      opacity: 1,
                                  }, StackView.Immediate)
         }

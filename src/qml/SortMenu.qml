@@ -38,18 +38,18 @@ Menu {
     Repeater {
         id: rolesRepeater
 
-        model: sortRoleNames.length > 1 ? sortRoleNames : []
+        model: sortRoleNames.length > 1 ? sortRoleNames.length : 0
 
         delegate: MenuItem {
-            text: modelData
+            text: sortMenu.sortRoleNames[index]
 
             checkable: true
 
-            checked: sortRoles[index] === sortMenu.sortRole
+            checked: sortMenu.sortRoles[index] === sortMenu.sortRole
 
             onToggled: {
-                sortMenu.sortRole = sortRoles[index]
-                checked = (sortRoles[index] === sortMenu.sortRole)
+                sortMenu.sortRole = sortMenu.sortRoles[index]
+                checked = (sortMenu.sortRoles[index] === sortMenu.sortRole)
             }
 
             ButtonGroup.group: rolesButtonGroup

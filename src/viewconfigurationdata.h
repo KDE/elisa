@@ -83,8 +83,20 @@ class ELISALIB_EXPORT ViewConfigurationData : public QObject
                READ sortRole
                CONSTANT)
 
+    Q_PROPERTY(QVector<int> sortRoles
+               READ sortRoles
+               CONSTANT)
+
+    Q_PROPERTY(QList<QString> sortRoleNames
+               READ sortRoleNames
+               CONSTANT)
+
     Q_PROPERTY(Qt::SortOrder sortOrder
                READ sortOrder
+               CONSTANT)
+
+    Q_PROPERTY(QList<QString> sortOrderNames
+               READ sortOrderNames
                CONSTANT)
 
     Q_PROPERTY(ViewManager::AlbumCardinality displaySingleAlbum
@@ -106,15 +118,20 @@ public:
                                    QString mainTitle, QString secondaryTitle, QUrl imageUrl,
                                    ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
                                    QAbstractProxyModel *associatedProxyModel, QUrl viewDefaultIcon,
-                                   DataTypes::DataType dataFilter, ViewManager::ViewCanBeRated viewShowRating,
+                                   DataTypes::DataType dataFilter,
+                                   int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
+                                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                                   ViewManager::ViewCanBeRated viewShowRating,
                                    ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
                                    ViewManager::IsTreeModelType isTreeModel, QObject *parent = nullptr);
 
     explicit ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                    QString mainTitle, QString secondaryTitle,
                                    QUrl imageUrl, ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
-                                   QAbstractProxyModel *associatedProxyModel, DataTypes::DataType dataFilter, int sortRole,
-                                   Qt::SortOrder sortOrder, ViewManager::AlbumCardinality displaySingleAlbum,
+                                   QAbstractProxyModel *associatedProxyModel, DataTypes::DataType dataFilter,
+                                   int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
+                                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                                   ViewManager::AlbumCardinality displaySingleAlbum,
                                    ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase,
                                    ViewManager::IsTreeModelType isTreeModel, QObject *parent = nullptr);
 
@@ -148,7 +165,13 @@ public:
 
     int sortRole() const;
 
+    QVector<int> sortRoles() const;
+
+    QList<QString> sortRoleNames() const;
+
     Qt::SortOrder sortOrder() const;
+
+    QList<QString> sortOrderNames() const;
 
     ViewManager::AlbumCardinality displaySingleAlbum() const;
 

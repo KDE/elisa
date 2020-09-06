@@ -24,7 +24,11 @@ FocusScope {
     property var modelType
     property AbstractItemModel realModel
     property AbstractProxyModel proxyModel
-    property int sortRole
+    property alias sortRole: listView.sortRole
+    property alias sortRoles: listView.sortRoles
+    property alias sortRoleNames: listView.sortRoleNames
+    property alias sortOrderNames: listView.sortOrderNames
+    property alias sortOrder: listView.sortOrder
     property var sortAscending
     property bool displaySingleAlbum: false
     property alias radioCase: listView.showCreateRadioButton
@@ -84,7 +88,7 @@ FocusScope {
         listView.contentModel = proxyModel
 
         if (!displaySingleAlbum) {
-            proxyModel.sortModel(sortAscending)
+            proxyModel.sortModel(sortOrder)
         }
 
         realModel.initializeByData(ElisaApplication.musicManager, ElisaApplication.musicManager.viewDatabase,

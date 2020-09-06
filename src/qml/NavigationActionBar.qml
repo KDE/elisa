@@ -29,15 +29,17 @@ ColumnLayout {
     property bool enableGoBack: true
     property bool expandedFilterView
     property bool enableSorting: true
-    property bool sortOrder
-
+    property alias sortRole: sortMenu.sortRole
+    property var sortOrder
+    property alias sortRoles: sortMenu.sortRoles
+    property alias sortRoleNames: sortMenu.sortRoleNames
+    property alias sortOrderNames: sortMenu.sortOrderNames
 
     signal enqueue();
     signal replaceAndPlay();
     signal createRadio();
     signal goBack();
     signal showArtist();
-    signal sort(var order);
 
     HeaderFooterToolbar {
         toolbarType: filterRow.visible ? HeaderFooterToolbar.ToolbarType.Other
@@ -132,11 +134,20 @@ ColumnLayout {
                 onClicked: showArtist()
             },
             FlatButtonWithToolTip {
-                objectName: 'sortAscendingButton'
+                objectName: 'sortMenuButton'
                 visible: enableSorting && !showCreateRadioButton
-                text: i18nc("Toggle between ascending and descending order", "Toggle sort order")
-                icon.name: sortOrder ? "view-sort-ascending" : "view-sort-descending"
-                onClicked: sortOrder ? sort(Qt.DescendingOrder) : sort(Qt.AscendingOrder)
+                text: i18nc("Sort By Menu", "Sort By")
+                icon.name: "view-sort"
+                onClicked: {
+                    sortMenu.sortOrder = navigationBar.sortOrder
+                    sortMenu.open()
+                }
+
+                SortMenu {
+                    id: sortMenu
+
+                    onSortOrderChanged: navigationBar.sortOrder = sortOrder
+                }
             },
             FlatButtonWithToolTip {
                 objectName: 'showFilterButton'

@@ -31,6 +31,11 @@ FocusScope {
     property var delegateWidth: scrollBar.visible ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width
     property alias currentIndex: contentDirectoryView.currentIndex
     property alias enableSorting: navigationBar.enableSorting
+    property alias sortRole: navigationBar.sortRole
+    property alias sortRoles: navigationBar.sortRoles
+    property alias sortRoleNames: navigationBar.sortRoleNames
+    property alias sortOrderNames: navigationBar.sortOrderNames
+    property alias sortOrder: navigationBar.sortOrder
     property var stackView
     property alias showEnqueueButton: navigationBar.showEnqueueButton
     property alias showCreateRadioButton: navigationBar.showCreateRadioButton
@@ -72,7 +77,6 @@ FocusScope {
             id: navigationBar
 
             enableGoBack: listView.isSubPage || depth > 1
-            sortOrder: contentModel.sortedAscending
 
             Layout.fillWidth: true
 
@@ -98,6 +102,17 @@ FocusScope {
                 }
             }
 
+            Loader {
+                active: listView.contentModel && navigationBar.enableSorting
+
+                sourceComponent: Binding {
+                    target: listView.contentModel
+                    property: 'sortRole'
+                    when: listView.contentModel && navigationBar.enableSorting
+                    value: navigationBar.sortRole
+                }
+            }
+
             onEnqueue: contentModel.enqueueToPlayList(delegateModel.rootIndex)
 
             onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList(delegateModel.rootIndex)
@@ -108,7 +123,16 @@ FocusScope {
 
             onShowArtist: listView.showArtist(listView.contentModel.sourceModel.author)
 
-            onSort: contentModel.sortModel(order)
+            onSortOrderChanged: {
+                if (!contentModel || !navigationBar.enableSorting) {
+                    return
+                }
+
+                if ((contentModel.sortedAscending && sortOrder !== Qt.AscendingOrder) ||
+                        (!contentModel.sortedAscending && sortOrder !== Qt.DescendingOrder)) {
+                    contentModel.sortModel(sortOrder)
+                }
+            }
         }
 
         Rectangle {

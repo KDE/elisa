@@ -26,6 +26,11 @@ FocusScope {
     property alias expandedFilterView: gridView.expandedFilterView
     property alias haveTreeModel: gridView.haveTreeModel
     property var filter
+    property alias sortRole: gridView.sortRole
+    property alias sortRoles: gridView.sortRoles
+    property alias sortRoleNames: gridView.sortRoleNames
+    property alias sortOrderNames: gridView.sortOrderNames
+    property alias sortOrder: gridView.sortOrder
     property bool modelIsInitialized: false
 
     focus: true
@@ -55,6 +60,8 @@ FocusScope {
         proxyModel.dataType = modelType
         proxyModel.playList = ElisaApplication.mediaPlayListProxyModel
         gridView.contentModel = proxyModel
+
+        proxyModel.sortModel(sortOrder)
 
         realModel.initializeByData(ElisaApplication.musicManager, ElisaApplication.musicManager.viewDatabase,
                                    modelType, filterType, filter)

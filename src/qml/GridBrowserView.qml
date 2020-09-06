@@ -25,6 +25,11 @@ FocusScope {
     property bool delegateDisplaySecondaryText: true
     property alias expandedFilterView: navigationBar.expandedFilterView
     property bool haveTreeModel: false
+    property alias sortRole: navigationBar.sortRole
+    property alias sortRoles: navigationBar.sortRoles
+    property alias sortRoleNames: navigationBar.sortRoleNames
+    property alias sortOrderNames: navigationBar.sortOrderNames
+    property alias sortOrder: navigationBar.sortOrder
     property var stackView
     property url defaultIcon
     property int depth: 1
@@ -54,7 +59,6 @@ FocusScope {
             secondaryTitle: gridView.secondaryTitle
             image: gridView.image
             enableGoBack: gridView.isSubPage || depth > 1
-            sortOrder: if (gridView.contentModel) {gridView.contentModel.sortedAscending} else true
 
             Layout.fillWidth: true
 
@@ -80,6 +84,17 @@ FocusScope {
                 }
             }
 
+            Loader {
+                active: gridView.contentModel && navigationBar.enableSorting
+
+                sourceComponent: Binding {
+                    target: gridView.contentModel
+                    property: 'sortRole'
+                    when: gridView.contentModel && navigationBar.enableSorting
+                    value: navigationBar.sortRole
+                }
+            }
+
             onEnqueue: contentModel.enqueueToPlayList(delegateModel.rootIndex)
 
             onReplaceAndPlay:contentModel.replaceAndPlayOfPlayList(delegateModel.rootIndex)
@@ -88,7 +103,16 @@ FocusScope {
                 gridView.goToBack()
             }
 
-            onSort: contentModel.sortModel(order)
+            onSortOrderChanged: {
+                if (!contentModel || !navigationBar.enableSorting) {
+                    return
+                }
+
+                if ((contentModel.sortedAscending && sortOrder !== Qt.AscendingOrder) ||
+                        (!contentModel.sortedAscending && sortOrder !== Qt.DescendingOrder)) {
+                    contentModel.sortModel(sortOrder)
+                }
+            }
         }
 
         DelegateModel {

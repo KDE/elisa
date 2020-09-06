@@ -66,6 +66,11 @@ RowLayout {
                                      isSubPage: (browseStackView.depth >= 2),
                                      haveTreeModel: configurationData.isTreeModel,
                                      stackView: configurationData.browseStackView,
+                                     sortRole: Qt.DisplayRole,
+                                     sortRoles: [Qt.DisplayRole],
+                                     sortRoleNames: [''],
+                                     sortOrderNames: ['A-Z', 'Z-A'],
+                                     sortOrder: Qt.AscendingOrder,
                                      opacity: 1,
                                  }, StackView.Immediate)
         }
@@ -94,9 +99,14 @@ RowLayout {
                                      stackView: browseStackView,
                                      displaySingleAlbum: configurationData.displaySingleAlbum,
                                      showSection: configurationData.showDiscHeaders,
-                                     opacity: 1,
                                      radioCase: configurationData.radioCase,
                                      haveTreeModel: configurationData.isTreeModel,
+                                     sortRole: Qt.DisplayRole,
+                                     sortRoles: [Qt.DisplayRole],
+                                     sortRoleNames: [''],
+                                     sortOrderNames: ['A-Z', 'Z-A'],
+                                     sortOrder: Qt.AscendingOrder,
+                                     opacity: 1,
                                  }, StackView.Immediate)
         }
 

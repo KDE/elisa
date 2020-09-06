@@ -392,6 +392,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
 
         qml/HeaderBar.qml
         qml/NavigationActionBar.qml
+        qml/SortMenu.qml
         qml/MediaPlayerControl.qml
         qml/ContextView.qml
         qml/ContentView.qml

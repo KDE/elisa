@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: MIT
+#
+# Copyright (C) 2020 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+#
+
+include:
+  - https://invent.kde.org/sysadmin/ci-tooling/raw/master/invent/ci-reuse.yml
+  - https://invent.kde.org/sysadmin/ci-tooling/raw/master/invent/ci-before.yml
+  - https://invent.kde.org/sysadmin/ci-tooling/raw/master/invent/ci-applications-linux.yml
+#   - https://invent.kde.org/sysadmin/ci-tooling/raw/master/invent/ci-applications-windows.yml
+#   - https://invent.kde.org/sysadmin/ci-tooling/raw/master/invent/ci-applications-freebsd.yml

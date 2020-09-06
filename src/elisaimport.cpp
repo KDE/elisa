@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");
+    qRegisterMetaType<QHash<QUrl,QDateTime>>("QHash<QUrl,QDateTime>");
+    qRegisterMetaType<DataTypes::ListTrackDataType>("DataTypes::ListTrackDataType");
 
     QCommandLineParser parser;
     parser.addHelpOption();

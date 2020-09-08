@@ -137,14 +137,19 @@ ColumnLayout {
                 onClicked: showArtist()
             },
             FlatButtonWithToolTip {
+                id: sortMenuButton
+
                 objectName: 'sortMenuButton'
                 visible: enableSorting && !showCreateRadioButton
-                text: i18nc("Sort By Menu", "Sort By")
+                text: (sortMenu.sortRoleName !== "" ? sortMenu.sortRoleName : i18nc("Sort By Menu Title with no sort selected", "Sort"))
+                display: AbstractButton.TextOnly
                 icon.name: "view-sort"
                 onClicked: {
                     sortMenu.sortOrder = navigationBar.sortOrder
                     sortMenu.open()
                 }
+
+                Layout.preferredWidth: textSize.width + Kirigami.Units.smallSpacing * 2
 
                 SortMenu {
                     id: sortMenu
@@ -152,6 +157,13 @@ ColumnLayout {
                     onSortOrderChanged: if (viewManager) viewManager.sortOrderChanged(sortOrder)
 
                     onSortRoleChanged: if (viewManager) viewManager.sortRoleChanged(sortRole)
+                }
+
+                TextMetrics {
+                    id: textSize
+
+                    text: sortMenuButton.text
+                    font: sortMenuButton.font
                 }
             },
             FlatButtonWithToolTip {

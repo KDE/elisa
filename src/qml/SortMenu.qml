@@ -11,6 +11,7 @@ Menu {
     id: sortMenu
 
     property int sortRole
+    property string sortRoleName
     property var sortRoles
     property var sortRoleNames
     property var sortOrder
@@ -27,6 +28,7 @@ Menu {
             if (sortRoles[i] === sortMenu.sortRole && sortMenu.sortOrderNames.length >= (i * 2 + 1)) {
                 ascendingSortOrder.text = sortMenu.sortOrderNames[i * 2]
                 descendingSortOrder.text = sortMenu.sortOrderNames[i * 2 + 1]
+                sortMenu.sortRoleName = sortMenu.sortRoleNames[i]
             }
         }
     }

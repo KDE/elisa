@@ -32,6 +32,7 @@ FocusScope {
     property alias sortOrderNames: gridView.sortOrderNames
     property alias sortOrder: gridView.sortOrder
     property bool modelIsInitialized: false
+    property alias viewManager: gridView.viewManager
 
     focus: true
 

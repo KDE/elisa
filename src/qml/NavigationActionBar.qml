@@ -9,6 +9,7 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.3
 import org.kde.kirigami 2.8 as Kirigami
+import org.kde.elisa 1.0
 
 ColumnLayout {
     id: navigationBar
@@ -34,6 +35,8 @@ ColumnLayout {
     property alias sortRoleNames: sortMenu.sortRoleNames
     property alias sortOrder: sortMenu.sortOrder
     property alias sortOrderNames: sortMenu.sortOrderNames
+
+    property ViewManager viewManager
 
     signal enqueue();
     signal replaceAndPlay();
@@ -145,6 +148,10 @@ ColumnLayout {
 
                 SortMenu {
                     id: sortMenu
+
+                    onSortOrderChanged: if (viewManager) viewManager.sortOrderChanged(sortOrder)
+
+                    onSortRoleChanged: if (viewManager) viewManager.sortRoleChanged(sortRole)
                 }
             },
             FlatButtonWithToolTip {

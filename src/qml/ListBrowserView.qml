@@ -41,6 +41,7 @@ FocusScope {
     property alias showCreateRadioButton: navigationBar.showCreateRadioButton
     property alias navigationBar: navigationBar
     property int depth: 1
+    property alias viewManager: navigationBar.viewManager
 
     signal goBackRequested()
     signal showArtist(var name)

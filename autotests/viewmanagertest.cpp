@@ -8,6 +8,8 @@
 #include "viewslistdata.h"
 #include "viewconfigurationdata.h"
 
+#include "elisa_settings.h"
+
 #include <QtTest>
 
 class ViewManagerTests: public QObject
@@ -37,10 +39,13 @@ private Q_SLOTS:
         qRegisterMetaType<QAbstractItemModel*>("QAbstractItemModel*");
         qRegisterMetaType<QAbstractProxyModel*>("QAbstractProxyModel*");
         qRegisterMetaType<DataTypes::DataType>("DataTypes::DataType");
+        QStandardPaths::setTestModeEnabled(true);
+        Elisa::ElisaConfiguration::instance(QStringLiteral("testfoo"));
     }
 
     void openAlbumViewTest()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -85,6 +90,7 @@ private Q_SLOTS:
 
     void openAlbumView2Test()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -175,6 +181,7 @@ private Q_SLOTS:
 
     void openAlbumView3Test()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -261,6 +268,7 @@ private Q_SLOTS:
 
     void openArtistViewTest()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -305,6 +313,7 @@ private Q_SLOTS:
 
     void openArtistView2Test()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -395,6 +404,7 @@ private Q_SLOTS:
 
     void openArtistView3Test()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -481,6 +491,7 @@ private Q_SLOTS:
 
     void openGenreViewTest()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -525,6 +536,7 @@ private Q_SLOTS:
 
     void openGenreView2Test()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -615,6 +627,7 @@ private Q_SLOTS:
 
     void openGenreView3Test()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -701,6 +714,7 @@ private Q_SLOTS:
 
     void openArtistFromGenreViewTest()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -769,6 +783,7 @@ private Q_SLOTS:
 
     void openArtistViewAndAlbumFromAnotherArtistTest()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);
@@ -848,6 +863,7 @@ private Q_SLOTS:
 
     void openNowPlayingViewTest()
     {
+        Elisa::ElisaConfiguration::self()->setDefaults();
         ViewManager viewManager;
         ViewsListData viewsData;
         viewManager.setViewsData(&viewsData);

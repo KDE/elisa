@@ -71,6 +71,7 @@ RowLayout {
                                      sortRoleNames: configurationData.sortRoleNames,
                                      sortOrder: configurationData.sortOrder,
                                      sortOrderNames: configurationData.sortOrderNames,
+                                     viewManager: viewManager,
                                      opacity: 1,
                                  }, StackView.Immediate)
         }
@@ -106,6 +107,7 @@ RowLayout {
                                      sortRoleNames: configurationData.sortRoleNames,
                                      sortOrder: configurationData.sortOrder,
                                      sortOrderNames: configurationData.sortOrderNames,
+                                     viewManager: viewManager,
                                      opacity: 1,
                                  }, StackView.Immediate)
         }

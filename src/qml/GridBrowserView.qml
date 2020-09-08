@@ -33,6 +33,7 @@ FocusScope {
     property var stackView
     property url defaultIcon
     property int depth: 1
+    property alias viewManager: navigationBar.viewManager
 
     signal enqueue(var fullData, string name)
     signal replaceAndPlay(var fullData, string name)

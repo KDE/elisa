@@ -32,6 +32,7 @@ FocusScope {
     property bool displaySingleAlbum: false
     property alias radioCase: listView.showCreateRadioButton
     property bool modelIsInitialized: false
+    property alias viewManager: listView.viewManager
 
     function openMetaDataView(databaseId, url, entryType) {
         metadataLoader.setSource("MediaTrackMetadataView.qml",

@@ -14,10 +14,12 @@
 #include "models/gridviewproxymodel.h"
 #include "models/filebrowsermodel.h"
 #include "models/filebrowserproxymodel.h"
+#include "elisa_settings.h"
 
 #include <KI18n/KLocalizedString>
 
 #include <QQmlEngine>
+#include <QMetaEnum>
 
 class ViewManagerPrivate
 {
@@ -317,8 +319,10 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                                                          viewParamaters.mMainImage, viewParamaters.mDataType,
                                                                          newModel, proxyModel, viewParamaters.mFallbackItemIcon,
                                                                          viewParamaters.mDataFilter,
-                                                                         viewParamaters.mSortRole, viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
-                                                                         viewParamaters.mSortOrder, viewParamaters.mSortOrderNames,
+                                                                         computePreferredSortRole(viewParamaters.mSortRole),
+                                                                         viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
+                                                                         computePreferredSortOrder(viewParamaters.mSortOrder),
+                                                                         viewParamaters.mSortOrderNames,
                                                                          viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates,
                                                                          viewParamaters.mIsTreeModel);
 
@@ -342,8 +346,10 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                                                          viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
                                                                          viewParamaters.mMainImage, viewParamaters.mDataType,
                                                                          newModel, proxyModel, viewParamaters.mDataFilter,
-                                                                         viewParamaters.mSortRole, viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
-                                                                         viewParamaters.mSortOrder, viewParamaters.mSortOrderNames,
+                                                                         computePreferredSortRole(viewParamaters.mSortRole),
+                                                                         viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
+                                                                         computePreferredSortOrder(viewParamaters.mSortOrder),
+                                                                         viewParamaters.mSortOrderNames,
                                                                          viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle,
                                                                          viewParamaters.mRadioSpecificStyle, viewParamaters.mIsTreeModel);
 
@@ -389,6 +395,76 @@ void ViewManager::applyFilter(ViewParameters &nextViewParameters,
     }
 }
 
+QString ViewManager::buildViewId() const
+{
+    const auto &entryTypeMetaEnum = QMetaEnum::fromType<ElisaUtils::PlayListEntryType>();
+    QString viewId;
+
+    for (const auto &oneView : d->mViewParametersStack) {
+        viewId += QString::fromLatin1(entryTypeMetaEnum.valueToKey(oneView.mDataType)) + QStringLiteral("::");
+    }
+
+    return viewId;
+}
+
+QStringList::iterator ViewManager::findViewPreference(QStringList &list, const QString &viewId) const
+{
+    auto itViewPreference = list.end();
+    for(itViewPreference = list.begin(); itViewPreference != list.end(); ++itViewPreference) {
+        auto parts = itViewPreference->splitRef(QStringLiteral("=="));
+        if (parts.size() != 2) {
+            continue;
+        }
+        if (parts[0] == viewId) {
+            break;
+        }
+    }
+
+    return itViewPreference;
+}
+
+Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue) const
+{
+    auto currentSortOrderPreferences = Elisa::ElisaConfiguration::sortOrderPreferences();
+    auto viewId = buildViewId();
+    auto itViewPreference = findViewPreference(currentSortOrderPreferences, viewId);
+
+    if (itViewPreference != currentSortOrderPreferences.end()) {
+        auto result = itViewPreference->splitRef(QStringLiteral("=="));
+        if (result.size() == 2) {
+            const auto &sortOrderMetaEnum = QMetaEnum::fromType<Qt::SortOrder>();
+            bool conversionOk;
+            auto newValue = static_cast<Qt::SortOrder>(sortOrderMetaEnum.keyToValue(result[1].toLatin1().data(), &conversionOk));
+            if (conversionOk) {
+                initialValue = newValue;
+            }
+        }
+    }
+
+    return initialValue;
+}
+
+int ViewManager::computePreferredSortRole(int initialValue) const
+{
+    auto currentSortRolePreferences = Elisa::ElisaConfiguration::sortRolePreferences();
+    auto viewId = buildViewId();
+    auto itViewPreference = findViewPreference(currentSortRolePreferences, viewId);
+
+    if (itViewPreference != currentSortRolePreferences.end()) {
+        auto result = itViewPreference->splitRef(QStringLiteral("=="));
+        if (result.size() == 2) {
+            const auto &sortRoleMetaEnum = QMetaEnum::fromType<DataTypes::ColumnsRoles>();
+            bool conversionOk;
+            auto newValue = static_cast<DataTypes::ColumnsRoles>(sortRoleMetaEnum.keyToValue(result[1].toLatin1().data(), &conversionOk));
+            if (conversionOk) {
+                initialValue = newValue;
+            }
+        }
+    }
+
+    return initialValue;
+}
+
 void ViewManager::goBack()
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::goBack" << d->mViewParametersStack.size()
@@ -422,6 +498,54 @@ void ViewManager::setViewsData(ViewsListData *viewsData)
 
         openView(d->mViewIndex);
     }
+}
+
+void ViewManager::sortOrderChanged(Qt::SortOrder sortOrder)
+{
+    auto currentSortOrderPreferences = Elisa::ElisaConfiguration::sortOrderPreferences();
+
+    auto viewId = buildViewId();
+    auto itViewPreference = findViewPreference(currentSortOrderPreferences, viewId);
+
+    const auto &sortOrderMetaEnum = QMetaEnum::fromType<Qt::SortOrder>();
+    auto enumStringValue = sortOrderMetaEnum.valueToKey(sortOrder);
+    if (!enumStringValue) {
+        return;
+    }
+    QString newSortOrderPreference = viewId + QStringLiteral("==") + QString::fromLatin1(enumStringValue);
+
+    if (itViewPreference != currentSortOrderPreferences.end()) {
+        (*itViewPreference) = newSortOrderPreference;
+    } else {
+        currentSortOrderPreferences.push_back(newSortOrderPreference);
+    }
+
+    Elisa::ElisaConfiguration::setSortOrderPreferences(currentSortOrderPreferences);
+    Elisa::ElisaConfiguration::self()->save();
+}
+
+void ViewManager::sortRoleChanged(int sortRole)
+{
+    auto currentSortRolePreferences = Elisa::ElisaConfiguration::sortRolePreferences();
+
+    auto viewId = buildViewId();
+    auto itViewPreference = findViewPreference(currentSortRolePreferences, viewId);
+
+    const auto &sortRoleMetaEnum = QMetaEnum::fromType<DataTypes::ColumnsRoles>();
+    auto enumStringValue = sortRoleMetaEnum.valueToKey(static_cast<DataTypes::ColumnsRoles>(sortRole));
+    if (!enumStringValue) {
+        return;
+    }
+    QString newSortRolePreference = viewId + QStringLiteral("==") + QString::fromLatin1(enumStringValue);
+
+    if (itViewPreference != currentSortRolePreferences.end()) {
+        (*itViewPreference) = newSortRolePreference;
+    } else {
+        currentSortRolePreferences.push_back(newSortRolePreference);
+    }
+
+    Elisa::ElisaConfiguration::setSortRolePreferences(currentSortRolePreferences);
+    Elisa::ElisaConfiguration::self()->save();
 }
 
 

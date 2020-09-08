@@ -136,12 +136,24 @@ public Q_SLOTS:
 
     void setViewsData(ViewsListData* viewsData);
 
+    void sortOrderChanged(Qt::SortOrder sortOrder);
+
+    void sortRoleChanged(int sortRole);
+
 private:
 
     void openViewFromData(const ViewParameters &viewParamaters);
 
     void applyFilter(ViewParameters &nextViewParameters,
                      QString title, const ViewParameters &lastView) const;
+
+    QString buildViewId() const;
+
+    QStringList::iterator findViewPreference(QStringList &list, const QString &viewId) const;
+
+    Qt::SortOrder computePreferredSortOrder(Qt::SortOrder initialValue) const;
+
+    int computePreferredSortRole(int initialValue) const;
 
 private:
 

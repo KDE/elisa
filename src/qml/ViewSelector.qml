@@ -101,14 +101,6 @@ FocusScope {
         onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
     }
 
-    Connections {
-        target: ElisaApplication
-
-        function onInitializationDone() {
-            viewModeView.currentIndex = 3
-        }
-    }
-
     Behavior on implicitWidth {
         NumberAnimation {
             easing.type: Easing.InOutQuad

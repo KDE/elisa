@@ -302,6 +302,8 @@ public:
 
     int count() const;
 
+    bool isEmpty() const;
+
     const ViewParameters& viewParameters(int index) const;
 
     const QString& title(int index) const;

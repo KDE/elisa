@@ -41,6 +41,7 @@ RowLayout {
         id: viewManager
 
         viewsData: viewsData
+        initialIndex: 3
 
         onOpenGridView: {
             if (configurationData.expectedDepth === 1) {

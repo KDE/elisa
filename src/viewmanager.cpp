@@ -89,7 +89,9 @@ public:
                                  ViewManager::IsFlatModel}},
     };
 
-    int mViewIndex = 0;
+    int mViewIndex = -1;
+
+    int mInitialIndex = -1;
 
     QList<ViewParameters> mViewParametersStack = (mViewsListData ? QList<ViewParameters>{mViewsListData->viewParameters(0)} : QList<ViewParameters>{});
 
@@ -107,6 +109,11 @@ int ViewManager::viewIndex() const
     return d->mViewIndex;
 }
 
+int ViewManager::initialIndex() const
+{
+    return d->mInitialIndex;
+}
+
 ViewsListData *ViewManager::viewsData() const
 {
     return d->mViewsListData;
@@ -118,11 +125,7 @@ void ViewManager::openView(int viewIndex)
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << viewIndex << d->mViewParametersStack.size() << d->mViewsListData;
 
-    if (!d->mViewsListData) {
-        return;
-    }
-
-    if (!d->mViewParametersStack.size()) {
+    if (!d->mViewsListData || d->mViewsListData->isEmpty()) {
         return;
     }
 
@@ -132,9 +135,9 @@ void ViewManager::openView(int viewIndex)
 
     const auto &viewParameters = d->mViewsListData->viewParameters(viewIndex);
 
-    qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << "selected view";
+    qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << "selected view" << viewIndex;
 
-    if (viewParameters != d->mViewParametersStack.back()) {
+    if (d->mViewParametersStack.isEmpty() || viewParameters != d->mViewParametersStack.back()) {
         qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << "changing view";
         d->mViewIndex = viewIndex;
         Q_EMIT viewIndexChanged();
@@ -493,9 +496,29 @@ void ViewManager::setViewsData(ViewsListData *viewsData)
     d->mViewsListData = viewsData;
     Q_EMIT viewsDataChanged();
 
-    if (d->mViewsListData) {
-        d->mViewParametersStack = {d->mViewsListData->viewParameters(d->mViewIndex)};
+    if (d->mViewsListData && (d->mViewIndex < 0 || d->mViewIndex >= d->mViewsListData->count())) {
+        d->mViewIndex = d->mInitialIndex;
+    }
 
+    if (d->mViewsListData && d->mViewIndex >= 0 && d->mViewIndex < d->mViewsListData->count()) {
+        openView(d->mViewIndex);
+    }
+}
+
+void ViewManager::setInitialIndex(int newIndex)
+{
+    if (d->mInitialIndex == newIndex) {
+        return;
+    }
+
+    d->mInitialIndex = newIndex;
+    Q_EMIT initialIndexChanged();
+
+    if (d->mViewsListData && (d->mViewIndex < 0 || d->mViewIndex >= d->mViewsListData->count())) {
+        d->mViewIndex = d->mInitialIndex;
+    }
+
+    if (d->mViewsListData && d->mViewIndex >= 0 && d->mViewIndex < d->mViewsListData->count()) {
         openView(d->mViewIndex);
     }
 }

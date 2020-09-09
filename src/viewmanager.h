@@ -31,6 +31,11 @@ class ELISALIB_EXPORT ViewManager : public QObject
                READ viewIndex
                NOTIFY viewIndexChanged)
 
+    Q_PROPERTY(int initialIndex
+               READ initialIndex
+               WRITE setInitialIndex
+               NOTIFY initialIndexChanged)
+
     Q_PROPERTY(ViewsListData* viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
 
 public:
@@ -100,6 +105,8 @@ public:
 
     int viewIndex() const;
 
+    int initialIndex() const;
+
     ViewsListData* viewsData() const;
 
 Q_SIGNALS:
@@ -115,6 +122,8 @@ Q_SIGNALS:
     void popOneView();
 
     void viewIndexChanged();
+
+    void initialIndexChanged();
 
     void viewsDataChanged();
 
@@ -139,6 +148,8 @@ public Q_SLOTS:
     void sortOrderChanged(Qt::SortOrder sortOrder);
 
     void sortRoleChanged(int sortRole);
+
+    void setInitialIndex(int newIndex);
 
 private:
 

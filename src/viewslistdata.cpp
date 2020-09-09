@@ -173,6 +173,11 @@ int ViewsListData::count() const
     return d->mViewsParameters.count();
 }
 
+bool ViewsListData::isEmpty() const
+{
+    return d->mViewsParameters.isEmpty();
+}
+
 const ViewParameters &ViewsListData::viewParameters(int index) const
 {
     return d->mViewsParameters[index];

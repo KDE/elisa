@@ -55,6 +55,13 @@ private Q_SLOTS:
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("album1")},
                                    {DataTypes::ArtistRole, QStringLiteral("artist1")},
                                    {DataTypes::DatabaseIdRole, 12},
@@ -99,6 +106,13 @@ private Q_SLOTS:
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
+
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(3);
 
@@ -191,6 +205,13 @@ private Q_SLOTS:
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
         viewManager.openView(3);
 
         QCOMPARE(openGridViewSpy.count(), 1);
@@ -278,6 +299,13 @@ private Q_SLOTS:
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("artist1")},
                                    {DataTypes::DatabaseIdRole, 12},
                                    {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
@@ -322,6 +350,13 @@ private Q_SLOTS:
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
+
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(4);
 
@@ -414,6 +449,13 @@ private Q_SLOTS:
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
         viewManager.openView(4);
 
         QCOMPARE(openGridViewSpy.count(), 1);
@@ -501,6 +543,13 @@ private Q_SLOTS:
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("genre1")},
                                    {DataTypes::DatabaseIdRole, 12},
                                    {DataTypes::ElementTypeRole, ElisaUtils::Genre}});
@@ -545,6 +594,13 @@ private Q_SLOTS:
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
+
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(6);
 
@@ -637,6 +693,13 @@ private Q_SLOTS:
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
         viewManager.openView(6);
 
         QCOMPARE(openGridViewSpy.count(), 1);
@@ -724,6 +787,13 @@ private Q_SLOTS:
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
         viewManager.openView(6);
 
         QCOMPARE(openGridViewSpy.count(), 1);
@@ -792,6 +862,13 @@ private Q_SLOTS:
         QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
         QSignalSpy switchFilesBrowserViewSpy(&viewManager, &ViewManager::switchFilesBrowserView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
+
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("artist1")},
                                    {DataTypes::DatabaseIdRole, 12},
@@ -874,13 +951,21 @@ private Q_SLOTS:
         QSignalSpy switchContextViewSpy(&viewManager, &ViewManager::switchContextView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
+        viewManager.setInitialIndex(0);
+
+        QCOMPARE(openGridViewSpy.count(), 0);
+        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
+        QCOMPARE(switchContextViewSpy.count(), 1);
+        QCOMPARE(popOneViewSpy.count(), 0);
+
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("album1")},
                                    {DataTypes::ArtistRole, QStringLiteral("artist1")},
                                    {DataTypes::DatabaseIdRole, 12},
                                    {DataTypes::ElementTypeRole, ElisaUtils::Album}});
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(switchContextViewSpy.count(), 0);
+        QCOMPARE(switchContextViewSpy.count(), 1);
         QCOMPARE(openListViewSpy.count(), 0);
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
@@ -893,7 +978,7 @@ private Q_SLOTS:
 
         QCOMPARE(openGridViewSpy.count(), 1);
         QCOMPARE(openListViewSpy.count(), 1);
-        QCOMPARE(switchContextViewSpy.count(), 0);
+        QCOMPARE(switchContextViewSpy.count(), 1);
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
@@ -905,14 +990,14 @@ private Q_SLOTS:
 
         QCOMPARE(openGridViewSpy.count(), 1);
         QCOMPARE(openListViewSpy.count(), 1);
-        QCOMPARE(switchContextViewSpy.count(), 0);
+        QCOMPARE(switchContextViewSpy.count(), 1);
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openNowPlaying();
         QCOMPARE(openGridViewSpy.count(), 1);
         QCOMPARE(openListViewSpy.count(), 1);
-        QCOMPARE(switchContextViewSpy.count(), 1);
+        QCOMPARE(switchContextViewSpy.count(), 2);
         QCOMPARE(switchFilesBrowserViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
     }

@@ -176,6 +176,7 @@ FocusScope {
             id: emptyPlaylistMessage
 
             visible: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount === 0 : true
+            clip: true
 
             Layout.fillHeight: true
             Layout.fillWidth: true

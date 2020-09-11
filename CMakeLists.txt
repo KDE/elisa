@@ -163,7 +163,7 @@ endif()
 
 configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h )
 
-ecm_setup_version(${PROJECT_VERSION}
+ecm_setup_version(${RELEASE_SERVICE_VERSION}
     VARIABLE_PREFIX ELISA
     VERSION_HEADER elisa-version.h)
 

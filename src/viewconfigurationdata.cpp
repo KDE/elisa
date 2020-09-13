@@ -18,8 +18,8 @@ public:
                                  QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
                                  QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
                                  QUrl viewDefaultIcon, DataTypes::DataType dataFilter,
-                                 int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
-                                 Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                                 int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
+                                 Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                  ViewManager::ViewCanBeRated viewShowRating,
                                  ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
                                  ViewManager::IsTreeModelType isTreeModel)
@@ -49,8 +49,8 @@ public:
                                  QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
                                  QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
                                  DataTypes::DataType dataFilter,
-                                 int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
-                                 Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                                 int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
+                                 Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                  ViewManager::AlbumCardinality displaySingleAlbum,
                                  ViewManager::AlbumViewStyle showDiscHeaders,
                                  ViewManager::RadioSpecificStyle radioCase,
@@ -106,11 +106,11 @@ public:
 
     QVector<int> mSortRoles;
 
-    QList<QString> mSortRoleNames;
+    QVector<QString> mSortRoleNames;
 
     Qt::SortOrder mSortOrder;
 
-    QList<QString> mSortOrderNames;
+    QVector<QString> mSortOrderNames;
 
     ViewManager::AlbumCardinality mDisplaySingleAlbum;
 
@@ -130,8 +130,8 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                              QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
                                              QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
                                              QUrl viewDefaultIcon, DataTypes::DataType dataFilter,
-                                             int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
-                                             Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                                             int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
+                                             Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                              ViewManager::ViewCanBeRated viewShowRating,
                                              ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
                                              ViewManager::IsTreeModelType isTreeModel, QObject *parent)
@@ -152,8 +152,8 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                              QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
                                              QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
                                              DataTypes::DataType dataFilter,
-                                             int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
-                                             Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                                             int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
+                                             Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                              ViewManager::AlbumCardinality displaySingleAlbum,
                                              ViewManager::AlbumViewStyle showDiscHeaders,
                                              ViewManager::RadioSpecificStyle radioCase,
@@ -243,7 +243,7 @@ QVector<int> ViewConfigurationData::sortRoles() const
     return d->mSortRoles;
 }
 
-QList<QString> ViewConfigurationData::sortRoleNames() const
+QVector<QString> ViewConfigurationData::sortRoleNames() const
 {
     return d->mSortRoleNames;
 }
@@ -253,7 +253,7 @@ Qt::SortOrder ViewConfigurationData::sortOrder() const
     return d->mSortOrder;
 }
 
-QList<QString> ViewConfigurationData::sortOrderNames() const
+QVector<QString> ViewConfigurationData::sortOrderNames() const
 {
     return d->mSortOrderNames;
 }

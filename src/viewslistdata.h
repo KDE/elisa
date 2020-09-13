@@ -56,8 +56,8 @@ public:
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
-                   int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
-                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                   int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                    QUrl fallbackItemIcon,
                    ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
                    ViewManager::ViewCanBeRated viewCanBeRated,
@@ -113,8 +113,8 @@ public:
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
-                   int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
-                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                   int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle,
                    ViewManager::RadioSpecificStyle radioSpecificStyle,
@@ -172,8 +172,8 @@ public:
                    qulonglong databaseId,
                    ElisaUtils::PlayListEntryType dataType,
                    ElisaUtils::PlayListEntryType entryType,
-                   int sortRole, QVector<int> sortRoles, QList<QString> sortRoleNames,
-                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                   int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle,
                    ViewManager::RadioSpecificStyle radioSpecificStyle,
@@ -253,11 +253,11 @@ public:
 
     QVector<int> mSortRoles = {Qt::DisplayRole};
 
-    QList<QString> mSortRoleNames = {QString{}};
+    QVector<QString> mSortRoleNames = {QString{}};
 
     Qt::SortOrder mSortOrder = Qt::AscendingOrder;
 
-    QList<QString> mSortOrderNames = {QStringLiteral("A-Z"), QStringLiteral("Z-A")};
+    QVector<QString> mSortOrderNames = {QStringLiteral("A-Z"), QStringLiteral("Z-A")};
 
     ViewManager::AlbumCardinality mAlbumCardinality = ViewManager::MultipleAlbum;
 

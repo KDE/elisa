@@ -457,6 +457,7 @@ Module {
         Property { name: "showSystemTrayIcon"; type: "bool" }
         Property { name: "embeddedView"; type: "ElisaUtils::PlayListEntryType" }
         Property { name: "isDirty"; type: "bool"; isReadonly: true }
+        Property { name: "playAtStartup"; type: "bool" }
         Signal {
             name: "rootPathChanged"
             Parameter { name: "rootPath"; type: "QStringList" }
@@ -481,6 +482,10 @@ Module {
         Method {
             name: "setEmbeddedView"
             Parameter { name: "embeddedView"; type: "ElisaUtils::PlayListEntryType" }
+        }
+        Method {
+            name: "setPlayAtStartup"
+            Parameter { name: "playAtStartup"; type: "bool" }
         }
     }
     Component {
@@ -1031,6 +1036,10 @@ Module {
         Signal { name: "undoClearPlayListPlayer" }
         Signal { name: "displayUndoNotification" }
         Signal { name: "hideUndoNotification" }
+        Signal {
+            name: "seek"
+            Parameter { name: "position"; type: "qlonglong" }
+        }
         Method {
             name: "enqueue"
             Parameter { name: "entryUrl"; type: "QUrl" }
@@ -1064,7 +1073,10 @@ Module {
             Parameter { name: "playerError"; type: "QMediaPlayer::Error" }
         }
         Method { name: "skipNextTrack" }
-        Method { name: "skipPreviousTrack" }
+        Method {
+            name: "skipPreviousTrack"
+            Parameter { name: "position"; type: "qlonglong" }
+        }
         Method {
             name: "switchTo"
             Parameter { name: "row"; type: "int" }
@@ -1797,6 +1809,7 @@ Module {
             name: "openArtistView"
             Parameter { name: "artist"; type: "string" }
         }
+        Method { name: "openNowPlaying" }
         Method { name: "viewIsLoaded" }
         Method { name: "goBack" }
         Method {
@@ -1882,5 +1895,11 @@ Module {
             name: "setViewsData"
             Parameter { name: "viewsData"; type: "ViewsListData"; isPointer: true }
         }
+    }
+    Component {
+        name: "ViewsProxyModel"
+        prototype: "QSortFilterProxyModel"
+        exports: ["org.kde.elisa/ViewsProxyModel 1.0"]
+        exportMetaObjectRevisions: [0]
     }
 }

@@ -141,12 +141,24 @@ ColumnLayout {
 
                 objectName: 'sortMenuButton'
                 visible: enableSorting && !showCreateRadioButton
-                text: (sortMenu.sortRoleName !== "" ? sortMenu.sortRoleName : i18nc("Sort By Menu Title with no sort selected", "Sort"))
+                text: if (sortMenu.sortRoleName !== "") {
+                          i18nc("Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
+                      } else {
+                          i18nc("Sort By Menu Title with no sort selected", "Sort")
+                      }
                 display: AbstractButton.TextOnly
                 icon.name: "view-sort"
                 onClicked: {
                     sortMenu.sortOrder = navigationBar.sortOrder
                     sortMenu.open()
+                }
+
+                indicator: Image {
+                     source: 'image://icon/arrow-down'
+                     sourceSize.width: 16
+                     sourceSize.height: 16
+                     x: sortMenuButton.width - 16
+                     y: sortMenuButton.height - 16
                 }
 
                 Layout.preferredWidth: textSize.width + Kirigami.Units.smallSpacing * 2

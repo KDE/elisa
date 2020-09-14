@@ -16,7 +16,7 @@ import Qt.labs.platform 1.1
 
 Kirigami.ApplicationWindow {
     id: mainWindow
-    
+
     visible: true
 
     contextDrawer: Kirigami.ContextDrawer {
@@ -48,6 +48,8 @@ Kirigami.ApplicationWindow {
 
     Accessible.role: Accessible.Application
     Accessible.name: title
+
+    readonly property int initialViewIndex: 3
 
     property var goBackAction: ElisaApplication.action("go_back")
     property var seekAction: ElisaApplication.action("Seek")
@@ -125,6 +127,8 @@ Kirigami.ApplicationWindow {
         property bool showPlaylist: true
 
         property bool headerBarIsMaximized: false
+
+        property int initialIndex
     }
 
     Connections {
@@ -155,6 +159,8 @@ Kirigami.ApplicationWindow {
             persistentSettings.showPlaylist = contentView.showPlaylist
 
             persistentSettings.headerBarIsMaximized = headerBar.isMaximized
+
+            persistentSettings.initialIndex = contentView.currentViewIndex
         }
     }
 
@@ -286,6 +292,7 @@ Kirigami.ApplicationWindow {
                 showPlaylist: persistentSettings.showPlaylist
                 showExpandedFilterView: persistentSettings.expandedFilterView
                 playlistDrawer: playlistDrawer
+                initialIndex: persistentSettings.value('initialIndex', initialViewIndex)
             }
         }
     }

@@ -19,6 +19,7 @@ RowLayout {
     property bool showExpandedFilterView
     property alias currentViewIndex: listViews.currentIndex
     property Kirigami.ContextDrawer playlistDrawer
+    property alias initialIndex: viewManager.initialIndex
 
     function goBack() {
         viewManager.goBack()
@@ -41,7 +42,6 @@ RowLayout {
         id: viewManager
 
         viewsData: viewsData
-        initialIndex: 3
 
         onOpenGridView: {
             if (configurationData.expectedDepth === 1) {

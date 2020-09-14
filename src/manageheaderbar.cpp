@@ -114,11 +114,15 @@ int ManageHeaderBar::albumIdRole() const
 
 QVariant ManageHeaderBar::album() const
 {
-    if (!mCurrentTrack.isValid()) {
-        return QString();
+    QVariant result = QString{};
+
+    if (!mCurrentTrack.isValid() || mCurrentTrack.data(mAlbumRole).isNull()) {
+        return result;
     }
 
-    return mCurrentTrack.data(mAlbumRole);
+    result = mCurrentTrack.data(mAlbumRole);
+
+    return result;
 }
 
 QVariant ManageHeaderBar::albumArtist() const

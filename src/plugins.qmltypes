@@ -1771,6 +1771,7 @@ Module {
             }
         }
         Property { name: "viewIndex"; type: "int"; isReadonly: true }
+        Property { name: "initialIndex"; type: "int" }
         Property { name: "viewsData"; type: "ViewsListData"; isPointer: true }
         Signal {
             name: "openGridView"
@@ -1827,6 +1828,10 @@ Module {
             name: "sortRoleChanged"
             Parameter { name: "sortRole"; type: "int" }
         }
+        Method {
+            name: "setInitialIndex"
+            Parameter { name: "newIndex"; type: "int" }
+        }
     }
     Component {
         name: "ViewsListData"
@@ -1836,6 +1841,7 @@ Module {
         Property { name: "embeddedCategory"; type: "ElisaUtils::PlayListEntryType" }
         Property { name: "manager"; type: "MusicListenersManager"; isPointer: true }
         Property { name: "database"; type: "DatabaseInterface"; isPointer: true }
+        Property { name: "isFullyInitialized"; type: "bool"; isReadonly: true }
         Signal {
             name: "needData"
             Parameter { name: "dataType"; type: "ElisaUtils::PlayListEntryType" }

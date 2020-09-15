@@ -165,7 +165,7 @@ FocusScope {
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.alignment: Qt.AlignLeft
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
 
                 spacing: 0
 
@@ -196,10 +196,6 @@ FocusScope {
                     elide: Text.ElideRight
                 }
 
-                Item {
-                    Layout.fillHeight: true
-                }
-
                 LabelWithToolTip {
                     id: artistLabel
 
@@ -218,6 +214,7 @@ FocusScope {
                     }
                     horizontalAlignment: Text.AlignLeft
 
+                    visible: text.length > 0
                     opacity: 0.6
                     color: myPalette.text
 

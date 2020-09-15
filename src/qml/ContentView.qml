@@ -18,6 +18,7 @@ RowLayout {
     property bool showPlaylist
     property bool showExpandedFilterView
     property alias currentViewIndex: listViews.currentIndex
+    property Kirigami.ContextDrawer playlistDrawer
 
     function goBack() {
         viewManager.goBack()
@@ -65,8 +66,8 @@ RowLayout {
                                      isSubPage: (browseStackView.depth >= 2),
                                      haveTreeModel: configurationData.isTreeModel,
                                      stackView: configurationData.browseStackView,
-                                     opacity: 0,
-                                 })
+                                     opacity: 1,
+                                 }, StackView.Immediate)
         }
 
         onOpenListView: {
@@ -93,10 +94,10 @@ RowLayout {
                                      stackView: browseStackView,
                                      displaySingleAlbum: configurationData.displaySingleAlbum,
                                      showSection: configurationData.showDiscHeaders,
-                                     opacity: 0,
+                                     opacity: 1,
                                      radioCase: configurationData.radioCase,
                                      haveTreeModel: configurationData.isTreeModel,
-                                 })
+                                 }, StackView.Immediate)
         }
 
         onSwitchFilesBrowserView: {
@@ -109,8 +110,8 @@ RowLayout {
             browseStackView.push(filesBrowserView, {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
-                                     opacity: 0,
-                                 })
+                                     opacity: 1,
+                                 }, StackView.Immediate)
         }
 
         onSwitchContextView: {
@@ -123,8 +124,8 @@ RowLayout {
             browseStackView.push(albumContext, {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
-                                     opacity: 0,
-                                 })
+                                     opacity: 1,
+                                 }, StackView.Immediate)
         }
 
         onPopOneView: {
@@ -270,8 +271,8 @@ RowLayout {
 
     states: [
         State {
-            name: "browsingViewsNoPlaylist"
-            when: contentViewContainer.showPlaylist === false || mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
+            name: "smallScreen"
+            when: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
                 target: playList
                 Layout.minimumWidth: 0
@@ -282,10 +283,37 @@ RowLayout {
                 target: playListSeparatorItem
                 visible: false
             }
+            PropertyChanges {
+                target: playlistDrawer
+                modal: true
+                drawerOpen: true
+                handleVisible: true
+            }
         },
         State {
-            name: 'browsingViews'
-            when: contentViewContainer.showPlaylist === true || mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+            name: "wideScreenNoPlaylist"
+            when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold && contentViewContainer.showPlaylist === false
+            PropertyChanges {
+                target: playList
+                Layout.minimumWidth: 0
+                Layout.maximumWidth: 0
+                Layout.preferredWidth: 0
+            }
+            PropertyChanges {
+                target: playListSeparatorItem
+                visible: false
+            }
+            PropertyChanges {
+                target: playlistDrawer
+                collapsed: true
+                visible: false
+                drawerOpen: false
+                handleVisible: false
+            }
+        },
+        State {
+            name: 'wideScreenPlaylist'
+            when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold && contentViewContainer.showPlaylist === true
             PropertyChanges {
                 target: playList
                 Layout.minimumWidth: contentViewContainer.width * 0.28
@@ -296,6 +324,14 @@ RowLayout {
                 target: playListSeparatorItem
                 visible: true
             }
+            PropertyChanges {
+                target: playlistDrawer
+                collapsed: true
+                visible: false
+                drawerOpen: false
+                handleVisible: false
+            }
+
         }
     ]
     transitions: Transition {

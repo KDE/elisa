@@ -14,10 +14,24 @@ import org.kde.elisa.host 1.0
 import Qt.labs.settings 1.0
 import Qt.labs.platform 1.1
 
-ApplicationWindow {
+Kirigami.ApplicationWindow {
     id: mainWindow
     
     visible: true
+
+    contextDrawer: Kirigami.ContextDrawer {
+        id: playlistDrawer
+        handleClosedIcon.source: "view-media-playlist"
+        handleOpenIcon.source: "view-right-close"
+        // without this drawer button is never shown
+        enabled: true
+        MediaPlayListView {
+            id: playList
+            anchors.fill: parent
+            onStartPlayback: ElisaApplication.audioControl.ensurePlay()
+            onPausePlayback: ElisaApplication.audioControl.playPause()
+        }
+    }
     
     minimumWidth: 590
     property int minHeight: 320
@@ -259,6 +273,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 showPlaylist: persistentSettings.showPlaylist
                 showExpandedFilterView: persistentSettings.expandedFilterView
+                playlistDrawer: playlistDrawer
             }
         }
     }
@@ -295,6 +310,13 @@ ApplicationWindow {
                         target: headerBar
                         Layout.minimumHeight: mainWindow.height
                         Layout.maximumHeight: mainWindow.height
+                    },
+                    PropertyChanges {
+                        target: playlistDrawer
+                        collapsed: true
+                        visible: false
+                        drawerOpen: false
+                        handleVisible: false
                     }
                 ]
             }

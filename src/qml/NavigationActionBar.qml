@@ -157,11 +157,11 @@ ColumnLayout {
                      source: 'image://icon/arrow-down'
                      sourceSize.width: 16
                      sourceSize.height: 16
-                     x: sortMenuButton.width - 16
-                     y: sortMenuButton.height - 16
+                     x: sortMenuButton.width - 22
+                     y: sortMenuButton.height - 22
                 }
 
-                Layout.preferredWidth: textSize.width + Kirigami.Units.smallSpacing * 2
+                Layout.preferredWidth: textSize.width + Kirigami.Units.smallSpacing * 4
 
                 SortMenu {
                     id: sortMenu

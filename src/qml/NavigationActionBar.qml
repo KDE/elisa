@@ -109,34 +109,6 @@ ColumnLayout {
                 }
             },
             FlatButtonWithToolTip {
-                objectName: 'createRadioButton'
-                visible: showCreateRadioButton
-                text: i18nc("Create a new radio", "Create a radio")
-                icon.name: "list-add"
-                onClicked: createRadio()
-            },
-            FlatButtonWithToolTip {
-                objectName: 'enqueueButton'
-                visible: !showCreateRadioButton
-                text: i18nc("Add current list to playlist", "Enqueue")
-                icon.name: "list-add"
-                onClicked: enqueue()
-            },
-            FlatButtonWithToolTip {
-                objectName: 'replaceAndPlayButton'
-                visible: !showCreateRadioButton
-                text: i18n("Play now, replacing contents of Playlist")
-                icon.name: "media-playback-start"
-                onClicked: replaceAndPlay()
-            },
-            FlatButtonWithToolTip {
-                objectName: 'showArtistButton'
-                visible: allowArtistNavigation && !showCreateRadioButton
-                text: i18nc("Button to navigate to the artist of the album", "Display Artist")
-                icon.name: "view-media-artist"
-                onClicked: showArtist()
-            },
-            FlatButtonWithToolTip {
                 id: sortMenuButton
 
                 objectName: 'sortMenuButton'
@@ -180,6 +152,34 @@ ColumnLayout {
                     text: sortMenuButton.text
                     font: sortMenuButton.font
                 }
+            },
+            FlatButtonWithToolTip {
+                objectName: 'createRadioButton'
+                visible: showCreateRadioButton
+                text: i18nc("Create a new radio", "Create a radio")
+                icon.name: "list-add"
+                onClicked: createRadio()
+            },
+            FlatButtonWithToolTip {
+                objectName: 'enqueueButton'
+                visible: !showCreateRadioButton
+                text: i18nc("Add current list to playlist", "Enqueue")
+                icon.name: "list-add"
+                onClicked: enqueue()
+            },
+            FlatButtonWithToolTip {
+                objectName: 'replaceAndPlayButton'
+                visible: !showCreateRadioButton
+                text: i18n("Play now, replacing contents of Playlist")
+                icon.name: "media-playback-start"
+                onClicked: replaceAndPlay()
+            },
+            FlatButtonWithToolTip {
+                objectName: 'showArtistButton'
+                visible: allowArtistNavigation && !showCreateRadioButton
+                text: i18nc("Button to navigate to the artist of the album", "Display Artist")
+                icon.name: "view-media-artist"
+                onClicked: showArtist()
             },
             FlatButtonWithToolTip {
                 objectName: 'showFilterButton'

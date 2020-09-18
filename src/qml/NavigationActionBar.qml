@@ -134,9 +134,10 @@ ColumnLayout {
 
                      anchors.right: sortMenuButton.right
                      anchors.verticalCenter: sortMenuButton.verticalCenter
+                     anchors.rightMargin: Kirigami.Units.largeSpacing
                 }
 
-                Layout.preferredWidth: textSize.width + Kirigami.Units.smallSpacing * 5
+                Layout.preferredWidth: textSize.width + implicitIndicatorWidth + Kirigami.Units.largeSpacing * 2
 
                 SortMenu {
                     id: sortMenu

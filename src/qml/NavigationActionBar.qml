@@ -58,11 +58,6 @@ ColumnLayout {
                 icon.name: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
                 onClicked: goBack()
             },
-            Item {
-                id: spacer
-                Layout.preferredWidth: Kirigami.Units.largeSpacing
-                visible: goPreviousButton.visible
-            },
             Image {
                 id: mainIcon
                 visible: image.toString().length > 0
@@ -78,7 +73,7 @@ ColumnLayout {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
             },
             Item {
-                Layout.preferredWidth: Kirigami.Units.largeSpacing
+                Layout.preferredWidth: Kirigami.Units.smallSpacing
                 visible: mainIcon.visible
             },
             ColumnLayout {

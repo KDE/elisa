@@ -28,7 +28,7 @@ Button {
     implicitWidth: icon.width + Kirigami.Units.largeSpacing * 2
     implicitHeight: icon.height + Kirigami.Units.largeSpacing * 2
 
-    ToolTip.visible: hovered
+    ToolTip.visible: hovered && flatButtonWithToolTip.text.length > 0
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
     ToolTip.text: flatButtonWithToolTip.text
 }

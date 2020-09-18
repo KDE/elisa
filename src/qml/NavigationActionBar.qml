@@ -108,14 +108,10 @@ ColumnLayout {
             },
             FlatButtonWithToolTip {
                 id: sortMenuButton
+                Layout.preferredWidth: implicitContentWidth
 
                 objectName: 'sortMenuButton'
                 visible: enableSorting && !showCreateRadioButton
-                text: if (sortMenu.sortRoleName !== "") {
-                          i18nc("Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
-                      } else {
-                          i18nc("Sort By Menu Title with no sort selected", "Sort")
-                      }
                 display: AbstractButton.TextOnly
                 icon.name: "view-sort"
                 onClicked: {
@@ -123,19 +119,28 @@ ColumnLayout {
                     sortMenu.open()
                 }
 
-                indicator: Image {
-                     source: 'image://icon/arrow-down'
-                     width: Kirigami.Units.iconSizes.small
-                     height: Kirigami.Units.iconSizes.small
-                     sourceSize.width: width
-                     sourceSize.height: height
-
-                     anchors.right: sortMenuButton.right
-                     anchors.verticalCenter: sortMenuButton.verticalCenter
-                     anchors.rightMargin: Kirigami.Units.largeSpacing
+                // Custom content item for now to replicate the look of a button
+                // that opens a dropdown menu
+                // TODO: Port more fully to Kirigami so we get this for free
+                contentItem: RowLayout {
+                    spacing: Kirigami.Units.largeSpacing
+                    Label {
+                        Layout.leftMargin: Kirigami.Units.largeSpacing
+                        text: if (sortMenu.sortRoleName !== "") {
+                            i18nc("Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
+                        } else {
+                            i18nc("Sort By Menu Title with no sort selected", "Sort")
+                        }
+                    }
+                    Image {
+                        Layout.rightMargin: Kirigami.Units.largeSpacing
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                        source: 'image://icon/arrow-down'
+                        sourceSize.width: width
+                        sourceSize.height: height
+                    }
                 }
-
-                Layout.preferredWidth: textSize.width + implicitIndicatorWidth + Kirigami.Units.largeSpacing * 2
 
                 SortMenu {
                     id: sortMenu
@@ -143,13 +148,6 @@ ColumnLayout {
                     onSortOrderChanged: if (viewManager) viewManager.sortOrderChanged(sortOrder)
 
                     onSortRoleChanged: if (viewManager) viewManager.sortRoleChanged(sortRole)
-                }
-
-                TextMetrics {
-                    id: textSize
-
-                    text: sortMenuButton.text
-                    font: sortMenuButton.font
                 }
             },
             FlatButtonWithToolTip {

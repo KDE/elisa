@@ -92,18 +92,18 @@ ColumnLayout {
 
                     text: mainTitle
                     level: authorLabel.visible ? 4 : 1
-                    font.weight: authorLabel.visible ? Font.Bold : Font.Normal
-                    elide: Text.ElideRight
                 }
                 LabelWithToolTip {
                     id: authorLabel
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                     Layout.fillWidth: true
 
+                    visible: secondaryTitle !== ""
+                    opacity: 0.6
+
                     text: secondaryTitle
                     elide: Text.ElideRight
 
-                    visible: secondaryTitle !== ""
                 }
             },
             FlatButtonWithToolTip {

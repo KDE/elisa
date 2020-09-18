@@ -83,6 +83,8 @@ ColumnLayout {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
+                spacing: 0
+
                 LabelWithToolTip {
                     id: albumLabel
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter

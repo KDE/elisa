@@ -48,6 +48,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary>Beautiful no-nonsense music player with online radio support</summary>
   <summary xml:lang="ca">Reproductor musical espectacular i pràctic que accepta ràdios en línia</summary>
   <summary xml:lang="ca-valencia">Reproductor musical espectacular i pràctic que accepta ràdios en línia</summary>
+  <summary xml:lang="cs">Hezký jednoduchý přehrávač hudby s podporou online rádií</summary>
   <summary xml:lang="da">Smuk musikafspiller uden noget pjat med understøttelse af netradio</summary>
   <summary xml:lang="en-GB">Beautiful no-nonsense music player with online radio support</summary>
   <summary xml:lang="es">Reproductor de música bello y práctico con soporte para radios en línea</summary>
@@ -71,6 +72,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="uk">Красивий змістовний програвач музичних творів із підтримкою інтернет-радіо</summary>
   <summary xml:lang="x-test">xxBeautiful no-nonsense music player with online radio supportxx</summary>
   <summary xml:lang="zh-CN">简约优雅的音乐播放器，支持网络电台。</summary>
+  <summary xml:lang="zh-TW">漂亮且簡潔明瞭的音樂播放程式，支援線上廣播</summary>
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>

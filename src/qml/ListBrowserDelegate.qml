@@ -84,30 +84,26 @@ FocusScope {
                     if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
                         if (albumArtist !== undefined && artist !== albumArtist)
                             return i18nc("%1: track number. %2: track title. %3: artist name",
-                                         "<b>%1 - %2</b> - <i>%3</i>",
+                                         "%1 - %2 - %3",
                                          trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                          title, artist);
                         else
                             return i18nc("%1: track number. %2: track title.",
-                                         "<b>%1 - %2</b>",
+                                         "%1 - %2",
                                          trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                          title);
                     } else {
                         if (albumArtist !== undefined && artist !== albumArtist)
                             return i18nc("%1: track title. %2: artist name",
-                                         "<b>%1</b> - <i>%2</i>",
+                                         "%1 - %2",
                                          title, artist);
                         else
-                            return i18nc("%1: track title",
-                                         "<b>%1</b>",
-                                         title);
+                            return title;
                     }
                 }
 
                 elide: Text.ElideRight
                 horizontalAlignment: Text.AlignLeft
-
-                color: myPalette.text
 
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                 Layout.fillWidth: true

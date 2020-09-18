@@ -648,6 +648,7 @@ void MediaPlayListProxyModel::clearPlayList()
     d->mPersistentSettingsForUndo = persistentState();
     d->mCurrentPlayListPosition = -1;
     d->mCurrentTrack = QPersistentModelIndex{};
+    notifyCurrentTrackChanged();
     d->mPlayListModel->clearPlayList();
     Q_EMIT clearPlayListPlayer();
     Q_EMIT displayUndoNotification();

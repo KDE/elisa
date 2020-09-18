@@ -305,7 +305,7 @@ void ManageHeaderBar::notifyTrackTypeProperty()
 {
     auto newTrackTypeValue = mCurrentTrack.data(mTrackTypeIdRole).value<ElisaUtils::PlayListEntryType>();
     if (mOldTrackType != newTrackTypeValue) {
-        Q_EMIT trackTypeRoleChanged();
+        Q_EMIT trackTypeChanged();
 
         mOldTrackType = newTrackTypeValue;
     }

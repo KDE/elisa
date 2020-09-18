@@ -334,19 +334,29 @@ FocusScope {
     }
 
     onDatabaseIdChanged: {
-        metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+        if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
+            metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+        }
+    }
+
+    onTrackTypeChanged: {
+        if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
+            metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+        }
     }
 
     Connections {
         target: ElisaApplication
 
         function onMusicManagerChanged() {
-            metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            }
         }
     }
 
     Component.onCompleted: {
-        if (ElisaApplication.musicManager) {
+        if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
             metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
         }
     }

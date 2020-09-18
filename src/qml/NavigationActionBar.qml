@@ -63,7 +63,9 @@ ColumnLayout {
                 visible: image.toString().length > 0
                 source: image
 
-                Layout.preferredHeight: authorAndAlbumLayout.height
+                Layout.fillHeight: true
+                Layout.topMargin: Kirigami.Units.smallSpacing
+                Layout.bottomMargin: Kirigami.Units.smallSpacing
                 Layout.preferredWidth: height
                 sourceSize.height: height
                 sourceSize.width: width
@@ -77,10 +79,9 @@ ColumnLayout {
                 visible: mainIcon.visible
             },
             ColumnLayout {
+                id: authorAndAlbumLayout
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
-                id: authorAndAlbumLayout
 
                 LabelWithToolTip {
                     id: albumLabel
@@ -94,7 +95,6 @@ ColumnLayout {
                 }
                 LabelWithToolTip {
                     id: authorLabel
-
                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                     Layout.fillWidth: true
 

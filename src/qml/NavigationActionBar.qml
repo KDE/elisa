@@ -65,6 +65,7 @@ ColumnLayout {
             },
             Image {
                 id: mainIcon
+                visible: image.toString().length > 0
                 source: image
 
                 Layout.preferredHeight: authorAndAlbumLayout.height

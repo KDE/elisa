@@ -127,13 +127,13 @@ ColumnLayout {
 
                 indicator: Image {
                      source: 'image://icon/arrow-down'
-                     sourceSize.width: Kirigami.Units.iconSizes.small * 0.6
-                     sourceSize.height: Kirigami.Units.iconSizes.small * 0.6
+                     width: Kirigami.Units.iconSizes.small
+                     height: Kirigami.Units.iconSizes.small
+                     sourceSize.width: width
+                     sourceSize.height: height
 
                      anchors.right: sortMenuButton.right
-                     anchors.rightMargin: Kirigami.Units.smallSpacing / 2
-                     anchors.bottom: sortMenuButton.bottom
-                     anchors.bottomMargin: Kirigami.Units.smallSpacing / 2
+                     anchors.verticalCenter: sortMenuButton.verticalCenter
                 }
 
                 Layout.preferredWidth: textSize.width + Kirigami.Units.smallSpacing * 5

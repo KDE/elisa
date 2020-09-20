@@ -423,14 +423,16 @@ void TrackMetadataModel::lyricsValueIsReady()
 
 void TrackMetadataModel::initializeByIdAndUrl(ElisaUtils::PlayListEntryType type, qulonglong databaseId, const QUrl &url)
 {
-    beginResetModel();
-    mFullData.clear();
-    mTrackData.clear();
-    mCoverImage.clear();
-    mFileUrl.clear();
-    endResetModel();
+    if (!mFullData.isEmpty()) {
+        beginResetModel();
+        mFullData.clear();
+        mTrackData.clear();
+        mCoverImage.clear();
+        mFileUrl.clear();
+        endResetModel();
 
-    Q_EMIT lyricsChanged();
+        Q_EMIT lyricsChanged();
+    }
 
     mFileUrl = url;
     mDatabaseId = databaseId;

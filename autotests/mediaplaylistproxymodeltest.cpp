@@ -2503,7 +2503,7 @@ void MediaPlayListProxyModelTest::clearPlayListCase()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
 
     QCOMPARE(myPlayListProxyModel.rowCount(), 6);
 
@@ -2559,7 +2559,7 @@ void MediaPlayListProxyModelTest::clearPlayListCase()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(currentTrackChangedSpy.count(), 2);
 
     QCOMPARE(myPlayListProxyModel.rowCount(), 0);
 
@@ -2656,7 +2656,7 @@ void MediaPlayListProxyModelTest::undoClearPlayListCase()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
 
     QCOMPARE(myPlayListProxyModel.rowCount(), 6);
 
@@ -2712,7 +2712,7 @@ void MediaPlayListProxyModelTest::undoClearPlayListCase()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 3);
+    QCOMPARE(currentTrackChangedSpy.count(), 2);
 
     QCOMPARE(myPlayListProxyModel.rowCount(), 0);
 
@@ -2731,7 +2731,7 @@ void MediaPlayListProxyModelTest::undoClearPlayListCase()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 6);
     QCOMPARE(newEntryInListSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 4);
+    QCOMPARE(currentTrackChangedSpy.count(), 3);
     QCOMPARE(displayUndoNotificationSpy.count(), 1);
 
     QCOMPARE(myPlayListProxyModel.rowCount(), 6);
@@ -2868,7 +2868,7 @@ void MediaPlayListProxyModelTest::undoReplacePlayListCase()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 1);
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
 
     QCOMPARE(myPlayListProxyModel.rowCount(), 6);
 
@@ -2929,7 +2929,7 @@ void MediaPlayListProxyModelTest::undoReplacePlayListCase()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 0);
     QCOMPARE(newEntryInListSpy.count(), 2);
-    QCOMPARE(currentTrackChangedSpy.count(), 5);
+    QCOMPARE(currentTrackChangedSpy.count(), 3);
 
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(0, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album1"));
@@ -2969,7 +2969,7 @@ void MediaPlayListProxyModelTest::undoReplacePlayListCase()
     QCOMPARE(dataChangedSpy.count(), 0);
     QCOMPARE(newTrackByNameInListSpy.count(), 6);
     QCOMPARE(newEntryInListSpy.count(), 2);
-    QCOMPARE(currentTrackChangedSpy.count(), 7);
+    QCOMPARE(currentTrackChangedSpy.count(), 5);
     QCOMPARE(displayUndoNotificationSpy.count(), 1);
 
     QCOMPARE(myPlayListProxyModel.rowCount(), 6);

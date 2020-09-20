@@ -29,6 +29,8 @@ public:
 
     QPersistentModelIndex mCurrentTrack;
 
+    bool mCurrentTrackWasValid = false;
+
     QPersistentModelIndex mNextTrack;
 
     QMediaPlaylist mLoadPlaylist;
@@ -356,6 +358,7 @@ void MediaPlayListProxyModel::sourceRowsAboutToBeRemoved(const QModelIndex &pare
             }
         }
     } else {
+        d->mCurrentTrackWasValid = d->mCurrentTrack.isValid();
         beginRemoveRows(parent, start, end);
     }
 }
@@ -370,16 +373,15 @@ void MediaPlayListProxyModel::sourceRowsRemoved(const QModelIndex &parent, int s
     }
     if (!d->mCurrentTrack.isValid()) {
         d->mCurrentTrack = index(d->mCurrentPlayListPosition, 0);
-
-        if (d->mCurrentTrack.isValid()) {
+        if (d->mCurrentTrack.isValid() && d->mCurrentTrackWasValid) {
             notifyCurrentTrackChanged();
-        }
-
-        if (!d->mCurrentTrack.isValid()) {
-            Q_EMIT playListFinished();
-            determineTracks();
+        } else {
             if (!d->mCurrentTrack.isValid()) {
-                notifyCurrentTrackChanged();
+                Q_EMIT playListFinished();
+                determineTracks();
+                if (!d->mCurrentTrack.isValid() && d->mCurrentTrackWasValid) {
+                    notifyCurrentTrackChanged();
+                }
             }
         }
     }

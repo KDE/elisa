@@ -151,6 +151,10 @@ public Q_SLOTS:
 
     void setInitialIndex(int newIndex);
 
+private Q_SLOTS:
+
+    void openInitialView();
+
 private:
 
     void openViewFromData(const ViewParameters &viewParamaters);

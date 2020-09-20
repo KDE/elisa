@@ -158,6 +158,8 @@ public:
     MusicListenersManager *mManager = nullptr;
 
     DatabaseInterface *mDatabase = nullptr;
+
+    bool mIsFullyInitialized = true;
 };
 
 ViewsListData::ViewsListData(QObject *parent) : QObject(parent), d(std::make_unique<ViewsListDataPrivate>())
@@ -259,6 +261,23 @@ void ViewsListData::setEmbeddedCategory(ElisaUtils::PlayListEntryType aEmbeddedV
         Q_EMIT embeddedCategoryChanged();
 
         refreshEmbeddedCategory();
+
+        switch (d->mEmbeddedCategory) {
+        case ElisaUtils::Composer:
+        case ElisaUtils::Container:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Radio:
+        case ElisaUtils::Track:
+        case ElisaUtils::Unknown:
+            d->mIsFullyInitialized = true;
+            Q_EMIT isFullyInitializedChanged();
+            break;
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Genre:
+            break;
+        }
     }
 }
 
@@ -287,6 +306,9 @@ void ViewsListData::genresAdded(DataTypes::ListGenreDataType newData)
                                        ViewManager::ViewHideRating});
     }
     Q_EMIT dataAdded();
+
+    d->mIsFullyInitialized = true;
+    Q_EMIT isFullyInitializedChanged();
 }
 
 void ViewsListData::artistsAdded(DataTypes::ListArtistDataType newData)
@@ -314,6 +336,9 @@ void ViewsListData::artistsAdded(DataTypes::ListArtistDataType newData)
                                        ViewManager::ViewShowRating});
     }
     Q_EMIT dataAdded();
+
+    d->mIsFullyInitialized = true;
+    Q_EMIT isFullyInitializedChanged();
 }
 
 void ViewsListData::artistRemoved(qulonglong removedDatabaseId)
@@ -372,6 +397,9 @@ void ViewsListData::albumsAdded(DataTypes::ListAlbumDataType newData)
                                        useColorOverlay});
     }
     Q_EMIT dataAdded();
+
+    d->mIsFullyInitialized = true;
+    Q_EMIT isFullyInitializedChanged();
 }
 
 void ViewsListData::albumRemoved(qulonglong removedDatabaseId)
@@ -611,6 +639,11 @@ void ViewsListData::setManager(MusicListenersManager *aManager)
 DatabaseInterface* ViewsListData::database() const
 {
     return d->mDatabase;
+}
+
+bool ViewsListData::isFullyInitialized() const
+{
+    return d->mIsFullyInitialized;
 }
 
 void ViewsListData::setDatabase(DatabaseInterface *aDatabase)

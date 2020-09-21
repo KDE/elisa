@@ -19,6 +19,7 @@
 
 #include "elisa_settings.h"
 #include <KConfigCore/KAuthorized>
+#include <KLocalizedString>
 
 #if defined KF5ConfigWidgets_FOUND && KF5ConfigWidgets_FOUND
 #include <KConfigWidgets/KStandardAction>
@@ -167,6 +168,18 @@ void ElisaApplication::setupActions(const QString &actionName)
             d->mCollection.setDefaultShortcut(scrubAction, QKeySequence(Qt::SHIFT + Qt::Key_Left));
     }
 
+    if (actionName == QLatin1String("NextTrack") && KAuthorized::authorizeAction(actionName)) {
+            auto nextTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::nextTrack);
+            nextTrackAction->setText(i18n("Go to next track"));
+            d->mCollection.setDefaultShortcut(nextTrackAction, QKeySequence(Qt::CTRL + Qt::Key_Left));
+    }
+
+    if (actionName == QLatin1String("PreviousTrack") && KAuthorized::authorizeAction(actionName)) {
+            auto previousTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::previousTrack);
+            previousTrackAction->setText(i18n("Go to previous track"));
+            d->mCollection.setDefaultShortcut(previousTrackAction, QKeySequence(Qt::CTRL + Qt::Key_Right));
+    }
+
     if (actionName == QLatin1String("Play-Pause") && KAuthorized::authorizeAction(actionName)) {
             auto playPauseAction = d->mCollection.addAction(actionName, this, &ElisaApplication::playPause);
             d->mCollection.setDefaultShortcut(playPauseAction, QKeySequence(Qt::Key_Space));
@@ -291,6 +304,10 @@ void ElisaApplication::togglePlaylist() {}
 void ElisaApplication::seek() {}
 
 void ElisaApplication::scrub() {}
+
+void ElisaApplication::nextTrack() {}
+
+void ElisaApplication::previousTrack() {}
 
 void ElisaApplication::playPause() {}
 

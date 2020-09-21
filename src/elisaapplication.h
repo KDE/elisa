@@ -193,6 +193,10 @@ private Q_SLOTS:
 
     void configChanged();
 
+    void nextTrack();
+
+    void previousTrack();
+
 private:
 
     void initializeModels();

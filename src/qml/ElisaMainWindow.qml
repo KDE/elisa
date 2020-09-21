@@ -52,6 +52,8 @@ Kirigami.ApplicationWindow {
     property var goBackAction: ElisaApplication.action("go_back")
     property var seekAction: ElisaApplication.action("Seek")
     property var scrubAction: ElisaApplication.action("Scrub")
+    property var nextTrackAction : ElisaApplication.action("NextTrack")
+    property var previousTrackAction: ElisaApplication.action("PreviousTrack")
     property var playPauseAction: ElisaApplication.action("Play-Pause")
     property var findAction: ElisaApplication.action("edit_find")
 
@@ -68,6 +70,16 @@ Kirigami.ApplicationWindow {
     Action {
         shortcut: scrubAction.shortcut
         onTriggered: ElisaApplication.audioControl.seek(headerBar.playerControl.position - 10000)
+    }
+
+    Action {
+        shortcut: nextTrackAction.shortcut
+        onTriggered: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position)
+    }
+
+    Action {
+        shortcut: previousTrackAction.shortcut
+        onTriggered: ElisaApplication.mediaPlayListProxyModel.skipNextTrack(ElisaApplication.audioPlayer.position)
     }
 
     Action {

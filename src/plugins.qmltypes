@@ -1004,11 +1004,19 @@ Module {
         prototype: "QAbstractProxyModel"
         exports: ["org.kde.elisa/MediaPlayListProxyModel 1.0"]
         exportMetaObjectRevisions: [0]
+        Enum {
+            name: "Repeat"
+            values: {
+                "None": 0,
+                "One": 1,
+                "Playlist": 2
+            }
+        }
         Property { name: "persistentState"; type: "QVariantMap" }
         Property { name: "previousTrack"; type: "QPersistentModelIndex"; isReadonly: true }
         Property { name: "currentTrack"; type: "QPersistentModelIndex"; isReadonly: true }
         Property { name: "nextTrack"; type: "QPersistentModelIndex"; isReadonly: true }
-        Property { name: "repeatPlay"; type: "bool" }
+        Property { name: "repeatMode"; type: "Repeat" }
         Property { name: "shufflePlayList"; type: "bool" }
         Property { name: "remainingTracks"; type: "int"; isReadonly: true }
         Property { name: "currentTrackRow"; type: "int"; isReadonly: true }
@@ -1060,8 +1068,8 @@ Module {
             Parameter { name: "triggerPlay"; type: "ElisaUtils::PlayListEnqueueTriggerPlay" }
         }
         Method {
-            name: "setRepeatPlay"
-            Parameter { name: "value"; type: "bool" }
+            name: "setRepeatMode"
+            Parameter { name: "value"; type: "Repeat" }
         }
         Method {
             name: "setShufflePlayList"

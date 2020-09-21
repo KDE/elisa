@@ -1,6 +1,7 @@
 /*
    SPDX-FileCopyrightText: 2015 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
    SPDX-FileCopyrightText: 2019 (c) Alexander Stippich <a.stippich@gmx.net>
+   SPDX-FileCopyrightText: 2020 (c) Carson Black <uhhadd@gmail.com>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -47,7 +48,7 @@ public:
 
     int mCurrentPlayListPosition = -1;
 
-    bool mRepeatPlay = false;
+    MediaPlayListProxyModel::Repeat mRepeatMode = MediaPlayListProxyModel::Repeat::None;
 
     bool mShufflePlayList = false;
 
@@ -215,20 +216,20 @@ QPersistentModelIndex MediaPlayListProxyModel::nextTrack() const
     return d->mNextTrack;
 }
 
-void MediaPlayListProxyModel::setRepeatPlay(const bool value)
+void MediaPlayListProxyModel::setRepeatMode(Repeat value)
 {
-    if (d->mRepeatPlay != value) {
-        d->mRepeatPlay = value;
-        Q_EMIT repeatPlayChanged();
+    if (d->mRepeatMode != value) {
+        d->mRepeatMode = value;
+        Q_EMIT repeatModeChanged();
         Q_EMIT remainingTracksChanged();
         Q_EMIT persistentStateChanged();
         determineAndNotifyPreviousAndNextTracks();
     }
 }
 
-bool MediaPlayListProxyModel::repeatPlay() const
+MediaPlayListProxyModel::Repeat MediaPlayListProxyModel::repeatMode() const
 {
-    return d->mRepeatPlay;
+    return d->mRepeatMode;
 }
 
 void MediaPlayListProxyModel::setShufflePlayList(const bool value)
@@ -455,7 +456,7 @@ void MediaPlayListProxyModel::sourceHeaderDataChanged(Qt::Orientation orientatio
 
 int MediaPlayListProxyModel::remainingTracks() const
 {
-    if (!d->mCurrentTrack.isValid() || d->mRepeatPlay) {
+    if (!d->mCurrentTrack.isValid() || (d->mRepeatMode == Repeat::One) || (d->mRepeatMode == Repeat::Playlist)) {
         return -1;
     } else {
         return rowCount() - d->mCurrentTrack.row() - 1;
@@ -518,12 +519,24 @@ void MediaPlayListProxyModel::skipNextTrack()
     }
 
     if (d->mCurrentTrack.row() >= rowCount() - 1) {
-        d->mCurrentTrack = index(0, 0);
-        if (!d->mRepeatPlay) {
+        switch (d->mRepeatMode) {
+        case Repeat::One:
+            d->mCurrentTrack = index(d->mCurrentTrack.row(), 0);
+            break;
+        case Repeat::Playlist:
+            d->mCurrentTrack = index(0, 0);
+            break;
+        case Repeat::None:
+            d->mCurrentTrack = index(0, 0);
             Q_EMIT playListFinished();
+            break;
         }
     } else {
-        d->mCurrentTrack = index(d->mCurrentTrack.row() + 1, 0);
+        if (d->mRepeatMode == Repeat::One) {
+            d->mCurrentTrack = index(d->mCurrentTrack.row(), 0);
+        } else {
+            d->mCurrentTrack = index(d->mCurrentTrack.row() + 1, 0);
+        }
     }
 
     notifyCurrentTrackChanged();
@@ -541,13 +554,17 @@ void MediaPlayListProxyModel::skipPreviousTrack(qint64 position)
     }
 
     if (d->mCurrentTrack.row() == 0) {
-        if (d->mRepeatPlay) {
+        if (d->mRepeatMode == Repeat::One || d->mRepeatMode == Repeat::Playlist) {
             d->mCurrentTrack = index(rowCount() - 1, 0);
         } else {
             return;
         }
     } else {
-        d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, 0);
+        if (d->mRepeatMode == Repeat::One) {
+            d->mCurrentTrack = index(d->mCurrentTrack.row(), 0);
+        } else {
+            d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, 0);
+        }
     }
 
     notifyCurrentTrackChanged();
@@ -609,19 +626,8 @@ void MediaPlayListProxyModel::determineAndNotifyPreviousAndNextTracks()
     }
     auto mOldPreviousTrack = d->mPreviousTrack;
     auto mOldNextTrack = d->mNextTrack;
-    if (d->mRepeatPlay) {
-        // forward to end or begin when repeating
-        if (d->mCurrentTrack.row() == 0) {
-            d->mPreviousTrack = index(rowCount() - 1, 0);
-        } else {
-            d->mPreviousTrack = index(d->mCurrentTrack.row() - 1, 0);
-        }
-        if (d->mCurrentTrack.row() == rowCount() - 1) {
-            d->mNextTrack = index(0, 0);
-        } else {
-            d->mNextTrack = index(d->mCurrentTrack.row() + 1, 0);
-        }
-    } else {
+    switch (d->mRepeatMode) {
+    case Repeat::None:
         // return nothing if no tracks available
         if (d->mCurrentTrack.row() == 0) {
             d->mPreviousTrack = QPersistentModelIndex();
@@ -633,6 +639,24 @@ void MediaPlayListProxyModel::determineAndNotifyPreviousAndNextTracks()
         } else {
             d->mNextTrack = index(d->mCurrentTrack.row() + 1, 0);
         }
+        break;
+    case Repeat::Playlist:
+        // forward to end or begin when repeating
+        if (d->mCurrentTrack.row() == 0) {
+            d->mPreviousTrack = index(rowCount() - 1, 0);
+        } else {
+            d->mPreviousTrack = index(d->mCurrentTrack.row() - 1, 0);
+        }
+        if (d->mCurrentTrack.row() == rowCount() - 1) {
+            d->mNextTrack = index(0, 0);
+        } else {
+            d->mNextTrack = index(d->mCurrentTrack.row() + 1, 0);
+        }
+        break;
+    case Repeat::One:
+        d->mPreviousTrack = index(d->mCurrentTrack.row(), 0);
+        d->mNextTrack = index(d->mCurrentTrack.row(), 0);
+        break;
     }
     if (d->mPreviousTrack != mOldPreviousTrack) {
         Q_EMIT previousTrackChanged(d->mPreviousTrack);
@@ -744,7 +768,7 @@ QVariantMap MediaPlayListProxyModel::persistentState() const
     currentState[QStringLiteral("playList")] = d->mPlayListModel->getEntriesForRestore();
     currentState[QStringLiteral("currentTrack")] = d->mCurrentPlayListPosition;
     currentState[QStringLiteral("shufflePlayList")] = d->mShufflePlayList;
-    currentState[QStringLiteral("repeatPlay")] = d->mRepeatPlay;
+    currentState[QStringLiteral("repeatMode")] = QVariant::fromValue(d->mRepeatMode);
 
     return currentState;
 }
@@ -771,9 +795,15 @@ void MediaPlayListProxyModel::setPersistentState(const QVariantMap &persistentSt
     if (shufflePlayListStoredValue != persistentStateValue.end()) {
         setShufflePlayList(shufflePlayListStoredValue->toBool());
     }
+
     auto repeatPlayStoredValue = persistentStateValue.find(QStringLiteral("repeatPlay"));
-    if (repeatPlayStoredValue != persistentStateValue.end()) {
-        setRepeatPlay(repeatPlayStoredValue->toBool());
+    if (repeatPlayStoredValue != persistentStateValue.end() && repeatPlayStoredValue->value<bool>()) {
+        setRepeatMode(Repeat::Playlist);
+    }
+
+    auto repeatModeStoredValue = persistentStateValue.find(QStringLiteral("repeatMode"));
+    if (repeatModeStoredValue != persistentStateValue.end()) {
+        setRepeatMode(repeatModeStoredValue->value<Repeat>());
     }
 
     Q_EMIT persistentStateChanged();

@@ -1,5 +1,6 @@
 /*
    SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2020 (c) Carson Black <uhhadd@gmail.com>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -7,7 +8,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.7
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
@@ -24,7 +25,7 @@ FocusScope {
     property bool isMaximized
 
     property bool shuffle
-    property bool repeat
+    property int repeat: MediaPlayListProxyModel.None
 
     signal play()
     signal pause()
@@ -325,9 +326,49 @@ FocusScope {
 
         FlatButtonWithToolTip {
             id: repeatButton
-            text: i18nc("toggle repeat mode for playlist", "Toggle Repeat")
-            icon.name: musicWidget.repeat ? "media-repeat-all" : "media-repeat-none"
-            onClicked: musicWidget.repeat = !musicWidget.repeat
+            text: {
+                const map = {
+                    0: i18n("Don't repeat tracks"),
+                    1: i18n("Repeat current track"),
+                    2: i18n("Repeat all tracks in playlist")
+                }
+                return map[musicWidget.repeat]
+            }
+            icon.name: {
+                const map = {
+                    0: "media-repeat-none",
+                    1: "media-repeat-single",
+                    2: "media-repeat-all"
+                }
+                return map[musicWidget.repeat]
+            }
+            onClicked: {
+                let nextRepeat = musicWidget.repeat + 1
+                if (nextRepeat >= 3) {
+                    nextRepeat = 0
+                }
+                musicWidget.repeat = nextRepeat
+            }
+            onPressAndHold: {
+                playlistModeMenu.popup()
+            }
+
+            Menu {
+                id: playlistModeMenu
+
+                PlaylistModeItem {
+                    text: i18n("Playlist")
+                    mode: MediaPlayListProxyModel.Playlist
+                }
+                PlaylistModeItem {
+                    text: i18n("One")
+                    mode: MediaPlayListProxyModel.One
+                }
+                PlaylistModeItem {
+                    text: i18n("None")
+                    mode: MediaPlayListProxyModel.None
+                }
+            }
         }
 
         // Not a FlatButtonWithToolTip because we want text

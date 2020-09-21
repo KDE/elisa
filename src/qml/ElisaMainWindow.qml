@@ -233,7 +233,7 @@ Kirigami.ApplicationWindow {
                 playerControl.playEnabled: ElisaApplication.playerControl.playControlEnabled
                 playerControl.isPlaying: ElisaApplication.playerControl.musicPlaying
 
-                playerControl.repeat: ElisaApplication.mediaPlayListProxyModel.repeatPlay
+                playerControl.repeat: ElisaApplication.mediaPlayListProxyModel.repeatMode
                 playerControl.shuffle: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
 
                 playerControl.onSeek: ElisaApplication.audioControl.playerSeek(position)
@@ -359,7 +359,7 @@ Kirigami.ApplicationWindow {
         }
 
         ElisaApplication.mediaPlayListProxyModel.shufflePlayList = Qt.binding(function() { return headerBar.playerControl.shuffle })
-        ElisaApplication.mediaPlayListProxyModel.repeatPlay = Qt.binding(function() { return headerBar.playerControl.repeat })
+        ElisaApplication.mediaPlayListProxyModel.repeatMode = Qt.binding(function() { return headerBar.playerControl.repeat })
         ElisaApplication.audioPlayer.muted = Qt.binding(function() { return headerBar.playerControl.muted })
         ElisaApplication.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })
 

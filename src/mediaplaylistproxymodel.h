@@ -1,6 +1,7 @@
 /*
    SPDX-FileCopyrightText: 2015 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
    SPDX-FileCopyrightText: 2019 (c) Alexander Stippich <a.stippich@gmx.net>
+   SPDX-FileCopyrightText: 2020 (c) Carson Black <uhhadd@gmail.com>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -25,6 +26,16 @@ class ELISALIB_EXPORT MediaPlayListProxyModel : public QAbstractProxyModel
 
     Q_OBJECT
 
+public:
+    enum Repeat {
+        None,
+        One,
+        Playlist
+    };
+    Q_ENUM(Repeat)
+
+private:
+
     Q_PROPERTY(QVariantMap persistentState
                READ persistentState
                WRITE setPersistentState
@@ -42,10 +53,10 @@ class ELISALIB_EXPORT MediaPlayListProxyModel : public QAbstractProxyModel
                READ nextTrack
                NOTIFY nextTrackChanged)
 
-    Q_PROPERTY(bool repeatPlay
-               READ repeatPlay
-               WRITE setRepeatPlay
-               NOTIFY repeatPlayChanged)
+    Q_PROPERTY(Repeat repeatMode
+               READ repeatMode
+               WRITE setRepeatMode
+               NOTIFY repeatModeChanged)
 
     Q_PROPERTY(bool shufflePlayList
                READ shufflePlayList
@@ -100,7 +111,7 @@ public:
 
     [[nodiscard]] QPersistentModelIndex nextTrack() const;
 
-    [[nodiscard]] bool repeatPlay() const;
+    [[nodiacard]] Repeat repeatMode() const;
 
     [[nodiscard]] bool shufflePlayList() const;
 
@@ -130,7 +141,7 @@ public Q_SLOTS:
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void setRepeatPlay(bool value);
+    void setRepeatMode(Repeat value);
 
     void setShufflePlayList(bool value);
 
@@ -177,7 +188,7 @@ Q_SIGNALS:
 
     void nextTrackDataChanged();
 
-    void repeatPlayChanged();
+    void repeatModeChanged();
 
     void shufflePlayListChanged();
 

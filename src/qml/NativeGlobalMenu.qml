@@ -129,17 +129,17 @@ MenuBar {
                 items: repeatMenu.items
             }
 
-            MenuItem {
-                text: i18n("On")
-                checkable: true
-                checked: ElisaApplication.mediaPlayListProxyModel.repeatPlay
-                onTriggered: ElisaApplication.mediaPlayListProxyModel.repeatPlay = true
+            NativeGlobalMenuPlaylistModeItem {
+                text: i18n("Playlist")
+                mode: MediaPlayListProxyModel.Playlist
             }
-            MenuItem {
-                text: i18n("Off")
-                checkable: true
-                checked: !ElisaApplication.mediaPlayListProxyModel.repeatPlay
-                onTriggered: ElisaApplication.mediaPlayListProxyModel.repeatPlay = false
+            NativeGlobalMenuPlaylistModeItem {
+                text: i18n("One")
+                mode: MediaPlayListProxyModel.One
+            }
+            NativeGlobalMenuPlaylistModeItem {
+                text: i18n("None")
+                mode: MediaPlayListProxyModel.None
             }
         }
     }

@@ -63,16 +63,15 @@ ColumnLayout {
                 visible: image.toString().length > 0
                 source: image
 
-                Layout.fillHeight: true
-                Layout.topMargin: Kirigami.Units.smallSpacing
-                Layout.bottomMargin: Kirigami.Units.smallSpacing
-                Layout.preferredWidth: height
-                sourceSize.height: height
-                sourceSize.width: width
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                sourceSize.height: Layout.preferredHeight
+                sourceSize.width: Layout.preferredWidth
+
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
 
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
             },
             Item {
                 Layout.preferredWidth: Kirigami.Units.smallSpacing

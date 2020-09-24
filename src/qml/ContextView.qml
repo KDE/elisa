@@ -55,15 +55,15 @@ FocusScope {
                     id: mainIcon
                     source: elisaTheme.nowPlayingIcon
 
-                    height: viewTitle.height
-                    width: height
-                    sourceSize.height: height
-                    sourceSize.width: width
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                    sourceSize.height: Layout.preferredHeight
+                    sourceSize.width: Layout.preferredWidth
 
                     fillMode: Image.PreserveAspectFit
                     asynchronous: true
 
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                 },
                 Item {
                     id: spacer

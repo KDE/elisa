@@ -278,7 +278,7 @@ void ElisaApplication::reportBug()
 void ElisaApplication::configureShortcuts()
 {
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-    KShortcutsDialog dlg(KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, nullptr);
+    KShortcutsDialog dlg(KShortcutsEditor::ApplicationAction, KShortcutsEditor::LetterShortcutsAllowed, nullptr);
     dlg.setModal(true);
     dlg.addCollection(&d->mCollection);
     dlg.configure();

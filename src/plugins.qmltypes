@@ -1698,7 +1698,10 @@ Module {
         }
         Property { name: "isTreeModel"; type: "ViewManager::IsTreeModelType"; isReadonly: true }
         Property { name: "sortRole"; type: "int"; isReadonly: true }
+        Property { name: "sortRoles"; type: "QVector<int>"; isReadonly: true }
+        Property { name: "sortRoleNames"; type: "QVector<QString>"; isReadonly: true }
         Property { name: "sortOrder"; type: "Qt::SortOrder"; isReadonly: true }
+        Property { name: "sortOrderNames"; type: "QVector<QString>"; isReadonly: true }
         Property { name: "displaySingleAlbum"; type: "ViewManager::AlbumCardinality"; isReadonly: true }
         Property { name: "showDiscHeaders"; type: "ViewManager::AlbumViewStyle"; isReadonly: true }
         Property { name: "radioCase"; type: "ViewManager::RadioSpecificStyle"; isReadonly: true }
@@ -1815,6 +1818,14 @@ Module {
         Method {
             name: "setViewsData"
             Parameter { name: "viewsData"; type: "ViewsListData"; isPointer: true }
+        }
+        Method {
+            name: "sortOrderChanged"
+            Parameter { name: "sortOrder"; type: "Qt::SortOrder" }
+        }
+        Method {
+            name: "sortRoleChanged"
+            Parameter { name: "sortRole"; type: "int" }
         }
     }
     Component {

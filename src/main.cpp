@@ -108,7 +108,6 @@ int main(int argc, char *argv[])
                           i18n("(c) 2015-2020, Elisa contributors"));
 
     aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18n("Creator"), QStringLiteral("mgallien@mgallien.fr"));
-    aboutData.addAuthor(QStringLiteral("Alexander Stippich"), i18n("Author"), QStringLiteral("a.stippich@gmx.net"));
     aboutData.addAuthor(QStringLiteral("Nate Graham"), i18n("Author"), QStringLiteral("nate@kde.org"));
 
     aboutData.addCredit(QStringLiteral("Andrew Lake"), i18n("Concept and design work"), QStringLiteral("jamboarder@gmail.com"));

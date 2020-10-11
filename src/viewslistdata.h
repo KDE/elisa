@@ -304,37 +304,37 @@ public:
 
     ~ViewsListData() override;
 
-    int count() const;
+    [[nodiscard]] int count() const;
 
-    bool isEmpty() const;
+    [[nodiscard]] bool isEmpty() const;
 
-    const ViewParameters& viewParameters(int index) const;
+    [[nodiscard]] const ViewParameters& viewParameters(int index) const;
 
-    const QString& title(int index) const;
+    [[nodiscard]] const QString& title(int index) const;
 
-    const QUrl& iconUrl(int index) const;
+    [[nodiscard]] const QUrl& iconUrl(int index) const;
 
-    const QString& secondTitle(int index) const;
+    [[nodiscard]] const QString& secondTitle(int index) const;
 
-    bool useSecondTitle(int index) const;
+    [[nodiscard]] bool useSecondTitle(int index) const;
 
-    ElisaUtils::IconUseColorOverlay iconUseColorOverlay(int index) const;
+    [[nodiscard]] ElisaUtils::IconUseColorOverlay iconUseColorOverlay(int index) const;
 
-    qulonglong databaseId(int index) const;
+    [[nodiscard]] qulonglong databaseId(int index) const;
 
-    bool defaultEntry(int index) const;
+    [[nodiscard]] bool defaultEntry(int index) const;
 
-    int indexFromEmbeddedDatabaseId(qulonglong databaseId) const;
+    [[nodiscard]] int indexFromEmbeddedDatabaseId(qulonglong databaseId) const;
 
-    int indexFromEmbeddedName(const QString &name) const;
+    [[nodiscard]] int indexFromEmbeddedName(const QString &name) const;
 
-    ElisaUtils::PlayListEntryType embeddedCategory() const;
+    [[nodiscard]] ElisaUtils::PlayListEntryType embeddedCategory() const;
 
-    MusicListenersManager* manager() const;
+    [[nodiscard]] MusicListenersManager* manager() const;
 
-    DatabaseInterface* database() const;
+    [[nodiscard]] DatabaseInterface* database() const;
 
-    bool isFullyInitialized() const;
+    [[nodiscard]] bool isFullyInitialized() const;
 
 Q_SIGNALS:
 

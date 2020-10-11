@@ -52,13 +52,13 @@ public:
 
     ~FileBrowserProxyModel() override;
 
-    QString filterText() const;
+    [[nodiscard]] QString filterText() const;
 
-    int filterRating() const;
+    [[nodiscard]] int filterRating() const;
 
-    bool sortedAscending() const;
+    [[nodiscard]] bool sortedAscending() const;
 
-    MediaPlayListProxyModel* playList() const;
+    [[nodiscard]] MediaPlayListProxyModel* playList() const;
 
     void setSourceModel(QAbstractItemModel *sourceModel) override;
 

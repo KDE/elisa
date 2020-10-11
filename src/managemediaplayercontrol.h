@@ -52,19 +52,19 @@ public:
 
     explicit ManageMediaPlayerControl(QObject *parent = nullptr);
 
-    bool playControlEnabled() const;
+    [[nodiscard]] bool playControlEnabled() const;
 
-    bool skipBackwardControlEnabled() const;
+    [[nodiscard]] bool skipBackwardControlEnabled() const;
 
-    bool skipForwardControlEnabled() const;
+    [[nodiscard]] bool skipForwardControlEnabled() const;
 
-    bool musicPlaying() const;
+    [[nodiscard]] bool musicPlaying() const;
 
-    QPersistentModelIndex previousTrack() const;
+    [[nodiscard]] QPersistentModelIndex previousTrack() const;
 
-    QPersistentModelIndex currentTrack() const;
+    [[nodiscard]] QPersistentModelIndex currentTrack() const;
 
-    QPersistentModelIndex nextTrack() const;
+    [[nodiscard]] QPersistentModelIndex nextTrack() const;
 
 Q_SIGNALS:
 

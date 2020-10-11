@@ -34,9 +34,9 @@ public:
 
     ~PowerManagementInterface() override;
 
-    bool preventSleep() const;
+    [[nodiscard]] bool preventSleep() const;
 
-    bool sleepInhibited() const;
+    [[nodiscard]] bool sleepInhibited() const;
 
 Q_SIGNALS:
 

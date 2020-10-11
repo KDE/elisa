@@ -69,44 +69,44 @@ public:
 
     ~ElisaConfigurationDialog() override;
 
-    QStringList rootPath() const;
+    [[nodiscard]] QStringList rootPath() const;
 
-    bool isDirty() const
+    [[nodiscard]] bool isDirty() const
     {
         return mIsDirty;
     }
 
-    bool showProgressInTaskBar() const
+    [[nodiscard]] bool showProgressInTaskBar() const
     {
         return mShowProgressInTaskBar;
     }
 
-    bool showSystemTrayIcon() const
+    [[nodiscard]] bool showSystemTrayIcon() const
     {
         return mShowSystemTrayIcon;
     }
 
-    bool forceUsageOfFastFileSearch() const
+    [[nodiscard]] bool forceUsageOfFastFileSearch() const
     {
         return mForceUsageOfFastFileSearch;
     }
 
-    ElisaUtils::PlayListEntryType embeddedView() const
+    [[nodiscard]] ElisaUtils::PlayListEntryType embeddedView() const
     {
         return mEmbeddedView;
     }
 
-    int initialViewIndex() const
+    [[nodiscard]] int initialViewIndex() const
     {
         return mInitialViewIndex;
     }
 
-    bool playAtStartup() const
+    [[nodiscard]] bool playAtStartup() const
     {
         return mPlayAtStartup;
     }
 
-    QString colorScheme() const
+    [[nodiscard]] QString colorScheme() const
     {
         return mColorScheme;
     }

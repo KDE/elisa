@@ -34,15 +34,15 @@ public:
     explicit MediaPlayer2(QObject* parent = nullptr);
     ~MediaPlayer2() override;
 
-    bool CanQuit() const;
-    bool CanRaise() const;
-    bool HasTrackList() const;
+    [[nodiscard]] bool CanQuit() const;
+    [[nodiscard]] bool CanRaise() const;
+    [[nodiscard]] bool HasTrackList() const;
 
-    QString Identity() const;
-    QString DesktopEntry() const;
+    [[nodiscard]] QString Identity() const;
+    [[nodiscard]] QString DesktopEntry() const;
 
-    QStringList SupportedUriSchemes() const;
-    QStringList SupportedMimeTypes() const;
+    [[nodiscard]] QStringList SupportedUriSchemes() const;
+    [[nodiscard]] QStringList SupportedMimeTypes() const;
 
 public Q_SLOTS:
     void Quit();

@@ -20,7 +20,7 @@ public:
 
     ElisaArguments(QObject *parent = nullptr);
 
-    DataTypes::EntryDataList arguments() const
+    [[nodiscard]] DataTypes::EntryDataList arguments() const
     {
         return mArguments;
     }

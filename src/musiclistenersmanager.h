@@ -76,27 +76,27 @@ public:
 
     ~MusicListenersManager() override;
 
-    DatabaseInterface* viewDatabase() const;
+    [[nodiscard]] DatabaseInterface* viewDatabase() const;
 
     void subscribeForTracks(MediaPlayList *client);
 
-    int importedTracksCount() const;
+    [[nodiscard]] int importedTracksCount() const;
 
-    ElisaApplication* elisaApplication() const;
+    [[nodiscard]] ElisaApplication* elisaApplication() const;
 
-    TracksListener* tracksListener() const;
+    [[nodiscard]] TracksListener* tracksListener() const;
 
-    bool indexerBusy() const;
+    [[nodiscard]] bool indexerBusy() const;
 
-    bool fileSystemIndexerActive() const;
+    [[nodiscard]] bool fileSystemIndexerActive() const;
 
-    bool balooIndexerActive() const;
+    [[nodiscard]] bool balooIndexerActive() const;
 
-    bool balooIndexerAvailable() const;
+    [[nodiscard]] bool balooIndexerAvailable() const;
 
-    bool androidIndexerActive() const;
+    [[nodiscard]] bool androidIndexerActive() const;
 
-    bool androidIndexerAvailable() const;
+    [[nodiscard]] bool androidIndexerAvailable() const;
 
 Q_SIGNALS:
 

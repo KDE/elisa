@@ -29,7 +29,7 @@ public Q_SLOTS:
 
 protected:
 
-    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+    [[nodiscard]] bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
 };
 

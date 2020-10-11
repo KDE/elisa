@@ -84,22 +84,22 @@ public:
     public:
         using DataType::DataType;
 
-        bool hasDatabaseId() const
+        [[nodiscard]] bool hasDatabaseId() const
         {
             return find(key_type::DatabaseIdRole) != end();
         }
 
-        qulonglong databaseId() const
+        [[nodiscard]] qulonglong databaseId() const
         {
             return operator[](key_type::DatabaseIdRole).toULongLong();
         }
 
-        bool hasElementType() const
+        [[nodiscard]] bool hasElementType() const
         {
             return find(key_type::ElementTypeRole) != end();
         }
 
-        ElisaUtils::PlayListEntryType elementType() const
+        [[nodiscard]] ElisaUtils::PlayListEntryType elementType() const
         {
             return operator[](key_type::ElementTypeRole).value<ElisaUtils::PlayListEntryType>();
         }
@@ -128,158 +128,158 @@ public:
             Q_UNUSED(aValid)
         }
 
-        bool isValid() const
+        [[nodiscard]] bool isValid() const
         {
             return !isEmpty() && duration().isValid();
         }
 
-        QString title() const
+        [[nodiscard]] QString title() const
         {
             return operator[](key_type::TitleRole).toString();
         }
 
-        QString artist() const
+        [[nodiscard]] QString artist() const
         {
             return operator[](key_type::ArtistRole).toString();
         }
 
-        qulonglong albumId() const
+        [[nodiscard]] qulonglong albumId() const
         {
             return operator[](key_type::AlbumIdRole).toULongLong();
         }
 
-        bool hasAlbum() const
+        [[nodiscard]] bool hasAlbum() const
         {
             return find(key_type::AlbumRole) != end();
         }
 
-        QString album() const
+        [[nodiscard]] QString album() const
         {
             return operator[](key_type::AlbumRole).toString();
         }
 
-        QString albumArtist() const
+        [[nodiscard]] QString albumArtist() const
         {
             return operator[](key_type::AlbumArtistRole).toString();
         }
 
-        bool hasAlbumArtist() const
+        [[nodiscard]] bool hasAlbumArtist() const
         {
             return find(key_type::AlbumArtistRole) != end();
         }
 
-        bool hasTrackNumber() const
+        [[nodiscard]] bool hasTrackNumber() const
         {
             return find(key_type::TrackNumberRole) != end();
         }
 
-        int trackNumber() const
+        [[nodiscard]] int trackNumber() const
         {
             return operator[](key_type::TrackNumberRole).toInt();
         }
 
-        bool hasDiscNumber() const
+        [[nodiscard]] bool hasDiscNumber() const
         {
             return find(key_type::DiscNumberRole) != end();
         }
 
-        int discNumber() const
+        [[nodiscard]] int discNumber() const
         {
             return operator[](key_type::DiscNumberRole).toInt();
         }
 
-        QTime duration() const
+        [[nodiscard]] QTime duration() const
         {
             return operator[](key_type::DurationRole).toTime();
         }
 
-        QUrl resourceURI() const
+        [[nodiscard]] QUrl resourceURI() const
         {
             return operator[](key_type::ResourceRole).toUrl();
         }
 
-        QUrl albumCover() const
+        [[nodiscard]] QUrl albumCover() const
         {
             return operator[](key_type::ImageUrlRole).toUrl();
         }
 
-        bool isSingleDiscAlbum() const
+        [[nodiscard]] bool isSingleDiscAlbum() const
         {
             return operator[](key_type::IsSingleDiscAlbumRole).toBool();
         }
 
-        int rating() const
+        [[nodiscard]] int rating() const
         {
             return operator[](key_type::RatingRole).toInt();
         }
 
-        QString genre() const
+        [[nodiscard]] QString genre() const
         {
             return operator[](key_type::GenreRole).toString();
         }
 
-        QString composer() const
+        [[nodiscard]] QString composer() const
         {
             return operator[](key_type::ComposerRole).toString();
         }
 
-        QString lyricist() const
+        [[nodiscard]] QString lyricist() const
         {
             return operator[](key_type::LyricistRole).toString();
         }
 
-        QString lyrics() const
+        [[nodiscard]] QString lyrics() const
         {
             return operator[](key_type::LyricsRole).toString();
         }
 
-        QString comment() const
+        [[nodiscard]] QString comment() const
         {
             return operator[](key_type::CommentRole).toString();
         }
 
-        int year() const
+        [[nodiscard]] int year() const
         {
             return operator[](key_type::YearRole).toInt();
         }
 
-        int channels() const
+        [[nodiscard]] int channels() const
         {
             return operator[](key_type::ChannelsRole).toInt();
         }
 
-        bool hasChannels() const
+        [[nodiscard]] bool hasChannels() const
         {
             return find(key_type::ChannelsRole) != end();
         }
 
-        int bitRate() const
+        [[nodiscard]] int bitRate() const
         {
             return operator[](key_type::BitRateRole).toInt();
         }
 
-        bool hasBitRate() const
+        [[nodiscard]] bool hasBitRate() const
         {
             return find(key_type::BitRateRole) != end();
         }
 
-        int sampleRate() const
+        [[nodiscard]] int sampleRate() const
         {
             return operator[](key_type::SampleRateRole).toInt();
         }
 
-        bool hasSampleRate() const
+        [[nodiscard]] bool hasSampleRate() const
         {
             return find(key_type::SampleRateRole) != end();
         }
 
 
-        bool hasEmbeddedCover() const
+        [[nodiscard]] bool hasEmbeddedCover() const
         {
             return operator[](key_type::HasEmbeddedCover).toBool();
         }
 
-        QDateTime fileModificationTime() const
+        [[nodiscard]] QDateTime fileModificationTime() const
         {
             return operator[](key_type::FileModificationTime).toDateTime();
         }
@@ -295,38 +295,38 @@ public:
 
         using MusicDataType::MusicDataType;
 
-        QString title() const
+        [[nodiscard]] QString title() const
         {
             return operator[](key_type::TitleRole).toString();
         }
 
-        QString artist() const
+        [[nodiscard]] QString artist() const
         {
             return operator[](key_type::ArtistRole).toString();
         }
 
-        bool isValidArtist() const
+        [[nodiscard]] bool isValidArtist() const
         {
             const auto &artistData = operator[](key_type::ArtistRole);
             return artistData.isValid() && !artistData.toString().isEmpty();
         }
 
-        QStringList genres() const
+        [[nodiscard]] QStringList genres() const
         {
             return operator[](key_type::GenreRole).toStringList();
         }
 
-        QUrl albumArtURI() const
+        [[nodiscard]] QUrl albumArtURI() const
         {
             return operator[](key_type::ImageUrlRole).toUrl();
         }
 
-        bool isSingleDiscAlbum() const
+        [[nodiscard]] bool isSingleDiscAlbum() const
         {
             return operator[](key_type::IsSingleDiscAlbumRole).toBool();
         }
 
-        bool isValid() const
+        [[nodiscard]] bool isValid() const
         {
             return !isEmpty();
         }
@@ -341,12 +341,12 @@ public:
 
         using MusicDataType::MusicDataType;
 
-        QString name() const
+        [[nodiscard]] QString name() const
         {
             return operator[](key_type::TitleRole).toString();
         }
 
-        qulonglong databaseId() const
+        [[nodiscard]] qulonglong databaseId() const
         {
             return operator[](key_type::DatabaseIdRole).toULongLong();
         }
@@ -361,7 +361,7 @@ public:
 
         using MusicDataType::MusicDataType;
 
-        QString title() const
+        [[nodiscard]] QString title() const
         {
             return operator[](key_type::TitleRole).toString();
         }

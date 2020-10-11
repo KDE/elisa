@@ -35,9 +35,9 @@ public:
 
     virtual void applicationAboutToQuit();
 
-    const QStringList& allRootPaths() const;
+    [[nodiscard]] const QStringList& allRootPaths() const;
 
-    virtual bool canHandleRootPaths() const;
+    [[nodiscard]] virtual bool canHandleRootPaths() const;
 
 Q_SIGNALS:
 
@@ -113,11 +113,11 @@ protected:
 
     FileScanner& fileScanner();
 
-    bool waitEndTrackRemoval() const;
+    [[nodiscard]] bool waitEndTrackRemoval() const;
 
     void setWaitEndTrackRemoval(bool wait);
 
-    bool isActive() const;
+    [[nodiscard]] bool isActive() const;
 
 private:
 

@@ -47,13 +47,13 @@ public:
 
     ~AbstractMediaProxyModel() override;
 
-    QString filterText() const;
+    [[nodiscard]] QString filterText() const;
 
-    int filterRating() const;
+    [[nodiscard]] int filterRating() const;
 
-    bool sortedAscending() const;
+    [[nodiscard]] bool sortedAscending() const;
 
-    MediaPlayListProxyModel* playList() const;
+    [[nodiscard]] MediaPlayListProxyModel* playList() const;
 
 public Q_SLOTS:
 
@@ -90,7 +90,7 @@ Q_SIGNALS:
 
 protected:
 
-    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override = 0;
+    [[nodiscard]] bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override = 0;
 
     void disconnectPlayList();
 

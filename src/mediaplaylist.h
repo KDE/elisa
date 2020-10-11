@@ -98,13 +98,13 @@ public:
 
     ~MediaPlayList() override;
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
-    QHash<int, QByteArray> roleNames() const override;
+    [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
 
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 
@@ -114,7 +114,7 @@ public:
 
     void enqueueRestoredEntries(const QVariantList &newEntries);
 
-    QVariantList getEntriesForRestore() const;
+    [[nodiscard]] QVariantList getEntriesForRestore() const;
 
 Q_SIGNALS:
 

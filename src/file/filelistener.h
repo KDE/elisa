@@ -23,7 +23,7 @@ public:
 
     ~FileListener() override;
 
-    const LocalFileListing& localFileIndexer() const;
+    [[nodiscard]] const LocalFileListing& localFileIndexer() const;
 
 private:
 

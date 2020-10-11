@@ -104,39 +104,39 @@ public:
 
     explicit ManageAudioPlayer(QObject *parent = nullptr);
 
-    QPersistentModelIndex currentTrack() const;
+    [[nodiscard]] QPersistentModelIndex currentTrack() const;
 
-    QAbstractItemModel* playListModel() const;
+    [[nodiscard]] QAbstractItemModel* playListModel() const;
 
-    int urlRole() const;
+    [[nodiscard]] int urlRole() const;
 
-    int isPlayingRole() const;
+    [[nodiscard]] int isPlayingRole() const;
 
-    QUrl playerSource() const;
+    [[nodiscard]] QUrl playerSource() const;
 
-    QMediaPlayer::MediaStatus playerStatus() const;
+    [[nodiscard]] QMediaPlayer::MediaStatus playerStatus() const;
 
-    QMediaPlayer::State playerPlaybackState() const;
+    [[nodiscard]] QMediaPlayer::State playerPlaybackState() const;
 
-    QMediaPlayer::Error playerError() const;
+    [[nodiscard]] QMediaPlayer::Error playerError() const;
 
-    qint64 audioDuration() const;
+    [[nodiscard]] qint64 audioDuration() const;
 
-    bool playerIsSeekable() const;
+    [[nodiscard]] bool playerIsSeekable() const;
 
-    qint64 playerPosition() const;
+    [[nodiscard]] qint64 playerPosition() const;
 
-    qint64 playControlPosition() const;
+    [[nodiscard]] qint64 playControlPosition() const;
 
-    QVariantMap persistentState() const;
+    [[nodiscard]] QVariantMap persistentState() const;
 
-    int playListPosition() const;
+    [[nodiscard]] int playListPosition() const;
 
-    int titleRole() const;
+    [[nodiscard]] int titleRole() const;
 
-    int artistNameRole() const;
+    [[nodiscard]] int artistNameRole() const;
 
-    int albumNameRole() const;
+    [[nodiscard]] int albumNameRole() const;
 
 Q_SIGNALS:
 

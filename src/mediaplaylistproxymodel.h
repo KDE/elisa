@@ -70,47 +70,47 @@ public:
 
     ~MediaPlayListProxyModel() override;
 
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 
-    QModelIndex mapFromSource(const QModelIndex &sourceIndex) const override;
+    [[nodiscard]] QModelIndex mapFromSource(const QModelIndex &sourceIndex) const override;
 
-    QItemSelection mapSelectionFromSource(const QItemSelection &sourceSelection) const override;
+    [[nodiscard]] QItemSelection mapSelectionFromSource(const QItemSelection &sourceSelection) const override;
 
-    QItemSelection mapSelectionToSource(const QItemSelection &proxySelection) const override;
+    [[nodiscard]] QItemSelection mapSelectionToSource(const QItemSelection &proxySelection) const override;
 
-    QModelIndex mapToSource(const QModelIndex &proxyIndex) const override;
+    [[nodiscard]] QModelIndex mapToSource(const QModelIndex &proxyIndex) const override;
 
-    int mapRowFromSource(const int sourceRow) const;
+    [[nodiscard]] int mapRowFromSource(const int sourceRow) const;
 
-    int mapRowToSource(const int proxyRow) const;
+    [[nodiscard]] int mapRowToSource(const int proxyRow) const;
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    int columnCount(const QModelIndex &parent) const override;
+    [[nodiscard]] int columnCount(const QModelIndex &parent) const override;
 
-    QModelIndex parent(const QModelIndex &child) const override;
+    [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override;
 
-    bool hasChildren(const QModelIndex &parent) const override;
+    [[nodiscard]] bool hasChildren(const QModelIndex &parent) const override;
 
     void setPlayListModel(MediaPlayList* playListModel);
 
-    QPersistentModelIndex previousTrack() const;
+    [[nodiscard]] QPersistentModelIndex previousTrack() const;
 
-    QPersistentModelIndex currentTrack() const;
+    [[nodiscard]] QPersistentModelIndex currentTrack() const;
 
-    QPersistentModelIndex nextTrack() const;
+    [[nodiscard]] QPersistentModelIndex nextTrack() const;
 
-    bool repeatPlay() const;
+    [[nodiscard]] bool repeatPlay() const;
 
-    bool shufflePlayList() const;
+    [[nodiscard]] bool shufflePlayList() const;
 
-    int remainingTracks() const;
+    [[nodiscard]] int remainingTracks() const;
 
-    int currentTrackRow() const;
+    [[nodiscard]] int currentTrackRow() const;
 
-    int tracksCount() const;
+    [[nodiscard]] int tracksCount() const;
 
-    QVariantMap persistentState() const;
+    [[nodiscard]] QVariantMap persistentState() const;
 
     int mSeekToBeginningDelay = 2000;
 

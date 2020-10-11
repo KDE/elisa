@@ -23,7 +23,7 @@ public:
 
     explicit BalooDetector(QObject *parent = nullptr);
 
-    bool balooAvailability() const;
+    [[nodiscard]] bool balooAvailability() const;
 
 Q_SIGNALS:
 

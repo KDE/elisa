@@ -62,23 +62,23 @@ public:
 
     ~DataModel() override;
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    QHash<int, QByteArray> roleNames() const override;
+    [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
 
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
+    [[nodiscard]] Qt::ItemFlags flags(const QModelIndex &index) const override;
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 
-    QModelIndex parent(const QModelIndex &child) const override;
+    [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override;
 
-    QString title() const;
+    [[nodiscard]] QString title() const;
 
-    QString author() const;
+    [[nodiscard]] QString author() const;
 
-    bool isBusy() const;
+    [[nodiscard]] bool isBusy() const;
 
 Q_SIGNALS:
 
@@ -146,7 +146,7 @@ private:
 
     void radioModified(const DataModel::TrackDataType &modifiedRadio);
 
-    int indexFromId(qulonglong id) const;
+    [[nodiscard]] int indexFromId(qulonglong id) const;
 
     void connectModel(DatabaseInterface *database);
 

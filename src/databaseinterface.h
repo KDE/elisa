@@ -169,11 +169,11 @@ private:
 
     void recordModifiedAlbum(qulonglong albumId);
 
-    bool startTransaction() const;
+    bool startTransaction();
 
-    bool finishTransaction() const;
+    bool finishTransaction();
 
-    bool rollBackTransaction() const;
+    bool rollBackTransaction();
 
     QList<qulonglong> fetchTrackIds(qulonglong albumId);
 
@@ -233,9 +233,9 @@ private:
     qulonglong internalInsertTrack(const DataTypes::TrackDataType &oneModifiedTrack,
                                    const QHash<QString, QUrl> &covers, bool &isInserted);
 
-    DataTypes::TrackDataType buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
+    [[nodiscard]] DataTypes::TrackDataType buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
-    DataTypes::TrackDataType buildRadioDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
+    [[nodiscard]] DataTypes::TrackDataType buildRadioDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
     void internalRemoveTracksList(const QList<QUrl> &removedTracks);
 

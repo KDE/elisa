@@ -118,47 +118,47 @@ public:
 
     explicit ManageHeaderBar(QObject *parent = nullptr);
 
-    QPersistentModelIndex currentTrack() const;
+    [[nodiscard]] QPersistentModelIndex currentTrack() const;
 
-    int artistRole() const;
+    [[nodiscard]] int artistRole() const;
 
-    int titleRole() const;
+    [[nodiscard]] int titleRole() const;
 
-    int albumRole() const;
+    [[nodiscard]] int albumRole() const;
 
-    int albumArtistRole() const;
+    [[nodiscard]] int albumArtistRole() const;
 
-    int fileNameRole() const;
+    [[nodiscard]] int fileNameRole() const;
 
-    int imageRole() const;
+    [[nodiscard]] int imageRole() const;
 
-    int databaseIdRole() const;
+    [[nodiscard]] int databaseIdRole() const;
 
-    int trackTypeRole() const;
+    [[nodiscard]] int trackTypeRole() const;
 
-    int albumIdRole() const;
+    [[nodiscard]] int albumIdRole() const;
 
-    int isValidRole() const;
+    [[nodiscard]] int isValidRole() const;
 
-    QVariant artist() const;
+    [[nodiscard]] QVariant artist() const;
 
-    QVariant title() const;
+    [[nodiscard]] QVariant title() const;
 
-    QVariant album() const;
+    [[nodiscard]] QVariant album() const;
 
-    QVariant albumArtist() const;
+    [[nodiscard]] QVariant albumArtist() const;
 
-    QUrl fileUrl() const;
+    [[nodiscard]] QUrl fileUrl() const;
 
-    QUrl image() const;
+    [[nodiscard]] QUrl image() const;
 
-    qulonglong databaseId() const;
+    [[nodiscard]] qulonglong databaseId() const;
 
-    ElisaUtils::PlayListEntryType trackType() const;
+    [[nodiscard]] ElisaUtils::PlayListEntryType trackType() const;
 
-    qulonglong albumId() const;
+    [[nodiscard]] qulonglong albumId() const;
 
-    bool isValid() const;
+    [[nodiscard]] bool isValid() const;
 
 Q_SIGNALS:
 

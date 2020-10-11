@@ -68,23 +68,23 @@ public:
 
     ~AudioWrapper() override;
 
-    bool muted() const;
+    [[nodiscard]] bool muted() const;
 
-    qreal volume() const;
+    [[nodiscard]] qreal volume() const;
 
-    QUrl source() const;
+    [[nodiscard]] QUrl source() const;
 
-    QMediaPlayer::MediaStatus status() const;
+    [[nodiscard]] QMediaPlayer::MediaStatus status() const;
 
-    QMediaPlayer::State playbackState() const;
+    [[nodiscard]] QMediaPlayer::State playbackState() const;
 
-    QMediaPlayer::Error error() const;
+    [[nodiscard]] QMediaPlayer::Error error() const;
 
-    qint64 duration() const;
+    [[nodiscard]] qint64 duration() const;
 
-    qint64 position() const;
+    [[nodiscard]] qint64 position() const;
 
-    bool seekable() const;
+    [[nodiscard]] bool seekable() const;
 
 Q_SIGNALS:
 

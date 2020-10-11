@@ -66,19 +66,19 @@ public:
     explicit Mpris2(QObject* parent = nullptr);
     ~Mpris2() override;
 
-    QString playerName() const;
+    [[nodiscard]] QString playerName() const;
 
-    MediaPlayListProxyModel* playListModel() const;
+    [[nodiscard]] MediaPlayListProxyModel* playListModel() const;
 
-    ManageAudioPlayer* audioPlayerManager() const;
+    [[nodiscard]] ManageAudioPlayer* audioPlayerManager() const;
 
-    ManageMediaPlayerControl* manageMediaPlayerControl() const;
+    [[nodiscard]] ManageMediaPlayerControl* manageMediaPlayerControl() const;
 
-    ManageHeaderBar* headerBarManager() const;
+    [[nodiscard]] ManageHeaderBar* headerBarManager() const;
 
-    AudioWrapper* audioPlayer() const;
+    [[nodiscard]] AudioWrapper* audioPlayer() const;
 
-    bool showProgressOnTaskBar() const;
+    [[nodiscard]] bool showProgressOnTaskBar() const;
 
 public Q_SLOTS:
 

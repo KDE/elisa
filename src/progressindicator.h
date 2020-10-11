@@ -31,9 +31,9 @@ public:
 
     ~ProgressIndicator() override;
 
-    int position() const;
+    [[nodiscard]] int position() const;
 
-    QString progressDuration() const;
+    [[nodiscard]] QString progressDuration() const;
 
 Q_SIGNALS:
 

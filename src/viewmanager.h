@@ -103,11 +103,11 @@ public:
 
     ~ViewManager() override;
 
-    int viewIndex() const;
+    [[nodiscard]] int viewIndex() const;
 
-    int initialIndex() const;
+    [[nodiscard]] int initialIndex() const;
 
-    ViewsListData* viewsData() const;
+    [[nodiscard]] ViewsListData* viewsData() const;
 
 Q_SIGNALS:
 
@@ -162,13 +162,13 @@ private:
     void applyFilter(ViewParameters &nextViewParameters,
                      QString title, const ViewParameters &lastView) const;
 
-    QString buildViewId() const;
+    [[nodiscard]] QString buildViewId() const;
 
     QStringList::iterator findViewPreference(QStringList &list, const QString &viewId) const;
 
-    Qt::SortOrder computePreferredSortOrder(Qt::SortOrder initialValue) const;
+    [[nodiscard]] Qt::SortOrder computePreferredSortOrder(Qt::SortOrder initialValue) const;
 
-    int computePreferredSortRole(int initialValue) const;
+    [[nodiscard]] int computePreferredSortRole(int initialValue) const;
 
 private:
 

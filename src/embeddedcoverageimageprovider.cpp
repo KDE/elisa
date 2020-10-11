@@ -28,7 +28,7 @@ public:
         }
     }
 
-    QQuickTextureFactory *textureFactory() const override
+    [[nodiscard]] QQuickTextureFactory *textureFactory() const override
     {
         return QQuickTextureFactory::textureFactoryForImage(mCoverImage);
     }

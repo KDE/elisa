@@ -1227,7 +1227,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
     Q_EMIT finishRemovingTracksList();
 }
 
-bool DatabaseInterface::startTransaction() const
+bool DatabaseInterface::startTransaction()
 {
     auto result = false;
 
@@ -1243,7 +1243,7 @@ bool DatabaseInterface::startTransaction() const
     return result;
 }
 
-bool DatabaseInterface::finishTransaction() const
+bool DatabaseInterface::finishTransaction()
 {
     auto result = false;
 
@@ -1260,7 +1260,7 @@ bool DatabaseInterface::finishTransaction() const
     return result;
 }
 
-bool DatabaseInterface::rollBackTransaction() const
+bool DatabaseInterface::rollBackTransaction()
 {
     auto result = false;
 

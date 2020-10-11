@@ -137,47 +137,47 @@ public:
 
     ~ViewConfigurationData() override;
 
-    ElisaUtils::FilterType filterType() const;
+    [[nodiscard]] ElisaUtils::FilterType filterType() const;
 
-    int expectedDepth() const;
+    [[nodiscard]] int expectedDepth() const;
 
-    QString mainTitle() const;
+    [[nodiscard]] QString mainTitle() const;
 
-    QString secondaryTitle() const;
+    [[nodiscard]] QString secondaryTitle() const;
 
-    QUrl imageUrl() const;
+    [[nodiscard]] QUrl imageUrl() const;
 
-    ElisaUtils::PlayListEntryType dataType() const;
+    [[nodiscard]] ElisaUtils::PlayListEntryType dataType() const;
 
-    QAbstractItemModel * model() const;
+    [[nodiscard]] QAbstractItemModel * model() const;
 
-    QAbstractProxyModel * associatedProxyModel() const;
+    [[nodiscard]] QAbstractProxyModel * associatedProxyModel() const;
 
-    QUrl viewDefaultIcon() const;
+    [[nodiscard]] QUrl viewDefaultIcon() const;
 
-    DataTypes::DataType dataFilter() const;
+    [[nodiscard]] DataTypes::DataType dataFilter() const;
 
-    ViewManager::ViewCanBeRated viewShowRating() const;
+    [[nodiscard]] ViewManager::ViewCanBeRated viewShowRating() const;
 
-    ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText() const;
+    [[nodiscard]] ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText() const;
 
-    ViewManager::IsTreeModelType isTreeModel() const;
+    [[nodiscard]] ViewManager::IsTreeModelType isTreeModel() const;
 
-    int sortRole() const;
+    [[nodiscard]] int sortRole() const;
 
-    QVector<int> sortRoles() const;
+    [[nodiscard]] QVector<int> sortRoles() const;
 
-    QVector<QString> sortRoleNames() const;
+    [[nodiscard]] QVector<QString> sortRoleNames() const;
 
-    Qt::SortOrder sortOrder() const;
+    [[nodiscard]] Qt::SortOrder sortOrder() const;
 
-    QVector<QString> sortOrderNames() const;
+    [[nodiscard]] QVector<QString> sortOrderNames() const;
 
-    ViewManager::AlbumCardinality displaySingleAlbum() const;
+    [[nodiscard]] ViewManager::AlbumCardinality displaySingleAlbum() const;
 
-    ViewManager::AlbumViewStyle showDiscHeaders() const;
+    [[nodiscard]] ViewManager::AlbumViewStyle showDiscHeaders() const;
 
-    ViewManager::RadioSpecificStyle radioCase() const;
+    [[nodiscard]] ViewManager::RadioSpecificStyle radioCase() const;
 
 Q_SIGNALS:
 

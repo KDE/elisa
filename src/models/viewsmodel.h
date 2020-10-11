@@ -40,19 +40,19 @@ public:
 
     ~ViewsModel() override;
 
-    QHash<int, QByteArray> roleNames() const override;
+    [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
 
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
+    [[nodiscard]] Qt::ItemFlags flags(const QModelIndex &index) const override;
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 
-    QModelIndex parent(const QModelIndex &child) const override;
+    [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override;
 
-    ViewsListData* viewsData() const;
+    [[nodiscard]] ViewsListData* viewsData() const;
 
 Q_SIGNALS:
 

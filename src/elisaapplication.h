@@ -107,27 +107,27 @@ public:
 
     bool eventFilter(QObject *object, QEvent *event) override;
 
-    const DataTypes::EntryDataList &arguments() const;
+    [[nodiscard]] const DataTypes::EntryDataList &arguments() const;
 
-    MusicListenersManager *musicManager() const;
+    [[nodiscard]] MusicListenersManager *musicManager() const;
 
-    MediaPlayList *mediaPlayList() const;
+    [[nodiscard]] MediaPlayList *mediaPlayList() const;
 
-    MediaPlayListProxyModel *mediaPlayListProxyModel() const;
+    [[nodiscard]] MediaPlayListProxyModel *mediaPlayListProxyModel() const;
 
-    AudioWrapper *audioPlayer() const;
+    [[nodiscard]] AudioWrapper *audioPlayer() const;
 
-    ManageAudioPlayer *audioControl() const;
+    [[nodiscard]] ManageAudioPlayer *audioControl() const;
 
-    ManageMediaPlayerControl *playerControl() const;
+    [[nodiscard]] ManageMediaPlayerControl *playerControl() const;
 
-    ManageHeaderBar *manageHeaderBar() const;
+    [[nodiscard]] ManageHeaderBar *manageHeaderBar() const;
 
-    bool showProgressOnTaskBar() const;
+    [[nodiscard]] bool showProgressOnTaskBar() const;
 
-    bool showSystemTrayIcon() const;
+    [[nodiscard]] bool showSystemTrayIcon() const;
 
-    ElisaUtils::PlayListEntryType embeddedView() const;
+    [[nodiscard]] ElisaUtils::PlayListEntryType embeddedView() const;
 
     int initialViewIndex() const;
 
@@ -221,7 +221,7 @@ private:
 
     void setupActions(const QString &actionName);
 
-    DataTypes::EntryDataList checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
+    [[nodiscard]] DataTypes::EntryDataList checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
                                                               const QString &workingDirectory) const;
 
     QAbstractItemModel *colorSchemesModel();

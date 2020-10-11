@@ -32,7 +32,7 @@ public:
 
     void applicationAboutToQuit() override;
 
-    bool canHandleRootPaths() const override;
+    [[nodiscard]] bool canHandleRootPaths() const override;
 
 Q_SIGNALS:
 

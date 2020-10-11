@@ -66,6 +66,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="nn">Vakker og ukomplisert musikkspelar med støtte for nettradio</summary>
   <summary xml:lang="pt">Leitor de música bonito e sem inutilidades com suporte para rádios 'online'</summary>
   <summary xml:lang="pt-BR">Lindo reprodutor de música descomplicado com suporte a rádio online</summary>
+  <summary xml:lang="ru">Современный и функциональный музыкальный проигрыватель с поддержкой онлайн-радио</summary>
   <summary xml:lang="sk">Nádherný hudobný prehrávač bez nezmyslov s podporou online rádií</summary>
   <summary xml:lang="sl">Čudovit predvajalnik glasbe brez navlake s spletno radijsko podporo</summary>
   <summary xml:lang="sv">Snygg och praktisk musikspelare med stöd för nätradio</summary>
@@ -102,7 +103,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="pl">Prosty odtwarzacz multimedióm, który powinien być łatwy w obsłudze. Nie wymaga żadnych ustawień do jego używania.</p>
     <p xml:lang="pt">Um leitor de música simples que deveria ser simples de usar. Não necessita de nenhuma configuração antes de poder ser usado.</p>
     <p xml:lang="pt-BR">Um reprodutor de músicas simples que deve ser fácil de usar. Não requer qualquer configuração antes de usá-lo.</p>
-    <p xml:lang="ru">Простой в использовании проигрыватель музыки. Для использования не требуется предварительной настройки.</p>
+    <p xml:lang="ru">Простое в использовании приложение для проигрывания музыки. Для начала использования не требуется никакой предварительной настройки.</p>
     <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>
     <p xml:lang="sl">Preprost predvajalnik glasbe, ki naj bi bil enostaven za uporabo. Pred uporabo ne potrebuje nastavljanja.</p>
     <p xml:lang="sv">En enkel musikspelare som ska vara lättanvänd. Den kräver inga inställningar innan man kan använda den.</p>

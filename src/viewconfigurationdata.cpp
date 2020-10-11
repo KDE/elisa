@@ -10,8 +10,7 @@ class ViewConfigurationDataPrivate
 {
 public:
     ViewConfigurationDataPrivate()
-    {
-    }
+    = default;
 
     ViewConfigurationDataPrivate(ElisaUtils::FilterType filterType, int expectedDepth,
                                  QString mainTitle, QString secondaryTitle,

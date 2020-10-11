@@ -8,6 +8,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
+import org.kde.kirigami 2.5 as Kirigami
 
 Menu {
     id: applicationMenu
@@ -26,6 +27,24 @@ Menu {
         onTriggered: {
             applicationMenu.close()
             ElisaApplication.musicManager.resetMusicData()
+        }
+    }
+
+    Menu {
+        title: i18n("Color Scheme")
+        Repeater {
+            model: ElisaApplication.colorSchemesModel
+            delegate: Kirigami.BasicListItem {
+                icon: model.decoration
+                text: model.display
+                highlighted: model.display === ElisaConfigurationDialog.colorScheme
+                onClicked: {
+                    ElisaApplication.activateColorScheme(model.display)
+                    ElisaConfigurationDialog.setColorScheme(model.display)
+                    ElisaConfigurationDialog.save()
+                    applicationMenu.close()
+                }
+            }
         }
     }
 

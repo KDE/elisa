@@ -33,6 +33,7 @@
 #include <KXmlGui/KShortcutsDialog>
 #endif
 
+#include <KColorSchemeManager>
 #include <KCoreAddons/KAboutData>
 
 #include <QQmlEngine>
@@ -89,6 +90,7 @@ public:
 
     QFileSystemWatcher mConfigFileWatcher;
 
+    KColorSchemeManager *mSchemes;
 };
 
 ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::make_unique<ElisaApplicationPrivate>(this))
@@ -98,6 +100,8 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
     Elisa::ElisaConfiguration::instance(configurationFileName);
     Elisa::ElisaConfiguration::self()->load();
     Elisa::ElisaConfiguration::self()->save();
+
+    d->mSchemes = new KColorSchemeManager(this);
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 
@@ -113,6 +117,16 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
 
 ElisaApplication::~ElisaApplication()
 = default;
+
+QAbstractItemModel *ElisaApplication::colorSchemesModel()
+{
+    return d->mSchemes->model();
+}
+
+void ElisaApplication::activateColorScheme(const QString &name)
+{
+    d->mSchemes->activateScheme(d->mSchemes->indexForScheme(name));
+}
 
 void ElisaApplication::setupActions(const QString &actionName)
 {

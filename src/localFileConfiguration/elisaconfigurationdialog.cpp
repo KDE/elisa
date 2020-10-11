@@ -77,6 +77,7 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setShowSystemTrayIcon(mShowSystemTrayIcon);
     Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(mForceUsageOfFastFileSearch);
     Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
+    Elisa::ElisaConfiguration::setColorScheme(mColorScheme);
 
     Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::NoView);
     switch (mEmbeddedView)
@@ -167,12 +168,24 @@ void ElisaConfigurationDialog::setPlayAtStartup(bool playAtStartup)
     setDirty();
 }
 
+void ElisaConfigurationDialog::setColorScheme(const QString &scheme)
+{
+    if (mColorScheme == scheme) {
+        return;
+    }
+    mColorScheme = scheme;
+    Q_EMIT colorSchemeChanged();
+
+    setDirty();
+}
+
 void ElisaConfigurationDialog::configChanged()
 {
     setRootPath(Elisa::ElisaConfiguration::rootPath());
     setShowProgressInTaskBar(Elisa::ElisaConfiguration::showProgressOnTaskBar());
     setShowSystemTrayIcon(Elisa::ElisaConfiguration::showSystemTrayIcon());
     setPlayAtStartup(Elisa::ElisaConfiguration::playAtStartup());
+    setColorScheme(Elisa::ElisaConfiguration::colorScheme());
 
     switch (Elisa::ElisaConfiguration::embeddedView())
     {

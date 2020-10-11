@@ -53,6 +53,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setPlayAtStartup
                NOTIFY playAtStartupChanged)
 
+        Q_PROPERTY(QString colorScheme
+                   READ colorScheme
+                   WRITE setColorScheme
+                   NOTIFY colorSchemeChanged)
+
 public:
 
     explicit ElisaConfigurationDialog(QObject *parent = nullptr);
@@ -91,6 +96,11 @@ public:
         return mPlayAtStartup;
     }
 
+    QString colorScheme() const
+    {
+        return mColorScheme;
+    }
+
 Q_SIGNALS:
 
     void rootPathChanged(const QStringList &rootPath);
@@ -107,6 +117,8 @@ Q_SIGNALS:
 
     void playAtStartupChanged();
 
+    void colorSchemeChanged();
+
 public Q_SLOTS:
 
     void setRootPath(const QStringList &rootPath);
@@ -122,6 +134,8 @@ public Q_SLOTS:
     void setEmbeddedView(ElisaUtils::PlayListEntryType embeddedView);
 
     void setPlayAtStartup(bool playAtStartup);
+
+    void setColorScheme(const QString &scheme);
 
 private Q_SLOTS:
 
@@ -144,6 +158,8 @@ private:
     bool mForceUsageOfFastFileSearch = true;
 
     bool mPlayAtStartup = false;
+
+    QString mColorScheme;
 
     ElisaUtils::PlayListEntryType mEmbeddedView = ElisaUtils::Unknown;
 };

@@ -31,6 +31,8 @@ class ManageHeaderBar;
 class QQmlEngine;
 class ElisaApplicationPrivate;
 class QSessionManager;
+class KColorSchemeManager;
+class QAbstractItemModel;
 
 class ELISALIB_EXPORT ElisaApplication : public QObject
 {
@@ -83,6 +85,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
     Q_PROPERTY(bool showSystemTrayIcon
                READ showSystemTrayIcon
                NOTIFY showSystemTrayIconChanged)
+
+    Q_PROPERTY(QAbstractItemModel* colorSchemesModel
+               READ colorSchemesModel
+               CONSTANT)
 
 public:
     explicit ElisaApplication(QObject *parent = nullptr);
@@ -173,6 +179,8 @@ public Q_SLOTS:
 
     void initialize();
 
+    void activateColorScheme(const QString &name);
+
 public:
 
     void setQmlEngine(QQmlEngine *engine);
@@ -207,6 +215,8 @@ private:
 
     DataTypes::EntryDataList checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
                                                               const QString &workingDirectory) const;
+
+    QAbstractItemModel *colorSchemesModel();
 
     std::unique_ptr<ElisaApplicationPrivate> d;
 

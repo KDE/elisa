@@ -32,7 +32,7 @@ Kirigami.ApplicationWindow {
             onPausePlayback: ElisaApplication.audioControl.playPause()
         }
     }
-    
+
     minimumWidth: 590
     property int minHeight: 320
 
@@ -345,6 +345,7 @@ Kirigami.ApplicationWindow {
     Component.onCompleted:
     {
         ElisaApplication.initialize()
+        ElisaApplication.activateColorScheme(ElisaConfigurationDialog.colorScheme)
 
         if (persistentSettings.playListState) {
             ElisaApplication.mediaPlayListProxyModel.persistentState = persistentSettings.playListState

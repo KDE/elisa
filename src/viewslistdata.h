@@ -302,7 +302,7 @@ class ELISALIB_EXPORT ViewsListData : public QObject
 public:
     explicit ViewsListData(QObject *parent = nullptr);
 
-    ~ViewsListData();
+    ~ViewsListData() override;
 
     int count() const;
 

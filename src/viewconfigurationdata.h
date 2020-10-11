@@ -135,7 +135,7 @@ public:
                                    ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase,
                                    ViewManager::IsTreeModelType isTreeModel, QObject *parent = nullptr);
 
-    ~ViewConfigurationData();
+    ~ViewConfigurationData() override;
 
     ElisaUtils::FilterType filterType() const;
 

@@ -32,7 +32,7 @@ public:
 
     explicit PowerManagementInterface(QObject *parent = nullptr);
 
-    ~PowerManagementInterface();
+    ~PowerManagementInterface() override;
 
     bool preventSleep() const;
 

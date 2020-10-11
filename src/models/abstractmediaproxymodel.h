@@ -65,9 +65,9 @@ public Q_SLOTS:
 
     void setPlayList(MediaPlayListProxyModel* playList);
 
-    void enqueueToPlayList(QModelIndex rootIndex);
+    void enqueueToPlayList(const QModelIndex &rootIndex);
 
-    void replaceAndPlayOfPlayList(QModelIndex rootIndex);
+    void replaceAndPlayOfPlayList(const QModelIndex &rootIndex);
 
     void enqueue(const DataTypes::MusicDataType &newEntry,
                  const QString &newEntryTitle,
@@ -110,7 +110,7 @@ protected:
 
 private:
 
-    void genericEnqueueToPlayList(QModelIndex rootIndex,
+    void genericEnqueueToPlayList(const QModelIndex &rootIndex,
                                   ElisaUtils::PlayListEnqueueMode enqueueMode,
                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 

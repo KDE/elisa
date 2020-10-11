@@ -281,7 +281,7 @@ void ViewsListData::setEmbeddedCategory(ElisaUtils::PlayListEntryType aEmbeddedV
     }
 }
 
-void ViewsListData::genresAdded(DataTypes::ListGenreDataType newData)
+void ViewsListData::genresAdded(const DataTypes::ListGenreDataType &newData)
 {
     if (d->mEmbeddedCategory != ElisaUtils::Genre) {
         return;
@@ -311,7 +311,7 @@ void ViewsListData::genresAdded(DataTypes::ListGenreDataType newData)
     Q_EMIT isFullyInitializedChanged();
 }
 
-void ViewsListData::artistsAdded(DataTypes::ListArtistDataType newData)
+void ViewsListData::artistsAdded(const DataTypes::ListArtistDataType &newData)
 {
     if (d->mEmbeddedCategory != ElisaUtils::Artist) {
         return;
@@ -359,7 +359,7 @@ void ViewsListData::artistRemoved(qulonglong removedDatabaseId)
     }
 }
 
-void ViewsListData::albumsAdded(DataTypes::ListAlbumDataType newData)
+void ViewsListData::albumsAdded(const DataTypes::ListAlbumDataType &newData)
 {
     if (d->mEmbeddedCategory != ElisaUtils::Album) {
         return;

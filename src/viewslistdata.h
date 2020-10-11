@@ -370,13 +370,13 @@ public Q_SLOTS:
 
     void setDatabase(DatabaseInterface *aDatabase);
 
-    void genresAdded(DataTypes::ListGenreDataType newData);
+    void genresAdded(const DataTypes::ListGenreDataType &newData);
 
-    void artistsAdded(DataTypes::ListArtistDataType newData);
+    void artistsAdded(const DataTypes::ListArtistDataType &newData);
 
     void artistRemoved(qulonglong removedDatabaseId);
 
-    void albumsAdded(DataTypes::ListAlbumDataType newData);
+    void albumsAdded(const DataTypes::ListAlbumDataType &newData);
 
     void albumRemoved(qulonglong removedDatabaseId);
 

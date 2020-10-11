@@ -37,7 +37,7 @@ public Q_SLOTS:
             return;
         }
 
-        mArguments = arguments;
+        mArguments = std::move(arguments);
         Q_EMIT argumentsChanged();
     }
 private:

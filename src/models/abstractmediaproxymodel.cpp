@@ -110,7 +110,7 @@ void AbstractMediaProxyModel::connectPlayList()
                 mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
     }
 }
-void AbstractMediaProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
+void AbstractMediaProxyModel::genericEnqueueToPlayList(const QModelIndex &rootIndex,
                                                        ElisaUtils::PlayListEnqueueMode enqueueMode,
                                                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
@@ -128,12 +128,12 @@ void AbstractMediaProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
     });
 }
 
-void AbstractMediaProxyModel::enqueueToPlayList(QModelIndex rootIndex)
+void AbstractMediaProxyModel::enqueueToPlayList(const QModelIndex &rootIndex)
 {
     genericEnqueueToPlayList(rootIndex, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 }
 
-void AbstractMediaProxyModel::replaceAndPlayOfPlayList(QModelIndex rootIndex)
+void AbstractMediaProxyModel::replaceAndPlayOfPlayList(const QModelIndex &rootIndex)
 {
     genericEnqueueToPlayList(rootIndex, ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 }

@@ -82,7 +82,7 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
     }
 }
 
-void FileBrowserProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
+void FileBrowserProxyModel::genericEnqueueToPlayList(const QModelIndex &rootIndex,
                                                      ElisaUtils::PlayListEnqueueMode enqueueMode,
                                                      ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
@@ -106,7 +106,7 @@ void FileBrowserProxyModel::genericEnqueueToPlayList(QModelIndex rootIndex,
     recursiveEnqueue();
 }
 
-void FileBrowserProxyModel::enqueueToPlayList(QModelIndex rootIndex)
+void FileBrowserProxyModel::enqueueToPlayList(const QModelIndex &rootIndex)
 {
     genericEnqueueToPlayList(rootIndex,
                              ElisaUtils::AppendPlayList,
@@ -137,7 +137,7 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
     recursiveEnqueue();
 }
 
-void FileBrowserProxyModel::replaceAndPlayOfPlayList(QModelIndex rootIndex)
+void FileBrowserProxyModel::replaceAndPlayOfPlayList(const QModelIndex &rootIndex)
 {
     genericEnqueueToPlayList(rootIndex,
                              ElisaUtils::ReplacePlayList,

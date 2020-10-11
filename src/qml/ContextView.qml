@@ -33,6 +33,7 @@ FocusScope {
     readonly property bool nothingPlaying: albumName.length === 0
                                         && artistName.length === 0
                                         && albumArtUrl.toString.length === 0
+                                        && title.length === 0
                                         && fileUrl.toString.length === 0
 
     TrackContextMetaDataModel {

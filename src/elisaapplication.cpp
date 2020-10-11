@@ -524,7 +524,7 @@ bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
 {
     Q_UNUSED(object)
 
-    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+    auto *keyEvent = static_cast<QKeyEvent*>(event);
     auto playPauseAction = d->mCollection.action(tr("Play-Pause"));
     if (keyEvent->key() == Qt::Key_Space && playPauseAction->shortcut()[0] == Qt::Key_Space) {
         return true;

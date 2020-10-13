@@ -44,6 +44,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setEmbeddedView
                NOTIFY embeddedViewChanged)
 
+    Q_PROPERTY(int initialViewIndex
+               READ initialViewIndex
+               WRITE setInitialViewIndex
+               NOTIFY initialViewIndexChanged)
+
     Q_PROPERTY(bool isDirty
                READ isDirty
                NOTIFY isDirtyChanged)
@@ -91,6 +96,11 @@ public:
         return mEmbeddedView;
     }
 
+    int initialViewIndex() const
+    {
+        return mInitialViewIndex;
+    }
+
     bool playAtStartup() const
     {
         return mPlayAtStartup;
@@ -115,6 +125,8 @@ Q_SIGNALS:
 
     void embeddedViewChanged();
 
+    void initialViewIndexChanged();
+
     void playAtStartupChanged();
 
     void colorSchemeChanged();
@@ -132,6 +144,8 @@ public Q_SLOTS:
     void setForceUsageOfFastFileSearch(bool forceUsageOfFastFileSearch);
 
     void setEmbeddedView(ElisaUtils::PlayListEntryType embeddedView);
+
+    void setInitialViewIndex(int initialViewIndex);
 
     void setPlayAtStartup(bool playAtStartup);
 
@@ -162,6 +176,8 @@ private:
     QString mColorScheme;
 
     ElisaUtils::PlayListEntryType mEmbeddedView = ElisaUtils::Unknown;
+
+    int mInitialViewIndex = 2;
 };
 
 #endif

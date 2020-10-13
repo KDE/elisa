@@ -90,6 +90,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ colorSchemesModel
                CONSTANT)
 
+    Q_PROPERTY(int initialViewIndex
+               READ initialViewIndex
+               NOTIFY initialViewIndexChanged)
+
 public:
     explicit ElisaApplication(QObject *parent = nullptr);
 
@@ -125,6 +129,8 @@ public:
 
     ElisaUtils::PlayListEntryType embeddedView() const;
 
+    int initialViewIndex() const;
+
 Q_SIGNALS:
 
     void argumentsChanged();
@@ -156,6 +162,8 @@ Q_SIGNALS:
     void commitDataRequest(QSessionManager &manager);
 
     void embeddedViewChanged();
+
+    void initialViewIndexChanged();
 
 public Q_SLOTS:
 

@@ -611,4 +611,11 @@ ElisaUtils::PlayListEntryType ElisaApplication::embeddedView() const
     return result;
 }
 
+int ElisaApplication::initialViewIndex() const
+{
+    int result = Elisa::ElisaConfiguration::initialView();
+
+    return result;
+}
+
 #include "moc_elisaapplication.cpp"

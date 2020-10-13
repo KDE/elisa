@@ -127,8 +127,6 @@ Kirigami.ApplicationWindow {
         property bool showPlaylist: true
 
         property bool headerBarIsMaximized: false
-
-        property int initialIndex
     }
 
     Connections {
@@ -159,8 +157,6 @@ Kirigami.ApplicationWindow {
             persistentSettings.showPlaylist = contentView.showPlaylist
 
             persistentSettings.headerBarIsMaximized = headerBar.isMaximized
-
-            persistentSettings.initialIndex = contentView.currentViewIndex
         }
     }
 
@@ -292,7 +288,7 @@ Kirigami.ApplicationWindow {
                 showPlaylist: persistentSettings.showPlaylist
                 showExpandedFilterView: persistentSettings.expandedFilterView
                 playlistDrawer: playlistDrawer
-                initialIndex: persistentSettings.value('initialIndex', initialViewIndex)
+                initialIndex: ElisaApplication.initialViewIndex
             }
         }
     }

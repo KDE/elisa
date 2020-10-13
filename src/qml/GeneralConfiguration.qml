@@ -103,4 +103,51 @@ ColumnLayout {
             embeddedCategoryCombo.isFinished = true
         }
     }
+
+    RowLayout {
+        spacing: Kirigami.Units.smallSpacing
+
+        Label {
+            text: i18n("Initial view at start:")
+        }
+
+        ComboBox {
+            id: initialViewCombo
+
+            property bool isFinished: false
+
+            model: [i18nc("Title of the view of the playlist", "Now Playing"),
+                i18nc("Title of the view of recently played tracks", "Recently Played"),
+                i18nc("Title of the view of frequently played tracks", "Frequently Played"),
+                i18nc("Title of the view of all albums", "Albums"),
+                i18nc("Title of the view of all artists", "Artists"),
+                i18nc("Title of the view of all tracks", "Tracks"),
+                i18nc("Title of the view of all genres", "Genres"),
+                i18nc("Title of the file browser view", "Files"),
+                i18nc("Title of the file radios browser view", "Radios"),
+            ]
+
+            editable: false
+            currentIndex: ElisaConfigurationDialog.initialViewIndex
+
+            onCurrentIndexChanged: {
+                if (!isFinished) {
+                    return
+                }
+
+                ElisaConfigurationDialog.initialViewIndex = currentIndex
+            }
+        }
+
+        Connections {
+            target: ElisaConfigurationDialog
+
+            onInitialViewIndexChanged: initialViewCombo.currentIndex = ElisaConfigurationDialog.initialViewIndex
+        }
+
+        Component.onCompleted: {
+            initialViewCombo.currentIndex = ElisaConfigurationDialog.initialViewIndex
+            initialViewCombo.isFinished = true
+        }
+    }
 }

@@ -103,6 +103,8 @@ void ElisaConfigurationDialog::save()
         break;
     }
 
+    Elisa::ElisaConfiguration::setInitialView(mInitialViewIndex);
+
     Elisa::ElisaConfiguration::self()->save();
 
     mIsDirty = false;
@@ -157,6 +159,18 @@ void ElisaConfigurationDialog::setEmbeddedView(ElisaUtils::PlayListEntryType emb
     setDirty();
 }
 
+void ElisaConfigurationDialog::setInitialViewIndex(int initialViewIndex)
+{
+    if (mInitialViewIndex == initialViewIndex) {
+        return;
+    }
+
+    mInitialViewIndex = initialViewIndex;
+    QTimer::singleShot(0, [this](){ Q_EMIT initialViewIndexChanged(); });
+
+    setDirty();
+}
+
 void ElisaConfigurationDialog::setPlayAtStartup(bool playAtStartup)
 {
     if (mPlayAtStartup == playAtStartup) {
@@ -202,6 +216,8 @@ void ElisaConfigurationDialog::configChanged()
         setEmbeddedView(ElisaUtils::Genre);
         break;
     }
+
+    setInitialViewIndex(Elisa::ElisaConfiguration::initialView());
 }
 
 void ElisaConfigurationDialog::setDirty()

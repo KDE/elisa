@@ -36,6 +36,19 @@
     <choice name="AllGenres" />
    </choices>
   </entry>
+  <entry key="InitialView" type="Enum">
+   <choices>
+    <choice name="ContextView" />
+    <choice name="RecentlyPlayed" />
+    <choice name="FrequentlyPlayed" />
+    <choice name="AllAlbums" />
+    <choice name="AllArtists" />
+    <choice name="AllTracks" />
+    <choice name="AllGenres" />
+    <choice name="Files" />
+    <choice name="Radios" />
+   </choices>
+  </entry>
   <entry key="ColorScheme" type="String">
   </entry>
   <entry key="SortRolePreferences" type="StringList">

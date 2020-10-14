@@ -12,14 +12,20 @@ import org.kde.elisa 1.0
 
 RowLayout {
     id: delegateRow
+
+    property string name
+    property int index
+    property var type
+    property string display
+
     spacing: 0
 
-    height: (model.type === EditableTrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (Kirigami.Units.gridUnit + Kirigami.Units.smallSpacing / 2))
+    height: (type === EditableTrackMetadataModel.LongTextEntry ? longTextDisplayLoader.height : (Kirigami.Units.gridUnit + Kirigami.Units.smallSpacing / 2))
 
     Label {
         id: metaDataLabels
 
-        text: i18nc("Label for a piece of metadata, e.g. 'Album Artist:'", "%1:", model.name)
+        text: i18nc("Label for a piece of metadata, e.g. 'Album Artist:'", "%1:", name)
 
         font.weight: Font.Bold
 
@@ -34,15 +40,15 @@ RowLayout {
     Loader {
         id: textDisplayLoader
 
-        active: model.type === EditableTrackMetadataModel.TextEntry || model.type === EditableTrackMetadataModel.IntegerEntry
-        visible: model.type === EditableTrackMetadataModel.TextEntry || model.type === EditableTrackMetadataModel.IntegerEntry
+        active: type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry
+        visible: type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop
 
 
         sourceComponent: LabelWithToolTip {
-            text: model.display
+            text: display
 
             horizontalAlignment: Text.AlignLeft
             elide: Text.ElideRight
@@ -54,15 +60,15 @@ RowLayout {
     Loader {
         id: longTextDisplayLoader
 
-        active: model.type === EditableTrackMetadataModel.LongTextEntry
-        visible: model.type === EditableTrackMetadataModel.LongTextEntry
+        active: type === EditableTrackMetadataModel.LongTextEntry
+        visible: type === EditableTrackMetadataModel.LongTextEntry
 
         Layout.fillWidth: true
         Layout.maximumWidth: delegateRow.width - (0.8 * elisaTheme.coverImageSize + Kirigami.Units.largeSpacing * 2)
         Layout.alignment: Qt.AlignTop
 
         sourceComponent: Label {
-            text: model.display
+            text: display
 
             horizontalAlignment: Text.AlignLeft
             elide: Text.ElideRight
@@ -74,8 +80,8 @@ RowLayout {
     }
 
     Loader {
-        active: model.type === EditableTrackMetadataModel.DateEntry
-        visible: model.type === EditableTrackMetadataModel.DateEntry
+        active: type === EditableTrackMetadataModel.DateEntry
+        visible: type === EditableTrackMetadataModel.DateEntry
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop
@@ -88,19 +94,19 @@ RowLayout {
 
             anchors.fill: parent
 
-            property date rawDate: new Date(model.display)
+            property date rawDate: new Date(display)
         }
     }
 
     Loader {
-        active: model.type === EditableTrackMetadataModel.RatingEntry
-        visible: model.type === EditableTrackMetadataModel.RatingEntry
+        active: type === EditableTrackMetadataModel.RatingEntry
+        visible: type === EditableTrackMetadataModel.RatingEntry
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop
 
         sourceComponent: RatingStar {
-            starRating: model.display
+            starRating: display
 
             readOnly: true
 

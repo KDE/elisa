@@ -63,7 +63,6 @@ FocusScope {
             modelType: entryType
             showTrackFileName: entryType !== ElisaUtils.Radio
             showDeleteButton: entryType === ElisaUtils.Radio
-            showApplyButton: entryType === ElisaUtils.Radio
             editableMetadata: entryType === ElisaUtils.Radio
 
             onRejected: metadataLoader.active = false

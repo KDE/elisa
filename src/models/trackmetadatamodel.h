@@ -52,6 +52,7 @@ public:
     {
         ItemNameRole = Qt::UserRole + 1,
         ItemTypeRole,
+        ReadOnlyRole,
     };
 
     enum ItemType

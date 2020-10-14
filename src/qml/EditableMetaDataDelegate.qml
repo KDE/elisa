@@ -12,14 +12,22 @@ import org.kde.elisa 1.0
 
 RowLayout {
     id: delegateRow
+
+    property string name
+    property int index
+    property var type
+    property string display
+
     spacing: 0
+
+    signal edited()
 
     Label {
         id: metaDataLabels
 
         text: {
-            if (model.name !== undefined) {
-                return i18nc("Label for a piece of metadata, e.g. 'Album Artist:'", "%1:", model.name)
+            if (name !== undefined) {
+                return i18nc("Label for a piece of metadata, e.g. 'Album Artist:'", "%1:", name)
             }
             return ""
         }
@@ -37,18 +45,18 @@ RowLayout {
     Loader {
         id: textDisplayLoader
 
-        focus: model.index === 0
+        focus: index === 0
 
-        active: model.type === EditableTrackMetadataModel.TextEntry || model.type === EditableTrackMetadataModel.UrlEntry || model.type === EditableTrackMetadataModel.IntegerEntry
-        visible: model.type === EditableTrackMetadataModel.TextEntry || model.type === EditableTrackMetadataModel.UrlEntry || model.type === EditableTrackMetadataModel.IntegerEntry
+        active: type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.UrlEntry || type === EditableTrackMetadataModel.IntegerEntry
+        visible: type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.UrlEntry || type === EditableTrackMetadataModel.IntegerEntry
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop
 
         sourceComponent: TextField {
-            text: model.display
+            text: display
 
-            focus: model.index === 0
+            focus: index === 0
 
             horizontalAlignment: Text.AlignLeft
 
@@ -57,8 +65,42 @@ RowLayout {
             anchors.fill: parent
 
             onTextEdited: {
-                if (model.display !== text) {
-                    model.display = text
+                if (display !== text) {
+                    display = text
+
+                    edited()
+                }
+            }
+        }
+    }
+
+    Loader {
+        focus: index === 0
+
+        active: type === EditableTrackMetadataModel.RatingEntry
+        visible: type === EditableTrackMetadataModel.RatingEntry
+
+        Layout.fillWidth: true
+        Layout.alignment: Qt.AlignTop
+
+        sourceComponent: RatingStar {
+            starRating: display
+
+            readOnly: false
+
+            hoverWidgetOpacity: 1
+
+            anchors {
+                left: parent.left
+                top: parent.top
+                bottom: parent.bottom
+            }
+
+            onRatingEdited: {
+                if (display !== starRating) {
+                    display = starRating
+
+                    edited()
                 }
             }
         }

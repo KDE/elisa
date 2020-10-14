@@ -23,8 +23,7 @@ Window {
     property bool isCreation: false
     property alias showImage: metadataImage.visible
     property alias showTrackFileName: fileNameRow.visible
-    property alias showDeleteButton: deleteButtonBox.visible
-    property alias showApplyButton: applyButton.visible
+    property bool showDeleteButton: false
     property double widthIndex: 2.8
 
     signal rejected()
@@ -105,7 +104,12 @@ Window {
                         id: metaDataDelegate
 
                         MetaDataDelegate {
-                            width: trackData.width
+                            width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+
+                            index: model.index
+                            name: model.name
+                            display: model.display
+                            type: model.type
                         }
                     }
 
@@ -113,11 +117,18 @@ Window {
                         id: editableMetaDataDelegate
 
                         EditableMetaDataDelegate {
-                            width: trackData.width
+                            width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+
+                            index: model.index
+                            name: model.name
+                            display: model.display
+                            type: model.type
+
+                            onEdited: model.display = display
                         }
                     }
 
-                    delegate: editableMetadata ? editableMetaDataDelegate: metaDataDelegate
+                    delegate: editableMetadata && !isReadOnly ? editableMetaDataDelegate: metaDataDelegate
                 }
             }
         }
@@ -175,6 +186,8 @@ Window {
                 Layout.minimumHeight: implicitHeight
                 alignment: Qt.AlignLeft
 
+                visible: showDeleteButton && !isCreation
+
                 Button {
                     id: deleteButton
                     text: i18n("Delete")
@@ -199,6 +212,7 @@ Window {
                     id: applyButton
 
                     enabled: realModel.isDataValid && realModel.isDirty
+                    visible: editableMetadata
 
                     text: i18n("Apply")
                     icon.name: 'dialog-ok-apply'
@@ -206,9 +220,7 @@ Window {
                     onClicked:
                     {
                         realModel.saveData()
-                        if (!deleteButtonBox.visible && editableMetadata) {
-                            deleteButtonBox.visible = true
-                        }
+                        isCreation = false
                     }
                 }
                 Button {

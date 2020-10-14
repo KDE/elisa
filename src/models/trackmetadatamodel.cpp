@@ -265,6 +265,90 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
+    case ReadOnlyRole:
+        switch (currentKey)
+        {
+        case DataTypes::TitleRole:
+            result = false;
+            break;
+        case DataTypes::ResourceRole:
+            result = true;
+            break;
+        case DataTypes::ImageUrlRole:
+            result = false;
+            break;
+        case DataTypes::ArtistRole:
+            result = false;
+            break;
+        case DataTypes::AlbumRole:
+            result = false;
+            break;
+        case DataTypes::AlbumArtistRole:
+            result = false;
+            break;
+        case DataTypes::TrackNumberRole:
+            result = false;
+            break;
+        case DataTypes::DiscNumberRole:
+            result = false;
+            break;
+        case DataTypes::RatingRole:
+            result = false;
+            break;
+        case DataTypes::GenreRole:
+            result = false;
+            break;
+        case DataTypes::LyricistRole:
+            result = false;
+            break;
+        case DataTypes::ComposerRole:
+            result = false;
+            break;
+        case DataTypes::CommentRole:
+            result = false;
+            break;
+        case DataTypes::YearRole:
+            result = false;
+            break;
+        case DataTypes::LastPlayDate:
+            result = true;
+            break;
+        case DataTypes::PlayCounter:
+            result = true;
+            break;
+        case DataTypes::LyricsRole:
+            result = false;
+            break;
+        case DataTypes::DurationRole:
+        case DataTypes::SampleRateRole:
+        case DataTypes::BitRateRole:
+        case DataTypes::ChannelsRole:
+        case DataTypes::SecondaryTextRole:
+        case DataTypes::ShadowForImageRole:
+        case DataTypes::ChildModelRole:
+        case DataTypes::StringDurationRole:
+        case DataTypes::IsValidAlbumArtistRole:
+        case DataTypes::AllArtistsRole:
+        case DataTypes::HighestTrackRating:
+        case DataTypes::IdRole:
+        case DataTypes::ParentIdRole:
+        case DataTypes::DatabaseIdRole:
+        case DataTypes::IsSingleDiscAlbumRole:
+        case DataTypes::ContainerDataRole:
+        case DataTypes::IsPartialDataRole:
+        case DataTypes::AlbumIdRole:
+        case DataTypes::HasEmbeddedCover:
+        case DataTypes::FileModificationTime:
+        case DataTypes::FirstPlayDate:
+        case DataTypes::PlayFrequency:
+        case DataTypes::ElementTypeRole:
+        case DataTypes::FullDataRole:
+        case DataTypes::IsDirectoryRole:
+        case DataTypes::IsPlayListRole:
+        case DataTypes::FilePathRole:
+            break;
+        }
+        break;
     }
 
     return result;
@@ -290,6 +374,7 @@ QHash<int, QByteArray> TrackMetadataModel::roleNames() const
 
     names[ItemNameRole] = "name";
     names[ItemTypeRole] = "type";
+    names[ReadOnlyRole] = "isReadOnly";
 
     return names;
 }

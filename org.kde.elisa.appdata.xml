@@ -33,6 +33,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="lt">Elisa</name>
   <name xml:lang="nl">Elisa</name>
   <name xml:lang="nn">Elisa</name>
+  <name xml:lang="pa">ਇਲੀਸਾ</name>
   <name xml:lang="pl">Elisa</name>
   <name xml:lang="pt">Elisa</name>
   <name xml:lang="pt-BR">Elisa</name>
@@ -144,6 +145,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="lt">Elisa muzikos grotuvas</caption>
       <caption xml:lang="nl">De muziekspeler Elisa</caption>
       <caption xml:lang="nn">Musikkspelaren Elisa</caption>
+      <caption xml:lang="pa">ਇਲੀਸਾ ਸੰਗੀਤ ਪਲੇਅਰ</caption>
       <caption xml:lang="pl">Odtwarzacz muzyki Elisa</caption>
       <caption xml:lang="pt">O leitor de música Elisa</caption>
       <caption xml:lang="pt-BR">O reprodutor de músicas Elisa</caption>

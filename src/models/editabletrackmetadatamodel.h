@@ -55,19 +55,34 @@ Q_SIGNALS:
 
     void errorMessageChanged();
 
+    void saveRadioData(const DataTypes::TrackDataType &trackDataType);
+
+    void deleteRadioData(qulonglong radioId);
+
 public Q_SLOTS:
 
     void saveData();
 
+    void deleteRadio();
+
 protected:
+
+    void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
+                               const QList<DataTypes::ColumnsRoles> &fieldsForTrack) override;
 
     void filterDataFromTrackData() override;
 
     void fillLyricsDataFromTrack() override;
 
+    void fillDataForNewRadio() override;
+
+    void initialize(MusicListenersManager *newManager,
+                    DatabaseInterface *trackDatabase) override;
 private:
 
     void validData();
+
+    bool mIsNewRadio = false;
 
     bool mIsDataValid = false;
 

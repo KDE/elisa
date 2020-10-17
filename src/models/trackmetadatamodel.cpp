@@ -544,10 +544,6 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
             &mDataLoader, &ModelDataLoader::loadDataByDatabaseIdAndUrl);
     connect(this, &TrackMetadataModel::needDataByUrl,
             &mDataLoader, &ModelDataLoader::loadDataByUrl);
-    connect(this, &TrackMetadataModel::saveRadioData,
-            &mDataLoader, &ModelDataLoader::saveRadioModified);
-    connect(this, &TrackMetadataModel::deleteRadioData,
-            &mDataLoader, &ModelDataLoader::removeRadio);
     connect(&mDataLoader, &ModelDataLoader::trackModified,
             this, &TrackMetadataModel::trackData);
     connect(&mDataLoader, &ModelDataLoader::allTrackData,
@@ -558,6 +554,16 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
             this, &TrackMetadataModel::radioData);
     connect(&mDataLoader, &ModelDataLoader::radioModified,
             this, &TrackMetadataModel::radioData);
+}
+
+ModelDataLoader &TrackMetadataModel::modelDataLoader()
+{
+    return mDataLoader;
+}
+
+const TrackMetadataModel::TrackDataType &TrackMetadataModel::displayedTrackData() const
+{
+    return mTrackData;
 }
 
 void TrackMetadataModel::fetchLyrics()
@@ -626,13 +632,6 @@ void TrackMetadataModel::setManager(MusicListenersManager *newManager)
 void TrackMetadataModel::setDatabase(DatabaseInterface *trackDatabase)
 {
     initialize(nullptr, trackDatabase);
-}
-
-void TrackMetadataModel::deleteRadio()
-{
-    if (mTrackData[DataTypes::DatabaseIdRole].toULongLong()) {
-        Q_EMIT deleteRadioData(mTrackData[DataTypes::DatabaseIdRole].toULongLong());
-    }
 }
 
 void TrackMetadataModel::radioData(const TrackDataType &radiosData)

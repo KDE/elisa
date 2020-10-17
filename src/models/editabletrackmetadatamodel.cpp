@@ -33,6 +33,7 @@ bool EditableTrackMetadataModel::setData(const QModelIndex &index, const QVarian
 
 void EditableTrackMetadataModel::saveData()
 {
+    mIsNewRadio = false;
     mIsDirty = false;
     Q_EMIT isDirtyChanged();
 
@@ -51,6 +52,24 @@ void EditableTrackMetadataModel::saveData()
     Q_EMIT saveRadioData(newTrackData);
 }
 
+void EditableTrackMetadataModel::deleteRadio()
+{
+    auto &track = displayedTrackData();
+    if (track[DataTypes::DatabaseIdRole].toULongLong()) {
+        Q_EMIT deleteRadioData(track[DataTypes::DatabaseIdRole].toULongLong());
+    }
+}
+
+void EditableTrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
+                                                       const QList<DataTypes::ColumnsRoles> &fieldsForTrack)
+{
+    if (mIsNewRadio) {
+        return;
+    }
+
+    TrackMetadataModel::fillDataFromTrackData(trackData, fieldsForTrack);
+}
+
 void EditableTrackMetadataModel::filterDataFromTrackData()
 {
     TrackMetadataModel::filterDataFromTrackData();
@@ -61,6 +80,22 @@ void EditableTrackMetadataModel::fillLyricsDataFromTrack()
 {
     TrackMetadataModel::fillLyricsDataFromTrack();
     validData();
+}
+
+void EditableTrackMetadataModel::fillDataForNewRadio()
+{
+    mIsNewRadio = true;
+    TrackMetadataModel::fillDataForNewRadio();
+}
+
+void EditableTrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseInterface *trackDatabase)
+{
+    TrackMetadataModel::initialize(newManager, trackDatabase);
+
+    connect(this, &EditableTrackMetadataModel::saveRadioData,
+            &modelDataLoader(), &ModelDataLoader::saveRadioModified);
+    connect(this, &EditableTrackMetadataModel::deleteRadioData,
+            &modelDataLoader(), &ModelDataLoader::removeRadio);
 }
 
 void EditableTrackMetadataModel::validData()

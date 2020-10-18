@@ -94,6 +94,8 @@ void EditableTrackMetadataModel::initialize(MusicListenersManager *newManager, D
 
     connect(this, &EditableTrackMetadataModel::saveTrackModified,
             &modelDataLoader(), &ModelDataLoader::saveTrackModified);
+    connect(this, &EditableTrackMetadataModel::saveTrackModified,
+            &modelDataLoader(), &ModelDataLoader::trackHasBeenModified);
     connect(this, &EditableTrackMetadataModel::deleteRadioData,
             &modelDataLoader(), &ModelDataLoader::removeRadio);
 }

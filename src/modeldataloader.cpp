@@ -449,6 +449,17 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     }
 }
 
+void ModelDataLoader::trackHasBeenModified(const ModelDataLoader::ListTrackDataType &trackDataType, const QHash<QString, QUrl> &covers)
+{
+    Q_UNUSED(covers)
+
+    for(const auto &oneTrack : trackDataType) {
+        if (oneTrack.elementType() == ElisaUtils::Track) {
+            d->mFileWriter.writeAllMetaDataToFile(oneTrack.resourceURI(), oneTrack);
+        }
+    }
+}
+
 void ModelDataLoader::updateFileMetaData(const DataTypes::TrackDataType &trackDataType, const QUrl &url)
 {
     d->mFileWriter.writeAllMetaDataToFile(url, trackDataType);

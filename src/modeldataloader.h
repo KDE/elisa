@@ -118,6 +118,8 @@ public Q_SLOTS:
 
     void updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, const QVariant &data);
 
+    void trackHasBeenModified(const ModelDataLoader::ListTrackDataType &trackDataType, const QHash<QString, QUrl> &covers);
+
 private Q_SLOTS:
 
     void databaseTracksAdded(const ModelDataLoader::ListTrackDataType &newData);

@@ -105,6 +105,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
     newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
     newTrack[DataTypes::ResourceRole] = scanFile;
     newTrack[DataTypes::RatingRole] = 0;
+    newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
 
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
@@ -160,6 +161,7 @@ DataTypes::TrackDataType FileScanner::scanOneBalooFile(const QUrl &scanFile, con
     newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
     newTrack[DataTypes::ResourceRole] = scanFile;
     newTrack[DataTypes::RatingRole] = 0;
+    newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
 
     Baloo::File match(localFileName);
 

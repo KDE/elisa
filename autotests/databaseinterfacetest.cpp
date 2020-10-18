@@ -4989,6 +4989,7 @@ private Q_SLOTS:
         newTrack[DataTypes::ComposerRole] = QStringLiteral("composer1");
         newTrack[DataTypes::LyricistRole] = QStringLiteral("lyricist1");
         newTrack[DataTypes::HasEmbeddedCover] = false;
+        newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
 
         auto temp = {fullTrack, newTrack};
         musicDb.insertTracksList(temp, mNewCovers);

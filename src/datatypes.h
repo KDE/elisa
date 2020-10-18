@@ -123,7 +123,8 @@ public:
                              {key_type::FileModificationTime, fileModificationTime}, {key_type::ImageUrlRole, std::move(aAlbumCover)},
                              {key_type::RatingRole, rating}, {key_type::IsSingleDiscAlbumRole, aIsSingleDiscAlbum},
                              {key_type::GenreRole, std::move(aGenre)}, {key_type::ComposerRole, std::move(aComposer)},
-                             {key_type::LyricistRole, std::move(aLyricist)}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},})
+                             {key_type::LyricistRole, std::move(aLyricist)}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},
+                             {key_type::ElementTypeRole, ElisaUtils::Track},})
         {
             Q_UNUSED(aValid)
         }

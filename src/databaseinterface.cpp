@@ -1096,41 +1096,30 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
     initChangesTrackers();
 
     for(const auto &oneTrack : tracks) {
-        d->mSelectTracksMapping.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
-
-        auto result = execQuery(d->mSelectTracksMapping);
-
-        if (!result || !d->mSelectTracksMapping.isSelect() || !d->mSelectTracksMapping.isActive()) {
-            Q_EMIT databaseError();
-
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.boundValues();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastError();
-
-            d->mSelectTracksMapping.finish();
-
-            rollBackTransaction();
-            Q_EMIT finishInsertingTracksList();
-            return;
+        switch (oneTrack.elementType())
+        {
+        case ElisaUtils::Track:
+        {
+            qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "insert one track";
+            internalInsertOneTrack(oneTrack, covers);
+            break;
         }
-
-        bool isNewTrack = !d->mSelectTracksMapping.next();
-
-        if (isNewTrack) {
-            insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(),
-                              QDateTime::currentDateTime());
-        } else if (!d->mSelectTracksMapping.record().value(0).isNull() && d->mSelectTracksMapping.record().value(0).toULongLong() != 0) {
-            updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
+        case ElisaUtils::Radio:
+        {
+            qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "insert one radio";
+            internalInsertOneRadio(oneTrack);
+            break;
         }
-
-        d->mSelectTracksMapping.finish();
-
-        bool isInserted = false;
-
-        const auto insertedTrackId = internalInsertTrack(oneTrack, covers, isInserted);
-
-        if (isInserted && insertedTrackId != 0) {
-            d->mInsertedTracks.insert(insertedTrackId);
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::Container:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Unknown:
+            qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "invalid track data";
+            break;
         }
 
         if (d->mStopRequest == 1) {
@@ -3457,6 +3446,84 @@ void DatabaseInterface::callUpgradeFunctionForVersion(DatabaseVersion databaseVe
         upgradeDatabaseV16();
         break;
     }
+}
+
+void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack, const QHash<QString, QUrl> &covers)
+{
+    d->mSelectTracksMapping.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
+
+    auto result = execQuery(d->mSelectTracksMapping);
+
+    if (!result || !d->mSelectTracksMapping.isSelect() || !d->mSelectTracksMapping.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastError();
+
+        d->mSelectTracksMapping.finish();
+
+        rollBackTransaction();
+        Q_EMIT finishInsertingTracksList();
+        return;
+    }
+
+    bool isNewTrack = !d->mSelectTracksMapping.next();
+
+    if (isNewTrack) {
+        insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(),
+                          QDateTime::currentDateTime());
+    } else if (!d->mSelectTracksMapping.record().value(0).isNull() && d->mSelectTracksMapping.record().value(0).toULongLong() != 0) {
+        updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
+    }
+
+    d->mSelectTracksMapping.finish();
+
+    bool isInserted = false;
+
+    const auto insertedTrackId = internalInsertTrack(oneTrack, covers, isInserted);
+
+    if (isInserted && insertedTrackId != 0) {
+        d->mInsertedTracks.insert(insertedTrackId);
+    }
+}
+
+void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &oneTrack)
+{
+    QSqlQuery query = d->mUpdateRadioQuery;
+
+    if (oneTrack.databaseId() == -1ull) {
+        query = d->mInsertRadioQuery;
+    }
+
+    query.bindValue(QStringLiteral(":httpAddress"), oneTrack.resourceURI());
+    query.bindValue(QStringLiteral(":radioId"), oneTrack.databaseId());
+    query.bindValue(QStringLiteral(":title"), oneTrack.title());
+    query.bindValue(QStringLiteral(":comment"), oneTrack.comment());
+    query.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
+    query.bindValue(QStringLiteral(":imageAddress"), oneTrack.albumCover());
+
+    auto result = execQuery(query);
+
+    if (!result || !query.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.lastError();
+    } else {
+        if (oneTrack[DataTypes::TrackDataType::key_type::DatabaseIdRole] == -1) {
+            auto radio = internalOneRadioPartialData(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
+
+            Q_EMIT radioAdded(radio);
+        } else {
+            auto radio = internalOneRadioPartialData(oneTrack.databaseId());
+
+            Q_EMIT radioModified(radio);
+        }
+    }
+
+    query.finish();
 }
 
 void DatabaseInterface::initRequest()
@@ -7414,44 +7481,6 @@ void DatabaseInterface::updateTrackInDatabase(const DataTypes::TrackDataType &on
     d->mUpdateTrackQuery.finish();
 }
 
-void DatabaseInterface::insertRadio(const DataTypes::TrackDataType &oneTrack)
-{
-    QSqlQuery query = d->mUpdateRadioQuery;
-
-    if (oneTrack.databaseId() == -1ull) {
-        query = d->mInsertRadioQuery;
-    }
-
-    query.bindValue(QStringLiteral(":httpAddress"), oneTrack.resourceURI());
-    query.bindValue(QStringLiteral(":radioId"), oneTrack.databaseId());
-    query.bindValue(QStringLiteral(":title"), oneTrack.title());
-    query.bindValue(QStringLiteral(":comment"), oneTrack.comment());
-    query.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
-    query.bindValue(QStringLiteral(":imageAddress"), oneTrack.albumCover());
-
-    auto result = execQuery(query);
-
-    if (!result || !query.isActive()) {
-        Q_EMIT databaseError();
-
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastError();
-    } else {
-        if (oneTrack[DataTypes::TrackDataType::key_type::DatabaseIdRole] == -1) {
-            auto radio = internalOneRadioPartialData(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
-
-            Q_EMIT radioAdded(radio);
-        } else {
-            auto radio = internalOneRadioPartialData(oneTrack.databaseId());
-
-            Q_EMIT radioModified(radio);
-        }
-    }
-
-    query.finish();
-}
-
 void DatabaseInterface::removeRadio(qulonglong radioId)
 {
     QSqlQuery query = d->mDeleteRadioQuery;
@@ -7619,7 +7648,7 @@ qulonglong DatabaseInterface::internalAlbumIdFromTitleAndArtist(const QString &t
         d->mSelectAlbumIdFromTitleWithoutArtistQuery.bindValue(QStringLiteral(":title"), title);
         d->mSelectAlbumIdFromTitleWithoutArtistQuery.bindValue(QStringLiteral(":albumPath"), albumPath);
 
-        auto queryResult = execQuery(d->mSelectAlbumIdFromTitleWithoutArtistQuery);
+        queryResult = execQuery(d->mSelectAlbumIdFromTitleWithoutArtistQuery);
 
         if (!queryResult || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isSelect() || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isActive()) {
             Q_EMIT databaseError();

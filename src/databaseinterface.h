@@ -152,8 +152,6 @@ public Q_SLOTS:
 
     void clearData();
 
-    void insertRadio(const DataTypes::TrackDataType &oneTrack);
-
     void removeRadio(qulonglong radioId);
 
 private:
@@ -337,6 +335,10 @@ private:
     void manageNewDatabaseVersionInitRequests();
 
     void callUpgradeFunctionForVersion(DatabaseVersion databaseVersion);
+
+    void internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack, const QHash<QString, QUrl> &covers);
+
+    void internalInsertOneRadio(const DataTypes::TrackDataType &oneTrack);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

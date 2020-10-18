@@ -2384,6 +2384,7 @@ void MediaPlayListTest::restoreTrackWithoutAlbum()
     newTrack[DataTypes::ComposerRole] = QStringLiteral("composer1");
     newTrack[DataTypes::LyricistRole] = QStringLiteral("lyricist1");
     newTrack[DataTypes::HasEmbeddedCover] = false;
+    newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
 
     myDatabaseContent.insertTracksList({newTrack}, mNewCovers);
 

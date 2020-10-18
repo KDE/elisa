@@ -492,7 +492,7 @@ void TrackMetadataModel::fillLyricsDataFromTrack()
 
 const TrackMetadataModel::TrackDataType &TrackMetadataModel::allTrackData() const
 {
-    return mTrackData;
+    return mFullData;
 }
 
 void TrackMetadataModel::lyricsValueIsReady()

@@ -62,8 +62,8 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
             this, &ModelDataLoader::databaseArtistsAdded);
     connect(database, &DatabaseInterface::artistRemoved,
             this, &ModelDataLoader::artistRemoved);
-    connect(this, &ModelDataLoader::saveRadioModified,
-            database, &DatabaseInterface::insertRadio);
+    connect(this, &ModelDataLoader::saveTrackModified,
+            database, &DatabaseInterface::insertTracksList);
     connect(this, &ModelDataLoader::removeRadio,
             database, &DatabaseInterface::removeRadio);
     connect(database, &DatabaseInterface::radioAdded,

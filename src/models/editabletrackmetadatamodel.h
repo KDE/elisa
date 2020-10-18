@@ -55,7 +55,7 @@ Q_SIGNALS:
 
     void errorMessageChanged();
 
-    void saveRadioData(const DataTypes::TrackDataType &trackDataType);
+    void saveTrackModified(const DataTypes::ListTrackDataType &trackDataType, const QHash<QString, QUrl> &covers);
 
     void deleteRadioData(qulonglong radioId);
 

@@ -81,7 +81,7 @@ Q_SIGNALS:
 
     void albumModified(const ModelDataLoader::AlbumDataType &modifiedAlbum);
 
-    void saveRadioModified(const ModelDataLoader::TrackDataType &trackDataType);
+    void saveTrackModified(const ModelDataLoader::ListTrackDataType &trackDataType, const QHash<QString, QUrl> &covers);
 
     void removeRadio(qulonglong radioId);
 

@@ -49,7 +49,7 @@ void EditableTrackMetadataModel::saveData()
         newTrackData[DataTypes::ImageUrlRole] = QUrl::fromUserInput(QStringLiteral("file:/").append(imageUrl));
     }
 
-    Q_EMIT saveRadioData(newTrackData);
+    Q_EMIT saveTrackModified({newTrackData}, {});
 }
 
 void EditableTrackMetadataModel::deleteRadio()
@@ -92,8 +92,8 @@ void EditableTrackMetadataModel::initialize(MusicListenersManager *newManager, D
 {
     TrackMetadataModel::initialize(newManager, trackDatabase);
 
-    connect(this, &EditableTrackMetadataModel::saveRadioData,
-            &modelDataLoader(), &ModelDataLoader::saveRadioModified);
+    connect(this, &EditableTrackMetadataModel::saveTrackModified,
+            &modelDataLoader(), &ModelDataLoader::saveTrackModified);
     connect(this, &EditableTrackMetadataModel::deleteRadioData,
             &modelDataLoader(), &ModelDataLoader::removeRadio);
 }

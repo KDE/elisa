@@ -20,11 +20,11 @@ Window {
     property var modelType
     property url fileName
     property bool editableMetadata
+    property bool isModifying: false
     property bool isCreation: false
     property alias showImage: metadataImage.visible
     property alias showTrackFileName: fileNameRow.visible
     property bool showDeleteButton: false
-    property double widthIndex: 2.8
 
     signal rejected()
 
@@ -46,8 +46,8 @@ Window {
 
     color: myPalette.window
 
-    minimumHeight: elisaTheme.coverImageSize * 1.8
-    minimumWidth: elisaTheme.coverImageSize * trackMetadata.widthIndex
+    minimumHeight: elisaTheme.metaDataDialogHeight
+    minimumWidth: elisaTheme.metaDataDialogWidth
 
     onClosing: {
         trackMetadata.rejected()
@@ -128,7 +128,8 @@ Window {
                         }
                     }
 
-                    delegate: editableMetadata && !isReadOnly ? editableMetaDataDelegate: metaDataDelegate
+                    delegate: ((dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
+                                dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly) ? editableMetaDataDelegate: metaDataDelegate
                 }
             }
         }
@@ -209,10 +210,16 @@ Window {
                 alignment: Qt.AlignRight
 
                 Button {
-                    id: applyButton
+                    id: modifyButton
 
-                    enabled: realModel.isDataValid && realModel.isDirty
-                    visible: editableMetadata
+                    text: i18n("Modify")
+                    icon.name: 'document-edit'
+                    DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
+                    onClicked: isModifying = true
+                }
+
+                Button {
+                    id: applyButton
 
                     text: i18n("Apply")
                     icon.name: 'dialog-ok-apply'
@@ -220,9 +227,13 @@ Window {
                     onClicked:
                     {
                         realModel.saveData()
-                        isCreation = false
+                        if (isCreation) {
+                            isCreation = false
+                            isModifying = true
+                        }
                     }
                 }
+
                 Button {
                     text: i18n("Close")
                     icon.name: 'dialog-cancel'
@@ -253,5 +264,120 @@ Window {
                 realModel.initializeByUrl(modelType, fileName)
             }
         }
+    }
+
+    StateGroup {
+        id: dialogStates
+
+        states: [
+            State {
+                name: 'consultOnly'
+
+                when: !editableMetadata
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: false
+                        visible: false
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: false
+                        visible: false
+                    }
+                ]
+            },
+            State {
+                name: 'readOnly'
+
+                when: editableMetadata && !isModifying && !isCreation
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: true
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: false
+                        visible: true
+                    }
+                ]
+            },
+            State {
+                name: 'readWrite'
+
+                when: editableMetadata && isModifying && !isCreation && (!realModel.isDataValid || !realModel.isDirty)
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: false
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: false
+                        visible: true
+                    }
+                ]
+            },
+            State {
+                name: 'readWriteAndDirty'
+
+                when: editableMetadata && isModifying && !isCreation && realModel.isDataValid && realModel.isDirty
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: false
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: true
+                        visible: true
+                    }
+                ]
+            },
+            State {
+                name: 'create'
+
+                when: editableMetadata && !isModifying && isCreation && (!realModel.isDataValid || !realModel.isDirty)
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: false
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: false
+                        visible: true
+                    }
+                ]
+            },
+            State {
+                name: 'createAndDirty'
+
+                when: editableMetadata && !isModifying && isCreation && realModel.isDataValid && realModel.isDirty
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: false
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: true
+                        visible: true
+                    }
+                ]
+            }
+        ]
     }
 }

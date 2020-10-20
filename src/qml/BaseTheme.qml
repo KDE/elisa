@@ -35,6 +35,9 @@ Item {
     property int contextCoverImageSize: 100
     property int smallImageSize: 32
 
+    property int metaDataDialogHeight: 400 * Kirigami.Units.devicePixelRatio
+    property int metaDataDialogWidth: 600 * Kirigami.Units.devicePixelRatio
+
     property int tooltipRadius: 3
     property int shadowOffset: 2
 

@@ -272,7 +272,25 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             result = false;
             break;
         case DataTypes::ResourceRole:
-            result = true;
+            switch (mFullData.elementType())
+            {
+            case ElisaUtils::Track:
+                result = true;
+                break;
+            case ElisaUtils::Radio:
+                result = false;
+                break;
+            case ElisaUtils::Album:
+            case ElisaUtils::Artist:
+            case ElisaUtils::Composer:
+            case ElisaUtils::Container:
+            case ElisaUtils::FileName:
+            case ElisaUtils::Genre:
+            case ElisaUtils::Lyricist:
+            case ElisaUtils::Unknown:
+                result = true;
+                break;
+            }
             break;
         case DataTypes::ImageUrlRole:
             result = false;
@@ -590,22 +608,23 @@ void TrackMetadataModel::initializeForNewRadio()
 void TrackMetadataModel::fillDataForNewRadio()
 {
     beginResetModel();
+    mFullData.clear();
     mTrackData.clear();
     mTrackKeys.clear();
 
     auto allRoles = {DataTypes::TitleRole, DataTypes::ResourceRole,
-                     DataTypes::CommentRole, DataTypes::ImageUrlRole,
-                     DataTypes::DatabaseIdRole};
+                     DataTypes::CommentRole, DataTypes::ImageUrlRole};
 
     for (auto role : allRoles) {
         mTrackKeys.push_back(role);
         if (role == DataTypes::DatabaseIdRole) {
-            mTrackData[role] = -1;
+            mFullData[role] = -1;
         } else {
-            mTrackData[role] = QString();
+            mFullData[role] = QString();
         }
-
     }
+    mTrackData = mFullData;
+    mFullData[DataTypes::ElementTypeRole] = ElisaUtils::Radio;
     filterDataFromTrackData();
     endResetModel();
 }
@@ -642,8 +661,7 @@ void TrackMetadataModel::radioData(const TrackDataType &radiosData)
     }
 
     const QList<DataTypes::ColumnsRoles> fieldsForTrack({DataTypes::TitleRole, DataTypes::ResourceRole,
-                                                                 DataTypes::CommentRole, DataTypes::ImageUrlRole,
-                                                                 DataTypes::DatabaseIdRole});
+                                                                 DataTypes::CommentRole, DataTypes::ImageUrlRole});
 
     fillDataFromTrackData(radiosData, fieldsForTrack);
 }

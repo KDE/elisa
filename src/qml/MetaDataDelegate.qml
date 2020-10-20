@@ -40,8 +40,8 @@ RowLayout {
     Loader {
         id: textDisplayLoader
 
-        active: type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry
-        visible: type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry
+        active: type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry || type === EditableTrackMetadataModel.UrlEntry
+        visible: type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry || type === EditableTrackMetadataModel.UrlEntry
 
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignTop

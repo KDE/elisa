@@ -84,7 +84,7 @@ FocusScope {
 
         proxyModel.sourceModel = realModel
         proxyModel.dataType = modelType
-        proxyModel.playList = ElisaApplication.mediaPlayListProxyModel
+        proxyModel.playList = Qt.binding(function() { return ElisaApplication.mediaPlayListProxyModel })
         listView.contentModel = proxyModel
 
         if (!displaySingleAlbum) {

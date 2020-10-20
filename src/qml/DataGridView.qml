@@ -59,7 +59,7 @@ FocusScope {
 
         proxyModel.sourceModel = realModel
         proxyModel.dataType = modelType
-        proxyModel.playList = ElisaApplication.mediaPlayListProxyModel
+        proxyModel.playList = Qt.binding(function() { return ElisaApplication.mediaPlayListProxyModel })
         gridView.contentModel = proxyModel
 
         proxyModel.sortModel(sortOrder)

@@ -78,6 +78,7 @@ Name[uk]=Elisa
 Name[x-test]=xxElisaxx
 Name[zh_CN]=Elisa
 Name[zh_TW]=Elisa
+StartupWMClass=elisa
 StartupNotify=false
 Terminal=false
 Type=Application

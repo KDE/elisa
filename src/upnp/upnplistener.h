@@ -7,6 +7,8 @@
 #ifndef UPNPLISTENER_H
 #define UPNPLISTENER_H
 
+#include "datatypes.h"
+
 #include <QObject>
 #include <QVector>
 #include <QString>
@@ -16,7 +18,6 @@
 class UpnpListenerPrivate;
 
 class DatabaseInterface;
-class MusicAudioTrack;
 
 class UpnpListener : public QObject
 {
@@ -43,7 +44,7 @@ Q_SIGNALS:
 
     void initialTracksListRequired(QString musicSource);
 
-    void initialTracksList(QString musicSource, QList<MusicAudioTrack> initialList);
+    void initialTracksList(QString musicSource, DataTypes::ListUpnpTrackDataType initialList);
 
 public Q_SLOTS:
 

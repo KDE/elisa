@@ -5,7 +5,18 @@
  */
 
 #include "upnpcontentdirectorymodel.h"
+
+#include "musiclistenersmanager.h"
+
+#include "upnpLogging.h"
+
+#include "didlparser.h"
 #include "upnpcontrolcontentdirectory.h"
+#include "upnpdiscoverallmusic.h"
+
+#include <UpnpDeviceDescription>
+#include <UpnpServiceDescription>
+#include <UpnpActionDescription>
 
 #include <QDomDocument>
 #include <QDomElement>
@@ -14,7 +25,7 @@
 #include <QHash>
 #include <QString>
 #include <QList>
-#include <QDebug>
+#include <QLoggingCategory>
 #include <QPointer>
 #include <QUrl>
 
@@ -24,9 +35,13 @@ public:
 
     UpnpControlContentDirectory *mContentDirectory;
 
-    QString mBrowseFlag;
+    DidlParser mDidlParser;
 
-    QString mFilter;
+    QString mParentId = QStringLiteral("0");
+
+    QString mBrowseFlag = QStringLiteral("BrowseDirectChildren");
+
+    QString mFilter = QStringLiteral("*");
 
     QString mSortCriteria;
 
@@ -36,11 +51,13 @@ public:
 
     QHash<quintptr, QVector<quintptr> > mChilds;
 
-    QHash<quintptr, QHash<UpnpContentDirectoryModel::ColumnsRoles, QVariant> > mData;
+    QHash<quintptr, DataTypes::UpnpTrackDataType> mAllTrackData;
 
     int mCurrentUpdateId;
 
     bool mUseLocalIcons = false;
+
+    bool mIsBusy = false;
 
 };
 
@@ -49,16 +66,7 @@ UpnpContentDirectoryModel::UpnpContentDirectoryModel(QObject *parent)
 {
     d->mContentDirectory = nullptr;
 
-    d->mLastInternalId = 1;
-
-    d->mUpnpIds[QStringLiteral("0")] = d->mLastInternalId;
-
-    d->mChilds[d->mLastInternalId] = QVector<quintptr>();
-
-    d->mData[d->mLastInternalId] = QHash<UpnpContentDirectoryModel::ColumnsRoles, QVariant>();
-    d->mData[d->mLastInternalId][ColumnsRoles::IdRole] = QStringLiteral("0");
-
-    d->mCurrentUpdateId = -1;
+    connect(&d->mDidlParser, &DidlParser::isDataValidChanged, this, &UpnpContentDirectoryModel::contentChanged);
 }
 
 UpnpContentDirectoryModel::~UpnpContentDirectoryModel()
@@ -66,30 +74,60 @@ UpnpContentDirectoryModel::~UpnpContentDirectoryModel()
 
 int UpnpContentDirectoryModel::rowCount(const QModelIndex &parent) const
 {
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::rowCount" << parent;
+
+    int result = 0;
+
+    auto currentInternalId = parent.internalId();
+
     if (!parent.isValid()) {
-        return 1;
+        currentInternalId = d->mUpnpIds[parentId()];
     }
 
-    if (!d->mChilds.contains(parent.internalId())) {
-        return 0;
+    if (!d->mChilds.contains(currentInternalId)) {
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::rowCount" << parent << currentInternalId << "unknown child" << result;
+
+        if (d->mAllTrackData.contains(currentInternalId)) {
+            result = d->mAllTrackData[currentInternalId][DataTypes::ChildCountRole].toInt();
+
+            qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::rowCount" << parent << currentInternalId << result;
+        }
+
+        return result;
     }
 
-    return d->mChilds[parent.internalId()].size();
+    result = d->mChilds[currentInternalId].size();
+
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::rowCount" << parent << currentInternalId << result;
+
+    return result;
 }
 
 QHash<int, QByteArray> UpnpContentDirectoryModel::roleNames() const
 {
-    QHash<int, QByteArray> roles;
+    auto roles = QAbstractItemModel::roleNames();
 
-    roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(ColumnsRoles::DurationRole)] = "duration";
-    roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
-    roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
-    roles[static_cast<int>(ColumnsRoles::RatingRole)] = "rating";
-    roles[static_cast<int>(ColumnsRoles::ImageRole)] = "image";
-    roles[static_cast<int>(ColumnsRoles::ItemClassRole)] = "itemClass";
-    roles[static_cast<int>(ColumnsRoles::CountRole)] = "count";
-    roles[static_cast<int>(ColumnsRoles::IsPlayingRole)] = "isPlaying";
+    roles[static_cast<int>(DataTypes::TitleRole)] = "title";
+    roles[static_cast<int>(DataTypes::SecondaryTextRole)] = "secondaryText";
+    roles[static_cast<int>(DataTypes::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DataTypes::DatabaseIdRole)] = "databaseId";
+    roles[static_cast<int>(DataTypes::ElementTypeRole)] = "dataType";
+    roles[static_cast<int>(DataTypes::ResourceRole)] = "url";
+
+    roles[static_cast<int>(DataTypes::ArtistRole)] = "artist";
+    roles[static_cast<int>(DataTypes::AllArtistsRole)] = "allArtists";
+    roles[static_cast<int>(DataTypes::HighestTrackRating)] = "highestTrackRating";
+    roles[static_cast<int>(DataTypes::GenreRole)] = "genre";
+
+    roles[static_cast<int>(DataTypes::AlbumRole)] = "album";
+    roles[static_cast<int>(DataTypes::AlbumArtistRole)] = "albumArtist";
+    roles[static_cast<int>(DataTypes::DurationRole)] = "duration";
+    roles[static_cast<int>(DataTypes::TrackNumberRole)] = "trackNumber";
+    roles[static_cast<int>(DataTypes::DiscNumberRole)] = "discNumber";
+    roles[static_cast<int>(DataTypes::RatingRole)] = "rating";
+    roles[static_cast<int>(DataTypes::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
+    roles[static_cast<int>(DataTypes::FullDataRole)] = "fullData";
+    roles[static_cast<int>(DataTypes::HasModelChildrenRole)] = "hasModelChildren";
 
     return roles;
 }
@@ -105,156 +143,197 @@ Qt::ItemFlags UpnpContentDirectoryModel::flags(const QModelIndex &index) const
 
 QVariant UpnpContentDirectoryModel::data(const QModelIndex &index, int role) const
 {
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::data" << index << role;
+
+    QVariant result;
+
     if (!index.isValid()) {
-        return QVariant();
+        return result;
     }
 
     if (index.column() != 0) {
-        return QVariant();
+        return result;
     }
 
     if (index.row() < 0) {
-        return QVariant();
+        return result;
     }
 
-    if (!d->mData.contains(index.internalId())) {
-        return QVariant();
+    if (!d->mAllTrackData.contains(index.internalId())) {
+        return result;
     }
 
-    ColumnsRoles convertedRole = static_cast<ColumnsRoles>(role);
+    auto convertedRole = static_cast<DataTypes::ColumnsRoles>(role);
 
     switch(role)
     {
-    case ColumnsRoles::TitleRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::DurationRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::CreatorRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::ArtistRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::AlbumRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::RatingRole:
-        return 0;
-    case ColumnsRoles::ImageRole:
-        switch (d->mData[index.internalId()][ColumnsRoles::ItemClassRole].value<int>())
+    case Qt::DisplayRole:
+        result = d->mAllTrackData[index.internalId()][DataTypes::TitleRole];
+        break;
+    case DataTypes::ElementTypeRole:
+    case DataTypes::IdRole:
+    case DataTypes::ParentIdRole:
+    case DataTypes::TitleRole:
+    case DataTypes::DurationRole:
+    case DataTypes::ArtistRole:
+    case DataTypes::AlbumRole:
+        result = d->mAllTrackData[index.internalId()][convertedRole];
+        break;
+    case DataTypes::RatingRole:
+        result = 0;
+        break;
+    case DataTypes::ResourceRole:
+        result = QUrl{};
+        break;
+    case DataTypes::ImageUrlRole:
+        switch (d->mAllTrackData[index.internalId()][DataTypes::ElementTypeRole].value<ElisaUtils::PlayListEntryType>())
         {
-        case UpnpContentDirectoryModel::Album:
-            if (!d->mData[index.internalId()][ColumnsRoles::ImageRole].toString().isEmpty()) {
-                return d->mData[index.internalId()][ColumnsRoles::ImageRole].toUrl();
+        case ElisaUtils::Album:
+            if (!d->mAllTrackData[index.internalId()][DataTypes::ImageUrlRole].toString().isEmpty()) {
+                result = d->mAllTrackData[index.internalId()][DataTypes::ImageUrlRole].toUrl();
             } else {
                 if (d->mUseLocalIcons) {
-                    return QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
+                    result = QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
                 } else {
-                    return QUrl(QStringLiteral("image://icon/media-optical-audio"));
+                    result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
                 }
             }
-        case UpnpContentDirectoryModel::Container:
-            if (d->mUseLocalIcons) {
-                return QUrl(QStringLiteral("qrc:/folder.svg"));
+            break;
+        case ElisaUtils::Container:
+        case ElisaUtils::UpnpMediaServer:
+            if (!d->mAllTrackData[index.internalId()][DataTypes::ImageUrlRole].toString().isEmpty()) {
+                result = d->mAllTrackData[index.internalId()][DataTypes::ImageUrlRole].toUrl();
             } else {
-                return QUrl(QStringLiteral("image://icon/folder"));
+                if (d->mUseLocalIcons) {
+                    return QUrl(QStringLiteral("qrc:/folder.svg"));
+                } else {
+                    return QUrl(QStringLiteral("image://icon/folder"));
+                }
             }
-        case UpnpContentDirectoryModel::AudioTrack:
-            return data(index.parent(), role);
+            break;
+        case ElisaUtils::Track:
+            result = d->mAllTrackData[index.internalId()][DataTypes::ImageUrlRole];
+            break;
+        case ElisaUtils::Artist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Radio:
+        case ElisaUtils::Unknown:
+            break;
         }
         break;
-    case ColumnsRoles::ResourceRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::ItemClassRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::CountRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::IdRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::ParentIdRole:
-        return d->mData[index.internalId()][convertedRole];
-    case ColumnsRoles::IsPlayingRole:
-        return d->mData[index.internalId()][convertedRole];
+    case DataTypes::HasModelChildrenRole:
+        result = rowCount(index);
+        break;
+    case DataTypes::FullDataRole:
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::data" << d->mAllTrackData[index.internalId()];
+        result = QVariant::fromValue(static_cast<DataTypes::MusicDataType>(d->mAllTrackData[index.internalId()]));
+        break;
     }
 
-    return QVariant();
+    return result;
 }
 
 QModelIndex UpnpContentDirectoryModel::index(int row, int column, const QModelIndex &parent) const
 {
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::index" << row << column << parent;
+
+    QModelIndex result;
+
+    auto currentInternalId = parent.internalId();
+
     if (!parent.isValid()) {
-        return createIndex(0, 0, 1);
+        currentInternalId = d->mUpnpIds[parentId()];
     }
 
-    if (!d->mChilds.contains(parent.internalId())) {
-        return QModelIndex();
+    if (!d->mChilds.contains(currentInternalId)) {
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::index" << row << column << parent << result;
+
+        return result;
     }
 
-    if (row < 0 && row >= d->mChilds[parent.internalId()].size()) {
-        return QModelIndex();
+    if (row < 0 || row >= d->mChilds[currentInternalId].size()) {
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::index" << row << column << parent << result;
+
+        return result;
     }
 
     if (column != 0) {
-        return QModelIndex();
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::index" << row << column << parent << result;
+
+        return result;
     }
 
-    return createIndex(row, column, d->mChilds[parent.internalId()][row]);
+    result = createIndex(row, column, d->mChilds[currentInternalId][row]);
+
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::index" << row << column << parent << result;
+
+    return result;
 }
 
 QModelIndex UpnpContentDirectoryModel::parent(const QModelIndex &child) const
 {
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::parent" << child;
+
+    QModelIndex result;
+
     // child is valid
     if (!child.isValid()) {
-        return QModelIndex();
+        return result;
     }
 
     // data knows child internal id
-    if (!d->mData.contains(child.internalId())) {
-        return QModelIndex();
+    if (!d->mAllTrackData.contains(child.internalId())) {
+        return result;
     }
 
-    const auto &childData = d->mData[child.internalId()];
+    const auto &childData = d->mAllTrackData[child.internalId()];
 
     // child data has upnp id of parent
-    if (!childData.contains(ColumnsRoles::ParentIdRole)) {
-        return QModelIndex();
+    if (!childData.contains(DataTypes::ParentIdRole)) {
+        return result;
     }
 
-    const auto &parentStringId = childData[ColumnsRoles::ParentIdRole].toString();
+    const auto &parentStringId = childData[DataTypes::ParentIdRole].toString();
 
     // upnp ids has the internal id of parent
     if (!d->mUpnpIds.contains(parentStringId)) {
-        return QModelIndex();
+        return result;
+    }
+
+    // special case if we are already at top of model
+    if (parentStringId == QLatin1Char('0')) {
+        return result;
     }
 
     auto parentInternalId = d->mUpnpIds[parentStringId];
 
-    // special case if we are already at top of model
-    if (parentStringId == QLatin1Char('0')) {
-        return createIndex(0, 0, parentInternalId);
-    }
-
     // data knows parent internal id
-    if (!d->mData.contains(parentInternalId)) {
-        return QModelIndex();
+    if (!d->mAllTrackData.contains(parentInternalId)) {
+        return result;
     }
 
-    const auto &parentData = d->mData[parentInternalId];
+    const auto &parentData = d->mAllTrackData[parentInternalId];
 
     // parent data has upnp id of parent
-    if (!parentData.contains(ColumnsRoles::ParentIdRole)) {
-        return QModelIndex();
+    if (!parentData.contains(DataTypes::ParentIdRole)) {
+        return result;
     }
 
-    const auto &grandParentStringId = parentData[ColumnsRoles::ParentIdRole].toString();
+    const auto &grandParentStringId = parentData[DataTypes::ParentIdRole].toString();
 
     // upnp ids has the internal id of grand parent
     if (!d->mUpnpIds.contains(grandParentStringId)) {
-        return QModelIndex();
+        return result;
     }
 
     auto grandParentInternalId = d->mUpnpIds[grandParentStringId];
 
     // childs of grand parent are known
     if (!d->mChilds.contains(grandParentInternalId)) {
-        return QModelIndex();
+        return result;
     }
 
     const auto &allUncles = d->mChilds[grandParentInternalId];
@@ -262,62 +341,103 @@ QModelIndex UpnpContentDirectoryModel::parent(const QModelIndex &child) const
     // look for my parent
     for (int i = 0; i < allUncles.size(); ++i) {
         if (allUncles[i] == parentInternalId) {
-            return createIndex(i, 0, parentInternalId);
+            result = createIndex(i, 0, parentInternalId);
+            break;
         }
     }
 
-    // I have no parent
-    return QModelIndex();
+    return result;
 }
 
 int UpnpContentDirectoryModel::columnCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
+    Q_UNUSED(parent)
 
     return 1;
 }
 
 bool UpnpContentDirectoryModel::canFetchMore(const QModelIndex &parent) const
 {
-    if (!parent.isValid()) {
-        return false;
-    }
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::canFetchMore" << parent;
+
+    bool result = false;
 
     auto parentInternalId = parent.internalId();
 
-    if (!d->mChilds.contains(parentInternalId)) {
-        return true;
+    if (!parent.isValid()) {
+        parentInternalId = d->mUpnpIds[parentId()];
     }
 
-    return d->mChilds[parentInternalId].isEmpty();
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::canFetchMore" << parent
+                               << parentInternalId << !d->mChilds.contains(parentInternalId)
+                               <<  d->mChilds[parentInternalId].isEmpty();
+
+    result = !d->mChilds.contains(parentInternalId) ||  d->mChilds[parentInternalId].isEmpty();
+
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::canFetchMore" << parent << result;
+
+    return result;
 }
 
 void UpnpContentDirectoryModel::fetchMore(const QModelIndex &parent)
 {
-    if (!d->mContentDirectory) {
+    if (d->mIsBusy) {
         return;
     }
 
-    if (!parent.isValid()) {
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::fetchMore" << parent;
+
+    d->mIsBusy = true;
+    Q_EMIT isBusyChanged();
+
+    if (!d->mContentDirectory) {
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::fetchMore" << parent << "no content directory";
+
+        d->mIsBusy = false;
+        Q_EMIT isBusyChanged();
+
         return;
     }
 
     auto parentInternalId = parent.internalId();
 
-    if (!d->mData.contains(parentInternalId)) {
+    if (!parent.isValid()) {
+        parentInternalId = d->mUpnpIds[parentId()];
+    }
+
+    if (!d->mAllTrackData.contains(parentInternalId)) {
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::fetchMore" << parent << "no parent internal id";
+
+        d->mIsBusy = false;
+        Q_EMIT isBusyChanged();
+
         return;
     }
 
-    if (!d->mData[parentInternalId].contains(ColumnsRoles::IdRole)) {
+    if (!d->mAllTrackData[parentInternalId].contains(DataTypes::IdRole)) {
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::fetchMore" << parent << "no id role";
+
+        d->mIsBusy = false;
+        Q_EMIT isBusyChanged();
+
         return;
     }
 
-    if (d->mData[parentInternalId][ColumnsRoles::IdRole].toString() == QLatin1Char('0')) {
-        d->mContentDirectory->search(d->mData[parentInternalId][ColumnsRoles::IdRole].toString(),
-                QStringLiteral("upnp:class derivedfrom \"object.container.album\""), d->mFilter, 0, 0, d->mSortCriteria);
+    if (parentId().isEmpty()) {
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::fetchMore" << parent << d->mAllTrackData[parentInternalId][DataTypes::IdRole].toString();
+
+        d->mDidlParser.setParentId(d->mAllTrackData[parentInternalId][DataTypes::IdRole].toString());
     } else {
-        d->mContentDirectory->browse(d->mData[parentInternalId][ColumnsRoles::IdRole].toString(), d->mBrowseFlag, d->mFilter, 0, 0, d->mSortCriteria);
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::fetchMore" << parent << parentId();
+
+        d->mDidlParser.setParentId(parentId());
     }
+    d->mDidlParser.browse();
+}
+
+const QString &UpnpContentDirectoryModel::parentId() const
+{
+    return d->mParentId;
 }
 
 const QString &UpnpContentDirectoryModel::browseFlag() const
@@ -360,13 +480,11 @@ UpnpControlContentDirectory *UpnpContentDirectoryModel::contentDirectory() const
 
 void UpnpContentDirectoryModel::setContentDirectory(UpnpControlContentDirectory *directory)
 {
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::setContentDirectory" << directory;
     if (directory) {
         beginResetModel();
     }
-
     if (d->mContentDirectory) {
-        //disconnect(d->mContentDirectory, &UpnpControlContentDirectory::browseFinished, this, &UpnpContentDirectoryModel::browseFinished);
-        //disconnect(d->mContentDirectory, &UpnpControlContentDirectory::searchFinished, this, &UpnpContentDirectoryModel::browseFinished);
     }
 
     d->mContentDirectory = directory;
@@ -376,8 +494,12 @@ void UpnpContentDirectoryModel::setContentDirectory(UpnpControlContentDirectory 
         return;
     }
 
-    //connect(d->mContentDirectory, &UpnpControlContentDirectory::browseFinished, this, &UpnpContentDirectoryModel::browseFinished);
-    //connect(d->mContentDirectory, &UpnpControlContentDirectory::searchFinished, this, &UpnpContentDirectoryModel::browseFinished);
+    d->mDidlParser.setContentDirectory(d->mContentDirectory);
+    d->mDidlParser.setBrowseFlag(browseFlag());
+    d->mDidlParser.setFilter(filter());
+    d->mDidlParser.setSortCriteria(sortCriteria());
+    d->mDidlParser.setParentId(parentId());
+
     endResetModel();
 
     Q_EMIT contentDirectoryChanged();
@@ -394,258 +516,110 @@ void UpnpContentDirectoryModel::setUseLocalIcons(bool value)
     Q_EMIT useLocalIconsChanged();
 }
 
-QString UpnpContentDirectoryModel::objectIdByIndex(const QModelIndex &index) const
+bool UpnpContentDirectoryModel::isBusy() const
 {
-    return data(index, ColumnsRoles::IdRole).toString();
+    return d->mIsBusy;
 }
 
-QVariant UpnpContentDirectoryModel::getUrl(const QModelIndex &index) const
+void UpnpContentDirectoryModel::initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
+                                                 ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                                                 const DataTypes::DataType &dataFilter)
 {
-    return data(index, ColumnsRoles::ResourceRole);
-}
+    Q_UNUSED(database)
+    Q_UNUSED(modelType)
+    Q_UNUSED(filter)
 
-QModelIndex UpnpContentDirectoryModel::indexFromId(const QString &id) const
-{
-    if (!d->mUpnpIds.contains(id)) {
-        return QModelIndex();
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::initializeByData" << modelType << filter << dataFilter << dataFilter[DataTypes::UUIDRole].toString() << dataFilter[DataTypes::IdRole].toString();
+
+    if (manager && manager->ssdpEngine() && manager->upnpServiceDiscovery()) {
+        auto *newContentDirectory = new UpnpControlContentDirectory;
+
+        const auto &deviceDescription = manager->upnpServiceDiscovery()->deviceDescriptionByUdn(dataFilter[DataTypes::UUIDRole].toString());
+        newContentDirectory->setDescription(deviceDescription.serviceById(QStringLiteral("urn:upnp-org:serviceId:ContentDirectory")));
+        setParentId(dataFilter[DataTypes::IdRole].toString());
+        setContentDirectory(newContentDirectory);
+        d->mDidlParser.setDeviceUUID(dataFilter[DataTypes::UUIDRole].toString());
     }
-
-    return indexFromInternalId(d->mUpnpIds[id]);
 }
 
-void UpnpContentDirectoryModel::browseFinished(const QString &result, int numberReturned, int totalMatches, int systemUpdateID, bool success)
+void UpnpContentDirectoryModel::setParentId(QString parentId)
 {
-    Q_UNUSED(numberReturned)
-    Q_UNUSED(totalMatches)
-    Q_UNUSED(systemUpdateID)
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::setParentId" << parentId;
 
-    qDebug() << "UpnpContentDirectoryModel::browseFinished" << numberReturned;
-
-    if (!success) {
-        qDebug() << "UpnpContentDirectoryModel::browseFinished" << "in error";
+    if (d->mParentId == parentId) {
         return;
     }
 
-    if (d->mCurrentUpdateId == -1 || d->mCurrentUpdateId != systemUpdateID) {
-        d->mCurrentUpdateId = systemUpdateID;
+    if (parentId.isEmpty()) {
+        parentId = QStringLiteral("0");
     }
 
-    QDomDocument browseDescription;
-    browseDescription.setContent(result);
+    d->mParentId = std::move(parentId);
+    d->mDidlParser.setParentId(d->mParentId);
 
-    browseDescription.documentElement();
+    Q_EMIT parentIdChanged();
 
-    QList<quintptr> newDataIds;
-    QHash<QString, quintptr> newIdMappings;
-    decltype(d->mData) newData;
+    beginResetModel();
+    d->mLastInternalId = 1;
 
-    auto containerList = browseDescription.elementsByTagName(QStringLiteral("container"));
-    qDebug() << "UpnpContentDirectoryModel::browseFinished" << containerList.length();
-    for (int containerIndex = 0; containerIndex < containerList.length(); ++containerIndex) {
-        const QDomNode &containerNode(containerList.at(containerIndex));
-        if (!containerNode.isNull()) {
-            const QString &parentID = containerNode.toElement().attribute(QStringLiteral("parentID"));
-            const QString &id = containerNode.toElement().attribute(QStringLiteral("id"));
+    d->mUpnpIds[d->mParentId] = d->mLastInternalId;
 
-            if (!d->mUpnpIds.contains(parentID)) {
-                qDebug() << "UpnpContentDirectoryModel::browseFinished" << "unknown parent id" << parentID << d->mUpnpIds.keys();
-                return;
-            }
+    d->mChilds[d->mLastInternalId] = QVector<quintptr>();
 
-            ++(d->mLastInternalId);
-            newDataIds.push_back(d->mLastInternalId);
-            newIdMappings[id] = d->mLastInternalId;
-            auto &chilData = newData[d->mLastInternalId];
+    d->mAllTrackData[d->mLastInternalId] = {{DataTypes::IdRole, d->mParentId},
+                                            {DataTypes::ElementTypeRole, QVariant::fromValue(ElisaUtils::Container)},
+                                            {DataTypes::TitleRole, QStringLiteral("Root")},};
 
-            chilData[ParentIdRole] = parentID;
-            chilData[IdRole] = id;
+    ++d->mLastInternalId;
 
-            const QString &childCount = containerNode.toElement().attribute(QStringLiteral("childCount"));
-            chilData[ColumnsRoles::CountRole] = childCount;
-
-            const QDomNode &titleNode = containerNode.firstChildElement(QStringLiteral("dc:title"));
-            if (!titleNode.isNull()) {
-                chilData[ColumnsRoles::TitleRole] = titleNode.toElement().text();
-            }
-
-            const QDomNode &authorNode = containerNode.firstChildElement(QStringLiteral("upnp:artist"));
-            if (!authorNode.isNull()) {
-                chilData[ColumnsRoles::ArtistRole] = authorNode.toElement().text();
-            }
-
-            const QDomNode &albumNode = containerNode.firstChildElement(QStringLiteral("upnp:album"));
-            if (!albumNode.isNull()) {
-                chilData[ColumnsRoles::AlbumRole] = albumNode.toElement().text();
-            }
-
-            const QDomNode &resourceNode = containerNode.firstChildElement(QStringLiteral("res"));
-            if (!resourceNode.isNull()) {
-                chilData[ColumnsRoles::ResourceRole] = resourceNode.toElement().text();
-            }
-
-            const QDomNode &classNode = containerNode.firstChildElement(QStringLiteral("upnp:class"));
-            if (classNode.toElement().text().startsWith(QLatin1String("object.item.audioItem"))) {
-                chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::AudioTrack;
-            } else if (classNode.toElement().text().startsWith(QLatin1String("object.container.album"))) {
-                chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::Album;
-            } else if (classNode.toElement().text().startsWith(QLatin1String("object.container"))) {
-                chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::Container;
-            }
-
-            const QDomNode &albumArtNode = containerNode.firstChildElement(QStringLiteral("upnp:albumArtURI"));
-            if (!albumArtNode.isNull()) {
-                chilData[ColumnsRoles::ImageRole] = albumArtNode.toElement().text();
-            }
-
-            const QDomNode &storageUsedNode = containerNode.firstChildElement(QStringLiteral("upnp:storageUsed"));
-            if (!storageUsedNode.isNull()) {
-            }
-        }
-    }
-
-    auto itemList = browseDescription.elementsByTagName(QStringLiteral("item"));
-    for (int itemIndex = 0; itemIndex < itemList.length(); ++itemIndex) {
-        const QDomNode &itemNode(itemList.at(itemIndex));
-        if (!itemNode.isNull()) {
-            const QString &parentID = itemNode.toElement().attribute(QStringLiteral("parentID"));
-            const QString &id = itemNode.toElement().attribute(QStringLiteral("id"));
-
-            if (!d->mUpnpIds.contains(parentID)) {
-                qDebug() << "UpnpContentDirectoryModel::browseFinished" << "unknown parent id";
-                return;
-            }
-
-            ++(d->mLastInternalId);
-            newDataIds.push_back(d->mLastInternalId);
-            newIdMappings[id] = d->mLastInternalId;
-            auto &chilData = newData[d->mLastInternalId];
-
-            chilData[ParentIdRole] = parentID;
-            chilData[IdRole] = id;
-
-            const QString &childCount = itemNode.toElement().attribute(QStringLiteral("childCount"));
-            chilData[ColumnsRoles::CountRole] = childCount;
-
-            const QDomNode &titleNode = itemNode.firstChildElement(QStringLiteral("dc:title"));
-            if (!titleNode.isNull()) {
-                chilData[ColumnsRoles::TitleRole] = titleNode.toElement().text();
-            }
-
-            const QDomNode &authorNode = itemNode.firstChildElement(QStringLiteral("upnp:artist"));
-            if (!authorNode.isNull()) {
-                chilData[ColumnsRoles::ArtistRole] = authorNode.toElement().text();
-            }
-
-            const QDomNode &albumNode = itemNode.firstChildElement(QStringLiteral("upnp:album"));
-            if (!albumNode.isNull()) {
-                chilData[ColumnsRoles::AlbumRole] = albumNode.toElement().text();
-            }
-
-            const QDomNode &resourceNode = itemNode.firstChildElement(QStringLiteral("res"));
-            if (!resourceNode.isNull()) {
-                chilData[ColumnsRoles::ResourceRole] = resourceNode.toElement().text();
-                if (resourceNode.attributes().contains(QLatin1String("duration"))) {
-                    const QDomNode &durationNode = resourceNode.attributes().namedItem(QStringLiteral("duration"));
-                    QString durationValue = durationNode.nodeValue();
-                    if (durationValue.startsWith(QLatin1String("0:"))) {
-                        durationValue.remove(0, 2);
-                    }
-                    if (durationValue.contains(uint('.'))) {
-                        durationValue = durationValue.split(QLatin1Char('.')).first();
-                    }
-
-                    chilData[ColumnsRoles::DurationRole] = durationValue;
-                }
-                if (resourceNode.attributes().contains(QLatin1String("artist"))) {
-                    const QDomNode &artistNode = resourceNode.attributes().namedItem(QStringLiteral("artist"));
-                    chilData[ColumnsRoles::ArtistRole] = artistNode.nodeValue();
-                }
-            }
-
-            const QDomNode &classNode = itemNode.firstChildElement(QStringLiteral("upnp:class"));
-            if (!classNode.isNull()) {
-                if (classNode.toElement().text().startsWith(QLatin1String("object.item.audioItem"))) {
-                    chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::AudioTrack;
-                } else if (classNode.toElement().text().startsWith(QLatin1String("object.container.album"))) {
-                    chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::Album;
-                } else if (classNode.toElement().text().startsWith(QLatin1String("object.container"))) {
-                    chilData[ColumnsRoles::ItemClassRole] = UpnpContentDirectoryModel::Container;
-                }
-            }
-
-            const QDomNode &storageUsedNode = itemNode.firstChildElement(QStringLiteral("upnp:storageUsed"));
-            if (!storageUsedNode.isNull()) {
-            }
-        }
-    }
-
-    qDebug() << "UpnpContentDirectoryModel::browseFinished" << "decoding finished";
-    if (!newDataIds.isEmpty()) {
-        QString parentId = newData[newDataIds.first()][ColumnsRoles::ParentIdRole].toString();
-
-        if (!d->mUpnpIds.contains(parentId)) {
-            return;
-        }
-
-        auto parentInternalId = d->mUpnpIds[parentId];
-
-        if (!d->mData.contains(parentInternalId)) {
-            return;
-        }
-
-        auto &childData = d->mChilds[parentInternalId];
-
-        if (!childData.isEmpty() && d->mCurrentUpdateId == systemUpdateID) {
-            return;
-        }
-
-        if (!childData.isEmpty()) {
-            beginRemoveRows(indexFromInternalId(parentInternalId), 0, childData.size() - 1);
-            d->mChilds[parentInternalId].clear();
-            endRemoveRows();
-        }
-
-        qDebug() << "UpnpContentDirectoryModel::browseFinished" << newDataIds.size();
-        beginInsertRows(indexFromInternalId(parentInternalId), 0, newDataIds.size() - 1);
-        for (auto childInternalId : const_cast<const decltype(newDataIds)&>(newDataIds)) {
-            d->mChilds[parentInternalId].push_back(childInternalId);
-            d->mUpnpIds[newData[childInternalId][ColumnsRoles::IdRole].toString()] = childInternalId;
-            d->mData[childInternalId] = newData[childInternalId];
-        }
-        endInsertRows();
-    }
+    d->mCurrentUpdateId = -1;
+    endResetModel();
 }
 
 QModelIndex UpnpContentDirectoryModel::indexFromInternalId(quintptr internalId) const
 {
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::indexFromInternalId" << internalId;
+
+    QModelIndex result;
+
     if (internalId == 1) {
-        return createIndex(0, 0, internalId);
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::indexFromInternalId" << internalId << result;
+
+        return result;
     }
 
     // data knows child internal id
-    if (!d->mData.contains(internalId)) {
-        return QModelIndex();
+    if (!d->mAllTrackData.contains(internalId)) {
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::indexFromInternalId" << internalId << "unknown children id" << result;
+
+        return result;
     }
 
-    const auto &childData = d->mData[internalId];
+    const auto &childData = d->mAllTrackData[internalId];
 
     // child data has upnp id of parent
-    if (!childData.contains(ColumnsRoles::ParentIdRole)) {
-        return QModelIndex();
+    if (!childData.contains(DataTypes::ParentIdRole)) {
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::indexFromInternalId" << internalId << "unknown parent" << result;
+
+        return result;
     }
 
-    const auto &parentStringId = childData[ColumnsRoles::ParentIdRole].toString();
+    const auto &parentStringId = childData[DataTypes::ParentIdRole].toString();
 
     // upnp ids has the internal id of parent
     if (!d->mUpnpIds.contains(parentStringId)) {
-        return QModelIndex();
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::indexFromInternalId" << internalId << "unknown parent from ids list" << result;
+
+        return result;
     }
 
     auto parentInternalId = d->mUpnpIds[parentStringId];
 
     // childs of parent are known
     if (!d->mChilds.contains(parentInternalId)) {
-        return QModelIndex();
+        qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::indexFromInternalId" << internalId << "unknown parent id" << result;
+
+        return result;
     }
 
     const auto &allUncles = d->mChilds[parentInternalId];
@@ -653,12 +627,43 @@ QModelIndex UpnpContentDirectoryModel::indexFromInternalId(quintptr internalId) 
     // look for my parent
     for (int i = 0; i < allUncles.size(); ++i) {
         if (allUncles[i] == internalId) {
-            return createIndex(i, 0, internalId);
+            result = createIndex(i, 0, internalId);
+            break;
         }
     }
 
-    // I have no parent
-    return QModelIndex();
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::indexFromInternalId" << internalId << result;
+
+    return result;
+}
+
+void UpnpContentDirectoryModel::contentChanged(const QString &parentId)
+{
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::contentChanged" << parentId;
+
+    auto parentInternalId = d->mUpnpIds[parentId];
+
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::contentChanged" << parentId
+                               << parentInternalId
+                               << indexFromInternalId(parentInternalId)
+                               << 0 << d->mDidlParser.newMusicTracks().size() - 1;
+    beginInsertRows(indexFromInternalId(parentInternalId), 0, d->mDidlParser.newMusicTracks().size() - 1);
+
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::contentChanged" << parentId << parentInternalId;
+
+    for(const auto &oneUpnpTrack : qAsConst(d->mDidlParser.newMusicTracks())) {
+        d->mAllTrackData[d->mLastInternalId] = oneUpnpTrack;
+        d->mUpnpIds[oneUpnpTrack[DataTypes::IdRole].toString()] = d->mLastInternalId;
+        d->mChilds[parentInternalId].push_back(d->mLastInternalId);
+        ++d->mLastInternalId;
+    }
+
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::contentChanged" << parentId << d->mChilds[parentInternalId].size();
+
+    endInsertRows();
+
+    d->mIsBusy = false;
+    Q_EMIT isBusyChanged();
 }
 
 #include "moc_upnpcontentdirectorymodel.cpp"

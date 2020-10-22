@@ -7,8 +7,6 @@
 #include "upnpcontrolmediaserver.h"
 #include "upnpcontrolconnectionmanager.h"
 
-#include <QDebug>
-
 class UpnpControlMediaServerPrivate
 {
 public:

@@ -7,6 +7,8 @@
 #ifndef UPNPDISCOVERALLMUSIC_H
 #define UPNPDISCOVERALLMUSIC_H
 
+#include "datatypes.h"
+
 #include <QObject>
 #include <QSharedPointer>
 
@@ -15,36 +17,12 @@
 class DatabaseInterface;
 class UpnpDiscoveryResult;
 class UpnpDiscoverAllMusicPrivate;
+class UpnpDeviceDescription;
 
 class UpnpDiscoverAllMusic : public QObject
 {
 
     Q_OBJECT
-
-    Q_PROPERTY(QString deviceId
-               READ deviceId
-               WRITE setDeviceId
-               NOTIFY deviceIdChanged)
-
-    Q_PROPERTY(QString browseFlag
-               READ browseFlag
-               WRITE setBrowseFlag
-               NOTIFY browseFlagChanged)
-
-    Q_PROPERTY(QString filter
-               READ filter
-               WRITE setFilter
-               NOTIFY filterChanged)
-
-    Q_PROPERTY(QString sortCriteria
-               READ sortCriteria
-               WRITE setSortCriteria
-               NOTIFY sortCriteriaChanged)
-
-    Q_PROPERTY(DatabaseInterface* albumDatabase
-               READ albumDatabase
-               WRITE setAlbumDatabase
-               NOTIFY albumDatabaseChanged)
 
 public:
 
@@ -52,51 +30,31 @@ public:
 
     ~UpnpDiscoverAllMusic() override;
 
-    QString deviceId() const;
+    [[nodiscard]] [[nodiscard]] const DataTypes::ListNetworkServiceDataType& existingMediaServers() const;
 
-    const QString& browseFlag() const;
-
-    const QString& filter() const;
-
-    const QString& sortCriteria() const;
-
-    DatabaseInterface* albumDatabase() const;
+    [[nodiscard]] [[nodiscard]] const UpnpDeviceDescription &deviceDescriptionByUdn(const QString &udn) const;
 
 Q_SIGNALS:
 
-    void deviceIdChanged(QString deviceId);
+    void newUpnpContentDirectoryService(const QString &name, const QString &uuid);
 
-    void browseFlagChanged();
+    void removedUpnpContentDirectoryService(const QString &name);
 
-    void filterChanged();
-
-    void sortCriteriaChanged();
-
-    void albumDatabaseChanged();
+    void searchAllMediaServers(int maxDelay);
 
 public Q_SLOTS:
 
-    void newDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery);
+    void newDevice(const UpnpDiscoveryResult &serviceDiscovery);
 
-    void removedDevice(QSharedPointer<UpnpDiscoveryResult> serviceDiscovery);
+    void removedDevice(const UpnpDiscoveryResult &serviceDiscovery);
 
-    void setDeviceId(QString deviceId);
-
-    void setBrowseFlag(const QString &flag);
-
-    void setFilter(const QString &flag);
-
-    void setSortCriteria(const QString &criteria);
-
-    void setAlbumDatabase(DatabaseInterface* albumDatabase);
+    void networkChanged();
 
 private Q_SLOTS:
 
     void deviceDescriptionChanged(const QString &uuid);
 
     void descriptionParsed(const QString &UDN);
-
-    void contentChanged(const QString &uuid, const QString &parentId);
 
 private:
 

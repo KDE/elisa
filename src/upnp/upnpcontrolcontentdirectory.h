@@ -45,15 +45,15 @@ public:
 
     ~UpnpControlContentDirectory() override;
 
-    const QString& searchCapabilities() const;
+    [[nodiscard]] const QString& searchCapabilities() const;
 
-    const QString& transferIDs() const;
+    [[nodiscard]] const QString& transferIDs() const;
 
-    bool hasTransferIDs() const;
+    [[nodiscard]] bool hasTransferIDs() const;
 
-    const QString& sortCapabilities() const;
+    [[nodiscard]] const QString& sortCapabilities() const;
 
-    int systemUpdateID() const;
+    [[nodiscard]] int systemUpdateID() const;
 
 public Q_SLOTS:
 

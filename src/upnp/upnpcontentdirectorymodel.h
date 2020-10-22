@@ -7,7 +7,8 @@
 #ifndef UPNPCONTENTDIRECTORYMODEL_H
 #define UPNPCONTENTDIRECTORYMODEL_H
 
-#include "upnpQt_export.h"
+#include "elisautils.h"
+#include "datatypes.h"
 
 #include <QAbstractItemModel>
 
@@ -15,10 +16,17 @@
 
 class UpnpContentDirectoryModelPrivate;
 class UpnpControlContentDirectory;
+class MusicListenersManager;
+class DatabaseInterface;
 
-class UPNPQT_EXPORT UpnpContentDirectoryModel : public QAbstractItemModel
+class UpnpContentDirectoryModel : public QAbstractItemModel
 {
     Q_OBJECT
+
+    Q_PROPERTY(QString parentId
+               READ parentId
+               WRITE setParentId
+               NOTIFY parentIdChanged)
 
     Q_PROPERTY(QString browseFlag
                READ browseFlag
@@ -45,6 +53,8 @@ class UPNPQT_EXPORT UpnpContentDirectoryModel : public QAbstractItemModel
                WRITE setUseLocalIcons
                NOTIFY useLocalIconsChanged)
 
+    Q_PROPERTY(bool isBusy READ isBusy NOTIFY isBusyChanged)
+
 public:
 
     enum ItemClass {
@@ -55,73 +65,55 @@ public:
 
     Q_ENUM(ItemClass)
 
-    enum ColumnsRoles {
-        TitleRole = Qt::UserRole + 1,
-        DurationRole = TitleRole + 1,
-        CreatorRole = DurationRole + 1,
-        ArtistRole = CreatorRole + 1,
-        AlbumRole = ArtistRole + 1,
-        RatingRole = AlbumRole + 1,
-        ImageRole = RatingRole + 1,
-        ResourceRole = ImageRole + 1,
-        ItemClassRole = ResourceRole + 1,
-        CountRole = ItemClassRole + 1,
-        IdRole = CountRole + 1,
-        ParentIdRole = IdRole + 1,
-        IsPlayingRole = ParentIdRole + 1,
-    };
-
-    Q_ENUM(ColumnsRoles)
-
     explicit UpnpContentDirectoryModel(QObject *parent = nullptr);
 
     ~UpnpContentDirectoryModel() override;
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    QHash<int, QByteArray> roleNames() const override;
+    [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
 
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
+    [[nodiscard]] Qt::ItemFlags flags(const QModelIndex &index) const override;
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 
-    QModelIndex parent(const QModelIndex &child) const override;
+    [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override;
 
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    bool canFetchMore(const QModelIndex &parent) const override;
+    [[nodiscard]] bool canFetchMore(const QModelIndex &parent) const override;
 
     void fetchMore(const QModelIndex &parent) override;
 
-    const QString& browseFlag() const;
+    [[nodiscard]] const QString& parentId() const;
+
+    [[nodiscard]] const QString& browseFlag() const;
 
     void setBrowseFlag(const QString &flag);
 
-    const QString& filter() const;
+    [[nodiscard]] const QString& filter() const;
 
     void setFilter(const QString &flag);
 
-    const QString& sortCriteria() const;
+    [[nodiscard]] const QString& sortCriteria() const;
 
     void setSortCriteria(const QString &criteria);
 
-    UpnpControlContentDirectory* contentDirectory() const;
+    [[nodiscard]] UpnpControlContentDirectory* contentDirectory() const;
 
     void setContentDirectory(UpnpControlContentDirectory *directory);
 
-    bool useLocalIcons() const;
+    [[nodiscard]] bool useLocalIcons() const;
 
     void setUseLocalIcons(bool value);
 
-    Q_INVOKABLE QString objectIdByIndex(const QModelIndex &index) const;
-
-    Q_INVOKABLE QVariant getUrl(const QModelIndex &index) const;
-
-    Q_INVOKABLE QModelIndex indexFromId(const QString &id) const;
+    [[nodiscard]] bool isBusy() const;
 
 Q_SIGNALS:
+
+    void parentIdChanged();
 
     void browseFlagChanged();
 
@@ -133,15 +125,23 @@ Q_SIGNALS:
 
     void useLocalIconsChanged();
 
+    void isBusyChanged();
+
 public Q_SLOTS:
 
-    void browseFinished(const QString &result, int numberReturned, int totalMatches, int systemUpdateID, bool success);
+    void initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
+                          ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+                          const DataTypes::DataType &dataFilter);
+
+    void setParentId(QString parentId);
 
 private Q_SLOTS:
 
+    void contentChanged(const QString &parentId);
+
 private:
 
-    QModelIndex indexFromInternalId(quintptr internalId) const;
+    [[nodiscard]] QModelIndex indexFromInternalId(quintptr internalId) const;
 
     std::unique_ptr<UpnpContentDirectoryModelPrivate> d;
 

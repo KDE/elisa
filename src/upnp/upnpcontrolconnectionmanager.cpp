@@ -6,10 +6,12 @@
 
 #include "upnpcontrolconnectionmanager.h"
 
+#include "upnpLogging.h"
+
 #include <KDSoapClient/KDSoapPendingCall.h>
 #include <KDSoapClient/KDSoapPendingCallWatcher.h>
 
-#include <QDebug>
+#include <QLoggingCategory>
 
 class UpnpControlConnectionManagerPrivate
 {
@@ -72,19 +74,19 @@ UpnpControlAbstractServiceReply *UpnpControlConnectionManager::prepareForConnect
                                                                                     int remotePeerConnectionID,
                                                                                     const QString &connectionDirection)
 {
-    Q_UNUSED(remoteProtocolInfo);
+    Q_UNUSED(remoteProtocolInfo)
 
     const QString &remoteConnectionManager(remoteUDN + QStringLiteral("/") + remoteServiceID);
 
     auto pendingAnswer = callAction(QStringLiteral("PrepareForConnection"),
-                                    {remoteConnectionManager, remotePeerConnectionID, connectionDirection});
+        {{{}, remoteConnectionManager}, {{}, remotePeerConnectionID}, {{}, connectionDirection}});
 
     return pendingAnswer;
 }
 
 UpnpControlAbstractServiceReply *UpnpControlConnectionManager::connectionComplete(int currentConnectionID)
 {
-    auto pendingAnswer = callAction(QStringLiteral("ConnectionComplete"), {currentConnectionID});
+    auto pendingAnswer = callAction(QStringLiteral("ConnectionComplete"), {{{}, currentConnectionID}});
 
     return pendingAnswer;
 }
@@ -98,7 +100,7 @@ UpnpControlAbstractServiceReply *UpnpControlConnectionManager::getCurrentConnect
 
 UpnpControlAbstractServiceReply *UpnpControlConnectionManager::getCurrentConnectionInfo(int currentConnectionID)
 {
-    auto pendingAnswer = callAction(QStringLiteral("GetCurrentConnectionInfo"), {currentConnectionID});
+    auto pendingAnswer = callAction(QStringLiteral("GetCurrentConnectionInfo"), {{{}, currentConnectionID}});
 
     return pendingAnswer;
 }
@@ -119,8 +121,8 @@ void UpnpControlConnectionManager::finishedGetProtocolInfoCall(KDSoapPendingCall
         }
     }
 
-    qDebug() << "SourceProtocolInfo:" << d->mSourceProtocolInfo;
-    qDebug() << "SinkProtocolInfo:" << d->mSinkProtocolInfo;
+    qCDebug(orgKdeElisaUpnp()) << "SourceProtocolInfo:" << d->mSourceProtocolInfo;
+    qCDebug(orgKdeElisaUpnp()) << "SinkProtocolInfo:" << d->mSinkProtocolInfo;
 
     Q_EMIT getProtocolInfoFinished(!self->returnMessage().isFault());
 }
@@ -129,7 +131,7 @@ void UpnpControlConnectionManager::finishedPrepareForConnectionCall(KDSoapPendin
 {
     self->deleteLater();
 
-    qDebug() << self->returnValue();
+    qCDebug(orgKdeElisaUpnp()) << self->returnValue();
 
     Q_EMIT prepareForConnectionFinished(!self->returnMessage().isFault());
 }
@@ -138,7 +140,7 @@ void UpnpControlConnectionManager::finishedConnectionCompleteCall(KDSoapPendingC
 {
     self->deleteLater();
 
-    qDebug() << self->returnValue();
+    qCDebug(orgKdeElisaUpnp()) << self->returnValue();
 
     Q_EMIT connectionCompleteFinished(!self->returnMessage().isFault());
 }
@@ -147,7 +149,7 @@ void UpnpControlConnectionManager::finishedGetCurrentConnectionIDsCall(KDSoapPen
 {
     self->deleteLater();
 
-    qDebug() << self->returnValue();
+    qCDebug(orgKdeElisaUpnp()) << self->returnValue();
     d->mCurrentConnectionIDs = self->returnValue().toString();
     Q_EMIT currentConnectionIDsChanged(d->mCurrentConnectionIDs);
 
@@ -192,13 +194,13 @@ void UpnpControlConnectionManager::finishedGetCurrentConnectionInfoCall(KDSoapPe
         }
     }
 
-    qDebug() << "RcsID:" << rcsID;
-    qDebug() << "AVTransportID:" << avTransportID;
-    qDebug() << "protocolInfo:" << protocolInfo;
-    qDebug() << "PeerConnectionManager:" << connectionManager;
-    qDebug() << "PeerConnectionID:" << peerConnectionID;
-    qDebug() << "Direction:" << direction;
-    qDebug() << "Status:" << connectionStatus;
+    qCDebug(orgKdeElisaUpnp()) << "RcsID:" << rcsID;
+    qCDebug(orgKdeElisaUpnp()) << "AVTransportID:" << avTransportID;
+    qCDebug(orgKdeElisaUpnp()) << "protocolInfo:" << protocolInfo;
+    qCDebug(orgKdeElisaUpnp()) << "PeerConnectionManager:" << connectionManager;
+    qCDebug(orgKdeElisaUpnp()) << "PeerConnectionID:" << peerConnectionID;
+    qCDebug(orgKdeElisaUpnp()) << "Direction:" << direction;
+    qCDebug(orgKdeElisaUpnp()) << "Status:" << connectionStatus;
 
     Q_EMIT getCurrentConnectionInfoFinished(rcsID, avTransportID, protocolInfo, connectionManager, peerConnectionID,
                                             direction, connectionStatus, !self->returnMessage().isFault());
@@ -211,10 +213,10 @@ void UpnpControlConnectionManager::parseServiceDescription(QIODevice *serviceDes
 
     const QList<QString> &allActions(actions());
 
-    d->mHasPrepareForConnection = allActions.contains(QLatin1String("PrepareForConnection"));
+    d->mHasPrepareForConnection = allActions.contains(QStringLiteral("PrepareForConnection"));
     Q_EMIT hasPrepareForConnectionChanged();
 
-    d->mHasConnectionComplete = allActions.contains(QLatin1String("ConnectionComplete"));
+    d->mHasConnectionComplete = allActions.contains(QStringLiteral("ConnectionComplete"));
     Q_EMIT hasConnectionCompleteChanged();
 }
 

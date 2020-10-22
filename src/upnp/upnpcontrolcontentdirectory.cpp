@@ -6,12 +6,14 @@
 
 #include "upnpcontrolcontentdirectory.h"
 
+#include "upnpLogging.h"
+
 #include "upnpcontrolabstractservicereply.h"
 
 #include <KDSoapClient/KDSoapPendingCall.h>
 #include <KDSoapClient/KDSoapPendingCallWatcher.h>
 
-#include <QDebug>
+#include <QLoggingCategory>
 
 class UpnpControlContentDirectoryPrivate
 {
@@ -21,11 +23,11 @@ public:
 
     QString mTransferIDs;
 
-    bool mHasTransferIDs;
-
     QString mSortCapabilities;
 
     int mSystemUpdateID;
+
+    bool mHasTransferIDs;
 
 };
 
@@ -86,7 +88,13 @@ UpnpControlAbstractServiceReply *UpnpControlContentDirectory::search(const QStri
                                          const QString &filter, int startingIndex,
                                          int requestedCount, const QString &sortCriteria)
 {
-    auto pendingAnswer = callAction(QStringLiteral("Search"), {objectID, searchCriteria, filter, startingIndex, requestedCount, sortCriteria});
+    qDebug() << "UpnpControlContentDirectory::search" << objectID << searchCriteria << filter << startingIndex << requestedCount << sortCriteria;
+    auto pendingAnswer = callAction(QStringLiteral("Search"), {{{}, objectID},
+                                                               {{}, searchCriteria},
+                                                               {{}, filter},
+                                                               {{}, startingIndex},
+                                                               {{}, requestedCount},
+                                                               {{}, sortCriteria}});
 
     return pendingAnswer;
 }
@@ -95,7 +103,12 @@ UpnpControlAbstractServiceReply *UpnpControlContentDirectory::browse(const QStri
                                          const QString &filter, int startingIndex,
                                          int requestedCount, const QString &sortCriteria)
 {
-    auto pendingAnswer = callAction(QStringLiteral("Browse"), {objectID, browseFlag, filter, startingIndex, requestedCount, sortCriteria});
+    auto pendingAnswer = callAction(QStringLiteral("Browse"), {{QStringLiteral("ObjectID"), objectID},
+                                                               {QStringLiteral("BrowseFlag"), browseFlag},
+                                                               {QStringLiteral("Filter"), filter},
+                                                               {QStringLiteral("StartingIndex"), startingIndex},
+                                                               {QStringLiteral("RequestedCount"), requestedCount},
+                                                               {QStringLiteral("SortCriteria"), sortCriteria}});
 
     return pendingAnswer;
 }
@@ -115,7 +128,7 @@ void UpnpControlContentDirectory::finishedGetSearchCapabilitiesCall(KDSoapPendin
         }
     }
 
-    qDebug() << "SearchCaps:" << searchCaps;
+    qCDebug(orgKdeElisaUpnp()) << "SearchCaps:" << searchCaps;
 
     //Q_EMIT getSearchCapabilitiesFinished(searchCaps, !self->returnMessage().isFault());
 }
@@ -134,7 +147,7 @@ void UpnpControlContentDirectory::finishedGetSortCapabilitiesCall(KDSoapPendingC
         }
     }
 
-    qDebug() << "SortCaps:" << sortCaps;
+    qCDebug(orgKdeElisaUpnp()) << "SortCaps:" << sortCaps;
 
     //Q_EMIT getSortCapabilitiesFinished(sortCaps, !self->returnMessage().isFault());
 }
@@ -152,14 +165,14 @@ void UpnpControlContentDirectory::finishedGetSystemUpdateIDCall(KDSoapPendingCal
         }
     }
 
-    qDebug() << "Id:" << d->mSystemUpdateID;
+    qCDebug(orgKdeElisaUpnp()) << "Id:" << d->mSystemUpdateID;
 
     //Q_EMIT getSystemUpdateIDFinished(d->mSystemUpdateID, !self->returnMessage().isFault());
 }
 
 void UpnpControlContentDirectory::finishedSearchCall(KDSoapPendingCallWatcher *self)
 {
-    qDebug() << "UpnpControlContentDirectory::finishedSearchCall";
+    qCDebug(orgKdeElisaUpnp()) << "UpnpControlContentDirectory::finishedSearchCall";
     self->deleteLater();
 
     auto answer = self->returnMessage();
@@ -183,10 +196,10 @@ void UpnpControlContentDirectory::finishedSearchCall(KDSoapPendingCallWatcher *s
         }
     }
 
-    //qDebug() << "Result:" << result;
-    qDebug() << "NumberReturned:" << numberReturned;
-    qDebug() << "TotalMatches:" << totalMatches;
-    qDebug() << "UpdateID:" << d->mSystemUpdateID;
+    //qCDebug(orgKdeElisaUpnp()) << "Result:" << result;
+    qCDebug(orgKdeElisaUpnp()) << "NumberReturned:" << numberReturned;
+    qCDebug(orgKdeElisaUpnp()) << "TotalMatches:" << totalMatches;
+    qCDebug(orgKdeElisaUpnp()) << "UpdateID:" << d->mSystemUpdateID;
 
     //Q_EMIT searchFinished(result, numberReturned, totalMatches, d->mSystemUpdateID, !self->returnMessage().isFault());
 }
@@ -216,10 +229,10 @@ void UpnpControlContentDirectory::finishedBrowseCall(KDSoapPendingCallWatcher *s
         }
     }
 
-    //qDebug() << "Result:" << result;
-    //qDebug() << "NumberReturned:" << numberReturned;
-    //qDebug() << "TotalMatches:" << totalMatches;
-    //qDebug() << "UpdateID:" << d->mSystemUpdateID;
+    //qCDebug(orgKdeElisaUpnp()) << "Result:" << result;
+    //qCDebug(orgKdeElisaUpnp()) << "NumberReturned:" << numberReturned;
+    //qCDebug(orgKdeElisaUpnp()) << "TotalMatches:" << totalMatches;
+    //qCDebug(orgKdeElisaUpnp()) << "UpdateID:" << d->mSystemUpdateID;
 
     //Q_EMIT browseFinished(result, numberReturned, totalMatches, d->mSystemUpdateID, !self->returnMessage().isFault());
 }
@@ -231,7 +244,7 @@ void UpnpControlContentDirectory::parseServiceDescription(QIODevice *serviceDesc
 
     const QList<QString> &allVariables(stateVariables());
 
-    d->mHasTransferIDs = allVariables.contains(QLatin1String("TransferIDs"));
+    d->mHasTransferIDs = allVariables.contains(QStringLiteral("TransferIDs"));
     Q_EMIT hasTransferIDsChanged();
 
     //const QList<QString> &allActions(actions());

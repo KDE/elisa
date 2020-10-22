@@ -7,8 +7,6 @@
 #ifndef UPNPCONTROLCONNECTIONMANAGER_H
 #define UPNPCONTROLCONNECTIONMANAGER_H
 
-#include "upnpQt_export.h"
-
 #include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
 
@@ -16,7 +14,7 @@
 
 class UpnpControlConnectionManagerPrivate;
 
-class UPNPQT_EXPORT UpnpControlConnectionManager : public UpnpControlAbstractService
+class UpnpControlConnectionManager : public UpnpControlAbstractService
 {
     Q_OBJECT
 
@@ -46,15 +44,15 @@ public:
 
     ~UpnpControlConnectionManager() override;
 
-    const QString& sourceProtocolInfo() const;
+    [[nodiscard]] const QString& sourceProtocolInfo() const;
 
-    const QString& sinkProtocolInfo() const;
+    [[nodiscard]] const QString& sinkProtocolInfo() const;
 
-    const QString& currentConnectionIDs() const;
+    [[nodiscard]] const QString& currentConnectionIDs() const;
 
-    bool hasPrepareForConnection() const;
+    [[nodiscard]] bool hasPrepareForConnection() const;
 
-    bool hasConnectionComplete() const;
+    [[nodiscard]] bool hasConnectionComplete() const;
 
 public Q_SLOTS:
 

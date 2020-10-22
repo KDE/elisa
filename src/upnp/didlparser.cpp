@@ -10,6 +10,9 @@
 #include "upnpcontrolabstractservicereply.h"
 #include "upnpservicedescription.h"
 #include "upnpdevicedescription.h"
+#include "elisautils.h"
+
+#include "upnpLogging.h"
 
 #include <QVector>
 #include <QString>
@@ -21,9 +24,9 @@ class DidlParserPrivate
 {
 public:
 
-    QString mBrowseFlag;
+    QString mBrowseFlag = QStringLiteral("*");
 
-    QString mFilter;
+    QString mFilter = QStringLiteral("*");
 
     QString mSortCriteria;
 
@@ -31,23 +34,19 @@ public:
 
     QString mParentId;
 
+    QString mDeviceUUID;
+
     UpnpControlContentDirectory *mContentDirectory = nullptr;
-
-    bool mIsDataValid = false;
-
-    QVector<QString> mNewAlbumIds;
-
-    QHash<QString, MusicAlbum> mNewAlbums;
 
     QVector<QString> mNewMusicTrackIds;
 
-    QHash<QString, MusicAudioTrack> mNewMusicTracks;
+    QHash<QString, DataTypes::UpnpTrackDataType> mNewMusicTracks;
 
-    QHash<QString, QVector<MusicAudioTrack>> mNewTracksByAlbums;
-
-    QList<MusicAudioTrack> mNewTracksList;
+    QHash<QString, QVector<DataTypes::UpnpTrackDataType>> mNewTracksByAlbums;
 
     QHash<QString, QUrl> mCovers;
+
+    bool mIsDataValid = false;
 
 };
 
@@ -88,27 +87,43 @@ bool DidlParser::isDataValid() const
     return d->mIsDataValid;
 }
 
-void DidlParser::setBrowseFlag(const QString &flag)
+void DidlParser::setBrowseFlag(QString flag)
 {
-    d->mBrowseFlag = flag;
+    if (d->mBrowseFlag == flag) {
+        return;
+    }
+
+    d->mBrowseFlag = std::move(flag);
     Q_EMIT browseFlagChanged();
 }
 
-void DidlParser::setFilter(const QString &flag)
+void DidlParser::setFilter(QString flag)
 {
-    d->mFilter = flag;
+    if (d->mFilter == flag) {
+        return;
+    }
+
+    d->mFilter = std::move(flag);
     Q_EMIT filterChanged();
 }
 
-void DidlParser::setSortCriteria(const QString &criteria)
+void DidlParser::setSortCriteria(QString criteria)
 {
-    d->mSortCriteria = criteria;
+    if (d->mSortCriteria == criteria) {
+        return;
+    }
+
+    d->mSortCriteria = std::move(criteria);
     Q_EMIT sortCriteriaChanged();
 }
 
-void DidlParser::setSearchCriteria(const QString &criteria)
+void DidlParser::setSearchCriteria(QString criteria)
 {
-    d->mSearchCriteria = criteria;
+    if (d->mSearchCriteria == criteria) {
+        return;
+    }
+
+    d->mSearchCriteria = std::move(criteria);
     Q_EMIT searchCriteriaChanged();
 }
 
@@ -126,11 +141,22 @@ void DidlParser::setContentDirectory(UpnpControlContentDirectory *directory)
 
 void DidlParser::setParentId(QString parentId)
 {
-    if (d->mParentId == parentId)
+    if (d->mParentId == parentId) {
         return;
+    }
 
-    d->mParentId = parentId;
+    d->mParentId = std::move(parentId);
     emit parentIdChanged();
+}
+
+void DidlParser::setDeviceUUID(QString deviceUUID)
+{
+    if (d->mDeviceUUID == deviceUUID) {
+        return;
+    }
+
+    d->mDeviceUUID = std::move(deviceUUID);
+    emit deviceUUIDChanged();
 }
 
 void DidlParser::systemUpdateIDChanged()
@@ -140,11 +166,11 @@ void DidlParser::systemUpdateIDChanged()
 
 void DidlParser::browse(int startIndex, int maximumNmberOfResults)
 {
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::browse" << d->mParentId << d->mBrowseFlag << d->mFilter << startIndex << maximumNmberOfResults << d->mSortCriteria;
+
     auto upnpAnswer = d->mContentDirectory->browse(d->mParentId, d->mBrowseFlag, d->mFilter, startIndex, maximumNmberOfResults, d->mSortCriteria);
 
     if (startIndex == 0) {
-        d->mNewAlbumIds.clear();
-        d->mNewAlbums.clear();
         d->mNewMusicTracks.clear();
         d->mNewMusicTrackIds.clear();
         d->mCovers.clear();
@@ -160,8 +186,6 @@ void DidlParser::search(int startIndex, int maximumNumberOfResults)
     }
 
     if (startIndex == 0) {
-        d->mNewAlbumIds.clear();
-        d->mNewAlbums.clear();
         d->mNewMusicTracks.clear();
         d->mNewMusicTrackIds.clear();
         d->mCovers.clear();
@@ -177,14 +201,9 @@ QString DidlParser::parentId() const
     return d->mParentId;
 }
 
-const QVector<QString> &DidlParser::newAlbumIds() const
+const QString &DidlParser::deviceUUID() const
 {
-    return d->mNewAlbumIds;
-}
-
-const QHash<QString, MusicAlbum> &DidlParser::newAlbums() const
-{
-    return d->mNewAlbums;
+    return d->mDeviceUUID;
 }
 
 const QVector<QString> &DidlParser::newMusicTrackIds() const
@@ -192,9 +211,9 @@ const QVector<QString> &DidlParser::newMusicTrackIds() const
     return d->mNewMusicTrackIds;
 }
 
-const QList<MusicAudioTrack> &DidlParser::newMusicTracks() const
+const QHash<QString, DataTypes::UpnpTrackDataType> &DidlParser::newMusicTracks() const
 {
-    return d->mNewTracksList;
+    return d->mNewMusicTracks;
 }
 
 const QHash<QString, QUrl> &DidlParser::covers() const
@@ -204,13 +223,17 @@ const QHash<QString, QUrl> &DidlParser::covers() const
 
 void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
 {
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::browseFinished";
+
     const auto &resultData = self->result();
 
     bool success = self->success();
 
     if (!success) {
+        qCDebug(orgKdeElisaUpnp()) << "DidlParser::browseFinished" << "error" << self->error();
+
         d->mIsDataValid = false;
-        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+        Q_EMIT isDataValidChanged(d->mParentId);
 
         return;
     }
@@ -222,7 +245,7 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
 
     if (!intConvert) {
         d->mIsDataValid = false;
-        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+        Q_EMIT isDataValidChanged(d->mParentId);
 
         return;
     }
@@ -231,7 +254,7 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
 
     if (!intConvert) {
         d->mIsDataValid = false;
-        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+        Q_EMIT isDataValidChanged(d->mParentId);
 
         return;
     }
@@ -249,7 +272,7 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
     for (int containerIndex = 0; containerIndex < containerList.length(); ++containerIndex) {
         const QDomNode &containerNode(containerList.at(containerIndex));
         if (!containerNode.isNull()) {
-            decodeContainerNode(containerNode, d->mNewAlbums, d->mNewAlbumIds);
+            decodeContainerNode(containerNode, d->mNewMusicTracks, d->mNewMusicTrackIds);
         }
     }
 
@@ -257,53 +280,65 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
     for (int itemIndex = 0; itemIndex < itemList.length(); ++itemIndex) {
         const QDomNode &itemNode(itemList.at(itemIndex));
         if (!itemNode.isNull()) {
+            qCInfo(orgKdeElisaUpnp()) << "DidlParser::browseFinished" << "new track node" << itemNode.toDocument().toString();
+
             decodeAudioTrackNode(itemNode, d->mNewMusicTracks, d->mNewMusicTrackIds);
         }
     }
 
     groupNewTracksByAlbums();
     d->mIsDataValid = true;
-    Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+    Q_EMIT isDataValidChanged(d->mParentId);
 }
 
 void DidlParser::groupNewTracksByAlbums()
 {
     d->mNewTracksByAlbums.clear();
     for(const auto &newTrack : qAsConst(d->mNewMusicTracks)) {
-        d->mNewTracksByAlbums[newTrack.albumName()].push_back(newTrack);
+        d->mNewTracksByAlbums[newTrack.album()].push_back(newTrack);
     }
 }
 
 void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
 {
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::searchFinished";
+
     const auto &resultData = self->result();
 
     bool success = self->success();
 
     if (!success) {
+        qCDebug(orgKdeElisaUpnp()) << "DidlParser::searchFinished" << "error" << self->error();
+
         d->mIsDataValid = false;
-        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+        Q_EMIT isDataValidChanged(d->mParentId);
 
         return;
     }
 
     QString result = resultData[QStringLiteral("Result")].toString();
 
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::searchFinished" << "result" << result;
+
     bool intConvert;
     auto numberReturned = resultData[QStringLiteral("NumberReturned")].toInt(&intConvert);
 
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::searchFinished" << "NumberReturned" << numberReturned;
+
     if (!intConvert) {
         d->mIsDataValid = false;
-        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+        Q_EMIT isDataValidChanged(d->mParentId);
 
         return;
     }
 
     auto totalMatches = resultData[QStringLiteral("TotalMatches")].toInt(&intConvert);
 
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::searchFinished" << "TotalMatches" << totalMatches;
+
     if (!intConvert) {
         d->mIsDataValid = false;
-        Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+        Q_EMIT isDataValidChanged(d->mParentId);
 
         return;
     }
@@ -321,7 +356,7 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
     for (int containerIndex = 0; containerIndex < containerList.length(); ++containerIndex) {
         const QDomNode &containerNode(containerList.at(containerIndex));
         if (!containerNode.isNull()) {
-            decodeContainerNode(containerNode, d->mNewAlbums, d->mNewAlbumIds);
+            decodeContainerNode(containerNode, d->mNewMusicTracks, d->mNewMusicTrackIds);
         }
     }
 
@@ -335,105 +370,126 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
 
     groupNewTracksByAlbums();
     d->mIsDataValid = true;
-    Q_EMIT isDataValidChanged(d->mContentDirectory->description()->deviceDescription()->UDN().mid(5), d->mParentId);
+    Q_EMIT isDataValidChanged(d->mParentId);
 }
 
-void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAlbum> &newData,
+void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData,
                                      QVector<QString> &newDataIds)
 {
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode";
+
+    auto allChilds = containerNode.childNodes();
+
+    for(int i = 0; i < allChilds.count(); ++i) {
+        const auto &oneChild = allChilds.at(i);
+        qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode" << oneChild.nodeName();
+    }
+
     auto parentID = containerNode.toElement().attribute(QStringLiteral("parentID"));
     const auto &id = containerNode.toElement().attribute(QStringLiteral("id"));
 
     newDataIds.push_back(id);
-    auto &chilData = newData[id];
+    auto &childData = newData[id];
 
-    chilData.setParentId(parentID);
-    chilData.setId(id);
+    childData[DataTypes::ColumnsRoles::ParentIdRole] = parentID;
+    childData[DataTypes::ColumnsRoles::IdRole] = id;
 
     const QString &childCount = containerNode.toElement().attribute(QStringLiteral("childCount"));
-    chilData.setTracksCount(childCount.toInt());
+    childData[DataTypes::ColumnsRoles::ChildCountRole] = childCount.toInt();
 
     const QDomNode &titleNode = containerNode.firstChildElement(QStringLiteral("dc:title"));
     if (!titleNode.isNull()) {
-        chilData.setTitle(titleNode.toElement().text());
+        childData[DataTypes::ColumnsRoles::TitleRole] = titleNode.toElement().text();
     }
 
     const QDomNode &authorNode = containerNode.firstChildElement(QStringLiteral("upnp:artist"));
     if (!authorNode.isNull()) {
-        chilData.setArtist(authorNode.toElement().text());
+        childData[DataTypes::ColumnsRoles::ArtistRole] = authorNode.toElement().text();
     }
 
     const QDomNode &resourceNode = containerNode.firstChildElement(QStringLiteral("res"));
     if (!resourceNode.isNull()) {
-        chilData.setResourceURI(QUrl::fromUserInput(resourceNode.toElement().text()));
+        childData[DataTypes::ColumnsRoles::ResourceRole] = QUrl::fromUserInput(resourceNode.toElement().text());
     }
 
-#if 0
     const QDomNode &classNode = containerNode.firstChildElement(QStringLiteral("upnp:class"));
-    if (classNode.toElement().text().startsWith(QLatin1String("object.container.album.musicAlbum"))) {
-        chilData[ColumnsRoles::ItemClassRole] = DidlParser::Album;
-    } else if (classNode.toElement().text().startsWith(QLatin1String("object.container.person.musicArtist"))) {
-        chilData[ColumnsRoles::ItemClassRole] = DidlParser::Artist;
-    } else if (classNode.toElement().text().startsWith(QLatin1String("object.container"))) {
-        chilData[ColumnsRoles::ItemClassRole] = DidlParser::Container;
-    }
-#endif
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode" << "upnp:class" << classNode.toElement().text();
+//    if (classNode.toElement().text().startsWith(QLatin1String("object.container.album.musicAlbum"))) {
+//        childData[DataTypes::ElementTypeRole] = QVariant::fromValue(ElisaUtils::Album);
+//    } else if (classNode.toElement().text().startsWith(QLatin1String("object.container.person.musicArtist"))) {
+//        childData[DataTypes::ElementTypeRole] = QVariant::fromValue(ElisaUtils::Artist);
+//    } else if (classNode.toElement().text().startsWith(QLatin1String("object.container"))) {
+        childData[DataTypes::ElementTypeRole] = QVariant::fromValue(ElisaUtils::UpnpMediaServer);
+        childData[DataTypes::UUIDRole] = d->mDeviceUUID;
+//    }
 
     const QDomNode &albumArtNode = containerNode.firstChildElement(QStringLiteral("upnp:albumArtURI"));
     if (!albumArtNode.isNull()) {
-        chilData.setAlbumArtURI(QUrl::fromUserInput(albumArtNode.toElement().text()));
+        childData[DataTypes::ColumnsRoles::ImageUrlRole] = QUrl::fromUserInput(albumArtNode.toElement().text());
     }
+
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode" << childData;
 }
 
-void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData,
+void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData,
                                       QVector<QString> &newDataIds)
 {
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeAudioTrackNode";
+
+    auto allChilds = itemNode.childNodes();
+
+    for(int i = 0; i < allChilds.count(); ++i) {
+        const auto &oneChild = allChilds.at(i);
+        qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeAudioTrackNode" << oneChild.nodeName();
+    }
+
     const QString &parentID = itemNode.toElement().attribute(QStringLiteral("parentID"));
     const QString &id = itemNode.toElement().attribute(QStringLiteral("id"));
 
     newDataIds.push_back(id);
-    auto &chilData = newData[id];
+    auto &childData = newData[id];
 
-    chilData.setParentId(parentID);
-    chilData.setId(id);
+    childData[DataTypes::ElementTypeRole] = QVariant::fromValue(ElisaUtils::Track);
+    childData[DataTypes::ColumnsRoles::ParentIdRole] = parentID;
+    childData[DataTypes::ColumnsRoles::IdRole] = id;
 
     const QDomNode &titleNode = itemNode.firstChildElement(QStringLiteral("dc:title"));
     if (!titleNode.isNull()) {
-        chilData.setTitle(titleNode.toElement().text());
+        childData[DataTypes::ColumnsRoles::TitleRole] = titleNode.toElement().text();
     }
 
     const QDomNode &authorNode = itemNode.firstChildElement(QStringLiteral("dc:creator"));
     if (!authorNode.isNull()) {
-        chilData.setArtist(authorNode.toElement().text());
+        childData[DataTypes::ColumnsRoles::ArtistRole] = authorNode.toElement().text();
     }
 
     const QDomNode &albumAuthorNode = itemNode.firstChildElement(QStringLiteral("upnp:artist"));
     if (!albumAuthorNode.isNull()) {
-        chilData.setAlbumArtist(albumAuthorNode.toElement().text());
+        childData[DataTypes::ColumnsRoles::AlbumArtistRole] = albumAuthorNode.toElement().text();
     }
 
-    if (chilData.albumArtist().isEmpty()) {
-        chilData.setAlbumArtist(chilData.artist());
+    if (childData.albumArtist().isEmpty()) {
+        childData[DataTypes::ColumnsRoles::AlbumArtistRole] = childData.artist();
     }
 
-    if (chilData.artist().isEmpty()) {
-        chilData.setArtist(chilData.albumArtist());
+    if (childData.artist().isEmpty()) {
+        childData[DataTypes::ColumnsRoles::ArtistRole] = childData.albumArtist();
     }
 
     const QDomNode &albumNode = itemNode.firstChildElement(QStringLiteral("upnp:album"));
     if (!albumNode.isNull()) {
-        chilData.setAlbumName(albumNode.toElement().text());
+        childData.setAlbum(albumNode.toElement().text());
     }
 
     const QDomNode &albumArtNode = itemNode.firstChildElement(QStringLiteral("upnp:albumArtURI"));
     if (!albumArtNode.isNull()) {
-        d->mCovers[chilData.albumName()] = QUrl::fromUserInput(albumArtNode.toElement().text());
+        childData[DataTypes::ColumnsRoles::ImageUrlRole] = QUrl::fromUserInput(albumArtNode.toElement().text());
     }
 
     const QDomNode &resourceNode = itemNode.firstChildElement(QStringLiteral("res"));
     if (!resourceNode.isNull()) {
-        chilData.setResourceURI(QUrl::fromUserInput(resourceNode.toElement().text()));
-        if (resourceNode.attributes().contains(QLatin1String("duration"))) {
+        childData[DataTypes::ColumnsRoles::ResourceRole] = QUrl::fromUserInput(resourceNode.toElement().text());
+        if (resourceNode.attributes().contains(QStringLiteral("duration"))) {
             const QDomNode &durationNode = resourceNode.attributes().namedItem(QStringLiteral("duration"));
             QString durationValue = durationNode.nodeValue();
             if (durationValue.startsWith(QLatin1String("0:"))) {
@@ -443,27 +499,27 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, M
                 durationValue = durationValue.split(QLatin1Char('.')).first();
             }
 
-            chilData.setDuration(QTime::fromString(durationValue, QStringLiteral("mm:ss")));
-            if (!chilData.duration().isValid()) {
-                chilData.setDuration(QTime::fromString(durationValue, QStringLiteral("hh:mm:ss")));
-                if (!chilData.duration().isValid()) {
-                    chilData.setDuration(QTime::fromString(durationValue, QStringLiteral("hh:mm:ss.z")));
+            childData[DataTypes::ColumnsRoles::DurationRole] = QTime::fromString(durationValue, QStringLiteral("mm:ss"));
+            if (!childData.duration().isValid()) {
+                childData[DataTypes::ColumnsRoles::DurationRole] = QTime::fromString(durationValue, QStringLiteral("hh:mm:ss"));
+                if (!childData.duration().isValid()) {
+                    childData[DataTypes::ColumnsRoles::DurationRole] = QTime::fromString(durationValue, QStringLiteral("hh:mm:ss.z"));
                 }
             }
         }
 
         const QDomNode &trackNumberNode = itemNode.firstChildElement(QStringLiteral("upnp:originalTrackNumber"));
         if (!trackNumberNode.isNull()) {
-            chilData.setTrackNumber(trackNumberNode.toElement().text().toInt());
+            childData[DataTypes::ColumnsRoles::TrackNumberRole] = trackNumberNode.toElement().text().toInt();
         }
 
-#if 0
-        if (resourceNode.attributes().contains(QLatin1String("artist"))) {
+        if (resourceNode.attributes().contains(QStringLiteral("artist"))) {
             const QDomNode &artistNode = resourceNode.attributes().namedItem(QStringLiteral("artist"));
-            //chilData[ColumnsRoles::ArtistRole] = artistNode.nodeValue();
+            childData[DataTypes::ColumnsRoles::ArtistRole] = artistNode.nodeValue();
         }
-#endif
     }
+
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeAudioTrackNode" << childData;
 }
 
 

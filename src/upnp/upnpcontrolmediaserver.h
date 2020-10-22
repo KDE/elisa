@@ -28,7 +28,7 @@ public:
 
     ~UpnpControlMediaServer() override;
 
-    bool hasAVTransport() const;
+    [[nodiscard]] bool hasAVTransport() const;
 
 Q_SIGNALS:
 

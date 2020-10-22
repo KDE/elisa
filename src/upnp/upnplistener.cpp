@@ -8,6 +8,7 @@
 
 #include "databaseinterface.h"
 #include "upnpdiscoverallmusic.h"
+#include "upnpdiscoveryresult.h"
 #include "upnpssdpengine.h"
 
 class UpnpListenerPrivate

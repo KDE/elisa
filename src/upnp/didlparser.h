@@ -7,7 +7,7 @@
 #ifndef DIDLPARSER_H
 #define DIDLPARSER_H
 
-#include "musicaudiotrack.h"
+#include "datatypes.h"
 
 #include <QObject>
 #include <QList>
@@ -52,6 +52,11 @@ class DidlParser : public QObject
                WRITE setParentId
                NOTIFY parentIdChanged)
 
+    Q_PROPERTY(QString deviceUUID
+               READ deviceUUID
+               WRITE setDeviceUUID
+               NOTIFY deviceUUIDChanged)
+
     Q_PROPERTY(UpnpControlContentDirectory* contentDirectory
                READ contentDirectory
                WRITE setContentDirectory
@@ -67,31 +72,31 @@ public:
 
     ~DidlParser() override;
 
-    const QString& browseFlag() const;
+    [[nodiscard]] const QString& browseFlag() const;
 
-    const QString& filter() const;
+    [[nodiscard]] const QString& filter() const;
 
-    const QString& sortCriteria() const;
+    [[nodiscard]] const QString& sortCriteria() const;
 
-    const QString& searchCriteria() const;
+    [[nodiscard]] const QString& searchCriteria() const;
 
-    UpnpControlContentDirectory* contentDirectory() const;
+    [[nodiscard]] UpnpControlContentDirectory* contentDirectory() const;
 
-    bool isDataValid() const;
+    [[nodiscard]] bool isDataValid() const;
 
     void browse(int startIndex = 0, int maximumNmberOfResults = 0);
 
     void search(int startIndex = 0, int maximumNumberOfResults = 0);
 
-    QString parentId() const;
+    [[nodiscard]] QString parentId() const;
 
-    const QVector<QString> &newAlbumIds() const;
+    [[nodiscard]] const QString& deviceUUID() const;
 
-    const QVector<QString> &newMusicTrackIds() const;
+    [[nodiscard]] const QVector<QString> &newMusicTrackIds() const;
 
-    const QList<MusicAudioTrack> &newMusicTracks() const;
+    [[nodiscard]] const QHash<QString, DataTypes::UpnpTrackDataType> &newMusicTracks() const;
 
-    const QHash<QString, QUrl>& covers() const;
+    [[nodiscard]] const QHash<QString, QUrl>& covers() const;
 
 Q_SIGNALS:
 
@@ -105,23 +110,27 @@ Q_SIGNALS:
 
     void contentDirectoryChanged();
 
-    void isDataValidChanged(const QString &uuid, const QString &parentId);
+    void isDataValidChanged(const QString &parentId);
 
     void parentIdChanged();
 
+    void deviceUUIDChanged();
+
 public Q_SLOTS:
 
-    void setBrowseFlag(const QString &flag);
+    void setBrowseFlag(QString flag);
 
-    void setFilter(const QString &flag);
+    void setFilter(QString flag);
 
-    void setSortCriteria(const QString &criteria);
+    void setSortCriteria(QString criteria);
 
-    void setSearchCriteria(const QString &criteria);
+    void setSearchCriteria(QString criteria);
 
     void setContentDirectory(UpnpControlContentDirectory *directory);
 
     void setParentId(QString parentId);
+
+    void setDeviceUUID(QString deviceUUID);
 
     void systemUpdateIDChanged();
 
@@ -133,9 +142,9 @@ private Q_SLOTS:
 
 private:
 
-    void decodeContainerNode(const QDomNode &containerNode, QHash<QString, MusicAudioTrack> &newData, QVector<QString> &newDataIds);
+    void decodeContainerNode(const QDomNode &containerNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData, QVector<QString> &newDataIds);
 
-    void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, MusicAudioTrack> &newData, QVector<QString> &newDataIds);
+    void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData, QVector<QString> &newDataIds);
 
     void groupNewTracksByAlbums();
 

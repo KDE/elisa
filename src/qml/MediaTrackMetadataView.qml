@@ -123,8 +123,11 @@ Window {
                             name: model.name
                             display: model.display
                             type: model.type
+                            isRemovable: model.isRemovable
 
                             onEdited: model.display = display
+
+                            onDeleteField: realModel.removeData(model.index)
                         }
                     }
 

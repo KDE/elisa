@@ -52,8 +52,9 @@ public:
     {
         ItemNameRole = Qt::UserRole + 1,
         ItemTypeRole,
-        ReadOnlyRole,
     };
+
+    Q_ENUM(ColumnRoles)
 
     enum ItemType
     {
@@ -147,6 +148,10 @@ protected:
     ModelDataLoader& modelDataLoader();
 
     const TrackDataType& displayedTrackData() const;
+
+    DataTypes::ColumnsRoles trackKey(int index) const;
+
+    void removeDataByIndex(int index);
 
 private Q_SLOTS:
 

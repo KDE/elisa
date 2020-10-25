@@ -28,7 +28,17 @@ class ELISALIB_EXPORT EditableTrackMetadataModel : public TrackMetadataModel
                NOTIFY isDirtyChanged)
 
 public:
+    enum EditableColumnRoles
+    {
+        ReadOnlyRole = TrackMetadataModel::ItemTypeRole + 1,
+        RemovableFieldRole,
+    };
+
+    Q_ENUM(EditableColumnRoles)
+
     explicit EditableTrackMetadataModel(QObject *parent = nullptr);
+
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     bool isDataValid() const
     {
@@ -48,6 +58,8 @@ public:
         return mErrorMessage;
     }
 
+    QHash<int, QByteArray> roleNames() const override;
+
 Q_SIGNALS:
     void isDataValidChanged();
 
@@ -64,6 +76,8 @@ public Q_SLOTS:
     void saveData();
 
     void deleteRadio();
+
+    void removeData(int index);
 
 protected:
 

@@ -9,6 +9,8 @@
 #include "filescanner.h"
 #include "filewriter.h"
 
+#include <QFileInfo>
+
 class ModelDataLoaderPrivate
 {
 public:
@@ -449,15 +451,27 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     }
 }
 
-void ModelDataLoader::trackHasBeenModified(const ModelDataLoader::ListTrackDataType &trackDataType, const QHash<QString, QUrl> &covers)
+void ModelDataLoader::trackHasBeenModified(ModelDataLoader::ListTrackDataType trackDataType, const QHash<QString, QUrl> &covers)
 {
-    Q_UNUSED(covers)
-
-    for(const auto &oneTrack : trackDataType) {
+    for(auto &oneTrack : trackDataType) {
         if (oneTrack.elementType() == ElisaUtils::Track) {
             d->mFileWriter.writeAllMetaDataToFile(oneTrack.resourceURI(), oneTrack);
+
+            QFileInfo trackFile{oneTrack.resourceURI().toLocalFile()};
+
+            oneTrack[DataTypes::FileModificationTime] = trackFile.fileTime(QFileDevice::FileModificationTime);
+
+            for (auto itData = oneTrack.begin(); itData != oneTrack.end();) {
+                if (itData->isNull()) {
+                    itData = oneTrack.erase(itData);
+                } else {
+                    ++itData;
+                }
+            }
         }
     }
+
+    Q_EMIT saveTrackModified(trackDataType, covers);
 }
 
 void ModelDataLoader::updateFileMetaData(const DataTypes::TrackDataType &trackDataType, const QUrl &url)

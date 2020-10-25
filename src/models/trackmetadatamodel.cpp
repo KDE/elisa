@@ -32,7 +32,7 @@ int TrackMetadataModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return mTrackData.count();
+    return mTrackKeys.count();
 }
 
 QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
@@ -265,108 +265,6 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case ReadOnlyRole:
-        switch (currentKey)
-        {
-        case DataTypes::TitleRole:
-            result = false;
-            break;
-        case DataTypes::ResourceRole:
-            switch (mFullData.elementType())
-            {
-            case ElisaUtils::Track:
-                result = true;
-                break;
-            case ElisaUtils::Radio:
-                result = false;
-                break;
-            case ElisaUtils::Album:
-            case ElisaUtils::Artist:
-            case ElisaUtils::Composer:
-            case ElisaUtils::Container:
-            case ElisaUtils::FileName:
-            case ElisaUtils::Genre:
-            case ElisaUtils::Lyricist:
-            case ElisaUtils::Unknown:
-                result = true;
-                break;
-            }
-            break;
-        case DataTypes::ImageUrlRole:
-            result = false;
-            break;
-        case DataTypes::ArtistRole:
-            result = false;
-            break;
-        case DataTypes::AlbumRole:
-            result = false;
-            break;
-        case DataTypes::AlbumArtistRole:
-            result = false;
-            break;
-        case DataTypes::TrackNumberRole:
-            result = false;
-            break;
-        case DataTypes::DiscNumberRole:
-            result = false;
-            break;
-        case DataTypes::RatingRole:
-            result = false;
-            break;
-        case DataTypes::GenreRole:
-            result = false;
-            break;
-        case DataTypes::LyricistRole:
-            result = false;
-            break;
-        case DataTypes::ComposerRole:
-            result = false;
-            break;
-        case DataTypes::CommentRole:
-            result = false;
-            break;
-        case DataTypes::YearRole:
-            result = false;
-            break;
-        case DataTypes::LastPlayDate:
-            result = true;
-            break;
-        case DataTypes::PlayCounter:
-            result = true;
-            break;
-        case DataTypes::LyricsRole:
-            result = false;
-            break;
-        case DataTypes::DurationRole:
-        case DataTypes::SampleRateRole:
-        case DataTypes::BitRateRole:
-        case DataTypes::ChannelsRole:
-        case DataTypes::SecondaryTextRole:
-        case DataTypes::ShadowForImageRole:
-        case DataTypes::ChildModelRole:
-        case DataTypes::StringDurationRole:
-        case DataTypes::IsValidAlbumArtistRole:
-        case DataTypes::AllArtistsRole:
-        case DataTypes::HighestTrackRating:
-        case DataTypes::IdRole:
-        case DataTypes::ParentIdRole:
-        case DataTypes::DatabaseIdRole:
-        case DataTypes::IsSingleDiscAlbumRole:
-        case DataTypes::ContainerDataRole:
-        case DataTypes::IsPartialDataRole:
-        case DataTypes::AlbumIdRole:
-        case DataTypes::HasEmbeddedCover:
-        case DataTypes::FileModificationTime:
-        case DataTypes::FirstPlayDate:
-        case DataTypes::PlayFrequency:
-        case DataTypes::ElementTypeRole:
-        case DataTypes::FullDataRole:
-        case DataTypes::IsDirectoryRole:
-        case DataTypes::IsPlayListRole:
-        case DataTypes::FilePathRole:
-            break;
-        }
-        break;
     }
 
     return result;
@@ -392,7 +290,6 @@ QHash<int, QByteArray> TrackMetadataModel::roleNames() const
 
     names[ItemNameRole] = "name";
     names[ItemTypeRole] = "type";
-    names[ReadOnlyRole] = "isReadOnly";
 
     return names;
 }
@@ -582,6 +479,20 @@ ModelDataLoader &TrackMetadataModel::modelDataLoader()
 const TrackMetadataModel::TrackDataType &TrackMetadataModel::displayedTrackData() const
 {
     return mTrackData;
+}
+
+DataTypes::ColumnsRoles TrackMetadataModel::trackKey(int index) const
+{
+    return mTrackKeys[index];
+}
+
+void TrackMetadataModel::removeDataByIndex(int index)
+{
+    auto dataKey = mTrackKeys[index];
+
+    mTrackData[dataKey] = {};
+    mFullData[dataKey] = {};
+    mTrackKeys.removeAt(index);
 }
 
 void TrackMetadataModel::fetchLyrics()

@@ -17,10 +17,12 @@ RowLayout {
     property int index
     property var type
     property string display
+    property bool isRemovable
 
     spacing: 0
 
     signal edited()
+    signal deleteField()
 
     Label {
         id: metaDataLabels
@@ -104,5 +106,18 @@ RowLayout {
                 }
             }
         }
+    }
+
+    Button {
+        Layout.fillHeight: true
+        Layout.preferredWidth: height
+
+        flat: true
+        display: AbstractButton.IconOnly
+        icon.name: 'entry-delete'
+
+        visible: isRemovable
+
+        onClicked: deleteField()
     }
 }

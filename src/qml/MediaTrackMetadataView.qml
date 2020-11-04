@@ -250,7 +250,7 @@ Window {
     Connections {
         target: ElisaApplication
 
-        onMusicManagerChanged: {
+        function onMusicManagerChanged() {
             if (isCreation) {
                 realModel.initializeForNewRadio()
             } else {

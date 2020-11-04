@@ -79,6 +79,8 @@ public Q_SLOTS:
 
     void removeData(int index);
 
+    void addData(const QString &name);
+
 protected:
 
     void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,

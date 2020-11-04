@@ -495,6 +495,49 @@ void TrackMetadataModel::removeDataByIndex(int index)
     mTrackKeys.removeAt(index);
 }
 
+void TrackMetadataModel::addDataByName(const QString &name)
+{
+    DataTypes::ColumnsRoles newRole = DataTypes::TitleRole;
+
+    if (name == i18nc("Track title for track metadata view", "Title")) {
+        newRole = DataTypes::TitleRole;
+    } else if (name == i18nc("Track artist for track metadata view", "Artist")) {
+        newRole = DataTypes::ArtistRole;
+    } else if (name == i18nc("Album name for track metadata view", "Album")) {
+        newRole = DataTypes::AlbumRole;
+    } else if (name == i18nc("Album artist for track metadata view", "Album Artist")) {
+        newRole = DataTypes::AlbumArtistRole;
+    } else if (name == i18nc("Track number for track metadata view", "Track Number")) {
+        newRole = DataTypes::TrackNumberRole;
+    } else if (name == i18nc("Disc number for track metadata view", "Disc Number")) {
+        newRole = DataTypes::DiscNumberRole;
+    } else if (name == i18nc("Rating label for information panel", "Rating")) {
+        newRole = DataTypes::RatingRole;
+    } else if (name == i18nc("Genre label for track metadata view", "Genre")) {
+        newRole = DataTypes::GenreRole;
+    } else if (name == i18nc("Lyricist label for track metadata view", "Lyricist")) {
+        newRole = DataTypes::LyricistRole;
+    } else if (name == i18nc("Composer name for track metadata view", "Composer")) {
+        newRole = DataTypes::ComposerRole;
+    } else if (name == i18nc("Comment label for track metadata view", "Comment")) {
+        newRole = DataTypes::CommentRole;
+    } else if (name == i18nc("Year label for track metadata view", "Year")) {
+        newRole = DataTypes::YearRole;
+    } else if (name == i18nc("Channels label for track metadata view", "Channels")) {
+        newRole = DataTypes::ChannelsRole;
+    } else if (name == i18nc("Bit rate label for track metadata view", "Bit Rate")) {
+        newRole = DataTypes::BitRateRole;
+    } else if (name == i18nc("Sample Rate label for track metadata view", "Sample Rate")) {
+        newRole = DataTypes::SampleRateRole;
+    } else if (name == i18nc("Lyrics label for track metadata view", "Lyrics")) {
+        newRole = DataTypes::LyricsRole;
+    }
+
+    mTrackData[newRole] = {};
+    mFullData[newRole] = {};
+    mTrackKeys.push_back(newRole);
+}
+
 void TrackMetadataModel::fetchLyrics()
 {
     auto lyricicsValue = QtConcurrent::run(QThreadPool::globalInstance(), [=]() {

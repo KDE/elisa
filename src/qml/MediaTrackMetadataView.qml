@@ -42,7 +42,7 @@ Window {
 
     modality: Qt.NonModal
     flags: Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint
-        | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
+           | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
 
     color: myPalette.window
 
@@ -133,6 +133,56 @@ Window {
 
                     delegate: ((dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
                                 dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly) ? editableMetaDataDelegate: metaDataDelegate
+                }
+
+                footer: RowLayout {
+                    width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+
+                    spacing: 0
+
+                    visible: (dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
+                              dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly
+
+                    ComboBox {
+                        id: selectedField
+
+                        textRole: "text"
+                        valueRole: "text"
+
+                        model: [
+                            { text: i18nc("Track title for track metadata view", "Title" ) },
+                            { text: i18nc("Track artist for track metadata view", "Artist") },
+                            { text: i18nc("Album name for track metadata view", "Album") },
+                            { text: i18nc("Album artist for track metadata view", "Album Artist") },
+                            { text: i18nc("Track number for track metadata view", "Track Number") },
+                            { text: i18nc("Disc number for track metadata view", "Disc Number") },
+                            { text: i18nc("Rating label for information panel", "Rating") },
+                            { text: i18nc("Genre label for track metadata view", "Genre") },
+                            { text: i18nc("Lyricist label for track metadata view", "Lyricist") },
+                            { text: i18nc("Composer name for track metadata view", "Composer") },
+                            { text: i18nc("Comment label for track metadata view", "Comment") },
+                            { text: i18nc("Year label for track metadata view", "Year") },
+                            { text: i18nc("Channels label for track metadata view", "Channels") },
+                            { text: i18nc("Bit rate label for track metadata view", "Bit Rate") },
+                            { text: i18nc("Sample Rate label for track metadata view", "Sample Rate") },
+                            { text: i18nc("Lyrics label for track metadata view", "Lyrics") },
+                        ]
+                    }
+
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Button {
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: height
+
+                        flat: true
+                        display: AbstractButton.IconOnly
+                        icon.name: 'list-add'
+
+                        onClicked: realModel.addData(selectedField.currentValue)
+                    }
                 }
             }
         }

@@ -153,6 +153,8 @@ protected:
 
     void removeDataByIndex(int index);
 
+    void addDataByName(const QString &name);
+
 private Q_SLOTS:
 
     void lyricsValueIsReady();

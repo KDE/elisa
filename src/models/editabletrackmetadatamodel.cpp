@@ -254,6 +254,20 @@ void EditableTrackMetadataModel::removeData(int index)
     validData();
 }
 
+void EditableTrackMetadataModel::addData(const QString &name)
+{
+    beginInsertRows({}, rowCount(), rowCount());
+    addDataByName(name);
+    endInsertRows();
+
+    if (!mIsDirty) {
+        mIsDirty = true;
+        Q_EMIT isDirtyChanged();
+    }
+
+    validData();
+}
+
 void EditableTrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
                                                        const QList<DataTypes::ColumnsRoles> &fieldsForTrack)
 {

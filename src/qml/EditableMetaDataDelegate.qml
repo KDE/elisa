@@ -114,7 +114,7 @@ RowLayout {
 
         flat: true
         display: AbstractButton.IconOnly
-        icon.name: 'entry-delete'
+        icon.name: 'list-remove'
 
         visible: isRemovable
 

@@ -78,6 +78,7 @@ public:
         CountRole,
         IsPlayingRole,
         AlbumSectionRole,
+        MetadataModifiableRole,
     };
 
     Q_ENUM(ColumnsRoles)

@@ -35,6 +35,7 @@ FocusScope {
     property int discNumber
     property int rating
     property bool hasValidDiscNumber: true
+    property bool metadataModifiableRole: false
     property bool simpleMode: false
 
     signal startPlayback()
@@ -63,7 +64,7 @@ FocusScope {
             modelType: entryType
             showTrackFileName: entryType !== ElisaUtils.Radio
             showDeleteButton: entryType === ElisaUtils.Radio
-            editableMetadata: entryType === ElisaUtils.Radio
+            editableMetadata: playListEntry.metadataModifiableRole
 
             onRejected: metadataLoader.active = false
         }

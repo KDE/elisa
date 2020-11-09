@@ -12,6 +12,8 @@
 
 #include <QtConcurrent>
 
+#include <algorithm>
+
 TrackMetadataModel::TrackMetadataModel(QObject *parent)
     : QAbstractListModel(parent)
 {
@@ -102,96 +104,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         }
         break;
     case ItemNameRole:
-        switch (currentKey)
-        {
-        case DataTypes::TitleRole:
-            result = i18nc("Track title for track metadata view", "Title");
-            break;
-        case DataTypes::DurationRole:
-            result = i18nc("Duration label for track metadata view", "Duration");
-            break;
-        case DataTypes::ArtistRole:
-            result = i18nc("Track artist for track metadata view", "Artist");
-            break;
-        case DataTypes::AlbumRole:
-            result = i18nc("Album name for track metadata view", "Album");
-            break;
-        case DataTypes::AlbumArtistRole:
-            result = i18nc("Album artist for track metadata view", "Album Artist");
-            break;
-        case DataTypes::TrackNumberRole:
-            result = i18nc("Track number for track metadata view", "Track Number");
-            break;
-        case DataTypes::DiscNumberRole:
-            result = i18nc("Disc number for track metadata view", "Disc Number");
-            break;
-        case DataTypes::RatingRole:
-            result = i18nc("Rating label for information panel", "Rating");
-            break;
-        case DataTypes::GenreRole:
-            result = i18nc("Genre label for track metadata view", "Genre");
-            break;
-        case DataTypes::LyricistRole:
-            result = i18nc("Lyricist label for track metadata view", "Lyricist");
-            break;
-        case DataTypes::ComposerRole:
-            result = i18nc("Composer name for track metadata view", "Composer");
-            break;
-        case DataTypes::CommentRole:
-            result = i18nc("Comment label for track metadata view", "Comment");
-            break;
-        case DataTypes::YearRole:
-            result = i18nc("Year label for track metadata view", "Year");
-            break;
-        case DataTypes::ChannelsRole:
-            result = i18nc("Channels label for track metadata view", "Channels");
-            break;
-        case DataTypes::BitRateRole:
-            result = i18nc("Bit rate label for track metadata view", "Bit Rate");
-            break;
-        case DataTypes::SampleRateRole:
-            result = i18nc("Sample Rate label for track metadata view", "Sample Rate");
-            break;
-        case DataTypes::LastPlayDate:
-            result = i18nc("Last play date label for track metadata view", "Last played");
-            break;
-        case DataTypes::PlayCounter:
-            result = i18nc("Play counter label for track metadata view", "Play count");
-            break;
-        case DataTypes::LyricsRole:
-            result = i18nc("Lyrics label for track metadata view", "Lyrics");
-            break;
-        case DataTypes::ResourceRole:
-            result = i18nc("Radio HTTP address for radio metadata view", "Stream Http Address");
-            break;
-        case DataTypes::ImageUrlRole:
-            result = i18nc("Image address for radio metadata view", "Image Address");
-            break;
-        case DataTypes::SecondaryTextRole:
-        case DataTypes::ShadowForImageRole:
-        case DataTypes::ChildModelRole:
-        case DataTypes::StringDurationRole:
-        case DataTypes::IsValidAlbumArtistRole:
-        case DataTypes::AllArtistsRole:
-        case DataTypes::HighestTrackRating:
-        case DataTypes::IdRole:
-        case DataTypes::ParentIdRole:
-        case DataTypes::DatabaseIdRole:
-        case DataTypes::IsSingleDiscAlbumRole:
-        case DataTypes::ContainerDataRole:
-        case DataTypes::IsPartialDataRole:
-        case DataTypes::AlbumIdRole:
-        case DataTypes::HasEmbeddedCover:
-        case DataTypes::FileModificationTime:
-        case DataTypes::FirstPlayDate:
-        case DataTypes::PlayFrequency:
-        case DataTypes::ElementTypeRole:
-        case DataTypes::FullDataRole:
-        case DataTypes::IsDirectoryRole:
-        case DataTypes::IsPlayListRole:
-        case DataTypes::FilePathRole:
-            break;
-        }
+        result = nameFromRole(currentKey);
         break;
     case ItemTypeRole:
         switch (currentKey)
@@ -561,6 +474,109 @@ void TrackMetadataModel::addDataByName(const QString &name)
     mTrackData[newRole] = {};
     mFullData[newRole] = {};
     mTrackKeys.push_back(newRole);
+}
+
+QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
+{
+    auto result = QString{};
+    switch (role)
+    {
+    case DataTypes::TitleRole:
+        result = i18nc("Track title for track metadata view", "Title");
+        break;
+    case DataTypes::DurationRole:
+        result = i18nc("Duration label for track metadata view", "Duration");
+        break;
+    case DataTypes::ArtistRole:
+        result = i18nc("Track artist for track metadata view", "Artist");
+        break;
+    case DataTypes::AlbumRole:
+        result = i18nc("Album name for track metadata view", "Album");
+        break;
+    case DataTypes::AlbumArtistRole:
+        result = i18nc("Album artist for track metadata view", "Album Artist");
+        break;
+    case DataTypes::TrackNumberRole:
+        result = i18nc("Track number for track metadata view", "Track Number");
+        break;
+    case DataTypes::DiscNumberRole:
+        result = i18nc("Disc number for track metadata view", "Disc Number");
+        break;
+    case DataTypes::RatingRole:
+        result = i18nc("Rating label for information panel", "Rating");
+        break;
+    case DataTypes::GenreRole:
+        result = i18nc("Genre label for track metadata view", "Genre");
+        break;
+    case DataTypes::LyricistRole:
+        result = i18nc("Lyricist label for track metadata view", "Lyricist");
+        break;
+    case DataTypes::ComposerRole:
+        result = i18nc("Composer name for track metadata view", "Composer");
+        break;
+    case DataTypes::CommentRole:
+        result = i18nc("Comment label for track metadata view", "Comment");
+        break;
+    case DataTypes::YearRole:
+        result = i18nc("Year label for track metadata view", "Year");
+        break;
+    case DataTypes::ChannelsRole:
+        result = i18nc("Channels label for track metadata view", "Channels");
+        break;
+    case DataTypes::BitRateRole:
+        result = i18nc("Bit rate label for track metadata view", "Bit Rate");
+        break;
+    case DataTypes::SampleRateRole:
+        result = i18nc("Sample Rate label for track metadata view", "Sample Rate");
+        break;
+    case DataTypes::LastPlayDate:
+        result = i18nc("Last play date label for track metadata view", "Last played");
+        break;
+    case DataTypes::FirstPlayDate:
+        result = i18nc("First play date label for track metadata view", "First played");
+        break;
+    case DataTypes::PlayCounter:
+        result = i18nc("Play counter label for track metadata view", "Play count");
+        break;
+    case DataTypes::LyricsRole:
+        result = i18nc("Lyrics label for track metadata view", "Lyrics");
+        break;
+    case DataTypes::ResourceRole:
+        result = i18nc("Radio HTTP address for radio metadata view", "Stream Http Address");
+        break;
+    case DataTypes::ImageUrlRole:
+        result = i18nc("Image address for radio metadata view", "Image Address");
+        break;
+    case DataTypes::SecondaryTextRole:
+    case DataTypes::ShadowForImageRole:
+    case DataTypes::ChildModelRole:
+    case DataTypes::StringDurationRole:
+    case DataTypes::IsValidAlbumArtistRole:
+    case DataTypes::AllArtistsRole:
+    case DataTypes::HighestTrackRating:
+    case DataTypes::IdRole:
+    case DataTypes::ParentIdRole:
+    case DataTypes::DatabaseIdRole:
+    case DataTypes::IsSingleDiscAlbumRole:
+    case DataTypes::ContainerDataRole:
+    case DataTypes::IsPartialDataRole:
+    case DataTypes::AlbumIdRole:
+    case DataTypes::HasEmbeddedCover:
+    case DataTypes::FileModificationTime:
+    case DataTypes::PlayFrequency:
+    case DataTypes::ElementTypeRole:
+    case DataTypes::FullDataRole:
+    case DataTypes::IsDirectoryRole:
+    case DataTypes::IsPlayListRole:
+    case DataTypes::FilePathRole:
+        break;
+    }
+    return result;
+}
+
+bool TrackMetadataModel::metadataExists(DataTypes::ColumnsRoles metadataRole) const
+{
+    return std::find(mTrackKeys.begin(), mTrackKeys.end(), metadataRole) != mTrackKeys.end();
 }
 
 void TrackMetadataModel::fetchLyrics()

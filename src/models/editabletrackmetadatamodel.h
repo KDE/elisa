@@ -27,6 +27,10 @@ class ELISALIB_EXPORT EditableTrackMetadataModel : public TrackMetadataModel
                READ isDirty
                NOTIFY isDirtyChanged)
 
+    Q_PROPERTY(QStringList extraMetadata
+               READ extraMetadata
+               NOTIFY extraMetadataChanged)
+
 public:
     enum EditableColumnRoles
     {
@@ -60,6 +64,11 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
+    QStringList extraMetadata() const
+    {
+        return mExtraMetadata;
+    }
+
 Q_SIGNALS:
     void isDataValidChanged();
 
@@ -70,6 +79,8 @@ Q_SIGNALS:
     void saveTrackModified(const DataTypes::ListTrackDataType &trackDataType, const QHash<QString, QUrl> &covers);
 
     void deleteRadioData(qulonglong radioId);
+
+    void extraMetadataChanged();
 
 public Q_SLOTS:
 
@@ -98,6 +109,10 @@ private:
 
     void validData();
 
+    void updateExtraMetadata();
+
+    void modelHasBeenModified();
+
     bool mIsNewRadio = false;
 
     bool mIsDataValid = false;
@@ -105,6 +120,8 @@ private:
     bool mIsDirty = false;
 
     QString mErrorMessage;
+
+    QStringList mExtraMetadata;
 };
 
 

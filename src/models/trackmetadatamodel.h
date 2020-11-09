@@ -156,6 +156,10 @@ protected:
 
     void addDataByName(const QString &name);
 
+    static QString nameFromRole(DataTypes::ColumnsRoles role);
+
+    bool metadataExists(DataTypes::ColumnsRoles metadataRole) const;
+
 private Q_SLOTS:
 
     void lyricsValueIsReady();

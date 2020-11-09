@@ -212,11 +212,7 @@ bool EditableTrackMetadataModel::setData(const QModelIndex &index, const QVarian
     auto result = TrackMetadataModel::setData(index, value, role);
 
     if (result) {
-        if (!mIsDirty) {
-            mIsDirty = true;
-            Q_EMIT isDirtyChanged();
-        }
-
+        modelHasBeenModified();
         validData();
     }
 
@@ -258,12 +254,11 @@ void EditableTrackMetadataModel::removeData(int index)
     removeDataByIndex(index);
     endRemoveRows();
 
-    if (!mIsDirty) {
-        mIsDirty = true;
-        Q_EMIT isDirtyChanged();
-    }
+    modelHasBeenModified();
 
     validData();
+
+    updateExtraMetadata();
 }
 
 void EditableTrackMetadataModel::addData(const QString &name)
@@ -272,12 +267,10 @@ void EditableTrackMetadataModel::addData(const QString &name)
     addDataByName(name);
     endInsertRows();
 
-    if (!mIsDirty) {
-        mIsDirty = true;
-        Q_EMIT isDirtyChanged();
-    }
-
+    modelHasBeenModified();
     validData();
+
+    updateExtraMetadata();
 }
 
 void EditableTrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
@@ -288,6 +281,8 @@ void EditableTrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel:
     }
 
     TrackMetadataModel::fillDataFromTrackData(trackData, fieldsForTrack);
+
+    updateExtraMetadata();
 }
 
 void EditableTrackMetadataModel::filterDataFromTrackData()
@@ -351,6 +346,31 @@ void EditableTrackMetadataModel::validData()
         mIsDataValid = newValidState;
 
         Q_EMIT isDataValidChanged();
+    }
+}
+
+void EditableTrackMetadataModel::updateExtraMetadata()
+{
+    mExtraMetadata.clear();
+    for(auto metadataRole : {DataTypes::TitleRole, DataTypes::ArtistRole,
+                             DataTypes::AlbumRole, DataTypes::AlbumArtistRole, DataTypes::TrackNumberRole,
+                             DataTypes::DiscNumberRole, DataTypes::RatingRole, DataTypes::GenreRole,
+                             DataTypes::LyricistRole, DataTypes::ComposerRole, DataTypes::CommentRole,
+                             DataTypes::YearRole, DataTypes::ChannelsRole, DataTypes::BitRateRole,
+                             DataTypes::SampleRateRole, DataTypes::LyricsRole}) {
+        if (!metadataExists(metadataRole)) {
+            mExtraMetadata.push_back(nameFromRole(metadataRole));
+        }
+    }
+
+    Q_EMIT extraMetadataChanged();
+}
+
+void EditableTrackMetadataModel::modelHasBeenModified()
+{
+    if (!mIsDirty) {
+        mIsDirty = true;
+        Q_EMIT isDirtyChanged();
     }
 }
 

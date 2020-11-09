@@ -104,7 +104,7 @@ Window {
                         id: metaDataDelegate
 
                         MetaDataDelegate {
-                            width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                            width: trackData.width
 
                             index: model.index
                             name: model.name
@@ -117,7 +117,7 @@ Window {
                         id: editableMetaDataDelegate
 
                         EditableMetaDataDelegate {
-                            width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                            width: trackData.width
 
                             index: model.index
                             name: model.name
@@ -133,55 +133,40 @@ Window {
 
                     delegate: ((dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
                                 dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly) ? editableMetaDataDelegate: metaDataDelegate
-                }
 
-                footer: RowLayout {
-                    width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                    footer: RowLayout {
+                        width: trackData.width
 
-                    spacing: 0
+                        spacing: 0
 
-                    visible: (dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
-                              dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly
+                        visible: (dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
+                                  dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly
 
-                    ComboBox {
-                        id: selectedField
+                        Item {
+                            Layout.fillWidth: true
+                        }
 
-                        textRole: "text"
-                        valueRole: "text"
+                        ComboBox {
+                            id: selectedField
 
-                        model: [
-                            { text: i18nc("Track title for track metadata view", "Title" ) },
-                            { text: i18nc("Track artist for track metadata view", "Artist") },
-                            { text: i18nc("Album name for track metadata view", "Album") },
-                            { text: i18nc("Album artist for track metadata view", "Album Artist") },
-                            { text: i18nc("Track number for track metadata view", "Track Number") },
-                            { text: i18nc("Disc number for track metadata view", "Disc Number") },
-                            { text: i18nc("Rating label for information panel", "Rating") },
-                            { text: i18nc("Genre label for track metadata view", "Genre") },
-                            { text: i18nc("Lyricist label for track metadata view", "Lyricist") },
-                            { text: i18nc("Composer name for track metadata view", "Composer") },
-                            { text: i18nc("Comment label for track metadata view", "Comment") },
-                            { text: i18nc("Year label for track metadata view", "Year") },
-                            { text: i18nc("Channels label for track metadata view", "Channels") },
-                            { text: i18nc("Bit rate label for track metadata view", "Bit Rate") },
-                            { text: i18nc("Sample Rate label for track metadata view", "Sample Rate") },
-                            { text: i18nc("Lyrics label for track metadata view", "Lyrics") },
-                        ]
-                    }
+                            textRole: "modelData"
+                            valueRole: "modelData"
 
-                    Item {
-                        Layout.fillWidth: true
-                    }
+                            model: realModel.extraMetadata
 
-                    Button {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: height
+                            Layout.rightMargin: Kirigami.Units.smallSpacing * 2
+                        }
 
-                        flat: true
-                        display: AbstractButton.IconOnly
-                        icon.name: 'list-add'
+                        Button {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: height
 
-                        onClicked: realModel.addData(selectedField.currentValue)
+                            flat: true
+                            display: AbstractButton.IconOnly
+                            icon.name: 'list-add'
+
+                            onClicked: realModel.addData(selectedField.currentValue)
+                        }
                     }
                 }
             }

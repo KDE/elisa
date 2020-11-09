@@ -63,6 +63,7 @@ public:
         IntegerEntry,
         RatingEntry,
         DateEntry,
+        DurationEntry,
         LongTextEntry,
     };
 

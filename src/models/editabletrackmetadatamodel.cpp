@@ -96,9 +96,23 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
             result = false;
             break;
         case DataTypes::DurationRole:
+            result = true;
+            break;
         case DataTypes::SampleRateRole:
+            result = false;
+            break;
         case DataTypes::BitRateRole:
+            result = false;
+            break;
         case DataTypes::ChannelsRole:
+            result = false;
+            break;
+        case DataTypes::FirstPlayDate:
+            result = true;
+            break;
+        case DataTypes::PlayFrequency:
+            result = true;
+            break;
         case DataTypes::SecondaryTextRole:
         case DataTypes::ShadowForImageRole:
         case DataTypes::ChildModelRole:
@@ -115,8 +129,6 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
         case DataTypes::AlbumIdRole:
         case DataTypes::HasEmbeddedCover:
         case DataTypes::FileModificationTime:
-        case DataTypes::FirstPlayDate:
-        case DataTypes::PlayFrequency:
         case DataTypes::ElementTypeRole:
         case DataTypes::FullDataRole:
         case DataTypes::IsDirectoryRole:
@@ -142,14 +154,14 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
         case DataTypes::ComposerRole:
         case DataTypes::CommentRole:
         case DataTypes::YearRole:
-        case DataTypes::LastPlayDate:
-        case DataTypes::PlayCounter:
         case DataTypes::LyricsRole:
+        case DataTypes::SampleRateRole:
             result = true;
             break;
+        case DataTypes::LastPlayDate:
+        case DataTypes::PlayCounter:
         case DataTypes::ImageUrlRole:
         case DataTypes::DurationRole:
-        case DataTypes::SampleRateRole:
         case DataTypes::SecondaryTextRole:
         case DataTypes::ShadowForImageRole:
         case DataTypes::ChildModelRole:

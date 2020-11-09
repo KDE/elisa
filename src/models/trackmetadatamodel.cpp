@@ -86,6 +86,16 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             }
             break;
         }
+        case DataTypes::DurationRole:
+        {
+            auto trackDuration = mTrackData.duration();
+            if (trackDuration.hour() == 0) {
+                result = trackDuration.toString(QStringLiteral("mm:ss"));
+            } else {
+                result = trackDuration.toString();
+            }
+            break;
+        }
         default:
             result = mTrackData[currentKey];
             break;
@@ -235,10 +245,21 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::LyricsRole:
             result = LongTextEntry;
             break;
-        case DataTypes::DurationRole:
         case DataTypes::SampleRateRole:
+            result = IntegerEntry;
+            break;
         case DataTypes::BitRateRole:
+            result = IntegerEntry;
+            break;
         case DataTypes::ChannelsRole:
+            result = IntegerEntry;
+            break;
+        case DataTypes::FirstPlayDate:
+            result = DateEntry;
+            break;
+        case DataTypes::DurationRole:
+            result = DurationEntry;
+            break;
         case DataTypes::SecondaryTextRole:
         case DataTypes::ShadowForImageRole:
         case DataTypes::ChildModelRole:
@@ -255,7 +276,6 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::AlbumIdRole:
         case DataTypes::HasEmbeddedCover:
         case DataTypes::FileModificationTime:
-        case DataTypes::FirstPlayDate:
         case DataTypes::PlayFrequency:
         case DataTypes::ElementTypeRole:
         case DataTypes::FullDataRole:
@@ -336,12 +356,15 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
     }
 
     const QList<DataTypes::ColumnsRoles> fieldsForTrack({DataTypes::TitleRole, DataTypes::ArtistRole,
-                                                                 DataTypes::AlbumRole, DataTypes::AlbumArtistRole,
-                                                                 DataTypes::TrackNumberRole, DataTypes::DiscNumberRole,
-                                                                 DataTypes::RatingRole, DataTypes::GenreRole,
-                                                                 DataTypes::LyricistRole, DataTypes::ComposerRole,
-                                                                 DataTypes::CommentRole, DataTypes::YearRole,
-                                                                 DataTypes::LastPlayDate, DataTypes::PlayCounter});
+                                                         DataTypes::AlbumRole, DataTypes::AlbumArtistRole,
+                                                         DataTypes::TrackNumberRole, DataTypes::DiscNumberRole,
+                                                         DataTypes::RatingRole, DataTypes::GenreRole,
+                                                         DataTypes::LyricistRole, DataTypes::ComposerRole,
+                                                         DataTypes::CommentRole, DataTypes::YearRole,
+                                                         DataTypes::ChannelsRole, DataTypes::BitRateRole,
+                                                         DataTypes::SampleRateRole, DataTypes::LyricsRole,
+                                                         DataTypes::LastPlayDate, DataTypes::PlayCounter,
+                                                         DataTypes::DurationRole});
 
     fillDataFromTrackData(trackData, fieldsForTrack);
 }
@@ -531,6 +554,8 @@ void TrackMetadataModel::addDataByName(const QString &name)
         newRole = DataTypes::SampleRateRole;
     } else if (name == i18nc("Lyrics label for track metadata view", "Lyrics")) {
         newRole = DataTypes::LyricsRole;
+    } else if (name == i18nc("Duration label for track metadata view", "Duration")) {
+        newRole = DataTypes::DurationRole;
     }
 
     mTrackData[newRole] = {};

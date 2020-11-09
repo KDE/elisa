@@ -112,7 +112,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 12);
+        QCOMPARE(myModel.rowCount(), 13);
 
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::currentDateTime());
 
@@ -123,7 +123,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 12);
+        QCOMPARE(myModel.rowCount(), 13);
 
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$1")), QDateTime::currentDateTime());
 
@@ -134,7 +134,7 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 13);
+        QCOMPARE(myModel.rowCount(), 14);
     }
 };
 

@@ -38,7 +38,7 @@ RowLayout {
 
         horizontalAlignment: Text.AlignRight
 
-        Layout.alignment: Qt.AlignCenter
+        Layout.alignment: Qt.AlignVCenter
         Layout.preferredWidth: 0.8 * elisaTheme.coverImageSize
         Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
         Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
@@ -83,7 +83,7 @@ RowLayout {
         visible: type === EditableTrackMetadataModel.RatingEntry
 
         Layout.fillWidth: true
-        Layout.alignment: Qt.AlignTop
+        Layout.alignment: Qt.AlignVCenter
 
         sourceComponent: RatingStar {
             starRating: display

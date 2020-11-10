@@ -108,9 +108,44 @@ RowLayout {
         }
     }
 
+    Loader {
+        id: longTextDisplayLoader
+
+        active: type === EditableTrackMetadataModel.LongTextEntry
+        visible: type === EditableTrackMetadataModel.LongTextEntry
+
+        Layout.fillWidth: true
+        Layout.maximumWidth: delegateRow.width - (0.8 * elisaTheme.coverImageSize + Kirigami.Units.largeSpacing * 2)
+        Layout.alignment: Qt.AlignTop
+
+        sourceComponent: TextArea {
+            text: display
+
+            focus: index === 0
+
+            horizontalAlignment: Text.AlignLeft
+
+            selectByMouse: true
+
+            anchors.fill: parent
+
+            wrapMode: Text.WordWrap
+
+            onEditingFinished: {
+                if (display !== text) {
+                    display = text
+
+                    edited()
+                }
+            }
+        }
+    }
+
     Button {
-        Layout.fillHeight: true
-        Layout.preferredWidth: height
+        Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+        Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+
+        Layout.alignment: Layout.horizontalCenter
 
         flat: true
         display: AbstractButton.IconOnly

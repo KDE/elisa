@@ -6798,9 +6798,18 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
         auto isSameTrack = true;
         isSameTrack = isSameTrack && (oldTrack.title() == oneTrack.title());
-        isSameTrack = isSameTrack && (oldTrack.album() == oneTrack.album());
-        isSameTrack = isSameTrack && (oldTrack.artist() == oneTrack.artist());
-        isSameTrack = isSameTrack && (oldTrack.albumArtist() == oneTrack.albumArtist());
+        isSameTrack = isSameTrack && (oldTrack.hasAlbum() == oneTrack.hasAlbum());
+        if (isSameTrack && oldTrack.hasAlbum()) {
+            isSameTrack = isSameTrack && (oldTrack.album() == oneTrack.album());
+        }
+        isSameTrack = isSameTrack && (oldTrack.hasArtist() == oneTrack.hasArtist());
+        if (isSameTrack && oldTrack.hasArtist()) {
+            isSameTrack = isSameTrack && (oldTrack.artist() == oneTrack.artist());
+        }
+        isSameTrack = isSameTrack && (oldTrack.hasAlbumArtist() == oneTrack.hasAlbumArtist());
+        if (isSameTrack && oldTrack.hasAlbumArtist()) {
+            isSameTrack = isSameTrack && (oldTrack.albumArtist() == oneTrack.albumArtist());
+        }
         isSameTrack = isSameTrack && (oldTrack.hasTrackNumber() == oneTrack.hasTrackNumber());
         if (isSameTrack && oldTrack.hasTrackNumber()) {
             isSameTrack = isSameTrack && (oldTrack.trackNumber() == oneTrack.trackNumber());
@@ -6812,11 +6821,26 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         isSameTrack = isSameTrack && (oldTrack.duration() == oneTrack.duration());
         isSameTrack = isSameTrack && (oldTrack.rating() == oneTrack.rating());
         isSameTrack = isSameTrack && (oldTrack.resourceURI() == oneTrack.resourceURI());
-        isSameTrack = isSameTrack && (oldTrack.genre() == oneTrack.genre());
-        isSameTrack = isSameTrack && (oldTrack.composer() == oneTrack.composer());
-        isSameTrack = isSameTrack && (oldTrack.lyricist() == oneTrack.lyricist());
-        isSameTrack = isSameTrack && (oldTrack.comment() == oneTrack.comment());
-        isSameTrack = isSameTrack && (oldTrack.year() == oneTrack.year());
+        isSameTrack = isSameTrack && (oldTrack.hasGenre() == oneTrack.hasGenre());
+        if (isSameTrack && oldTrack.hasGenre()) {
+            isSameTrack = isSameTrack && (oldTrack.genre() == oneTrack.genre());
+        }
+        isSameTrack = isSameTrack && (oldTrack.hasComposer() == oneTrack.hasComposer());
+        if (isSameTrack && oldTrack.hasComposer()) {
+            isSameTrack = isSameTrack && (oldTrack.composer() == oneTrack.composer());
+        }
+        isSameTrack = isSameTrack && (oldTrack.hasLyricist() == oneTrack.hasLyricist());
+        if (isSameTrack && oldTrack.hasLyricist()) {
+            isSameTrack = isSameTrack && (oldTrack.lyricist() == oneTrack.lyricist());
+        }
+        isSameTrack = isSameTrack && (oldTrack.hasComment() == oneTrack.hasComment());
+        if (isSameTrack && oldTrack.hasComment()) {
+            isSameTrack = isSameTrack && (oldTrack.comment() == oneTrack.comment());
+        }
+        isSameTrack = isSameTrack && (oldTrack.hasYear() == oneTrack.hasYear());
+        if (isSameTrack && oldTrack.hasYear()) {
+            isSameTrack = isSameTrack && (oldTrack.year() == oneTrack.year());
+        }
         isSameTrack = isSameTrack && (oldTrack.hasChannels() == oneTrack.hasChannels());
         if (isSameTrack && oldTrack.hasChannels()) {
             isSameTrack = isSameTrack && (oldTrack.channels() == oneTrack.channels());
@@ -7414,9 +7438,17 @@ void DatabaseInterface::updateTrackInDatabase(const DataTypes::TrackDataType &on
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":trackId"), oneTrack.databaseId());
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
-    insertArtist(oneTrack.artist());
-    d->mUpdateTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
-    d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.album());
+    if (oneTrack.hasArtist()) {
+        insertArtist(oneTrack.artist());
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
+    } else {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":artistName"), {});
+    }
+    if (oneTrack.hasAlbum()) {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.album());
+    } else {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumTitle"), {});
+    }
     if (oneTrack.hasAlbumArtist()) {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumArtistName"), oneTrack.albumArtist());
     } else {
@@ -7435,23 +7467,43 @@ void DatabaseInterface::updateTrackInDatabase(const DataTypes::TrackDataType &on
     }
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
-    if (insertGenre(oneTrack.genre()) != 0) {
-        d->mUpdateTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
+    if (oneTrack.hasGenre()) {
+        if (insertGenre(oneTrack.genre()) != 0) {
+            d->mUpdateTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
+        } else {
+            d->mUpdateTrackQuery.bindValue(QStringLiteral(":genre"), {});
+        }
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":genre"), {});
     }
-    if (insertComposer(oneTrack.composer()) != 0) {
-        d->mUpdateTrackQuery.bindValue(QStringLiteral(":composer"), oneTrack.composer());
+    if (oneTrack.hasComposer()) {
+        if (insertComposer(oneTrack.composer()) != 0) {
+            d->mUpdateTrackQuery.bindValue(QStringLiteral(":composer"), oneTrack.composer());
+        } else {
+            d->mUpdateTrackQuery.bindValue(QStringLiteral(":composer"), {});
+        }
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":composer"), {});
     }
-    if (insertLyricist(oneTrack.lyricist()) != 0) {
-        d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricist"), oneTrack.lyricist());
+    if (oneTrack.hasLyricist()) {
+        if (insertLyricist(oneTrack.lyricist()) != 0) {
+            d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricist"), oneTrack.lyricist());
+        } else {
+            d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricist"), {});
+        }
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricist"), {});
     }
-    d->mUpdateTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
-    d->mUpdateTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
+    if (oneTrack.hasYear()) {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
+    } else {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":comment"), {});
+    }
+    if (oneTrack.hasYear()) {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
+    } else {
+        d->mUpdateTrackQuery.bindValue(QStringLiteral(":year"), {});
+    }
     if (oneTrack.hasChannels()) {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
     } else {

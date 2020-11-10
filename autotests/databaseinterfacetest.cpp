@@ -5443,6 +5443,73 @@ private Q_SLOTS:
 
         qDebug() << trackIdFirstVersion << secondTrackDataVersion;
     }
+
+    void removeYear()
+    {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+
+        qDebug() << "removeYear" << databaseFile.fileName();
+
+        DatabaseInterface musicDb;
+
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
+        QSignalSpy musicDbErrorSpy(&musicDb, &DatabaseInterface::databaseError);
+        QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
+
+        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers);
+
+        musicDbTrackAddedSpy.wait(300);
+
+        QCOMPARE(musicDb.allAlbumsData().count(), 5);
+        QCOMPARE(musicDbErrorSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        auto newTracks = DataTypes::ListTrackDataType{
+        {true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track6"),
+                QStringLiteral("artist2"), QStringLiteral("album3"), {},
+                6, 1, QTime::fromMSecsSinceStartOfDay(23), {QUrl::fromLocalFile(QStringLiteral("/test/$23"))},
+                QDateTime::fromMSecsSinceEpoch(23),
+                QUrl::fromLocalFile(QStringLiteral("album3")), 5, true,
+                QStringLiteral("genre1"), QStringLiteral("composer1"), QStringLiteral("lyricist1"), false}};
+
+        auto newCovers = mNewCovers;
+        newCovers[QStringLiteral("/test/$23")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+        newCovers[QStringLiteral("/test/$24")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+        newCovers[QStringLiteral("/test/$25")] = QUrl::fromLocalFile(QStringLiteral("album3"));
+
+        musicDb.insertTracksList(newTracks, newCovers);
+
+        QCOMPARE(musicDb.allAlbumsData().count(), 6);
+        QCOMPARE(musicDbErrorSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
+
+        auto trackIdFirstVersion = musicDb.trackIdFromFileName(QUrl::fromLocalFile(QStringLiteral("/test/$23")));
+        auto firstTrackDataVersion = musicDb.trackDataFromDatabaseId(trackIdFirstVersion);
+
+        auto newTrackData = firstTrackDataVersion;
+        newTrackData.remove(DataTypes::YearRole);
+
+        musicDb.insertTracksList({newTrackData}, newCovers);
+
+        QCOMPARE(musicDb.allAlbumsData().count(), 6);
+        QCOMPARE(musicDbErrorSpy.count(), 0);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
+
+        auto trackIdSecondVersion = musicDb.trackIdFromFileName(QUrl::fromLocalFile(QStringLiteral("/test/$23")));
+        QCOMPARE(trackIdFirstVersion, trackIdSecondVersion);
+
+        auto secondTrackDataVersion = musicDb.trackDataFromDatabaseId(trackIdSecondVersion);
+
+        auto modifiedTrack = musicDbTrackModifiedSpy.at(0).at(0).value<DataTypes::TrackDataType>();
+
+        auto trackIdIterator = secondTrackDataVersion.find(DataTypes::YearRole);
+        QCOMPARE(trackIdIterator, secondTrackDataVersion.end());
+
+        QCOMPARE(secondTrackDataVersion, modifiedTrack);
+    }
 };
 
 QTEST_GUILESS_MAIN(DatabaseInterfaceTests)

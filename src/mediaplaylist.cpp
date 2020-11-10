@@ -397,7 +397,7 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
         }
 
         const auto trackUrl = entryData.url.isValid() ? entryData.url : entryData.musicData[DataTypes::ResourceRole].toUrl();
-        if (!entryData.musicData.databaseId() && trackUrl.isValid()) {
+        if (entryData.musicData.hasDatabaseId() && !entryData.musicData.databaseId() && trackUrl.isValid()) {
             qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << "enqueue by filename";
             auto newEntry = MediaPlayListEntry{trackUrl};
             newEntry.mEntryType = ElisaUtils::FileName;

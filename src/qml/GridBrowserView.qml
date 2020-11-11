@@ -34,6 +34,7 @@ FocusScope {
     property url defaultIcon
     property int depth: 1
     property alias viewManager: navigationBar.viewManager
+    property bool suppressNoDataPlaceholderMessage: false
 
     signal enqueue(var fullData, string name)
     signal replaceAndPlay(var fullData, string name)
@@ -208,7 +209,7 @@ FocusScope {
                 Kirigami.PlaceholderMessage {
                     anchors.centerIn: parent
                     width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                    visible: contentDirectoryView.count === 0
+                    visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
                     text: i18n("Nothing to display")
                 }
 

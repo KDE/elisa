@@ -221,7 +221,10 @@ FocusScope {
 
         onGoBackRequested: viewManager.goBack()
 
+        suppressNoDataPlaceholderMessage: busyIndicatorLoader.active
+
         Loader {
+            id: busyIndicatorLoader
             anchors.centerIn: parent
             height: Kirigami.Units.gridUnit * 5
             width: height

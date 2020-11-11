@@ -12,8 +12,8 @@ import org.kde.kirigami 2.5 as Kirigami
 
 import org.kde.elisa 1.0
 
-ListView {
-    id: playListView
+ScrollView {
+    id: scrollView
 
     property alias playListModel: playListModelDelegate.model
 
@@ -21,100 +21,98 @@ ListView {
     signal pausePlayback()
     signal displayError(var errorText)
 
-    focus: true
-    activeFocusOnTab: true
-    keyNavigationEnabled: true
+    ListView {
+        id: playListView
 
-    section.property: 'albumSection'
-    section.criteria: ViewSection.FullString
-    section.labelPositioning: ViewSection.InlineLabels
-    section.delegate: BasicPlayListAlbumHeader {
-        headerData: JSON.parse(section)
-        width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
-        // In party mode, adjust the colors to be suitable for a dark background
-        textColor: myPalette.highlightedText
-        backgroundColor: "transparent"
-    }
+        clip: true
+        focus: true
+        activeFocusOnTab: true
+        keyNavigationEnabled: true
 
-    ScrollBar.vertical: ScrollBar {
-        id: scrollBar
-    }
-    boundsBehavior: Flickable.StopAtBounds
-    clip: true
+        section.property: 'albumSection'
+        section.criteria: ViewSection.FullString
+        section.labelPositioning: ViewSection.InlineLabels
+        section.delegate: BasicPlayListAlbumHeader {
+            headerData: JSON.parse(section)
+            width: playListView.width
+            // In party mode, adjust the colors to be suitable for a dark background
+            textColor: myPalette.highlightedText
+            backgroundColor: "transparent"
+        }
 
-    add: Transition {
-        NumberAnimation {
-            property: "opacity";
-            from: 0;
-            to: 1;
-            duration: Kirigami.Units.shortDuration }
-    }
+        add: Transition {
+            NumberAnimation {
+                property: "opacity";
+                from: 0;
+                to: 1;
+                duration: Kirigami.Units.shortDuration }
+        }
 
-    populate: Transition {
-        NumberAnimation {
-            property: "opacity";
-            from: 0;
-            to: 1;
-            duration: Kirigami.Units.shortDuration }
-    }
+        populate: Transition {
+            NumberAnimation {
+                property: "opacity";
+                from: 0;
+                to: 1;
+                duration: Kirigami.Units.shortDuration }
+        }
 
-    remove: Transition {
-        NumberAnimation {
-            property: "opacity";
-            from: 1.0;
-            to: 0;
-            duration: Kirigami.Units.shortDuration }
-    }
+        remove: Transition {
+            NumberAnimation {
+                property: "opacity";
+                from: 1.0;
+                to: 0;
+                duration: Kirigami.Units.shortDuration }
+        }
 
-    displaced: Transition {
-        NumberAnimation {
-            properties: "x,y";
-            duration: Kirigami.Units.shortDuration
-            easing.type: Easing.InOutQuad}
-    }
+        displaced: Transition {
+            NumberAnimation {
+                properties: "x,y";
+                duration: Kirigami.Units.shortDuration
+                easing.type: Easing.InOutQuad}
+        }
 
-    model: DelegateModel {
-        id: playListModelDelegate
+        model: DelegateModel {
+            id: playListModelDelegate
 
-        groups: [
-            DelegateModelGroup { name: "selected" }
-        ]
+            groups: [
+                DelegateModelGroup { name: "selected" }
+            ]
 
-        delegate: MouseArea {
-            id: item
+            delegate: MouseArea {
+                id: item
 
-            height: entry.height
-            width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width         
+                height: entry.height
+                width: playListView.width
 
-            onClicked: playListView.playListModel.switchTo(index)
+                onClicked: playListView.playListModel.switchTo(index)
 
-            PlayListEntry {
-                id: entry
+                PlayListEntry {
+                    id: entry
 
-                focus: true
+                    focus: true
 
-                width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
-                scrollBarWidth: scrollBar.visible ? scrollBar.width : 0
+                    width: parent.width
 
-                index: model.index
-                containsMouse: item.containsMouse
-                simpleMode: true
+                    index: model.index
+                    containsMouse: item.containsMouse
+                    simpleMode: true
 
-                databaseId: model.databaseId ? model.databaseId : 0
-                entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
-                title: model.title ? model.title : ''
-                artist: model.artist ? model.artist : ''
-                album: model.album ? model.album : ''
-                albumArtist: model.albumArtist ? model.albumArtist : ''
-                duration: model.duration ? model.duration : ''
-                fileName: model.trackResource ? model.trackResource : ''
-                imageUrl: model.imageUrl ? model.imageUrl : ''
-                trackNumber: model.trackNumber ? model.trackNumber : -1
-                discNumber: model.discNumber ? model.discNumber : -1
-                rating: model.rating ? model.rating : 0
-                isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
-                isValid: model.isValid
-                isPlaying: model.isPlaying
+                    databaseId: model.databaseId ? model.databaseId : 0
+                    entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
+                    title: model.title ? model.title : ''
+                    artist: model.artist ? model.artist : ''
+                    album: model.album ? model.album : ''
+                    albumArtist: model.albumArtist ? model.albumArtist : ''
+                    duration: model.duration ? model.duration : ''
+                    fileName: model.trackResource ? model.trackResource : ''
+                    imageUrl: model.imageUrl ? model.imageUrl : ''
+                    trackNumber: model.trackNumber ? model.trackNumber : -1
+                    discNumber: model.discNumber ? model.discNumber : -1
+                    rating: model.rating ? model.rating : 0
+                    isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
+                    isValid: model.isValid
+                    isPlaying: model.isPlaying
+                }
             }
         }
     }

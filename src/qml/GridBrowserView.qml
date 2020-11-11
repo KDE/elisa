@@ -175,46 +175,38 @@ FocusScope {
 
             clip: true
 
-            GridView {
-                id: contentDirectoryView
-                property int availableWidth: scrollBar.visible ? width - scrollBar.width : width
+            ScrollView {
+                id: scrollView
 
-                activeFocusOnTab: true
-                keyNavigationEnabled: true
-
-                model: delegateModel
+                readonly property int scrollBarWidth: ScrollBar.vertical.visible ? ScrollBar.vertical.width : 0
+                readonly property int availableSpace: scrollView.width - scrollView.scrollBarWidth
 
                 anchors.fill: parent
-                anchors.leftMargin: (LayoutMirroring.enabled && scrollBar.visible) ? 0 : Kirigami.Units.largeSpacing
-                anchors.rightMargin: (!LayoutMirroring.enabled && scrollBar.visible) ? 0 : Kirigami.Units.largeSpacing
-                anchors.topMargin: Kirigami.Units.largeSpacing
-                anchors.bottomMargin: Kirigami.Units.largeSpacing
 
-                ScrollBar.vertical: ScrollBar {
-                    id: scrollBar
+                GridView {
+                    id: contentDirectoryView
+
+                    clip: true
+                    activeFocusOnTab: true
+                    keyNavigationEnabled: true
+
+                    model: delegateModel
+
+                    currentIndex: -1
+
+                    Accessible.role: Accessible.List
+                    Accessible.name: mainTitle
+
+                    Kirigami.PlaceholderMessage {
+                        anchors.centerIn: parent
+                        width: parent.width - (Kirigami.Units.largeSpacing * 4)
+                        visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
+                        text: i18n("Nothing to display")
+                    }
+
+                    cellWidth: Math.floor(scrollView.availableSpace / Math.max(Math.floor(scrollView.availableSpace / elisaTheme.gridDelegateSize), 2))
+                    cellHeight: elisaTheme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing
                 }
-                boundsBehavior: Flickable.StopAtBounds
-
-                currentIndex: -1
-
-                Accessible.role: Accessible.List
-                Accessible.name: mainTitle
-
-                ScrollHelper {
-                    id: scrollHelper
-                    flickable: contentDirectoryView
-                    anchors.fill: contentDirectoryView
-                }
-
-                Kirigami.PlaceholderMessage {
-                    anchors.centerIn: parent
-                    width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                    visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
-                    text: i18n("Nothing to display")
-                }
-
-                cellWidth: Math.floor(availableWidth / Math.max(Math.floor(availableWidth / elisaTheme.gridDelegateSize), 2))
-                cellHeight: elisaTheme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing
             }
         }
     }

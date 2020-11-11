@@ -29,76 +29,60 @@ FocusScope {
 
     implicitWidth: 225
 
-    ListView {
-        id: viewModeView
+    ScrollView {
+        id: scrollView
 
         anchors.fill: parent
 
-        Accessible.role: Accessible.List
+        ListView {
+            id: viewModeView
 
-        focus: true
+            Accessible.role: Accessible.List
 
-        activeFocusOnTab: true
-        keyNavigationEnabled: true
-        interactive: true
-
-        ScrollBar.vertical: ScrollBar {
-            id: scrollBar
-
-            anchors.topMargin: Kirigami.Units.largeSpacing * 2
-
-            policy: ScrollBar.AlwaysOn
-            active: true
+            focus: true
+            clip: true
+            activeFocusOnTab: true
+            keyNavigationEnabled: true
             interactive: true
-        }
 
-        boundsBehavior: Flickable.StopAtBounds
-        clip: true
+            property bool ignoreCurrentItemChanges: false
 
-        ScrollHelper {
-            id: scrollHelper
-            flickable: viewModeView
-            anchors.fill: viewModeView
-        }
+            model: DelegateModel {
+                id: pageDelegateModel
 
-        property bool ignoreCurrentItemChanges: false
-        property int childWidth: scrollBar.visible ? (!LayoutMirroring.enabled ? width - scrollBar.width : width) : width
+                delegate: ViewSelectorDelegate {
+                    id: entry
 
-        model: DelegateModel {
-            id: pageDelegateModel
+                    height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
+                    width: viewModeView.width
 
-            delegate: ViewSelectorDelegate {
-                id: entry
+                    focus: true
 
-                height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
-                width: viewModeView.childWidth
+                    isSelected: viewModeView.currentIndex === index
 
-                focus: true
+                    colorizeIcon: model.useColorOverlay
+                    image: model.image
+                    title: model.display
+                    secondTitle: model.secondTitle
+                    useSecondTitle: model.useSecondTitle
+                    databaseId: model.databaseId
 
-                isSelected: viewModeView.currentIndex === index
-
-                colorizeIcon: model.useColorOverlay
-                image: model.image
-                title: model.display
-                secondTitle: model.secondTitle
-                useSecondTitle: model.useSecondTitle
-                databaseId: model.databaseId
-
-                onClicked: {
-                    viewModeView.currentIndex = index
-                    entry.forceActiveFocus()
+                    onClicked: {
+                        viewModeView.currentIndex = index
+                        entry.forceActiveFocus()
+                    }
                 }
             }
-        }
 
-        section.property: 'entryCategory'
-        section.delegate: Kirigami.ListSectionHeader {
-            label: (section != 'default' ? section : '')
-            height: if (section == 'default') 0
-            width: viewModeView.childWidth
-        }
+            section.property: 'entryCategory'
+            section.delegate: Kirigami.ListSectionHeader {
+                label: (section != 'default' ? section : '')
+                height: if (section == 'default') 0
+                width: viewModeView.width
+            }
 
-        onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
+            onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
+        }
     }
 
     Behavior on implicitWidth {

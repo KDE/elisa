@@ -23,7 +23,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>background.png</file>
         <file>qml/BaseTheme.qml</file>
-        <file>qml/ScrollHelper.qml</file>
         <file>qml/FlatButtonWithToolTip.qml</file>
         <file>qml/DataGridView.qml</file>
         <file>qml/DataListView.qml</file>

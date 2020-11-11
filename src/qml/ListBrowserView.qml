@@ -28,7 +28,7 @@ FocusScope {
     property bool haveTreeModel: false
     property alias showRating: navigationBar.showRating
     property alias allowArtistNavigation: navigationBar.allowArtistNavigation
-    property var delegateWidth: scrollBar.visible ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width
+    property var delegateWidth: contentDirectoryView.width
     property alias currentIndex: contentDirectoryView.currentIndex
     property alias enableSorting: navigationBar.enableSorting
     property alias sortRole: navigationBar.sortRole
@@ -144,51 +144,43 @@ FocusScope {
             Layout.fillWidth: true
             Layout.margins: 2
 
-            ListView {
-                id: contentDirectoryView
+            ScrollView {
                 anchors.fill: parent
 
-                Accessible.role: Accessible.List
-                Accessible.name: mainTitle
-                Accessible.description: mainTitle
+                ListView {
+                    id: contentDirectoryView
 
-                activeFocusOnTab: true
-                keyNavigationEnabled: true
+                    Accessible.role: Accessible.List
+                    Accessible.name: mainTitle
+                    Accessible.description: mainTitle
 
-                model: delegateModel
+                    clip: true
+                    activeFocusOnTab: true
+                    keyNavigationEnabled: true
 
-                currentIndex: -1
+                    model: delegateModel
 
-                section.property: (showSection ? 'discNumber' : '')
-                section.criteria: ViewSection.FullString
-                section.labelPositioning: ViewSection.InlineLabels
-                section.delegate: TracksDiscHeader {
-                    discNumber: section
-                    width: scrollBar.visible ? (!LayoutMirroring.enabled ? contentDirectoryView.width - scrollBar.width : contentDirectoryView.width) : contentDirectoryView.width
+                    currentIndex: -1
+
+                    section.property: (showSection ? 'discNumber' : '')
+                    section.criteria: ViewSection.FullString
+                    section.labelPositioning: ViewSection.InlineLabels
+                    section.delegate: TracksDiscHeader {
+                        discNumber: section
+                        width: viewModeView
+                    }
+
+                    Kirigami.PlaceholderMessage {
+                        anchors.centerIn: parent
+                        width: parent.width - (Kirigami.Units.largeSpacing * 4)
+                        visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
+                        text: i18n("Nothing to display")
+                    }
+
+                    onCountChanged: if (count === 0) {
+                                        currentIndex = -1;
+                                    }
                 }
-
-                ScrollBar.vertical: ScrollBar {
-                    id: scrollBar
-                }
-                boundsBehavior: Flickable.StopAtBounds
-                clip: true
-
-                ScrollHelper {
-                    id: scrollHelper
-                    flickable: contentDirectoryView
-                    anchors.fill: contentDirectoryView
-                }
-
-                Kirigami.PlaceholderMessage {
-                    anchors.centerIn: parent
-                    width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                    visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
-                    text: i18n("Nothing to display")
-                }
-
-                onCountChanged: if (count === 0) {
-                                    currentIndex = -1;
-                                }
             }
         }
     }

@@ -35,7 +35,6 @@ FocusScope {
     property int discNumber
     property int rating
     property bool hasValidDiscNumber: true
-    property int scrollBarWidth
     property bool simpleMode: false
 
     signal startPlayback()
@@ -75,7 +74,6 @@ FocusScope {
         id: entryBackground
 
         anchors.fill: parent
-        anchors.rightMargin: LayoutMirroring.enabled ? scrollBarWidth : 0
         z: 1
 
         color: simpleMode ? "transparent" : myPalette.base
@@ -102,7 +100,6 @@ FocusScope {
 
         anchors.fill: parent
         anchors.leftMargin: Kirigami.Units.largeSpacing
-        anchors.rightMargin: LayoutMirroring.enabled ? scrollBarWidth : 0
 
         spacing: Kirigami.Units.smallSpacing / 2
 

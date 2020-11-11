@@ -88,45 +88,37 @@ Window {
                 Layout.maximumWidth: elisaTheme.coverImageSize
             }
 
-            ListView {
-                id: trackData
-
+            ScrollView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.leftMargin: 2 * Kirigami.Units.largeSpacing
 
-                focus: true
+                ListView {
+                    id: trackData
 
-                ScrollBar.vertical: ScrollBar {
-                    id: scrollBar
-                }
-                boundsBehavior: Flickable.StopAtBounds
-                clip: true
+                    clip: true
+                    focus: true
 
-                ScrollHelper {
-                    id: scrollHelper
-                    flickable: trackData
-                    anchors.fill: trackData
-                }
-                model: realModel
+                    model: realModel
 
-                Component {
-                    id: metaDataDelegate
+                    Component {
+                        id: metaDataDelegate
 
-                    MetaDataDelegate {
-                        width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                        MetaDataDelegate {
+                            width: trackData.width
+                        }
                     }
-                }
 
-                Component {
-                    id: editableMetaDataDelegate
+                    Component {
+                        id: editableMetaDataDelegate
 
-                    EditableMetaDataDelegate {
-                        width: scrollBar.visible ? (!LayoutMirroring.enabled ? trackData.width - scrollBar.width : trackData.width) : trackData.width
+                        EditableMetaDataDelegate {
+                            width: trackData.width
+                        }
                     }
-                }
 
-                delegate: editableMetadata ? editableMetaDataDelegate: metaDataDelegate
+                    delegate: editableMetadata ? editableMetaDataDelegate: metaDataDelegate
+                }
             }
         }
 

@@ -10,8 +10,8 @@ import QtQml.Models 2.1
 
 import org.kde.elisa 1.0
 
-ListView {
-    id: playListView
+ScrollView {
+    id: scrollView
 
     property alias playListModel: playListModelDelegate.model
     property string title
@@ -20,146 +20,139 @@ ListView {
     signal pausePlayback()
     signal displayError(var errorText)
 
-    focus: true
-    keyNavigationEnabled: true
-    activeFocusOnTab: true
+    ListView {
+        id: playListView
 
-    currentIndex: -1
+        focus: true
+        clip: true
+        keyNavigationEnabled: true
+        activeFocusOnTab: true
 
-    Accessible.role: Accessible.List
-    Accessible.name: title
+        currentIndex: -1
 
-    section.property: 'albumSection'
-    section.criteria: ViewSection.FullString
-    section.labelPositioning: ViewSection.InlineLabels
-    section.delegate: BasicPlayListAlbumHeader {
-        headerData: JSON.parse(section)
-        width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
-    }
+        Accessible.role: Accessible.List
+        Accessible.name: scrollView.title
 
-    ScrollBar.vertical: ScrollBar {
-        id: scrollBar
-    }
-    boundsBehavior: Flickable.StopAtBounds
-    clip: true
+        section.property: 'albumSection'
+        section.criteria: ViewSection.FullString
+        section.labelPositioning: ViewSection.InlineLabels
+        section.delegate: BasicPlayListAlbumHeader {
+            headerData: JSON.parse(section)
+            width: playListView.width
+        }
 
-    ScrollHelper {
-        id: scrollHelper
-        flickable: playListView
-        anchors.fill: playListView
-    }
+        /* currently disabled animations due to display corruption
+        because of https://bugreports.qt.io/browse/QTBUG-49868
+        causing https://bugs.kde.org/show_bug.cgi?id=406524
+        and https://bugs.kde.org/show_bug.cgi?id=398093      
+        add: Transition {
+            NumberAnimation {
+                property: "opacity";
+                from: 0;
+                to: 1;
+                duration: Kirigami.Units.shortDuration }
+        }
 
-    /* currently disabled animations due to display corruption
-      because of https://bugreports.qt.io/browse/QTBUG-49868
-      causing https://bugs.kde.org/show_bug.cgi?id=406524
-      and https://bugs.kde.org/show_bug.cgi?id=398093      
-    add: Transition {
-        NumberAnimation {
-            property: "opacity";
-            from: 0;
-            to: 1;
-            duration: Kirigami.Units.shortDuration }
-    }
+        populate: Transition {
+            NumberAnimation {
+                property: "opacity";
+                from: 0;
+                to: 1;
+                duration: Kirigami.Units.shortDuration }
+        }
 
-    populate: Transition {
-        NumberAnimation {
-            property: "opacity";
-            from: 0;
-            to: 1;
-            duration: Kirigami.Units.shortDuration }
-    }
+        remove: Transition {
+            NumberAnimation {
+                property: "opacity";
+                from: 1.0;
+                to: 0;
+                duration: Kirigami.Units.shortDuration }
+        }
 
-    remove: Transition {
-        NumberAnimation {
-            property: "opacity";
-            from: 1.0;
-            to: 0;
-            duration: Kirigami.Units.shortDuration }
-    }
+        displaced: Transition {
+            NumberAnimation {
+                properties: "x,y";
+                duration: Kirigami.Units.shortDuration
+                easing.type: Easing.InOutQuad }
+        }
+        */
 
-    displaced: Transition {
-        NumberAnimation {
-            properties: "x,y";
-            duration: Kirigami.Units.shortDuration
-            easing.type: Easing.InOutQuad }
-    }
-    */
+        model: DelegateModel {
+            id: playListModelDelegate
 
-    model: DelegateModel {
-        id: playListModelDelegate
+            groups: [
+                DelegateModelGroup { name: "selected" }
+            ]
 
-        groups: [
-            DelegateModelGroup { name: "selected" }
-        ]
-
-        delegate: DraggableItem {
-            id: item
-            placeholderHeight: topItem.placeholderHeight
-
-            focus: true
-
-            PlayListEntry {
-                id: entry
+            delegate: DraggableItem {
+                id: item
+                width: playListView.width
+                placeholderHeight: topItem.placeholderHeight
 
                 focus: true
 
-                width: scrollBar.visible ? (!LayoutMirroring.enabled ? playListView.width - scrollBar.width : playListView.width) : playListView.width
-                scrollBarWidth: scrollBar.visible ? scrollBar.width : 0
+                PlayListEntry {
+                    id: entry
 
-                index: model.index
-                isAlternateColor: item.DelegateModel.itemsIndex % 2
-                isSelected: playListView.currentIndex === index
-                containsMouse: item.containsMouse
+                    focus: true
 
-                databaseId: model.databaseId ? model.databaseId : 0
-                entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
-                title: model.title ? model.title : ''
-                artist: model.artist ? model.artist : ''
-                album: model.album ? model.album : ''
-                albumArtist: model.albumArtist ? model.albumArtist : ''
-                duration: model.duration ? model.duration : ''
-                fileName: model.trackResource ? model.trackResource : ''
-                imageUrl: model.imageUrl ? model.imageUrl : ''
-                trackNumber: model.trackNumber ? model.trackNumber : -1
-                discNumber: model.discNumber ? model.discNumber : -1
-                rating: model.rating ? model.rating : 0
-                isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
-                isValid: model.isValid
-                isPlaying: model.isPlaying
+                    width: parent.width
 
-                onStartPlayback: playListView.startPlayback()
-                onPausePlayback: playListView.pausePlayback()
-                onRemoveFromPlaylist: playListView.playListModel.removeRow(trackIndex)
-                onSwitchToTrack: playListView.playListModel.switchTo(trackIndex)
+                    index: model.index
+                    isAlternateColor: item.DelegateModel.itemsIndex % 2
+                    isSelected: playListView.currentIndex === index
+                    containsMouse: item.containsMouse
 
-                onActiveFocusChanged: {
-                    if (activeFocus && playListView.currentIndex !== index) {
-                        playListView.currentIndex = index
+                    databaseId: model.databaseId ? model.databaseId : 0
+                    entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
+                    title: model.title ? model.title : ''
+                    artist: model.artist ? model.artist : ''
+                    album: model.album ? model.album : ''
+                    albumArtist: model.albumArtist ? model.albumArtist : ''
+                    duration: model.duration ? model.duration : ''
+                    fileName: model.trackResource ? model.trackResource : ''
+                    imageUrl: model.imageUrl ? model.imageUrl : ''
+                    trackNumber: model.trackNumber ? model.trackNumber : -1
+                    discNumber: model.discNumber ? model.discNumber : -1
+                    rating: model.rating ? model.rating : 0
+                    isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
+                    isValid: model.isValid
+                    isPlaying: model.isPlaying
+
+                    onStartPlayback: scrollView.startPlayback()
+                    onPausePlayback: scrollView.pausePlayback()
+                    onRemoveFromPlaylist: scrollView.playListModel.removeRow(trackIndex)
+                    onSwitchToTrack: scrollView.playListModel.switchTo(trackIndex)
+
+                    onActiveFocusChanged: {
+                        if (activeFocus && playListView.currentIndex !== index) {
+                            playListView.currentIndex = index
+                        }
                     }
                 }
-            }
 
-            draggedItemParent: playListView
+                draggedItemParent: playListView
 
-            onClicked: {
-                playListView.currentIndex = index
-                entry.forceActiveFocus()
-            }
-
-            onDoubleClicked: {
-                if (model.isValid) {
-                    playListView.playListModel.switchTo(model.index)
-                    playListView.startPlayback()
+                onClicked: {
+                    playListView.currentIndex = index
+                    entry.forceActiveFocus()
                 }
-            }
 
-            onMoveItemRequested: {
-                playListModel.moveRow(from, to);
+                onDoubleClicked: {
+                    if (model.isValid) {
+                        scrollView.playListModel.switchTo(model.index)
+                        scrollView.startPlayback()
+                    }
+                }
+
+                onMoveItemRequested: {
+                    playListModel.moveRow(from, to);
+                }
             }
         }
-    }
 
-    onCountChanged: if (count === 0) {
-                        currentIndex = -1;
-                    }
+        onCountChanged: if (count === 0) {
+                            currentIndex = -1;
+                        }
+    }
 }

@@ -226,6 +226,17 @@ FocusScope {
                 enabled: isValid
 
                 FlatButtonWithToolTip {
+                    implicitHeight: playListEntry.height
+                    implicitWidth: playListEntry.height
+
+                    text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                    icon.name: "document-open-folder"
+                    onClicked: {
+                        ElisaApplication.showInFolder(playListEntry.fileName)
+                    }
+                }
+
+                FlatButtonWithToolTip {
                     id: infoButton
                     objectName: 'infoButton'
 

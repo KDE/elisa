@@ -105,6 +105,8 @@ public:
 
     Q_INVOKABLE void installKeyEventFilter(QObject *object);
 
+    Q_INVOKABLE void showInFolder(QUrl filePath);
+
     bool eventFilter(QObject *object, QEvent *event) override;
 
     [[nodiscard]] const DataTypes::EntryDataList &arguments() const;

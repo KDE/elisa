@@ -35,6 +35,7 @@
 
 #include <KColorSchemeManager>
 #include <KCoreAddons/KAboutData>
+#include <KIO/OpenFileManagerWindowJob>
 
 #include <QQmlEngine>
 #include <QQmlComponent>
@@ -531,6 +532,11 @@ bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
     }
 
     return false;
+}
+
+void ElisaApplication::showInFolder(QUrl filePath)
+{
+    KIO::highlightInFileManager({filePath});
 }
 
 const DataTypes::EntryDataList &ElisaApplication::arguments() const

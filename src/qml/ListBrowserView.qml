@@ -42,6 +42,7 @@ FocusScope {
     property alias navigationBar: navigationBar
     property int depth: 1
     property alias viewManager: navigationBar.viewManager
+    property bool suppressNoDataPlaceholderMessage: false
 
     signal goBackRequested()
     signal showArtist(var name)
@@ -181,7 +182,7 @@ FocusScope {
                 Kirigami.PlaceholderMessage {
                     anchors.centerIn: parent
                     width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                    visible: contentDirectoryView.count === 0
+                    visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
                     text: i18n("Nothing to display")
                 }
 

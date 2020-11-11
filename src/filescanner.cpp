@@ -69,12 +69,14 @@ public:
 #endif
 
     const QStringList constSearchStrings = {
-        QStringLiteral("*[Cc]over*.jpg"),
-        QStringLiteral("*[Cc]over*.png"),
-        QStringLiteral("*[Ff]older*.jpg"),
-        QStringLiteral("*[Ff]older*.png"),
-        QStringLiteral("*[Ff]ront*.jpg"),
-        QStringLiteral("*[Ff]ront*.png")
+        QStringLiteral("*[Cc]over*.jpg")
+        ,QStringLiteral("*[Cc]over*.png")
+        ,QStringLiteral("*[Ff]older*.jpg")
+        ,QStringLiteral("*[Ff]older*.png")
+        ,QStringLiteral("*[Ff]ront*.jpg")
+        ,QStringLiteral("*[Ff]ront*.png")
+        ,QStringLiteral("*[Aa]lbumart*.jpg")
+        ,QStringLiteral("*[Aa]lbumart*.png")
     };
 };
 

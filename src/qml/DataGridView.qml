@@ -91,6 +91,8 @@ FocusScope {
 
         onOpen: viewManager.openChildView(fullData)
 
+        suppressNoDataPlaceholderMessage: busyIndicatorLoader.active
+
         onGoBackRequested: {
             viewManager.goBack()
         }

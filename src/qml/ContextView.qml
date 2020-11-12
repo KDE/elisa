@@ -264,6 +264,11 @@ FocusScope {
                                 model: metaDataModel
 
                                 delegate: MetaDataDelegate {
+                                    index: model.index
+                                    name: model.name
+                                    display: model.display
+                                    type: model.type
+
                                     Layout.fillWidth: true
                                 }
                             }

@@ -147,6 +147,19 @@ Window {
                             Layout.fillWidth: true
                         }
 
+                        Label {
+                            text: i18nc("label before button to add new metadata tag", "Add new tag:")
+
+                            font.weight: Font.Bold
+
+                            horizontalAlignment: Text.AlignRight
+
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
+                            Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
+                            Layout.topMargin: Kirigami.Units.smallSpacing * 4
+                        }
+
                         ComboBox {
                             id: selectedField
 
@@ -154,19 +167,12 @@ Window {
                             valueRole: "modelData"
 
                             model: realModel.extraMetadata
+                            enabled: realModel.extraMetadata.length
 
                             Layout.rightMargin: Kirigami.Units.smallSpacing * 2
-                        }
+                            Layout.topMargin: Kirigami.Units.smallSpacing * 4
 
-                        Button {
-                            Layout.fillHeight: true
-                            Layout.preferredWidth: height
-
-                            flat: true
-                            display: AbstractButton.IconOnly
-                            icon.name: 'list-add'
-
-                            onClicked: realModel.addData(selectedField.currentValue)
+                            onActivated: realModel.addData(selectedField.currentValue)
                         }
                     }
                 }

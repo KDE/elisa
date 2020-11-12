@@ -311,6 +311,8 @@ void EditableTrackMetadataModel::fillLyricsDataFromTrack()
 {
     TrackMetadataModel::fillLyricsDataFromTrack();
     validData();
+
+    updateExtraMetadata();
 }
 
 void EditableTrackMetadataModel::fillDataForNewRadio()

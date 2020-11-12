@@ -294,7 +294,7 @@ FocusScope {
                             horizontalAlignment: Label.AlignHCenter
 
                             Layout.fillWidth: true
-                            Layout.bottomMargin: Kirigami.Units.smallSpacing
+                            Layout.bottomMargin: Kirigami.Units.largeSpacing * 2
                             visible: metaDataModel.lyrics !== ""
 
                         }

@@ -65,6 +65,7 @@ FocusScope {
             showTrackFileName: entryType !== ElisaUtils.Radio
             showDeleteButton: entryType === ElisaUtils.Radio
             editableMetadata: playListEntry.metadataModifiableRole
+            canAddMoreMetadata: entryType !== ElisaUtils.Radio
 
             onRejected: metadataLoader.active = false
         }

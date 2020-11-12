@@ -43,6 +43,7 @@ FocusScope {
                                      "showTrackFileName": entryType !== ElisaUtils.Radio,
                                      "showDeleteButton": entryType === ElisaUtils.Radio,
                                      "editableMetadata": true,
+                                     "canAddMoreMetadata": entryType !== ElisaUtils.Radio,
                                  });
         metadataLoader.active = true
     }
@@ -56,6 +57,7 @@ FocusScope {
                                      "showTrackFileName": false,
                                      "showDeleteButton": true,
                                      "editableMetadata": true,
+                                     "canAddMoreMetadata": false,
                                  });
         metadataLoader.active = true
     }

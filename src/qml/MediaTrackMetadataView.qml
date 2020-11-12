@@ -22,6 +22,7 @@ Window {
     property bool editableMetadata
     property bool isModifying: false
     property bool isCreation: false
+    property bool canAddMoreMetadata: false
     property alias showImage: metadataImage.visible
     property alias showTrackFileName: fileNameRow.visible
     property bool showDeleteButton: false
@@ -140,7 +141,7 @@ Window {
                         spacing: 0
 
                         visible: (dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
-                                  dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly
+                                  dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly && canAddMoreMetadata
 
                         Item {
                             Layout.fillWidth: true

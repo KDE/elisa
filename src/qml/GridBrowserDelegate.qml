@@ -47,6 +47,7 @@ FocusScope {
             showTrackFileName: true
             showDeleteButton: false
             editableMetadata: false
+            canAddMoreMetadata: false
 
             onRejected: metadataLoader.active = false;
         }

@@ -138,54 +138,70 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
         }
         break;
     case RemovableFieldRole:
-        switch (currentKey)
+        switch (allTrackData().elementType())
         {
-        case DataTypes::TitleRole:
-        case DataTypes::BitRateRole:
-        case DataTypes::ChannelsRole:
-        case DataTypes::ArtistRole:
-        case DataTypes::AlbumRole:
-        case DataTypes::AlbumArtistRole:
-        case DataTypes::TrackNumberRole:
-        case DataTypes::DiscNumberRole:
-        case DataTypes::RatingRole:
-        case DataTypes::GenreRole:
-        case DataTypes::LyricistRole:
-        case DataTypes::ComposerRole:
-        case DataTypes::CommentRole:
-        case DataTypes::YearRole:
-        case DataTypes::LyricsRole:
-        case DataTypes::SampleRateRole:
-            result = true;
+        case ElisaUtils::Track:
+            switch (currentKey)
+            {
+            case DataTypes::TitleRole:
+            case DataTypes::BitRateRole:
+            case DataTypes::ChannelsRole:
+            case DataTypes::ArtistRole:
+            case DataTypes::AlbumRole:
+            case DataTypes::AlbumArtistRole:
+            case DataTypes::TrackNumberRole:
+            case DataTypes::DiscNumberRole:
+            case DataTypes::RatingRole:
+            case DataTypes::GenreRole:
+            case DataTypes::LyricistRole:
+            case DataTypes::ComposerRole:
+            case DataTypes::CommentRole:
+            case DataTypes::YearRole:
+            case DataTypes::LyricsRole:
+            case DataTypes::SampleRateRole:
+                result = true;
+                break;
+            case DataTypes::LastPlayDate:
+            case DataTypes::PlayCounter:
+            case DataTypes::ImageUrlRole:
+            case DataTypes::DurationRole:
+            case DataTypes::SecondaryTextRole:
+            case DataTypes::ShadowForImageRole:
+            case DataTypes::ChildModelRole:
+            case DataTypes::StringDurationRole:
+            case DataTypes::IsValidAlbumArtistRole:
+            case DataTypes::AllArtistsRole:
+            case DataTypes::HighestTrackRating:
+            case DataTypes::IdRole:
+            case DataTypes::ParentIdRole:
+            case DataTypes::DatabaseIdRole:
+            case DataTypes::IsSingleDiscAlbumRole:
+            case DataTypes::ContainerDataRole:
+            case DataTypes::IsPartialDataRole:
+            case DataTypes::AlbumIdRole:
+            case DataTypes::HasEmbeddedCover:
+            case DataTypes::FileModificationTime:
+            case DataTypes::FirstPlayDate:
+            case DataTypes::PlayFrequency:
+            case DataTypes::ElementTypeRole:
+            case DataTypes::FullDataRole:
+            case DataTypes::IsDirectoryRole:
+            case DataTypes::IsPlayListRole:
+            case DataTypes::FilePathRole:
+            case DataTypes::ResourceRole:
+                result = false;
+                break;
+            }
             break;
-        case DataTypes::LastPlayDate:
-        case DataTypes::PlayCounter:
-        case DataTypes::ImageUrlRole:
-        case DataTypes::DurationRole:
-        case DataTypes::SecondaryTextRole:
-        case DataTypes::ShadowForImageRole:
-        case DataTypes::ChildModelRole:
-        case DataTypes::StringDurationRole:
-        case DataTypes::IsValidAlbumArtistRole:
-        case DataTypes::AllArtistsRole:
-        case DataTypes::HighestTrackRating:
-        case DataTypes::IdRole:
-        case DataTypes::ParentIdRole:
-        case DataTypes::DatabaseIdRole:
-        case DataTypes::IsSingleDiscAlbumRole:
-        case DataTypes::ContainerDataRole:
-        case DataTypes::IsPartialDataRole:
-        case DataTypes::AlbumIdRole:
-        case DataTypes::HasEmbeddedCover:
-        case DataTypes::FileModificationTime:
-        case DataTypes::FirstPlayDate:
-        case DataTypes::PlayFrequency:
-        case DataTypes::ElementTypeRole:
-        case DataTypes::FullDataRole:
-        case DataTypes::IsDirectoryRole:
-        case DataTypes::IsPlayListRole:
-        case DataTypes::FilePathRole:
-        case DataTypes::ResourceRole:
+        case ElisaUtils::Radio:
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::Container:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Unknown:
             result = false;
             break;
         }

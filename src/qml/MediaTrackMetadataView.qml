@@ -253,7 +253,8 @@ Window {
                     text: i18n("Modify")
                     icon.name: 'document-edit'
                     DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
-                    onClicked: isModifying = true
+                    onCheckedChanged: isModifying = checked
+                    checkable: true
                 }
 
                 Button {
@@ -352,7 +353,7 @@ Window {
                 changes: [
                     PropertyChanges {
                         target: modifyButton
-                        enabled: false
+                        enabled: true
                         visible: true
                     },
                     PropertyChanges {
@@ -370,7 +371,7 @@ Window {
                 changes: [
                     PropertyChanges {
                         target: modifyButton
-                        enabled: false
+                        enabled: true
                         visible: true
                     },
                     PropertyChanges {

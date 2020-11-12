@@ -314,13 +314,6 @@ FocusScope {
             Layout.preferredHeight: Kirigami.Units.gridUnit * 2
             contentLayoutSpacing: Kirigami.Units.largeSpacing
             contentItems: [
-                Image {
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-                    sourceSize.width: Kirigami.Units.iconSizes.smallMedium
-                    sourceSize.height: Kirigami.Units.iconSizes.smallMedium
-                    source: elisaTheme.folderIcon
-                },
                 LabelWithToolTip {
                     id: fileNameLabel
 
@@ -328,6 +321,13 @@ FocusScope {
 
                     text: metaDataModel.fileUrl
                     elide: Text.ElideLeft
+                },
+                ToolButton {
+                    icon.name: "document-open-folder"
+                    text: i18n("Show In Folder")
+                    onClicked: {
+                        ElisaApplication.showInFolder(metaDataModel.fileUrl)
+                    }
                 }
             ]
         }

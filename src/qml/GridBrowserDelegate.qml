@@ -11,6 +11,7 @@ import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
 import org.kde.kirigami 2.5 as Kirigami
+import org.kde.elisa 1.0
 
 FocusScope {
     id: gridEntry
@@ -124,6 +125,30 @@ FocusScope {
                     sourceComponent: Row {
                         spacing: 2
 
+                        Button {
+                            icon.name: 'document-open-folder'
+
+                            hoverEnabled: true
+                            ToolTip.visible: hovered
+                            ToolTip.delay: 1000
+                            ToolTip.text: i18nc("Show the file for this song in the file manager", "Show in folder")
+
+                            Accessible.role: Accessible.Button
+                            Accessible.name: ToolTip.text
+                            Accessible.description: ToolTip.text
+                            Accessible.onPressAction: clicked()
+
+                            onClicked: {
+                                ElisaApplication.showInFolder(gridEntry.fileUrl)
+                            }
+
+                            Keys.onReturnPressed: clicked()
+                            Keys.onEnterPressed: clicked()
+                            visible: showDetailsButton
+
+                            width: elisaTheme.delegateToolButtonSize
+                            height: elisaTheme.delegateToolButtonSize
+                        }
                         Button {
                             id: detailsButton
                             objectName: 'detailsButton'

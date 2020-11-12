@@ -42,9 +42,8 @@ FocusScope {
                                      "showImage": entryType !== ElisaUtils.Radio,
                                      "showTrackFileName": entryType !== ElisaUtils.Radio,
                                      "showDeleteButton": entryType === ElisaUtils.Radio,
-                                     "showApplyButton": entryType === ElisaUtils.Radio,
-                                     "editableMetadata": entryType === ElisaUtils.Radio,
-                                     "widthIndex": (entryType === ElisaUtils.Radio ? 4.5 : 2.8),
+                                     "editableMetadata": true,
+                                     "canAddMoreMetadata": entryType !== ElisaUtils.Radio,
                                  });
         metadataLoader.active = true
     }
@@ -56,10 +55,9 @@ FocusScope {
                                      "isCreation": true,
                                      "showImage": false,
                                      "showTrackFileName": false,
-                                     "showDeleteButton": false,
-                                     "showApplyButton": true,
+                                     "showDeleteButton": true,
                                      "editableMetadata": true,
-                                     "widthIndex": 4.5,
+                                     "canAddMoreMetadata": false,
                                  });
         metadataLoader.active = true
     }

@@ -84,7 +84,7 @@ ScrollView {
                 height: entry.height
                 width: playListView.width
 
-                onClicked: playListView.playListModel.switchTo(index)
+                onClicked: scrollView.playListModel.switchTo(index)
 
                 PlayListEntry {
                     id: entry
@@ -112,6 +112,7 @@ ScrollView {
                     isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
                     isValid: model.isValid
                     isPlaying: model.isPlaying
+                    metadataModifiableRole: model.metadataModifiableRole
                 }
             }
         }

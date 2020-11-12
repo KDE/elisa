@@ -27,8 +27,22 @@ class ELISALIB_EXPORT EditableTrackMetadataModel : public TrackMetadataModel
                READ isDirty
                NOTIFY isDirtyChanged)
 
+    Q_PROPERTY(QStringList extraMetadata
+               READ extraMetadata
+               NOTIFY extraMetadataChanged)
+
 public:
+    enum EditableColumnRoles
+    {
+        ReadOnlyRole = TrackMetadataModel::ItemTypeRole + 1,
+        RemovableFieldRole,
+    };
+
+    Q_ENUM(EditableColumnRoles)
+
     explicit EditableTrackMetadataModel(QObject *parent = nullptr);
+
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     bool isDataValid() const
     {
@@ -48,6 +62,13 @@ public:
         return mErrorMessage;
     }
 
+    QHash<int, QByteArray> roleNames() const override;
+
+    QStringList extraMetadata() const
+    {
+        return mExtraMetadata;
+    }
+
 Q_SIGNALS:
     void isDataValidChanged();
 
@@ -55,25 +76,52 @@ Q_SIGNALS:
 
     void errorMessageChanged();
 
+    void saveTrackModified(const DataTypes::ListTrackDataType &trackDataType, const QHash<QString, QUrl> &covers);
+
+    void deleteRadioData(qulonglong radioId);
+
+    void extraMetadataChanged();
+
 public Q_SLOTS:
 
     void saveData();
 
+    void deleteRadio();
+
+    void removeData(int index);
+
+    void addData(const QString &name);
+
 protected:
+
+    void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
+                               const QList<DataTypes::ColumnsRoles> &fieldsForTrack) override;
 
     void filterDataFromTrackData() override;
 
     void fillLyricsDataFromTrack() override;
 
+    void fillDataForNewRadio() override;
+
+    void initialize(MusicListenersManager *newManager,
+                    DatabaseInterface *trackDatabase) override;
 private:
 
     void validData();
+
+    void updateExtraMetadata();
+
+    void modelHasBeenModified();
+
+    bool mIsNewRadio = false;
 
     bool mIsDataValid = false;
 
     bool mIsDirty = false;
 
     QString mErrorMessage;
+
+    QStringList mExtraMetadata;
 };
 
 

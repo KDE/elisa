@@ -46,8 +46,8 @@ FocusScope {
             modelType: gridEntry.entryType
             showTrackFileName: true
             showDeleteButton: false
-            showApplyButton: false
             editableMetadata: false
+            canAddMoreMetadata: false
 
             onRejected: metadataLoader.active = false;
         }

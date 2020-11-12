@@ -264,6 +264,11 @@ FocusScope {
                                 model: metaDataModel
 
                                 delegate: MetaDataDelegate {
+                                    index: model.index
+                                    name: model.name
+                                    display: model.display
+                                    type: model.type
+
                                     Layout.fillWidth: true
                                 }
                             }
@@ -289,7 +294,7 @@ FocusScope {
                             horizontalAlignment: Label.AlignHCenter
 
                             Layout.fillWidth: true
-                            Layout.bottomMargin: Kirigami.Units.smallSpacing
+                            Layout.bottomMargin: Kirigami.Units.largeSpacing * 2
                             visible: metaDataModel.lyrics !== ""
 
                         }

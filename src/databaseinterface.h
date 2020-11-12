@@ -152,8 +152,6 @@ public Q_SLOTS:
 
     void clearData();
 
-    void insertRadio(const DataTypes::TrackDataType &oneTrack);
-
     void removeRadio(qulonglong radioId);
 
 private:
@@ -288,6 +286,8 @@ private:
     void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath,
                            const QString &artistName);
 
+    bool updateAlbumCover(qulonglong albumId, const QUrl &albumArtUri);
+
     void updateTrackStatistics(const QUrl &fileName, const QDateTime &time);
 
     void createDatabaseV9();
@@ -337,6 +337,10 @@ private:
     void manageNewDatabaseVersionInitRequests();
 
     void callUpgradeFunctionForVersion(DatabaseVersion databaseVersion);
+
+    void internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack, const QHash<QString, QUrl> &covers);
+
+    void internalInsertOneRadio(const DataTypes::TrackDataType &oneTrack);
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

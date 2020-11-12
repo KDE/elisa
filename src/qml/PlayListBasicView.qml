@@ -44,7 +44,7 @@ ScrollView {
         /* currently disabled animations due to display corruption
         because of https://bugreports.qt.io/browse/QTBUG-49868
         causing https://bugs.kde.org/show_bug.cgi?id=406524
-        and https://bugs.kde.org/show_bug.cgi?id=398093      
+        and https://bugs.kde.org/show_bug.cgi?id=398093
         add: Transition {
             NumberAnimation {
                 property: "opacity";
@@ -118,6 +118,7 @@ ScrollView {
                     isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
                     isValid: model.isValid
                     isPlaying: model.isPlaying
+                    metadataModifiableRole: model.metadataModifiableRole
 
                     onStartPlayback: scrollView.startPlayback()
                     onPausePlayback: scrollView.pausePlayback()

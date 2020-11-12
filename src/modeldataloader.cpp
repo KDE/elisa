@@ -9,6 +9,8 @@
 #include "filescanner.h"
 #include "filewriter.h"
 
+#include <QFileInfo>
+
 class ModelDataLoaderPrivate
 {
 public:
@@ -62,8 +64,8 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
             this, &ModelDataLoader::databaseArtistsAdded);
     connect(database, &DatabaseInterface::artistRemoved,
             this, &ModelDataLoader::artistRemoved);
-    connect(this, &ModelDataLoader::saveRadioModified,
-            database, &DatabaseInterface::insertRadio);
+    connect(this, &ModelDataLoader::saveTrackModified,
+            database, &DatabaseInterface::insertTracksList);
     connect(this, &ModelDataLoader::removeRadio,
             database, &DatabaseInterface::removeRadio);
     connect(database, &DatabaseInterface::radioAdded,
@@ -447,6 +449,29 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     case ModelDataLoader::FilterType::UnknownFilter:
         break;
     }
+}
+
+void ModelDataLoader::trackHasBeenModified(ModelDataLoader::ListTrackDataType trackDataType, const QHash<QString, QUrl> &covers)
+{
+    for(auto &oneTrack : trackDataType) {
+        if (oneTrack.elementType() == ElisaUtils::Track) {
+            d->mFileWriter.writeAllMetaDataToFile(oneTrack.resourceURI(), oneTrack);
+
+            QFileInfo trackFile{oneTrack.resourceURI().toLocalFile()};
+
+            oneTrack[DataTypes::FileModificationTime] = trackFile.fileTime(QFileDevice::FileModificationTime);
+
+            for (auto itData = oneTrack.begin(); itData != oneTrack.end();) {
+                if (itData->isNull()) {
+                    itData = oneTrack.erase(itData);
+                } else {
+                    ++itData;
+                }
+            }
+        }
+    }
+
+    Q_EMIT saveTrackModified(trackDataType, covers);
 }
 
 void ModelDataLoader::updateFileMetaData(const DataTypes::TrackDataType &trackDataType, const QUrl &url)

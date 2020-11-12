@@ -54,6 +54,8 @@ public:
         ItemTypeRole,
     };
 
+    Q_ENUM(ColumnRoles)
+
     enum ItemType
     {
         TextEntry,
@@ -61,6 +63,7 @@ public:
         IntegerEntry,
         RatingEntry,
         DateEntry,
+        DurationEntry,
         LongTextEntry,
     };
 
@@ -105,10 +108,6 @@ Q_SIGNALS:
 
     void lyricsChanged();
 
-    void saveRadioData(const DataTypes::TrackDataType &trackDataType);
-
-    void deleteRadioData(qulonglong radioId);
-
     void databaseIdChanged();
 
 public Q_SLOTS:
@@ -125,16 +124,14 @@ public Q_SLOTS:
 
     void setDatabase(DatabaseInterface *trackDatabase);
 
-    void deleteRadio();
-
     void radioData(const TrackMetadataModel::TrackDataType &radiosData);
 
 protected:
 
-    void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
-                               const QList<DataTypes::ColumnsRoles> &fieldsForTrack);
+    virtual void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
+                                       const QList<DataTypes::ColumnsRoles> &fieldsForTrack);
 
-    void fillDataForNewRadio();
+    virtual void fillDataForNewRadio();
 
     virtual void filterDataFromTrackData();
 
@@ -146,14 +143,28 @@ protected:
 
     const TrackDataType& allTrackData() const;
 
+    virtual void initialize(MusicListenersManager *newManager,
+                            DatabaseInterface *trackDatabase);
+
+    ModelDataLoader& modelDataLoader();
+
+    const TrackDataType& displayedTrackData() const;
+
+    DataTypes::ColumnsRoles trackKey(int index) const;
+
+    void removeDataByIndex(int index);
+
+    void addDataByName(const QString &name);
+
+    static QString nameFromRole(DataTypes::ColumnsRoles role);
+
+    bool metadataExists(DataTypes::ColumnsRoles metadataRole) const;
+
 private Q_SLOTS:
 
     void lyricsValueIsReady();
 
 private:
-
-    void initialize(MusicListenersManager *newManager,
-                    DatabaseInterface *trackDatabase);
 
     void fetchLyrics();
 

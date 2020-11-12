@@ -20,12 +20,12 @@ Window {
     property var modelType
     property url fileName
     property bool editableMetadata
+    property bool isModifying: false
     property bool isCreation: false
+    property bool canAddMoreMetadata: false
     property alias showImage: metadataImage.visible
     property alias showTrackFileName: fileNameRow.visible
-    property alias showDeleteButton: deleteButtonBox.visible
-    property alias showApplyButton: applyButton.visible
-    property double widthIndex: 2.8
+    property bool showDeleteButton: false
 
     signal rejected()
 
@@ -43,12 +43,12 @@ Window {
 
     modality: Qt.NonModal
     flags: Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint
-        | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
+           | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
 
     color: myPalette.window
 
-    minimumHeight: elisaTheme.coverImageSize * 1.8
-    minimumWidth: elisaTheme.coverImageSize * trackMetadata.widthIndex
+    minimumHeight: elisaTheme.metaDataDialogHeight
+    minimumWidth: elisaTheme.metaDataDialogWidth
 
     onClosing: {
         trackMetadata.rejected()
@@ -106,6 +106,11 @@ Window {
 
                         MetaDataDelegate {
                             width: trackData.width
+
+                            index: model.index
+                            name: model.name
+                            display: model.display
+                            type: model.type
                         }
                     }
 
@@ -114,10 +119,62 @@ Window {
 
                         EditableMetaDataDelegate {
                             width: trackData.width
+
+                            index: model.index
+                            name: model.name
+                            display: model.display
+                            type: model.type
+                            isRemovable: model.isRemovable
+
+                            onEdited: model.display = display
+
+                            onDeleteField: realModel.removeData(model.index)
                         }
                     }
 
-                    delegate: editableMetadata ? editableMetaDataDelegate: metaDataDelegate
+                    delegate: ((dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
+                                dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly) ? editableMetaDataDelegate: metaDataDelegate
+
+                    footer: RowLayout {
+                        width: trackData.width
+
+                        spacing: 0
+
+                        visible: (dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
+                                  dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly && canAddMoreMetadata
+
+                        Item {
+                            Layout.fillWidth: true
+                        }
+
+                        Label {
+                            text: i18nc("label before button to add new metadata tag", "Add new tag:")
+
+                            font.weight: Font.Bold
+
+                            horizontalAlignment: Text.AlignRight
+
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
+                            Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
+                            Layout.topMargin: Kirigami.Units.smallSpacing * 4
+                        }
+
+                        ComboBox {
+                            id: selectedField
+
+                            textRole: "modelData"
+                            valueRole: "modelData"
+
+                            model: realModel.extraMetadata
+                            enabled: realModel.extraMetadata.length
+
+                            Layout.rightMargin: Kirigami.Units.smallSpacing * 2
+                            Layout.topMargin: Kirigami.Units.smallSpacing * 4
+
+                            onActivated: realModel.addData(selectedField.currentValue)
+                        }
+                    }
                 }
             }
         }
@@ -175,6 +232,8 @@ Window {
                 Layout.minimumHeight: implicitHeight
                 alignment: Qt.AlignLeft
 
+                visible: showDeleteButton && !isCreation
+
                 Button {
                     id: deleteButton
                     text: i18n("Delete")
@@ -196,9 +255,17 @@ Window {
                 alignment: Qt.AlignRight
 
                 Button {
-                    id: applyButton
+                    id: modifyButton
 
-                    enabled: realModel.isDataValid && realModel.isDirty
+                    text: i18n("Modify")
+                    icon.name: 'document-edit'
+                    DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
+                    onCheckedChanged: isModifying = checked
+                    checkable: true
+                }
+
+                Button {
+                    id: applyButton
 
                     text: i18n("Apply")
                     icon.name: 'dialog-ok-apply'
@@ -206,11 +273,13 @@ Window {
                     onClicked:
                     {
                         realModel.saveData()
-                        if (!deleteButtonBox.visible && editableMetadata) {
-                            deleteButtonBox.visible = true
+                        if (isCreation) {
+                            isCreation = false
+                            isModifying = true
                         }
                     }
                 }
+
                 Button {
                     text: i18n("Close")
                     icon.name: 'dialog-cancel'
@@ -224,7 +293,7 @@ Window {
     Connections {
         target: ElisaApplication
 
-        onMusicManagerChanged: {
+        function onMusicManagerChanged() {
             if (isCreation) {
                 realModel.initializeForNewRadio()
             } else {
@@ -241,5 +310,120 @@ Window {
                 realModel.initializeByUrl(modelType, fileName)
             }
         }
+    }
+
+    StateGroup {
+        id: dialogStates
+
+        states: [
+            State {
+                name: 'consultOnly'
+
+                when: !editableMetadata
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: false
+                        visible: false
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: false
+                        visible: false
+                    }
+                ]
+            },
+            State {
+                name: 'readOnly'
+
+                when: editableMetadata && !isModifying && !isCreation
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: true
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: false
+                        visible: true
+                    }
+                ]
+            },
+            State {
+                name: 'readWrite'
+
+                when: editableMetadata && isModifying && !isCreation && (!realModel.isDataValid || !realModel.isDirty)
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: true
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: false
+                        visible: true
+                    }
+                ]
+            },
+            State {
+                name: 'readWriteAndDirty'
+
+                when: editableMetadata && isModifying && !isCreation && realModel.isDataValid && realModel.isDirty
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: true
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: true
+                        visible: true
+                    }
+                ]
+            },
+            State {
+                name: 'create'
+
+                when: editableMetadata && !isModifying && isCreation && (!realModel.isDataValid || !realModel.isDirty)
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: false
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: false
+                        visible: true
+                    }
+                ]
+            },
+            State {
+                name: 'createAndDirty'
+
+                when: editableMetadata && !isModifying && isCreation && realModel.isDataValid && realModel.isDirty
+
+                changes: [
+                    PropertyChanges {
+                        target: modifyButton
+                        enabled: false
+                        visible: true
+                    },
+                    PropertyChanges {
+                        target: applyButton
+                        enabled: true
+                        visible: true
+                    }
+                ]
+            }
+        ]
     }
 }

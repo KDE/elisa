@@ -80,6 +80,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::AlbumIdRole)] = "albumId";
     roles[static_cast<int>(ColumnsRoles::AlbumSectionRole)] = "albumSection";
     roles[static_cast<int>(ColumnsRoles::ElementTypeRole)] = "entryType";
+    roles[static_cast<int>(ColumnsRoles::MetadataModifiableRole)] = "metadataModifiableRole";
 
     return roles;
 }
@@ -130,6 +131,27 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             }
             break;
         }
+        case ColumnsRoles::MetadataModifiableRole:
+            switch (d->mData[index.row()].mEntryType)
+            {
+            case ElisaUtils::Album:
+            case ElisaUtils::Artist:
+            case ElisaUtils::Composer:
+            case ElisaUtils::Genre:
+            case ElisaUtils::Unknown:
+            case ElisaUtils::Lyricist:
+            case ElisaUtils::Container:
+                result = false;
+                break;
+            case ElisaUtils::Radio:
+                result = true;
+                break;
+            case ElisaUtils::FileName:
+            case ElisaUtils::Track:
+                result = d->mTrackData[index.row()].resourceURI().isLocalFile();
+                break;
+            }
+            break;
         default:
             const auto &trackData = d->mTrackData[index.row()];
             auto roleEnum = static_cast<TrackDataType::key_type>(role);

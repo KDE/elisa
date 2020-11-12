@@ -123,7 +123,8 @@ public:
                              {key_type::FileModificationTime, fileModificationTime}, {key_type::ImageUrlRole, std::move(aAlbumCover)},
                              {key_type::RatingRole, rating}, {key_type::IsSingleDiscAlbumRole, aIsSingleDiscAlbum},
                              {key_type::GenreRole, std::move(aGenre)}, {key_type::ComposerRole, std::move(aComposer)},
-                             {key_type::LyricistRole, std::move(aLyricist)}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},})
+                             {key_type::LyricistRole, std::move(aLyricist)}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},
+                             {key_type::ElementTypeRole, ElisaUtils::Track},})
         {
             Q_UNUSED(aValid)
         }
@@ -141,6 +142,11 @@ public:
         [[nodiscard]] QString artist() const
         {
             return operator[](key_type::ArtistRole).toString();
+        }
+
+        [[nodiscard]] bool hasArtist() const
+        {
+            return find(key_type::ArtistRole) != end();
         }
 
         [[nodiscard]] qulonglong albumId() const
@@ -218,9 +224,19 @@ public:
             return operator[](key_type::GenreRole).toString();
         }
 
+        [[nodiscard]] bool hasGenre() const
+        {
+            return find(key_type::GenreRole) != end();
+        }
+
         [[nodiscard]] QString composer() const
         {
             return operator[](key_type::ComposerRole).toString();
+        }
+
+        [[nodiscard]] bool hasComposer() const
+        {
+            return find(key_type::ComposerRole) != end();
         }
 
         [[nodiscard]] QString lyricist() const
@@ -228,9 +244,19 @@ public:
             return operator[](key_type::LyricistRole).toString();
         }
 
+        [[nodiscard]] bool hasLyricist() const
+        {
+            return find(key_type::LyricistRole) != end();
+        }
+
         [[nodiscard]] QString lyrics() const
         {
             return operator[](key_type::LyricsRole).toString();
+        }
+
+        [[nodiscard]] bool hasLyrics() const
+        {
+            return find(key_type::LyricsRole) != end();
         }
 
         [[nodiscard]] QString comment() const
@@ -238,9 +264,19 @@ public:
             return operator[](key_type::CommentRole).toString();
         }
 
+        [[nodiscard]] bool hasComment() const
+        {
+            return find(key_type::CommentRole) != end();
+        }
+
         [[nodiscard]] int year() const
         {
             return operator[](key_type::YearRole).toInt();
+        }
+
+        [[nodiscard]] bool hasYear() const
+        {
+            return find(key_type::YearRole) != end();
         }
 
         [[nodiscard]] int channels() const

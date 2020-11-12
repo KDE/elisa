@@ -84,7 +84,7 @@ ScrollView {
                 height: entry.height
                 width: playListView.width
 
-                onClicked: playListView.playListModel.switchTo(index)
+                onClicked: scrollView.playListModel.switchTo(index)
 
                 PlayListEntry {
                     id: entry

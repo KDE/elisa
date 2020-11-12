@@ -120,10 +120,10 @@ ScrollView {
                     isPlaying: model.isPlaying
                     metadataModifiableRole: model.metadataModifiableRole
 
-                    onStartPlayback: playListView.startPlayback()
-                    onPausePlayback: playListView.pausePlayback()
-                    onRemoveFromPlaylist: playListView.playListModel.removeRow(trackIndex)
-                    onSwitchToTrack: playListView.playListModel.switchTo(trackIndex)
+                    onStartPlayback: scrollView.startPlayback()
+                    onPausePlayback: scrollView.pausePlayback()
+                    onRemoveFromPlaylist: scrollView.playListModel.removeRow(trackIndex)
+                    onSwitchToTrack: scrollView.playListModel.switchTo(trackIndex)
 
                     onActiveFocusChanged: {
                         if (activeFocus && playListView.currentIndex !== index) {

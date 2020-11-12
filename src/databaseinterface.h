@@ -286,6 +286,8 @@ private:
     void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath,
                            const QString &artistName);
 
+    bool updateAlbumCover(qulonglong albumId, const QUrl &albumArtUri);
+
     void updateTrackStatistics(const QUrl &fileName, const QDateTime &time);
 
     void createDatabaseV9();

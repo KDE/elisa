@@ -241,6 +241,8 @@ FocusScope {
                         height: singleLineHeight
                         width: singleLineHeight
 
+                        visible: trackUrl.toString().substring(0, 7) === 'file://'
+
                         text: i18nc("Show the file for this song in the file manager", "Show in folder")
                         icon.name: "document-open-folder"
                         onClicked: {

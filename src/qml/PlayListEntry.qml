@@ -227,6 +227,8 @@ FocusScope {
                     implicitHeight: playListEntry.height
                     implicitWidth: playListEntry.height
 
+                    visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
+
                     text: i18nc("Show the file for this song in the file manager", "Show in folder")
                     icon.name: "document-open-folder"
                     onClicked: {

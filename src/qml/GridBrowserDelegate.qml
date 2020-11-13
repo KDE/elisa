@@ -144,7 +144,8 @@ FocusScope {
 
                             Keys.onReturnPressed: clicked()
                             Keys.onEnterPressed: clicked()
-                            visible: showDetailsButton
+
+                            visible: showDetailsButton && (trackUrl.toString().substring(0, 7) === 'file://')
 
                             width: elisaTheme.delegateToolButtonSize
                             height: elisaTheme.delegateToolButtonSize

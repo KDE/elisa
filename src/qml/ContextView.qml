@@ -330,6 +330,7 @@ FocusScope {
                 ToolButton {
                     icon.name: "document-open-folder"
                     text: i18n("Show In Folder")
+                    visible: metaDataModel.fileUrl.toString().substring(0, 7) === 'file://'
                     onClicked: {
                         ElisaApplication.showInFolder(metaDataModel.fileUrl)
                     }

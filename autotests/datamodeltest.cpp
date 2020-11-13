@@ -265,7 +265,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 4);
+        QCOMPARE(dataChangedSpy.count(), 0);
 
         QCOMPARE(beginInsertRowsSpy.at(1).at(1).toInt(), 4);
         QCOMPARE(beginInsertRowsSpy.at(1).at(2).toInt(), 4);
@@ -293,7 +293,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 3);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 9);
+        QCOMPARE(dataChangedSpy.count(), 0);
 
         QCOMPARE(beginInsertRowsSpy.at(2).at(1).toInt(), 4);
         QCOMPARE(beginInsertRowsSpy.at(2).at(2).toInt(), 4);
@@ -573,7 +573,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 5);
+        QCOMPARE(dataChangedSpy.count(), 0);
 
         QCOMPARE(tracksModel.rowCount(), 24);
     }
@@ -653,7 +653,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 5);
+        QCOMPARE(dataChangedSpy.count(), 0);
 
         QCOMPARE(tracksModel.rowCount(), 24);
     }
@@ -823,7 +823,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 5);
+        QCOMPARE(dataChangedSpy.count(), 0);
 
         QCOMPARE(tracksModel.rowCount(), 24);
     }
@@ -1499,7 +1499,7 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(modelAboutToBeResetSpy.count(), 0);
         QCOMPARE(modelResetSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 4);
+        QCOMPARE(dataChangedSpy.count(), 0);
     }
 
     void addOneTrackWrongOrder()
@@ -1582,7 +1582,7 @@ private Q_SLOTS:
         QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 4);
+        QCOMPARE(dataChangedSpy.count(), 0);
 
         QCOMPARE(beginInsertRowsSpy.at(1).at(1).toInt(), 2);
         QCOMPARE(beginInsertRowsSpy.at(1).at(2).toInt(), 2);

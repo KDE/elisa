@@ -187,6 +187,9 @@ install(
 )
 
 ki18n_install(po)
+if (KF5DocTools_FOUND)
+    kdoctools_install(po)
+endif()
 
 install(FILES elisa.categories DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 

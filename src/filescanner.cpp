@@ -76,7 +76,9 @@ public:
         QStringLiteral("*[Ff]ront*.jpg"),
         QStringLiteral("*[Ff]ront*.png"),
         QStringLiteral("*[Aa]lbumart*.jpg"),
-        QStringLiteral("*[Aa]lbumart*.png")
+        QStringLiteral("*[Aa]lbumart*.png"),
+        QStringLiteral("*[Cc]over*.jpg"),
+        QStringLiteral("*[Cc]over*.png")
     };
 };
 

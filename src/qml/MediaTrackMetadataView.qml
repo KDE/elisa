@@ -101,39 +101,51 @@ Window {
 
                     model: realModel
 
-                    Component {
-                        id: metaDataDelegate
+                    delegate: Item {
+                        id: topLevel
 
-                        MetaDataDelegate {
-                            width: trackData.width
+                        property bool isReadOnlyDelegate: (dialogStates.state !== 'readWrite' && dialogStates.state !== 'readWriteAndDirty' &&
+                                                           dialogStates.state !== 'create' && dialogStates.state !== 'createAndDirty') || realModel.isReadOnly || model.isReadOnly
 
-                            index: model.index
-                            name: model.name
-                            display: model.display
-                            type: model.type
+                        height: delegateChooser.height
+
+                        Loader {
+                            id: delegateChooser
+
+                            sourceComponent: isReadOnlyDelegate ? metaDataDelegate : editableMetaDataDelegate
+                        }
+
+                        Component {
+                            id: metaDataDelegate
+
+                            MetaDataDelegate {
+                                width: trackData.width
+
+                                index: model.index
+                                name: model.name
+                                display: model.display
+                                type: model.type
+                            }
+                        }
+
+                        Component {
+                            id: editableMetaDataDelegate
+
+                            EditableMetaDataDelegate {
+                                width: trackData.width
+
+                                index: model.index
+                                name: model.name
+                                display: model.display
+                                type: model.type
+                                isRemovable: model.isRemovable
+
+                                onEdited: model.display = display
+
+                                onDeleteField: realModel.removeData(model.index)
+                            }
                         }
                     }
-
-                    Component {
-                        id: editableMetaDataDelegate
-
-                        EditableMetaDataDelegate {
-                            width: trackData.width
-
-                            index: model.index
-                            name: model.name
-                            display: model.display
-                            type: model.type
-                            isRemovable: model.isRemovable
-
-                            onEdited: model.display = display
-
-                            onDeleteField: realModel.removeData(model.index)
-                        }
-                    }
-
-                    delegate: ((dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
-                                dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly) ? editableMetaDataDelegate: metaDataDelegate
 
                     footer: RowLayout {
                         width: trackData.width

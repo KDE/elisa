@@ -6746,7 +6746,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
     }
 
     auto albumId = insertAlbum(oneTrack.album(), (oneTrack.hasAlbumArtist() ? oneTrack.albumArtist() : QString()),
-                               trackPath, albumCover);
+                               trackPath, oneTrack.hasEmbeddedCover() ? QUrl{} : albumCover);
 
     auto oldAlbumId = albumId;
 
@@ -6832,7 +6832,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         newTrack[DataTypes::ColumnsRoles::DatabaseIdRole] = resultId;
         updateTrackInDatabase(newTrack, trackPath);
         updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
-        auto albumIsModified = updateAlbumFromId(albumId, oneTrack.albumCover(), oneTrack, trackPath);
+        auto albumIsModified = updateAlbumFromId(albumId, oneTrack.hasEmbeddedCover() ? QUrl{} : oneTrack.albumCover(), oneTrack, trackPath);
 
         recordModifiedTrack(existingTrackId);
         if (albumIsModified && albumId != 0) {

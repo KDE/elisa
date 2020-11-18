@@ -74,7 +74,7 @@ RowLayout {
                                      sortOrderNames: configurationData.sortOrderNames,
                                      viewManager: viewManager,
                                      opacity: 1,
-                                 }, StackView.Immediate)
+                                 })
         }
 
         onOpenListView: {
@@ -110,7 +110,7 @@ RowLayout {
                                      sortOrderNames: configurationData.sortOrderNames,
                                      viewManager: viewManager,
                                      opacity: 1,
-                                 }, StackView.Immediate)
+                                 })
         }
 
         onSwitchFilesBrowserView: {
@@ -124,7 +124,7 @@ RowLayout {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      opacity: 1,
-                                 }, StackView.Immediate)
+                                 })
         }
 
         onSwitchContextView: {
@@ -138,7 +138,7 @@ RowLayout {
                                      mainTitle: mainTitle,
                                      image: imageUrl,
                                      opacity: 1,
-                                 }, StackView.Immediate)
+                                 })
         }
 
         onPopOneView: {

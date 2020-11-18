@@ -248,6 +248,8 @@ void AudioWrapper::setSource(const QUrl &source)
     d->signalMediaStatusChange(QMediaPlayer::LoadingMedia);
     d->signalMediaStatusChange(QMediaPlayer::LoadedMedia);
     d->signalMediaStatusChange(QMediaPlayer::BufferedMedia);
+
+    d->mHasSavedPosition = false;
 }
 
 void AudioWrapper::setPosition(qint64 position)

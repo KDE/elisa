@@ -167,7 +167,7 @@ FocusScope {
                     section.labelPositioning: ViewSection.InlineLabels
                     section.delegate: TracksDiscHeader {
                         discNumber: section
-                        width: viewModeView
+                        width: contentDirectoryView.width
                     }
 
                     Kirigami.PlaceholderMessage {

@@ -126,6 +126,10 @@ AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_uniqu
 AudioWrapper::~AudioWrapper()
 {
     if (d->mInstance) {
+        d->mPowerInterface.setPreventSleep(false);
+        if (d->mPlayer && d->mPreviousPlayerState != QMediaPlayer::StoppedState) {
+            libvlc_media_player_stop(d->mPlayer);
+        }
         libvlc_release(d->mInstance);
     }
 }

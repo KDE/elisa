@@ -47,7 +47,9 @@ AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_uniqu
 }
 
 AudioWrapper::~AudioWrapper()
-= default;
+{
+    d->mPowerInterface.setPreventSleep(false);
+}
 
 bool AudioWrapper::muted() const
 {

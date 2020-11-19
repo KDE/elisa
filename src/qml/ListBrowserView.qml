@@ -177,8 +177,8 @@ FocusScope {
                     }
 
                     onCountChanged: if (count === 0) {
-                                        currentIndex = -1;
-                                    }
+                        currentIndex = -1;
+                    }
                 }
             }
         }

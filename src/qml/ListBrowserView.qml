@@ -142,7 +142,6 @@ FocusScope {
 
             Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.margins: 2
 
             ScrollView {
                 anchors.fill: parent

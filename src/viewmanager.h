@@ -115,8 +115,6 @@ Q_SIGNALS:
 
     void openListView(ViewConfigurationData *configurationData);
 
-    void switchFilesBrowserView(int expectedDepth, const QString &mainTitle, const QUrl &imageUrl);
-
     void switchContextView(int expectedDepth, const QString &mainTitle, const QUrl &imageUrl);
 
     void popOneView();

@@ -113,20 +113,6 @@ RowLayout {
                                  })
         }
 
-        onSwitchFilesBrowserView: {
-            listViews.setCurrentIndex(viewManager.viewIndex)
-
-            while(browseStackView.depth > expectedDepth) {
-                browseStackView.pop()
-            }
-
-            browseStackView.push(filesBrowserView, {
-                                     mainTitle: mainTitle,
-                                     image: imageUrl,
-                                     opacity: 1,
-                                 })
-        }
-
         onSwitchContextView: {
             listViews.setCurrentIndex(viewManager.viewIndex)
 

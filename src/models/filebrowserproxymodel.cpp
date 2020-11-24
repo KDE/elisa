@@ -128,8 +128,27 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
     mPendingEntries = {};
     mAllData.clear();
 
-    mPendingEntries.emplace(newEntry[DataTypes::ResourceRole].toUrl(),
-            newEntry.elementType() == ElisaUtils::Container);
+    switch (newEntry.elementType())
+    {
+    case ElisaUtils::Container:
+        mPendingEntries.emplace(newEntry[DataTypes::FilePathRole].toUrl(),
+                newEntry.elementType() == ElisaUtils::Container);
+        break;
+    case ElisaUtils::FileName:
+        mPendingEntries.emplace(newEntry[DataTypes::ResourceRole].toUrl(),
+                newEntry.elementType() == ElisaUtils::Container);
+        break;
+    case ElisaUtils::Album:
+    case ElisaUtils::Artist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Radio:
+    case ElisaUtils::Track:
+    case ElisaUtils::Unknown:
+        break;
+    }
+
 
     mEnqueueInProgress = true;
     mEnqueueMode = enqueueMode;

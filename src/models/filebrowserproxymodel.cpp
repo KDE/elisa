@@ -68,8 +68,16 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
         }
 
         auto returnedPath = oneEntry.stringValue(KIO::UDSEntry::UDS_NAME);
-        auto fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toString(), returnedPath);
-        auto fullPathUrl = QUrl { fullPath };
+        auto fullPath = QString{};
+        auto fullPathUrl = QUrl{};
+
+        if (mCurentUrl.isLocalFile()) {
+            fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toLocalFile(), returnedPath);
+            fullPathUrl = QUrl::fromLocalFile(fullPath);
+        } else {
+            fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toString(), returnedPath);
+            fullPathUrl = QUrl{fullPath};
+        }
 
         auto mimeType = mMimeDatabase.mimeTypeForUrl(fullPathUrl);
 

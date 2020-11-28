@@ -313,7 +313,7 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (auto &oneData : newEntries) {
         auto trackData = oneData.toStringList();
-        if (trackData.size() != 7) {
+        if (trackData.size() != 7 && trackData.size() != 8) {
             continue;
         }
 
@@ -323,35 +323,37 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
         auto restoredAlbum = trackData[3];
         auto restoredTrackNumber = trackData[4];
         auto restoredDiscNumber = trackData[5];
+        auto restoredFileUrl = QVariant{};
+        if (trackData.size() == 8) {
+            restoredFileUrl = QUrl{trackData[7]};
+        }
 
         auto mEntryType = static_cast<ElisaUtils::PlayListEntryType>(trackData[6].toInt());
-        auto newEntry = MediaPlayListEntry({restoredId, restoredTitle, restoredArtist, restoredAlbum, restoredTrackNumber, restoredDiscNumber, mEntryType});
+        auto newEntry = MediaPlayListEntry({restoredId, restoredTitle, restoredArtist, restoredAlbum, restoredFileUrl, restoredTrackNumber, restoredDiscNumber, mEntryType});
 
         d->mData.push_back(newEntry);
         d->mTrackData.push_back({});
 
-        if (!newEntry.mIsValid) {
-            if (newEntry.mEntryType == ElisaUtils::Radio) {
-                Q_EMIT newEntryInList(newEntry.mId, {}, ElisaUtils::Radio);
-            } else if (newEntry.mTrackUrl.isValid()) {
-                auto entryURL = newEntry.mTrackUrl.toUrl();
-                if (entryURL.isLocalFile()) {
-                    auto entryString =  entryURL.toLocalFile();
-                    QFileInfo newTrackFile(entryString);
-                    if (newTrackFile.exists()) {
-                        d->mData.last().mIsValid = true;
-                    }
-                    Q_EMIT newEntryInList(0, entryString, ElisaUtils::FileName);
+        if (newEntry.mEntryType == ElisaUtils::Radio) {
+            Q_EMIT newEntryInList(newEntry.mId, {}, ElisaUtils::Radio);
+        } else if (newEntry.mTitle.toString().isEmpty() && newEntry.mTrackUrl.isValid()) {
+            auto entryURL = newEntry.mTrackUrl.toUrl();
+            if (entryURL.isLocalFile()) {
+                auto entryString =  entryURL.toLocalFile();
+                QFileInfo newTrackFile(entryString);
+                if (newTrackFile.exists()) {
+                    d->mData.last().mIsValid = true;
                 }
+                Q_EMIT newEntryInList(0, entryString, ElisaUtils::FileName);
             } else {
-                Q_EMIT newTrackByNameInList(newEntry.mTitle,
-                                            newEntry.mArtist,
-                                            newEntry.mAlbum,
-                                            newEntry.mTrackNumber,
-                                            newEntry.mDiscNumber);
+                d->mData.last().mIsValid = true;
             }
         } else {
-            Q_EMIT newEntryInList(newEntry.mId, {}, ElisaUtils::Track);
+            Q_EMIT newTrackByNameInList(newEntry.mTitle,
+                                        newEntry.mArtist,
+                                        newEntry.mAlbum,
+                                        newEntry.mTrackNumber,
+                                        newEntry.mDiscNumber);
         }
     }
     endInsertRows();
@@ -501,6 +503,7 @@ QVariantList MediaPlayList::getEntriesForRestore() const
                 oneData.push_back({});
             }
             oneData.push_back(QString::number(oneEntry.mEntryType));
+            oneData.push_back(oneTrack.resourceURI().toString());
 
             result.push_back(QVariant(oneData));
         }

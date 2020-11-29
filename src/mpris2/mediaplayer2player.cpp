@@ -208,14 +208,14 @@ void MediaPlayer2Player::setPropertyPosition(int newPositionInMs)
 {
     m_position = qlonglong(newPositionInMs) * 1000;
 
-    Q_EMIT Seeked(m_position);
-
     /* only sent new progress when it has advanced more than 1 %
      * to limit DBus traffic
      */
     const auto incrementalProgress = static_cast<double>(newPositionInMs - mPreviousProgressPosition) / m_audioPlayer->duration();
     if (mShowProgressOnTaskBar && (incrementalProgress > 0.01 || incrementalProgress < 0))
     {
+        Q_EMIT Seeked(m_position);
+
         mPreviousProgressPosition = newPositionInMs;
         QVariantMap parameters;
         parameters.insert(QStringLiteral("progress-visible"), true);

@@ -338,7 +338,7 @@ FocusScope {
                 onTriggered: contentView.showPlaylist = !contentView.showPlaylist
             }
 
-            visible: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+            visible: !musicWidget.isMaximized && mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
 
             flat: true
             text: i18n("Show Playlist")

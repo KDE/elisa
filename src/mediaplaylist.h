@@ -168,10 +168,11 @@ public:
           mTrackNumber(trackNumber), mDiscNumber(discNumber), mEntryType(entryType) {
     }
 
-    MediaPlayListEntry(qulonglong id, QVariant title, QVariant artist, QVariant album,
+    MediaPlayListEntry(qulonglong id, QVariant title, QVariant artist,
+                       QVariant album, QVariant trackUrl,
                        QVariant trackNumber, QVariant discNumber,
                        ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
-        : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)),
+        : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)), mTrackUrl(std::move(trackUrl)),
           mTrackNumber(std::move(trackNumber)), mDiscNumber(std::move(discNumber)), mId(id), mEntryType(entryType) {
     }
 

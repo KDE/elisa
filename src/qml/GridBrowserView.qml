@@ -140,6 +140,7 @@ FocusScope {
                 databaseId: model.databaseId
                 delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
                 entryType: model.dataType
+                hasChildren: model.hasChildren
 
                 onEnqueue: gridView.enqueue(model.fullData, model.display)
                 onReplaceAndPlay: gridView.replaceAndPlay(model.fullData, model.display)

@@ -71,6 +71,7 @@ public:
         IsDirectoryRole,
         IsPlayListRole,
         FilePathRole,
+        HasChildrenRole,
     };
 
     Q_ENUM(ColumnsRoles)

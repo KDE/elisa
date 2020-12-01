@@ -94,6 +94,7 @@ QHash<int, QByteArray> DataModel::roleNames() const
     roles[static_cast<int>(DataTypes::ColumnsRoles::YearRole)] = "year";
     roles[static_cast<int>(DataTypes::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(DataTypes::ColumnsRoles::FullDataRole)] = "fullData";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::HasChildrenRole)] = "hasChildren";
 
     return roles;
 }
@@ -286,6 +287,27 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
             result = QUrl{};
+            break;
+        }
+        break;
+    }
+    case DataTypes::ColumnsRoles::HasChildrenRole:
+    {
+        switch (d->mModelType)
+        {
+        case ElisaUtils::Track:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Radio:
+        case ElisaUtils::Unknown:
+            result = false;
+            break;
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::Container:
+            result = true;
             break;
         }
         break;

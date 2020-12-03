@@ -73,6 +73,7 @@ QHash<int, QByteArray> FileBrowserModel::roleNames() const
     roles[static_cast<int>(DataTypes::ColumnsRoles::RatingRole)] = "rating";
     roles[static_cast<int>(DataTypes::ColumnsRoles::IsSingleDiscAlbumRole)] = "isSingleDiscAlbum";
     roles[static_cast<int>(DataTypes::ColumnsRoles::FullDataRole)] = "fullData";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::HasChildrenRole)] = "hasChildren";
 
     roles[static_cast<int>(DataTypes::ColumnsRoles::IsDirectoryRole)] = "isDirectory";
     roles[static_cast<int>(DataTypes::ColumnsRoles::IsPlayListRole)] = "isPlaylist";
@@ -103,6 +104,7 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         break;
     }
     case DataTypes::ColumnsRoles::IsDirectoryRole:
+    case DataTypes::ColumnsRoles::HasChildrenRole:
     {
         KFileItem item = itemForIndex(index);
         result = item.isDir();

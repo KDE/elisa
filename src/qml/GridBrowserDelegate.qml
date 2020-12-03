@@ -29,6 +29,7 @@ FocusScope {
     property bool showDetailsButton: false
     property bool showPlayButton: true
     property bool showEnqueueButton: true
+    property bool hasChildren: true
 
     signal enqueue()
     signal replaceAndPlay()
@@ -80,12 +81,12 @@ FocusScope {
 
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton
-        cursorShape: Qt.PointingHandCursor
+        cursorShape: hasChildren ? Qt.PointingHandCursor : Qt.ArrowCursor
 
         Layout.preferredHeight: gridEntry.height
         Layout.fillWidth: true
 
-        onClicked: open()
+        onClicked: hasChildren ? open() : enqueue()
 
         TextMetrics {
             id: mainLabelSize

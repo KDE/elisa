@@ -92,8 +92,6 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void emitSeeked(int pos);
-
     void Next();
     void Previous();
     void Pause();

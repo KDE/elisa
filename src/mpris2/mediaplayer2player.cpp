@@ -272,11 +272,6 @@ void MediaPlayer2Player::Seek(qlonglong Offset)
     }
 }
 
-void MediaPlayer2Player::emitSeeked(int pos)
-{
-    emit Seeked(qlonglong(pos) * 1000);
-}
-
 void MediaPlayer2Player::SetPosition(const QDBusObjectPath &trackId, qlonglong pos)
 {
     if (trackId.path() == m_currentTrackId) {

@@ -236,7 +236,7 @@ Kirigami.ApplicationWindow {
                 playerControl.repeat: ElisaApplication.mediaPlayListProxyModel.repeatPlay
                 playerControl.shuffle: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
 
-                playerControl.onSeek: ElisaApplication.audioPlayer.seek(position)
+                playerControl.onSeek: ElisaApplication.audioControl.playerSeek(position)
 
                 playerControl.onPlay: ElisaApplication.audioControl.playPause()
                 playerControl.onPause: ElisaApplication.audioControl.playPause()

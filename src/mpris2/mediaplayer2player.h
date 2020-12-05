@@ -120,6 +120,8 @@ private Q_SLOTS:
 
     void audioPositionChanged();
 
+    void playerSeeked(qint64 position);
+
     void audioDurationChanged();
 
     void playerVolumeChanged();

@@ -62,20 +62,33 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
 {
     Q_UNUSED(job)
 
+    DataTypes::EntryDataList newData;
+
+    auto vNewEntries = QVector<QString>{};
+
+    vNewEntries.reserve(list.size());
+
     for (const auto &oneEntry : list) {
         if (oneEntry.isDir()) {
             continue;
         }
 
-        auto returnedPath = oneEntry.stringValue(KIO::UDSEntry::UDS_NAME);
+        vNewEntries.push_back(oneEntry.stringValue(KIO::UDSEntry::UDS_NAME));
+    }
+
+    std::sort(std::begin(vNewEntries), std::end(vNewEntries), [this](auto first, auto second) {
+        return (sortOrder() == Qt::AscendingOrder) ? (first < second) : (first > second);
+    });
+
+    for (const auto &oneEntry : vNewEntries) {
         auto fullPath = QString{};
         auto fullPathUrl = QUrl{};
 
         if (mCurentUrl.isLocalFile()) {
-            fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toLocalFile(), returnedPath);
+            fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toLocalFile(), oneEntry);
             fullPathUrl = QUrl::fromLocalFile(fullPath);
         } else {
-            fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toString(), returnedPath);
+            fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toString(), oneEntry);
             fullPathUrl = QUrl{fullPath};
         }
 
@@ -85,9 +98,11 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
             continue;
         }
 
-        mAllData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-                             {DataTypes::ResourceRole, fullPathUrl}}, fullPath, {}});
+        newData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+                            {DataTypes::ResourceRole, fullPathUrl}}, fullPath, {}});
     }
+
+    mAllData.append(newData);
 }
 
 void FileBrowserProxyModel::genericEnqueueToPlayList(const QModelIndex &rootIndex,

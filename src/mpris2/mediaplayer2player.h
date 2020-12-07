@@ -92,8 +92,6 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void emitSeeked(int pos);
-
     void Next();
     void Previous();
     void Pause();
@@ -119,6 +117,8 @@ private Q_SLOTS:
     void playerIsSeekableChanged();
 
     void audioPositionChanged();
+
+    void playerSeeked(qint64 position);
 
     void audioDurationChanged();
 

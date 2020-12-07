@@ -10,6 +10,8 @@
 
 #include "elisa_settings.h"
 
+#include "playerLogging.h"
+
 #include <QTimer>
 #include <QDateTime>
 
@@ -416,6 +418,7 @@ void ManageAudioPlayer::setCurrentPlayingForRadios(const QString &title, const Q
 
 void ManageAudioPlayer::setPlayControlPosition(int playerPosition)
 {
+    qCDebug(orgKdeElisaPlayer()) << "ManageAudioPlayer::setPlayControlPosition" << playerPosition;
     Q_EMIT seek(playerPosition);
 }
 
@@ -436,6 +439,7 @@ void ManageAudioPlayer::setPersistentState(const QVariantMap &persistentStateVal
 
 void ManageAudioPlayer::playerSeek(int position)
 {
+    qCDebug(orgKdeElisaPlayer()) << "ManageAudioPlayer::playerSeek" << position;
     Q_EMIT seek(position);
 }
 

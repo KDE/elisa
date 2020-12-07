@@ -58,6 +58,8 @@ MediaPlayer2Player::MediaPlayer2Player(MediaPlayListProxyModel *playListControle
             this, &MediaPlayer2Player::playerIsSeekableChanged);
     connect(m_manageAudioPlayer, &ManageAudioPlayer::playerPositionChanged,
             this, &MediaPlayer2Player::audioPositionChanged);
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::seek,
+            this, &MediaPlayer2Player::playerSeeked);
     connect(m_manageAudioPlayer, &ManageAudioPlayer::audioDurationChanged,
             this, &MediaPlayer2Player::audioDurationChanged);
     connect(m_audioPlayer, &AudioWrapper::volumeChanged,
@@ -214,8 +216,6 @@ void MediaPlayer2Player::setPropertyPosition(int newPositionInMs)
     const auto incrementalProgress = static_cast<double>(newPositionInMs - mPreviousProgressPosition) / m_audioPlayer->duration();
     if (mShowProgressOnTaskBar && (incrementalProgress > 0.01 || incrementalProgress < 0))
     {
-        Q_EMIT Seeked(m_position);
-
         mPreviousProgressPosition = newPositionInMs;
         QVariantMap parameters;
         parameters.insert(QStringLiteral("progress-visible"), true);
@@ -270,11 +270,6 @@ void MediaPlayer2Player::Seek(qlonglong Offset)
         auto offset = (m_position + Offset) / 1000;
         m_manageAudioPlayer->playerSeek(int(offset));
     }
-}
-
-void MediaPlayer2Player::emitSeeked(int pos)
-{
-    emit Seeked(qlonglong(pos) * 1000);
 }
 
 void MediaPlayer2Player::SetPosition(const QDBusObjectPath &trackId, qlonglong pos)
@@ -356,6 +351,11 @@ void MediaPlayer2Player::playerIsSeekableChanged()
 void MediaPlayer2Player::audioPositionChanged()
 {
     setPropertyPosition(static_cast<int>(m_manageAudioPlayer->playerPosition()));
+}
+
+void MediaPlayer2Player::playerSeeked(qint64 position)
+{
+    Q_EMIT Seeked(position * 1000);
 }
 
 void MediaPlayer2Player::audioDurationChanged()

@@ -426,8 +426,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/HeaderFooterToolbar.qml
 
         qml/ElisaConfigurationDialog.qml
-        qml/FileScanningConfiguration.qml
-        qml/GeneralConfiguration.qml
     )
 
     qt5_add_resources(elisa_SOURCES resources.qrc)

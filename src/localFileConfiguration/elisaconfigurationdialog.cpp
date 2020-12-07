@@ -193,6 +193,12 @@ void ElisaConfigurationDialog::setColorScheme(const QString &scheme)
     setDirty();
 }
 
+void ElisaConfigurationDialog::removeMusicLocation(QString location)
+{
+    mRootPath.removeAll(location);
+    emit rootPathChanged(mRootPath);
+}
+
 void ElisaConfigurationDialog::configChanged()
 {
     setRootPath(Elisa::ElisaConfiguration::rootPath());

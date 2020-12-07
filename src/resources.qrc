@@ -42,8 +42,6 @@
         <file>qml/NativeGlobalMenuPlaylistModeItem.qml</file>
         <file>qml/PlaylistModeItem.qml</file>
         <file>qml/ElisaConfigurationDialog.qml</file>
-        <file>qml/FileScanningConfiguration.qml</file>
-        <file>qml/GeneralConfiguration.qml</file>
         <file>qml/SortMenu.qml</file>
     </qresource>
     <qresource prefix="/qml/+windows">

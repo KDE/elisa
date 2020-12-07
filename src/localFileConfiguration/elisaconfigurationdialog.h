@@ -111,6 +111,9 @@ public:
         return mColorScheme;
     }
 
+    Q_INVOKABLE void removeMusicLocation(QString location);
+
+
 Q_SIGNALS:
 
     void rootPathChanged(const QStringList &rootPath);

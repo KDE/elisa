@@ -62,14 +62,35 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
 {
     Q_UNUSED(job)
 
+    DataTypes::EntryDataList newData;
+
+    auto vNewEntries = QVector<QString>{};
+
+    vNewEntries.reserve(list.size());
+
     for (const auto &oneEntry : list) {
         if (oneEntry.isDir()) {
             continue;
         }
 
-        auto returnedPath = oneEntry.stringValue(KIO::UDSEntry::UDS_NAME);
-        auto fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toString(), returnedPath);
-        auto fullPathUrl = QUrl { fullPath };
+        vNewEntries.push_back(oneEntry.stringValue(KIO::UDSEntry::UDS_NAME));
+    }
+
+    std::sort(std::begin(vNewEntries), std::end(vNewEntries), [this](auto first, auto second) {
+        return (sortOrder() == Qt::AscendingOrder) ? (first < second) : (first > second);
+    });
+
+    for (const auto &oneEntry : vNewEntries) {
+        auto fullPath = QString{};
+        auto fullPathUrl = QUrl{};
+
+        if (mCurentUrl.isLocalFile()) {
+            fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toLocalFile(), oneEntry);
+            fullPathUrl = QUrl::fromLocalFile(fullPath);
+        } else {
+            fullPath = QStringLiteral("%0/%1").arg(mCurentUrl.toString(), oneEntry);
+            fullPathUrl = QUrl{fullPath};
+        }
 
         auto mimeType = mMimeDatabase.mimeTypeForUrl(fullPathUrl);
 
@@ -77,9 +98,11 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
             continue;
         }
 
-        mAllData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-                             {DataTypes::ResourceRole, fullPathUrl}}, fullPath, {}});
+        newData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+                            {DataTypes::ResourceRole, fullPathUrl}}, fullPath, {}});
     }
+
+    mAllData.append(newData);
 }
 
 void FileBrowserProxyModel::genericEnqueueToPlayList(const QModelIndex &rootIndex,
@@ -128,8 +151,27 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
     mPendingEntries = {};
     mAllData.clear();
 
-    mPendingEntries.emplace(newEntry[DataTypes::ResourceRole].toUrl(),
-            newEntry.elementType() == ElisaUtils::Container);
+    switch (newEntry.elementType())
+    {
+    case ElisaUtils::Container:
+        mPendingEntries.emplace(newEntry[DataTypes::FilePathRole].toUrl(),
+                newEntry.elementType() == ElisaUtils::Container);
+        break;
+    case ElisaUtils::FileName:
+        mPendingEntries.emplace(newEntry[DataTypes::ResourceRole].toUrl(),
+                newEntry.elementType() == ElisaUtils::Container);
+        break;
+    case ElisaUtils::Album:
+    case ElisaUtils::Artist:
+    case ElisaUtils::Composer:
+    case ElisaUtils::Genre:
+    case ElisaUtils::Lyricist:
+    case ElisaUtils::Radio:
+    case ElisaUtils::Track:
+    case ElisaUtils::Unknown:
+        break;
+    }
+
 
     mEnqueueInProgress = true;
     mEnqueueMode = enqueueMode;

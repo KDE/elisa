@@ -250,7 +250,7 @@ FocusScope {
 
                     Layout.fillWidth: true
 
-                    text: i18np("1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0))
+                    text: i18np("%1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0))
                     elide: Text.ElideLeft
                 }
             ]

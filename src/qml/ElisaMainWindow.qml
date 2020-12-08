@@ -212,7 +212,6 @@ Kirigami.ApplicationWindow {
                 Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.fillWidth: true
 
-                tracksCount: ElisaApplication.mediaPlayListProxyModel.remainingTracks
                 album: (ElisaApplication.manageHeaderBar.album !== undefined ? ElisaApplication.manageHeaderBar.album : '')
                 title: ElisaApplication.manageHeaderBar.title
                 artist: (ElisaApplication.manageHeaderBar.artist !== undefined ? ElisaApplication.manageHeaderBar.artist : '')

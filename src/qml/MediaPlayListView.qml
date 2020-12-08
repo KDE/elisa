@@ -246,12 +246,17 @@ FocusScope {
             Layout.preferredHeight: Kirigami.Units.gridUnit * 2
             contentItems: [
                 LabelWithToolTip {
-                    id: trackCountLabel
-
-                    Layout.fillWidth: true
-
                     text: i18np("%1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0))
                     elide: Text.ElideLeft
+                },
+                Item {
+                    Layout.fillWidth: true
+                },
+                LabelWithToolTip {
+                    visible: ElisaApplication.mediaPlayListProxyModel.remainingTracks != -1
+
+                    text: ElisaApplication.mediaPlayListProxyModel.remainingTracks == 0 ? i18n("Last track") : i18ncp("Number of remaining tracks in a playlist of songs", "%1 remaining", "%1 remaining", ElisaApplication.mediaPlayListProxyModel.remainingTracks)
+                    elide: Text.ElideRight
                 }
             ]
         }

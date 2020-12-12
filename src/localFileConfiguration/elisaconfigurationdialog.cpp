@@ -24,7 +24,6 @@ ElisaConfigurationDialog::ElisaConfigurationDialog(QObject* parent)
             this, &ElisaConfigurationDialog::configChanged);
 
     configChanged();
-    save();
 
     mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 }
@@ -200,6 +199,7 @@ void ElisaConfigurationDialog::configChanged()
     setShowSystemTrayIcon(Elisa::ElisaConfiguration::showSystemTrayIcon());
     setPlayAtStartup(Elisa::ElisaConfiguration::playAtStartup());
     setColorScheme(Elisa::ElisaConfiguration::colorScheme());
+    setForceUsageOfFastFileSearch(Elisa::ElisaConfiguration::forceUsageOfFastFileSearch());
 
     switch (Elisa::ElisaConfiguration::embeddedView())
     {

@@ -217,9 +217,6 @@ auto MusicListenersManager::initializeRootPath()
     }
 
     Elisa::ElisaConfiguration::setRootPath(initialRootPath);
-    Elisa::ElisaConfiguration::setShowProgressOnTaskBar(true);
-    Elisa::ElisaConfiguration::setShowSystemTrayIcon(false);
-    Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(true);
     Elisa::ElisaConfiguration::self()->save();
 
     return initialRootPath;

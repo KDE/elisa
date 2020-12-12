@@ -88,7 +88,7 @@ void AbstractFileListing::stop()
 void AbstractFileListing::newTrackFile(const DataTypes::TrackDataType &partialTrack)
 {
     auto scanFileInfo = QFileInfo(partialTrack.resourceURI().toLocalFile());
-    const auto &newTrack = scanOneFile(partialTrack.resourceURI(), scanFileInfo);
+    const auto &newTrack = scanOneFile(partialTrack.resourceURI(), scanFileInfo, WatchChangedDirectories | WatchChangedFiles);
 
     if (newTrack.isValid() && newTrack != partialTrack) {
         Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover);
@@ -134,7 +134,7 @@ bool AbstractFileListing::canHandleRootPaths() const
     return true;
 }
 
-void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path)
+void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path, FileSystemWatchingModes watchForFileSystemChanges)
 {
     if (d->mStopRequest == 1) {
         return;
@@ -144,7 +144,9 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
     rootDirectory.refresh();
 
     if (rootDirectory.exists()) {
-        watchPath(path.toLocalFile());
+        if (watchForFileSystemChanges & WatchChangedDirectories) {
+            watchPath(path.toLocalFile());
+        }
     }
 
     auto &currentDirectoryListingFiles = d->mDiscoveredFiles[path];
@@ -203,8 +205,8 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
         }
 
         if (oneEntry.isDir()) {
-            addFileInDirectory(newFilePath, path);
-            scanDirectory(newFiles, newFilePath);
+            addFileInDirectory(newFilePath, path, WatchChangedDirectories | WatchChangedFiles);
+            scanDirectory(newFiles, newFilePath, WatchChangedDirectories | WatchChangedFiles);
 
             if (d->mStopRequest == 1) {
                 break;
@@ -225,12 +227,12 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
             }
         }
 
-        auto newTrack = scanOneFile(newFilePath, oneEntry);
+        auto newTrack = scanOneFile(newFilePath, oneEntry, WatchChangedDirectories | WatchChangedFiles);
 
         if (newTrack.isValid() && d->mStopRequest == 0) {
             addCover(newTrack);
 
-            addFileInDirectory(newTrack.resourceURI(), path);
+            addFileInDirectory(newTrack.resourceURI(), path, WatchChangedDirectories | WatchChangedFiles);
             newFiles.push_back(newTrack);
 
             ++d->mImportedTracksCount;
@@ -269,7 +271,7 @@ void AbstractFileListing::fileChanged(const QString &modifiedFileName)
     QFileInfo modifiedFileInfo(modifiedFileName);
     auto modifiedFile = QUrl::fromLocalFile(modifiedFileName);
 
-    auto modifiedTrack = scanOneFile(modifiedFile, modifiedFileInfo);
+    auto modifiedTrack = scanOneFile(modifiedFile, modifiedFileInfo, WatchChangedDirectories | WatchChangedFiles);
 
     if (modifiedTrack.isValid()) {
         Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover);
@@ -295,7 +297,7 @@ void AbstractFileListing::refreshContent()
     triggerRefreshOfContent();
 }
 
-DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
+DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo, FileSystemWatchingModes watchForFileSystemChanges)
 {
     DataTypes::TrackDataType newTrack;
 
@@ -322,7 +324,9 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
     newTrack = d->mFileScanner.scanOneFile(scanFile, scanFileInfo);
 
     if (newTrack.isValid() && scanFileInfo.exists()) {
-        watchPath(scanFile.toLocalFile());
+        if (watchForFileSystemChanges & WatchChangedFiles) {
+            watchPath(scanFile.toLocalFile());
+        }
     }
 
     return newTrack;
@@ -340,11 +344,13 @@ void AbstractFileListing::watchPath(const QString &pathName)
     }
 }
 
-void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &directoryName)
+void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &directoryName, FileSystemWatchingModes watchForFileSystemChanges)
 {
     const auto directoryEntry = d->mDiscoveredFiles.find(directoryName);
     if (directoryEntry == d->mDiscoveredFiles.end()) {
-        watchPath(directoryName.toLocalFile());
+        if (watchForFileSystemChanges & WatchChangedDirectories) {
+            watchPath(directoryName.toLocalFile());
+        }
 
         QDir currentDirectory(directoryName.toLocalFile());
         if (currentDirectory.cdUp()) {
@@ -352,7 +358,9 @@ void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &di
             const auto parentDirectory = QUrl::fromLocalFile(parentDirectoryName);
             const auto parentDirectoryEntry = d->mDiscoveredFiles.find(parentDirectory);
             if (parentDirectoryEntry == d->mDiscoveredFiles.end()) {
-                watchPath(parentDirectoryName);
+                if (watchForFileSystemChanges & WatchChangedDirectories) {
+                    watchPath(parentDirectoryName);
+                }
             }
 
             auto &parentCurrentDirectoryListingFiles = d->mDiscoveredFiles[parentDirectory];
@@ -372,7 +380,7 @@ void AbstractFileListing::scanDirectoryTree(const QString &path)
 
     qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectoryTree" << path;
 
-    scanDirectory(newFiles, QUrl::fromLocalFile(path));
+    scanDirectory(newFiles, QUrl::fromLocalFile(path), WatchChangedDirectories | WatchChangedFiles);
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
         emitNewFiles(newFiles);

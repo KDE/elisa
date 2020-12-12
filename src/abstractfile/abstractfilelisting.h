@@ -29,6 +29,14 @@ class ELISALIB_EXPORT AbstractFileListing : public QObject
 
 public:
 
+    enum FileSystemWatchingMode {
+        DoNotWatchFileSystemChanges,
+        WatchChangedDirectories = 1 << 0,
+        WatchChangedFiles = 1 << 1,
+    };
+
+    using FileSystemWatchingModes = QFlags<FileSystemWatchingMode>;
+
     explicit AbstractFileListing(QObject *parent = nullptr);
 
     ~AbstractFileListing() override;
@@ -87,13 +95,13 @@ protected:
 
     virtual void triggerStop();
 
-    void scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path);
+    void scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path, FileSystemWatchingModes watchForFileSystemChanges);
 
-    virtual DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo);
+    virtual DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo, FileSystemWatchingModes watchForFileSystemChanges);
 
     void watchPath(const QString &pathName);
 
-    void addFileInDirectory(const QUrl &newFile, const QUrl &directoryName);
+    void addFileInDirectory(const QUrl &newFile, const QUrl &directoryName, FileSystemWatchingModes watchForFileSystemChanges);
 
     void scanDirectoryTree(const QString &path);
 
@@ -125,6 +133,6 @@ private:
 
 };
 
-
+Q_DECLARE_OPERATORS_FOR_FLAGS(AbstractFileListing::FileSystemWatchingModes)
 
 #endif // ABSTRACTFILELISTING_H

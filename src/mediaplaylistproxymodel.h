@@ -111,7 +111,7 @@ public:
 
     [[nodiscard]] QPersistentModelIndex nextTrack() const;
 
-    [[nodiacard]] Repeat repeatMode() const;
+    [[nodiscard]] Repeat repeatMode() const;
 
     [[nodiscard]] bool shufflePlayList() const;
 

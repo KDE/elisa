@@ -768,7 +768,7 @@ QVariantMap MediaPlayListProxyModel::persistentState() const
     currentState[QStringLiteral("playList")] = d->mPlayListModel->getEntriesForRestore();
     currentState[QStringLiteral("currentTrack")] = d->mCurrentPlayListPosition;
     currentState[QStringLiteral("shufflePlayList")] = d->mShufflePlayList;
-    currentState[QStringLiteral("repeatMode")] = QVariant::fromValue(d->mRepeatMode);
+    currentState[QStringLiteral("repeatMode")] = d->mRepeatMode;
 
     return currentState;
 }

@@ -11,7 +11,6 @@
 
 #include <QThread>
 #include <QHash>
-#include <QFileSystemWatcher>
 #include <QStandardPaths>
 
 
@@ -76,13 +75,13 @@ void LocalFileListing::triggerStop()
     AbstractFileListing::triggerStop();
 }
 
-DataTypes::TrackDataType LocalFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
+DataTypes::TrackDataType LocalFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo, FileSystemWatchingModes watchForFileSystemChanges)
 {
     auto trackData = fileScanner().scanOneBalooFile(scanFile, scanFileInfo);
 
     if (!trackData.isValid()) {
         qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::scanOneFile" << scanFile << "falling back to plain file metadata analysis";
-        trackData = AbstractFileListing::scanOneFile(scanFile, scanFileInfo);
+        trackData = AbstractFileListing::scanOneFile(scanFile, scanFileInfo, watchForFileSystemChanges);
     }
 
     if (trackData.isValid()) {

@@ -170,12 +170,12 @@ void LocalBalooFileListing::newBalooFile(const QString &fileName)
 
     auto newFile = QUrl::fromLocalFile(fileName);
 
-    auto newTrack = scanOneFile(newFile, scanFileInfo);
+    auto newTrack = scanOneFile(newFile, scanFileInfo, WatchChangedDirectories | WatchChangedFiles);
 
     if (newTrack.isValid()) {
         QFileInfo newFileInfo(fileName);
 
-        addFileInDirectory(newFile, QUrl::fromLocalFile(newFileInfo.absoluteDir().absolutePath()));
+        addFileInDirectory(newFile, QUrl::fromLocalFile(newFileInfo.absoluteDir().absolutePath()), WatchChangedDirectories | WatchChangedFiles);
 
         emitNewFiles({newTrack});
     }
@@ -401,9 +401,9 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
         const auto currentDirectory = QUrl::fromLocalFile(scanFileInfo.absoluteDir().absolutePath());
 
-        addFileInDirectory(newFileUrl, currentDirectory);
+        addFileInDirectory(newFileUrl, currentDirectory, WatchChangedDirectories | WatchChangedFiles);
 
-        const auto &newTrack = scanOneFile(newFileUrl, scanFileInfo);
+        const auto &newTrack = scanOneFile(newFileUrl, scanFileInfo, WatchChangedDirectories | WatchChangedFiles);
 
         if (newTrack.isValid()) {
             newFiles.push_back(newTrack);
@@ -437,14 +437,14 @@ void LocalBalooFileListing::triggerStop()
     AbstractFileListing::triggerStop();
 }
 
-DataTypes::TrackDataType LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
+DataTypes::TrackDataType LocalBalooFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo, FileSystemWatchingModes watchForFileSystemChanges)
 {
 
     auto trackData = fileScanner().scanOneBalooFile(scanFile, scanFileInfo);
 
     if (!trackData.isValid()) {
         qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::scanOneFile" << scanFile << "falling back to plain file metadata analysis";
-        trackData = AbstractFileListing::scanOneFile(scanFile, scanFileInfo);
+        trackData = AbstractFileListing::scanOneFile(scanFile, scanFileInfo, watchForFileSystemChanges);
     }
 
     if (trackData.isValid()) {

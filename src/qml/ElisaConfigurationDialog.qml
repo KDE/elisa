@@ -239,7 +239,7 @@ Window {
 
                         delegate: Kirigami.SwipeListItem {
                             // Don't need a highlight effect on hover
-                            activeBackgroundColor: "transparent"
+                            hoverEnabled: false
 
                             QQC2.Label {
                                 text: modelData

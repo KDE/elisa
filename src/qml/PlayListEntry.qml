@@ -300,7 +300,7 @@ FocusScope {
 
             starRating: rating
 
-            visible: rating > 0
+            visible: rating > 0 && !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode
         }
 
         LabelWithToolTip {

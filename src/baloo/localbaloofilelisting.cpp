@@ -170,12 +170,12 @@ void LocalBalooFileListing::newBalooFile(const QString &fileName)
 
     auto newFile = QUrl::fromLocalFile(fileName);
 
-    auto newTrack = scanOneFile(newFile, scanFileInfo, WatchChangedDirectories | WatchChangedFiles);
+    auto newTrack = scanOneFile(newFile, scanFileInfo, DoNotWatchFileSystemChanges);
 
     if (newTrack.isValid()) {
         QFileInfo newFileInfo(fileName);
 
-        addFileInDirectory(newFile, QUrl::fromLocalFile(newFileInfo.absoluteDir().absolutePath()), WatchChangedDirectories | WatchChangedFiles);
+        addFileInDirectory(newFile, QUrl::fromLocalFile(newFileInfo.absoluteDir().absolutePath()), DoNotWatchFileSystemChanges);
 
         emitNewFiles({newTrack});
     }
@@ -401,9 +401,9 @@ void LocalBalooFileListing::triggerRefreshOfContent()
 
         const auto currentDirectory = QUrl::fromLocalFile(scanFileInfo.absoluteDir().absolutePath());
 
-        addFileInDirectory(newFileUrl, currentDirectory, WatchChangedDirectories | WatchChangedFiles);
+        addFileInDirectory(newFileUrl, currentDirectory, DoNotWatchFileSystemChanges);
 
-        const auto &newTrack = scanOneFile(newFileUrl, scanFileInfo, WatchChangedDirectories | WatchChangedFiles);
+        const auto &newTrack = scanOneFile(newFileUrl, scanFileInfo, DoNotWatchFileSystemChanges);
 
         if (newTrack.isValid()) {
             newFiles.push_back(newTrack);

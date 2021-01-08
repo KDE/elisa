@@ -237,25 +237,20 @@ Window {
 
                         model: ElisaConfigurationDialog.rootPath
 
-                        delegate: Kirigami.BasicListItem {
-                            implicitHeight: Kirigami.Units.gridUnit * 2
-
+                        delegate: Kirigami.SwipeListItem {
                             // Don't need a highlight effect on hover
                             activeBackgroundColor: "transparent"
-                            activeTextColor: myPalette.text
 
+                            QQC2.Label {
+                                text: modelData
+                            }
 
-                            text: modelData
+                            actions: Kirigami.Action {
+                                iconName: "edit-delete"
+                                text: i18n("Stop looking for music here")
 
-                            trailing: QQC2.Button {
-                                icon.name: "edit-delete"
                                 visible: pathList.count > 1
-                                onClicked: ElisaConfigurationDialog.removeMusicLocation(modelData)
-                                Accessible.onPressAction: onClicked
-
-                                QQC2.ToolTip {
-                                    text: i18n("Stop looking for music here")
-                                }
+                                onTriggered: ElisaConfigurationDialog.removeMusicLocation(modelData)
                             }
                         }
                     }

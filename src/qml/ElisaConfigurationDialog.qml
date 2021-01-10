@@ -116,7 +116,10 @@ Window {
 
                 onApplied: ElisaConfigurationDialog.save()
 
-                onRejected: close()
+                onRejected: {
+                    ElisaConfigurationDialog.cancel()
+                    close()
+                }
             }
         }
     }

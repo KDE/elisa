@@ -137,6 +137,8 @@ public Q_SLOTS:
 
     void save();
 
+    void cancel();
+
     void setShowProgressInTaskBar(bool showProgressInTaskBar);
 
     void setShowSystemTrayIcon(bool showSystemTrayIcon);

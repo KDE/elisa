@@ -313,7 +313,10 @@ Window {
                     QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.RejectRole
                     Accessible.onPressAction: onClicked
                 }
-                onRejected: close()
+                onRejected: {
+                    ElisaConfigurationDialog.cancel()
+                    close()
+                }
             }
         }
     }

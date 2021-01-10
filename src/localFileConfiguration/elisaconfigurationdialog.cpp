@@ -110,6 +110,16 @@ void ElisaConfigurationDialog::save()
     Q_EMIT isDirtyChanged();
 }
 
+void ElisaConfigurationDialog::cancel()
+{
+    if (mIsDirty) {
+        configChanged();
+
+        mIsDirty = false;
+        Q_EMIT isDirtyChanged();
+    }
+}
+
 void ElisaConfigurationDialog::setShowProgressInTaskBar(bool showProgressInTaskBar)
 {
     if (mShowProgressInTaskBar == showProgressInTaskBar) {
@@ -200,30 +210,43 @@ void ElisaConfigurationDialog::removeMusicLocation(QString location)
 
 void ElisaConfigurationDialog::configChanged()
 {
-    setRootPath(Elisa::ElisaConfiguration::rootPath());
-    setShowProgressInTaskBar(Elisa::ElisaConfiguration::showProgressOnTaskBar());
-    setShowSystemTrayIcon(Elisa::ElisaConfiguration::showSystemTrayIcon());
-    setPlayAtStartup(Elisa::ElisaConfiguration::playAtStartup());
-    setColorScheme(Elisa::ElisaConfiguration::colorScheme());
-    setForceUsageOfFastFileSearch(Elisa::ElisaConfiguration::forceUsageOfFastFileSearch());
+    mRootPath = Elisa::ElisaConfiguration::rootPath();
+    Q_EMIT rootPathChanged(mRootPath);
+
+    mShowProgressInTaskBar = Elisa::ElisaConfiguration::showProgressOnTaskBar();
+    Q_EMIT showProgressInTaskBarChanged();
+
+    mShowSystemTrayIcon = Elisa::ElisaConfiguration::showSystemTrayIcon();
+    Q_EMIT showSystemTrayIconChanged();
+
+    mPlayAtStartup = Elisa::ElisaConfiguration::playAtStartup();
+    Q_EMIT playAtStartupChanged();
+
+    mColorScheme = Elisa::ElisaConfiguration::colorScheme();
+    Q_EMIT colorSchemeChanged();
+
+    mForceUsageOfFastFileSearch = Elisa::ElisaConfiguration::forceUsageOfFastFileSearch();
+    Q_EMIT forceUsageOfFastFileSearchChanged();
 
     switch (Elisa::ElisaConfiguration::embeddedView())
     {
     case Elisa::ElisaConfiguration::EnumEmbeddedView::NoView:
-        setEmbeddedView(ElisaUtils::Unknown);
+        mEmbeddedView = ElisaUtils::Unknown;
         break;
     case Elisa::ElisaConfiguration::EnumEmbeddedView::AllAlbums:
-        setEmbeddedView(ElisaUtils::Album);
+        mEmbeddedView = ElisaUtils::Album;
         break;
     case Elisa::ElisaConfiguration::EnumEmbeddedView::AllArtists:
-        setEmbeddedView(ElisaUtils::Artist);
+        mEmbeddedView = ElisaUtils::Artist;
         break;
     case Elisa::ElisaConfiguration::EnumEmbeddedView::AllGenres:
-        setEmbeddedView(ElisaUtils::Genre);
+        mEmbeddedView = ElisaUtils::Genre;
         break;
     }
+    Q_EMIT embeddedViewChanged();
 
-    setInitialViewIndex(Elisa::ElisaConfiguration::initialView());
+    mInitialViewIndex = Elisa::ElisaConfiguration::initialView();
+    Q_EMIT initialViewIndexChanged();
 }
 
 void ElisaConfigurationDialog::setDirty()

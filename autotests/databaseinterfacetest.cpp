@@ -55,6 +55,7 @@ private Q_SLOTS:
         qRegisterMetaType<DataTypes::AlbumDataType>("AlbumDataType");
         qRegisterMetaType<DataTypes::ArtistDataType>("ArtistDataType");
         qRegisterMetaType<DataTypes::GenreDataType>("GenreDataType");
+	qRegisterMetaType<DataTypes::ListRadioDataType>("ListRadioDataType");
     }
 
     void avoidCrashInTrackIdFromTitleAlbumArtist()
@@ -73,6 +74,90 @@ private Q_SLOTS:
     {
         DatabaseInterface musicDb;
         musicDb.allAlbumsData();
+    }
+
+    void avoidCrashInAllRadios(){
+        DatabaseInterface musicDb;
+        musicDb.allRadiosData();
+    }
+
+      void addOneRadio()
+    {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+        qDebug() << "addOneRadio" << databaseFile.fileName();
+        DatabaseInterface musicDb;
+        musicDb.init(QStringLiteral("testDb"),databaseFile.fileName());
+        QSignalSpy musicDbRadioAddedSpy(&musicDb,&DatabaseInterface::radioAdded);
+	//9 because elisa inits the radio table with 9 radio streams
+        QCOMPARE(musicDb.allRadiosData().count(),9);
+
+        auto newRadio = DataTypes::TrackDataType();
+        newRadio[DataTypes::CommentRole]=QStringLiteral("Test Comment");
+        newRadio[DataTypes::ResourceRole]=QUrl::fromEncoded("http://ice2.somafm.com/defcon-128-aac");
+        newRadio[DataTypes::TitleRole]=QStringLiteral("Test Radio");
+        newRadio[DataTypes::RatingRole]=9;
+        newRadio[DataTypes::ImageUrlRole]=QUrl::fromEncoded("https://somafm.com/img3/defcon400.png");
+        newRadio[DataTypes::ElementTypeRole]=ElisaUtils::Radio;
+        auto newRadios = DataTypes::ListRadioDataType();
+
+        newRadios.push_back(newRadio);
+        //Covers are ignored for radios.
+        musicDb.insertTracksList(newRadios,mNewCovers);
+        musicDbRadioAddedSpy.wait(300);
+
+        QCOMPARE(musicDb.allRadiosData().count(),10);
+        QCOMPARE(musicDbRadioAddedSpy.count(),1);
+        databaseFile.close();
+    }
+
+    void modifyOneRadio(){
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+        qDebug() << "addOneRadio" << databaseFile.fileName();
+        DatabaseInterface musicDb;
+        musicDb.init(QStringLiteral("testDb"),databaseFile.fileName());
+        QSignalSpy musicDbRadioAddedSpy(&musicDb,&DatabaseInterface::radioAdded);
+        QSignalSpy musicDbRadioModifiedSpy(&musicDb,&DatabaseInterface::radioModified);
+
+        QCOMPARE(musicDb.allRadiosData().count(),9);
+
+        auto newRadio = DataTypes::TrackDataType();
+        newRadio[DataTypes::CommentRole]=QStringLiteral("Test Comment");
+        newRadio[DataTypes::ResourceRole]=QUrl::fromEncoded("http://ice2.somafm.com/defcon-128-aac");
+        newRadio[DataTypes::TitleRole]=QStringLiteral("Test Radio");
+        newRadio[DataTypes::RatingRole]=9;
+        newRadio[DataTypes::ImageUrlRole]=QUrl::fromEncoded("https://somafm.com/img3/defcon400.png");
+        newRadio[DataTypes::ElementTypeRole]=ElisaUtils::Radio;
+        auto newRadios = DataTypes::ListRadioDataType();
+
+        newRadios.push_back(newRadio);
+        //Covers are ignored for radios.
+        musicDb.insertTracksList(newRadios,mNewCovers);
+        musicDbRadioAddedSpy.wait(300);
+
+        QCOMPARE(musicDb.allRadiosData().count(),10);
+        QCOMPARE(musicDbRadioAddedSpy.count(),1);
+
+
+        newRadios.clear();
+
+
+        auto radioId = musicDb.radioIdFromFileName(QUrl::fromEncoded("http://ice2.somafm.com/defcon-128-aac"));
+        auto modifiedRadio = musicDb.radioDataFromDatabaseId(radioId);
+        modifiedRadio[DataTypes::CommentRole]=QStringLiteral("News Test Comment");
+        newRadios.push_back(modifiedRadio);
+        musicDb.insertTracksList(newRadios,mNewCovers);
+
+        QCOMPARE(musicDb.allRadiosData().count(),10);
+        QCOMPARE(musicDbRadioAddedSpy.count(),1);
+        QCOMPARE(musicDbRadioModifiedSpy.count(),1);
+        databaseFile.close();
+
+
+
+
+
     }
 
     void addOneTrackWithoutAlbumArtist()

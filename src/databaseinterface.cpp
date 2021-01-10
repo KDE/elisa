@@ -3492,7 +3492,7 @@ void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &o
 {
     QSqlQuery query = d->mUpdateRadioQuery;
 
-    if (oneTrack.databaseId() == -1ull) {
+    if (!oneTrack.hasDatabaseId()) {
         query = d->mInsertRadioQuery;
     }
 
@@ -3512,7 +3512,7 @@ void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &o
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.boundValues();
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.lastError();
     } else {
-        if (oneTrack[DataTypes::TrackDataType::key_type::DatabaseIdRole] == -1) {
+        if (!oneTrack.hasDatabaseId()) {
             auto radio = internalOneRadioPartialData(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
 
             Q_EMIT radioAdded(radio);

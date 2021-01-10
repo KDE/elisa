@@ -320,4 +320,32 @@ Window {
             }
         }
     }
+
+    Dialogs.MessageDialog {
+        id: dirtyClosingDialog
+
+        standardButtons: Dialogs.StandardButton.Save | Dialogs.StandardButton.Discard | Dialogs.StandardButton.Cancel
+
+        title: i18n("Warning")
+
+        icon: Dialogs.StandardIcon.Warning
+        text: i18n('You have unsaved changes. Do you want to apply the changes or discard them?')
+
+        onDiscard: {
+            ElisaConfigurationDialog.cancel()
+            dialog.close()
+        }
+
+        onAccepted: {
+            ElisaConfigurationDialog.save()
+            dialog.close()
+        }
+    }
+
+    onClosing: {
+        if (ElisaConfigurationDialog.isDirty) {
+            close.accepted = false
+            dirtyClosingDialog.open()
+        }
+    }
 }

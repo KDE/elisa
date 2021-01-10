@@ -8,6 +8,8 @@
 
 #include "config-upnp-qt.h"
 
+#include "powerManagementLogging.h"
+
 #include <KLocalizedString>
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
@@ -28,7 +30,7 @@
 
 #include <QCoreApplication>
 
-#include <QDebug>
+#include <QLoggingCategory>
 
 class PowerManagementInterfacePrivate
 {
@@ -119,7 +121,7 @@ void PowerManagementInterface::uninhibitDBusCallFinishedPlasmaWorkspace(QDBusPen
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     QDBusPendingReply<> reply = *aWatcher;
     if (reply.isError()) {
-        qDebug() << "PowerManagementInterface::uninhibitDBusCallFinished" << reply.error();
+        qCDebug(orgKdeElisaPowerManagement()) << "PowerManagementInterface::uninhibitDBusCallFinished" << reply.error();
     } else {
         d->mInhibitedSleep = false;
 
@@ -134,7 +136,7 @@ void PowerManagementInterface::inhibitDBusCallFinishedGnomeWorkspace(QDBusPendin
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     QDBusPendingReply<uint> reply = *aWatcher;
     if (reply.isError()) {
-        qDebug() << "PowerManagementInterface::inhibitDBusCallFinishedGnomeWorkspace" << reply.error();
+        qCDebug(orgKdeElisaPowerManagement()) << "PowerManagementInterface::inhibitDBusCallFinishedGnomeWorkspace" << reply.error();
     } else {
         d->mInhibitSleepCookie = reply.argumentAt<0>();
         d->mInhibitedSleep = true;
@@ -150,7 +152,7 @@ void PowerManagementInterface::uninhibitDBusCallFinishedGnomeWorkspace(QDBusPend
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     QDBusPendingReply<> reply = *aWatcher;
     if (reply.isError()) {
-        qDebug() << "PowerManagementInterface::uninhibitDBusCallFinished" << reply.error();
+        qCDebug(orgKdeElisaPowerManagement()) << "PowerManagementInterface::uninhibitDBusCallFinished" << reply.error();
     } else {
         d->mInhibitedSleep = false;
 

@@ -158,6 +158,7 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
                 newEntry.elementType() == ElisaUtils::Container);
         break;
     case ElisaUtils::FileName:
+    case ElisaUtils::Track:
         mPendingEntries.emplace(newEntry[DataTypes::ResourceRole].toUrl(),
                 newEntry.elementType() == ElisaUtils::Container);
         break;
@@ -167,7 +168,6 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
     case ElisaUtils::Genre:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Radio:
-    case ElisaUtils::Track:
     case ElisaUtils::Unknown:
         break;
     }

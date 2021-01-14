@@ -14,6 +14,7 @@ ScrollView {
     id: scrollView
 
     property alias playListModel: playListModelDelegate.model
+    property alias listView: playListView
     property string title
 
     signal startPlayback()

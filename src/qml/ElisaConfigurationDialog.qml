@@ -24,7 +24,7 @@ Window {
     modality: Qt.ApplicationModal
 
     minimumWidth: Kirigami.Units.gridUnit * 36
-    minimumHeight: Kirigami.Units.gridUnit * 29
+    minimumHeight: Kirigami.Units.gridUnit * 32
 
     // Close when pressing Esc key
     Shortcut {

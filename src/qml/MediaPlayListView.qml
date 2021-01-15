@@ -140,9 +140,9 @@ FocusScope {
                     icon.name: 'media-track-show-active'
                     enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
                     onClicked: {
-                        playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
-                        playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
-                        playListView.currentItem.forceActiveFocus()
+                        playListView.listView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
+                        playListView.listView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
+                        playListView.listView.currentItem.forceActiveFocus()
                     }
                 },
                 FlatButtonWithToolTip {

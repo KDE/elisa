@@ -388,7 +388,7 @@ FocusScope {
 
         ParallelAnimation {
             NumberAnimation {
-                targets: [newBackground, newMainIcon, mainLabel, authorLabel, remainingTracksLabel, albumLabel]
+                targets: [newBackground, newMainIcon, mainLabel, authorLabel, albumLabel]
                 property: 'opacity'
                 from: 0
                 to: 1

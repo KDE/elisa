@@ -282,8 +282,12 @@ bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
     const auto &imageData = d->mImageScanner.imageData(localFileName);
 
-    if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-        if (!imageData[KFileMetaData::EmbeddedImageData::FrontCover].isEmpty()) {
+    if (imageData.isEmpty()) {
+        return false;
+    }
+
+    for(const auto &oneCover : imageData) {
+        if (!oneCover.isEmpty()) {
             return true;
         }
     }

@@ -419,10 +419,9 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
 #if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
             KFileMetaData::EmbeddedImageData embeddedImage;
 
-            auto imageData = embeddedImage.imageData(m_manageHeaderBar->image().toString().mid(14));
-
-            if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-                result[QStringLiteral("mpris:artUrl")] = QString{QStringLiteral("data:image/png;base64,") + QLatin1String{imageData[KFileMetaData::EmbeddedImageData::FrontCover].toBase64()}};
+            auto imageData = ElisaUtils::getEmbeddedImageData(m_manageHeaderBar->image().toString().mid(14));
+            if (!imageData.isEmpty()) {
+                result[QStringLiteral("mpris:artUrl")] = QString{QStringLiteral("data:image/png;base64,") + QLatin1String{imageData.toBase64()}};
             }
 #endif
         } else {

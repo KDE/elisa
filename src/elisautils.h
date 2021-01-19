@@ -13,6 +13,7 @@
 #include <QUrl>
 #include <QString>
 #include <QMetaType>
+#include <QImage>
 
 namespace ElisaUtils {
 
@@ -68,6 +69,11 @@ enum IconUseColorOverlay
 };
 
 Q_ENUM_NS(IconUseColorOverlay)
+
+QImage getEmbeddedImage(const QSize &size,
+                        const QString &identifier);
+
+QByteArray getEmbeddedImageData(const QString &identifier);
 
 }
 

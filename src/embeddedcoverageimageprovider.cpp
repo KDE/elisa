@@ -6,7 +6,8 @@
 
 #include "embeddedcoverageimageprovider.h"
 
-#include <KFileMetaData/EmbeddedImageData>
+#include "elisautils.h"
+
 #include <QImage>
 
 class AsyncImageResponse : public QQuickImageResponse, public QRunnable
@@ -35,17 +36,7 @@ public:
 
     void run() override
     {
-        KFileMetaData::EmbeddedImageData embeddedImage;
-
-        auto imageData = embeddedImage.imageData(mId);
-
-        if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-            mCoverImage = QImage::fromData(imageData[KFileMetaData::EmbeddedImageData::FrontCover]);
-            auto newCoverImage = mCoverImage.scaled(mRequestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            if (!newCoverImage.isNull()) {
-                mCoverImage = std::move(newCoverImage);
-            }
-        }
+        mCoverImage = ElisaUtils::getEmbeddedImage(mRequestedSize, mId);
 
         Q_EMIT finished();
     }

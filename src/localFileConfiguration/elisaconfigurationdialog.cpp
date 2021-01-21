@@ -74,7 +74,7 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setRootPath(mRootPath);
     Elisa::ElisaConfiguration::setShowProgressOnTaskBar(mShowProgressInTaskBar);
     Elisa::ElisaConfiguration::setShowSystemTrayIcon(mShowSystemTrayIcon);
-    Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(mForceUsageOfFastFileSearch);
+    Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(!mForceUsageOfSlowFileSystemIndexing);
     Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
     Elisa::ElisaConfiguration::setColorScheme(mColorScheme);
 
@@ -144,14 +144,14 @@ void ElisaConfigurationDialog::setShowSystemTrayIcon(bool showSystemTrayIcon)
     setDirty();
 }
 
-void ElisaConfigurationDialog::setForceUsageOfFastFileSearch(bool forceUsageOfFastFileSearch)
+void ElisaConfigurationDialog::setForceUsageOfSlowFileSystemIndexing(bool forceUsageOfSlowFileSystemIndexing)
 {
-    if (mForceUsageOfFastFileSearch == forceUsageOfFastFileSearch) {
+    if (mForceUsageOfSlowFileSystemIndexing == forceUsageOfSlowFileSystemIndexing) {
         return;
     }
 
-    mForceUsageOfFastFileSearch = forceUsageOfFastFileSearch;
-    Q_EMIT forceUsageOfFastFileSearchChanged();
+    mForceUsageOfSlowFileSystemIndexing = forceUsageOfSlowFileSystemIndexing;
+    Q_EMIT forceUsageOfSlowFileSystemIndexingChanged();
 
     setDirty();
 }
@@ -225,8 +225,8 @@ void ElisaConfigurationDialog::configChanged()
     mColorScheme = Elisa::ElisaConfiguration::colorScheme();
     Q_EMIT colorSchemeChanged();
 
-    mForceUsageOfFastFileSearch = Elisa::ElisaConfiguration::forceUsageOfFastFileSearch();
-    Q_EMIT forceUsageOfFastFileSearchChanged();
+    mForceUsageOfSlowFileSystemIndexing = !Elisa::ElisaConfiguration::forceUsageOfFastFileSearch();
+    Q_EMIT forceUsageOfSlowFileSystemIndexingChanged();
 
     switch (Elisa::ElisaConfiguration::embeddedView())
     {

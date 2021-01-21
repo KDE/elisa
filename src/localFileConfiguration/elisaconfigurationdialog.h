@@ -24,10 +24,10 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setRootPath
                NOTIFY rootPathChanged)
 
-    Q_PROPERTY(bool forceUsageOfFastFileSearch
-               READ forceUsageOfFastFileSearch
-               WRITE setForceUsageOfFastFileSearch
-               NOTIFY forceUsageOfFastFileSearchChanged)
+    Q_PROPERTY(bool forceUsageOfSlowFileSystemIndexing
+               READ forceUsageOfSlowFileSystemIndexing
+               WRITE setForceUsageOfSlowFileSystemIndexing
+               NOTIFY forceUsageOfSlowFileSystemIndexingChanged)
 
     Q_PROPERTY(bool showProgressInTaskBar
                READ showProgressInTaskBar
@@ -86,9 +86,9 @@ public:
         return mShowSystemTrayIcon;
     }
 
-    [[nodiscard]] bool forceUsageOfFastFileSearch() const
+    [[nodiscard]] bool forceUsageOfSlowFileSystemIndexing() const
     {
-        return mForceUsageOfFastFileSearch;
+        return mForceUsageOfSlowFileSystemIndexing;
     }
 
     [[nodiscard]] ElisaUtils::PlayListEntryType embeddedView() const
@@ -124,7 +124,7 @@ Q_SIGNALS:
 
     void showSystemTrayIconChanged();
 
-    void forceUsageOfFastFileSearchChanged();
+    void forceUsageOfSlowFileSystemIndexingChanged();
 
     void embeddedViewChanged();
 
@@ -146,7 +146,7 @@ public Q_SLOTS:
 
     void setShowSystemTrayIcon(bool showSystemTrayIcon);
 
-    void setForceUsageOfFastFileSearch(bool forceUsageOfFastFileSearch);
+    void setForceUsageOfSlowFileSystemIndexing(bool forceUsageOfSlowFileSystemIndexing);
 
     void setEmbeddedView(ElisaUtils::PlayListEntryType embeddedView);
 
@@ -174,7 +174,7 @@ private:
 
     bool mShowSystemTrayIcon = false;
 
-    bool mForceUsageOfFastFileSearch = true;
+    bool mForceUsageOfSlowFileSystemIndexing = true;
 
     bool mPlayAtStartup = false;
 

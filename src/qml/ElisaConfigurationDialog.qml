@@ -178,9 +178,9 @@ Window {
                     model: [i18nc("Configure dialog, indexing type", "Use fast native indexer"),
                             i18nc("Configure dialog, indexing type", "Scan the filesystem directly")]
 
-                    currentIndex: ElisaConfigurationDialog.forceUsageOfFastFileSearch ? 1 : 0
+                    currentIndex: ElisaConfigurationDialog.forceUsageOfSlowFileSystemIndexing ? 1 : 0
                     onActivated: {
-                        ElisaConfigurationDialog.forceUsageOfFastFileSearch = currentIndex === 0 ? false : true
+                        ElisaConfigurationDialog.forceUsageOfSlowFileSystemIndexing = currentIndex === 0 ? false : true
                     }
                 }
             }

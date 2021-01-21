@@ -223,9 +223,6 @@ FocusScope {
                 anchors.centerIn: parent
 
                 FlatButtonWithToolTip {
-                    implicitHeight: playListEntry.height
-                    implicitWidth: playListEntry.height
-
                     visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
 
                     enabled: isValid
@@ -240,9 +237,6 @@ FocusScope {
                 FlatButtonWithToolTip {
                     id: infoButton
                     objectName: 'infoButton'
-
-                    implicitHeight: playListEntry.height
-                    implicitWidth: playListEntry.height
 
                     enabled: isValid
 
@@ -263,9 +257,6 @@ FocusScope {
                     id: playPauseButton
                     objectName: 'playPauseButton'
 
-                    implicitHeight: playListEntry.height
-                    implicitWidth: playListEntry.height
-
                     enabled: isValid
 
                     scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
@@ -283,9 +274,6 @@ FocusScope {
                 FlatButtonWithToolTip {
                     id: removeButton
                     objectName: 'removeButton'
-
-                    implicitHeight: playListEntry.height
-                    implicitWidth: playListEntry.height
 
                     text: i18nc("Remove current track from play list", "Remove")
                     icon.name: "error"

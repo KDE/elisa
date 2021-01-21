@@ -30,12 +30,6 @@ FocusScope {
             property color shadow
             property color highlight
         }
-
-        Item {
-            id: elisaTheme
-
-            property int delegateToolButtonSize: 34
-        }
     }
 
     Item {

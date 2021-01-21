@@ -111,8 +111,7 @@ ColumnLayout {
 
                 objectName: 'sortMenuButton'
                 visible: enableSorting && !showCreateRadioButton
-                display: AbstractButton.TextOnly
-                icon.name: "view-sort"
+
                 onClicked: {
                     sortMenu.sortOrder = navigationBar.sortOrder
                     sortMenu.open()
@@ -122,22 +121,24 @@ ColumnLayout {
                 // that opens a dropdown menu
                 // TODO: Port more fully to Kirigami so we get this for free
                 contentItem: RowLayout {
-                    spacing: Kirigami.Units.largeSpacing
-                    Label {
+                    Kirigami.Icon {
+                        implicitWidth: Kirigami.Units.iconSizes.smallMedium
+                        implicitHeight: Kirigami.Units.iconSizes.smallMedium
                         Layout.leftMargin: Kirigami.Units.largeSpacing
+                        source: "view-sort"
+                    }
+                    Label {
                         text: if (sortMenu.sortRoleName !== "") {
                             i18nc("Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
                         } else {
                             i18nc("Sort By Menu Title with no sort selected", "Sort")
                         }
                     }
-                    Image {
+                    Kirigami.Icon {
+                        implicitWidth: Kirigami.Units.iconSizes.small
+                        implicitHeight: Kirigami.Units.iconSizes.small
                         Layout.rightMargin: Kirigami.Units.largeSpacing
-                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
-                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
-                        source: 'image://icon/arrow-down'
-                        sourceSize.width: width
-                        sourceSize.height: height
+                        source: "arrow-down"
                     }
                 }
 

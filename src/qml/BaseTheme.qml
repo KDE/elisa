@@ -41,8 +41,6 @@ Item {
     property int tooltipRadius: 3
     property int shadowOffset: 2
 
-    property int delegateToolButtonSize: 34
-
     property int mediaPlayerControlHeight: 42
     property real mediaPlayerControlOpacity: 0.6
     property int volumeSliderWidth: 100

@@ -147,9 +147,6 @@ FocusScope {
                             Keys.onEnterPressed: clicked()
 
                             visible: showDetailsButton && (trackUrl.toString().substring(0, 7) === 'file://')
-
-                            width: elisaTheme.delegateToolButtonSize
-                            height: elisaTheme.delegateToolButtonSize
                         }
                         Button {
                             id: detailsButton
@@ -180,9 +177,6 @@ FocusScope {
                             Keys.onReturnPressed: clicked()
                             Keys.onEnterPressed: clicked()
                             visible: showDetailsButton
-
-                            width: elisaTheme.delegateToolButtonSize
-                            height: elisaTheme.delegateToolButtonSize
                         }
 
                         Button {
@@ -206,9 +200,6 @@ FocusScope {
                             Keys.onEnterPressed: replaceAndPlay()
 
                             visible: showPlayButton
-
-                            width: elisaTheme.delegateToolButtonSize
-                            height: elisaTheme.delegateToolButtonSize
                         }
 
                         Button {
@@ -231,9 +222,6 @@ FocusScope {
                             Keys.onEnterPressed: enqueue()
 
                             visible: showEnqueueButton
-
-                            width: elisaTheme.delegateToolButtonSize
-                            height: elisaTheme.delegateToolButtonSize
                         }
                     }
                 }

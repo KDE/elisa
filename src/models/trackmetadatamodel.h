@@ -18,6 +18,7 @@
 #include <QUrl>
 #include <QAbstractListModel>
 #include <QFutureWatcher>
+#include <QMutex>
 
 class MusicListenersManager;
 
@@ -185,6 +186,8 @@ private:
     MusicListenersManager *mManager = nullptr;
 
     FileScanner mFileScanner;
+
+    QMutex mFileScannerMutex;
 
     QFutureWatcher<QString> mLyricsValueWatcher;
 };

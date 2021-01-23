@@ -581,8 +581,10 @@ bool TrackMetadataModel::metadataExists(DataTypes::ColumnsRoles metadataRole) co
 
 void TrackMetadataModel::fetchLyrics()
 {
-    auto lyricicsValue = QtConcurrent::run(QThreadPool::globalInstance(), [=]() {
-        auto trackData = mFileScanner.scanOneFile(mFullData[DataTypes::ResourceRole].toUrl());
+    auto fileUrl = mFullData[DataTypes::ResourceRole].toUrl();
+    auto lyricicsValue = QtConcurrent::run(QThreadPool::globalInstance(), [fileUrl, this]() {
+        auto locker = QMutexLocker(&mFileScannerMutex);
+        auto trackData = mFileScanner.scanOneFile(fileUrl);
         if (!trackData.lyrics().isEmpty()) {
             return trackData.lyrics();
         }

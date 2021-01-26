@@ -144,6 +144,13 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
     scanProperties(localFileName, newTrack);
 
+    auto imageData = ElisaUtils::getEmbeddedImageData(localFileName);
+    if (!imageData.isEmpty()) {
+        newTrack[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + localFileName};
+    } else {
+        newTrack[DataTypes::ImageUrlRole] = searchForCoverFile(localFileName);
+    }
+
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "using KFileMetaData" << newTrack;
 #else
     Q_UNUSED(scanFile)

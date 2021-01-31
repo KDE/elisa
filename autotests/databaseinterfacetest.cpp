@@ -2124,7 +2124,7 @@ private Q_SLOTS:
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstAlbumImage.isValid(), true);
-        QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstAlbumImage, QUrl(QStringLiteral("image://cover//$1")));
         QCOMPARE(firstAlbumTracksCount, 4);
         QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
 
@@ -2240,7 +2240,7 @@ private Q_SLOTS:
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstAlbumImage.isValid(), true);
-        QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstAlbumImage, QUrl(QStringLiteral("image://cover//$1")));
         QCOMPARE(firstAlbumTracksCount, 4);
         QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
 
@@ -2396,7 +2396,7 @@ private Q_SLOTS:
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstAlbumImage.isValid(), true);
-        QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstAlbumImage, QUrl(QStringLiteral("image://cover//$1")));
         QCOMPARE(firstAlbumTracksCount, 4);
         QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
 
@@ -2498,7 +2498,7 @@ private Q_SLOTS:
         QCOMPARE(firstAlbumTitle, QStringLiteral("album1"));
         QCOMPARE(firstAlbumArtist, QStringLiteral("Various Artists"));
         QCOMPARE(firstAlbumImage.isValid(), true);
-        QCOMPARE(firstAlbumImage, QUrl::fromLocalFile(QStringLiteral("album1")));
+        QCOMPARE(firstAlbumImage, QUrl(QStringLiteral("image://cover//$1")));
         QCOMPARE(firstAlbumTracksCount, 4);
         QCOMPARE(firstAlbumIsSingleDiscAlbum, false);
 
@@ -3804,7 +3804,7 @@ private Q_SLOTS:
         QCOMPARE(firstTrack.artist(), QStringLiteral("artist2"));
         QCOMPARE(firstTrack.album(), QStringLiteral("album3"));
         QVERIFY(!firstTrack.albumArtist().isEmpty());
-        QCOMPARE(firstTrack.albumCover(), QUrl::fromLocalFile(QStringLiteral("album3")));
+        QCOMPARE(firstTrack.albumCover(), QUrl(QStringLiteral("image://cover//$23")));
         QCOMPARE(firstTrack.trackNumber(), 6);
         QCOMPARE(firstTrack.discNumber(), 1);
         QCOMPARE(firstTrack.duration(), QTime::fromMSecsSinceStartOfDay(23));

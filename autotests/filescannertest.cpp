@@ -66,13 +66,21 @@ private Q_SLOTS:
 
         auto scannedTrackCover1 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaData.at(0)));
         QCOMPARE(scannedTrackCover1.hasEmbeddedCover(), true);
+        auto trackCoverUrl1 = scannedTrackCover1.albumCover();
+        QVERIFY(!trackCoverUrl1.isEmpty());
+        QCOMPARE(trackCoverUrl1.toString(), QStringLiteral("image://cover/") + mTestTracksForMetaData.at(0));
 
         auto scannedTrackCover2 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaData.at(1)));
         QCOMPARE(scannedTrackCover2.hasEmbeddedCover(), true);
+        auto trackCoverUrl2 = scannedTrackCover2.albumCover();
+        QVERIFY(!trackCoverUrl2.isEmpty());
+        QCOMPARE(trackCoverUrl2.toString(), QStringLiteral("image://cover/") + mTestTracksForMetaData.at(1));
 
         auto scannedTrackCover3 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaData.at(2)));
-        QCOMPARE(scannedTrackCover2.hasEmbeddedCover(), true);
-
+        QCOMPARE(scannedTrackCover3.hasEmbeddedCover(), true);
+        auto trackCoverUrl3 = scannedTrackCover3.albumCover();
+        QVERIFY(!trackCoverUrl3.isEmpty());
+        QCOMPARE(trackCoverUrl3.toString(), QStringLiteral("image://cover/") + mTestTracksForMetaData.at(2));
     }
 
     void testFindCoverInDirectory()

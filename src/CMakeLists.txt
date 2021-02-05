@@ -416,7 +416,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/DataListView.qml
 
         qml/MediaPlayListView.qml
-        qml/PlayListBasicView.qml
         qml/PlayListEntry.qml
         qml/SimplePlayListView.qml
         qml/BasicPlayListAlbumHeader.qml

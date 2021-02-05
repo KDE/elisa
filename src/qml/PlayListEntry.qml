@@ -51,7 +51,7 @@ FocusScope {
         playListEntry.startPlayback()
     }
 
-    height: Kirigami.Units.gridUnit + 3 * Kirigami.Units.smallSpacing
+    height: Kirigami.Units.gridUnit + (Kirigami.Units.largeSpacing * 2)
 
     Loader {
         id: metadataLoader

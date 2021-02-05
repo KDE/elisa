@@ -294,7 +294,6 @@ Window {
 
                 Button {
                     text: i18n("Close")
-                    icon.name: 'dialog-cancel'
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                     onClicked: trackMetadata.close()
                 }

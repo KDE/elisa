@@ -87,7 +87,7 @@ QHash<int, QByteArray> DataModel::roleNames() const
 
     roles[static_cast<int>(DataTypes::ColumnsRoles::AlbumRole)] = "album";
     roles[static_cast<int>(DataTypes::ColumnsRoles::AlbumArtistRole)] = "albumArtist";
-    roles[static_cast<int>(DataTypes::ColumnsRoles::DurationRole)] = "duration";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::StringDurationRole)] = "duration";
     roles[static_cast<int>(DataTypes::ColumnsRoles::TrackNumberRole)] = "trackNumber";
     roles[static_cast<int>(DataTypes::ColumnsRoles::DiscNumberRole)] = "discNumber";
     roles[static_cast<int>(DataTypes::ColumnsRoles::RatingRole)] = "rating";
@@ -156,7 +156,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case DataTypes::ColumnsRoles::DurationRole:
+    case DataTypes::ColumnsRoles::StringDurationRole:
     {
         switch (d->mModelType)
         {

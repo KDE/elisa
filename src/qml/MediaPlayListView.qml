@@ -49,7 +49,6 @@ Kirigami.Page {
 
 
     title: i18nc("@info Title of the view of the playlist; keep this string as short as possible because horizontal space is quite scarce", "Playlist")
-    globalToolBarStyle: Kirigami.ApplicationHeaderStyle.ToolBar
     padding: 0
 
     // Use view colors so the background is white
@@ -104,6 +103,8 @@ Kirigami.Page {
     // FIXME: Apparently the page needs to have a row or a stack to show the
     // header toolbar automatically, so we have to make our own See
     // https://bugs.kde.org/show_bug.cgi?id=432541
+    // globalToolBarStyle: Kirigami.ApplicationHeaderStyle.ToolBar
+
     header: ToolBar {
         // Override color to use standard window colors, not header colors
         // TODO: remove this if the HeaderBar component is ever removed or moved

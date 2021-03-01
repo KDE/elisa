@@ -368,9 +368,9 @@ Kirigami.Page {
     PlatformDialog.FileDialog {
         id: fileDialog
 
-        defaultSuffix: 'm3u'
+        defaultSuffix: 'm3u8'
         folder: PlatformDialog.StandardPaths.writableLocation(PlatformDialog.StandardPaths.MusicLocation)
-        nameFilters: [i18nc("file type (mime type) for m3u playlist", "Playlist (*.m3u)")]
+        nameFilters: [i18nc("file type (mime type) for m3u and m3u8 playlist file formats", "Playlist (*.m3u*)")]
 
         onAccepted:
         {

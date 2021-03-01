@@ -723,13 +723,13 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
         }
     }
 
-    return savePlaylist.save(fileName, "m3u");
+    return savePlaylist.save(fileName, "m3u8");
 }
 
 void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
 {
     d->mLoadPlaylist.clear();
-    d->mLoadPlaylist.load(fileName, "m3u");
+    d->mLoadPlaylist.load(fileName, "m3u8");
 }
 
 void MediaPlayListProxyModel::loadPlayListLoaded()

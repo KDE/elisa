@@ -1149,7 +1149,7 @@ void MediaPlayListProxyModelTest::testSaveLoadPlayList()
 
     QCOMPARE(myPlayListProxyModelSave.currentTrack(), QPersistentModelIndex(myPlayListProxyModelSave.index(0, 0)));
 
-    QTemporaryFile playlistFile(QStringLiteral("./myPlaylistXXXXXX.m3u"));
+    QTemporaryFile playlistFile(QStringLiteral("./myPlaylistXXXXXX.m3u8"));
     playlistFile.open();
 
     QCOMPARE(myPlayListProxyModelSave.savePlayList(QUrl::fromLocalFile(playlistFile.fileName())), true);

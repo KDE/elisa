@@ -46,9 +46,6 @@ Kirigami.ApplicationWindow {
 
     title: i18n("Elisa")
 
-    Accessible.role: Accessible.Application
-    Accessible.name: title
-
     readonly property int initialViewIndex: 3
 
     property var goBackAction: ElisaApplication.action("go_back")

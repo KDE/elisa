@@ -4,7 +4,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
+import QtQuick 2.15
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
@@ -54,6 +54,10 @@ FocusScope {
         }
     }
 
+    property bool delegateLoaded: true
+
+    ListView.onPooled: delegateLoaded = false
+    ListView.onReused: delegateLoaded = true
 
     Keys.onReturnPressed: open()
     Keys.onEnterPressed: open()
@@ -229,7 +233,7 @@ FocusScope {
                 Loader {
                     id: coverImageLoader
 
-                    active: !isPartial
+                    active: gridEntry.delegateLoaded && !isPartial
 
                     anchors.fill: parent
 

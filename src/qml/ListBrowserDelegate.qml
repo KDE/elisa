@@ -5,7 +5,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
+import QtQuick 2.15
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
@@ -43,6 +43,11 @@ FocusScope {
 
     Keys.onReturnPressed: enqueue()
     Keys.onEnterPressed: enqueue()
+
+    property bool delegateLoaded: true
+
+    ListView.onPooled: delegateLoaded = false
+    ListView.onReused: delegateLoaded = true
 
     property int singleLineHeight: 3 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit
     height: singleLineHeight + (detailedView ? Kirigami.Units.gridUnit : 0)
@@ -121,38 +126,41 @@ FocusScope {
                 }
             }
 
-            ImageWithFallback {
-                id: coverImageElement
-
+            Loader {
+                active: mediaTrack.delegateLoaded && detailedView
+                visible: active
+                
                 Layout.preferredHeight: mediaTrack.height - Kirigami.Units.smallSpacing
                 Layout.preferredWidth: mediaTrack.height - Kirigami.Units.smallSpacing
                 Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
                 Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
 
                 Layout.alignment: Qt.AlignCenter
+                
+                sourceComponent: ImageWithFallback {
+                    id: coverImageElement
 
-                visible: detailedView
+                    sourceSize.width: mediaTrack.height - Kirigami.Units.smallSpacing
+                    sourceSize.height: mediaTrack.height - Kirigami.Units.smallSpacing
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
 
-                sourceSize.width: mediaTrack.height - Kirigami.Units.smallSpacing
-                sourceSize.height: mediaTrack.height - Kirigami.Units.smallSpacing
-                fillMode: Image.PreserveAspectFit
-                smooth: true
+                    source: imageUrl
+                    fallback: elisaTheme.defaultAlbumImage
 
-                source: imageUrl
-                fallback: elisaTheme.defaultAlbumImage
+                    asynchronous: true
 
-                asynchronous: true
+                    layer.enabled: !usingFallback
 
-                layer.enabled: !usingFallback
+                    layer.effect: DropShadow {
+                        source: coverImageElement
 
-                layer.effect: DropShadow {
-                    source: coverImageElement
+                        radius: 10
+                        spread: 0.1
+                        samples: 21
 
-                    radius: 10
-                    spread: 0.1
-                    samples: 21
-
-                    color: myPalette.shadow
+                        color: myPalette.shadow
+                    }
                 }
             }
 

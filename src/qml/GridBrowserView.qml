@@ -4,7 +4,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
+import QtQuick 2.15
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
@@ -190,6 +190,8 @@ FocusScope {
                     clip: true
                     activeFocusOnTab: true
                     keyNavigationEnabled: true
+
+                    reuseItems: true
 
                     model: delegateModel
 

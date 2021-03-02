@@ -100,11 +100,9 @@ Kirigami.Page {
          }
     }
 
-    // FIXME: Apparently the page needs to have a row or a stack to show the
-    // header toolbar automatically, so we have to make our own See
-    // https://bugs.kde.org/show_bug.cgi?id=432541
-    // globalToolBarStyle: Kirigami.ApplicationHeaderStyle.ToolBar
-
+    // TODO: Once we depend on Frameworks 5.80, change this to
+    // "Kirigami.ApplicationHeaderStyle.None" and remove the custom header
+    globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
         // Override color to use standard window colors, not header colors
         // TODO: remove this if the HeaderBar component is ever removed or moved

@@ -120,6 +120,17 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
     const QList<KFileMetaData::Extractor*> &exList = d->mAllExtractors.fetchExtractors(mimetype);
 
     if (exList.isEmpty()) {
+        // when no extractors exist and we have an audio file, we fallback to filling the minimal
+        // set of properties to let Elisa be able to recognise and play the file.
+
+        qCDebug(orgKdeElisaIndexer()) << "FileScanner::shouldScanFile" << scanFile << localFileName << "no extractors" << fileMimeType;
+
+        newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
+        newTrack[DataTypes::ResourceRole] = scanFile;
+        newTrack[DataTypes::RatingRole] = 0;
+        newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(1);
+        newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
+
         return newTrack;
     }
 

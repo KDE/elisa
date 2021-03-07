@@ -48,6 +48,12 @@ public:
         createTrackUrl(QStringLiteral("/artist4/test.mp3")),
     };
 
+    QList<QString> mTestTracksForMetaDataWithCoverInDirectory = {
+        createTrackUrl(QStringLiteral("/artist1/album1/test.ogg")),
+        createTrackUrl(QStringLiteral("/artist1/album1/test.m4a")),
+        createTrackUrl(QStringLiteral("/artist1/album1/test.mp3")),
+    };
+
 private Q_SLOTS:
 
     void initTestCase()
@@ -95,6 +101,32 @@ private Q_SLOTS:
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(6)).isEmpty());
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(7)).isEmpty());
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(8)).isEmpty());
+    }
+
+
+    void testFileMetaDataScanWithCoverInDirectory()
+    {
+        FileScanner fileScanner;
+
+        auto vExpectedImageUrl = QUrl::fromLocalFile(createTrackUrl(QStringLiteral("/artist1/album1/cover.jpg"))).toString();
+
+        auto scannedTrackCover1 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaDataWithCoverInDirectory.at(0)));
+        QCOMPARE(scannedTrackCover1.hasEmbeddedCover(), false);
+        auto trackCoverUrl1 = scannedTrackCover1.albumCover();
+        QVERIFY(!trackCoverUrl1.isEmpty());
+        QCOMPARE(trackCoverUrl1.toString(), vExpectedImageUrl);
+
+        auto scannedTrackCover2 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaDataWithCoverInDirectory.at(1)));
+        QCOMPARE(scannedTrackCover2.hasEmbeddedCover(), false);
+        auto trackCoverUrl2 = scannedTrackCover2.albumCover();
+        QVERIFY(!trackCoverUrl2.isEmpty());
+        QCOMPARE(trackCoverUrl2.toString(), vExpectedImageUrl);
+
+        auto scannedTrackCover3 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaDataWithCoverInDirectory.at(2)));
+        QCOMPARE(scannedTrackCover3.hasEmbeddedCover(), false);
+        auto trackCoverUrl3 = scannedTrackCover3.albumCover();
+        QVERIFY(!trackCoverUrl3.isEmpty());
+        QCOMPARE(trackCoverUrl3.toString(), vExpectedImageUrl);
     }
 
     void benchmarkFileScan()

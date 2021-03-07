@@ -89,12 +89,12 @@ FocusScope {
                     if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
                         if (albumArtist !== undefined && artist !== albumArtist)
                             return i18nc("%1: track number. %2: track title. %3: artist name",
-                                         "%1 - %2 - %3",
+                                         "%1  %2 - %3",
                                          trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                          title, artist);
                         else
                             return i18nc("%1: track number. %2: track title.",
-                                         "%1 - %2",
+                                         "%1  %2",
                                          trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                          title);
                     } else {

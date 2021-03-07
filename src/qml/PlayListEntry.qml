@@ -167,7 +167,7 @@ FocusScope {
                     }
                 }
 
-                font.weight: (isPlaying ? Font.Bold : Font.Light)
+                font.weight: (isPlaying ? Font.Bold : Font.Normal)
                 color: simpleMode ? myPalette.highlightedText : myPalette.text
 
                 visible: isValid && !playIcon.visible

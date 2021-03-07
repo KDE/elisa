@@ -306,9 +306,6 @@ FocusScope {
 
                 text: duration
 
-                font.weight: Font.Light
-                color: myPalette.text
-
                 horizontalAlignment: Text.AlignRight
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight

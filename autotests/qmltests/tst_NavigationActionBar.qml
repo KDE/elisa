@@ -217,10 +217,7 @@ FocusScope {
             verify(showArtistButtonItem1 !== null, "valid showArtistButton")
             mouseClick(showArtistButtonItem1);
             compare(showArtistSpy1.count, 1);
-            var showArtistButtonItem2 = findChild(navigationActionBar2, "showArtistButton");
-            verify(showArtistButtonItem2 !== null, "valid showArtistButton")
-            mouseClick(showArtistButtonItem2);
-            compare(showArtistSpy2.count, 0);
+            // artist button is unloaded in navigationActionBar2
         }
 
         function test_filterRating() {

@@ -39,6 +39,8 @@ Kirigami.Page {
     title: i18nc("Title of the context view related to the currently playing track", "Now Playing")
     padding: 0
 
+    property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+
     TrackContextMetaDataModel {
         id: metaDataModel
 
@@ -50,6 +52,7 @@ Kirigami.Page {
     // "Kirigami.ApplicationHeaderStyle.None" and remove the custom header
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
+        implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
         Layout.fillWidth: true
 
         // Override color to use standard window colors, not header colors
@@ -61,10 +64,18 @@ Kirigami.Page {
             anchors.fill: parent
             spacing: Kirigami.Units.largeSpacing
 
+            FlatButtonWithToolTip {
+                id: showSidebarButton
+                objectName: 'showSidebarButton'
+                visible: Kirigami.Settings.isMobile
+                text: i18nc("open the sidebar", "Open sidebar")
+                icon.name: "application-menu"
+                onClicked: mainWindow.globalDrawer.open()
+            }
+
             Image {
                 id: mainIcon
                 source: elisaTheme.nowPlayingIcon
-
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                 Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                 Layout.preferredHeight: Kirigami.Units.iconSizes.medium
@@ -73,7 +84,7 @@ Kirigami.Page {
 
                 fillMode: Image.PreserveAspectFit
                 asynchronous: true
-
+                visible: !Kirigami.Settings.isMobile
             }
             Kirigami.Heading {
                 Layout.fillWidth: true
@@ -86,6 +97,21 @@ Kirigami.Page {
             ToolButton {
                 icon.name: "edit-paste"
                 opacity: 0
+            }
+
+            FlatButtonWithToolTip {
+                id: showPlaylistButton
+                visible: Kirigami.Settings.isMobile
+                text: i18nc("show the playlist", "Show Playlist")
+                icon.name: "view-media-playlist"
+                display: topItem.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
+                onClicked: {
+                    if (topItem.isWidescreen) {
+                        contentView.showPlaylist = !contentView.showPlaylist;
+                    } else {
+                        playlistDrawer.open();
+                    }
+                }
             }
         }
     }
@@ -250,33 +276,33 @@ Kirigami.Page {
                     // Horizontal line separating title and subtitle from metadata
                     Kirigami.Separator {
                         Layout.fillWidth: true
-                        Layout.leftMargin: Kirigami.Units.largeSpacing* 5
+                        Layout.leftMargin: Kirigami.Units.largeSpacing * 5
                         Layout.topMargin: Kirigami.Units.largeSpacing
                         Layout.rightMargin: Kirigami.Units.largeSpacing * 5
                         Layout.bottomMargin: Kirigami.Units.largeSpacing
                     }
 
                     // Metadata
-                    ColumnLayout {
+                    Kirigami.FormLayout {
                         id: allMetaData
 
-                        spacing: 0
                         Layout.fillWidth: true
-                        //Layout.leftMargin:Kirigami.Units.largeSpacing
-                        //Layout.rightMargin:Kirigami.Units.largeSpacing
 
                         Repeater {
                             id: trackData
-
                             model: metaDataModel
 
-                            delegate: MetaDataDelegate {
-                                index: model.index
-                                name: model.name
-                                display: model.display
-                                type: model.type
+                            delegate: RowLayout {
+                                Kirigami.FormData.label: "<b>" + model.name + ":</b>"
+                                MediaTrackMetadataDelegate {
+                                    index: model.index
+                                    name: model.name
+                                    display: model.display
+                                    type: model.type
+                                    readOnly: true
 
-                                Layout.fillWidth: true
+                                    Layout.fillWidth: true
+                                }
                             }
                         }
                     }
@@ -315,6 +341,7 @@ Kirigami.Page {
             width: parent.width - (Kirigami.Units.largeSpacing * 4)
             visible: topItem.nothingPlaying
             text: i18n("Nothing playing")
+            icon.name: "view-media-track"
         }
     }
 

@@ -27,7 +27,7 @@ Rectangle {
     // Spacing of content items. Defaults to Kirigami.Units.smallSpacing
     property alias contentLayoutSpacing: contentLayout.spacing
 
-    implicitHeight: Math.round(Kirigami.Units.gridUnit * 2)
+    implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
 
     color: myPalette.window
 

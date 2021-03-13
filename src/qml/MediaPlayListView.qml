@@ -5,7 +5,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.10
+import QtQuick 2.15
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
@@ -14,6 +14,8 @@ import Qt.labs.platform 1.0 as PlatformDialog
 import org.kde.kirigami 2.15 as Kirigami
 import org.kde.elisa 1.0
 
+import "mobile"
+
 // Not using ScrollablePage because we don't need any of the refresh features
 // that it provides
 Kirigami.Page {
@@ -21,6 +23,10 @@ Kirigami.Page {
 
     signal startPlayback()
     signal pausePlayback()
+
+    // set by the respective mobile/desktop view
+    property var playListNotification
+    property var playListView
 
     function hideNotification() {
         playListNotification.visible = false;
@@ -58,6 +64,12 @@ Kirigami.Page {
     Accessible.role: Accessible.Pane
     Accessible.name: topItem.title
 
+    Timer {
+        id: mobileClearedMessageTimer
+        interval: 3000
+        onTriggered: mobileClearedMessage.visible = false
+    }
+
     Kirigami.Action {
         id: undoAction
         text: i18nc("Undo", "Undo")
@@ -89,7 +101,13 @@ Kirigami.Page {
     Connections {
          target: ElisaApplication.mediaPlayListProxyModel
          function onDisplayUndoNotification() {
-             showPlayListNotification(i18nc("Playlist cleared", "Playlist cleared"), Kirigami.MessageType.Information, undoAction)
+             if (Kirigami.Settings.isMobile) {
+                 // cleared playlist message
+                mobileClearedMessage.visible = true;
+                mobileClearedMessageTimer.restart();
+            } else {
+                showPlayListNotification(i18nc("Playlist cleared", "Playlist cleared"), Kirigami.MessageType.Information, undoAction);
+            }
          }
     }
 
@@ -109,6 +127,7 @@ Kirigami.Page {
         // to the bottom of the window such that this toolbar touches the window
         // titlebar
         Kirigami.Theme.colorSet: Kirigami.Theme.Window
+        implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
 
         RowLayout {
             anchors.fill: parent
@@ -167,179 +186,317 @@ Kirigami.Page {
         }
     }
 
-    ScrollView {
+    ColumnLayout {
         anchors.fill: parent
 
-        ListView {
-            id: playListView
-
-            focus: true
-            clip: true
-            keyNavigationEnabled: true
-            activeFocusOnTab: true
-
-            currentIndex: -1
-
-            Accessible.role: Accessible.List
-            Accessible.name: topItem.title
-
-            section.property: 'albumSection'
-            section.criteria: ViewSection.FullString
-            section.labelPositioning: ViewSection.InlineLabels
-            section.delegate: BasicPlayListAlbumHeader {
-                headerData: JSON.parse(section)
-                width: playListView.width
-            }
-
-            /* currently disabled animations due to display corruption
-            because of https://bugreports.qt.io/browse/QTBUG-49868
-            causing https://bugs.kde.org/show_bug.cgi?id=406524
-            and https://bugs.kde.org/show_bug.cgi?id=398093
-            add: Transition {
-                NumberAnimation {
-                    property: "opacity";
-                    from: 0;
-                    to: 1;
-                    duration: Kirigami.Units.shortDuration }
-            }
-
-            populate: Transition {
-                NumberAnimation {
-                    property: "opacity";
-                    from: 0;
-                    to: 1;
-                    duration: Kirigami.Units.shortDuration }
-            }
-
-            remove: Transition {
-                NumberAnimation {
-                    property: "opacity";
-                    from: 1.0;
-                    to: 0;
-                    duration: Kirigami.Units.shortDuration }
-            }
-
-            displaced: Transition {
-                NumberAnimation {
-                    properties: "x,y";
-                    duration: Kirigami.Units.shortDuration
-                    easing.type: Easing.InOutQuad }
-            }
-            */
-
-            model: DelegateModel {
-                model: ElisaApplication.mediaPlayListProxyModel
-
-                groups: [
-                    DelegateModelGroup { name: "selected" }
-                ]
-
-                delegate: DraggableItem {
-                    id: item
-                    width: playListView.width
-                    placeholderHeight: elisaTheme.dragDropPlaceholderHeight
+        // ========== desktop listview ==========
+        Component {
+            id: desktopListView
+            ScrollView {
+                property alias list: playListView
+                ListView {
+                    id: playListView
 
                     focus: true
+                    clip: true
+                    keyNavigationEnabled: true
+                    activeFocusOnTab: true
 
-                    PlayListEntry {
-                        id: entry
+                    currentIndex: -1
 
-                        focus: true
+                    Accessible.role: Accessible.List
+                    Accessible.name: topItem.title
 
-                        width: parent.width
+                    section.property: 'albumSection'
+                    section.criteria: ViewSection.FullString
+                    section.labelPositioning: ViewSection.InlineLabels
+                    section.delegate: BasicPlayListAlbumHeader {
+                        headerData: JSON.parse(section)
+                        width: playListView.width
+                    }
 
-                        index: model.index
-                        isAlternateColor: item.DelegateModel.itemsIndex % 2
-                        isSelected: playListView.currentIndex === index
-                        containsMouse: item.containsMouse
+                    /* currently disabled animations due to display corruption
+                    because of https://bugreports.qt.io/browse/QTBUG-49868
+                    causing https://bugs.kde.org/show_bug.cgi?id=406524
+                    and https://bugs.kde.org/show_bug.cgi?id=398093
+                    add: Transition {
+                        NumberAnimation {
+                            property: "opacity";
+                            from: 0;
+                            to: 1;
+                            duration: Kirigami.Units.shortDuration }
+                    }
 
-                        databaseId: model.databaseId ? model.databaseId : 0
-                        entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
-                        title: model.title ? model.title : ''
-                        artist: model.artist ? model.artist : ''
-                        album: model.album ? model.album : ''
-                        albumArtist: model.albumArtist ? model.albumArtist : ''
-                        duration: model.duration ? model.duration : ''
-                        fileName: model.trackResource ? model.trackResource : ''
-                        imageUrl: model.imageUrl ? model.imageUrl : ''
-                        trackNumber: model.trackNumber ? model.trackNumber : -1
-                        discNumber: model.discNumber ? model.discNumber : -1
-                        rating: model.rating ? model.rating : 0
-                        isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
-                        isValid: model.isValid
-                        isPlaying: model.isPlaying
-                        metadataModifiableRole: model.metadataModifiableRole
+                    populate: Transition {
+                        NumberAnimation {
+                            property: "opacity";
+                            from: 0;
+                            to: 1;
+                            duration: Kirigami.Units.shortDuration }
+                    }
 
-                        onStartPlayback: topItem.startPlayback()
-                        onPausePlayback: topItem.pausePlayback()
-                        onRemoveFromPlaylist: ElisaApplication.mediaPlayListProxyModel.removeRow(trackIndex)
-                        onSwitchToTrack: ElisaApplication.mediaPlayListProxyModel.switchTo(trackIndex)
+                    remove: Transition {
+                        NumberAnimation {
+                            property: "opacity";
+                            from: 1.0;
+                            to: 0;
+                            duration: Kirigami.Units.shortDuration }
+                    }
 
-                        onActiveFocusChanged: {
-                            if (activeFocus && playListView.currentIndex !== index) {
+                    displaced: Transition {
+                        NumberAnimation {
+                            properties: "x,y";
+                            duration: Kirigami.Units.shortDuration
+                            easing.type: Easing.InOutQuad }
+                    }
+                    */
+
+                    model: DelegateModel {
+                        model: ElisaApplication.mediaPlayListProxyModel
+
+                        groups: [
+                            DelegateModelGroup { name: "selected" }
+                        ]
+
+                        delegate: DraggableItem {
+                            id: item
+                            width: playListView.width
+                            placeholderHeight: elisaTheme.dragDropPlaceholderHeight
+
+                            focus: true
+
+                            PlayListEntry {
+                                id: entry
+
+                                focus: true
+
+                                width: parent.width
+
+                                index: model.index
+                                isAlternateColor: item.DelegateModel.itemsIndex % 2
+                                isSelected: playListView.currentIndex === index
+                                containsMouse: item.containsMouse
+
+                                databaseId: model.databaseId ? model.databaseId : 0
+                                entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
+                                title: model.title ? model.title : ''
+                                artist: model.artist ? model.artist : ''
+                                album: model.album ? model.album : ''
+                                albumArtist: model.albumArtist ? model.albumArtist : ''
+                                duration: model.duration ? model.duration : ''
+                                fileName: model.trackResource ? model.trackResource : ''
+                                imageUrl: model.imageUrl ? model.imageUrl : ''
+                                trackNumber: model.trackNumber ? model.trackNumber : -1
+                                discNumber: model.discNumber ? model.discNumber : -1
+                                rating: model.rating ? model.rating : 0
+                                isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
+                                isValid: model.isValid
+                                isPlaying: model.isPlaying
+                                metadataModifiableRole: model ? model.metadataModifiableRole : false
+
+                                onStartPlayback: topItem.startPlayback()
+                                onPausePlayback: topItem.pausePlayback()
+                                onRemoveFromPlaylist: ElisaApplication.mediaPlayListProxyModel.removeRow(trackIndex)
+                                onSwitchToTrack: ElisaApplication.mediaPlayListProxyModel.switchTo(trackIndex)
+
+                                onActiveFocusChanged: {
+                                    if (activeFocus && playListView.currentIndex !== index) {
+                                        playListView.currentIndex = index
+                                    }
+                                }
+                            }
+
+                            draggedItemParent: playListView
+
+                            onClicked: {
                                 playListView.currentIndex = index
+                                entry.forceActiveFocus()
+                            }
+
+                            onDoubleClicked: {
+                                if (model.isValid) {
+                                    ElisaApplication.mediaPlayListProxyModel.switchTo(model.index)
+                                    topItem.startPlayback()
+                                }
+                            }
+
+                            onMoveItemRequested: {
+                                ElisaApplication.mediaPlayListProxyModel.moveRow(from, to);
                             }
                         }
                     }
 
-                    draggedItemParent: playListView
-
-                    onClicked: {
-                        playListView.currentIndex = index
-                        entry.forceActiveFocus()
+                    onCountChanged: if (count === 0) {
+                        currentIndex = -1;
                     }
 
-                    onDoubleClicked: {
-                        if (model.isValid) {
+                    Kirigami.PlaceholderMessage {
+                        anchors.centerIn: parent
+                        width: parent.width - (Kirigami.Units.largeSpacing * 4)
+                        text: xi18nc("@info", "Your playlist is empty.<nl/><nl/>Add some songs to get started. You can browse your music using the views on the left.")
+                        visible: playListView.count === 0
+                    }
+
+                    Kirigami.InlineMessage {
+                        id: playListNotification
+                        Component.onCompleted: topItem.playListNotification = playListNotification
+
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            bottom: parent.bottom
+                            margins: Kirigami.Units.largeSpacing
+                        }
+
+                        type: Kirigami.MessageType.Information
+                        showCloseButton: true
+
+                        onVisibleChanged: {
+                            if (visible) {
+                                autoHideNotificationTimer.start()
+                            } else {
+                                autoHideNotificationTimer.stop()
+                            }
+                        }
+
+                        Timer {
+                            id: autoHideNotificationTimer
+                            interval: 7000
+                            onTriggered: playListNotification.visible = false
+                        }
+                    }
+                }
+            }
+        }
+
+        // ========== mobile delegate ==========
+        Component {
+            id: mobileDelegateComponent
+            MobilePlayListDelegate {
+                property var model
+                width: parent ? parent.width : topItem.width
+
+                index: model ? model.index : 0
+                isAlternateColor: playListView.currentIndex % 2
+                isSelected: playListView.currentIndex === index
+
+                databaseId: model && model.databaseId ? model.databaseId : 0
+                entryType: model && model.entryType ? model.entryType : ElisaUtils.Unknown
+                title: model ? model.title || '' : ''
+                artist: model ? model.artist || '' : ''
+                album: model ? model.album || '' : ''
+                albumArtist: model ? model.albumArtist || '' : ''
+                duration: model ? model.duration || '' : ''
+                fileName: model ? model.trackResource || '' : ''
+                imageUrl: model ? model.imageUrl || '' : ''
+                trackNumber: model ? model.trackNumber || -1 : -1
+                discNumber: model ? model.discNumber || -1 : -1
+                rating: model ? model.rating || 0 : 0
+                isSingleDiscAlbum: model && model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
+                isValid: model && model.isValid
+                isPlaying: model ? model.isPlaying : false
+                metadataModifiableRole: model ? model.metadataModifiableRole : false
+                hideDiscNumber: model && model.isSingleDiscAlbum
+
+                listView: playListView
+
+                onStartPlayback: topItem.startPlayback()
+                onPausePlayback: topItem.pausePlayback()
+                onRemoveFromPlaylist: ElisaApplication.mediaPlayListProxyModel.removeRow(trackIndex)
+                onSwitchToTrack: ElisaApplication.mediaPlayListProxyModel.switchTo(trackIndex)
+
+                onActiveFocusChanged: {
+                    if (activeFocus && playListView.currentIndex !== index) {
+                        playListView.currentIndex = index
+                    }
+                }
+
+                onClicked: {
+                    playListView.currentIndex = index
+                    forceActiveFocus()
+
+                    if (model.isValid) {
+                        if (model.isPlaying === MediaPlayList.IsPlaying) {
+                            topItem.pausePlayback()
+                        } else {
                             ElisaApplication.mediaPlayListProxyModel.switchTo(model.index)
                             topItem.startPlayback()
                         }
                     }
+                }
 
-                    onMoveItemRequested: {
-                        ElisaApplication.mediaPlayListProxyModel.moveRow(from, to);
+                onMoveItemRequested: {
+                    ElisaApplication.mediaPlayListProxyModel.moveRow(from, to);
+                }
+            }
+        }
+
+        // ========== mobile listview ==========
+        Component {
+            id: mobileListView
+            ScrollView {
+                property alias list: playListView
+                ListView {
+                    id: playListView
+                    anchors.fill: parent
+                    reuseItems: true
+
+                    model: ElisaApplication.mediaPlayListProxyModel
+
+                    moveDisplaced: Transition {
+                        YAnimator {
+                            duration: Kirigami.Units.longDuration
+                            easing.type: Easing.InOutQuad
+                        }
+                    }
+
+                    Kirigami.PlaceholderMessage {
+                        anchors.centerIn: parent
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.margins: Kirigami.Units.largeSpacing
+                        width: parent.width - (Kirigami.Units.largeSpacing * 4)
+                        visible: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount === 0 : true
+
+                        icon.name: "view-media-playlist"
+                        text: xi18nc("@info", "Your playlist is empty.")
+                    }
+
+                    delegate: Loader {
+                        // apparently it's possible for parent to be null, set to undefined to ignore warning
+                        anchors.left: parent ? parent.left : undefined
+                        anchors.right: parent ? parent.right : undefined
+                        sourceComponent: mobileDelegateComponent
+                        onLoaded: {
+                            item.model = model;
+                        }
                     }
                 }
             }
+        }
 
-            onCountChanged: if (count === 0) {
-                currentIndex = -1;
-            }
+        Loader {
+            id: playListLoader
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            sourceComponent: Kirigami.Settings.isMobile ? mobileListView : desktopListView
+            onLoaded: playListView = item.list
+        }
 
-            Kirigami.PlaceholderMessage {
-                anchors.centerIn: parent
-                width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                text: xi18nc("@info", "Your playlist is empty.<nl/><nl/>Add some songs to get started. You can browse your music using the views on the left.")
-                visible: playListView.count === 0
-            }
+        Kirigami.InlineMessage {
+            id: mobileClearedMessage
+            Layout.fillWidth: true
+            visible: false
+            showCloseButton: true
+            text: i18nc("Playlist cleared", "Playlist cleared")
 
-            Kirigami.InlineMessage {
-                id: playListNotification
-
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    bottom: parent.bottom
-                    margins: Kirigami.Units.largeSpacing
+            actions: [
+                Kirigami.Action {
+                    text: i18n("Undo")
+                    icon.name: "edit-undo-symbolic"
+                    onTriggered: ElisaApplication.mediaPlayListProxyModel.undoClearPlayList()
                 }
-
-                type: Kirigami.MessageType.Information
-                showCloseButton: true
-
-                onVisibleChanged: {
-                    if (visible) {
-                        autoHideNotificationTimer.start()
-                    } else {
-                        autoHideNotificationTimer.stop()
-                    }
-                }
-
-                Timer {
-                    id: autoHideNotificationTimer
-                    interval: 7000
-                    onTriggered: playListNotification.visible = false
-                }
-            }
+            ]
         }
     }
 
@@ -384,5 +541,4 @@ Kirigami.Page {
         }
     }
 }
-
 

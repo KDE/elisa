@@ -12,36 +12,13 @@ import QtGraphicalEffects 1.0
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
-FocusScope {
+import "shared"
+
+BasePlayListDelegate {
     id: playListEntry
 
-    property var index
-    property bool isSingleDiscAlbum
-    property int isPlaying
-    property bool isSelected
-    property bool isValid
-    property bool isAlternateColor
     property bool containsMouse
-    property int databaseId: 0
-    property var entryType
-    property string title
-    property string artist
-    property string album
-    property string albumArtist
-    property string duration
-    property url fileName
-    property url imageUrl
-    property int trackNumber
-    property int discNumber
-    property int rating
-    property bool hasValidDiscNumber: true
-    property bool metadataModifiableRole: false
-    property bool simpleMode: false
-
-    signal startPlayback()
-    signal pausePlayback()
-    signal removeFromPlaylist(var trackIndex)
-    signal switchToTrack(var trackIndex)
+    property bool simpleMode
 
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist

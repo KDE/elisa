@@ -31,8 +31,8 @@ FocusScope {
 
     property bool portrait: (contentZone.height/contentZone.width) > 0.7
 
-    property double smallerDimension: contentZone.height < contentZone.width? 
-                                        contentZone.height - 4 * Kirigami.Units.largeSpacing: 
+    property double smallerDimension: contentZone.height < contentZone.width?
+                                        contentZone.height - 4 * Kirigami.Units.largeSpacing:
                                         contentZone.width - 4 * Kirigami.Units.largeSpacing
 
     signal openArtist()

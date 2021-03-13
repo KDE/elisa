@@ -78,6 +78,8 @@ FocusScope {
         NavigationActionBar {
             id: navigationBar
 
+            z: 1 // on top of track list
+
             enableGoBack: listView.isSubPage || depth > 1
 
             Layout.fillWidth: true
@@ -153,7 +155,6 @@ FocusScope {
                     Accessible.name: mainTitle
                     Accessible.description: mainTitle
 
-                    clip: true
                     activeFocusOnTab: true
                     keyNavigationEnabled: true
 
@@ -161,7 +162,8 @@ FocusScope {
 
                     model: delegateModel
 
-                    currentIndex: -1
+                    // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
+                    currentIndex: Kirigami.Settings.isMobile ? 0 : -1
 
                     section.property: (showSection ? 'discNumber' : '')
                     section.criteria: ViewSection.FullString
@@ -186,4 +188,3 @@ FocusScope {
         }
     }
 }
-

@@ -11,15 +11,22 @@ import QtQuick.Window 2.2
 import org.kde.elisa 1.0
 import org.kde.kirigami 2.8 as Kirigami
 
+import "mobile"
+
 RowLayout {
     id: contentViewContainer
     spacing: 0
 
     property bool showPlaylist
     property bool showExpandedFilterView
-    property alias currentViewIndex: listViews.currentIndex
+    property int currentViewIndex: getCurrentViewIndex()
     property Kirigami.ContextDrawer playlistDrawer
     property alias initialIndex: viewManager.initialIndex
+
+    property alias sidebar: mobileSidebar.item
+
+    // setCurrentViewIndex be called before loaders are loaded, so store the value
+    property int preloadIndex: -1
 
     function goBack() {
         viewManager.goBack()
@@ -38,6 +45,24 @@ RowLayout {
         viewManager.openNowPlaying();
     }
 
+    function getCurrentViewIndex() {
+        if (mobileSidebar.item != null) {
+            return mobileSidebar.item.viewIndex;
+        } else if (desktopSidebar.item != null) {
+            return desktopSidebar.item.currentIndex;
+        }
+    }
+
+    function setCurrentViewIndex(index) {
+        if (mobileSidebar.item != null) {
+            mobileSidebar.item.switchView(index);
+        } else if (desktopSidebar.item != null) {
+            desktopSidebar.item.setCurrentIndex(index);
+        } else {
+            contentViewContainer.preloadIndex = index;
+        }
+    }
+
     ViewManager {
         id: viewManager
 
@@ -45,7 +70,7 @@ RowLayout {
 
         onOpenGridView: {
             if (configurationData.expectedDepth === 1) {
-                listViews.setCurrentIndex(viewManager.viewIndex)
+                contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
             }
 
             while(browseStackView.depth > configurationData.expectedDepth) {
@@ -79,7 +104,7 @@ RowLayout {
 
         onOpenListView: {
             if (configurationData.expectedDepth === 1) {
-                listViews.setCurrentIndex(viewManager.viewIndex)
+                contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
             }
 
             while(browseStackView.depth > configurationData.expectedDepth) {
@@ -114,7 +139,10 @@ RowLayout {
         }
 
         onSwitchContextView: {
-            listViews.setCurrentIndex(viewManager.viewIndex)
+            if (preloadIndex == -1) {
+                // prevent changing page to viewManager.viewIndex if there is a pending page change
+                contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
+            }
 
             while(browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
@@ -158,18 +186,45 @@ RowLayout {
         embeddedCategory: ElisaApplication.embeddedView
     }
 
-    ViewSelector {
-        id: listViews
-
-        model: pageProxyModel
-
+    // sidebar used on desktop
+    Loader {
+        id: desktopSidebar
+        active: !Kirigami.Settings.isMobile
         Layout.fillHeight: true
 
-        onSwitchView: viewManager.openView(viewIndex)
+        onLoaded: {
+            if (contentViewContainer.preloadIndex != -1) {
+                item.setCurrentIndex(contentViewContainer.preloadIndex);
+                viewManager.openView(contentViewContainer.preloadIndex);
+                contentViewContainer.preloadIndex = -1;
+            }
+        }
+        sourceComponent: ViewSelector {
+            model: pageProxyModel
+            onSwitchView: viewManager.openView(viewIndex)
+        }
+    }
+
+    // sidebar used on mobile
+    Loader {
+        id: mobileSidebar
+        active: Kirigami.Settings.isMobile
+        onLoaded: {
+            if (contentViewContainer.preloadIndex != -1) {
+                item.switchView(contentViewContainer.preloadIndex);
+                viewManager.openView(contentViewContainer.preloadIndex);
+                contentViewContainer.preloadIndex = -1;
+            }
+        }
+        sourceComponent: MobileSidebar {
+            model: pageProxyModel
+            onSwitchView: viewManager.openView(viewIndex)
+        }
     }
 
     Kirigami.Separator {
         id: viewSelectorSeparatorItem
+        visible: !Kirigami.Settings.isMobile
         Layout.fillHeight: true
     }
 
@@ -259,11 +314,10 @@ RowLayout {
         Layout.fillHeight: true
     }
 
+    // playlist right sidebar
     MediaPlayListView {
         id: playList
-
         Layout.fillHeight: true
-
         onStartPlayback: ElisaApplication.audioControl.ensurePlay()
         onPausePlayback: ElisaApplication.audioControl.playPause()
     }
@@ -277,6 +331,7 @@ RowLayout {
                 Layout.minimumWidth: 0
                 Layout.maximumWidth: 0
                 Layout.preferredWidth: 0
+                visible: false
             }
             PropertyChanges {
                 target: playListSeparatorItem

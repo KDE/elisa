@@ -23,8 +23,8 @@ Window {
     property bool isModifying: false
     property bool isCreation: false
     property bool canAddMoreMetadata: false
-    property alias showImage: metadataImage.visible
-    property alias showTrackFileName: fileNameRow.visible
+    property bool showImage
+    property bool showTrackFileName
     property bool showDeleteButton: false
 
     signal rejected()
@@ -55,148 +55,47 @@ Window {
     }
 
     ColumnLayout {
+        id: column
         anchors.fill: parent
-        anchors.margins: Kirigami.Units.smallSpacing
+        spacing: 0
 
-        spacing: Kirigami.Units.smallSpacing
-
-        RowLayout {
+        ScrollView {
             id: metadataView
 
             Layout.fillHeight: true
             Layout.fillWidth: true
+            leftPadding: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+            rightPadding: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
 
-            spacing: 0
+            ColumnLayout {
+                MediaTrackMetadataForm {
+                    Layout.maximumWidth: column.width
+                    implicitWidth: metadataView.width - 2 * (Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing)
+                    metadataModel: realModel
+                    modelType: trackMetadata.modelType
+                    showDeleteButton: trackMetadata.showDeleteButton
+                    isCreation: trackMetadata.isCreation
+                    isModifying: trackMetadata.isModifying
+                    canAddMoreMetadata: trackMetadata.canAddMoreMetadata
+                    showImage: trackMetadata.showImage
+                    showModifyDeleteButtons: false
 
-            ImageWithFallback {
-                id: metadataImage
-
-                source: realModel.coverUrl
-                fallback: elisaTheme.defaultAlbumImage
-
-                sourceSize.width: elisaTheme.coverImageSize
-                sourceSize.height: elisaTheme.coverImageSize
-
-                fillMode: Image.PreserveAspectFit
-
-                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-                Layout.preferredHeight: elisaTheme.coverImageSize
-                Layout.preferredWidth: elisaTheme.coverImageSize
-                Layout.minimumHeight: elisaTheme.coverImageSize
-                Layout.minimumWidth: elisaTheme.coverImageSize
-                Layout.maximumHeight: elisaTheme.coverImageSize
-                Layout.maximumWidth: elisaTheme.coverImageSize
-            }
-
-            ScrollView {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.leftMargin: 2 * Kirigami.Units.largeSpacing
-
-                ListView {
-                    id: trackData
-
-                    clip: true
-                    focus: true
-
-                    model: realModel
-
-                    delegate: Item {
-                        id: topLevel
-
-                        property bool isReadOnlyDelegate: (dialogStates.state !== 'readWrite' && dialogStates.state !== 'readWriteAndDirty' &&
-                                                           dialogStates.state !== 'create' && dialogStates.state !== 'createAndDirty') || realModel.isReadOnly || model.isReadOnly
-
-                        height: delegateChooser.height
-
-                        Loader {
-                            id: delegateChooser
-
-                            sourceComponent: isReadOnlyDelegate ? metaDataDelegate : editableMetaDataDelegate
-                        }
-
-                        Component {
-                            id: metaDataDelegate
-
-                            MetaDataDelegate {
-                                width: trackData.width
-
-                                index: model.index
-                                name: model.name
-                                display: model.display
-                                type: model.type
-                            }
-                        }
-
-                        Component {
-                            id: editableMetaDataDelegate
-
-                            EditableMetaDataDelegate {
-                                width: trackData.width
-
-                                index: model.index
-                                name: model.name
-                                display: model.display
-                                type: model.type
-                                isRemovable: model.isRemovable
-
-                                onEdited: model.display = display
-
-                                onDeleteField: realModel.removeData(model.index)
-                            }
-                        }
-                    }
-
-                    footer: RowLayout {
-                        width: trackData.width
-
-                        spacing: 0
-
-                        visible: (dialogStates.state === 'readWrite' || dialogStates.state === 'readWriteAndDirty' ||
-                                  dialogStates.state === 'create' || dialogStates.state === 'createAndDirty') && !realModel.isReadOnly && canAddMoreMetadata
-
-                        Item {
-                            Layout.fillWidth: true
-                        }
-
-                        Label {
-                            text: i18nc("label before button to add new metadata tag", "Add new tag:")
-
-                            font.weight: Font.Bold
-
-                            horizontalAlignment: Text.AlignRight
-
-                            Layout.alignment: Qt.AlignVCenter
-                            Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
-                            Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
-                            Layout.topMargin: Kirigami.Units.smallSpacing * 4
-                        }
-
-                        ComboBox {
-                            id: selectedField
-
-                            textRole: "modelData"
-                            valueRole: "modelData"
-
-                            model: realModel.extraMetadata
-                            enabled: realModel.extraMetadata.length
-
-                            Layout.rightMargin: Kirigami.Units.smallSpacing * 2
-                            Layout.topMargin: Kirigami.Units.smallSpacing * 4
-
-                            onActivated: realModel.addData(selectedField.currentValue)
-                        }
-                    }
+                    imageItem.anchors.horizontalCenter: horizontalCenter
+                    
+                    onClose: trackMetadata.close()
                 }
             }
         }
+        
+        Kirigami.Separator { Layout.fillWidth: true }
 
+        // file location
         RowLayout {
             id: fileNameRow
-
-            Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
-            Layout.topMargin: Kirigami.Units.smallSpacing
-            Layout.bottomMargin: Kirigami.Units.smallSpacing
+            visible: showTrackFileName
+            Layout.topMargin: Kirigami.Units.largeSpacing
+            Layout.leftMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
 
             spacing: Kirigami.Units.largeSpacing
 
@@ -214,28 +113,17 @@ Window {
                 id: fileNameLabel
 
                 Layout.fillWidth: true
-
                 text: realModel.fileUrl
-
+                wrapMode: Text.Wrap
                 elide: Text.ElideRight
             }
         }
 
-        Kirigami.InlineMessage {
-            id: formInvalidNotification
-
-            text: i18nc("Form validation error message for track data", "Data are not valid. %1", realModel.errorMessage)
-            type: Kirigami.MessageType.Error
-            showCloseButton: false
-            visible: !realModel.isDataValid && realModel.isDirty
-
-            Layout.topMargin: 5
-            Layout.fillWidth: true
-            Layout.rightMargin: Kirigami.Units.largeSpacing
-            Layout.leftMargin: Kirigami.Units.largeSpacing
-        }
-
         RowLayout {
+            Layout.topMargin: Kirigami.Units.largeSpacing
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
+            Layout.bottomMargin: Kirigami.Units.smallSpacing
             spacing: Kirigami.Units.smallSpacing
 
             DialogButtonBox {

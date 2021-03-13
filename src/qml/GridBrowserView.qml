@@ -13,6 +13,8 @@ import QtGraphicalEffects 1.0
 import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa 1.0
 
+import "mobile"
+
 FocusScope {
     id: gridView
 
@@ -56,6 +58,8 @@ FocusScope {
 
         NavigationActionBar {
             id: navigationBar
+
+            z: 1 // on top of track list
 
             mainTitle: gridView.mainTitle
             secondaryTitle: gridView.secondaryTitle
@@ -123,7 +127,7 @@ FocusScope {
             model: gridView.contentModel
 
             delegate: GridBrowserDelegate {
-                width: elisaTheme.gridDelegateSize
+                width: Kirigami.Settings.isMobile ? contentDirectoryView.cellWidth : elisaTheme.gridDelegateSize
                 height: contentDirectoryView.cellHeight
 
                 focus: true
@@ -173,12 +177,11 @@ FocusScope {
 
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-            clip: true
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
 
             ScrollView {
                 id: scrollView
-
                 readonly property int scrollBarWidth: ScrollBar.vertical.visible ? ScrollBar.vertical.width : 0
                 readonly property int availableSpace: scrollView.width - scrollView.scrollBarWidth
 
@@ -187,7 +190,6 @@ FocusScope {
                 GridView {
                     id: contentDirectoryView
 
-                    clip: true
                     activeFocusOnTab: true
                     keyNavigationEnabled: true
 
@@ -195,7 +197,8 @@ FocusScope {
 
                     model: delegateModel
 
-                    currentIndex: -1
+                    // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
+                    currentIndex: Kirigami.Settings.isMobile ? 0 : -1
 
                     Accessible.role: Accessible.List
                     Accessible.name: mainTitle
@@ -207,8 +210,17 @@ FocusScope {
                         text: i18n("Nothing to display")
                     }
 
-                    cellWidth: Math.floor(scrollView.availableSpace / Math.max(Math.floor(scrollView.availableSpace / elisaTheme.gridDelegateSize), 2))
-                    cellHeight: elisaTheme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing
+                    cellWidth: {
+                        let columns = Math.max(Math.floor(scrollView.availableSpace / elisaTheme.gridDelegateSize), 2);
+                        return Math.floor(scrollView.availableSpace / columns);
+                    }
+                    cellHeight: {
+                        if (Kirigami.Settings.isMobile) {
+                            return cellWidth + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
+                        } else {
+                            return elisaTheme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
+                        }
+                    }
                 }
             }
         }

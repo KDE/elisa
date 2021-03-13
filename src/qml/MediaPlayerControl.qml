@@ -12,32 +12,18 @@ import QtQuick.Controls 2.7
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
-FocusScope {
-    property alias volume: volumeSlider.value
-    property int position
-    property int duration
-    property bool muted
-    property bool isPlaying
-    property bool seekable
-    property bool playEnabled
-    property bool skipForwardEnabled
-    property bool skipBackwardEnabled
+import "shared"
+
+BasePlayerControl {
+    id: musicWidget
+
+    property alias volume: volumeSlider.sliderValue
     property bool isMaximized
 
-    property bool shuffle
-    property int repeat: MediaPlayListProxyModel.None
-
-    signal play()
-    signal pause()
-    signal playPrevious()
-    signal playNext()
-    signal seek(int position)
     signal openMenu()
 
     signal maximize()
     signal minimize()
-
-    id: musicWidget
 
     SystemPalette {
         id: myPalette
@@ -92,146 +78,21 @@ FocusScope {
             onClicked: musicWidget.playNext()
         }
 
-        TextMetrics {
-            id: durationTextMetrics
-            text: i18nc("This is used to preserve a fixed width for the duration text.", "00:00:00")
-        }
-
-        LabelWithToolTip {
-            id: positionLabel
-
-            text: timeIndicator.progressDuration
-
-            color: myPalette.text
-
-            Layout.alignment: Qt.AlignVCenter
-            Layout.fillHeight: true
-            Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : Kirigami.Units.largeSpacing * 2
-            Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : Kirigami.Units.largeSpacing * 2
-            Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x) + Kirigami.Units.smallSpacing
-
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignRight
-
-            ProgressIndicator {
-                id: timeIndicator
-                position: musicWidget.position
-            }
-        }
-
-        MouseArea {
-            id: seekWheelHandler
-            Layout.alignment: Qt.AlignVCenter
-            Layout.fillHeight: true
+        DurationSlider {
             Layout.fillWidth: true
-            Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
-
-            acceptedButtons: Qt.NoButton
-            onWheel: {
-                if (wheel.angleDelta.y > 0) {
-                    musicWidget.seek(position + 10000)
-                } else {
-                    musicWidget.seek(position - 10000)
-                }
-            }
-
-            // Synthesized slider background that's not actually a part of the
-            // slider. This is done so the slider's own background can be full
-            // height yet transparent, for easier clicking
-            Rectangle {
-                anchors.left: musicProgress.left
-                anchors.verticalCenter: musicProgress.verticalCenter
-                implicitWidth: seekWheelHandler.width
-                implicitHeight: 6
-                color: myPalette.dark
-                radius: 3
-            }
-
-            Slider {
-                property bool seekStarted: false
-                property int seekValue
-
-                id: musicProgress
-
-                anchors.fill: parent
-
-                from: 0
-                to: musicWidget.duration
-
-                enabled: musicWidget.seekable && musicWidget.playEnabled
-
-                live: true
-
-                onValueChanged: {
-                    if (seekStarted) {
-                        seekValue = value
-                    }
-                }
-
-                onPressedChanged: {
-                    if (pressed) {
-                        seekStarted = true;
-                        seekValue = value
-                    } else {
-                        musicWidget.seek(seekValue)
-                        seekStarted = false;
-                    }
-                }
-
-                // This only provides a full-height area for clicking; see
-                // https://bugs.kde.org/show_bug.cgi?id=408703. The actual visual
-                // background is generated above ^^
-                background: Rectangle {
-                    anchors.fill: parent
-                    implicitWidth: seekWheelHandler.width
-                    implicitHeight: seekWheelHandler.height
-                    color: "transparent"
-
-                    Rectangle {
-                        anchors.verticalCenter: parent.verticalCenter
-                        x: (LayoutMirroring.enabled ? musicProgress.visualPosition * parent.width : 0)
-                        width: LayoutMirroring.enabled ? parent.width - musicProgress.visualPosition * parent.width: musicProgress.handle.x + radius
-                        height: 6
-                        color: myPalette.text
-                        radius: 3
-                    }
-                }
-
-                handle: Rectangle {
-                    x: musicProgress.leftPadding + musicProgress.visualPosition * (musicProgress.availableWidth - width)
-                    y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
-                    implicitWidth: 18
-                    implicitHeight: 18
-                    radius: 9
-                    color: myPalette.base
-                    border.width: elisaTheme.hairline
-                    border.color: musicProgress.pressed ? myPalette.text : myPalette.dark
-
-                }
-            }
-        }
-
-        LabelWithToolTip {
-            id: durationLabel
-
-            text: durationIndicator.progressDuration
-
-            color: myPalette.text
-
-            Layout.alignment: Qt.AlignVCenter
             Layout.fillHeight: true
-            Layout.rightMargin: !LayoutMirroring.enabled ? (Kirigami.Units.largeSpacing* 2) : 0
-            Layout.leftMargin: LayoutMirroring.enabled ? (Kirigami.Units.largeSpacing* 2) : 0
-            Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x)
+            position: musicWidget.position
+            duration: musicWidget.duration
+            seekable: musicWidget.seekable
+            playEnabled: musicWidget.playEnabled
+            onSeek: musicWidget.seek(position)
 
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignLeft
-
-            ProgressIndicator {
-                id: durationIndicator
-                position: musicWidget.duration
-            }
+            labelColor: myPalette.text
+            sliderElapsedColor: myPalette.text
+            sliderRemainingColor: myPalette.dark
+            sliderHandleColor: myPalette.base
+            sliderBorderInactiveColor: myPalette.dark
+            sliderBorderActiveColor: myPalette.text
         }
 
         FlatButtonWithToolTip {
@@ -241,81 +102,22 @@ FocusScope {
             onClicked: musicWidget.muted = !musicWidget.muted
         }
 
-        MouseArea {
-            id: audioWheelHandler
-
+        VolumeSlider {
+            id: volumeSlider
             Layout.preferredWidth: elisaTheme.volumeSliderWidth
             Layout.maximumWidth: elisaTheme.volumeSliderWidth
             Layout.minimumWidth: elisaTheme.volumeSliderWidth
             Layout.fillHeight: true
 
-            acceptedButtons: Qt.NoButton
-            onWheel: {
-                if (wheel.angleDelta.y > 0) {
-                    volumeSlider.increase()
-                } else {
-                    volumeSlider.decrease()
-                }
-            }
-
-            // Synthesized slider background that's not actually a part of the
-            // slider. This is done so the slider's own background can be full
-            // height yet transparent, for easier clicking
-            Rectangle {
-                anchors.left: volumeSlider.left
-                anchors.verticalCenter: volumeSlider.verticalCenter
-                implicitWidth: audioWheelHandler.width
-                implicitHeight: 6
-                radius: 3
-                color: myPalette.dark
-                opacity: muted ? 0.5 : 1
-            }
-
-            Slider {
-                id: volumeSlider
-
-                anchors.fill: parent
-
-                from: 0
-                to: 100
-                stepSize: 5
-
-                enabled: !muted
-
-                // This only provides a full-height area for clicking; see
-                // https://bugs.kde.org/show_bug.cgi?id=408703. The actual visual
-                // background is generated above ^^
-                background: Rectangle {
-                    anchors.fill: parent
-                    implicitWidth: audioWheelHandler.width
-                    implicitHeight: audioWheelHandler.height
-                    color: "transparent"
-
-                    Rectangle {
-                        anchors.verticalCenter: parent.verticalCenter
-                        x: (LayoutMirroring.enabled ? volumeSlider.visualPosition * parent.width : 0)
-                        width: (LayoutMirroring.enabled ? parent.width - volumeSlider.visualPosition * parent.width : volumeSlider.visualPosition * parent.width)
-                        height: 6
-                        color: myPalette.text
-                        radius: 3
-                        opacity: muted ? 0.5 : 1
-                    }
-                }
-
-                handle: Rectangle {
-                    x: volumeSlider.leftPadding + volumeSlider.visualPosition * (volumeSlider.availableWidth - width)
-                    y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
-                    implicitWidth: 18
-                    implicitHeight: 18
-                    radius: 9
-                    color: myPalette.base
-                    border.width: elisaTheme.hairline
-                    border.color: volumeSlider.pressed ? myPalette.text : (muted ? myPalette.mid : myPalette.dark)
-                }
-            }
+            interactHeight: height
+            interactWidth: width
+            muted: muted
+            sliderElapsedColor: myPalette.text
+            sliderRemainingColor: myPalette.dark
+            sliderHandleColor: myPalette.base
+            sliderBorderInactiveColor: myPalette.dark
+            sliderBorderActiveColor: myPalette.text
         }
-
-
 
         FlatButtonWithToolTip {
             id: shuffleButton
@@ -402,19 +204,6 @@ FocusScope {
         }
 
         Item { implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2) }
-    }
-
-    onPositionChanged:
-    {
-        if (!musicProgress.seekStarted) {
-            musicProgress.value = position
-        }
-    }
-
-    onDurationChanged:
-    {
-        musicProgress.to = musicWidget.duration
-        musicProgress.value = Qt.binding(function() { return musicWidget.position })
     }
 
     onIsMaximizedChanged:

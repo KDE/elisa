@@ -1,6 +1,7 @@
 /*
    SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
    SPDX-FileCopyrightText: 2017 (c) Alexander Stippich <a.stippich@gmx.net>
+   SPDX-FileCopyrightText: 2021 (c) Devin Lin <espidev@gmail.com>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -12,6 +13,8 @@ import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
+
+import "mobile"
 
 FocusScope {
     id: mediaTrack
@@ -49,8 +52,20 @@ FocusScope {
     ListView.onPooled: delegateLoaded = false
     ListView.onReused: delegateLoaded = true
 
-    property int singleLineHeight: 3 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit
-    height: singleLineHeight + (detailedView ? Kirigami.Units.gridUnit : 0)
+    property int singleLineHeight: {
+        if (Kirigami.Settings.isMobile) {
+            return 4 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit * 2;
+        } else {
+            return 3 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit;
+        }
+    }
+    height: singleLineHeight + (!Kirigami.Settings.isMobile && detailedView ? Kirigami.Units.gridUnit : 0)
+
+    // open mobile context menu
+    function openContextMenu() {
+        contextMenuLoader.active = true;
+        contextMenuLoader.item.open();
+    }
 
     Rectangle {
         id: rowRoot
@@ -72,76 +87,39 @@ FocusScope {
 
         onClicked: {
             mediaTrack.clicked()
+
+            // open track on click for mobile
+            if (Kirigami.Settings.isMobile) {
+                replaceAndPlay();
+            }
         }
 
-        onDoubleClicked: enqueue()
+        onDoubleClicked: {
+            if (!Kirigami.Settings.isMobile) {
+                enqueue();
+            }
+        }
 
         RowLayout {
             anchors.fill: parent
             spacing: 0
 
-            LabelWithToolTip {
-                id: mainLabel
-
-                visible: !detailedView
-
-                text: {
-                    if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
-                        if (albumArtist !== undefined && artist !== albumArtist)
-                            return i18nc("%1: track number. %2: track title. %3: artist name",
-                                         "%1  %2 - %3",
-                                         trackNumber.toLocaleString(Qt.locale(), 'f', 0),
-                                         title, artist);
-                        else
-                            return i18nc("%1: track number. %2: track title.",
-                                         "%1  %2",
-                                         trackNumber.toLocaleString(Qt.locale(), 'f', 0),
-                                         title);
-                    } else {
-                        if (albumArtist !== undefined && artist !== albumArtist)
-                            return i18nc("%1: track title. %2: artist name",
-                                         "%1 - %2",
-                                         title, artist);
-                        else
-                            return title;
-                    }
-                }
-
-                elide: Text.ElideRight
-                horizontalAlignment: Text.AlignLeft
-
-                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                Layout.fillWidth: true
-                Layout.leftMargin: {
-                    if (!LayoutMirroring.enabled)
-                        return (!hideDiscNumber ? Kirigami.Units.largeSpacing * 4 : Kirigami.Units.largeSpacing)
-                    else
-                        return 0
-                }
-                Layout.rightMargin: {
-                    if (LayoutMirroring.enabled)
-                        return (!hideDiscNumber ? Kirigami.Units.largeSpacing * 4 : Kirigami.Units.largeSpacing)
-                    else
-                        return 0
-                }
-            }
-
             Loader {
-                active: mediaTrack.delegateLoaded && detailedView
-                visible: active
-                
-                Layout.preferredHeight: mediaTrack.height - Kirigami.Units.smallSpacing
-                Layout.preferredWidth: mediaTrack.height - Kirigami.Units.smallSpacing
+                active: mediaTrack.delegateLoaded && (detailedView || Kirigami.Settings.isMobile) // cover is always visible on mobile
+
+                // mobile delegate needs more margins
+                Layout.preferredHeight: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
+                Layout.preferredWidth: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
                 Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
                 Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
 
                 Layout.alignment: Qt.AlignCenter
-                
+
                 sourceComponent: ImageWithFallback {
                     id: coverImageElement
 
-                    sourceSize.width: mediaTrack.height - Kirigami.Units.smallSpacing
-                    sourceSize.height: mediaTrack.height - Kirigami.Units.smallSpacing
+                    sourceSize.width: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
+                    sourceSize.height: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
                     fillMode: Image.PreserveAspectFit
                     smooth: true
 
@@ -150,7 +128,7 @@ FocusScope {
 
                     asynchronous: true
 
-                    layer.enabled: !usingFallback
+                    layer.enabled: !usingFallback && !Kirigami.Settings.isMobile // disable drop shadow for mobile
 
                     layer.effect: DropShadow {
                         source: coverImageElement
@@ -165,42 +143,72 @@ FocusScope {
             }
 
             ColumnLayout {
-                visible: detailedView
+                id: labels
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.leftMargin: Kirigami.Units.largeSpacing
 
-                spacing: 0
+                spacing: Kirigami.Units.smallSpacing / 2
 
-                LabelWithToolTip {
-                    id: mainLabelDetailed
-
-                    level: 4
+                // first row (main label)
+                Label {
+                    id: mainLabel
 
                     text: {
-                        if (trackNumber >= 0) {
-                            return i18nc("%1: track number. %2: track title", "%1 - %2",
-                                         trackNumber.toLocaleString(Qt.locale(), 'f', 0), title);
-                        } else {
+                        if (detailedView) {
                             return title;
+                        } else if (Kirigami.Settings.isMobile) {
+                            // specific artist/album page (mobile)
+                            // not detailed view refers to an album page, in which we should put track numbers
+                            if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
+                                return i18nc("%1: track number. %2: track title.",
+                                        "%1 - %2",
+                                        trackNumber.toLocaleString(Qt.locale(), 'f', 0),
+                                        title);
+                            } else {
+                                return title;
+                            }
+                        } else {
+                            // specific artist/album page (desktop)
+                            if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
+                                if (albumArtist !== undefined && artist !== albumArtist) {
+                                    return i18nc("%1: track number. %2: track title. %3: artist name",
+                                                "%1 - %2 - %3",
+                                                trackNumber.toLocaleString(Qt.locale(), 'f', 0),
+                                                title, artist);
+                                } else {
+                                    return i18nc("%1: track number. %2: track title.",
+                                                "%1 - %2",
+                                                trackNumber.toLocaleString(Qt.locale(), 'f', 0),
+                                                title);
+                                }
+                            } else {
+                                if (albumArtist !== undefined && artist !== albumArtist) {
+                                    return i18nc("%1: track title. %2: artist name",
+                                                "%1 - %2",
+                                                title, artist);
+                                } else {
+                                    return title;
+                                }
+                            }
                         }
                     }
-
                     horizontalAlignment: Text.AlignLeft
-
                     color: myPalette.text
 
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                    Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.leftMargin: !LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0
                     Layout.fillWidth: true
-                    Layout.topMargin: Kirigami.Units.smallSpacing / 2
 
                     elide: Text.ElideRight
+                    font.pointSize: Kirigami.Theme.defaultFont.pointSize
                 }
 
-                LabelWithToolTip {
+                // second row (shown for mobile, and desktop detailed view)
+                Label {
                     id: artistLabel
 
                     text: {
@@ -208,7 +216,7 @@ FocusScope {
                         if (artist) {
                             labelText += artist
                         }
-                        if (album !== '') {
+                        if (album !== '' && detailedView) { // don't show album name on not detailed view
                             labelText += ' - ' + album
                             if (!hideDiscNumber && discNumber !== -1) {
                                 labelText += ' - CD ' + discNumber
@@ -218,29 +226,29 @@ FocusScope {
                     }
                     horizontalAlignment: Text.AlignLeft
 
-                    visible: text.length > 0
+                    visible: text.length > 0 && (Kirigami.Settings.isMobile || detailedView)
                     opacity: 0.6
                     color: myPalette.text
 
-                    Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
-                    Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.leftMargin: !LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0
+                    Layout.rightMargin: LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0
                     Layout.fillWidth: true
-                    Layout.bottomMargin: Kirigami.Units.smallSpacing / 2
-
                     elide: Text.ElideRight
+                    font: Kirigami.Theme.smallFont
                 }
             }
 
+            // hover actions (for desktop)
             Loader {
                 id: hoverLoader
-                active: false
+                active: !Kirigami.Settings.isMobile && (hoverArea.containsMouse || mediaTrack.activeFocus)
+                visible: active
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 Layout.rightMargin: 10
 
                 z: 1
-                opacity: 0
 
                 sourceComponent: Row {
                     anchors.centerIn: parent
@@ -291,8 +299,10 @@ FocusScope {
                 }
             }
 
+            // ratings (desktop)
             RatingStar {
                 id: ratingWidget
+                visible: !Kirigami.Settings.isMobile
 
                 starRating: rating
 
@@ -312,6 +322,76 @@ FocusScope {
                 Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
                 Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
             }
+
+            // mobile context actions menu button
+            FlatButtonWithToolTip {
+                id: contextMenuButton
+                visible: Kirigami.Settings.isMobile
+                scale: LayoutMirroring.enabled ? -1 : 1
+                Layout.alignment: Qt.AlignVCenter
+                Layout.maximumHeight: parent.height
+                Layout.preferredHeight: singleLineHeight - Kirigami.Units.smallSpacing * 2
+                Layout.preferredWidth: height
+
+                text: i18nc("Song options", "Song Options")
+                icon.name: "view-more-symbolic"
+                onClicked: openContextMenu()
+            }
+        }
+    }
+
+    // mobile context menu
+    Loader {
+        id: contextMenuLoader
+        active: false
+
+        // context menu sheet
+        sourceComponent: MobileContextMenuSheet {
+            id: contextMenu
+            title: mediaTrack.title
+
+            ColumnLayout {
+                Layout.preferredWidth: Kirigami.Units.gridUnit * 20
+                spacing: 0
+
+                MobileContextMenuEntry {
+                    visible: trackUrl.toString().substring(0, 7) === 'file://'
+                    onClicked: {
+                        ElisaApplication.showInFolder(mediaTrack.trackUrl);
+                        contextMenu.close();
+                    }
+                    icon: "document-open-folder"
+                    text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                }
+
+                MobileContextMenuEntry {
+                    onClicked: {
+                        callOpenMetaDataView(trackUrl, dataType);
+                        contextMenu.close();
+                    }
+                    icon: "documentinfo"
+                    text: i18nc("Show track metadata", "View details")
+                }
+
+                MobileContextMenuEntry {
+                    onClicked: {
+                        enqueue();
+                        contextMenu.close();
+                    }
+                    icon: "list-add"
+                    text: i18nc("Enqueue current track", "Add to queue")
+                }
+
+                RatingStar {
+                    id: ratingWidgetMobile
+
+                    starRating: rating
+
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.leftMargin: Kirigami.Units.largeSpacing
+                    Layout.rightMargin: Kirigami.Units.largeSpacing
+                }
+            }
         }
     }
 
@@ -319,14 +399,6 @@ FocusScope {
         State {
             name: 'notSelected'
             when: !mediaTrack.activeFocus && !hoverArea.containsMouse && !mediaTrack.isSelected
-            PropertyChanges {
-                target: hoverLoader
-                active: false
-            }
-            PropertyChanges {
-                target: hoverLoader
-                opacity: 0.0
-            }
             PropertyChanges {
                 target: ratingWidget
                 hoverWidgetOpacity: 0.0
@@ -344,14 +416,6 @@ FocusScope {
             name: 'hovered'
             when: !mediaTrack.activeFocus && hoverArea.containsMouse
             PropertyChanges {
-                target: hoverLoader
-                active: true
-            }
-            PropertyChanges {
-                target: hoverLoader
-                opacity: 1.0
-            }
-            PropertyChanges {
                 target: ratingWidget
                 hoverWidgetOpacity: 1.0
             }
@@ -368,14 +432,6 @@ FocusScope {
             name: 'selected'
             when: !mediaTrack.activeFocus && mediaTrack.isSelected
             PropertyChanges {
-                target: hoverLoader
-                active: false
-            }
-            PropertyChanges {
-                target: hoverLoader
-                opacity: 0.0
-            }
-            PropertyChanges {
                 target: ratingWidget
                 hoverWidgetOpacity: 1.0
             }
@@ -391,14 +447,6 @@ FocusScope {
         State {
             name: 'focused'
             when: mediaTrack.activeFocus
-            PropertyChanges {
-                target: hoverLoader
-                active: true
-            }
-            PropertyChanges {
-                target: hoverLoader
-                opacity: 1.0
-            }
             PropertyChanges {
                 target: ratingWidget
                 hoverWidgetOpacity: 1.0

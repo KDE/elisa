@@ -35,7 +35,7 @@ FocusScope {
     property alias viewManager: listView.viewManager
 
     function openMetaDataView(databaseId, url, entryType) {
-        metadataLoader.setSource("MediaTrackMetadataView.qml",
+        metadataLoader.setSource(Kirigami.Settings.isMobile ? "mobile/MobileMediaTrackMetadataView.qml" : "MediaTrackMetadataView.qml",
                                  {
                                      "fileName": url,
                                      "modelType": entryType,
@@ -49,7 +49,7 @@ FocusScope {
     }
     function openCreateRadioView()
     {
-        metadataLoader.setSource("MediaTrackMetadataView.qml",
+        metadataLoader.setSource(Kirigami.Settings.isMobile ? "mobile/MobileMediaTrackMetadataView.qml" : "MediaTrackMetadataView.qml",
                                  {
                                      "modelType": ElisaUtils.Radio,
                                      "isCreation": true,
@@ -100,59 +100,20 @@ FocusScope {
     Loader {
         id: metadataLoader
         active: false
-        onLoaded: item.show()
-    }
-
-    Component {
-        id: albumDelegate
-
-        ListBrowserDelegate {
-            id: entry
-
-            width: listView.delegateWidth
-
-            focus: true
-
-            trackUrl: model.url
-            dataType: model.dataType
-            title: model.display ? model.display : ''
-            artist: model.artist ? model.artist : ''
-            album: model.album ? model.album : ''
-            albumArtist: model.albumArtist ? model.albumArtist : ''
-            duration: model.duration ? model.duration : ''
-            imageUrl: model.imageUrl ? model.imageUrl : ''
-            trackNumber: model.trackNumber ? model.trackNumber : -1
-            discNumber: model.discNumber ? model.discNumber : -1
-            rating: model.rating
-            isSelected: listView.currentIndex === index
-            isAlternateColor: (index % 2) === 1
-            detailedView: false
-
-            onEnqueue: ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
-                                                             ElisaUtils.AppendPlayList,
-                                                             ElisaUtils.DoNotTriggerPlay)
-
-            onReplaceAndPlay: ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
-                                                                    ElisaUtils.ReplacePlayList,
-                                                                    ElisaUtils.TriggerPlay)
-
-
-            onClicked: listView.currentIndex = index
-
-            onActiveFocusChanged: {
-                if (activeFocus && listView.currentIndex !== index) {
-                    listView.currentIndex = index
-                }
-            }
-
-            onCallOpenMetaDataView: {
-                openMetaDataView(databaseId, url, entryType)
+        onLoaded: {
+            // on mobile, the metadata loader is a page
+            // on desktop, it's a window
+            if (Kirigami.Settings.isMobile) {
+                mainWindow.pageStack.layers.push(item);
+            } else {
+                item.show();
             }
         }
     }
 
+    // desktop delegates
     Component {
-        id: detailedTrackDelegate
+        id: trackDelegate
 
         ListBrowserDelegate {
             id: entry
@@ -172,9 +133,10 @@ FocusScope {
             trackNumber: model.trackNumber ? model.trackNumber : -1
             discNumber: model.discNumber ? model.discNumber : -1
             rating: model.rating
-            hideDiscNumber: model.isSingleDiscAlbum
+            hideDiscNumber: !viewHeader.displaySingleAlbum && model.isSingleDiscAlbum
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1
+            detailedView: !viewHeader.displaySingleAlbum
 
             onEnqueue: ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
                                                              ElisaUtils.AppendPlayList,
@@ -185,8 +147,14 @@ FocusScope {
                                                                     ElisaUtils.TriggerPlay)
 
             onClicked: {
-                listView.currentIndex = index
-                entry.forceActiveFocus()
+                listView.currentIndex = index;
+                entry.forceActiveFocus();
+            }
+
+            onActiveFocusChanged: {
+                if (activeFocus && listView.currentIndex !== index) {
+                    listView.currentIndex = index
+                }
             }
 
             onCallOpenMetaDataView: {
@@ -204,7 +172,7 @@ FocusScope {
 
         contentModel: proxyModel
 
-        delegate: (displaySingleAlbum ? albumDelegate : detailedTrackDelegate)
+        delegate: trackDelegate
 
         enableSorting: !displaySingleAlbum
 

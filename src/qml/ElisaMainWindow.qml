@@ -14,6 +14,8 @@ import org.kde.elisa.host 1.0
 import Qt.labs.settings 1.0
 import Qt.labs.platform 1.1
 
+import "mobile"
+
 Kirigami.ApplicationWindow {
     id: mainWindow
 
@@ -23,17 +25,24 @@ Kirigami.ApplicationWindow {
         id: playlistDrawer
         handleClosedIcon.source: "view-media-playlist"
         handleOpenIcon.source: "view-right-close"
+
+        handle.visible: !Kirigami.Settings.isMobile
+        Component.onCompleted: close() // drawer is opened when the layout is narrow, we want it closed
+
         // without this drawer button is never shown
         enabled: true
         MediaPlayListView {
-            id: playList
             anchors.fill: parent
             onStartPlayback: ElisaApplication.audioControl.ensurePlay()
             onPausePlayback: ElisaApplication.audioControl.playPause()
         }
     }
 
-    minimumWidth: 590
+    // HACK: since elisa's main view hasn't been ported to a page, but page layers are used for mobile settings
+    // lower the main view and mobile footer's z to be behind the layer when there are layers added (normally it is in front)
+    property bool layerOnTop: pageStack.layers.depth > 1
+
+    minimumWidth: 320
     property int minHeight: 320
 
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
@@ -46,6 +55,9 @@ Kirigami.ApplicationWindow {
 
     title: i18n("Elisa")
 
+    Accessible.role: Accessible.Application
+    Accessible.name: title
+
     readonly property int initialViewIndex: 3
 
     property var goBackAction: ElisaApplication.action("go_back")
@@ -56,6 +68,8 @@ Kirigami.ApplicationWindow {
     property var playPauseAction: ElisaApplication.action("Play-Pause")
     property var findAction: ElisaApplication.action("edit_find")
 
+    property var mediaPlayerControl: Kirigami.Settings.isMobile ? mobileFooterBarLoader.item : headerBarLoader.item
+
     Action {
         shortcut: goBackAction.shortcut
         onTriggered: contentView.goBack()
@@ -63,12 +77,12 @@ Kirigami.ApplicationWindow {
 
     Action {
         shortcut: seekAction.shortcut
-        onTriggered: ElisaApplication.audioControl.seek(headerBar.playerControl.position + 10000)
+        onTriggered: ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position + 10000)
     }
 
     Action {
         shortcut: scrubAction.shortcut
-        onTriggered: ElisaApplication.audioControl.seek(headerBar.playerControl.position - 10000)
+        onTriggered: ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position - 10000)
     }
 
     Action {
@@ -127,17 +141,6 @@ Kirigami.ApplicationWindow {
     }
 
     Connections {
-        target: headerBar.playerControl
-        function onOpenMenu() {
-            if (applicationMenu.visible) {
-                applicationMenu.close()
-            } else {
-                applicationMenu.popup(mainWindow.width - applicationMenu.width, headerBar.height)
-            }
-        }
-    }
-
-    Connections {
         target: Qt.application
         function onAboutToQuit() {
             persistentSettings.x = mainWindow.x;
@@ -148,12 +151,16 @@ Kirigami.ApplicationWindow {
             persistentSettings.playListState = ElisaApplication.mediaPlayListProxyModel.persistentState;
             persistentSettings.audioPlayerState = ElisaApplication.audioControl.persistentState
 
-            persistentSettings.playControlItemVolume = headerBar.playerControl.volume
-            persistentSettings.playControlItemMuted = headerBar.playerControl.muted
+            persistentSettings.playControlItemVolume = mediaPlayerControl.playerControl.volume
+            persistentSettings.playControlItemMuted = mediaPlayerControl.playerControl.muted
 
             persistentSettings.showPlaylist = contentView.showPlaylist
 
-            persistentSettings.headerBarIsMaximized = headerBar.isMaximized
+            if (Kirigami.Settings.isMobile) {
+                persistentSettings.headerBarIsMaximized = mobileFooterBarLoader.item.isMaximized
+            } else {
+                persistentSettings.headerBarIsMaximized = headerBarLoader.item.isMaximized
+            }
         }
     }
 
@@ -185,95 +192,195 @@ Kirigami.ApplicationWindow {
     Connections {
         target: ElisaApplication.audioPlayer
         function onVolumeChanged() {
-            headerBar.playerControl.volume = ElisaApplication.audioPlayer.volume
+            if (mediaPlayerControl != null) {
+                mediaPlayerControl.playerControl.volume = ElisaApplication.audioPlayer.volume
+            }
         }
         function onMutedChanged() {
-            headerBar.playerControl.muted = ElisaApplication.audioPlayer.muted
+            if (mediaPlayerControl != null) {
+                mediaPlayerControl.playerControl.muted = ElisaApplication.audioPlayer.muted
+            }
+        }
+    }
+
+    // track import notification
+    TrackImportNotification {
+        z: 2
+        id: importedTracksCountNotification
+
+        anchors {
+            right: mainContent.right
+            top: mainContent.top
+            rightMargin: Kirigami.Units.largeSpacing * 2
+            topMargin: Kirigami.Units.largeSpacing * 3
+        }
+    }
+
+    Binding {
+        id: indexerBusyBinding
+
+        target: importedTracksCountNotification
+        property: 'indexingRunning'
+        value: ElisaApplication.musicManager.indexerBusy
+        when: ElisaApplication.musicManager !== undefined
+    }
+
+    Binding {
+        target: importedTracksCountNotification
+        property: 'importedTracksCount'
+        value: ElisaApplication.musicManager.importedTracksCount
+        when: ElisaApplication.musicManager !== undefined
+    }
+
+    // mobile footer bar
+    Loader {
+        id: mobileFooterBarLoader
+        anchors.fill: parent
+
+        active: Kirigami.Settings.isMobile
+        visible: active
+
+        // footer bar fills the whole page, so only be in front of the main view when it is opened
+        // otherwise, it captures all mouse/touch events on the main view
+        z: (!item || item.contentY == 0) ? (mainWindow.layerOnTop ? -1 : 0) : 999
+
+        sourceComponent: MobileFooterBar {
+            id: mobileFooterBar
+            contentHeight: mainWindow.height * 2
+
+            focus: true
+
+            album: (ElisaApplication.manageHeaderBar.album !== undefined ? ElisaApplication.manageHeaderBar.album : '')
+            title: ElisaApplication.manageHeaderBar.title
+            artist: (ElisaApplication.manageHeaderBar.artist !== undefined ? ElisaApplication.manageHeaderBar.artist : '')
+            albumArtist: (ElisaApplication.manageHeaderBar.albumArtist !== undefined ? ElisaApplication.manageHeaderBar.albumArtist : '')
+            image: ElisaApplication.manageHeaderBar.image
+            albumID: ElisaApplication.manageHeaderBar.albumId
+
+            ratingVisible: false
+
+            // since we have multiple volume bars, and only one is linked directly to audio, sync the other one (trackControl)
+            Binding on playerControl.volume {
+                when: mobileFooterBar.trackControl.volumeSlider.moved
+                value: mobileFooterBar.trackControl.volume
+            }
+            Component.onCompleted: {
+                trackControl.volume = Qt.binding(function() { return mobileFooterBar.playerControl.volume })
+            }
+
+            onOpenArtist: { contentView.openArtist(artist) }
+            onOpenNowPlaying: { contentView.openNowPlaying() }
+            onOpenAlbum: { contentView.openAlbum(album, albumArtist, image, albumID) }
         }
     }
 
     Rectangle {
+        id: mainContent
+
+        visible: !mainWindow.layerOnTop
+
         color: myPalette.base
         anchors.fill: parent
+        anchors.bottomMargin: Kirigami.Settings.isMobile? elisaTheme.mediaPlayerControlHeight : 0
 
         ColumnLayout {
             anchors.fill: parent
             spacing: 0
 
-            HeaderBar {
-                id: headerBar
-
-                focus: true
+            // desktop header bar
+            Loader {
+                id: headerBarLoader
+                active: !Kirigami.Settings.isMobile
+                visible: active
 
                 Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
                 Layout.fillWidth: true
 
-                album: (ElisaApplication.manageHeaderBar.album !== undefined ? ElisaApplication.manageHeaderBar.album : '')
-                title: ElisaApplication.manageHeaderBar.title
-                artist: (ElisaApplication.manageHeaderBar.artist !== undefined ? ElisaApplication.manageHeaderBar.artist : '')
-                albumArtist: (ElisaApplication.manageHeaderBar.albumArtist !== undefined ? ElisaApplication.manageHeaderBar.albumArtist : '')
-                image: ElisaApplication.manageHeaderBar.image
-                albumID: ElisaApplication.manageHeaderBar.albumId
+                sourceComponent: HeaderBar {
+                    id: headerBar
 
-                ratingVisible: false
+                    focus: true
 
-                playerControl.duration: ElisaApplication.audioControl.audioDuration
-                playerControl.seekable: ElisaApplication.audioPlayer.seekable
+                    album: (ElisaApplication.manageHeaderBar.album !== undefined ? ElisaApplication.manageHeaderBar.album : '')
+                    title: ElisaApplication.manageHeaderBar.title
+                    artist: (ElisaApplication.manageHeaderBar.artist !== undefined ? ElisaApplication.manageHeaderBar.artist : '')
+                    albumArtist: (ElisaApplication.manageHeaderBar.albumArtist !== undefined ? ElisaApplication.manageHeaderBar.albumArtist : '')
+                    image: ElisaApplication.manageHeaderBar.image
+                    albumID: ElisaApplication.manageHeaderBar.albumId
 
-                playerControl.volume: persistentSettings.playControlItemVolume
-                playerControl.muted: persistentSettings.playControlItemMuted
-                playerControl.position: ElisaApplication.audioControl.playerPosition
-                playerControl.skipBackwardEnabled: ElisaApplication.playerControl.skipBackwardControlEnabled
-                playerControl.skipForwardEnabled: ElisaApplication.playerControl.skipForwardControlEnabled
-                playerControl.playEnabled: ElisaApplication.playerControl.playControlEnabled
-                playerControl.isPlaying: ElisaApplication.playerControl.musicPlaying
+                    ratingVisible: false
 
-                playerControl.repeat: ElisaApplication.mediaPlayListProxyModel.repeatMode
-                playerControl.shuffle: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
+                    playerControl.isMaximized: persistentSettings.headerBarIsMaximized
+                    onOpenArtist: { contentView.openArtist(artist) }
+                    onOpenNowPlaying: { contentView.openNowPlaying() }
+                    onOpenAlbum: { contentView.openAlbum(album, albumArtist, image, albumID) }
 
-                playerControl.onSeek: ElisaApplication.audioControl.playerSeek(position)
-
-                playerControl.onPlay: ElisaApplication.audioControl.playPause()
-                playerControl.onPause: ElisaApplication.audioControl.playPause()
-                playerControl.onPlayPrevious: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position)
-                playerControl.onPlayNext: ElisaApplication.mediaPlayListProxyModel.skipNextTrack()
-
-                playerControl.isMaximized: persistentSettings.headerBarIsMaximized
-                onOpenArtist: { contentView.openArtist(artist) }
-                onOpenNowPlaying: { contentView.openNowPlaying() }
-                onOpenAlbum: { contentView.openAlbum(album, albumArtist, image, albumID) }
-
-                TrackImportNotification {
-                    id: importedTracksCountNotification
-
-                    anchors
-                    {
-                        right: headerBar.right
-                        top: headerBar.top
-                        rightMargin: Kirigami.Units.largeSpacing * 2
-                        topMargin: Kirigami.Units.largeSpacing * 3
+                    playerControl.onOpenMenu: {
+                        if (applicationMenu.visible) {
+                            applicationMenu.close()
+                        } else {
+                            applicationMenu.popup(mainWindow.width - applicationMenu.width, headerBar.height)
+                        }
                     }
-                }
 
-                Binding {
-                    id: indexerBusyBinding
-
-                    target: importedTracksCountNotification
-                    property: 'indexingRunning'
-                    value: ElisaApplication.musicManager.indexerBusy
-                    when: ElisaApplication.musicManager !== undefined
-                }
-
-                Binding {
-                    target: importedTracksCountNotification
-                    property: 'importedTracksCount'
-                    value: ElisaApplication.musicManager.importedTracksCount
-                    when: ElisaApplication.musicManager !== undefined
+                    // animations
+                    StateGroup {
+                        id: mainWindowState
+                        states: [
+                            State {
+                                name: "headerBarIsNormal"
+                                when: !headerBar.isMaximized
+                                changes: [
+                                    PropertyChanges {
+                                        target: mainWindow
+                                        minimumHeight: mainWindow.minHeight * 1.5
+                                        explicit: true
+                                    },
+                                    PropertyChanges {
+                                        target: headerBarLoader
+                                        Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
+                                        Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
+                                    }
+                                ]
+                            },
+                            State {
+                                name: "headerBarIsMaximized"
+                                when: headerBar.isMaximized
+                                changes: [
+                                    PropertyChanges {
+                                        target: mainWindow
+                                        minimumHeight: mainWindow.minHeight
+                                        explicit: true
+                                    },
+                                    PropertyChanges {
+                                        target: headerBarLoader
+                                        Layout.minimumHeight: mainWindow.height
+                                        Layout.maximumHeight: mainWindow.height
+                                    },
+                                    PropertyChanges {
+                                        target: playlistDrawer
+                                        collapsed: true
+                                        visible: false
+                                        drawerOpen: false
+                                        handleVisible: false
+                                    }
+                                ]
+                            }
+                        ]
+                        transitions: Transition {
+                            NumberAnimation {
+                                properties: "Layout.minimumHeight, Layout.maximumHeight, minimumHeight"
+                                easing.type: Easing.InOutQuad
+                                duration: Kirigami.Units.longDuration
+                            }
+                        }
+                    }
                 }
             }
 
             Kirigami.Separator {
+                visible: !Kirigami.Settings.isMobile
                 Layout.fillWidth: true
             }
 
@@ -289,56 +396,12 @@ Kirigami.ApplicationWindow {
         }
     }
 
-    StateGroup {
-        id: mainWindowState
-        states: [
-            State {
-                name: "headerBarIsNormal"
-                when: !headerBar.isMaximized
-                changes: [
-                    PropertyChanges {
-                        target: mainWindow
-                        minimumHeight: mainWindow.minHeight * 1.5
-                        explicit: true
-                    },
-                    PropertyChanges {
-                        target: headerBar
-                        Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
-                        Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
-                    }
-                ]
-            },
-            State {
-                name: "headerBarIsMaximized"
-                when: headerBar.isMaximized
-                changes: [
-                    PropertyChanges {
-                        target: mainWindow
-                        minimumHeight: mainWindow.minHeight
-                        explicit: true
-                    },
-                    PropertyChanges {
-                        target: headerBar
-                        Layout.minimumHeight: mainWindow.height
-                        Layout.maximumHeight: mainWindow.height
-                    },
-                    PropertyChanges {
-                        target: playlistDrawer
-                        collapsed: true
-                        visible: false
-                        drawerOpen: false
-                        handleVisible: false
-                    }
-                ]
-            }
-        ]
-        transitions: Transition {
-            NumberAnimation {
-                properties: "Layout.minimumHeight, Layout.maximumHeight, minimumHeight"
-                easing.type: Easing.InOutQuad
-                duration: Kirigami.Units.longDuration
-            }
-        }
+    // capture mouse events behind flickable when it is open
+    MouseArea {
+        visible: Kirigami.Settings.isMobile && mobileFooterBarLoader.item.contentY != 0 // only capture when the mobile footer panel is open
+        anchors.fill: mobileFooterBarLoader
+        preventStealing: true
+        onClicked: mouse.accepted = true
     }
 
     Component.onCompleted:
@@ -354,13 +417,22 @@ Kirigami.ApplicationWindow {
             ElisaApplication.audioControl.persistentState = persistentSettings.audioPlayerState
         }
 
-        ElisaApplication.mediaPlayListProxyModel.shufflePlayList = Qt.binding(function() { return headerBar.playerControl.shuffle })
-        ElisaApplication.mediaPlayListProxyModel.repeatMode = Qt.binding(function() { return headerBar.playerControl.repeat })
-        ElisaApplication.audioPlayer.muted = Qt.binding(function() { return headerBar.playerControl.muted })
-        ElisaApplication.audioPlayer.volume = Qt.binding(function() { return headerBar.playerControl.volume })
+        // it seems the header/footer bars load before settings are loaded, so we need to set their settings here
+        mediaPlayerControl.playerControl.volume = persistentSettings.playControlItemVolume;
+        mediaPlayerControl.playerControl.muted = persistentSettings.playControlItemMuted;
+
+        ElisaApplication.mediaPlayListProxyModel.shufflePlayList = Qt.binding(function() { return mediaPlayerControl.playerControl.shuffle })
+        ElisaApplication.mediaPlayListProxyModel.repeatMode = Qt.binding(function() { return mediaPlayerControl.playerControl.repeat })
+        ElisaApplication.audioPlayer.muted = Qt.binding(function() { return mediaPlayerControl.playerControl.muted })
+        ElisaApplication.audioPlayer.volume = Qt.binding(function() { return mediaPlayerControl.playerControl.volume })
 
         mprisloader.active = true
 
         ElisaApplication.arguments = ElisaArguments.arguments
+
+        // use global drawer on mobile
+        if (Kirigami.Settings.isMobile) {
+            globalDrawer = contentView.sidebar;
+        }
     }
 }

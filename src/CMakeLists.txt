@@ -414,14 +414,16 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ViewSelectorDelegate.qml
         qml/DataGridView.qml
         qml/DataListView.qml
+        qml/DurationSlider.qml
+        qml/VolumeSlider.qml
 
         qml/MediaPlayListView.qml
         qml/PlayListEntry.qml
         qml/SimplePlayListView.qml
         qml/BasicPlayListAlbumHeader.qml
 
-        qml/MetaDataDelegate.qml
-        qml/EditableMetaDataDelegate.qml
+        qml/MediaTrackMetadataDelegate.qml
+        qml/MediaTrackMetadataForm.qml
         qml/TracksDiscHeader.qml
         qml/MediaTrackMetadataView.qml
         qml/GridBrowserView.qml
@@ -431,7 +433,19 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/FlatButtonWithToolTip.qml
         qml/HeaderFooterToolbar.qml
 
+        qml/SettingsForm.qml
         qml/ElisaConfigurationDialog.qml
+
+        qml/mobile/MobileContextMenuEntry.qml
+        qml/mobile/MobileContextMenuSheet.qml
+        qml/mobile/MobileFooterBar.qml
+        qml/mobile/MobileMediaTrackMetadataView.qml
+        qml/mobile/MobileMinimizedPlayerControl.qml
+        qml/mobile/MobilePlayListDelegate.qml
+        qml/mobile/MobileSettingsPage.qml
+        qml/mobile/MobileSidebar.qml
+        qml/mobile/MobileTrackPlayer.qml
+        qml/mobile/MobileVolumeButton.qml
     )
 
     qt5_add_resources(elisa_SOURCES resources.qrc)

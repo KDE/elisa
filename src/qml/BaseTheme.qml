@@ -5,7 +5,7 @@
  */
 
 import QtQuick 2.7
-import org.kde.kirigami 2.0 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 
 Item {
     property string defaultAlbumImage: 'image://icon/media-optical-audio'
@@ -41,7 +41,7 @@ Item {
     property int tooltipRadius: 3
     property int shadowOffset: 2
 
-    property int mediaPlayerControlHeight: 42
+    property int mediaPlayerControlHeight: Kirigami.Settings.isMobile? Math.round(Kirigami.Units.gridUnit * 3.5) : Math.round(Kirigami.Units.gridUnit * 2.5)
     property real mediaPlayerControlOpacity: 0.6
     property int volumeSliderWidth: 100
 

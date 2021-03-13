@@ -29,9 +29,9 @@
         <file>qml/SimplePlayListView.qml</file>
         <file>qml/ViewSelector.qml</file>
         <file>qml/BasicPlayListAlbumHeader.qml</file>
-        <file>qml/MetaDataDelegate.qml</file>
+        <file>qml/MediaTrackMetadataDelegate.qml</file>
+        <file>qml/MediaTrackMetadataForm.qml</file>
         <file>qml/ImageWithFallback.qml</file>
-        <file>qml/EditableMetaDataDelegate.qml</file>
         <file>qml/ViewSelectorDelegate.qml</file>
         <file>qml/HeaderFooterToolbar.qml</file>
         <file>qml/TracksDiscHeader.qml</file>
@@ -42,6 +42,21 @@
         <file>qml/PlaylistModeItem.qml</file>
         <file>qml/ElisaConfigurationDialog.qml</file>
         <file>qml/SortMenu.qml</file>
+        <file>qml/SettingsForm.qml</file>
+        <file>qml/DurationSlider.qml</file>
+        <file>qml/VolumeSlider.qml</file>
+        <file>qml/mobile/MobileFooterBar.qml</file>
+        <file>qml/mobile/MobileMinimizedPlayerControl.qml</file>
+        <file>qml/mobile/MobileTrackPlayer.qml</file>
+        <file>qml/mobile/MobileSidebar.qml</file>
+        <file>qml/mobile/MobileSettingsPage.qml</file>
+        <file>qml/mobile/MobileMediaTrackMetadataView.qml</file>
+        <file>qml/mobile/MobilePlayListDelegate.qml</file>
+        <file>qml/mobile/MobileContextMenuSheet.qml</file>
+        <file>qml/mobile/MobileVolumeButton.qml</file>
+        <file>qml/mobile/MobileContextMenuEntry.qml</file>
+        <file>qml/shared/BasePlayerControl.qml</file>
+        <file>qml/shared/BasePlayListDelegate.qml</file>
     </qresource>
     <qresource prefix="/qml/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

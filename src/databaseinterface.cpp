@@ -31,6 +31,41 @@ class DatabaseInterfacePrivate
 {
 public:
 
+    enum TrackRecordColumns
+    {
+        TrackId,
+        TrackTitle,
+        TrackAlbumId,
+        TrackArtistName,
+        TrackArtistsCount,
+        TrackAllArtists,
+        TrackAlbumArtistName,
+        TrackFileName,
+        TrackFileModifiedTime,
+        TrackNumber,
+        TrackDiscNumber,
+        TrackDuration,
+        TrackAlbumTitle,
+        TrackRating,
+        TrackCoverFileName,
+        TrackIsSingleDiscAlbum,
+        TrackGenreName,
+        TrackComposerName,
+        TrackLyricistName,
+        TrackComment,
+        TrackYear,
+        TrackChannelsCount,
+        TrackBitRate,
+        TrackSamplerate,
+        TrackHasEmbeddedCover,
+        TrackImportDate,
+        TrackFirstPlayDate,
+        TrackLastPlayDate,
+        TrackPlayCounter,
+        TrackPlayFrequency,
+        TrackEmbeddedCover,
+    };
+
     DatabaseInterfacePrivate(const QSqlDatabase &tracksDatabase)
         : mTracksDatabase(tracksDatabase), mSelectAlbumQuery(mTracksDatabase),
           mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
@@ -7006,77 +7041,77 @@ DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(con
 {
     DataTypes::TrackDataType result;
 
-    result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
-    result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(1);
-    if (!trackRecord.value(12).isNull()) {
-        result[DataTypes::TrackDataType::key_type::AlbumRole] = trackRecord.value(12);
-        result[DataTypes::TrackDataType::key_type::AlbumIdRole] = trackRecord.value(2);
+    result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(DatabaseInterfacePrivate::TrackId);
+    result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(DatabaseInterfacePrivate::TrackTitle);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackAlbumTitle).isNull()) {
+        result[DataTypes::TrackDataType::key_type::AlbumRole] = trackRecord.value(DatabaseInterfacePrivate::TrackAlbumTitle);
+        result[DataTypes::TrackDataType::key_type::AlbumIdRole] = trackRecord.value(DatabaseInterfacePrivate::TrackAlbumId);
     }
-    if (!trackRecord.value(3).isNull()) {
-        result[DataTypes::TrackDataType::key_type::ArtistRole] = trackRecord.value(3);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackArtistName).isNull()) {
+        result[DataTypes::TrackDataType::key_type::ArtistRole] = trackRecord.value(DatabaseInterfacePrivate::TrackArtistName);
     }
 
-    if (!trackRecord.value(6).isNull()) {
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackAlbumArtistName).isNull()) {
         result[DataTypes::TrackDataType::key_type::IsValidAlbumArtistRole] = true;
-        result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(6);
+        result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(DatabaseInterfacePrivate::TrackAlbumArtistName);
     } else {
         result[DataTypes::TrackDataType::key_type::IsValidAlbumArtistRole] = false;
-        if (trackRecord.value(4).toInt() == 1) {
-            result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(3);
-        } else if (trackRecord.value(4).toInt() > 1) {
+        if (trackRecord.value(DatabaseInterfacePrivate::TrackArtistsCount).toInt() == 1) {
+            result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(DatabaseInterfacePrivate::TrackArtistName);
+        } else if (trackRecord.value(DatabaseInterfacePrivate::TrackArtistsCount).toInt() > 1) {
             result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = i18n("Various Artists");
         }
     }
 
-    result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(7);
-    if (!trackRecord.value(9).isNull()) {
-        result[DataTypes::TrackDataType::key_type::TrackNumberRole] = trackRecord.value(9);
+    result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(DatabaseInterfacePrivate::TrackFileName);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackNumber).isNull()) {
+        result[DataTypes::TrackDataType::key_type::TrackNumberRole] = trackRecord.value(DatabaseInterfacePrivate::TrackNumber);
     }
-    if (!trackRecord.value(10).isNull()) {
-        result[DataTypes::TrackDataType::key_type::DiscNumberRole] = trackRecord.value(10);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackDiscNumber).isNull()) {
+        result[DataTypes::TrackDataType::key_type::DiscNumberRole] = trackRecord.value(DatabaseInterfacePrivate::TrackDiscNumber);
     }
-    result[DataTypes::TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(11).toInt());
-    result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(13);
-    if (!trackRecord.value(14).toString().isEmpty()) {
-        result[DataTypes::TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(14).toString());
-    } else if (!trackRecord.value(30).toString().isEmpty()) {
-        result[DataTypes::TrackDataType::key_type::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + trackRecord.value(30).toUrl().toLocalFile()};
+    result[DataTypes::TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(DatabaseInterfacePrivate::TrackDuration).toInt());
+    result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(DatabaseInterfacePrivate::TrackRating);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackCoverFileName).toString().isEmpty()) {
+        result[DataTypes::TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(DatabaseInterfacePrivate::TrackCoverFileName).toString());
+    } else if (!trackRecord.value(DatabaseInterfacePrivate::TrackEmbeddedCover).toString().isEmpty()) {
+        result[DataTypes::TrackDataType::key_type::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + trackRecord.value(DatabaseInterfacePrivate::TrackEmbeddedCover).toUrl().toLocalFile()};
     }
-    result[DataTypes::TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(15);
-    if (!trackRecord.value(16).isNull()) {
-        result[DataTypes::TrackDataType::key_type::GenreRole] = trackRecord.value(16);
+    result[DataTypes::TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(DatabaseInterfacePrivate::TrackIsSingleDiscAlbum);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackGenreName).isNull()) {
+        result[DataTypes::TrackDataType::key_type::GenreRole] = trackRecord.value(DatabaseInterfacePrivate::TrackGenreName);
     }
-    if (!trackRecord.value(17).isNull()) {
-        result[DataTypes::TrackDataType::key_type::ComposerRole] = trackRecord.value(17);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackComposerName).isNull()) {
+        result[DataTypes::TrackDataType::key_type::ComposerRole] = trackRecord.value(DatabaseInterfacePrivate::TrackComposerName);
     }
-    if (!trackRecord.value(18).isNull()) {
-        result[DataTypes::TrackDataType::key_type::LyricistRole] = trackRecord.value(18);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackLyricistName).isNull()) {
+        result[DataTypes::TrackDataType::key_type::LyricistRole] = trackRecord.value(DatabaseInterfacePrivate::TrackLyricistName);
     }
-    if (!trackRecord.value(19).isNull()) {
-        result[DataTypes::TrackDataType::key_type::CommentRole] = trackRecord.value(19);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackComment).isNull()) {
+        result[DataTypes::TrackDataType::key_type::CommentRole] = trackRecord.value(DatabaseInterfacePrivate::TrackComment);
     }
-    if (!trackRecord.value(20).isNull()) {
-        result[DataTypes::TrackDataType::key_type::YearRole] = trackRecord.value(20);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackYear).isNull()) {
+        result[DataTypes::TrackDataType::key_type::YearRole] = trackRecord.value(DatabaseInterfacePrivate::TrackYear);
     }
-    if (!trackRecord.value(21).isNull()) {
-        result[DataTypes::TrackDataType::key_type::ChannelsRole] = trackRecord.value(21);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackChannelsCount).isNull()) {
+        result[DataTypes::TrackDataType::key_type::ChannelsRole] = trackRecord.value(DatabaseInterfacePrivate::TrackChannelsCount);
     }
-    if (!trackRecord.value(22).isNull()) {
-        result[DataTypes::TrackDataType::key_type::BitRateRole] = trackRecord.value(22);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackBitRate).isNull()) {
+        result[DataTypes::TrackDataType::key_type::BitRateRole] = trackRecord.value(DatabaseInterfacePrivate::TrackBitRate);
     }
-    if (!trackRecord.value(23).isNull()) {
-        result[DataTypes::TrackDataType::key_type::SampleRateRole] = trackRecord.value(23);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackSamplerate).isNull()) {
+        result[DataTypes::TrackDataType::key_type::SampleRateRole] = trackRecord.value(DatabaseInterfacePrivate::TrackSamplerate);
     }
-    result[DataTypes::TrackDataType::key_type::HasEmbeddedCover] = trackRecord.value(24);
-    result[DataTypes::TrackDataType::key_type::FileModificationTime] = trackRecord.value(8);
-    if (!trackRecord.value(26).isNull()) {
-        result[DataTypes::TrackDataType::key_type::FirstPlayDate] = trackRecord.value(26);
+    result[DataTypes::TrackDataType::key_type::HasEmbeddedCover] = trackRecord.value(DatabaseInterfacePrivate::TrackHasEmbeddedCover);
+    result[DataTypes::TrackDataType::key_type::FileModificationTime] = trackRecord.value(DatabaseInterfacePrivate::TrackFileModifiedTime);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackFirstPlayDate).isNull()) {
+        result[DataTypes::TrackDataType::key_type::FirstPlayDate] = trackRecord.value(DatabaseInterfacePrivate::TrackFirstPlayDate);
     }
-    if (!trackRecord.value(27).isNull()) {
-        result[DataTypes::TrackDataType::key_type::LastPlayDate] = trackRecord.value(27);
+    if (!trackRecord.value(DatabaseInterfacePrivate::TrackLastPlayDate).isNull()) {
+        result[DataTypes::TrackDataType::key_type::LastPlayDate] = trackRecord.value(DatabaseInterfacePrivate::TrackLastPlayDate);
     }
-    result[DataTypes::TrackDataType::key_type::PlayCounter] = trackRecord.value(28);
-    result[DataTypes::TrackDataType::key_type::PlayFrequency] = trackRecord.value(29);
+    result[DataTypes::TrackDataType::key_type::PlayCounter] = trackRecord.value(DatabaseInterfacePrivate::TrackPlayCounter);
+    result[DataTypes::TrackDataType::key_type::PlayFrequency] = trackRecord.value(DatabaseInterfacePrivate::TrackPlayFrequency);
     result[DataTypes::TrackDataType::key_type::ElementTypeRole] = QVariant::fromValue(ElisaUtils::Track);
 
     return result;

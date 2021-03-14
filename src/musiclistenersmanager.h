@@ -170,6 +170,8 @@ private:
 
     void startLocalFileSystemIndexing();
 
+    void startAndroidIndexing();
+
     void startBalooIndexing();
 
     auto initializeRootPath();

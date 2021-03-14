@@ -122,9 +122,17 @@ else()
 endif()
 
 if (ANDROID)
+    ecm_qt_declare_logging_category(elisaLib_SOURCES
+        HEADER "android/androidcommon.h"
+        IDENTIFIER "orgKdeElisaAndroid"
+        CATEGORY_NAME "org.kde.elisa.android"
+        DEFAULT_SEVERITY Info
+        )
+
     set(elisaLib_SOURCES
         ${elisaLib_SOURCES}
         android/androidmusiclistener.cpp
+        android/androidfilelisting.cpp
         )
 endif()
 
@@ -381,13 +389,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         windows/WindowsTheme.qml
         windows/PlatformIntegration.qml
 
-        android/ElisaMainWindow.qml
-        android/AndroidTheme.qml
         android/PlatformIntegration.qml
-        android/AlbumsView.qml
-        android/ArtistsView.qml
-        android/TracksView.qml
-        android/GenresView.qml
 
         qml/ElisaMainWindow.qml
         qml/ApplicationMenu.qml
@@ -472,11 +474,12 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         elisaLib
         Qt5::Widgets Qt5::QuickControls2
         KF5::I18n KF5::CoreAddons KF5::ConfigCore KF5::ConfigGui
+        KF5::IconThemes
         )
 
     if (ANDROID)
         target_link_libraries(elisa
-            LINK_PRIVATE
+            PRIVATE
             Qt5::AndroidExtras Qt5::Svg Qt5::Sql Qt5::Concurrent KF5::Kirigami2
         )
     endif()

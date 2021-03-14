@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: 2018-2020 Volker Krause <vkrause@kde.org>
+    SPDX-License-Identifier: CC0-1.0
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle" >
+            <solid android:color="#3daee9"/>
+        </shape>
+    </item>
+    <item android:width="64dp" android:height="64dp" android:right="4dp" android:bottom="4dp" android:gravity="bottom|right">
+        <bitmap
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/vendor_logo"/>
+    </item>
+</layer-list>

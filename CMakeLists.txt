@@ -81,6 +81,11 @@ set_package_properties(KF5CoreAddons PROPERTIES
     DESCRIPTION "Qt addon library with a collection of non-GUI utilities."
     TYPE REQUIRED)
 
+find_package(KF5IconThemes ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+set_package_properties(KF5IconThemes PROPERTIES
+    DESCRIPTION "Support for icon themes."
+    TYPE REQUIRED)
+
 if (NOT WIN32)
 find_package(KF5Baloo ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5Baloo PROPERTIES
@@ -156,10 +161,6 @@ include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(CMakePackageConfigHelpers)
-
-if (CMAKE_SYSTEM_NAME STREQUAL Android)
-    set(QT_QMAKE_EXECUTABLE "$ENV{Qt5_android}/bin/qmake")
-endif()
 
 configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h )
 

@@ -1,0 +1,151 @@
+// SPDX-FileCopyrightText: 2018 Matthieu Gallien <matthieu_gallien@yahoo.fr>
+//
+// SPDX-License-Identifier: LGPL-3.0-or-later
+
+package org.kde.elisa;
+
+import org.qtproject.qt5.android.bindings.QtActivity;
+import android.content.ContentResolver;
+import android.content.Context;
+import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.content.Intent;
+import android.provider.MediaStore;
+
+public class ElisaActivity extends QtActivity
+{
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
+
+    private static String[] tracksRequestedColumns = {
+        MediaStore.Audio.Media._ID,
+        MediaStore.Audio.Media.TITLE,
+        MediaStore.Audio.Media.TRACK,
+        MediaStore.Audio.Media.YEAR,
+        MediaStore.Audio.Media.DURATION,
+        MediaStore.Audio.Media.DATA,
+        MediaStore.Audio.Media.ARTIST,
+        MediaStore.Audio.Media.ARTIST_ID,
+        MediaStore.Audio.Media.ALBUM,
+        MediaStore.Audio.Media.ALBUM_ID,
+        MediaStore.Audio.Media.COMPOSER,
+    };
+
+    private static String[] albumsRequestedColumns = {
+        MediaStore.Audio.Albums._ID,
+        MediaStore.Audio.Albums.ALBUM,
+        MediaStore.Audio.Albums.ALBUM_ART,
+        MediaStore.Audio.Albums.ARTIST,
+        MediaStore.Audio.Albums.NUMBER_OF_SONGS,
+    };
+
+    public static void listAudioFiles(Context ctx)
+    {
+        androidMusicScanTracksStarting();
+
+        //Some audio may be explicitly marked as not being music
+        String tracksSelection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
+        String tracksSortOrder = MediaStore.Audio.Media.DEFAULT_SORT_ORDER + " ASC";
+
+        if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            androidMusicScanTracksFinishing();
+
+            androidMusicScanAlbumsStarting();
+
+            androidMusicScanAlbumsFinishing();
+
+            return;
+        }
+
+        Cursor tracksCursor = ctx.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, tracksRequestedColumns, tracksSelection, null, tracksSortOrder);
+
+        tracksCursor.moveToFirst();
+
+        while(tracksCursor.moveToNext()) {
+            sendMusicFile(tracksCursor.getString(0) + "||" + tracksCursor.getString(1) + "||" +
+                tracksCursor.getString(2) + "||" + tracksCursor.getString(3) + "||" +
+                tracksCursor.getString(4) + "||" + tracksCursor.getString(5) + "||" +
+                tracksCursor.getString(6) + "||" + tracksCursor.getString(7) + "||" +
+                tracksCursor.getString(8) + "||" + tracksCursor.getString(9) + "||" +
+                tracksCursor.getString(10));
+        }
+
+        androidMusicScanTracksFinishing();
+
+        androidMusicScanAlbumsStarting();
+
+        //Some audio may be explicitly marked as not being music
+        /*String albumsSortOrder = MediaStore.Audio.Albums.DEFAULT_SORT_ORDER + " ASC";
+
+        Cursor albumsCursor = ctx.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, albumsRequestedColumns, null, null, albumsSortOrder);
+
+        albumsCursor.moveToFirst();
+
+        while(albumsCursor.moveToNext()) {
+            sendMusicAlbum(albumsCursor.getString(0) + "||" + albumsCursor.getString(1) + "||" +
+            albumsCursor.getString(2) + "||" + albumsCursor.getString(3) + "||" + albumsCursor.getString(4));
+        }*/
+
+        androidMusicScanAlbumsFinishing();
+    }
+
+    public static void checkPermissions(Activity activity)
+    {
+        if (ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(activity,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+            }
+        } else {
+            readExternalStoragePermissionIsOk();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+            String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    readExternalStoragePermissionIsOk();
+                } else {
+                    readExternalStoragePermissionIsKo();
+                }
+                return;
+            }
+        }
+    }
+
+    private static native void androidMusicScanTracksStarting();
+
+    private static native void sendMusicFile(String musicFile);
+
+    private static native void androidMusicScanTracksFinishing();
+
+    private static native void androidMusicScanAlbumsStarting();
+
+    private static native void sendMusicAlbum(String musicFile);
+
+    private static native void androidMusicScanAlbumsFinishing();
+
+    private static native void readExternalStoragePermissionIsOk();
+
+    private static native void readExternalStoragePermissionIsKo();
+}

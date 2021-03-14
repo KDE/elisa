@@ -64,7 +64,7 @@ public:
     FileListener mFileListener;
 
 #if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
-    std::unique_ptr<AndroidMusicListener> mAndroidMusicListener;
+    AndroidMusicListener mAndroidMusicListener;
 #endif
 
     DatabaseInterface mDatabaseInterface;
@@ -397,6 +397,10 @@ void MusicListenersManager::configChanged()
     } else if (d->mFileSystemIndexerActive) {
         qCInfo(orgKdeElisaIndexersManager()) << "trigger init of local file indexer";
         QMetaObject::invokeMethod(d->mFileListener.fileListing(), "init", Qt::QueuedConnection);
+    } else if (d->mAndroidIndexerActive) {
+#if defined Q_OS_ANDROID
+        QMetaObject::invokeMethod(d->mAndroidMusicListener.fileListing(), "init", Qt::QueuedConnection);
+#endif
     }
 
 #if defined UPNPQT_FOUND && UPNPQT_FOUND
@@ -406,19 +410,6 @@ void MusicListenersManager::configChanged()
             &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::DirectConnection);
 #endif
 
-#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
-    if (!d->mAndroidMusicListener) {
-        d->mAndroidMusicListener = std::make_unique<AndroidMusicListener>();
-        d->mAndroidMusicListener->moveToThread(&d->mListenerThread);
-        d->mAndroidMusicListener->setDatabaseInterface(&d->mDatabaseInterface);
-        connect(this, &MusicListenersManager::applicationIsTerminating,
-                d->mAndroidMusicListener.get(), &AndroidMusicListener::applicationAboutToQuit, Qt::DirectConnection);
-        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::indexingStarted,
-                this, &MusicListenersManager::monitorStartingListeners);
-        connect(d->mAndroidMusicListener.get(), &AndroidMusicListener::indexingFinished,
-                this, &MusicListenersManager::monitorEndingListeners);
-    }
-#endif
 }
 
 void MusicListenersManager::increaseImportedTracksCount(const DataTypes::ListTrackDataType &allTracks)
@@ -476,6 +467,9 @@ void MusicListenersManager::balooAvailabilityChanged()
         if (!d->mFileSystemIndexerActive) {
             startLocalFileSystemIndexing();
         }
+        if (!d->mAndroidIndexerActive) {
+            startAndroidIndexing();
+        }
 
         return;
     }
@@ -500,6 +494,7 @@ void MusicListenersManager::testBalooIndexerAvailability()
     Q_EMIT balooIndexerActiveChanged();
 
     startLocalFileSystemIndexing();
+    startAndroidIndexing();
 #endif
 }
 
@@ -522,6 +517,30 @@ void MusicListenersManager::startLocalFileSystemIndexing()
 
     d->mFileSystemIndexerActive = true;
     Q_EMIT fileSystemIndexerActiveChanged();
+}
+
+void MusicListenersManager::startAndroidIndexing()
+{
+    qCInfo(orgKdeElisaIndexersManager) << "MusicListenersManager::startAndroidIndexing";
+#if defined Q_OS_ANDROID
+    if (d->mAndroidIndexerActive) {
+        return;
+    }
+
+    d->mAndroidMusicListener.setDatabaseInterface(&d->mDatabaseInterface);
+    d->mAndroidMusicListener.moveToThread(&d->mListenerThread);
+    connect(this, &MusicListenersManager::applicationIsTerminating,
+            &d->mAndroidMusicListener, &AndroidMusicListener::applicationAboutToQuit, Qt::DirectConnection);
+    connect(&d->mAndroidMusicListener, &AndroidMusicListener::indexingStarted,
+            this, &MusicListenersManager::monitorStartingListeners);
+    connect(&d->mAndroidMusicListener, &AndroidMusicListener::indexingFinished,
+            this, &MusicListenersManager::monitorEndingListeners);
+
+    qCInfo(orgKdeElisaIndexersManager) << "Android indexer is active";
+
+    d->mAndroidIndexerActive = true;
+    Q_EMIT androidIndexerActiveChanged();
+#endif
 }
 
 void MusicListenersManager::startBalooIndexing()

@@ -1,83 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
 <!--
-SPDX-FileCopyrightText: 2016 Matthieu Gallien <matthieu_gallien@yahoo.fr>
-
-SPDX-License-Identifier: LGPL-3.0-or-later
+    SPDX-FileCopyrightText: 2019 Dimitris Kardarakos <dimkard@posteo.net>
+    SPDX-License-Identifier: BSD-2-Clause
 -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="org.kde.elisa"
+          android:versionName="21.07.70"
+          android:versionCode="1615803371"
+          android:installLocation="auto">
+<application android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="Elisa" android:icon="@drawable/splash_logo">
+        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation"
+                  android:name="org.qtproject.qt5.android.bindings.QtActivity"
+                  android:label="Elisa"
+                  android:windowSoftInputMode="adjustResize"
+                  android:launchMode="singleTop">
 
-<?xml version="1.0"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.2.80" package="org.kde.elisa" android:installLocation="auto" android:versionCode="7">
-        <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="Elisa" android:icon="@drawable/kde">
-                <activity android:name="org.qtproject.qt5.android.bindings.QtActivity" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation" android:label="Elisa" android:screenOrientation="unspecified" android:windowSoftInputMode="adjustResize" android:launchMode="singleTop">
-                        <intent-filter>
-                                <action android:name="android.intent.action.MAIN"/>
-                                <category android:name="android.intent.category.LAUNCHER"/>
-                        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 
-                        <meta-data android:name="android.app.lib_name" android:value="elisa"/>
+            <meta-data android:name="android.app.lib_name" android:value="elisa"/>
+            <meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/>
+            <meta-data android:name="android.app.repository" android:value="default"/>
+            <meta-data android:name="android.app.qt_libs_resource_id" android:resource="@array/qt_libs"/>
+            <meta-data android:name="android.app.bundled_libs_resource_id" android:resource="@array/bundled_libs"/>
+            <meta-data android:name="android.app.extract_android_style" android:value="minimal"/>
 
-                        <meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/>
-                        <meta-data android:name="android.app.repository" android:value="default"/>
-                        <meta-data android:name="android.app.qt_libs_resource_id" android:resource="@array/qt_libs"/>
-                        <meta-data android:name="android.app.bundled_libs_resource_id" android:resource="@array/bundled_libs"/>
+            <!-- Deploy Qt libs as part of package -->
+            <meta-data android:name="android.app.bundle_local_qt_libs" android:value="-- %%BUNDLE_LOCAL_QT_LIBS%% --"/>
+            <meta-data android:name="android.app.load_local_libs_resource_id" android:resource="@array/load_local_libs"/>
+            <!-- Run with local libs -->
+            <meta-data android:name="android.app.use_local_qt_libs" android:value="-- %%USE_LOCAL_QT_LIBS%% --"/>
+            <meta-data android:name="android.app.libs_prefix" android:value="/data/local/tmp/qt/"/>
+            <meta-data android:name="android.app.load_local_libs" android:value="-- %%INSERT_LOCAL_LIBS%% --"/>
+            <meta-data android:name="android.app.load_local_jars" android:value="-- %%INSERT_LOCAL_JARS%% --"/>
+            <meta-data android:name="android.app.static_init_classes" android:value="-- %%INSERT_INIT_CLASSES%% --"/>
+            <!--  Messages maps -->
+            <meta-data android:value="@string/ministro_not_found_msg" android:name="android.app.ministro_not_found_msg"/>
+            <meta-data android:value="@string/ministro_needed_msg" android:name="android.app.ministro_needed_msg"/>
+            <meta-data android:value="@string/fatal_error_msg" android:name="android.app.fatal_error_msg"/>
+            <!-- Splash screen -->
+            <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splash"/>
 
-                        <meta-data android:name="android.app.bundle_local_qt_libs" android:value="-- %%BUNDLE_LOCAL_QT_LIBS%% --"/>
-                        <meta-data android:name="android.app.bundled_in_lib_resource_id" android:resource="@array/bundled_in_lib"/>
-                        <meta-data android:name="android.app.bundled_in_assets_resource_id" android:resource="@array/bundled_in_assets"/>
+            <!-- Background running -->
+            <meta-data android:name="android.app.background_running" android:value="false"/>
 
-                        <meta-data android:name="android.app.use_local_qt_libs" android:value="-- %%USE_LOCAL_QT_LIBS%% --"/>
-                        <meta-data android:name="android.app.libs_prefix" android:value="/data/local/tmp/qt/"/>
-                        <meta-data android:name="android.app.load_local_libs" android:value="-- %%INSERT_LOCAL_LIBS%% --"/>
-                        <meta-data android:name="android.app.load_local_jars" android:value="-- %%INSERT_LOCAL_JARS%% --"/>
-                        <meta-data android:name="android.app.static_init_classes" android:value="-- %%INSERT_INIT_CLASSES%% --"/>
+            <!-- auto screen scale factor -->
+            <meta-data android:name="android.app.auto_screen_scale_factor" android:value="true"/>
+        </activity>
+        <service android:process=":qtElisaService" android:name=".org.kde.elisa.ElisaService">
+            <meta-data android:name="android.app.lib_name" android:value="elisa"/>
+            <meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/>
+            <meta-data android:name="android.app.repository" android:value="default"/>
+            <meta-data android:name="android.app.qt_libs_resource_id" android:resource="@array/qt_libs"/>
+            <meta-data android:name="android.app.bundled_libs_resource_id" android:resource="@array/bundled_libs"/>
+            <meta-data android:name="android.app.bundle_local_qt_libs" android:value="-- %%BUNDLE_LOCAL_QT_LIBS%% --"/>
+            <meta-data android:name="android.app.use_local_qt_libs" android:value="-- %%USE_LOCAL_QT_LIBS%% --"/>
+            <meta-data android:name="android.app.libs_prefix" android:value="/data/local/tmp/qt/"/>
+            <meta-data android:name="android.app.load_local_libs_resource_id" android:resource="@array/load_local_libs"/>
+            <meta-data android:name="android.app.load_local_jars" android:value="-- %%INSERT_LOCAL_JARS%% --"/>
+            <meta-data android:name="android.app.static_init_classes" android:value="-- %%INSERT_INIT_CLASSES%% --"/>
+            <meta-data android:name="android.app.background_running" android:value="true"/>
+            <meta-data android:name="android.app.arguments" android:value="-service"/>
+        </service>
+    </application>
 
-                        <meta-data android:value="@string/ministro_not_found_msg" android:name="android.app.ministro_not_found_msg"/>
-                        <meta-data android:value="@string/ministro_needed_msg" android:name="android.app.ministro_needed_msg"/>
-                        <meta-data android:value="@string/fatal_error_msg" android:name="android.app.fatal_error_msg"/>
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28"/>
+    <supports-screens android:largeScreens="true" android:normalScreens="true" android:anyDensity="true" android:smallScreens="true"/>
 
-                        <meta-data android:name="android.app.background_running" android:value="false"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
-                        <meta-data android:name="android.app.auto_screen_scale_factor" android:value="false"/>
-                </activity>
-
-                <service android:process=":qtElisaService" android:name="org.kde.elisa.ElisaService">
-                    <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
-
-                    <meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/>
-                    <meta-data android:name="android.app.repository" android:value="default"/>
-                    <meta-data android:name="android.app.qt_libs_resource_id" android:resource="@array/qt_libs"/>
-                    <meta-data android:name="android.app.bundled_libs_resource_id" android:resource="@array/bundled_libs"/>
-
-                    <meta-data android:name="android.app.bundle_local_qt_libs" android:value="-- %%BUNDLE_LOCAL_QT_LIBS%% --"/>
-                    <meta-data android:name="android.app.bundled_in_lib_resource_id" android:resource="@array/bundled_in_lib"/>
-                    <meta-data android:name="android.app.bundled_in_assets_resource_id" android:resource="@array/bundled_in_assets"/>
-
-                    <meta-data android:name="android.app.use_local_qt_libs" android:value="-- %%USE_LOCAL_QT_LIBS%% --"/>
-                    <meta-data android:name="android.app.libs_prefix" android:value="/data/local/tmp/qt/"/>
-                    <meta-data android:name="android.app.load_local_libs" android:value="-- %%INSERT_LOCAL_LIBS%% --"/>
-                    <meta-data android:name="android.app.load_local_jars" android:value="-- %%INSERT_LOCAL_JARS%% --"/>
-                    <meta-data android:name="android.app.static_init_classes" android:value="-- %%INSERT_INIT_CLASSES%% --"/>
-
-                    <meta-data android:value="@string/ministro_not_found_msg" android:name="android.app.ministro_not_found_msg"/>
-                    <meta-data android:value="@string/ministro_needed_msg" android:name="android.app.ministro_needed_msg"/>
-                    <meta-data android:value="@string/fatal_error_msg" android:name="android.app.fatal_error_msg"/>
-
-                    <meta-data android:name="android.app.arguments" android:value="-service"/>
-
-                    <!-- Background running -->
-                    <meta-data android:name="android.app.background_running" android:value="true"/>
-                    <!-- Background running -->
-                </service>
-        </application>
-        <supports-screens android:anyDensity="true" android:normalScreens="true" android:smallScreens="true" android:largeScreens="true"/>
-        <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28"/>
-
-
-    <!--
-         The following comment will be replaced upon deployment with default permissions based on the dependencies of the application.
-         Remove the comment if you do not require these default permissions.
-    -->
-    <!-- %%INSERT_PERMISSIONS -->
-
+    <uses-feature android:name="android.hardware.audio.output" android:required="false" />
 
     <!--
          The following comment will be replaced upon deployment with default features based on the dependencies of the application.
@@ -85,4 +84,9 @@ SPDX-License-Identifier: LGPL-3.0-or-later
     -->
     <!-- %%INSERT_FEATURES -->
 
+    <!--
+         The following comment will be replaced upon deployment with default permissions based on the dependencies of the application.
+         Remove the comment if you do not require these default permissions.
+    -->
+    <!-- %%INSERT_PERMISSIONS -->
 </manifest>

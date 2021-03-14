@@ -70,6 +70,8 @@ int main(int argc, char *argv[])
     }
 
     qInfo() << "Application starting...";
+
+    qputenv("QT_LOGGING_RULES", "org.kde.elisa*=true");
 #endif
 
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -123,8 +125,12 @@ int main(int argc, char *argv[])
     parser.process(app);
     aboutData.processCommandLine(&parser);
 
+#if defined Q_OS_ANDROID
+    QQuickStyle::setStyle(QStringLiteral("Material"));
+#else
     QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
     QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
+#endif
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));

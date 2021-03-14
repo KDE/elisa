@@ -26,6 +26,7 @@ Elisa has the following dependencies:
  * KF5I18n (required version >= 5.70.0), KF5 text internationalization library.
  * KF5CoreAddons (required version >= 5.70.0), Qt addon library with a collection of non-GUI utilities.
  * KF5Config (required version >= 5.70.0), Persistent platform-independent application settings.
+ * KF5IconThemes (required version >= 5.70.0), Support for icon themes.
  * ECM (required version >= 1.6.0)
  * Qt5Core
 

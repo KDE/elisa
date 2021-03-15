@@ -176,12 +176,12 @@ void AudioWrapper::seek(qint64 position)
 
 void AudioWrapper::mediaStatusChanged()
 {
-    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::mediaStatusChanged";
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::mediaStatusChanged" << d->mPlayer.mediaStatus();
 }
 
 void AudioWrapper::playerStateChanged()
 {
-    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerStateChanged";
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerStateChanged" << d->mPlayer.state();
 
     switch(d->mPlayer.state())
     {
@@ -202,7 +202,7 @@ void AudioWrapper::playerStateChanged()
 
 void AudioWrapper::playerVolumeChanged()
 {
-    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerVolumeChanged";
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerVolumeChanged" << d->mPlayer.volume();
 
     QTimer::singleShot(0, [this]() {Q_EMIT volumeChanged();});
 }
@@ -237,6 +237,8 @@ void AudioWrapper::playerDurationSignalChanges(qint64 newDuration)
 
 void AudioWrapper::playerPositionSignalChanges(qint64 newPosition)
 {
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerPositionSignalChanges" << newPosition;
+
     QMetaObject::invokeMethod(this, [this, newPosition]() {Q_EMIT positionChanged(newPosition);}, Qt::QueuedConnection);
 }
 

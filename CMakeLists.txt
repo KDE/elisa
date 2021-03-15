@@ -36,7 +36,7 @@ include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
 include(ECMGenerateQmlTypes)
 
-if (NOT WIN32)
+if (NOT WIN32 AND NOT ANDROID)
     find_package(Qt5DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)
     set_package_properties(Qt5DBus PROPERTIES
         DESCRIPTION "Qt5 DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace."
@@ -118,7 +118,7 @@ set_package_properties(KF5Crash PROPERTIES
     DESCRIPTION "Graceful handling of application crashes."
     TYPE OPTIONAL)
 
-if (NOT WIN32)
+if (NOT WIN32 AND NOT ANDROID)
     find_package(KF5DBusAddons ${REQUIRED_KF5_VERSION} CONFIG QUIET)
     set_package_properties(KF5DBusAddons PROPERTIES
         DESCRIPTION "Convenience classes for D-Bus."

@@ -194,5 +194,10 @@ endif()
 
 install(FILES elisa.categories DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
+if (ANDROID)
+    file(COPY androidResources/icon.png androidResources/splash.xml androidResources/vendor_logo.png androidResources/splash_logo.png
+        DESTINATION ${CMAKE_SOURCE_DIR}/data/res/drawable)
+endif()
+
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

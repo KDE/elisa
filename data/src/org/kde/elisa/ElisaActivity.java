@@ -18,8 +18,6 @@ import android.provider.MediaStore;
 
 public class ElisaActivity extends QtActivity
 {
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
-
     private static String[] tracksRequestedColumns = {
         MediaStore.Audio.Media._ID,
         MediaStore.Audio.Media.TITLE,
@@ -93,46 +91,6 @@ public class ElisaActivity extends QtActivity
         androidMusicScanAlbumsFinishing();
     }
 
-    public static void checkPermissions(Activity activity)
-    {
-        if (ContextCompat.checkSelfPermission(activity,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(activity,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-            }
-        } else {
-            readExternalStoragePermissionIsOk();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-            String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    readExternalStoragePermissionIsOk();
-                } else {
-                    readExternalStoragePermissionIsKo();
-                }
-                return;
-            }
-        }
-    }
-
     private static native void androidMusicScanTracksStarting();
 
     private static native void sendMusicFile(String musicFile);
@@ -144,8 +102,4 @@ public class ElisaActivity extends QtActivity
     private static native void sendMusicAlbum(String musicFile);
 
     private static native void androidMusicScanAlbumsFinishing();
-
-    private static native void readExternalStoragePermissionIsOk();
-
-    private static native void readExternalStoragePermissionIsKo();
 }

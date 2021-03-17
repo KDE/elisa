@@ -120,8 +120,6 @@ void AndroidFileListing::registerNativeMethods()
         {"androidMusicScanAlbumsStarting", "()V", reinterpret_cast<void *>(albumsAndroidScanStarted)},
         {"sendMusicAlbum", "(Ljava/lang/String;)V", reinterpret_cast<void *>(sentMusicAlbum)},
         {"androidMusicScanAlbumsFinishing", "()V", reinterpret_cast<void *>(albumsAndroidScanFinished)},
-        {"readExternalStoragePermissionIsOk", "()V", reinterpret_cast<void *>(::readExternalStoragePermissionIsOk)},
-        {"readExternalStoragePermissionIsKo", "()V", reinterpret_cast<void *>(::readExternalStoragePermissionIsKo)},
     };
 
     QAndroidJniObject javaClass("org/kde/elisa/ElisaActivity");
@@ -135,10 +133,6 @@ void AndroidFileListing::registerNativeMethods()
 
 void AndroidFileListing::readExternalStoragePermissionIsOk()
 {
-    QAndroidJniObject::callStaticMethod<void>("org/kde/elisa/ElisaActivity",
-                                              "listAudioFiles",
-                                              "(Landroid/content/Context;)V",
-                                              QtAndroid::androidContext().object());
 }
 
 void AndroidFileListing::readExternalStoragePermissionIsKo()
@@ -232,12 +226,21 @@ void AndroidFileListing::triggerRefreshOfContent()
     qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent";
     Q_EMIT indexingStarted();
 
+    if (QtAndroid::checkPermission(QStringLiteral("android.permission.READ_EXTERNAL_STORAGE")) == QtAndroid::PermissionResult::Denied) {
+        QtAndroid::requestPermissionsSync({QStringLiteral("android.permission.READ_EXTERNAL_STORAGE")});
+    }
+
+    if (QtAndroid::checkPermission(QStringLiteral("android.permission.READ_EXTERNAL_STORAGE")) == QtAndroid::PermissionResult::Denied) {
+        qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent" << "not scanning files due to missing permission";
+        return;
+    }
+
     AbstractFileListing::triggerRefreshOfContent();
 
     QAndroidJniObject::callStaticMethod<void>("org/kde/elisa/ElisaActivity",
-                                              "checkPermissions",
-                                              "(Landroid/app/Activity;)V",
-                                              QtAndroid::androidActivity().object());
+                                              "listAudioFiles",
+                                              "(Landroid/content/Context;)V",
+                                              QtAndroid::androidContext().object());
 }
 
 DataTypes::TrackDataType AndroidFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo, FileSystemWatchingModes watchForFileSystemChanges)
@@ -246,12 +249,5 @@ DataTypes::TrackDataType AndroidFileListing::scanOneFile(const QUrl &scanFile, c
 
     return newTrack;
 }
-
-#if 0
-void AndroidMusicListener::init()
-{
-    Q_EMIT askRestoredTracks(d->mSourceName);
-}
-#endif
 
 #include "moc_androidfilelisting.cpp"

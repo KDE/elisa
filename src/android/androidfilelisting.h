@@ -61,8 +61,6 @@ public Q_SLOTS:
 private Q_SLOTS:
 
 private:
-    void registerToBaloo();
-
     void executeInit(QHash<QUrl, QDateTime> allFiles) override;
 
     void triggerRefreshOfContent() override;

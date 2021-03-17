@@ -15,91 +15,186 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.content.Intent;
 import android.provider.MediaStore;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ElisaActivity extends QtActivity
 {
     private static String[] tracksRequestedColumns = {
         MediaStore.Audio.Media._ID,
         MediaStore.Audio.Media.TITLE,
-        MediaStore.Audio.Media.TRACK,
-        MediaStore.Audio.Media.YEAR,
-        MediaStore.Audio.Media.DURATION,
-        MediaStore.Audio.Media.DATA,
         MediaStore.Audio.Media.ARTIST,
         MediaStore.Audio.Media.ARTIST_ID,
         MediaStore.Audio.Media.ALBUM,
         MediaStore.Audio.Media.ALBUM_ID,
+        MediaStore.Audio.Media.ALBUM_ARTIST,
+        MediaStore.Audio.Media.TRACK,
+        MediaStore.Audio.Media.DURATION,
+        MediaStore.Audio.Media.DATA,
         MediaStore.Audio.Media.COMPOSER,
     };
 
     private static String[] albumsRequestedColumns = {
         MediaStore.Audio.Albums._ID,
         MediaStore.Audio.Albums.ALBUM,
-        MediaStore.Audio.Albums.ALBUM_ART,
         MediaStore.Audio.Albums.ARTIST,
-        MediaStore.Audio.Albums.NUMBER_OF_SONGS,
+        MediaStore.Audio.Albums.ALBUM_ART,
     };
 
-    public static void listAudioFiles(Context ctx)
+    public static ArrayList<TrackDataType> listAudioFiles(Context ctx)
     {
-        androidMusicScanTracksStarting();
+        ArrayList<TrackDataType> allTracks = new ArrayList<TrackDataType>();
 
-        //Some audio may be explicitly marked as not being music
-        String tracksSelection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
-        String tracksSortOrder = MediaStore.Audio.Media.DEFAULT_SORT_ORDER + " ASC";
+        HashMap<Integer, AlbumDataType> allAlbums = new HashMap<Integer, AlbumDataType>();
 
         if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            androidMusicScanTracksFinishing();
-
-            androidMusicScanAlbumsStarting();
-
-            androidMusicScanAlbumsFinishing();
-
-            return;
+            return allTracks;
         }
 
-        Cursor tracksCursor = ctx.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, tracksRequestedColumns, tracksSelection, null, tracksSortOrder);
-
-        tracksCursor.moveToFirst();
-
-        while(tracksCursor.moveToNext()) {
-            sendMusicFile(tracksCursor.getString(0) + "||" + tracksCursor.getString(1) + "||" +
-                tracksCursor.getString(2) + "||" + tracksCursor.getString(3) + "||" +
-                tracksCursor.getString(4) + "||" + tracksCursor.getString(5) + "||" +
-                tracksCursor.getString(6) + "||" + tracksCursor.getString(7) + "||" +
-                tracksCursor.getString(8) + "||" + tracksCursor.getString(9) + "||" +
-                tracksCursor.getString(10));
-        }
-
-        androidMusicScanTracksFinishing();
-
-        androidMusicScanAlbumsStarting();
-
-        //Some audio may be explicitly marked as not being music
-        /*String albumsSortOrder = MediaStore.Audio.Albums.DEFAULT_SORT_ORDER + " ASC";
-
-        Cursor albumsCursor = ctx.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, albumsRequestedColumns, null, null, albumsSortOrder);
+        Cursor albumsCursor = ctx.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, albumsRequestedColumns, null, null, null);
 
         albumsCursor.moveToFirst();
 
-        while(albumsCursor.moveToNext()) {
-            sendMusicAlbum(albumsCursor.getString(0) + "||" + albumsCursor.getString(1) + "||" +
-            albumsCursor.getString(2) + "||" + albumsCursor.getString(3) + "||" + albumsCursor.getString(4));
-        }*/
+        if (albumsCursor == null) {
+            return allTracks;
+        }
 
-        androidMusicScanAlbumsFinishing();
+        if (!albumsCursor.moveToFirst()) {
+            return allTracks;
+        }
+
+        do {
+            allAlbums.put(albumsCursor.getInt(0), new AlbumDataType(albumsCursor.getString(1), albumsCursor.getString(2), albumsCursor.getString(3)));
+        } while(albumsCursor.moveToNext());
+
+        String tracksSelection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
+        String tracksSortOrder = MediaStore.Audio.Media.DEFAULT_SORT_ORDER + " ASC";
+
+        Cursor tracksCursor = ctx.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, tracksRequestedColumns, tracksSelection, null, tracksSortOrder);
+
+        if (tracksCursor == null) {
+            return allTracks;
+        }
+
+        if (!tracksCursor.moveToFirst()) {
+            return allTracks;
+        }
+
+        do {
+            AlbumDataType currentAlbum = allAlbums.get(tracksCursor.getInt(5));
+
+            int trackAndDiscNumber = tracksCursor.getInt(7);
+
+            allTracks.add(new TrackDataType(tracksCursor.getString(1), tracksCursor.getString(2),
+                                          tracksCursor.getString(4), tracksCursor.getString(6),
+                                          trackAndDiscNumber % 1000, trackAndDiscNumber / 1000,
+                                          tracksCursor.getLong(8), tracksCursor.getString(9),
+                                          currentAlbum.getAlbumCover(), "",
+                                          tracksCursor.getString(10)));
+        } while(tracksCursor.moveToNext());
+
+        return allTracks;
+    }
+}
+
+class TrackDataType
+{
+    TrackDataType (String title, String artist, String albumName,
+                String albumArtist, int trackNumber, int discNumber,
+                long duration, String resourceURI, String albumCover,
+                String genre, String composer) {
+       this.mTitle = title;
+       this.mArtist = artist;
+       this.mAlbumName = albumName;
+       this.mAlbumArtist = albumArtist;
+       this.mTrackNumber = trackNumber;
+       this.mDiscNumber = discNumber;
+       this.mDuration = duration;
+       this.mResourceURI = resourceURI;
+       this.mAlbumCover = albumCover;
+       this.mGenre = genre;
+       this.mComposer = composer;
     }
 
-    private static native void androidMusicScanTracksStarting();
+    public String getTitle() {
+        return mTitle;
+    }
 
-    private static native void sendMusicFile(String musicFile);
+    public String getArtist() {
+        return mArtist;
+    }
 
-    private static native void androidMusicScanTracksFinishing();
+    public String getAlbumName() {
+        return mAlbumName;
+    }
 
-    private static native void androidMusicScanAlbumsStarting();
+    public String getAlbumArtist() {
+        return mAlbumArtist;
+    }
 
-    private static native void sendMusicAlbum(String musicFile);
+    public int getTrackNumber() {
+        return mTrackNumber;
+    }
 
-    private static native void androidMusicScanAlbumsFinishing();
+    public int getDiscNumber() {
+        return mDiscNumber;
+    }
+
+    public long getDuration() {
+        return mDuration;
+    }
+
+    public String getResourceURI() {
+        return mResourceURI;
+    }
+
+    public String getAlbumCover() {
+        return mAlbumCover;
+    }
+
+    public String getGenre() {
+        return mGenre;
+    }
+
+    public String getComposer() {
+        return mComposer;
+    }
+
+    private String mTitle;
+    private String mArtist;
+    private String mAlbumName;
+    private String mAlbumArtist;
+    private int mTrackNumber;
+    private int mDiscNumber;
+    private long mDuration;
+    private String mResourceURI;
+    private String mAlbumCover;
+    private String mGenre;
+    private String mComposer;
+}
+
+class AlbumDataType
+{
+    AlbumDataType (String albumName, String albumArtist, String albumCover) {
+       this.mAlbumName = albumName;
+       this.mAlbumArtist = albumArtist;
+       this.mAlbumCover = albumCover;
+    }
+
+    public String getAlbumName() {
+        return mAlbumName;
+    }
+
+    public String getAlbumArtist() {
+        return mAlbumArtist;
+    }
+
+    public String getAlbumCover() {
+        return mAlbumCover;
+    }
+
+    private String mAlbumName;
+    private String mAlbumArtist;
+    private String mAlbumCover;
 }

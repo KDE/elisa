@@ -44,7 +44,7 @@
             <meta-data android:name="android.app.splash_screen_drawable" android:resource="@drawable/splash"/>
 
             <!-- Background running -->
-            <meta-data android:name="android.app.background_running" android:value="false"/>
+            <meta-data android:name="android.app.background_running" android:value="true"/>
 
             <!-- auto screen scale factor -->
             <meta-data android:name="android.app.auto_screen_scale_factor" android:value="true"/>
@@ -76,7 +76,7 @@
     <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
-    <uses-feature android:name="android.hardware.audio.output" android:required="false" />
+    <uses-feature android:name="android.hardware.audio.output" android:required="true" />
 
     <!--
          The following comment will be replaced upon deployment with default features based on the dependencies of the application.

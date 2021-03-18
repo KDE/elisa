@@ -128,6 +128,7 @@ Kirigami.Page {
         // titlebar
         Kirigami.Theme.colorSet: Kirigami.Theme.Window
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
+        leftPadding: Kirigami.Units.largeSpacing
 
         RowLayout {
             anchors.fill: parent
@@ -502,6 +503,8 @@ Kirigami.Page {
 
     footer: ToolBar {
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2)
+        leftPadding: Kirigami.Units.largeSpacing
+        rightPadding: Kirigami.Units.largeSpacing
 
         RowLayout {
             anchors.fill: parent

@@ -165,6 +165,10 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="zh-TW">Elisa 音樂播放器</caption>
       <image>https://cdn.kde.org/screenshots/elisa/elisa.png</image>
     </screenshot>
+    <screenshot>
+      <caption>Elisa on Plasma Mobile</caption>
+      <image>https://cdn.kde.org/screenshots/elisa/elisa-mobile.png</image>
+    </screenshot>
   </screenshots>
   <provides>
     <binary>elisa</binary>

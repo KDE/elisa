@@ -75,6 +75,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="sk">Nádherný hudobný prehrávač bez nezmyslov s podporou online rádií</summary>
   <summary xml:lang="sl">Čudovit predvajalnik glasbe brez navlake s spletno radijsko podporo</summary>
   <summary xml:lang="sv">Snygg och praktisk musikspelare med stöd för nätradio</summary>
+  <summary xml:lang="tr">Çevrimiçi radyo desteğine sahip, saçma sapan güzel müzik çalar</summary>
   <summary xml:lang="uk">Красивий змістовний програвач музичних творів із підтримкою інтернет-радіо</summary>
   <summary xml:lang="x-test">xxBeautiful no-nonsense music player with online radio supportxx</summary>
   <summary xml:lang="zh-CN">简约优雅的音乐播放器，支持网络电台。</summary>
@@ -159,6 +160,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sk">Hudobný prehrávač Elisa</caption>
       <caption xml:lang="sl">Glasbeni predvajalnik Elisa</caption>
       <caption xml:lang="sv">Elisa musikspelare</caption>
+      <caption xml:lang="tr">Elisa müzik çalar</caption>
       <caption xml:lang="uk">Музичний програвач Elisa</caption>
       <caption xml:lang="x-test">xxThe Elisa music playerxx</caption>
       <caption xml:lang="zh-CN">Elisa 音乐播放器</caption>

@@ -169,6 +169,12 @@ SPDX-License-Identifier: CC0-1.0
     </screenshot>
     <screenshot>
       <caption>Elisa on Plasma Mobile</caption>
+      <caption xml:lang="az">Elisa Plasma Mobile-da</caption>
+      <caption xml:lang="ca">Elisa al Plasma Mobile</caption>
+      <caption xml:lang="nl">Elisa op Plasma-mobiel</caption>
+      <caption xml:lang="sv">Elisa på Plasma Mobil</caption>
+      <caption xml:lang="uk">Elisa на мобільній Плазмі</caption>
+      <caption xml:lang="x-test">xxElisa on Plasma Mobilexx</caption>
       <image>https://cdn.kde.org/screenshots/elisa/elisa-mobile.png</image>
     </screenshot>
   </screenshots>

@@ -138,7 +138,7 @@ FocusScope {
 
                 mainText: model.display
                 fileUrl: model.url ? model.url : ""
-                secondaryText: gridView.delegateDisplaySecondaryText ? model.secondaryText : ""
+                secondaryText: gridView.delegateDisplaySecondaryText && model.secondaryText ? model.secondaryText : ""
                 imageUrl: model.imageUrl ? model.imageUrl : ''
                 imageFallbackUrl: defaultIcon
                 databaseId: model.databaseId

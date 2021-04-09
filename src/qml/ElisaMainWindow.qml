@@ -42,7 +42,7 @@ Kirigami.ApplicationWindow {
     // lower the main view and mobile footer's z to be behind the layer when there are layers added (normally it is in front)
     property bool layerOnTop: pageStack.layers.depth > 1
 
-    minimumWidth: 320
+    minimumWidth: Kirigami.Settings.isMobile ? 320 : 620
     property int minHeight: 320
 
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft

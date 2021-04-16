@@ -347,6 +347,7 @@ Kirigami.Page {
 
     // Footer with file path label
     footer: ToolBar {
+        implicitHeight: Math.round(Kirigami.Units.gridUnit * 2)
         visible: !topItem.nothingPlaying
         RowLayout {
             anchors.fill: parent

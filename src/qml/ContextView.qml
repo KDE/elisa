@@ -365,7 +365,7 @@ Kirigami.Page {
                     Kirigami.Action {
                         text: i18n("Show In Folder")
                         icon.name: 'document-open-folder'
-                        visible: metaDataModel.fileUrl.toString().substring(0, 7) === 'file://'
+                        visible: metaDataModel.fileUrl.toString() !== ""
                         onTriggered: {
                             ElisaApplication.showInFolder(metaDataModel.fileUrl)
                         }

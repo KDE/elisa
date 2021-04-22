@@ -353,13 +353,21 @@ Kirigami.Page {
             anchors.fill: parent
 
             LabelWithToolTip {
+                id: fileUrlLabel
                 text: metaDataModel.fileUrl
                 elide: Text.ElideLeft
+                Layout.fillWidth: true
             }
 
             Kirigami.ActionToolBar {
-                Layout.fillWidth: true
-                alignment: Qt.AlignRight
+                // because fillWidth is true by default
+                Layout.fillWidth: false
+
+                // when there is not enough space, show the button in the compact mode
+                // then the file url will be elided if needed
+                Layout.preferredWidth: parent.width > fileUrlLabel.implicitWidth + spacing + maximumContentWidth ? maximumContentWidth : Kirigami.Units.gridUnit * 2
+
+                Layout.fillHeight: true
 
                 actions: [
                     Kirigami.Action {

@@ -60,7 +60,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="eu">Musika jotzaile eder eta txorakeriarik gabea lerroko irratien euskarria duena</summary>
   <summary xml:lang="fi">Kaunis konstailematon musiikkisoitin, jossa myös verkkoradioiden tuki</summary>
   <summary xml:lang="fr">Lecteur de musique élégant et pratique avec la prise en charge de radio en ligne</summary>
-  <summary xml:lang="hi">सुंदर संगीत चालक जिसमें ऑनलाइन रेडियो समर्थन है</summary>
+  <summary xml:lang="hi">सुंदर बिना बकवास वाला संगीत वादक जिसमें ऑनलाइन रेडियो समाहित है</summary>
   <summary xml:lang="ia">Belle reproductor rationabile de musica con suporto de radio in linea</summary>
   <summary xml:lang="id">Pemutar musik indah yang kerèn dengan dukungan radio online</summary>
   <summary xml:lang="it">Meraviglioso letture multimediale senza fronzoli con supporto per le radio online</summary>
@@ -98,7 +98,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="fi">Yksinkertainen musiikkisoitin, jota tulisi olla helppo käyttää. Ei vaadi asettamista ennen käyttöä.</p>
     <p xml:lang="fr">Un lecteur de musique simple qui se veut facile à utiliser. Il ne requiert aucune configuration pour pouvoir être utilisé.</p>
     <p xml:lang="gl">Un reprodutor de música simple e fácil de usar. Non require ningún tipo de configuración inicial.</p>
-    <p xml:lang="hi">एक सरल संगीत चालक जो उपयोग करने में आसान है. इसे चलाने के लिए कुछ विन्यास करना नहीं पडता.</p>
+    <p xml:lang="hi">एक सरल संगीत वादक जो उपयोग करने में आसान है. इसे चलाने के लिए कुछ कॉन्फ़िगर नहीं करना पड़ता.</p>
     <p xml:lang="hu">Egy egyszerű zenelejátszó, amely könnyen használható. Nem igényel semmilyen beállítást használat előtt.</p>
     <p xml:lang="ia">Un simple reproductor de musica que deberea esser facile de usar. Illo non require ulle configuration ante que un pote usar lo.</p>
     <p xml:lang="id">Sebuah pemutar musik sederhana yang seharusnya mudah digunakan. Yang tidak memerlukan konfigurasi apa pun sebelum seseorang bisa menggunakannya.</p>
@@ -143,7 +143,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="fi">Elisa-musiikkisoitin</caption>
       <caption xml:lang="fr">Le lecteur de musique Elisa</caption>
       <caption xml:lang="gl">O reprodutor de música Elisa.</caption>
-      <caption xml:lang="hi">एलिसा संगीत चालक</caption>
+      <caption xml:lang="hi">एलिसा संगीत वादक</caption>
       <caption xml:lang="hu">Elisa zenelejátszó</caption>
       <caption xml:lang="ia">Le reproductor de music Elisa</caption>
       <caption xml:lang="id">Elisa si pemutar musik</caption>
@@ -178,6 +178,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="es">Elisa en Plasma Mobile</caption>
       <caption xml:lang="eu">Elisa Plasma Mugikorrean</caption>
       <caption xml:lang="fr">Elisa sur Plasma Mobile</caption>
+      <caption xml:lang="hi">एलिसा प्लास्मा मोबाइल पर</caption>
       <caption xml:lang="ia">Elisa sur Plasma Mobile</caption>
       <caption xml:lang="id">Elisa di Plasma Mobile</caption>
       <caption xml:lang="it">Elisa su Plasma Mobile</caption>

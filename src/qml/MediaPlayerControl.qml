@@ -122,17 +122,18 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: shuffleButton
             text: i18nc("toggle shuffle mode for playlist", "Toggle Shuffle")
-            icon.name: musicWidget.shuffle ? "media-playlist-shuffle" : "media-playlist-normal"
+            icon.name: "media-playlist-shuffle"
             onClicked: musicWidget.shuffle = !musicWidget.shuffle
+            checked: musicWidget.shuffle
         }
 
         FlatButtonWithToolTip {
             id: repeatButton
             text: {
                 const map = {
-                    0: i18n("Don't repeat tracks"),
-                    1: i18n("Repeat current track"),
-                    2: i18n("Repeat all tracks in playlist")
+                    0: i18n("Current: Don't repeat tracks"),
+                    1: i18n("Current: Repeat current track"),
+                    2: i18n("Current: Repeat all tracks in playlist")
                 }
                 return map[musicWidget.repeat]
             }
@@ -144,6 +145,7 @@ BasePlayerControl {
                 }
                 return map[musicWidget.repeat]
             }
+            checked: repeat !== 0
             onClicked: {
                 let nextRepeat = musicWidget.repeat + 1
                 if (nextRepeat >= 3) {

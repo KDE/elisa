@@ -212,9 +212,10 @@ BasePlayerControl {
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     text: i18nc("toggle shuffle mode for playlist", "Toggle Shuffle")
-                    icon.name: trackPlayer.shuffle ? "media-playlist-shuffle" : "media-playlist-normal"
+                    icon.name: "media-playlist-shuffle"
                     icon.color: "white"
                     onClicked: trackPlayer.shuffle = !trackPlayer.shuffle
+                    checked: trackPlayer.shuffle
                 }
 
                 FlatButtonWithToolTip {
@@ -225,11 +226,11 @@ BasePlayerControl {
                     Layout.preferredWidth: height
                     text: {
                         const map = {
-                            0: i18n("Don't repeat tracks"),
-                            1: i18n("Repeat current track"),
-                            2: i18n("Repeat all tracks in playlist")
+                            0: i18n("Current: Don't repeat tracks"),
+                            1: i18n("Current: Repeat current track"),
+                            2: i18n("Current: Repeat all tracks in playlist")
                         }
-                        return map[trackPlayer.repeat]
+                        return map[musicWidget.repeat]
                     }
                     icon.name: {
                         const map = {
@@ -240,6 +241,7 @@ BasePlayerControl {
                         return map[trackPlayer.repeat]
                     }
                     icon.color: "white"
+                    checked: repeat !== 0
                     onClicked: {
                         let nextRepeat = trackPlayer.repeat + 1
                         if (nextRepeat >= 3) {

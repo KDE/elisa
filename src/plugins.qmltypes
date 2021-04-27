@@ -392,6 +392,7 @@ Module {
             isPointer: true
         }
         Property { name: "manageHeaderBar"; type: "ManageHeaderBar"; isReadonly: true; isPointer: true }
+        Property { name: "showNowPlayingBackground"; type: "bool"; isReadonly: true }
         Property { name: "showProgressOnTaskBar"; type: "bool"; isReadonly: true }
         Property { name: "showSystemTrayIcon"; type: "bool"; isReadonly: true }
         Signal {
@@ -453,6 +454,7 @@ Module {
         exportMetaObjectRevisions: [0]
         Property { name: "rootPath"; type: "QStringList" }
         Property { name: "forceUsageOfFastFileSearch"; type: "bool" }
+        Property { name: "showNowPlayingBackground"; type: "bool" }
         Property { name: "showProgressInTaskBar"; type: "bool" }
         Property { name: "showSystemTrayIcon"; type: "bool" }
         Property { name: "embeddedView"; type: "ElisaUtils::PlayListEntryType" }
@@ -467,6 +469,10 @@ Module {
             Parameter { name: "rootPath"; type: "QStringList" }
         }
         Method { name: "save" }
+        Method {
+            name: "setNowPlayingBackground"
+            Parameter { name: "showNowPlayingBackground"; type: "bool" }
+        }
         Method {
             name: "setShowProgressInTaskBar"
             Parameter { name: "showProgressInTaskBar"; type: "bool" }

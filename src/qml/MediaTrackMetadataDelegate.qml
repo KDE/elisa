@@ -17,7 +17,7 @@ RowLayout {
     property string name
     property int index
     property var type
-    property string display
+    property var display
     property bool isRemovable
     property bool readOnly
 
@@ -26,24 +26,27 @@ RowLayout {
     signal edited()
     signal deleteField()
 
+    Layout.maximumWidth: Infinity
+
     Loader {
         id: textDisplayLoader
-        active: readOnly && (type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry
-                || type === EditableTrackMetadataModel.UrlEntry || type === EditableTrackMetadataModel.DurationEntry)
+        active: readOnly && (type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry || type === EditableTrackMetadataModel.UrlEntry || type === EditableTrackMetadataModel.DurationEntry) && typeof display !== "undefined"
         visible: active
+        Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, parent.Layout.maximumWidth)
 
         sourceComponent: LabelWithToolTip {
             text: display
             horizontalAlignment: Text.AlignLeft
             elide: Text.ElideRight
+            wrapMode: Text.WordWrap
         }
     }
 
     Loader {
         id: longTextDisplayLoader
-        active: readOnly && (type === EditableTrackMetadataModel.LongTextEntry)
+        active: readOnly && (type === EditableTrackMetadataModel.LongTextEntry) && typeof display !== "undefined"
         visible: active
-        Layout.maximumWidth: Kirigami.Units.gridUnit * 20
+        Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, parent.Layout.maximumWidth)
 
         sourceComponent: Label {
             text: display
@@ -54,11 +57,12 @@ RowLayout {
     }
 
     Loader {
-        active: readOnly && (type === EditableTrackMetadataModel.DateEntry)
+        active: readOnly && (type === EditableTrackMetadataModel.DateEntry) && typeof display !== "undefined"
         visible: active
+        Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, parent.Layout.maximumWidth)
 
         sourceComponent: LabelWithToolTip {
-            text: rawDate.toLocaleDateString()
+            text: rawDate.toLocaleDateString(Locale.ShortFormat)
 
             horizontalAlignment: Text.AlignLeft
             elide: Text.ElideRight
@@ -95,7 +99,7 @@ RowLayout {
     Loader {
         focus: index === 0
 
-        active: type === EditableTrackMetadataModel.RatingEntry
+        active: type === EditableTrackMetadataModel.RatingEntry && typeof display !== "undefined"
         visible: active
 
         sourceComponent: RatingStar {

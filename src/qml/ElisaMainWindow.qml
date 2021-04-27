@@ -138,6 +138,8 @@ Kirigami.ApplicationWindow {
         property bool showPlaylist: true
 
         property bool headerBarIsMaximized: false
+
+        property bool nowPlayingPreferLyric: false
     }
 
     Connections {

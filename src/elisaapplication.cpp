@@ -338,6 +338,7 @@ void ElisaApplication::configChanged()
     currentConfiguration->load();
     currentConfiguration->read();
 
+    Q_EMIT showNowPlayingBackgroundChanged();
     Q_EMIT showProgressOnTaskBarChanged();
     Q_EMIT showSystemTrayIconChanged();
     Q_EMIT embeddedViewChanged();
@@ -584,6 +585,13 @@ ManageMediaPlayerControl *ElisaApplication::playerControl() const
 ManageHeaderBar *ElisaApplication::manageHeaderBar() const
 {
     return d->mManageHeaderBar.get();
+}
+
+
+bool ElisaApplication::showNowPlayingBackground() const
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+    return currentConfiguration->showNowPlayingBackground();
 }
 
 bool ElisaApplication::showProgressOnTaskBar() const

@@ -11,6 +11,11 @@
   </entry>
  </group>
  <group name="PlayerSettings">
+ <entry key="ShowNowPlayingBackground" type="Bool">
+     <default>
+         true
+     </default>
+  </entry>
   <entry key="ShowProgressOnTaskBar" type="Bool" >
     <default>
       true

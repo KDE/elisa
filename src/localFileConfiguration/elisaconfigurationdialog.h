@@ -29,6 +29,12 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setForceUsageOfSlowFileSystemIndexing
                NOTIFY forceUsageOfSlowFileSystemIndexingChanged)
 
+Q_PROPERTY(bool showNowPlayingBackground
+               READ showNowPlayingBackground
+               WRITE setShowNowPlayingBackground
+               NOTIFY showNowPlayingBackgroundChanged)
+
+
     Q_PROPERTY(bool showProgressInTaskBar
                READ showProgressInTaskBar
                WRITE setShowProgressInTaskBar
@@ -76,6 +82,12 @@ public:
         return mIsDirty;
     }
 
+    [[nodiscard]] bool showNowPlayingBackground() const
+    {
+        return mShowNowPlayingBackground;
+    }
+
+
     [[nodiscard]] bool showProgressInTaskBar() const
     {
         return mShowProgressInTaskBar;
@@ -120,6 +132,8 @@ Q_SIGNALS:
 
     void isDirtyChanged();
 
+    void showNowPlayingBackgroundChanged();
+
     void showProgressInTaskBarChanged();
 
     void showSystemTrayIconChanged();
@@ -141,6 +155,8 @@ public Q_SLOTS:
     void save();
 
     void cancel();
+
+    void setShowNowPlayingBackground(bool showNowPlayingBackground);
 
     void setShowProgressInTaskBar(bool showProgressInTaskBar);
 
@@ -169,6 +185,8 @@ private:
     QFileSystemWatcher mConfigFileWatcher;
 
     bool mIsDirty = false;
+
+    bool mShowNowPlayingBackground = true;
 
     bool mShowProgressInTaskBar = true;
 

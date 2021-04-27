@@ -26,8 +26,18 @@ ColumnLayout {
         Layout.fillWidth: true
 
         QQC2.CheckBox {
-            id: progressCheckBox
             Kirigami.FormData.label: i18n("General:")
+
+            text: i18n("Show background on Now Playing page")
+
+            checked: ElisaConfigurationDialog.showNowPlayingBackground
+            onToggled: ElisaConfigurationDialog.showNowPlayingBackground = checked
+            Accessible.onToggleAction: onToggled
+            Accessible.onPressAction: onToggled
+        }
+
+        QQC2.CheckBox {
+            id: progressCheckBox
 
             text: i18n("Show progress on Task Manager entries")
 

@@ -78,6 +78,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ manageHeaderBar
                NOTIFY manageHeaderBarChanged)
 
+    Q_PROPERTY(bool showNowPlayingBackground
+               READ showNowPlayingBackground
+               NOTIFY showNowPlayingBackgroundChanged)
+
     Q_PROPERTY(bool showProgressOnTaskBar
                READ showProgressOnTaskBar
                NOTIFY showProgressOnTaskBarChanged)
@@ -125,6 +129,8 @@ public:
 
     [[nodiscard]] ManageHeaderBar *manageHeaderBar() const;
 
+    [[nodiscard]] bool showNowPlayingBackground() const;
+
     [[nodiscard]] bool showProgressOnTaskBar() const;
 
     [[nodiscard]] bool showSystemTrayIcon() const;
@@ -156,6 +162,8 @@ Q_SIGNALS:
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void initializationDone();
+
+    void showNowPlayingBackgroundChanged();
 
     void showProgressOnTaskBarChanged();
 

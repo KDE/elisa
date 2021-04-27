@@ -72,6 +72,7 @@ void ElisaConfigurationDialog::setRootPath(const QStringList &rootPath)
 void ElisaConfigurationDialog::save()
 {
     Elisa::ElisaConfiguration::setRootPath(mRootPath);
+    Elisa::ElisaConfiguration::setShowNowPlayingBackground(mShowNowPlayingBackground);
     Elisa::ElisaConfiguration::setShowProgressOnTaskBar(mShowProgressInTaskBar);
     Elisa::ElisaConfiguration::setShowSystemTrayIcon(mShowSystemTrayIcon);
     Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(!mForceUsageOfSlowFileSystemIndexing);
@@ -118,6 +119,18 @@ void ElisaConfigurationDialog::cancel()
         mIsDirty = false;
         Q_EMIT isDirtyChanged();
     }
+}
+
+void ElisaConfigurationDialog::setShowNowPlayingBackground(bool showNowPlayingBackground)
+{
+    if (mShowNowPlayingBackground == showNowPlayingBackground) {
+        return;
+    }
+
+    mShowNowPlayingBackground = showNowPlayingBackground;
+    Q_EMIT showNowPlayingBackgroundChanged();
+
+    setDirty();
 }
 
 void ElisaConfigurationDialog::setShowProgressInTaskBar(bool showProgressInTaskBar)
@@ -212,6 +225,9 @@ void ElisaConfigurationDialog::configChanged()
 {
     mRootPath = Elisa::ElisaConfiguration::rootPath();
     Q_EMIT rootPathChanged(mRootPath);
+
+    mShowNowPlayingBackground = Elisa::ElisaConfiguration::showNowPlayingBackground();
+    Q_EMIT showNowPlayingBackgroundChanged();
 
     mShowProgressInTaskBar = Elisa::ElisaConfiguration::showProgressOnTaskBar();
     Q_EMIT showProgressInTaskBarChanged();

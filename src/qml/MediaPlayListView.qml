@@ -197,6 +197,7 @@ Kirigami.Page {
                 property alias list: playListView
                 ListView {
                     id: playListView
+                    readonly property alias sectionSizer: sectionSizer
 
                     focus: true
                     clip: true
@@ -365,6 +366,16 @@ Kirigami.Page {
                             interval: 7000
                             onTriggered: playListNotification.visible = false
                         }
+                    }
+
+                    // calculate a fixed hight for section delegates
+                    // workaround for QTBUG-52595
+                    Column {
+                        id: sectionSizer
+                        visible: false
+                        spacing: Kirigami.Units.smallSpacing
+                        LabelWithToolTip { text: "M\nM"; level: 2 }
+                        LabelWithToolTip { text: "M" }
                     }
                 }
             }

@@ -29,8 +29,6 @@ Item {
 
     property int hairline: Math.floor(Kirigami.Units.devicePixelRatio)
 
-    property int playListAlbumArtSize: 60
-
     property int coverImageSize: 180
     property int contextCoverImageSize: 100
     property int smallImageSize: 32

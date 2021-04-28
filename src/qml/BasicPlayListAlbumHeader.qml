@@ -29,23 +29,20 @@ Rectangle {
 
     RowLayout {
         id: contentLayout
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        // No bottom anchor so it can grow vertically
 
+        width: parent.width
         spacing: Kirigami.Units.smallSpacing
 
         ImageWithFallback {
-            Layout.preferredWidth: elisaTheme.playListAlbumArtSize
-            Layout.preferredHeight: elisaTheme.playListAlbumArtSize
+            Layout.preferredWidth: height
+            Layout.fillHeight: true
             Layout.margins: Kirigami.Units.largeSpacing
 
             source: imageUrl
             fallback: elisaTheme.defaultAlbumImage
 
-            sourceSize.width: elisaTheme.playListAlbumArtSize
-            sourceSize.height: elisaTheme.playListAlbumArtSize
+            sourceSize.width: height
+            sourceSize.height: height
 
             fillMode: Image.PreserveAspectFit
             asynchronous: true
@@ -55,7 +52,8 @@ Rectangle {
             id: albumHeaderTextColumn
 
             Layout.fillWidth: true
-            Layout.fillHeight: true
+            Layout.preferredHeight: background.ListView.view.sectionSizer.implicitHeight
+
             Layout.leftMargin: !LayoutMirroring.enabled ? - Kirigami.Units.smallSpacing : 0
             Layout.rightMargin: LayoutMirroring.enabled ? - Kirigami.Units.smallSpacing : 0
             Layout.topMargin: Kirigami.Units.smallSpacing
@@ -89,7 +87,7 @@ Rectangle {
 
                 elide: Text.ElideRight
                 wrapMode: Text.WordWrap
-                maximumLineCount: 2
+                maximumLineCount: 3 - mainLabel.lineCount
             }
         }
     }

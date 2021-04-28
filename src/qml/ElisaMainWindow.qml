@@ -105,10 +105,6 @@ Kirigami.ApplicationWindow {
         onTriggered: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
     }
 
-    ApplicationMenu {
-        id: applicationMenu
-    }
-
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
@@ -317,14 +313,6 @@ Kirigami.ApplicationWindow {
                     onOpenArtist: { contentView.openArtist(artist) }
                     onOpenNowPlaying: { contentView.openNowPlaying() }
                     onOpenAlbum: { contentView.openAlbum(album, albumArtist, image, albumID) }
-
-                    playerControl.onOpenMenu: {
-                        if (applicationMenu.visible) {
-                            applicationMenu.close()
-                        } else {
-                            applicationMenu.popup(mainWindow.width - applicationMenu.width, headerBar.height)
-                        }
-                    }
 
                     // animations
                     StateGroup {

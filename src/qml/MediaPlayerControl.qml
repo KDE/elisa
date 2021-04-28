@@ -20,8 +20,6 @@ BasePlayerControl {
     property alias volume: volumeSlider.sliderValue
     property bool isMaximized
 
-    signal openMenu()
-
     signal maximize()
     signal minimize()
 
@@ -119,11 +117,14 @@ BasePlayerControl {
             sliderBorderActiveColor: myPalette.text
         }
 
+        Item { implicitWidth: Kirigami.Units.largeSpacing }
+
         FlatButtonWithToolTip {
             id: shuffleButton
             text: i18nc("toggle shuffle mode for playlist", "Toggle Shuffle")
             icon.name: "media-playlist-shuffle"
             onClicked: musicWidget.shuffle = !musicWidget.shuffle
+            checkable: true
             checked: musicWidget.shuffle
         }
 
@@ -145,6 +146,8 @@ BasePlayerControl {
                 }
                 return map[musicWidget.repeat]
             }
+
+            checkable: true
             checked: repeat !== 0
             onClicked: {
                 let nextRepeat = musicWidget.repeat + 1
@@ -175,8 +178,7 @@ BasePlayerControl {
             }
         }
 
-        // Not a FlatButtonWithToolTip because we want text
-        Button {
+        FlatButtonWithToolTip {
             id: showHidePlaylistAction
             action: Action {
                 shortcut: ElisaApplication.action("toggle_playlist").shortcut
@@ -185,24 +187,38 @@ BasePlayerControl {
 
             visible: !musicWidget.isMaximized && mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
 
-            flat: true
+            display: AbstractButton.TextBesideIcon
             text: i18n("Show Playlist")
             icon.name: "view-media-playlist"
 
             checkable: true
             checked: contentView.showPlaylist
-
-            activeFocusOnTab: true
-            Keys.onReturnPressed: action.trigger()
-            Accessible.onPressAction: action.trigger()
-
         }
 
         FlatButtonWithToolTip {
             id: menuButton
+
             text: i18nc("open application menu", "Application Menu")
             icon.name: "application-menu"
-            onClicked: openMenu()
+
+            checkable: true
+            checked: applicationMenu.visible
+
+            onClicked: {
+                if (applicationMenu.visible) {
+                    applicationMenu.close()
+                } else {
+                    var pos = menuButton.mapFromItem(headerBar, headerBar.width - applicationMenu.width, headerBar.height)
+                    applicationMenu.popup(pos.x, pos.y)
+                }
+            }
+
+            ApplicationMenu {
+                id: applicationMenu
+
+                // otherwise clicking on the menu button will not close it
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+            }
         }
 
         Item { implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2) }

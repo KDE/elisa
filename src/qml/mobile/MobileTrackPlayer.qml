@@ -230,7 +230,7 @@ BasePlayerControl {
                             1: i18n("Current: Repeat current track"),
                             2: i18n("Current: Repeat all tracks in playlist")
                         }
-                        return map[musicWidget.repeat]
+                        return map[trackPlayer.repeat]
                     }
                     icon.name: {
                         const map = {

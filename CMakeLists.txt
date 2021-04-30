@@ -162,7 +162,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(CMakePackageConfigHelpers)
 
-configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h )
+configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h)
 
 ecm_setup_version(${RELEASE_SERVICE_VERSION}
     VARIABLE_PREFIX ELISA
@@ -192,7 +192,7 @@ if (KF5DocTools_FOUND)
     kdoctools_install(po)
 endif()
 
-install(FILES elisa.categories DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
+install(FILES elisa.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
 if (ANDROID)
     file(COPY androidResources/icon.png androidResources/splash.xml androidResources/vendor_logo.png androidResources/splash_logo.png

@@ -28,7 +28,7 @@
 
 #include <QString>
 
-#include <QCoreApplication>
+#include <QGuiApplication>
 
 #include <QLoggingCategory>
 
@@ -172,7 +172,7 @@ void PowerManagementInterface::inhibitSleepPlasmaWorkspace()
                                                       QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
                                                       QStringLiteral("Inhibit"));
 
-    inhibitCall.setArguments({{QCoreApplication::applicationName()}, {i18nc("explanation for sleep inhibit during play of music", "Playing Music")}});
+    inhibitCall.setArguments({{QGuiApplication::desktopFileName()}, {i18nc("explanation for sleep inhibit during play of music", "Playing Music")}});
 
     auto asyncReply = sessionBus.asyncCall(inhibitCall);
 

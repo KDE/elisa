@@ -348,13 +348,13 @@ const TrackMetadataModel::TrackDataType &TrackMetadataModel::allTrackData() cons
 
 void TrackMetadataModel::lyricsValueIsReady()
 {
-    if (!mLyricsValueWatcher.result().isEmpty()) {
+    if (!mLyricsValueWatcher.result().isEmpty())
         fillLyricsDataFromTrack();
 
-        mFullData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
+    mFullData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
 
-        Q_EMIT lyricsChanged();
-    }
+    Q_EMIT lyricsChanged();
+
 }
 
 void TrackMetadataModel::initializeByIdAndUrl(ElisaUtils::PlayListEntryType type, qulonglong databaseId, const QUrl &url)

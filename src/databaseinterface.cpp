@@ -6753,6 +6753,12 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
     auto existingTrackId = internalTrackIdFromFileName(oneTrack.resourceURI());
     bool isModifiedTrack = (existingTrackId != 0);
 
+
+
+    qDebug() << oneTrack.resourceURI() << " id: " << existingTrackId;
+
+
+
     if (isModifiedTrack && !oneTrack.title().isEmpty()) {
         resultId = existingTrackId;
 
@@ -6876,132 +6882,136 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
     resultId = existingTrackId;
 
-    if (!oneTrack.title().isEmpty()) {
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), existingTrackId);
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":priority"), priority);
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
-        if (oneTrack.hasArtist()) {
-            insertArtist(oneTrack.artist());
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), {});
-        }
-        if (oneTrack.hasAlbum()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.album());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), {});
-        }
-        if (oneTrack.hasAlbumArtist()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), oneTrack.albumArtist());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), {});
-        }
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
-        if (oneTrack.hasTrackNumber()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), {});
-        }
-        if (oneTrack.hasDiscNumber()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), {});
-        }
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
-        if (insertGenre(oneTrack.genre()) != 0) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), {});
-        }
-        if (insertComposer(oneTrack.composer()) != 0) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), oneTrack.composer());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), {});
-        }
-        if (insertLyricist(oneTrack.lyricist()) != 0) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), oneTrack.lyricist());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), {});
-        }
-        if (oneTrack.hasComment()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), {});
-        }
-        if (oneTrack.hasYear()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), {});
-        }
-        if (oneTrack.hasChannels()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), {});
-        }
-        if (oneTrack.hasBitRate()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), oneTrack.bitRate());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), {});
-        }
-        if (oneTrack.hasSampleRate()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), oneTrack.sampleRate());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), {});
-        }
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":hasEmbeddedCover"), oneTrack.hasEmbeddedCover());
-
-        auto result = execQuery(d->mInsertTrackQuery);
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << "is inserted";
-
-        if (result && d->mInsertTrackQuery.isActive()) {
-            d->mInsertTrackQuery.finish();
-
-            if (!isModifiedTrack) {
-                ++d->mTrackId;
-            }
-
-            updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
-
-            if (isModifiedTrack) {
-                recordModifiedTrack(existingTrackId);
-                if (albumId != 0) {
-                    recordModifiedAlbum(albumId);
-                }
-                if (oldAlbumId != 0) {
-                    recordModifiedAlbum(oldAlbumId);
-                }
-            }
-
-            if (albumId != 0) {
-                if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, trackPath)) {
-                    auto modifiedTracks = fetchTrackIds(albumId);
-                    for (auto oneModifiedTrack : modifiedTracks) {
-                        if (oneModifiedTrack != resultId) {
-                            recordModifiedTrack(oneModifiedTrack);
-                        }
-                    }
-                }
-                recordModifiedAlbum(albumId);
-            }
-        } else {
-            d->mInsertTrackQuery.finish();
-
-            Q_EMIT databaseError();
-
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << oneTrack.resourceURI();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.boundValues();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastError();
-        }
+    if (oneTrack.title().isEmpty()) {
+        d->mTrackId++;
+        auto fileName {oneTrack.resourceURI().fileName()};
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), fileName.left(fileName.lastIndexOf(QLatin1Char('.'))));
     } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
+    }
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), existingTrackId);
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":priority"), priority);
+
+    if (oneTrack.hasArtist()) {
+        insertArtist(oneTrack.artist());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), {});
+    }
+    if (oneTrack.hasAlbum()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.album());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), {});
+    }
+    if (oneTrack.hasAlbumArtist()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), oneTrack.albumArtist());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), {});
+    }
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
+    if (oneTrack.hasTrackNumber()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), {});
+    }
+    if (oneTrack.hasDiscNumber()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), {});
+    }
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
+    if (insertGenre(oneTrack.genre()) != 0) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), {});
+    }
+    if (insertComposer(oneTrack.composer()) != 0) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), oneTrack.composer());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), {});
+    }
+    if (insertLyricist(oneTrack.lyricist()) != 0) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), oneTrack.lyricist());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), {});
+    }
+    if (oneTrack.hasComment()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), {});
+    }
+    if (oneTrack.hasYear()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), {});
+    }
+    if (oneTrack.hasChannels()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), {});
+    }
+    if (oneTrack.hasBitRate()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), oneTrack.bitRate());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), {});
+    }
+    if (oneTrack.hasSampleRate()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), oneTrack.sampleRate());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), {});
+    }
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":hasEmbeddedCover"), oneTrack.hasEmbeddedCover());
+
+    auto result = execQuery(d->mInsertTrackQuery);
+
+    qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << "is inserted";
+
+    if (result && d->mInsertTrackQuery.isActive()) {
+        d->mInsertTrackQuery.finish();
+
         if (!isModifiedTrack) {
             ++d->mTrackId;
         }
 
         updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
+
+        if (isModifiedTrack) {
+            recordModifiedTrack(existingTrackId);
+            if (albumId != 0) {
+                recordModifiedAlbum(albumId);
+            }
+            if (oldAlbumId != 0) {
+                recordModifiedAlbum(oldAlbumId);
+            }
+        }
+
+        if (albumId != 0) {
+            if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, trackPath)) {
+                auto modifiedTracks = fetchTrackIds(albumId);
+                for (auto oneModifiedTrack : modifiedTracks) {
+                    if (oneModifiedTrack != resultId) {
+                        recordModifiedTrack(oneModifiedTrack);
+                    }
+                }
+            }
+            recordModifiedAlbum(albumId);
+        }
+    } else {
+        d->mInsertTrackQuery.finish();
+
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << oneTrack.resourceURI();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastError();
     }
+
+
+    updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
+
 
     return resultId;
 }
@@ -7880,7 +7890,6 @@ qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl &fileName)
     }
 
     d->mSelectTracksMapping.finish();
-
     return result;
 }
 

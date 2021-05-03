@@ -6753,12 +6753,6 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
     auto existingTrackId = internalTrackIdFromFileName(oneTrack.resourceURI());
     bool isModifiedTrack = (existingTrackId != 0);
 
-
-
-    qDebug() << oneTrack.resourceURI() << " id: " << existingTrackId;
-
-
-
     if (isModifiedTrack && !oneTrack.title().isEmpty()) {
         resultId = existingTrackId;
 
@@ -7890,6 +7884,7 @@ qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl &fileName)
     }
 
     d->mSelectTracksMapping.finish();
+
     return result;
 }
 

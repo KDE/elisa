@@ -71,16 +71,30 @@ Flickable {
             toClose.stop();
             propagateComposedEvents = true;
         }
-        onReleased: footerBar.resetToBounds()
+        onReleased: footerBar.resetToBoundsOnFlick()
     }
 
-    function resetToBounds() {
-        if (!atYBeginning && !atYEnd) {
+    function resetToBoundsOnFlick() {
+        if (!atYBeginning || !atYEnd) {
             if (footerBar.verticalVelocity > 0) {
                 toOpen.restart();
             } else if (footerBar.verticalVelocity < 0) {
                 toClose.restart();
+            } else { // i.e. when verticalVelocity === 0
+                if (contentY > contentHeight / 4) {
+                    toOpen.restart();
+                } else  {
+                    toClose.restart();
+                }
             }
+        }
+    }
+
+    function resetToBoundsOnResize() {
+        if (contentY > contentHeight / 4) {
+            contentY = contentHeight / 2;
+        } else {
+            contentY = 0;
         }
     }
 
@@ -88,8 +102,9 @@ Flickable {
         toOpen.stop();
         toClose.stop();
     }
-    onFlickStarted: resetToBounds()
-    onMovementEnded: resetToBounds()
+    onFlickStarted: resetToBoundsOnFlick()
+    onMovementEnded: resetToBoundsOnFlick()
+    onHeightChanged: resetToBoundsOnResize()
 
     onImageChanged: {
         if (changeBackgroundTransition.running) {

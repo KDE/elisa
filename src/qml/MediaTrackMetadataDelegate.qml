@@ -13,6 +13,7 @@ import org.kde.elisa 1.0
 
 RowLayout {
     id: delegateRow
+    property real maximumWidth: Number.POSITIVE_INFINITY
 
     property string name
     property int index
@@ -26,13 +27,11 @@ RowLayout {
     signal edited()
     signal deleteField()
 
-    Layout.maximumWidth: Infinity
-
     Loader {
         id: textDisplayLoader
         active: readOnly && (type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry || type === EditableTrackMetadataModel.UrlEntry || type === EditableTrackMetadataModel.DurationEntry) && typeof display !== "undefined"
         visible: active
-        Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, parent.Layout.maximumWidth)
+        Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, delegateRow.maximumWidth)
 
         sourceComponent: LabelWithToolTip {
             text: display
@@ -46,7 +45,7 @@ RowLayout {
         id: longTextDisplayLoader
         active: readOnly && (type === EditableTrackMetadataModel.LongTextEntry) && typeof display !== "undefined"
         visible: active
-        Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, parent.Layout.maximumWidth)
+        Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, delegateRow.maximumWidth)
 
         sourceComponent: Label {
             text: display
@@ -59,7 +58,7 @@ RowLayout {
     Loader {
         active: readOnly && (type === EditableTrackMetadataModel.DateEntry) && typeof display !== "undefined"
         visible: active
-        Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, parent.Layout.maximumWidth)
+        Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, delegateRow.maximumWidth)
 
         sourceComponent: LabelWithToolTip {
             text: rawDate.toLocaleDateString(Locale.ShortFormat)

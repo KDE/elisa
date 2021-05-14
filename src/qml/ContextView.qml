@@ -212,21 +212,23 @@ Kirigami.Page {
                 Loader {
                     id: allMetaDataLoader
 
-                    property real margins: Kirigami.Units.largeSpacing + allMetaDataScroll.ScrollBar.vertical.width
-                    width: (implicitWidth + margins <= contentLayout.width * 0.5 ? contentLayout.width * 0.5 : contentLayout.width) - margins
-                    x: (parent.width - width) * 0.5
-
                     sourceComponent: Kirigami.FormLayout {
                         id: allMetaData
+                        property real margins: Kirigami.Units.largeSpacing + allMetaDataScroll.ScrollBar.vertical.width
+                        width: (implicitWidth + margins <= contentLayout.width * 0.5 ? contentLayout.width * 0.5 : contentLayout.width) - margins
+                        x: wideMode? (allMetaDataScroll.width - width) * 0.5 : Kirigami.Units.largeSpacing
 
                         Repeater {
                             id: trackData
                             model: metaDataModel
 
-                            delegate: RowLayout {
+                            delegate: Item {
                                 Kirigami.FormData.label: "<b>" + model.name + ":</b>"
+                                implicitWidth: childrenRect.width
+                                implicitHeight: childrenRect.height
+
                                 MediaTrackMetadataDelegate {
-                                    Layout.maximumWidth: contentLayout.width - allMetaDataLoader.margins
+                                    maximumWidth: contentLayout.width - allMetaData.margins
                                     index: model.index
                                     name: model.name
                                     display: model.display

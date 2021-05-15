@@ -242,6 +242,8 @@ BasePlayListDelegate {
                     icon.name: (isPlaying === MediaPlayList.IsPlaying) ? "media-playback-pause" : "media-playback-start"
                     onClicked: if (isPlaying === MediaPlayList.IsPlaying) {
                         playListEntry.pausePlayback()
+                    } else if (isPlaying === MediaPlayList.IsPaused) {
+                        playListEntry.startPlayback()
                     } else {
                         playListEntry.switchToTrack(playListEntry.index)
                         playListEntry.startPlayback()

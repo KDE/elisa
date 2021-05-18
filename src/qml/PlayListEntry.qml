@@ -194,6 +194,9 @@ BasePlayListDelegate {
             active: false
             visible: active
 
+            // this is needed for updating mainCompactLabel's width
+            Layout.preferredWidth: active ? -1 : 0
+
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
             sourceComponent: Row {

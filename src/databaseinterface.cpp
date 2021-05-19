@@ -66,6 +66,17 @@ public:
         TrackEmbeddedCover,
     };
 
+    enum RadioRecordColumns
+    {
+        RadioId,
+        RadioTitle,
+        RadioHttpAddress,
+        RadioImageAddress,
+        RadioRating,
+        RadioGenreName,
+        RadioComment,
+    };
+
     DatabaseInterfacePrivate(const QSqlDatabase &tracksDatabase)
         : mTracksDatabase(tracksDatabase), mSelectAlbumQuery(mTracksDatabase),
           mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
@@ -7121,17 +7132,16 @@ DataTypes::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRecord(con
 {
     DataTypes::TrackDataType result;
 
-    result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(0);
-    result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(1);
+    result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(DatabaseInterfacePrivate::RadioId);
+    result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(DatabaseInterfacePrivate::RadioTitle);
     result[DataTypes::TrackDataType::key_type::AlbumRole] = i18n("Radios");
-    result[DataTypes::TrackDataType::key_type::ArtistRole] = trackRecord.value(1);
-    result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(2);
-    result[DataTypes::TrackDataType::key_type::ImageUrlRole] = trackRecord.value(3);
-    result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(4);
-    if (!trackRecord.value(5).isNull()) {
-        result[DataTypes::TrackDataType::key_type::GenreRole] = trackRecord.value(5);
+    result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(DatabaseInterfacePrivate::RadioHttpAddress);
+    result[DataTypes::TrackDataType::key_type::ImageUrlRole] = trackRecord.value(DatabaseInterfacePrivate::RadioImageAddress);
+    result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(DatabaseInterfacePrivate::RadioRating);
+    if (!trackRecord.value(DatabaseInterfacePrivate::RadioGenreName).isNull()) {
+        result[DataTypes::TrackDataType::key_type::GenreRole] = trackRecord.value(DatabaseInterfacePrivate::RadioGenreName);
     }
-    result[DataTypes::TrackDataType::key_type::CommentRole] = trackRecord.value(6);
+    result[DataTypes::TrackDataType::key_type::CommentRole] = trackRecord.value(DatabaseInterfacePrivate::RadioComment);
     result[DataTypes::TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
 
     return result;

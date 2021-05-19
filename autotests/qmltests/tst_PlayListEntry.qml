@@ -23,7 +23,6 @@ Item {
         isSingleDiscAlbum: false
         title: "hello"
         isValid: true
-        isPlaying: MediaPlayList.IsPaused
         isSelected: true
         containsMouse: false
 
@@ -98,6 +97,8 @@ Item {
             mouseMove(playPauseButtonItem, playPauseButtonItem.width / 2, playPauseButtonItem.height / 2);
             wait(300);
 
+            // play
+            playListEntry.isPlaying = MediaPlayList.NotPlaying
             mouseClick(playPauseButtonItem);
 
             compare(startPlaybackSpy.count, 1);
@@ -105,6 +106,23 @@ Item {
             compare(removeFromPlaylistSpy.count, 0);
             compare(switchToTrackSpy.count, 1);
 
+            // pause
+            playListEntry.isPlaying = MediaPlayList.IsPlaying
+            mouseClick(playPauseButtonItem);
+
+            compare(startPlaybackSpy.count, 1);
+            compare(pausePlaybackSpy.count, 1);
+            compare(removeFromPlaylistSpy.count, 0);
+            compare(switchToTrackSpy.count, 1);
+
+            // resume
+            playListEntry.isPlaying = MediaPlayList.IsPaused
+            mouseClick(playPauseButtonItem);
+
+            compare(startPlaybackSpy.count, 2);
+            compare(pausePlaybackSpy.count, 1);
+            compare(removeFromPlaylistSpy.count, 0);
+            compare(switchToTrackSpy.count, 1);
 
         }
     }

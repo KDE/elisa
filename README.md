@@ -8,6 +8,8 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 
 Elisa music player
 
+<a href='https://flathub.org/apps/details/org.kde.elisa'><img width='190px' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-i-en.png'/></a>
+
 ## Introduction
 
 Elisa is a simple music player aiming to provide a nice experience for its users.

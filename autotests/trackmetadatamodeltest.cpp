@@ -124,17 +124,6 @@ private Q_SLOTS:
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
         QCOMPARE(myModel.rowCount(), 12);
-
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$1")), QDateTime::currentDateTime());
-
-        QCOMPARE(beginResetSpy.count(), 2);
-        QCOMPARE(endResetSpy.count(), 2);
-        QCOMPARE(beginInsertRowsSpy.count(), 0);
-        QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(beginRemovedRowsSpy.count(), 0);
-        QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 13);
     }
 };
 

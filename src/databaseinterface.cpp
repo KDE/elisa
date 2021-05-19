@@ -949,10 +949,6 @@ void DatabaseInterface::trackHasStartedPlaying(const QUrl &fileName, const QDate
     }
 
     updateTrackStatistics(fileName, time);
-    auto trackId = internalTrackIdFromFileName(fileName);
-    if (trackId != 0) {
-        Q_EMIT trackModified(internalOneTrackPartialData(trackId));
-    }
 
     transactionResult = finishTransaction();
     if (!transactionResult) {

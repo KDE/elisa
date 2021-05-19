@@ -4656,7 +4656,7 @@ private Q_SLOTS:
         QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
         QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
-        QCOMPARE(musicDbTrackModifiedSpy.count(), 10);
+        QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
         auto recentlyPlayedTracksData = musicDb.recentlyPlayedTracksData(10);

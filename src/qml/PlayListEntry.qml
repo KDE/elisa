@@ -88,9 +88,7 @@ BasePlayListDelegate {
                 text: '99/9'
             }
 
-            Layout.minimumWidth: fakeLabel.width
             Layout.preferredWidth: fakeLabel.width
-            Layout.maximumWidth: fakeLabel.width
             Layout.preferredHeight: playListEntry.height
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
@@ -159,7 +157,6 @@ BasePlayListDelegate {
             font.weight: (isPlaying ? Font.Bold : Font.Normal)
             color: simpleMode ? myPalette.highlightedText : myPalette.text
 
-            Layout.maximumWidth: mainCompactLabel.implicitWidth + 1
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
 
@@ -184,18 +181,10 @@ BasePlayListDelegate {
             elide: Text.ElideRight
         }
 
-        Item {
-            Layout.fillWidth: true
-            Layout.preferredWidth: 0
-        }
-
         Loader {
             id: hoverLoader
             active: false
             visible: active
-
-            // this is needed for updating mainCompactLabel's width
-            Layout.preferredWidth: active ? -1 : 0
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 

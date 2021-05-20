@@ -77,6 +77,38 @@ public:
         RadioComment,
     };
 
+    enum AlbumsRecordColumns
+    {
+        AlbumsId,
+        AlbumsTitle,
+        AlbumsSecondaryText,
+        AlbumsCoverFileName,
+        AlbumsArtistName,
+        AlbumsYear,
+        AlbumsArtistsCount,
+        AlbumsAllArtists,
+        AlbumsHighestRating,
+        AlbumsAllGenres,
+        AlbumsIsSingleDiscAlbum,
+        AlbumsEmbeddedCover,
+    };
+
+    enum SingleAlbumRecordColumns
+    {
+        SingleAlbumId,
+        SingleAlbumTitle,
+        SingleAlbumArtistName,
+        SingleAlbumPath,
+        SingleAlbumCoverFileName,
+        SingleAlbumTracksCount,
+        SingleAlbumIsSingleDiscAlbum,
+        SingleAlbumArtistsCount,
+        SingleAlbumAllArtists,
+        SingleAlbumHighestRating,
+        SingleAlbumAllGenres,
+        SingleAlbumEmbeddedCover,
+    };
+
     DatabaseInterfacePrivate(const QSqlDatabase &tracksDatabase)
         : mTracksDatabase(tracksDatabase), mSelectAlbumQuery(mTracksDatabase),
           mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
@@ -8088,32 +8120,32 @@ DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSq
 
         const auto &currentRecord = query.record();
 
-        newData[DataTypes::DatabaseIdRole] = currentRecord.value(0);
-        newData[DataTypes::TitleRole] = currentRecord.value(1);
-        if (!currentRecord.value(3).toString().isEmpty()) {
-            newData[DataTypes::ImageUrlRole] = currentRecord.value(3);
-        } else if (!currentRecord.value(11).toString().isEmpty()) {
-            newData[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(11).toUrl().toLocalFile()};
+        newData[DataTypes::DatabaseIdRole] = currentRecord.value(DatabaseInterfacePrivate::AlbumsId);
+        newData[DataTypes::TitleRole] = currentRecord.value(DatabaseInterfacePrivate::AlbumsTitle);
+        if (!currentRecord.value(DatabaseInterfacePrivate::AlbumsCoverFileName).toString().isEmpty()) {
+            newData[DataTypes::ImageUrlRole] = currentRecord.value(DatabaseInterfacePrivate::AlbumsCoverFileName);
+        } else if (!currentRecord.value(DatabaseInterfacePrivate::AlbumsEmbeddedCover).toString().isEmpty()) {
+            newData[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(DatabaseInterfacePrivate::AlbumsEmbeddedCover).toUrl().toLocalFile()};
         }
-        auto allArtists = currentRecord.value(7).toString().split(QStringLiteral(", "));
+        auto allArtists = currentRecord.value(DatabaseInterfacePrivate::AlbumsAllArtists).toString().split(QStringLiteral(", "));
         allArtists.removeDuplicates();
         newData[DataTypes::AllArtistsRole] = QVariant::fromValue(allArtists);
-        if (!currentRecord.value(4).isNull()) {
+        if (!currentRecord.value(DatabaseInterfacePrivate::AlbumsArtistName).isNull()) {
             newData[DataTypes::IsValidAlbumArtistRole] = true;
-            newData[DataTypes::SecondaryTextRole] = currentRecord.value(4);
+            newData[DataTypes::SecondaryTextRole] = currentRecord.value(DatabaseInterfacePrivate::AlbumsArtistName);
         } else {
             newData[DataTypes::IsValidAlbumArtistRole] = false;
-            if (currentRecord.value(6).toInt() == 1) {
+            if (currentRecord.value(DatabaseInterfacePrivate::AlbumsArtistsCount).toInt() == 1) {
                 newData[DataTypes::SecondaryTextRole] = allArtists.first();
-            } else if (currentRecord.value(6).toInt() > 1) {
+            } else if (currentRecord.value(DatabaseInterfacePrivate::AlbumsArtistsCount).toInt() > 1) {
                 newData[DataTypes::SecondaryTextRole] = i18n("Various Artists");
             }
         }
         newData[DataTypes::ArtistRole] = newData[DataTypes::SecondaryTextRole];
-        newData[DataTypes::HighestTrackRating] = currentRecord.value(8);
-        newData[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(10);
-        newData[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(9).toString().split(QStringLiteral(", ")));
-        auto allYears = currentRecord.value(5).toString().split(QStringLiteral(", "));
+        newData[DataTypes::HighestTrackRating] = currentRecord.value(DatabaseInterfacePrivate::AlbumsHighestRating);
+        newData[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(DatabaseInterfacePrivate::AlbumsIsSingleDiscAlbum);
+        newData[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(DatabaseInterfacePrivate::AlbumsAllGenres).toString().split(QStringLiteral(", ")));
+        auto allYears = currentRecord.value(DatabaseInterfacePrivate::AlbumsYear).toString().split(QStringLiteral(", "));
         allYears.removeDuplicates();
         if (allYears.size() == 1) {
             newData[DataTypes::YearRole] = allYears.at(0).toInt();
@@ -8143,33 +8175,33 @@ DataTypes::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(qulonglo
     if (d->mSelectAlbumQuery.next()) {
         const auto &currentRecord = d->mSelectAlbumQuery.record();
 
-        result[DataTypes::DatabaseIdRole] = currentRecord.value(0);
-        result[DataTypes::TitleRole] = currentRecord.value(1);
-        if (!currentRecord.value(4).toString().isEmpty()) {
-            result[DataTypes::ImageUrlRole] = currentRecord.value(4);
-        } else if (!currentRecord.value(11).toString().isEmpty()) {
-            result[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(11).toUrl().toLocalFile()};
+        result[DataTypes::DatabaseIdRole] = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumId);
+        result[DataTypes::TitleRole] = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumTitle);
+        if (!currentRecord.value(DatabaseInterfacePrivate::SingleAlbumCoverFileName).toString().isEmpty()) {
+            result[DataTypes::ImageUrlRole] = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumCoverFileName);
+        } else if (!currentRecord.value(DatabaseInterfacePrivate::SingleAlbumEmbeddedCover).toString().isEmpty()) {
+            result[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(DatabaseInterfacePrivate::SingleAlbumEmbeddedCover).toUrl().toLocalFile()};
         }
 
-        auto allArtists = currentRecord.value(8).toString().split(QStringLiteral(", "));
+        auto allArtists = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumAllArtists).toString().split(QStringLiteral(", "));
         allArtists.removeDuplicates();
         result[DataTypes::AllArtistsRole] = QVariant::fromValue(allArtists);
 
-        if (!currentRecord.value(2).isNull()) {
+        if (!currentRecord.value(DatabaseInterfacePrivate::SingleAlbumArtistName).isNull()) {
             result[DataTypes::IsValidAlbumArtistRole] = true;
-            result[DataTypes::SecondaryTextRole] = currentRecord.value(2);
+            result[DataTypes::SecondaryTextRole] = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumArtistName);
         } else {
             result[DataTypes::IsValidAlbumArtistRole] = false;
-            if (currentRecord.value(7).toInt() == 1) {
+            if (currentRecord.value(DatabaseInterfacePrivate::SingleAlbumArtistsCount).toInt() == 1) {
                 result[DataTypes::SecondaryTextRole] = allArtists.first();
-            } else if (currentRecord.value(7).toInt() > 1) {
+            } else if (currentRecord.value(DatabaseInterfacePrivate::SingleAlbumArtistsCount).toInt() > 1) {
                 result[DataTypes::SecondaryTextRole] = i18n("Various Artists");
             }
         }
         result[DataTypes::ArtistRole] = result[DataTypes::SecondaryTextRole];
-        result[DataTypes::HighestTrackRating] = currentRecord.value(9);
-        result[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(6);
-        result[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(10).toString().split(QStringLiteral(", ")));
+        result[DataTypes::HighestTrackRating] = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumHighestRating);
+        result[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumIsSingleDiscAlbum);
+        result[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(DatabaseInterfacePrivate::SingleAlbumAllGenres).toString().split(QStringLiteral(", ")));
         result[DataTypes::ElementTypeRole] = ElisaUtils::Album;
 
     }

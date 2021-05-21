@@ -47,7 +47,7 @@ public:
             }
         }
 
-        emit finished();
+        Q_EMIT finished();
     }
 
     QString mId;

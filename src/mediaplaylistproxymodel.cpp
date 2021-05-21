@@ -549,7 +549,7 @@ void MediaPlayListProxyModel::skipPreviousTrack(qint64 position)
     }
 
     if (position > mSeekToBeginningDelay) {
-        emit seek(0);
+        Q_EMIT seek(0);
         return;
     }
 

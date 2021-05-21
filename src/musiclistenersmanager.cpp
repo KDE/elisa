@@ -261,7 +261,7 @@ void MusicListenersManager::setElisaApplication(ElisaApplication *elisaApplicati
     }
 
     d->mElisaApplication = elisaApplication;
-    emit elisaApplicationChanged();
+    Q_EMIT elisaApplicationChanged();
 }
 
 void MusicListenersManager::playBackError(const QUrl &sourceInError, QMediaPlayer::Error playerError)

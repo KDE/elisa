@@ -146,7 +146,7 @@ void DidlParser::setParentId(QString parentId)
     }
 
     d->mParentId = std::move(parentId);
-    emit parentIdChanged();
+    Q_EMIT parentIdChanged();
 }
 
 void DidlParser::setDeviceUUID(QString deviceUUID)
@@ -156,7 +156,7 @@ void DidlParser::setDeviceUUID(QString deviceUUID)
     }
 
     d->mDeviceUUID = std::move(deviceUUID);
-    emit deviceUUIDChanged();
+    Q_EMIT deviceUUIDChanged();
 }
 
 void DidlParser::systemUpdateIDChanged()

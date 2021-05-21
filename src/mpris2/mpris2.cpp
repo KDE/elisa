@@ -104,7 +104,7 @@ void Mpris2::setPlayerName(const QString &playerName)
         }
     }
 
-    emit playerNameChanged();
+    Q_EMIT playerNameChanged();
 }
 
 void Mpris2::setPlayListModel(MediaPlayListProxyModel *playListModel)
@@ -121,7 +121,7 @@ void Mpris2::setPlayListModel(MediaPlayListProxyModel *playListModel)
         }
     }
 
-    emit playListModelChanged();
+    Q_EMIT playListModelChanged();
 }
 
 void Mpris2::setAudioPlayerManager(ManageAudioPlayer *manageAudioPlayer)
@@ -138,7 +138,7 @@ void Mpris2::setAudioPlayerManager(ManageAudioPlayer *manageAudioPlayer)
         }
     }
 
-    emit audioPlayerManagerChanged();
+    Q_EMIT audioPlayerManagerChanged();
 }
 
 void Mpris2::setManageMediaPlayerControl(ManageMediaPlayerControl *manageMediaPlayerControl)
@@ -155,7 +155,7 @@ void Mpris2::setManageMediaPlayerControl(ManageMediaPlayerControl *manageMediaPl
         }
     }
 
-    emit manageMediaPlayerControlChanged();
+    Q_EMIT manageMediaPlayerControlChanged();
 }
 
 void Mpris2::setHeaderBarManager(ManageHeaderBar *manageHeaderBar)
@@ -171,7 +171,7 @@ void Mpris2::setHeaderBarManager(ManageHeaderBar *manageHeaderBar)
         }
     }
 
-    emit headerBarManagerChanged();
+    Q_EMIT headerBarManagerChanged();
 }
 
 void Mpris2::setAudioPlayer(AudioWrapper *audioPlayer)
@@ -187,7 +187,7 @@ void Mpris2::setAudioPlayer(AudioWrapper *audioPlayer)
         }
     }
 
-    emit audioPlayerChanged();
+    Q_EMIT audioPlayerChanged();
 }
 
 void Mpris2::setShowProgressOnTaskBar(bool value)

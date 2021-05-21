@@ -339,7 +339,7 @@ void ManageHeaderBar::notifyIsValidProperty()
 void ManageHeaderBar::setIsValidRole(int isValidRole)
 {
     mIsValidRole = isValidRole;
-    emit isValidRoleChanged();
+    Q_EMIT isValidRoleChanged();
 }
 
 void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)

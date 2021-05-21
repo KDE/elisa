@@ -335,7 +335,8 @@ Kirigami.Page {
                     Kirigami.PlaceholderMessage {
                         anchors.centerIn: parent
                         width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                        text: xi18nc("@info", "Your playlist is empty.<nl/><nl/>Add some songs to get started. You can browse your music using the views on the left.")
+                        text: i18n("Playlist is empty")
+                        explanation: i18n("Add some songs to get started. You can browse your music using the views on the left.")
                         visible: playListView.count === 0
                     }
 

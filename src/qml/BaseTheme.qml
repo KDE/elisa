@@ -48,4 +48,16 @@ Item {
     property int gridDelegateSize: 170
 
     property int viewSelectorSmallSizeThreshold: 800
+
+    readonly property alias sectionHeight: sectionSizer.implicitHeight
+
+    // calculate a fixed height for playlist's section delegates
+    // workaround for QTBUG-52595
+    Column {
+        id: sectionSizer
+        visible: false
+        spacing: Kirigami.Units.smallSpacing
+        LabelWithToolTip { text: "M\nM"; level: 2 }
+        LabelWithToolTip { text: "M" }
+    }
 }

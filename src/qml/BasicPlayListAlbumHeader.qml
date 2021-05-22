@@ -52,7 +52,7 @@ Rectangle {
             id: albumHeaderTextColumn
 
             Layout.fillWidth: true
-            Layout.preferredHeight: background.ListView.view.sectionSizer.implicitHeight
+            Layout.preferredHeight: elisaTheme.sectionHeight
 
             Layout.leftMargin: !LayoutMirroring.enabled ? - Kirigami.Units.smallSpacing : 0
             Layout.rightMargin: LayoutMirroring.enabled ? - Kirigami.Units.smallSpacing : 0

@@ -63,8 +63,8 @@ FocusScope {
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
 
-            sourceSize.width: imageSourceSize
-            sourceSize.height: imageSourceSize
+            // make the FastBlur effect more strong
+            sourceSize.height: 10
 
             opacity: 1
 
@@ -76,13 +76,9 @@ FocusScope {
                 saturation: 0.9
 
                 layer.enabled: true
-                layer.effect: GaussianBlur {
+                layer.effect: FastBlur {
                     cached: true
-
-                    radius: 256
-                    deviation: 12
-                    samples: 129
-
+                    radius: 64
                     transparentBorder: false
                 }
             }
@@ -99,8 +95,7 @@ FocusScope {
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
 
-            sourceSize.width: imageSourceSize
-            sourceSize.height: imageSourceSize
+            sourceSize.height: oldBackground.sourceSize.height
 
             visible: false
             opacity: 0
@@ -113,13 +108,9 @@ FocusScope {
                 saturation: 0.9
 
                 layer.enabled: true
-                layer.effect: GaussianBlur {
+                layer.effect: FastBlur {
                     cached: true
-
-                    radius: 256
-                    deviation: 12
-                    samples: 129
-
+                    radius: 64
                     transparentBorder: false
                 }
             }

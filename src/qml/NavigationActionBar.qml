@@ -414,8 +414,8 @@ Item {
 
             fillMode: Image.PreserveAspectCrop
 
-            sourceSize.width: 512
-            sourceSize.height: 512
+            // make the FastBlur effect more strong
+            sourceSize.height: 10
 
             layer.enabled: true
             layer.effect: HueSaturation {
@@ -425,13 +425,9 @@ Item {
                 saturation: 0.9
 
                 layer.enabled: true
-                layer.effect: GaussianBlur {
+                layer.effect: FastBlur {
                     cached: true
-
-                    radius: 256
-                    deviation: 12
-                    samples: 129
-
+                    radius: 64
                     transparentBorder: false
                 }
             }

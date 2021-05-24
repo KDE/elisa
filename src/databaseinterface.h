@@ -255,6 +255,8 @@ private:
 
     DataTypes::ListAlbumDataType internalAllAlbumsPartialData(QSqlQuery &query);
 
+    DataTypes::ListTrackDataType internalOneAlbumData(qulonglong databaseId);
+
     DataTypes::AlbumDataType internalOneAlbumPartialData(qulonglong databaseId);
 
     DataTypes::ArtistDataType internalOneArtistPartialData(qulonglong databaseId);

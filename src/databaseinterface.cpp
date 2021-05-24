@@ -639,25 +639,7 @@ DataTypes::ListTrackDataType DatabaseInterface::albumData(qulonglong databaseId)
         return result;
     }
 
-    d->mSelectTrackQuery.bindValue(QStringLiteral(":albumId"), databaseId);
-
-    auto queryResult = execQuery(d->mSelectTrackQuery);
-
-    if (!queryResult || !d->mSelectTrackQuery.isSelect() || !d->mSelectTrackQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastError();
-    }
-
-    while (d->mSelectTrackQuery.next()) {
-        const auto &currentRecord = d->mSelectTrackQuery.record();
-
-        result.push_back(buildTrackDataFromDatabaseRecord(currentRecord));
-    }
-
-    d->mSelectTrackQuery.finish();
+    result = internalOneAlbumData(databaseId);
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -7206,7 +7188,6 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
         if (modifiedAlbumId) {
             recordModifiedAlbum(modifiedAlbumId);
             modifiedAlbums.insert(modifiedAlbumId);
-            updateAlbumFromId(modifiedAlbumId, oneRemovedTrack.albumCover(), oneRemovedTrack, trackPath);
         }
 
         if (removedArtistId != 0 && allTracksFromArtist.isEmpty() && allAlbumsFromArtist.isEmpty()) {
@@ -7237,6 +7218,13 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
         auto tracksCount = fetchTrackIds(modifiedAlbumId).count();
 
         if (!modifiedAlbumData.isEmpty() && tracksCount) {
+            auto modifiedAlbum = internalOneAlbumData(modifiedAlbumId);
+            if (updateAlbumFromId(modifiedAlbumId, modifiedAlbum.at(0).albumCover(), modifiedAlbum.at(0), modifiedAlbum.at(0).resourceURI().toString(currentOptions))) {
+                for (const auto &oneTrack : modifiedAlbum) {
+                    recordModifiedTrack(oneTrack.databaseId());
+                }
+            }
+
             Q_EMIT albumModified({{DataTypes::DatabaseIdRole, modifiedAlbumId}}, modifiedAlbumId);
         } else {
             removeAlbumInDatabase(modifiedAlbumId);
@@ -8158,6 +8146,33 @@ DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSq
     }
 
     query.finish();
+
+    return result;
+}
+
+DataTypes::ListTrackDataType DatabaseInterface::internalOneAlbumData(qulonglong databaseId)
+{
+    DataTypes::ListTrackDataType result;
+
+    d->mSelectTrackQuery.bindValue(QStringLiteral(":albumId"), databaseId);
+
+    auto queryResult = execQuery(d->mSelectTrackQuery);
+
+    if (!queryResult || !d->mSelectTrackQuery.isSelect() || !d->mSelectTrackQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastError();
+    }
+
+    while (d->mSelectTrackQuery.next()) {
+        const auto &currentRecord = d->mSelectTrackQuery.record();
+
+        result.push_back(buildTrackDataFromDatabaseRecord(currentRecord));
+    }
+
+    d->mSelectTrackQuery.finish();
 
     return result;
 }

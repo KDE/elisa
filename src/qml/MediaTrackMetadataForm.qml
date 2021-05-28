@@ -22,7 +22,7 @@ Kirigami.FormLayout {
 
     property var modelType
     property bool showDeleteButton
-    property bool isCreation
+    property bool isCreating
     property bool isModifying
     property bool canAddMoreMetadata
     property bool showModifyDeleteButtons
@@ -79,7 +79,7 @@ Kirigami.FormLayout {
                 isRemovable: model.isRemovable
 
                 onEdited: model.display = display
-                readOnly: !isModifying || (metadataModel.isReadOnly || model.isReadOnly)
+                readOnly: (!isModifying && !isCreating) || (metadataModel.isReadOnly || model.isReadOnly)
 
                 onDeleteField: metadataModel.removeData(model.index)
                 Layout.minimumHeight: Kirigami.Units.gridUnit * 1.5
@@ -122,7 +122,7 @@ Kirigami.FormLayout {
             Layout.minimumHeight: implicitHeight
             alignment: Qt.AlignLeft
 
-            visible: showDeleteButton && !isCreation
+            visible: showDeleteButton && !isCreating
 
             Button {
                 id: deleteButton

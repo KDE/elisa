@@ -49,9 +49,9 @@ MenuBar {
         title: i18nc("menu category", "View")
 
         MenuItem {
-            text: mediaPlayerControl.item && mediaPlayerControl.item.isMaximized ? i18nc("menu entry", "Collapse Player") : i18nc("menu entry", "Expand Player")
-            iconName: mediaPlayerControl.item && mediaPlayerControl.item.isMaximized ? "arrow-up" : "expand"
-            onTriggered: mediaPlayerControl.item.isMaximized = !mediaPlayerControl.item.isMaximized
+            text: i18nc("menu entry", "Toggle Party Mode")
+            iconName: mediaPlayerControl && mediaPlayerControl.isMaximized ? "arrow-up" : "expand"
+            onTriggered: mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized
         }
 
         MenuItem {

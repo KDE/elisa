@@ -209,6 +209,8 @@ private Q_SLOTS:
 
     void find();
 
+    void togglePartyMode();
+
     void togglePlaylist();
 
     void seek();

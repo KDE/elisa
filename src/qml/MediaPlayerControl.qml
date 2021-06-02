@@ -47,7 +47,7 @@ BasePlayerControl {
 
         FlatButtonWithToolTip {
             id: minimizeMaximizeButton
-            text: i18nc("toggle between maximized and minimized ivre", "Toggle Maximize")
+            text: i18nc("toggle the party mode", "Toggle Party Mode")
             icon.name: musicWidget.isMaximized ? "draw-arrow-up" : "draw-arrow-down"
             onClicked: musicWidget.isMaximized = !musicWidget.isMaximized
         }

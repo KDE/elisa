@@ -208,6 +208,13 @@ void ElisaApplication::setupActions(const QString &actionName)
         d->mCollection.addAction(findAction->objectName(), findAction);
     }
 
+    if (actionName == QLatin1String("togglePartyMode") && KAuthorized::authorizeAction(actionName)) {
+        auto togglePartyModeAction = d->mCollection.addAction(actionName, this, &ElisaApplication::togglePartyMode);
+        togglePartyModeAction->setText(i18n("Toggle Party Mode"));
+        d->mCollection.setDefaultShortcut(togglePartyModeAction, QKeySequence(Qt::Key_F11));
+        d->mCollection.addAction(togglePartyModeAction->objectName(), togglePartyModeAction);
+    }
+
     d->mCollection.readSettings();
 #endif
 }
@@ -328,6 +335,8 @@ void ElisaApplication::nextTrack() {}
 void ElisaApplication::previousTrack() {}
 
 void ElisaApplication::playPause() {}
+
+void ElisaApplication::togglePartyMode() {}
 
 void ElisaApplication::configChanged()
 {

@@ -67,6 +67,7 @@ Kirigami.ApplicationWindow {
     property var previousTrackAction: ElisaApplication.action("PreviousTrack")
     property var playPauseAction: ElisaApplication.action("Play-Pause")
     property var findAction: ElisaApplication.action("edit_find")
+    property var togglePartyModeAction: ElisaApplication.action("togglePartyMode")
 
     property var mediaPlayerControl: Kirigami.Settings.isMobile ? mobileFooterBarLoader.item : headerBarLoader.item
 
@@ -103,6 +104,11 @@ Kirigami.ApplicationWindow {
     Action {
         shortcut: findAction.shortcut
         onTriggered: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
+    }
+
+    Action {
+        shortcut: togglePartyModeAction.shortcut
+        onTriggered: mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized
     }
 
     SystemPalette {

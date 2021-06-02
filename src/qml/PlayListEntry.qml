@@ -58,19 +58,6 @@ BasePlayListDelegate {
 
         height: playListEntry.height
     }
-    Loader {
-        active: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
-        visible: active
-        z: 2
-        anchors.fill: parent
-
-        sourceComponent: Rectangle {
-            anchors.left: parent.left
-            color: myPalette.mid
-            height: playListEntry.height
-            width: playListEntry.width * (ElisaApplication.audioPlayer.position / ElisaApplication.audioPlayer.duration)
-        }
-    }
 
     RowLayout {
         id: trackRow

@@ -24,10 +24,31 @@ ScrollView {
     ListView {
         id: playListView
 
+        readonly property int nextIndex: {
+            var playingIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
+            if (playingIndex > 0 && playingIndex < playListView.count - 1) {
+                return playingIndex + 1
+            } else {
+                return playingIndex
+            }
+        }
+
         clip: true
         focus: true
         activeFocusOnTab: true
         keyNavigationEnabled: true
+
+        // position the view at the playing index
+        Component.onCompleted: currentIndex = nextIndex
+        Connections {
+            target: ElisaApplication.mediaPlayListProxyModel
+            function onCurrentTrackRowChanged() {
+                playListView.currentIndex = playListView.nextIndex
+            }
+        }
+
+        highlightMoveDuration: Kirigami.Units.veryLongDuration
+        highlightMoveVelocity: -1
 
         section.property: 'albumSection'
         section.criteria: ViewSection.FullString

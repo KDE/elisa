@@ -181,8 +181,6 @@ FocusScope {
             Item {
                 id: images
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                Layout.fillWidth: true
-                Layout.fillHeight: true
                 property double imageSize: (smallerDimension * 0.9 < (portrait?
                                                                       gridLayoutContent.height/3:
                                                                       gridLayoutContent.width/2
@@ -193,9 +191,7 @@ FocusScope {
                                                    gridLayoutContent.width/2
 
                 Layout.preferredHeight: imageSize
-                Layout.maximumHeight: imageSize
                 Layout.preferredWidth: imageSize
-                Layout.maximumWidth: imageSize
 
 
                 ImageWithFallback {
@@ -250,16 +246,14 @@ FocusScope {
                 Layout.fillHeight: true
 
                 Layout.maximumHeight: (headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing) < gridLayoutContent.height ? (headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing): gridLayoutContent.height
-                Layout.maximumWidth: gridLayoutContent.width
 
                 LabelWithToolTip {
                     id: mainLabel
                     text: title
-                    wrapMode: Text.Wrap
                     Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
-                    Layout.maximumWidth: gridLayoutContent.width
+                    Layout.fillWidth: true
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-                    elide: Text.ElideRight
+
                     level: 1
                     font.bold: true
 
@@ -277,11 +271,10 @@ FocusScope {
                 LabelWithToolTip {
                     id: authorLabel
                     text: artist
-                    wrapMode: Text.Wrap
                     Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
-                    Layout.maximumWidth: gridLayoutContent.width
+                    Layout.fillWidth: true
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-                    elide: Text.ElideRight
+
                     level: 3
 
                     MouseArea {
@@ -298,11 +291,10 @@ FocusScope {
                 LabelWithToolTip {
                     id: albumLabel
                     text: album
-                    wrapMode: Text.Wrap
                     Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
-                    Layout.maximumWidth: gridLayoutContent.width
+                    Layout.fillWidth: true
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-                    elide: Text.ElideRight
+
                     level: 3
 
                     MouseArea {
@@ -332,7 +324,7 @@ FocusScope {
                     Layout.fillWidth: true
                     Layout.fillHeight:  true
                     Layout.alignment: Qt.AlignRight | Qt.AlignTop
-                    Layout.maximumWidth: gridLayoutContent.width
+                    Layout.topMargin: Kirigami.Units.largeSpacing
 
                     sourceComponent: SimplePlayListView {
                         anchors.fill: parent

@@ -140,6 +140,12 @@ FocusScope {
 
         spacing: 0
 
+        // Hardcoded because the headerbar blur always makes a dark-ish
+        // background, so we don't want to use a color scheme color that
+        // might also be dark. This is the text color of Breeze
+        Kirigami.Theme.textColor: "#eff0f1"
+
+
         GridLayout {
             id: gridLayoutContent
 
@@ -254,10 +260,6 @@ FocusScope {
                     Layout.maximumWidth: gridLayoutContent.width
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
                     elide: Text.ElideRight
-                    // Hardcoded because the headerbar blur always makes a dark-ish
-                    // background, so we don't want to use a color scheme color that
-                    // might also be dark
-                    color: "white"
                     level: 1
                     font.bold: true
 
@@ -280,10 +282,6 @@ FocusScope {
                     Layout.maximumWidth: gridLayoutContent.width
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
                     elide: Text.ElideRight
-                    // Hardcoded because the headerbar blur always makes a dark-ish
-                    // background, so we don't want to use a color scheme color that
-                    // might also be dark
-                    color: "white"
                     level: 3
 
                     MouseArea {
@@ -305,10 +303,6 @@ FocusScope {
                     Layout.maximumWidth: gridLayoutContent.width
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
                     elide: Text.ElideRight
-                    // Hardcoded because the headerbar blur always makes a dark-ish
-                    // background, so we don't want to use a color scheme color that
-                    // might also be dark
-                    color: "white"
                     level: 3
 
                     MouseArea {

@@ -99,8 +99,7 @@ BasePlayListDelegate {
                 layer.enabled: simpleMode
                 layer.effect: ColorOverlay {
                     cached: true
-
-                    color: myPalette.highlightedText
+                    color: Kirigami.Theme.textColor
                 }
 
                 visible: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
@@ -130,7 +129,6 @@ BasePlayListDelegate {
                 }
 
                 font.weight: (isPlaying ? Font.Bold : Font.Normal)
-                color: simpleMode ? myPalette.highlightedText : myPalette.text
 
                 visible: isValid && !playIcon.visible
             }
@@ -142,7 +140,6 @@ BasePlayListDelegate {
             text: title
 
             font.weight: (isPlaying ? Font.Bold : Font.Normal)
-            color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -157,8 +154,6 @@ BasePlayListDelegate {
             id: mainInvalidCompactLabel
 
             text: title
-
-            color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -255,7 +250,6 @@ BasePlayListDelegate {
             text: duration
 
             font.weight: (isPlaying ? Font.Bold : Font.Normal)
-            color: simpleMode ? myPalette.highlightedText : myPalette.text
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
             Layout.leftMargin: Kirigami.Units.largeSpacing

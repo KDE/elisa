@@ -20,7 +20,6 @@ Rectangle {
     property string album: headerData[0]
     property string albumArtist: headerData[1]
     property url imageUrl: headerData[2]
-    property alias textColor: mainLabel.color
     property alias backgroundColor: background.color
 
     implicitHeight: contentLayout.implicitHeight
@@ -83,7 +82,6 @@ Rectangle {
                 Layout.alignment: Qt.AlignTop | Qt.AlignLeft
 
                 text: albumArtist
-                color: mainLabel.color
 
                 elide: Text.ElideRight
                 wrapMode: Text.WordWrap

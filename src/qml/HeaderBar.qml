@@ -259,8 +259,8 @@ FocusScope {
 
                     MouseArea {
                         id: titleMouseArea
-                        hoverEnabled: true
-                        anchors.fill: parent
+                        width: Math.min(parent.implicitWidth, parent.width)
+                        height: parent.height
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             openNowPlaying()
@@ -279,8 +279,8 @@ FocusScope {
 
                     MouseArea {
                         id: authorMouseArea
-                        hoverEnabled: true
-                        anchors.fill: parent
+                        width: Math.min(parent.implicitWidth, parent.width)
+                        height: parent.height
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             openArtist()
@@ -299,8 +299,8 @@ FocusScope {
 
                     MouseArea {
                         id: albumMouseArea
-                        hoverEnabled: true
-                        anchors.fill: parent
+                        width: Math.min(parent.implicitWidth, parent.width)
+                        height: parent.height
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             openAlbum()

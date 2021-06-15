@@ -21,7 +21,7 @@ Window {
     property url fileName
     property bool editableMetadata
     property bool isModifying: false
-    property bool isCreation: false
+    property bool isCreating: false
     property bool canAddMoreMetadata: false
     property bool showImage
     property bool showTrackFileName
@@ -32,7 +32,7 @@ Window {
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    title: isCreation ? i18nc("Window title for track metadata", "Create a Radio") :
+    title: isCreating ? i18nc("Window title for track metadata", "Create a Radio") :
                         i18nc("Window title for track metadata", "View Details")
 
     EditableTrackMetadataModel {
@@ -74,7 +74,7 @@ Window {
                     metadataModel: realModel
                     modelType: trackMetadata.modelType
                     showDeleteButton: trackMetadata.showDeleteButton
-                    isCreation: trackMetadata.isCreation
+                    isCreating: trackMetadata.isCreating
                     isModifying: trackMetadata.isModifying
                     canAddMoreMetadata: trackMetadata.canAddMoreMetadata
                     showImage: trackMetadata.showImage
@@ -132,7 +132,7 @@ Window {
                 Layout.minimumHeight: implicitHeight
                 alignment: Qt.AlignLeft
 
-                visible: showDeleteButton && !isCreation
+                visible: showDeleteButton && !isCreating
 
                 Button {
                     id: deleteButton
@@ -173,8 +173,8 @@ Window {
                     onClicked:
                     {
                         realModel.saveData()
-                        if (isCreation) {
-                            isCreation = false
+                        if (isCreating) {
+                            isCreating = false
                             isModifying = true
                         }
                     }
@@ -193,7 +193,7 @@ Window {
         target: ElisaApplication
 
         function onMusicManagerChanged() {
-            if (isCreation) {
+            if (isCreating) {
                 realModel.initializeForNewRadio()
             } else {
                 realModel.initializeByUrl(modelType, fileName)
@@ -203,7 +203,7 @@ Window {
 
     Component.onCompleted: {
         if (ElisaApplication.musicManager) {
-            if (isCreation) {
+            if (isCreating) {
                 realModel.initializeForNewRadio()
             } else {
                 realModel.initializeByUrl(modelType, fileName)
@@ -236,7 +236,7 @@ Window {
             State {
                 name: 'readOnly'
 
-                when: editableMetadata && !isModifying && !isCreation
+                when: editableMetadata && !isModifying && !isCreating
 
                 changes: [
                     PropertyChanges {
@@ -254,7 +254,7 @@ Window {
             State {
                 name: 'readWrite'
 
-                when: editableMetadata && isModifying && !isCreation && (!realModel.isDataValid || !realModel.isDirty)
+                when: editableMetadata && isModifying && !isCreating && (!realModel.isDataValid || !realModel.isDirty)
 
                 changes: [
                     PropertyChanges {
@@ -272,7 +272,7 @@ Window {
             State {
                 name: 'readWriteAndDirty'
 
-                when: editableMetadata && isModifying && !isCreation && realModel.isDataValid && realModel.isDirty
+                when: editableMetadata && isModifying && !isCreating && realModel.isDataValid && realModel.isDirty
 
                 changes: [
                     PropertyChanges {
@@ -290,7 +290,7 @@ Window {
             State {
                 name: 'create'
 
-                when: editableMetadata && !isModifying && isCreation && (!realModel.isDataValid || !realModel.isDirty)
+                when: editableMetadata && !isModifying && isCreating && (!realModel.isDataValid || !realModel.isDirty)
 
                 changes: [
                     PropertyChanges {
@@ -308,7 +308,7 @@ Window {
             State {
                 name: 'createAndDirty'
 
-                when: editableMetadata && !isModifying && isCreation && realModel.isDataValid && realModel.isDirty
+                when: editableMetadata && !isModifying && isCreating && realModel.isDataValid && realModel.isDirty
 
                 changes: [
                     PropertyChanges {

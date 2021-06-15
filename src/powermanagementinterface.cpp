@@ -214,8 +214,15 @@ void PowerManagementInterface::inhibitSleepGnomeWorkspace()
                                                       QStringLiteral("org.gnome.SessionManager"),
                                                       QStringLiteral("Inhibit"));
 
+    // See: https://gitlab.gnome.org/GNOME/gnome-session/-/blob/master/gnome-session/org.gnome.SessionManager.xml
+    // The last argument are flag settings to specify what should be inhibited:
+    //    1  = Inhibit logging out
+    //    2  = Inhibit user switching
+    //    4  = Inhibit suspending the session or computer
+    //    8  = Inhibit the session being marked as idle
+    //    16 = Inhibit auto-mounting removable media for the session
     inhibitCall.setArguments({{QCoreApplication::applicationName()}, {uint(0)},
-                              {i18nc("explanation for sleep inhibit during play of music", "Playing Music")}, {uint(8)}});
+                              {i18nc("explanation for sleep inhibit during play of music", "Playing Music")}, {uint(12)}});
 
     auto asyncReply = sessionBus.asyncCall(inhibitCall);
 

@@ -25,7 +25,7 @@ Kirigami.ScrollablePage {
     property url fileName
     property bool editableMetadata
     property bool isModifying: false
-    property bool isCreation: false
+    property bool isCreating: false
     property bool canAddMoreMetadata: false
     property bool showImage
     property bool showTrackFileName
@@ -36,7 +36,7 @@ Kirigami.ScrollablePage {
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    title: isCreation ? i18nc("Window title for track metadata", "Create a Radio") :
+    title: isCreating ? i18nc("Window title for track metadata", "Create a Radio") :
                         i18nc("Window title for track metadata", "View Details")
 
     actions.main: Kirigami.Action {
@@ -44,8 +44,8 @@ Kirigami.ScrollablePage {
         text: i18n("Save")
         onTriggered: {
             realModel.saveData()
-            if (isCreation) {
-                isCreation = false
+            if (isCreating) {
+                isCreating = false
                 isModifying = true
             }
             mainWindow.pageStack.layers.pop();
@@ -62,7 +62,7 @@ Kirigami.ScrollablePage {
 
     Component.onCompleted: {
         if (ElisaApplication.musicManager) {
-            if (isCreation) {
+            if (isCreating) {
                 realModel.initializeForNewRadio()
             } else {
                 realModel.initializeByUrl(modelType, fileName)
@@ -78,7 +78,7 @@ Kirigami.ScrollablePage {
             target: ElisaApplication
 
             function onMusicManagerChanged() {
-                if (isCreation) {
+                if (isCreating) {
                     realModel.initializeForNewRadio()
                 } else {
                     realModel.initializeByUrl(modelType, fileName)
@@ -124,7 +124,7 @@ Kirigami.ScrollablePage {
             metadataModel: realModel
             modelType: trackMetadata.modelType
             showDeleteButton: trackMetadata.showDeleteButton
-            isCreation: trackMetadata.isCreation
+            isCreating: trackMetadata.isCreating
             isModifying: trackMetadata.isModifying
             canAddMoreMetadata: trackMetadata.canAddMoreMetadata
             showImage: trackMetadata.showImage

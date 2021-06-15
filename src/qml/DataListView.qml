@@ -52,7 +52,7 @@ FocusScope {
         metadataLoader.setSource(Kirigami.Settings.isMobile ? "mobile/MobileMediaTrackMetadataView.qml" : "MediaTrackMetadataView.qml",
                                  {
                                      "modelType": ElisaUtils.Radio,
-                                     "isCreation": true,
+                                     "isCreating": true,
                                      "showImage": false,
                                      "showTrackFileName": false,
                                      "showDeleteButton": true,

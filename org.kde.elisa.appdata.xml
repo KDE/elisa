@@ -54,6 +54,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="cs">Hezký jednoduchý přehrávač hudby s podporou online rádií</summary>
   <summary xml:lang="da">Smuk musikafspiller uden noget pjat med understøttelse af netradio</summary>
   <summary xml:lang="de">Schöner, unkomplizierter Medienspieler mit Online-Radio-Unterstützung</summary>
+  <summary xml:lang="el">Ομορφο και σοβαρό πρόγραμμα μουσικής αναπαραγωγής με επιγραμμική υποστήριξη ραδιοφώνου </summary>
   <summary xml:lang="en-GB">Beautiful no-nonsense music player with online radio support</summary>
   <summary xml:lang="es">Reproductor de música bello y práctico con soporte para radios en línea</summary>
   <summary xml:lang="et">Kaunis mõistliku muusika mängija veebiraadio toetusega</summary>
@@ -174,6 +175,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="ca-valencia">Elisa al Plasma Mobile</caption>
       <caption xml:lang="cs">Elisa v Plasma Mobile</caption>
       <caption xml:lang="de">Elisa auf Plasma Mobile</caption>
+      <caption xml:lang="el">Η Elisa στο Plasma Mobile</caption>
       <caption xml:lang="en-GB">Elisa on Plasma Mobile</caption>
       <caption xml:lang="es">Elisa en Plasma Mobile</caption>
       <caption xml:lang="eu">Elisa Plasma Mugikorrean</caption>

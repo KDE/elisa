@@ -210,7 +210,7 @@ void MediaPlayer2Player::setPropertyPosition(int newPositionInMs)
 {
     m_position = qlonglong(newPositionInMs) * 1000;
 
-    /* only sent new progress when it has advanced more than 1 %
+    /* only send new progress when it has advanced more than 1 %
      * to limit DBus traffic
      */
     const auto incrementalProgress = static_cast<double>(newPositionInMs - mPreviousProgressPosition) / m_audioPlayer->duration();

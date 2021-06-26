@@ -35,7 +35,10 @@
 
 #include <KColorSchemeManager>
 #include <KCoreAddons/KAboutData>
+
+#if defined KF5KIO_FOUND && KF5KIO_FOUND
 #include <KIO/OpenFileManagerWindowJob>
+#endif
 
 #include <QQmlEngine>
 #include <QQmlComponent>
@@ -552,7 +555,11 @@ bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
 
 void ElisaApplication::showInFolder(QUrl filePath)
 {
+#if defined KF5KIO_FOUND && KF5KIO_FOUND
     KIO::highlightInFileManager({filePath});
+#else
+    Q_UNUSED(filePath)
+#endif
 }
 
 const DataTypes::EntryDataList &ElisaApplication::arguments() const

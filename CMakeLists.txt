@@ -136,9 +136,14 @@ set_package_properties(KF5Package PROPERTIES
     TYPE RECOMMENDED)
 
 find_package(KF5KIO ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+if (ANDROID)
+    set(KIO_DEPENDENCY_TYPE OPTIONAL)
+else()
+    set(KIO_DEPENDENCY_TYPE REQUIRED)
+endif()
 set_package_properties(KF5KIO PROPERTIES
     DESCRIPTION "File management libraries used for file browsing."
-    TYPE RECOMMENDED)
+    TYPE ${KIO_DEPENDENCY_TYPE})
 
 find_package(UPNPQT CONFIG QUIET)
 set_package_properties(UPNPQT PROPERTIES

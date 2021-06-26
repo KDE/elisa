@@ -27,6 +27,7 @@ Elisa has the following dependencies:
  * KF5CoreAddons (required version >= 5.70.0), Qt addon library with a collection of non-GUI utilities.
  * KF5Config (required version >= 5.70.0), Persistent platform-independent application settings.
  * KF5IconThemes (required version >= 5.70.0), Support for icon themes.
+ * KF5KIO (required version >= 5.70.0), File management libraries used for file browsing. Optional on Android.
  * ECM (required version >= 1.6.0)
  * Qt5Core
 
@@ -38,7 +39,6 @@ Elisa has the following dependencies:
  * KF5XmlGui (required version >= 5.70.0), Framework for managing menu and toolbar actions.
  * KF5ConfigWidgets (required version >= 5.70.0), Widgets for configuration dialogs.
  * KF5Package (required version >= 5.70.0), KF5 package management library needed to get the configuration dialogs.
- * KF5KIO (required version >= 5.70.0), File management libraries used for file browsing.
  * LIBVLC, libvlc allows to play music in Elisa, <https://www.videolan.org/vlc/libvlc.html>
 
 -- OPTIONAL:

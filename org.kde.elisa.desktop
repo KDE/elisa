@@ -3,6 +3,7 @@ Categories=Qt;KDE;Audio;AudioVideo
 Comment=
 Exec=elisa %U
 GenericName=Music Player
+GenericName[ar]=مشغّل صوتي إليسّا
 GenericName[ast]=Reproductor de música
 GenericName[az]=Musiqi Pleyeri
 GenericName[ca]=Reproductor musical

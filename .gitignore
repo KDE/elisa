@@ -25,4 +25,4 @@ CMakeLists.txt.user*
 *.unc-backup*
 *.gcov
 .reuse
-
+.clang-format

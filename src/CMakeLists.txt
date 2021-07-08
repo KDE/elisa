@@ -160,19 +160,19 @@ if (KF5Baloo_FOUND)
             baloo/baloodetector.cpp
             )
 
-        qt5_add_dbus_interface(elisaLib_SOURCES
+        qt_add_dbus_interface(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.main.xml
             baloo/main)
 
-        qt5_add_dbus_interface(elisaLib_SOURCES
+        qt_add_dbus_interface(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
             baloo/fileindexer)
 
-        qt5_add_dbus_interface(elisaLib_SOURCES
+        qt_add_dbus_interface(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
             baloo/scheduler)
 
-        qt5_add_dbus_adaptor(elisaLib_SOURCES
+        qt_add_dbus_adaptor(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.BalooWatcherApplication.xml
             baloo/localbaloofilelisting.h LocalBalooFileListing)
     endif()
@@ -202,11 +202,11 @@ endif()
 
 if (KF5Baloo_FOUND)
     if (Qt5DBus_FOUND)
-        qt5_add_dbus_interface(elisaLib_SOURCES
+        qt_add_dbus_interface(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
             baloo/fileindexer)
 
-        qt5_add_dbus_interface(elisaLib_SOURCES
+        qt_add_dbus_interface(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
             baloo/scheduler)
 
@@ -227,9 +227,9 @@ set(elisaLib_SOURCES
 add_library(elisaLib ${elisaLib_SOURCES})
 target_link_libraries(elisaLib
     LINK_PUBLIC
-    Qt5::Multimedia
+    Qt::Multimedia
     LINK_PRIVATE
-    Qt5::Core Qt5::Sql Qt5::Widgets Qt5::Concurrent Qt5::Qml
+    Qt::Core Qt::Sql Qt::Widgets Qt::Concurrent Qt::Qml
     KF5::I18n KF5::CoreAddons
     KF5::ConfigCore KF5::ConfigGui)
 
@@ -273,7 +273,7 @@ endif()
 if (Qt5DBus_FOUND)
     target_link_libraries(elisaLib
         LINK_PUBLIC
-        Qt5::DBus
+        Qt::DBus
         )
 
     if (KF5DBusAddons_FOUND)
@@ -299,7 +299,7 @@ endif()
 if (ANDROID)
     target_link_libraries(elisaLib
         LINK_PUBLIC
-        Qt5::AndroidExtras
+        Qt::AndroidExtras
         )
 endif()
 
@@ -336,7 +336,7 @@ endif()
 add_library(elisaqmlplugin SHARED ${elisaqmlplugin_SOURCES})
 target_link_libraries(elisaqmlplugin
     LINK_PRIVATE
-    Qt5::Quick Qt5::Widgets
+    Qt::Quick Qt::Widgets
     KF5::ConfigCore KF5::ConfigGui
     elisaLib
     )
@@ -450,7 +450,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/mobile/MobileVolumeButton.qml
     )
 
-    qt5_add_resources(elisa_SOURCES resources.qrc)
+    qt_add_resources(elisa_SOURCES resources.qrc)
     set_property(SOURCE qrc_resources.cpp PROPERTY SKIP_AUTOMOC ON)
 
     set(elisa_ICONS_PNG
@@ -472,7 +472,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     target_link_libraries(elisa
         LINK_PRIVATE
         elisaLib
-        Qt5::Widgets Qt5::QuickControls2
+        Qt::Widgets Qt::QuickControls2
         KF5::I18n KF5::CoreAddons KF5::ConfigCore KF5::ConfigGui
         KF5::IconThemes
         )
@@ -480,7 +480,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     if (ANDROID)
         target_link_libraries(elisa
             PRIVATE
-            Qt5::AndroidExtras Qt5::Svg Qt5::Sql Qt5::Concurrent KF5::Kirigami2
+            Qt::AndroidExtras Qt::Svg Qt::Sql Qt::Concurrent KF5::Kirigami2
         )
     endif()
 

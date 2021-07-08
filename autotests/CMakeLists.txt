@@ -19,7 +19,7 @@ set(viewManagerTest_SOURCES
 ecm_add_test(${viewManagerTest_SOURCES}
     TEST_NAME "viewManagerTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib)
+        Qt::Test elisaLib)
 
 target_include_directories(viewManagerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
@@ -31,7 +31,7 @@ set(databaseInterfaceTest_SOURCES
 ecm_add_test(${databaseInterfaceTest_SOURCES}
     TEST_NAME "databaseInterfaceTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib)
+        Qt::Test elisaLib)
 
 target_include_directories(databaseInterfaceTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
@@ -43,7 +43,7 @@ set(managemediaplayercontrolTest_SOURCES
 ecm_add_test(${managemediaplayercontrolTest_SOURCES}
     TEST_NAME "managemediaplayercontrolTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt::Test elisaLib
 )
 
 set(manageheaderbarTest_SOURCES
@@ -54,7 +54,7 @@ set(manageheaderbarTest_SOURCES
 ecm_add_test(${manageheaderbarTest_SOURCES}
     TEST_NAME "manageheaderbarTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt::Test elisaLib
 )
 
 target_include_directories(manageheaderbarTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -65,7 +65,7 @@ set(manageaudioplayerTest_SOURCES
 
 ecm_add_test(${manageaudioplayerTest_SOURCES}
     TEST_NAME "manageaudioplayerTest"
-    LINK_LIBRARIES Qt5::Test elisaLib
+    LINK_LIBRARIES Qt::Test elisaLib
 )
 
 target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -78,7 +78,7 @@ set(mediaplaylistTest_SOURCES
 ecm_add_test(${mediaplaylistTest_SOURCES}
     TEST_NAME "mediaplaylistTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib Qt5::CorePrivate
+        Qt::Test elisaLib Qt::CorePrivate
 )
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -93,7 +93,7 @@ set(mediaplaylistproxymodelTest_SOURCES
 ecm_add_test(${mediaplaylistproxymodelTest_SOURCES}
     TEST_NAME "mediaplaylistproxymodelTest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib Qt5::CorePrivate
+        Qt::Test elisaLib Qt::CorePrivate
 )
 
 target_include_directories(mediaplaylistproxymodelTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -106,7 +106,7 @@ set(trackslistenertest_SOURCES
 ecm_add_test(${trackslistenertest_SOURCES}
     TEST_NAME "trackslistenertest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib
+        Qt::Test elisaLib
 )
 
 target_include_directories(trackslistenertest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -118,7 +118,7 @@ set(datamodeltest_SOURCES
 ecm_add_test(${datamodeltest_SOURCES}
     TEST_NAME "datamodeltest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib Qt5::CorePrivate
+        Qt::Test elisaLib Qt::CorePrivate
 )
 
 target_include_directories(datamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -130,7 +130,7 @@ set(viewsmodeltest_SOURCES
 ecm_add_test(${viewsmodeltest_SOURCES}
     TEST_NAME "viewsmodeltest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib Qt5::CorePrivate
+        Qt::Test elisaLib Qt::CorePrivate
 )
 
 target_include_directories(viewsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -142,7 +142,7 @@ set(trackmetadatamodeltest_SOURCES
 ecm_add_test(${trackmetadatamodeltest_SOURCES}
     TEST_NAME "trackmetadatamodeltest"
     LINK_LIBRARIES
-        Qt5::Test elisaLib Qt5::CorePrivate
+        Qt::Test elisaLib Qt::CorePrivate
 )
 
 target_include_directories(trackmetadatamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -155,7 +155,7 @@ if (KF5FileMetaData_FOUND)
     ecm_add_test(${localfilelistingtest_SOURCES}
         TEST_NAME "localfilelistingtest"
         LINK_LIBRARIES
-            Qt5::Test elisaLib
+            Qt::Test elisaLib
     )
 
     target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -170,7 +170,7 @@ if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
     ecm_add_test(${elisaapplicationtest_SOURCES}
         TEST_NAME "elisaapplicationtest"
         LINK_LIBRARIES
-            Qt5::Test elisaLib
+            Qt::Test elisaLib
     )
 
     if (KF5Declarative_FOUND)
@@ -192,7 +192,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND AND NOT WIN32)
 
     ecm_add_test(${elisaqmltests_SOURCES}
         TEST_NAME "elisaqmltests"
-        LINK_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Test Qt5::QuickTest
+        LINK_LIBRARIES Qt::Core Qt::Widgets Qt::Test Qt::QuickTest
         GUI)
 
     target_compile_definitions(elisaqmltests PRIVATE QUICK_TEST_SOURCE_DIR="${CMAKE_SOURCE_DIR}/autotests/qmltests")
@@ -206,7 +206,7 @@ set(filescannerTest_SOURCES
 
 ecm_add_test(${filescannerTest_SOURCES}
     TEST_NAME "filescannerTest"
-    LINK_LIBRARIES Qt5::Test elisaLib
+    LINK_LIBRARIES Qt::Test elisaLib
 )
 
 set(filewriterTest_SOURCES
@@ -215,5 +215,5 @@ set(filewriterTest_SOURCES
 
 ecm_add_test(${filewriterTest_SOURCES}
     TEST_NAME "filewriterTest"
-    LINK_LIBRARIES Qt5::Test elisaLib
+    LINK_LIBRARIES Qt::Test elisaLib
 )

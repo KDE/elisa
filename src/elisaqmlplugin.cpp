@@ -142,6 +142,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterUncreatableType<DatabaseInterface>(uri, 1, 0, "DatabaseInterface", QStringLiteral("Only created in c++"));
     qmlRegisterUncreatableType<QAbstractItemModel>(uri, 1, 0, "AbstractItemModel", QStringLiteral("Abstract Qt type"));
     qmlRegisterUncreatableType<QAbstractProxyModel>(uri, 1, 0, "AbstractProxyModel", QStringLiteral("Abstract Qt type"));
+    qmlRegisterUncreatableType<DataTypes>(uri, 1, 0, "DataTypes", QStringLiteral("Abstract type not to be used in aml directtly"));
 
 #if defined Qt5DBus_FOUND && Qt5DBus_FOUND
     qmlRegisterType<Mpris2>(uri, 1, 0, "Mpris2");

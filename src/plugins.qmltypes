@@ -246,6 +246,63 @@ Module {
         }
     }
     Component {
+        name: "DataTypes"
+        prototype: "QObject"
+        exports: ["org.kde.elisa/DataTypes 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "ColumnsRoles"
+            values: {
+                "TitleRole": 257,
+                "SecondaryTextRole": 258,
+                "ImageUrlRole": 259,
+                "ShadowForImageRole": 260,
+                "ChildModelRole": 261,
+                "DurationRole": 262,
+                "StringDurationRole": 263,
+                "ArtistRole": 264,
+                "AllArtistsRole": 265,
+                "HighestTrackRating": 266,
+                "AlbumRole": 267,
+                "AlbumArtistRole": 268,
+                "IsValidAlbumArtistRole": 269,
+                "TrackNumberRole": 270,
+                "DiscNumberRole": 271,
+                "RatingRole": 272,
+                "GenreRole": 273,
+                "LyricistRole": 274,
+                "ComposerRole": 275,
+                "CommentRole": 276,
+                "YearRole": 277,
+                "ChannelsRole": 278,
+                "BitRateRole": 279,
+                "SampleRateRole": 280,
+                "ResourceRole": 281,
+                "IdRole": 282,
+                "ParentIdRole": 283,
+                "DatabaseIdRole": 284,
+                "IsSingleDiscAlbumRole": 285,
+                "ContainerDataRole": 286,
+                "IsPartialDataRole": 287,
+                "AlbumIdRole": 288,
+                "HasEmbeddedCover": 289,
+                "FileModificationTime": 290,
+                "FirstPlayDate": 291,
+                "LastPlayDate": 292,
+                "PlayCounter": 293,
+                "PlayFrequency": 294,
+                "ElementTypeRole": 295,
+                "LyricsRole": 296,
+                "FullDataRole": 297,
+                "IsDirectoryRole": 298,
+                "IsPlayListRole": 299,
+                "FilePathRole": 300,
+                "HasChildrenRole": 301
+            }
+        }
+    }
+    Component {
         name: "DatabaseInterface"
         prototype: "QObject"
         exports: ["org.kde.elisa/DatabaseInterface 1.0"]

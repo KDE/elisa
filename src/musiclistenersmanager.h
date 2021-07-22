@@ -148,6 +148,8 @@ public Q_SLOTS:
 
     void resetMusicData();
 
+    void updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, const QVariant &data);
+
 private Q_SLOTS:
 
     void configChanged();

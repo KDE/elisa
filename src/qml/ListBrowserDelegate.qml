@@ -39,6 +39,7 @@ FocusScope {
     signal enqueue()
     signal replaceAndPlay()
     signal callOpenMetaDataView(var url, var entryType)
+    signal trackRatingChanged(var url, var rating)
 
     Accessible.role: Accessible.ListItem
     Accessible.name: title
@@ -303,12 +304,17 @@ FocusScope {
             RatingStar {
                 id: ratingWidget
                 visible: !Kirigami.Settings.isMobile
+                readOnly: false
 
                 starRating: rating
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 Layout.leftMargin: Kirigami.Units.largeSpacing
                 Layout.rightMargin: Kirigami.Units.largeSpacing
+
+                onRatingEdited: {
+                    trackRatingChanged(trackUrl, starRating);
+                }
             }
 
             LabelWithToolTip {

@@ -138,6 +138,10 @@ FocusScope {
             isAlternateColor: (index % 2) === 1
             detailedView: !viewHeader.displaySingleAlbum
 
+            onTrackRatingChanged: {
+                ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, rating)
+            }
+
             onEnqueue: ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
                                                              ElisaUtils.AppendPlayList,
                                                              ElisaUtils.DoNotTriggerPlay)

@@ -580,5 +580,9 @@ void MusicListenersManager::createTracksListener()
     }
 }
 
+void MusicListenersManager::updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, const QVariant &data)
+{
+    tracksListener()->updateSingleFileMetaData(url, role, data);
+}
 
 #include "moc_musiclistenersmanager.cpp"

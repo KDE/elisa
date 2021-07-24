@@ -42,8 +42,6 @@ public:
 
     uint mInhibitSleepCookie = 0;
 
-    QDBusUnixFileDescriptor mInhibitSleepFileDescriptor;
-
 };
 
 PowerManagementInterface::PowerManagementInterface(QObject *parent) : QObject(parent), d(std::make_unique<PowerManagementInterfacePrivate>())

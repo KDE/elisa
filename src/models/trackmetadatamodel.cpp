@@ -299,7 +299,9 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
     filterDataFromTrackData();
     endResetModel();
 
-    fetchLyrics();
+    if (trackData.hasDatabaseId()) {
+        fetchLyrics();
+    }
 
     mDatabaseId = trackData[DataTypes::DatabaseIdRole].toULongLong();
     Q_EMIT databaseIdChanged();

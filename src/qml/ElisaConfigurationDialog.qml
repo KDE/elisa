@@ -32,61 +32,43 @@ Window {
         onActivated: close()
     }
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
-    // Draw standard window backround
-    Rectangle {
+    Kirigami.ScrollablePage {
         anchors.fill: parent
 
-        color: myPalette.window
+        SettingsForm {}
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: Kirigami.Units.smallSpacing
+        footer: QQC2.DialogButtonBox {
 
-            SettingsForm {
-                Layout.fillWidth: true
-                Layout.leftMargin: Kirigami.Units.largeSpacing * 5
-                Layout.rightMargin: Kirigami.Units.largeSpacing * 5
+            QQC2.Button {
+                text: i18n("OK")
+                icon.name: 'dialog-ok-apply'
+                QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.AcceptRole
+                Accessible.onPressAction: onClicked
+            }
+            onAccepted: {
+                ElisaConfigurationDialog.save()
+                close()
             }
 
-            QQC2.DialogButtonBox {
-                Layout.fillWidth: true
+            QQC2.Button {
+                text: i18n("Apply")
+                icon.name: 'dialog-ok-apply'
+                QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.ApplyRole
+                Accessible.onPressAction: onClicked
 
-                QQC2.Button {
-                    text: i18n("OK")
-                    icon.name: 'dialog-ok-apply'
-                    QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.AcceptRole
-                    Accessible.onPressAction: onClicked
-                }
-                onAccepted: {
-                    ElisaConfigurationDialog.save()
-                    close()
-                }
+                enabled: ElisaConfigurationDialog.isDirty
+            }
+            onApplied: ElisaConfigurationDialog.save()
 
-                QQC2.Button {
-                    text: i18n("Apply")
-                    icon.name: 'dialog-ok-apply'
-                    QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.ApplyRole
-                    Accessible.onPressAction: onClicked
-
-                    enabled: ElisaConfigurationDialog.isDirty
-                }
-                onApplied: ElisaConfigurationDialog.save()
-
-                QQC2.Button {
-                    text: i18n("Cancel")
-                    icon.name: 'dialog-cancel'
-                    QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.RejectRole
-                    Accessible.onPressAction: onClicked
-                }
-                onRejected: {
-                    ElisaConfigurationDialog.cancel()
-                    close()
-                }
+            QQC2.Button {
+                text: i18n("Cancel")
+                icon.name: 'dialog-cancel'
+                QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.RejectRole
+                Accessible.onPressAction: onClicked
+            }
+            onRejected: {
+                ElisaConfigurationDialog.cancel()
+                close()
             }
         }
     }

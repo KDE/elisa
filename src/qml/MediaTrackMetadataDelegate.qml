@@ -21,6 +21,7 @@ RowLayout {
     property var display
     property bool isRemovable
     property bool readOnly
+    property string url
 
     spacing: 0
 
@@ -104,7 +105,7 @@ RowLayout {
         sourceComponent: RatingStar {
             starRating: display
 
-            readOnly: delegateRow.readOnly
+            readOnly: false
 
             hoverWidgetOpacity: 1
 
@@ -114,8 +115,9 @@ RowLayout {
             onRatingEdited: {
                 if (display !== starRating) {
                     display = starRating
-
+                    ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, starRating)
                     edited()
+
                 }
             }
         }

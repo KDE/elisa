@@ -19,6 +19,7 @@ BasePlayListDelegate {
 
     property bool containsMouse
     property bool simpleMode
+    property bool editingRating: false
 
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
@@ -166,7 +167,7 @@ BasePlayListDelegate {
         Loader {
             id: hoverLoader
             active: false
-            visible: active
+            visible: active && !playListEntry.editingRating
 
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
@@ -205,6 +206,20 @@ BasePlayListDelegate {
                 }
 
                 FlatButtonWithToolTip {
+                    id: ratingButton
+                    objectName: 'ratingButton'
+
+                    enabled: isValid
+
+                    text: i18nc("Show track rating", "Set track rating")
+                    icon.name: "view-media-favorite"
+                    onClicked: {
+                        playListEntry.editingRating = true;
+                    }
+                }
+
+
+                FlatButtonWithToolTip {
                     id: playPauseButton
                     objectName: 'playPauseButton'
 
@@ -236,12 +251,26 @@ BasePlayListDelegate {
             }
         }
 
+        FlatButtonWithToolTip {
+            visible: playListEntry.editingRating
+            text: i18nc("Cancel rating this track", "Cancel rating this track")
+            icon.name: "dialog-cancel"
+            onClicked: { playListEntry.editingRating = false; }
+        }
+
         RatingStar {
             id: ratingWidget
 
+            readOnly: false
             starRating: rating
 
-            visible: rating > 0 && !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode
+            visible: playListEntry.editingRating || (rating > 0 && !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode)
+
+            onRatingEdited: {
+                ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, starRating);
+                playListEntry.editingRating = false;
+
+            }
         }
 
         LabelWithToolTip {

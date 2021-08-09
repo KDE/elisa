@@ -25,6 +25,7 @@ FocusScope {
     property url fileName
     property url imageUrl
     property int trackNumber
+    property url trackUrl
     property int discNumber
     property int rating
     property bool hasValidDiscNumber: true

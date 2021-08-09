@@ -234,6 +234,7 @@ Kirigami.Page {
                                     display: model.display
                                     type: model.type
                                     readOnly: true
+                                    url: topItem.fileUrl
                                 }
                             }
                         }

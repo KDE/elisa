@@ -51,14 +51,7 @@ FlatButtonWithToolTip {
             id: slider
             anchors.fill: parent
 
-            interactHeight: volumeSliderPopup.implicitHeight
-            interactWidth: volumeSliderPopup.implicitWidth
             muted: volumeButton.muted
-            sliderElapsedColor: "white"
-            sliderRemainingColor: "grey"
-            sliderHandleColor: "white"
-            sliderBorderInactiveColor: "white"
-            sliderBorderActiveColor: "grey"
         }
     }
 }

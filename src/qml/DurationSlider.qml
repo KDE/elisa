@@ -18,15 +18,7 @@ RowLayout {
     property bool seekable
     property bool playEnabled
 
-    property color labelColor: "white"
-    property color sliderElapsedColor: "white"
-    property color sliderRemainingColor: "grey"
-    property color sliderHandleColor: "white"
-    property color sliderBorderInactiveColor: "white"
-    property color sliderBorderActiveColor: "grey"
-
-    property int sliderBackgroundHeight: Kirigami.Settings.isMobile ? Math.floor(Kirigami.Units.smallSpacing / 2) : 6
-    property int sliderHandleSize: Kirigami.Settings.isMobile ? Math.floor(Kirigami.Units.gridUnit * 0.75) : 18
+    property color labelColor
 
     signal seek(int position)
 
@@ -85,23 +77,12 @@ RowLayout {
             }
         }
 
-        // Synthesized slider background that's not actually a part of the
-        // slider. This is done so the slider's own background can be full
-        // height yet transparent, for easier clicking
-        Rectangle {
-            anchors.left: musicProgress.left
-            anchors.verticalCenter: musicProgress.verticalCenter
-            implicitWidth: seekWheelHandler.width
-            implicitHeight: sliderBackgroundHeight
-            color: sliderRemainingColor
-            radius: height / 2
-        }
-
         Slider {
             property bool seekStarted: false
             property int seekValue
 
             id: musicProgress
+
             anchors.fill: parent
 
             from: 0
@@ -123,37 +104,6 @@ RowLayout {
                     durationSlider.seek(seekValue)
                     seekStarted = false;
                 }
-            }
-
-            // This only provides a full-height area for clicking; see
-            // https://bugs.kde.org/show_bug.cgi?id=408703. The actual visual
-            // background is generated above ^^
-            background: Rectangle {
-                anchors.fill: parent
-                implicitWidth: seekWheelHandler.width
-                implicitHeight: seekWheelHandler.height
-                color: "transparent"
-
-                Rectangle {
-                    anchors.verticalCenter: parent.verticalCenter
-                    x: (LayoutMirroring.enabled ? musicProgress.visualPosition * parent.width : 0)
-                    width: LayoutMirroring.enabled ? parent.width - musicProgress.visualPosition * parent.width: musicProgress.handle.x + radius
-                    height: sliderBackgroundHeight
-                    color: sliderElapsedColor
-                    radius: height / 2
-                }
-            }
-
-            handle: Rectangle {
-                x: musicProgress.leftPadding + musicProgress.visualPosition * (musicProgress.availableWidth - width)
-                y: musicProgress.topPadding + musicProgress.availableHeight / 2 - height / 2
-                implicitWidth: sliderHandleSize
-                implicitHeight: sliderHandleSize
-                radius: width / 2
-                color: sliderHandleColor
-                border.width: elisaTheme.hairline
-                border.color: musicProgress.pressed ? sliderBorderActiveColor : sliderBorderInactiveColor
-
             }
         }
     }

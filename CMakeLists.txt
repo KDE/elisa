@@ -22,7 +22,8 @@ find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick T
 
 find_package(Qt5Core ${REQUIRED_QT_VERSION} CONFIG REQUIRED Private)
 
-set(REQUIRED_KF5_VERSION "5.80.0")
+# TODO: bump dependency to 5.86 once 5.86 is tagged
+set(REQUIRED_KF5_VERSION "5.85.0")
 find_package(ECM ${REQUIRED_KF5_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH})
 

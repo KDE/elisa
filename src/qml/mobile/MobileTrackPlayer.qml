@@ -282,13 +282,8 @@ BasePlayerControl {
                 playEnabled: trackPlayer.playEnabled
                 onSeek: trackPlayer.seek(position)
 
-                // these colours work over the blurred/darkened background
+                // this color works well over the blurred/darkened background
                 labelColor: "white"
-                sliderElapsedColor: "white"
-                sliderRemainingColor: "grey"
-                sliderHandleColor: "white"
-                sliderBorderInactiveColor: "white"
-                sliderBorderActiveColor: "grey"
             }
 
             // bottom play controls

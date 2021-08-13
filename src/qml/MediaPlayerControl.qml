@@ -86,11 +86,6 @@ BasePlayerControl {
             onSeek: musicWidget.seek(position)
 
             labelColor: myPalette.text
-            sliderElapsedColor: myPalette.text
-            sliderRemainingColor: myPalette.dark
-            sliderHandleColor: myPalette.base
-            sliderBorderInactiveColor: myPalette.dark
-            sliderBorderActiveColor: myPalette.text
         }
 
         FlatButtonWithToolTip {
@@ -107,14 +102,7 @@ BasePlayerControl {
             Layout.minimumWidth: elisaTheme.volumeSliderWidth
             Layout.fillHeight: true
 
-            interactHeight: height
-            interactWidth: width
             muted: muted
-            sliderElapsedColor: myPalette.text
-            sliderRemainingColor: myPalette.dark
-            sliderHandleColor: myPalette.base
-            sliderBorderInactiveColor: myPalette.dark
-            sliderBorderActiveColor: myPalette.text
         }
 
         Item { implicitWidth: Kirigami.Units.largeSpacing }

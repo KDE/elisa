@@ -365,21 +365,36 @@ Item {
                 },
                 Item {
                     width: Kirigami.Units.largeSpacing
-                    visible: showRating
+                    visible: showRating && !ElisaApplication.useFavoriteStyleRatings
                 },
                 LabelWithToolTip {
                     text: i18n("Filter by rating: ")
 
-                    visible: showRating
+                    visible: showRating && !ElisaApplication.useFavoriteStyleRatings
                 },
                 RatingStar {
                     id: ratingFilter
                     objectName: 'ratingFilter'
 
-                    visible: showRating
+                    visible: showRating && !ElisaApplication.useFavoriteStyleRatings
                     hoverWidgetOpacity: 1
 
                     readOnly: false
+                },
+                Button {
+                    visible: showRating && ElisaApplication.useFavoriteStyleRatings
+
+                    text: i18n("Limit to Favorited Songs")
+                    icon.name: "rating"
+                    checkable: true
+                    checked: ratingFilter.starRating == 10
+                    onToggled: {
+                        if (checked) {
+                            ratingFilter.starRating = 10;
+                        } else {
+                            ratingFilter.starRating = 0;
+                        }
+                    }
                 }
             ]
         }

@@ -31,7 +31,12 @@
       false
     </default>
   </entry>
- </group>
+  <entry key="UseFavoriteStyleRatings" type="Bool" >
+    <default>
+      false
+    </default>
+  </entry>
+  </group>
  <group name="Views">
   <entry key="EmbeddedView" type="Enum">
    <choices>

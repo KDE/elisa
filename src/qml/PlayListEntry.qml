@@ -209,12 +209,39 @@ BasePlayListDelegate {
                     id: ratingButton
                     objectName: 'ratingButton'
 
+                    visible: !ElisaApplication.useFavoriteStyleRatings
                     enabled: isValid
 
                     text: i18nc("Show track rating", "Set track rating")
                     icon.name: "view-media-favorite"
+
                     onClicked: {
                         playListEntry.editingRating = true;
+                    }
+                }
+
+                FlatButtonWithToolTip {
+                    id: favoriteButton
+                    objectName: 'favoriteButton'
+
+                    visible: ElisaApplication.useFavoriteStyleRatings
+                    enabled: isValid
+
+                    text: rating == 10 ? i18n("Un-mark this song as a favorite") : i18n("Mark this song as a favorite")
+                    icon.name: rating == 10 ? "rating" : "rating-unrated"
+
+                    onClicked: {
+                        var newRating = 0;
+                        if (rating == 10) {
+                            newRating = 0;
+                            // Change icon immediately in case backend is slow
+                            icon.name = "rating-unrated";
+                        } else {
+                            newRating = 10;
+                            // Change icon immediately in case backend is slow
+                            icon.name = "rating";
+                        }
+                        ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, newRating);
                     }
                 }
 
@@ -264,13 +291,21 @@ BasePlayListDelegate {
             readOnly: false
             starRating: rating
 
-            visible: playListEntry.editingRating || (rating > 0 && !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode)
+            visible: playListEntry.editingRating || (rating > 0 && !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)
 
             onRatingEdited: {
                 ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, starRating);
                 playListEntry.editingRating = false;
-
             }
+        }
+
+        Kirigami.Icon {
+            visible: rating == 10 && !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
+
+            implicitWidth: Kirigami.Units.iconSizes.smallMedium
+            implicitHeight: Kirigami.Units.iconSizes.smallMedium
+
+            source: "rating"
         }
 
         LabelWithToolTip {

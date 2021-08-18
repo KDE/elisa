@@ -90,6 +90,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ showSystemTrayIcon
                NOTIFY showSystemTrayIconChanged)
 
+    Q_PROPERTY(bool useFavoriteStyleRatings
+               READ useFavoriteStyleRatings
+               NOTIFY useFavoriteStyleRatingsChanged)
+
     Q_PROPERTY(QAbstractItemModel* colorSchemesModel
                READ colorSchemesModel
                CONSTANT)
@@ -135,6 +139,8 @@ public:
 
     [[nodiscard]] bool showSystemTrayIcon() const;
 
+    [[nodiscard]] bool useFavoriteStyleRatings() const;
+
     [[nodiscard]] ElisaUtils::PlayListEntryType embeddedView() const;
 
     int initialViewIndex() const;
@@ -168,6 +174,8 @@ Q_SIGNALS:
     void showProgressOnTaskBarChanged();
 
     void showSystemTrayIconChanged();
+
+    void useFavoriteStyleRatingsChanged();
 
     void commitDataRequest(QSessionManager &manager);
 

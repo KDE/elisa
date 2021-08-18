@@ -78,6 +78,7 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(!mForceUsageOfSlowFileSystemIndexing);
     Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
     Elisa::ElisaConfiguration::setColorScheme(mColorScheme);
+    Elisa::ElisaConfiguration::setUseFavoriteStyleRatings(mUseFavoriteStyleRatings);
 
     Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::NoView);
     switch (mEmbeddedView)
@@ -215,6 +216,17 @@ void ElisaConfigurationDialog::setColorScheme(const QString &scheme)
     setDirty();
 }
 
+void ElisaConfigurationDialog::setUseFavoriteStyleRatings(bool useFavoriteStyleRatings)
+{
+    if (mUseFavoriteStyleRatings == useFavoriteStyleRatings) {
+        return;
+    }
+    mUseFavoriteStyleRatings = useFavoriteStyleRatings;
+    Q_EMIT useFavoriteStyleRatingsChanged();
+
+    setDirty();
+}
+
 void ElisaConfigurationDialog::removeMusicLocation(QString location)
 {
     mRootPath.removeAll(location);
@@ -240,6 +252,9 @@ void ElisaConfigurationDialog::configChanged()
 
     mColorScheme = Elisa::ElisaConfiguration::colorScheme();
     Q_EMIT colorSchemeChanged();
+
+    mUseFavoriteStyleRatings = Elisa::ElisaConfiguration::useFavoriteStyleRatings();
+    Q_EMIT useFavoriteStyleRatingsChanged();
 
     mForceUsageOfSlowFileSystemIndexing = !Elisa::ElisaConfiguration::forceUsageOfFastFileSearch();
     Q_EMIT forceUsageOfSlowFileSystemIndexingChanged();

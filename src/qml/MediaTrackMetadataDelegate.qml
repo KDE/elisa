@@ -103,22 +103,52 @@ RowLayout {
         active: type === EditableTrackMetadataModel.RatingEntry && typeof display !== "undefined"
         visible: active
 
-        sourceComponent: RatingStar {
-            starRating: display
+        sourceComponent: ElisaApplication.useFavoriteStyleRatings ? favoriteButton : ratingStars
 
-            readOnly: false
+        Component {
+            id: ratingStars
 
-            hoverWidgetOpacity: 1
+            RatingStar {
+                starRating: delegateRow.display
 
-            anchors.verticalCenter: parent.verticalCenter
-            height: Kirigami.Units.gridUnit
+                readOnly: false
 
-            onRatingEdited: {
-                if (display !== starRating) {
-                    display = starRating
-                    ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, starRating)
+                hoverWidgetOpacity: 1
+
+                anchors.verticalCenter: parent.verticalCenter
+                height: Kirigami.Units.gridUnit
+
+                onRatingEdited: {
+                    if (display !== starRating) {
+                        display = starRating
+                        ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, starRating)
+                        edited()
+
+                    }
+                }
+            }
+        }
+
+        Component {
+            id: favoriteButton
+
+            FlatButtonWithToolTip {
+                text: delegateRow.display == 10 ? i18n("Un-mark this song as a favorite") : i18n("Mark this song as a favorite")
+                icon.name: delegateRow.display == 10 ? "rating" : "rating-unrated"
+
+                onClicked: {
+                    var newRating = 0;
+                    if (delegateRow.display == 10) {
+                        newRating = 0;
+                        // Change icon immediately in case backend is slow
+                        icon.name = "rating-unrated";
+                    } else {
+                        newRating = 10;
+                        // Change icon immediately in case backend is slow
+                        icon.name = "rating";
+                    }
+                    ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, newRating)
                     edited()
-
                 }
             }
         }

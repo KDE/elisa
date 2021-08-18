@@ -624,6 +624,13 @@ bool ElisaApplication::showSystemTrayIcon() const
     return currentConfiguration->showSystemTrayIcon();
 }
 
+bool ElisaApplication::useFavoriteStyleRatings() const
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+
+    return currentConfiguration->useFavoriteStyleRatings();
+}
+
 ElisaUtils::PlayListEntryType ElisaApplication::embeddedView() const
 {
     ElisaUtils::PlayListEntryType result = ElisaUtils::Unknown;

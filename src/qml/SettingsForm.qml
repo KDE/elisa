@@ -65,6 +65,35 @@ ColumnLayout {
             Accessible.onPressAction: onToggled
         }
 
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        QQC2.ButtonGroup { id: ratingStyleGroup }
+
+        QQC2.RadioButton {
+            Kirigami.FormData.label: i18n("Song rating style:")
+            text: i18n("0-5 stars")
+
+            QQC2.ButtonGroup.group: ratingStyleGroup
+
+            checked: !ElisaConfigurationDialog.useFavoriteStyleRatings
+            onToggled: ElisaConfigurationDialog.useFavoriteStyleRatings = !checked
+            Accessible.onToggleAction: onToggled
+            Accessible.onPressAction: onToggled
+        }
+        QQC2.RadioButton {
+            text: i18n("Favorite/not favorite")
+
+            QQC2.ButtonGroup.group: ratingStyleGroup
+
+            checked: ElisaConfigurationDialog.useFavoriteStyleRatings
+            onToggled: ElisaConfigurationDialog.useFavoriteStyleRatings = checked
+
+            Accessible.onToggleAction: onToggled
+            Accessible.onPressAction: onToggled
+        }
+
         // select colour scheme (mobile only, since desktop has it in the application menu)
         QQC2.Button {
             visible: Kirigami.Settings.isMobile

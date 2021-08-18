@@ -69,6 +69,11 @@ Q_PROPERTY(bool showNowPlayingBackground
                    WRITE setColorScheme
                    NOTIFY colorSchemeChanged)
 
+    Q_PROPERTY(bool useFavoriteStyleRatings
+               READ useFavoriteStyleRatings
+               WRITE setUseFavoriteStyleRatings
+               NOTIFY useFavoriteStyleRatingsChanged)
+
 public:
 
     explicit ElisaConfigurationDialog(QObject *parent = nullptr);
@@ -123,6 +128,11 @@ public:
         return mColorScheme;
     }
 
+    [[nodiscard]] bool useFavoriteStyleRatings() const
+    {
+        return mUseFavoriteStyleRatings;
+    }
+
     Q_INVOKABLE void removeMusicLocation(QString location);
 
 
@@ -148,6 +158,8 @@ Q_SIGNALS:
 
     void colorSchemeChanged();
 
+    void useFavoriteStyleRatingsChanged();
+
 public Q_SLOTS:
 
     void setRootPath(const QStringList &rootPath);
@@ -172,6 +184,8 @@ public Q_SLOTS:
 
     void setColorScheme(const QString &scheme);
 
+    void setUseFavoriteStyleRatings(bool useFavoriteStyleRatings);
+
 private Q_SLOTS:
 
     void configChanged();
@@ -195,6 +209,8 @@ private:
     bool mForceUsageOfSlowFileSystemIndexing = true;
 
     bool mPlayAtStartup = false;
+
+    bool mUseFavoriteStyleRatings = false;
 
     QString mColorScheme;
 

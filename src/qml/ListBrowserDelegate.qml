@@ -280,6 +280,27 @@ FocusScope {
                     }
 
                     FlatButtonWithToolTip {
+                        visible: ElisaApplication.useFavoriteStyleRatings
+
+                        text: rating == 10 ? i18n("Un-mark this song as a favorite") : i18n("Mark this song as a favorite")
+                        icon.name: rating == 10 ? "rating" : "rating-unrated"
+
+                        onClicked: {
+                            var newRating = 0;
+                            if (rating == 10) {
+                                newRating = 0;
+                                // Change icon immediately in case backend is slow
+                                icon.name = "rating-unrated";
+                            } else {
+                                newRating = 10;
+                                // Change icon immediately in case backend is slow
+                                icon.name = "rating";
+                            }
+                            trackRatingChanged(trackUrl, newRating);
+                        }
+                    }
+
+                    FlatButtonWithToolTip {
                         id: enqueueButton
                         height: singleLineHeight
                         width: singleLineHeight
@@ -305,7 +326,7 @@ FocusScope {
             // ratings (desktop)
             RatingStar {
                 id: ratingWidget
-                visible: !Kirigami.Settings.isMobile
+                visible: !Kirigami.Settings.isMobile && !ElisaApplication.useFavoriteStyleRatings
                 readOnly: false
 
                 starRating: rating
@@ -317,6 +338,17 @@ FocusScope {
                 onRatingEdited: {
                     trackRatingChanged(trackUrl, starRating);
                 }
+            }
+            Kirigami.Icon {
+                visible: !Kirigami.Settings.isMobile && ElisaApplication.useFavoriteStyleRatings && !hoverLoader.active && rating == 10
+
+                implicitWidth: Kirigami.Units.iconSizes.smallMedium
+                implicitHeight: Kirigami.Units.iconSizes.smallMedium
+
+                Layout.leftMargin: Kirigami.Units.largeSpacing
+                Layout.rightMargin: Kirigami.Units.largeSpacing
+
+                source: "rating"
             }
 
             LabelWithToolTip {
@@ -382,6 +414,21 @@ FocusScope {
                 }
 
                 MobileContextMenuEntry {
+                    visible: ElisaApplication.useFavoriteStyleRatings
+                    onClicked: {
+                        var newRating = 0;
+                        if (rating == 10) {
+                            newRating = 0;
+                        } else {
+                            newRating = 10;
+                        }
+                        contextMenu.close();
+                    }
+                    icon: rating == 10 ? "rating-unrated" : "rating"
+                    text: rating == 10 ? i18n("Mark this song as no longer being a favorite", "Un-mark as favorite") : i18n("Mark this song as a favorite", "Mark as favorite")
+                }
+
+                MobileContextMenuEntry {
                     onClicked: {
                         enqueue();
                         contextMenu.close();
@@ -392,6 +439,8 @@ FocusScope {
 
                 RatingStar {
                     id: ratingWidgetMobile
+
+                    visible: !ElisaApplication.useFavoriteStyleRatings
 
                     starRating: rating
 

@@ -142,21 +142,10 @@ Kirigami.Page {
 
                 actions: [
                     Kirigami.Action {
-                        text: i18nc("Show currently played track inside playlist", "Show Current Track")
-                        icon.name: 'media-track-show-active'
-                        displayHint: Kirigami.DisplayHint.KeepVisible | Kirigami.DisplayHint.IconOnly
-                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
-                        onTriggered: {
-                            playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
-                            playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
-                            playListView.currentItem.forceActiveFocus()
-                        }
-                    },
-                    Kirigami.Action {
                         id: savePlaylistButton
-                        text: i18nc("Save a playlist file", "Save Playlist...")
+                        text: i18nc("Save a playlist file", "Save...")
                         icon.name: 'document-save'
-                        displayHint: Kirigami.DisplayHint.KeepVisible | Kirigami.DisplayHint.IconOnly
+                        displayHint: Kirigami.DisplayHint.KeepVisible
                         enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
                         onTriggered: {
                             fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
@@ -166,21 +155,14 @@ Kirigami.Page {
                     },
                     Kirigami.Action {
                         id: loadPlaylistButton
-                        text: i18nc("Load a playlist file", "Load Playlist...")
+                        text: i18nc("Load a playlist file", "Load...")
                         icon.name: 'document-open'
-                        displayHint: Kirigami.DisplayHint.KeepVisible | Kirigami.DisplayHint.IconOnly
+                        displayHint: Kirigami.DisplayHint.KeepVisible
                         onTriggered: {
                             fileDialog.fileMode = PlatformDialog.FileDialog.OpenFile
                             fileDialog.file = ''
                             fileDialog.open()
                         }
-                    },
-                    Kirigami.Action {
-                        text: i18nc("Remove all tracks from play list", "Clear Playlist")
-                        icon.name: 'edit-clear-all'
-                        displayHint: Kirigami.DisplayHint.KeepVisible | Kirigami.DisplayHint.IconOnly
-                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
-                        onTriggered: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
                     }
                 ]
             }
@@ -511,17 +493,36 @@ Kirigami.Page {
             anchors.fill: parent
 
             LabelWithToolTip {
-                text: i18np("%1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0))
+                text: ElisaApplication.mediaPlayListProxyModel.remainingTracks != -1 ?
+                    i18np("%1 track", "%1 tracks (%2 remaining)", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0), ElisaApplication.mediaPlayListProxyModel.remainingTracks) :
+                    i18np("%1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0))
                 elide: Text.ElideLeft
             }
-            Item {
-                Layout.fillWidth: true
-            }
-            LabelWithToolTip {
-                visible: ElisaApplication.mediaPlayListProxyModel.remainingTracks != -1
 
-                text: ElisaApplication.mediaPlayListProxyModel.remainingTracks == 0 ? i18n("Last track") : i18ncp("Number of remaining tracks in a playlist of songs", "%1 remaining", "%1 remaining", ElisaApplication.mediaPlayListProxyModel.remainingTracks)
-                elide: Text.ElideRight
+            Kirigami.ActionToolBar {
+                Layout.fillWidth: true
+                alignment: Qt.AlignRight
+
+                actions: [
+                    Kirigami.Action {
+                        text: i18nc("Show currently played track inside playlist", "Show Current")
+                        icon.name: 'media-track-show-active'
+                        displayHint: Kirigami.DisplayHint.KeepVisible
+                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
+                        onTriggered: {
+                            playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
+                            playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
+                            playListView.currentItem.forceActiveFocus()
+                        }
+                    },
+                    Kirigami.Action {
+                        text: i18nc("Remove all tracks from play list", "Clear All")
+                        icon.name: 'edit-clear-all'
+                        displayHint: Kirigami.DisplayHint.KeepVisible
+                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
+                        onTriggered: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
+                    }
+                ]
             }
         }
     }

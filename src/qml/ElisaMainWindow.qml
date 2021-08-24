@@ -88,12 +88,12 @@ Kirigami.ApplicationWindow {
 
     Action {
         shortcut: nextTrackAction.shortcut
-        onTriggered: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position)
+        onTriggered: ElisaApplication.mediaPlayListProxyModel.skipNextTrack(ElisaApplication.audioPlayer.position)
     }
 
     Action {
         shortcut: previousTrackAction.shortcut
-        onTriggered: ElisaApplication.mediaPlayListProxyModel.skipNextTrack(ElisaApplication.audioPlayer.position)
+        onTriggered: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position)
     }
 
     Action {

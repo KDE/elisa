@@ -9,6 +9,8 @@
 
 #include "elisaLib_export.h"
 
+#include "config-upnp-qt.h"
+
 #include "elisautils.h"
 #include "datatypes.h"
 

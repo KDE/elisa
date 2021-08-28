@@ -136,15 +136,12 @@ set_package_properties(KF5Package PROPERTIES
     DESCRIPTION "KF5 package management library needed to get the configuration dialogs."
     TYPE RECOMMENDED)
 
-find_package(KF5KIO ${REQUIRED_KF5_VERSION} CONFIG QUIET)
-if (ANDROID)
-    set(KIO_DEPENDENCY_TYPE OPTIONAL)
-else()
-    set(KIO_DEPENDENCY_TYPE REQUIRED)
+if (NOT ANDROID)
+    find_package(KF5KIO ${REQUIRED_KF5_VERSION} CONFIG QUIET)
+    set_package_properties(KF5KIO PROPERTIES
+        DESCRIPTION "File management libraries used for file browsing."
+        TYPE REQUIRED)
 endif()
-set_package_properties(KF5KIO PROPERTIES
-    DESCRIPTION "File management libraries used for file browsing."
-    TYPE ${KIO_DEPENDENCY_TYPE})
 
 find_package(UPNPQT CONFIG QUIET)
 set_package_properties(UPNPQT PROPERTIES

@@ -1192,7 +1192,7 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
     if (!d->mInsertedArtists.isEmpty()) {
         DataTypes::ListArtistDataType newArtists;
 
-        for (auto newArtistData : qAsConst(d->mInsertedArtists)) {
+        for (auto newArtistData : std::as_const(d->mInsertedArtists)) {
             newArtists.push_back({{DataTypes::DatabaseIdRole, newArtistData.first},
                                   {DataTypes::TitleRole, newArtistData.second},
                                   {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
@@ -1204,7 +1204,7 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
     if (!d->mInsertedAlbums.isEmpty()) {
         DataTypes::ListAlbumDataType newAlbums;
 
-        for (auto albumId : qAsConst(d->mInsertedAlbums)) {
+        for (auto albumId : std::as_const(d->mInsertedAlbums)) {
             d->mModifiedAlbumIds.remove(albumId);
             newAlbums.push_back(internalOneAlbumPartialData(albumId));
         }
@@ -1213,14 +1213,14 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
         Q_EMIT albumsAdded(newAlbums);
     }
 
-    for (auto albumId : qAsConst(d->mModifiedAlbumIds)) {
+    for (auto albumId : std::as_const(d->mModifiedAlbumIds)) {
         Q_EMIT albumModified({{DataTypes::DatabaseIdRole, albumId}}, albumId);
     }
 
     if (!d->mInsertedTracks.isEmpty()) {
         DataTypes::ListTrackDataType newTracks;
 
-        for (auto trackId : qAsConst(d->mInsertedTracks)) {
+        for (auto trackId : std::as_const(d->mInsertedTracks)) {
             newTracks.push_back(internalOneTrackPartialData(trackId));
             d->mModifiedTrackIds.remove(trackId);
         }
@@ -1229,7 +1229,7 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
         Q_EMIT tracksAdded(newTracks);
     }
 
-    for (auto trackId : qAsConst(d->mModifiedTrackIds)) {
+    for (auto trackId : std::as_const(d->mModifiedTrackIds)) {
         Q_EMIT trackModified(internalOneTrackPartialData(trackId));
     }
 
@@ -1255,7 +1255,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
 
     if (!d->mInsertedArtists.isEmpty()) {
         DataTypes::ListArtistDataType newArtists;
-        for (auto newArtistData : qAsConst(d->mInsertedArtists)) {
+        for (auto newArtistData : std::as_const(d->mInsertedArtists)) {
             newArtists.push_back({{DataTypes::DatabaseIdRole, newArtistData.first},
                                   {DataTypes::TitleRole, newArtistData.second},
                                   {DataTypes::ElementTypeRole, ElisaUtils::Artist}});

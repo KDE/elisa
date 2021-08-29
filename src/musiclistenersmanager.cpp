@@ -212,7 +212,7 @@ auto MusicListenersManager::initializeRootPath()
 {
     auto initialRootPath = QStringList{};
     auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
-    for (const auto &musicPath : qAsConst(systemMusicPaths)) {
+    for (const auto &musicPath : std::as_const(systemMusicPaths)) {
         initialRootPath.push_back(musicPath);
     }
 
@@ -340,7 +340,7 @@ void MusicListenersManager::configChanged()
 
     //resolve symlinks
     QStringList allRootPaths;
-    for (const auto &onePath : qAsConst(inputRootPath)) {
+    for (const auto &onePath : std::as_const(inputRootPath)) {
         auto workPath = onePath;
         if (workPath.startsWith(QLatin1String("file:/"))) {
             auto urlPath = QUrl{workPath};

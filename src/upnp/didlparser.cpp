@@ -294,7 +294,7 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
 void DidlParser::groupNewTracksByAlbums()
 {
     d->mNewTracksByAlbums.clear();
-    for(const auto &newTrack : qAsConst(d->mNewMusicTracks)) {
+    for(const auto &newTrack : std::as_const(d->mNewMusicTracks)) {
         d->mNewTracksByAlbums[newTrack.album()].push_back(newTrack);
     }
 }

@@ -115,7 +115,7 @@ void UpnpDiscoverAllMusic::removedDevice(const UpnpDiscoveryResult &removedServi
 
 void UpnpDiscoverAllMusic::networkChanged()
 {
-    for (const auto &oneService : qAsConst(d->mAllServices)) {
+    for (const auto &oneService : std::as_const(d->mAllServices)) {
         Q_EMIT removedUpnpContentDirectoryService(oneService.title());
     }
 

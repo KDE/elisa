@@ -651,7 +651,7 @@ void UpnpContentDirectoryModel::contentChanged(const QString &parentId)
 
     qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::contentChanged" << parentId << parentInternalId;
 
-    for(const auto &oneUpnpTrack : qAsConst(d->mDidlParser.newMusicTracks())) {
+    for(const auto &oneUpnpTrack : std::as_const(d->mDidlParser.newMusicTracks())) {
         d->mAllTrackData[d->mLastInternalId] = oneUpnpTrack;
         d->mUpnpIds[oneUpnpTrack[DataTypes::IdRole].toString()] = d->mLastInternalId;
         d->mChilds[parentInternalId].push_back(d->mLastInternalId);

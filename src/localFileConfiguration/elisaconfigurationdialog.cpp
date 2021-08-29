@@ -59,7 +59,7 @@ void ElisaConfigurationDialog::setRootPath(const QStringList &rootPath)
 
     if (mRootPath.isEmpty()) {
         auto systemMusicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
-        for (const auto &musicPath : qAsConst(systemMusicPaths)) {
+        for (const auto &musicPath : std::as_const(systemMusicPaths)) {
             mRootPath.push_back(musicPath);
         }
     }

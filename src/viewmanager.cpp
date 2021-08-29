@@ -412,7 +412,7 @@ QString ViewManager::buildViewId() const
     const auto &entryTypeMetaEnum = QMetaEnum::fromType<ElisaUtils::PlayListEntryType>();
     QString viewId;
 
-    for (const auto &oneView : qAsConst(d->mViewParametersStack)) {
+    for (const auto &oneView : std::as_const(d->mViewParametersStack)) {
         viewId += QString::fromLatin1(entryTypeMetaEnum.valueToKey(oneView.mDataType)) + QStringLiteral("::");
     }
 

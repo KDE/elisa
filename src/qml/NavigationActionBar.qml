@@ -108,7 +108,7 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: 'enqueueButton'
-            text: i18nc("Add current list to playlist", "Enqueue")
+            text: i18nc("Add current list to playlist", "Add to Playlist")
             icon.name: "list-add"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: enqueue()

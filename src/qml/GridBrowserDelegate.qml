@@ -278,7 +278,7 @@ FocusScope {
                         hoverEnabled: true
                         ToolTip.visible: hovered
                         ToolTip.delay: 1000
-                        ToolTip.text: i18nc("Add whole container to play list", "Add to playlist")
+                        ToolTip.text: i18nc("Add whole container to play list", "Add to Playlist")
 
                         Accessible.role: Accessible.Button
                         Accessible.name: ToolTip.text

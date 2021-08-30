@@ -282,7 +282,7 @@ FocusScope {
                         height: singleLineHeight
                         width: singleLineHeight
 
-                        text: i18nc("Enqueue current track", "Enqueue")
+                        text: i18nc("Enqueue current track", "Add to Playlist")
                         icon.name: "list-add"
                         onClicked: enqueue()
                     }

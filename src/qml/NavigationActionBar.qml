@@ -271,7 +271,7 @@ Item {
                     Kirigami.Theme.inherit: false
                     objectName: 'showFilterButton'
                     visible: !showCreateRadioButton
-                    text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Show Search Options") : i18nc("Hide filters in the navigation bar", "Hide Search Options")
+                    text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Search and Filter") : i18nc("Hide filters in the navigation bar", "Hide Search and Filter")
                     icon.name: 'search'
                     checkable: true
                     checked: expandedFilterView

@@ -7148,7 +7148,7 @@ DataTypes::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRecord(con
 
     result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(DatabaseInterfacePrivate::RadioId);
     result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(DatabaseInterfacePrivate::RadioTitle);
-    result[DataTypes::TrackDataType::key_type::AlbumRole] = i18n("Radios");
+    result[DataTypes::TrackDataType::key_type::AlbumRole] = i18n("Radio Stations");
     result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(DatabaseInterfacePrivate::RadioHttpAddress);
     result[DataTypes::TrackDataType::key_type::ImageUrlRole] = trackRecord.value(DatabaseInterfacePrivate::RadioImageAddress);
     result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(DatabaseInterfacePrivate::RadioRating);

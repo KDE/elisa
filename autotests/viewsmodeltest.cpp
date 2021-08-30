@@ -323,7 +323,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedArtistCategory()
@@ -368,7 +368,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedGenreCategory()
@@ -413,7 +413,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedAlbumCategoryWithoutDatabase()
@@ -453,7 +453,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedArtistCategoryWithoutDatabase()
@@ -493,7 +493,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedGenreCategoryWithoutDatabase()
@@ -533,7 +533,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void switchToEmbeddedAlbumCategoryAndToEmbeddedArtistCategory()
@@ -579,7 +579,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Album);
 
@@ -599,7 +599,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
         QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("album1"));
         QCOMPARE(viewsModel.data(viewsModel.index(9, 0), Qt::DisplayRole), QStringLiteral("album2"));
         QCOMPARE(viewsModel.data(viewsModel.index(10, 0), Qt::DisplayRole), QStringLiteral("album3"));
@@ -624,7 +624,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
         QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("artist1"));
         QCOMPARE(viewsModel.data(viewsModel.index(9, 0), Qt::DisplayRole), QStringLiteral("artist1 and artist2"));
         QCOMPARE(viewsModel.data(viewsModel.index(10, 0), Qt::DisplayRole), QStringLiteral("artist2"));
@@ -652,7 +652,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
         QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Genres"));
         QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("Radios"));
+        QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 };
 

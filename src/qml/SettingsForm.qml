@@ -161,7 +161,7 @@ ColumnLayout {
                 i18nc("Title of the view of all tracks", "Tracks"),
                 i18nc("Title of the view of all genres", "Genres"),
                 i18nc("Title of the file browser view", "Files"),
-                i18nc("Title of the file radios browser view", "Radios"),
+                i18nc("Title of the file radios browser view", "Radio Stations"),
             ]
 
             editable: false

@@ -129,7 +129,7 @@ public:
                                                ViewManager::IsFlatModel,
                                                QUrl::fromLocalFile(QDir::homePath())
                                               },
-                                              {{i18nc("Title of the file radios browser view", "Radios")},
+                                              {{i18nc("Title of the file radios browser view", "Radio Stations")},
                                                QUrl{QStringLiteral("image://icon/radio")},
                                                ViewManager::ListView,
                                                ViewManager::GenericDataModel,

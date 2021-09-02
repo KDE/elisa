@@ -501,6 +501,7 @@ Kirigami.Page {
 
             Kirigami.ActionToolBar {
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 alignment: Qt.AlignRight
 
                 actions: [

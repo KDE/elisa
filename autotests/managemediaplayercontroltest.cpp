@@ -107,11 +107,11 @@ void ManageMediaPlayerControlTest::testTracksCase()
     QCOMPARE(previousTrackChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(nextTrackChangedSpy.count(), 0);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
     QCOMPARE(playControlEnabledChangedSpy.count(), 1);
     QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
     QVERIFY(myControl.playControlEnabled());
-    QVERIFY(!myControl.skipBackwardControlEnabled());
+    QVERIFY(myControl.skipBackwardControlEnabled());
     QVERIFY(!myControl.skipForwardControlEnabled());
 
     myControl.playerPlaying();
@@ -132,12 +132,12 @@ void ManageMediaPlayerControlTest::testTracksCase()
     QCOMPARE(previousTrackChangedSpy.count(), 1);
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(nextTrackChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 2);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
     QCOMPARE(playControlEnabledChangedSpy.count(), 1);
-    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 0);
+    QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
     QVERIFY(myControl.playControlEnabled());
-    QVERIFY(!myControl.skipBackwardControlEnabled());
-    QVERIFY(!myControl.skipForwardControlEnabled());
+    QVERIFY(myControl.skipBackwardControlEnabled());
+    QVERIFY(myControl.skipForwardControlEnabled());
 
     myControl.playerPlaying();
 
@@ -145,7 +145,7 @@ void ManageMediaPlayerControlTest::testTracksCase()
     QCOMPARE(currentTrackChangedSpy.count(), 1);
     QCOMPARE(nextTrackChangedSpy.count(), 1);
     QCOMPARE(nextTrackChangedSpy.count(), 1);
-    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 3);
+    QCOMPARE(skipBackwardControlEnabledChangedSpy.count(), 1);
     QCOMPARE(playControlEnabledChangedSpy.count(), 1);
     QCOMPARE(skipForwardControlEnabledChangedSpy.count(), 1);
     QVERIFY(myControl.playControlEnabled());

@@ -50,6 +50,7 @@ RowLayout {
 
         sourceComponent: Label {
             text: display
+            textFormat: Text.PlainText
             horizontalAlignment: Text.AlignLeft
             elide: Text.ElideRight
             wrapMode: Text.WordWrap

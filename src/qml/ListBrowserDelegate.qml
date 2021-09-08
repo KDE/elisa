@@ -198,6 +198,7 @@ FocusScope {
                     }
                     horizontalAlignment: Text.AlignLeft
                     color: myPalette.text
+                    textFormat: Text.PlainText
 
                     Layout.alignment: Qt.AlignLeft
                     Layout.leftMargin: !LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0
@@ -230,6 +231,7 @@ FocusScope {
                     visible: text.length > 0 && (Kirigami.Settings.isMobile || detailedView)
                     opacity: 0.6
                     color: myPalette.text
+                    textFormat: Text.PlainText
 
                     Layout.alignment: Qt.AlignLeft
                     Layout.leftMargin: !LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0

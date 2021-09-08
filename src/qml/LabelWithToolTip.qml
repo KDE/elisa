@@ -15,6 +15,8 @@ Kirigami.Heading {
 
     level: 5
 
+    textFormat: Text.PlainText
+
     horizontalAlignment: Text.AlignLeft
 
     elide: Text.ElideRight

@@ -128,7 +128,7 @@ BasePlayListDelegate {
                         return trackNumberString
                     }
                 }
-
+                textFormat: Text.PlainText
                 font.weight: (isPlaying ? Font.Bold : Font.Normal)
 
                 visible: isValid && !playIcon.visible

@@ -290,6 +290,7 @@ Kirigami.Page {
                     Label {
                         id: lyricLabel
                         text: metaDataModel.lyrics
+                        textFormat: Text.PlainText
                         wrapMode: Text.WordWrap
                         horizontalAlignment: contentLayout.wideMode? Text.AlignLeft : Text.AlignHCenter
                         visible: text !== ""

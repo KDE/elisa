@@ -142,6 +142,7 @@ BasePlayerControl {
                     Label {
                         id: mainLabel
                         text: title
+                        textFormat: Text.PlainText
                         wrapMode: Text.Wrap
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                         Layout.fillWidth: true
@@ -159,6 +160,7 @@ BasePlayerControl {
                     Label {
                         id: authorLabel
                         text: artist
+                        textFormat: Text.PlainText
                         wrapMode: Text.Wrap
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                         Layout.fillWidth: true

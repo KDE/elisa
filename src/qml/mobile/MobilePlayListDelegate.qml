@@ -112,6 +112,7 @@ BasePlayListDelegate {
                 id: mainLabelDetailed
 
                 text: title
+                textFormat: Text.PlainText
                 horizontalAlignment: Text.AlignLeft
                 color: myPalette.text
 
@@ -137,6 +138,7 @@ BasePlayListDelegate {
                     }
                     return labelText;
                 }
+                textFormat: Text.PlainText
                 horizontalAlignment: Text.AlignLeft
 
                 visible: text.length > 0

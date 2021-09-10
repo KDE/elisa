@@ -208,10 +208,6 @@ Item {
                     asynchronous: true
 
                 },
-                Item {
-                    Layout.preferredWidth: Kirigami.Units.smallSpacing
-                    visible: mainIcon.visible
-                },
                 ColumnLayout {
                     id: authorAndAlbumLayout
                     Layout.fillWidth: true

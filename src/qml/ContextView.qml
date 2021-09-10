@@ -62,7 +62,7 @@ Kirigami.Page {
         Kirigami.Theme.colorSet: Kirigami.Theme.Window
         RowLayout {
             anchors.fill: parent
-            spacing: 0
+            spacing: Kirigami.Units.smallSpacing
 
             FlatButtonWithToolTip {
                 id: showSidebarButton

@@ -85,6 +85,7 @@ Item {
                     implicitWidth: Kirigami.Units.iconSizes.small
                     implicitHeight: Kirigami.Units.iconSizes.small
                     source: 'arrow-down'
+                    isMask: true
                 }
             }
         }

@@ -27,6 +27,9 @@ FlatButtonWithToolTip {
     text: i18nc("change player volume", "Change Volume")
     icon.name: volumeButton.muted || volumeButton.slider.visualPosition == 0 ? "player-volume-muted" : "player-volume"
     icon.color: "white"
+    Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+    Kirigami.Theme.inherit: false
+    
     onClicked: {
         if (volumeSliderPopup.visible) {
             volumeSliderPopup.close();

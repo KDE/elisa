@@ -191,13 +191,13 @@ void ElisaApplication::setupActions(const QString &actionName)
     if (actionName == QLatin1String("NextTrack") && KAuthorized::authorizeAction(actionName)) {
             auto nextTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::nextTrack);
             nextTrackAction->setText(i18n("Go to next track"));
-            d->mCollection.setDefaultShortcut(nextTrackAction, QKeySequence(Qt::CTRL + Qt::Key_Left));
+            d->mCollection.setDefaultShortcut(nextTrackAction, QKeySequence(Qt::CTRL + Qt::Key_Right));
     }
 
     if (actionName == QLatin1String("PreviousTrack") && KAuthorized::authorizeAction(actionName)) {
             auto previousTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::previousTrack);
             previousTrackAction->setText(i18n("Go to previous track"));
-            d->mCollection.setDefaultShortcut(previousTrackAction, QKeySequence(Qt::CTRL + Qt::Key_Right));
+            d->mCollection.setDefaultShortcut(previousTrackAction, QKeySequence(Qt::CTRL + Qt::Key_Left));
     }
 
     if (actionName == QLatin1String("Play-Pause") && KAuthorized::authorizeAction(actionName)) {

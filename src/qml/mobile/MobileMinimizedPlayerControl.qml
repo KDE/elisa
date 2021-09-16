@@ -228,6 +228,8 @@ BasePlayerControl {
             icon.width: Kirigami.Units.gridUnit
             icon.height: Kirigami.Units.gridUnit
             icon.color: "white"
+            Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+            Kirigami.Theme.inherit: false
         }
 
         FlatButtonWithToolTip {
@@ -242,6 +244,8 @@ BasePlayerControl {
             icon.width: Kirigami.Units.gridUnit
             icon.height: Kirigami.Units.gridUnit
             icon.color: "white"
+            Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+            Kirigami.Theme.inherit: false
         }
 
         FlatButtonWithToolTip {
@@ -256,6 +260,8 @@ BasePlayerControl {
             icon.width: Kirigami.Units.gridUnit
             icon.height: Kirigami.Units.gridUnit
             icon.color: "white"
+            Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+            Kirigami.Theme.inherit: false
         }
 
         Item { implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2) }

@@ -34,11 +34,6 @@ BasePlayerControl {
     property color sliderRemainingColor: "grey"
     property color sliderHandleColor: "white"
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
     ColumnLayout {
         anchors.fill: parent
         spacing: Kirigami.Units.largeSpacing
@@ -54,6 +49,8 @@ BasePlayerControl {
             text: i18nc("minimize player", "Minimize Player")
             icon.name: "arrow-down"
             icon.color: "white"
+            Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+            Kirigami.Theme.inherit: false
             onClicked: toClose.restart()
         }
 
@@ -193,6 +190,10 @@ BasePlayerControl {
             RowLayout {
                 Layout.preferredHeight: Kirigami.Units.gridUnit * 3
 
+                // ensure white icons
+                Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+                Kirigami.Theme.inherit: false
+
                 FlatButtonWithToolTip {
                     id: infoButton
                     Layout.maximumHeight: parent.height
@@ -290,6 +291,10 @@ BasePlayerControl {
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+
+                // ensure white icons
+                Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
+                Kirigami.Theme.inherit: false
 
                 // volume button
                 MobileVolumeButton {

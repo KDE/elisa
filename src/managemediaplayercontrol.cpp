@@ -19,12 +19,12 @@ bool ManageMediaPlayerControl::playControlEnabled() const
 
 bool ManageMediaPlayerControl::skipBackwardControlEnabled() const
 {
-    return (mPreviousTrack.isValid() && mIsInPlayingState);
+    return (mPreviousTrack.isValid());
 }
 
 bool ManageMediaPlayerControl::skipForwardControlEnabled() const
 {
-    return (mNextTrack.isValid() && mIsInPlayingState);
+    return (mNextTrack.isValid());
 }
 
 bool ManageMediaPlayerControl::musicPlaying() const

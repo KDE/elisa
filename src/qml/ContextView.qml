@@ -163,9 +163,6 @@ Kirigami.Page {
 
                 source: albumArtUrl.toString() === '' ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
 
-                sourceSize.width: topItem.width
-                sourceSize.height: topItem.height
-
                 asynchronous: true
 
                 fillMode: Image.PreserveAspectCrop
@@ -177,6 +174,9 @@ Kirigami.Page {
                     // anchors.fill: parent
                     radius: 40
                 }
+
+                // HACK: set sourceSize to a fixed value to prevent background flickering (BUG431607)
+                onStatusChanged: if (status === Image.Ready && (sourceSize.width > Kirigami.Units.gridUnit * 50 || sourceSize.height > Kirigami.Units.gridUnit * 50)) sourceSize = Qt.size(Kirigami.Units.gridUnit * 50, Kirigami.Units.gridUnit * 50)
             }
         }
 

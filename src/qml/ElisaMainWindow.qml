@@ -297,8 +297,8 @@ Kirigami.ApplicationWindow {
                 active: !Kirigami.Settings.isMobile
                 visible: active
 
-                Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
-                Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
+                Layout.minimumHeight: Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight)
+                Layout.maximumHeight: Layout.minimumHeight
                 Layout.fillWidth: true
 
                 sourceComponent: HeaderBar {
@@ -335,8 +335,8 @@ Kirigami.ApplicationWindow {
                                     },
                                     PropertyChanges {
                                         target: headerBarLoader
-                                        Layout.minimumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
-                                        Layout.maximumHeight: mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight
+                                        Layout.minimumHeight: Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight)
+                                        Layout.maximumHeight: Layout.minimumHeight
                                     }
                                 ]
                             },

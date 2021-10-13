@@ -55,7 +55,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="cs">Hezký jednoduchý přehrávač hudby s podporou online rádií</summary>
   <summary xml:lang="da">Smuk musikafspiller uden noget pjat med understøttelse af netradio</summary>
   <summary xml:lang="de">Schöner, unkomplizierter Medienspieler mit Online-Radio-Unterstützung</summary>
-  <summary xml:lang="el">Ομορφο και σοβαρό πρόγραμμα μουσικής αναπαραγωγής με επιγραμμική υποστήριξη ραδιοφώνου </summary>
+  <summary xml:lang="el">Όμορφο και σοβαρό πρόγραμμα μουσικής αναπαραγωγής με επιγραμμική υποστήριξη ραδιοφώνου </summary>
   <summary xml:lang="en-GB">Beautiful no-nonsense music player with online radio support</summary>
   <summary xml:lang="es">Reproductor de música bello y práctico con soporte para radios en línea</summary>
   <summary xml:lang="et">Kaunis mõistliku muusika mängija veebiraadio toetusega</summary>
@@ -92,7 +92,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="cs">Jednoduchý snadno použitelný přehrávač hudby, Před použitím nevyžaduje jakékoliv nastavovaní.</p>
     <p xml:lang="da">En simpel musikafspiller der burde være let af bruge. Den kræver ikke nogen konfiguration inden den kan bruges.</p>
     <p xml:lang="de">Ein einfacher Medienspieler, der leicht zu benutzen sein sollte. Er kann ganz ohne vorherige Konfiguration verwendet werden.</p>
-    <p xml:lang="el">Μια απλή συσκευή αναπαραγωγής μουσικής, ευκολης στη χρήση. Δεν απαιτεί κάποια διαμόρφωση πριν τη χρήση της.</p>
+    <p xml:lang="el">Μια απλή συσκευή αναπαραγωγής μουσικής, εύκολης στη χρήση. Δεν απαιτεί κάποια διαμόρφωση πριν τη χρήση της.</p>
     <p xml:lang="en-GB">A simple music player that should be easy to use. It does not require any configuration before one can use it.</p>
     <p xml:lang="es">Un sencillo reproductor de música que debería ser fácil de usar. No necesita ninguna configuración antes de poder usarlo.</p>
     <p xml:lang="et">Lihtne, hõlpsasti kasutatav muusikamängija. See ei nõua enne kasutamist mingit erilisemat seadistamist.</p>
@@ -137,7 +137,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="cs">Přehrávač hudby Elisa</caption>
       <caption xml:lang="da">Elisa-musikafspilleren</caption>
       <caption xml:lang="de">Elisa-Musikwiedergabe</caption>
-      <caption xml:lang="el">Η συσκευή αναπαραγωγής μoυσικής Elisa</caption>
+      <caption xml:lang="el">Η συσκευή αναπαραγωγής μουσικής Elisa</caption>
       <caption xml:lang="en-GB">The Elisa music player</caption>
       <caption xml:lang="es">El reproductor de música Elisa</caption>
       <caption xml:lang="et">Muusikamängija Elisa</caption>

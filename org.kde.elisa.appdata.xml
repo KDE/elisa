@@ -64,6 +64,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="fi">Kaunis konstailematon musiikkisoitin, jossa myös verkkoradioiden tuki</summary>
   <summary xml:lang="fr">Lecteur de musique élégant et pratique avec la prise en charge de radio en ligne</summary>
   <summary xml:lang="hi">सुंदर बिना बकवास वाला संगीत वादक जिसमें ऑनलाइन रेडियो समाहित है</summary>
+  <summary xml:lang="hu">Zenelejáts online rádió támogatással</summary>
   <summary xml:lang="ia">Belle reproductor rationabile de musica con suporto de radio in linea</summary>
   <summary xml:lang="id">Pemutar musik indah yang kerèn dengan dukungan radio online</summary>
   <summary xml:lang="it">Meraviglioso letture multimediale senza fronzoli con supporto per le radio online</summary>
@@ -149,7 +150,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="fr">Le lecteur de musique Elisa</caption>
       <caption xml:lang="gl">O reprodutor de música Elisa.</caption>
       <caption xml:lang="hi">एलिसा संगीत वादक</caption>
-      <caption xml:lang="hu">Elisa zenelejátszó</caption>
+      <caption xml:lang="hu">Az Elisa zenelejátszó</caption>
       <caption xml:lang="ia">Le reproductor de music Elisa</caption>
       <caption xml:lang="id">Elisa si pemutar musik</caption>
       <caption xml:lang="it">Il lettore musicale Elisa</caption>
@@ -189,6 +190,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="fi">Elisa Plasma Mobilessa</caption>
       <caption xml:lang="fr">Elisa sur Plasma Mobile</caption>
       <caption xml:lang="hi">एलिसा प्लास्मा मोबाइल पर</caption>
+      <caption xml:lang="hu">Elisa a Plasma Mobile-on</caption>
       <caption xml:lang="ia">Elisa sur Plasma Mobile</caption>
       <caption xml:lang="id">Elisa di Plasma Mobile</caption>
       <caption xml:lang="it">Elisa su Plasma Mobile</caption>

@@ -8,13 +8,13 @@ import QtQuick 2.7
 import org.kde.kirigami 2.12 as Kirigami
 
 Item {
-    property string defaultAlbumImage: 'image://icon/media-optical-audio'
+    property string defaultAlbumImage: 'image://icon/media-default-album'
     property string defaultArtistImage: 'image://icon/view-media-artist'
     property string defaultBackgroundImage: 'qrc:///background.png'
     property string nowPlayingIcon: 'image://icon/view-media-lyrics'
     property string artistIcon: 'image://icon/view-media-artist'
     property string albumIcon: 'image://icon/view-media-album-cover'
-    property string albumCoverIcon: 'image://icon/media-optical-audio'
+    property string albumCoverIcon: 'image://icon/media-default-album'
     property string tracksIcon: 'image://icon/view-media-track'
     property string genresIcon: 'image://icon/view-media-genre'
     property string clearIcon: 'image://icon/edit-clear'

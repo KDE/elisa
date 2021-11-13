@@ -572,7 +572,7 @@ if (ANDROID)
         media-repeat-none
         media-repeat-single
         media-repeat-all
-        media-optical-audio
+        media-default-album
         player-volume-muted
         player-volume
         delete

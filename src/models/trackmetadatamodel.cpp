@@ -239,7 +239,7 @@ QString TrackMetadataModel::fileUrl() const
 QUrl TrackMetadataModel::coverUrl() const
 {
     if (mCoverImage.isEmpty()) {
-        return QUrl(QStringLiteral("image://icon/media-optical-audio"));
+        return QUrl(QStringLiteral("image://icon/media-default-album"));
     } else {
         return mCoverImage;
     }

@@ -193,9 +193,9 @@ QVariant UpnpContentDirectoryModel::data(const QModelIndex &index, int role) con
                 result = d->mAllTrackData[index.internalId()][DataTypes::ImageUrlRole].toUrl();
             } else {
                 if (d->mUseLocalIcons) {
-                    result = QUrl(QStringLiteral("qrc:/media-optical-audio.svg"));
+                    result = QUrl(QStringLiteral("qrc:/media-default-album.svg"));
                 } else {
-                    result = QUrl(QStringLiteral("image://icon/media-optical-audio"));
+                    result = QUrl(QStringLiteral("image://icon/media-default-album"));
                 }
             }
             break;

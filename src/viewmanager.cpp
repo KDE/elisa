@@ -72,7 +72,7 @@ public:
                               {i18n("Title"), i18n("Genre"), i18n("Year")},
                               Qt::AscendingOrder,
                               {i18n("A-Z"), i18n("Z-A"), i18n("A-Z"), i18n("Z-A"), i18n("Oldest First"), i18n("Newest First")},
-                              QUrl{QStringLiteral("image://icon/media-optical-audio")},
+                              QUrl{QStringLiteral("image://icon/media-default-album")},
                               ViewManager::DelegateWithSecondaryText,
                               ViewManager::ViewShowRating,
                               ViewManager::IsFlatModel}},

@@ -158,8 +158,7 @@ ColumnLayout {
             Connections {
                 target: ElisaConfigurationDialog
 
-                onEmbeddedViewChanged:
-                {
+                function onEmbeddedViewChanged() {
                     if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Unknown) {
                         embeddedCategoryCombo.currentIndex = 0
                     } else if (ElisaConfigurationDialog.embeddedView == ElisaUtils.Album) {
@@ -203,7 +202,9 @@ ColumnLayout {
             Connections {
                 target: ElisaConfigurationDialog
 
-                onInitialViewIndexChanged: initialViewCombo.currentIndex = ElisaConfigurationDialog.initialViewIndex
+                function onInitialViewIndexChanged() {
+                    initialViewCombo.currentIndex = ElisaConfigurationDialog.initialViewIndex
+                }
             }
         }
 

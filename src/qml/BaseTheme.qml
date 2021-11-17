@@ -27,14 +27,14 @@ Item {
     property string errorIcon: 'image://icon/error'
     property string folderIcon: 'image://icon/document-open-folder'
 
-    property int hairline: Math.floor(Kirigami.Units.devicePixelRatio)
+    property int hairline: 1
 
     property int coverImageSize: 180
     property int contextCoverImageSize: 100
     property int smallImageSize: 32
 
-    property int metaDataDialogHeight: 500 * Kirigami.Units.devicePixelRatio
-    property int metaDataDialogWidth: 600 * Kirigami.Units.devicePixelRatio
+    property int metaDataDialogHeight: 500
+    property int metaDataDialogWidth: 600
 
     property int tooltipRadius: 3
     property int shadowOffset: 2

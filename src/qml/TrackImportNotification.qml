@@ -37,7 +37,7 @@ Rectangle {
         id: bgFillRect
 
         anchors.fill: parent
-        anchors.margins: Kirigami.Units.devicePixelRatio
+        anchors.margins: 1
 
         color: Kirigami.Theme.backgroundColor
 

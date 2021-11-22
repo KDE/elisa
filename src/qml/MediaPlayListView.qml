@@ -493,9 +493,17 @@ Kirigami.Page {
             anchors.fill: parent
 
             LabelWithToolTip {
-                text: ElisaApplication.mediaPlayListProxyModel.remainingTracks != -1 ?
-                    i18np("%1 track", "%1 tracks (%2 remaining)", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0), ElisaApplication.mediaPlayListProxyModel.remainingTracks) :
-                    i18np("%1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0))
+                text: {
+                    if (ElisaApplication.mediaPlayListProxyModel.remainingTracks === -1) {
+                        return i18np("%1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0));
+                    } else {
+                        if ((ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0) == 1) {
+                            return i18n("%1 track", ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0);
+                        } else {
+                            return i18n("%1 tracks (%2 remaining)", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0), ElisaApplication.mediaPlayListProxyModel.remainingTracks);
+                        }
+                    }
+                }
                 elide: Text.ElideLeft
             }
 

@@ -23,6 +23,8 @@ BasePlayerControl {
     signal maximize()
     signal minimize()
 
+    height: contentLayout.height + 2 * Kirigami.Units.largeSpacing
+
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
@@ -40,7 +42,16 @@ BasePlayerControl {
     }
 
     RowLayout {
-        anchors.fill: parent
+        id: contentLayout
+
+        anchors {
+            left: musicWidget.left
+            right: musicWidget.right
+            top: musicWidget.top
+            topMargin: Kirigami.Units.largeSpacing
+            bottomMargin: Kirigami.Units.largeSpacing
+        }
+
         spacing: 0
 
         Item { implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2) }

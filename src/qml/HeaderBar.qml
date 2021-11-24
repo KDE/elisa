@@ -125,8 +125,6 @@ FocusScope {
         anchors.left: background.left
         anchors.right: background.right
         anchors.bottom: background.bottom
-
-        height: elisaTheme.mediaPlayerControlHeight
     }
 
     ColumnLayout {

@@ -81,6 +81,10 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
+#if defined Q_OS_ANDROID || defined Q_OS_MAC
+    QApplication::setStyle(QStringLiteral("breeze"));
+#endif
+
 #if defined KF5Declarative_FOUND && KF5Declarative_FOUND
     KQuickAddons::QtQuickSettings::init();
 #endif

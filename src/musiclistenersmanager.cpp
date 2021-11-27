@@ -32,7 +32,7 @@
 #include "elisa_settings.h"
 #include "modeldataloader.h"
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include <QThread>
 #include <QStandardPaths>

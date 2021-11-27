@@ -12,7 +12,7 @@
 
 #include "config-upnp-qt.h"
 
-#include <KCoreAddons/KAboutData>
+#include <KAboutData>
 
 MediaPlayer2::MediaPlayer2(QObject* parent)
     : QDBusAbstractAdaptor(parent)

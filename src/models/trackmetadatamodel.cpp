@@ -8,7 +8,7 @@
 
 #include "musiclistenersmanager.h"
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include <QtConcurrent>
 

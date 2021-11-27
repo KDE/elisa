@@ -8,7 +8,7 @@
 
 #include "databaseLogging.h"
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include <QCoreApplication>
 

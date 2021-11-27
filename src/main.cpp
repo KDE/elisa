@@ -20,10 +20,10 @@
 #include <KQuickAddons/QtQuickSettings>
 #endif
 
-#include <KI18n/KLocalizedString>
-#include <KI18n/KLocalizedContext>
+#include <KLocalizedString>
+#include <KLocalizedContext>
 
-#include <KCoreAddons/KAboutData>
+#include <KAboutData>
 
 #if defined KF5Crash_FOUND && KF5Crash_FOUND
 #include <KCrash>

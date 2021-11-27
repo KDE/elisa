@@ -10,7 +10,7 @@
 #include <QUrl>
 #include <QString>
 #include <QMimeDatabase>
-#include <KIOWidgets/KDirLister>
+#include <KDirLister>
 
 #include "models/modelLogging.h"
 

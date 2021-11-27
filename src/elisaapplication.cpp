@@ -18,23 +18,23 @@
 #include "databaseinterface.h"
 
 #include "elisa_settings.h"
-#include <KConfigCore/KAuthorized>
+#include <KAuthorized>
 #include <KLocalizedString>
 
 #if defined KF5ConfigWidgets_FOUND && KF5ConfigWidgets_FOUND
-#include <KConfigWidgets/KStandardAction>
+#include <KStandardAction>
 #endif
 
 #if defined KF5XmlGui_FOUND && KF5XmlGui_FOUND
-#include <KXmlGui/KActionCollection>
-#include <KXmlGui/KAboutApplicationDialog>
-#include <KXmlGui/KHelpMenu>
-#include <KXmlGui/KBugReport>
-#include <KXmlGui/KShortcutsDialog>
+#include <KActionCollection>
+#include <KAboutApplicationDialog>
+#include <KHelpMenu>
+#include <KBugReport>
+#include <KShortcutsDialog>
 #endif
 
 #include <KColorSchemeManager>
-#include <KCoreAddons/KAboutData>
+#include <KAboutData>
 
 #if defined KF5KIO_FOUND && KF5KIO_FOUND
 #include <KIO/OpenFileManagerWindowJob>

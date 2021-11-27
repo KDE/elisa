@@ -12,7 +12,7 @@
 #include "elisautils.h"
 #include "datatypes.h"
 
-#include <KIOWidgets/KDirModel>
+#include <KDirModel>
 
 class MusicListenersManager;
 class DatabaseInterface;

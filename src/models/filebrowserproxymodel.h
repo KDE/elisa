@@ -14,7 +14,7 @@
 #include "elisautils.h"
 
 #include <KDirSortFilterProxyModel>
-#include <KCoreAddons/KJob>
+#include <KJob>
 #include <KIO/ListJob>
 #include <KIO/UDSEntry>
 

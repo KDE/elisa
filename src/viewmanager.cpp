@@ -20,7 +20,7 @@
 
 #include "elisa_settings.h"
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include <QQmlEngine>
 #include <QMetaEnum>

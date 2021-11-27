@@ -12,7 +12,7 @@
 
 #include "viewsLogging.h"
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 #include <QUrl>
 #include <QDir>

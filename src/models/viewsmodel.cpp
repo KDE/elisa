@@ -8,7 +8,7 @@
 
 #include "viewslistdata.h"
 
-#include <KI18n/KLocalizedString>
+#include <KLocalizedString>
 
 class ViewsModelPrivate
 {

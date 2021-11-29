@@ -495,12 +495,14 @@ Kirigami.Page {
             LabelWithToolTip {
                 text: {
                     if (ElisaApplication.mediaPlayListProxyModel.remainingTracks === -1) {
-                        return i18np("%1 track", "%1 tracks", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0));
+                        return i18np("%1 track", "%1 tracks", ElisaApplication.mediaPlayListProxyModel.tracksCount);
                     } else {
-                        if ((ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0) == 1) {
-                            return i18n("%1 track", ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0);
+                        if (ElisaApplication.mediaPlayListProxyModel.tracksCount == 1) {
+                            return i18n("1 track");
                         } else {
-                            return i18n("%1 tracks (%2 remaining)", (ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount : 0), ElisaApplication.mediaPlayListProxyModel.remainingTracks);
+                            var nTracks = i18np("%1 track", "%1 tracks", ElisaApplication.mediaPlayListProxyModel.tracksCount);
+                            var nRemaining = i18ncp("number of tracks remaining", "%1 remaining", "%1 remaining", ElisaApplication.mediaPlayListProxyModel.remainingTracks);
+                            return i18nc("%1 is the translation of track[s], %2 is the translation of remaining", "%1 (%2)", nTracks, nRemaining);
                         }
                     }
                 }

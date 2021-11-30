@@ -384,7 +384,7 @@ Item {
                 Button {
                     visible: showRating && ElisaApplication.useFavoriteStyleRatings
 
-                    text: i18n("Limit to Favorited Songs")
+                    text: i18n("Only Show Favorites")
                     icon.name: "rating"
                     checkable: true
                     checked: ratingFilter.starRating == 10

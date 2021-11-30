@@ -197,6 +197,8 @@ public Q_SLOTS:
 
     void setArguments(const DataTypes::EntryDataList &newArguments);
 
+    void openFiles(const QList<QUrl> &files);
+
     void activateActionRequested(const QString &actionName, const QVariant &parameter);
 
     void activateRequested(const QStringList &arguments, const QString &workingDirectory);

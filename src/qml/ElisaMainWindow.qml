@@ -38,6 +38,15 @@ Kirigami.ApplicationWindow {
         }
     }
 
+    DropArea {
+        anchors.fill: parent
+        onDropped: {
+            if (drop.hasUrls) {
+                ElisaApplication.openFiles(drop.urls);
+            }
+        }
+    }
+
     // HACK: since elisa's main view hasn't been ported to a page, but page layers are used for mobile settings
     // lower the main view and mobile footer's z to be behind the layer when there are layers added (normally it is in front)
     property bool layerOnTop: pageStack.layers.depth > 1

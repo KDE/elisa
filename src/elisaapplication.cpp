@@ -55,6 +55,8 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QFileSystemWatcher>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 #include <memory>
 
@@ -236,6 +238,24 @@ void ElisaApplication::setArguments(const DataTypes::EntryDataList &newArguments
                        ElisaUtils::PlayListEnqueueMode::AppendPlayList,
                        ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }
+}
+
+void ElisaApplication::openFiles(const QList<QUrl> &files)
+{
+    auto newArguments = DataTypes::EntryDataList{};
+    const QMimeDatabase mimeDB;
+    for (const auto &file : files) {
+        const QMimeType mime = mimeDB.mimeTypeForUrl(file);
+        if (mime.inherits(QStringLiteral("audio/x-mpegurl"))) {
+            d->mMediaPlayListProxyModel->loadPlayList(file);
+        } else if (mime.name().startsWith(QStringLiteral("audio/"))) {
+            newArguments.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+                            {DataTypes::ResourceRole, file}}, {}, {}});
+        }
+    }
+    setArguments(newArguments);
+    // so that adding the same file more than once works
+    setArguments({});
 }
 
 void ElisaApplication::activateActionRequested(const QString &actionName, const QVariant &parameter)

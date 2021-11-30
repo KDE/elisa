@@ -53,7 +53,7 @@ Kirigami.ApplicationWindow {
     width: persistentSettings.width
     height: persistentSettings.height
 
-    title: i18n("Elisa")
+    title: ElisaApplication.manageHeaderBar.title ? i18nc("Window title", "%1 — Elisa", ElisaApplication.manageHeaderBar.title) : i18nc("Window title", "Elisa")
 
     Accessible.role: Accessible.Application
     Accessible.name: title

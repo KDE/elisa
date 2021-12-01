@@ -76,8 +76,6 @@ public:
     KActionCollection mCollection;
 #endif
 
-    DataTypes::EntryDataList mArguments;
-
     std::unique_ptr<MusicListenersManager> mMusicManager;
 
     std::unique_ptr<MediaPlayList> mMediaPlayList;
@@ -224,38 +222,30 @@ void ElisaApplication::setupActions(const QString &actionName)
 #endif
 }
 
-void ElisaApplication::setArguments(const DataTypes::EntryDataList &newArguments)
-{
-    if (d->mArguments == newArguments) {
-        return;
-    }
-
-    d->mArguments = checkFileListAndMakeAbsolute(newArguments, QDir::currentPath());
-    Q_EMIT argumentsChanged();
-
-    if (!d->mArguments.isEmpty()) {
-        Q_EMIT enqueue(d->mArguments,
-                       ElisaUtils::PlayListEnqueueMode::AppendPlayList,
-                       ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
-    }
-}
-
 void ElisaApplication::openFiles(const QList<QUrl> &files)
 {
-    auto newArguments = DataTypes::EntryDataList{};
+    openFiles(files, QDir::currentPath());
+}
+
+void ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workingDirectory)
+{
+    auto audioFiles = DataTypes::EntryDataList{};
     const QMimeDatabase mimeDB;
     for (const auto &file : files) {
         const QMimeType mime = mimeDB.mimeTypeForUrl(file);
         if (mime.inherits(QStringLiteral("audio/x-mpegurl"))) {
             d->mMediaPlayListProxyModel->loadPlayList(file);
         } else if (mime.name().startsWith(QStringLiteral("audio/"))) {
-            newArguments.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+            audioFiles.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
                             {DataTypes::ResourceRole, file}}, {}, {}});
         }
     }
-    setArguments(newArguments);
-    // so that adding the same file more than once works
-    setArguments({});
+    audioFiles = checkFileListAndMakeAbsolute(audioFiles, workingDirectory);
+    if (!audioFiles.isEmpty()) {
+        Q_EMIT enqueue(audioFiles,
+                       ElisaUtils::PlayListEnqueueMode::AppendPlayList,
+                       ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
+    }
 }
 
 void ElisaApplication::activateActionRequested(const QString &actionName, const QVariant &parameter)
@@ -267,22 +257,16 @@ void ElisaApplication::activateActionRequested(const QString &actionName, const 
 void ElisaApplication::activateRequested(const QStringList &arguments, const QString &workingDirectory)
 {
     if (arguments.size() > 1) {
-        auto realArguments = DataTypes::EntryDataList{};
-
+        QList<QUrl> urls;
         bool isFirst = true;
         for (const auto &oneArgument : arguments) {
             if (isFirst) {
                 isFirst = false;
                 continue;
             }
-
-            realArguments.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                      {DataTypes::ResourceRole, QUrl::fromUserInput(oneArgument)}}, {}, {}});
+            urls.push_back(QUrl::fromUserInput(oneArgument));
         }
-
-        Q_EMIT enqueue(checkFileListAndMakeAbsolute(realArguments, workingDirectory),
-                       ElisaUtils::PlayListEnqueueMode::AppendPlayList,
-                       ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
+        openFiles(urls, workingDirectory);
     }
 }
 
@@ -520,12 +504,6 @@ void ElisaApplication::initializePlayer()
     d->mManageHeaderBar->setIsValidRole(MediaPlayList::IsValidRole);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::setCurrentTrack);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackDataChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::updateCurrentTrackData);
-
-    if (!d->mArguments.isEmpty()) {
-        Q_EMIT enqueue(d->mArguments,
-                       ElisaUtils::PlayListEnqueueMode::AppendPlayList,
-                       ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
-    }
 }
 
 QAction * ElisaApplication::action(const QString& name)
@@ -580,11 +558,6 @@ void ElisaApplication::showInFolder(QUrl filePath)
 #else
     Q_UNUSED(filePath)
 #endif
-}
-
-const DataTypes::EntryDataList &ElisaApplication::arguments() const
-{
-    return d->mArguments;
 }
 
 MusicListenersManager *ElisaApplication::musicManager() const

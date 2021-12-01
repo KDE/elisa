@@ -7,7 +7,6 @@
 #include "config-upnp-qt.h"
 #include "elisa-version.h"
 
-#include "elisaarguments.h"
 #include "elisaapplication.h"
 #include "elisa_settings.h"
 
@@ -149,26 +148,12 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
 
-    auto arguments = DataTypes::EntryDataList{};
-    auto realArgumentsList = parser.positionalArguments();
-
-    for (const auto &oneArgument : realArgumentsList) {
-        arguments.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-                                                  {DataTypes::ResourceRole, QUrl::fromUserInput(oneArgument)}}, {}, {}});
+    QList<QUrl> urls;
+    for (const auto &oneArgument : parser.positionalArguments()) {
+        urls.push_back(QUrl::fromUserInput(oneArgument));
     }
 
-    int typeId = qmlRegisterSingletonType<ElisaArguments>("org.kde.elisa.host", 1, 0, "ElisaArguments", [](QQmlEngine *qmlEngine, QJSEngine *scriptEngine) -> QObject* {
-        Q_UNUSED(qmlEngine)
-        Q_UNUSED(scriptEngine)
-
-        auto *result = new ElisaArguments;
-
-        return result;
-    });
-
-    auto *argumentsSingleton = engine.singletonInstance<ElisaArguments*>(typeId);
-
-    argumentsSingleton->setArguments(arguments);
+    engine.rootContext()->setContextProperty(QStringLiteral("elisaStartupArguments"), QVariant::fromValue(urls));
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
 

@@ -10,7 +10,6 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
-import org.kde.elisa.host 1.0
 import Qt.labs.settings 1.0
 import Qt.labs.platform 1.1
 
@@ -433,7 +432,7 @@ Kirigami.ApplicationWindow {
 
         mprisloader.active = true
 
-        ElisaApplication.arguments = ElisaArguments.arguments
+        ElisaApplication.openFiles(elisaStartupArguments)
 
         // use global drawer on mobile
         if (Kirigami.Settings.isMobile) {

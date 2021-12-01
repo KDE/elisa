@@ -39,11 +39,6 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
 
     Q_OBJECT
 
-    Q_PROPERTY(DataTypes::EntryDataList arguments
-               READ arguments
-               WRITE setArguments
-               NOTIFY argumentsChanged)
-
     Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedView
                READ embeddedView
                NOTIFY embeddedViewChanged)
@@ -117,8 +112,6 @@ public:
 
     bool eventFilter(QObject *object, QEvent *event) override;
 
-    [[nodiscard]] const DataTypes::EntryDataList &arguments() const;
-
     [[nodiscard]] MusicListenersManager *musicManager() const;
 
     [[nodiscard]] MediaPlayList *mediaPlayList() const;
@@ -146,8 +139,6 @@ public:
     int initialViewIndex() const;
 
 Q_SIGNALS:
-
-    void argumentsChanged();
 
     void musicManagerChanged();
 
@@ -195,15 +186,14 @@ public Q_SLOTS:
 
     void configureElisa();
 
-    void setArguments(const DataTypes::EntryDataList &newArguments);
-
     void openFiles(const QList<QUrl> &files);
+    void openFiles(const QList<QUrl> &files, const QString &workingDirectory);
 
     void activateActionRequested(const QString &actionName, const QVariant &parameter);
 
     void activateRequested(const QStringList &arguments, const QString &workingDirectory);
 
-    void openRequested(const QList< QUrl > &uris);
+    void openRequested(const QList<QUrl> &uris);
 
     void initialize();
 

@@ -383,8 +383,6 @@ ecm_generate_qmltypes(org.kde.elisa 1.0
 if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
     set(elisa_SOURCES
         main.cpp
-        elisaarguments.cpp
-        elisaarguments.h
 
         windows/WindowsTheme.qml
         windows/PlatformIntegration.qml

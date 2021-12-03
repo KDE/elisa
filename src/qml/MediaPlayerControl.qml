@@ -187,7 +187,7 @@ BasePlayerControl {
             id: menuButton
 
             text: i18nc("open application menu", "Application Menu")
-            icon.name: "application-menu"
+            icon.name: "open-menu-symbolic"
 
             checkable: true
             checked: applicationMenu.visible

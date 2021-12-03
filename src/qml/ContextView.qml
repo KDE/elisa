@@ -69,7 +69,7 @@ Kirigami.Page {
                 objectName: 'showSidebarButton'
                 visible: Kirigami.Settings.isMobile
                 text: i18nc("open the sidebar", "Open sidebar")
-                icon.name: "application-menu"
+                icon.name: "open-menu-symbolic"
                 onClicked: mainWindow.globalDrawer.open()
             }
 

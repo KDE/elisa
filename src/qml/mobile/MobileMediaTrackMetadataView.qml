@@ -98,12 +98,9 @@ Kirigami.ScrollablePage {
 
             spacing: Kirigami.Units.largeSpacing
 
-            Image {
+            Kirigami.Icon {
                 Layout.preferredWidth: fileNameLabel.height
                 Layout.preferredHeight: fileNameLabel.height
-
-                sourceSize.width: fileNameLabel.height
-                sourceSize.height: fileNameLabel.height
 
                 source: elisaTheme.folderIcon
             }

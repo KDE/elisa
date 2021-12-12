@@ -33,13 +33,10 @@ Row {
             height: Kirigami.Units.iconSizes.small
             width: Kirigami.Units.iconSizes.small
 
-            Image {
+            Kirigami.Icon {
                 width: Kirigami.Units.iconSizes.small
                 height: Kirigami.Units.iconSizes.small
                 anchors.centerIn: parent
-                sourceSize.width: Kirigami.Units.iconSizes.small
-                sourceSize.height: Kirigami.Units.iconSizes.small
-                fillMode: Image.PreserveAspectFit
 
                 layer.enabled: hoveredRating >= ratingThreshold
 

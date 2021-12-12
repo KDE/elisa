@@ -73,17 +73,12 @@ Kirigami.Page {
                 onClicked: mainWindow.globalDrawer.open()
             }
 
-            Image {
+            Kirigami.Icon {
                 id: mainIcon
                 source: elisaTheme.nowPlayingIcon
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                 Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                 Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-                sourceSize.height: Layout.preferredHeight
-                sourceSize.width: Layout.preferredWidth
-
-                fillMode: Image.PreserveAspectFit
-                asynchronous: true
                 visible: !Kirigami.Settings.isMobile
             }
             Kirigami.Heading {

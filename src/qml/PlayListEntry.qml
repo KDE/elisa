@@ -82,7 +82,7 @@ BasePlayListDelegate {
             Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
             Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
 
-            Image {
+            Kirigami.Icon {
                 id: playIcon
 
                 anchors.centerIn: parent
@@ -92,16 +92,6 @@ BasePlayListDelegate {
 
                 width: Kirigami.Units.iconSizes.smallMedium
                 height: Kirigami.Units.iconSizes.smallMedium
-                sourceSize.width: Kirigami.Units.iconSizes.smallMedium
-                sourceSize.height: Kirigami.Units.iconSizes.smallMedium
-                fillMode: Image.PreserveAspectFit
-                mirror: LayoutMirroring.enabled
-
-                layer.enabled: simpleMode
-                layer.effect: ColorOverlay {
-                    cached: true
-                    color: Kirigami.Theme.textColor
-                }
 
                 visible: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
             }

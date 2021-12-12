@@ -176,8 +176,7 @@ public:
                    Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle,
-                   ViewManager::RadioSpecificStyle radioSpecificStyle,
-                   ElisaUtils::IconUseColorOverlay iconUseColorOverlay)
+                   ViewManager::RadioSpecificStyle radioSpecificStyle)
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
@@ -193,7 +192,6 @@ public:
         , mAlbumCardinality(albumCardinality)
         , mAlbumViewStyle(albumViewStyle)
         , mRadioSpecificStyle(radioSpecificStyle)
-        , mIconUseColorOverlay(iconUseColorOverlay)
         , mIsValid(true)
     {
         mDataFilter = {{DataTypes::DatabaseIdRole, databaseId}};
@@ -269,8 +267,6 @@ public:
 
     DataTypes::MusicDataType mDataFilter;
 
-    ElisaUtils::IconUseColorOverlay mIconUseColorOverlay = ElisaUtils::UseColorOverlay;
-
     bool mUseSecondTitle = false;
 
     bool mIsValid = false;
@@ -317,8 +313,6 @@ public:
     [[nodiscard]] const QString& secondTitle(int index) const;
 
     [[nodiscard]] bool useSecondTitle(int index) const;
-
-    [[nodiscard]] ElisaUtils::IconUseColorOverlay iconUseColorOverlay(int index) const;
 
     [[nodiscard]] qulonglong databaseId(int index) const;
 

@@ -32,7 +32,6 @@ public:
         UseSecondTitleRole,
         DatabaseIdRole,
         EntryTypeRole,
-        UseColorOverlayRole,
         EntryCategoryRole,
     };
 

@@ -118,12 +118,12 @@ public:
                                                ViewManager::ViewHideRating,
                                                ViewManager::IsFlatModel},
                                               {{i18nc("Title of the file browser view", "Files")},
-                                               QUrl{QStringLiteral("image://icon/folder")},
+                                               QUrl{QStringLiteral("image://icon/document-open-folder")},
                                                ViewManager::GridView,
                                                ViewManager::FileBrowserModel,
                                                ElisaUtils::NoFilter,
                                                ElisaUtils::FileName,
-                                               QUrl{QStringLiteral("image://icon/folder")},
+                                               QUrl{QStringLiteral("image://icon/document-open-folder")},
                                                ViewManager::DelegateWithoutSecondaryText,
                                                ViewManager::ViewHideRating,
                                                ViewManager::IsFlatModel,
@@ -203,11 +203,6 @@ bool ViewsListData::useSecondTitle(int index) const
 const QUrl &ViewsListData::iconUrl(int index) const
 {
     return d->mViewsParameters[index].mMainImage;
-}
-
-ElisaUtils::IconUseColorOverlay ViewsListData::iconUseColorOverlay(int index) const
-{
-    return d->mViewsParameters[index].mIconUseColorOverlay;
 }
 
 qulonglong ViewsListData::databaseId(int index) const
@@ -371,11 +366,9 @@ void ViewsListData::albumsAdded(const DataTypes::ListAlbumDataType &newData)
 
     Q_EMIT dataAboutToBeAdded(d->mViewsParameters.size(), d->mViewsParameters.size() + newData.size() - 1);
     for (const auto &oneAlbum : newData) {
-        ElisaUtils::IconUseColorOverlay useColorOverlay = ElisaUtils::DoNotUseColorOverlay;
         auto coverImage = oneAlbum.albumArtURI();
         if (!coverImage.isValid()) {
             coverImage = d->mDefaultIcons[d->mEmbeddedCategory];
-            useColorOverlay = ElisaUtils::UseColorOverlay;
         }
 
         d->mViewsParameters.push_back({oneAlbum.title(),
@@ -393,8 +386,7 @@ void ViewsListData::albumsAdded(const DataTypes::ListAlbumDataType &newData)
                                        {QStringLiteral("A-Z"), QStringLiteral("Z-A")},
                                        ViewManager::SingleAlbum,
                                        ViewManager::DiscHeaders,
-                                       ViewManager::IsTrack,
-                                       useColorOverlay});
+                                       ViewManager::IsTrack});
     }
     Q_EMIT dataAdded();
 
@@ -432,10 +424,8 @@ void ViewsListData::albumModified(const DataTypes::AlbumDataType &modifiedAlbum)
             data.mMainTitle = modifiedAlbum.title();
             if (modifiedAlbum.albumArtURI().isValid()) {
                 data.mMainImage = modifiedAlbum.albumArtURI();
-                data.mIconUseColorOverlay = ElisaUtils::DoNotUseColorOverlay;
             } else {
                 data.mMainImage = d->mDefaultIcons[d->mEmbeddedCategory];
-                data.mIconUseColorOverlay = ElisaUtils::UseColorOverlay;
             }
             data.mSecondaryTitle = modifiedAlbum.artist();
 

@@ -194,7 +194,7 @@ Item {
                     icon.name: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
                     onClicked: goBack()
                 },
-                Image {
+                Kirigami.Icon {
                     id: mainIcon
                     visible: image.toString().length > 0 && !Kirigami.Settings.isMobile // on mobile, we want more header space
                     source: image
@@ -202,12 +202,6 @@ Item {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                     Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-                    sourceSize.height: Layout.preferredHeight
-                    sourceSize.width: Layout.preferredWidth
-
-                    fillMode: Image.PreserveAspectFit
-                    asynchronous: true
-
                 },
                 ColumnLayout {
                     id: authorAndAlbumLayout

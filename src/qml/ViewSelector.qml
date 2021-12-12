@@ -60,7 +60,6 @@ FocusScope {
 
                     isSelected: viewModeView.currentIndex === index
 
-                    colorizeIcon: model.useColorOverlay
                     image: model.image
                     title: model.display
                     secondTitle: model.secondTitle

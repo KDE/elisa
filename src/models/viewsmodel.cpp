@@ -36,7 +36,6 @@ QHash<int, QByteArray> ViewsModel::roleNames() const
     auto result = QAbstractListModel::roleNames();
 
     result[ImageNameRole] = "image";
-    result[UseColorOverlayRole] = "useColorOverlay";
     result[DatabaseIdRole] = "databaseId";
     result[UseSecondTitleRole] = "useSecondTitle";
     result[SecondTitleRole] = "secondTitle";
@@ -86,9 +85,6 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
         break;
     case ColumnRoles::ImageNameRole:
         result = d->mViewsData->iconUrl(index.row());
-        break;
-    case ColumnRoles::UseColorOverlayRole:
-        result = d->mViewsData->iconUseColorOverlay(index.row());
         break;
     case ColumnRoles::DatabaseIdRole:
         result = d->mViewsData->databaseId(index.row());

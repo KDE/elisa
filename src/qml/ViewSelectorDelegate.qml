@@ -13,7 +13,6 @@ FocusScope {
     id: rootItem
 
     property bool isSelected
-    property alias colorizeIcon: viewIcon.colorizeIcon
     property string title
     property alias image: viewIcon.source
     property int databaseId
@@ -85,10 +84,8 @@ FocusScope {
             }
         }
 
-        Image {
+        Kirigami.Icon {
             id: viewIcon
-
-            property bool colorizeIcon
 
             z: 1
 
@@ -100,16 +97,6 @@ FocusScope {
 
             height: Kirigami.Units.iconSizes.smallMedium
             width: Kirigami.Units.iconSizes.smallMedium
-
-            sourceSize {
-                width: Kirigami.Units.iconSizes.smallMedium
-                height: Kirigami.Units.iconSizes.smallMedium
-            }
-
-            layer.enabled: viewIcon.colorizeIcon
-            layer.effect:  ColorOverlay {
-                color: nameLabel.color
-            }
         }
 
         LabelWithToolTip {
@@ -146,7 +133,8 @@ FocusScope {
             }
             PropertyChanges {
                 target: viewIcon
-                opacity: 1
+                active: false
+                selected: false
             }
             PropertyChanges {
                 target: nameLabel
@@ -170,7 +158,8 @@ FocusScope {
             }
             PropertyChanges {
                 target: viewIcon
-                opacity: 0.4
+                active: true
+                selected: false
             }
             PropertyChanges {
                 target: nameLabel
@@ -194,7 +183,8 @@ FocusScope {
             }
             PropertyChanges {
                 target: viewIcon
-                opacity: 1
+                active: false
+                selected: true
             }
             PropertyChanges {
                 target: nameLabel
@@ -218,7 +208,8 @@ FocusScope {
             }
             PropertyChanges {
                 target: viewIcon
-                opacity: 1.
+                active: false
+                selected: true
             }
             PropertyChanges {
                 target: nameLabel

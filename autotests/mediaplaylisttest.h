@@ -63,6 +63,8 @@ private Q_SLOTS:
 
     void restoreTrackWithoutAlbum();
 
+    void restoreLocalTrack();
+
     void testHasHeaderAlbumWithSameTitle();
 
     void testHasHeaderMoveFirstLikeQml();

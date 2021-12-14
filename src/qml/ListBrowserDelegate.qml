@@ -282,6 +282,9 @@ FocusScope {
                     FlatButtonWithToolTip {
                         visible: ElisaApplication.useFavoriteStyleRatings
 
+                        height: singleLineHeight
+                        width: singleLineHeight
+
                         text: rating == 10 ? i18n("Un-mark this song as a favorite") : i18n("Mark this song as a favorite")
                         icon.name: rating == 10 ? "rating" : "rating-unrated"
 

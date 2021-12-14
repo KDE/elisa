@@ -20,10 +20,17 @@ MouseArea {
 
     acceptedButtons: Qt.NoButton
     onWheel: {
+        // Can't use Slider's built-in increase() and decrease() functions here
+        // since they go in increments of 0.1 when the slider's stepSize is not
+        // defined, which is much too slow. And we don't define a stepSize for
+        // the slider because if we do, it gets gets tickmarks which look ugly.
         if (wheel.angleDelta.y > 0) {
-            volumeSlider.increase()
+            // Increase volume
+            volumeSlider.value = Math.min(volumeSlider.to, volumeSlider.value + 5);
+
         } else {
-            volumeSlider.decrease()
+            // Decrease volume
+            volumeSlider.value = Math.max(volumeSlider.from, volumeSlider.value - 5);
         }
     }
 

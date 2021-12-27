@@ -272,7 +272,7 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
 
 void ElisaApplication::openRequested(const QList<QUrl> &uris)
 {
-    Q_UNUSED(uris)
+    openFiles(uris);
 }
 
 void ElisaApplication::appHelpActivated()

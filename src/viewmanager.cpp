@@ -13,7 +13,7 @@
 #include "models/datamodel.h"
 #include "models/gridviewproxymodel.h"
 
-#if defined KF5KIO_FOUND && KF5KIO_FOUND
+#if KF5KIO_FOUND
 #include "models/filebrowsermodel.h"
 #include "models/filebrowserproxymodel.h"
 #endif
@@ -290,7 +290,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
     {
     case FileBrowserModel:
     {
-#if defined KF5KIO_FOUND && KF5KIO_FOUND
+#if KF5KIO_FOUND
         newModel = new ::FileBrowserModel;
         auto *realProxyModel = new FileBrowserProxyModel;
         proxyModel = realProxyModel;

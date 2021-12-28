@@ -8,7 +8,7 @@
 
 #include "config-upnp-qt.h"
 
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
+#if UPNPQT_FOUND
 #include "upnp/upnpcontrolconnectionmanager.h"
 #include "upnp/upnpcontrolmediaserver.h"
 #include "upnp/upnpcontrolcontentdirectory.h"
@@ -24,7 +24,7 @@
 #include "upnpbasictypes.h"
 #endif
 
-#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+#if KF5DBusAddons_FOUND
 #include <KDBusService>
 #endif
 
@@ -52,18 +52,18 @@
 #include "models/gridviewproxymodel.h"
 #include "localFileConfiguration/elisaconfigurationdialog.h"
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
 #include "embeddedcoverageimageprovider.h"
 #endif
 
-#if defined KF5KIO_FOUND && KF5KIO_FOUND
+#if KF5KIO_FOUND
 #include "models/filebrowsermodel.h"
 #include "models/filebrowserproxymodel.h"
 #endif
 
 #include "audiowrapper.h"
 
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
 #include "mpris2/mpris2.h"
 #include "mpris2/mediaplayer2player.h"
 #endif
@@ -85,14 +85,14 @@ ElisaQmlTestPlugin::ElisaQmlTestPlugin(QObject *aParent)
 void ElisaQmlTestPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     QQmlExtensionPlugin::initializeEngine(engine, uri);
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
     engine->addImageProvider(QStringLiteral("cover"), new EmbeddedCoverageImageProvider);
 #endif
 }
 
 void ElisaQmlTestPlugin::registerTypes(const char *uri)
 {
-#if defined UPNPQT_FOUND && UPNPQT_FOUND
+#if UPNPQT_FOUND
     qmlRegisterType<UpnpSsdpEngine>(uri, 1, 0, "UpnpSsdpEngine");
     qmlRegisterType<UpnpDiscoverAllMusic>(uri, 1, 0, "UpnpDiscoverAllMusic");
 
@@ -133,7 +133,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<ViewsListData>(uri, 1, 0, "ViewsListData");
     qmlRegisterType<GridViewProxyModel>(uri, 1, 0, "GridViewProxyModel");
 
-#if defined KF5KIO_FOUND && KF5KIO_FOUND
+#if KF5KIO_FOUND
     qmlRegisterType<FileBrowserModel>(uri, 1, 0, "FileBrowserModel");
     qmlRegisterType<FileBrowserProxyModel>(uri, 1, 0, "FileBrowserProxyModel");
 #endif
@@ -144,7 +144,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterUncreatableType<QAbstractProxyModel>(uri, 1, 0, "AbstractProxyModel", QStringLiteral("Abstract Qt type"));
     qmlRegisterUncreatableType<DataTypes>(uri, 1, 0, "DataTypes", QStringLiteral("Abstract type not to be used in aml directtly"));
 
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     qmlRegisterType<Mpris2>(uri, 1, 0, "Mpris2");
     qRegisterMetaType<MediaPlayer2Player*>();
 #endif
@@ -199,11 +199,11 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 
         auto newApplication = std::make_unique<ElisaApplication>();
 
-#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+#if KF5DBusAddons_FOUND
         auto *elisaService = new KDBusService(KDBusService::Unique, newApplication.get());
 #endif
 
-#if defined KF5DBusAddons_FOUND && KF5DBusAddons_FOUND
+#if KF5DBusAddons_FOUND
         QObject::connect(elisaService, &KDBusService::activateActionRequested, newApplication.get(), &ElisaApplication::activateActionRequested);
         QObject::connect(elisaService, &KDBusService::activateRequested, newApplication.get(), &ElisaApplication::activateRequested);
         QObject::connect(elisaService, &KDBusService::openRequested, newApplication.get(), &ElisaApplication::openRequested);

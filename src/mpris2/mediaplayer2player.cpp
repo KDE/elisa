@@ -17,7 +17,7 @@
 #include "manageheaderbar.h"
 #include "audiowrapper.h"
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
 #include <KFileMetaData/EmbeddedImageData>
 #endif
 
@@ -416,7 +416,7 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
         if (m_manageHeaderBar->image().scheme() == QStringLiteral("image")) {
             // adding a special case for image:// URLs that are only valid because Elisa installs a special handler for them
             // converting those URL to data URLs with embedded image data
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
             KFileMetaData::EmbeddedImageData embeddedImage;
 
             auto imageData = embeddedImage.imageData(m_manageHeaderBar->image().toString().mid(14));

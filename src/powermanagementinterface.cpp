@@ -12,7 +12,7 @@
 
 #include <KLocalizedString>
 
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDBusPendingCall>
@@ -46,7 +46,7 @@ public:
 
 PowerManagementInterface::PowerManagementInterface(QObject *parent) : QObject(parent), d(std::make_unique<PowerManagementInterfacePrivate>())
 {
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     auto sessionBus = QDBusConnection::sessionBus();
 
     sessionBus.connect(QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
@@ -101,7 +101,7 @@ void PowerManagementInterface::hostSleepInhibitChanged()
 
 void PowerManagementInterface::inhibitDBusCallFinishedPlasmaWorkspace(QDBusPendingCallWatcher *aWatcher)
 {
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     QDBusPendingReply<uint> reply = *aWatcher;
     if (reply.isError()) {
     } else {
@@ -116,7 +116,7 @@ void PowerManagementInterface::inhibitDBusCallFinishedPlasmaWorkspace(QDBusPendi
 
 void PowerManagementInterface::uninhibitDBusCallFinishedPlasmaWorkspace(QDBusPendingCallWatcher *aWatcher)
 {
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     QDBusPendingReply<> reply = *aWatcher;
     if (reply.isError()) {
         qCDebug(orgKdeElisaPowerManagement()) << "PowerManagementInterface::uninhibitDBusCallFinished" << reply.error();
@@ -131,7 +131,7 @@ void PowerManagementInterface::uninhibitDBusCallFinishedPlasmaWorkspace(QDBusPen
 
 void PowerManagementInterface::inhibitDBusCallFinishedGnomeWorkspace(QDBusPendingCallWatcher *aWatcher)
 {
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     QDBusPendingReply<uint> reply = *aWatcher;
     if (reply.isError()) {
         qCDebug(orgKdeElisaPowerManagement()) << "PowerManagementInterface::inhibitDBusCallFinishedGnomeWorkspace" << reply.error();
@@ -147,7 +147,7 @@ void PowerManagementInterface::inhibitDBusCallFinishedGnomeWorkspace(QDBusPendin
 
 void PowerManagementInterface::uninhibitDBusCallFinishedGnomeWorkspace(QDBusPendingCallWatcher *aWatcher)
 {
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     QDBusPendingReply<> reply = *aWatcher;
     if (reply.isError()) {
         qCDebug(orgKdeElisaPowerManagement()) << "PowerManagementInterface::uninhibitDBusCallFinished" << reply.error();
@@ -162,7 +162,7 @@ void PowerManagementInterface::uninhibitDBusCallFinishedGnomeWorkspace(QDBusPend
 
 void PowerManagementInterface::inhibitSleepPlasmaWorkspace()
 {
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     auto sessionBus = QDBusConnection::sessionBus();
 
     auto inhibitCall = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
@@ -183,7 +183,7 @@ void PowerManagementInterface::inhibitSleepPlasmaWorkspace()
 
 void PowerManagementInterface::uninhibitSleepPlasmaWorkspace()
 {
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     auto sessionBus = QDBusConnection::sessionBus();
 
     auto uninhibitCall = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
@@ -204,7 +204,7 @@ void PowerManagementInterface::uninhibitSleepPlasmaWorkspace()
 
 void PowerManagementInterface::inhibitSleepGnomeWorkspace()
 {
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     auto sessionBus = QDBusConnection::sessionBus();
 
     auto inhibitCall = QDBusMessage::createMethodCall(QStringLiteral("org.gnome.SessionManager"),
@@ -233,7 +233,7 @@ void PowerManagementInterface::inhibitSleepGnomeWorkspace()
 
 void PowerManagementInterface::uninhibitSleepGnomeWorkspace()
 {
-#if defined Qt5DBus_FOUND && Qt5DBus_FOUND
+#if Qt5DBus_FOUND
     auto sessionBus = QDBusConnection::sessionBus();
 
     auto uninhibitCall = QDBusMessage::createMethodCall(QStringLiteral("org.gnome.SessionManager"),

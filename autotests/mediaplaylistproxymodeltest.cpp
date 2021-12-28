@@ -6931,7 +6931,7 @@ void MediaPlayListProxyModelTest::enqueueSampleFiles()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 2);
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("Title"));
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(0, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("Test"));
     QCOMPARE(myPlayListProxyModel.data(myPlayListProxyModel.index(0, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("Artist"));

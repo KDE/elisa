@@ -14,7 +14,7 @@
 
 //#define QT_QML_DEBUG
 
-#if defined KF5Declarative_FOUND && KF5Declarative_FOUND
+#if KF5Declarative_FOUND
 #include <KDeclarative/KDeclarative>
 #include <KQuickAddons/QtQuickSettings>
 #endif
@@ -24,7 +24,7 @@
 
 #include <KAboutData>
 
-#if defined KF5Crash_FOUND && KF5Crash_FOUND
+#if KF5Crash_FOUND
 #include <KCrash>
 #endif
 
@@ -41,13 +41,13 @@
 #include <QQuickStyle>
 #include <QQmlContext>
 
-#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+#if Qt5AndroidExtras_FOUND
 #include <QAndroidService>
 #endif
 
 #include <memory>
 
-#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+#if Qt5AndroidExtras_FOUND
 #include <QAndroidJniObject>
 #include <QtAndroid>
 #endif
@@ -84,13 +84,13 @@ int main(int argc, char *argv[])
     QApplication::setStyle(QStringLiteral("breeze"));
 #endif
 
-#if defined KF5Declarative_FOUND && KF5Declarative_FOUND
+#if KF5Declarative_FOUND
     KQuickAddons::QtQuickSettings::init();
 #endif
 
     KLocalizedString::setApplicationDomain("elisa");
 
-#if defined Qt5AndroidExtras_FOUND && Qt5AndroidExtras_FOUND
+#if Qt5AndroidExtras_FOUND
     qInfo() << QCoreApplication::arguments();
 
     QAndroidJniObject::callStaticMethod<void>("org/kde/elisa/ElisaService",
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
                                               QtAndroid::androidContext().object());
 #endif
 
-#if defined KF5Crash_FOUND && KF5Crash_FOUND
+#if KF5Crash_FOUND
     KCrash::initialize();
 #endif
 
@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
     engine.addImportPath(QStringLiteral("qrc:/imports"));
     QQmlFileSelector selector(&engine);
 
-#if defined KF5Declarative_FOUND && KF5Declarative_FOUND
+#if KF5Declarative_FOUND
     KDeclarative::KDeclarative decl;
     decl.setDeclarativeEngine(&engine);
     decl.setupEngine(&engine);

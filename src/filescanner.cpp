@@ -10,7 +10,7 @@
 
 #include "abstractfile/indexercommon.h"
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
 
 #include <KFileMetaData/ExtractorCollection>
 #include <KFileMetaData/Extractor>
@@ -19,7 +19,7 @@
 #include <KFileMetaData/Properties>
 #include <KFileMetaData/EmbeddedImageData>
 
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+#if KF5Baloo_FOUND
 
 #include <Baloo/File>
 
@@ -36,7 +36,7 @@
 class FileScannerPrivate
 {
 public:
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
     KFileMetaData::ExtractorCollection mAllExtractors;
 
     KFileMetaData::PropertyMap mAllProperties;
@@ -46,7 +46,7 @@ public:
 
     QMimeDatabase mMimeDb;
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
     const QHash<KFileMetaData::Property::Property, DataTypes::ColumnsRoles> propertyTranslation = {
         {KFileMetaData::Property::Artist, DataTypes::ColumnsRoles::ArtistRole},
         {KFileMetaData::Property::AlbumArtist, DataTypes::ColumnsRoles::AlbumArtistRole},
@@ -109,7 +109,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
     newTrack[DataTypes::RatingRole] = 0;
     newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
     const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
     if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
         return newTrack;
@@ -168,7 +168,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
 DataTypes::TrackDataType FileScanner::scanOneBalooFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
 {
     DataTypes::TrackDataType newTrack;
-#if defined KF5Baloo_FOUND && KF5Baloo_FOUND
+#if KF5Baloo_FOUND
     const auto &localFileName = scanFile.toLocalFile();
 
     newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
@@ -195,7 +195,7 @@ DataTypes::TrackDataType FileScanner::scanOneBalooFile(const QUrl &scanFile, con
 
 void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackDataType &trackData)
 {
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
     if (d->mAllProperties.isEmpty()) {
         return;
     }
@@ -279,7 +279,7 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
 
 bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
 {
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
     const auto &imageData = d->mImageScanner.imageData(localFileName);
 
     if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {

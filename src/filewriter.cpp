@@ -10,7 +10,7 @@
 #include "config-upnp-qt.h"
 #include <QMimeDatabase>
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
 
 #include <KFileMetaData/WriterCollection>
 #include <KFileMetaData/Writer>
@@ -25,7 +25,7 @@ class FileWriterPrivate
 {
 public:
 
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
     KFileMetaData::WriterCollection mAllWriters;
 
     const QHash<DataTypes::ColumnsRoles, KFileMetaData::Property::Property> mPropertyTranslation = {
@@ -57,7 +57,7 @@ FileWriter::~FileWriter() = default;
 
 bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::ColumnsRoles role, const QVariant &data)
 {
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
 
     if (!url.isLocalFile()) {
         return false;
@@ -106,7 +106,7 @@ bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::Col
 
 bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackDataType &data)
 {
-#if defined KF5FileMetaData_FOUND && KF5FileMetaData_FOUND
+#if KF5FileMetaData_FOUND
 
     if (!url.isLocalFile()) {
         return false;

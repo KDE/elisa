@@ -5,6 +5,7 @@
  */
 
 import QtQuick 2.15
+import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import org.kde.kirigami 2.18 as Kirigami
 import org.kde.elisa 1.0
@@ -12,6 +13,15 @@ import org.kde.elisa 1.0
 Kirigami.ScrollablePage {
     property alias model: listView.model
     property AbstractItemModel realModel
+
+    titleDelegate: Kirigami.SearchField {
+        Layout.topMargin: Kirigami.Units.smallSpacing
+        Layout.bottomMargin: Kirigami.Units.smallSpacing
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        onTextChanged: model.filterText = text
+        KeyNavigation.tab: listView
+    }
 
     ListView {
         id: listView

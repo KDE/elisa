@@ -6,7 +6,7 @@
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.18 as Kirigami
 import org.kde.elisa 1.0
 
 Kirigami.ApplicationWindow {
@@ -53,6 +53,8 @@ Kirigami.ApplicationWindow {
             allAlbumsPage.model.sourceModel.playList = Qt.binding(function() { return ElisaApplication.mediaPlayListProxyModel })
 
             allAlbumsPage.model.sortModel(configurationData.sortOrder)
+
+            allAlbumsPage.fallbackIcon = configurationData.viewDefaultIcon
 
             allAlbumsPage.realModel.initializeByData(ElisaApplication.musicManager,
                                                      ElisaApplication.musicManager.viewDatabase,

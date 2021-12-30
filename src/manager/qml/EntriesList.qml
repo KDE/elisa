@@ -11,8 +11,13 @@ import org.kde.kirigami 2.18 as Kirigami
 import org.kde.elisa 1.0
 
 Kirigami.ScrollablePage {
+    id: page
+
     property alias model: listView.model
     property AbstractItemModel realModel
+    property string fallbackIcon
+
+    onFallbackIconChanged: console.info('list fallback icon', fallbackIcon)
 
     titleDelegate: Kirigami.SearchField {
         Layout.topMargin: Kirigami.Units.smallSpacing
@@ -23,7 +28,7 @@ Kirigami.ScrollablePage {
         KeyNavigation.tab: listView
     }
 
-    ListView {
+    Kirigami.CardsListView {
         id: listView
 
         Kirigami.PlaceholderMessage {
@@ -33,8 +38,8 @@ Kirigami.ScrollablePage {
             text: i18n("No data found")
         }
 
-        delegate: ItemDelegate {
-            text: model.display
+        delegate: AlbumCard {
+            fallbackIcon: page.fallbackIcon
         }
     }
 }

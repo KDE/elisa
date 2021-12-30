@@ -584,3 +584,5 @@ if (ANDROID)
         settings-configure
     )
 endif()
+
+add_subdirectory(manager)

@@ -17,8 +17,6 @@ Kirigami.ScrollablePage {
     property AbstractItemModel realModel
     property string fallbackIcon
 
-    onFallbackIconChanged: console.info('list fallback icon', fallbackIcon)
-
     titleDelegate: Kirigami.SearchField {
         Layout.topMargin: Kirigami.Units.smallSpacing
         Layout.bottomMargin: Kirigami.Units.smallSpacing

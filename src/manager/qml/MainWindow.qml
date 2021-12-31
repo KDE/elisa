@@ -42,7 +42,6 @@ Kirigami.ApplicationWindow {
         viewsData: viewsData
 
         onOpenGridView: {
-            console.info('open view:', configurationData.mainTitle)
             allAlbumsPage.title = configurationData.mainTitle
 
             allAlbumsPage.model = configurationData.associatedProxyModel

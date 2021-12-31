@@ -11,7 +11,11 @@ import org.kde.kirigami 2.18 as Kirigami
 import org.kde.elisa 1.0
 
 Kirigami.AbstractCard {
+    id: card
+
     property alias fallbackIcon: albumCover.fallback
+    property ViewManager manager
+    property var fullData
 
     contentItem: Item {
         // implicitWidth/Height define the natural width/height of an item if no width or height is specified.
@@ -58,6 +62,69 @@ Kirigami.AbstractCard {
                     text: model.artist
                 }
             }
+
+            Controls.Button {
+                id: detailButton
+
+                Layout.alignment: Qt.AlignRight
+                Layout.columnSpan: 2
+                text: i18n("Expand")
+                checkable: true
+            }
+
+            AlbumView {
+                id: detailsView
+
+                Layout.row: 1
+                Layout.column: 0
+                Layout.columnSpan: 4
+                Layout.fillWidth: true
+                Layout.minimumHeight: 28
+                Layout.preferredHeight: implicitHeight
+                visible: detailButton.checked
+
+                onVisibleChanged: {
+                    if (visible) {
+                        card.manager.openChildView(card.fullData)
+                    } else {
+                        detailsView.realModel = dummyModel
+                        detailsView.model = dummyModel
+                    }
+                }
+
+                Connections {
+                    target: card.manager
+
+                    function onOpenListView(configurationData) {
+                        detailsView.model = configurationData.associatedProxyModel
+                        detailsView.realModel = configurationData.model
+
+                        detailsView.model.sourceModel = detailsView.realModel
+                        detailsView.model.sourceModel.dataType = configurationData.dataType
+                        detailsView.model.sourceModel.playList = Qt.binding(function() { return ElisaApplication.mediaPlayListProxyModel })
+
+                        detailsView.model.sortModel(configurationData.sortOrder)
+
+                        detailsView.realModel.initializeByData(ElisaApplication.musicManager,
+                                                                 ElisaApplication.musicManager.viewDatabase,
+                                                                 configurationData.dataType,
+                                                                 configurationData.filterType,
+                                                                 configurationData.dataFilter)
+                    }
+                }
+            }
         }
+    }
+
+    ListModel {
+        id: dummyModel
+    }
+
+    ListView.onPooled: {
+        detailButton.checked = false
+    }
+
+    ListView.onReused: {
+        detailButton.checked = false
     }
 }

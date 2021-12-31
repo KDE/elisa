@@ -21,6 +21,8 @@ Kirigami.ApplicationWindow {
 
     pageStack.initialPage: EntriesList {
         id: allAlbumsPage
+
+        manager: viewManager
     }
 
     SystemPalette {

@@ -3,5 +3,6 @@
         <file>qml/MainWindow.qml</file>
         <file>qml/EntriesList.qml</file>
         <file>qml/AlbumCard.qml</file>
+        <file>qml/AlbumView.qml</file>
     </qresource>
 </RCC>

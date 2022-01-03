@@ -73,7 +73,7 @@ Kirigami.Page {
     Kirigami.Action {
         id: undoAction
         text: i18nc("Undo", "Undo")
-        icon.name: "dialog-cancel"
+        icon.name: "edit-undo"
         onTriggered: ElisaApplication.mediaPlayListProxyModel.undoClearPlayList()
     }
 

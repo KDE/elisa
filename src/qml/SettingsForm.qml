@@ -275,7 +275,7 @@ ColumnLayout {
                 scrollview.background.visible = true;
             }
 
-            ListView {
+            contentItem: ListView {
                 id: pathList
 
                 clip: true

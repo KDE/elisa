@@ -177,7 +177,7 @@ Kirigami.Page {
             id: desktopListView
             ScrollView {
                 property alias list: playListView
-                ListView {
+                contentItem: ListView {
                     id: playListView
 
                     focus: true
@@ -420,7 +420,7 @@ Kirigami.Page {
             id: mobileListView
             ScrollView {
                 property alias list: playListView
-                ListView {
+                contentItem: ListView {
                     id: playListView
                     anchors.fill: parent
                     reuseItems: true

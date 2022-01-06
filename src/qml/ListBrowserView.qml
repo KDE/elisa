@@ -148,7 +148,7 @@ FocusScope {
             ScrollView {
                 anchors.fill: parent
 
-                ListView {
+                contentItem: ListView {
                     id: contentDirectoryView
 
                     Accessible.role: Accessible.List

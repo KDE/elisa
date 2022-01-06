@@ -34,7 +34,7 @@ FocusScope {
 
         anchors.fill: parent
 
-        ListView {
+        contentItem: ListView {
             id: viewModeView
 
             Accessible.role: Accessible.List

@@ -187,7 +187,7 @@ FocusScope {
 
                 anchors.fill: parent
 
-                GridView {
+                contentItem: GridView {
                     id: contentDirectoryView
 
                     activeFocusOnTab: true

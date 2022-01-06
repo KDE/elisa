@@ -21,7 +21,7 @@ ScrollView {
     signal pausePlayback()
     signal displayError(var errorText)
 
-    ListView {
+    contentItem: ListView {
         id: playListView
 
         readonly property int nextIndex: {

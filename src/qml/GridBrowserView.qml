@@ -173,52 +173,47 @@ FocusScope {
             }
         }
 
-        FocusScope {
+        ScrollView {
+            id: scrollView
+            readonly property int scrollBarWidth: ScrollBar.vertical.visible ? ScrollBar.vertical.width : 0
+            readonly property int availableSpace: scrollView.width - scrollView.scrollBarWidth
 
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.leftMargin: Kirigami.Units.smallSpacing
 
-            ScrollView {
-                id: scrollView
-                readonly property int scrollBarWidth: ScrollBar.vertical.visible ? ScrollBar.vertical.width : 0
-                readonly property int availableSpace: scrollView.width - scrollView.scrollBarWidth
+            contentItem: GridView {
+                id: contentDirectoryView
 
-                anchors.fill: parent
+                activeFocusOnTab: true
+                keyNavigationEnabled: true
 
-                contentItem: GridView {
-                    id: contentDirectoryView
+                reuseItems: true
 
-                    activeFocusOnTab: true
-                    keyNavigationEnabled: true
+                model: delegateModel
 
-                    reuseItems: true
+                // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
+                currentIndex: Kirigami.Settings.isMobile ? 0 : -1
 
-                    model: delegateModel
+                Accessible.role: Accessible.List
+                Accessible.name: mainTitle
 
-                    // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
-                    currentIndex: Kirigami.Settings.isMobile ? 0 : -1
+                Kirigami.PlaceholderMessage {
+                    anchors.centerIn: parent
+                    width: parent.width - (Kirigami.Units.largeSpacing * 4)
+                    visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
+                    text: i18n("Nothing to display")
+                }
 
-                    Accessible.role: Accessible.List
-                    Accessible.name: mainTitle
-
-                    Kirigami.PlaceholderMessage {
-                        anchors.centerIn: parent
-                        width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                        visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
-                        text: i18n("Nothing to display")
-                    }
-
-                    cellWidth: {
-                        let columns = Math.max(Math.floor(scrollView.availableSpace / elisaTheme.gridDelegateSize), 2);
-                        return Math.floor(scrollView.availableSpace / columns);
-                    }
-                    cellHeight: {
-                        if (Kirigami.Settings.isMobile) {
-                            return cellWidth + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
-                        } else {
-                            return elisaTheme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
-                        }
+                cellWidth: {
+                    let columns = Math.max(Math.floor(scrollView.availableSpace / elisaTheme.gridDelegateSize), 2);
+                    return Math.floor(scrollView.availableSpace / columns);
+                }
+                cellHeight: {
+                    if (Kirigami.Settings.isMobile) {
+                        return cellWidth + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
+                    } else {
+                        return elisaTheme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
                     }
                 }
             }

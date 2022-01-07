@@ -11,8 +11,8 @@ import QtGraphicalEffects 1.0
 import org.kde.kirigami 2.10 as Kirigami
 import org.kde.elisa 1.0
 
-FocusScope {
-    id: rootFocusScope
+ScrollView {
+    id: scrollView
 
     readonly property alias currentIndex: viewModeView.currentIndex
     property double textOpacity
@@ -29,59 +29,53 @@ FocusScope {
 
     implicitWidth: 225
 
-    ScrollView {
-        id: scrollView
+    contentItem: ListView {
+        id: viewModeView
 
-        anchors.fill: parent
+        Accessible.role: Accessible.List
 
-        contentItem: ListView {
-            id: viewModeView
+        focus: true
+        clip: true
+        activeFocusOnTab: true
+        keyNavigationEnabled: true
+        interactive: true
 
-            Accessible.role: Accessible.List
+        property bool ignoreCurrentItemChanges: false
 
-            focus: true
-            clip: true
-            activeFocusOnTab: true
-            keyNavigationEnabled: true
-            interactive: true
+        model: DelegateModel {
+            id: pageDelegateModel
 
-            property bool ignoreCurrentItemChanges: false
+            delegate: ViewSelectorDelegate {
+                id: entry
 
-            model: DelegateModel {
-                id: pageDelegateModel
+                height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
+                width: viewModeView.width
 
-                delegate: ViewSelectorDelegate {
-                    id: entry
+                focus: true
 
-                    height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
-                    width: viewModeView.width
+                isSelected: viewModeView.currentIndex === index
 
-                    focus: true
+                image: model.image
+                title: model.display
+                secondTitle: model.secondTitle
+                useSecondTitle: model.useSecondTitle
+                databaseId: model.databaseId
 
-                    isSelected: viewModeView.currentIndex === index
-
-                    image: model.image
-                    title: model.display
-                    secondTitle: model.secondTitle
-                    useSecondTitle: model.useSecondTitle
-                    databaseId: model.databaseId
-
-                    onClicked: {
-                        viewModeView.currentIndex = index
-                        entry.forceActiveFocus()
-                    }
+                onClicked: {
+                    viewModeView.currentIndex = index
+                    entry.forceActiveFocus()
                 }
             }
-
-            section.property: 'entryCategory'
-            section.delegate: Kirigami.ListSectionHeader {
-                label: (section != 'default' ? section : '')
-                height: if (section == 'default') 0
-                width: viewModeView.width
-            }
-
-            onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
         }
+
+        section.property: 'entryCategory'
+        section.delegate: Kirigami.ListSectionHeader {
+            label: (section != 'default' ? section : '')
+            height: if (section == 'default') 0
+            width: viewModeView.width
+        }
+
+        onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
     }
 
     Behavior on implicitWidth {
@@ -103,7 +97,7 @@ FocusScope {
             name: 'iconsAndText'
             when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
-                target: rootFocusScope
+                target: scrollView
                 textOpacity: 1
                 implicitWidth: 225
             }
@@ -112,7 +106,7 @@ FocusScope {
             name: 'iconsOnly'
             when: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
-                target: rootFocusScope
+                target: scrollView
                 textOpacity: 0
                 implicitWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing
 

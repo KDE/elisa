@@ -242,68 +242,61 @@ RowLayout {
             onClicked: goBack()
         }
 
-        Rectangle {
-            radius: 3
-            color: myPalette.base
+        StackView {
+            id: browseStackView
 
             anchors.fill: parent
 
-            StackView {
-                id: browseStackView
+            clip: true
 
-                anchors.fill: parent
+            initialItem: Item {
+            }
 
-                clip: true
-
-                initialItem: Item {
+            popEnter: Transition {
+                OpacityAnimator {
+                    from: 0.0
+                    to: 1.0
+                    duration: Kirigami.Units.longDuration
                 }
+            }
 
-                popEnter: Transition {
-                    OpacityAnimator {
-                        from: 0.0
-                        to: 1.0
-                        duration: Kirigami.Units.longDuration
-                    }
+            popExit: Transition {
+                OpacityAnimator {
+                    from: 1.0
+                    to: 0.0
+                    duration: Kirigami.Units.longDuration
                 }
+            }
 
-                popExit: Transition {
-                    OpacityAnimator {
-                        from: 1.0
-                        to: 0.0
-                        duration: Kirigami.Units.longDuration
-                    }
+            pushEnter: Transition {
+                OpacityAnimator {
+                    from: 0.0
+                    to: 1.0
+                    duration: Kirigami.Units.longDuration
                 }
+            }
 
-                pushEnter: Transition {
-                    OpacityAnimator {
-                        from: 0.0
-                        to: 1.0
-                        duration: Kirigami.Units.longDuration
-                    }
+            pushExit: Transition {
+                OpacityAnimator {
+                    from: 1.0
+                    to: 0.0
+                    duration: Kirigami.Units.longDuration
                 }
+            }
 
-                pushExit: Transition {
-                    OpacityAnimator {
-                        from: 1.0
-                        to: 0.0
-                        duration: Kirigami.Units.longDuration
-                    }
+            replaceEnter: Transition {
+                OpacityAnimator {
+                    from: 0.0
+                    to: 1.0
+                    duration: Kirigami.Units.longDuration
                 }
+            }
 
-                replaceEnter: Transition {
-                    OpacityAnimator {
-                        from: 0.0
-                        to: 1.0
-                        duration: Kirigami.Units.longDuration
-                    }
-                }
-
-                replaceExit: Transition {
-                    OpacityAnimator {
-                        from: 1.0
-                        to: 0.0
-                        duration: Kirigami.Units.longDuration
-                    }
+            replaceExit: Transition {
+                OpacityAnimator {
+                    from: 1.0
+                    to: 0.0
+                    duration: Kirigami.Units.longDuration
                 }
             }
         }

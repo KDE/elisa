@@ -139,50 +139,44 @@ FocusScope {
             }
         }
 
-        Rectangle {
-            color: myPalette.base
-
+        ScrollView {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            ScrollView {
-                anchors.fill: parent
+            contentItem: ListView {
+                id: contentDirectoryView
 
-                contentItem: ListView {
-                    id: contentDirectoryView
+                Accessible.role: Accessible.List
+                Accessible.name: mainTitle
+                Accessible.description: mainTitle
 
-                    Accessible.role: Accessible.List
-                    Accessible.name: mainTitle
-                    Accessible.description: mainTitle
+                activeFocusOnTab: true
+                keyNavigationEnabled: true
 
-                    activeFocusOnTab: true
-                    keyNavigationEnabled: true
+                reuseItems: true
 
-                    reuseItems: true
+                model: delegateModel
 
-                    model: delegateModel
+                // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
+                currentIndex: Kirigami.Settings.isMobile ? 0 : -1
 
-                    // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
-                    currentIndex: Kirigami.Settings.isMobile ? 0 : -1
+                section.property: (showSection ? 'discNumber' : '')
+                section.criteria: ViewSection.FullString
+                section.labelPositioning: ViewSection.InlineLabels
+                section.delegate: TracksDiscHeader {
+                    discNumber: section
+                    width: contentDirectoryView.width
+                }
 
-                    section.property: (showSection ? 'discNumber' : '')
-                    section.criteria: ViewSection.FullString
-                    section.labelPositioning: ViewSection.InlineLabels
-                    section.delegate: TracksDiscHeader {
-                        discNumber: section
-                        width: contentDirectoryView.width
-                    }
+                Kirigami.PlaceholderMessage {
+                    anchors.centerIn: parent
+                    width: parent.width - (Kirigami.Units.largeSpacing * 4)
+                    visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
+                    text: i18n("Nothing to display")
+                }
 
-                    Kirigami.PlaceholderMessage {
-                        anchors.centerIn: parent
-                        width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                        visible: contentDirectoryView.count === 0 && !suppressNoDataPlaceholderMessage
-                        text: i18n("Nothing to display")
-                    }
-
-                    onCountChanged: if (count === 0) {
-                        currentIndex = -1;
-                    }
+                onCountChanged: if (count === 0) {
+                    currentIndex = -1;
                 }
             }
         }

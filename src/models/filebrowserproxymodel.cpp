@@ -205,6 +205,11 @@ void FileBrowserProxyModel::connectPlayList()
 void FileBrowserProxyModel::recursiveEnqueue()
 {
     auto [rootUrl, isDirectory] = mPendingEntries.front();
+
+    if (rootUrl.isEmpty()) {
+        return;
+    }
+
     mPendingEntries.pop();
     if (isDirectory) {
         mCurentUrl = rootUrl;

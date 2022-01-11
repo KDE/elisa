@@ -178,7 +178,8 @@ Window {
                 }
 
                 Button {
-                    text: i18n("Close")
+                    text: i18n("OK")
+                    icon.name: "dialog-ok"
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                     onClicked: trackMetadata.close()
                 }

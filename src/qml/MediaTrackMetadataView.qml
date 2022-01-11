@@ -100,8 +100,10 @@ Window {
             spacing: Kirigami.Units.largeSpacing
 
             Kirigami.Icon {
-                Layout.preferredWidth: fileNameLabel.height
-                Layout.preferredHeight: fileNameLabel.height
+                readonly property int size: Kirigami.Units.iconSizes.roundedIconSize(fileNameLabel.height)
+
+                implicitWidth: size
+                implicitHeight: size
 
                 source: elisaTheme.folderIcon
             }

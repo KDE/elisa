@@ -14,7 +14,7 @@ Kirigami.AbstractCard {
     id: card
 
     property alias fallbackIcon: albumCover.fallback
-    property ViewManager manager
+    property SimpleViewManager manager
     property var fullData
 
     contentItem: Item {

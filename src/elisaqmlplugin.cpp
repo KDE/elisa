@@ -39,6 +39,7 @@
 #include "musiclistenersmanager.h"
 #include "trackslistener.h"
 #include "viewmanager.h"
+#include "simpleviewmanager.h"
 #include "viewslistdata.h"
 #include "viewconfigurationdata.h"
 #include "databaseinterface.h"
@@ -122,6 +123,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<ProgressIndicator>(uri, 1, 0, "ProgressIndicator");
     qmlRegisterType<MusicListenersManager>(uri, 1, 0, "MusicListenersManager");
     qmlRegisterType<ViewManager>(uri, 1, 0, "ViewManager");
+    qmlRegisterType<SimpleViewManager>(uri, 1, 0, "SimpleViewManager");
     qmlRegisterType<ViewsListData>(uri, 1, 0, "ViewsListData");
     qmlRegisterType<ViewConfigurationData>(uri, 1, 0, "ViewConfigurationData");
     qmlRegisterType<DataModel>(uri, 1, 0, "DataModel");

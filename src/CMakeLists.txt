@@ -23,6 +23,7 @@ set(elisaLib_SOURCES
     filescanner.cpp
     filewriter.cpp
     viewmanager.cpp
+    simpleviewmanager.cpp
     powermanagementinterface.cpp
     file/filelistener.cpp
     file/localfilelisting.cpp

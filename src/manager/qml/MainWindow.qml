@@ -38,7 +38,7 @@ Kirigami.ApplicationWindow {
         embeddedCategory: ElisaApplication.embeddedView
     }
 
-    ViewManager {
+    SimpleViewManager {
         id: viewManager
 
         viewsData: viewsData
@@ -122,9 +122,6 @@ Kirigami.ApplicationWindow {
 //                                     image: imageUrl,
 //                                     opacity: 1,
 //                                 })
-        }
-
-        onPopOneView: {
         }
     }
 

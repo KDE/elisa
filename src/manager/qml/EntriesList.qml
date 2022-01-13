@@ -17,7 +17,7 @@ Kirigami.ScrollablePage {
     property alias model: delegateModel.model
     property AbstractItemModel realModel
     property string fallbackIcon
-    property ViewManager manager
+    property SimpleViewManager manager
 
     titleDelegate: Kirigami.SearchField {
         Layout.topMargin: Kirigami.Units.smallSpacing

@@ -55,16 +55,23 @@ Item {
 
     // shared actions between mobile and desktop
     Component {
-        id: sortMenuButton
+        id: sortMenuComponent
         FlatButtonWithToolTip {
             id: sortMenuButton
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
-            objectName: 'sortMenuButton'
             display: AbstractButton.TextOnly
+
+            checkable: true
+            checked: sortMenu.visible
+
             onClicked: {
-                sortMenu.sortOrder = navigationBar.sortOrder
-                sortMenu.popup(sortMenuButton, sortMenuButton.x, sortMenuButton.y + sortMenuButton.height)
+                if (sortMenu.visible) {
+                    sortMenu.dismiss()
+                } else {
+                    sortMenu.sortOrder = navigationBar.sortOrder
+                    sortMenu.popup(sortMenuButton, sortMenuButton.x, sortMenuButton.y + sortMenuButton.height)
+                }
             }
 
             // Custom content item for now to replicate the look of a button
@@ -233,7 +240,7 @@ Item {
                     }
                 },
                 Loader {
-                    sourceComponent: sortMenuButton
+                    sourceComponent: sortMenuComponent
                     active: !Kirigami.Settings.isMobile && enableSorting && !showCreateRadioButton
                     Layout.maximumHeight: parent.height
                     Layout.preferredWidth: item ? item.implicitContentWidth : 0
@@ -291,7 +298,7 @@ Item {
 
                 contentItems: [
                     Loader {
-                        sourceComponent: sortMenuButton
+                        sourceComponent: sortMenuComponent
                         active: enableSorting && !showCreateRadioButton
                         Layout.maximumHeight: parent.height
                         Layout.preferredWidth: item ? item.implicitContentWidth : 0

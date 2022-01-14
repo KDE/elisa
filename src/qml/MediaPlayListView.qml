@@ -28,32 +28,6 @@ Kirigami.Page {
     property var playListNotification
     property var playListView
 
-    function hideNotification() {
-        playListNotification.visible = false;
-    }
-
-    function showPlayListNotification(message, type, action) {
-        if (!message) {
-            return;
-        }
-
-        if (type) {
-            playListNotification.type = type;
-        } else {
-            playListNotification.type = Kirigami.MessageType.Information;
-        }
-
-        if (action) {
-            playListNotification.actions = action;
-        } else {
-            playListNotification.actions = [];
-        }
-
-        playListNotification.text = message ? message : "";
-        playListNotification.visible = true;
-    }
-
-
     title: i18nc("@info Title of the view of the playlist; keep this string as short as possible because horizontal space is quite scarce", "Playlist")
     padding: 0
 
@@ -63,60 +37,6 @@ Kirigami.Page {
 
     Accessible.role: Accessible.Pane
     Accessible.name: topItem.title
-
-    Timer {
-        id: mobileClearedMessageTimer
-        interval: 3000
-        onTriggered: mobileClearedMessage.visible = false
-    }
-
-    Kirigami.Action {
-        id: undoAction
-        text: i18nc("Undo", "Undo")
-        icon.name: "edit-undo"
-        onTriggered: ElisaApplication.mediaPlayListProxyModel.undoClearPlayList()
-    }
-
-    Kirigami.Action {
-        id: retryLoadAction
-        text: i18nc("Retry", "Retry")
-        icon.name: "edit-redo"
-        onTriggered: loadPlaylistButton.clicked()
-    }
-
-    Kirigami.Action {
-        id: retrySaveAction
-        text: i18nc("Retry", "Retry")
-        icon.name: "edit-redo"
-        onTriggered: savePlaylistButton.clicked()
-    }
-
-    Connections {
-        target: ElisaApplication.mediaPlayListProxyModel
-        function onPlayListLoadFailed() {
-            showPlayListNotification(i18nc("Message when playlist load failed", "Loading failed"), Kirigami.MessageType.Error, retryLoadAction)
-        }
-    }
-
-    Connections {
-         target: ElisaApplication.mediaPlayListProxyModel
-         function onDisplayUndoNotification() {
-             if (Kirigami.Settings.isMobile) {
-                 // cleared playlist message
-                mobileClearedMessage.visible = true;
-                mobileClearedMessageTimer.restart();
-            } else {
-                showPlayListNotification(i18nc("Playlist cleared", "Playlist cleared"), Kirigami.MessageType.Information, undoAction);
-            }
-         }
-    }
-
-    Connections {
-         target: ElisaApplication.mediaPlayListProxyModel
-         function onHideUndoNotification() {
-            hideNotification()
-         }
-    }
 
     // TODO: Once we depend on Frameworks 5.80, change this to
     // "Kirigami.ApplicationHeaderStyle.None" and remove the custom header
@@ -320,35 +240,6 @@ Kirigami.Page {
                         explanation: i18n("Add some songs to get started. You can browse your music using the views on the left.")
                         visible: playListView.count === 0
                     }
-
-                    Kirigami.InlineMessage {
-                        id: playListNotification
-                        Component.onCompleted: topItem.playListNotification = playListNotification
-
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                            bottom: parent.bottom
-                            margins: Kirigami.Units.largeSpacing
-                        }
-
-                        type: Kirigami.MessageType.Information
-                        showCloseButton: true
-
-                        onVisibleChanged: {
-                            if (visible) {
-                                autoHideNotificationTimer.start()
-                            } else {
-                                autoHideNotificationTimer.stop()
-                            }
-                        }
-
-                        Timer {
-                            id: autoHideNotificationTimer
-                            interval: 7000
-                            onTriggered: playListNotification.visible = false
-                        }
-                    }
                 }
             }
         }
@@ -549,7 +440,7 @@ Kirigami.Page {
         {
             if (fileMode === PlatformDialog.FileDialog.SaveFile) {
                 if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(fileDialog.file)) {
-                    showPlayListNotification(i18nc("Message when saving a playlist failed", "Saving failed"), Kirigami.MessageType.Error, retrySaveAction)
+                    showPassiveNotification(i18n("Saving failed"), 7000, i18n("Retry"), function() { savePlaylistButton.clicked(); })
                 }
             } else {
                 ElisaApplication.mediaPlayListProxyModel.loadPlayList(fileDialog.file)

@@ -497,9 +497,7 @@ void MediaPlayListProxyModel::enqueue(const DataTypes::EntryDataList &newEntries
     d->mTriggerPlay = triggerPlay;
 
     if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        if (rowCount() == 0) {
-            Q_EMIT hideUndoNotification();
-        } else {
+        if (rowCount() != 0) {
             clearPlayList();
         }
     }
@@ -685,7 +683,6 @@ void MediaPlayListProxyModel::undoClearPlayList()
     d->mPlayListModel->clearPlayList();
 
     setPersistentState(d->mPersistentSettingsForUndo);
-    Q_EMIT hideUndoNotification();
     Q_EMIT undoClearPlayListPlayer();
 }
 
@@ -816,9 +813,7 @@ void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName, ElisaUtils:
     if (!fileName.isLocalFile()) return;
     // clear playlist if required
     if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        if (rowCount() == 0) {
-            Q_EMIT hideUndoNotification();
-        } else {
+        if (rowCount() != 0) {
             clearPlayList();
         }
     }

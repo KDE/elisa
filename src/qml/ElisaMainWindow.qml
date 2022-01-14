@@ -20,6 +20,17 @@ Kirigami.ApplicationWindow {
 
     visible: true
 
+    Connections {
+        target: ElisaApplication.mediaPlayListProxyModel
+        function onPlayListLoadFailed() {
+            showPassiveNotification(i18n("Loading failed"), 7000, i18n("Retry"), function() { loadPlaylistButton.clicked(); })
+        }
+
+        function onDisplayUndoNotification() {
+            showPassiveNotification(i18n("Playlist cleared"), 7000, i18n("Undo"), function() { ElisaApplication.mediaPlayListProxyModel.undoClearPlayList(); })
+        }
+    }
+
     contextDrawer: Kirigami.ContextDrawer {
         id: playlistDrawer
         handleClosedIcon.source: "view-media-playlist"

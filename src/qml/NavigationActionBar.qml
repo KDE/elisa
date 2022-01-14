@@ -78,17 +78,26 @@ Item {
             // that opens a dropdown menu
             // TODO: Port more fully to Kirigami so we get this for free
             contentItem: RowLayout {
-                spacing: Kirigami.Units.largeSpacing
+                spacing: Kirigami.Units.smallSpacing
+
+                Kirigami.Icon {
+                    Layout.leftMargin: Kirigami.Units.largeSpacing
+                    implicitWidth: Kirigami.Units.iconSizes.smallMedium
+                    implicitHeight: Kirigami.Units.iconSizes.smallMedium
+                    source: 'view-sort'
+                    isMask: true
+                }
 
                 Label {
-                    Layout.leftMargin: Kirigami.Units.largeSpacing
                     text: if (sortMenu.sortRoleName !== "") {
                         i18nc("Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
                     } else {
                         i18nc("Sort By Menu Title with no sort selected", "Sort")
                     }
                 }
+
                 Kirigami.Icon {
+                    Layout.leftMargin: Kirigami.Units.smallSpacing
                     Layout.rightMargin: Kirigami.Units.largeSpacing
                     implicitWidth: Kirigami.Units.iconSizes.small
                     implicitHeight: Kirigami.Units.iconSizes.small

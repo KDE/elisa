@@ -55,7 +55,7 @@ Item {
 
     // shared actions between mobile and desktop
     Component {
-        id: sortMenuButton
+        id: sortMenuComponent
         FlatButtonWithToolTip {
             id: sortMenuButton
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
@@ -233,7 +233,7 @@ Item {
                     }
                 },
                 Loader {
-                    sourceComponent: sortMenuButton
+                    sourceComponent: sortMenuComponent
                     active: !Kirigami.Settings.isMobile && enableSorting && !showCreateRadioButton
                     Layout.maximumHeight: parent.height
                     Layout.preferredWidth: item ? item.implicitContentWidth : 0
@@ -291,7 +291,7 @@ Item {
 
                 contentItems: [
                     Loader {
-                        sourceComponent: sortMenuButton
+                        sourceComponent: sortMenuComponent
                         active: enableSorting && !showCreateRadioButton
                         Layout.maximumHeight: parent.height
                         Layout.preferredWidth: item ? item.implicitContentWidth : 0

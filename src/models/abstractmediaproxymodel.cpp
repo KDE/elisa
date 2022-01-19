@@ -41,7 +41,7 @@ void AbstractMediaProxyModel::setFilterText(const QString &filterText)
 
     mFilterText = filterText;
 
-    mFilterExpression.setPattern(mFilterText);
+    mFilterExpression.setPattern(mFilterText.normalized(QString::NormalizationForm_KC));
     mFilterExpression.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
     mFilterExpression.optimize();
 

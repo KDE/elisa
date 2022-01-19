@@ -44,18 +44,18 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
         return result;
     }
 
-    if (mFilterExpression.match(mainValue).hasMatch()) {
+    if (mFilterExpression.match(mainValue.normalized(QString::NormalizationForm_KC)).hasMatch()) {
         result = true;
         return result;
     }
 
-    if (mFilterExpression.match(artistValue).hasMatch()) {
+    if (mFilterExpression.match(artistValue.normalized(QString::NormalizationForm_KC)).hasMatch()) {
         result = true;
         return result;
     }
 
     for (const auto &oneArtist : allArtistsValue) {
-        if (mFilterExpression.match(oneArtist).hasMatch()) {
+        if (mFilterExpression.match(oneArtist.normalized(QString::NormalizationForm_KC)).hasMatch()) {
             result = true;
             return result;
         }

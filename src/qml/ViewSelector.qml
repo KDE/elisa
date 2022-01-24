@@ -51,7 +51,7 @@ ScrollView {
             delegate: ViewSelectorDelegate {
                 id: entry
 
-                height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
+                height: Math.round((Kirigami.Settings.tabletMode ? 1.25 : 1) * (Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing))
                 width: viewModeView.width
 
                 focus: true

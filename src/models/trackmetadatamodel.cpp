@@ -262,9 +262,7 @@ qulonglong TrackMetadataModel::databaseId() const
 
 void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trackData)
 {
-    if ((mDatabaseId != 0 && trackData.databaseId() != mDatabaseId) ||
-            (!mFileUrl.isEmpty() && trackData.resourceURI() != mFileUrl) ||
-            (!mFullData.isEmpty() && trackData.databaseId() != mFullData.databaseId())) {
+    if (!mFileUrl.isEmpty() && trackData.resourceURI() != mFileUrl) {
         return;
     }
 

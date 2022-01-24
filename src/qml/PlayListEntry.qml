@@ -30,6 +30,7 @@ BasePlayListDelegate {
     padding: 0
     alternatingBackground: false
     separatorVisible: !simpleMode
+    height: Math.round((Kirigami.Settings.tabletMode ? 1.25 : 1) * (Kirigami.Units.gridUnit + (Kirigami.Units.largeSpacing * 2)))
 
     contentItem: Item {
         implicitWidth: playListEntry.width

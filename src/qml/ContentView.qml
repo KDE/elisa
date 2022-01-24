@@ -416,7 +416,7 @@ RowLayout {
             databaseId: ElisaApplication.manageHeaderBar.databaseId
             trackType: ElisaApplication.manageHeaderBar.trackType
             songTitle: ElisaApplication.manageHeaderBar.title
-            artistName: ElisaApplication.manageHeaderBar.artist
+            artistName: ElisaApplication.manageHeaderBar.artist !== undefined ? ElisaApplication.manageHeaderBar.artist : ''
             albumName: ElisaApplication.manageHeaderBar.album
             albumArtUrl: ElisaApplication.manageHeaderBar.image
             fileUrl: ElisaApplication.manageHeaderBar.fileUrl

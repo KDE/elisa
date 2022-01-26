@@ -240,6 +240,7 @@ void ModelDataLoader::loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType d
 
     switch (dataType)
     {
+    case ElisaUtils::FileName:
     case ElisaUtils::Track:
         Q_EMIT allTrackData(d->mDatabase->trackDataFromDatabaseIdAndUrl(databaseId, url));
         break;
@@ -251,7 +252,6 @@ void ModelDataLoader::loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType d
     case ElisaUtils::Composer:
     case ElisaUtils::Genre:
     case ElisaUtils::Lyricist:
-    case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
         break;

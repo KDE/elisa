@@ -32,9 +32,9 @@ Kirigami.Page {
 
     readonly property bool nothingPlaying: albumName.length === 0
                                         && artistName.length === 0
-                                        && albumArtUrl.toString.length === 0
+                                        && albumArtUrl.toString().length === 0
                                         && songTitle.length === 0
-                                        && fileUrl.toString.length === 0
+                                        && fileUrl.toString().length === 0
 
     title: i18nc("Title of the context view related to the currently playing track", "Now Playing")
     padding: 0
@@ -352,14 +352,18 @@ Kirigami.Page {
     }
 
     onFileUrlChanged: {
-        if (ElisaApplication.musicManager && trackType !== undefined) {
+        if (ElisaApplication.musicManager && trackType !== undefined && fileUrl.toString().length !== 0) {
             metaDataModel.initializeByUrl(trackType, fileUrl)
         }
     }
 
     onTrackTypeChanged: {
-        if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
-            metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+        if (ElisaApplication.musicManager && trackType !== undefined) {
+            if (databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            } else {
+                metaDataModel.initializeByUrl(trackType, fileUrl)
+            }
         }
     }
 
@@ -374,8 +378,12 @@ Kirigami.Page {
     }
 
     Component.onCompleted: {
-        if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
-            metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+        if (ElisaApplication.musicManager && trackType !== undefined) {
+            if (databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            } else {
+                metaDataModel.initializeByUrl(trackType, fileUrl)
+            }
         }
     }
 }

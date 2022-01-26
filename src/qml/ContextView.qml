@@ -353,7 +353,11 @@ Kirigami.Page {
 
     onFileUrlChanged: {
         if (ElisaApplication.musicManager && trackType !== undefined && fileUrl.toString().length !== 0) {
-            metaDataModel.initializeByUrl(trackType, fileUrl)
+            if (databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            } else {
+                metaDataModel.initializeByUrl(trackType, fileUrl)
+            }
         }
     }
 

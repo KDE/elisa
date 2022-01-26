@@ -355,9 +355,9 @@ void ManageHeaderBar::updateCurrentTrackData()
     notifyTitleProperty();
     notifyAlbumProperty();
     notifyAlbumArtistProperty();
-    notifyFileNameProperty();
     notifyImageProperty();
     notifyDatabaseIdProperty();
+    notifyFileNameProperty();
     notifyTrackTypeProperty();
     notifyAlbumIdProperty();
     notifyIsValidProperty();

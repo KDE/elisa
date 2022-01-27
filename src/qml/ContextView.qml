@@ -362,7 +362,7 @@ Kirigami.Page {
     }
 
     onTrackTypeChanged: {
-        if (ElisaApplication.musicManager && trackType !== undefined) {
+        if (ElisaApplication.musicManager && trackType !== undefined && fileUrl.toString().length !== 0) {
             if (databaseId !== 0) {
                 metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
             } else {

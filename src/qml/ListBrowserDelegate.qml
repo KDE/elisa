@@ -102,8 +102,13 @@ FocusScope {
         }
 
         RowLayout {
-            anchors.fill: parent
-            spacing: 0
+            anchors {
+                fill: parent
+                leftMargin: Kirigami.Units.largeSpacing
+                rightMargin: Kirigami.Units.largeSpacing
+            }
+
+            spacing: Kirigami.Units.largeSpacing
 
             Loader {
                 active: mediaTrack.delegateLoaded && (detailedView || Kirigami.Settings.isMobile) // cover is always visible on mobile
@@ -111,8 +116,6 @@ FocusScope {
                 // mobile delegate needs more margins
                 Layout.preferredHeight: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
                 Layout.preferredWidth: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
-                Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
-                Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
 
                 Layout.alignment: Qt.AlignCenter
 
@@ -149,7 +152,6 @@ FocusScope {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                Layout.leftMargin: Kirigami.Units.largeSpacing
 
                 spacing: Kirigami.Units.smallSpacing / 2
 
@@ -234,8 +236,6 @@ FocusScope {
                     textFormat: Text.PlainText
 
                     Layout.alignment: Qt.AlignLeft
-                    Layout.leftMargin: !LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0
                     Layout.fillWidth: true
                     elide: Text.ElideRight
                     font: Kirigami.Theme.smallFont
@@ -249,7 +249,6 @@ FocusScope {
                 visible: active
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                Layout.rightMargin: 10
 
                 z: 1
 
@@ -335,8 +334,6 @@ FocusScope {
                 starRating: rating
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                Layout.leftMargin: Kirigami.Units.largeSpacing
-                Layout.rightMargin: Kirigami.Units.largeSpacing
 
                 onRatingEdited: {
                     trackRatingChanged(trackUrl, starRating);
@@ -347,9 +344,6 @@ FocusScope {
 
                 implicitWidth: Kirigami.Units.iconSizes.smallMedium
                 implicitHeight: Kirigami.Units.iconSizes.smallMedium
-
-                Layout.leftMargin: Kirigami.Units.largeSpacing
-                Layout.rightMargin: Kirigami.Units.largeSpacing
 
                 source: "rating"
             }
@@ -362,8 +356,6 @@ FocusScope {
                 horizontalAlignment: Text.AlignRight
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
-                Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
             }
 
             // mobile context actions menu button

@@ -329,7 +329,7 @@ FocusScope {
             // ratings (desktop)
             RatingStar {
                 id: ratingWidget
-                visible: !Kirigami.Settings.isMobile && !ElisaApplication.useFavoriteStyleRatings
+                visible: !Kirigami.Settings.isMobile && !ElisaApplication.useFavoriteStyleRatings && rating > 0
                 readOnly: false
 
                 starRating: rating

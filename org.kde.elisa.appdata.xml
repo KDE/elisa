@@ -39,6 +39,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="pl">Elisa</name>
   <name xml:lang="pt">Elisa</name>
   <name xml:lang="pt-BR">Elisa</name>
+  <name xml:lang="ro">Elisa</name>
   <name xml:lang="ru">Elisa</name>
   <name xml:lang="sk">Elisa</name>
   <name xml:lang="sl">Elisa</name>
@@ -76,6 +77,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="pl">Piękny odtwarzacz muzyki, bez nonsensów i z obsługą radiowych rozgłośni sieciowych</summary>
   <summary xml:lang="pt">Leitor de música bonito e sem inutilidades com suporte para rádios 'online'</summary>
   <summary xml:lang="pt-BR">Lindo reprodutor de música descomplicado com suporte a rádio online</summary>
+  <summary xml:lang="ro">Lector de muzică frumos și simplu, cu suport pentru radio online</summary>
   <summary xml:lang="ru">Современный и функциональный музыкальный проигрыватель с поддержкой онлайн-радио</summary>
   <summary xml:lang="sk">Nádherný hudobný prehrávač bez nezmyslov s podporou online rádií</summary>
   <summary xml:lang="sl">Čudovit predvajalnik glasbe brez navlake s spletno radijsko podporo</summary>
@@ -116,6 +118,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="pl">Prosty odtwarzacz multimediów, który powinien być łatwy w obsłudze. Nie wymaga żadnych ustawień do jego używania.</p>
     <p xml:lang="pt">Um leitor de música simples que deveria ser simples de usar. Não necessita de nenhuma configuração antes de poder ser usado.</p>
     <p xml:lang="pt-BR">Um reprodutor de músicas simples que deve ser fácil de usar. Não requer qualquer configuração antes de usá-lo.</p>
+    <p xml:lang="ro">Un lector de muzică simplu și ușor de folosit. Nu necesită niciun fel de configurare înainte de a putea fi folosit.</p>
     <p xml:lang="ru">Простое в использовании приложение для проигрывания музыки. Для начала использования не требуется никакой предварительной настройки.</p>
     <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>
     <p xml:lang="sl">Preprost predvajalnik glasbe, ki naj bi bil enostaven za uporabo. Pred uporabo ne potrebuje nastavljanja.</p>
@@ -163,6 +166,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="pl">Odtwarzacz muzyki Elisa</caption>
       <caption xml:lang="pt">O leitor de música Elisa</caption>
       <caption xml:lang="pt-BR">O reprodutor de músicas Elisa</caption>
+      <caption xml:lang="ro">Lectorul de muzică Elisa</caption>
       <caption xml:lang="ru">Музыкальный проигрыватель Elisa</caption>
       <caption xml:lang="sk">Hudobný prehrávač Elisa</caption>
       <caption xml:lang="sl">Glasbeni predvajalnik Elisa</caption>
@@ -202,6 +206,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="pl">Elista na Plazma Mobile</caption>
       <caption xml:lang="pt">O Elisa no Plasma Móvel</caption>
       <caption xml:lang="pt-BR">Elisa no Plasma Mobile</caption>
+      <caption xml:lang="ro">Elisa pe Plasma Mobile</caption>
       <caption xml:lang="ru">Проигрыватель Elisa на Plasma Mobile</caption>
       <caption xml:lang="sk">Elisa na Plasma Mobile</caption>
       <caption xml:lang="sl">Elisa na Plasma Mobile</caption>

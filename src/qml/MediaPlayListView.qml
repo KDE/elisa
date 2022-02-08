@@ -97,6 +97,10 @@ Kirigami.Page {
             id: desktopListView
             ScrollView {
                 property alias list: playListView
+
+                // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
+                ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
                 contentItem: ListView {
                     id: playListView
 

@@ -202,6 +202,8 @@ Kirigami.Page {
 
                 contentWidth: implicitWidth
                 contentHeight: allMetaDataLoader.height
+
+                // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
                 Loader {

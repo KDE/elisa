@@ -270,6 +270,9 @@ ColumnLayout {
             Layout.fillHeight: true
             Layout.maximumHeight: Kirigami.Units.gridUnit * 12
 
+            // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
+            QQC2.ScrollBar.horizontal.policy: QQC2.ScrollBar.AlwaysOff
+
             // Show the border
             Component.onCompleted: {
                 scrollview.background.visible = true;

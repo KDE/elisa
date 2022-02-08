@@ -21,6 +21,9 @@ ScrollView {
     signal pausePlayback()
     signal displayError(var errorText)
 
+    // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
+    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
     contentItem: ListView {
         id: playListView
 

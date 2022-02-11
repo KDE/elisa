@@ -159,6 +159,8 @@ FocusScope {
                 Label {
                     id: mainLabel
 
+                    Layout.fillWidth: true
+
                     text: {
                         if (detailedView) {
                             return title;
@@ -198,22 +200,16 @@ FocusScope {
                             }
                         }
                     }
-                    horizontalAlignment: Text.AlignLeft
-                    color: myPalette.text
                     textFormat: Text.PlainText
 
-                    Layout.alignment: Qt.AlignLeft
-                    Layout.leftMargin: !LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0
-                    Layout.rightMargin: LayoutMirroring.enabled ? (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.smallSpacing) : 0
-                    Layout.fillWidth: true
-
                     elide: Text.ElideRight
-                    font.pointSize: Kirigami.Theme.defaultFont.pointSize
                 }
 
                 // second row (shown for mobile, and desktop detailed view)
                 Label {
                     id: artistLabel
+
+                    Layout.fillWidth: true
 
                     text: {
                         var labelText = ""
@@ -232,11 +228,8 @@ FocusScope {
 
                     visible: text.length > 0 && (Kirigami.Settings.isMobile || detailedView)
                     opacity: 0.6
-                    color: myPalette.text
                     textFormat: Text.PlainText
 
-                    Layout.alignment: Qt.AlignLeft
-                    Layout.fillWidth: true
                     elide: Text.ElideRight
                     font: Kirigami.Theme.smallFont
                 }

@@ -50,6 +50,12 @@ Window {
     minimumHeight: elisaTheme.metaDataDialogHeight
     minimumWidth: elisaTheme.metaDataDialogWidth
 
+    // Close when pressing Esc key
+    Shortcut {
+        sequence: StandardKey.Cancel
+	onActivated: close()
+    }
+
     onClosing: {
         trackMetadata.rejected()
     }

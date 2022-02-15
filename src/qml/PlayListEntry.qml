@@ -94,6 +94,9 @@ BasePlayListDelegate {
                 height: Kirigami.Units.iconSizes.smallMedium
 
                 visible: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
+
+                isMask: simpleMode
+                color: Kirigami.Theme.textColor
             }
 
             Label {

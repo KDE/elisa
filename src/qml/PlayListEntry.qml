@@ -61,7 +61,7 @@ BasePlayListDelegate {
             spacing: Kirigami.Units.smallSpacing / 2
 
             Loader {
-                active: !simpleMode
+                active: !simpleMode && playListEntry.showDragHandle
                 sourceComponent: Kirigami.ListItemDragHandle {
                     listItem: playListEntry
                     listView: playListEntry.listView

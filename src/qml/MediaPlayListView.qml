@@ -163,6 +163,7 @@ Kirigami.Page {
                             isPlaying: model.isPlaying
                             metadataModifiableRole: model && model.metadataModifiableRole ? model.metadataModifiableRole : false
                             listView: playListView
+                            showDragHandle: playListView.count > 1
                         }
                     }
 
@@ -279,6 +280,7 @@ Kirigami.Page {
                             isPlaying: model ? model.isPlaying : false
                             metadataModifiableRole: model && model.metadataModifiableRole ? model.metadataModifiableRole : false
                             hideDiscNumber: model && model.isSingleDiscAlbum
+                            showDragHandle: playListView.count > 1
 
                             listView: playListView
 

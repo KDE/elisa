@@ -36,6 +36,7 @@ Kirigami.AbstractListItem {
 
     property var listView
     property bool simpleMode: false
+    property bool showDragHandle: true
 
     signal startPlayback()
     signal pausePlayback()

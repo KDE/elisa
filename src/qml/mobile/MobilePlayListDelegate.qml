@@ -73,6 +73,7 @@ BasePlayListDelegate {
 
             // drag handle (for list reordering)
             Kirigami.ListItemDragHandle {
+                visible: playListEntry.showDragHandle
                 listItem: playListEntry
                 listView: playListEntry.listView
                 onMoveRequested: ElisaApplication.mediaPlayListProxyModel.moveRow(oldIndex, newIndex)

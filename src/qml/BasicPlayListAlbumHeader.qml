@@ -7,24 +7,20 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.10 as Kirigami
 
 import org.kde.elisa 1.0
 
 import QtQuick 2.0
 
-Rectangle {
-    id: background
-
+Kirigami.ListSectionHeader {
     property var headerData
     property string album: headerData[0]
     property string albumArtist: headerData[1]
     property url imageUrl: headerData[2]
-    property alias backgroundColor: background.color
 
-    implicitHeight: contentLayout.implicitHeight
-
-    color: myPalette.midlight
+    height: contentLayout.implicitHeight
+    padding: 0
 
     RowLayout {
         id: contentLayout

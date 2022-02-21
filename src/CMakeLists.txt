@@ -400,7 +400,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/LabelWithToolTip.qml
 
         qml/RatingStar.qml
-        qml/DraggableItem.qml
         qml/TrackImportNotification.qml
         qml/ImageWithFallback.qml
 

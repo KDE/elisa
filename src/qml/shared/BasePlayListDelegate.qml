@@ -7,7 +7,10 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
 
-FocusScope {
+import org.kde.kirigami 2.2 as Kirigami
+import org.kde.elisa 1.0
+
+Kirigami.AbstractListItem {
     property var index
     property bool isSingleDiscAlbum
     property int isPlaying
@@ -32,9 +35,32 @@ FocusScope {
     property bool metadataModifiableRole: false
 
     property var listView
+    property bool simpleMode: false
 
     signal startPlayback()
     signal pausePlayback()
-    signal removeFromPlaylist(var trackIndex)
-    signal switchToTrack(var trackIndex)
+    signal removeFromPlaylist(int trackIndex)
+    signal switchToTrack(int trackIndex)
+
+    onSwitchToTrack: ElisaApplication.mediaPlayListProxyModel.switchTo(trackIndex)
+    onStartPlayback: ElisaApplication.audioControl.ensurePlay()
+    onPausePlayback: ElisaApplication.audioControl.playPause()
+    onRemoveFromPlaylist: ElisaApplication.mediaPlayListProxyModel.removeRow(trackIndex)
+
+    onClicked: {
+        listView.currentIndex = index
+        forceActiveFocus()
+
+        if (model.isValid && (simpleMode || Kirigami.Settings.isMobile)) {
+            switchToTrack(index)
+            startPlayback()
+        }
+    }
+
+    onDoubleClicked: {
+        if (model.isValid) {
+            switchToTrack(index)
+            startPlayback()
+        }
+    }
 }

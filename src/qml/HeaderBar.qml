@@ -319,7 +319,6 @@ FocusScope {
                 Loader {
                     id: playLoader
                     active: headerBar.isMaximized
-                    visible: headerBar.isMaximized
 
                     Layout.fillWidth: true
                     Layout.fillHeight:  true
@@ -327,8 +326,7 @@ FocusScope {
                     Layout.topMargin: Kirigami.Units.largeSpacing
 
                     sourceComponent: SimplePlayListView {
-                        anchors.fill: parent
-                        playListModel: ElisaApplication.mediaPlayListProxyModel
+                        model: ElisaApplication.mediaPlayListProxyModel
                     }
 
                 }

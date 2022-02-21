@@ -8,7 +8,6 @@
         <file>qml/HeaderBar.qml</file>
         <file>qml/ContextView.qml</file>
         <file>qml/ContentView.qml</file>
-        <file>qml/DraggableItem.qml</file>
         <file>qml/NavigationActionBar.qml</file>
         <file>qml/PlayListEntry.qml</file>
         <file>qml/Theme.qml</file>

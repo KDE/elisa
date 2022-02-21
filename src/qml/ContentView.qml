@@ -311,8 +311,6 @@ RowLayout {
     MediaPlayListView {
         id: playList
         Layout.fillHeight: true
-        onStartPlayback: ElisaApplication.audioControl.ensurePlay()
-        onPausePlayback: ElisaApplication.audioControl.playPause()
     }
 
     states: [

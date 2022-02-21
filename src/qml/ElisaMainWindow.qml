@@ -43,8 +43,6 @@ Kirigami.ApplicationWindow {
         enabled: true
         MediaPlayListView {
             anchors.fill: parent
-            onStartPlayback: ElisaApplication.audioControl.ensurePlay()
-            onPausePlayback: ElisaApplication.audioControl.playPause()
         }
     }
 

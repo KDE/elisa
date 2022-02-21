@@ -13,12 +13,10 @@ import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 ScrollView {
-    id: scrollView
+    id: topItem
 
-    property alias playListModel: playListModelDelegate.model
+    property alias model: playListView.model
 
-    signal startPlayback()
-    signal pausePlayback()
     signal displayError(var errorText)
 
     // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
@@ -52,6 +50,7 @@ ScrollView {
 
         highlightMoveDuration: Kirigami.Units.veryLongDuration
         highlightMoveVelocity: -1
+        highlight: Item {}
 
         section.property: 'albumSection'
         section.criteria: ViewSection.FullString
@@ -59,7 +58,36 @@ ScrollView {
         section.delegate: BasicPlayListAlbumHeader {
             headerData: JSON.parse(section)
             width: playListView.width
+            Kirigami.Theme.inherit: true
             backgroundColor: "transparent"
+        }
+
+        delegate: PlayListEntry {
+            id: entry
+
+            focus: true
+            width: playListView.width
+
+            index: model.index
+            simpleMode: true
+            listView: playListView
+
+            databaseId: model.databaseId ? model.databaseId : 0
+            entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
+            title: model.title ? model.title : ''
+            artist: model.artist ? model.artist : ''
+            album: model.album ? model.album : ''
+            albumArtist: model.albumArtist ? model.albumArtist : ''
+            duration: model.duration ? model.duration : ''
+            fileName: model.trackResource ? model.trackResource : ''
+            imageUrl: model.imageUrl ? model.imageUrl : ''
+            trackNumber: model.trackNumber ? model.trackNumber : -1
+            discNumber: model.discNumber ? model.discNumber : -1
+            rating: model.rating ? model.rating : 0
+            isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
+            isValid: model.isValid
+            isPlaying: model.isPlaying
+            metadataModifiableRole: model.metadataModifiableRole
         }
 
         add: Transition {
@@ -91,52 +119,6 @@ ScrollView {
                 properties: "x,y";
                 duration: Kirigami.Units.shortDuration
                 easing.type: Easing.InOutQuad}
-        }
-
-        model: DelegateModel {
-            id: playListModelDelegate
-
-            groups: [
-                DelegateModelGroup { name: "selected" }
-            ]
-
-            delegate: MouseArea {
-                id: item
-
-                height: entry.height
-                width: playListView.width
-
-                onClicked: scrollView.playListModel.switchTo(index)
-
-                PlayListEntry {
-                    id: entry
-
-                    focus: true
-
-                    width: parent.width
-
-                    index: model.index
-                    containsMouse: item.containsMouse
-                    simpleMode: true
-
-                    databaseId: model.databaseId ? model.databaseId : 0
-                    entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
-                    title: model.title ? model.title : ''
-                    artist: model.artist ? model.artist : ''
-                    album: model.album ? model.album : ''
-                    albumArtist: model.albumArtist ? model.albumArtist : ''
-                    duration: model.duration ? model.duration : ''
-                    fileName: model.trackResource ? model.trackResource : ''
-                    imageUrl: model.imageUrl ? model.imageUrl : ''
-                    trackNumber: model.trackNumber ? model.trackNumber : -1
-                    discNumber: model.discNumber ? model.discNumber : -1
-                    rating: model.rating ? model.rating : 0
-                    isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
-                    isValid: model.isValid
-                    isPlaying: model.isPlaying
-                    metadataModifiableRole: model.metadataModifiableRole
-                }
-            }
         }
     }
 }

@@ -87,7 +87,7 @@ ScrollView {
             isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
             isValid: model.isValid
             isPlaying: model.isPlaying
-            metadataModifiableRole: model.metadataModifiableRole
+            metadataModifiableRole: model.metadataModifiableRole ? model.metadataModifiableRole : false
         }
 
         add: Transition {

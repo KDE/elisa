@@ -161,7 +161,7 @@ Kirigami.Page {
                             isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
                             isValid: model.isValid
                             isPlaying: model.isPlaying
-                            metadataModifiableRole: model ? model.metadataModifiableRole : false
+                            metadataModifiableRole: model && model.metadataModifiableRole ? model.metadataModifiableRole : false
                             listView: playListView
                         }
                     }
@@ -277,7 +277,7 @@ Kirigami.Page {
                             isSingleDiscAlbum: model && model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
                             isValid: model && model.isValid
                             isPlaying: model ? model.isPlaying : false
-                            metadataModifiableRole: model ? model.metadataModifiableRole : false
+                            metadataModifiableRole: model && model.metadataModifiableRole ? model.metadataModifiableRole : false
                             hideDiscNumber: model && model.isSingleDiscAlbum
 
                             listView: playListView

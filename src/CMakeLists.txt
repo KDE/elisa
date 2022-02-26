@@ -435,8 +435,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/SettingsForm.qml
         qml/ElisaConfigurationDialog.qml
 
-        qml/mobile/MobileContextMenuEntry.qml
-        qml/mobile/MobileContextMenuSheet.qml
         qml/mobile/MobileFooterBar.qml
         qml/mobile/MobileMediaTrackMetadataView.qml
         qml/mobile/MobileMinimizedPlayerControl.qml

@@ -51,9 +51,7 @@
         <file>qml/mobile/MobileSettingsPage.qml</file>
         <file>qml/mobile/MobileMediaTrackMetadataView.qml</file>
         <file>qml/mobile/MobilePlayListDelegate.qml</file>
-        <file>qml/mobile/MobileContextMenuSheet.qml</file>
         <file>qml/mobile/MobileVolumeButton.qml</file>
-        <file>qml/mobile/MobileContextMenuEntry.qml</file>
         <file>qml/shared/BasePlayerControl.qml</file>
         <file>qml/shared/BasePlayListDelegate.qml</file>
     </qresource>

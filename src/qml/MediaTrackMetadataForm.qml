@@ -69,7 +69,7 @@ Kirigami.FormLayout {
         model: metadataModel
 
         delegate: RowLayout {
-            Kirigami.FormData.label: "<b>" + model.name + ":</b>"
+            Kirigami.FormData.label: model.name + ":"
 
             MediaTrackMetadataDelegate {
                 index: model.index

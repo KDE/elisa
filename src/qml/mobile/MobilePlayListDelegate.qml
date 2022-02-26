@@ -9,7 +9,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
-import org.kde.kirigami 2.13 as Kirigami
+import org.kde.kirigami 2.19 as Kirigami
 import org.kde.elisa 1.0
 
 import ".."
@@ -152,26 +152,27 @@ BasePlayListDelegate {
             active: false
 
             // context menu sheet
-            sourceComponent: MobileContextMenuSheet {
+            sourceComponent: Kirigami.MenuDialog {
                 id: contextMenu
                 title: playListEntry.title
-
-                ColumnLayout {
-                    Layout.preferredWidth: Kirigami.Units.gridUnit * 20
-                    spacing: 0
-                    MobileContextMenuEntry {
+                
+                preferredWidth: Kirigami.Units.gridUnit * 20
+                
+                actions: [
+                    Kirigami.Action {
                         visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
-                        onClicked: {
+                        iconName: "document-open-folder"
+                        text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                        onTriggered: {
                             ElisaApplication.showInFolder(playListEntry.fileName)
                             contextMenu.close();
                         }
-                        icon: "document-open-folder"
-                        text: i18nc("Show the file for this song in the file manager", "Show in folder")
-                    }
-
-                    MobileContextMenuEntry {
+                    },
+                    Kirigami.Action {
                         visible: isValid
-                        onClicked: {
+                        iconName: "documentinfo"
+                        text: i18nc("Show track metadata", "View details")
+                        onTriggered: {
                             if (metadataLoader.active === false) {
                                 metadataLoader.active = true
                             }
@@ -181,20 +182,17 @@ BasePlayListDelegate {
                             }
                             contextMenu.close();
                         }
-                        icon: "documentinfo"
-                        text: i18nc("Show track metadata", "View details")
-                    }
-
-                    MobileContextMenuEntry {
+                    },
+                    Kirigami.Action {
                         visible: isValid
-                        onClicked: {
+                        iconName: "error"
+                        text: i18nc("Remove current track from play list", "Remove from queue")
+                        onTriggered: {
                             playListEntry.removeFromPlaylist(playListEntry.index)
                             contextMenu.close();
                         }
-                        icon: "error"
-                        text: i18nc("Remove current track from play list", "Remove from queue")
                     }
-                }
+                ]
             }
         }
     }

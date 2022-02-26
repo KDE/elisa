@@ -11,7 +11,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.19 as Kirigami
 import org.kde.elisa 1.0
 
 import "mobile"
@@ -374,36 +374,32 @@ FocusScope {
         active: false
 
         // context menu sheet
-        sourceComponent: MobileContextMenuSheet {
+        sourceComponent: Kirigami.MenuDialog {
             id: contextMenu
             title: mediaTrack.title
+            preferredWidth: Kirigami.Units.gridUnit * 20
 
-            ColumnLayout {
-                Layout.preferredWidth: Kirigami.Units.gridUnit * 20
-                spacing: 0
-
-                MobileContextMenuEntry {
+            actions: [
+                Kirigami.Action {
                     visible: trackUrl.toString().substring(0, 7) === 'file://'
-                    onClicked: {
+                    onTriggered: {
                         ElisaApplication.showInFolder(mediaTrack.trackUrl);
                         contextMenu.close();
                     }
-                    icon: "document-open-folder"
+                    iconName: "document-open-folder"
                     text: i18nc("Show the file for this song in the file manager", "Show in folder")
-                }
-
-                MobileContextMenuEntry {
-                    onClicked: {
+                },
+                Kirigami.Action {
+                    onTriggered: {
                         callOpenMetaDataView(trackUrl, dataType);
                         contextMenu.close();
                     }
-                    icon: "documentinfo"
+                    iconName: "documentinfo"
                     text: i18nc("Show track metadata", "View details")
-                }
-
-                MobileContextMenuEntry {
+                },
+                Kirigami.Action {
                     visible: ElisaApplication.useFavoriteStyleRatings
-                    onClicked: {
+                    onTriggered: {
                         var newRating = 0;
                         if (rating == 10) {
                             newRating = 0;
@@ -412,31 +408,18 @@ FocusScope {
                         }
                         contextMenu.close();
                     }
-                    icon: rating == 10 ? "rating-unrated" : "rating"
+                    iconName: rating == 10 ? "rating-unrated" : "rating"
                     text: rating == 10 ? i18n("Mark this song as no longer being a favorite", "Un-mark as favorite") : i18n("Mark this song as a favorite", "Mark as favorite")
-                }
-
-                MobileContextMenuEntry {
-                    onClicked: {
+                },
+                Kirigami.Action {
+                    onTriggered: {
                         enqueue();
                         contextMenu.close();
                     }
-                    icon: "list-add"
+                    iconName: "list-add"
                     text: i18nc("Enqueue current track", "Add to queue")
                 }
-
-                RatingStar {
-                    id: ratingWidgetMobile
-
-                    visible: !ElisaApplication.useFavoriteStyleRatings
-
-                    starRating: rating
-
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.leftMargin: Kirigami.Units.largeSpacing
-                    Layout.rightMargin: Kirigami.Units.largeSpacing
-                }
-            }
+            ]
         }
     }
 

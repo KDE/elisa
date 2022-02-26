@@ -11,7 +11,7 @@ import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.19 as Kirigami
 import org.kde.elisa 1.0
 
 import "mobile"
@@ -391,42 +391,38 @@ FocusScope {
         id: contextMenuLoader
         active: false
 
-        sourceComponent: MobileContextMenuSheet {
+        sourceComponent: Kirigami.MenuDialog {
             id: contextMenu
             title: gridEntry.mainText
+            preferredWidth: Kirigami.Units.gridUnit * 20
 
-            ColumnLayout {
-                Layout.preferredWidth: Kirigami.Units.gridUnit * 20
-                spacing: 0
-
-                MobileContextMenuEntry {
-                    onClicked: {
+            actions: [
+                Kirigami.Action {
+                    onTriggered: {
                         replaceAndPlay();
                         contextMenu.close();
                     }
-                    icon: "media-playback-start"
+                    iconName: "media-playback-start"
                     text: i18nc("Clear play list and add whole container to play list", "Play now, replacing current queue")
-                }
-
-                MobileContextMenuEntry {
+                },
+                Kirigami.Action {
                     visible: fileUrl.toString().substring(0, 7) === 'file://'
-                    onClicked: {
+                    onTriggered: {
                        ElisaApplication.showInFolder(gridEntry.fileUrl)
                         contextMenu.close();
                     }
-                    icon: "document-open-folder"
+                    iconName: "document-open-folder"
                     text: i18nc("Show the file for this song in the file manager", "Show in folder")
-                }
-
-                MobileContextMenuEntry {
-                    onClicked: {
+                },
+                Kirigami.Action {
+                    onTriggered: {
                         enqueue();
                         contextMenu.close();
                     }
-                    icon: "list-add"
+                    iconName: "list-add"
                     text: i18nc("Add whole container to play list", "Add to queue")
                 }
-            }
+            ]
         }
     }
 }

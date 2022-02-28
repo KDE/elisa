@@ -15,8 +15,7 @@ ScrollView {
     id: scrollView
 
     readonly property alias currentIndex: viewModeView.currentIndex
-    property double textOpacity
-    property alias model: pageDelegateModel.model
+    property alias model: viewModeView.model
 
     signal switchView(int viewIndex)
 
@@ -34,6 +33,7 @@ ScrollView {
 
     contentItem: ListView {
         id: viewModeView
+        property bool ignoreCurrentItemChanges: false
 
         Accessible.role: Accessible.List
 
@@ -43,56 +43,28 @@ ScrollView {
         keyNavigationEnabled: true
         interactive: true
 
-        property bool ignoreCurrentItemChanges: false
+        delegate: ViewSelectorDelegate {
+            id: entry
 
-        model: DelegateModel {
-            id: pageDelegateModel
+            height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
+            width: viewModeView.width
 
-            delegate: ViewSelectorDelegate {
-                id: entry
-
-                height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
-                width: viewModeView.width
-
-                focus: true
-
-                isSelected: viewModeView.currentIndex === index
-
-                image: model.image
-                title: model.display
-                secondTitle: model.secondTitle
-                useSecondTitle: model.useSecondTitle
-                databaseId: model.databaseId
-
-                onClicked: {
-                    viewModeView.currentIndex = index
-                    entry.forceActiveFocus()
-                }
+            onClicked: {
+                viewModeView.currentIndex = index
+                entry.forceActiveFocus()
             }
         }
 
         section.property: 'entryCategory'
-        section.delegate: Kirigami.ListSectionHeader {
-            label: (section != 'default' ? section : '')
-            height: if (section == 'default') 0
-            width: viewModeView.width
+        section.delegate: Loader {
+            active: section !== "default"
+            sourceComponent: Kirigami.ListSectionHeader {
+                label: section
+                width: viewModeView.width
+            }
         }
 
         onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
-    }
-
-    Behavior on implicitWidth {
-        NumberAnimation {
-            easing.type: Easing.InOutQuad
-            duration: Kirigami.Units.longDuration
-        }
-    }
-
-    Behavior on width {
-        NumberAnimation {
-            easing.type: Easing.InOutQuad
-            duration: Kirigami.Units.longDuration
-        }
     }
 
     states: [
@@ -101,7 +73,6 @@ ScrollView {
             when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
                 target: scrollView
-                textOpacity: 1
                 implicitWidth: 225
             }
         },
@@ -110,10 +81,16 @@ ScrollView {
             when: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
                 target: scrollView
-                textOpacity: 0
                 implicitWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing
-
             }
         }
     ]
+
+    transitions: Transition {
+        NumberAnimation {
+            properties: "implicitWidth"
+            easing.type: Easing.InOutQuad
+            duration: Kirigami.Units.longDuration
+        }
+    }
 }

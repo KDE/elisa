@@ -309,7 +309,7 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
     if (d->mShufflePlayList) {
         const auto newItemsCount = end - start + 1;
         d->mRandomMapping.reserve(rowCount() + newItemsCount);
-        if (rowCount() == 0 || newItemsCount == 1) {
+        if (rowCount() == 0) {
             beginInsertRows(parent, start, end);
             for (int i = 0; i < newItemsCount; ++i) {
                 //QRandomGenerator.bounded(int) is exclusive, thus + 1

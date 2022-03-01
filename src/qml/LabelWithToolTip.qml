@@ -6,8 +6,6 @@
 
 import QtQuick 2.7
 import QtQuick.Controls 2.2
-import QtGraphicalEffects 1.0
-import QtQuick.Window 2.2
 import org.kde.kirigami 2.5 as Kirigami
 
 Kirigami.Heading {
@@ -16,33 +14,18 @@ Kirigami.Heading {
     level: 5
 
     textFormat: Text.PlainText
-
-    horizontalAlignment: Text.AlignLeft
-
     elide: Text.ElideRight
 
     Loader {
+        id: mouseArea
         anchors.fill: parent
-
         active: theLabel.truncated
-        visible: theLabel.truncated
-
         sourceComponent: MouseArea {
-            id: hoverArea
-            anchors.fill: parent
             hoverEnabled: true
             acceptedButtons: Qt.NoButton
-
-            Loader {
-                anchors.fill: parent
-                active: hoverArea && hoverArea.containsMouse
-
-                sourceComponent: ToolTip {
-                    delay: Qt.styleHints.mousePressAndHoldInterval
-                    visible: hoverArea && hoverArea.containsMouse && theLabel.truncated
-                    text: theLabel.text
-                }
-            }
         }
     }
+    ToolTip.visible: mouseArea.active ? mouseArea.item.containsMouse : false
+    ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
+    ToolTip.text: theLabel.text
 }

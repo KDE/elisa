@@ -4,7 +4,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
+import QtQuick 2.15
 import QtQuick.Controls 2.2
 import org.kde.kirigami 2.5 as Kirigami
 
@@ -16,16 +16,11 @@ Kirigami.Heading {
     textFormat: Text.PlainText
     elide: Text.ElideRight
 
-    Loader {
-        id: mouseArea
-        anchors.fill: parent
-        active: theLabel.truncated
-        sourceComponent: MouseArea {
-            hoverEnabled: true
-            acceptedButtons: Qt.NoButton
-        }
+    HoverHandler {
+        id: hoverHandler
+        enabled: theLabel.truncated
     }
-    ToolTip.visible: mouseArea.active ? mouseArea.item.containsMouse : false
+    ToolTip.visible: hoverHandler.enabled ? hoverHandler.hovered : false
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
     ToolTip.text: theLabel.text
 }

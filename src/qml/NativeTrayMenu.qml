@@ -32,7 +32,7 @@ Menu {
 
     MenuItem {
         text: configureAction.text
-        shortcut: configureAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(configureAction)
         iconName: ElisaApplication.iconName(configureAction.icon)
         onTriggered: configureAction.trigger()
         visible: configureAction.text !== ""
@@ -40,14 +40,14 @@ Menu {
 
     MenuItem {
         text: configureShortcutsAction.text
-        shortcut: configureShortcutsAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(configureShortcutsAction)
         iconName: ElisaApplication.iconName(configureShortcutsAction.icon)
         onTriggered: configureShortcutsAction.trigger()
         visible: configureShortcutsAction.text !== ""
     }
 
     MenuItem {
-        shortcut: togglePlaylistAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(togglePlaylistAction)
         text: i18n("Show Playlist")
         iconName: "view-media-playlist"
         checkable: true
@@ -62,7 +62,7 @@ Menu {
 
     MenuItem {
         text: reportBugAction.text
-        shortcut: reportBugAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(reportBugAction)
         iconName: ElisaApplication.iconName(reportBugAction.icon)
         onTriggered: reportBugAction.trigger()
         visible: reportBugAction.text !== ""
@@ -74,7 +74,7 @@ Menu {
 
     MenuItem {
         text: helpAction.text
-        shortcut: helpAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(helpAction)
         iconName: ElisaApplication.iconName(helpAction.icon)
         onTriggered: helpAction.trigger()
         visible: helpAction.text !== ""
@@ -82,7 +82,7 @@ Menu {
 
     MenuItem {
         text: aboutAppAction.text
-        shortcut: aboutAppAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(aboutAppAction)
         iconName: ElisaApplication.iconName(aboutAppAction.icon)
         onTriggered: aboutAppAction.trigger()
         visible: aboutAppAction.text !== ""
@@ -94,7 +94,7 @@ Menu {
 
     MenuItem {
         text: quitApplication.text
-        shortcut: quitApplication.shortcut
+        shortcut: ElisaApplication.actionShortcut(quitApplication)
         iconName: ElisaApplication.iconName(quitApplication.icon)
         onTriggered: quitApplication.trigger()
         visible: quitApplication.text !== ""

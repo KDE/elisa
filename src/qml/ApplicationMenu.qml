@@ -53,7 +53,7 @@ Menu {
 
     Action {
         text: configureAction.text
-        shortcut: configureAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(configureAction)
         icon.name: ElisaApplication.iconName(configureAction.icon)
         onTriggered: {
             applicationMenu.close()
@@ -63,7 +63,7 @@ Menu {
 
     Action {
         text: configureShortcutsAction.text
-        shortcut: configureShortcutsAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(configureShortcutsAction)
         icon.name: ElisaApplication.iconName(configureShortcutsAction.icon)
         onTriggered: {
             applicationMenu.close()
@@ -77,7 +77,7 @@ Menu {
 
     Action {
         text: reportBugAction.text
-        shortcut: reportBugAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(reportBugAction)
         icon.name: ElisaApplication.iconName(reportBugAction.icon)
         onTriggered: {
             applicationMenu.close()
@@ -91,7 +91,7 @@ Menu {
 
     Action {
         text: helpAction.text
-        shortcut: helpAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(helpAction)
         icon.name: ElisaApplication.iconName(helpAction.icon)
         onTriggered: {
             applicationMenu.close()
@@ -101,7 +101,7 @@ Menu {
 
     Action {
         text: aboutAppAction.text
-        shortcut: aboutAppAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(aboutAppAction)
         icon.name: ElisaApplication.iconName(aboutAppAction.icon)
         onTriggered: {
             applicationMenu.close()
@@ -115,7 +115,7 @@ Menu {
 
     Action {
         text: quitApplication.text
-        shortcut: quitApplication.shortcut
+        shortcut: ElisaApplication.actionShortcut(quitApplication)
         icon.name: ElisaApplication.iconName(quitApplication.icon)
         onTriggered: quitApplication.trigger()
     }

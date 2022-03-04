@@ -89,42 +89,42 @@ Kirigami.ApplicationWindow {
     property var mediaPlayerControl: Kirigami.Settings.isMobile ? mobileFooterBarLoader.item : headerBarLoader.item
 
     Action {
-        shortcut: goBackAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(goBackAction)
         onTriggered: contentView.goBack()
     }
 
     Action {
-        shortcut: seekAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(seekAction)
         onTriggered: ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position + 10000)
     }
 
     Action {
-        shortcut: scrubAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(scrubAction)
         onTriggered: ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position - 10000)
     }
 
     Action {
-        shortcut: nextTrackAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(nextTrackAction)
         onTriggered: ElisaApplication.mediaPlayListProxyModel.skipNextTrack(ElisaApplication.audioPlayer.position)
     }
 
     Action {
-        shortcut: previousTrackAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(previousTrackAction)
         onTriggered: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position)
     }
 
     Action {
-        shortcut: playPauseAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(playPauseAction)
         onTriggered: ElisaApplication.audioControl.playPause()
     }
 
     Action {
-        shortcut: findAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(findAction)
         onTriggered: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
     }
 
     Action {
-        shortcut: togglePartyModeAction.shortcut
+        shortcut: ElisaApplication.actionShortcut(togglePartyModeAction)
         onTriggered: mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized
     }
 

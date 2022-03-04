@@ -13,7 +13,7 @@ MenuItem {
     property var __action: ElisaApplication.action(elisaAction)
 
     text: __action.text
-    shortcut: __action.shortcut
+    shortcut: ElisaApplication.actionShortcut(__action)
     iconName: ElisaApplication.iconName(__action.icon)
     onTriggered: __action.trigger()
     visible: __action.text !== ""

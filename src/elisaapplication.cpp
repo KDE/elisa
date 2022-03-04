@@ -524,6 +524,12 @@ QAction * ElisaApplication::action(const QString& name)
 #endif
 }
 
+const QString ElisaApplication::actionShortcut(QAction *action) const
+{
+    return action->shortcut().toString(QKeySequence::PortableText);
+}
+
+
 QString ElisaApplication::iconName(const QIcon& icon)
 {
     return icon.name();

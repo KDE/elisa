@@ -169,7 +169,7 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: showHidePlaylistAction
             action: Action {
-                shortcut: ElisaApplication.action("toggle_playlist").shortcut
+                shortcut: ElisaApplication.actionShortcut(ElisaApplication.action("toggle_playlist"))
                 onTriggered: contentView.showPlaylist = !contentView.showPlaylist
             }
 

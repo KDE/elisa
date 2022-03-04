@@ -247,13 +247,6 @@ void MusicListenersManager::applicationAboutToQuit()
     d->mListenerThread.wait();
 }
 
-void MusicListenersManager::showConfiguration()
-{
-    auto configureAction = d->mElisaApplication->action(QStringLiteral("options_configure"));
-
-    configureAction->trigger();
-}
-
 void MusicListenersManager::setElisaApplication(ElisaApplication *elisaApplication)
 {
     if (d->mElisaApplication == elisaApplication) {

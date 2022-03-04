@@ -1312,7 +1312,6 @@ Module {
         Signal { name: "clearedDatabase" }
         Method { name: "databaseReady" }
         Method { name: "applicationAboutToQuit" }
-        Method { name: "showConfiguration" }
         Method {
             name: "setElisaApplication"
             Parameter { name: "elisaApplication"; type: "ElisaApplication"; isPointer: true }

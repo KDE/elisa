@@ -136,8 +136,6 @@ public Q_SLOTS:
 
     void applicationAboutToQuit();
 
-    void showConfiguration();
-
     void setElisaApplication(ElisaApplication* elisaApplication);
 
     void playBackError(const QUrl &sourceInError, QMediaPlayer::Error playerError);

@@ -189,23 +189,22 @@ BasePlayerControl {
             text: i18nc("open application menu", "Application Menu")
             icon.name: "open-menu-symbolic"
 
-            checkable: true
-            checked: applicationMenu.visible
+            down: applicationMenu.visible
 
             onClicked: {
-                if (applicationMenu.visible) {
-                    applicationMenu.close()
-                } else {
-                    var pos = menuButton.mapFromItem(headerBar, headerBar.width - applicationMenu.width, headerBar.height)
-                    applicationMenu.popup(pos.x, pos.y)
+                if (!applicationMenu.visible) {
+                    applicationMenu.open()
                 }
             }
 
             ApplicationMenu {
                 id: applicationMenu
 
-                // otherwise clicking on the menu button will not close it
-                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+                y: menuButton.height
+                // without modal, clicking on menuButton will not close the menu
+                modal: true
+                dim: false
+
             }
         }
 

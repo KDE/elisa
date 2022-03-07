@@ -201,12 +201,11 @@ Kirigami.ApplicationWindow {
             showSystemTrayIcon: ElisaApplication.showSystemTrayIcon
             elisaMainWindow: mainWindow
 
-            function onRaisePlayer() {
+            onRaisePlayer: function() {
                 mainWindow.visible = true
                 mainWindow.raise()
                 mainWindow.requestActivate()
             }
-
         }
     }
 

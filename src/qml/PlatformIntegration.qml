@@ -69,10 +69,8 @@ Item {
         }
 
         onActivated: {
-            if (reason === NativeMenu.SystemTrayIcon.Trigger && !elisaMainWindow.visible) {
-                elisaMainWindow.visible = true
-            } else if (reason === NativeMenu.SystemTrayIcon.Trigger && elisaMainWindow.visible) {
-                raisePlayer()
+            if (reason === NativeMenu.SystemTrayIcon.Trigger) {
+                raisePlayer();
             }
         }
 

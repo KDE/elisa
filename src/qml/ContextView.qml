@@ -200,7 +200,7 @@ Kirigami.Page {
 
                 implicitHeight: Math.min(allMetaDataLoader.height, parent.height)
 
-                contentWidth: implicitWidth
+                contentWidth: availableWidth
                 contentHeight: allMetaDataLoader.height
 
                 // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
@@ -272,8 +272,10 @@ Kirigami.Page {
 
                 implicitHeight: Math.min(lyricItem.height, parent.height)
 
-                contentWidth: implicitWidth
+                contentWidth: availableWidth
                 contentHeight: lyricItem.height
+
+                // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
                 // Lyrics

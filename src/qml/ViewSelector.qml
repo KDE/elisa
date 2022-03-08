@@ -42,11 +42,7 @@ ScrollView {
         interactive: true
 
         delegate: Kirigami.BasicListItem {
-            height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
-            width: viewModeView.width
-
             separatorVisible: false
-            alternatingBackground: false
 
             icon: model.image
             label: model.display

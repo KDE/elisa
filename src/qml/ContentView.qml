@@ -304,12 +304,15 @@ RowLayout {
 
     Kirigami.Separator {
         id: playListSeparatorItem
+        visible: false
         Layout.fillHeight: true
     }
 
     // playlist right sidebar
     MediaPlayListView {
         id: playList
+        Layout.preferredWidth: 0
+        Layout.fillWidth: false
         Layout.fillHeight: true
     }
 
@@ -317,17 +320,6 @@ RowLayout {
         State {
             name: "smallScreen"
             when: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
-            PropertyChanges {
-                target: playList
-                Layout.minimumWidth: 0
-                Layout.maximumWidth: 0
-                Layout.preferredWidth: 0
-                visible: false
-            }
-            PropertyChanges {
-                target: playListSeparatorItem
-                visible: false
-            }
             PropertyChanges {
                 target: playlistDrawer
                 modal: true
@@ -338,16 +330,6 @@ RowLayout {
         State {
             name: "wideScreenNoPlaylist"
             when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold && contentViewContainer.showPlaylist === false
-            PropertyChanges {
-                target: playList
-                Layout.minimumWidth: 0
-                Layout.maximumWidth: 0
-                Layout.preferredWidth: 0
-            }
-            PropertyChanges {
-                target: playListSeparatorItem
-                visible: false
-            }
             PropertyChanges {
                 target: playlistDrawer
                 collapsed: true
@@ -361,8 +343,6 @@ RowLayout {
             when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold && contentViewContainer.showPlaylist === true
             PropertyChanges {
                 target: playList
-                Layout.minimumWidth: contentViewContainer.width * 0.28
-                Layout.maximumWidth: contentViewContainer.width * 0.28
                 Layout.preferredWidth: contentViewContainer.width * 0.28
             }
             PropertyChanges {
@@ -381,7 +361,7 @@ RowLayout {
     ]
     transitions: Transition {
         NumberAnimation {
-            properties: "Layout.minimumWidth, Layout.maximumWidth, Layout.preferredWidth, opacity"
+            property: "Layout.preferredWidth"
             easing.type: Easing.InOutQuad
             duration: Kirigami.Units.longDuration
         }

@@ -51,6 +51,11 @@ Item {
 
     readonly property alias sectionHeight: sectionSizer.implicitHeight
 
+    readonly property alias toolButtonHeight: button.height
+    readonly property alias trackNumberWidth: trackNumber.width
+    readonly property alias durationWidth: duration.width
+    readonly property int playListEntryMinWidth: button.width * 6 + duration.width + trackNumber.width * 2
+
     // calculate a fixed height for playlist's section delegates
     // workaround for QTBUG-52595
     Column {
@@ -59,5 +64,22 @@ Item {
         spacing: Kirigami.Units.smallSpacing
         LabelWithToolTip { text: "M\nM"; level: 2 }
         LabelWithToolTip { text: "M" }
+    }
+
+    // get height of buttons inside loaders
+    FlatButtonWithToolTip {
+        id: button
+        visible: false
+        icon.name: "document-open-folder"
+    }
+    TextMetrics {
+        id: trackNumber
+        text: '99/9'
+        font.bold: true
+    }
+    TextMetrics {
+        id: duration
+        text: '0:00:00'
+        font.bold: true
     }
 }

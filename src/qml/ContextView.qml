@@ -292,6 +292,10 @@ Kirigami.Page {
                         textFormat: Text.PlainText
                         wrapMode: Text.WordWrap
                         horizontalAlignment: contentLayout.wideMode? Text.AlignLeft : Text.AlignHCenter
+                        // fix binding loop
+                        // this does not affect the alignment
+                        // since we aligned lyricScroll
+                        verticalAlignment: Text.AlignTop
                         visible: text !== ""
                         width: parent.width
                     }

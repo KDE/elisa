@@ -14,8 +14,11 @@ import org.kde.elisa 1.0
 ScrollView {
     id: scrollView
 
-    readonly property alias currentIndex: viewModeView.currentIndex
     property alias model: viewModeView.model
+
+    readonly property alias currentIndex: viewModeView.currentIndex
+    readonly property int wideWidth: Kirigami.Units.gridUnit * 12
+    readonly property int iconsOnlyWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing
 
     signal switchView(int viewIndex)
 
@@ -26,7 +29,13 @@ ScrollView {
         viewModeView.ignoreCurrentItemChanges = false
     }
 
-    implicitWidth: Kirigami.Units.gridUnit * 12
+    implicitWidth: mainWindow.width > elisaTheme.viewSelectorSmallSizeThreshold ? wideWidth : iconsOnlyWidth
+    Behavior on implicitWidth {
+        NumberAnimation {
+            easing.type: Easing.InOutQuad
+            duration: Kirigami.Units.longDuration
+        }
+    }
 
     // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
@@ -67,32 +76,5 @@ ScrollView {
         }
 
         onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
-    }
-
-    states: [
-        State {
-            name: 'iconsAndText'
-            when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
-            PropertyChanges {
-                target: scrollView
-                implicitWidth: Kirigami.Units.gridUnit * 12
-            }
-        },
-        State {
-            name: 'iconsOnly'
-            when: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
-            PropertyChanges {
-                target: scrollView
-                implicitWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing
-            }
-        }
-    ]
-
-    transitions: Transition {
-        NumberAnimation {
-            properties: "implicitWidth"
-            easing.type: Easing.InOutQuad
-            duration: Kirigami.Units.longDuration
-        }
     }
 }

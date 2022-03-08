@@ -26,7 +26,7 @@ ScrollView {
         viewModeView.ignoreCurrentItemChanges = false
     }
 
-    implicitWidth: 225
+    implicitWidth: Kirigami.Units.gridUnit * 12
 
     // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
@@ -80,7 +80,7 @@ ScrollView {
             when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
             PropertyChanges {
                 target: scrollView
-                implicitWidth: 225
+                implicitWidth: Kirigami.Units.gridUnit * 12
             }
         },
         State {

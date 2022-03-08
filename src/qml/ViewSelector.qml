@@ -45,7 +45,6 @@ ScrollView {
             height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
             width: viewModeView.width
 
-            padding: Kirigami.Units.smallSpacing
             separatorVisible: false
             alternatingBackground: false
 

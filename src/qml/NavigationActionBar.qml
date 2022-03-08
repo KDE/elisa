@@ -283,7 +283,10 @@ Item {
                     icon.name: 'search'
                     checkable: true
                     checked: expandedFilterView
-                    onClicked: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
+                    onClicked: {
+                        persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
+                        filterTextInput.forceActiveFocus()
+                    }
                 }
             ]
         }
@@ -356,7 +359,13 @@ Item {
 
             visible: opacity > 0.0
 
-            opacity: 0
+            opacity: expandedFilterView ? 1 : 0
+            Behavior on opacity {
+                NumberAnimation {
+                    easing.type: Easing.Linear
+                    duration: Kirigami.Units.longDuration
+                }
+            }
 
             contentItems: [
                 Kirigami.SearchField {
@@ -454,41 +463,6 @@ Item {
                     transparentBorder: false
                 }
             }
-        }
-    }
-
-    states: [
-        State {
-            name: 'collapsed'
-            when: !expandedFilterView
-            PropertyChanges {
-                target: filterRow
-                opacity: 0.0
-            }
-            StateChangeScript {
-                // Focus main content view since that's probably what the user
-                // wants to interact with next
-                script: contentDirectoryView.forceActiveFocus();
-            }
-        },
-        State {
-            name: 'expanded'
-            when: expandedFilterView
-            PropertyChanges {
-                target: filterRow
-                opacity: 1.0
-            }
-            StateChangeScript {
-                script: filterTextInput.forceActiveFocus()
-            }
-        }
-    ]
-    transitions: Transition {
-        from: "expanded,collapsed"
-        PropertyAnimation {
-            properties: "opacity"
-            easing.type: Easing.Linear
-            duration: Kirigami.Units.longDuration
         }
     }
 }

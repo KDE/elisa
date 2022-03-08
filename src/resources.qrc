@@ -31,7 +31,6 @@
         <file>qml/MediaTrackMetadataDelegate.qml</file>
         <file>qml/MediaTrackMetadataForm.qml</file>
         <file>qml/ImageWithFallback.qml</file>
-        <file>qml/ViewSelectorDelegate.qml</file>
         <file>qml/HeaderFooterToolbar.qml</file>
         <file>qml/TracksDiscHeader.qml</file>
         <file>qml/NativeMenuItemFromAction.qml</file>

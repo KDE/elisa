@@ -43,15 +43,28 @@ ScrollView {
         keyNavigationEnabled: true
         interactive: true
 
-        delegate: ViewSelectorDelegate {
-            id: entry
-
+        delegate: Kirigami.BasicListItem {
             height: Kirigami.Units.iconSizes.smallMedium + 3 * Kirigami.Units.smallSpacing
             width: viewModeView.width
 
+            padding: Kirigami.Units.smallSpacing
+            separatorVisible: false
+            alternatingBackground: false
+
+            icon: model.image
+            label: model.display
+
+            Accessible.role: Accessible.ListItem
+            Accessible.description: model.display
+            Accessible.name: model.display
+
+            ToolTip.visible: labelItem.truncated && hovered
+            ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
+            ToolTip.text: model.display
+
             onClicked: {
                 viewModeView.currentIndex = index
-                entry.forceActiveFocus()
+                forceActiveFocus()
             }
         }
 

@@ -35,8 +35,6 @@ ScrollView {
         id: viewModeView
         property bool ignoreCurrentItemChanges: false
 
-        Accessible.role: Accessible.List
-
         focus: true
         clip: true
         activeFocusOnTab: true
@@ -53,10 +51,6 @@ ScrollView {
 
             icon: model.image
             label: model.display
-
-            Accessible.role: Accessible.ListItem
-            Accessible.description: model.display
-            Accessible.name: model.display
 
             ToolTip.visible: labelItem.truncated && hovered
             ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval

@@ -68,10 +68,17 @@ ScrollView {
 
         section.property: 'entryCategory'
         section.delegate: Loader {
-            active: section !== "default"
+            active: section !== "default" && opacity > 0
             sourceComponent: Kirigami.ListSectionHeader {
-                label: scrollView.implicitWidth == wideWidth ? section : ""
+                label: section
                 width: viewModeView.width
+            }
+            opacity: scrollView.implicitWidth === wideWidth ? 1 : 0
+            Behavior on opacity {
+                NumberAnimation {
+                    easing.type: Easing.InOutQuad
+                    duration: Kirigami.Units.longDuration
+                }
             }
         }
 

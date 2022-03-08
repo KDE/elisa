@@ -447,7 +447,6 @@ Module {
         isCreatable: false
         isSingleton: true
         exportMetaObjectRevisions: [0]
-        Property { name: "arguments"; type: "DataTypes::EntryDataList" }
         Property { name: "embeddedView"; type: "ElisaUtils::PlayListEntryType"; isReadonly: true }
         Property {
             name: "musicManager"
@@ -474,6 +473,7 @@ Module {
         Property { name: "showNowPlayingBackground"; type: "bool"; isReadonly: true }
         Property { name: "showProgressOnTaskBar"; type: "bool"; isReadonly: true }
         Property { name: "showSystemTrayIcon"; type: "bool"; isReadonly: true }
+        Property { name: "useFavoriteStyleRatings"; type: "bool"; isReadonly: true }
         Property {
             name: "colorSchemesModel"
             type: "QAbstractItemModel"
@@ -498,8 +498,13 @@ Module {
         Method { name: "configureShortcuts" }
         Method { name: "configureElisa" }
         Method {
-            name: "setArguments"
-            Parameter { name: "newArguments"; type: "DataTypes::EntryDataList" }
+            name: "openFiles"
+            Parameter { name: "files"; type: "QList<QUrl>" }
+        }
+        Method {
+            name: "openFiles"
+            Parameter { name: "files"; type: "QList<QUrl>" }
+            Parameter { name: "workingDirectory"; type: "string" }
         }
         Method {
             name: "activateActionRequested"
@@ -524,6 +529,11 @@ Module {
             name: "action"
             type: "QAction*"
             Parameter { name: "name"; type: "string" }
+        }
+        Method {
+            name: "actionShortcut"
+            type: "string"
+            Parameter { name: "action"; type: "QAction"; isPointer: true }
         }
         Method {
             name: "iconName"
@@ -556,6 +566,7 @@ Module {
         Property { name: "isDirty"; type: "bool"; isReadonly: true }
         Property { name: "playAtStartup"; type: "bool" }
         Property { name: "colorScheme"; type: "string" }
+        Property { name: "useFavoriteStyleRatings"; type: "bool" }
         Signal {
             name: "rootPathChanged"
             Parameter { name: "rootPath"; type: "QStringList" }
@@ -597,6 +608,10 @@ Module {
         Method {
             name: "setColorScheme"
             Parameter { name: "scheme"; type: "string" }
+        }
+        Method {
+            name: "setUseFavoriteStyleRatings"
+            Parameter { name: "useFavoriteStyleRatings"; type: "bool" }
         }
         Method {
             name: "removeMusicLocation"
@@ -649,13 +664,6 @@ Module {
                 "FilterByRecentlyPlayed": 6,
                 "FilterByFrequentlyPlayed": 7,
                 "FilterByPath": 8
-            }
-        }
-        Enum {
-            name: "IconUseColorOverlay"
-            values: {
-                "UseColorOverlay": 1,
-                "DoNotUseColorOverlay": 0
             }
         }
     }
@@ -1331,6 +1339,12 @@ Module {
             Parameter { name: "dataLoader"; type: "ModelDataLoader"; isPointer: true }
         }
         Method { name: "resetMusicData" }
+        Method {
+            name: "updateSingleFileMetaData"
+            Parameter { name: "url"; type: "QUrl" }
+            Parameter { name: "role"; type: "DataTypes::ColumnsRoles" }
+            Parameter { name: "data"; type: "QVariant" }
+        }
     }
     Component {
         name: "ProgressIndicator"

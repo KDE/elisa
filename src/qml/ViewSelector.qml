@@ -18,7 +18,7 @@ ScrollView {
 
     readonly property alias currentIndex: viewModeView.currentIndex
     readonly property int wideWidth: Kirigami.Units.gridUnit * 12
-    readonly property int iconsOnlyWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing
+    readonly property int iconsOnlyWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing + (ScrollBar.vertical.visible ? ScrollBar.vertical.implicitWidth : 0)
 
     signal switchView(int viewIndex)
 
@@ -70,7 +70,7 @@ ScrollView {
         section.delegate: Loader {
             active: section !== "default"
             sourceComponent: Kirigami.ListSectionHeader {
-                label: section
+                label: scrollView.implicitWidth == wideWidth ? section : ""
                 width: viewModeView.width
             }
         }

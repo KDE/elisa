@@ -55,25 +55,16 @@ Menu {
         title: i18nc("@action:inmenu this has child menu items", "Color Scheme")
         Repeater {
             model: ElisaApplication.colorSchemesModel
-            delegate: Kirigami.AbstractListItem {
-                highlighted: model.display === ElisaConfigurationDialog.colorScheme
-                width: parent.width
-                onClicked: {
+            delegate: MenuItem {
+                icon.name: "image://colorScheme/" + model.display
+                text: model.display
+                checkable: true
+                checked: model.display === ElisaConfigurationDialog.colorScheme
+                onTriggered: {
                     ElisaApplication.activateColorScheme(model.display)
                     ElisaConfigurationDialog.setColorScheme(model.display)
                     ElisaConfigurationDialog.save()
                     applicationMenu.close()
-                }
-                 contentItem: RowLayout {
-                    Kirigami.Icon {
-                        source: model.decoration
-                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
-                    }
-                    Label {
-                        text: model.display
-                        color: highlighted ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
-                        Layout.fillWidth: true
-                    }
                 }
             }
         }

@@ -27,6 +27,7 @@
 #if KF5DBusAddons_FOUND
 #include <KDBusService>
 #endif
+#include <KColorSchemeManager>
 
 #include "elisautils.h"
 #include "elisaapplication.h"
@@ -55,6 +56,7 @@
 #if KF5FileMetaData_FOUND
 #include "embeddedcoverageimageprovider.h"
 #endif
+#include "colorschemepreviewimageprovider.h"
 
 #if KF5KIO_FOUND
 #include "models/filebrowsermodel.h"
@@ -210,6 +212,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 #endif
 
         newApplication->setQmlEngine(engine);
+        engine->addImageProvider(QStringLiteral("colorScheme"), new ColorSchemePreviewImageProvider(newApplication->getSchemes()));
 
         return newApplication.release();
     });

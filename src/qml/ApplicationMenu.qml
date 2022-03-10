@@ -32,13 +32,15 @@ Menu {
 
     Menu {
         title: i18n("Color Scheme")
+
         Repeater {
             model: ElisaApplication.colorSchemesModel
-            delegate: Kirigami.BasicListItem {
-                icon: model.decoration
+            delegate: MenuItem {
+                icon.name: "image://colorScheme/" + model.display
                 text: model.display
-                highlighted: model.display === ElisaConfigurationDialog.colorScheme
-                onClicked: {
+                checkable: true
+                checked: model.display === ElisaConfigurationDialog.colorScheme
+                onTriggered: {
                     ElisaApplication.activateColorScheme(model.display)
                     ElisaConfigurationDialog.setColorScheme(model.display)
                     ElisaConfigurationDialog.save()

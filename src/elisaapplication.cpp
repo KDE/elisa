@@ -122,6 +122,11 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
 ElisaApplication::~ElisaApplication()
 = default;
 
+KColorSchemeManager *ElisaApplication::getSchemes()
+{
+    return d->mSchemes;
+}
+
 QAbstractItemModel *ElisaApplication::colorSchemesModel()
 {
     return d->mSchemes->model();

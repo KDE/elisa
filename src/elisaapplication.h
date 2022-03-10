@@ -204,6 +204,8 @@ public:
 
     void setQmlEngine(QQmlEngine *engine);
 
+    KColorSchemeManager *getSchemes();
+
 private Q_SLOTS:
 
     void goBack();

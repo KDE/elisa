@@ -324,6 +324,7 @@ endif()
 set(elisaqmlplugin_SOURCES
     elisaqmlplugin.cpp
     elisautils.cpp
+    colorschemepreviewimageprovider.cpp
 )
 
 if (KF5FileMetaData_FOUND)

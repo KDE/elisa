@@ -14,14 +14,14 @@ MenuBar {
         title: i18nc("menu category", "File")
 
         MenuItem {
-            text: i18nc("menu entry", "Save Playlist…")
-            iconName: "document-save"
+            text: i18nc("menu entry", "Load Playlist…")
+            iconName: "document-open"
             onTriggered: ElisaApplication.musicManager.resetMusicData()
         }
 
         MenuItem {
-            text: i18nc("menu entry", "Open Playlist…")
-            iconName: "document-open"
+            text: i18nc("menu entry", "Save Playlist…")
+            iconName: "document-save"
             onTriggered: ElisaApplication.musicManager.resetMusicData()
         }
 

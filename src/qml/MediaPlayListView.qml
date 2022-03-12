@@ -46,9 +46,11 @@ Kirigami.Page {
         Kirigami.Theme.colorSet: Kirigami.Theme.Window
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
         leftPadding: Kirigami.Units.largeSpacing
+        rightPadding: 0
 
         RowLayout {
             anchors.fill: parent
+            spacing: Kirigami.Units.largeSpacing * 3
 
             Kirigami.Heading {
                 text: topItem.title
@@ -59,24 +61,28 @@ Kirigami.Page {
 
                 actions: [
                     Kirigami.Action {
-                        id: savePlaylistButton
-                        text: i18nc("Save a playlist file", "Save…")
-                        icon.name: 'document-save'
-                        displayHint: Kirigami.DisplayHint.KeepVisible
+                        text: i18nc("Remove all tracks from play list", "Clear")
+                        icon.name: 'edit-clear-all'
                         enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
-                        onTriggered: {
-                            fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
-                            fileDialog.file = ''
-                            fileDialog.open()
-                        }
+                        onTriggered: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
                     },
                     Kirigami.Action {
                         id: loadPlaylistButton
                         text: i18nc("Load a playlist file", "Load…")
                         icon.name: 'document-open'
-                        displayHint: Kirigami.DisplayHint.KeepVisible
                         onTriggered: {
                             fileDialog.fileMode = PlatformDialog.FileDialog.OpenFile
+                            fileDialog.file = ''
+                            fileDialog.open()
+                        }
+                    },
+                    Kirigami.Action {
+                        id: savePlaylistButton
+                        text: i18nc("Save a playlist file", "Save…")
+                        icon.name: 'document-save'
+                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
+                        onTriggered: {
+                            fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
                             fileDialog.file = ''
                             fileDialog.open()
                         }
@@ -361,13 +367,6 @@ Kirigami.Page {
                             playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
                             playListView.currentItem.forceActiveFocus()
                         }
-                    },
-                    Kirigami.Action {
-                        text: i18nc("Remove all tracks from play list", "Clear All")
-                        icon.name: 'edit-clear-all'
-                        displayHint: Kirigami.DisplayHint.KeepVisible
-                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
-                        onTriggered: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
                     }
                 ]
             }

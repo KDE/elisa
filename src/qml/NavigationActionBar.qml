@@ -283,10 +283,7 @@ Item {
                     icon.name: 'search'
                     checkable: true
                     checked: expandedFilterView
-                    onClicked: {
-                        persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
-                        filterTextInput.forceActiveFocus()
-                    }
+                    onClicked: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView;
                 }
             ]
         }
@@ -364,6 +361,11 @@ Item {
                 NumberAnimation {
                     easing.type: Easing.Linear
                     duration: Kirigami.Units.longDuration
+                }
+            }
+            onVisibleChanged: {
+                if (visible) {
+                    filterTextInput.forceActiveFocus();
                 }
             }
 

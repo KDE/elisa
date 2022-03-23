@@ -317,29 +317,40 @@ ColumnLayout {
             }
         }
 
+        RowLayout {
+            spacing: Kirigami.Units.largeSpacing * 2
 
-        QQC2.Button {
-            text: i18n("Add New Location")
-            icon.name: "list-add"
+            QQC2.Button {
+                text: i18n("Add New Location")
+                icon.name: "list-add"
 
-            Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+                Layout.alignment: Qt.AlignTop | Qt.AlignLeft
 
-            onClicked: fileDialog.open()
-            Accessible.onPressAction: onClicked
+                onClicked: fileDialog.open()
+                Accessible.onPressAction: onClicked
 
-            Dialogs.FileDialog {
-                id: fileDialog
-                title: i18n("Choose a Folder")
-                folder: shortcuts.home
-                selectFolder: true
+                Dialogs.FileDialog {
+                    id: fileDialog
+                    title: i18n("Choose a Folder")
+                    folder: shortcuts.home
+                    selectFolder: true
 
-                visible: false
+                    visible: false
 
-                onAccepted: {
-                    var oldPaths = ElisaConfigurationDialog.rootPath
-                    oldPaths.push(fileDialog.fileUrls)
-                    ElisaConfigurationDialog.rootPath = oldPaths
+                    onAccepted: {
+                        var oldPaths = ElisaConfigurationDialog.rootPath
+                        oldPaths.push(fileDialog.fileUrls)
+                        ElisaConfigurationDialog.rootPath = oldPaths
+                    }
                 }
+            }
+
+            QQC2.Label {
+                Layout.fillWidth: true
+                visible: indexingTypeCombo.currentIndex === 0 // Native indexer
+                text: i18n("The fast native file indexer does not follow symbolic links. If any of the locations in this list contain symbolic links to other locations, you will need to add those other locations to the list as well.")
+                wrapMode: Text.Wrap
+                font: Kirigami.Theme.smallFont
             }
         }
     }

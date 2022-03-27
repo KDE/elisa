@@ -82,7 +82,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="sk">Nádherný hudobný prehrávač bez nezmyslov s podporou online rádií</summary>
   <summary xml:lang="sl">Čudovit predvajalnik glasbe brez navlake s spletno radijsko podporo</summary>
   <summary xml:lang="sv">Snygg och praktisk musikspelare med stöd för nätradio</summary>
-  <summary xml:lang="tr">Çevrimiçi radyo desteğine sahip, saçma sapan güzel müzik çalar</summary>
+  <summary xml:lang="tr">Çevrimiçi radyo desteğine sahip, sıkıntısız müzik çalar</summary>
   <summary xml:lang="uk">Красивий змістовний програвач музичних творів із підтримкою інтернет-радіо</summary>
   <summary xml:lang="x-test">xxBeautiful no-nonsense music player with online radio supportxx</summary>
   <summary xml:lang="zh-CN">简约优雅的音乐播放器，支持网络电台。</summary>
@@ -123,7 +123,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>
     <p xml:lang="sl">Preprost predvajalnik glasbe, ki naj bi bil enostaven za uporabo. Pred uporabo ne potrebuje nastavljanja.</p>
     <p xml:lang="sv">En enkel musikspelare som ska vara lättanvänd. Den kräver inga inställningar innan man kan använda den.</p>
-    <p xml:lang="tr">Kullanımı kolay basit bir müzik çalar. Kullanmadan önce herhangi bir yapılandırma gerektirmez.</p>
+    <p xml:lang="tr">Kullanımı kolay yalın bir müzik çalar. Kullanmadan önce herhangi bir yapılandırma gerektirmez.</p>
     <p xml:lang="uk">Простий у користуванні музичний програвач. Не потребує налаштовування перед користуванням.</p>
     <p xml:lang="x-test">xxA simple music player that should be easy to use. It does not require any configuration before one can use it.xx</p>
     <p xml:lang="zh-CN">一个简单易用的音乐播放器，无需任何配置即可使用。</p>
@@ -211,6 +211,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sk">Elisa na Plasma Mobile</caption>
       <caption xml:lang="sl">Elisa na Plasma Mobile</caption>
       <caption xml:lang="sv">Elisa på Plasma Mobil</caption>
+      <caption xml:lang="tr">Plasma Mobile'de Elisa</caption>
       <caption xml:lang="uk">Elisa на мобільній Плазмі</caption>
       <caption xml:lang="x-test">xxElisa on Plasma Mobilexx</caption>
       <caption xml:lang="zh-CN">Elisa 运行于 Plasma Mobile 平台</caption>

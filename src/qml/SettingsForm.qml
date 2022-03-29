@@ -28,8 +28,6 @@ ColumnLayout {
         QQC2.CheckBox {
             Kirigami.FormData.label: i18n("General:")
 
-            Layout.fillWidth: true
-
             text: i18n("Show background on Now Playing page")
 
             checked: ElisaConfigurationDialog.showNowPlayingBackground
@@ -41,8 +39,6 @@ ColumnLayout {
         QQC2.CheckBox {
             id: progressCheckBox
 
-            Layout.fillWidth: true
-
             text: i18n("Show progress on Task Manager entries")
 
             checked: ElisaConfigurationDialog.showProgressInTaskBar
@@ -52,8 +48,6 @@ ColumnLayout {
         }
 
         QQC2.CheckBox {
-            Layout.fillWidth: true
-
             text: i18n("Keep running in System Tray when main window is closed")
 
             checked: ElisaConfigurationDialog.showSystemTrayIcon
@@ -63,8 +57,6 @@ ColumnLayout {
         }
 
         QQC2.CheckBox {
-            Layout.fillWidth: true
-
             text: i18n("Start playing on startup")
 
             checked: ElisaConfigurationDialog.playAtStartup
@@ -82,8 +74,6 @@ ColumnLayout {
         QQC2.RadioButton {
             Kirigami.FormData.label: i18n("Song rating style:")
 
-            Layout.fillWidth: true
-
             text: i18n("0-5 stars")
 
             QQC2.ButtonGroup.group: ratingStyleGroup
@@ -94,8 +84,6 @@ ColumnLayout {
             Accessible.onPressAction: onToggled
         }
         QQC2.RadioButton {
-            Layout.fillWidth: true
-
             text: i18n("Favorite/not favorite")
 
             QQC2.ButtonGroup.group: ratingStyleGroup

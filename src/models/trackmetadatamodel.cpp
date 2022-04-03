@@ -14,6 +14,8 @@
 
 #include <algorithm>
 
+#include <KFormat>
+
 TrackMetadataModel::TrackMetadataModel(QObject *parent)
     : QAbstractListModel(parent)
 {
@@ -76,7 +78,8 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         {
             auto bitRate = mTrackData.bitRate();
             if (bitRate > 0) {
-                result = bitRate;
+                result = KFormat().formatValue(bitRate, QStringLiteral("bps"), 0,
+                                               KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
             }
             break;
         }
@@ -84,7 +87,8 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         {
             auto sampleRate = mTrackData.sampleRate();
             if (sampleRate > 0) {
-                result = sampleRate;
+                result = KFormat().formatValue(sampleRate, KFormat::Unit::Hertz, 1,
+                                               KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
             }
             break;
         }

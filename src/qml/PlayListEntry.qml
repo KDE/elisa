@@ -22,6 +22,15 @@ BasePlayListDelegate {
     // otherwise display a menu button
     readonly property bool wideMode: width >= elisaTheme.playListEntryMinWidth
 
+    property var listDelegate
+
+    readonly property string previousAlbum: listDelegate.ListView.previousSection ? JSON.parse(listDelegate.ListView.previousSection)[0] : null
+    readonly property string currentAlbum: model.album || null
+    readonly property string nextAlbum: listDelegate.ListView.nextSection ? JSON.parse(listDelegate.ListView.nextSection)[0] : null
+
+    readonly property bool grouped: (previousAlbum === currentAlbum || nextAlbum === currentAlbum)
+    readonly property bool sectionVisible: (previousAlbum !== currentAlbum && nextAlbum === currentAlbum)
+
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
 
@@ -30,13 +39,16 @@ BasePlayListDelegate {
         playListEntry.startPlayback()
     }
 
-    padding: 0
+    topPadding: grouped ? 0 : Kirigami.Units.smallSpacing
+    bottomPadding: grouped ? 0 : Kirigami.Units.smallSpacing
+    leftPadding: 0
+    rightPadding: Kirigami.Units.smallSpacing
     alternatingBackground: false
-    separatorVisible: !simpleMode
+    separatorVisible: false
 
     contentItem: Item {
         implicitWidth: playListEntry.width
-        implicitHeight: Math.max(Kirigami.Units.gridUnit + Kirigami.Units.largeSpacing * 2, elisaTheme.toolButtonHeight)
+        implicitHeight: childrenRect.height
 
         Loader {
             id: metadataLoader
@@ -129,25 +141,48 @@ BasePlayListDelegate {
         RowLayout {
             id: trackRow
 
-            anchors.fill: parent
+            width: parent.width
+            height: Math.max((playListEntry.grouped ? Kirigami.Units.gridUnit : Kirigami.Units.gridUnit * 2), elisaTheme.toolButtonHeight)
 
-            spacing: Kirigami.Units.smallSpacing / 2
+            spacing: Kirigami.Units.smallSpacing
 
             Loader {
                 active: !simpleMode && playListEntry.showDragHandle
                 sourceComponent: Kirigami.ListItemDragHandle {
                     listItem: playListEntry
                     listView: playListEntry.listView
-                    onMoveRequested: ElisaApplication.mediaPlayListProxyModel.moveRow(oldIndex, newIndex)
+
+                    onMoveRequested: {
+                        playListEntry.listView.dragging = true
+                        ElisaApplication.mediaPlayListProxyModel.moveRow(oldIndex, newIndex)
+                    }
+                    onDropped: {
+                        playListEntry.listView.dragging = false
+                    }
                 }
             }
 
             // Container for the play/pause icon and the track/disc label
             Item {
-                Layout.preferredWidth: elisaTheme.trackNumberWidth
-                Layout.preferredHeight: parent.height
-                Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
-                Layout.rightMargin: LayoutMirroring.enabled ? Kirigami.Units.smallSpacing : 0
+                Layout.preferredWidth: Math.max(elisaTheme.trackNumberWidth, elisaTheme.coverArtSize)
+                Layout.fillHeight: true
+
+                Loader {
+                    active: !playListEntry.grouped
+                    opacity: playIcon.visible ? 0.2 : 1
+                    anchors.fill: parent
+
+                    sourceComponent: ImageWithFallback {
+                        source: imageUrl
+                        fallback: elisaTheme.defaultAlbumImage
+
+                        sourceSize.width: height
+                        sourceSize.height: height
+
+                        fillMode: Image.PreserveAspectFit
+                        asynchronous: true
+                    }
+                }
 
                 Kirigami.Icon {
                     id: playIcon
@@ -166,41 +201,55 @@ BasePlayListDelegate {
                     color: Kirigami.Theme.textColor
                 }
 
-                Label {
-                    id: trackAndDiscNumberLabel
-
+                Loader {
+                    active: playListEntry.grouped && isValid && !playIcon.visible
                     anchors.fill: parent
-                    anchors.rightMargin: LayoutMirroring.enabled ? 0 : Kirigami.Units.largeSpacing
-                    anchors.leftMargin: !LayoutMirroring.enabled ? 0 : Kirigami.Units.largeSpacing
 
-                    horizontalAlignment: Text.AlignRight
+                    sourceComponent: Label {
+                        //trackAndDiscNumberLabel
 
-                    text: {
-                        var trackNumberString;
-                        if (trackNumber !== -1) {
-                            trackNumberString = Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0);
-                        } else {
-                            trackNumberString = ''
+                        horizontalAlignment: Text.AlignRight
+
+                        text: {
+                            var trackNumberString;
+                            if (trackNumber !== -1) {
+                                trackNumberString = Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0);
+                            } else {
+                                trackNumberString = ''
+                            }
+                            if (!isSingleDiscAlbum && discNumber !== 0 ) {
+                                return trackNumberString + "/" + Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
+                            } else {
+                                return trackNumberString
+                            }
                         }
-                        if (!isSingleDiscAlbum && discNumber !== 0 ) {
-                            return trackNumberString + "/" + Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
-                        } else {
-                            return trackNumberString
-                        }
+                        textFormat: Text.PlainText
+                        font.weight: (isPlaying ? Font.Bold : Font.Normal)
                     }
-                    textFormat: Text.PlainText
-                    font.weight: (isPlaying ? Font.Bold : Font.Normal)
-
-                    visible: isValid && !playIcon.visible
                 }
             }
 
-            LabelWithToolTip {
-                text: title
-                font.weight: isPlaying ? Font.Bold : Font.Normal
-                visible: isValid
+            ColumnLayout {
+                spacing: 0
                 Layout.fillWidth: true
-                Layout.preferredHeight: playListEntry.height
+
+                LabelWithToolTip {
+                    text: title
+                    font.weight: isPlaying ? Font.Bold : Font.Normal
+                    visible: isValid
+                    Layout.fillWidth: true
+                }
+
+                Loader {
+                    active: !playListEntry.grouped
+                    visible: active
+                    Layout.fillWidth: true
+                    sourceComponent: LabelWithToolTip {
+                        id: artistLabel
+                        text: artist + " - " + album
+                        type: Kirigami.Heading.Type.Secondary
+                    }
+                }
             }
 
             // button row
@@ -288,9 +337,7 @@ BasePlayListDelegate {
             LabelWithToolTip {
                 id: durationLabel
                 text: duration
-                font.weight: (isPlaying ? Font.Bold : Font.Normal)
-                Layout.leftMargin: Kirigami.Units.smallSpacing
-                Layout.rightMargin: Kirigami.Units.smallSpacing
+                font.weight: isPlaying ? Font.Bold : Font.Normal
             }
 
             Loader {
@@ -337,6 +384,10 @@ BasePlayListDelegate {
         }
 
         states: [
+        State {
+            name: "dragging"
+            when: playListEntry.listView.dragging
+        },
         State {
             name: "menuVisible"
             when: menuLoader.menuVisible && !playListEntry.wideMode

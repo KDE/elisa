@@ -103,6 +103,7 @@ Kirigami.Page {
                     id: playListView
 
                     signal moveItemRequested(int oldIndex, int newIndex)
+                    property bool dragging: false
 
                     focus: true
                     clip: true
@@ -116,11 +117,6 @@ Kirigami.Page {
 
                     section.property: 'albumSection'
                     section.criteria: ViewSection.FullString
-                    section.labelPositioning: ViewSection.InlineLabels
-                    section.delegate: BasicPlayListAlbumHeader {
-                        headerData: JSON.parse(section)
-                        width: playListView.width
-                    }
 
                     model: ElisaApplication.mediaPlayListProxyModel
 
@@ -130,40 +126,100 @@ Kirigami.Page {
                         }
                     }
 
-                    delegate: Item {
+                    delegate: ColumnLayout {
+                        id: playListDelegate
+
                         property alias entry: entry
+                        property bool nextDelegateHasSection
 
-                        width: entry.width
-                        height: entry.height
+                        width: playListView.width
+                        spacing: 0
 
-                        // ListItemDragHandle requires listItem
-                        // to be a child of delegate
-                        PlayListEntry {
-                            id: entry
+                        Loader {
+                            id: albumSection
+                            active: entry.sectionVisible
+                            visible: active
+                            Layout.fillWidth: true
+                            sourceComponent: BasicPlayListAlbumHeader {
+                                headerData: JSON.parse(playListDelegate.ListView.section)
+                            }
+                        }
 
-                            width: playListView.width
+                        // entry's placeholder
+                        // otherwise the layout is broken while dragging
+                        Item {
+                            implicitWidth: entry.width
+                            // the height must be set because entry's parent
+                            // will be changed while dragging
+                            implicitHeight: entry.height
 
-                            index: model.index
-                            isSelected: playListView.currentIndex === index
+                            // ListItemDragHandle requires listItem
+                            // to be a child of delegate
+                            PlayListEntry {
+                                id: entry
 
-                            databaseId: model.databaseId ? model.databaseId : 0
-                            entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
-                            title: model.title ? model.title : ''
-                            artist: model.artist ? model.artist : ''
-                            album: model.album ? model.album : ''
-                            albumArtist: model.albumArtist ? model.albumArtist : ''
-                            duration: model.duration ? model.duration : ''
-                            fileName: model.trackResource ? model.trackResource : ''
-                            imageUrl: model.imageUrl ? model.imageUrl : ''
-                            trackNumber: model.trackNumber ? model.trackNumber : -1
-                            discNumber: model.discNumber ? model.discNumber : -1
-                            rating: model.rating ? model.rating : 0
-                            isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
-                            isValid: model.isValid
-                            isPlaying: model.isPlaying
-                            metadataModifiableRole: model && model.metadataModifiableRole ? model.metadataModifiableRole : false
-                            listView: playListView
-                            showDragHandle: playListView.count > 1
+                                width: playListView.width
+
+                                index: model.index
+                                isSelected: playListView.currentIndex === index
+
+                                databaseId: model.databaseId ? model.databaseId : 0
+                                entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
+                                title: model.title ? model.title : ''
+                                artist: model.artist ? model.artist : ''
+                                album: model.album ? model.album : ''
+                                albumArtist: model.albumArtist ? model.albumArtist : ''
+                                duration: model.duration ? model.duration : ''
+                                fileName: model.trackResource ? model.trackResource : ''
+                                imageUrl: model.imageUrl ? model.imageUrl : ''
+                                trackNumber: model.trackNumber ? model.trackNumber : -1
+                                discNumber: model.discNumber ? model.discNumber : -1
+                                rating: model.rating ? model.rating : 0
+                                isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
+                                isValid: model.isValid
+                                isPlaying: model.isPlaying
+                                metadataModifiableRole: model && model.metadataModifiableRole ? model.metadataModifiableRole : false
+                                listView: playListView
+                                listDelegate: playListDelegate
+                                showDragHandle: playListView.count > 1
+                            }
+                        }
+
+                        // separator
+                        Rectangle {
+                            readonly property bool largeSeparator: (entry.previousAlbum === entry.currentAlbum) && (entry.nextAlbum !== entry.currentAlbum) && !playListDelegate.nextDelegateHasSection
+
+                            implicitWidth: playListView.width - (largeSeparator ? 0 : Kirigami.Units.iconSizes.smallMedium)
+                            implicitHeight: largeSeparator ? Kirigami.Units.largeSpacing : 1
+
+                            Layout.alignment: Qt.AlignHCenter
+
+                            // the last item should never have the separator
+                            visible: index < playListView.count - 1
+
+                            // same color with Kirigami.ListSectionHeader
+                            Kirigami.Theme.inherit: false
+                            Kirigami.Theme.colorSet: Kirigami.Theme.Window
+                            color: Kirigami.Theme.backgroundColor
+
+                            Connections {
+                                target: entry
+                                function onSectionVisibleChanged() {
+                                    var previousDelegate = playListView.itemAtIndex(model.index - 1)
+                                    if (previousDelegate) {
+                                        previousDelegate.nextDelegateHasSection = entry.sectionVisible
+                                    }
+                                }
+                            }
+                            Connections {
+                                target: entry
+                                function onNextAlbumChanged() {
+                                    var nextDelegate = playListView.itemAtIndex(model.index + 1)
+                                    if (nextDelegate) {
+                                        playListDelegate.nextDelegateHasSection = nextDelegate.entry.sectionVisible
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -359,7 +415,7 @@ Kirigami.Page {
                         onTriggered: {
                             playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
                             playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
-                            playListView.currentItem.forceActiveFocus()
+                            playListView.currentItem.entry.forceActiveFocus()
                         }
                     },
                     Kirigami.Action {

@@ -19,19 +19,29 @@ Kirigami.ListSectionHeader {
     property string albumArtist: headerData[1]
     property url imageUrl: headerData[2]
 
-    height: contentLayout.implicitHeight
-    padding: 0
+    property bool simpleMode: false
 
-    RowLayout {
+    // keep section's elements aligned with playlistEntry's ones
+    leftPadding: 0
+
+    backgroundColor: simpleMode ? "transparent" : Kirigami.Theme.backgroundColor
+
+    contentItem: RowLayout {
         id: contentLayout
 
         width: parent.width
         spacing: Kirigami.Units.smallSpacing
 
+        // keep section's elements aligned with playlistEntry's ones
+        Item {
+            visible: !simpleMode
+            Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+            Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+        }
+
         ImageWithFallback {
-            Layout.preferredWidth: height
-            Layout.fillHeight: true
-            Layout.margins: Kirigami.Units.largeSpacing
+            Layout.preferredWidth: elisaTheme.coverArtSize
+            Layout.preferredHeight: elisaTheme.coverArtSize
 
             source: imageUrl
             fallback: elisaTheme.defaultAlbumImage
@@ -47,14 +57,7 @@ Kirigami.ListSectionHeader {
             id: albumHeaderTextColumn
 
             Layout.fillWidth: true
-            Layout.preferredHeight: elisaTheme.sectionHeight
-
-            Layout.leftMargin: !LayoutMirroring.enabled ? - Kirigami.Units.smallSpacing : 0
-            Layout.rightMargin: LayoutMirroring.enabled ? - Kirigami.Units.smallSpacing : 0
-            Layout.topMargin: Kirigami.Units.smallSpacing
-            Layout.bottomMargin: Kirigami.Units.smallSpacing
-
-            spacing: Kirigami.Units.smallSpacing
+            spacing: 0
 
             LabelWithToolTip {
                 id: mainLabel
@@ -64,11 +67,6 @@ Kirigami.ListSectionHeader {
 
                 text: album
                 level: 2
-                font.weight: Font.Bold
-
-                elide: Text.ElideRight
-                wrapMode: Text.WordWrap
-                maximumLineCount: 2
             }
 
             LabelWithToolTip {
@@ -78,10 +76,7 @@ Kirigami.ListSectionHeader {
                 Layout.alignment: Qt.AlignTop | Qt.AlignLeft
 
                 text: albumArtist
-
-                elide: Text.ElideRight
-                wrapMode: Text.WordWrap
-                maximumLineCount: 3 - mainLabel.lineCount
+                type: Kirigami.Heading.Type.Secondary
             }
         }
     }

@@ -49,22 +49,11 @@ Item {
 
     property int viewSelectorSmallSizeThreshold: 800
 
-    readonly property alias sectionHeight: sectionSizer.implicitHeight
-
     readonly property alias toolButtonHeight: button.height
     readonly property alias trackNumberWidth: trackNumber.width
     readonly property alias durationWidth: duration.width
     readonly property int playListEntryMinWidth: button.width * 6 + duration.width + trackNumber.width * 2
-
-    // calculate a fixed height for playlist's section delegates
-    // workaround for QTBUG-52595
-    Column {
-        id: sectionSizer
-        visible: false
-        spacing: Kirigami.Units.smallSpacing
-        LabelWithToolTip { text: "M\nM"; level: 2 }
-        LabelWithToolTip { text: "M" }
-    }
+    readonly property int coverArtSize: Kirigami.Units.gridUnit * 2
 
     // get height of buttons inside loaders
     FlatButtonWithToolTip {

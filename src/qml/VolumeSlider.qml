@@ -11,36 +11,31 @@ import QtQuick.Controls 2.3
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
-MouseArea {
-    id: root
-
-    property alias sliderValue: volumeSlider.value
-    property alias slider: volumeSlider
+Slider {
+    id: volumeSlider
     property bool muted
 
-    acceptedButtons: Qt.NoButton
-    onWheel: {
-        // Can't use Slider's built-in increase() and decrease() functions here
-        // since they go in increments of 0.1 when the slider's stepSize is not
-        // defined, which is much too slow. And we don't define a stepSize for
-        // the slider because if we do, it gets gets tickmarks which look ugly.
-        if (wheel.angleDelta.y > 0) {
-            // Increase volume
-            volumeSlider.value = Math.min(volumeSlider.to, volumeSlider.value + 5);
+    from: 0
+    to: 100
 
-        } else {
-            // Decrease volume
-            volumeSlider.value = Math.max(volumeSlider.from, volumeSlider.value - 5);
-        }
-    }
+    enabled: !muted
 
-    Slider {
-        id: volumeSlider
+    MouseArea {
         anchors.fill: parent
+        acceptedButtons: Qt.NoButton
+        onWheel: {
+            // Can't use Slider's built-in increase() and decrease() functions here
+            // since they go in increments of 0.1 when the slider's stepSize is not
+            // defined, which is much too slow. And we don't define a stepSize for
+            // the slider because if we do, it gets gets tickmarks which look ugly.
+            if (wheel.angleDelta.y > 0) {
+                // Increase volume
+                volumeSlider.value = Math.min(volumeSlider.to, volumeSlider.value + 5);
 
-        from: 0
-        to: 100
-
-        enabled: !root.muted
+            } else {
+                // Decrease volume
+                volumeSlider.value = Math.max(volumeSlider.from, volumeSlider.value - 5);
+            }
+        }
     }
 }

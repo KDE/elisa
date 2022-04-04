@@ -48,8 +48,6 @@ Kirigami.Page {
     }
 
     // Header with title
-    // TODO: Once we depend on Frameworks 5.80, change this to
-    // "Kirigami.ApplicationHeaderStyle.None" and remove the custom header
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)

@@ -35,8 +35,6 @@ Kirigami.Page {
     Accessible.role: Accessible.Pane
     Accessible.name: topItem.title
 
-    // TODO: Once we depend on Frameworks 5.80, change this to
-    // "Kirigami.ApplicationHeaderStyle.None" and remove the custom header
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
         // Override color to use standard window colors, not header colors

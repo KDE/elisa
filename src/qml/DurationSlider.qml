@@ -60,49 +60,35 @@ RowLayout {
         }
     }
 
-    MouseArea {
-        id: seekWheelHandler
+    Slider {
+        property bool seekStarted: false
+
+        id: musicProgress
         Layout.alignment: Qt.AlignVCenter
         Layout.fillHeight: true
         Layout.fillWidth: true
         Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
         Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
 
-        acceptedButtons: Qt.NoButton
-        onWheel: {
-            if (wheel.angleDelta.y > 0) {
-                durationSlider.seek(position + 10000)
-            } else {
-                durationSlider.seek(position - 10000)
-            }
+
+        from: 0
+        to: durationSlider.duration
+
+        enabled: durationSlider.seekable && durationSlider.playEnabled
+        live: true
+
+        onMoved: {
+            durationSlider.seek(value)
         }
 
-        Slider {
-            property bool seekStarted: false
-            property int seekValue
-
-            id: musicProgress
-
+        MouseArea {
             anchors.fill: parent
-
-            from: 0
-            to: durationSlider.duration
-
-            enabled: durationSlider.seekable && durationSlider.playEnabled
-            live: true
-
-            onValueChanged: {
-                if (seekStarted) {
-                    seekValue = value
-                }
-            }
-            onPressedChanged: {
-                if (pressed) {
-                    seekStarted = true;
-                    seekValue = value
+            acceptedButtons: Qt.NoButton
+            onWheel: {
+                if (wheel.angleDelta.y > 0) {
+                    durationSlider.seek(musicProgress.value + 10000)
                 } else {
-                    durationSlider.seek(seekValue)
-                    seekStarted = false;
+                    durationSlider.seek(musicProgress.value - 10000)
                 }
             }
         }

@@ -15,8 +15,8 @@ import ".."
 FlatButtonWithToolTip {
     id: volumeButton
 
-    property alias sliderValue: slider.sliderValue
-    property alias slider: slider.slider
+    property alias sliderValue: slider.value
+    property alias slider: slider
     property bool muted
 
     Layout.maximumHeight: parent.height

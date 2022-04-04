@@ -17,7 +17,7 @@ import "shared"
 BasePlayerControl {
     id: musicWidget
 
-    property alias volume: volumeSlider.sliderValue
+    property alias volume: volumeSlider.value
     property bool isMaximized
 
     signal maximize()

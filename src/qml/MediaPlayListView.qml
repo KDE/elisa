@@ -35,18 +35,21 @@ Kirigami.Page {
     Accessible.role: Accessible.Pane
     Accessible.name: topItem.title
 
+    // Header with title and actions
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
+        implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
+        leftPadding: Kirigami.Units.largeSpacing
+
         // Override color to use standard window colors, not header colors
         // TODO: remove this if the HeaderBar component is ever removed or moved
         // to the bottom of the window such that this toolbar touches the window
         // titlebar
         Kirigami.Theme.colorSet: Kirigami.Theme.Window
-        implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
-        leftPadding: Kirigami.Units.largeSpacing
 
         RowLayout {
             anchors.fill: parent
+            spacing: Kirigami.Units.smallSpacing
 
             Kirigami.Heading {
                 text: topItem.title
@@ -377,10 +380,10 @@ Kirigami.Page {
     footer: ToolBar {
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2)
         leftPadding: Kirigami.Units.largeSpacing
-        rightPadding: Kirigami.Units.largeSpacing
 
         RowLayout {
             anchors.fill: parent
+            spacing: Kirigami.Units.smallSpacing
 
             LabelWithToolTip {
                 text: {

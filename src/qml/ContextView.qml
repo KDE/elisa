@@ -47,17 +47,17 @@ Kirigami.Page {
         manager: ElisaApplication.musicManager
     }
 
-    // Header with title
+    // Header with title and actions
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
-        Layout.fillWidth: true
 
         // Override color to use standard window colors, not header colors
         // TODO: remove this if the HeaderBar component is ever removed or moved
         // to the bottom of the window such that this toolbar touches the window
         // titlebar
         Kirigami.Theme.colorSet: Kirigami.Theme.Window
+
         RowLayout {
             anchors.fill: parent
             spacing: Kirigami.Units.smallSpacing
@@ -323,8 +323,10 @@ Kirigami.Page {
     footer: ToolBar {
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2)
         visible: !topItem.nothingPlaying
+
         RowLayout {
             anchors.fill: parent
+            spacing: Kirigami.Units.smallSpacing
 
             LabelWithToolTip {
                 id: fileUrlLabel

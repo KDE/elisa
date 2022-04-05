@@ -16,7 +16,6 @@
         <file>qml/TrackImportNotification.qml</file>
         <file>qml/MediaTrackMetadataView.qml</file>
         <file>qml/GridBrowserDelegate.qml</file>
-        <file>qml/ListBrowserView.qml</file>
         <file>qml/ListBrowserDelegate.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>background.png</file>

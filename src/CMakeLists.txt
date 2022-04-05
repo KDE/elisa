@@ -425,7 +425,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/TracksDiscHeader.qml
         qml/MediaTrackMetadataView.qml
         qml/GridBrowserDelegate.qml
-        qml/ListBrowserView.qml
         qml/ListBrowserDelegate.qml
         qml/FlatButtonWithToolTip.qml
         qml/HeaderFooterToolbar.qml

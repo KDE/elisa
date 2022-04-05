@@ -1,38 +1,60 @@
 /*
    SPDX-FileCopyrightText: 2018 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2022 (c) Nate Graham <kate@kde.org>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.10
-import QtQuick.Controls 2.3
-import org.kde.kirigami 2.5 as Kirigami
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQml.Models 2.1
+import QtQuick.Layouts 1.2
+
+import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa 1.0
 
 FocusScope {
-    id: viewHeader
+    id: listView
 
-    property var filterType
-    property alias isSubPage: listView.isSubPage
-    property alias mainTitle: listView.mainTitle
-    property alias secondaryTitle: listView.secondaryTitle
-    property alias showSection: listView.showSection
-    property alias expandedFilterView: listView.expandedFilterView
-    property alias haveTreeModel: listView.haveTreeModel
-    property var filter
-    property alias image: listView.image
-    property var modelType
     property AbstractItemModel realModel
+    property AbstractProxyModel contentModel
     property AbstractProxyModel proxyModel
-    property alias sortRole: listView.sortRole
-    property alias sortRoles: listView.sortRoles
-    property alias sortRoleNames: listView.sortRoleNames
-    property alias sortOrderNames: listView.sortOrderNames
-    property alias sortOrder: listView.sortOrder
+
+    property string mainTitle
+    property string secondaryTitle
+    property url image
+    property int depth: 1
+    property int databaseId
+
+    property bool showSection: false
+    property bool isSubPage: false
+    property bool haveTreeModel: false
+    property bool radioCase: false
     property bool displaySingleAlbum: false
-    property alias radioCase: listView.showCreateRadioButton
     property bool modelIsInitialized: false
-    property alias viewManager: listView.viewManager
+
+    property var filter
+    property var modelType
+    property var filterType
+
+    property alias currentIndex: contentDirectoryView.currentIndex
+    property alias expandedFilterView: navigationBar.expandedFilterView
+    property alias showRating: navigationBar.showRating
+    property alias sortRole: navigationBar.sortRole
+    property alias sortRoles: navigationBar.sortRoles
+    property alias sortRoleNames: navigationBar.sortRoleNames
+    property alias sortOrderNames: navigationBar.sortOrderNames
+    property alias sortOrder: navigationBar.sortOrder
+    property alias viewManager: navigationBar.viewManager
+    property alias delegate: delegateModel.delegate
+
+
+    signal showArtist(var name)
+
+    onShowArtist: {
+        viewManager.openArtistView(secondaryTitle)
+    }
+
 
     function openMetaDataView(databaseId, url, entryType) {
         metadataLoader.setSource(Kirigami.Settings.isMobile ? "mobile/MobileMediaTrackMetadataView.qml" : "MediaTrackMetadataView.qml",
@@ -94,7 +116,12 @@ FocusScope {
     }
 
     function goToBack() {
-        listView.goToBack()
+        if (haveTreeModel) {
+            delegateModel.rootIndex = delegateModel.parentModelIndex()
+            --depth
+        } else {
+            viewManager.goBack()
+        }
     }
 
     Loader {
@@ -111,14 +138,17 @@ FocusScope {
         }
     }
 
-    // desktop delegates
-    Component {
-        id: trackDelegate
 
-        ListBrowserDelegate {
+    // Model
+    DelegateModel {
+        id: delegateModel
+
+        model: listView.contentModel
+
+        delegate: ListBrowserDelegate {
             id: entry
 
-            width: listView.delegateWidth
+            width: contentDirectoryView.width
 
             focus: true
 
@@ -133,10 +163,10 @@ FocusScope {
             trackNumber: model.trackNumber ? model.trackNumber : -1
             discNumber: model.discNumber ? model.discNumber : -1
             rating: model.rating
-            hideDiscNumber: !viewHeader.displaySingleAlbum && model.isSingleDiscAlbum
+            hideDiscNumber: !listView.displaySingleAlbum && model.isSingleDiscAlbum
             isSelected: listView.currentIndex === index
             isAlternateColor: (index % 2) === 1
-            detailedView: !viewHeader.displaySingleAlbum
+            detailedView: !listView.displaySingleAlbum
 
             onTrackRatingChanged: {
                 ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, rating)
@@ -167,46 +197,144 @@ FocusScope {
         }
     }
 
-    ListBrowserView {
-        id: listView
 
-        focus: true
-
+    // Main view components
+    ColumnLayout {
         anchors.fill: parent
+        spacing: 0
 
-        contentModel: proxyModel
+        NavigationActionBar {
+            id: navigationBar
 
-        delegate: trackDelegate
+            z: 1 // on top of track list
 
-        enableSorting: !displaySingleAlbum
+            mainTitle: listView.mainTitle
+            secondaryTitle: listView.secondaryTitle
+            image: listView.image
+            enableGoBack: listView.isSubPage || depth > 1
+            allowArtistNavigation: listView.isSubPage
+            showCreateRadioButton: listView.modelType === ElisaUtils.Radio
+            showEnqueueButton: listView.modelType !== ElisaUtils.Radio
 
-        allowArtistNavigation: isSubPage
+            Layout.fillWidth: true
 
-        showCreateRadioButton: modelType === ElisaUtils.Radio
-        showEnqueueButton: modelType !== ElisaUtils.Radio
+            Loader {
+                active: listView.contentModel
 
-        onShowArtist: {
-            viewManager.openArtistView(secondaryTitle)
+                sourceComponent: Binding {
+                    target: listView.contentModel
+                    property: 'filterText'
+                    when: listView.contentModel
+                    value: navigationBar.filterText
+                }
+            }
+
+            Loader {
+                active: listView.contentModel
+
+                sourceComponent: Binding {
+                    target: listView.contentModel
+                    property: 'filterRating'
+                    when: listView.contentModel
+                    value: navigationBar.filterRating
+                }
+            }
+
+            Loader {
+                active: listView.contentModel && navigationBar.enableSorting
+
+                sourceComponent: Binding {
+                    target: listView.contentModel
+                    property: 'sortRole'
+                    when: listView.contentModel && navigationBar.enableSorting
+                    value: navigationBar.sortRole
+                }
+            }
+
+            onEnqueue: contentModel.enqueueToPlayList(delegateModel.rootIndex)
+
+            onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList(delegateModel.rootIndex)
+
+            onGoBack: {
+                listView.goToBack()
+            }
+
+            onShowArtist: listView.showArtist(listView.contentModel.sourceModel.author)
+
+            onSortOrderChanged: {
+                if (!contentModel || !navigationBar.enableSorting) {
+                    return
+                }
+
+                if ((contentModel.sortedAscending && sortOrder !== Qt.AscendingOrder) ||
+                    (!contentModel.sortedAscending && sortOrder !== Qt.DescendingOrder)) {
+                    contentModel.sortModel(sortOrder)
+                    }
+            }
         }
 
-        onGoBackRequested: viewManager.goBack()
+        ScrollView {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
-        suppressNoDataPlaceholderMessage: busyIndicatorLoader.active
+            // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-        Loader {
-            id: busyIndicatorLoader
-            anchors.centerIn: parent
-            height: Kirigami.Units.gridUnit * 5
-            width: height
+            contentItem: ListView {
+                id: contentDirectoryView
 
-            visible: realModel ? realModel.isBusy : true
-            active: realModel ? realModel.isBusy : true
+                Accessible.role: Accessible.List
+                Accessible.name: mainTitle
+                Accessible.description: mainTitle
 
-            sourceComponent: BusyIndicator {
-                anchors.centerIn: parent
+                activeFocusOnTab: true
+                keyNavigationEnabled: true
+
+                reuseItems: true
+
+                model: delegateModel
+
+                // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
+                currentIndex: Kirigami.Settings.isMobile ? 0 : -1
+
+                section.property: (showSection ? 'discNumber' : '')
+                section.criteria: ViewSection.FullString
+                section.labelPositioning: ViewSection.InlineLabels
+                section.delegate: TracksDiscHeader {
+                    discNumber: section
+                    width: contentDirectoryView.width
+                }
+
+                Kirigami.PlaceholderMessage {
+                    anchors.centerIn: parent
+                    width: parent.width - (Kirigami.Units.largeSpacing * 4)
+                    visible: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
+                    text: i18n("Nothing to display")
+                }
+
+                onCountChanged: if (count === 0) {
+                    currentIndex = -1;
+                }
             }
         }
     }
+
+
+    // Placeholder spinner while loading
+    Loader {
+        id: busyIndicatorLoader
+        anchors.centerIn: parent
+        height: Kirigami.Units.gridUnit * 5
+        width: height
+
+        visible: realModel ? realModel.isBusy : true
+        active: realModel ? realModel.isBusy : true
+
+        sourceComponent: BusyIndicator {
+            anchors.centerIn: parent
+        }
+    }
+
 
     Connections {
         target: ElisaApplication
@@ -217,7 +345,7 @@ FocusScope {
     }
 
     Connections {
-        target: listView.navigationBar
+        target: navigationBar
 
         function onCreateRadio() {
             openCreateRadioView()

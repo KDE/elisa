@@ -1,6 +1,6 @@
 /*
    SPDX-FileCopyrightText: 2018 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
-   SPDX-FileCopyrightText: 2022 (c) Nate Graham <kate@kde.org>
+   SPDX-FileCopyrightText: 2022 (c) Nate Graham <nate@kde.org>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */

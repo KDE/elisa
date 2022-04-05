@@ -113,6 +113,7 @@ FocusScope {
 
         realModel.initializeByData(ElisaApplication.musicManager, ElisaApplication.musicManager.viewDatabase,
                                    modelType, filterType, filter)
+        modelIsInitialized = true
     }
 
     function goToBack() {

@@ -21,6 +21,7 @@
         <file>background.png</file>
         <file>qml/BaseTheme.qml</file>
         <file>qml/FlatButtonWithToolTip.qml</file>
+        <file>qml/AbstractDataView.qml</file>
         <file>qml/DataGridView.qml</file>
         <file>qml/DataListView.qml</file>
         <file>qml/SimplePlayListView.qml</file>

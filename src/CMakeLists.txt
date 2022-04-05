@@ -410,6 +410,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
         qml/ContextView.qml
         qml/ContentView.qml
         qml/ViewSelector.qml
+        qml/AbstractDataView.qml
         qml/DataGridView.qml
         qml/DataListView.qml
         qml/DurationSlider.qml

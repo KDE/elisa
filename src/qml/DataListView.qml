@@ -6,55 +6,25 @@
  */
 
 import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQml.Models 2.1
-import QtQuick.Layouts 1.2
 
 import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa 1.0
 
-FocusScope {
+AbstractDataView {
     id: listView
 
-    property AbstractItemModel realModel
-    property AbstractProxyModel contentModel
-    property AbstractProxyModel proxyModel
-
-    property string mainTitle
-    property string secondaryTitle
-    property url image
-    property int depth: 1
     property int databaseId
-
     property bool showSection: false
-    property bool isSubPage: false
-    property bool haveTreeModel: false
     property bool radioCase: false
-    property bool displaySingleAlbum: false
-    property bool modelIsInitialized: false
 
-    property var filter
-    property var modelType
-    property var filterType
-
-    property alias currentIndex: contentDirectoryView.currentIndex
-    property alias expandedFilterView: navigationBar.expandedFilterView
-    property alias showRating: navigationBar.showRating
-    property alias sortRole: navigationBar.sortRole
-    property alias sortRoles: navigationBar.sortRoles
-    property alias sortRoleNames: navigationBar.sortRoleNames
-    property alias sortOrderNames: navigationBar.sortOrderNames
-    property alias sortOrder: navigationBar.sortOrder
-    property alias viewManager: navigationBar.viewManager
-    property alias delegate: delegateModel.delegate
-
+    // Otherwise tracks are sorted in the wrong order
+    sortModel: !displaySingleAlbum
 
     signal showArtist(var name)
 
     onShowArtist: {
         viewManager.openArtistView(secondaryTitle)
     }
-
 
     function openMetaDataView(databaseId, url, entryType) {
         metadataLoader.setSource(Kirigami.Settings.isMobile ? "mobile/MobileMediaTrackMetadataView.qml" : "MediaTrackMetadataView.qml",
@@ -84,46 +54,6 @@ FocusScope {
         metadataLoader.active = true
     }
 
-    function initializeModel()
-    {
-        if (!proxyModel) {
-            return
-        }
-
-        if (!realModel) {
-            return
-        }
-
-        if (!ElisaApplication.musicManager) {
-            return
-        }
-
-        if (modelIsInitialized) {
-            return
-        }
-
-        proxyModel.sourceModel = realModel
-        proxyModel.dataType = modelType
-        proxyModel.playList = Qt.binding(function() { return ElisaApplication.mediaPlayListProxyModel })
-        listView.contentModel = proxyModel
-
-        if (!displaySingleAlbum) {
-            proxyModel.sortModel(sortOrder)
-        }
-
-        realModel.initializeByData(ElisaApplication.musicManager, ElisaApplication.musicManager.viewDatabase,
-                                   modelType, filterType, filter)
-        modelIsInitialized = true
-    }
-
-    function goToBack() {
-        if (haveTreeModel) {
-            delegateModel.rootIndex = delegateModel.parentModelIndex()
-            --depth
-        } else {
-            viewManager.goBack()
-        }
-    }
 
     Loader {
         id: metadataLoader
@@ -140,213 +70,93 @@ FocusScope {
     }
 
 
-    // Model
-    DelegateModel {
-        id: delegateModel
+    delegate: ListBrowserDelegate {
+        id: entry
 
-        model: listView.contentModel
+        width: contentDirectoryView.width
 
-        delegate: ListBrowserDelegate {
-            id: entry
+        focus: true
 
+        trackUrl: model.url
+        dataType: model.dataType
+        title: model.display ? model.display : ''
+        artist: model.artist ? model.artist : ''
+        album: model.album ? model.album : ''
+        albumArtist: model.albumArtist ? model.albumArtist : ''
+        duration: model.duration ? model.duration : ''
+        imageUrl: model.imageUrl ? model.imageUrl : ''
+        trackNumber: model.trackNumber ? model.trackNumber : -1
+        discNumber: model.discNumber ? model.discNumber : -1
+        rating: model.rating
+        hideDiscNumber: !listView.displaySingleAlbum && model.isSingleDiscAlbum
+        isSelected: contentDirectoryView.currentIndex === index
+        isAlternateColor: (index % 2) === 1
+        detailedView: !listView.displaySingleAlbum
+
+        onTrackRatingChanged: {
+            ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, rating)
+        }
+
+        onEnqueue: ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
+                                                            ElisaUtils.AppendPlayList,
+                                                            ElisaUtils.DoNotTriggerPlay)
+
+        onReplaceAndPlay: ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
+                                                                ElisaUtils.ReplacePlayList,
+                                                                ElisaUtils.TriggerPlay)
+
+        onClicked: {
+            forceActiveFocus()
+            contentDirectoryView.currentIndex = model.index
+        }
+
+        onActiveFocusChanged: {
+            if (activeFocus && contentDirectoryView.currentIndex !== model.index) {
+                contentDirectoryView.currentIndex = model.index
+            }
+        }
+
+        onCallOpenMetaDataView: {
+            openMetaDataView(databaseId, url, entryType)
+        }
+    }
+
+
+    contentView: ListView {
+        id: contentDirectoryView
+
+        activeFocusOnTab: true
+        keyNavigationEnabled: true
+
+        reuseItems: true
+
+        model: delegateModel
+
+        // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
+        currentIndex: Kirigami.Settings.isMobile ? 0 : -1
+
+        Accessible.role: Accessible.List
+        Accessible.name: mainTitle
+        Accessible.description: secondaryTitle
+
+        section.property: (showSection ? 'discNumber' : '')
+        section.criteria: ViewSection.FullString
+        section.labelPositioning: ViewSection.InlineLabels
+        section.delegate: TracksDiscHeader {
+            discNumber: section
             width: contentDirectoryView.width
-
-            focus: true
-
-            trackUrl: model.url
-            dataType: model.dataType
-            title: model.display ? model.display : ''
-            artist: model.artist ? model.artist : ''
-            album: model.album ? model.album : ''
-            albumArtist: model.albumArtist ? model.albumArtist : ''
-            duration: model.duration ? model.duration : ''
-            imageUrl: model.imageUrl ? model.imageUrl : ''
-            trackNumber: model.trackNumber ? model.trackNumber : -1
-            discNumber: model.discNumber ? model.discNumber : -1
-            rating: model.rating
-            hideDiscNumber: !listView.displaySingleAlbum && model.isSingleDiscAlbum
-            isSelected: listView.currentIndex === index
-            isAlternateColor: (index % 2) === 1
-            detailedView: !listView.displaySingleAlbum
-
-            onTrackRatingChanged: {
-                ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, rating)
-            }
-
-            onEnqueue: ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
-                                                             ElisaUtils.AppendPlayList,
-                                                             ElisaUtils.DoNotTriggerPlay)
-
-            onReplaceAndPlay: ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
-                                                                    ElisaUtils.ReplacePlayList,
-                                                                    ElisaUtils.TriggerPlay)
-
-            onClicked: {
-                listView.currentIndex = index;
-                entry.forceActiveFocus();
-            }
-
-            onActiveFocusChanged: {
-                if (activeFocus && listView.currentIndex !== index) {
-                    listView.currentIndex = index
-                }
-            }
-
-            onCallOpenMetaDataView: {
-                openMetaDataView(databaseId, url, entryType)
-            }
-        }
-    }
-
-
-    // Main view components
-    ColumnLayout {
-        anchors.fill: parent
-        spacing: 0
-
-        NavigationActionBar {
-            id: navigationBar
-
-            z: 1 // on top of track list
-
-            mainTitle: listView.mainTitle
-            secondaryTitle: listView.secondaryTitle
-            image: listView.image
-            enableGoBack: listView.isSubPage || depth > 1
-            allowArtistNavigation: listView.isSubPage
-            showCreateRadioButton: listView.modelType === ElisaUtils.Radio
-            showEnqueueButton: listView.modelType !== ElisaUtils.Radio
-
-            Layout.fillWidth: true
-
-            Binding {
-                target: listView.contentModel
-                property: 'filterText'
-                when: listView.contentModel
-                value: navigationBar.filterText
-            }
-
-            Binding {
-                target: listView.contentModel
-                property: 'filterRating'
-                when: listView.contentModel
-                value: navigationBar.filterRating
-            }
-
-            Binding {
-                target: listView.contentModel
-                property: 'sortRole'
-                when: listView.contentModel && navigationBar.enableSorting
-                value: navigationBar.sortRole
-            }
-
-            onEnqueue: contentModel.enqueueToPlayList(delegateModel.rootIndex)
-
-            onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList(delegateModel.rootIndex)
-
-            onGoBack: {
-                listView.goToBack()
-            }
-
-            onShowArtist: listView.showArtist(listView.contentModel.sourceModel.author)
-
-            onSortOrderChanged: {
-                if (!contentModel || !navigationBar.enableSorting) {
-                    return
-                }
-
-                if ((contentModel.sortedAscending && sortOrder !== Qt.AscendingOrder) ||
-                    (!contentModel.sortedAscending && sortOrder !== Qt.DescendingOrder)) {
-                    contentModel.sortModel(sortOrder)
-                    }
-            }
         }
 
-        ScrollView {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
-            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-
-            contentItem: ListView {
-                id: contentDirectoryView
-
-                Accessible.role: Accessible.List
-                Accessible.name: mainTitle
-                Accessible.description: mainTitle
-
-                activeFocusOnTab: true
-                keyNavigationEnabled: true
-
-                reuseItems: true
-
-                model: delegateModel
-
-                // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
-                currentIndex: Kirigami.Settings.isMobile ? 0 : -1
-
-                section.property: (showSection ? 'discNumber' : '')
-                section.criteria: ViewSection.FullString
-                section.labelPositioning: ViewSection.InlineLabels
-                section.delegate: TracksDiscHeader {
-                    discNumber: section
-                    width: contentDirectoryView.width
-                }
-
-                onCountChanged: if (count === 0) {
-                    currentIndex = -1;
-                }
-            }
-        }
-    }
-
-
-    // Placeholder spinner while loading
-    Loader {
-        id: busyIndicatorLoader
-        anchors.centerIn: parent
-        height: Kirigami.Units.gridUnit * 5
-        width: height
-
-        visible: realModel ? realModel.isBusy : true
-        active: realModel ? realModel.isBusy : true
-
-        sourceComponent: BusyIndicator {
-            anchors.centerIn: parent
-        }
-    }
-
-
-    // "Nothing here" placeholder message
-    Loader {
-        anchors.centerIn: parent
-        width: parent.width - (Kirigami.Units.largeSpacing * 4)
-        active: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
-        sourceComponent: Kirigami.PlaceholderMessage {
-            anchors.centerIn: parent
-            text: i18n("Nothing to display")
-        }
-    }
-
-
-    Connections {
-        target: ElisaApplication
-
-        function onMusicManagerChanged() {
-            initializeModel()
+        onCountChanged: if (count === 0) {
+            currentIndex = -1;
         }
     }
 
     Connections {
-        target: navigationBar
+        target: navigationBar // lives in parent item
 
         function onCreateRadio() {
             openCreateRadioView()
         }
-    }
-
-    Component.onCompleted: {
-        initializeModel()
     }
 }

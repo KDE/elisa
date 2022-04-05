@@ -13,11 +13,14 @@ Dependencies:
     'frameworks/kxmlgui': '@stable'
     'frameworks/kconfigwidgets': '@stable'
 
-- 'on': ['Linux', 'FreeBSD']
+- 'on': ['Linux', 'FreeBSD', 'Windows']
   'require':
     'frameworks/kdeclarative': '@stable'
-    'frameworks/baloo': '@stable'
     'frameworks/kdoctools': '@stable'
-    'frameworks/kdbusaddons': '@stable'
     'frameworks/kio': '@stable'
     'frameworks/kfilemetadata': '@stable'
+
+- 'on': ['Linux', 'FreeBSD']
+  'require':
+    'frameworks/baloo': '@stable'
+    'frameworks/kdbusaddons': '@stable'

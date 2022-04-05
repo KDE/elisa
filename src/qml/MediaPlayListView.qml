@@ -237,6 +237,7 @@ Kirigami.Page {
 
                         sourceComponent: Kirigami.PlaceholderMessage {
                             anchors.centerIn: parent
+                            icon.name: "view-media-playlist"
                             text: i18n("Playlist is empty")
                             explanation: i18n("Add some songs to get started. You can browse your music using the views on the left.")
                         }

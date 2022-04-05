@@ -208,7 +208,7 @@ FocusScope {
         anchors.centerIn: parent
         width: parent.width - (Kirigami.Units.largeSpacing * 4)
         active: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
-        visible: status == Loader.Ready
+        visible: active && status == Loader.Ready
 
         sourceComponent: Kirigami.PlaceholderMessage {
             anchors.centerIn: parent

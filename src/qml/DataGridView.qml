@@ -176,37 +176,25 @@ FocusScope {
 
             Layout.fillWidth: true
 
-            Loader {
-                active: gridView.contentModel
-
-                sourceComponent: Binding {
-                    target: gridView.contentModel
-                    property: 'filterText'
-                    when: gridView.contentModel
-                    value: navigationBar.filterText
-                }
+            Binding {
+                target: gridView.contentModel
+                property: 'filterText'
+                when: gridView.contentModel
+                value: navigationBar.filterText
             }
 
-            Loader {
-                active: gridView.contentModel
-
-                sourceComponent: Binding {
-                    target: gridView.contentModel
-                    property: 'filterRating'
-                    when: gridView.contentModel
-                    value: navigationBar.filterRating
-                }
+            Binding {
+                target: gridView.contentModel
+                property: 'filterRating'
+                when: gridView.contentModel
+                value: navigationBar.filterRating
             }
 
-            Loader {
-                active: gridView.contentModel && navigationBar.enableSorting
-
-                sourceComponent: Binding {
-                    target: gridView.contentModel
-                    property: 'sortRole'
-                    when: gridView.contentModel && navigationBar.enableSorting
-                    value: navigationBar.sortRole
-                }
+            Binding {
+                target: gridView.contentModel
+                property: 'sortRole'
+                when: gridView.contentModel && navigationBar.enableSorting
+                value: navigationBar.sortRole
             }
 
             onEnqueue: contentModel.enqueueToPlayList(delegateModel.rootIndex)

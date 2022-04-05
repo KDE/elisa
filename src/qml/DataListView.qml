@@ -219,37 +219,25 @@ FocusScope {
 
             Layout.fillWidth: true
 
-            Loader {
-                active: listView.contentModel
-
-                sourceComponent: Binding {
-                    target: listView.contentModel
-                    property: 'filterText'
-                    when: listView.contentModel
-                    value: navigationBar.filterText
-                }
+            Binding {
+                target: listView.contentModel
+                property: 'filterText'
+                when: listView.contentModel
+                value: navigationBar.filterText
             }
 
-            Loader {
-                active: listView.contentModel
-
-                sourceComponent: Binding {
-                    target: listView.contentModel
-                    property: 'filterRating'
-                    when: listView.contentModel
-                    value: navigationBar.filterRating
-                }
+            Binding {
+                target: listView.contentModel
+                property: 'filterRating'
+                when: listView.contentModel
+                value: navigationBar.filterRating
             }
 
-            Loader {
-                active: listView.contentModel && navigationBar.enableSorting
-
-                sourceComponent: Binding {
-                    target: listView.contentModel
-                    property: 'sortRole'
-                    when: listView.contentModel && navigationBar.enableSorting
-                    value: navigationBar.sortRole
-                }
+            Binding {
+                target: listView.contentModel
+                property: 'sortRole'
+                when: listView.contentModel && navigationBar.enableSorting
+                value: navigationBar.sortRole
             }
 
             onEnqueue: contentModel.enqueueToPlayList(delegateModel.rootIndex)

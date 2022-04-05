@@ -71,16 +71,9 @@ Kirigami.Page {
                 onClicked: mainWindow.globalDrawer.open()
             }
 
-            Kirigami.Icon {
-                id: mainIcon
-                source: elisaTheme.nowPlayingIcon
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-                Layout.preferredWidth: Kirigami.Units.iconSizes.medium
-                Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-                visible: !Kirigami.Settings.isMobile
-            }
             Kirigami.Heading {
                 Layout.fillWidth: true
+                Layout.leftMargin: Kirigami.Units.largeSpacing
                 Layout.alignment: Qt.AlignVCenter
 
                 text: topItem.title

@@ -213,7 +213,9 @@ Item {
                 },
                 Kirigami.Icon {
                     id: mainIcon
-                    visible: image.toString().length > 0 && !Kirigami.Settings.isMobile // on mobile, we want more header space
+                    visible: image.toString().length > 0
+                             && !Kirigami.Settings.isMobile // On mobile, we want more header space
+                             && navigationBar.enableGoBack // For top-level pages, the icon is redundant
                     source: image
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -224,6 +226,7 @@ Item {
                     id: authorAndAlbumLayout
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    Layout.leftMargin: mainIcon.visible ? Kirigami.Units.smallSpacing : Kirigami.Units.largeSpacing
 
                     spacing: 0
 

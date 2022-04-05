@@ -294,13 +294,6 @@ FocusScope {
                     width: contentDirectoryView.width
                 }
 
-                Kirigami.PlaceholderMessage {
-                    anchors.centerIn: parent
-                    width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                    visible: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
-                    text: i18n("Nothing to display")
-                }
-
                 onCountChanged: if (count === 0) {
                     currentIndex = -1;
                 }
@@ -321,6 +314,18 @@ FocusScope {
 
         sourceComponent: BusyIndicator {
             anchors.centerIn: parent
+        }
+    }
+
+
+    // "Nothing here" placeholder message
+    Loader {
+        anchors.centerIn: parent
+        width: parent.width - (Kirigami.Units.largeSpacing * 4)
+        active: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
+        sourceComponent: Kirigami.PlaceholderMessage {
+            anchors.centerIn: parent
+            text: i18n("Nothing to display")
         }
     }
 

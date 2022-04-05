@@ -245,13 +245,6 @@ FocusScope {
                 Accessible.role: Accessible.List
                 Accessible.name: mainTitle
 
-                Kirigami.PlaceholderMessage {
-                    anchors.centerIn: parent
-                    width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                    visible: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
-                    text: i18n("Nothing to display")
-                }
-
                 cellWidth: {
                     let columns = Math.max(Math.floor(scrollView.availableSpace / elisaTheme.gridDelegateSize), 2);
                     return Math.floor(scrollView.availableSpace / columns);
@@ -280,6 +273,18 @@ FocusScope {
 
         sourceComponent: BusyIndicator {
             anchors.centerIn: parent
+        }
+    }
+
+
+    // "Nothing here" placeholder message
+    Loader {
+        anchors.centerIn: parent
+        width: parent.width - (Kirigami.Units.largeSpacing * 4)
+        active: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
+        sourceComponent: Kirigami.PlaceholderMessage {
+            anchors.centerIn: parent
+            text: i18n("Nothing to display")
         }
     }
 

@@ -212,6 +212,7 @@ FocusScope {
 
         sourceComponent: Kirigami.PlaceholderMessage {
             anchors.centerIn: parent
+            icon.name: "edit-none"
             text: i18n("Nothing to display")
         }
     }

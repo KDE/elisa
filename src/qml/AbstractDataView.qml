@@ -206,6 +206,7 @@ FocusScope {
     // "Nothing here" placeholder message
     Loader {
         anchors.centerIn: parent
+        anchors.verticalCenterOffset: Math.round(navigationBar.height/2)
         width: parent.width - (Kirigami.Units.largeSpacing * 4)
         active: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
         visible: active && status == Loader.Ready

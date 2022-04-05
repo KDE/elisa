@@ -228,12 +228,18 @@ Kirigami.Page {
                         currentIndex = -1;
                     }
 
-                    Kirigami.PlaceholderMessage {
+                    Loader {
                         anchors.centerIn: parent
                         width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                        text: i18n("Playlist is empty")
-                        explanation: i18n("Add some songs to get started. You can browse your music using the views on the left.")
-                        visible: playListView.count === 0
+
+                        active: playListView.count === 0
+                        visible: active && status === Loader.Ready
+
+                        sourceComponent: Kirigami.PlaceholderMessage {
+                            anchors.centerIn: parent
+                            text: i18n("Playlist is empty")
+                            explanation: i18n("Add some songs to get started. You can browse your music using the views on the left.")
+                        }
                     }
 
                     /* currently disabled animations due to display corruption
@@ -295,16 +301,19 @@ Kirigami.Page {
                         }
                     }
 
-                    Kirigami.PlaceholderMessage {
+                    Loader {
                         anchors.centerIn: parent
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.margins: Kirigami.Units.largeSpacing
                         width: parent.width - (Kirigami.Units.largeSpacing * 4)
-                        visible: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount === 0 : true
 
-                        icon.name: "view-media-playlist"
-                        text: xi18nc("@info", "Your playlist is empty.")
+                        active: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount === 0 : true
+                        visible: active && status === Loader.Ready
+
+                        sourceComponent: Kirigami.PlaceholderMessage {
+                            anchors.centerIn: parent
+
+                            icon.name: "view-media-playlist"
+                            text: xi18nc("@info", "Your playlist is empty.")
+                        }
                     }
 
                     delegate: Item {

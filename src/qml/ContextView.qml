@@ -291,24 +291,37 @@ Kirigami.Page {
                         width: parent.width
                     }
 
-                    Kirigami.PlaceholderMessage {
+                    Loader {
                         id: lyricPlaceholder
-                        visible: !lyricLabel.visible
-                        text: i18n("No lyrics found")
-                        icon.name: "view-media-lyrics"
+
+                        anchors.centerIn: parent
                         width: parent.width
+
+                        active: !lyricLabel.visible
+                        visible: active && status === Loader.Ready
+
+                        sourceComponent: Kirigami.PlaceholderMessage {
+                            text: i18n("No lyrics found")
+                            icon.name: "view-media-lyrics"
+                        }
                     }
                 }
             }
         }
 
         // "Nothing Playing" message
-        Kirigami.PlaceholderMessage {
+        Loader {
             anchors.centerIn: parent
             width: parent.width - (Kirigami.Units.largeSpacing * 4)
-            visible: topItem.nothingPlaying
-            text: i18n("Nothing playing")
-            icon.name: "view-media-track"
+
+            active: topItem.nothingPlaying
+            visible: active && status === Loader.Ready
+
+            sourceComponent: Kirigami.PlaceholderMessage {
+                anchors.centerIn: parent
+                text: i18n("Nothing playing")
+                icon.name: "view-media-track"
+            }
         }
     }
 

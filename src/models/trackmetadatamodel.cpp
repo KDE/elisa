@@ -78,7 +78,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         {
             auto bitRate = mTrackData.bitRate();
             if (bitRate > 0) {
-                result = KFormat().formatValue(bitRate, QStringLiteral("bps"), 0,
+                result = KFormat().formatValue(bitRate, QStringLiteral("bit/s"), 0,
                                                KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
             }
             break;

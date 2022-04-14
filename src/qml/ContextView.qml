@@ -26,6 +26,7 @@ Kirigami.Page {
     property url fileUrl: ''
     property int albumId
     property string albumArtist: ''
+    property bool metadataModifiable: false
 
     signal openArtist()
     signal openAlbum()
@@ -45,6 +46,24 @@ Kirigami.Page {
         id: metaDataModel
 
         manager: ElisaApplication.musicManager
+    }
+
+    Loader {
+        id: metadataLoader
+        active: false
+        onLoaded: item.show()
+
+        sourceComponent:  MediaTrackMetadataView {
+            fileName: fileUrl
+            showImage: trackType !== ElisaUtils.Radio
+            modelType: trackType
+            showTrackFileName: trackType !== ElisaUtils.Radio
+            showDeleteButton: trackType === ElisaUtils.Radio
+            editableMetadata: metadataModifiable
+            canAddMoreMetadata: trackType !== ElisaUtils.Radio
+
+            onRejected: metadataLoader.active = false
+        }
     }
 
     // Header with title and actions
@@ -330,6 +349,8 @@ Kirigami.Page {
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2)
         visible: !topItem.nothingPlaying
 
+        // when there is not enough space, show the buttons in the compact mode
+        // then the file url will be elided if needed
         RowLayout {
             anchors.fill: parent
             spacing: Kirigami.Units.smallSpacing
@@ -338,17 +359,11 @@ Kirigami.Page {
                 id: fileUrlLabel
                 text: metaDataModel.fileUrl
                 elide: Text.ElideLeft
-                Layout.fillWidth: true
+                Layout.preferredWidth: Math.min(implicitWidth, parent.width - Kirigami.Units.gridUnit * 2)
             }
 
             Kirigami.ActionToolBar {
-                // because fillWidth is true by default
-                Layout.fillWidth: false
-
-                // when there is not enough space, show the button in the compact mode
-                // then the file url will be elided if needed
-                Layout.preferredWidth: parent.width > fileUrlLabel.implicitWidth + spacing + maximumContentWidth ? maximumContentWidth : Kirigami.Units.gridUnit * 2
-
+                alignment: Qt.AlignVCenter | Qt.AlignRight
                 Layout.fillHeight: true
 
                 actions: [
@@ -358,6 +373,19 @@ Kirigami.Page {
                         visible: metaDataModel.fileUrl.toString() !== "" && !metaDataModel.fileUrl.toString().startsWith("http") && !metaDataModel.fileUrl.toString().startsWith("rtsp")
                         onTriggered: {
                             ElisaApplication.showInFolder(metaDataModel.fileUrl)
+                        }
+                    },
+                    Kirigami.Action {
+                        text: i18nc("Show track metadata", "View Details")
+                        icon.name: "help-about"
+                        onTriggered: {
+                            if (metadataLoader.active === false) {
+                                metadataLoader.active = true
+                            }
+                            else {
+                                metadataLoader.item.close();
+                                metadataLoader.active = false
+                            }
                         }
                     }
                 ]

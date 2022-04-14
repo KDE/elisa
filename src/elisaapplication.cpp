@@ -502,6 +502,7 @@ void ElisaApplication::initializePlayer()
     d->mManageHeaderBar->setTrackTypeRole(MediaPlayList::ElementTypeRole);
     d->mManageHeaderBar->setAlbumIdRole(MediaPlayList::AlbumIdRole);
     d->mManageHeaderBar->setIsValidRole(MediaPlayList::IsValidRole);
+    d->mManageHeaderBar->setMetadataModifiableRole(MediaPlayList::MetadataModifiableRole);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::setCurrentTrack);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackDataChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::updateCurrentTrackData);
 }

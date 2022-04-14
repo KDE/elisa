@@ -74,6 +74,11 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                WRITE setIsValidRole
                NOTIFY isValidRoleChanged)
 
+    Q_PROPERTY (bool metadataModifiableRole
+                READ metadataModifiableRole
+                WRITE setMetadataModifiableRole
+                NOTIFY metadataModifiableRoleChanged)
+
     Q_PROPERTY(QVariant artist
                READ artist
                NOTIFY artistChanged)
@@ -114,6 +119,10 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
                READ isValid
                NOTIFY isValidChanged)
 
+    Q_PROPERTY (bool metadataModifiable
+                READ metadataModifiable
+                NOTIFY metadataModifiableChanged)
+
 public:
 
     explicit ManageHeaderBar(QObject *parent = nullptr);
@@ -140,6 +149,8 @@ public:
 
     [[nodiscard]] int isValidRole() const;
 
+    [[nodiscard]] int metadataModifiableRole() const;
+
     [[nodiscard]] QVariant artist() const;
 
     [[nodiscard]] QVariant title() const;
@@ -159,6 +170,8 @@ public:
     [[nodiscard]] qulonglong albumId() const;
 
     [[nodiscard]] bool isValid() const;
+
+    [[nodiscard]] bool metadataModifiable() const;
 
 Q_SIGNALS:
 
@@ -184,6 +197,8 @@ Q_SIGNALS:
 
     void isValidRoleChanged();
 
+    void metadataModifiableRoleChanged();
+
     void artistChanged();
 
     void titleChanged();
@@ -203,6 +218,8 @@ Q_SIGNALS:
     void trackTypeChanged();
 
     void isValidChanged();
+
+    void metadataModifiableChanged();
 
 public Q_SLOTS:
 
@@ -230,6 +247,8 @@ public Q_SLOTS:
 
     void setIsValidRole(int isValidRole);
 
+    void setMetadataModifiableRole(int metadataModifiableRole);
+
 private:
 
     void notifyArtistProperty();
@@ -251,6 +270,8 @@ private:
     void notifyAlbumIdProperty();
 
     void notifyIsValidProperty();
+
+    void notifyMetadataModifiableProperty();
 
     QPersistentModelIndex mCurrentTrack;
 
@@ -274,6 +295,8 @@ private:
 
     int mIsValidRole = Qt::DisplayRole;
 
+    int mMetadataModifiableRole = Qt::DisplayRole;
+
     QVariant mOldArtist;
 
     QVariant mOldTitle;
@@ -293,6 +316,8 @@ private:
     qulonglong mOldAlbumId = 0;
 
     bool mOldIsValid = false;
+
+    bool mOldMetadataModifiable = false;
 
 };
 

@@ -221,6 +221,18 @@ int ManageHeaderBar::isValidRole() const
     return mIsValidRole;
 }
 
+bool ManageHeaderBar::metadataModifiable() const {
+    if (!mCurrentTrack.isValid()) {
+        return false;
+    }
+
+    return mCurrentTrack.data(mMetadataModifiableRole).toBool();
+}
+
+int ManageHeaderBar::metadataModifiableRole() const {
+    return mMetadataModifiableRole;
+}
+
 QPersistentModelIndex ManageHeaderBar::currentTrack() const
 {
     return mCurrentTrack;
@@ -336,10 +348,26 @@ void ManageHeaderBar::notifyIsValidProperty()
     }
 }
 
+void ManageHeaderBar::notifyMetadataModifiableProperty()
+{
+    auto newMetadataModifiable = mCurrentTrack.data(mMetadataModifiableRole).toBool();
+    if (mOldMetadataModifiable != newMetadataModifiable) {
+        Q_EMIT metadataModifiableChanged();
+
+        mOldMetadataModifiable = newMetadataModifiable;
+    }
+}
+
 void ManageHeaderBar::setIsValidRole(int isValidRole)
 {
     mIsValidRole = isValidRole;
     Q_EMIT isValidRoleChanged();
+}
+
+void ManageHeaderBar::setMetadataModifiableRole(int metadataModifiableRole)
+{
+    mMetadataModifiableRole = metadataModifiableRole;
+    Q_EMIT metadataModifiableRoleChanged();
 }
 
 void ManageHeaderBar::setCurrentTrack(const QPersistentModelIndex &currentTrack)
@@ -361,6 +389,7 @@ void ManageHeaderBar::updateCurrentTrackData()
     notifyTrackTypeProperty();
     notifyAlbumIdProperty();
     notifyIsValidProperty();
+    notifyMetadataModifiableProperty();
 }
 
 #include "moc_manageheaderbar.cpp"

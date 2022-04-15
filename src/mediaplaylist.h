@@ -64,6 +64,7 @@ public:
         AlbumIdRole,
         HasEmbeddedCover,
         FileModificationTime,
+        FileCreationTime,
         FirstPlayDate,
         LastPlayDate,
         PlayCounter,

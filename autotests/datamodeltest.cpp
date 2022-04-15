@@ -247,7 +247,7 @@ private Q_SLOTS:
         auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track6"),
                 QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 6, 1,
                 QTime::fromMSecsSinceStartOfDay(23), {QUrl::fromLocalFile(QStringLiteral("/$23"))},
-                QDateTime::fromMSecsSinceEpoch(23),
+                QDateTime::fromMSecsSinceEpoch(23), QDateTime::fromMSecsSinceEpoch(23),
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = DataTypes::ListTrackDataType();
@@ -275,7 +275,7 @@ private Q_SLOTS:
         auto secondNewTrack = DataTypes::TrackDataType{true, QStringLiteral("$24"), QStringLiteral("0"), QStringLiteral("track5"),
                 QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 5, 1,
                 QTime::fromMSecsSinceStartOfDay(24), {QUrl::fromLocalFile(QStringLiteral("/$24"))},
-                QDateTime::fromMSecsSinceEpoch(24),
+                QDateTime::fromMSecsSinceEpoch(24), QDateTime::fromMSecsSinceEpoch(24),
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto secondNewTracks = DataTypes::ListTrackDataType();
@@ -364,7 +364,7 @@ private Q_SLOTS:
                 true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
                 QStringLiteral("artist3"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 5, 3,
                 QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("/$3"))},
-                QDateTime::fromMSecsSinceEpoch(23),
+                QDateTime::fromMSecsSinceEpoch(23), QDateTime::fromMSecsSinceEpoch(23),
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
 
@@ -561,7 +561,7 @@ private Q_SLOTS:
         auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 23, 1, QTime::fromMSecsSinceStartOfDay(23),
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
-                QDateTime::fromMSecsSinceEpoch(23),
+                QDateTime::fromMSecsSinceEpoch(23), QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = DataTypes::ListTrackDataType();
@@ -632,7 +632,7 @@ private Q_SLOTS:
         auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 23, 1, QTime::fromMSecsSinceStartOfDay(23),
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
-                QDateTime::fromMSecsSinceEpoch(23),
+                QDateTime::fromMSecsSinceEpoch(23), QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = DataTypes::ListTrackDataType();
@@ -706,7 +706,7 @@ private Q_SLOTS:
         auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
                 1, 1, QTime::fromMSecsSinceStartOfDay(1), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
-                QDateTime::fromMSecsSinceEpoch(1),
+                QDateTime::fromMSecsSinceEpoch(1), QDateTime::fromMSecsSinceEpoch(1),
         {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = DataTypes::ListTrackDataType();
@@ -810,7 +810,7 @@ private Q_SLOTS:
         auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 23, 1, QTime::fromMSecsSinceStartOfDay(23),
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
-                QDateTime::fromMSecsSinceEpoch(23),
+                QDateTime::fromMSecsSinceEpoch(23), QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
 
@@ -1001,7 +1001,7 @@ private Q_SLOTS:
         auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 23, 1, QTime::fromMSecsSinceStartOfDay(23),
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
-                QDateTime::fromMSecsSinceEpoch(23),
+                QDateTime::fromMSecsSinceEpoch(23), QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = DataTypes::ListTrackDataType();
@@ -1068,7 +1068,7 @@ private Q_SLOTS:
         auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track1"),
                 QStringLiteral("artist2"), QStringLiteral("album5"), QStringLiteral("artist2"), 1, 1,
                 QTime::fromMSecsSinceStartOfDay(23), {QUrl::fromLocalFile(QStringLiteral("/$23"))},
-                QDateTime::fromMSecsSinceEpoch(23),
+                QDateTime::fromMSecsSinceEpoch(23), QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = DataTypes::ListTrackDataType();
@@ -1200,7 +1200,7 @@ private Q_SLOTS:
         auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
                 QStringLiteral("artist6"), QStringLiteral("album4"), QStringLiteral("Various Artists"), 23, 1, QTime::fromMSecsSinceStartOfDay(23),
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
-                QDateTime::fromMSecsSinceEpoch(23),
+                QDateTime::fromMSecsSinceEpoch(23), QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = DataTypes::ListTrackDataType();
@@ -1473,14 +1473,14 @@ private Q_SLOTS:
                       QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
                       12, 1, QTime::fromMSecsSinceStartOfDay(31),
                       {QUrl::fromLocalFile(QStringLiteral("/$31"))},
-                      QDateTime::fromMSecsSinceEpoch(31),
+                      QDateTime::fromMSecsSinceEpoch(31), QDateTime::fromMSecsSinceEpoch(31),
                       {QUrl::fromLocalFile(QStringLiteral("album1"))}, 5, true,
                       QStringLiteral("genre4"), QStringLiteral("composer4"), QStringLiteral("lyricist4"), true},
                      {true, QStringLiteral("$32"), QStringLiteral("0"), QStringLiteral("track13"),
                       QStringLiteral("artist3"), QStringLiteral("album3"), QStringLiteral("artist3"),
                       13, 1, QTime::fromMSecsSinceStartOfDay(32),
                       {QUrl::fromLocalFile(QStringLiteral("/$32"))},
-                      QDateTime::fromMSecsSinceEpoch(32),
+                      QDateTime::fromMSecsSinceEpoch(32), QDateTime::fromMSecsSinceEpoch(32),
                       {QUrl::fromLocalFile(QStringLiteral("album3"))}, 4, true,
                       QStringLiteral("genre3"), QStringLiteral("composer3"), QStringLiteral("lyricist3"), false}};
 
@@ -1564,7 +1564,7 @@ private Q_SLOTS:
         auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track6"),
                 QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 2, 1,
                 QTime::fromMSecsSinceStartOfDay(23), {QUrl::fromLocalFile(QStringLiteral("/$23"))},
-                QDateTime::fromMSecsSinceEpoch(23),
+                QDateTime::fromMSecsSinceEpoch(23), QDateTime::fromMSecsSinceEpoch(23),
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
         auto newTracks = DataTypes::ListTrackDataType();

@@ -431,7 +431,7 @@ private Q_SLOTS:
                                                {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
                                                 QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
                                                 2, 3, QTime::fromMSecsSinceStartOfDay(1000), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
-                                                QDateTime::fromMSecsSinceEpoch(1),
+                                                QDateTime::fromMSecsSinceEpoch(1), QDateTime::fromMSecsSinceEpoch(1),
                                                 {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 1, false,
                                                 {}, {}, QStringLiteral("lyricist1"), false}
                                            }, mNewCovers);

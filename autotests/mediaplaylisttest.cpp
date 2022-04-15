@@ -2376,6 +2376,7 @@ void MediaPlayListTest::restoreTrackWithoutAlbum()
     newTrack[DataTypes::ArtistRole] = QStringLiteral("artist2");
     newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(29);
     newTrack[DataTypes::ResourceRole] = QUrl::fromLocalFile(QStringLiteral("/$29"));
+    newTrack[DataTypes::FileCreationTime] = QDateTime::fromMSecsSinceEpoch(29);
     newTrack[DataTypes::FileModificationTime] = QDateTime::fromMSecsSinceEpoch(29);
     newTrack[DataTypes::ImageUrlRole] = QUrl::fromLocalFile(QStringLiteral("withoutAlbum"));
     newTrack[DataTypes::RatingRole] = 9;

@@ -19,6 +19,7 @@
 #include <QSqlError>
 
 #include <QDateTime>
+#include <QFileInfo>
 #include <QMutex>
 #include <QVariant>
 #include <QAtomicInt>
@@ -41,6 +42,7 @@ public:
         TrackAllArtists,
         TrackAlbumArtistName,
         TrackFileName,
+        TrackFileCreatedTime,
         TrackFileModifiedTime,
         TrackNumber,
         TrackDiscNumber,
@@ -3170,7 +3172,170 @@ void DatabaseInterface::upgradeDatabaseV15()
 
 void DatabaseInterface::upgradeDatabaseV16()
 {
+    qCInfo(orgKdeElisaDatabase) << "begin update to v16 of database schema";
 
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV16` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery disableForeignKeys(d->mTracksDatabase);
+
+        auto result = disableForeignKeys.exec(QStringLiteral("PRAGMA foreign_keys=OFF"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << disableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << disableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.transaction();
+
+    {
+        QSqlQuery addColumnQuery(d->mTracksDatabase);
+
+        auto result = addColumnQuery.exec(QStringLiteral("ALTER TABLE `TracksData` ADD `FileCreatedTime` DATETIME"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << addColumnQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << addColumnQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery listFileQuery(d->mTracksDatabase);
+        listFileQuery.setForwardOnly(true);
+        auto result = listFileQuery.exec(QStringLiteral("SELECT FileName, FileModifiedTime from TracksData"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << listFileQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << listFileQuery.lastError();
+
+            Q_EMIT databaseError();
+        } else {
+            while (listFileQuery.next()) {
+                QSqlQuery updateQuery(d->mTracksDatabase);
+                updateQuery.prepare(QStringLiteral("UPDATE `TracksData` SET `FileCreatedTime` = :ctime WHERE `FileName` = :filename "));
+
+                updateQuery.bindValue(QStringLiteral(":filename"), listFileQuery.value(0));
+
+                QFileInfo fileInfo = QFileInfo(listFileQuery.value(0).toUrl().toLocalFile());
+                QDateTime birthTime = fileInfo.birthTime().isValid() ? fileInfo.birthTime() : listFileQuery.value(1).toDateTime();
+                updateQuery.bindValue(QStringLiteral(":ctime"), birthTime);
+
+                auto result = updateQuery.exec();
+
+                if (!result) {
+                    qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << updateQuery.lastQuery();
+                    qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << updateQuery.lastError();
+
+                    Q_EMIT databaseError();
+                }
+            }
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `NewTracksData` ("
+                                                                   "`FileName` VARCHAR(255) NOT NULL, "
+                                                                   "`FileCreatedTime` DATETIME NOT NULL, "
+                                                                   "`FileModifiedTime` DATETIME NOT NULL, "
+                                                                   "`ImportDate` INTEGER NOT NULL, "
+                                                                   "`FirstPlayDate` INTEGER, "
+                                                                   "`LastPlayDate` INTEGER, "
+                                                                   "`PlayCounter` INTEGER NOT NULL, "
+                                                                   "PRIMARY KEY (`FileName`))"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << createSchemaQuery.lastError();
+        }
+    }
+
+    {
+        QSqlQuery copyDataQuery(d->mTracksDatabase);
+
+        auto result = copyDataQuery.exec(QStringLiteral("INSERT INTO `NewTracksData` "
+                                                        "SELECT "
+                                                        "td.`FileName`, "
+                                                        "td.`FileCreatedTime`, "
+                                                        "td.`FileModifiedTime`, "
+                                                        "td.`ImportDate`, "
+                                                        "td.`FirstPlayDate`, "
+                                                        "td.`LastPlayDate`, "
+                                                        "td.`PlayCounter` "
+                                                        "FROM "
+                                                        "`TracksData` td"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << copyDataQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << copyDataQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery dropQuery(d->mTracksDatabase);
+
+        auto result = dropQuery.exec(QStringLiteral("DROP TABLE `TracksData`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << dropQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << dropQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery renameQuery(d->mTracksDatabase);
+
+        auto result = renameQuery.exec(QStringLiteral("ALTER TABLE `NewTracksData` RENAME TO `TracksData`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << renameQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << renameQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.commit();
+
+    {
+        QSqlQuery enableForeignKeys(d->mTracksDatabase);
+
+        auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << enableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV16" << enableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    qCInfo(orgKdeElisaDatabase) << "finished update to v16 of database schema";
+}
+
+void DatabaseInterface::upgradeDatabaseV17()
+{
 }
 
 void DatabaseInterface::checkDatabaseSchema()
@@ -3281,7 +3446,8 @@ void DatabaseInterface::checkTracksTableSchema()
 
 void DatabaseInterface::checkTracksDataTableSchema()
 {
-    auto fieldsList = QStringList{QStringLiteral("FileName"), QStringLiteral("FileModifiedTime"),
+    auto fieldsList = QStringList{QStringLiteral("FileName"),
+                                  QStringLiteral("FileCreatedTime"), QStringLiteral("FileModifiedTime"),
                                   QStringLiteral("ImportDate"), QStringLiteral("FirstPlayDate"),
                                   QStringLiteral("LastPlayDate"), QStringLiteral("PlayCounter")};
 
@@ -3341,6 +3507,7 @@ void DatabaseInterface::manageNewDatabaseVersion()
         manageNewDatabaseVersionInitRequests();
 
         auto queryResult = execQuery(d->mSelectDatabaseVersionQuery);
+
         if (!queryResult) {
             qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersion" << d->mUpdateDatabaseVersionQuery.lastQuery();
             qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersion" << d->mUpdateDatabaseVersionQuery.lastError();
@@ -3350,9 +3517,11 @@ void DatabaseInterface::manageNewDatabaseVersion()
 
         if(d->mSelectDatabaseVersionQuery.next()) {
             const auto &currentRecord = d->mSelectDatabaseVersionQuery.record();
-
             versionBegin = currentRecord.value(0).toInt();
         }
+
+        d->mSelectDatabaseVersionQuery.finish();
+
     } else if (listTables.contains(QLatin1String("DatabaseVersionV5")) &&
                !listTables.contains(QLatin1String("DatabaseVersionV9"))) {
         versionBegin = DatabaseInterface::V9;
@@ -3379,7 +3548,8 @@ void DatabaseInterface::manageNewDatabaseVersion()
     }
 
     int version = versionBegin;
-    for (; version-1 != DatabaseInterface::V16; version++) {
+
+    for (; version-1 != DatabaseInterface::V17; version++) {
         callUpgradeFunctionForVersion(static_cast<DatabaseVersion>(version));
     }
 
@@ -3389,9 +3559,10 @@ void DatabaseInterface::manageNewDatabaseVersion()
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV12"));
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV13"));
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV14"));
+        dropTable(QStringLiteral("DROP TABLE DatabaseVersionV15"));
     }
 
-    setDatabaseVersionInTable(DatabaseInterface::V16);
+    setDatabaseVersionInTable(DatabaseInterface::V17);
 
     checkDatabaseSchema();
 }
@@ -3422,6 +3593,7 @@ void DatabaseInterface::setDatabaseVersionInTable(int version)
 
         Q_EMIT databaseError();
     }
+    d->mUpdateDatabaseVersionQuery.finish();
 }
 
 void DatabaseInterface::createDatabaseVersionTable()
@@ -3501,6 +3673,9 @@ void DatabaseInterface::callUpgradeFunctionForVersion(DatabaseVersion databaseVe
     case DatabaseInterface::V16:
         upgradeDatabaseV16();
         break;
+    case DatabaseInterface::V17:
+        upgradeDatabaseV17();
+        break;
     }
 }
 
@@ -3527,7 +3702,7 @@ void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &o
     bool isNewTrack = !d->mSelectTracksMapping.next();
 
     if (isNewTrack) {
-        insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(),
+        insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileCreationTime(), oneTrack.fileModificationTime(),
                           QDateTime::currentDateTime());
     } else if (!d->mSelectTracksMapping.record().value(0).isNull() && d->mSelectTracksMapping.record().value(0).toULongLong() != 0) {
         updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
@@ -4060,6 +4235,7 @@ void DatabaseInterface::initRequest()
                                                   ") AS AllArtists, "
                                                   "tracks.`AlbumArtistName`, "
                                                   "tracksMapping.`FileName`, "
+                                                  "tracksMapping.`FileCreatedTime`, "
                                                   "tracksMapping.`FileModifiedTime`, "
                                                   "tracks.`TrackNumber`, "
                                                   "tracks.`DiscNumber`, "
@@ -4210,6 +4386,7 @@ void DatabaseInterface::initRequest()
                                                   ") AS AllArtists, "
                                                   "tracks.`AlbumArtistName`, "
                                                   "tracksMapping.`FileName`, "
+                                                  "tracksMapping.`FileCreatedTime`, "
                                                   "tracksMapping.`FileModifiedTime`, "
                                                   "tracks.`TrackNumber`, "
                                                   "tracks.`DiscNumber`, "
@@ -4335,6 +4512,7 @@ void DatabaseInterface::initRequest()
                                                   ") AS AllArtists, "
                                                   "tracks.`AlbumArtistName`, "
                                                   "tracksMapping.`FileName`, "
+                                                  "tracksMapping.`FileCreatedTime`, "
                                                   "tracksMapping.`FileModifiedTime`, "
                                                   "tracks.`TrackNumber`, "
                                                   "tracks.`DiscNumber`, "
@@ -4727,6 +4905,7 @@ void DatabaseInterface::initRequest()
                                                    ") AS AllArtists, "
                                                    "tracks.`AlbumArtistName`, "
                                                    "tracksMapping.`FileName`, "
+                                                   "tracksMapping.`FileCreatedTime`, "
                                                    "tracksMapping.`FileModifiedTime`, "
                                                    "tracks.`TrackNumber`, "
                                                    "tracks.`DiscNumber`, "
@@ -4894,6 +5073,7 @@ void DatabaseInterface::initRequest()
                                                          ") AS AllArtists, "
                                                          "tracks.`AlbumArtistName`, "
                                                          "tracksMapping.`FileName`, "
+                                                         "tracksMapping.`FileCreatedTime`, "
                                                          "tracksMapping.`FileModifiedTime`, "
                                                          "tracks.`TrackNumber`, "
                                                          "tracks.`DiscNumber`, "
@@ -5006,6 +5186,7 @@ void DatabaseInterface::initRequest()
                                                          ") AS AllArtists, "
                                                          "tracks.`AlbumArtistName`, "
                                                          "tracksMapping.`FileName`, "
+                                                         "tracksMapping.`FileCreatedTime`, "
                                                          "tracksMapping.`FileModifiedTime`, "
                                                          "tracks.`TrackNumber`, "
                                                          "tracks.`DiscNumber`, "
@@ -5302,10 +5483,11 @@ void DatabaseInterface::initRequest()
         auto insertTrackMappingQueryText = QStringLiteral("INSERT INTO "
                                                           "`TracksData` "
                                                           "(`FileName`, "
+                                                          "`FileCreatedTime`, "
                                                           "`FileModifiedTime`, "
                                                           "`ImportDate`, "
                                                           "`PlayCounter`) "
-                                                          "VALUES (:fileName, :mtime, :importDate, 0)");
+                                                          "VALUES (:fileName, :ctime, :mtime, :importDate, 0)");
 
         auto result = prepareQuery(d->mInsertTrackMapping, insertTrackMappingQueryText);
 
@@ -5413,6 +5595,7 @@ void DatabaseInterface::initRequest()
                                                                   ") AS AllArtists, "
                                                                   "tracks.`AlbumArtistName`, "
                                                                   "\"\" as FileName, "
+                                                                  "NULL as FileCreatedTime, "
                                                                   "NULL as FileModifiedTime, "
                                                                   "tracks.`TrackNumber`, "
                                                                   "tracks.`DiscNumber`, "
@@ -5493,6 +5676,7 @@ void DatabaseInterface::initRequest()
                                                            "track.`ID`, "
                                                            "trackData.`FileName`, "
                                                            "track.`Priority`, "
+                                                           "trackData.`FileCreatedTime`, "
                                                            "trackData.`FileModifiedTime` "
                                                            "FROM "
                                                            "`TracksData` trackData "
@@ -6054,6 +6238,7 @@ void DatabaseInterface::initRequest()
                                                               ") AS AllArtists, "
                                                               "tracks.`AlbumArtistName`, "
                                                               "tracksMapping.`FileName`, "
+                                                              "tracksMapping.`FileCreatedTime`, "
                                                               "tracksMapping.`FileModifiedTime`, "
                                                               "tracks.`TrackNumber`, "
                                                               "tracks.`DiscNumber`, "
@@ -6183,6 +6368,7 @@ void DatabaseInterface::initRequest()
                                                              ") AS AllArtists, "
                                                              "tracks.`AlbumArtistName`, "
                                                              "tracksMapping.`FileName`, "
+                                                             "tracksMapping.`FileCreatedTime`, "
                                                              "tracksMapping.`FileModifiedTime`, "
                                                              "tracks.`TrackNumber`, "
                                                              "tracks.`DiscNumber`, "
@@ -6731,11 +6917,12 @@ qulonglong DatabaseInterface::insertGenre(const QString &name)
     return result;
 }
 
-void DatabaseInterface::insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime,
-                                          const QDateTime &importDate)
+void DatabaseInterface::insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileCreatedTime,
+                                          const QDateTime &fileModifiedTime, const QDateTime &importDate)
 {
     d->mInsertTrackMapping.bindValue(QStringLiteral(":fileName"), fileNameURI);
     d->mInsertTrackMapping.bindValue(QStringLiteral(":priority"), 1);
+    d->mInsertTrackMapping.bindValue(QStringLiteral(":ctime"), fileCreatedTime);
     d->mInsertTrackMapping.bindValue(QStringLiteral(":mtime"), fileModifiedTime);
     d->mInsertTrackMapping.bindValue(QStringLiteral(":importDate"), importDate.toMSecsSinceEpoch());
 
@@ -7128,6 +7315,7 @@ DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(con
         result[DataTypes::TrackDataType::key_type::SampleRateRole] = trackRecord.value(DatabaseInterfacePrivate::TrackSamplerate);
     }
     result[DataTypes::TrackDataType::key_type::HasEmbeddedCover] = trackRecord.value(DatabaseInterfacePrivate::TrackHasEmbeddedCover);
+    result[DataTypes::TrackDataType::key_type::FileCreationTime] = trackRecord.value(DatabaseInterfacePrivate::TrackFileCreatedTime);
     result[DataTypes::TrackDataType::key_type::FileModificationTime] = trackRecord.value(DatabaseInterfacePrivate::TrackFileModifiedTime);
     if (!trackRecord.value(DatabaseInterfacePrivate::TrackFirstPlayDate).isNull()) {
         result[DataTypes::TrackDataType::key_type::FirstPlayDate] = trackRecord.value(DatabaseInterfacePrivate::TrackFirstPlayDate);

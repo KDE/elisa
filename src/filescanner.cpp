@@ -104,6 +104,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
     const auto &localFileName = scanFile.toLocalFile();
 
+    newTrack[DataTypes::FileCreationTime] = scanFileInfo.fileTime(QFileDevice::FileBirthTime);
     newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
     newTrack[DataTypes::ResourceRole] = scanFile;
     newTrack[DataTypes::RatingRole] = 0;
@@ -125,6 +126,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
         qCDebug(orgKdeElisaIndexer()) << "FileScanner::shouldScanFile" << scanFile << localFileName << "no extractors" << fileMimeType;
 
+        newTrack[DataTypes::FileCreationTime] = scanFileInfo.fileTime(QFileDevice::FileBirthTime);
         newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
         newTrack[DataTypes::ResourceRole] = scanFile;
         newTrack[DataTypes::RatingRole] = 0;
@@ -171,6 +173,7 @@ DataTypes::TrackDataType FileScanner::scanOneBalooFile(const QUrl &scanFile, con
 #if KF5Baloo_FOUND
     const auto &localFileName = scanFile.toLocalFile();
 
+    newTrack[DataTypes::FileCreationTime] = scanFileInfo.fileTime(QFileDevice::FileBirthTime);
     newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
     newTrack[DataTypes::ResourceRole] = scanFile;
     newTrack[DataTypes::RatingRole] = 0;

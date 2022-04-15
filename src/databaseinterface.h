@@ -39,7 +39,8 @@ public:
         V13 = 13,
         V14 = 14,
         V15 = 15,
-        V16 = 16, //Does not exist yet, for testing purpose only.
+        V16 = 16,
+        V17 = 17, //Does not exist yet, for testing purpose only.
     };
 
     explicit DatabaseInterface(QObject *parent = nullptr);
@@ -224,7 +225,7 @@ private:
 
     qulonglong genericInitialId(QSqlQuery &request);
 
-    void insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime, const QDateTime &importDate);
+    void insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileCreatedTime, const QDateTime &fileModifiedTime, const QDateTime &importDate);
 
     void updateTrackOrigin(const QUrl &fileName, const QDateTime &fileModifiedTime);
 
@@ -307,6 +308,8 @@ private:
     void upgradeDatabaseV15();
 
     void upgradeDatabaseV16();
+
+    void upgradeDatabaseV17();
 
     void checkDatabaseSchema();
 

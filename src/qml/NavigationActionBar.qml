@@ -138,7 +138,7 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: 'replaceAndPlayButton'
-            text: i18n("Play")
+            text: i18n("Play now, replacing current playlist")
             icon.name: "media-playback-start"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: replaceAndPlay()

@@ -195,11 +195,13 @@ FocusScope {
                     spacing: 2
 
                     Button {
+                        visible: gridEntry.showDetailsButton && (trackUrl.toString().substring(0, 7) === 'file://')
+                        hoverEnabled: true
+
                         icon.name: 'document-open-folder'
 
-                        hoverEnabled: true
                         ToolTip.visible: hovered
-                        ToolTip.delay: 1000
+                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
                         ToolTip.text: i18nc("Show the file for this song in the file manager", "Show in folder")
 
                         Accessible.role: Accessible.Button
@@ -207,30 +209,31 @@ FocusScope {
                         Accessible.description: ToolTip.text
                         Accessible.onPressAction: clicked()
 
-                        onClicked: {
-                            ElisaApplication.showInFolder(gridEntry.fileUrl)
-                        }
-
                         Keys.onReturnPressed: clicked()
                         Keys.onEnterPressed: clicked()
 
-                        visible: showDetailsButton && (trackUrl.toString().substring(0, 7) === 'file://')
+                        onClicked: ElisaApplication.showInFolder(gridEntry.fileUrl)
                     }
+
                     Button {
                         id: detailsButton
                         objectName: 'detailsButton'
 
+                        visible: gridEntry.showDetailsButton
+                        hoverEnabled: true
+
                         icon.name: 'help-about'
 
-                        hoverEnabled: true
                         ToolTip.visible: hovered
-                        ToolTip.delay: 1000
+                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
                         ToolTip.text: i18nc("Show track metadata", "View details")
 
-                        Accessible.role: Accessible.Button
                         Accessible.name: ToolTip.text
                         Accessible.description: ToolTip.text
                         Accessible.onPressAction: clicked()
+
+                        Keys.onReturnPressed: clicked()
+                        Keys.onEnterPressed: clicked()
 
                         onClicked: {
                             if (metadataLoader.active === false) {
@@ -241,55 +244,52 @@ FocusScope {
                                 metadataLoader.active = false
                             }
                         }
-
-                        Keys.onReturnPressed: clicked()
-                        Keys.onEnterPressed: clicked()
-                        visible: showDetailsButton
                     }
 
                     Button {
                         id: replaceAndPlayButton
                         objectName: 'replaceAndPlayButton'
 
+                        visible: gridEntry.showPlayButton
+                        hoverEnabled: true
+
                         icon.name: 'media-playback-start'
 
-                        hoverEnabled: true
                         ToolTip.visible: hovered
-                        ToolTip.delay: 1000
+                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
                         ToolTip.text: i18nc("Clear play list and add whole container to play list", "Play now, replacing current playlist")
 
-                        Accessible.role: Accessible.Button
                         Accessible.name: ToolTip.text
                         Accessible.description: ToolTip.text
                         Accessible.onPressAction: onClicked
 
-                        onClicked: replaceAndPlay()
                         Keys.onReturnPressed: replaceAndPlay()
                         Keys.onEnterPressed: replaceAndPlay()
 
-                        visible: showPlayButton
+                        onClicked: replaceAndPlay()
                     }
 
                     Button {
                         id: enqueueButton
                         objectName: 'enqueueButton'
 
-                        icon.name: 'list-add'
+                        visible: gridEntry.showEnqueueButton
                         hoverEnabled: true
+
+                        icon.name: 'list-add'
+
                         ToolTip.visible: hovered
-                        ToolTip.delay: 1000
+                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
                         ToolTip.text: i18nc("Add whole container to play list", "Add to playlist")
 
-                        Accessible.role: Accessible.Button
                         Accessible.name: ToolTip.text
                         Accessible.description: ToolTip.text
                         Accessible.onPressAction: onClicked
 
-                        onClicked: enqueue()
                         Keys.onReturnPressed: enqueue()
                         Keys.onEnterPressed: enqueue()
 
-                        visible: showEnqueueButton
+                        onClicked: enqueue()
                     }
                 }
             }

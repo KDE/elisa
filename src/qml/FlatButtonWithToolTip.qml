@@ -12,12 +12,16 @@ import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
 ToolButton {
-    Keys.onReturnPressed: clicked()
-    Accessible.onPressAction: clicked()
-
     display: AbstractButton.IconOnly
 
     ToolTip.visible: hovered && text.length > 0
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
     ToolTip.text: text
+
+    Keys.onReturnPressed: clicked()
+    Keys.onEnterPressed: clicked()
+
+    Accessible.name: ToolTip.text
+    Accessible.description: ToolTip.text
+    Accessible.onPressAction: clicked()
 }

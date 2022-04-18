@@ -225,7 +225,7 @@ FocusScope {
                         hoverEnabled: true
                         ToolTip.visible: hovered
                         ToolTip.delay: 1000
-                        ToolTip.text: i18nc("Show track metadata", "View Details")
+                        ToolTip.text: i18nc("Show track metadata", "View details")
 
                         Accessible.role: Accessible.Button
                         Accessible.name: ToolTip.text
@@ -278,7 +278,7 @@ FocusScope {
                         hoverEnabled: true
                         ToolTip.visible: hovered
                         ToolTip.delay: 1000
-                        ToolTip.text: i18nc("Add whole container to play list", "Add to Playlist")
+                        ToolTip.text: i18nc("Add whole container to play list", "Add to playlist")
 
                         Accessible.role: Accessible.Button
                         Accessible.name: ToolTip.text

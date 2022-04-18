@@ -266,7 +266,7 @@ FocusScope {
                         height: singleLineHeight
                         width: singleLineHeight
 
-                        text: i18nc("Show track metadata", "View Details")
+                        text: i18nc("Show track metadata", "View details")
                         icon.name: "help-about"
                         onClicked: callOpenMetaDataView(trackUrl, dataType)
                     }
@@ -300,7 +300,7 @@ FocusScope {
                         height: singleLineHeight
                         width: singleLineHeight
 
-                        text: i18nc("Enqueue current track", "Add to Playlist")
+                        text: i18nc("Enqueue current track", "Add to playlist")
                         icon.name: "list-add"
                         onClicked: enqueue()
                     }
@@ -311,7 +311,7 @@ FocusScope {
                         height: singleLineHeight
                         width: singleLineHeight
 
-                        text: i18nc("Clear play list and enqueue current track", "Play Now and Replace Play List")
+                        text: i18n("Play now, replacing current playlist")
                         icon.name: "media-playback-start"
                         onClicked: replaceAndPlay()
                     }

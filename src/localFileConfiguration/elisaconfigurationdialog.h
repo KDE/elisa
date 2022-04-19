@@ -29,11 +29,10 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setForceUsageOfSlowFileSystemIndexing
                NOTIFY forceUsageOfSlowFileSystemIndexingChanged)
 
-Q_PROPERTY(bool showNowPlayingBackground
+    Q_PROPERTY(bool showNowPlayingBackground
                READ showNowPlayingBackground
                WRITE setShowNowPlayingBackground
                NOTIFY showNowPlayingBackgroundChanged)
-
 
     Q_PROPERTY(bool showProgressInTaskBar
                READ showProgressInTaskBar
@@ -64,10 +63,10 @@ Q_PROPERTY(bool showNowPlayingBackground
                WRITE setPlayAtStartup
                NOTIFY playAtStartupChanged)
 
-        Q_PROPERTY(QString colorScheme
-                   READ colorScheme
-                   WRITE setColorScheme
-                   NOTIFY colorSchemeChanged)
+    Q_PROPERTY(QString colorScheme
+               READ colorScheme
+               WRITE setColorScheme
+               NOTIFY colorSchemeChanged)
 
     Q_PROPERTY(bool useFavoriteStyleRatings
                READ useFavoriteStyleRatings

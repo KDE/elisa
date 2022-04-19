@@ -357,7 +357,9 @@ void ElisaApplication::configChanged()
     Q_EMIT showNowPlayingBackgroundChanged();
     Q_EMIT showProgressOnTaskBarChanged();
     Q_EMIT showSystemTrayIconChanged();
+    Q_EMIT useFavoriteStyleRatingsChanged();
     Q_EMIT embeddedViewChanged();
+    Q_EMIT initialViewIndexChanged();
 }
 
 DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,

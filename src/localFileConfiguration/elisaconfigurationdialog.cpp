@@ -80,6 +80,7 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
     Elisa::ElisaConfiguration::setScanAtStartup(mScanAtStartup);
     Elisa::ElisaConfiguration::setColorScheme(mColorScheme);
+    Elisa::ElisaConfiguration::setDoubleClickSongToEnqueue(mDoubleClickSongToEnqueue);
     Elisa::ElisaConfiguration::setUseFavoriteStyleRatings(mUseFavoriteStyleRatings);
 
     Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::NoView);
@@ -238,6 +239,17 @@ void ElisaConfigurationDialog::setColorScheme(const QString &scheme)
     }
     mColorScheme = scheme;
     Q_EMIT colorSchemeChanged();
+
+    setDirty();
+}
+
+void ElisaConfigurationDialog::setDoubleClickSongToEnqueue(bool doubleClickSongToEnqueue)
+{
+    if (mDoubleClickSongToEnqueue == doubleClickSongToEnqueue) {
+        return;
+    }
+    mDoubleClickSongToEnqueue = doubleClickSongToEnqueue;
+    Q_EMIT doubleClickSongToEnqueueChanged();
 
     setDirty();
 }

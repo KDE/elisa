@@ -85,6 +85,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ showSystemTrayIcon
                NOTIFY showSystemTrayIconChanged)
 
+    Q_PROPERTY(bool doubleClickSongToEnqueue
+               READ doubleClickSongToEnqueue
+               NOTIFY doubleClickSongToEnqueueChanged)
+
     Q_PROPERTY(bool useFavoriteStyleRatings
                READ useFavoriteStyleRatings
                NOTIFY useFavoriteStyleRatingsChanged)
@@ -133,6 +137,8 @@ public:
 
     [[nodiscard]] bool showSystemTrayIcon() const;
 
+    [[nodiscard]] bool doubleClickSongToEnqueue() const;
+
     [[nodiscard]] bool useFavoriteStyleRatings() const;
 
     [[nodiscard]] ElisaUtils::PlayListEntryType embeddedView() const;
@@ -166,6 +172,8 @@ Q_SIGNALS:
     void showProgressOnTaskBarChanged();
 
     void showSystemTrayIconChanged();
+
+    void doubleClickSongToEnqueueChanged();
 
     void useFavoriteStyleRatingsChanged();
 

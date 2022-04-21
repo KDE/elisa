@@ -39,6 +39,7 @@ FocusScope {
     signal clicked()
     signal enqueue()
     signal replaceAndPlay()
+    signal replaceWithParentViewContentAndPlayUrl(var url)
     signal callOpenMetaDataView(var url, var entryType)
     signal trackRatingChanged(var url, var rating)
 
@@ -98,7 +99,11 @@ FocusScope {
 
         onDoubleClicked: {
             if (!Kirigami.Settings.isMobile) {
-                enqueue();
+                if (ElisaApplication.doubleClickSongToEnqueue) {
+                    enqueue();
+                } else {
+                    replaceWithParentViewContentAndPlayUrl(mediaTrack.trackUrl)
+                }
             }
         }
 

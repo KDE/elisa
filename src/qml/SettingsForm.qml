@@ -103,6 +103,42 @@ ColumnLayout {
             Kirigami.FormData.isSection: true
         }
 
+        QQC2.ButtonGroup { id: doubleClickOnSongGroup }
+
+        QQC2.RadioButton {
+            Kirigami.FormData.label: i18n("When double-clicking on a song:")
+
+            Layout.fillWidth: true
+
+            text: i18n("Replace playlist with song's album and start playing song")
+
+            QQC2.ButtonGroup.group: doubleClickOnSongGroup
+
+            checked: !ElisaConfigurationDialog.doubleClickSongToEnqueue
+            onToggled: ElisaConfigurationDialog.doubleClickSongToEnqueue = !checked
+
+            Accessible.onToggleAction: onToggled
+            Accessible.onPressAction: onToggled
+        }
+        QQC2.RadioButton {
+
+            Layout.fillWidth: true
+
+            text: i18n("Add to playlist")
+
+            QQC2.ButtonGroup.group: doubleClickOnSongGroup
+
+            checked: ElisaConfigurationDialog.doubleClickSongToEnqueue
+            onToggled: ElisaConfigurationDialog.doubleClickSongToEnqueue = checked
+
+            Accessible.onToggleAction: onToggled
+            Accessible.onPressAction: onToggled
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
         QQC2.ButtonGroup { id: ratingStyleGroup }
 
         QQC2.RadioButton {

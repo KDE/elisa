@@ -214,6 +214,8 @@ public Q_SLOTS:
 
     void resetPartiallyLoaded();
 
+    int indexForTrackUrl(const QUrl &url);
+
 Q_SIGNALS:
 
     void previousTrackChanged(const QPersistentModelIndex &previousTrack);

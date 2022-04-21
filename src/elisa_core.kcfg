@@ -77,5 +77,10 @@
   </entry>
   <entry key="SortOrderPreferences" type="StringList">
   </entry>
+  <entry key="DoubleClickSongToEnqueue" type="bool">
+    <default>
+      false
+    </default>
+  </entry>
  </group>
 </kcfg>

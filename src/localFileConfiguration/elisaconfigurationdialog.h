@@ -73,6 +73,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setColorScheme
                NOTIFY colorSchemeChanged)
 
+    Q_PROPERTY(bool doubleClickSongToEnqueue
+              READ doubleClickSongToEnqueue
+              WRITE setDoubleClickSongToEnqueue
+              NOTIFY doubleClickSongToEnqueueChanged)
+
     Q_PROPERTY(bool useFavoriteStyleRatings
                READ useFavoriteStyleRatings
                WRITE setUseFavoriteStyleRatings
@@ -137,6 +142,11 @@ public:
         return mColorScheme;
     }
 
+    [[nodiscard]] bool doubleClickSongToEnqueue() const
+    {
+        return mDoubleClickSongToEnqueue;
+    }
+
     [[nodiscard]] bool useFavoriteStyleRatings() const
     {
         return mUseFavoriteStyleRatings;
@@ -169,6 +179,8 @@ Q_SIGNALS:
 
     void colorSchemeChanged();
 
+    void doubleClickSongToEnqueueChanged();
+
     void useFavoriteStyleRatingsChanged();
 
 public Q_SLOTS:
@@ -197,6 +209,8 @@ public Q_SLOTS:
 
     void setColorScheme(const QString &scheme);
 
+    void setDoubleClickSongToEnqueue(bool doubleClickSongToEnqueue);
+
     void setUseFavoriteStyleRatings(bool useFavoriteStyleRatings);
 
 private Q_SLOTS:
@@ -224,6 +238,8 @@ private:
     bool mPlayAtStartup = false;
 
     bool mScanAtStartup = true;
+
+    bool mDoubleClickSongToEnqueue = false;
 
     bool mUseFavoriteStyleRatings = false;
 

@@ -357,6 +357,7 @@ void ElisaApplication::configChanged()
     Q_EMIT showNowPlayingBackgroundChanged();
     Q_EMIT showProgressOnTaskBarChanged();
     Q_EMIT showSystemTrayIconChanged();
+    Q_EMIT doubleClickSongToEnqueueChanged();
     Q_EMIT useFavoriteStyleRatingsChanged();
     Q_EMIT embeddedViewChanged();
     Q_EMIT initialViewIndexChanged();
@@ -625,6 +626,12 @@ bool ElisaApplication::showSystemTrayIcon() const
     auto currentConfiguration = Elisa::ElisaConfiguration::self();
 
     return currentConfiguration->showSystemTrayIcon();
+}
+
+bool ElisaApplication::doubleClickSongToEnqueue() const
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+    return currentConfiguration->doubleClickSongToEnqueue();
 }
 
 bool ElisaApplication::useFavoriteStyleRatings() const

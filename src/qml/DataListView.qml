@@ -119,6 +119,21 @@ AbstractDataView {
         onCallOpenMetaDataView: {
             openMetaDataView(databaseId, url, entryType)
         }
+
+        onReplaceWithParentViewContentAndPlayUrl: {
+            console.warn("Trying to replace the playlist with " + listView.mainTitle);
+            console.warn("Triggered onReplaceWithParentViewContentAndPlayUrl with url " + url)
+            // FIXME: need to pass the full data model from the album itself as the first arg
+            // if we instead give it model.fullData, that's just for this song, and that won't work
+            // giving it "listView.delegateModel.fullData" does not work
+            ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, listView.mainTitle,
+                                                             ElisaUtils.ReplacePlayList,
+                                                             ElisaUtils.TriggerPlay);
+            //console.warn("Switching to " + url + ", which is at index " + ElisaApplication.mediaPlayListProxyModel.indexForTrackUrl(url))
+            ElisaApplication.mediaPlayListProxyModel.switchTo(ElisaApplication.mediaPlayListProxyModel.indexForTrackUrl(url));
+            // TODO needed?
+            //ElisaApplication.mediaPlayListProxyModel.ensurePlay();
+        }
     }
 
 

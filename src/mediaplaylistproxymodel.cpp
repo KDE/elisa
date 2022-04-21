@@ -664,6 +664,17 @@ void MediaPlayListProxyModel::determineAndNotifyPreviousAndNextTracks()
     }
 }
 
+int MediaPlayListProxyModel::indexForTrackUrl(const QUrl &url)
+{
+    for (int i = 0; i < rowCount(); ++i) {
+        const QUrl thisTrackUrl = data(index(i,0), MediaPlayList::ResourceRole).toUrl();
+        if (thisTrackUrl == url) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 void MediaPlayListProxyModel::clearPlayList()
 {
     if (rowCount() == 0) {

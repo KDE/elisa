@@ -174,6 +174,8 @@ public Q_SLOTS:
                           ElisaUtils::PlayListEnqueueMode enqueueMode,
                           ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, int depth);
 
+    int indexForTrackUrl(const QUrl &url);
+
 Q_SIGNALS:
 
     void previousTrackChanged(const QPersistentModelIndex &previousTrack);

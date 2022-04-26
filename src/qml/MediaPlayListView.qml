@@ -10,7 +10,6 @@ import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
-import Qt.labs.platform 1.0 as PlatformDialog
 import org.kde.kirigami 2.15 as Kirigami
 import org.kde.elisa 1.0
 
@@ -66,9 +65,7 @@ Kirigami.Page {
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
                         onTriggered: {
-                            fileDialog.fileMode = PlatformDialog.FileDialog.SaveFile
-                            fileDialog.file = ''
-                            fileDialog.open()
+                            mainWindow.fileDialog.savePlaylist()
                         }
                     },
                     Kirigami.Action {
@@ -77,9 +74,7 @@ Kirigami.Page {
                         icon.name: 'document-open'
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         onTriggered: {
-                            fileDialog.fileMode = PlatformDialog.FileDialog.OpenFile
-                            fileDialog.file = ''
-                            fileDialog.open()
+                            mainWindow.fileDialog.loadPlaylist()
                         }
                     }
                 ]
@@ -437,25 +432,6 @@ Kirigami.Page {
                         onTriggered: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
                     }
                 ]
-            }
-        }
-    }
-
-    PlatformDialog.FileDialog {
-        id: fileDialog
-
-        defaultSuffix: 'm3u8'
-        folder: PlatformDialog.StandardPaths.writableLocation(PlatformDialog.StandardPaths.MusicLocation)
-        nameFilters: [i18nc("file type (mime type) for m3u and m3u8 playlist file formats", "Playlist (*.m3u*)")]
-
-        onAccepted:
-        {
-            if (fileMode === PlatformDialog.FileDialog.SaveFile) {
-                if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(fileDialog.file)) {
-                    showPassiveNotification(i18n("Saving failed"), 7000, i18n("Retry"), function() { savePlaylistButton.clicked(); })
-                }
-            } else {
-                ElisaApplication.mediaPlayListProxyModel.loadPlayList(fileDialog.file)
             }
         }
     }

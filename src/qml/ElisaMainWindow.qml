@@ -87,6 +87,7 @@ Kirigami.ApplicationWindow {
     property var togglePartyModeAction: ElisaApplication.action("togglePartyMode")
 
     property var mediaPlayerControl: Kirigami.Settings.isMobile ? mobileFooterBarLoader.item : headerBarLoader.item
+    property var fileDialog: fileDialog
 
     Action {
         shortcut: ElisaApplication.actionShortcut(goBackAction)
@@ -135,6 +136,36 @@ Kirigami.ApplicationWindow {
 
     Theme {
         id: elisaTheme
+    }
+
+    FileDialog {
+        id: fileDialog
+
+        function savePlaylist() {
+            fileDialog.fileMode = FileDialog.SaveFile
+            fileDialog.file = ''
+            fileDialog.open()
+        }
+        function loadPlaylist() {
+            fileDialog.fileMode = FileDialog.OpenFile
+            fileDialog.file = ''
+            fileDialog.open()
+        }
+
+        defaultSuffix: 'm3u8'
+        folder: StandardPaths.writableLocation(StandardPaths.MusicLocation)
+        nameFilters: [i18nc("file type (mime type) for m3u and m3u8 playlist file formats", "Playlist (*.m3u*)")]
+
+        onAccepted:
+        {
+            if (fileMode === FileDialog.SaveFile) {
+                if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(fileDialog.file)) {
+                    showPassiveNotification(i18n("Saving failed"), 7000, i18n("Retry"), function() { savePlaylistButton.clicked(); })
+                }
+            } else {
+                ElisaApplication.mediaPlayListProxyModel.loadPlayList(fileDialog.file)
+            }
+        }
     }
 
     Settings {

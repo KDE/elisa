@@ -16,13 +16,17 @@ MenuBar {
         MenuItem {
             text: i18nc("menu entry", "Save Playlist…")
             iconName: "document-save"
-            onTriggered: ElisaApplication.musicManager.resetMusicData()
+            onTriggered: {
+                mainWindow.fileDialog.savePlaylist()
+            }
         }
 
         MenuItem {
             text: i18nc("menu entry", "Open Playlist…")
             iconName: "document-open"
-            onTriggered: ElisaApplication.musicManager.resetMusicData()
+            onTriggered: {
+                mainWindow.fileDialog.loadPlaylist()
+            }
         }
 
         MenuItem {

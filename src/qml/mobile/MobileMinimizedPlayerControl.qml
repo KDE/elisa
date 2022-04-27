@@ -238,7 +238,7 @@ BasePlayerControl {
             Layout.maximumWidth: height
             Layout.preferredWidth: height
             enabled: playEnabled
-            text: i18nc("toggle play and pause for the audio player", "Toggle Play and Pause")
+            text: musicWidget.isPlaying ? i18nc("Pause any media that is playing", "Pause") : i18nc("Start playing media", "Play")
             onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
             icon.name: musicWidget.isPlaying? "media-playback-pause" : "media-playback-start"
             icon.width: Kirigami.Units.gridUnit

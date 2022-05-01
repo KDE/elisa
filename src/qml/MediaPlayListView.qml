@@ -183,7 +183,7 @@ Kirigami.Page {
 
                         // separator
                         Rectangle {
-                            readonly property bool largeSeparator: (entry.previousAlbum === entry.currentAlbum) && (entry.nextAlbum !== entry.currentAlbum) && !playListDelegate.nextDelegateHasSection
+                            readonly property bool largeSeparator: entry.currentAlbum && (entry.previousAlbum === entry.currentAlbum) && (entry.nextAlbum !== entry.currentAlbum) && !playListDelegate.nextDelegateHasSection
 
                             implicitWidth: playListView.width - (largeSeparator ? 0 : Kirigami.Units.iconSizes.smallMedium)
                             implicitHeight: largeSeparator ? Kirigami.Units.largeSpacing : 1

@@ -7,7 +7,11 @@
 #include "embeddedcoverageimageprovider.h"
 
 #include <KFileMetaData/EmbeddedImageData>
+#include <KFileMetaData/ExtractorCollection>
+#include <KFileMetaData/SimpleExtractionResult>
+
 #include <QImage>
+#include <QMimeDatabase>
 
 class AsyncImageResponse : public QQuickImageResponse, public QRunnable
 {
@@ -35,12 +39,25 @@ public:
 
     void run() override
     {
-        KFileMetaData::EmbeddedImageData embeddedImage;
+        QMimeDatabase mimeDatabase;
+        const auto fileMimeType = mimeDatabase.mimeTypeForFile(mId).name();
+        KFileMetaData::ExtractorCollection ec;
+        KFileMetaData::SimpleExtractionResult result(mId, fileMimeType, KFileMetaData::ExtractionResult::ExtractImageData);
 
-        auto imageData = embeddedImage.imageData(mId);
+        auto extractors = ec.fetchExtractors(fileMimeType);
+        for (const auto& ex : extractors) {
+            ex->extract(&result);
+        }
 
-        if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-            mCoverImage = QImage::fromData(imageData[KFileMetaData::EmbeddedImageData::FrontCover]);
+        auto imageData = result.imageData();
+
+        if (!imageData.isEmpty()) {
+            if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
+                mCoverImage = QImage::fromData(imageData[KFileMetaData::EmbeddedImageData::FrontCover]);
+            } else {
+                mCoverImage = QImage::fromData(imageData.values().first());
+            }
+
             auto newCoverImage = mCoverImage.scaled(mRequestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             if (!newCoverImage.isNull()) {
                 mCoverImage = std::move(newCoverImage);

@@ -231,7 +231,12 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
         return;
     }
 
-    trackData[DataTypes::HasEmbeddedCover] = checkEmbeddedCoverImage(localFileName);
+    if (checkEmbeddedCoverImage(localFileName)) {
+        trackData[DataTypes::HasEmbeddedCover] = true;
+        trackData[DataTypes::ImageUrlRole] = QUrl(QLatin1String("image://cover/") + localFileName);
+    } else {
+        trackData[DataTypes::HasEmbeddedCover] = false;
+    }
 
 #if !defined Q_OS_ANDROID && !defined Q_OS_WIN
     const auto fileData = KFileMetaData::UserMetaData(localFileName);
@@ -282,10 +287,8 @@ bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
 #if KF5FileMetaData_FOUND
     const auto &imageData = d->mImageScanner.imageData(localFileName);
 
-    if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-        if (!imageData[KFileMetaData::EmbeddedImageData::FrontCover].isEmpty()) {
-            return true;
-        }
+    if (!imageData.isEmpty()) {
+        return true;
     }
 #else
     Q_UNUSED(localFileName)

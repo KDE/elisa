@@ -241,12 +241,11 @@ BasePlayListDelegate {
                 }
 
                 Loader {
-                    active: !playListEntry.grouped
+                    active: !playListEntry.grouped && (artist || album)
                     visible: active
                     Layout.fillWidth: true
                     sourceComponent: LabelWithToolTip {
-                        id: artistLabel
-                        text: artist + " - " + album
+                        text: [artist, album].filter(Boolean).join(" - ")
                         type: Kirigami.Heading.Type.Secondary
                     }
                 }

@@ -299,8 +299,8 @@ BasePlayListDelegate {
                 visible: active
                 sourceComponent: FlatButtonWithToolTip {
                     icon.name: "overflow-menu"
-                    down: menuLoader.menuVisible
-                    onClicked: menuLoader.item.open()
+                    down: pressed | menuLoader.menuVisible
+                    onPressed: menuLoader.item.open()
                 }
             }
             Loader {

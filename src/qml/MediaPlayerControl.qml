@@ -189,9 +189,8 @@ BasePlayerControl {
             text: i18nc("open application menu", "Application Menu")
             icon.name: "open-menu-symbolic"
 
-            down: applicationMenu.visible
-
-            onClicked: {
+            down: pressed || applicationMenu.visible
+            onPressed: {
                 if (!applicationMenu.visible) {
                     applicationMenu.open()
                 }

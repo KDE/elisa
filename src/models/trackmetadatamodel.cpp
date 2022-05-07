@@ -303,6 +303,8 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
 
     if (trackData.hasDatabaseId()) {
         fetchLyrics();
+    } else {
+        Q_EMIT lyricsChanged();
     }
 
     mDatabaseId = trackData[DataTypes::DatabaseIdRole].toULongLong();

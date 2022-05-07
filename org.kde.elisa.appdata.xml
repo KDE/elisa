@@ -224,6 +224,7 @@ SPDX-License-Identifier: CC0-1.0
   <project_group>KDE</project_group>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="22.04.1" date="2022-05-12"/>
     <release version="22.04.0" date="2022-04-21"/>
     <release version="21.12.3" date="2022-03-03">
       <artifacts>
@@ -235,7 +236,6 @@ SPDX-License-Identifier: CC0-1.0
       </artifacts>
     </release>
     <release version="21.12.2" date="2022-02-03"/>
-    <release version="21.12.1" date="2022-01-06"/>
   </releases>
   <custom>
     <value key="KDE::windows_store">https://www.microsoft.com/p/elisa/9pb5md7zh8tl</value>

@@ -164,6 +164,17 @@ BasePlayerControl {
                     mode: MediaPlayListProxyModel.None
                 }
             }
+
+            Kirigami.Icon {
+                anchors {
+                    right: parent.right
+                    bottom: parent.bottom
+                    margins: Kirigami.Units.smallSpacing
+                }
+                width: Math.round(Kirigami.Units.iconSizes.small / 2)
+                height: Math.round(Kirigami.Units.iconSizes.small / 2)
+                source: "arrow-down"
+            }
         }
 
         FlatButtonWithToolTip {

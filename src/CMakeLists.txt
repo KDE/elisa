@@ -34,6 +34,7 @@ set(elisaLib_SOURCES
     models/trackcontextmetadatamodel.cpp
     models/viewsmodel.cpp
     models/viewsproxymodel.cpp
+    models/lyricsmodel.cpp
     viewslistdata.cpp
     viewconfigurationdata.cpp
     localFileConfiguration/elisaconfigurationdialog.cpp

@@ -5,7 +5,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.10
+import QtQuick 2.15
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQml.Models 2.2
@@ -31,10 +31,10 @@ Kirigami.Page {
     signal openAlbum()
 
     readonly property bool nothingPlaying: albumName.length === 0
-                                        && artistName.length === 0
-                                        && albumArtUrl.toString().length === 0
-                                        && songTitle.length === 0
-                                        && fileUrl.toString().length === 0
+                                           && artistName.length === 0
+                                           && albumArtUrl.toString().length === 0
+                                           && songTitle.length === 0
+                                           && fileUrl.toString().length === 0
 
     title: i18nc("Title of the context view related to the currently playing track", "Now Playing")
     padding: 0
@@ -43,7 +43,7 @@ Kirigami.Page {
 
     TrackContextMetaDataModel {
         id: metaDataModel
-
+        onLyricsChanged: lyricsModel.setLyric(lyrics)
         manager: ElisaApplication.musicManager
     }
 
@@ -108,8 +108,6 @@ Kirigami.Page {
                 id: showLyricButton
                 ButtonGroup.group: nowPlayingButtons
 
-                readonly property alias item: lyricScroll
-
                 checkable: true
                 checked: persistentSettings.nowPlayingPreferLyric
                 display: topItem.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
@@ -170,7 +168,7 @@ Kirigami.Page {
             id: contentLayout
 
             property bool wideMode: allMetaDataLoader.width  <= width * 0.5
-                                 && allMetaDataLoader.height <= height
+                                    && allMetaDataLoader.height <= height
 
             anchors.fill: parent
             visible: !topItem.nothingPlaying
@@ -249,18 +247,16 @@ Kirigami.Page {
                 }
             }
 
-            // Lyric
+            // Lyrics
             ScrollView {
                 id: lyricScroll
-
                 implicitWidth: {
                     if (contentLayout.wideMode) {
                         return contentLayout.width * 0.5
                     } else {
-                        return showLyricButton.checked? contentLayout.width : 0
+                        return showLyricButton.checked ? contentLayout.width : 0
                     }
                 }
-
                 implicitHeight: Math.min(lyricItem.height, parent.height)
 
                 contentWidth: availableWidth
@@ -268,36 +264,77 @@ Kirigami.Page {
 
                 // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                PropertyAnimation {
+                    id: lyricScrollAnimation
 
-                // Lyrics
+                    // the target is a flickable
+                    target: lyricScroll.contentItem
+                    property: "contentY"
+                    onToChanged: restart()
+                }
+
                 Item {
                     id: lyricItem
                     property real margins: Kirigami.Units.largeSpacing + lyricScroll.ScrollBar.vertical.width
                     width: lyricScroll.width - margins
-                    height: lyricLabel.visible? lyricLabel.height : lyricPlaceholder.height
+                    height: lyricsView.count == 0 ? lyricPlaceholder.height : lyricsView.height
                     x: Kirigami.Units.largeSpacing
 
-                    Label {
-                        id: lyricLabel
-                        text: metaDataModel.lyrics
-                        textFormat: Text.PlainText
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: contentLayout.wideMode? Text.AlignLeft : Text.AlignHCenter
-                        // fix binding loop
-                        // this does not affect the alignment
-                        // since we aligned lyricScroll
-                        verticalAlignment: Text.AlignTop
-                        visible: text !== ""
+                    ListView {
+                        id: lyricsView
+                        height: contentHeight
                         width: parent.width
+                        model: lyricsModel
+                        delegate: Label {
+                            text: lyric
+                            width: lyricItem.width
+                            wrapMode: Text.WordWrap
+                            font.bold: ListView.isCurrentItem
+                            horizontalAlignment: contentLayout.wideMode? Text.AlignLeft : Text.AlignHCenter
+                            MouseArea {
+                                height: parent.height
+                                width: Math.min(parent.width, parent.contentWidth)
+                                x: contentLayout.wideMode? 0 : (parent.width - width) / 2
+                                enabled: lyricsModel.isLRC
+                                cursorShape: enabled ? Qt.PointingHandCursor : undefined
+                                onClicked: {
+                                    ElisaApplication.audioPlayer.position = timestamp;
+                                }
+                            }
+                        }
+                        currentIndex: lyricsModel.highlightedIndex
+                        onCurrentIndexChanged: {
+                            if (currentIndex === -1)
+                                return
+
+                            // center aligned
+                            var toPos = Math.round(currentItem.y + currentItem.height * 0.5 - lyricScroll.height * 0.5)
+                            // make sure the first and the last lines are always
+                            // positioned at the beginning and the end of the view
+
+                            toPos = Math.max(toPos, 0)
+                            toPos = Math.min(toPos, contentHeight - lyricScroll.height)
+                            lyricScrollAnimation.to = toPos
+
+                        }
+                    }
+
+                    LyricsModel {
+                        id: lyricsModel
+                    }
+                    Connections {
+                        target: ElisaApplication.audioPlayer
+                        function onPositionChanged(position) {
+                            lyricsModel.setPosition(position)
+                        }
                     }
 
                     Loader {
                         id: lyricPlaceholder
-
                         anchors.centerIn: parent
                         width: parent.width
 
-                        active: !lyricLabel.visible
+                        active: lyricsView.count === 0
                         visible: active && status === Loader.Ready
 
                         sourceComponent: Kirigami.PlaceholderMessage {

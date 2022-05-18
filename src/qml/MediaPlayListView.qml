@@ -101,12 +101,34 @@ Kirigami.Page {
                     signal moveItemRequested(int oldIndex, int newIndex)
                     property bool dragging: false
 
-                    focus: true
                     clip: true
                     keyNavigationEnabled: true
-                    activeFocusOnTab: true
+                    activeFocusOnTab: count > 0
 
                     currentIndex: -1
+
+                    onActiveFocusChanged: {
+                        if (activeFocus) {
+                            // callLater to make sure this is a Tab focusing
+                            Qt.callLater(function() {
+                                var currentItemPos = currentItem ? currentItem.mapToItem(playListLoader, 0, 0) : undefined
+
+                                // if the currentItem is not visible, focus on the top visible one
+                                if (!(currentItem && currentItemPos.y >= 0 && currentItemPos.y < playListLoader.height)) {
+                                    var topPos = playListLoader.mapToItem(playListView.contentItem, 0, 0)
+                                    var topIndex = playListView.indexAt(topPos.x, topPos.y)
+                                    var topItem = playListView.itemAtIndex(topIndex)
+                                    if (topIndex > -1) {
+                                        if (topItem.mapToItem(playListLoader, 0, 0).y < 0) {
+                                            ++topIndex
+                                        }
+                                        playListView.currentIndex = Math.min(topIndex, playListView.count - 1)
+                                        playListView.currentItem.forceActiveFocus()
+                                    }
+                                }
+                            })
+                        }
+                    }
 
                     Accessible.role: Accessible.List
                     Accessible.name: topItem.title
@@ -116,12 +138,6 @@ Kirigami.Page {
 
                     model: ElisaApplication.mediaPlayListProxyModel
 
-                    onCurrentIndexChanged: {
-                        if (currentItem) {
-                            currentItem.entry.forceActiveFocus()
-                        }
-                    }
-
                     delegate: ColumnLayout {
                         id: playListDelegate
 
@@ -130,6 +146,12 @@ Kirigami.Page {
 
                         width: playListView.width
                         spacing: 0
+
+                        onFocusChanged: {
+                            if (focus) {
+                                entry.forceActiveFocus()
+                            }
+                        }
 
                         Loader {
                             id: albumSection
@@ -143,11 +165,20 @@ Kirigami.Page {
 
                         // entry's placeholder
                         // otherwise the layout is broken while dragging
-                        Item {
+                        FocusScope {
                             implicitWidth: entry.width
                             // the height must be set because entry's parent
                             // will be changed while dragging
                             implicitHeight: entry.height
+
+                            // because this is a FocusScope, clicking on any button inside PlayListEntry
+                            // will change this activeFocus
+                            onActiveFocusChanged: {
+                                if (activeFocus) {
+                                    playListView.currentIndex = model.index
+                                    entry.forceActiveFocus()
+                                }
+                            }
 
                             // ListItemDragHandle requires listItem
                             // to be a child of delegate

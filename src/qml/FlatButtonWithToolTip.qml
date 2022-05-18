@@ -18,8 +18,8 @@ ToolButton {
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
     ToolTip.text: text
 
-    Keys.onReturnPressed: clicked()
-    Keys.onEnterPressed: clicked()
+    Keys.onReturnPressed: action ? action.trigger() : clicked()
+    Keys.onEnterPressed: action ? action.trigger() : clicked()
 
     Accessible.name: ToolTip.text
     Accessible.description: ToolTip.text

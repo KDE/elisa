@@ -31,6 +31,8 @@ BasePlayListDelegate {
     readonly property bool grouped: currentAlbum && (previousAlbum === currentAlbum || nextAlbum === currentAlbum)
     readonly property bool sectionVisible: currentAlbum && (previousAlbum !== currentAlbum && nextAlbum === currentAlbum)
 
+    readonly property bool hasActiveFocus: playListEntry.activeFocus || buttonRowLoader.activeFocus || menuButtonLoader.activeFocus
+
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
 
@@ -38,6 +40,11 @@ BasePlayListDelegate {
         playListEntry.switchToTrack(playListEntry.index)
         playListEntry.startPlayback()
     }
+
+    activeFocusOnTab: isSelected
+
+    KeyNavigation.right: (buttonRowLoader.item && buttonRowLoader.item.children[0]) || menuButtonLoader.item || null
+    KeyNavigation.left:  (buttonRowLoader.item && buttonRowLoader.item.children[buttonRowLoader.item.children.length -1]) || menuButtonLoader.item || null
 
     topPadding: grouped ? 0 : Kirigami.Units.smallSpacing
     bottomPadding: grouped ? 0 : Kirigami.Units.smallSpacing
@@ -68,60 +75,59 @@ BasePlayListDelegate {
             }
         }
 
-        Loader {
-            id: actionsLoader
-            active: false
-            sourceComponent: QtObject {
-                property var locateFileAction: Action {
-                    text: i18nc("Show the file for this song in the file manager", "Show in folder")
-                    icon.name: "document-open-folder"
-                    onTriggered: {
-                        ElisaApplication.showInFolder(playListEntry.fileName)
+        QtObject {
+            id: actionList
+            property var locateFileAction: Action {
+                text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                icon.name: "document-open-folder"
+                onTriggered: {
+                    ElisaApplication.showInFolder(playListEntry.fileName)
+                }
+            }
+            property var infoAction: Action {
+                text: i18nc("Show track metadata", "View Details")
+                icon.name: "help-about"
+                onTriggered: {
+                    if (metadataLoader.active === false) {
+                        metadataLoader.active = true
+                    }
+                    else {
+                        metadataLoader.item.close();
+                        metadataLoader.active = false
                     }
                 }
-                property var infoAction: Action {
-                    text: i18nc("Show track metadata", "View Details")
-                    icon.name: "help-about"
-                    onTriggered: {
-                        if (metadataLoader.active === false) {
-                            metadataLoader.active = true
-                        }
-                        else {
-                            metadataLoader.item.close();
-                            metadataLoader.active = false
-                        }
-                    }
-                }
-                property var ratingAction: Action {
-                    text: i18nc("Show track rating", "Set track rating")
-                    icon.name: "view-media-favorite"
+            }
+            property var ratingAction: Action {
+                text: i18nc("Show track rating", "Set track rating")
+                icon.name: "view-media-favorite"
 
-                    onTriggered: {
-                        playListEntry.editingRating = true;
-                    }
+                onTriggered: {
+                    playListEntry.editingRating = true;
                 }
-                property var favoriteAction: Action {
-                    text: rating == 10 ? i18n("Un-mark this song as a favorite") : i18n("Mark this song as a favorite")
-                    icon.name: rating == 10 ? "rating" : "rating-unrated"
+            }
+            property var favoriteAction: Action {
+                text: rating == 10 ? i18n("Un-mark this song as a favorite") : i18n("Mark this song as a favorite")
+                icon.name: rating == 10 ? "rating" : "rating-unrated"
 
-                    onTriggered: {
-                        var newRating = 0;
-                        if (rating == 10) {
-                            newRating = 0;
-                            // Change icon immediately in case backend is slow
-                            icon.name = "rating-unrated";
-                        } else {
-                            newRating = 10;
-                            // Change icon immediately in case backend is slow
-                            icon.name = "rating";
-                        }
-                        ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, newRating);
+                onTriggered: {
+                    var newRating = 0;
+                    if (rating == 10) {
+                        newRating = 0;
+                        // Change icon immediately in case backend is slow
+                        icon.name = "rating-unrated";
+                    } else {
+                        newRating = 10;
+                        // Change icon immediately in case backend is slow
+                        icon.name = "rating";
                     }
+                    ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, newRating);
                 }
-                property var playPauseAction: Action {
-                    text: (isPlaying === MediaPlayList.IsPlaying) ? i18nc("Pause current track from play list", "Pause") : i18nc("Play this track from play list", "Play")
-                    icon.name: (isPlaying === MediaPlayList.IsPlaying) ? "media-playback-pause" : "media-playback-start"
-                    onTriggered: if (isPlaying === MediaPlayList.IsPlaying) {
+            }
+            property var playPauseAction: Action {
+                text: (isPlaying === MediaPlayList.IsPlaying) ? i18nc("Pause current track from play list", "Pause") : i18nc("Play this track from play list", "Play")
+                icon.name: (isPlaying === MediaPlayList.IsPlaying) ? "media-playback-pause" : "media-playback-start"
+                onTriggered: {
+                    if (isPlaying === MediaPlayList.IsPlaying) {
                         playListEntry.pausePlayback()
                     } else if (isPlaying === MediaPlayList.IsPaused) {
                         playListEntry.startPlayback()
@@ -130,10 +136,12 @@ BasePlayListDelegate {
                         playListEntry.startPlayback()
                     }
                 }
-                property var removeAction: Action {
-                    text: i18nc("Remove current track from play list", "Remove")
-                    icon.name: "edit-delete-remove"
-                    onTriggered: playListEntry.removeFromPlaylist(playListEntry.index)
+            }
+            property var removeAction: Action {
+                text: i18nc("Remove current track from play list", "Remove")
+                icon.name: "edit-delete-remove"
+                onTriggered: {
+                    playListEntry.removeFromPlaylist(playListEntry.index)
                 }
             }
         }
@@ -253,14 +261,21 @@ BasePlayListDelegate {
 
             // button row
             Loader {
-                active: actionsLoader.item && playListEntry.wideMode
+                id: buttonRowLoader
+
+                active: false
                 visible: active && !playListEntry.editingRating
+
                 sourceComponent: Row {
                     FlatButtonWithToolTip {
                         id: locateFileButton
+                        objectName: 'locateFileButton'
                         enabled: isValid
                         visible: playListEntry.wideMode && playListEntry.fileName.toString().substring(0, 7) === 'file://'
-                        action: actionsLoader.item.locateFileAction
+                        action: actionList.locateFileAction
+                        KeyNavigation.left: removeButton
+                        KeyNavigation.right: infoButton
+                        activeFocusOnTab: isSelected
                     }
 
                     FlatButtonWithToolTip {
@@ -268,7 +283,9 @@ BasePlayListDelegate {
                         objectName: 'infoButton'
                         enabled: isValid
                         visible: playListEntry.wideMode
-                        action: actionsLoader.item.infoAction
+                        action: actionList.infoAction
+                        KeyNavigation.right: ratingButton
+                        activeFocusOnTab: isSelected
                     }
 
                     FlatButtonWithToolTip {
@@ -276,29 +293,39 @@ BasePlayListDelegate {
                         objectName: 'ratingButton'
                         visible: playListEntry.wideMode && !ElisaApplication.useFavoriteStyleRatings
                         enabled: isValid
-                        action: actionsLoader.item.ratingAction
+                        action: actionList.ratingAction
+                        KeyNavigation.right: favoriteButton
+                        activeFocusOnTab: isSelected
                     }
 
                     FlatButtonWithToolTip {
+                        id: favoriteButton
                         objectName: 'favoriteButton'
                         visible: playListEntry.wideMode && ElisaApplication.useFavoriteStyleRatings
                         enabled: isValid
-                        action: actionsLoader.item.favoriteAction
+                        action: actionList.favoriteAction
+                        KeyNavigation.right: playPauseButton
+                        activeFocusOnTab: isSelected
                     }
 
                     FlatButtonWithToolTip {
+                        id: playPauseButton
                         objectName: 'playPauseButton'
                         enabled: isValid
                         scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
                         visible: playListEntry.wideMode
-                        action: actionsLoader.item.playPauseAction
+                        action: actionList.playPauseAction
+                        KeyNavigation.right: removeButton
+                        activeFocusOnTab: isSelected
                     }
 
                     FlatButtonWithToolTip {
                         id: removeButton
                         objectName: 'removeButton'
                         visible: playListEntry.wideMode
-                        action: actionsLoader.item.removeAction
+                        action: actionList.removeAction
+                        KeyNavigation.right: locateFileButton
+                        activeFocusOnTab: isSelected
                     }
                 }
             }
@@ -316,7 +343,7 @@ BasePlayListDelegate {
                 readOnly: false
                 starRating: rating
 
-                visible: (playListEntry.editingRating || (rating > 0 && !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode
+                visible: (playListEntry.editingRating || (rating > 0 && !containsMouse && !isSelected && !playListEntry.hasActiveFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode
 
                 onRatingEdited: {
                     ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, starRating);
@@ -325,7 +352,7 @@ BasePlayListDelegate {
             }
 
             Kirigami.Icon {
-                visible: rating == 10 && !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
+                visible: rating == 10 && !containsMouse && !isSelected && !playListEntry.hasActiveFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
 
                 implicitWidth: Kirigami.Units.iconSizes.smallMedium
                 implicitHeight: Kirigami.Units.iconSizes.smallMedium
@@ -347,12 +374,15 @@ BasePlayListDelegate {
                     icon.name: "overflow-menu"
                     down: pressed || menuLoader.menuVisible
                     onPressed: menuLoader.item.open()
+                    Keys.onReturnPressed: menuLoader.item.open()
+                    Keys.onEnterPressed: menuLoader.item.open()
+                    activeFocusOnTab: isSelected
                 }
             }
             Loader {
                 id: menuLoader
                 property bool menuVisible: false
-                active: !playListEntry.wideMode && actionsLoader.item
+                active: !playListEntry.wideMode
                 onActiveChanged: {
                     if (!active) {
                         menuVisible = false
@@ -367,16 +397,16 @@ BasePlayListDelegate {
                     onVisibleChanged: menuLoader.menuVisible = visible
 
                     MenuItem {
-                        action: actionsLoader.item.locateFileAction
+                        action: actionList.locateFileAction
                     }
                     MenuItem {
-                        action: actionsLoader.item.infoAction
+                        action: actionList.infoAction
                     }
                     MenuItem {
-                        action: actionsLoader.item.playPauseAction
+                        action: actionList.playPauseAction
                     }
                     MenuItem {
-                        action: actionsLoader.item.removeAction
+                        action: actionList.removeAction
                     }
                 }
             }
@@ -388,16 +418,8 @@ BasePlayListDelegate {
             when: playListEntry.listView.dragging
         },
         State {
-            name: "menuVisible"
-            when: menuLoader.menuVisible && !playListEntry.wideMode
-            PropertyChanges {
-                target: actionsLoader
-                active: true
-            }
-        },
-        State {
             name: 'notSelected'
-            when: !containsMouse && !isSelected && !playListEntry.activeFocus && !simpleMode
+            when: !containsMouse && !isSelected && !playListEntry.hasActiveFocus && !simpleMode
             PropertyChanges {
                 target: ratingWidget
                 hoverWidgetOpacity: 0.0
@@ -405,19 +427,19 @@ BasePlayListDelegate {
         },
         State {
             name: 'hovered'
-            when: containsMouse && !playListEntry.activeFocus && !simpleMode
-            PropertyChanges {
-                target: actionsLoader
-                active: true
-            }
+            when: containsMouse && !playListEntry.hasActiveFocus && !simpleMode
             PropertyChanges {
                 target: ratingWidget
                 hoverWidgetOpacity: 1.0
             }
+            PropertyChanges {
+                target: buttonRowLoader
+                active: playListEntry.wideMode
+            }
         },
         State {
             name: 'selected'
-            when: !playListEntry.activeFocus && isSelected && !simpleMode
+            when: !playListEntry.hasActiveFocus && isSelected && !simpleMode
             PropertyChanges {
                 target: ratingWidget
                 hoverWidgetOpacity: 1.0
@@ -425,14 +447,14 @@ BasePlayListDelegate {
         },
         State {
             name: 'focused'
-            when: playListEntry.activeFocus && !simpleMode
-            PropertyChanges {
-                target: actionsLoader
-                active: true
-            }
+            when: playListEntry.hasActiveFocus && !simpleMode
             PropertyChanges {
                 target: ratingWidget
                 hoverWidgetOpacity: 1.0
+            }
+            PropertyChanges {
+                target: buttonRowLoader
+                active: playListEntry.wideMode
             }
         }
         ]

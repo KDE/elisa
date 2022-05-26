@@ -73,6 +73,32 @@ ColumnLayout {
             Accessible.onPressAction: onToggled
         }
 
+        QQC2.CheckBox {
+            Layout.fillWidth: true
+
+            text: i18n("Scan for New Music on startup")
+
+            checked: ElisaConfigurationDialog.scanAtStartup
+            onToggled: {
+                startupScanWarningMessage.visible = !checked
+                ElisaConfigurationDialog.scanAtStartup = checked
+            }
+            Accessible.onToggleAction: onToggled
+            Accessible.onPressAction: onToggled
+        }
+
+        Kirigami.InlineMessage {
+            id: startupScanWarningMessage
+            Layout.fillWidth: true
+
+            // Not visible by default, the message only becomes visible when "Scan for New Music on startup" checkbox is unchecked. See onToggled implementation of the checkbox.
+            visible: false
+
+            type: Kirigami.MessageType.Warning
+            text: xi18nc("@info", "When using this setting, you will need to manually refresh the music collection whenever new files are added to configured music folders. You can do this with the <interface>Scan for new music</interface> item in Elisa's hamburger menu.")
+        }
+
+
         Item {
             Kirigami.FormData.isSection: true
         }
@@ -133,13 +159,23 @@ ColumnLayout {
             }
         }
 
-        // refresh music collection (mobile only, since on desktop it is in the application menu)
+        // scan for new music (mobile only, since on desktop it is in the application menu)
         QQC2.Button {
             visible: Kirigami.Settings.isMobile
-            text: i18n("Refresh Music Collection")
+            text: i18n("Scan for New Music")
             icon.name: "view-refresh"
             onClicked: {
-                ElisaApplication.musicManager.resetMusicData();
+                ElisaApplication.musicManager.scanCollection(MusicListenersManager.Soft)
+                mainWindow.pageStack.layers.pop();
+            }
+        }
+
+        QQC2.Button {
+            visible: Kirigami.Settings.isMobile
+            text: i18n("Reset Database and Re-Scan Everything")
+            icon.name: "edit-clear-all"
+            onClicked: {
+                ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard);
                 mainWindow.pageStack.layers.pop();
             }
         }
@@ -262,7 +298,6 @@ ColumnLayout {
             }
         ]
     }
-
 
     // Music locations list
     // ====================

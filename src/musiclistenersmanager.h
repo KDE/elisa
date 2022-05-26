@@ -72,6 +72,12 @@ class ELISALIB_EXPORT MusicListenersManager : public QObject
 
 public:
 
+    enum CollectionScan {
+        Soft,
+        Hard,
+    };
+    Q_ENUM(CollectionScan)
+
     explicit MusicListenersManager(QObject *parent = nullptr);
 
     ~MusicListenersManager() override;
@@ -130,6 +136,8 @@ Q_SIGNALS:
 
     void androidIndexerAvailableChanged();
 
+    void refreshDatabase();
+
 public Q_SLOTS:
 
     void databaseReady();
@@ -144,7 +152,7 @@ public Q_SLOTS:
 
     void connectModel(ModelDataLoader *dataLoader);
 
-    void resetMusicData();
+    void scanCollection(CollectionScan scantype);
 
     void updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, const QVariant &data);
 

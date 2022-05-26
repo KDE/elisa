@@ -31,6 +31,11 @@
       false
     </default>
   </entry>
+  <entry key="ScanAtStartup" type="Bool" >
+    <default>
+      true
+    </default>
+  </entry>
   <entry key="UseFavoriteStyleRatings" type="Bool" >
     <default>
       false

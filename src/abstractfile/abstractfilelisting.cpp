@@ -11,6 +11,7 @@
 #include "abstractfile/indexercommon.h"
 
 #include "filescanner.h"
+#include "elisa_settings.h"
 
 #include <QThread>
 #include <QHash>
@@ -72,10 +73,12 @@ AbstractFileListing::~AbstractFileListing()
 void AbstractFileListing::init()
 {
     qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::init";
-
     d->mIsActive = true;
 
-    Q_EMIT askRestoredTracks();
+    const bool autoScan = Elisa::ElisaConfiguration::self()->scanAtStartup();
+    if (autoScan) {
+        Q_EMIT askRestoredTracks();
+    }
 }
 
 void AbstractFileListing::stop()

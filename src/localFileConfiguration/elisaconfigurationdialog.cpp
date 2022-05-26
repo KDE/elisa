@@ -77,6 +77,7 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setShowSystemTrayIcon(mShowSystemTrayIcon);
     Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(!mForceUsageOfSlowFileSystemIndexing);
     Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
+    Elisa::ElisaConfiguration::setScanAtStartup(mScanAtStartup);
     Elisa::ElisaConfiguration::setColorScheme(mColorScheme);
     Elisa::ElisaConfiguration::setUseFavoriteStyleRatings(mUseFavoriteStyleRatings);
 
@@ -205,6 +206,17 @@ void ElisaConfigurationDialog::setPlayAtStartup(bool playAtStartup)
     setDirty();
 }
 
+void ElisaConfigurationDialog::setScanAtStartup(bool scanAtStartup)
+{
+    if (mScanAtStartup == scanAtStartup) {
+        return;
+    }
+    mScanAtStartup = scanAtStartup;
+    Q_EMIT scanAtStartupChanged();
+
+    setDirty();
+}
+
 void ElisaConfigurationDialog::setColorScheme(const QString &scheme)
 {
     if (mColorScheme == scheme) {
@@ -249,6 +261,9 @@ void ElisaConfigurationDialog::configChanged()
 
     mPlayAtStartup = Elisa::ElisaConfiguration::playAtStartup();
     Q_EMIT playAtStartupChanged();
+
+    mScanAtStartup = Elisa::ElisaConfiguration::scanAtStartup();
+    Q_EMIT scanAtStartupChanged();
 
     mColorScheme = Elisa::ElisaConfiguration::colorScheme();
     Q_EMIT colorSchemeChanged();

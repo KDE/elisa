@@ -106,8 +106,10 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
             this, &MusicListenersManager::databaseReady);
+
     connect(this, &MusicListenersManager::clearDatabase,
             &d->mDatabaseInterface, &DatabaseInterface::clearData);
+
     connect(&d->mDatabaseInterface, &DatabaseInterface::cleanedDatabase,
             this, &MusicListenersManager::cleanedDatabase);
 
@@ -116,6 +118,9 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 
     connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
             this, &MusicListenersManager::configChanged);
+
+    connect(this, &MusicListenersManager::refreshDatabase,
+            &d->mDatabaseInterface, &DatabaseInterface::askRestoredTracks);
 
     d->mListenerThread.start();
     d->mDatabaseThread.start();
@@ -298,9 +303,16 @@ void MusicListenersManager::connectModel(ModelDataLoader *dataLoader)
     dataLoader->moveToThread(&d->mDatabaseThread);
 }
 
-void MusicListenersManager::resetMusicData()
+void MusicListenersManager::scanCollection(CollectionScan scantype)
 {
-    Q_EMIT clearDatabase();
+    switch (scantype)
+    {
+    case CollectionScan::Hard:
+        Q_EMIT clearDatabase();
+        break;
+    case CollectionScan::Soft:
+        Q_EMIT refreshDatabase();
+    }
 }
 
 void MusicListenersManager::configChanged()

@@ -7,6 +7,7 @@
 #include "databasetestdata.h"
 
 #include "file/localfilelisting.h"
+#include "elisa_settings.h"
 
 #include "config-upnp-qt.h"
 
@@ -46,6 +47,7 @@ private Q_SLOTS:
         qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
+        Elisa::ElisaConfiguration::instance(QStringLiteral("scanAtStartupFeature"));
     }
 
     void initialTestWithNoTrack()
@@ -74,6 +76,43 @@ private Q_SLOTS:
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
+    }
+
+    void initialTestWithEnabledScanOnStartupSetting()
+    {
+        LocalFileListing myListing;
+
+        Elisa::ElisaConfiguration::self()->setDefaults();
+
+        QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
+        QSignalSpy askRestoredTracksSpy(&myListing, &LocalFileListing::askRestoredTracks);
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(askRestoredTracksSpy.count(), 0);
+
+        myListing.init();
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(askRestoredTracksSpy.count(), 1);
+    }
+
+    void initialTestWithDisabledScanOnStartupSetting()
+    {
+        LocalFileListing myListing;
+
+        Elisa::ElisaConfiguration::self()->setDefaults();
+        Elisa::ElisaConfiguration::self()->setScanAtStartup(false);
+
+        QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
+        QSignalSpy askRestoredTracksSpy(&myListing, &LocalFileListing::askRestoredTracks);
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(askRestoredTracksSpy.count(), 0);
+
+        myListing.init();
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(askRestoredTracksSpy.count(), 0);
     }
 
     void initialTestWithTracks()
@@ -410,6 +449,8 @@ private Q_SLOTS:
     void restoreRemovedTracks()
     {
         LocalFileListing myListing;
+
+        Elisa::ElisaConfiguration::self()->setDefaults();
 
         QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
         QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);

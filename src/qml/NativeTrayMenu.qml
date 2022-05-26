@@ -21,10 +21,16 @@ Menu {
     property var configureAction: ElisaApplication.action("options_configure")
     property var togglePlaylistAction: ElisaApplication.action("toggle_playlist")
 
-    MenuItem {
-        text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
+    MenuItem  {
+        text: i18nc("Scan for New Music application menu entry", "Scan for New Music")
         iconName: "view-refresh"
-        onTriggered: ElisaApplication.musicManager.resetMusicData()
+        onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Soft)
+    }
+
+    MenuItem {
+        text: i18nc("Reset Database and Re-Scan Everything application menu entry", "Reset Database and Re-Scan Everything")
+        iconName: "edit-clear-all"
+        onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
     }
 
     MenuSeparator {

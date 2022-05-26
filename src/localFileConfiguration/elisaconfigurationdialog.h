@@ -63,6 +63,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setPlayAtStartup
                NOTIFY playAtStartupChanged)
 
+    Q_PROPERTY(bool scanAtStartup
+               READ scanAtStartup
+               WRITE setScanAtStartup
+               NOTIFY scanAtStartupChanged)
+
     Q_PROPERTY(QString colorScheme
                READ colorScheme
                WRITE setColorScheme
@@ -122,6 +127,11 @@ public:
         return mPlayAtStartup;
     }
 
+    [[nodiscard]] bool scanAtStartup() const
+    {
+        return mScanAtStartup;
+    }
+
     [[nodiscard]] QString colorScheme() const
     {
         return mColorScheme;
@@ -155,6 +165,8 @@ Q_SIGNALS:
 
     void playAtStartupChanged();
 
+    void scanAtStartupChanged();
+
     void colorSchemeChanged();
 
     void useFavoriteStyleRatingsChanged();
@@ -180,6 +192,8 @@ public Q_SLOTS:
     void setInitialViewIndex(int initialViewIndex);
 
     void setPlayAtStartup(bool playAtStartup);
+
+    void setScanAtStartup(bool scanAtStartup);
 
     void setColorScheme(const QString &scheme);
 
@@ -208,6 +222,8 @@ private:
     bool mForceUsageOfSlowFileSystemIndexing = true;
 
     bool mPlayAtStartup = false;
+
+    bool mScanAtStartup = true;
 
     bool mUseFavoriteStyleRatings = false;
 

@@ -22,12 +22,15 @@ Menu {
     property var configureAction: ElisaApplication.action("options_configure")
 
     Action {
-        text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
+        text: i18nc("Scan for New Music application menu entry", "Scan for New Music")
         icon.name: "view-refresh"
         onTriggered: {
             applicationMenu.close()
-            ElisaApplication.musicManager.resetMusicData()
+            ElisaApplication.musicManager.scanCollection(MusicListenersManager.Soft)
         }
+    }
+
+    MenuSeparator {
     }
 
     Menu {
@@ -48,9 +51,6 @@ Menu {
         }
     }
 
-    MenuSeparator {
-    }
-
     Action {
         text: configureAction.text
         shortcut: ElisaApplication.actionShortcut(configureAction)
@@ -68,6 +68,18 @@ Menu {
         onTriggered: {
             applicationMenu.close()
             configureShortcutsAction.trigger()
+        }
+    }
+
+    MenuSeparator {
+    }
+
+    Action {
+        text: i18nc("Reset Database and Re-Scan Everything application menu entry", "Reset Database and Re-Scan Everything")
+        icon.name: "edit-clear-all"
+        onTriggered: {
+            applicationMenu.close()
+            ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
         }
     }
 

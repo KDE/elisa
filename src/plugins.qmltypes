@@ -565,6 +565,7 @@ Module {
         Property { name: "initialViewIndex"; type: "int" }
         Property { name: "isDirty"; type: "bool"; isReadonly: true }
         Property { name: "playAtStartup"; type: "bool" }
+        Property { name: "scanAtStartup"; type: "bool" }
         Property { name: "colorScheme"; type: "string" }
         Property { name: "useFavoriteStyleRatings"; type: "bool" }
         Signal {
@@ -604,6 +605,10 @@ Module {
         Method {
             name: "setPlayAtStartup"
             Parameter { name: "playAtStartup"; type: "bool" }
+        }
+        Method {
+            name: "setScanAtStartup"
+            Parameter { name: "scanAtStartup"; type: "bool" }
         }
         Method {
             name: "setColorScheme"
@@ -1338,7 +1343,7 @@ Module {
             name: "connectModel"
             Parameter { name: "dataLoader"; type: "ModelDataLoader"; isPointer: true }
         }
-        Method { name: "resetMusicData" }
+        Method { name: "scanCollection" }
         Method {
             name: "updateSingleFileMetaData"
             Parameter { name: "url"; type: "QUrl" }

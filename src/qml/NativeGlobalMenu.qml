@@ -30,9 +30,9 @@ MenuBar {
         }
 
         MenuItem {
-            text: i18nc("Refresh Music Collection application menu entry", "Refresh Music Collection")
+            text: i18nc("Reset Database and Re-Scan Everything application menu entry", "Reset Database and Re-Scan Everything")
             iconName: "view-refresh"
-            onTriggered: ElisaApplication.musicManager.resetMusicData()
+            onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
         }
 
         MenuSeparator {

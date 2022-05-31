@@ -423,7 +423,11 @@ QStringList::iterator ViewManager::findViewPreference(QStringList &list, const Q
 {
     auto itViewPreference = list.end();
     for(itViewPreference = list.begin(); itViewPreference != list.end(); ++itViewPreference) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         auto parts = itViewPreference->splitRef(QStringLiteral("=="));
+#else
+        auto parts = QStringView(*itViewPreference).split(QStringLiteral("=="));
+#endif
         if (parts.size() != 2) {
             continue;
         }
@@ -442,7 +446,11 @@ Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue)
     auto itViewPreference = findViewPreference(currentSortOrderPreferences, viewId);
 
     if (itViewPreference != currentSortOrderPreferences.end()) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         auto result = itViewPreference->splitRef(QStringLiteral("=="));
+#else
+        auto result = QStringView(*itViewPreference).split(QStringLiteral("=="));
+#endif
         if (result.size() == 2) {
             const auto &sortOrderMetaEnum = QMetaEnum::fromType<Qt::SortOrder>();
             bool conversionOk;
@@ -463,7 +471,11 @@ int ViewManager::computePreferredSortRole(int initialValue) const
     auto itViewPreference = findViewPreference(currentSortRolePreferences, viewId);
 
     if (itViewPreference != currentSortRolePreferences.end()) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         auto result = itViewPreference->splitRef(QStringLiteral("=="));
+#else
+        auto result = QStringView(*itViewPreference).split(QStringLiteral("=="));
+#endif
         if (result.size() == 2) {
             const auto &sortRoleMetaEnum = QMetaEnum::fromType<DataTypes::ColumnsRoles>();
             bool conversionOk;

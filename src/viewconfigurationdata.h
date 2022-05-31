@@ -16,12 +16,12 @@
 #include <QObject>
 #include <QString>
 #include <QUrl>
+#include <QAbstractProxyModel>
 
 #include <memory>
 
 class ViewConfigurationDataPrivate;
 class QAbstractItemModel;
-class QAbstractProxyModel;
 
 class ELISALIB_EXPORT ViewConfigurationData : public QObject
 {

@@ -236,7 +236,7 @@ SPDX-License-Identifier: CC0-1.0
     <release version="22.04.0" date="2022-04-21"/>
     <release version="21.12.3" date="2022-03-03">
       <artifacts>
-        <artifact type="binary" platform="win64">
+        <artifact type="binary" platform="x86_64-windows-msvc">
           <location>https://download.kde.org/stable/release-service/21.12.3/windows/elisa-21.12.3-1065-windows-msvc2019_64-cl.exe</location>
           <checksum type="sha256">7362385eb522fb7015e5eebdfc13d4ae2636451200ad2e4b82b25d93227e6ce7</checksum>
           <size type="download">102788656</size>

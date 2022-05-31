@@ -72,10 +72,10 @@ int main(int argc, char *argv[])
 
     qputenv("QT_LOGGING_RULES", "org.kde.elisa*=true");
 #endif
-
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
+#endif
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 
     QApplication app(argc, argv);

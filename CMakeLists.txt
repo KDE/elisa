@@ -14,12 +14,7 @@ project(elisa
     VERSION ${RELEASE_SERVICE_VERSION}
     LANGUAGES CXX)
 
-set(REQUIRED_QT_VERSION "5.15.0")
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent QuickControls2)
-
-find_package(Qt5Core ${REQUIRED_QT_VERSION} CONFIG REQUIRED Private)
-
-set(REQUIRED_KF5_VERSION "5.89.0")
+set(REQUIRED_KF5_VERSION "5.90.0")
 find_package(ECM ${REQUIRED_KF5_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH})
 
@@ -33,25 +28,32 @@ include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
 include(ECMGenerateQmlTypes)
 
+set(REQUIRED_QT_VERSION "5.15.0")
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent QuickControls2)
+
+find_package(Qt${QT_MAJOR_VERSION}Core ${REQUIRED_QT_VERSION} CONFIG REQUIRED Private)
+
+
+
 if (NOT WIN32 AND NOT ANDROID)
-    find_package(Qt5DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)
-    set_package_properties(Qt5DBus PROPERTIES
-        DESCRIPTION "Qt5 DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace."
+    find_package(Qt${QT_MAJOR_VERSION}DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)
+    set_package_properties(Qt${QT_MAJOR_VERSION}DBus PROPERTIES
+        DESCRIPTION "Qt${QT_MAJOR_VERSION} DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace."
         TYPE OPTIONAL)
 endif()
 
-find_package(Qt5QuickWidgets ${REQUIRED_QT_VERSION} CONFIG QUIET)
-set_package_properties(Qt5QuickWidgets PROPERTIES
-    DESCRIPTION "Qt5 Quick Widgets is needed at runtime to provide the interface."
+find_package(Qt${QT_MAJOR_VERSION}QuickWidgets ${REQUIRED_QT_VERSION} CONFIG QUIET)
+set_package_properties(Qt${QT_MAJOR_VERSION}QuickWidgets PROPERTIES
+    DESCRIPTION "Qt${QT_MAJOR_VERSION} Quick Widgets is needed at runtime to provide the interface."
     TYPE RUNTIME)
 
-find_package(Qt5QuickControls2 ${REQUIRED_QT_VERSION} CONFIG QUIET)
-set_package_properties(Qt5QuickControls2 PROPERTIES
-    DESCRIPTION "Qt5 Quick Controls version 2 is needed at runtime to provide the interface."
+find_package(Qt${QT_MAJOR_VERSION}QuickControls2 ${REQUIRED_QT_VERSION} CONFIG QUIET)
+set_package_properties(Qt${QT_MAJOR_VERSION}QuickControls2 PROPERTIES
+    DESCRIPTION "Qt${QT_MAJOR_VERSION} Quick Controls version 2 is needed at runtime to provide the interface."
     TYPE RUNTIME)
 
 if (ANDROID)
-    find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)
+    find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)
     set_package_properties(Qt5AndroidExtras PROPERTIES
         DESCRIPTION "Qt5 AndroidExtras is needed to provide the Android integration."
         TYPE REQUIRED)
@@ -191,7 +193,7 @@ endif()
 configure_file(org.kde.elisa.desktop.cmake ${CMAKE_CURRENT_BINARY_DIR}/org.kde.elisa.desktop @ONLY)
 install(
     PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/org.kde.elisa.desktop
-    DESTINATION ${XDG_APPS_INSTALL_DIR}
+    DESTINATION ${KDE_INSTALL_APPDIR}
 )
 
 install(

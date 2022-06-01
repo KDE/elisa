@@ -5,8 +5,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="org.kde.elisa"
-          android:versionName="21.07.70"
-          android:versionCode="1615803371"
+          android:versionName="${versionName}"
+          android:versionCode="${versionCode}"
           android:installLocation="auto">
 <application android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="Elisa" android:icon="@drawable/splash_logo">
         <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation"

@@ -19,6 +19,8 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
+apply from: '../version.gradle'
+def timestamp = (int)(new Date().getTime()/1000)
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
@@ -68,5 +70,6 @@ android {
     defaultConfig {
         minSdkVersion qtMinSdkVersion
         targetSdkVersion qtTargetSdkVersion
+        manifestPlaceholders = [versionName: projectVersionFull, versionCode: timestamp]
     }
 }

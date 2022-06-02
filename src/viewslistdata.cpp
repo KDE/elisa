@@ -130,7 +130,7 @@ public:
                                                ViewManager::DelegateWithoutSecondaryText,
                                                ViewManager::ViewHideRating,
                                                ViewManager::IsFlatModel,
-                                               QUrl::fromLocalFile(QDir::homePath())
+                                               QUrl::fromLocalFile(QDir::rootPath())
                                               },
                                               {{i18nc("Title of the file radios browser view", "Radio Stations")},
                                                QUrl{QStringLiteral("image://icon/radio")},

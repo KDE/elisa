@@ -9,7 +9,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
 import QtGraphicalEffects 1.0
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.17 as Kirigami
 import org.kde.elisa 1.0
 
 import "shared"
@@ -368,7 +368,7 @@ BasePlayListDelegate {
 
             Loader {
                 id: menuButtonLoader
-                active: !playListEntry.wideMode
+                active: !playListEntry.wideMode || Kirigami.Settings.hasTransientTouchInput
                 visible: active
                 sourceComponent: FlatButtonWithToolTip {
                     icon.name: "overflow-menu"
@@ -382,7 +382,7 @@ BasePlayListDelegate {
             Loader {
                 id: menuLoader
                 property bool menuVisible: false
-                active: !playListEntry.wideMode
+                active: menuButtonLoader.active
                 onActiveChanged: {
                     if (!active) {
                         menuVisible = false

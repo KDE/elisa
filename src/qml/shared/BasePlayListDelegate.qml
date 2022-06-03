@@ -7,7 +7,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
 
-import org.kde.kirigami 2.2 as Kirigami
+import org.kde.kirigami 2.17 as Kirigami
 import org.kde.elisa 1.0
 
 Kirigami.AbstractListItem {
@@ -52,7 +52,7 @@ Kirigami.AbstractListItem {
         listView.currentIndex = index
         forceActiveFocus()
 
-        if (model.isValid && (simpleMode || Kirigami.Settings.isMobile)) {
+        if (model.isValid && (simpleMode || Kirigami.Settings.isMobile || Kirigami.Settings.hasTransientTouchInput)) {
             switchToTrack(index)
             startPlayback()
         }

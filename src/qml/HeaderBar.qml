@@ -151,7 +151,7 @@ FocusScope {
 
             columns: portrait? 1: 2
 
-            columnSpacing: Kirigami.Units.largeSpacing
+            columnSpacing: Kirigami.Units.largeSpacing * (isMaximized ? 4 : 1)
             rowSpacing: Kirigami.Units.largeSpacing
 
 

@@ -44,6 +44,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="sk">Elisa</name>
   <name xml:lang="sl">Elisa</name>
   <name xml:lang="sv">Elisa</name>
+  <name xml:lang="ta">எலைசா</name>
   <name xml:lang="tr">Elisa</name>
   <name xml:lang="uk">Elisa</name>
   <name xml:lang="x-test">xxElisaxx</name>
@@ -171,6 +172,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sk">Hudobný prehrávač Elisa</caption>
       <caption xml:lang="sl">Glasbeni predvajalnik Elisa</caption>
       <caption xml:lang="sv">Elisa musikspelare</caption>
+      <caption xml:lang="ta">எலைசா பாடல் இசைப்பி</caption>
       <caption xml:lang="tr">Elisa müzik çalar</caption>
       <caption xml:lang="uk">Музичний програвач Elisa</caption>
       <caption xml:lang="x-test">xxThe Elisa music playerxx</caption>
@@ -211,6 +213,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sk">Elisa na Plasma Mobile</caption>
       <caption xml:lang="sl">Elisa na Plasma Mobile</caption>
       <caption xml:lang="sv">Elisa på Plasma Mobil</caption>
+      <caption xml:lang="ta">பிளாஸ்மா மொபைலில் எலைசா</caption>
       <caption xml:lang="tr">Plasma Mobile'de Elisa</caption>
       <caption xml:lang="uk">Elisa на мобільній Плазмі</caption>
       <caption xml:lang="x-test">xxElisa on Plasma Mobilexx</caption>

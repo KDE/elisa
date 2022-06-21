@@ -6,7 +6,6 @@
 
 #include "elisaqmltestplugin.h"
 
-#include <QQmlExtensionPlugin>
 #include <QQmlEngine>
 
 #include "trackdatahelper.h"

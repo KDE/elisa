@@ -18,7 +18,6 @@
 #include <QSqlRecord>
 #include <QSqlError>
 
-#include <QDateTime>
 #include <QMutex>
 #include <QVariant>
 #include <QAtomicInt>

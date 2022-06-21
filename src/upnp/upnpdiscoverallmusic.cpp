@@ -25,7 +25,6 @@
 #include <QList>
 #include <QHash>
 #include <QString>
-#include <QSharedPointer>
 
 #include <QLoggingCategory>
 

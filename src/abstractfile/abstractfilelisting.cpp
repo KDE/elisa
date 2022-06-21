@@ -14,7 +14,6 @@
 #include "elisa_settings.h"
 
 #include <QThread>
-#include <QHash>
 #include <QFileInfo>
 #include <QFile>
 #include <QDir>

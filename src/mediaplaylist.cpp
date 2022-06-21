@@ -7,7 +7,6 @@
 #include "mediaplaylist.h"
 
 #include "playListLogging.h"
-#include "datatypes.h"
 
 #include <QUrl>
 #include <QPersistentModelIndex>

@@ -8,7 +8,6 @@
 
 #include "viewslistdata.h"
 #include "viewconfigurationdata.h"
-#include "datatypes.h"
 #include "viewsLogging.h"
 #include "models/datamodel.h"
 #include "models/gridviewproxymodel.h"

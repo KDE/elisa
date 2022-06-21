@@ -7,8 +7,6 @@
 #include "trackslistener.h"
 
 #include "playListLogging.h"
-#include "databaseinterface.h"
-#include "datatypes.h"
 #include "filescanner.h"
 #include "filewriter.h"
 

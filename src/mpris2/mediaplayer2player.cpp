@@ -23,7 +23,6 @@
 
 #include <QCryptographicHash>
 #include <QStringList>
-#include <QDBusMessage>
 #include <QDBusConnection>
 
 

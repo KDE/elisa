@@ -75,7 +75,6 @@
 #include <QAbstractProxyModel>
 #include <QAbstractItemModel>
 
-#include <QQmlExtensionPlugin>
 #include <QQmlEngine>
 
 ElisaQmlTestPlugin::ElisaQmlTestPlugin(QObject *aParent)

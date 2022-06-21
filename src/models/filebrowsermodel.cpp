@@ -5,7 +5,6 @@
  */
 
 #include "filebrowsermodel.h"
-#include "datatypes.h"
 
 #include <QUrl>
 #include <QString>

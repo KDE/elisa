@@ -32,13 +32,11 @@
 #include <QDBusServiceWatcher>
 
 #include <QThread>
-#include <QHash>
 #include <QFileInfo>
 #include <QAtomicInt>
 #include <QScopedPointer>
 
 #include <algorithm>
-#include <memory>
 
 class LocalBalooFileListingPrivate
 {

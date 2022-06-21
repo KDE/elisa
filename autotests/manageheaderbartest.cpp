@@ -11,7 +11,6 @@
 #include "databaseinterface.h"
 #include "trackslistener.h"
 
-#include <QHash>
 #include <QString>
 
 #include <QStringListModel>

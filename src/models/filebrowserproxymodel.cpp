@@ -7,7 +7,6 @@
 
 #include "filebrowserproxymodel.h"
 
-#include "elisautils.h"
 #include "filebrowsermodel.h"
 #include "mediaplaylistproxymodel.h"
 

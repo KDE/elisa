@@ -58,7 +58,6 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 
-#include <memory>
 
 class ElisaApplicationPrivate
 {

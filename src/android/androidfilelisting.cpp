@@ -16,7 +16,6 @@
 #include <KLocalizedString>
 
 #include <QThread>
-#include <QHash>
 #include <QFileInfo>
 #include <QDir>
 #include <QAtomicInt>
@@ -31,7 +30,6 @@
 #include <QtAndroid>
 
 #include <algorithm>
-#include <memory>
 
 class AndroidFileListingPrivate
 {

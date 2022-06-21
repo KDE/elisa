@@ -24,12 +24,12 @@ RowLayout {
 
     onPositionChanged: {
         if (!musicProgress.seekStarted) {
-            musicProgress.value = position
+            musicProgress.value = position / 1000
         }
     }
     onDurationChanged: {
-        musicProgress.to = durationSlider.duration
-        musicProgress.value = Qt.binding(function() { return durationSlider.position })
+        musicProgress.to = durationSlider.duration / 1000
+        musicProgress.value = Qt.binding(() => durationSlider.position / 1000)
     }
 
     spacing: 0
@@ -70,15 +70,15 @@ RowLayout {
         Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
         Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
 
-
+        // from, to and value of Slider are rescaled to seconds to avoid integer overflow issues
         from: 0
-        to: durationSlider.duration
+        to: durationSlider.duration / 1000
 
         enabled: durationSlider.seekable && durationSlider.playEnabled
         live: true
 
         onMoved: {
-            durationSlider.seek(value)
+            durationSlider.seek(value * 1000)
         }
 
         MouseArea {
@@ -86,9 +86,9 @@ RowLayout {
             acceptedButtons: Qt.NoButton
             onWheel: {
                 if (wheel.angleDelta.y > 0) {
-                    durationSlider.seek(musicProgress.value + 10000)
+                    durationSlider.seek((musicProgress.value + 10) * 1000)
                 } else {
-                    durationSlider.seek(musicProgress.value - 10000)
+                    durationSlider.seek((musicProgress.value - 10) * 1000)
                 }
             }
         }

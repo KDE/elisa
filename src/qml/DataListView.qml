@@ -23,7 +23,7 @@ AbstractDataView {
     signal showArtist(var name)
 
     onShowArtist: {
-        viewManager.openArtistView(secondaryTitle)
+        viewManager.openArtistView(name)
     }
 
     function openMetaDataView(databaseId, url, entryType) {

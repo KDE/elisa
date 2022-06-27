@@ -41,7 +41,6 @@ Item {
     signal replaceAndPlay();
     signal createRadio();
     signal goBack();
-    signal showArtist();
 
     property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
 
@@ -153,7 +152,7 @@ Item {
             text: i18nc("Button to navigate to the artist of the album", "Display Artist")
             icon.name: "view-media-artist"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: showArtist()
+            onClicked: showArtist(authorLabel.text)
         }
     }
     Component {

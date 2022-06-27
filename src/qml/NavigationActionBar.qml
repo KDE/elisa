@@ -152,7 +152,7 @@ Item {
             text: i18nc("Button to navigate to the artist of the album", "Display Artist")
             icon.name: "view-media-artist"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: showArtist(authorLabel.text)
+            onClicked: if (secondaryTitle) { showArtist(secondaryTitle) }
         }
     }
     Component {

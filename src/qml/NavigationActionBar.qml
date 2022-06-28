@@ -5,9 +5,9 @@
  */
 
 import QtQml 2.2
-import QtQuick 2.7
+import QtQuick 2.15
 import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.0
 import org.kde.kirigami 2.8 as Kirigami
 import org.kde.elisa 1.0
@@ -248,6 +248,15 @@ Item {
                         text: secondaryTitle
                         elide: Text.ElideRight
 
+                        TapHandler {
+                            id: showArtistTaphandler
+                            enabled: navigationBar.allowArtistNavigation && !navigationBar.showCreateRadioButton
+                            onTapped: showArtist(secondaryTitle)
+                        }
+                        HoverHandler {
+                            enabled: showArtistTaphandler.enabled
+                            cursorShape: Qt.PointingHandCursor
+                        }
                     }
                 },
                 Loader {
@@ -269,11 +278,6 @@ Item {
                 Loader {
                     sourceComponent: replaceAndPlayButton
                     active: !Kirigami.Settings.isMobile && !showCreateRadioButton
-                    Layout.maximumHeight: parent.height
-                },
-                Loader {
-                    sourceComponent: showArtistButton
-                    active: !Kirigami.Settings.isMobile && allowArtistNavigation && !showCreateRadioButton
                     Layout.maximumHeight: parent.height
                 },
                 FlatButtonWithToolTip {

@@ -10,6 +10,7 @@
 ViewsProxyModel::ViewsProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
 {
+    setSortCaseSensitivity(Qt::CaseInsensitive);
     sort(0, Qt::AscendingOrder);
 }
 

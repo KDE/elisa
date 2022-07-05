@@ -66,7 +66,7 @@ public:
     explicit ElisaApplicationPrivate(QObject *parent)
 #if KF5XmlGui_FOUND
         : mCollection(parent)
-    #endif
+#endif
     {
         Q_UNUSED(parent)
     }
@@ -93,7 +93,7 @@ public:
 
     QFileSystemWatcher mConfigFileWatcher;
 
-    KColorSchemeManager *mSchemes;
+    KColorSchemeManager *mSchemes = nullptr;
 };
 
 ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::make_unique<ElisaApplicationPrivate>(this))

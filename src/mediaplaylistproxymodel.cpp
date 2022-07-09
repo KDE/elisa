@@ -156,7 +156,7 @@ QModelIndex MediaPlayListProxyModel::parent(const QModelIndex &child) const
 
 bool MediaPlayListProxyModel::hasChildren(const QModelIndex &parent) const
 {
-    return (!parent.isValid()) ? false : (rowCount() > 0);
+    return (parent.isValid()) ? false : (rowCount() > 0);
 }
 
 void MediaPlayListProxyModel::setPlayListModel(MediaPlayList *playListModel)

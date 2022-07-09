@@ -3169,7 +3169,268 @@ void DatabaseInterface::upgradeDatabaseV15()
 
 void DatabaseInterface::upgradeDatabaseV16()
 {
+    qCInfo(orgKdeElisaDatabase) << "begin update to v13 of database schema";
 
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV16` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery disableForeignKeys(d->mTracksDatabase);
+
+        auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << disableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << disableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.transaction();
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `NewTracks` ("
+                                                                   "`ID` INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                                                   "`FileName` VARCHAR(255) NOT NULL, "
+                                                                   "`Priority` INTEGER NOT NULL, "
+                                                                   "`Title` VARCHAR(85), "
+                                                                   "`ArtistName` VARCHAR(55), "
+                                                                   "`AlbumTitle` VARCHAR(55), "
+                                                                   "`AlbumArtistName` VARCHAR(55), "
+                                                                   "`AlbumPath` VARCHAR(255), "
+                                                                   "`TrackNumber` INTEGER, "
+                                                                   "`DiscNumber` INTEGER, "
+                                                                   "`Duration` INTEGER NOT NULL, "
+                                                                   "`Rating` INTEGER NOT NULL DEFAULT 0, "
+                                                                   "`Genre` VARCHAR(55), "
+                                                                   "`Composer` VARCHAR(55), "
+                                                                   "`Lyricist` VARCHAR(55), "
+                                                                   "`Comment` VARCHAR(255), "
+                                                                   "`Year` INTEGER, "
+                                                                   "`Channels` INTEGER, "
+                                                                   "`BitRate` INTEGER, "
+                                                                   "`SampleRate` INTEGER, "
+                                                                   "`HasEmbeddedCover` BOOLEAN NOT NULL, "
+                                                                   "UNIQUE ("
+                                                                   "`FileName`"
+                                                                   "), "
+                                                                   "UNIQUE ("
+                                                                   "`Priority`, `Title`, `ArtistName`, "
+                                                                   "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`, "
+                                                                   "`TrackNumber`, `DiscNumber`"
+                                                                   "), "
+                                                                   "CONSTRAINT fk_fileName FOREIGN KEY (`FileName`) "
+                                                                   "REFERENCES `TracksData`(`FileName`) ON DELETE CASCADE, "
+                                                                   "CONSTRAINT fk_artist FOREIGN KEY (`ArtistName`) REFERENCES `Artists`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_composer FOREIGN KEY (`Composer`) REFERENCES `Composer`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_lyricist FOREIGN KEY (`Lyricist`) REFERENCES `Lyricist`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_genre FOREIGN KEY (`Genre`) REFERENCES `Genre`(`Name`), "
+                                                                   "CONSTRAINT fk_tracks_album FOREIGN KEY ("
+                                                                   "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"
+                                                                   "REFERENCES `Albums`(`Title`, `ArtistName`, `AlbumPath`))"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
+        }
+    }
+
+    {
+        QSqlQuery copyDataQuery(d->mTracksDatabase);
+
+        auto result = copyDataQuery.exec(QStringLiteral("INSERT INTO `NewTracks` "
+                                                        "SELECT "
+                                                        "t.`ID`, "
+                                                        "t.`FileName`, "
+                                                        "t.`Priority`, "
+                                                        "t.`Title`, "
+                                                        "t.`ArtistName`, "
+                                                        "t.`AlbumTitle`, "
+                                                        "t.`AlbumArtistName`, "
+                                                        "t.`AlbumPath`, "
+                                                        "t.`TrackNumber`, "
+                                                        "t.`DiscNumber`, "
+                                                        "t.`Duration`, "
+                                                        "t.`Rating`, "
+                                                        "t.`Genre`, "
+                                                        "t.`Composer`, "
+                                                        "t.`Lyricist`, "
+                                                        "t.`Comment`, "
+                                                        "t.`Year`, "
+                                                        "t.`Channels`, "
+                                                        "t.`BitRate`, "
+                                                        "t.`SampleRate`, "
+                                                        "t.`HasEmbeddedCover` "
+                                                        "FROM "
+                                                        "`Tracks` t"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << copyDataQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << copyDataQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Tracks`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createSchemaQuery(d->mTracksDatabase);
+
+        auto result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `NewTracks` RENAME TO `Tracks`"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    d->mTracksDatabase.commit();
+
+    {
+        QSqlQuery enableForeignKeys(d->mTracksDatabase);
+
+        auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << enableForeignKeys.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << enableForeignKeys.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`TracksAlbumIndex` ON `Tracks` "
+                                                                  "(`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`ArtistNameIndex` ON `Tracks` "
+                                                                  "(`ArtistName`)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`AlbumArtistNameIndex` ON `Tracks` "
+                                                                  "(`AlbumArtistName`)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`TracksUniqueData` ON `Tracks` "
+                                                                  "(`Title`, `ArtistName`, "
+                                                                  "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`, "
+                                                                  "`TrackNumber`, `DiscNumber`)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`TracksUniqueDataPriority` ON `Tracks` "
+                                                                  "(`Priority`, `Title`, `ArtistName`, "
+                                                                  "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`, "
+                                                                  "`TrackNumber`, `DiscNumber`)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery createTrackIndex(d->mTracksDatabase);
+
+        const auto &result = createTrackIndex.exec(QStringLiteral("CREATE INDEX "
+                                                                  "IF NOT EXISTS "
+                                                                  "`TracksFileNameIndex` ON `Tracks` "
+                                                                  "(`FileName`)"));
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    qCInfo(orgKdeElisaDatabase) << "finished update to v13 of database schema";
+}
+
+void DatabaseInterface::upgradeDatabaseV17()
+{
 }
 
 void DatabaseInterface::checkDatabaseSchema()
@@ -3378,7 +3639,7 @@ void DatabaseInterface::manageNewDatabaseVersion()
     }
 
     int version = versionBegin;
-    for (; version-1 != DatabaseInterface::V16; version++) {
+    for (; version-1 != DatabaseInterface::V17; version++) {
         callUpgradeFunctionForVersion(static_cast<DatabaseVersion>(version));
     }
 
@@ -3388,9 +3649,10 @@ void DatabaseInterface::manageNewDatabaseVersion()
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV12"));
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV13"));
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV14"));
+        dropTable(QStringLiteral("DROP TABLE DatabaseVersionV15"));
     }
 
-    setDatabaseVersionInTable(DatabaseInterface::V16);
+    setDatabaseVersionInTable(DatabaseInterface::V17);
 
     checkDatabaseSchema();
 }
@@ -3499,6 +3761,9 @@ void DatabaseInterface::callUpgradeFunctionForVersion(DatabaseVersion databaseVe
         break;
     case DatabaseInterface::V16:
         upgradeDatabaseV16();
+        break;
+    case DatabaseInterface::V17:
+        upgradeDatabaseV17();
         break;
     }
 }
@@ -5983,7 +6248,7 @@ void DatabaseInterface::initRequest()
                                                    "FROM "
                                                    "`Tracks` tracks "
                                                    "WHERE "
-                                                   "tracks.`Title` = :title AND "
+                                                   "(tracks.`Title` = :title OR (:title IS NULL AND tracks.`Title` IS NULL)) AND "
                                                    "(tracks.`AlbumTitle` = :album OR (:album IS NULL AND tracks.`AlbumTitle` IS NULL)) AND "
                                                    "(tracks.`TrackNumber` = :trackNumber OR (:trackNumber IS NULL AND tracks.`TrackNumber` IS NULL)) AND "
                                                    "(tracks.`DiscNumber` = :discNumber OR (:discNumber IS NULL AND tracks.`DiscNumber` IS NULL)) AND "
@@ -6838,10 +7103,6 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
     qulonglong resultId = 0;
 
-    if (oneTrack.title().isEmpty()) {
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << "is not inserted";
-    }
-
     QUrl::FormattingOptions currentOptions = QUrl::PreferLocalFile |
             QUrl::RemoveAuthority | QUrl::RemoveFilename | QUrl::RemoveFragment |
             QUrl::RemovePassword | QUrl::RemovePort | QUrl::RemoveQuery |
@@ -6985,131 +7246,127 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
     resultId = existingTrackId;
 
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), existingTrackId);
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":priority"), priority);
     if (!oneTrack.title().isEmpty()) {
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), existingTrackId);
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":priority"), priority);
         d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
-        if (oneTrack.hasArtist()) {
-            insertArtist(oneTrack.artist());
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), {});
-        }
-        if (oneTrack.hasAlbum()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.album());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), {});
-        }
-        if (oneTrack.hasAlbumArtist()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), oneTrack.albumArtist());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), {});
-        }
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
-        if (oneTrack.hasTrackNumber()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), {});
-        }
-        if (oneTrack.hasDiscNumber()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), {});
-        }
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
-        if (insertGenre(oneTrack.genre()) != 0) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), {});
-        }
-        if (insertComposer(oneTrack.composer()) != 0) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), oneTrack.composer());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), {});
-        }
-        if (insertLyricist(oneTrack.lyricist()) != 0) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), oneTrack.lyricist());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), {});
-        }
-        if (oneTrack.hasComment()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), {});
-        }
-        if (oneTrack.hasYear()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), {});
-        }
-        if (oneTrack.hasChannels()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), {});
-        }
-        if (oneTrack.hasBitRate()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), oneTrack.bitRate());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), {});
-        }
-        if (oneTrack.hasSampleRate()) {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), oneTrack.sampleRate());
-        } else {
-            d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), {});
-        }
-        d->mInsertTrackQuery.bindValue(QStringLiteral(":hasEmbeddedCover"), oneTrack.hasEmbeddedCover());
-
-        auto result = execQuery(d->mInsertTrackQuery);
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << "is inserted";
-
-        if (result && d->mInsertTrackQuery.isActive()) {
-            d->mInsertTrackQuery.finish();
-
-            if (!isModifiedTrack) {
-                ++d->mTrackId;
-            }
-
-            updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
-
-            if (isModifiedTrack) {
-                recordModifiedTrack(existingTrackId);
-                if (albumId != 0) {
-                    recordModifiedAlbum(albumId);
-                }
-                if (oldAlbumId != 0) {
-                    recordModifiedAlbum(oldAlbumId);
-                }
-            }
-
-            if (albumId != 0) {
-                if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, trackPath)) {
-                    auto modifiedTracks = fetchTrackIds(albumId);
-                    for (auto oneModifiedTrack : modifiedTracks) {
-                        if (oneModifiedTrack != resultId) {
-                            recordModifiedTrack(oneModifiedTrack);
-                        }
-                    }
-                }
-                recordModifiedAlbum(albumId);
-            }
-        } else {
-            d->mInsertTrackQuery.finish();
-
-            Q_EMIT databaseError();
-
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << oneTrack.resourceURI();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.boundValues();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastError();
-        }
     } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), {});
+    }
+    if (oneTrack.hasArtist()) {
+        insertArtist(oneTrack.artist());
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), oneTrack.artist());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":artistName"), {});
+    }
+    if (oneTrack.hasAlbum()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.album());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), {});
+    }
+    if (oneTrack.hasAlbumArtist()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), oneTrack.albumArtist());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":albumArtistName"), {});
+    }
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":albumPath"), trackPath);
+    if (oneTrack.hasTrackNumber()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), oneTrack.trackNumber());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":trackNumber"), {});
+    }
+    if (oneTrack.hasDiscNumber()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), oneTrack.discNumber());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":discNumber"), {});
+    }
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackDuration"), QVariant::fromValue<qlonglong>(oneTrack.duration().msecsSinceStartOfDay()));
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
+    if (insertGenre(oneTrack.genre()) != 0) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), oneTrack.genre());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":genre"), {});
+    }
+    if (insertComposer(oneTrack.composer()) != 0) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), oneTrack.composer());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":composer"), {});
+    }
+    if (insertLyricist(oneTrack.lyricist()) != 0) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), oneTrack.lyricist());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":lyricist"), {});
+    }
+    if (oneTrack.hasComment()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), oneTrack.comment());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":comment"), {});
+    }
+    if (oneTrack.hasYear()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), oneTrack.year());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":year"), {});
+    }
+    if (oneTrack.hasChannels()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), oneTrack.channels());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":channels"), {});
+    }
+    if (oneTrack.hasBitRate()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), oneTrack.bitRate());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":bitRate"), {});
+    }
+    if (oneTrack.hasSampleRate()) {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), oneTrack.sampleRate());
+    } else {
+        d->mInsertTrackQuery.bindValue(QStringLiteral(":sampleRate"), {});
+    }
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":hasEmbeddedCover"), oneTrack.hasEmbeddedCover());
+
+    auto result = execQuery(d->mInsertTrackQuery);
+    qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << "is inserted";
+
+    if (result && d->mInsertTrackQuery.isActive()) {
+        d->mInsertTrackQuery.finish();
+
         if (!isModifiedTrack) {
             ++d->mTrackId;
         }
 
         updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
+
+        if (isModifiedTrack) {
+            recordModifiedTrack(existingTrackId);
+            if (albumId != 0) {
+                recordModifiedAlbum(albumId);
+            }
+            if (oldAlbumId != 0) {
+                recordModifiedAlbum(oldAlbumId);
+            }
+        }
+
+        if (albumId != 0) {
+            if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, trackPath)) {
+                auto modifiedTracks = fetchTrackIds(albumId);
+                for (auto oneModifiedTrack : modifiedTracks) {
+                    if (oneModifiedTrack != resultId) {
+                        recordModifiedTrack(oneModifiedTrack);
+                    }
+                }
+            }
+            recordModifiedAlbum(albumId);
+        }
+    } else {
+        d->mInsertTrackQuery.finish();
+
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << oneTrack.resourceURI();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastError();
     }
 
     return resultId;
@@ -7878,7 +8135,11 @@ qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const 
         return result;
     }
 
-    d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":title"), title);
+    if (!title.isEmpty()) {
+        d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":title"), title);
+    } else {
+        d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":title"), {});
+    }
     d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":artist"), artist);
     if (album.has_value()) {
         d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.bindValue(QStringLiteral(":album"), album.value());

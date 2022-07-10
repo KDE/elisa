@@ -1930,42 +1930,39 @@ void MediaPlayListProxyModelTest::testShuffleMode()
                                     {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
                                    QStringLiteral("track1"), {}}}, {}, {});
 
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QVERIFY(currentTrackChangedSpy.count() >= 1);
     QCOMPARE(shufflePlayListChangedSpy.count(), 1);
     QCOMPARE(repeatModeChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(0, 0)));
 
-    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    const auto oldCurrentTrackChangedCount = currentTrackChangedSpy.count();
+
+    myPlayListProxyModel.skipNextTrack();
+
+    QCOMPARE(currentTrackChangedSpy.count(), oldCurrentTrackChangedCount + 1);
     QCOMPARE(shufflePlayListChangedSpy.count(), 1);
     QCOMPARE(repeatModeChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayListProxyModel.skipNextTrack();
 
-    QCOMPARE(currentTrackChangedSpy.count(), 2);
+    QCOMPARE(currentTrackChangedSpy.count(), oldCurrentTrackChangedCount + 2);
     QCOMPARE(shufflePlayListChangedSpy.count(), 1);
     QCOMPARE(repeatModeChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayListProxyModel.skipNextTrack();
 
-    QCOMPARE(currentTrackChangedSpy.count(), 3);
-    QCOMPARE(shufflePlayListChangedSpy.count(), 1);
-    QCOMPARE(repeatModeChangedSpy.count(), 1);
-    QCOMPARE(playListFinishedSpy.count(), 0);
-
-    myPlayListProxyModel.skipNextTrack();
-
-    QCOMPARE(currentTrackChangedSpy.count(), 4);
+    QCOMPARE(currentTrackChangedSpy.count(), oldCurrentTrackChangedCount + 3);
     QCOMPARE(shufflePlayListChangedSpy.count(), 1);
     QCOMPARE(repeatModeChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);
 
     myPlayListProxyModel.skipPreviousTrack(0);
 
-    QCOMPARE(currentTrackChangedSpy.count(), 5);
+    QCOMPARE(currentTrackChangedSpy.count(), oldCurrentTrackChangedCount + 4);
     QCOMPARE(shufflePlayListChangedSpy.count(), 1);
     QCOMPARE(repeatModeChangedSpy.count(), 1);
     QCOMPARE(playListFinishedSpy.count(), 0);

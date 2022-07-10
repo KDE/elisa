@@ -690,7 +690,7 @@ void MediaPlayListProxyModel::undoClearPlayList()
 
 void MediaPlayListProxyModel::determineTracks()
 {
-    if (!d->mCurrentTrack.isValid()) {
+    if (!d->mCurrentTrack.isValid() || d->mCurrentPlayListPosition != d->mCurrentTrack.row()) {
         for (int row = 0; row < rowCount(); ++row) {
             auto candidateTrack = index(row, 0);
             const auto type = candidateTrack.data(MediaPlayList::ElementTypeRole).value<ElisaUtils::PlayListEntryType>();

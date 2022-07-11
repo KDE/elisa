@@ -3613,6 +3613,7 @@ void DatabaseInterface::manageNewDatabaseVersion()
 
             versionBegin = currentRecord.value(0).toInt();
         }
+        d->mSelectDatabaseVersionQuery.finish();
     } else if (listTables.contains(QLatin1String("DatabaseVersionV5")) &&
                !listTables.contains(QLatin1String("DatabaseVersionV9"))) {
         versionBegin = DatabaseInterface::V9;

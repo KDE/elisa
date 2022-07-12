@@ -69,6 +69,7 @@ ScrollView {
         section.property: 'entryCategory'
         section.delegate: Loader {
             active: section !== "default" && opacity > 0
+            height: item ? item.implicitHeight : 0
             sourceComponent: Kirigami.ListSectionHeader {
                 label: section
                 width: viewModeView.width

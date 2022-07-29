@@ -12,6 +12,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="ar">إليسّا</name>
   <name xml:lang="ast">Elisa</name>
   <name xml:lang="az">Elisa</name>
+  <name xml:lang="bg">Elisa</name>
   <name xml:lang="ca">Elisa</name>
   <name xml:lang="ca-valencia">Elisa</name>
   <name xml:lang="cs">Elisa</name>
@@ -53,6 +54,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary>Beautiful no-nonsense music player with online radio support</summary>
   <summary xml:lang="ar">مشغل موسيقى جميل مع دعم راديو عبر الإنترنت</summary>
   <summary xml:lang="az">Onlayn Radio dəstəyi ilə ciddi, gözəl musiqi pleyeri</summary>
+  <summary xml:lang="bg">Красив музикален плеър с поддръжка на онлайн радио</summary>
   <summary xml:lang="ca">Reproductor musical espectacular i pràctic que accepta ràdios en línia</summary>
   <summary xml:lang="ca-valencia">Reproductor musical espectacular i pràctic que accepta ràdios en línia</summary>
   <summary xml:lang="cs">Hezký jednoduchý přehrávač hudby s podporou online rádií</summary>
@@ -93,6 +95,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>
     <p xml:lang="ast">Elisa ye un reproductor de música que debería ser fácil d'usar. Nun rique nenguna configuración enantes de poder usalu.</p>
     <p xml:lang="az">Rahat istifadə oluna biləcək sadə musiqi pleyeri. İstifadə etmək üçün hansısa ayarlama tələb etmir.</p>
+    <p xml:lang="bg">Прост музикален плеър, който трябва да е лесен за използване. Той не изисква никаква конфигурация, преди да може да се използва.</p>
     <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requerix cap configuració abans de poder utilitzar-lo.</p>
     <p xml:lang="cs">Jednoduchý snadno použitelný přehrávač hudby, Před použitím nevyžaduje jakékoliv nastavovaní.</p>
@@ -140,6 +143,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="ar">مشغّل الموسيقى إليسّا</caption>
       <caption xml:lang="ast">El reproductor de música Elisa</caption>
       <caption xml:lang="az">Elisa musiqi pleyeri</caption>
+      <caption xml:lang="bg">Слушане на музика с Elisa</caption>
       <caption xml:lang="ca">El reproductor de música Elisa</caption>
       <caption xml:lang="ca-valencia">El reproductor de música Elisa</caption>
       <caption xml:lang="cs">Přehrávač hudby Elisa</caption>
@@ -184,6 +188,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption>Elisa on Plasma Mobile</caption>
       <caption xml:lang="ar">إليسا على بلازما موبايل</caption>
       <caption xml:lang="az">Elisa Plasma Mobile-da</caption>
+      <caption xml:lang="bg">Elisa на Plasma Mobile</caption>
       <caption xml:lang="ca">Elisa al Plasma Mobile</caption>
       <caption xml:lang="ca-valencia">Elisa a Plasma Mobile</caption>
       <caption xml:lang="cs">Elisa v Plasma Mobile</caption>

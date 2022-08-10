@@ -34,6 +34,7 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QStandardPaths>
+#include <QDir>
 
 #include <QQmlApplicationEngine>
 #include <QJSEngine>
@@ -150,7 +151,7 @@ int main(int argc, char *argv[])
 
     QList<QUrl> urls;
     for (const auto &oneArgument : parser.positionalArguments()) {
-        urls.push_back(QUrl::fromUserInput(oneArgument));
+        urls.push_back(QUrl::fromUserInput(oneArgument, QDir::currentPath()));
     }
 
     engine.rootContext()->setContextProperty(QStringLiteral("elisaStartupArguments"), QVariant::fromValue(urls));

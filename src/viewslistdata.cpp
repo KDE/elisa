@@ -322,7 +322,7 @@ void ViewsListData::artistsAdded(const DataTypes::ListArtistDataType &newData)
     Q_EMIT dataAboutToBeAdded(d->mViewsParameters.size(), d->mViewsParameters.size() + newData.size() - 1);
     for (const auto &oneArtist : newData) {
         d->mViewsParameters.push_back({oneArtist.name(),
-                                       QUrl{QStringLiteral("image://icon/view-media-artist")},
+                                       oneArtist.artistArtURI(),
                                        ViewManager::GridView,
                                        ViewManager::GenericDataModel,
                                        ElisaUtils::FilterByArtist,

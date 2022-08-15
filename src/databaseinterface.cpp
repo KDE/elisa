@@ -128,7 +128,9 @@ public:
           mUpdateTrackPriority(mTracksDatabase), mUpdateTrackFileModifiedTime(mTracksDatabase),
           mSelectTracksMapping(mTracksDatabase), mSelectTracksMappingPriority(mTracksDatabase),
           mSelectRadioIdFromHttpAddress(mTracksDatabase),
-          mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase), mSelectTracksMappingPriorityByTrackId(mTracksDatabase),
+          mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase),
+          mSelectUpToFourLatestCoversFromArtistNameQuery(mTracksDatabase),
+          mSelectTracksMappingPriorityByTrackId(mTracksDatabase),
           mSelectAlbumIdsFromArtist(mTracksDatabase), mSelectAllTrackFilesQuery(mTracksDatabase),
           mRemoveTracksMappingFromSource(mTracksDatabase), mRemoveTracksMapping(mTracksDatabase),
           mSelectTracksWithoutMappingQuery(mTracksDatabase), mSelectAlbumIdFromTitleAndArtistQuery(mTracksDatabase),
@@ -228,6 +230,8 @@ public:
     QSqlQuery mSelectRadioIdFromHttpAddress;
 
     QSqlQuery mUpdateAlbumArtUriFromAlbumIdQuery;
+
+    QSqlQuery mSelectUpToFourLatestCoversFromArtistNameQuery;
 
     QSqlQuery mSelectTracksMappingPriorityByTrackId;
 
@@ -353,7 +357,7 @@ public:
 
     QSet<qulonglong> mInsertedAlbums;
 
-    QSet<QPair<qulonglong, QString>> mInsertedArtists;
+    QSet<qulonglong> mInsertedArtists;
 
     qulonglong mAlbumId = 1;
 
@@ -1191,11 +1195,10 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
     if (!d->mInsertedArtists.isEmpty()) {
         DataTypes::ListArtistDataType newArtists;
 
-        for (auto newArtistData : std::as_const(d->mInsertedArtists)) {
-            newArtists.push_back({{DataTypes::DatabaseIdRole, newArtistData.first},
-                                  {DataTypes::TitleRole, newArtistData.second},
-                                  {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
+        for (auto newArtistId : std::as_const(d->mInsertedArtists)) {
+            newArtists.push_back(internalOneArtistPartialData(newArtistId));
         }
+
         qCInfo(orgKdeElisaDatabase) << "artistsAdded" << newArtists.size();
         Q_EMIT artistsAdded(newArtists);
     }
@@ -1252,20 +1255,18 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
 
     internalRemoveTracksList(removedTracks);
 
-    if (!d->mInsertedArtists.isEmpty()) {
-        DataTypes::ListArtistDataType newArtists;
-        for (auto newArtistData : std::as_const(d->mInsertedArtists)) {
-            newArtists.push_back({{DataTypes::DatabaseIdRole, newArtistData.first},
-                                  {DataTypes::TitleRole, newArtistData.second},
-                                  {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
-        }
-        Q_EMIT artistsAdded(newArtists);
-    }
-
     transactionResult = finishTransaction();
     if (!transactionResult) {
         Q_EMIT finishRemovingTracksList();
         return;
+    }
+
+    if (!d->mInsertedArtists.isEmpty()) {
+        DataTypes::ListArtistDataType newArtists;
+        for (auto newArtistId : std::as_const(d->mInsertedArtists)) {
+            newArtists.push_back(internalOneArtistPartialData(newArtistId));
+        }
+        Q_EMIT artistsAdded(newArtists);
     }
 
     Q_EMIT finishRemovingTracksList();
@@ -6060,6 +6061,38 @@ void DatabaseInterface::initRequest()
     }
 
     {
+      auto selectUpToFourLatestCoversFromArtistNameQueryText = QStringLiteral("SELECT "
+                                                                              "(CASE WHEN (album.`CoverFileName` IS NOT NULL AND "
+                                                                              "album.`CoverFileName` IS NOT '') THEN album.`CoverFileName` "
+                                                                              "ELSE track.`FileName` END) AS CoverFileName, "
+                                                                              "(album.`CoverFileName` IS NULL OR "
+                                                                              "album.`CoverFileName` IS '') AS IsTrackCover "
+                                                                              "FROM "
+                                                                              "`Tracks` track LEFT OUTER JOIN `Albums` album ON "
+                                                                              "album.`Title` = track.`AlbumTitle` AND "
+                                                                              "album.`ArtistName` = track.`AlbumArtistName` AND "
+                                                                              "album.`AlbumPath` = track.`AlbumPath` "
+                                                                              "WHERE "
+                                                                              "(track.`HasEmbeddedCover` = 1 OR "
+                                                                              "(album.`CoverFileName` IS NOT NULL AND "
+                                                                              "album.`CoverFileName` IS NOT '')) AND "
+                                                                              "(track.`ArtistName` = :artistName OR "
+                                                                              "track.`AlbumArtistName` = :artistName) "
+                                                                              "GROUP BY track.`AlbumTitle` "
+                                                                              "ORDER BY track.`Year` DESC "
+                                                                              "LIMIT 4 ");
+
+      auto result = prepareQuery(d->mSelectUpToFourLatestCoversFromArtistNameQuery, selectUpToFourLatestCoversFromArtistNameQueryText);
+
+      if (!result) {
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastError();
+
+        Q_EMIT databaseError();
+        }
+    }
+
+    {
         auto selectTracksFromArtistQueryText = QStringLiteral("SELECT "
                                                               "tracks.`ID`, "
                                                               "tracks.`Title`, "
@@ -6650,7 +6683,7 @@ qulonglong DatabaseInterface::insertArtist(const QString &name)
 
     ++d->mArtistId;
 
-    d->mInsertedArtists.insert({result, name});
+    d->mInsertedArtists.insert(result);
 
     d->mInsertArtistsQuery.finish();
 
@@ -8138,6 +8171,11 @@ DataTypes::ListArtistDataType DatabaseInterface::internalAllArtistsPartialData(Q
         newData[DataTypes::DatabaseIdRole] = currentRecord.value(0);
         newData[DataTypes::TitleRole] = currentRecord.value(1);
         newData[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(2).toString().split(QStringLiteral(", ")));
+
+        const auto covers = internalGetLatestFourCoversForArtist(currentRecord.value(1).toString());
+        newData[DataTypes::MultipleImageUrlsRole] = covers;
+        newData[DataTypes::ImageUrlRole] = covers.value(0).toUrl();
+
         newData[DataTypes::ElementTypeRole] = ElisaUtils::Artist;
 
         result.push_back(newData);
@@ -8295,6 +8333,11 @@ DataTypes::ArtistDataType DatabaseInterface::internalOneArtistPartialData(qulong
         result[DataTypes::DatabaseIdRole] = currentRecord.value(0);
         result[DataTypes::TitleRole] = currentRecord.value(1);
         result[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(2).toString().split(QStringLiteral(", ")));
+
+        const auto covers = internalGetLatestFourCoversForArtist(currentRecord.value(1).toString());
+        result[DataTypes::MultipleImageUrlsRole] = covers;
+        result[DataTypes::ImageUrlRole] = covers.value(0).toUrl();
+
         result[DataTypes::ElementTypeRole] = ElisaUtils::Artist;
     }
 
@@ -8629,6 +8672,40 @@ bool DatabaseInterface::updateAlbumCover(qulonglong albumId, const QUrl &albumAr
     }
 
     return modifiedAlbum;
+}
+
+QVariantList DatabaseInterface::internalGetLatestFourCoversForArtist(const QString& artistName) {
+    auto covers = QList<QVariant>{};
+
+    d->mSelectUpToFourLatestCoversFromArtistNameQuery.bindValue(QStringLiteral(":artistName"), artistName);
+
+    auto queryResult = execQuery(d->mSelectUpToFourLatestCoversFromArtistNameQuery);
+
+    if (!queryResult || !d->mSelectUpToFourLatestCoversFromArtistNameQuery.isSelect() || !d->mSelectUpToFourLatestCoversFromArtistNameQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGetLatestFourCoversForArtist" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGetLatestFourCoversForArtist" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGetLatestFourCoversForArtist" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastError();
+
+        d->mSelectUpToFourLatestCoversFromArtistNameQuery.finish();
+
+        return covers;
+    }
+
+    while (d->mSelectUpToFourLatestCoversFromArtistNameQuery.next()) {
+        const auto& cover = d->mSelectUpToFourLatestCoversFromArtistNameQuery.record().value(0).toUrl();
+        const auto& isTrackCover = d->mSelectUpToFourLatestCoversFromArtistNameQuery.record().value(1).toBool();
+        if (isTrackCover) {
+            covers.push_back(QVariant {QLatin1String {"image://cover/"} + cover.toLocalFile()}.toUrl());
+        } else {
+            covers.push_back(cover);
+        }
+    }
+
+    d->mSelectUpToFourLatestCoversFromArtistNameQuery.finish();
+
+    return covers;
 }
 
 void DatabaseInterface::updateTrackStatistics(const QUrl &fileName, const QDateTime &time)

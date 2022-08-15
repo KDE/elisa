@@ -44,6 +44,8 @@ public:
         KFileMetaData::ExtractorCollection ec;
         KFileMetaData::SimpleExtractionResult result(mId, fileMimeType, KFileMetaData::ExtractionResult::ExtractImageData);
 
+        mErrorMessage = QLatin1String{""};
+
         auto extractors = ec.fetchExtractors(fileMimeType);
         for (const auto& ex : extractors) {
             ex->extract(&result);
@@ -51,23 +53,39 @@ public:
 
         auto imageData = result.imageData();
 
-        if (!imageData.isEmpty()) {
-            if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-                mCoverImage = QImage::fromData(imageData[KFileMetaData::EmbeddedImageData::FrontCover]);
-            } else {
-                mCoverImage = QImage::fromData(imageData.values().first());
-            }
+        if (imageData.isEmpty()) {
+          mErrorMessage = QString{QLatin1String{"Unable to load image data from "} + mId};
+          Q_EMIT finished();
+          return;
+        }
 
-            auto newCoverImage = mCoverImage.scaled(mRequestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            if (!newCoverImage.isNull()) {
-                mCoverImage = std::move(newCoverImage);
-            }
+        if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
+          mCoverImage = QImage::fromData(imageData[KFileMetaData::EmbeddedImageData::FrontCover]);
+        } else {
+          mCoverImage = QImage::fromData(imageData.values().first());
+        }
+
+        if (mCoverImage.isNull()) {
+          mErrorMessage = QString{QLatin1String{"Invalid embedded cover image in "} + mId};
+          Q_EMIT finished();
+          return;
+        }
+
+        auto newCoverImage = mCoverImage.scaled(mRequestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        if (!newCoverImage.isNull()) {
+          mCoverImage = std::move(newCoverImage);
         }
 
         Q_EMIT finished();
     }
 
+    QString errorString() const override
+    {
+      return mErrorMessage;
+    }
+
     QString mId;
+    QString mErrorMessage;
     QSize mRequestedSize;
     QImage mCoverImage;
 };

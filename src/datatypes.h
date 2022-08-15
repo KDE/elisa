@@ -72,6 +72,7 @@ public:
         IsPlayListRole,
         FilePathRole,
         HasChildrenRole,
+        MultipleImageUrlsRole,
     };
 
     Q_ENUM(ColumnsRoles)
@@ -388,6 +389,10 @@ public:
             return operator[](key_type::DatabaseIdRole).toULongLong();
         }
 
+       [[nodiscard]] QUrl artistArtURI() const
+        {
+            return operator[](key_type::ImageUrlRole).toUrl();
+        }
     };
 
     using ListArtistDataType = QList<ArtistDataType>;

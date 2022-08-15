@@ -45,6 +45,7 @@ AbstractDataView {
         fileUrl: model.url ? model.url : ""
         secondaryText: gridView.delegateDisplaySecondaryText && model.secondaryText ? model.secondaryText : ""
         imageUrl: model.imageUrl ? model.imageUrl : ''
+        multipleImageUrls: model.multipleImageUrls
         imageFallbackUrl: defaultIcon
         databaseId: model.databaseId
         delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText

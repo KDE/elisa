@@ -290,6 +290,8 @@ private:
 
     bool updateAlbumCover(qulonglong albumId, const QUrl &albumArtUri);
 
+    QVariantList internalGetLatestFourCoversForArtist(const QString& artistName);
+
     void updateTrackStatistics(const QUrl &fileName, const QDateTime &time);
 
     void createDatabaseV9();

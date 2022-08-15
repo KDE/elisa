@@ -21,6 +21,7 @@ FocusScope {
 
     property url imageUrl
     property url imageFallbackUrl
+    property var multipleImageUrls
     property url fileUrl
     property var entryType
     property string mainText
@@ -139,6 +140,58 @@ FocusScope {
                 text: mainLabel.text
             }
 
+            component CoverImage: ImageWithFallback {
+                id: coverImage
+                property var imageSource
+
+                sourceSize.width: width
+                sourceSize.height: height
+                fillMode: Image.PreserveAspectFit
+
+                source: imageSource ? imageSource : ""
+                fallback: gridEntry.imageFallbackUrl
+
+                asynchronous: true
+
+                layer.enabled: !coverImage.usingFallback && !Kirigami.Settings.isMobile // don't use drop shadow on mobile
+                layer.effect: DropShadow {
+                    source: coverImage
+
+                    radius: 10
+                    spread: 0.1
+                    samples: 21
+
+                    color: myPalette.shadow
+                }
+            }
+
+            Component {
+                id: quartersCover
+                Grid {
+                    rows: 2
+                    columns: 2
+                    component QuarterImage: CoverImage {
+                        width: parent.width / 2
+                        height: parent.height / 2
+                    }
+
+                    QuarterImage {imageSource: gridEntry.multipleImageUrls[0]}
+                    QuarterImage {imageSource: gridEntry.multipleImageUrls[1]}
+                    QuarterImage {imageSource: gridEntry.multipleImageUrls[2]}
+                    QuarterImage {imageSource: gridEntry.multipleImageUrls[3]}
+                }
+            }
+
+            Component {
+                id: singleCover
+                CoverImage {
+                    width: parent.width
+                    height: parent.height
+
+                    imageSource: gridEntry.imageUrl
+                }
+            }
+
             // cover image
             Loader {
                 id: coverImageLoader
@@ -151,29 +204,8 @@ FocusScope {
 
                 active: gridEntry.delegateLoaded && !isPartial
 
-                sourceComponent: ImageWithFallback {
-                    id: coverImage
-
-                    sourceSize.width: parent.width
-                    sourceSize.height: parent.height
-                    fillMode: Image.PreserveAspectFit
-
-                    source: gridEntry.imageUrl
-                    fallback: gridEntry.imageFallbackUrl
-
-                    asynchronous: true
-
-                    layer.enabled: !coverImage.usingFallback && !Kirigami.Settings.isMobile // don't use drop shadow on mobile
-                    layer.effect: DropShadow {
-                        source: coverImage
-
-                        radius: 10
-                        spread: 0.1
-                        samples: 21
-
-                        color: myPalette.shadow
-                    }
-                }
+                sourceComponent: gridEntry.multipleImageUrls && gridEntry.multipleImageUrls.length == 4
+                                  ? quartersCover : singleCover
             }
 
             // ========== desktop hover actions ==========

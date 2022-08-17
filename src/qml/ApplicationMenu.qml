@@ -16,7 +16,6 @@ Menu {
     title: i18nc("open application menu", "Application Menu")
 
     property var helpAction: ElisaApplication.action("help_contents")
-    property var quitApplication: ElisaApplication.action("file_quit")
     property var reportBugAction: ElisaApplication.action("help_report_bug")
     property var aboutAppAction: ElisaApplication.action("help_about_app")
     property var configureShortcutsAction: ElisaApplication.action("options_configure_keybinding")
@@ -125,16 +124,5 @@ Menu {
             applicationMenu.close()
             aboutAppAction.trigger()
         }
-    }
-
-    MenuSeparator {
-        visible: quitApplication.text !== ""
-    }
-
-    Action {
-        text: quitApplication.text
-        shortcut: ElisaApplication.actionShortcut(quitApplication)
-        icon.name: ElisaApplication.iconName(quitApplication.icon)
-        onTriggered: quitApplication.trigger()
     }
 }

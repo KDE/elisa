@@ -20,6 +20,8 @@ Slider {
 
     enabled: !muted
 
+    readonly property int wheelEffect: 5
+
     MouseArea {
         anchors.fill: parent
         acceptedButtons: Qt.NoButton
@@ -30,11 +32,11 @@ Slider {
             // the slider because if we do, it gets gets tickmarks which look ugly.
             if (wheel.angleDelta.y > 0) {
                 // Increase volume
-                volumeSlider.value = Math.min(volumeSlider.to, volumeSlider.value + 5);
+                volumeSlider.value = Math.min(volumeSlider.to, volumeSlider.value + wheelEffect);
 
             } else {
                 // Decrease volume
-                volumeSlider.value = Math.max(volumeSlider.from, volumeSlider.value - 5);
+                volumeSlider.value = Math.max(volumeSlider.from, volumeSlider.value - wheelEffect);
             }
         }
     }

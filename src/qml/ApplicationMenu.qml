@@ -6,6 +6,7 @@
  */
 
 import QtQuick 2.7
+import QtQuick.Window 2.7
 import QtQuick.Controls 2.3
 import org.kde.elisa 1.0
 import org.kde.kirigami 2.5 as Kirigami
@@ -51,6 +52,11 @@ Menu {
         }
     }
 
+    Action {
+        text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Leave Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
+        icon.name: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
+        onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.showNormal() : mainWindow.showFullScreen()
+    }
     Action {
         text: configureAction.text
         shortcut: ElisaApplication.actionShortcut(configureAction)

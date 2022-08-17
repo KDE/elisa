@@ -116,6 +116,19 @@ FocusScope {
             }
         }
     }
+    // Not a flat button because we need a background to ensure adequate contrast
+    // against the HeaderBar's album art background
+    Button {
+        anchors.top: parent.top
+        anchors.right: parent.right
+
+        visible: mainWindow.visibility == Window.FullScreen
+
+        text: i18nc("@action:button", "Exit Full Screen")
+        icon.name: "view-restore"
+
+        onClicked: mainWindow.showNormal();
+    }
 
     MediaPlayerControl {
         id: playControlItem

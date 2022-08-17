@@ -59,8 +59,8 @@ MenuBar {
         }
 
         MenuItem {
-            text: mainWindow.visibility == Window.FullScreen ? i18nc("menu entry", "Leave Fullscreen") : i18nc("menu entry", "Enter Fullscreen")
-            iconName: "view-fullscreen"
+            text: mainWindow.visibility == Window.FullScreen ? i18nc("menu entry", "Leave Full Screen") : i18nc("menu entry", "Enter Full Screen")
+            iconName: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
             onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.showNormal() : mainWindow.showFullScreen()
         }
 

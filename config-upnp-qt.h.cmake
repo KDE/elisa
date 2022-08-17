@@ -2,8 +2,6 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#cmakedefine01 KF5Declarative_FOUND
-
 #cmakedefine01 KF5Baloo_FOUND
 
 #cmakedefine01 KF5XmlGui_FOUND

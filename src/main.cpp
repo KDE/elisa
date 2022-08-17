@@ -14,10 +14,6 @@
 
 //#define QT_QML_DEBUG
 
-#if KF5Declarative_FOUND
-#include <KDeclarative/KDeclarative>
-#endif
-
 #include <KLocalizedString>
 #include <KLocalizedContext>
 
@@ -27,7 +23,7 @@
 #include <KCrash>
 #endif
 
-
+#include <KQuickIconProvider>
 #include <QIcon>
 
 #include <QApplication>
@@ -140,12 +136,8 @@ int main(int argc, char *argv[])
     engine.addImportPath(QStringLiteral("qrc:/imports"));
     QQmlFileSelector selector(&engine);
 
-#if KF5Declarative_FOUND
-    KDeclarative::KDeclarative decl;
-    decl.setDeclarativeEngine(&engine);
-    decl.setupEngine(&engine); // FIXME: removing this line breaks various icons
-    decl.setupContext();
-#endif
+    // Allow image:// icon URLs to be loaded as images im QML
+    engine.addImageProvider(QStringLiteral("icon"), new KQuickIconProvider);
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
 

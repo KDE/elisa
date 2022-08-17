@@ -485,14 +485,6 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             )
     endif()
 
-    if (KF5Declarative_FOUND)
-        target_link_libraries(elisa
-            LINK_PRIVATE
-            KF5::Declarative
-            KF5::QuickAddons
-            )
-    endif()
-
     if (NOT APPLE AND NOT WIN32)
         set_target_properties(elisa PROPERTIES
             INSTALL_RPATH "${KDE_INSTALL_FULL_LIBDIR}/elisa;${CMAKE_INSTALL_RPATH}"

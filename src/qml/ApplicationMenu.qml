@@ -22,6 +22,14 @@ Menu {
     property var configureAction: ElisaApplication.action("options_configure")
 
     Action {
+        text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Leave Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
+        icon.name: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
+        onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.showNormal() : mainWindow.showFullScreen()
+    }
+
+    MenuSeparator {}
+
+    Action {
         text: i18nc("Scan for New Music application menu entry", "Scan for New Music")
         icon.name: "view-refresh"
         onTriggered: {
@@ -30,8 +38,16 @@ Menu {
         }
     }
 
-    MenuSeparator {
+    Action {
+        text: i18nc("Reset Database and Re-Scan Everything application menu entry", "Reset Database and Re-Scan Everything")
+        icon.name: "edit-clear-all"
+        onTriggered: {
+            applicationMenu.close()
+            ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
+        }
     }
+
+    MenuSeparator {}
 
     Menu {
         title: i18n("Color Scheme")
@@ -52,11 +68,6 @@ Menu {
     }
 
     Action {
-        text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Leave Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
-        icon.name: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
-        onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.showNormal() : mainWindow.showFullScreen()
-    }
-    Action {
         text: configureAction.text
         shortcut: ElisaApplication.actionShortcut(configureAction)
         icon.name: ElisaApplication.iconName(configureAction.icon)
@@ -76,35 +87,7 @@ Menu {
         }
     }
 
-    MenuSeparator {
-    }
-
-    Action {
-        text: i18nc("Reset Database and Re-Scan Everything application menu entry", "Reset Database and Re-Scan Everything")
-        icon.name: "edit-clear-all"
-        onTriggered: {
-            applicationMenu.close()
-            ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
-        }
-    }
-
-    MenuSeparator {
-        visible: reportBugAction.text !== ""
-    }
-
-    Action {
-        text: reportBugAction.text
-        shortcut: ElisaApplication.actionShortcut(reportBugAction)
-        icon.name: ElisaApplication.iconName(reportBugAction.icon)
-        onTriggered: {
-            applicationMenu.close()
-            reportBugAction.trigger()
-        }
-    }
-
-    MenuSeparator {
-        visible: helpAction.text !== ""
-    }
+    MenuSeparator {}
 
     Action {
         text: helpAction.text
@@ -123,6 +106,16 @@ Menu {
         onTriggered: {
             applicationMenu.close()
             aboutAppAction.trigger()
+        }
+    }
+
+    Action {
+        text: reportBugAction.text
+        shortcut: ElisaApplication.actionShortcut(reportBugAction)
+        icon.name: ElisaApplication.iconName(reportBugAction.icon)
+        onTriggered: {
+            applicationMenu.close()
+            reportBugAction.trigger()
         }
     }
 }

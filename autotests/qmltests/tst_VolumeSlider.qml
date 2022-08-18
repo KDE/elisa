@@ -1,3 +1,9 @@
+/*
+   SPDX-FileCopyrightText: 2022 (c) Hector Rodrigo Iglesias Goldaracena <heqromancer@gmail.com>
+
+   SPDX-License-Identifier: LGPL-3.0-or-later
+ */
+
 import QtQuick 2.3
 import QtTest 1.0
 import "../../src/qml"

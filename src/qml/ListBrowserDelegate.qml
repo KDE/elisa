@@ -168,7 +168,7 @@ FocusScope {
                             // specific artist/album page (mobile)
                             // not detailed view refers to an album page, in which we should put track numbers
                             if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
-                                return i18nc("%1: track number. %2: track title.",
+                                return i18nc("@item:intable %1: track number. %2: track title.",
                                         "%1 - %2",
                                         trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                         title);
@@ -179,19 +179,19 @@ FocusScope {
                             // specific artist/album page (desktop)
                             if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
                                 if (albumArtist !== undefined && artist !== albumArtist) {
-                                    return i18nc("%1: track number. %2: track title. %3: artist name",
+                                    return i18nc("@item:intable %1: track number. %2: track title. %3: artist name",
                                                 "%1 - %2 - %3",
                                                 trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                                 title, artist);
                                 } else {
-                                    return i18nc("%1: track number. %2: track title.",
+                                    return i18nc("@item:intable %1: track number. %2: track title.",
                                                 "%1 - %2",
                                                 trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                                 title);
                                 }
                             } else {
                                 if (albumArtist !== undefined && artist !== albumArtist) {
-                                    return i18nc("%1: track title. %2: artist name",
+                                    return i18nc("@item:intable %1: track title. %2: artist name",
                                                 "%1 - %2",
                                                 title, artist);
                                 } else {
@@ -254,7 +254,7 @@ FocusScope {
 
                         visible: trackUrl.toString().substring(0, 7) === 'file://'
 
-                        text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                        text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                         icon.name: "document-open-folder"
                         onClicked: {
                             ElisaApplication.showInFolder(mediaTrack.trackUrl)
@@ -266,7 +266,7 @@ FocusScope {
                         height: singleLineHeight
                         width: singleLineHeight
 
-                        text: i18nc("Show track metadata", "View details")
+                        text: i18nc("@action:button Show track metadata", "View details")
                         icon.name: "help-about"
                         onClicked: callOpenMetaDataView(trackUrl, dataType)
                     }
@@ -277,7 +277,7 @@ FocusScope {
                         height: singleLineHeight
                         width: singleLineHeight
 
-                        text: rating == 10 ? i18n("Un-mark this song as a favorite") : i18n("Mark this song as a favorite")
+                        text: rating == 10 ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
                         icon.name: rating == 10 ? "rating" : "rating-unrated"
 
                         onClicked: {
@@ -300,7 +300,7 @@ FocusScope {
                         height: singleLineHeight
                         width: singleLineHeight
 
-                        text: i18nc("Enqueue current track", "Add to playlist")
+                        text: i18nc("@action:button", "Add to playlist")
                         icon.name: "list-add"
                         onClicked: enqueue()
                     }
@@ -311,7 +311,7 @@ FocusScope {
                         height: singleLineHeight
                         width: singleLineHeight
 
-                        text: i18n("Play now, replacing current playlist")
+                        text: i18nc("@action:button", "Play now, replacing current playlist")
                         icon.name: "media-playback-start"
                         onClicked: replaceAndPlay()
                     }
@@ -361,7 +361,7 @@ FocusScope {
                 Layout.preferredHeight: singleLineHeight - Kirigami.Units.smallSpacing * 2
                 Layout.preferredWidth: height
 
-                text: i18nc("Song options", "Song Options")
+                text: i18nc("@action:button", "Song Options")
                 icon.name: "view-more-symbolic"
                 onClicked: openContextMenu()
             }
@@ -387,7 +387,7 @@ FocusScope {
                         contextMenu.close();
                     }
                     iconName: "document-open-folder"
-                    text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                    text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                 },
                 Kirigami.Action {
                     onTriggered: {
@@ -395,7 +395,7 @@ FocusScope {
                         contextMenu.close();
                     }
                     iconName: "documentinfo"
-                    text: i18nc("Show track metadata", "View details")
+                    text: i18nc("@action:button", "View details")
                 },
                 Kirigami.Action {
                     visible: ElisaApplication.useFavoriteStyleRatings
@@ -409,7 +409,7 @@ FocusScope {
                         contextMenu.close();
                     }
                     iconName: rating == 10 ? "rating-unrated" : "rating"
-                    text: rating == 10 ? i18n("Mark this song as no longer being a favorite", "Un-mark as favorite") : i18n("Mark this song as a favorite", "Mark as favorite")
+                    text: rating == 10 ? i18nc("@action:button", "Un-mark as favorite") : i18nc("@action:button", "Mark as favorite")
                 },
                 Kirigami.Action {
                     onTriggered: {
@@ -417,7 +417,7 @@ FocusScope {
                         contextMenu.close();
                     }
                     iconName: "list-add"
-                    text: i18nc("Enqueue current track", "Add to queue")
+                    text: i18nc("@action:button Enqueue current track", "Add to queue")
                 }
             ]
         }

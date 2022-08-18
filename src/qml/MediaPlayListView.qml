@@ -24,7 +24,7 @@ Kirigami.Page {
     property var playListNotification
     property var playListView
 
-    title: i18nc("@info Title of the view of the playlist; keep this string as short as possible because horizontal space is quite scarce", "Playlist")
+    title: i18nc("@title:window Title of the view of the playlist; keep this string as short as possible because horizontal space is quite scarce", "Playlist")
     padding: 0
 
     // Use view colors so the background is white
@@ -60,7 +60,7 @@ Kirigami.Page {
                 actions: [
                     Kirigami.Action {
                         id: savePlaylistButton
-                        text: i18nc("Save a playlist file", "Save…")
+                        text: i18nc("@action:button Save a playlist file", "Save…")
                         icon.name: 'document-save'
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
@@ -70,7 +70,7 @@ Kirigami.Page {
                     },
                     Kirigami.Action {
                         id: loadPlaylistButton
-                        text: i18nc("Load a playlist file", "Load…")
+                        text: i18nc("@action:button Load a playlist file", "Load…")
                         icon.name: 'document-open'
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         onTriggered: {
@@ -264,8 +264,8 @@ Kirigami.Page {
                         sourceComponent: Kirigami.PlaceholderMessage {
                             anchors.centerIn: parent
                             icon.name: "view-media-playlist"
-                            text: i18n("Playlist is empty")
-                            explanation: i18n("Add some songs to get started. You can browse your music using the views on the left.")
+                            text: i18nc("@info:placeholder", "Playlist is empty")
+                            explanation: i18nc("@info:usagetip", "Add some songs to get started. You can browse your music using the views on the left.")
                         }
                     }
 
@@ -339,7 +339,7 @@ Kirigami.Page {
                             anchors.centerIn: parent
 
                             icon.name: "view-media-playlist"
-                            text: xi18nc("@info", "Your playlist is empty.")
+                            text: i18nc("@info:placeholder", "Your playlist is empty.")
                         }
                     }
 
@@ -401,11 +401,11 @@ Kirigami.Page {
             Layout.fillWidth: true
             visible: false
             showCloseButton: true
-            text: i18nc("Playlist cleared", "Playlist cleared")
+            text: i18nc("@label", "Playlist cleared")
 
             actions: [
                 Kirigami.Action {
-                    text: i18n("Undo")
+                    text: i18nc("@action:button", "Undo")
                     icon.name: "edit-undo-symbolic"
                     onTriggered: ElisaApplication.mediaPlayListProxyModel.undoClearPlayList()
                 }
@@ -424,14 +424,14 @@ Kirigami.Page {
             LabelWithToolTip {
                 text: {
                     if (ElisaApplication.mediaPlayListProxyModel.remainingTracks === -1) {
-                        return i18np("%1 track", "%1 tracks", ElisaApplication.mediaPlayListProxyModel.tracksCount);
+                        return i18ncp("@info:status", "%1 track", "%1 tracks", ElisaApplication.mediaPlayListProxyModel.tracksCount);
                     } else {
                         if (ElisaApplication.mediaPlayListProxyModel.tracksCount == 1) {
-                            return i18n("1 track");
+                            return i18nc("@info:status", "1 track");
                         } else {
-                            var nTracks = i18np("%1 track", "%1 tracks", ElisaApplication.mediaPlayListProxyModel.tracksCount);
-                            var nRemaining = i18ncp("number of tracks remaining", "%1 remaining", "%1 remaining", ElisaApplication.mediaPlayListProxyModel.remainingTracks);
-                            return i18nc("%1 is the translation of track[s], %2 is the translation of remaining", "%1 (%2)", nTracks, nRemaining);
+                            var nTracks = i18ncp("@info:status", "%1 track", "%1 tracks", ElisaApplication.mediaPlayListProxyModel.tracksCount);
+                            var nRemaining = i18ncp("@info:status number of tracks remaining", "%1 remaining", "%1 remaining", ElisaApplication.mediaPlayListProxyModel.remainingTracks);
+                            return i18nc("@info:status %1 is the translation of track[s], %2 is the translation of remaining", "%1 (%2)", nTracks, nRemaining);
                         }
                     }
                 }
@@ -445,7 +445,7 @@ Kirigami.Page {
 
                 actions: [
                     Kirigami.Action {
-                        text: i18nc("Show currently played track inside playlist", "Show Current")
+                        text: i18nc("@action:button", "Show Current")
                         icon.name: 'media-track-show-active'
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
@@ -456,7 +456,7 @@ Kirigami.Page {
                         }
                     },
                     Kirigami.Action {
-                        text: i18nc("Remove all tracks from play list", "Clear All")
+                        text: i18nc("@action:button Remove all tracks from play list", "Clear All")
                         icon.name: 'edit-clear-all'
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false

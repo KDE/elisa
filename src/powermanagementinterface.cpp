@@ -170,7 +170,7 @@ void PowerManagementInterface::inhibitSleepPlasmaWorkspace()
                                                       QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
                                                       QStringLiteral("Inhibit"));
 
-    inhibitCall.setArguments({{QGuiApplication::desktopFileName()}, {i18nc("explanation for sleep inhibit during play of music", "Playing music")}});
+    inhibitCall.setArguments({{QGuiApplication::desktopFileName()}, {i18nc("@info:status  explanation for sleep inhibit during play of music", "Playing music")}});
 
     auto asyncReply = sessionBus.asyncCall(inhibitCall);
 
@@ -220,7 +220,7 @@ void PowerManagementInterface::inhibitSleepGnomeWorkspace()
     //    8  = Inhibit the session being marked as idle
     //    16 = Inhibit auto-mounting removable media for the session
     inhibitCall.setArguments({{QCoreApplication::applicationName()}, {uint(0)},
-                              {i18nc("explanation for sleep inhibit during play of music", "Playing music")}, {uint(12)}});
+                              {i18nc("@info:status explanation for sleep inhibit during play of music", "Playing music")}, {uint(12)}});
 
     auto asyncReply = sessionBus.asyncCall(inhibitCall);
 

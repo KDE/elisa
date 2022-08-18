@@ -13,7 +13,7 @@ import org.kde.kirigami 2.5 as Kirigami
 
 Menu {
     id: applicationMenu
-    title: i18nc("open application menu", "Application Menu")
+    title: i18nc("@title:menu", "Application Menu")
 
     property var helpAction: ElisaApplication.action("help_contents")
     property var reportBugAction: ElisaApplication.action("help_report_bug")
@@ -30,7 +30,7 @@ Menu {
     MenuSeparator {}
 
     Action {
-        text: i18nc("Scan for New Music application menu entry", "Scan for New Music")
+        text: i18nc("@action:inmenu", "Scan for New Music")
         icon.name: "view-refresh"
         onTriggered: {
             applicationMenu.close()
@@ -39,7 +39,7 @@ Menu {
     }
 
     Action {
-        text: i18nc("Reset Database and Re-Scan Everything application menu entry", "Reset Database and Re-Scan Everything")
+        text: i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
         icon.name: "edit-clear-all"
         onTriggered: {
             applicationMenu.close()
@@ -50,7 +50,7 @@ Menu {
     MenuSeparator {}
 
     Menu {
-        title: i18n("Color Scheme")
+        title: i18nc("@action:inmenu this has child menu items", "Color Scheme")
         Repeater {
             model: ElisaApplication.colorSchemesModel
             delegate: Kirigami.BasicListItem {

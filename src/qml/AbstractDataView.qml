@@ -214,7 +214,7 @@ FocusScope {
         sourceComponent: Kirigami.PlaceholderMessage {
             anchors.centerIn: parent
             icon.name: "edit-none"
-            text: navigationBar.filterText.length > 0 ? i18n("No matches") :  i18n("Nothing to display")
+            text: navigationBar.filterText.length > 0 ? i18nc("@info:placeholder", "No matches") :  i18nc("@info:placeholder", "Nothing to display")
         }
     }
 

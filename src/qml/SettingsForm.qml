@@ -26,11 +26,11 @@ ColumnLayout {
         Layout.fillWidth: true
 
         QQC2.CheckBox {
-            Kirigami.FormData.label: i18n("General:")
+            Kirigami.FormData.label: i18nc("@title:group", "General:")
 
             Layout.fillWidth: true
 
-            text: i18n("Show background on Now Playing page")
+            text: i18nc("@option:check", "Show background on Now Playing page")
 
             checked: ElisaConfigurationDialog.showNowPlayingBackground
             onToggled: ElisaConfigurationDialog.showNowPlayingBackground = checked
@@ -43,7 +43,7 @@ ColumnLayout {
 
             Layout.fillWidth: true
 
-            text: i18n("Show progress on Task Manager entries")
+            text: i18nc("@option:check", "Show progress on Task Manager entries")
 
             checked: ElisaConfigurationDialog.showProgressInTaskBar
             onToggled: ElisaConfigurationDialog.showProgressInTaskBar = checked
@@ -54,7 +54,7 @@ ColumnLayout {
         QQC2.CheckBox {
             Layout.fillWidth: true
 
-            text: i18n("Keep running in System Tray when main window is closed")
+            text: i18nc("@option:check", "Keep running in System Tray when main window is closed")
 
             checked: ElisaConfigurationDialog.showSystemTrayIcon
             onToggled: ElisaConfigurationDialog.showSystemTrayIcon = checked
@@ -65,7 +65,7 @@ ColumnLayout {
         QQC2.CheckBox {
             Layout.fillWidth: true
 
-            text: i18n("Start playing on startup")
+            text: i18nc("@option:check", "Start playing on startup")
 
             checked: ElisaConfigurationDialog.playAtStartup
             onToggled: ElisaConfigurationDialog.playAtStartup = checked
@@ -76,7 +76,7 @@ ColumnLayout {
         QQC2.CheckBox {
             Layout.fillWidth: true
 
-            text: i18n("Scan for New Music on startup")
+            text: i18nc("@option:check", "Scan for New Music on startup")
 
             checked: ElisaConfigurationDialog.scanAtStartup
             onToggled: {
@@ -106,11 +106,11 @@ ColumnLayout {
         QQC2.ButtonGroup { id: ratingStyleGroup }
 
         QQC2.RadioButton {
-            Kirigami.FormData.label: i18n("Song rating style:")
+            Kirigami.FormData.label: i18nc("@title:group", "Song rating style:")
 
             Layout.fillWidth: true
 
-            text: i18n("0-5 stars")
+            text: i18nc("@option:radio", "0-5 stars")
 
             QQC2.ButtonGroup.group: ratingStyleGroup
 
@@ -122,7 +122,7 @@ ColumnLayout {
         QQC2.RadioButton {
             Layout.fillWidth: true
 
-            text: i18n("Favorite/not favorite")
+            text: i18nc("@option:radio", "Favorite/not favorite")
 
             QQC2.ButtonGroup.group: ratingStyleGroup
 
@@ -136,12 +136,12 @@ ColumnLayout {
         // select colour scheme (mobile only, since desktop has it in the application menu)
         QQC2.Button {
             visible: Kirigami.Settings.isMobile
-            text: i18n("Color Scheme")
+            text: i18nc("@action:button","Color Scheme")
             onClicked: colorSchemeMenu.popup(parent)
 
             QQC2.Menu {
                 id: colorSchemeMenu
-                title: i18n("Color Scheme")
+                title: i18nc("@title:menu", "Color Scheme")
                 Repeater {
                     model: ElisaApplication.colorSchemesModel
                     delegate: Kirigami.BasicListItem {
@@ -162,7 +162,7 @@ ColumnLayout {
         // scan for new music (mobile only, since on desktop it is in the application menu)
         QQC2.Button {
             visible: Kirigami.Settings.isMobile
-            text: i18n("Scan for New Music")
+            text: i18nc("@action:button", "Scan for New Music")
             icon.name: "view-refresh"
             onClicked: {
                 ElisaApplication.musicManager.scanCollection(MusicListenersManager.Soft)
@@ -172,7 +172,7 @@ ColumnLayout {
 
         QQC2.Button {
             visible: Kirigami.Settings.isMobile
-            text: i18n("Reset Database and Re-Scan Everything")
+            text: i18nc("@action:button", "Reset Database and Re-Scan Everything")
             icon.name: "edit-clear-all"
             onClicked: {
                 ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard);
@@ -190,12 +190,12 @@ ColumnLayout {
             id: embeddedCategoryCombo
             visible: !Kirigami.Settings.isMobile
 
-            Kirigami.FormData.label: i18n("Embed category in sidebar:")
+            Kirigami.FormData.label: i18nc("@label:listbox", "Embed category in sidebar:")
 
-            model: [i18nc("Configure dialog, embed no category in views navigation list", "Nothing"),
-                i18nc("Configure dialog, embed all albums in views navigation list", "Albums"),
-                i18nc("Configure dialog, embed all artists in views navigation list", "Artists"),
-                i18nc("Configure dialog, embed all genres in views navigation list", "Genres")]
+            model: [i18nc("@item:inlistbox Configure dialog, embed no category in views navigation list", "Nothing"),
+                i18nc("@item:inlistbox Configure dialog, embed all albums in views navigation list", "Albums"),
+                i18nc("@item:inlistbox Configure dialog, embed all artists in views navigation list", "Artists"),
+                i18nc("@item:inlistbox Configure dialog, embed all genres in views navigation list", "Genres")]
 
             editable: false
             currentIndex: (ElisaConfigurationDialog.embeddedView === ElisaUtils.Genre ? 3 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Album ? 1 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Artist ? 2 : 0)))
@@ -228,17 +228,17 @@ ColumnLayout {
         QQC2.ComboBox {
             id: initialViewCombo
 
-            Kirigami.FormData.label: i18n("Initial view on startup:")
+            Kirigami.FormData.label: i18nc("@label:listbox", "Initial view on startup:")
 
-            model: [i18nc("Title of the view of the playlist", "Now Playing"),
-                i18nc("Title of the view of recently played tracks", "Recently Played"),
-                i18nc("Title of the view of frequently played tracks", "Frequently Played"),
-                i18nc("Title of the view of all albums", "Albums"),
-                i18nc("Title of the view of all artists", "Artists"),
-                i18nc("Title of the view of all tracks", "Tracks"),
-                i18nc("Title of the view of all genres", "Genres"),
-                i18nc("Title of the file browser view", "Files"),
-                i18nc("Title of the file radios browser view", "Radio Stations"),
+            model: [i18nc("@item:inlistbox Title of the view of the playlist", "Now Playing"),
+                i18nc("@item:inlistbox Title of the view of recently played tracks", "Recently Played"),
+                i18nc("@item:inlistbox Title of the view of frequently played tracks", "Frequently Played"),
+                i18nc("@item:inlistbox Title of the view of all albums", "Albums"),
+                i18nc("@item:inlistbox Title of the view of all artists", "Artists"),
+                i18nc("@item:inlistbox Title of the view of all tracks", "Tracks"),
+                i18nc("@item:inlistbox Title of the view of all genres", "Genres"),
+                i18nc("@item:inlistbox Title of the file browser view", "Files"),
+                i18nc("@item:inlistbox Title of the file radios browser view", "Radio Stations"),
             ]
 
             editable: false
@@ -265,15 +265,15 @@ ColumnLayout {
         // =================
         QQC2.ComboBox {
             id: indexingTypeCombo
-            Kirigami.FormData.label: i18n("Music indexing:")
+            Kirigami.FormData.label: i18nc("@label:listbox", "Music indexing:")
 
             // Work around https://bugs.kde.org/show_bug.cgi?id=403153
             implicitWidth: Kirigami.Units.gridUnit * 12
 
             editable: false
 
-            model: [i18nc("Configure dialog, indexing type", "Use fast native indexer"),
-                    i18nc("Configure dialog, indexing type", "Scan the filesystem directly")]
+            model: [i18nc("@item:inlistbox Configure dialog, indexing type", "Use fast native indexer"),
+                    i18nc("@item:inlistbox Configure dialog, indexing type", "Scan the filesystem directly")]
 
             currentIndex: ElisaConfigurationDialog.forceUsageOfSlowFileSystemIndexing ? 1 : 0
             onActivated: {
@@ -288,11 +288,11 @@ ColumnLayout {
         visible: indexingTypeCombo.currentIndex === 1
 
         type: Kirigami.MessageType.Warning
-        text: xi18n("This is slower than the fast indexer. Please activate it only if Elisa cannot find your music and searching for one of the missing music files using your file manager also does not work. Please report this as a bug.")
+        text: i18nc("@info", "This is slower than the fast indexer. Please activate it only if Elisa cannot find your music and searching for one of the missing music files using your file manager also does not work. Please report this as a bug.")
 
         actions: [
             Kirigami.Action {
-                text: i18n("Report Bug")
+                text: i18nc("@action:button", "Report Bug")
                 iconName: "tools-report-bug"
                 onTriggered: Qt.openUrlExternally("https://bugs.kde.org/enter_bug.cgi?product=frameworks-baloo")
             }
@@ -307,7 +307,7 @@ ColumnLayout {
 
         Kirigami.Heading {
             Layout.fillWidth: true
-            text: i18nc("The configured folders where the user's music collection can be found", "Music folders:")
+            text: i18nc("@title The configured folders where the user's music collection can be found", "Music folders:")
             level: 4
         }
 
@@ -343,7 +343,7 @@ ColumnLayout {
 
                     actions: Kirigami.Action {
                         iconName: "edit-delete"
-                        text: i18n("Stop looking for music here")
+                        text: i18nc("@action:button", "Stop looking for music here")
 
                         visible: pathList.count > 1
                         onTriggered: ElisaConfigurationDialog.removeMusicLocation(modelData)
@@ -356,7 +356,7 @@ ColumnLayout {
             spacing: Kirigami.Units.largeSpacing * 2
 
             QQC2.Button {
-                text: i18n("Add New Location")
+                text: i18nc("@action:button", "Add New Location")
                 icon.name: "list-add"
 
                 Layout.alignment: Qt.AlignTop | Qt.AlignLeft
@@ -366,7 +366,7 @@ ColumnLayout {
 
                 Dialogs.FileDialog {
                     id: fileDialog
-                    title: i18n("Choose a Folder")
+                    title: i18nc("@title:window", "Choose a Folder")
                     folder: shortcuts.home
                     selectFolder: true
 
@@ -383,7 +383,7 @@ ColumnLayout {
             QQC2.Label {
                 Layout.fillWidth: true
                 visible: indexingTypeCombo.currentIndex === 0 // Native indexer
-                text: i18n("The fast native file indexer does not follow symbolic links. If any of the locations in this list contain symbolic links to other locations, you will need to add those other locations to the list as well.")
+                text: i18nc("@label", "The fast native file indexer does not follow symbolic links. If any of the locations in this list contain symbolic links to other locations, you will need to add those other locations to the list as well.")
                 wrapMode: Text.Wrap
                 font: Kirigami.Theme.smallFont
             }

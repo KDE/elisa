@@ -102,13 +102,13 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
             switch (d->mViewsData->embeddedCategory())
             {
             case ElisaUtils::Album:
-                result = i18nc("Title of the view of all albums", "Albums");
+                result = i18nc("@title:window Title of the view of all albums", "Albums");
                 break;
             case ElisaUtils::Genre:
-                result = i18nc("Title of the view of all genres", "Genres");
+                result = i18nc("@title:window Title of the view of all genres", "Genres");
                 break;
             case ElisaUtils::Artist:
-                result = i18nc("Title of the view of all artists", "Artists");
+                result = i18nc("@title:window Title of the view of all artists", "Artists");
                 break;
             case ElisaUtils::Radio:
             case ElisaUtils::Track:

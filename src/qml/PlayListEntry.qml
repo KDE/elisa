@@ -78,14 +78,14 @@ BasePlayListDelegate {
         QtObject {
             id: actionList
             property var locateFileAction: Action {
-                text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                text: i18nc("@action:button", "Show the file for this song in the file manager", "Show in folder")
                 icon.name: "document-open-folder"
                 onTriggered: {
                     ElisaApplication.showInFolder(playListEntry.fileName)
                 }
             }
             property var infoAction: Action {
-                text: i18nc("Show track metadata", "View Details")
+                text: i18nc("@action:button Show track metadata", "View Details")
                 icon.name: "help-about"
                 onTriggered: {
                     if (metadataLoader.active === false) {
@@ -98,7 +98,7 @@ BasePlayListDelegate {
                 }
             }
             property var ratingAction: Action {
-                text: i18nc("Show track rating", "Set track rating")
+                text: i18nc("@action:button", "Set track rating")
                 icon.name: "view-media-favorite"
 
                 onTriggered: {
@@ -106,7 +106,7 @@ BasePlayListDelegate {
                 }
             }
             property var favoriteAction: Action {
-                text: rating == 10 ? i18n("Un-mark this song as a favorite") : i18n("Mark this song as a favorite")
+                text: rating == 10 ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
                 icon.name: rating == 10 ? "rating" : "rating-unrated"
 
                 onTriggered: {
@@ -124,7 +124,7 @@ BasePlayListDelegate {
                 }
             }
             property var playPauseAction: Action {
-                text: (isPlaying === MediaPlayList.IsPlaying) ? i18nc("Pause current track from play list", "Pause") : i18nc("Play this track from play list", "Play")
+                text: (isPlaying === MediaPlayList.IsPlaying) ? i18nc("@action:button Pause current track from playlist", "Pause") : i18nc("@action:button Play this track from playlist", "Play")
                 icon.name: (isPlaying === MediaPlayList.IsPlaying) ? "media-playback-pause" : "media-playback-start"
                 onTriggered: {
                     if (isPlaying === MediaPlayList.IsPlaying) {
@@ -138,7 +138,7 @@ BasePlayListDelegate {
                 }
             }
             property var removeAction: Action {
-                text: i18nc("Remove current track from play list", "Remove")
+                text: i18nc("@action:button Remove current track from play list", "Remove")
                 icon.name: "edit-delete-remove"
                 onTriggered: {
                     playListEntry.removeFromPlaylist(playListEntry.index)
@@ -333,7 +333,7 @@ BasePlayListDelegate {
 
             FlatButtonWithToolTip {
                 visible: playListEntry.editingRating && playListEntry.wideMode
-                text: i18nc("Cancel rating this track", "Cancel rating this track")
+                text: i18nc("@action:button", "Cancel rating this track")
                 icon.name: "dialog-cancel"
                 onClicked: { playListEntry.editingRating = false; }
             }

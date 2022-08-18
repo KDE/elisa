@@ -11,7 +11,7 @@ import org.kde.elisa 1.0
 
 Menu {
     id: applicationMenu
-    title: i18nc("open application menu", "Application Menu")
+    title: i18nc("@title:menu", "Application Menu")
 
     property var helpAction: ElisaApplication.action("help_contents")
     property var quitApplication: ElisaApplication.action("file_quit")
@@ -22,13 +22,13 @@ Menu {
     property var togglePlaylistAction: ElisaApplication.action("toggle_playlist")
 
     MenuItem  {
-        text: i18nc("Scan for New Music application menu entry", "Scan for New Music")
+        text: i18nc("@action:inmenu", "Scan for New Music")
         iconName: "view-refresh"
         onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Soft)
     }
 
     MenuItem {
-        text: i18nc("Reset Database and Re-Scan Everything application menu entry", "Reset Database and Re-Scan Everything")
+        text: i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
         iconName: "edit-clear-all"
         onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
     }
@@ -54,7 +54,7 @@ Menu {
 
     MenuItem {
         shortcut: ElisaApplication.actionShortcut(togglePlaylistAction)
-        text: i18n("Show Playlist")
+        text: i18nc("@action:inmenu", "Show Playlist")
         iconName: "view-media-playlist"
         checkable: true
         checked: contentView.showPlaylist

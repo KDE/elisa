@@ -36,12 +36,12 @@ Kirigami.ScrollablePage {
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    title: isCreating ? i18nc("Window title for track metadata", "Create a Radio") :
-                        i18nc("Window title for track metadata", "View Details")
+    title: isCreating ? i18nc("@title:window", "Create a Radio") :
+                        i18nc("@title:window", "View Details")
 
     actions.main: Kirigami.Action {
         iconName: "dialog-ok-apply"
-        text: i18n("Save")
+        text: i18nc("@action:button", "Save")
         onTriggered: {
             realModel.saveData()
             if (isCreating) {
@@ -53,7 +53,7 @@ Kirigami.ScrollablePage {
     }
     actions.left: Kirigami.Action {
         iconName: "dialog-cancel"
-        text: i18n("Close")
+            text: i18nc("@action:button", "Close")
         onTriggered: {
             trackMetadata.rejected();
             mainWindow.pageStack.layers.pop();

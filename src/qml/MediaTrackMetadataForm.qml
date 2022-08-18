@@ -34,7 +34,7 @@ Kirigami.FormLayout {
     Kirigami.InlineMessage {
         id: formInvalidNotification
 
-        text: i18nc("Form validation error message for track data", "Data is not valid. %1", metadataModel.errorMessage)
+        text: i18nc("@label", "Data is not valid. %1", metadataModel.errorMessage)
         type: Kirigami.MessageType.Error
         showCloseButton: false
         visible: !metadataModel.isDataValid && metadataModel.isDirty
@@ -90,7 +90,7 @@ Kirigami.FormLayout {
     // add tag row
     ComboBox {
         id: selectedField
-        Kirigami.FormData.label: i18n("Add new tag:")
+        Kirigami.FormData.label: i18nc("@label:listbox", "Add new tag:")
         visible: isModifying && !metadataModel.isReadOnly && canAddMoreMetadata
 
         textRole: "modelData"
@@ -109,7 +109,7 @@ Kirigami.FormLayout {
         Button {
             id: modifyButton
 
-            text: i18n("Modify")
+            text: i18nc("@action:button", "Modify")
             icon.name: 'document-edit'
             DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
             onCheckedChanged: isModifying = checked
@@ -126,7 +126,7 @@ Kirigami.FormLayout {
 
             Button {
                 id: deleteButton
-                text: i18n("Delete")
+                text: i18nc("@action:button", "Delete")
                 icon.name: 'delete'
                 DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                 onClicked: {

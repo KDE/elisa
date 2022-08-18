@@ -141,7 +141,7 @@ BasePlayListDelegate {
             FlatButtonWithToolTip {
                 id: contextMenuButton
                 scale: LayoutMirroring.enabled ? -1 : 1
-                text: i18nc("Track options", "Track Options")
+                text: i18nc("@action:button", "Track Options")
                 icon.name: "view-more-symbolic"
                 onClicked: openContextMenu()
             }
@@ -162,7 +162,7 @@ BasePlayListDelegate {
                     Kirigami.Action {
                         visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
                         iconName: "document-open-folder"
-                        text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                        text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                         onTriggered: {
                             ElisaApplication.showInFolder(playListEntry.fileName)
                             contextMenu.close();
@@ -171,7 +171,7 @@ BasePlayListDelegate {
                     Kirigami.Action {
                         visible: isValid
                         iconName: "documentinfo"
-                        text: i18nc("Show track metadata", "View details")
+                        text: i18nc("@action:button Show track metadata", "View details")
                         onTriggered: {
                             if (metadataLoader.active === false) {
                                 metadataLoader.active = true
@@ -186,7 +186,7 @@ BasePlayListDelegate {
                     Kirigami.Action {
                         visible: isValid
                         iconName: "error"
-                        text: i18nc("Remove current track from play list", "Remove from queue")
+                        text: i18nc("@action:button", "Remove from queue")
                         onTriggered: {
                             playListEntry.removeFromPlaylist(playListEntry.index)
                             contextMenu.close();

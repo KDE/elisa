@@ -222,7 +222,7 @@ BasePlayerControl {
             Layout.maximumWidth: height
             Layout.preferredWidth: height
             enabled: skipBackwardEnabled
-            text: i18nc("skip backward in playlists", "Skip Backward")
+            text: i18nc("@action:button", "Skip Backward")
             onClicked: musicWidget.playPrevious()
             icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
             icon.width: Kirigami.Units.gridUnit
@@ -238,7 +238,7 @@ BasePlayerControl {
             Layout.maximumWidth: height
             Layout.preferredWidth: height
             enabled: playEnabled
-            text: musicWidget.isPlaying ? i18nc("Pause any media that is playing", "Pause") : i18nc("Start playing media", "Play")
+            text: musicWidget.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
             onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
             icon.name: musicWidget.isPlaying? "media-playback-pause" : "media-playback-start"
             icon.width: Kirigami.Units.gridUnit
@@ -254,7 +254,7 @@ BasePlayerControl {
             Layout.maximumWidth: height
             Layout.preferredWidth: height
             enabled: skipForwardEnabled
-            text: i18nc("skip forward in playlists", "Skip Forward")
+            text: i18nc("@action:button", "Skip Forward")
             onClicked: musicWidget.playNext()
             icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
             icon.width: Kirigami.Units.gridUnit

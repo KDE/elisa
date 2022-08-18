@@ -36,7 +36,7 @@ RowLayout {
 
     TextMetrics {
         id: durationTextMetrics
-        text: i18nc("This is used to preserve a fixed width for the duration text.", "00:00:00")
+        text: i18nc("@info:placeholder This is used to preserve a fixed width for the duration text.", "00:00:00")
     }
 
     LabelWithToolTip {

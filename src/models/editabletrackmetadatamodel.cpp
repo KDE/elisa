@@ -345,7 +345,7 @@ void EditableTrackMetadataModel::validData()
     }
 
     if (!newValidState) {
-        mErrorMessage = i18nc("Error message when track URL is invalid", "Invalid URL.");
+        mErrorMessage = i18nc("@info:status Error message when track URL is invalid", "Invalid URL.");
         Q_EMIT errorMessageChanged();
     }
 
@@ -355,7 +355,7 @@ void EditableTrackMetadataModel::validData()
         newValidState = newValidState && !titleData.toString().isEmpty();
 
         if (!newValidState) {
-            mErrorMessage = i18nc("Error message when track title is empty", "Empty title.");
+            mErrorMessage = i18nc("@info:status Error message when track title is empty", "Empty title.");
             Q_EMIT errorMessageChanged();
         }
     }

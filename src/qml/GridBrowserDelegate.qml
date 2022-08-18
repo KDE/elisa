@@ -234,7 +234,7 @@ FocusScope {
 
                         ToolTip.visible: hovered
                         ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                        ToolTip.text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
 
                         Accessible.role: Accessible.Button
                         Accessible.name: ToolTip.text
@@ -258,7 +258,7 @@ FocusScope {
 
                         ToolTip.visible: hovered
                         ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("Show track metadata", "View details")
+                        ToolTip.text: i18nc("@action:button Show track metadata", "View details")
 
                         Accessible.name: ToolTip.text
                         Accessible.description: ToolTip.text
@@ -289,7 +289,7 @@ FocusScope {
 
                         ToolTip.visible: hovered
                         ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("Clear play list and add whole container to play list", "Play now, replacing current playlist")
+                        ToolTip.text: i18nc("@action:button", "Play now, replacing current playlist")
 
                         Accessible.name: ToolTip.text
                         Accessible.description: ToolTip.text
@@ -312,7 +312,7 @@ FocusScope {
 
                         ToolTip.visible: hovered
                         ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("Add whole container to play list", "Add to playlist")
+                        ToolTip.text: i18nc("@action:button", "Add to playlist")
 
                         Accessible.name: ToolTip.text
                         Accessible.description: ToolTip.text
@@ -398,7 +398,7 @@ FocusScope {
                     Layout.preferredHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
                     Layout.preferredWidth: Math.round(Kirigami.Units.gridUnit * 1.5)
 
-                    text: i18nc("Options", "Options")
+                    text: i18nc("@action:button", "Options")
                     icon.name: "view-more-symbolic"
                     onClicked: openContextMenu()
                 }
@@ -435,7 +435,7 @@ FocusScope {
                         contextMenu.close();
                     }
                     iconName: "media-playback-start"
-                    text: i18nc("Clear play list and add whole container to play list", "Play now, replacing current queue")
+                    text: i18nc("@action:button Clear play list and add whole container to play list", "Play now, replacing current queue")
                 },
                 Kirigami.Action {
                     visible: fileUrl.toString().substring(0, 7) === 'file://'
@@ -444,7 +444,7 @@ FocusScope {
                         contextMenu.close();
                     }
                     iconName: "document-open-folder"
-                    text: i18nc("Show the file for this song in the file manager", "Show in folder")
+                    text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                 },
                 Kirigami.Action {
                     onTriggered: {
@@ -452,7 +452,7 @@ FocusScope {
                         contextMenu.close();
                     }
                     iconName: "list-add"
-                    text: i18nc("Add whole container to play list", "Add to queue")
+                    text: i18nc("@action:button Add whole container to play list", "Add to queue")
                 }
             ]
         }

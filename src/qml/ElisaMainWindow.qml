@@ -23,11 +23,11 @@ Kirigami.ApplicationWindow {
     Connections {
         target: ElisaApplication.mediaPlayListProxyModel
         function onPlayListLoadFailed() {
-            showPassiveNotification(i18n("Loading failed"), 7000, i18n("Retry"), function() { loadPlaylistButton.clicked(); })
+            showPassiveNotification(i18nc("@label", "Loading failed"), 7000, i18nc("@action:button", "Retry"), function() { loadPlaylistButton.clicked(); })
         }
 
         function onDisplayUndoNotification() {
-            showPassiveNotification(i18n("Playlist cleared"), 7000, i18n("Undo"), function() { ElisaApplication.mediaPlayListProxyModel.undoClearPlayList(); })
+            showPassiveNotification(i18nc("@label", "Playlist cleared"), 7000, i18nc("@action:button", "Undo"), function() { ElisaApplication.mediaPlayListProxyModel.undoClearPlayList(); })
         }
     }
 
@@ -70,7 +70,7 @@ Kirigami.ApplicationWindow {
     width: persistentSettings.width
     height: persistentSettings.height
 
-    title: ElisaApplication.manageHeaderBar.title ? i18nc("Window title", "%1 — Elisa", ElisaApplication.manageHeaderBar.title) : i18nc("Window title", "Elisa")
+    title: ElisaApplication.manageHeaderBar.title ? i18nc("@title:window", "%1 — Elisa", ElisaApplication.manageHeaderBar.title) : i18nc("@title:window", "Elisa")
 
     Accessible.role: Accessible.Application
     Accessible.name: title
@@ -154,13 +154,13 @@ Kirigami.ApplicationWindow {
 
         defaultSuffix: 'm3u8'
         folder: StandardPaths.writableLocation(StandardPaths.MusicLocation)
-        nameFilters: [i18nc("file type (mime type) for m3u and m3u8 playlist file formats", "Playlist (*.m3u*)")]
+        nameFilters: [i18nc("@option file type (mime type) for m3u and m3u8 playlist file formats; do not translate *.m3u*", "Playlist (*.m3u*)")]
 
         onAccepted:
         {
             if (fileMode === FileDialog.SaveFile) {
                 if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(fileDialog.file)) {
-                    showPassiveNotification(i18n("Saving failed"), 7000, i18n("Retry"), function() { savePlaylistButton.clicked(); })
+                    showPassiveNotification(i18nc("@label", "Saving failed"), 7000, i18nc("@action:button", "Retry"), function() { savePlaylistButton.clicked(); })
                 }
             } else {
                 ElisaApplication.mediaPlayListProxyModel.loadPlayList(fileDialog.file)

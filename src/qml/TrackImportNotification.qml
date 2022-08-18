@@ -70,7 +70,7 @@ Rectangle {
                               "Imported one track",
                               "Imported %1 tracks",
                               importedTracksCount) :
-                       i18nc("message to show when Elisa is scanning music files", "Scanning music"))
+                       i18nc("@info:status", "Scanning music"))
             color: Kirigami.Theme.textColor
 
             Layout.fillWidth: true

@@ -17,7 +17,7 @@ Kirigami.GlobalDrawer {
 
     property int viewIndex: 0
 
-    title: i18n("Elisa")
+    title: i18nc("@title:window", "Elisa")
     titleIcon: "elisa"
 
     modal: true
@@ -35,7 +35,7 @@ Kirigami.GlobalDrawer {
         // disable default handle as it covers content
         handle.visible = false;
 
-        let settings = action.createObject(drawer, {iconName: "settings-configure", text: i18n("Settings")});
+        let settings = action.createObject(drawer, {iconName: "settings-configure", text: i18nc("@title:window", "Settings")});
         settings.onTriggered.connect(() => {
             mainWindow.pageStack.layers.push("MobileSettingsPage.qml");
         });

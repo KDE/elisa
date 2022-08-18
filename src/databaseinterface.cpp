@@ -7170,7 +7170,7 @@ DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(con
         if (trackRecord.value(DatabaseInterfacePrivate::TrackArtistsCount).toInt() == 1) {
             result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = trackRecord.value(DatabaseInterfacePrivate::TrackArtistName);
         } else if (trackRecord.value(DatabaseInterfacePrivate::TrackArtistsCount).toInt() > 1) {
-            result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = i18n("Various Artists");
+            result[DataTypes::TrackDataType::key_type::AlbumArtistRole] = i18nc("@item:intable", "Various Artists");
         }
     }
 
@@ -7234,7 +7234,7 @@ DataTypes::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRecord(con
 
     result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(DatabaseInterfacePrivate::RadioId);
     result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(DatabaseInterfacePrivate::RadioTitle);
-    result[DataTypes::TrackDataType::key_type::AlbumRole] = i18n("Radio Stations");
+    result[DataTypes::TrackDataType::key_type::AlbumRole] = i18nc("@item:intable", "Radio Stations");
     result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(DatabaseInterfacePrivate::RadioHttpAddress);
     result[DataTypes::TrackDataType::key_type::ImageUrlRole] = trackRecord.value(DatabaseInterfacePrivate::RadioImageAddress);
     result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(DatabaseInterfacePrivate::RadioRating);
@@ -8217,7 +8217,7 @@ DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSq
             if (currentRecord.value(DatabaseInterfacePrivate::AlbumsArtistsCount).toInt() == 1) {
                 newData[DataTypes::SecondaryTextRole] = allArtists.first();
             } else if (currentRecord.value(DatabaseInterfacePrivate::AlbumsArtistsCount).toInt() > 1) {
-                newData[DataTypes::SecondaryTextRole] = i18n("Various Artists");
+                newData[DataTypes::SecondaryTextRole] = i18nc("@item:intable", "Various Artists");
             }
         }
         newData[DataTypes::ArtistRole] = newData[DataTypes::SecondaryTextRole];
@@ -8301,7 +8301,7 @@ DataTypes::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(qulonglo
             if (currentRecord.value(DatabaseInterfacePrivate::SingleAlbumArtistsCount).toInt() == 1) {
                 result[DataTypes::SecondaryTextRole] = allArtists.first();
             } else if (currentRecord.value(DatabaseInterfacePrivate::SingleAlbumArtistsCount).toInt() > 1) {
-                result[DataTypes::SecondaryTextRole] = i18n("Various Artists");
+                result[DataTypes::SecondaryTextRole] = i18nc("@item:intable", "Various Artists");
             }
         }
         result[DataTypes::ArtistRole] = result[DataTypes::SecondaryTextRole];

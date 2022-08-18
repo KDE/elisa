@@ -133,7 +133,7 @@ RowLayout {
             id: favoriteButton
 
             FlatButtonWithToolTip {
-                text: delegateRow.display == 10 ? i18n("Un-mark this song as a favorite") : i18n("Mark this song as a favorite")
+                text: delegateRow.display == 10 ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
                 icon.name: delegateRow.display == 10 ? "rating" : "rating-unrated"
 
                 onClicked: {

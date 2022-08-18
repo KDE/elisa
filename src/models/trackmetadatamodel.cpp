@@ -441,39 +441,39 @@ void TrackMetadataModel::addDataByName(const QString &name)
 {
     DataTypes::ColumnsRoles newRole = DataTypes::TitleRole;
 
-    if (name == i18nc("Track title for track metadata view", "Title")) {
+    if (name == i18nc("@label:textbox Track title for track metadata view", "Title")) {
         newRole = DataTypes::TitleRole;
-    } else if (name == i18nc("Track artist for track metadata view", "Artist")) {
+    } else if (name == i18nc("@label:textbox Track artist for track metadata view", "Artist")) {
         newRole = DataTypes::ArtistRole;
-    } else if (name == i18nc("Album name for track metadata view", "Album")) {
+    } else if (name == i18nc("@label:textbox Album name for track metadata view", "Album")) {
         newRole = DataTypes::AlbumRole;
-    } else if (name == i18nc("Album artist for track metadata view", "Album Artist")) {
+    } else if (name == i18nc("@label:textbox Album artist for track metadata view", "Album Artist")) {
         newRole = DataTypes::AlbumArtistRole;
-    } else if (name == i18nc("Track number for track metadata view", "Track Number")) {
+    } else if (name == i18nc("@label:textbox Track number for track metadata view", "Track Number")) {
         newRole = DataTypes::TrackNumberRole;
-    } else if (name == i18nc("Disc number for track metadata view", "Disc Number")) {
+    } else if (name == i18nc("@label:textbox Disc number for track metadata view", "Disc Number")) {
         newRole = DataTypes::DiscNumberRole;
-    } else if (name == i18nc("Rating label for information panel", "Rating")) {
+    } else if (name == i18nc("@label:textbox Rating label for information panel", "Rating")) {
         newRole = DataTypes::RatingRole;
-    } else if (name == i18nc("Genre label for track metadata view", "Genre")) {
+    } else if (name == i18nc("@label:textbox Genre label for track metadata view", "Genre")) {
         newRole = DataTypes::GenreRole;
-    } else if (name == i18nc("Lyricist label for track metadata view", "Lyricist")) {
+    } else if (name == i18nc("@label:textbox Lyricist label for track metadata view", "Lyricist")) {
         newRole = DataTypes::LyricistRole;
-    } else if (name == i18nc("Composer name for track metadata view", "Composer")) {
+    } else if (name == i18nc("@label:textbox Composer name for track metadata view", "Composer")) {
         newRole = DataTypes::ComposerRole;
-    } else if (name == i18nc("Comment label for track metadata view", "Comment")) {
+    } else if (name == i18nc("@label:textbox Comment label for track metadata view", "Comment")) {
         newRole = DataTypes::CommentRole;
-    } else if (name == i18nc("Year label for track metadata view", "Year")) {
+    } else if (name == i18nc("@label:textbox Year label for track metadata view", "Year")) {
         newRole = DataTypes::YearRole;
-    } else if (name == i18nc("Channels label for track metadata view", "Channels")) {
+    } else if (name == i18nc("@label:textbox Channels label for track metadata view", "Channels")) {
         newRole = DataTypes::ChannelsRole;
-    } else if (name == i18nc("Bit rate label for track metadata view", "Bit Rate")) {
+    } else if (name == i18nc("@label:textbox Bit rate label for track metadata view", "Bit Rate")) {
         newRole = DataTypes::BitRateRole;
-    } else if (name == i18nc("Sample Rate label for track metadata view", "Sample Rate")) {
+    } else if (name == i18nc("@label:textbox Sample Rate label for track metadata view", "Sample Rate")) {
         newRole = DataTypes::SampleRateRole;
-    } else if (name == i18nc("Lyrics label for track metadata view", "Lyrics")) {
+    } else if (name == i18nc("@label:textbox Lyrics label for track metadata view", "Lyrics")) {
         newRole = DataTypes::LyricsRole;
-    } else if (name == i18nc("Duration label for track metadata view", "Duration")) {
+    } else if (name == i18nc("@label:textbox Duration label for track metadata view", "Duration")) {
         newRole = DataTypes::DurationRole;
     }
 
@@ -488,70 +488,70 @@ QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
     switch (role)
     {
     case DataTypes::TitleRole:
-        result = i18nc("Track title for track metadata view", "Title");
+        result = i18nc("@label:textbox Track title for track metadata view", "Title");
         break;
     case DataTypes::DurationRole:
-        result = i18nc("Duration label for track metadata view", "Duration");
+        result = i18nc("@label:textbox Duration label for track metadata view", "Duration");
         break;
     case DataTypes::ArtistRole:
-        result = i18nc("Track artist for track metadata view", "Artist");
+        result = i18nc("@label:textbox Track artist for track metadata view", "Artist");
         break;
     case DataTypes::AlbumRole:
-        result = i18nc("Album name for track metadata view", "Album");
+        result = i18nc("@label:textbox Album name for track metadata view", "Album");
         break;
     case DataTypes::AlbumArtistRole:
-        result = i18nc("Album artist for track metadata view", "Album Artist");
+        result = i18nc("@label:textbox Album artist for track metadata view", "Album Artist");
         break;
     case DataTypes::TrackNumberRole:
-        result = i18nc("Track number for track metadata view", "Track Number");
+        result = i18nc("@label:textbox Track number for track metadata view", "Track Number");
         break;
     case DataTypes::DiscNumberRole:
-        result = i18nc("Disc number for track metadata view", "Disc Number");
+        result = i18nc("@label:textbox Disc number for track metadata view", "Disc Number");
         break;
     case DataTypes::RatingRole:
-        result = i18nc("Rating label for information panel", "Rating");
+        result = i18nc("@label:textbox Rating label for information panel", "Rating");
         break;
     case DataTypes::GenreRole:
-        result = i18nc("Genre label for track metadata view", "Genre");
+        result = i18nc("@label:textbox Genre label for track metadata view", "Genre");
         break;
     case DataTypes::LyricistRole:
-        result = i18nc("Lyricist label for track metadata view", "Lyricist");
+        result = i18nc("@label:textbox Lyricist label for track metadata view", "Lyricist");
         break;
     case DataTypes::ComposerRole:
-        result = i18nc("Composer name for track metadata view", "Composer");
+        result = i18nc("@label:textbox Composer name for track metadata view", "Composer");
         break;
     case DataTypes::CommentRole:
-        result = i18nc("Comment label for track metadata view", "Comment");
+        result = i18nc("@label:textbox Comment label for track metadata view", "Comment");
         break;
     case DataTypes::YearRole:
-        result = i18nc("Year label for track metadata view", "Year");
+        result = i18nc("@label:textbox Year label for track metadata view", "Year");
         break;
     case DataTypes::ChannelsRole:
-        result = i18nc("Channels label for track metadata view", "Channels");
+        result = i18nc("@label:textbox Channels label for track metadata view", "Channels");
         break;
     case DataTypes::BitRateRole:
-        result = i18nc("Bit rate label for track metadata view", "Bit Rate");
+        result = i18nc("@label:textbox Bit rate label for track metadata view", "Bit Rate");
         break;
     case DataTypes::SampleRateRole:
-        result = i18nc("Sample Rate label for track metadata view", "Sample Rate");
+        result = i18nc("@label:textbox Sample Rate label for track metadata view", "Sample Rate");
         break;
     case DataTypes::LastPlayDate:
-        result = i18nc("Last play date label for track metadata view", "Last played");
+        result = i18nc("@label:textbox Last play date label for track metadata view", "Last played");
         break;
     case DataTypes::FirstPlayDate:
-        result = i18nc("First play date label for track metadata view", "First played");
+        result = i18nc("@label:textbox First play date label for track metadata view", "First played");
         break;
     case DataTypes::PlayCounter:
-        result = i18nc("Play counter label for track metadata view", "Play count");
+        result = i18nc("@label:textbox Play counter label for track metadata view", "Play count");
         break;
     case DataTypes::LyricsRole:
-        result = i18nc("Lyrics label for track metadata view", "Lyrics");
+        result = i18nc("@label:textbox Lyrics label for track metadata view", "Lyrics");
         break;
     case DataTypes::ResourceRole:
-        result = i18nc("Radio HTTP address for radio metadata view", "Stream Http Address");
+        result = i18nc("@label:textbox Radio HTTP address for radio metadata view", "Stream Http Address");
         break;
     case DataTypes::ImageUrlRole:
-        result = i18nc("Image address for radio metadata view", "Image Address");
+        result = i18nc("@label:textbox Image address for radio metadata view", "Image Address");
         break;
     case DataTypes::SecondaryTextRole:
     case DataTypes::ShadowForImageRole:

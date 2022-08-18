@@ -46,7 +46,7 @@ BasePlayerControl {
             Layout.preferredHeight: Kirigami.Units.gridUnit * 2
             Layout.maximumWidth: parent.height
             Layout.preferredWidth: Kirigami.Units.gridUnit * 2
-            text: i18nc("minimize player", "Minimize Player")
+            text: i18nc("@action:button", "Minimize Player")
             icon.name: "arrow-down"
             icon.color: "white"
             Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
@@ -200,7 +200,7 @@ BasePlayerControl {
                     Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
-                    text: i18nc("show track information", "Show Info")
+                    text: i18nc("@action:button show track information", "Show Info")
                     icon.name: "documentinfo"
                     icon.color: "white"
                     onClicked: openNowPlaying()
@@ -212,7 +212,7 @@ BasePlayerControl {
                     Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
-                    text: i18nc("toggle shuffle mode for playlist", "Toggle Shuffle")
+                    text: i18nc("@action:button", "Toggle Shuffle")
                     icon.name: "media-playlist-shuffle"
                     icon.color: "white"
                     onClicked: trackPlayer.shuffle = !trackPlayer.shuffle
@@ -227,9 +227,9 @@ BasePlayerControl {
                     Layout.preferredWidth: height
                     text: {
                         const map = {
-                            0: i18n("Current: Don't repeat tracks"),
-                            1: i18n("Current: Repeat current track"),
-                            2: i18n("Current: Repeat all tracks in playlist")
+                            0: i18nc("@info:tooltip", "Current: Don't repeat tracks"),
+                            1: i18nc("@info:tooltip", "Current: Repeat current track"),
+                            2: i18nc("@info:tooltip", "Current: Repeat all tracks in playlist")
                         }
                         return map[trackPlayer.repeat]
                     }
@@ -258,15 +258,15 @@ BasePlayerControl {
                         id: playlistModeMenu
 
                         PlaylistModeItem {
-                            text: i18n("Playlist")
+                            text: i18nc("@action:inmenu", "Playlist")
                             mode: MediaPlayListProxyModel.Playlist
                         }
                         PlaylistModeItem {
-                            text: i18n("One")
+                            text: i18nc("@action:inmenu", "One")
                             mode: MediaPlayListProxyModel.One
                         }
                         PlaylistModeItem {
-                            text: i18n("None")
+                            text: i18nc("@action:inmenu", "None")
                             mode: MediaPlayListProxyModel.None
                         }
                     }
@@ -315,7 +315,7 @@ BasePlayerControl {
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     enabled: skipBackwardEnabled
-                    text: i18nc("skip backward in playlists", "Skip Backward")
+                    text: i18nc("@action:button", "Skip Backward")
                     onClicked: trackPlayer.playPrevious()
                     icon.name: trackPlayer.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
                     icon.width: Kirigami.Units.gridUnit
@@ -330,7 +330,7 @@ BasePlayerControl {
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     enabled: playEnabled
-                    text: trackPlayer.isPlaying ? i18nc("Pause any media that is playing", "Pause") : i18nc("Start playing media", "Play")
+                    text: trackPlayer.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
                     onClicked: trackPlayer.isPlaying ? trackPlayer.pause() : trackPlayer.play()
                     icon.name: trackPlayer.isPlaying? "media-playback-pause" : "media-playback-start"
                     icon.width: Kirigami.Units.gridUnit
@@ -345,7 +345,7 @@ BasePlayerControl {
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     enabled: skipForwardEnabled
-                    text: i18nc("skip forward in playlists", "Skip Forward")
+                    text: i18nc("@action:button", "Skip Forward")
                     onClicked: trackPlayer.playNext()
                     icon.name: trackPlayer.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
                     icon.width: Kirigami.Units.gridUnit
@@ -361,7 +361,7 @@ BasePlayerControl {
                     Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
-                    text: i18nc("show the playlist", "Show Playlist")
+                    text: i18nc("@action:button", "Show Playlist")
                     onClicked: playlistDrawer.open()
                     icon.name: "view-media-playlist"
                     icon.width: Kirigami.Units.gridUnit

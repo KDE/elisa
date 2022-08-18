@@ -32,8 +32,8 @@ Window {
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    title: isCreating ? i18nc("Window title for track metadata", "Create a Radio") :
-                        i18nc("Window title for track metadata", "View Details")
+    title: isCreating ? i18nc("@title:window", "Create a Radio") :
+                        i18nc("@title:window", "View Details")
 
     EditableTrackMetadataModel {
         id: realModel
@@ -144,7 +144,7 @@ Window {
 
                 Button {
                     id: deleteButton
-                    text: i18n("Delete")
+                    text: i18nc("@action:button", "Delete")
                     icon.name: 'delete'
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                     onClicked:
@@ -165,7 +165,7 @@ Window {
                 Button {
                     id: modifyButton
 
-                    text: i18n("Modify")
+                    text: i18nc("@action:button", "Modify")
                     icon.name: 'document-edit'
                     DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
                     onCheckedChanged: isModifying = checked
@@ -175,7 +175,7 @@ Window {
                 Button {
                     id: applyButton
 
-                    text: i18n("Apply")
+                    text: i18nc("@action:button", "Apply")
                     icon.name: 'dialog-ok-apply'
                     DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
                     onClicked:
@@ -189,7 +189,7 @@ Window {
                 }
 
                 Button {
-                    text: i18n("OK")
+                    text: i18nc("@action:button", "OK")
                     icon.name: "dialog-ok"
                     DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                     onClicked: trackMetadata.close()

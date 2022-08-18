@@ -17,7 +17,7 @@ Menu {
     property var sortOrder
     property var sortOrderNames
 
-    title: i18nc("Sort By Menu", "Sort By")
+    title: i18nc("@title:menu", "Sort By")
 
     function refreshSortOrderNames() {
         if (!sortMenu.sortOrderNames) {

@@ -11,10 +11,10 @@ import org.kde.elisa 1.0
 
 MenuBar {
     Menu {
-        title: i18nc("menu category", "File")
+        title: i18nc("@title:menu", "File")
 
         MenuItem {
-            text: i18nc("menu entry", "Save Playlist…")
+            text: i18nc("@action:inmenu", "Save Playlist…")
             iconName: "document-save"
             onTriggered: {
                 mainWindow.fileDialog.savePlaylist()
@@ -22,7 +22,7 @@ MenuBar {
         }
 
         MenuItem {
-            text: i18nc("menu entry", "Open Playlist…")
+            text: i18nc("@action:inmenu", "Open Playlist…")
             iconName: "document-open"
             onTriggered: {
                 mainWindow.fileDialog.loadPlaylist()
@@ -30,7 +30,7 @@ MenuBar {
         }
 
         MenuItem {
-            text: i18nc("Reset Database and Re-Scan Everything application menu entry", "Reset Database and Re-Scan Everything")
+            text: i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
             iconName: "view-refresh"
             onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
         }
@@ -50,38 +50,38 @@ MenuBar {
         }
     }
     Menu {
-        title: i18nc("menu category", "View")
+        title: i18nc("@title:menu", "View")
 
         MenuItem {
-            text: i18nc("menu entry", "Toggle Party Mode")
+            text: i18nc("@action:inmenu", "Toggle Party Mode")
             iconName: mediaPlayerControl && mediaPlayerControl.isMaximized ? "arrow-up" : "expand"
             onTriggered: mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized
         }
 
         MenuItem {
-            text: mainWindow.visibility == Window.FullScreen ? i18nc("menu entry", "Leave Full Screen") : i18nc("menu entry", "Enter Full Screen")
+            text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Leave Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
             iconName: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
             onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.showNormal() : mainWindow.showFullScreen()
         }
 
         MenuItem {
-            text: contentView.showPlaylist ? i18n("Hide Playlist") : i18n("Show Playlist")
+            text: contentView.showPlaylist ? i18nc("@action:inmenu", "Hide Playlist") : i18nc("@action:inmenu", "Show Playlist")
             iconName: contentView.showPlaylist ? "show-menu" : "view-media-playlist"
             onTriggered: contentView.showPlaylist = !contentView.showPlaylist
         }
     }
     Menu {
-        title: i18nc("menu category", "Controls")
+        title: i18nc("@title:menu", "Controls")
 
         MenuItem {
-            text: ElisaApplication.audioControl.playerPlaybackState == 1 ? i18n("Pause") : i18n("Play")
+            text: ElisaApplication.audioControl.playerPlaybackState == 1 ? i18nc("@action:inmenu", "Pause") : i18nc("@action:inmenu", "Play")
             iconName: ElisaApplication.audioControl.playerPlaybackState == 1 ? "media-playback-pause" : "media-playback-start"
             onTriggered: ElisaApplication.audioControl.playPause()
         }
 
         MenuItem {
             enabled: ElisaApplication.audioControl.playerPlaybackState != 0
-            text: i18n("Stop")
+            text: i18nc("@action:inmenu", "Stop")
             iconName: "media-playback-stop"
             onTriggered: ElisaApplication.audioControl.stop()
         }
@@ -90,12 +90,12 @@ MenuBar {
         }
 
         MenuItem {
-            text: i18n("Increase Volume")
+            text: i18nc("@action:inmenu", "Increase Volume")
             enabled: ElisaApplication.audioPlayer.volume < 100.0
             onTriggered: ElisaApplication.audioPlayer.setVolume(ElisaApplication.audioPlayer.volume + 5)
         }
         MenuItem {
-            text: i18n("Decrease Volume")
+            text: i18nc("@action:inmenu", "Decrease Volume")
             enabled: ElisaApplication.audioPlayer.volume > 100.0
             onTriggered: ElisaApplication.audioPlayer.setVolume(ElisaApplication.audioPlayer.volume - 5)
         }
@@ -105,20 +105,20 @@ MenuBar {
 
         Menu {
             id: shuffleMenu
-            title: i18n("Shuffle")
+            title: i18nc("@title:menu", "Shuffle")
 
             MenuItemGroup {
                 items: shuffleMenu.items
             }
 
             MenuItem {
-                text: i18n("On")
+                text: i18nc("@action:inmenu shuffle mode is turned on", "On")
                 checkable: true
                 checked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
                 onTriggered: ElisaApplication.mediaPlayListProxyModel.shufflePlayList = true
             }
             MenuItem {
-                text: i18n("Off")
+                text: i18nc("@action:inmenu shuffle mode is turned off", "Off")
                 checkable: true
                 checked: !ElisaApplication.mediaPlayListProxyModel.shufflePlayList
                 onTriggered: ElisaApplication.mediaPlayListProxyModel.shufflePlayList = false
@@ -127,28 +127,28 @@ MenuBar {
 
         Menu {
             id: repeatMenu
-            title: i18n("Repeat")
+            title: i18nc("@title:menu", "Repeat")
 
             MenuItemGroup {
                 items: repeatMenu.items
             }
 
             NativeGlobalMenuPlaylistModeItem {
-                text: i18n("Playlist")
+                text: i18nc("@action:inmenu repeat all songs in this playlist", "Playlist")
                 mode: MediaPlayListProxyModel.Playlist
             }
             NativeGlobalMenuPlaylistModeItem {
-                text: i18n("One")
+                text: i18nc("@action:inmenu repeat this one song", "One")
                 mode: MediaPlayListProxyModel.One
             }
             NativeGlobalMenuPlaylistModeItem {
-                text: i18n("None")
+                text: i18nc("@action:inmenu no repeat mode set; stop playback after last song in the playlist", "None")
                 mode: MediaPlayListProxyModel.None
             }
         }
     }
     Menu {
-        title: i18nc("menu category", "Help")
+        title: i18nc("@title:menu", "Help")
 
         NativeMenuItemFromAction {
             elisaAction: "help_contents"

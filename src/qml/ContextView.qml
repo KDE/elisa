@@ -36,7 +36,7 @@ Kirigami.Page {
                                            && songTitle.length === 0
                                            && fileUrl.toString().length === 0
 
-    title: i18nc("Title of the context view related to the currently playing track", "Now Playing")
+    title: i18nc("@title:window Title of the context view related to the currently playing track", "Now Playing")
     padding: 0
 
     property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
@@ -66,7 +66,7 @@ Kirigami.Page {
                 id: showSidebarButton
                 objectName: 'showSidebarButton'
                 visible: Kirigami.Settings.isMobile
-                text: i18nc("open the sidebar", "Open sidebar")
+                text: i18nc("@action:button", "Open sidebar")
                 icon.name: "open-menu-symbolic"
                 onClicked: mainWindow.globalDrawer.open()
             }
@@ -101,7 +101,7 @@ Kirigami.Page {
                 checked: !persistentSettings.nowPlayingPreferLyric
                 display: topItem.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
                 icon.name: "documentinfo"
-                text: i18nc("One of the 'now playing' views", "Metadata")
+                text: i18nc("@option:radio One of the 'now playing' views", "Metadata")
                 visible: !contentLayout.wideMode
             }
             FlatButtonWithToolTip {
@@ -112,14 +112,14 @@ Kirigami.Page {
                 checked: persistentSettings.nowPlayingPreferLyric
                 display: topItem.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
                 icon.name: "view-media-lyrics"
-                text: i18nc("One of the 'now playing' views", "Lyrics")
+                text: i18nc("@option:radio One of the 'now playing' views", "Lyrics")
                 visible: !contentLayout.wideMode
             }
 
             FlatButtonWithToolTip {
                 id: showPlaylistButton
                 visible: Kirigami.Settings.isMobile
-                text: i18nc("show the playlist", "Show Playlist")
+                text: i18nc("@action:button", "Show Playlist")
                 icon.name: "view-media-playlist"
                 display: topItem.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
                 onClicked: {
@@ -338,7 +338,7 @@ Kirigami.Page {
                         visible: active && status === Loader.Ready
 
                         sourceComponent: Kirigami.PlaceholderMessage {
-                            text: i18n("No lyrics found")
+                            text: i18nc("@info:placeholder", "No lyrics found")
                             icon.name: "view-media-lyrics"
                         }
                     }
@@ -356,7 +356,7 @@ Kirigami.Page {
 
             sourceComponent: Kirigami.PlaceholderMessage {
                 anchors.centerIn: parent
-                text: i18n("Nothing playing")
+                text: i18nc("@info:placeholder", "Nothing playing")
                 icon.name: "view-media-track"
             }
         }
@@ -390,7 +390,7 @@ Kirigami.Page {
 
                 actions: [
                     Kirigami.Action {
-                        text: i18n("Show In Folder")
+                        text: i18nc("@action:button", "Show In Folder")
                         icon.name: 'document-open-folder'
                         visible: metaDataModel.fileUrl.toString() !== "" && !metaDataModel.fileUrl.toString().startsWith("http") && !metaDataModel.fileUrl.toString().startsWith("rtsp")
                         onTriggered: {

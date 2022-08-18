@@ -23,11 +23,11 @@ import ".."
 Kirigami.ScrollablePage {
     id: settingsPage
 
-    title: i18n("Settings")
+    title: i18nc("@title:window", "Settings")
 
     actions.main: Kirigami.Action {
         iconName: "dialog-ok-apply"
-        text: i18n("Save")
+        text: i18nc("@action:button", "Save")
         onTriggered: {
             ElisaConfigurationDialog.save()
             mainWindow.pageStack.layers.pop();
@@ -35,7 +35,7 @@ Kirigami.ScrollablePage {
     }
     actions.left: Kirigami.Action {
         iconName: "dialog-cancel"
-        text: i18n("Close")
+        text: i18nc("@action:button", "Close")
         onTriggered: {
             ElisaConfigurationDialog.cancel()
             mainWindow.pageStack.layers.pop()

@@ -17,7 +17,7 @@ Rectangle {
     LabelWithToolTip {
         id: discHeaderLabel
 
-        text: i18nc("disc header text when showing an album", "Disc %1", discNumber)
+        text: i18nc("@title:row disc header text when showing an album", "Disc %1", discNumber)
 
         font.weight: Font.Bold
         font.italic: true

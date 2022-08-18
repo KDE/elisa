@@ -89,9 +89,9 @@ Item {
 
                 Label {
                     text: if (sortMenu.sortRoleName !== "") {
-                        i18nc("Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
+                        i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
                     } else {
-                        i18nc("Sort By Menu Title with no sort selected", "Sort")
+                        i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort")
                     }
                 }
 
@@ -113,7 +113,7 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: 'createRadioButton'
-            text: i18nc("Create a new radio", "Create a radio")
+            text: i18nc("@action:button", "Create a radio")
             icon.name: "list-add"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: createRadio()
@@ -125,7 +125,7 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: 'enqueueButton'
-            text: i18nc("Add current list to playlist", "Add to Playlist")
+            text: i18nc("@action:button", "Add to Playlist")
             icon.name: "list-add"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: enqueue()
@@ -137,7 +137,7 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: 'replaceAndPlayButton'
-            text: i18n("Play now, replacing current playlist")
+            text: i18nc("@action:button", "Play now, replacing current playlist")
             icon.name: "media-playback-start"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: replaceAndPlay()
@@ -149,7 +149,7 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: 'showArtistButton'
-            text: i18nc("Button to navigate to the artist of the album", "Display Artist")
+            text: i18nc("@action:button navigate to the view for artist of this album", "Display Artist")
             icon.name: "view-media-artist"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: if (secondaryTitle) { showArtist(secondaryTitle) }
@@ -161,7 +161,7 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             id: showPlaylistButton
-            text: i18nc("show the playlist", "Show Playlist")
+            text: i18nc("@action:button", "Show Playlist")
             icon.name: "view-media-playlist"
             display: navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: {
@@ -198,7 +198,7 @@ Item {
                     id: showSidebarButton
                     objectName: 'showSidebarButton'
                     visible: Kirigami.Settings.isMobile
-                    text: i18nc("open the sidebar", "Open sidebar")
+                    text: i18nc("@action:button", "Open sidebar")
                     icon.name: "open-menu-symbolic"
                     onClicked: mainWindow.globalDrawer.open()
                 },
@@ -206,7 +206,7 @@ Item {
                     id: goPreviousButton
                     objectName: 'goPreviousButton'
                     visible: enableGoBack
-                    text: i18nc("navigate back in the views stack", "Back")
+                    text: i18nc("@action:button navigate back in the view's stack", "Back")
                     icon.name: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
                     onClicked: goBack()
                 },
@@ -285,7 +285,7 @@ Item {
                     Kirigami.Theme.inherit: false
                     objectName: 'showFilterButton'
                     visible: !showCreateRadioButton
-                    text: !navigationBar.expandedFilterView ? i18nc("Show filters in the navigation bar", "Search and Filter") : i18nc("Hide filters in the navigation bar", "Hide Search and Filter")
+                    text: !navigationBar.expandedFilterView ? i18nc("@action:button Show filters in the navigation bar", "Search and Filter") : i18nc("@action:button Hide filters in the navigation bar", "Hide Search and Filter")
                     icon.name: 'search'
                     checkable: true
                     checked: expandedFilterView
@@ -387,7 +387,7 @@ Item {
 
                     Accessible.role: Accessible.EditableText
 
-                    placeholderText: i18n("Search for album name, artist, etc.")
+                    placeholderText: i18nc("@info:placeholder", "Search for album name, artist, etc.")
 
                     Keys.onEscapePressed: persistentSettings.expandedFilterView = false;
                 },
@@ -396,7 +396,7 @@ Item {
                     visible: showRating && !ElisaApplication.useFavoriteStyleRatings
                 },
                 LabelWithToolTip {
-                    text: i18n("Filter by rating: ")
+                    text: i18nc("@label:chooser", "Filter by rating: ")
 
                     visible: showRating && !ElisaApplication.useFavoriteStyleRatings
                 },
@@ -412,7 +412,7 @@ Item {
                 Button {
                     visible: showRating && ElisaApplication.useFavoriteStyleRatings
 
-                    text: i18n("Only Show Favorites")
+                    text: i18nc("@action:button", "Only Show Favorites")
                     icon.name: "rating"
                     checkable: true
                     checked: ratingFilter.starRating == 10

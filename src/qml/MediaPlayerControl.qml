@@ -47,7 +47,7 @@ BasePlayerControl {
 
         FlatButtonWithToolTip {
             id: minimizeMaximizeButton
-            text: i18nc("toggle the party mode", "Toggle Party Mode")
+            text: i18nc("@action:button", "Toggle Party Mode")
             icon.name: musicWidget.isMaximized ? "draw-arrow-up" : "draw-arrow-down"
             onClicked: musicWidget.isMaximized = !musicWidget.isMaximized
         }
@@ -55,7 +55,7 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: skipBackwardButton
             enabled: skipBackwardEnabled
-            text: i18nc("skip backward in playlists", "Skip Backward")
+            text: i18nc("@action:button", "Skip Backward")
             icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
             onClicked: musicWidget.playPrevious()
         }
@@ -63,7 +63,7 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: playPauseButton
             enabled: playEnabled
-            text: musicWidget.isPlaying ? i18nc("Pause any media that is playing", "Pause") : i18nc("Start playing media", "Play")
+            text: musicWidget.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
             icon.name: musicWidget.isPlaying? "media-playback-pause" : "media-playback-start"
             onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
         }
@@ -71,7 +71,7 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: skipForwardButton
             enabled: skipForwardEnabled
-            text: i18nc("skip forward in playlists", "Skip Forward")
+            text: i18nc("@action:button skip forward in playlists", "Skip Forward")
             icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
             onClicked: musicWidget.playNext()
         }
@@ -90,7 +90,7 @@ BasePlayerControl {
 
         FlatButtonWithToolTip {
             id: muteButton
-            text: i18nc("toggle mute mode for player", "Toggle Mute")
+            text: i18nc("@action:button", "Toggle Mute")
             icon.name: musicWidget.muted ? "player-volume-muted" : "player-volume"
             onClicked: musicWidget.muted = !musicWidget.muted
         }
@@ -109,7 +109,7 @@ BasePlayerControl {
 
         FlatButtonWithToolTip {
             id: shuffleButton
-            text: i18nc("toggle shuffle mode for playlist", "Toggle Shuffle")
+            text: i18nc("@action:button", "Toggle Shuffle")
             icon.name: "media-playlist-shuffle"
             onClicked: musicWidget.shuffle = !musicWidget.shuffle
             checkable: true
@@ -120,9 +120,9 @@ BasePlayerControl {
             id: repeatButton
             text: {
                 const map = {
-                    0: i18n("Current: Don't repeat tracks"),
-                    1: i18n("Current: Repeat current track"),
-                    2: i18n("Current: Repeat all tracks in playlist")
+                    0: i18nc("@info:tooltip", "Current: Don't repeat tracks"),
+                    1: i18nc("@info:tooltip", "Current: Repeat current track"),
+                    2: i18nc("@info:tooltip", "Current: Repeat all tracks in playlist")
                 }
                 return map[musicWidget.repeat]
             }
@@ -152,15 +152,15 @@ BasePlayerControl {
                 id: playlistModeMenu
 
                 PlaylistModeItem {
-                    text: i18n("Playlist")
+                    text: i18nc("@action:inmenu", "Playlist")
                     mode: MediaPlayListProxyModel.Playlist
                 }
                 PlaylistModeItem {
-                    text: i18n("One")
+                    text: i18nc("@action:inmenu", "One")
                     mode: MediaPlayListProxyModel.One
                 }
                 PlaylistModeItem {
-                    text: i18n("None")
+                    text: i18nc("@action:inmenu", "None")
                     mode: MediaPlayListProxyModel.None
                 }
             }
@@ -187,7 +187,7 @@ BasePlayerControl {
             visible: !musicWidget.isMaximized && mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
 
             display: AbstractButton.TextBesideIcon
-            text: i18n("Show Playlist")
+            text: i18nc("@action:button", "Show Playlist")
             icon.name: "view-media-playlist"
 
             checkable: true
@@ -197,7 +197,7 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: menuButton
 
-            text: i18nc("open application menu", "Application Menu")
+            text: i18nc("@action:button", "Application Menu")
             icon.name: "open-menu-symbolic"
 
             down: pressed || applicationMenu.visible

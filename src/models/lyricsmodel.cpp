@@ -156,14 +156,14 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
         return begin;
     };
     static std::unordered_map<QString, QString> map = {
-        {QStringLiteral("ar"), i18n("Artist")},
-        {QStringLiteral("al"), i18n("Album")},
-        {QStringLiteral("ti"), i18n("Title")},
-        {QStringLiteral("au"), i18n("Creator")},
-        {QStringLiteral("length"), i18n("Length")},
-        {QStringLiteral("by"), i18nc("as in `Created by: Joe`", "Created by")},
-        {QStringLiteral("re"), i18n("Editor")},
-        {QStringLiteral("ve"), i18n("Version")}};
+        {QStringLiteral("ar"), i18nc("@label musical artist", "Artist")},
+        {QStringLiteral("al"), i18nc("@label musical album", "Album")},
+        {QStringLiteral("ti"), i18nc("@label song title", "Title")},
+        {QStringLiteral("au"), i18nc("@label", "Creator")},
+        {QStringLiteral("length"), i18nc("@label song length", "Length")},
+        {QStringLiteral("by"), i18nc("@label as in 'Created by: Joe'", "Created by")},
+        {QStringLiteral("re"), i18nc("@label as in 'a person who edits'", "Editor")},
+        {QStringLiteral("ve"), i18nc("@label", "Version")}};
     QString tags;
 
     while (begin != end) {
@@ -186,7 +186,7 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
           bool ok = true;
           if (map.count(tagId)) {
             tags += i18nc(
-                "this is a key => value map", "%1: %2\n", map[tagId],
+                "@label this is a key => value map", "%1: %2\n", map[tagId],
                 QString(tagIdEnd, std::distance(tagIdEnd, tagContentEnd)));
           } else {
             // offset tag

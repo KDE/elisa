@@ -24,7 +24,7 @@ FlatButtonWithToolTip {
     Layout.maximumWidth: height
     Layout.preferredWidth: height
 
-    text: i18nc("change player volume", "Change Volume")
+    text: i18nc("@action:button", "Change Volume")
     icon.name: volumeButton.muted || volumeButton.slider.visualPosition == 0 ? "player-volume-muted" : "player-volume"
     icon.color: "white"
     Kirigami.Theme.colorSet: Kirigami.Theme.Complementary

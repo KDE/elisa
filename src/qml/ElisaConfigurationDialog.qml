@@ -18,7 +18,7 @@ import org.kde.elisa 1.0
 Window {
     id: dialog
 
-    title: i18n("Configure")
+    title: i18nc("@title:window", "Configure")
 
     visible: true
     modality: Qt.ApplicationModal
@@ -40,7 +40,7 @@ Window {
         footer: QQC2.DialogButtonBox {
 
             QQC2.Button {
-                text: i18n("OK")
+                text: i18nc("@action:button", "OK")
                 icon.name: 'dialog-ok-apply'
                 QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.AcceptRole
                 Accessible.onPressAction: onClicked
@@ -51,7 +51,7 @@ Window {
             }
 
             QQC2.Button {
-                text: i18n("Apply")
+                text: i18nc("@action:button", "Apply")
                 icon.name: 'dialog-ok-apply'
                 QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.ApplyRole
                 Accessible.onPressAction: onClicked
@@ -61,7 +61,7 @@ Window {
             onApplied: ElisaConfigurationDialog.save()
 
             QQC2.Button {
-                text: i18n("Cancel")
+                text: i18nc("@action:button", "Cancel")
                 icon.name: 'dialog-cancel'
                 QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.RejectRole
                 Accessible.onPressAction: onClicked
@@ -78,10 +78,10 @@ Window {
 
         standardButtons: Dialogs.StandardButton.Save | Dialogs.StandardButton.Discard | Dialogs.StandardButton.Cancel
 
-        title: i18n("Warning")
+        title: i18nc("@title:window", "Warning")
 
         icon: Dialogs.StandardIcon.Warning
-        text: i18n('You have unsaved changes. Do you want to apply the changes or discard them?')
+        text: i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
 
         onDiscard: {
             ElisaConfigurationDialog.cancel()

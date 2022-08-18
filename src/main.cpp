@@ -107,20 +107,20 @@ int main(int argc, char *argv[])
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("elisa")));
 
     KAboutData aboutData( QStringLiteral("elisa"),
-                          i18n("Elisa"),
+                          i18nc("@title", "Elisa"),
                           QStringLiteral(ELISA_VERSION_STRING),
-                          i18n("A Simple Music Player made with love by the KDE community"),
+                          i18nc("@info", "A Simple Music Player made with love by the KDE community"),
                           KAboutLicense::LGPL_V3,
-                          i18n("(c) 2015-2020, Elisa contributors"));
+                          i18nc("@info", "(c) 2015-2020, Elisa contributors"));
 
-    aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18n("Creator"), QStringLiteral("mgallien@mgallien.fr"));
-    aboutData.addAuthor(QStringLiteral("Nate Graham"), i18n("Author"), QStringLiteral("nate@kde.org"));
+    aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18nc("@label", "Creator"), QStringLiteral("mgallien@mgallien.fr"));
+    aboutData.addAuthor(QStringLiteral("Nate Graham"), i18nc("@label", "Author"), QStringLiteral("nate@kde.org"));
 
-    aboutData.addCredit(QStringLiteral("Andrew Lake"), i18n("Concept and design work"), QStringLiteral("jamboarder@gmail.com"));
-    aboutData.addCredit(QStringLiteral("Luigi Toscano"), i18n("Localization support"), QStringLiteral("luigi.toscano@tiscali.it"));
-    aboutData.addCredit(QStringLiteral("Safa Alfulaij"), i18n("Right to left support in interface"), QStringLiteral("safa1996alfulaij@gmail.com"));
-    aboutData.addCredit(QStringLiteral("Diego Gangl"), i18n("Various improvements to the interface"), QStringLiteral("diego@sinestesia.co"));
-    aboutData.addCredit(QStringLiteral("Jérôme Guidon"), i18n("Support for online radios"), QStringLiteral("guidon@live.fr"));
+    aboutData.addCredit(QStringLiteral("Andrew Lake"), i18nc("@label", "Concept and design work"), QStringLiteral("jamboarder@gmail.com"));
+    aboutData.addCredit(QStringLiteral("Luigi Toscano"), i18nc("@label", "Localization support"), QStringLiteral("luigi.toscano@tiscali.it"));
+    aboutData.addCredit(QStringLiteral("Safa Alfulaij"), i18nc("@label", "Right to left support in interface"), QStringLiteral("safa1996alfulaij@gmail.com"));
+    aboutData.addCredit(QStringLiteral("Diego Gangl"), i18nc("@label", "Various improvements to the interface"), QStringLiteral("diego@sinestesia.co"));
+    aboutData.addCredit(QStringLiteral("Jérôme Guidon"), i18nc("@label", "Support for online radios"), QStringLiteral("guidon@live.fr"));
 
     KAboutData::setApplicationData(aboutData);
 

@@ -78,7 +78,7 @@ BasePlayListDelegate {
         QtObject {
             id: actionList
             property var locateFileAction: Action {
-                text: i18nc("@action:button", "Show the file for this song in the file manager", "Show in folder")
+                text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                 icon.name: "document-open-folder"
                 onTriggered: {
                     ElisaApplication.showInFolder(playListEntry.fileName)

@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
-#if defined Q_OS_ANDROID || defined Q_OS_MAC
+#if defined Q_OS_WIN || defined Q_OS_MAC
     QApplication::setStyle(QStringLiteral("breeze"));
 #endif
 

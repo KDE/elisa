@@ -267,9 +267,6 @@ ColumnLayout {
             id: indexingTypeCombo
             Kirigami.FormData.label: i18n("Music indexing:")
 
-            // Work around https://bugs.kde.org/show_bug.cgi?id=403153
-            implicitWidth: Kirigami.Units.gridUnit * 12
-
             editable: false
 
             model: [i18nc("Configure dialog, indexing type", "Use fast native indexer"),

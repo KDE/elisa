@@ -344,7 +344,7 @@ BasePlayListDelegate {
                 readOnly: false
                 starRating: rating
 
-                visible: (playListEntry.editingRating || (rating > 0 && !containsMouse && !isSelected && !playListEntry.hasActiveFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode
+                visible: (playListEntry.editingRating || (rating > 0 && !containsMouse && !playListEntry.hasActiveFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode
 
                 onRatingEdited: {
                     ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, starRating);
@@ -353,7 +353,7 @@ BasePlayListDelegate {
             }
 
             Kirigami.Icon {
-                visible: rating == 10 && !containsMouse && !isSelected && !playListEntry.hasActiveFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
+                visible: rating == 10 && !containsMouse && !playListEntry.hasActiveFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
 
                 implicitWidth: Kirigami.Units.iconSizes.smallMedium
                 implicitHeight: Kirigami.Units.iconSizes.smallMedium

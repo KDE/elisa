@@ -29,6 +29,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setForceUsageOfSlowFileSystemIndexing
                NOTIFY forceUsageOfSlowFileSystemIndexingChanged)
 
+    Q_PROPERTY(bool alwaysUseAbsolutePlaylistPaths
+               READ alwaysUseAbsolutePlaylistPaths
+               WRITE setAlwaysUseAbsolutePlaylistPaths
+               NOTIFY alwaysUseAbsolutePlaylistPathsChanged)
+
     Q_PROPERTY(bool showNowPlayingBackground
                READ showNowPlayingBackground
                WRITE setShowNowPlayingBackground
@@ -112,6 +117,11 @@ public:
         return mForceUsageOfSlowFileSystemIndexing;
     }
 
+    [[nodiscard]] bool alwaysUseAbsolutePlaylistPaths() const
+    {
+        return mAlwaysUseAbsolutePlaylistPaths;
+    }
+
     [[nodiscard]] ElisaUtils::PlayListEntryType embeddedView() const
     {
         return mEmbeddedView;
@@ -159,6 +169,8 @@ Q_SIGNALS:
 
     void forceUsageOfSlowFileSystemIndexingChanged();
 
+    void alwaysUseAbsolutePlaylistPathsChanged();
+
     void embeddedViewChanged();
 
     void initialViewIndexChanged();
@@ -186,6 +198,8 @@ public Q_SLOTS:
     void setShowSystemTrayIcon(bool showSystemTrayIcon);
 
     void setForceUsageOfSlowFileSystemIndexing(bool forceUsageOfSlowFileSystemIndexing);
+
+    void setAlwaysUseAbsolutePlaylistPaths(bool alwaysUseAbsolutePlaylistPaths);
 
     void setEmbeddedView(ElisaUtils::PlayListEntryType embeddedView);
 
@@ -220,6 +234,8 @@ private:
     bool mShowSystemTrayIcon = false;
 
     bool mForceUsageOfSlowFileSystemIndexing = true;
+
+    bool mAlwaysUseAbsolutePlaylistPaths = false;
 
     bool mPlayAtStartup = false;
 

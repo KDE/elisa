@@ -13,6 +13,7 @@ import QtQuick.Controls 2.4 as QQC2
 import QtQuick.Dialogs 1.3 as Dialogs
 
 import org.kde.kirigami 2.14 as Kirigami
+import org.kde.kcm 1.6 as KCM
 
 import org.kde.elisa 1.0
 
@@ -275,6 +276,32 @@ ColumnLayout {
             currentIndex: ElisaConfigurationDialog.forceUsageOfSlowFileSystemIndexing ? 1 : 0
             onActivated: {
                 ElisaConfigurationDialog.forceUsageOfSlowFileSystemIndexing = currentIndex === 0 ? false : true
+            }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+        }
+
+        // Playlist save settings
+        // ======================
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("When saving playlist files:")
+            spacing: Kirigami.Units.smallSpacing
+
+            QQC2.ComboBox {
+                model: [i18nc("@item:inlistbox Configure dialog, playlist save type", "Prefer relative paths"),
+                        i18nc("@item:inlistbox Configure dialog, playlist save type", "Always use absolute paths")]
+
+                currentIndex: ElisaConfigurationDialog.alwaysUseAbsolutePlaylistPaths ? 1 : 0
+                onActivated: {
+                    ElisaConfigurationDialog.alwaysUseAbsolutePlaylistPaths = currentIndex === 0 ? false : true
+                }
+            }
+
+            KCM.ContextualHelpButton {
+                toolTipText: xi18nc("@info:tooltip Playlist Relative Paths", "When <interface>Prefer relative paths</interface> is selected, files in the same folder as the playlist will be referred with only the filename. Absolute paths are used in other cases.")
             }
         }
     }

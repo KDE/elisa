@@ -9,6 +9,7 @@
 #include "mediaplaylistproxymodel.h"
 #include "mediaplaylist.h"
 #include "playListLogging.h"
+#include "elisa_settings.h"
 #include <QItemSelection>
 #include <QList>
 #include <QMediaPlaylist>
@@ -715,10 +716,27 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
 {
     QMediaPlaylist savePlaylist;
 
-    for (int i = 0; i < rowCount(); ++i) {
-        if (data(index(i,0), MediaPlayList::IsValidRole).toBool()) {
-            data(index(i,0), MediaPlayList::ResourceRole).toUrl();
-            savePlaylist.addMedia(data(index(i,0), MediaPlayList::ResourceRole).toUrl());
+    if (Elisa::ElisaConfiguration::self()->alwaysUseAbsolutePlaylistPaths()) {
+        for (int i = 0; i < rowCount(); ++i) {
+            if (data(index(i,0), MediaPlayList::IsValidRole).toBool()) {
+                data(index(i,0), MediaPlayList::ResourceRole).toUrl();
+                savePlaylist.addMedia(QUrl(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile()));
+            }
+        }
+    } else {
+        QFileInfo playlistFile(fileName.toLocalFile());
+        QDir dir(playlistFile.absolutePath());
+
+        for (int i = 0; i < rowCount(); ++i) {
+            if (data(index(i,0), MediaPlayList::IsValidRole).toBool()) {
+                QFileInfo musicFile(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
+
+                if (musicFile.dir().path() == dir.absolutePath()) {
+                    savePlaylist.addMedia(QUrl(musicFile.fileName()));
+                } else {
+                    savePlaylist.addMedia(QUrl(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile()));
+                }
+            }
         }
     }
 

@@ -85,7 +85,7 @@ BasePlayListDelegate {
                 }
             }
             property var infoAction: Action {
-                text: i18nc("@action:button Show track metadata", "View Details")
+                text: i18nc("@action:button Show track metadata", "View details")
                 icon.name: "help-about"
                 onTriggered: {
                     if (metadataLoader.active === false) {

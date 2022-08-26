@@ -33,7 +33,7 @@ Window {
     LayoutMirroring.childrenInherit: true
 
     title: isCreating ? i18nc("@title:window", "Create a Radio") :
-                        i18nc("@title:window", "View Details")
+                        i18nc("@title:window", "View details")
 
     EditableTrackMetadataModel {
         id: realModel

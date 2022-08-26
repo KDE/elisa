@@ -114,8 +114,8 @@ FocusScope {
                 active: mediaTrack.delegateLoaded && (detailedView || Kirigami.Settings.isMobile) // cover is always visible on mobile
 
                 // mobile delegate needs more margins
-                Layout.preferredHeight: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
                 Layout.preferredWidth: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
+                Layout.preferredHeight: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
 
                 Layout.alignment: Qt.AlignCenter
 
@@ -249,8 +249,8 @@ FocusScope {
                     anchors.centerIn: parent
 
                     FlatButtonWithToolTip {
-                        height: singleLineHeight
                         width: singleLineHeight
+                        height: singleLineHeight
 
                         visible: trackUrl.toString().substring(0, 7) === 'file://'
 
@@ -263,8 +263,8 @@ FocusScope {
 
                     FlatButtonWithToolTip {
                         id: detailsButton
-                        height: singleLineHeight
                         width: singleLineHeight
+                        height: singleLineHeight
 
                         text: i18nc("@action:button Show track metadata", "View details")
                         icon.name: "help-about"
@@ -274,8 +274,8 @@ FocusScope {
                     FlatButtonWithToolTip {
                         visible: ElisaApplication.useFavoriteStyleRatings
 
-                        height: singleLineHeight
                         width: singleLineHeight
+                        height: singleLineHeight
 
                         text: rating == 10 ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
                         icon.name: rating == 10 ? "rating" : "rating-unrated"
@@ -297,8 +297,8 @@ FocusScope {
 
                     FlatButtonWithToolTip {
                         id: enqueueButton
-                        height: singleLineHeight
                         width: singleLineHeight
+                        height: singleLineHeight
 
                         text: i18nc("@action:button", "Add to playlist")
                         icon.name: "list-add"
@@ -308,8 +308,8 @@ FocusScope {
                     FlatButtonWithToolTip {
                         id: clearAndEnqueueButton
                         scale: LayoutMirroring.enabled ? -1 : 1
-                        height: singleLineHeight
                         width: singleLineHeight
+                        height: singleLineHeight
 
                         text: i18nc("@action:button", "Play now, replacing current playlist")
                         icon.name: "media-playback-start"
@@ -358,8 +358,8 @@ FocusScope {
                 scale: LayoutMirroring.enabled ? -1 : 1
                 Layout.alignment: Qt.AlignVCenter
                 Layout.maximumHeight: parent.height
-                Layout.preferredHeight: singleLineHeight - Kirigami.Units.smallSpacing * 2
                 Layout.preferredWidth: height
+                Layout.preferredHeight: singleLineHeight - Kirigami.Units.smallSpacing * 2
 
                 text: i18nc("@action:button", "Song Options")
                 icon.name: "view-more-symbolic"

@@ -30,8 +30,8 @@ Row {
         Item {
             property int ratingThreshold: 2 + index * 2
 
-            height: Kirigami.Units.iconSizes.small
             width: Kirigami.Units.iconSizes.small
+            height: Kirigami.Units.iconSizes.small
 
             Kirigami.Icon {
                 width: Kirigami.Units.iconSizes.small

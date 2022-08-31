@@ -81,9 +81,6 @@ public:
         ,QStringLiteral("*[Aa]lbumart*.jpg")
         ,QStringLiteral("*[Aa]lbumart*.jpeg")
         ,QStringLiteral("*[Aa]lbumart*.png")
-        ,QStringLiteral("*[Cc]over*.jpg")
-        ,QStringLiteral("*[Cc]over*.jpeg")
-        ,QStringLiteral("*[Cc]over*.png")
     };
 };
 

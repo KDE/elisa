@@ -22,7 +22,7 @@ Menu {
     property var configureAction: ElisaApplication.action("options_configure")
 
     Action {
-        text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Leave Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
+        text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Exit Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
         icon.name: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
         onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.showNormal() : mainWindow.showFullScreen()
     }

@@ -232,18 +232,10 @@ SPDX-License-Identifier: CC0-1.0
   <project_group>KDE</project_group>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="22.08.1" date="2022-09-08"/>
     <release version="22.08.0" date="2022-08-18"/>
     <release version="22.04.3" date="2022-07-07"/>
     <release version="22.04.2" date="2022-06-09"/>
-    <release version="22.04.1" date="2022-05-12">
-      <artifacts>
-        <artifact type="binary" platform="x86_64-windows-msvc">
-          <location>https://download.kde.org/stable/release-service/22.04.1/windows/elisa-22.04.1-1150-windows-msvc2019_64-cl.exe</location>
-          <checksum type="sha256">b29a7e3d902b44cd4505edff316d1090003b23bc7cb32335f79ff66c1381dace</checksum>
-          <size type="download">110593144</size>
-        </artifact>
-      </artifacts>
-    </release>
   </releases>
   <custom>
     <value key="KDE::windows_store">https://www.microsoft.com/p/elisa/9pb5md7zh8tl</value>

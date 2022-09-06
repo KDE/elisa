@@ -187,8 +187,8 @@ public Q_SLOTS:
 
     void configureElisa();
 
-    void openFiles(const QList<QUrl> &files);
-    void openFiles(const QList<QUrl> &files, const QString &workingDirectory);
+    bool openFiles(const QList<QUrl> &files);
+    bool openFiles(const QList<QUrl> &files, const QString &workingDirectory);
 
     void activateActionRequested(const QString &actionName, const QVariant &parameter);
 

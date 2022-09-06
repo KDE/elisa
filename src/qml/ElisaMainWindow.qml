@@ -50,7 +50,9 @@ Kirigami.ApplicationWindow {
         anchors.fill: parent
         onDropped: {
             if (drop.hasUrls) {
-                ElisaApplication.openFiles(drop.urls);
+                if (!ElisaApplication.openFiles(drop.urls)) {
+                    showPassiveNotification(i18nc("@info:status", "Could not load some files. Elisa can only open audio and playlist files."), 7000, "", function() {})
+                }
             }
         }
     }
@@ -471,7 +473,9 @@ Kirigami.ApplicationWindow {
 
         mprisloader.active = true
 
-        ElisaApplication.openFiles(elisaStartupArguments)
+        if (!ElisaApplication.openFiles(elisaStartupArguments)) {
+            showPassiveNotification(i18nc("@info:status", "Could not load some files. Elisa can only open audio and playlist files."), 7000, "", function() {})
+        }
 
         // use global drawer on mobile
         if (Kirigami.Settings.isMobile) {

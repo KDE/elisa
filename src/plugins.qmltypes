@@ -499,10 +499,12 @@ Module {
         Method { name: "configureElisa" }
         Method {
             name: "openFiles"
+            type: "bool"
             Parameter { name: "files"; type: "QList<QUrl>" }
         }
         Method {
             name: "openFiles"
+            type: "bool"
             Parameter { name: "files"; type: "QList<QUrl>" }
             Parameter { name: "workingDirectory"; type: "string" }
         }

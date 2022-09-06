@@ -221,12 +221,12 @@ void ElisaApplication::setupActions(const QString &actionName)
 #endif
 }
 
-void ElisaApplication::openFiles(const QList<QUrl> &files)
+bool ElisaApplication::openFiles(const QList<QUrl> &files)
 {
-    openFiles(files, QDir::currentPath());
+    return openFiles(files, QDir::currentPath());
 }
 
-void ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workingDirectory)
+bool ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workingDirectory)
 {
     auto audioFiles = DataTypes::EntryDataList{};
     const QMimeDatabase mimeDB;
@@ -245,6 +245,7 @@ void ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workin
                        ElisaUtils::PlayListEnqueueMode::AppendPlayList,
                        ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }
+    return (audioFiles.count() == files.count());
 }
 
 void ElisaApplication::activateActionRequested(const QString &actionName, const QVariant &parameter)

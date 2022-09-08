@@ -34,6 +34,7 @@ FocusScope {
     property bool isSelected
     property bool isAlternateColor
     property bool detailedView: true
+    property bool editingRating: false
 
     signal clicked()
     signal enqueue()
@@ -238,7 +239,7 @@ FocusScope {
             // hover actions (for desktop)
             Loader {
                 id: hoverLoader
-                active: !Kirigami.Settings.isMobile && (hoverArea.containsMouse || mediaTrack.activeFocus)
+                active: !Kirigami.Settings.isMobile && (hoverArea.containsMouse || mediaTrack.activeFocus) && !mediaTrack.editingRating
                 visible: active
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
@@ -293,6 +294,21 @@ FocusScope {
                     }
 
                     FlatButtonWithToolTip {
+                        id: ratingButton
+
+                        visible: !ElisaApplication.useFavoriteStyleRatings
+
+                        width: singleLineHeight
+                        height: singleLineHeight
+
+                        text: i18nc("@action:button", "Set track rating")
+                        icon.name: "view-media-favorite"
+                        onClicked: {
+                            mediaTrack.editingRating = true;
+                        }
+                    }
+
+                    FlatButtonWithToolTip {
                         visible: ElisaApplication.useFavoriteStyleRatings
 
                         width: singleLineHeight
@@ -319,9 +335,30 @@ FocusScope {
             }
 
             // ratings (desktop)
+            Loader {
+                id: cancelRatingLoader
+                active: !Kirigami.Settings.isMobile && (hoverArea.containsMouse || mediaTrack.activeFocus)
+                visible: active && mediaTrack.editingRating
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+
+                z: 1
+
+                sourceComponent: Row {
+                    anchors.centerIn: parent
+                        FlatButtonWithToolTip {
+                        width: singleLineHeight
+                        height: singleLineHeight
+                        text: i18nc("@action:button", "Cancel rating this track")
+                        icon.name: "dialog-cancel"
+                        onClicked: { mediaTrack.editingRating = false; }
+                    }
+                }
+            }
             RatingStar {
                 id: ratingWidget
-                visible: !Kirigami.Settings.isMobile && !ElisaApplication.useFavoriteStyleRatings && rating > 0
+                visible: !Kirigami.Settings.isMobile && (mediaTrack.editingRating || (rating > 0 && !hoverArea.containsMouse && !mediaTrack.activeFocus && !ElisaApplication.useFavoriteStyleRatings))
+
                 readOnly: false
 
                 starRating: rating
@@ -329,6 +366,7 @@ FocusScope {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
                 onRatingEdited: {
+                    mediaTrack.editingRating = false
                     trackRatingChanged(trackUrl, starRating);
                 }
             }

@@ -274,7 +274,7 @@ BasePlayListDelegate {
                         enabled: isValid
                         visible: playListEntry.wideMode && playListEntry.fileName.toString().substring(0, 7) === 'file://'
                         action: actionList.locateFileAction
-                        KeyNavigation.left: removeButton
+                        KeyNavigation.left: favoriteButton
                         KeyNavigation.right: infoButton
                         activeFocusOnTab: isSelected
                     }
@@ -285,26 +285,6 @@ BasePlayListDelegate {
                         enabled: isValid
                         visible: playListEntry.wideMode
                         action: actionList.infoAction
-                        KeyNavigation.right: ratingButton
-                        activeFocusOnTab: isSelected
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: ratingButton
-                        objectName: 'ratingButton'
-                        visible: playListEntry.wideMode && !ElisaApplication.useFavoriteStyleRatings
-                        enabled: isValid
-                        action: actionList.ratingAction
-                        KeyNavigation.right: favoriteButton
-                        activeFocusOnTab: isSelected
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: favoriteButton
-                        objectName: 'favoriteButton'
-                        visible: playListEntry.wideMode && ElisaApplication.useFavoriteStyleRatings
-                        enabled: isValid
-                        action: actionList.favoriteAction
                         KeyNavigation.right: playPauseButton
                         activeFocusOnTab: isSelected
                     }
@@ -325,6 +305,26 @@ BasePlayListDelegate {
                         objectName: 'removeButton'
                         visible: playListEntry.wideMode
                         action: actionList.removeAction
+                        KeyNavigation.right: ratingButton
+                        activeFocusOnTab: isSelected
+                    }
+
+                    FlatButtonWithToolTip {
+                        id: ratingButton
+                        objectName: 'ratingButton'
+                        visible: playListEntry.wideMode && !ElisaApplication.useFavoriteStyleRatings
+                        enabled: isValid
+                        action: actionList.ratingAction
+                        KeyNavigation.right: favoriteButton
+                        activeFocusOnTab: isSelected
+                    }
+
+                    FlatButtonWithToolTip {
+                        id: favoriteButton
+                        objectName: 'favoriteButton'
+                        visible: playListEntry.wideMode && ElisaApplication.useFavoriteStyleRatings
+                        enabled: isValid
+                        action: actionList.favoriteAction
                         KeyNavigation.right: locateFileButton
                         activeFocusOnTab: isSelected
                     }
@@ -352,14 +352,20 @@ BasePlayListDelegate {
                 }
             }
 
-            Kirigami.Icon {
+            Loader {
+                id: favoriteMark
+
                 visible: rating == 10 && !containsMouse && !playListEntry.hasActiveFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
 
-                implicitWidth: Kirigami.Units.iconSizes.smallMedium
-                implicitHeight: Kirigami.Units.iconSizes.smallMedium
-
-                source: "rating"
+                sourceComponent: Row {
+                    FlatButtonWithToolTip {
+                        visible: playListEntry.wideMode && ElisaApplication.useFavoriteStyleRatings
+                        enabled: isValid
+                        action: actionList.favoriteAction
+                    }
+                }
             }
+
 
             LabelWithToolTip {
                 id: durationLabel

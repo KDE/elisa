@@ -272,6 +272,27 @@ FocusScope {
                     }
 
                     FlatButtonWithToolTip {
+                        id: enqueueButton
+                        width: singleLineHeight
+                        height: singleLineHeight
+
+                        text: i18nc("@action:button", "Add to playlist")
+                        icon.name: "list-add"
+                        onClicked: enqueue()
+                    }
+
+                    FlatButtonWithToolTip {
+                        id: clearAndEnqueueButton
+                        scale: LayoutMirroring.enabled ? -1 : 1
+                        width: singleLineHeight
+                        height: singleLineHeight
+
+                        text: i18nc("@action:button", "Play now, replacing current playlist")
+                        icon.name: "media-playback-start"
+                        onClicked: replaceAndPlay()
+                    }
+
+                    FlatButtonWithToolTip {
                         visible: ElisaApplication.useFavoriteStyleRatings
 
                         width: singleLineHeight
@@ -294,27 +315,6 @@ FocusScope {
                             trackRatingChanged(trackUrl, newRating);
                         }
                     }
-
-                    FlatButtonWithToolTip {
-                        id: enqueueButton
-                        width: singleLineHeight
-                        height: singleLineHeight
-
-                        text: i18nc("@action:button", "Add to playlist")
-                        icon.name: "list-add"
-                        onClicked: enqueue()
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: clearAndEnqueueButton
-                        scale: LayoutMirroring.enabled ? -1 : 1
-                        width: singleLineHeight
-                        height: singleLineHeight
-
-                        text: i18nc("@action:button", "Play now, replacing current playlist")
-                        icon.name: "media-playback-start"
-                        onClicked: replaceAndPlay()
-                    }
                 }
             }
 
@@ -332,13 +332,18 @@ FocusScope {
                     trackRatingChanged(trackUrl, starRating);
                 }
             }
-            Kirigami.Icon {
+            Loader {
+                id: favoriteMark
+
                 visible: !Kirigami.Settings.isMobile && ElisaApplication.useFavoriteStyleRatings && !hoverLoader.active && rating == 10
 
-                implicitWidth: Kirigami.Units.iconSizes.smallMedium
-                implicitHeight: Kirigami.Units.iconSizes.smallMedium
-
-                source: "rating"
+                sourceComponent: Row {
+                    FlatButtonWithToolTip {
+                        width: singleLineHeight
+                        height: singleLineHeight
+                        icon.name: rating == 10 ? "rating" : "rating-unrated"
+                    }
+                }
             }
 
             LabelWithToolTip {

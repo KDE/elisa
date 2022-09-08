@@ -15,14 +15,12 @@ Row {
 
     property double hoverBrightness: 0.5
     property double hoverContrast: 0.5
-    property double hoverWidgetOpacity: 0
 
     property int hoveredRating: 0
 
     signal ratingEdited()
 
     spacing: 0
-    opacity: starRating >= 2 ? 1 : hoverWidgetOpacity
 
     Repeater {
         model: 5

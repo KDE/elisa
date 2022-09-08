@@ -405,7 +405,6 @@ Item {
                     objectName: 'ratingFilter'
 
                     visible: showRating && !ElisaApplication.useFavoriteStyleRatings
-                    hoverWidgetOpacity: 1
 
                     readOnly: false
                 },

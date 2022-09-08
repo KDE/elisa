@@ -113,8 +113,6 @@ RowLayout {
 
                 readOnly: false
 
-                hoverWidgetOpacity: 1
-
                 anchors.verticalCenter: parent.verticalCenter
                 height: Kirigami.Units.gridUnit
 

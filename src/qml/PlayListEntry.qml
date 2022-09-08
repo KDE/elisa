@@ -425,40 +425,16 @@ BasePlayListDelegate {
             when: playListEntry.listView.dragging
         },
         State {
-            name: 'notSelected'
-            when: !containsMouse && !isSelected && !playListEntry.hasActiveFocus && !simpleMode
-            PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 0.0
-            }
-        },
-        State {
             name: 'hovered'
             when: containsMouse && !playListEntry.hasActiveFocus && !simpleMode
-            PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 1.0
-            }
             PropertyChanges {
                 target: buttonRowLoader
                 active: playListEntry.wideMode
             }
         },
         State {
-            name: 'selected'
-            when: !playListEntry.hasActiveFocus && isSelected && !simpleMode
-            PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 1.0
-            }
-        },
-        State {
             name: 'focused'
             when: playListEntry.hasActiveFocus && !simpleMode
-            PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 1.0
-            }
             PropertyChanges {
                 target: buttonRowLoader
                 active: playListEntry.wideMode

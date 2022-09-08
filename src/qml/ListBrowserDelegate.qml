@@ -471,10 +471,6 @@ FocusScope {
             name: 'notSelected'
             when: !mediaTrack.activeFocus && !hoverArea.containsMouse && !mediaTrack.isSelected
             PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 0.0
-            }
-            PropertyChanges {
                 target: rowRoot
                 color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
             }
@@ -486,10 +482,6 @@ FocusScope {
         State {
             name: 'hovered'
             when: !mediaTrack.activeFocus && hoverArea.containsMouse
-            PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 1.0
-            }
             PropertyChanges {
                 target: rowRoot
                 color: myPalette.highlight
@@ -503,10 +495,6 @@ FocusScope {
             name: 'selected'
             when: !mediaTrack.activeFocus && mediaTrack.isSelected
             PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 1.0
-            }
-            PropertyChanges {
                 target: rowRoot
                 color: myPalette.mid
             }
@@ -518,10 +506,6 @@ FocusScope {
         State {
             name: 'focused'
             when: mediaTrack.activeFocus
-            PropertyChanges {
-                target: ratingWidget
-                hoverWidgetOpacity: 1.0
-            }
             PropertyChanges {
                 target: rowRoot
                 color: myPalette.highlight

@@ -253,8 +253,13 @@ void MediaPlayListProxyModel::setShufflePlayList(const bool value)
 
                 QModelIndexList from;
                 from.reserve(playListSize);
-                std::swap(d->mRandomMapping[0], d->mRandomMapping[currentTrackRow()]);
-                from.append(index(d->mRandomMapping.at(0), 0));
+                // Adding the current track first if it is not the only one
+                if (playListSize > 1) {
+                    if (currentTrackRow() != 0) {
+                        std::swap(d->mRandomMapping[0], d->mRandomMapping[currentTrackRow()]);
+                    }
+                    from.append(index(d->mRandomMapping.at(0), 0));
+                }
                 // Fisher-Yates algorithm
                 for (int i = 1;  i < playListSize - 1; ++i) {
                     const int swapIndex = d->mRandomGenerator.bounded(i, playListSize);

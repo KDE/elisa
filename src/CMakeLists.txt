@@ -319,7 +319,7 @@ if (NOT APPLE AND NOT WIN32)
         BUNDLE DESTINATION ${KDE_INSTALL_FULL_LIBDIR}/elisa
         )
 else()
-    install(TARGETS elisaLib ${INSTALL_TARGETS_DEFAULT_ARGS})
+    install(TARGETS elisaLib ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 endif()
 
 set(elisaqmlplugin_SOURCES
@@ -499,7 +499,7 @@ if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
             )
     endif()
 
-    install(TARGETS elisa ${INSTALL_TARGETS_DEFAULT_ARGS})
+    install(TARGETS elisa ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 endif()
 
 set(elisaImport_SOURCES

@@ -14,10 +14,6 @@
 
 //#define QT_QML_DEBUG
 
-#if KF5Declarative_FOUND
-#include <KDeclarative/KDeclarative>
-#endif
-
 #include <KLocalizedString>
 #include <KLocalizedContext>
 
@@ -139,13 +135,6 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));
     QQmlFileSelector selector(&engine);
-
-#if KF5Declarative_FOUND
-    KDeclarative::KDeclarative decl;
-    decl.setDeclarativeEngine(&engine);
-    decl.setupEngine(&engine);
-    decl.setupContext();
-#endif
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
 

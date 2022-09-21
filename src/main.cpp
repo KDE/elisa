@@ -16,7 +16,6 @@
 
 #if KF5Declarative_FOUND
 #include <KDeclarative/KDeclarative>
-#include <KQuickAddons/QtQuickSettings>
 #endif
 
 #include <KLocalizedString>
@@ -34,6 +33,7 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QStandardPaths>
+#include <QSurfaceFormat>
 #include <QDir>
 
 #include <QQmlApplicationEngine>
@@ -59,6 +59,10 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 int main(int argc, char *argv[])
 #endif
 {
+    auto format = QSurfaceFormat::defaultFormat();
+    format.setOption(QSurfaceFormat::ResetNotification);
+    QSurfaceFormat::setDefaultFormat(format);
+
 #if defined Q_OS_ANDROID
     if(argc > 1 && strcmp(argv[1], "-service") == 0){
         QAndroidService app(argc, argv);
@@ -83,10 +87,6 @@ int main(int argc, char *argv[])
 
 #if defined Q_OS_WIN || defined Q_OS_MAC
     QApplication::setStyle(QStringLiteral("breeze"));
-#endif
-
-#if KF5Declarative_FOUND
-    KQuickAddons::QtQuickSettings::init();
 #endif
 
     KLocalizedString::setApplicationDomain("elisa");

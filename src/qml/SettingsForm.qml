@@ -278,6 +278,23 @@ ColumnLayout {
             }
         }
 
+        Kirigami.InlineMessage {
+            Layout.fillWidth: true
+
+            visible: indexingTypeCombo.currentIndex === 1
+
+            type: Kirigami.MessageType.Warning
+            text: i18nc("@info", "This is slower than the fast indexer. Please activate it only if Elisa cannot find your music and searching for one of the missing music files using your file manager also does not work. Please report this as a bug.")
+
+            actions: [
+                Kirigami.Action {
+                    text: i18nc("@action:button", "Report Bug")
+                    iconName: "tools-report-bug"
+                    onTriggered: Qt.openUrlExternally("https://bugs.kde.org/enter_bug.cgi?product=frameworks-baloo")
+                }
+            ]
+        }
+
         Item {
             Kirigami.FormData.isSection: true
         }
@@ -311,23 +328,6 @@ ColumnLayout {
                 font: Kirigami.Theme.smallFont
             }
         }
-    }
-
-    Kirigami.InlineMessage {
-        Layout.fillWidth: true
-
-        visible: indexingTypeCombo.currentIndex === 1
-
-        type: Kirigami.MessageType.Warning
-        text: i18nc("@info", "This is slower than the fast indexer. Please activate it only if Elisa cannot find your music and searching for one of the missing music files using your file manager also does not work. Please report this as a bug.")
-
-        actions: [
-            Kirigami.Action {
-                text: i18nc("@action:button", "Report Bug")
-                iconName: "tools-report-bug"
-                onTriggered: Qt.openUrlExternally("https://bugs.kde.org/enter_bug.cgi?product=frameworks-baloo")
-            }
-        ]
     }
 
     // Music locations list

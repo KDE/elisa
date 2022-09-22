@@ -365,14 +365,20 @@ ColumnLayout {
                 model: ElisaConfigurationDialog.rootPath
 
                 delegate: Kirigami.SwipeListItem {
+                    id: delegate
                     // Don't need a highlight effect on hover
                     hoverEnabled: false
 
                     QQC2.Label {
                         text: modelData
+                        width: delegate.width - delegate.leftPadding
+                                              - delegate.rightPadding
+                                              - (action.visible ? action.width : 0)
+                        elide: Text.ElideMiddle
                     }
 
                     actions: Kirigami.Action {
+                        id: action
                         iconName: "edit-delete"
                         text: i18nc("@action:button", "Stop looking for music here")
 

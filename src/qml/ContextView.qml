@@ -11,7 +11,7 @@ import QtQuick.Controls 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-import org.kde.kirigami 2.12 as Kirigami
+import org.kde.kirigami 2.13 as Kirigami
 import org.kde.elisa 1.0
 
 Kirigami.Page {
@@ -136,9 +136,48 @@ Kirigami.Page {
     Item {
         anchors.fill: parent
 
-        // Blurred album art background
         Loader {
-            active: ElisaApplication.showNowPlayingBackground && !topItem.nothingPlaying
+            active: ElisaApplication.colorSchemeFromAlbumArt
+                 && albumArtUrl.toString() !== ''
+            asynchronous: true
+
+            sourceComponent: Kirigami.ImageColors {
+                id: imageColors
+
+                property Connections imageUpdateConnection: Connections {
+                    target: blurredAlbumArtLoader.item
+                    function onStatusChanged() {
+                        if (blurredAlbumArtLoader.item.status !== Image.Ready) {
+                            return;
+                        }
+                        imageColors.update()
+                    }
+                }
+
+                source: blurredAlbumArtLoader.item
+
+                onPaletteChanged: {
+                    if (imageColors.palette.length === 0) {
+                        ElisaApplication.updateColorSchemeFromAlbumArt(Qt.transparent, ElisaApplication.colorScheme)
+                        return
+                    }
+
+                    ElisaApplication.updateColorSchemeFromAlbumArt(imageColors.dominant, ElisaApplication.colorScheme)
+                }
+            }
+
+            onLoaded: item.update()
+            onActiveChanged: if (!active) {
+                ElisaApplication.updateColorSchemeFromAlbumArt(Qt.transparent, ElisaApplication.colorScheme)
+            }
+        }
+
+        Loader {
+            id: blurredAlbumArtLoader
+
+            active: (ElisaApplication.showNowPlayingBackground && !topItem.nothingPlaying)
+                || ElisaApplication.colorSchemeFromAlbumArt
+            visible: false
             anchors.fill: parent
 
             sourceComponent: Image {
@@ -151,17 +190,18 @@ Kirigami.Page {
 
                 fillMode: Image.PreserveAspectCrop
 
-                layer.enabled: true
-                opacity: 0.2
-                layer.effect: FastBlur {
-                    source: albumArtBackground
-                    // anchors.fill: parent
-                    radius: 40
-                }
-
                 // HACK: set sourceSize to a fixed value to prevent background flickering (BUG431607)
                 onStatusChanged: if (status === Image.Ready && (sourceSize.width > Kirigami.Units.gridUnit * 50 || sourceSize.height > Kirigami.Units.gridUnit * 50)) sourceSize = Qt.size(Kirigami.Units.gridUnit * 50, Kirigami.Units.gridUnit * 50)
             }
+        }
+
+        // Blurred album art background
+        FastBlur {
+            anchors.fill: parent
+            visible: ElisaApplication.showNowPlayingBackground && !topItem.nothingPlaying
+            source: blurredAlbumArtLoader
+            opacity: 0.2
+            radius: 40
         }
 
         RowLayout {

@@ -159,6 +159,16 @@ ColumnLayout {
             }
         }
 
+        QQC2.CheckBox {
+            visible: Kirigami.Settings.isMobile
+            checked: ElisaConfigurationDialog.colorSchemeFromAlbumArt
+            text: i18nc("@action:button", "From Album Art")
+            onToggled: {
+                ElisaConfigurationDialog.setColorSchemeFromAlbumArt(checked)
+                ElisaConfigurationDialog.save()
+            }
+        }
+
         // scan for new music (mobile only, since on desktop it is in the application menu)
         QQC2.Button {
             visible: Kirigami.Settings.isMobile

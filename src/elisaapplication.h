@@ -73,6 +73,14 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ manageHeaderBar
                NOTIFY manageHeaderBarChanged)
 
+    Q_PROPERTY(QString colorScheme
+               READ colorScheme
+               NOTIFY colorSchemeChanged)
+
+    Q_PROPERTY(bool colorSchemeFromAlbumArt
+               READ colorSchemeFromAlbumArt
+               NOTIFY colorSchemeFromAlbumArtChanged)
+
     Q_PROPERTY(bool showNowPlayingBackground
                READ showNowPlayingBackground
                NOTIFY showNowPlayingBackgroundChanged)
@@ -127,6 +135,9 @@ public:
 
     [[nodiscard]] ManageHeaderBar *manageHeaderBar() const;
 
+    [[nodiscard]] QString colorScheme() const;
+    [[nodiscard]] bool colorSchemeFromAlbumArt() const;
+
     [[nodiscard]] bool showNowPlayingBackground() const;
 
     [[nodiscard]] bool showProgressOnTaskBar() const;
@@ -160,6 +171,9 @@ Q_SIGNALS:
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void initializationDone();
+
+    void colorSchemeChanged();
+    void colorSchemeFromAlbumArtChanged();
 
     void showNowPlayingBackgroundChanged();
 
@@ -199,6 +213,12 @@ public Q_SLOTS:
     void initialize();
 
     void activateColorScheme(const QString &name);
+
+    /**
+     * Uses colors extracted from the album art when color is not transparent,
+     * and fall back to the current color scheme if color is transparent.
+     */
+    void updateColorSchemeFromAlbumArt(const QColor &color, const QString &currentColorScheme);
 
 public:
 

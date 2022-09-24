@@ -73,6 +73,11 @@
   </entry>
   <entry key="ColorScheme" type="String">
   </entry>
+  <entry key="ColorSchemeFromAlbumArt" type="Bool">
+    <default>
+      false
+    </default>
+  </entry>
   <entry key="SortRolePreferences" type="StringList">
   </entry>
   <entry key="SortOrderPreferences" type="StringList">

@@ -80,6 +80,7 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
     Elisa::ElisaConfiguration::setScanAtStartup(mScanAtStartup);
     Elisa::ElisaConfiguration::setColorScheme(mColorScheme);
+    Elisa::ElisaConfiguration::setColorSchemeFromAlbumArt(mColorSchemeFromAlbumArt);
     Elisa::ElisaConfiguration::setUseFavoriteStyleRatings(mUseFavoriteStyleRatings);
 
     Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::NoView);
@@ -241,6 +242,17 @@ void ElisaConfigurationDialog::setColorScheme(const QString &scheme)
     setDirty();
 }
 
+void ElisaConfigurationDialog::setColorSchemeFromAlbumArt(bool fromAlbumArt)
+{
+    if (mColorSchemeFromAlbumArt == fromAlbumArt) {
+        return;
+    }
+    mColorSchemeFromAlbumArt = fromAlbumArt;
+    Q_EMIT colorSchemeFromAlbumArtChanged();
+
+    setDirty();
+}
+
 void ElisaConfigurationDialog::setUseFavoriteStyleRatings(bool useFavoriteStyleRatings)
 {
     if (mUseFavoriteStyleRatings == useFavoriteStyleRatings) {
@@ -280,6 +292,9 @@ void ElisaConfigurationDialog::configChanged()
 
     mColorScheme = Elisa::ElisaConfiguration::colorScheme();
     Q_EMIT colorSchemeChanged();
+
+    mColorSchemeFromAlbumArt = Elisa::ElisaConfiguration::colorSchemeFromAlbumArt();
+    Q_EMIT colorSchemeFromAlbumArtChanged();
 
     mUseFavoriteStyleRatings = Elisa::ElisaConfiguration::useFavoriteStyleRatings();
     Q_EMIT useFavoriteStyleRatingsChanged();

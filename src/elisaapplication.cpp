@@ -131,6 +131,26 @@ void ElisaApplication::activateColorScheme(const QString &name)
     d->mSchemes->activateScheme(d->mSchemes->indexForScheme(name));
 }
 
+void ElisaApplication::updateColorSchemeFromAlbumArt(const QColor &color, const QString &currentColorScheme)
+{
+    if (color == Qt::transparent) {
+        qCritical() << "restored";
+        d->mSchemes->activateScheme(d->mSchemes->indexForScheme(currentColorScheme));
+        return;
+    }
+
+    QColor activeColor, inActiveColor;
+    activeColor.setHsl(color.hslHue(), color.hslSaturation(), 150);
+    inActiveColor.setHsl(color.hslHue(), color.hslSaturation(), 50);
+
+    // Modify the current color scheme
+    auto palette = qApp->palette();
+    palette.setBrush(QPalette::Active, QPalette::Highlight, activeColor);
+    palette.setBrush(QPalette::Inactive, QPalette::Highlight, inActiveColor);
+
+    qApp->setPalette(palette);
+}
+
 void ElisaApplication::setupActions(const QString &actionName)
 {
 #if KF5XmlGui_FOUND
@@ -354,6 +374,8 @@ void ElisaApplication::configChanged()
     currentConfiguration->load();
     currentConfiguration->read();
 
+    Q_EMIT colorSchemeChanged();
+    Q_EMIT colorSchemeFromAlbumArtChanged();
     Q_EMIT showNowPlayingBackgroundChanged();
     Q_EMIT showProgressOnTaskBarChanged();
     Q_EMIT showSystemTrayIconChanged();
@@ -606,6 +628,17 @@ ManageHeaderBar *ElisaApplication::manageHeaderBar() const
     return d->mManageHeaderBar.get();
 }
 
+QString ElisaApplication::colorScheme() const
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+    return currentConfiguration->colorScheme();
+}
+
+bool ElisaApplication::colorSchemeFromAlbumArt() const
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+    return currentConfiguration->colorSchemeFromAlbumArt();
+}
 
 bool ElisaApplication::showNowPlayingBackground() const
 {

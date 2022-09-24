@@ -65,6 +65,15 @@ Menu {
                 }
             }
         }
+
+        CheckBox {
+            text: i18nc("@action:menu", "From Album Art")
+            checked: ElisaConfigurationDialog.colorSchemeFromAlbumArt
+            onToggled: {
+                ElisaConfigurationDialog.setColorSchemeFromAlbumArt(checked)
+                ElisaConfigurationDialog.save()
+            }
+        }
     }
 
     Action {

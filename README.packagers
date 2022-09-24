@@ -33,6 +33,7 @@ Elisa has the following dependencies:
 
 -- RECOMMENDED:
 
+ * KF5Declarative (required version >= 5.70.0), Integration of QML and KDE work spaces.
  * KF5Baloo (required version >= 5.70.0), Baloo provides file searching and indexing.
  * KF5FileMetaData (required version >= 5.70.0), Provides a simple library for extracting metadata.
  * KF5XmlGui (required version >= 5.70.0), Framework for managing menu and toolbar actions.
@@ -53,6 +54,7 @@ Elisa has the following dependencies:
  * Qt5QuickWidgets (required version >= 5.12.0), Qt5 Quick Widgets is needed at runtime to provide the interface.
  * Qt.labs.platform, Qt.labs module with some qml components wrapping platform APIs
  * qml-module-qtqml-models2 (required version >= 5.12.0), qml Qt module
+ * qml-module-org-kde-kcm (required version >= 5.70.0), qml module from KF5 KDeclarative framework
  * qml-module-qtquick-controls (required version >= 5.12.0), qml Qt module
  * qml-module-qtquick-dialogs (required version >= 5.12.0), qml Qt module
  * qml-module-qtquick-layouts (required version >= 5.12.0), qml Qt module

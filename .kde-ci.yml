@@ -15,6 +15,7 @@ Dependencies:
 
 - 'on': ['Linux', 'FreeBSD', 'Windows']
   'require':
+    'frameworks/kdeclarative': '@stable'
     'frameworks/kdoctools': '@stable'
     'frameworks/kio': '@stable'
     'frameworks/kfilemetadata': '@stable'

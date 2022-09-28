@@ -18,7 +18,6 @@
 #include <QDBusPendingCall>
 #include <QDBusPendingCallWatcher>
 #include <QDBusPendingReply>
-#include <QDBusUnixFileDescriptor>
 #endif
 
 #if defined Q_OS_WIN
@@ -30,7 +29,6 @@
 
 #include <QGuiApplication>
 
-#include <QLoggingCategory>
 
 class PowerManagementInterfacePrivate
 {

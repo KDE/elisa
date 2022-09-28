@@ -10,7 +10,6 @@
 #include "datatypes.h"
 
 #include <QObject>
-#include <QVector>
 #include <QString>
 
 #include <memory>

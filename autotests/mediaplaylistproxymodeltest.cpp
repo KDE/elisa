@@ -18,7 +18,6 @@
 
 #include <QtTest>
 #include <QUrl>
-#include <QTime>
 #include <QTemporaryFile>
 #include <QAbstractItemModelTester>
 

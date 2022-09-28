@@ -53,7 +53,6 @@
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QKeyEvent>
-#include <QDebug>
 #include <QFileSystemWatcher>
 #include <QMimeDatabase>
 #include <QMimeType>

@@ -11,7 +11,6 @@
 
 #include "databasetestdata.h"
 
-#include <QHash>
 
 class ManageHeaderBarTest : public QObject, public DatabaseTestData
 {

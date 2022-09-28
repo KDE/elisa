@@ -11,7 +11,6 @@
 #include <KDSoapClient/KDSoapPendingCall.h>
 #include <KDSoapClient/KDSoapPendingCallWatcher.h>
 
-#include <QLoggingCategory>
 
 class UpnpControlConnectionManagerPrivate
 {

@@ -11,7 +11,6 @@
 
 #include "databasetestdata.h"
 
-#include <QHash>
 
 class ManageMediaPlayerControlTest : public QObject, public DatabaseTestData
 {

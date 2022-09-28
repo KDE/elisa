@@ -23,8 +23,6 @@
 #include <Baloo/File>
 #include <Baloo/IndexerConfig>
 
-#include <KFileMetaData/Properties>
-#include <KFileMetaData/UserMetaData>
 
 
 #include <QDBusConnection>

@@ -18,15 +18,9 @@
 #include <UpnpServiceDescription>
 #include <UpnpActionDescription>
 
-#include <QDomDocument>
-#include <QDomElement>
-#include <QDomNode>
 
 #include <QHash>
 #include <QString>
-#include <QList>
-#include <QLoggingCategory>
-#include <QPointer>
 #include <QUrl>
 
 class UpnpContentDirectoryModelPrivate

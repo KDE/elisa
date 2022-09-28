@@ -9,14 +9,11 @@
 #include "playListLogging.h"
 
 #include <QUrl>
-#include <QPersistentModelIndex>
 #include <QList>
-#include <QMediaPlaylist>
 #include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QDebug>
-#include <QRandomGenerator>
 
 #include <algorithm>
 

@@ -26,6 +26,7 @@
 #include <KQuickIconProvider>
 #include <QIcon>
 
+#include <QQmlContext>
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QStandardPaths>
@@ -33,10 +34,8 @@
 #include <QDir>
 
 #include <QQmlApplicationEngine>
-#include <QJSEngine>
 #include <QQmlFileSelector>
 #include <QQuickStyle>
-#include <QQmlContext>
 
 #if Qt5AndroidExtras_FOUND
 #include <QAndroidService>

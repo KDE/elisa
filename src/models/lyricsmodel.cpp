@@ -4,7 +4,6 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 #include "lyricsmodel.h"
-#include <QDebug>
 #include <algorithm>
 #include <unordered_map>
 #include <KLocalizedString>

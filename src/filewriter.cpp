@@ -15,7 +15,6 @@
 #include <KFileMetaData/WriterCollection>
 #include <KFileMetaData/Writer>
 #include <KFileMetaData/UserMetaData>
-#include <KFileMetaData/Properties>
 #include <KFileMetaData/WriteData>
 #include <QHash>
 

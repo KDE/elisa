@@ -11,10 +11,7 @@
 #include "viewslistdata.h"
 
 #include <QAbstractItemModelTester>
-#include <QDir>
-#include <QFile>
 #include <QHash>
-#include <QMetaObject>
 #include <QObject>
 #include <QStandardPaths>
 #include <QString>
@@ -22,7 +19,6 @@
 #include <QUrl>
 #include <QVector>
 
-#include <QDebug>
 
 #include <QtTest>
 

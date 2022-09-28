@@ -8,7 +8,6 @@
 
 #include <KLocalizedString>
 
-#include <QDebug>
 
 EditableTrackMetadataModel::EditableTrackMetadataModel(QObject *parent)
     : TrackMetadataModel(parent)

@@ -39,7 +39,6 @@
 #include <QDir>
 #include <QCoreApplication>
 #include <QFileSystemWatcher>
-#include <QAction>
 
 #include <list>
 

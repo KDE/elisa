@@ -9,7 +9,6 @@
 #include "config-upnp-qt.h"
 
 #include <QObject>
-#include <QList>
 #include <QUrl>
 #include <QFile>
 

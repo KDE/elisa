@@ -11,7 +11,6 @@
 #include "databasetestdata.h"
 
 #include <QObject>
-#include <QHash>
 
 class MediaPlayListProxyModelTest : public QObject, public DatabaseTestData
 {

@@ -11,8 +11,6 @@
 #include <QObject>
 #include <QUrl>
 #include <QString>
-#include <QDir>
-#include <QFileInfo>
 
 
 #include <QtTest>

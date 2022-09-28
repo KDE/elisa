@@ -10,7 +10,6 @@
 #include "databasetestdata.h"
 
 #include <QObject>
-#include <QHash>
 
 class MediaPlayListTest : public QObject, public DatabaseTestData
 {

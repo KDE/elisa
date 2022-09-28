@@ -6,7 +6,6 @@
 
 #include "manageheaderbar.h"
 
-#include <QTime>
 
 ManageHeaderBar::ManageHeaderBar(QObject *parent)
     : QObject(parent)

@@ -10,8 +10,6 @@
 #include "datatypes.h"
 #include "elisautils.h"
 
-#include <QReadLocker>
-#include <QtConcurrent>
 
 GridViewProxyModel::GridViewProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {

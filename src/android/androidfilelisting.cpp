@@ -17,16 +17,11 @@
 
 #include <QThread>
 #include <QFileInfo>
-#include <QDir>
 #include <QAtomicInt>
-#include <QScopedPointer>
-#include <QDebug>
-#include <QGuiApplication>
 
 // C++ code
 #include <jni.h>
 #include <QAndroidJniObject>
-#include <QAndroidJniEnvironment>
 #include <QtAndroid>
 
 #include <algorithm>

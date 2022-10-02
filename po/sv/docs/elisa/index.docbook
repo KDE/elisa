@@ -1,0 +1,278 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY elisa "<application
+>Elisa</application
+>">
+  <!ENTITY i18n-translatable-entity "<application
+>Elisa</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Swedish "INCLUDE">
+]>
+<book id="elisa" lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title
+>Handbok &elisa;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Matthieu</firstname
+> <surname
+>Gallien</surname
+> </personname
+> <email
+>matthieu_gallien@yahoo.fr</email
+> </author>
+<othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2017-2018</year>
+<holder
+>Matthieu Gallien</holder>
+</copyright>
+<legalnotice
+>&CCBYSA4Notice;</legalnotice>
+
+<date
+>2018-09-14</date>
+
+<releaseinfo
+>Elisa 0.3.80</releaseinfo>
+
+<abstract>
+<para
+>Elisa är en musikspelare utvecklad av KDE-gemenskapen som försöker att vara enkel och trevlig att använda. Vi inser också att vi behöver en flexibel produkt för att ta hänsyn till våra användares olika arbetssätt och användarfall. </para>
+<para
+>Vi fokuserar på mycket god integrering med KDE-gemenskapens Plasma-skrivbord utan att stöd för andra plattformar tar skada (andra Linux-skrivbordsmiljöer, Windows och Android). </para>
+<para
+>Vi skapar en tillförlitlig produkt som är en fröjd att använda och som respekterar våra användares integritet. Som sådan, kommer vi att föredra att stödja nättjänster där användarna har kontroll över sin data. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdemultimedia</keyword>
+<keyword
+>Elisa</keyword>
+<keyword
+>ljud</keyword>
+<keyword
+>musik</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inledning</title>
+
+<para
+>&elisa; är en musikspelare som är konstruerad för att vara lättanvänd. <screenshot>
+<screeninfo
+>Här är en skärmbild av &elisa;s startskärm</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Screenshot_20180912_232200.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Skärmbild</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Använda &elisa;</title>
+
+<para
+>&elisa; indexerar musik, antingen genom att använda Baloo om det är möjligt, eller genom att söka igenom en lista över sökvägar inställda av användaren via ett särskilt gränssnitt. </para>
+<para
+>I fallet då stöd för Baloo är aktiverat men inställningen inte fungerar, visas en underrättelse med tips som tillåter att indexeringen inaktiveras, eller att indexering med Baloo aktiveras för att mata &elisa; med låtar. </para>
+<para
+>Om filindexering inte hittar någonting, visas en underrättelse med en knapp för att visa inställningsgränssnittet. </para>
+
+<para
+>Du finner en lista med ändringar hos <ulink url="https://phabricator.kde.org/project/profile/193/"
+>Elisa-projektet</ulink
+>. </para>
+
+<para
+>För närvarande krävs ingen inställning innan &elisa; används. Du kan utforska programmets meny för att se inställningsmöjligheterna. Det är möjligt att välja sökvägar som ska indexeras för att hitta musik. Det är också möjligt att ändra genvägar för vanliga åtgärder inne i programmet. </para>
+
+<para
+>Om den interna musikindexeringen används, kan sökvägarna som söks igenom ställas in. </para>
+
+
+<sect1 id="kapp-features">
+<title
+>Funktioner i &elisa;</title>
+
+<para
+>&elisa; erbjuder två olika funktioner: bläddra i din musik för att skapa en spellista, och spela upp musik. </para>
+
+<sect2>
+<title
+>Bläddra i musik</title>
+<para
+>Det samlar in all din musik och analyserar metadata såsom titel, artist, ..., från de olika musikkällorna. Det erbjuder fyra sätt att bläddra i musiken: en lista med alla album, en lista med alla artister, en lista med alla spår, eller en lista med alla genrer. </para>
+<para
+>Varje metod använder en vy av all din musik tillsammans med ett filter för att göra det möjligt att snabbt hitta vad du letar efter. Du kan också filtrera enligt betyg. </para>
+<para
+>Filtret för visning av alla album är implementerat för titeln, albumets artist, eller listan av artister för varje spår på ett album. Filtret för visning av alla artister är implementerat för artistens namn. Filtret för visning av alla spår är implementerat för spårets titel, spårets artist och spårets albumnamn (om det finns). </para>
+<para
+>Det är också möjligt att bläddra direkt i filsystemet och spela upp musikfiler. </para>
+</sect2>
+
+<sect2>
+<title
+>Skapa en spellista</title>
+<para
+>När du bläddrar i din musik, kan artister, album och spår läggas till med en knapp som visas när musen hålls över dem. Det är också möjligt att tömma spellistan och samtidigt lägga till musik. </para>
+<para
+>En verktygsrad under spellistan gör det möjligt att hantera den. Följande åtgärder är möjliga: <itemizedlist>
+  <listitem>
+    <para
+>Man kan rensa hela spellistan. </para>
+  </listitem>
+  <listitem>
+    <para
+>Man kan gå till spåret som för närvarande spelas. </para>
+  </listitem>
+  <listitem>
+    <para
+>Man kan spara spellistan på formatet m3u8. </para>
+  </listitem>
+  <listitem>
+    <para
+>Man kan läsa in en spellista som ersätter den nuvarande. </para>
+  </listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2>
+<title
+>Spela musik</title>
+<para
+>Spellistan läses i spårens ordning om inte alternativet <guilabel
+>Blanda</guilabel
+> är valt. När listans slut nås stoppas uppspelning om inte alternativet <guilabel
+>Upprepa</guilabel
+> är valt. </para>
+<para
+>Det är möjligt att byta till nästa eller föregående spår i listan. Om musen hålls över ett spår, är det möjligt att gå till det genom att klicka en knapp. </para>
+<para
+>Spåret som för närvarande spelas indikeras med en blinkande uppspelningsikon. </para>
+</sect2>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title
+>Tack till och licens</title>
+
+<para
+>&elisa; </para>
+<para
+>Program copyright 2015-2018 Elisa-gruppen </para>
+<para
+>Bidragsgivare: <itemizedlist>
+<listitem
+><para
+>Matthieu Gallien underhåll <email
+>matthieu_gallien@yahoo.fr</email
+></para>
+</listitem>
+<listitem
+><para
+>Andrew Lake (koncept och konstruktionsarbete) <email
+>jamboarder@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Luigi Toscano (landsinställningar) <email
+>luigi.toscano@tiscali.it</email
+></para>
+</listitem>
+<listitem
+><para
+>Safa Alfulaij (stöd för höger-till-vänster i gränssnittet) <email
+>safa1996alfulaij@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Alexander Stippich huvudutvecklare <email
+>a.stippich@gmx.net</email
+></para>
+</listitem>
+<listitem
+><para
+>Diego Gangl (diverse förbättringar av gränssnittet) <email
+>diego@sinestesia.co</email
+></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Dokumentation Copyright &copy; 2017-2018 Matthieu Gallien <email
+>matthieu_gallien@yahoo.fr</email
+> </para>
+
+<para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@bredband.net</email
+></para
+> &underCCBYSA4; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

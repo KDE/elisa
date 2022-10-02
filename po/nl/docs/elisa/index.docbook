@@ -1,0 +1,260 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY elisa "<application
+>Elisa</application
+>">
+  <!ENTITY i18n-translatable-entity "<application
+>Elisa</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Dutch "INCLUDE">
+]>
+<book id="elisa" lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title
+>Het handboek van &elisa;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Matthieu</firstname
+> <surname
+>Gallien</surname
+> </personname
+> <email
+>matthieu_gallien@yahoo.fr</email
+> </author>
+&Freek.de.Kruijf; 
+</authorgroup>
+
+<copyright>
+<year
+>2017-2018</year>
+<holder
+>Matthieu Gallien</holder>
+</copyright>
+<legalnotice
+>&CCBYSA4Notice;</legalnotice>
+
+<date
+>2018-09-14</date>
+
+<releaseinfo
+>Elisa 0.3.80</releaseinfo>
+
+<abstract>
+<para
+>Elisa is een muziekspeler ontwikkeld door de KDE-gemeenschap die er naar streeft eenvoudig te zijn en leuk in gebruik. We erkennen ook dat we een flexibel product nodig hebben om rekening te houden met de verschillende workflows en gebruiksgevallen van onze gebruikers. </para>
+<para
+>We leggen de focus op een zeer goede integratie met het Plasma-bureaublad van de KDE-gemeenschap zonder compromissen te sluiten om andere platformen (andere Linux bureaubladomgevinden, Windows en Android) te ondersteunen. </para>
+<para
+>We zijn een betrouwbaar product aan het maken dat plezierig is in gebruik en de privacy van onze gebruikers respecteert. Daarom geven we de voorkeur om online services te ondersteunen waar gebruikers controle hebben over hun gegevens. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdemultimedia</keyword>
+<keyword
+>Elisa</keyword>
+<keyword
+>audio</keyword>
+<keyword
+>muziek</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inleiding</title>
+
+<para
+>&elisa; is eem muziekspeler ontworpen voor eenvoudig gebruik. <screenshot>
+<screeninfo
+>Hier is een schermafdruk van het beginscherm van &elisa;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Screenshot_20180912_232200.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Schermafdruk</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>&elisa; gebruiken</title>
+
+<para
+>&elisa; indexeert uw muziek ofwel door Baloo te gebruiken indien mogelijk of door te zoeken in een lijst met paden, geconfigureerd door de gebruiker via een eigen interface. </para>
+<para
+>In geval de ondersteuning van Baloo is geactiveerd en uw opzet werkt niet, dan krijgt u een melding met hints om het indexeerprogramma te deactiveren of om Baloo, het indexeerprogramma te activeren en &elisa; te voeden met muziektracks. </para>
+<para
+>In het geval dat het bestandsindexeerprogramma niets vindt, zal een melding worden getoond met een knop om het configuratie-interface te openen. </para>
+
+<para
+>U kunt een lijst met wijzigingen vinden op <ulink url="https://phabricator.kde.org/project/profile/193/"
+>Elisa project</ulink
+>. </para>
+
+<para
+>Op dit moment is er geen configuratie voor het gebruik van &elisa; vereist. U kunt met het menu van de toepassing experimenteren om te zien wat de mogelijkheden van aanpassen zijn. Het is mogelijk om de paden te kiezen die geïndexeerd zullen worden voor muziek. Het is ook mogelijk om de sneltoetsen voor gemeenschappelijk acties binnen de toepassing te wijzigen. </para>
+
+<para
+>Als u het interne indexeerprogramma voor muziek gebruikt, kunt u de paden waarin gezocht moet worden configureren. </para>
+
+
+<sect1 id="kapp-features">
+<title
+>Functies van &elisa;</title>
+
+<para
+>&elisa; biedt twee verschillende taken: bladeren door uw muziek om een afspeellijst te bouwen en muziek afspelen. </para>
+
+<sect2>
+<title
+>Bladeren door muziek</title>
+<para
+>Uit de verschillende muziekbronnen verzamelt het al uw muziek en analyseert hun metagegevens zoals hun titel, artiest, ... Het biedt vier manieren om door uw muziek te bladeren: een lijst met alle albums, een lijst met alle artiesten, een lijst met alle tracks of een lijst met alle genres. </para>
+<para
+>Elke methode gebruikt een weergave van al uw muziek samen met een filter om snel te vinden waar u naar zoekt. U kunt ook filteren op waardering. </para>
+<para
+>Het filter voor de weergave van alle albums is geïmplementeerd op de titel of de artiest van albums of de lijst met artiesten van elke track van een album. Het filter van de weergave van alle artiesten is geïmplementeerd op de naam van de artiesten. Het filter van de weergave van alle tracks is geïmplementeerd op de titel, artiest en albumnaam van de track (indien aanwezig). </para>
+<para
+>Het is ook possible om direct in het bestandssysteem te b;aderen en muziekbestanden af te spelen. </para>
+</sect2>
+
+<sect2>
+<title
+>Een afspeellijst bouwen</title>
+<para
+>Bij bladeren door uw muziek, artiesten, albums en tracks kunnen deze worden toegevoegd met een getoonde knop wanneer de muis er boven zweeft. Het is ook mogelijk om de afspeellijst te wisen en op hetzelfde moment enige muziek toe te voegen. </para>
+<para
+>Een werkbalk onder de afspeellijst stelt u in staat deze te bewerken. De volgende acties zijn mogelijk: <itemizedlist>
+  <listitem>
+    <para
+>U kunt de afspeellijst wissen. </para>
+  </listitem>
+  <listitem>
+    <para
+>U kunt navigeren naar de momenteel afgespeelde track. </para>
+  </listitem>
+  <listitem>
+    <para
+>U kunt de afspeellijst opslaan in m3u8-formaat. </para>
+  </listitem>
+  <listitem>
+    <para
+>U kunt een afspeellijst laden die uw huidige zal vervangen. </para>
+  </listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2>
+<title
+>Muziek afspelen</title>
+<para
+>De afspeellijst wordt gelezen in de volgorde van de tracks tenzij de optie <guilabel
+>Willekeurig</guilabel
+> is geselecteerd. Aan het eind van de lijst wordt afspelen gestopt tenzij de optie <guilabel
+>Herhalen</guilabel
+> is geselecteerd. </para>
+<para
+>Het is mogelijk om om te schakelen naar de volgende of vorige track in de lijst. Als de muis boven een track zweeft is het mogelijk om er naar toe te gaan door een knop in te drukken. </para>
+<para
+>De nu spelende track wordt aangeven door een knipperend afspeelpictogram. </para>
+</sect2>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title
+>Dankbetuigingen en licentie</title>
+
+<para
+>&elisa; </para>
+<para
+>Programma copyright 2015-2018, het team van Elisa </para>
+<para
+>Met dank aan: <itemizedlist>
+<listitem
+><para
+>Matthieu Gallien, onderhouder <email
+>matthieu_gallien@yahoo.fr</email
+></para>
+</listitem>
+<listitem
+><para
+>Andrew Lake (concept en ontwikkelingswerk) <email
+>jamboarder@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Luigi Toscano (aanpassen aan taalregio) <email
+>luigi.toscano@tiscali.it</email
+></para>
+</listitem>
+<listitem
+><para
+>Safa Alfulaij (ondersteuning voor rechts-naar-links in het interface) <email
+>safa1996alfulaij@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Alexander Stippich hoofdontwerper <email
+>a.stippich@gmx.net</email
+></para>
+</listitem>
+<listitem
+><para
+>Diego Gangl (verschillende verbergen aan het interface) <email
+>diego@sinestesia.co</email
+></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Documentatie Copyright &copy; 2017-2018 Matthieu Gallien <email
+>matthieu_gallien@yahoo.fr</email
+> </para>
+
+&meld.fouten;&vertaling.freek; &underCCBYSA4; &underLGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

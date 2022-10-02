@@ -1,0 +1,279 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY elisa "<application
+>Elisa</application
+>">
+  <!ENTITY i18n-translatable-entity "<application
+>Elisa</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Ukrainian "INCLUDE">
+]>
+<book id="elisa" lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title
+>Підручник з &elisa;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Matthieu</firstname
+> <surname
+>Gallien</surname
+> </personname
+> <email
+>matthieu_gallien@yahoo.fr</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Юрій</firstname
+><surname
+>Чорноіван</surname
+><affiliation
+><address
+><email
+>yurchor@ukr.net</email
+></address
+></affiliation
+><contrib
+>Переклад українською</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2017-2018</year>
+<holder
+>Matthieu Gallien</holder>
+</copyright>
+<legalnotice
+>&CCBYSA4Notice;</legalnotice>
+
+<date
+>14 вересня 2018 року</date>
+
+<releaseinfo
+>Elisa 0.3.80</releaseinfo>
+
+<abstract>
+<para
+>Elisa — програма для відтворення музики, розроблена спільнотою KDE. Метою написання коду програми було створення простого і зручного програвача. Також розробники брали до уваги потребу у створенні гнучкого продукту, який би задовольняв потреби різних користувачів. </para>
+<para
+>Основний акцент було зроблено на добрій інтеграції зі стільницею Плазми спільноти KDE без шкоди для роботи на інших платформах (інших стільничних середовищах у, у Windows та Android). </para>
+<para
+>Нами створено надійний продукт, яким приємно користуватися і який дбає про конфіденційність даних користувачів. З цієї причини ми надаємо перевагу підтримці мережевих служб, де користувачі контролюють власні дані. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdemultimedia</keyword>
+<keyword
+>Elisa</keyword>
+<keyword
+>звук</keyword>
+<keyword
+>музика</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Вступ</title>
+
+<para
+>&elisa; — музичний програвач, створений простим у користуванні. <screenshot>
+<screeninfo
+>Ось знімок початкового вікна &elisa;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Screenshot_20180912_232200.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Знімок вікна</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Користування &elisa;</title>
+
+<para
+>&elisa; індексує музичні файли або за допомогою Baloo, або виконуючи пошук у списку каталогів, які вказано користувачем за допомогою відповідного інтерфейсу. </para>
+<para
+>Якщо увімкнено підтримку Baloo, а програма не може працювати, вона має показати вам сповіщення із підказками щодо вимикання засобу індексування або вмикання засобу індексування Baloo і надання &elisa; даних щодо музичних композицій. </para>
+<para
+>Якщо засобу індексування не вдається знайти жодної композиції, програма покаже вікно сповіщення із кнопкою для відкриття інтерфейсу налаштовування програми. </para>
+
+<para
+>Список змін можна знайти на <ulink url="https://phabricator.kde.org/project/profile/193/"
+>сторінці проєкту Elisa</ulink
+>. </para>
+
+<para
+>У поточній версії не передбачено ніякого додаткового налаштовування перед використанням &elisa;. Усі можливості налаштовування програми представлено у її меню. Можна вибрати каталоги, які програма індексуватиме у пошуках музичних творів. Також можна змінити клавіатурні скорочення для типових дій у межах програми. </para>
+
+<para
+>Якщо ви використовуєте вбудовану систему індексування музичних творів, ви можете налаштувати каталоги, де програма шукатиме музичні файли. </para>
+
+
+<sect1 id="kapp-features">
+<title
+>Можливості &elisa;</title>
+
+<para
+>&elisa; побудовано навколо виконання двох різних завдань: навігації фонотекою з метою побудови списку відтворення та відтворення музики. </para>
+
+<sect2>
+<title
+>Навігація фонотекою</title>
+<para
+>Програма збирає дані щодо усіх ваших музичних творів з різних джерел та аналізує метадані, зокрема назви музичних творів, імена виконавців тощо. Передбачено чотири способи навігації музичними творами: список усіх альбомів, список усіх виконавців, список усіх композицій та список усіх жанрів. </para>
+<para
+>У кожному із режимів використовується список записів із фільтром, який надає змогу швидко знайти потрібний запис. Також передбачено фільтрування за оцінкою твору. </para>
+<para
+>Фільтрування у списку усіх альбомів передбачено за назвою твору, виконавцем альбому або списком виконавців кожної композиції альбому. У списку виконавців можна скористатися фільтруванням за назвою виконавця. У списку усіх композицій можна фільтрувати записи на назвою композиції, виконавцем та назвою альбому композиції (якщо такий є). </para>
+<para
+>Крім того, можна безпосередньо здійснювати навігацію файловою системою і відтворювати музичні файли. </para>
+</sect2>
+
+<sect2>
+<title
+>Побудова списку відтворення</title>
+<para
+>Композиції можна додавати до списку відтворення з панелей навігації за допомогою натискання відповідної кнопки. Також можна спорожнити список відтворення і додати до нього нові твори. </para>
+<para
+>За допомогою панелі інструментів, розташованої під списком композицій можна керувати цим списком. Передбачено можливість виконання таких дій: <itemizedlist>
+  <listitem>
+    <para
+>Ви можете спорожнити увесь список відтворення. </para>
+  </listitem>
+  <listitem>
+    <para
+>Ви можете перейти до поточної відтворюваної композиції. </para>
+  </listitem>
+  <listitem>
+    <para
+>Ви можете зберегти список відтворення у форматі m3u8. </para>
+  </listitem>
+  <listitem>
+    <para
+>Ви можете завантажити список відтворення і замінити поточний список завантаженим. </para>
+  </listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2>
+<title
+>Відтворення музики</title>
+<para
+>Програма рухається списком відтворення за порядком записів у ньому, якщо не позначено пункт <guilabel
+>Перемішати</guilabel
+>. Після завершення відтворення останньої композиції у списку відтворення припиняється, якщо не буде позначено пункт <guilabel
+>Повторити</guilabel
+>. </para>
+<para
+>Передбачено можливість перемикання на наступну або попередню композицію у списку. Навівши вказівник миші на позначку композиції у списку, можна пропустити композицію натисканням відповідної кнопки. </para>
+<para
+>Поточну відтворювану композицію у списку буде позначено блиманням піктограми відтворення. </para>
+</sect2>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title
+>Подяки і ліцензування</title>
+
+<para
+>&elisa; </para>
+<para
+>Авторські права на програму належать Команді розробників Elisa, 2015–2018 </para>
+<para
+>Учасники розробки: <itemizedlist>
+<listitem
+><para
+>Авторські права на програму належать Matthieu Gallien <email
+>matthieu_gallien@yahoo.fr</email
+></para>
+</listitem>
+<listitem
+><para
+>Andrew Lake (роботи зі створення концепції та дизайну) <email
+>jamboarder@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Luigi Toscano (переклади) <email
+>luigi.toscano@tiscali.it</email
+></para>
+</listitem>
+<listitem
+><para
+>Safa Alfulaij (підтримка мов із записом справа ліворуч у інтерфейсі) <email
+>safa1996alfulaij@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Alexander Stippich, основний розробник, <email
+>a.stippich@gmx.net</email
+></para>
+</listitem>
+<listitem
+><para
+>Diego Gangl (різноманітні поліпшення у інтерфейсі) <email
+>diego@sinestesia.co</email
+></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Авторські права на документацію до програми належать Matthieu Gallien <email
+>matthieu_gallien@yahoo.fr</email
+>, 2017–2018 </para>
+
+<para
+>Переклад українською: Юрій Чорноіван <email
+>yurchor@ukr.net</email
+></para
+> 
+&underCCBYSA4; &underLGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

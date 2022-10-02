@@ -1,0 +1,278 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY elisa "<application
+>Elisa</application
+>">
+  <!ENTITY i18n-translatable-entity "<application
+>Elisa</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % German "INCLUDE">
+]>
+<book id="elisa" lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title
+>Das Handbuch zu &elisa;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Matthieu</firstname
+> <surname
+>Gallien</surname
+> </personname
+> <email
+>matthieu_gallien@yahoo.fr</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Burkhard</firstname
+><surname
+>Lück</surname
+><affiliation
+><address
+><email
+>lueck@hube-lueck.de</email
+></address
+></affiliation
+><contrib
+>Übersetzung</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2017-2018</year>
+<holder
+>Matthieu Gallien</holder>
+</copyright>
+<legalnotice
+>&CCBYSA4Notice;</legalnotice>
+
+<date
+>2018-09-14</date>
+
+<releaseinfo
+>Elisa 0.3.80</releaseinfo>
+
+<abstract>
+<para
+>Elisa ist ein von der KDE-Gemeinschaft entwickeltes Programm zur Musikwiedergabe mit einfacher und benutzerfreundlicher Bedienung. Die unterschiedlichen Arbeitsabläufe und Anwendungsfälle der Anwender werden dabei berücksichtigt. </para>
+<para
+>Ziel ist eine sehr gute Integration mit dem Plasma-Desktop der KDE-Gemeinschaft, ohne die Unterstützung für andere Plattformen wie andere Linux-Arbeitsumgebungen, Windows und Android zu vernachlässigen. </para>
+<para
+>&elisa; ist ein zuverlässiges Produkt, das Freude macht und die Privatsphäre der Benutzers respektiert. Daher werden nur Online-Dienste unterstützt, bei denen Benutzer die Kontrolle über ihre Daten haben. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Multimedia</keyword>
+<keyword
+>Elisa</keyword>
+<keyword
+>Audio</keyword>
+<keyword
+>Musik</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Einführung</title>
+
+<para
+>&elisa; ist ein Programm zur Musikwiedergabe, die einfach zu bedienen ist. <screenshot>
+<screeninfo
+>Bildschirmfoto des Startfensters von &elisa;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Screenshot_20180912_232200.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Bildschirmfoto</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>&elisa; benutzen</title>
+
+<para
+>&elisa; indiziert Ihre Musik entweder mit Baloo oder durch Suchen  in einer Liste von Pfaden, die der Benutzer über eine eigene Benutzeroberfläche eingerichtet hat. </para>
+<para
+>Falls die Baloo-Unterstützung aktiviert ist und die Einstellung nicht funktioniert, wird eine Benachrichtigung wird mit Hinweisen angezeigt, wie das die Indizierung mit Baloo ein- oder ausgeschaltet werden kann, um Musikstücken für &elisa; einzulesen. </para>
+<para
+>Falls der Dateiindizierung keine Musikstücke findet, wird eine Benachrichtigungsdialog angezeigt. In diesem Dialog können Sie die Einstellungen zur Suche öffnen. </para>
+
+<para
+>Eine Liste der Änderungen finden Sie im <ulink url="https://phabricator.kde.org/project/profile/193/"
+>Elisa-Projekt</ulink
+>. </para>
+
+<para
+>Es sind keine Einstellungen erforderlich, um &elisa; verwenden zu können. Im Menü der Anwendung finden Sie Aktionen zur Anpassung der Einstellungen. Sie können den Pfad zum Indizieren von Musik und Kurzbefehle für häufig gebrauchte Aktionen festlegen. </para>
+
+<para
+>Wenn Sie das interne Indexmodul für Musikdateien benutzen, können Sie die Pfade zum Durchsuchen einstellen. </para>
+
+
+<sect1 id="kapp-features">
+<title
+>Funktionen von &elisa;</title>
+
+<para
+>&elisa; bietet zwei verschiedene Funktionen: das Durchsuchen Ihrer Musik, um eine Wiedergabeliste zu erstellen und das Abspielen von Musik. </para>
+
+<sect2>
+<title
+>Musik durchsuchen</title>
+<para
+>Aus den verschiedenen Quellen werden alle Musikstücke gesammelt und deren Metadaten wie Titel, Künstler usw. analysiert. Es gibt vier Möglichkeiten, um Ihre Musik zu durchsuchen: eine Liste aller Alben, eine Liste aller Künstler eine Liste aller Musikstücke oder eine Liste aller Genres. </para>
+<para
+>Jede Methode verwendet eine Ansicht Ihrer gesamten Musik und einen Filter, damit Sie Stücke schnell finden. Sie können auch nach Bewertung filtern. </para>
+<para
+>In der Ansicht aller Alben können Sie nach dem Titel, nach dem Künstler von Alben oder die Liste der Künstler jedes Titels eines Albums filtern. In der Ansicht aller Künstler können Sie nach dem Namen der Künstler filtern. In der Ansicht aller Musikstücke können Sie nach dem Titel des Stücks, nach dem Künstler des Stücks und nach dem Albumnamen filtern, falls vorhanden. </para>
+<para
+>Sie können außerdem auch das Dateisystem direkt durchsehen und Musikdateien wiedergeben. </para>
+</sect2>
+
+<sect2>
+<title
+>Erstellen einer Wiedergabeliste</title>
+<para
+>Wenn Sie Ihre Musik durchsuchen, können Sie Künstler, Alben und Musiktitel mit einem Knopf hinzufügen, der angezeigt wird, wenn sich der Mauszeiger auf einem Eintrag befindet. Sie können die Wiedergabeliste löschen oder Musikstücke hinzufügen. </para>
+<para
+>Eine Werkzeugleiste unterhalb der Wiedergabeliste ermöglicht die Bedienung. Folgende Aktionen sind hier enthalten: <itemizedlist>
+  <listitem>
+    <para
+>Leeren der gesamten Wiedergabeliste. </para>
+  </listitem>
+  <listitem>
+    <para
+>Navigation zum gerade abgespielten Stück. </para>
+  </listitem>
+  <listitem>
+    <para
+>Speichern der Wiedergabeliste im M3U8-Format. </para>
+  </listitem>
+  <listitem>
+    <para
+>Laden einer Wiedergabeliste, die die aktuelle Liste ersetzt. </para>
+  </listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2>
+<title
+>Musik-Wiedergabe</title>
+<para
+>Die Wiedergabeliste wird in der Reihenfolge der Stücke eingelesen, es sei denn, dass die Einstellung<guilabel
+>Zufällige Wiedergabe</guilabel
+> ausgewählt ist. Am Ende der Liste wird die Wiedergabe angehalten, es sei denn, die Einstellung <guilabel
+>Wiederholen</guilabel
+> ist ausgewählt. </para>
+<para
+>Sie können zum nächsten oder vorherigen Titel in der Wiedergabeliste wechseln. Wenn sich der Mauszeiger auf einem Stück befindet, können Sie mit einem Knopfdruck zu diesem Stück zu springen. </para>
+<para
+>Der aktuell wiedergegebene Titel wird durch ein blinkendes Symbol gekennzeichnet. </para>
+</sect2>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title
+>Danksagungen und Lizenz</title>
+
+<para
+>&elisa; </para>
+<para
+>Programm Copyright 2015-2018 Das Elisa-Team </para>
+<para
+>Mitwirkende: <itemizedlist>
+<listitem
+><para
+>Matthieu Gallien, Betreuer <email
+>matthieu_gallien@yahoo.fr</email
+></para>
+</listitem>
+<listitem
+><para
+>Andrew Lake (Konzept und Design)<email
+>jamboarder@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Luigi Toscano (Lokalisierung)<email
+>luigi.toscano@tiscali.it</email
+></para>
+</listitem>
+<listitem
+><para
+>Safa Alfulaij (Unterstützung für Rechts nach Links in der grafischen Oberfläche)<email
+>safa1996alfulaij@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Alexander Stippich, Hauptentwickler <email
+>a.stippich@gmx.net</email
+></para>
+</listitem>
+<listitem
+><para
+>Diego Gangl (Verschiedene Verbesserungen an der Bedienungsoberfläche) <email
+>diego@sinestesia.co</email
+></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Dokumentation Copyright &copy; 2017-18 Matthieu Gallien <email
+>matthieu_gallien@yahoo.fr</email
+> </para>
+
+<para
+>Übersetzung Burkhard Lück<email
+>lueck@hube-lueck.de</email
+></para
+> &underCCBYSA4; &underLGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

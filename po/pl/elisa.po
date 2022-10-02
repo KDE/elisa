@@ -1,0 +1,2079 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-29 00:45+0000\n"
+"PO-Revision-Date: 2022-08-21 07:03+0200\n"
+"Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
+"Language-Team: Polish <kde-i18n-doc@kde.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 22.04.1\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Łukasz Wojniłowicz"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "lukasz.wojnilowicz@gmail.com"
+
+#: databaseinterface.cpp:7173 databaseinterface.cpp:8220
+#: databaseinterface.cpp:8304
+#, kde-format
+msgctxt "@item:intable"
+msgid "Various Artists"
+msgstr "Różni wykonawcy"
+
+#: databaseinterface.cpp:7237
+#, kde-format
+msgctxt "@item:intable"
+msgid "Radio Stations"
+msgstr "Radiostacje"
+
+#: elisaapplication.cpp:174
+#, kde-format
+msgctxt "@action"
+msgid "Toggle Playlist"
+msgstr "Przełącz listę odtwarzania"
+
+#: elisaapplication.cpp:179
+#, kde-format
+msgctxt "@action"
+msgid "Seek forward 10 seconds"
+msgstr "Przewiń w przód o 10 sekund"
+
+#: elisaapplication.cpp:185
+#, kde-format
+msgctxt "@action"
+msgid "Scrub backwards 10 seconds"
+msgstr "Przewiń w tył o 10 sekund"
+
+#: elisaapplication.cpp:191
+#, kde-format
+msgctxt "@action"
+msgid "Go to next track"
+msgstr "Przełącz na następny utwór"
+
+#: elisaapplication.cpp:197
+#, kde-format
+msgctxt "@action"
+msgid "Go to previous track"
+msgstr "Przełącz na poprzedni utwór"
+
+#: elisaapplication.cpp:203
+#, kde-format
+msgctxt "@action"
+msgid "Play/pause"
+msgstr "Odtwórz/wstrzymaj"
+
+#: elisaapplication.cpp:214
+#, kde-format
+msgctxt "@action"
+msgid "Toggle Party Mode"
+msgstr "Przełącz na tryb imprezy"
+
+#: main.cpp:105
+#, kde-format
+msgctxt "@title"
+msgid "Elisa"
+msgstr "Elisa"
+
+#: main.cpp:107
+#, kde-format
+msgctxt "@info"
+msgid "A Simple Music Player made with love by the KDE community"
+msgstr "Prosty odtwarzacz muzyki stworzony z miłości przez społeczność KDE"
+
+#: main.cpp:109
+#, kde-format
+msgctxt "@info"
+msgid "(c) 2015-2020, Elisa contributors"
+msgstr "(c) 2015-2020, Twórcy Elisy"
+
+#: main.cpp:111 models/lyricsmodel.cpp:161
+#, kde-format
+msgctxt "@label"
+msgid "Creator"
+msgstr "Twórca"
+
+#: main.cpp:112
+#, kde-format
+msgctxt "@label"
+msgid "Author"
+msgstr "Autor"
+
+#: main.cpp:114
+#, kde-format
+msgctxt "@label"
+msgid "Concept and design work"
+msgstr "Koncept i praca projektowa"
+
+#: main.cpp:115
+#, kde-format
+msgctxt "@label"
+msgid "Localization support"
+msgstr "Obsługa tłumaczeń"
+
+#: main.cpp:116
+#, kde-format
+msgctxt "@label"
+msgid "Right to left support in interface"
+msgstr "Obsługa od-lewej-do-prawej w interfejsie"
+
+#: main.cpp:117
+#, kde-format
+msgctxt "@label"
+msgid "Various improvements to the interface"
+msgstr "Różne usprawnienia do interfejsu"
+
+#: main.cpp:118
+#, kde-format
+msgctxt "@label"
+msgid "Support for online radios"
+msgstr "Obsługa sieciowych rozgłośni"
+
+#: models/editabletrackmetadatamodel.cpp:347
+#, kde-format
+msgctxt "@info:status Error message when track URL is invalid"
+msgid "Invalid URL."
+msgstr "Nieprawidłowy adres URL."
+
+#: models/editabletrackmetadatamodel.cpp:357
+#, kde-format
+msgctxt "@info:status Error message when track title is empty"
+msgid "Empty title."
+msgstr "Pusty tytuł."
+
+#: models/lyricsmodel.cpp:158
+#, kde-format
+msgctxt "@label musical artist"
+msgid "Artist"
+msgstr "Wykonawca"
+
+#: models/lyricsmodel.cpp:159
+#, kde-format
+msgctxt "@label musical album"
+msgid "Album"
+msgstr "Album"
+
+#: models/lyricsmodel.cpp:160
+#, kde-format
+msgctxt "@label song title"
+msgid "Title"
+msgstr "Tytuł"
+
+#: models/lyricsmodel.cpp:162
+#, kde-format
+msgctxt "@label song length"
+msgid "Length"
+msgstr "Długość"
+
+#: models/lyricsmodel.cpp:163
+#, kde-format
+msgctxt "@label as in 'Created by: Joe'"
+msgid "Created by"
+msgstr "Stworzone przez"
+
+#: models/lyricsmodel.cpp:164
+#, kde-format
+msgctxt "@label as in 'a person who edits'"
+msgid "Editor"
+msgstr "Edytor"
+
+#: models/lyricsmodel.cpp:165
+#, kde-format
+msgctxt "@label"
+msgid "Version"
+msgstr "Wersja"
+
+#: models/lyricsmodel.cpp:188
+#, kde-format
+msgctxt "@label this is a key => value map"
+msgid "%1: %2\n"
+msgstr "%1: %2\n"
+
+#: models/trackmetadatamodel.cpp:444 models/trackmetadatamodel.cpp:491
+#, kde-format
+msgctxt "@label:textbox Track title for track metadata view"
+msgid "Title"
+msgstr "Tytuł"
+
+#: models/trackmetadatamodel.cpp:446 models/trackmetadatamodel.cpp:497
+#, kde-format
+msgctxt "@label:textbox Track artist for track metadata view"
+msgid "Artist"
+msgstr "Wykonawca"
+
+#: models/trackmetadatamodel.cpp:448 models/trackmetadatamodel.cpp:500
+#, kde-format
+msgctxt "@label:textbox Album name for track metadata view"
+msgid "Album"
+msgstr "Album"
+
+#: models/trackmetadatamodel.cpp:450 models/trackmetadatamodel.cpp:503
+#, kde-format
+msgctxt "@label:textbox Album artist for track metadata view"
+msgid "Album Artist"
+msgstr "Wykonawca albumu"
+
+#: models/trackmetadatamodel.cpp:452 models/trackmetadatamodel.cpp:506
+#, kde-format
+msgctxt "@label:textbox Track number for track metadata view"
+msgid "Track Number"
+msgstr "Numer utworu"
+
+#: models/trackmetadatamodel.cpp:454 models/trackmetadatamodel.cpp:509
+#, kde-format
+msgctxt "@label:textbox Disc number for track metadata view"
+msgid "Disc Number"
+msgstr "Numer płyty"
+
+#: models/trackmetadatamodel.cpp:456 models/trackmetadatamodel.cpp:512
+#, kde-format
+msgctxt "@label:textbox Rating label for information panel"
+msgid "Rating"
+msgstr "Ocena"
+
+#: models/trackmetadatamodel.cpp:458 models/trackmetadatamodel.cpp:515
+#, kde-format
+msgctxt "@label:textbox Genre label for track metadata view"
+msgid "Genre"
+msgstr "Gatunek"
+
+#: models/trackmetadatamodel.cpp:460 models/trackmetadatamodel.cpp:518
+#, kde-format
+msgctxt "@label:textbox Lyricist label for track metadata view"
+msgid "Lyricist"
+msgstr "Tekściarz"
+
+#: models/trackmetadatamodel.cpp:462 models/trackmetadatamodel.cpp:521
+#, kde-format
+msgctxt "@label:textbox Composer name for track metadata view"
+msgid "Composer"
+msgstr "Kompozytor"
+
+#: models/trackmetadatamodel.cpp:464 models/trackmetadatamodel.cpp:524
+#, kde-format
+msgctxt "@label:textbox Comment label for track metadata view"
+msgid "Comment"
+msgstr "Uwagi"
+
+#: models/trackmetadatamodel.cpp:466 models/trackmetadatamodel.cpp:527
+#, kde-format
+msgctxt "@label:textbox Year label for track metadata view"
+msgid "Year"
+msgstr "Rok"
+
+#: models/trackmetadatamodel.cpp:468 models/trackmetadatamodel.cpp:530
+#, kde-format
+msgctxt "@label:textbox Channels label for track metadata view"
+msgid "Channels"
+msgstr "Kanały"
+
+#: models/trackmetadatamodel.cpp:470 models/trackmetadatamodel.cpp:533
+#, kde-format
+msgctxt "@label:textbox Bit rate label for track metadata view"
+msgid "Bit Rate"
+msgstr "Szybkość bitowa"
+
+#: models/trackmetadatamodel.cpp:472 models/trackmetadatamodel.cpp:536
+#, kde-format
+msgctxt "@label:textbox Sample Rate label for track metadata view"
+msgid "Sample Rate"
+msgstr "Próbkowanie"
+
+#: models/trackmetadatamodel.cpp:474 models/trackmetadatamodel.cpp:548
+#, kde-format
+msgctxt "@label:textbox Lyrics label for track metadata view"
+msgid "Lyrics"
+msgstr "Słowa"
+
+#: models/trackmetadatamodel.cpp:476 models/trackmetadatamodel.cpp:494
+#, kde-format
+msgctxt "@label:textbox Duration label for track metadata view"
+msgid "Duration"
+msgstr "Czas trwania"
+
+#: models/trackmetadatamodel.cpp:539
+#, kde-format
+msgctxt "@label:textbox Last play date label for track metadata view"
+msgid "Last played"
+msgstr "Ostatnie odtworzenie"
+
+#: models/trackmetadatamodel.cpp:542
+#, kde-format
+msgctxt "@label:textbox First play date label for track metadata view"
+msgid "First played"
+msgstr "Czas pierwszego odtworzenia"
+
+#: models/trackmetadatamodel.cpp:545
+#, kde-format
+msgctxt "@label:textbox Play counter label for track metadata view"
+msgid "Play count"
+msgstr "Licznik odtworzeń"
+
+#: models/trackmetadatamodel.cpp:551
+#, kde-format
+msgctxt "@label:textbox Radio HTTP address for radio metadata view"
+msgid "Stream Http Address"
+msgstr "Adres http strumienia"
+
+#: models/trackmetadatamodel.cpp:554
+#, kde-format
+msgctxt "@label:textbox Image address for radio metadata view"
+msgid "Image Address"
+msgstr "Adres obrazu"
+
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:56 viewslistdata.cpp:551
+#, kde-format
+msgctxt "@title:window Title of the view of all albums"
+msgid "Albums"
+msgstr "Albumy"
+
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:108 viewslistdata.cpp:589
+#, kde-format
+msgctxt "@title:window Title of the view of all genres"
+msgid "Genres"
+msgstr "Gatunki"
+
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:71 viewslistdata.cpp:570
+#, kde-format
+msgctxt "@title:window Title of the view of all artists"
+msgid "Artists"
+msgstr "Wykonawcy"
+
+#: powermanagementinterface.cpp:171
+#, kde-format
+msgctxt "@info:status  explanation for sleep inhibit during play of music"
+msgid "Playing music"
+msgstr "Odtwarza muzykę"
+
+#: powermanagementinterface.cpp:221
+#, kde-format
+msgctxt "@info:status explanation for sleep inhibit during play of music"
+msgid "Playing music"
+msgstr "Odtwarza muzykę"
+
+#: qml/AbstractDataView.qml:217
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "No matches"
+msgstr "Brak pasujących wyrażeń"
+
+#: qml/AbstractDataView.qml:217
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Nothing to display"
+msgstr "Nic do wyświetlenia"
+
+#: qml/ApplicationMenu.qml:16 qml/NativeTrayMenu.qml:14
+#, kde-format
+msgctxt "@title:menu"
+msgid "Application Menu"
+msgstr "Menu programu"
+
+#: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Exit Full Screen"
+msgctxt "@action:inmenu"
+msgid "Exit Full Screen"
+msgstr "Opuść tryb pełnoekranowy"
+
+#: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Enter Full Screen"
+msgstr "Przejdź w tryb pełnoekranowy"
+
+#: qml/ApplicationMenu.qml:33 qml/NativeTrayMenu.qml:25
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Scan for New Music"
+msgstr "Poszukaj nowej muzyki"
+
+#: qml/ApplicationMenu.qml:42 qml/NativeGlobalMenu.qml:33
+#: qml/NativeTrayMenu.qml:31
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Reset Database and Re-Scan Everything"
+msgstr "Wyzeruj bazę danych i poszukaj na nowo"
+
+#: qml/ApplicationMenu.qml:53
+#, kde-format
+msgctxt "@action:inmenu this has child menu items"
+msgid "Color Scheme"
+msgstr "Zestaw barw"
+
+#: qml/ContextView.qml:39
+#, kde-format
+msgctxt ""
+"@title:window Title of the context view related to the currently playing "
+"track"
+msgid "Now Playing"
+msgstr "Teraz odtwarzany"
+
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
+#, kde-format
+msgctxt "@action:button"
+msgid "Open sidebar"
+msgstr "Otwórz pasek boczny"
+
+#: qml/ContextView.qml:104
+#, kde-format
+msgctxt "@option:radio One of the 'now playing' views"
+msgid "Metadata"
+msgstr "Metadane"
+
+#: qml/ContextView.qml:115
+#, kde-format
+msgctxt "@option:radio One of the 'now playing' views"
+msgid "Lyrics"
+msgstr "Słowa"
+
+#: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:190
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
+#, kde-format
+msgctxt "@action:button"
+msgid "Show Playlist"
+msgstr "Pokaż listę odtwarzania"
+
+#: qml/ContextView.qml:341
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "No lyrics found"
+msgstr "Nie znaleziono żadnych słów"
+
+#: qml/ContextView.qml:359
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Nothing playing"
+msgstr "Nic nie jest odtwarzane"
+
+#: qml/ContextView.qml:393
+#, kde-format
+msgctxt "@action:button"
+msgid "Show In Folder"
+msgstr "Pokaż w katalogu"
+
+#: qml/DurationSlider.qml:39
+#, kde-format
+msgctxt ""
+"@info:placeholder This is used to preserve a fixed width for the duration "
+"text."
+msgid "00:00:00"
+msgstr "00:00:00"
+
+#: qml/ElisaConfigurationDialog.qml:21
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure"
+msgstr "Ustawienia"
+
+#: qml/ElisaConfigurationDialog.qml:43 qml/MediaTrackMetadataView.qml:192
+#, kde-format
+msgctxt "@action:button"
+msgid "OK"
+msgstr "OK"
+
+#: qml/ElisaConfigurationDialog.qml:54 qml/MediaTrackMetadataView.qml:178
+#, kde-format
+msgctxt "@action:button"
+msgid "Apply"
+msgstr "Zastosuj"
+
+#: qml/ElisaConfigurationDialog.qml:64
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: qml/ElisaConfigurationDialog.qml:81
+#, kde-format
+msgctxt "@title:window"
+msgid "Warning"
+msgstr "Uwaga"
+
+#: qml/ElisaMainWindow.qml:26
+#, kde-format
+msgctxt "@label"
+msgid "Loading failed"
+msgstr "Nie udało się wczytać"
+
+#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:165
+#, kde-format
+msgctxt "@action:button"
+msgid "Retry"
+msgstr "Ponów"
+
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:404
+#, kde-format
+msgctxt "@label"
+msgid "Playlist cleared"
+msgstr "Wyczyszczono listę odtwarzania"
+
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:408
+#, kde-format
+msgctxt "@action:button"
+msgid "Undo"
+msgstr "Cofnij"
+
+#: qml/ElisaMainWindow.qml:54 qml/ElisaMainWindow.qml:477
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Could not load some files. Elisa can only open audio and playlist files."
+msgstr ""
+
+#: qml/ElisaMainWindow.qml:75 qml/mobile/MobileSidebar.qml:20
+#, kde-format
+msgctxt "@title:window"
+msgid "Elisa"
+msgstr "Elisa"
+
+#: qml/ElisaMainWindow.qml:75
+#, kde-format
+msgctxt "@title:window"
+msgid "%1 — Elisa"
+msgstr "%1 — Elisa"
+
+#: qml/ElisaMainWindow.qml:159
+#, kde-format
+msgctxt ""
+"@option file type (mime type) for m3u and m3u8 playlist file formats; do not "
+"translate *.m3u*"
+msgid "Playlist (*.m3u*)"
+msgstr "Lista odtwarzania (*.m3u*)"
+
+#: qml/ElisaMainWindow.qml:165
+#, kde-format
+msgctxt "@label"
+msgid "Saving failed"
+msgstr "Nie udało się zapisać"
+
+#: qml/GridBrowserDelegate.qml:237 qml/GridBrowserDelegate.qml:447
+#: qml/ListBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:433
+#: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:81
+#, kde-format
+msgctxt "@action:button Show the file for this song in the file manager"
+msgid "Show in folder"
+msgstr "Pokaż w katalogu"
+
+#: qml/GridBrowserDelegate.qml:261 qml/ListBrowserDelegate.qml:270
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
+#, kde-format
+msgctxt "@action:button Show track metadata"
+msgid "View details"
+msgstr "Pokaż szczegóły"
+
+#: qml/GridBrowserDelegate.qml:292 qml/ListBrowserDelegate.qml:291
+#: qml/NavigationActionBar.qml:140
+#, kde-format
+msgctxt "@action:button"
+msgid "Play now, replacing current playlist"
+msgstr "Odtwórz teraz, zastępując listę odtwarzania"
+
+#: qml/GridBrowserDelegate.qml:315 qml/ListBrowserDelegate.qml:280
+#, kde-format
+msgctxt "@action:button"
+msgid "Add to playlist"
+msgstr "Dodaj do listy odtwarzania"
+
+#: qml/GridBrowserDelegate.qml:401
+#, kde-format
+msgctxt "@action:button"
+msgid "Options"
+msgstr "Ustawienia"
+
+#: qml/GridBrowserDelegate.qml:438
+#, kde-format
+msgctxt "@action:button Clear play list and add whole container to play list"
+msgid "Play now, replacing current queue"
+msgstr "Odtwórz teraz, zastępując bieżącą kolejkę"
+
+#: qml/GridBrowserDelegate.qml:455
+#, kde-format
+msgctxt "@action:button Add whole container to play list"
+msgid "Add to queue"
+msgstr "Dodaj do kolejki"
+
+#: qml/HeaderBar.qml:127
+#, kde-format
+msgctxt "@action:button"
+msgid "Exit Full Screen"
+msgstr "Opuść tryb pełnoekranowy"
+
+#: qml/ListBrowserDelegate.qml:173 qml/ListBrowserDelegate.qml:189
+#, kde-format
+msgctxt "@item:intable %1: track number. %2: track title."
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/ListBrowserDelegate.qml:184
+#, kde-format
+msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
+msgid "%1 - %2 - %3"
+msgstr "%1 - %2 - %3"
+
+#: qml/ListBrowserDelegate.qml:196
+#, kde-format
+msgctxt "@item:intable %1: track title. %2: artist name"
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/ListBrowserDelegate.qml:304 qml/PlayListEntry.qml:101
+#, kde-format
+msgctxt "@action:button"
+msgid "Set track rating"
+msgstr "Oceń utwór"
+
+#: qml/ListBrowserDelegate.qml:317 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/PlayListEntry.qml:109
+#, kde-format
+msgctxt "@action:button"
+msgid "Un-mark this song as a favorite"
+msgstr "Usuń oznaczenie ulubiony z tego utworu"
+
+#: qml/ListBrowserDelegate.qml:317 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/PlayListEntry.qml:109
+#, kde-format
+msgctxt "@action:button"
+msgid "Mark this song as a favorite"
+msgstr "Oznacz ten utwór jako ulubiony"
+
+#: qml/ListBrowserDelegate.qml:352 qml/PlayListEntry.qml:336
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel rating this track"
+msgstr "Wycofaj ocenę tego utworu"
+
+#: qml/ListBrowserDelegate.qml:407
+#, kde-format
+msgctxt "@action:button"
+msgid "Song Options"
+msgstr "Ustawienia piosenki"
+
+#: qml/ListBrowserDelegate.qml:441
+#, kde-format
+msgctxt "@action:button"
+msgid "View details"
+msgstr "Pokaż szczegóły"
+
+#: qml/ListBrowserDelegate.qml:455
+#, kde-format
+msgctxt "@action:button"
+msgid "Un-mark as favorite"
+msgstr "Usuń z ulubionych"
+
+#: qml/ListBrowserDelegate.qml:455
+#, kde-format
+msgctxt "@action:button"
+msgid "Mark as favorite"
+msgstr "Oznacz jako ulubiony"
+
+#: qml/ListBrowserDelegate.qml:463
+#, kde-format
+msgctxt "@action:button Enqueue current track"
+msgid "Add to queue"
+msgstr "Dodaj do kolejki"
+
+#: qml/MediaPlayerControl.qml:50
+#, kde-format
+msgctxt "@action:button"
+msgid "Toggle Party Mode"
+msgstr "Przełącz na tryb imprezy"
+
+#: qml/MediaPlayerControl.qml:58
+#: qml/mobile/MobileMinimizedPlayerControl.qml:225
+#: qml/mobile/MobileTrackPlayer.qml:318
+#, kde-format
+msgctxt "@action:button"
+msgid "Skip Backward"
+msgstr "Przejdź do poprzedniego"
+
+#: qml/MediaPlayerControl.qml:66
+#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileTrackPlayer.qml:333
+#, kde-format
+msgctxt "@action:button Pause any media that is playing"
+msgid "Pause"
+msgstr "Wstrzymaj"
+
+#: qml/MediaPlayerControl.qml:66
+#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileTrackPlayer.qml:333
+#, kde-format
+msgctxt "@action:button Start playing media"
+msgid "Play"
+msgstr "Odtwórz"
+
+#: qml/MediaPlayerControl.qml:74
+#, kde-format
+msgctxt "@action:button skip forward in playlists"
+msgid "Skip Forward"
+msgstr "Przejdź do kolejnego"
+
+#: qml/MediaPlayerControl.qml:93
+#, kde-format
+msgctxt "@action:button"
+msgid "Toggle Mute"
+msgstr "Przełącz wyciszenie"
+
+#: qml/MediaPlayerControl.qml:112 qml/mobile/MobileTrackPlayer.qml:215
+#, kde-format
+msgctxt "@action:button"
+msgid "Toggle Shuffle"
+msgstr "Przełącz losową kolejność"
+
+#: qml/MediaPlayerControl.qml:123 qml/mobile/MobileTrackPlayer.qml:230
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: Don't repeat tracks"
+msgstr "Bieżący: Nie powtarzaj utworów"
+
+#: qml/MediaPlayerControl.qml:124 qml/mobile/MobileTrackPlayer.qml:231
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: Repeat current track"
+msgstr "Bieżący: Powtórz bieżący utwór"
+
+#: qml/MediaPlayerControl.qml:125 qml/mobile/MobileTrackPlayer.qml:232
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: Repeat all tracks in playlist"
+msgstr "Bieżący: Powtórz wszystkie utwory na liście odtwarzania"
+
+#: qml/MediaPlayerControl.qml:155 qml/mobile/MobileTrackPlayer.qml:261
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Playlist"
+msgstr "Lista odtwarzania"
+
+#: qml/MediaPlayerControl.qml:159 qml/mobile/MobileTrackPlayer.qml:265
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "One"
+msgstr "Jeden"
+
+#: qml/MediaPlayerControl.qml:163 qml/mobile/MobileTrackPlayer.qml:269
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "None"
+msgstr "Brak"
+
+#: qml/MediaPlayerControl.qml:200
+#, kde-format
+msgctxt "@action:button"
+msgid "Application Menu"
+msgstr "Menu programu"
+
+#: qml/MediaPlayListView.qml:27
+#, kde-format
+msgctxt ""
+"@title:window Title of the view of the playlist; keep this string as short "
+"as possible because horizontal space is quite scarce"
+msgid "Playlist"
+msgstr "Lista odtwarzania"
+
+#: qml/MediaPlayListView.qml:63
+#, kde-format
+msgctxt "@action:button Save a playlist file"
+msgid "Save…"
+msgstr "Zapisz…"
+
+#: qml/MediaPlayListView.qml:73
+#, kde-format
+msgctxt "@action:button Load a playlist file"
+msgid "Load…"
+msgstr "Wczytaj..."
+
+#: qml/MediaPlayListView.qml:267
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Playlist is empty"
+msgstr "Lista odtwarzania jest pusta"
+
+#: qml/MediaPlayListView.qml:268
+#, kde-format
+msgctxt "@info:usagetip"
+msgid ""
+"Add some songs to get started. You can browse your music using the views on "
+"the left."
+msgstr ""
+"Dodaj do niej jakieś utwory, aby rozpocząć. Swoją muzykę możesz przeglądać w "
+"widokach po lewej."
+
+#: qml/MediaPlayListView.qml:342
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Your playlist is empty."
+msgstr "Twoja lista odtwarzania jest pusta."
+
+#: qml/MediaPlayListView.qml:427 qml/MediaPlayListView.qml:432
+#, kde-format
+msgctxt "@info:status"
+msgid "%1 track"
+msgid_plural "%1 tracks"
+msgstr[0] "%1 utwór"
+msgstr[1] "%1 utwory"
+msgstr[2] "%1 utworów"
+
+#: qml/MediaPlayListView.qml:430
+#, kde-format
+msgctxt "@info:status"
+msgid "1 track"
+msgstr "1 utwór"
+
+#: qml/MediaPlayListView.qml:433
+#, kde-format
+msgctxt "@info:status number of tracks remaining"
+msgid "%1 remaining"
+msgid_plural "%1 remaining"
+msgstr[0] "%1 pozostało"
+msgstr[1] "%1 pozostały"
+msgstr[2] "%1 pozostało"
+
+#: qml/MediaPlayListView.qml:434
+#, kde-format
+msgctxt ""
+"@info:status %1 is the translation of track[s], %2 is the translation of "
+"remaining"
+msgid "%1 (%2)"
+msgstr "%1 (%2)"
+
+#: qml/MediaPlayListView.qml:448
+#, kde-format
+msgctxt "@action:button"
+msgid "Show Current"
+msgstr "Pokaż bieżący"
+
+#: qml/MediaPlayListView.qml:459
+#, kde-format
+msgctxt "@action:button Remove all tracks from play list"
+msgid "Clear All"
+msgstr "Wyczyść wszystko"
+
+#: qml/MediaTrackMetadataForm.qml:37
+#, kde-format
+msgctxt "@label"
+msgid "Data is not valid. %1"
+msgstr "Dana jest nieprawidłowa. %1"
+
+#: qml/MediaTrackMetadataForm.qml:93
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Add new tag:"
+msgstr "Dodaj nowy znacznik:"
+
+#: qml/MediaTrackMetadataForm.qml:112 qml/MediaTrackMetadataView.qml:168
+#, kde-format
+msgctxt "@action:button"
+msgid "Modify"
+msgstr "Zmień"
+
+#: qml/MediaTrackMetadataForm.qml:129 qml/MediaTrackMetadataView.qml:147
+#, kde-format
+msgctxt "@action:button"
+msgid "Delete"
+msgstr "Usuń"
+
+#: qml/MediaTrackMetadataView.qml:35
+#: qml/mobile/MobileMediaTrackMetadataView.qml:39
+#, kde-format
+msgctxt "@title:window"
+msgid "Create a Radio"
+msgstr "Utwórz radio"
+
+#: qml/MediaTrackMetadataView.qml:36
+#: qml/mobile/MobileMediaTrackMetadataView.qml:40
+#, fuzzy, kde-format
+#| msgctxt "@action:button Show track metadata"
+#| msgid "View details"
+msgctxt "@title:window"
+msgid "View details"
+msgstr "Pokaż szczegóły"
+
+#: qml/mobile/MobileMediaTrackMetadataView.qml:44
+#: qml/mobile/MobileSettingsPage.qml:30
+#, kde-format
+msgctxt "@action:button"
+msgid "Save"
+msgstr "Zapisz"
+
+#: qml/mobile/MobileMediaTrackMetadataView.qml:56
+#: qml/mobile/MobileSettingsPage.qml:38
+#, kde-format
+msgctxt "@action:button"
+msgid "Close"
+msgstr "Zamknij"
+
+#: qml/mobile/MobileMinimizedPlayerControl.qml:257
+#: qml/mobile/MobileTrackPlayer.qml:348
+#, kde-format
+msgctxt "@action:button"
+msgid "Skip Forward"
+msgstr "Przejdź do kolejnego"
+
+#: qml/mobile/MobilePlayListDelegate.qml:144
+#, kde-format
+msgctxt "@action:button"
+msgid "Track Options"
+msgstr "Ustawienia utworu"
+
+#: qml/mobile/MobilePlayListDelegate.qml:189
+#, kde-format
+msgctxt "@action:button"
+msgid "Remove from queue"
+msgstr "Usuń z kolejki"
+
+#: qml/mobile/MobileSettingsPage.qml:26 qml/mobile/MobileSidebar.qml:38
+#, kde-format
+msgctxt "@title:window"
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: qml/mobile/MobileTrackPlayer.qml:49
+#, kde-format
+msgctxt "@action:button"
+msgid "Minimize Player"
+msgstr "Zminimalizuj odtwarzacz"
+
+#: qml/mobile/MobileTrackPlayer.qml:203
+#, kde-format
+msgctxt "@action:button show track information"
+msgid "Show Info"
+msgstr "Pokaż informacje"
+
+#: qml/mobile/MobileVolumeButton.qml:27
+#, kde-format
+msgctxt "@action:button"
+msgid "Change Volume"
+msgstr "Zwiększ głośność"
+
+#: qml/NativeGlobalMenu.qml:14
+#, kde-format
+msgctxt "@title:menu"
+msgid "File"
+msgstr "Plik"
+
+#: qml/NativeGlobalMenu.qml:17
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Save Playlist…"
+msgstr "Zapisz listę odtwarzania…"
+
+#: qml/NativeGlobalMenu.qml:25
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Playlist…"
+msgstr "Otwórz listę odtwarzania…"
+
+#: qml/NativeGlobalMenu.qml:53
+#, kde-format
+msgctxt "@title:menu"
+msgid "View"
+msgstr "Widok"
+
+#: qml/NativeGlobalMenu.qml:56
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Toggle Party Mode"
+msgstr "Przełącz na tryb imprezy"
+
+#: qml/NativeGlobalMenu.qml:68
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide Playlist"
+msgstr "Ukryj listę odtwarzania"
+
+#: qml/NativeGlobalMenu.qml:68 qml/NativeTrayMenu.qml:57
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Show Playlist"
+msgstr "Pokaż listę odtwarzania"
+
+#: qml/NativeGlobalMenu.qml:74
+#, kde-format
+msgctxt "@title:menu"
+msgid "Controls"
+msgstr "Obsługa"
+
+#: qml/NativeGlobalMenu.qml:77
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Pause"
+msgstr "Wstrzymaj"
+
+#: qml/NativeGlobalMenu.qml:77
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Play"
+msgstr "Odtwórz"
+
+#: qml/NativeGlobalMenu.qml:84
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Stop"
+msgstr "Zatrzymaj"
+
+#: qml/NativeGlobalMenu.qml:93
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Increase Volume"
+msgstr "Zwiększ głośność"
+
+#: qml/NativeGlobalMenu.qml:98
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Decrease Volume"
+msgstr "Zmniejsz głośność"
+
+#: qml/NativeGlobalMenu.qml:108
+#, kde-format
+msgctxt "@title:menu"
+msgid "Shuffle"
+msgstr "Wymieszaj"
+
+#: qml/NativeGlobalMenu.qml:115
+#, kde-format
+msgctxt "@action:inmenu shuffle mode is turned on"
+msgid "On"
+msgstr "Wł."
+
+#: qml/NativeGlobalMenu.qml:121
+#, kde-format
+msgctxt "@action:inmenu shuffle mode is turned off"
+msgid "Off"
+msgstr "Wył."
+
+#: qml/NativeGlobalMenu.qml:130
+#, kde-format
+msgctxt "@title:menu"
+msgid "Repeat"
+msgstr "Powtórz"
+
+#: qml/NativeGlobalMenu.qml:137
+#, kde-format
+msgctxt "@action:inmenu repeat all songs in this playlist"
+msgid "Playlist"
+msgstr "Lista odtwarzania"
+
+#: qml/NativeGlobalMenu.qml:141
+#, kde-format
+msgctxt "@action:inmenu repeat this one song"
+msgid "One"
+msgstr "Jeden"
+
+#: qml/NativeGlobalMenu.qml:145
+#, kde-format
+msgctxt ""
+"@action:inmenu no repeat mode set; stop playback after last song in the "
+"playlist"
+msgid "None"
+msgstr "Brak"
+
+#: qml/NativeGlobalMenu.qml:151
+#, kde-format
+msgctxt "@title:menu"
+msgid "Help"
+msgstr "Pomoc"
+
+#: qml/NavigationActionBar.qml:92
+#, kde-format
+msgctxt "@label:listbox Sort By Menu Title with no sort selected"
+msgid "Sort: %1"
+msgstr "Uszereguj wg: %1"
+
+#: qml/NavigationActionBar.qml:94
+#, kde-format
+msgctxt "@label:listbox Sort By Menu Title with no sort selected"
+msgid "Sort"
+msgstr "Uszereguj"
+
+#: qml/NavigationActionBar.qml:116
+#, kde-format
+msgctxt "@action:button"
+msgid "Create a radio"
+msgstr "Utwórz radio"
+
+#: qml/NavigationActionBar.qml:128
+#, kde-format
+msgctxt "@action:button"
+msgid "Add to Playlist"
+msgstr "Dodaj do listy odtwarzania"
+
+#: qml/NavigationActionBar.qml:152
+#, kde-format
+msgctxt "@action:button navigate to the view for artist of this album"
+msgid "Display Artist"
+msgstr "Wyświetl wykonawcę"
+
+#: qml/NavigationActionBar.qml:209
+#, kde-format
+msgctxt "@action:button navigate back in the view's stack"
+msgid "Back"
+msgstr "Wstecz"
+
+#: qml/NavigationActionBar.qml:288
+#, kde-format
+msgctxt "@action:button Show filters in the navigation bar"
+msgid "Search and Filter"
+msgstr "Szukaj i odfiltruj"
+
+#: qml/NavigationActionBar.qml:288
+#, kde-format
+msgctxt "@action:button Hide filters in the navigation bar"
+msgid "Hide Search and Filter"
+msgstr "Ukryj Szukaj i Odfiltruj"
+
+#: qml/NavigationActionBar.qml:390
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Search for album name, artist, etc."
+msgstr "Szukaj po nazwie albumu, artyście, itp."
+
+#: qml/NavigationActionBar.qml:399
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Filter by rating: "
+msgstr "Odfiltruj wg oceny: "
+
+#: qml/NavigationActionBar.qml:414
+#, kde-format
+msgctxt "@action:button"
+msgid "Only Show Favorites"
+msgstr "Pokaż tylko ulubione"
+
+#: qml/PlayListEntry.qml:127
+#, kde-format
+msgctxt "@action:button Pause current track from playlist"
+msgid "Pause"
+msgstr "Wstrzymaj"
+
+#: qml/PlayListEntry.qml:127
+#, kde-format
+msgctxt "@action:button Play this track from playlist"
+msgid "Play"
+msgstr "Odtwórz"
+
+#: qml/PlayListEntry.qml:141
+#, kde-format
+msgctxt "@action:button Remove current track from play list"
+msgid "Remove"
+msgstr "Usuń"
+
+#: qml/SettingsForm.qml:29
+#, kde-format
+msgctxt "@title:group"
+msgid "General:"
+msgstr "Ogólne:"
+
+#: qml/SettingsForm.qml:33
+#, kde-format
+msgctxt "@option:check"
+msgid "Show background on Now Playing page"
+msgstr "Pokaż tło na stronie Teraz Odtwarzane"
+
+#: qml/SettingsForm.qml:46
+#, kde-format
+msgctxt "@option:check"
+msgid "Show progress on Task Manager entries"
+msgstr "Pokaż postęp na pasku zadań"
+
+#: qml/SettingsForm.qml:57
+#, kde-format
+msgctxt "@option:check"
+msgid "Keep running in System Tray when main window is closed"
+msgstr "Po zamknięciu głównego okna, nie przestawaj działać w tacce systemowej"
+
+#: qml/SettingsForm.qml:68
+#, kde-format
+msgctxt "@option:check"
+msgid "Start playing on startup"
+msgstr "Zacznij odtwarzać zaraz po uruchomieniu"
+
+#: qml/SettingsForm.qml:79
+#, kde-format
+msgctxt "@option:check"
+msgid "Scan for New Music on startup"
+msgstr "Poszukaj nowej muzyki po uruchomieniu"
+
+#: qml/SettingsForm.qml:98
+#, kde-kuit-format
+msgctxt "@info"
+msgid ""
+"When using this setting, you will need to manually refresh the music "
+"collection whenever new files are added to configured music folders. You can "
+"do this with the <interface>Scan for new music</interface> item in Elisa's "
+"hamburger menu."
+msgstr ""
+"Po zaznaczeniu tego pola, należy ręcznie odświeżyć zbiór muzyki, gdy pojawią "
+"się w nim nowe pliki. Możesz to zrobić przy użyciu wpisu <interface>Poszukaj "
+"nowej muzyki</interface> z menu hamburgera Elisy."
+
+#: qml/SettingsForm.qml:109
+#, kde-format
+msgctxt "@title:group"
+msgid "Song rating style:"
+msgstr "Wygląd oceny utworów:"
+
+#: qml/SettingsForm.qml:113
+#, kde-format
+msgctxt "@option:radio"
+msgid "0-5 stars"
+msgstr "0-5 gwiazdek"
+
+#: qml/SettingsForm.qml:125
+#, kde-format
+msgctxt "@option:radio"
+msgid "Favorite/not favorite"
+msgstr "Ulubiony/nieulubiony"
+
+#: qml/SettingsForm.qml:139
+#, kde-format
+msgctxt "@action:button"
+msgid "Color Scheme"
+msgstr "Zestaw barw"
+
+#: qml/SettingsForm.qml:144
+#, kde-format
+msgctxt "@title:menu"
+msgid "Color Scheme"
+msgstr "Zestaw barw"
+
+#: qml/SettingsForm.qml:165
+#, kde-format
+msgctxt "@action:button"
+msgid "Scan for New Music"
+msgstr "Poszukaj nowej muzyki"
+
+#: qml/SettingsForm.qml:175
+#, kde-format
+msgctxt "@action:button"
+msgid "Reset Database and Re-Scan Everything"
+msgstr "Wyzeruj bazę danych i poszukaj na nowo"
+
+#: qml/SettingsForm.qml:193
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Embed category in sidebar:"
+msgstr "Osadź kategorię na pasku bocznym:"
+
+#: qml/SettingsForm.qml:195
+#, kde-format
+msgctxt ""
+"@item:inlistbox Configure dialog, embed no category in views navigation list"
+msgid "Nothing"
+msgstr "Nic"
+
+#: qml/SettingsForm.qml:196
+#, kde-format
+msgctxt ""
+"@item:inlistbox Configure dialog, embed all albums in views navigation list"
+msgid "Albums"
+msgstr "Albumy"
+
+#: qml/SettingsForm.qml:197
+#, kde-format
+msgctxt ""
+"@item:inlistbox Configure dialog, embed all artists in views navigation list"
+msgid "Artists"
+msgstr "Wykonawcy"
+
+#: qml/SettingsForm.qml:198
+#, kde-format
+msgctxt ""
+"@item:inlistbox Configure dialog, embed all genres in views navigation list"
+msgid "Genres"
+msgstr "Gatunki"
+
+#: qml/SettingsForm.qml:231
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Initial view on startup:"
+msgstr "Początkowy widok po uruchomieniu:"
+
+#: qml/SettingsForm.qml:233
+#, kde-format
+msgctxt "@item:inlistbox Title of the view of the playlist"
+msgid "Now Playing"
+msgstr "Teraz odtwarzany"
+
+#: qml/SettingsForm.qml:234
+#, kde-format
+msgctxt "@item:inlistbox Title of the view of recently played tracks"
+msgid "Recently Played"
+msgstr "Ostatnio odtwarzane"
+
+#: qml/SettingsForm.qml:235
+#, kde-format
+msgctxt "@item:inlistbox Title of the view of frequently played tracks"
+msgid "Frequently Played"
+msgstr "Najczęściej odtwarzane"
+
+#: qml/SettingsForm.qml:236
+#, kde-format
+msgctxt "@item:inlistbox Title of the view of all albums"
+msgid "Albums"
+msgstr "Albumy"
+
+#: qml/SettingsForm.qml:237
+#, kde-format
+msgctxt "@item:inlistbox Title of the view of all artists"
+msgid "Artists"
+msgstr "Wykonawcy"
+
+#: qml/SettingsForm.qml:238
+#, kde-format
+msgctxt "@item:inlistbox Title of the view of all tracks"
+msgid "Tracks"
+msgstr "Utwory"
+
+#: qml/SettingsForm.qml:239
+#, kde-format
+msgctxt "@item:inlistbox Title of the view of all genres"
+msgid "Genres"
+msgstr "Gatunki"
+
+#: qml/SettingsForm.qml:240
+#, kde-format
+msgctxt "@item:inlistbox Title of the file browser view"
+msgid "Files"
+msgstr "Pliki"
+
+#: qml/SettingsForm.qml:241
+#, kde-format
+msgctxt "@item:inlistbox Title of the file radios browser view"
+msgid "Radio Stations"
+msgstr "Radiostacje"
+
+#: qml/SettingsForm.qml:268
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Music indexing:"
+msgstr "Indeksowanie muzyki:"
+
+#: qml/SettingsForm.qml:272
+#, kde-format
+msgctxt "@item:inlistbox Configure dialog, indexing type"
+msgid "Use fast native indexer"
+msgstr "Użyj szybkiego systemowego indeksowania"
+
+#: qml/SettingsForm.qml:273
+#, kde-format
+msgctxt "@item:inlistbox Configure dialog, indexing type"
+msgid "Scan the filesystem directly"
+msgstr "Przeszukaj system plików bezpośrednio"
+
+#: qml/SettingsForm.qml:287
+#, kde-format
+msgctxt "@info"
+msgid ""
+"This is slower than the fast indexer. Please activate it only if Elisa "
+"cannot find your music and searching for one of the missing music files "
+"using your file manager also does not work. Please report this as a bug."
+msgstr ""
+"Jest to wolniejsze od szybkiego indeksowania. Włącz tylko, gdy Elisa nie "
+"może znaleźć twojej muzyki oraz szukanie brakujących plików muzycznych w "
+"przeglądarce plików także nie działa. Zachęcamy do zgłoszenia tego jako błąd."
+
+#: qml/SettingsForm.qml:291
+#, kde-format
+msgctxt "@action:button"
+msgid "Report Bug"
+msgstr "Zgłoś błąd"
+
+#: qml/SettingsForm.qml:306
+#, kde-format
+msgid "When saving playlist files:"
+msgstr ""
+
+#: qml/SettingsForm.qml:315
+#, kde-format
+msgctxt "@item:inlistbox Configure dialog, playlist save type"
+msgid "Prefer relative paths"
+msgstr ""
+
+#: qml/SettingsForm.qml:316
+#, kde-format
+msgctxt "@item:inlistbox Configure dialog, playlist save type"
+msgid "Always use absolute paths"
+msgstr ""
+
+#: qml/SettingsForm.qml:327
+#, kde-kuit-format
+msgctxt "@info:tooltip Playlist Relative Paths"
+msgid ""
+"When <interface>Prefer relative paths</interface> is selected, files in the "
+"same folder as the playlist will be referred with only the filename. "
+"Absolute paths are used in other cases."
+msgstr ""
+
+#: qml/SettingsForm.qml:342
+#, kde-format
+msgctxt ""
+"@title The configured folders where the user's music collection can be found"
+msgid "Music folders:"
+msgstr "Katalogi z muzyką:"
+
+#: qml/SettingsForm.qml:384
+#, kde-format
+msgctxt "@action:button"
+msgid "Stop looking for music here"
+msgstr "Przestań tutaj szukać muzyki"
+
+#: qml/SettingsForm.qml:397
+#, kde-format
+msgctxt "@action:button"
+msgid "Add New Location"
+msgstr "Dodaj nowe miejsce"
+
+#: qml/SettingsForm.qml:407
+#, kde-format
+msgctxt "@title:window"
+msgid "Choose a Folder"
+msgstr "Wybierz katalog"
+
+#: qml/SettingsForm.qml:424
+#, kde-format
+msgctxt "@label"
+msgid ""
+"The fast native file indexer does not follow symbolic links. If any of the "
+"locations in this list contain symbolic links to other locations, you will "
+"need to add those other locations to the list as well."
+msgstr ""
+"Szybkie wbudowane indeksowanie plików nie podąża za dowiązaniami "
+"symbolicznymi. Jeśli jakieś miejsce w tym spisie zawiera dowiązanie "
+"symboliczne do innego miejsca, to będziesz musiał dodać także tamto miejsce."
+
+#: qml/SortMenu.qml:20
+#, kde-format
+msgctxt "@title:menu"
+msgid "Sort By"
+msgstr "Uszereguj wg"
+
+#: qml/TrackImportNotification.qml:70 qml/TrackImportNotification.qml:85
+#, kde-format
+msgctxt "number of imported tracks"
+msgid "Imported one track"
+msgid_plural "Imported %1 tracks"
+msgstr[0] "Zaimportowano jeden utwór"
+msgstr[1] "Zaimportowano %1 utwory"
+msgstr[2] "Zaimportowano %1 utworów"
+
+#: qml/TrackImportNotification.qml:73
+#, kde-format
+msgctxt "@info:status"
+msgid "Scanning music"
+msgstr "Przeszukiwanie muzyki"
+
+#: qml/TracksDiscHeader.qml:20
+#, kde-format
+msgctxt "@title:row disc header text when showing an album"
+msgid "Disc %1"
+msgstr "Płyta %1"
+
+#: viewmanager.cpp:41 viewmanager.cpp:71
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Title"
+msgstr "Tytuł"
+
+#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
+#: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
+#: viewslistdata.cpp:561
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "A-Z"
+msgstr "A-Z"
+
+#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
+#: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
+#: viewslistdata.cpp:561
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Z-A"
+msgstr "Z-A"
+
+#: viewmanager.cpp:56 viewmanager.cpp:86
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Name"
+msgstr "Nazwa"
+
+#: viewmanager.cpp:71
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Genre"
+msgstr "Gatunek"
+
+#: viewmanager.cpp:71
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Year"
+msgstr "Rok"
+
+#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewslistdata.cpp:103 viewslistdata.cpp:561
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Oldest First"
+msgstr "Najpierw najstarsze"
+
+#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewslistdata.cpp:103 viewslistdata.cpp:561
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Newest First"
+msgstr "Najpierw najnowsze"
+
+#: viewslistdata.cpp:23
+#, kde-format
+msgctxt "@title:window Title of the view of the playlist"
+msgid "Now Playing"
+msgstr "Teraz odtwarzany"
+
+#: viewslistdata.cpp:26
+#, kde-format
+msgctxt "@title:window Title of the view of recently played tracks"
+msgid "Recently Played"
+msgstr "Ostatnio odtwarzane"
+
+#: viewslistdata.cpp:34
+#, kde-format
+msgctxt "@title:menu"
+msgid "Last Played Date"
+msgstr "Data ostatniego odtworzenia"
+
+#: viewslistdata.cpp:36
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Least Recently Played First"
+msgstr "Najpierw najdawniej odtwarzane"
+
+#: viewslistdata.cpp:36
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Most Recently Played First"
+msgstr "Najpierw najwcześniej odtwarzane"
+
+#: viewslistdata.cpp:41
+#, kde-format
+msgctxt "@title:window Title of the view of frequently played tracks"
+msgid "Frequently Played"
+msgstr "Najczęściej odtwarzane"
+
+#: viewslistdata.cpp:49
+#, kde-format
+msgctxt "@title:menu"
+msgid "Play Frequency"
+msgstr "Częstotliwość odtwarzania"
+
+#: viewslistdata.cpp:51
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Least Frequently Played First"
+msgstr "Najpierw najrzadziej odtwarzane"
+
+#: viewslistdata.cpp:51
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Most Frequently Played First"
+msgstr "Najpierw najczęściej odtwarzane"
+
+#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:559
+#, kde-format
+msgctxt "@title:menu"
+msgid "Title"
+msgstr "Tytuł"
+
+#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:559
+#, kde-format
+msgctxt "@title:menu"
+msgid "Artist"
+msgstr "Wykonawca"
+
+#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:116
+#: viewslistdata.cpp:559 viewslistdata.cpp:597
+#, kde-format
+msgctxt "@title:menu"
+msgid "Genre"
+msgstr "Gatunek"
+
+#: viewslistdata.cpp:64 viewslistdata.cpp:98 viewslistdata.cpp:559
+#, kde-format
+msgctxt "@title:menu"
+msgid "Year"
+msgstr "Rok"
+
+#: viewslistdata.cpp:79 viewslistdata.cpp:143 viewslistdata.cpp:578
+#, kde-format
+msgctxt "@title:menu"
+msgid "Name"
+msgstr "Nazwa"
+
+#: viewslistdata.cpp:86
+#, kde-format
+msgctxt "@title:window Title of the view of all tracks"
+msgid "Tracks"
+msgstr "Utwory"
+
+#: viewslistdata.cpp:97
+#, kde-format
+msgctxt "@title:menu"
+msgid "Album"
+msgstr "Album"
+
+#: viewslistdata.cpp:98
+#, kde-format
+msgctxt "@title:menu"
+msgid "Duration"
+msgstr "Czas trwania"
+
+#: viewslistdata.cpp:98
+#, kde-format
+msgctxt "@title:menu"
+msgid "Composer"
+msgstr "Kompozytor"
+
+#: viewslistdata.cpp:98
+#, kde-format
+msgctxt "@title:menu"
+msgid "Lyricist"
+msgstr "Tekściarz"
+
+#: viewslistdata.cpp:99
+#, kde-format
+msgctxt "@title:menu"
+msgid "Last Modified"
+msgstr "Ostatnio zmieniony"
+
+#: viewslistdata.cpp:102
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Shortest First"
+msgstr "Najpierw najkrótsze"
+
+#: viewslistdata.cpp:102
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Longest First"
+msgstr "Najpierw najdłuższe"
+
+#: viewslistdata.cpp:123
+#, kde-format
+msgctxt "@title:window Title of the file browser view"
+msgid "Files"
+msgstr "Pliki"
+
+#: viewslistdata.cpp:135
+#, kde-format
+msgctxt "@title:window Title of the file radios browser view"
+msgid "Radio Stations"
+msgstr "Radiostacje"
+
+#~ msgctxt "@title:window"
+#~ msgid "View Details"
+#~ msgstr "Pokaż szczegóły"
+
+#~ msgctxt "@action:button Show track metadata"
+#~ msgid "View Details"
+#~ msgstr "Pokaż szczegóły"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "Leave Full Screen"
+#~ msgstr "Opuść tryb pełnoekranowy"
+
+#~ msgctxt "Track title for track metadata view"
+#~ msgid "Title"
+#~ msgstr "Tytuł"
+
+#~ msgctxt "Track artist for track metadata view"
+#~ msgid "Artist"
+#~ msgstr "Wykonawca"
+
+#~ msgctxt "Album name for track metadata view"
+#~ msgid "Album"
+#~ msgstr "Album"
+
+#~ msgctxt "Genre label for track metadata view"
+#~ msgid "Genre"
+#~ msgstr "Gatunek"
+
+#~ msgctxt "Lyricist label for track metadata view"
+#~ msgid "Lyricist"
+#~ msgstr "Słowa"
+
+#~ msgctxt "Composer name for track metadata view"
+#~ msgid "Composer"
+#~ msgstr "Kompozytor"
+
+#~ msgctxt "Year label for track metadata view"
+#~ msgid "Year"
+#~ msgstr "Rok"
+
+#~ msgctxt "Duration label for track metadata view"
+#~ msgid "Duration"
+#~ msgstr "Czas trwania"
+
+#~ msgctxt "Scan for New Music application menu entry"
+#~ msgid "Scan for New Music"
+#~ msgstr "Poszukaj nowej muzyki"
+
+#~ msgctxt "Reset Database and Re-Scan Everything application menu entry"
+#~ msgid "Reset Database and Re-Scan Everything"
+#~ msgstr "Wyzeruj bazę danych i poszukaj na nowo"
+
+#~ msgctxt "One of the 'now playing' views"
+#~ msgid "Lyrics"
+#~ msgstr "Słowa"
+
+#~ msgctxt "show the playlist"
+#~ msgid "Show Playlist"
+#~ msgstr "Pokaż listę odtwarzania"
+
+#~ msgctxt "Window title"
+#~ msgid "Elisa"
+#~ msgstr "Elisa"
+
+#~ msgctxt "Clear play list and add whole container to play list"
+#~ msgid "Play now, replacing current playlist"
+#~ msgstr "Odtwórz teraz, zastępując listę odtwarzania"
+
+#~ msgctxt "%1: track title. %2: artist name"
+#~ msgid "%1 - %2"
+#~ msgstr "%1 - %2"
+
+#~ msgctxt "Enqueue current track"
+#~ msgid "Add to playlist"
+#~ msgstr "Dodaj do listy odtwarzania"
+
+#~ msgid "Mark this song as no longer being a favorite"
+#~ msgstr "Usuń oznaczenie ulubiony z tego utworu"
+
+#~ msgctxt "Enqueue current track"
+#~ msgid "Add to queue"
+#~ msgstr "Dodaj do kolejki"
+
+#~ msgctxt "toggle the party mode"
+#~ msgid "Toggle Party Mode"
+#~ msgstr "Przełącz na tryb imprezy"
+
+#~ msgctxt "Pause any media that is playing"
+#~ msgid "Pause"
+#~ msgstr "Wstrzymaj"
+
+#~ msgctxt "Start playing media"
+#~ msgid "Play"
+#~ msgstr "Odtwórz"
+
+#~ msgctxt ""
+#~ "@info Title of the view of the playlist; keep this string as short as "
+#~ "possible because horizontal space is quite scarce"
+#~ msgid "Playlist"
+#~ msgstr "Lista odtwarzania"
+
+#~ msgctxt "Playlist cleared"
+#~ msgid "Playlist cleared"
+#~ msgstr "Wyczyszczono listę odtwarzania"
+
+#~ msgctxt "menu entry"
+#~ msgid "Toggle Party Mode"
+#~ msgstr "Przełącz na tryb imprezy"
+
+#~ msgctxt "navigate back in the views stack"
+#~ msgid "Back"
+#~ msgstr "Wstecz"
+
+#~ msgctxt "Show track metadata"
+#~ msgid "View Details"
+#~ msgstr "Pokaż szczegóły"
+
+#~ msgctxt "Pause current track from play list"
+#~ msgid "Pause"
+#~ msgstr "Wstrzymaj"
+
+#~ msgctxt "Play this track from play list"
+#~ msgid "Play"
+#~ msgstr "Odtwórz"
+
+#~ msgctxt "Configure dialog, embed all albums in views navigation list"
+#~ msgid "Albums"
+#~ msgstr "Albumy"
+
+#~ msgctxt "Configure dialog, embed all artists in views navigation list"
+#~ msgid "Artists"
+#~ msgstr "Wykonawcy"
+
+#~ msgctxt "Configure dialog, embed all genres in views navigation list"
+#~ msgid "Genres"
+#~ msgstr "Gatunki"
+
+#~ msgctxt "Title of the view of the playlist"
+#~ msgid "Now Playing"
+#~ msgstr "Teraz odtwarzany"
+
+#~ msgctxt "Title of the file radios browser view"
+#~ msgid "Radio Stations"
+#~ msgstr "Radiostacje"
+
+#~ msgctxt "Refresh Music Collection application menu entry"
+#~ msgid "Refresh Music Collection"
+#~ msgstr "Odśwież zbiór muzyki"
+
+#~ msgid "Refresh Music Collection"
+#~ msgstr "Odśwież zbiór muzyki"
+
+#~ msgctxt "toggle play and pause for the audio player"
+#~ msgid "Toggle Play and Pause"
+#~ msgstr "Odtwarzaj/Wstrzymaj"
+
+#~ msgctxt "Clear play list and enqueue current track"
+#~ msgid "Play Now and Replace Play List"
+#~ msgstr "Odtwórz teraz i zastąp listę odtwarzania"
+
+#~ msgctxt "Save a playlist file"
+#~ msgid "Save..."
+#~ msgstr "Zapisz..."
+
+#~ msgctxt "Load a playlist file"
+#~ msgid "Load..."
+#~ msgstr "Wczytaj..."
+
+#~ msgctxt "Undo"
+#~ msgid "Undo"
+#~ msgstr "Cofnij"
+
+#~ msgid "Limit to Favorited Songs"
+#~ msgstr "Ogranicz do ulubionych utworów"
+
+#~ msgctxt "Enqueue current track"
+#~ msgid "Enqueue"
+#~ msgstr "Do kolejki"
+
+#~ msgctxt "Add current list to playlist"
+#~ msgid "Enqueue"
+#~ msgstr "Do kolejki"
+
+#~ msgctxt "Show filters in the navigation bar"
+#~ msgid "Show Search Options"
+#~ msgstr "Pokaż możliwości wyszukiwania"
+
+#~ msgctxt "Title of the file radios browser view"
+#~ msgid "Radios"
+#~ msgstr "Radia"
+
+#~ msgctxt "Save a playlist file"
+#~ msgid "Save Playlist..."
+#~ msgstr "Zapisz listę odtwarzania..."
+
+#~ msgid "Last track"
+#~ msgstr "Ostatni utwór"
+
+#~ msgctxt "toggle between maximized and minimized ivre"
+#~ msgid "Toggle Maximize"
+#~ msgstr "Przełącz maksymalizację"
+
+#~ msgctxt "menu entry"
+#~ msgid "Collapse Player"
+#~ msgstr "Zwiń odtwarzacz"
+
+#~ msgctxt "menu entry"
+#~ msgid "Expand Player"
+#~ msgstr "Rozwiń odtwarzacz"
+
+#~ msgctxt "message of passive notification when playlist load failed"
+#~ msgid "Load of playlist failed"
+#~ msgstr "Nie udało się wczytanie listy odtwarzania"
+
+#~ msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
+#~ msgid "%1:"
+#~ msgstr "%1:"
+
+#~ msgctxt "%1: track number. %2: track title"
+#~ msgid "%1 - %2"
+#~ msgstr "%1 - %2"
+
+#~ msgid "Play now, replacing contents of Playlist"
+#~ msgstr "Odtwórz teraz, zastępując listę odtwarzania"
+
+#, fuzzy
+#~| msgctxt "Title of the view of all albums"
+#~| msgid "Albums"
+#~ msgctxt "Configure dialog, embed all albums in views navigation list"
+#~ msgid "Embed Albums"
+#~ msgstr "Albumy"
+
+#, fuzzy
+#~| msgctxt "Title of the view of all artists"
+#~| msgid "Artists"
+#~ msgctxt "Configure dialog, embed all artists in views navigation list"
+#~ msgid "Embed Artists"
+#~ msgstr "Wykonawcy"
+
+#, fuzzy
+#~| msgctxt "Title of the view of all genres"
+#~| msgid "Genres"
+#~ msgctxt "Configure dialog, embed all genres in views navigation list"
+#~ msgid "Embed Genres"
+#~ msgstr "Gatunki"
+
+#~ msgctxt "toggle repeat mode for playlist"
+#~ msgid "Toggle Repeat"
+#~ msgstr "Włącz/wyłącz powtarzanie"
+
+#~ msgctxt "%1: track number. %2: track title. %3: artist name"
+#~ msgid "<b>%1 - %2</b> - <i>%3</i>"
+#~ msgstr "<b>%1 - %2</b> - <i>%3</i>"
+
+#~ msgctxt "%1: track number. %2: track title."
+#~ msgid "<b>%1 - %2</b>"
+#~ msgstr "<b>%1 - %2</b>"
+
+#~ msgctxt "%1: track title. %2: artist name"
+#~ msgid "<b>%1</b> - <i>%2</i>"
+#~ msgstr "<b>%1</b> - <i>%2</i>"
+
+#~ msgctxt "%1: track title"
+#~ msgid "<b>%1</b>"
+#~ msgstr "<b>%1</b>"
+
+#~ msgctxt "display of artist and album in context view"
+#~ msgid "<i>by</i> <b>%1</b> <i>from</i> <b>%2</b>"
+#~ msgstr "<i>autorstwa</i> <b>%1</b> <i>z</i> <b>%2</b>"
+
+#~ msgctxt "display of album in context view"
+#~ msgid "<i>from</i> <b>%1</b>"
+#~ msgstr "<i>z</i> <b>%1</b>"
+
+#~ msgctxt "display of artist in context view"
+#~ msgid "<i>by</i> <b>%1</b>"
+#~ msgstr "<i>autorstwa</i> <b>%1</b>"
+
+#~ msgctxt "Play now current track from play list"
+#~ msgid "Play Now"
+#~ msgstr "Odtwórz teraz"
+
+#~ msgctxt "Clear playlist and add current list to it"
+#~ msgid "Replace PlayList and Play Now"
+#~ msgstr "Zastąp listę odtwarzania i odtwórz teraz"
+
+#~ msgctxt "before the TextField input of the filter"
+#~ msgid "Search: "
+#~ msgstr "Znajdź: "
+
+#~ msgctxt "before the Rating widget input of the filter"
+#~ msgid "Rating: "
+#~ msgstr "Ocena: "
+
+#~ msgctxt "This is used to preserve a fixed width for the duration text."
+#~ msgid "00:00"
+#~ msgstr "00:00"
+
+#~ msgctxt "Add whole container to play list"
+#~ msgid "Enqueue"
+#~ msgstr "Do kolejki"
+
+#~ msgctxt "Notification about unusable Baloo Configuration"
+#~ msgid "Cannot discover music with the current file search settings"
+#~ msgstr ""
+#~ "Nie można odkryć muzyki przy użyciu obecnych ustawień wyszukiwania plików"
+
+#~ msgctxt "Text of button to disable Baloo indexer"
+#~ msgid "Disable Baloo support"
+#~ msgstr "Wyłącz obsługę Baloo"
+
+#~ msgctxt "No track found message"
+#~ msgid "No track have been found"
+#~ msgstr "Nie znaleziono utworów"
+
+#~ msgctxt "Unit of the bit rate in thousand"
+#~ msgid "kbit/s"
+#~ msgstr "kbit/s"
+
+#~ msgctxt "Unit of the sample rate"
+#~ msgid "Hz"
+#~ msgstr "Hz"
+
+#~ msgctxt "Label when metadata of the track could not be scanned"
+#~ msgid "Metadata is not available."
+#~ msgstr "Metadane nie są dostępne."
+
+#~ msgctxt "Text shown when play list is empty"
+#~ msgid ""
+#~ "Your play list is empty.\n"
+#~ "In order to start, you can explore your music library with the views on "
+#~ "the left.\n"
+#~ "Use the available buttons to add your selection."
+#~ msgstr ""
+#~ "Twoja lista odtwarzania jest pusta.\n"
+#~ "Aby rozpocząć, przejrzyj swoją bibliotekę muzyki przy użyciu widoków po "
+#~ "lewej.\n"
+#~ "Użyj dostępnych przycisków, aby dodać swój wybór."
+
+#~ msgctxt "Notification about unusable Baloo Configuration"
+#~ msgid "Baloo configuration does not allow to discover your music"
+#~ msgstr "Ustawienia Baloo nie pozwalają na odkrywanie twojej muzyki"
+
+#~ msgid "Error when playing %1"
+#~ msgstr "Błąd podczas odtwarzania %1"
+
+#~ msgid "(c) 2015-2017, Matthieu Gallien &lt;mgallien@mgallien.fr&gt;"
+#~ msgstr "(c) 2015-2017, Matthieu Gallien &lt;mgallien@mgallien.fr&gt;"
+
+#~ msgctxt "Placeholder text in the filter text box"
+#~ msgid "Filter"
+#~ msgstr "Filtr"
+
+#~ msgctxt "Copyright text shown for an image"
+#~ msgid "by Edward Betts (Own work) [CC BY-SA 3.0]"
+#~ msgstr "autorstwa Edward Betts (własna praca) [CC BY-SA 3.0]"
+
+#~ msgctxt "Open album view"
+#~ msgid "Open Album"
+#~ msgstr "Otwórz album"
+
+#~ msgctxt "Add all tracks from artist to play list"
+#~ msgid "Enqueue"
+#~ msgstr "Do kolejki"
+
+#~ msgctxt "Clear play list and add all tracks from artist to play list"
+#~ msgid "Replace Play List and Play Now"
+#~ msgstr "Zastąp listę odtwarzania i odtwórz teraz"
+
+#~ msgctxt "Open artist view"
+#~ msgid "Open Artist"
+#~ msgstr "Otwórz wykonawcę"
+
+#~ msgctxt "Clear play list and add all tracks from artist to play list"
+#~ msgid "Play Now and Replace Play List"
+#~ msgstr "Odwtórz teraz i zastąp listę odtwarzania"
+
+#~ msgid "Elisa Local Files Indexer Configuration"
+#~ msgstr "Ustawienia indeksowania plików lokalnych Elisy"
+
+#~ msgid "Copyright 2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>"
+#~ msgstr "Copyright 2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>"
+
+#~ msgid "Matthieu Gallien"
+#~ msgstr "Matthieu Gallien"
+
+#~ msgid "Track %1 has been added"
+#~ msgstr "Dodano utwór %1"
+
+#~ msgctxt "Action to quit the application"
+#~ msgid "&Quit"
+#~ msgstr "Za&kończ"

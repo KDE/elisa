@@ -1,0 +1,268 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY elisa "<application
+>Elisa</application
+>">
+  <!ENTITY i18n-translatable-entity "<application
+>Elisa</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Continental-Chinese "INCLUDE">
+]>
+<book id="elisa" lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title
+>&elisa; 手册</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Matthieu</firstname
+> <surname
+>Gallien</surname
+> </personname
+> <email
+>matthieu_gallien@yahoo.fr</email
+> </author>
+<author
+><firstname
+>Yunhe</firstname
+> <surname
+>Guo</surname
+></author
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2017-2018</year>
+<holder
+>Matthieu Gallien</holder>
+</copyright>
+<legalnotice
+>&CCBYSA4Notice;</legalnotice>
+
+<date
+>2018-09-14</date>
+
+<releaseinfo
+>Elisa 0.3.80</releaseinfo>
+
+<abstract>
+<para
+>Elisa 是由 KDE 社区开发的一款音乐播放器。我们一方面力求这款软件简单易用，另一方面又力求使它具备足够的弹性，能照顾到不同用户的使用需求。 </para>
+<para
+>我们致力于让本软件既能与 KDE 社区自身的 Plasma 桌面环境进行良好的集成，又不会牺牲对其他平台 (其他 Linux 桌面环境、Windows 和 Android 系统) 的支持。 </para>
+<para
+>我们打造的是一个稳定可靠、易于使用和尊重用户隐私的音乐播放器产品。因此，我们倾向于支持那些用户对自己数据有控制权的在线服务。 </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdemultimedia</keyword>
+<keyword
+>Elisa</keyword>
+<keyword
+>音频</keyword>
+<keyword
+>音乐</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>介绍</title>
+
+<para
+>&elisa; 是一款易于使用的音乐播放器。 <screenshot>
+<screeninfo
+>这是 &elisa; 开始屏幕的截图</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Screenshot_20180912_232200.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>截图</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>使用 &elisa;</title>
+
+<para
+>&elisa; 主要通过 Baloo 来索引音乐文件，它也可以对用户在软件设置中指定的各个路径进行扫描。 </para>
+<para
+>如果 Baloo 支持已被启用，而您的配置却无法工作，软件会显示一条提示，让您停止或者启用 Baloo 索引器来为 &elisa; 提供曲目。 </para>
+<para
+>如果文件索引器找不到任何文件，软件会显示一条带有按钮的提示，让您可以打开配置界面。 </para>
+
+<para
+>您可以在 <ulink url="https://phabricator.kde.org/project/profile/193/"
+>Elisa Project</ulink
+> 页面查看软件的更新日志。 </para>
+
+<para
+>目前在使用 &elisa; 之前无需任何配置。您可以浏览应用程序的菜单来查看可自定义的项目。可以选择用于索引音乐的路径。您还可以修改本程序常用操作的快捷键。 </para>
+
+<para
+>如果您使用内建音乐索引器，则可以配置用于扫描音乐的路径。 </para>
+
+
+<sect1 id="kapp-features">
+<title
+>&elisa; 的功能</title>
+
+<para
+>&elisa; 可以做两件事：其一是浏览音乐并制作播放列表；其二是播放音乐。 </para>
+
+<sect2>
+<title
+>浏览音乐</title>
+<para
+>本软件能够从不同的来源收集您的所有音乐，分析它们的元数据，例如标题、艺人等。它提供了四种不同方式让您浏览音乐：包含所有专辑的列表、包含所有艺人的列表，包含所有曲目的列表和包含所有流派的列表。 </para>
+<para
+>每种方式的视图都备有筛选器，以便快速在所有曲目中找到您想听的歌曲。您也可以按评分进行筛选。 </para>
+<para
+>专辑、艺人、曲目三种视图的中间栏标题都配有筛选器，可以从所有对应项目中进行快速筛选。当前曲目视图的曲名、艺人和专辑名称都可点击 (只要它们存在)，并用该名称在对应视图中进行筛选。 </para>
+<para
+>您也可以直接浏览文件系统并播放音乐文件。 </para>
+</sect2>
+
+<sect2>
+<title
+>制作播放列表</title>
+<para
+>浏览音乐时，鼠标悬停的项目会显示一排按钮，用于把艺人、专辑和曲目快速添加到播放列表，或者用它们替换当前播放列表。 </para>
+<para
+>播放列表的顶端配有工具栏，它可以进行下列操作： <itemizedlist>
+  <listitem>
+    <para
+>清除整个播放列表。 </para>
+  </listitem>
+  <listitem>
+    <para
+>在浏览栏跳传到当前曲目。 </para>
+  </listitem>
+  <listitem>
+    <para
+>将当前播放列表保存为 m3u8 格式。 </para>
+  </listitem>
+  <listitem>
+    <para
+>加载并替换当前的播放列表。 </para>
+  </listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2>
+<title
+>播放音乐</title>
+<para
+>音乐将按播放列表的顺序播放，除非启用了 <guilabel
+>随机播放</guilabel
+> 选项。播放列表的最后一曲结束后将停止播放，除非启用了 <guilabel
+>循环播放</guilabel
+> 选项。 </para>
+<para
+>可以在播放列表随时切换到上一曲或者下一曲。鼠标悬停在曲目上时，还可以将它快速剔除出播放列表。 </para>
+<para
+>正在播放的曲目前方会显示一个“播放”图标。 </para>
+</sect2>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title
+>致谢和许可证</title>
+
+<para
+>&elisa; </para>
+<para
+>软件版权 &copy; 2015-2018，Elisa 团队 </para>
+<para
+>贡献人员： <itemizedlist>
+<listitem
+><para
+>Matthieu Gallien 项目负责人 <email
+>matthieu_gallien@yahoo.fr</email
+></para>
+</listitem>
+<listitem
+><para
+>Andrew Lake (软件概念与设计工作) <email
+>jamboarder@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Luigi Toscano (本地化) <email
+>luigi.toscano@tiscali.it</email
+></para>
+</listitem>
+<listitem
+><para
+>Safa Alfulaij (由右至左的界面支持) <email
+>safa1996alfulaij@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Alexander Stippich 核心开发者 <email
+>a.stippich@gmx.net</email
+></para>
+</listitem>
+<listitem
+><para
+>Diego Gangl (对界面的各种改进) <email
+>diego@sinestesia.co</email
+></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>文档版权 &copy; 2017-2018 Matthieu Gallien <email
+>matthieu_gallien@yahoo.fr</email
+> </para>
+
+<para
+>本文档由 Guo Yunhe 和 Tyson Tan 同学翻译。</para
+> &underCCBYSA4; &underLGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

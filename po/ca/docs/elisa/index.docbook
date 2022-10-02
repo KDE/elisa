@@ -1,0 +1,262 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY elisa "<application
+>Elisa</application
+>">
+  <!ENTITY i18n-translatable-entity "<application
+>Elisa</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Catalan  "INCLUDE">
+]>
+<book id="elisa" lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title
+>El manual de l'&elisa;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Matthieu</firstname
+> <surname
+>Gallien</surname
+> </personname
+> <email
+>matthieu_gallien@yahoo.fr</email
+> </author>
+&traductor.Antoni.Bella; 
+</authorgroup>
+
+<copyright>
+<year
+>2017-2018</year>
+<holder
+>Matthieu Gallien</holder>
+</copyright>
+<legalnotice
+>&CCBYSA4Notice;</legalnotice>
+
+<date
+>14 de setembre de 2018</date>
+
+<releaseinfo
+>&elisa; 0.3.80</releaseinfo>
+
+<abstract>
+<para
+>L'&elisa; és un reproductor de música desenvolupat per la comunitat &kde; que s'esforça per ser senzill i agradable d'emprar. També reconeixem que necessitem un producte flexible per a tenir en compte els diferents fluxos de treball i casos d'ús dels nostres usuaris. </para>
+<para
+>Ens centrem en una integració molt bona amb l'escriptori Plasma de la comunitat &kde;, sense comprometre el suport a altres plataformes (els altres entorns d'escriptori de Linux, Windows i Android). </para>
+<para
+>Estem creant un producte fiable, el qual és una alegria d'emprar i respecta la privadesa dels nostres usuaris. Com a tal, preferirem donar suport als serveis en línia on els usuaris tenen el control de les seves dades. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdemultimedia</keyword>
+<keyword
+>Elisa</keyword>
+<keyword
+>àudio</keyword>
+<keyword
+>música</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introducció</title>
+
+<para
+>L'&elisa; és un reproductor de música dissenyat per a ser senzill d'emprar. <screenshot>
+<screeninfo
+>Aquesta és una captura de pantalla de la pantalla inicial de l'&elisa;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Screenshot_20180912_232200.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Captura de pantalla</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Usar l'&elisa;</title>
+
+<para
+>L'&elisa; indexa la vostra música bé utilitzant el Baloo, si és possible, o cercant en una llista de camins configurats per l'usuari a través d'una interfície dedicada. </para>
+<para
+>En el cas que s'activi el suport de Baloo i la vostra configuració no funcioni, es mostrarà una notificació que permetrà desactivar l'indexador o activar l'indexador Baloo i alimentar l'&elisa; amb pistes de música. </para>
+<para
+>En el cas que l'indexador de fitxers no trobi res, es mostrarà una notificació amb un botó per obrir la interfície de configuració. </para>
+
+<para
+>Podeu trobar una llista de canvis al <ulink url="https://phabricator.kde.org/project/profile/193/"
+>Projecte Elisa</ulink
+>. </para>
+
+<para
+>Actualment no es requereix cap configuració abans d'usar l'&elisa;. Podeu explorar el menú de l'aplicació per a veure les possibilitats de personalització. És possible escollir els camins de la música que s'indexaran. També és possible modificar les dreceres per a accions comunes dins de l'aplicació. </para>
+
+<para
+>Si empreu l'indexador de música intern, podreu configurar els camins on se cercarà. </para>
+
+
+<sect1 id="kapp-features">
+<title
+>Característiques de l'&elisa;</title>
+
+<para
+>L'&elisa; proporciona dues tasques diferents: navegar per la vostra música per crear una llista de reproducció i reproduir la música. </para>
+
+<sect2>
+<title
+>Navegar per la música</title>
+<para
+>Des de les diferents fonts de música, recopila tota la vostra música i analitza les seves metadades tals com el seu títol, artista... Ofereix quatre maneres de navegar per la vostra música: una llista de tots els àlbums, una llista de tots els artistes, una llista de totes les pistes o una llista de tots els gèneres. </para>
+<para
+>Cada mètode utilitza una vista de tota la vostra música juntament amb un filtre per permetre trobar ràpidament el que cerqueu. També podeu filtrar per puntuació. </para>
+<para
+>El filtre de la vista de tots els àlbums s'implementa sobre el títol o l'artista dels àlbums o sobre la llista dels artistes de cada tema d'un àlbum. El filtre de la vista de tots els artistes s'implementa sobre el nom dels artistes. El filtre de la vista de totes les pistes s'implementa sobre el títol de la pista, l'artista de la pista i el nom de l'àlbum de la pista (si n'hi ha). </para>
+<para
+>També és possible navegar directament sobre el sistema de fitxers i reproduir els fitxers de música. </para>
+</sect2>
+
+<sect2>
+<title
+>Construir una llista de reproducció</title>
+<para
+>Quan navegueu per la vostra música, podreu afegir artistes, àlbums i pistes amb un botó que apareix quan el ratolí està a sobre. També és possible netejar la llista de reproducció i, alhora, afegir música. </para>
+<para
+>Una barra d'eines a sota de la llista de reproducció permet operar-hi. Són possibles les següents accions: <itemizedlist>
+  <listitem>
+    <para
+>Podeu netejar tota la llista de reproducció. </para>
+  </listitem>
+  <listitem>
+    <para
+>Podeu navegar fins a la pista actualment en reproducció. </para>
+  </listitem>
+  <listitem>
+    <para
+>Podeu desar la llista de reproducció al format m3u8. </para>
+  </listitem>
+  <listitem>
+    <para
+>Podeu carregar una llista de reproducció que substitueixi a l'actual. </para>
+  </listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2>
+<title
+>Reproduir música</title>
+<para
+>La llista de reproducció es llegeix en l'ordre de les pistes, tret que estigui seleccionada l'opció <guilabel
+>Barreja</guilabel
+>. Al final de la llista, la reproducció s'aturarà a menys que estigui seleccionada l'opció <guilabel
+>Repeteix</guilabel
+>. </para>
+<para
+>És possible canviar a la pista següent o anterior a la llista. Si el ratolí està sobre una pista, és possible saltar-la prement un botó. </para>
+<para
+>La pista en reproducció s'indica mitjançant una icona de reproducció intermitent. </para>
+</sect2>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title
+>Crèdits i llicència</title>
+
+<para
+>&elisa; </para>
+<para
+>Copyright del programa 2015-2018, L'equip de l'&elisa; </para>
+<para
+>Col·laboradors: <itemizedlist>
+<listitem
+><para
+>Matthieu Gallien Maintainer <email
+>matthieu_gallien@yahoo.fr</email
+></para>
+</listitem>
+<listitem
+><para
+>Andrew Lake (treball en el concepte i el disseny) <email
+>jamboarder@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Luigi Toscano (localització) <email
+>luigi.toscano@tiscali.it</email
+></para>
+</listitem>
+<listitem
+><para
+>Safa Alfulaij (implementació de dreta a esquerra a la interfície)<email
+>safa1996alfulaij@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Alexander Stippich (desenvolupador principal) <email
+>a.stippich@gmx.net</email
+></para>
+</listitem>
+<listitem
+><para
+>Diego Gangl (diverses millores a la interfície) <email
+>diego@sinestesia.co</email
+></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Copyright de la documentació &copy; 2018 Matthieu Gallien <email
+>matthieu_gallien@yahoo.fr</email
+> </para>
+
+<para
+>Traductor de la documentació: &credits.Antoni.Bella;</para
+> &underCCBYSA4; &underLGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

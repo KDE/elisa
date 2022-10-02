@@ -1,0 +1,278 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY elisa "<application
+>Elisa</application
+>">
+  <!ENTITY i18n-translatable-entity "<application
+>Elisa</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Spanish "INCLUDE">
+]>
+<book id="elisa" lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title
+>Manual de &elisa;</title>
+
+<authorgroup>
+<author
+><personname
+> <firstname
+>Matthieu</firstname
+> <surname
+>Gallien</surname
+> </personname
+> <email
+>matthieu_gallien@yahoo.fr</email
+> </author>
+<othercredit role="translator"
+><firstname
+>Eloy</firstname
+><surname
+>Cuadra</surname
+><affiliation
+><address
+><email
+>ecuadra@eloihr.net</email
+></address
+></affiliation
+><contrib
+>Traductor</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2017-2018</year>
+<holder
+>Matthieu Gallien</holder>
+</copyright>
+<legalnotice
+>&CCBYSA4Notice;</legalnotice>
+
+<date
+>2018-09-14</date>
+
+<releaseinfo
+>Elisa 0.3.80</releaseinfo>
+
+<abstract>
+<para
+>Elisa es un reproductor de música desarrollado por la comunidad KDE que se esfuerza por ser sencillo y agradable de usar. También reconocemos que necesitamos un producto flexible para tener en cuenta los diferentes modos de trabajo y los casos de uso de nuestros usuarios. </para>
+<para
+>Nos centramos en una muy buena integración con el escritorio Plasma de la comunidad KDE sin comprometer el uso de otras plataformas (otros entornos de escritorio de Linux, Windows y Android). </para>
+<para
+>Estamos creando un producto fiable que dé gusto usar y que respete la privacidad de nuestros usuarios. Como tal, preferimos usar servicios en línea en los que el usuario tiene el control de sus datos. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdemultimedia</keyword>
+<keyword
+>Elisa</keyword>
+<keyword
+>sonido</keyword>
+<keyword
+>música</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introducción</title>
+
+<para
+>&elisa; es un reproductor de música diseñado para ser fácil de usar. <screenshot>
+<screeninfo
+>Esto es una captura de pantalla de la pantalla inicial de &elisa;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Screenshot_20180912_232200.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase
+>Captura de pantalla</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title
+>Uso de &elisa;</title>
+
+<para
+>&elisa; indexa su música usando Baloo, si es posible, o buscando en una lista de rutas configurada por el usuario mediante una interfaz dedicada. </para>
+<para
+>Si está activado el uso de Baloo y su configuración no es funcional, se mostrará una notificación para sugerirle que desactive el indexador o que active el indexador de Baloo y que proporcione pistas de música a &elisa;. </para>
+<para
+>Si el indexador de archivos no encuentra nada, se mostrará una notificación con un botón para abrir la interfaz de configuración. </para>
+
+<para
+>Puede encontrar una lista de cambios en la página del <ulink url="https://phabricator.kde.org/project/profile/193/"
+>proyecto Elisa</ulink
+>. </para>
+
+<para
+>En la actualidad no se necesita configurar nada antes de usar &elisa;. Puede explorar el menú de la aplicación para ver las diferentes posibilidades de personalización. Es posible escoger las rutas de música que se indexarán. También es posible modificar los accesos rápidos de teclado para las acciones comunes de la aplicación. </para>
+
+<para
+>Si usa el indexador de música interno, puede configurar las rutas en las que se buscarán archivos de música. </para>
+
+
+<sect1 id="kapp-features">
+<title
+>Funcionalidades de &elisa;</title>
+
+<para
+>&elisa; proporciona dos tareas diferentes: explorar su música para crear una lista de reproducción y reproducir música. </para>
+
+<sect2>
+<title
+>Explorar su música</title>
+<para
+>Partiendo de diferentes fuentes de música, recopila toda su música y analiza sus metadatos, como su título, el artista... Proporciona cuatro modos para explorar su música: una lista de álbumes, una lista de artistas, una lista de pistas y una lista de géneros musicales. </para>
+<para
+>Cada método usa una vista para toda la música junto a un filtro que le permite encontrar rápidamente lo que está buscando. También puede filtrar por puntuación. </para>
+<para
+>El filtro para ver todos los álbumes está implementado en el título, en el artista del álbum y en la lista de artistas de cada pista del álbum. El filtro de la vista de todos los artistas está implementado en el nombre de los artistas. El filtro del la vista de todas las pistas está implementado en el título de la pista, el artista de la pista y en el nombre del álbum (si tiene uno). </para>
+<para
+>También es posible explorar directamente el sistema de archivos y reproducir archivos de música. </para>
+</sect2>
+
+<sect2>
+<title
+>Construir una lista de reproducción</title>
+<para
+>Al explorar su música, los artistas, los álbumes y las pistas se pueden añadir mediante un botón que se muestra al situar el cursor del ratón sobre ellos. También es posible borrar la lista de reproducción y añadir música a ella. </para>
+<para
+>Debajo de la lista de reproducción hay una barra de herramientas para operar sobre ella. Dispone de las siguientes acciones: <itemizedlist>
+  <listitem>
+    <para
+>Puede borrar la lista de reproducción completa. </para>
+  </listitem>
+  <listitem>
+    <para
+>Puede navegar hasta la pista que se está reproduciendo. </para>
+  </listitem>
+  <listitem>
+    <para
+>Puede guardar la lista de reproducción en formato m3u8. </para>
+  </listitem>
+  <listitem>
+    <para
+>Puede cargar una lista de reproducción que sustituirá a la actual. </para>
+  </listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2>
+<title
+>Reproducir música</title>
+<para
+>La lista de reproducción se lee en el orden de las pistas, excepto cuando está seleccionada la opción <guilabel
+>Aleatorio</guilabel
+>. La reproducción se detendrá al alcanzar el final de la lista, excepto cuando está seleccionada la opción <guilabel
+>Repetir</guilabel
+>. </para>
+<para
+>Puede cambiar a la pista anterior o a la siguiente de la lista. Si el ratón está situado sobre una pista, puede saltar hasta ella pulsando un botón. </para>
+<para
+>La pista que se está reproduciendo se indica mediante un icono de reproducción que parpadea. </para>
+</sect2>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title
+>Créditos y licencia</title>
+
+<para
+>&elisa; </para>
+<para
+>Copyright del programa 2015-2018 el equipo de Elisa </para>
+<para
+>Colaboradores: <itemizedlist>
+<listitem
+><para
+>Matthieu Gallien (responsable) <email
+>matthieu_gallien@yahoo.fr</email
+></para>
+</listitem>
+<listitem
+><para
+>Andrew Lake (concepto y trabajo de diseño) <email
+>jamboarder@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Luigi Toscano (traducciones) <email
+>luigi.toscano@tiscali.it</email
+></para>
+</listitem>
+<listitem
+><para
+>Safa Alfulaij (uso de escritura de derecha a izquierda en la interfaz) <email
+>safa1996alfulaij@gmail.com</email
+></para>
+</listitem>
+<listitem
+><para
+>Alexander Stippich (desarrollador principal) <email
+>a.stippich@gmx.net</email
+></para>
+</listitem>
+<listitem
+><para
+>Diego Gangl (numerosas mejoras en la interfaz) <email
+>diego@sinestesia.co</email
+></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Copyright de la documentación &copy; 2017-2018 Matthieu Gallien <email
+>matthieu_gallien@yahoo.fr</email
+> </para>
+
+<para
+>Traducido por Eloy Cuadra <email
+>ecuadra@eloihr.net</email
+>.</para
+> &underCCBYSA4; &underLGPL; </chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

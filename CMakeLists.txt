@@ -70,11 +70,6 @@ set_package_properties(KF5I18n PROPERTIES
     DESCRIPTION "KF5 text internationalization library."
     TYPE REQUIRED)
 
-find_package(KF5Declarative ${REQUIRED_KF5_VERSION} CONFIG QUIET)
-set_package_properties(KF5Declarative PROPERTIES
-    DESCRIPTION "Integration of QML and KDE work spaces."
-    TYPE RECOMMENDED)
-
 find_package(KF5CoreAddons ${REQUIRED_KF5_VERSION} CONFIG QUIET)
 set_package_properties(KF5CoreAddons PROPERTIES
     DESCRIPTION "Qt addon library with a collection of non-GUI utilities."

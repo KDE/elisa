@@ -15,6 +15,11 @@
 #include <QUrl>
 #include <QMediaPlayer>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#define PlaybackState State
+#define playbackState state
+#endif
+
 class QDateTime;
 
 class ELISALIB_EXPORT ManageAudioPlayer : public QObject
@@ -65,7 +70,7 @@ class ELISALIB_EXPORT ManageAudioPlayer : public QObject
                WRITE setPlayerStatus
                NOTIFY playerStatusChanged)
 
-    Q_PROPERTY(QMediaPlayer::State playerPlaybackState
+    Q_PROPERTY(QMediaPlayer::PlaybackState playerPlaybackState
                READ playerPlaybackState
                WRITE setPlayerPlaybackState
                NOTIFY playerPlaybackStateChanged)
@@ -116,7 +121,7 @@ public:
 
     [[nodiscard]] QMediaPlayer::MediaStatus playerStatus() const;
 
-    [[nodiscard]] QMediaPlayer::State playerPlaybackState() const;
+    [[nodiscard]] QMediaPlayer::PlaybackState playerPlaybackState() const;
 
     [[nodiscard]] QMediaPlayer::Error playerError() const;
 
@@ -210,7 +215,7 @@ public Q_SLOTS:
 
     void setPlayerStatus(QMediaPlayer::MediaStatus playerStatus);
 
-    void setPlayerPlaybackState(QMediaPlayer::State playerPlaybackState);
+    void setPlayerPlaybackState(QMediaPlayer::PlaybackState playerPlaybackState);
 
     void setPlayerError(QMediaPlayer::Error playerError);
 
@@ -280,7 +285,7 @@ private:
 
     QMediaPlayer::MediaStatus mPlayerStatus = QMediaPlayer::NoMedia;
 
-    QMediaPlayer::State mPlayerPlaybackState = QMediaPlayer::StoppedState;
+    QMediaPlayer::PlaybackState mPlayerPlaybackState = QMediaPlayer::StoppedState;
 
     QMediaPlayer::Error mPlayerError = QMediaPlayer::NoError;
 

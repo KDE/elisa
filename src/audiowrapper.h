@@ -18,6 +18,12 @@
 
 class AudioWrapperPrivate;
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#define PlaybackState State
+#define playbackState state
+#endif
+
+
 class ELISALIB_EXPORT AudioWrapper : public QObject
 {
     Q_OBJECT
@@ -41,7 +47,7 @@ class ELISALIB_EXPORT AudioWrapper : public QObject
                READ status
                NOTIFY statusChanged)
 
-    Q_PROPERTY(QMediaPlayer::State playbackState
+    Q_PROPERTY(QMediaPlayer::PlaybackState playbackState
                READ playbackState
                NOTIFY playbackStateChanged)
 
@@ -76,7 +82,7 @@ public:
 
     [[nodiscard]] QMediaPlayer::MediaStatus status() const;
 
-    [[nodiscard]] QMediaPlayer::State playbackState() const;
+    [[nodiscard]] QMediaPlayer::PlaybackState playbackState() const;
 
     [[nodiscard]] QMediaPlayer::Error error() const;
 
@@ -96,7 +102,7 @@ Q_SIGNALS:
 
     void statusChanged(QMediaPlayer::MediaStatus status);
 
-    void playbackStateChanged(QMediaPlayer::State state);
+    void playbackStateChanged(QMediaPlayer::PlaybackState state);
 
     void errorChanged(QMediaPlayer::Error error);
 
@@ -149,7 +155,7 @@ private Q_SLOTS:
 private:
     void savePosition(qint64 position);
 
-    void playerStateSignalChanges(QMediaPlayer::State newState);
+    void playerStateSignalChanges(QMediaPlayer::PlaybackState newState);
 
     void mediaStatusSignalChanges(QMediaPlayer::MediaStatus newStatus);
 

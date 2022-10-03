@@ -10,7 +10,7 @@ import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
-import QtGraphicalEffects 1.0
+import ElisaGraphicalEffects 1.15
 import org.kde.kirigami 2.19 as Kirigami
 import org.kde.elisa 1.0
 
@@ -158,9 +158,6 @@ FocusScope {
                     source: coverImage
 
                     radius: 10
-                    spread: 0.1
-                    samples: 21
-
                     color: myPalette.shadow
                 }
             }

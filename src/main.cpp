@@ -37,13 +37,13 @@
 #include <QQmlFileSelector>
 #include <QQuickStyle>
 
-#if Qt5AndroidExtras_FOUND
+#if QtAndroidExtras_FOUND
 #include <QAndroidService>
 #endif
 
 #include <memory>
 
-#if Qt5AndroidExtras_FOUND
+#if QtAndroidExtras_FOUND
 #include <QAndroidJniObject>
 #include <QtAndroid>
 #endif
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 
     KLocalizedString::setApplicationDomain("elisa");
 
-#if Qt5AndroidExtras_FOUND
+#if QtAndroidExtras_FOUND
     qInfo() << QCoreApplication::arguments();
 
     QAndroidJniObject::callStaticMethod<void>("org/kde/elisa/ElisaService",

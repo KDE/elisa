@@ -15,6 +15,11 @@
 #include <QTimer>
 #include <QDateTime>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#define PlaybackState State
+#define playbackState state
+#endif
+
 ManageAudioPlayer::ManageAudioPlayer(QObject *parent) : QObject(parent)
 {
 
@@ -54,7 +59,7 @@ QMediaPlayer::MediaStatus ManageAudioPlayer::playerStatus() const
     return mPlayerStatus;
 }
 
-QMediaPlayer::State ManageAudioPlayer::playerPlaybackState() const
+QMediaPlayer::PlaybackState ManageAudioPlayer::playerPlaybackState() const
 {
     return mPlayerPlaybackState;
 }
@@ -243,12 +248,10 @@ void ManageAudioPlayer::setPlayerStatus(QMediaPlayer::MediaStatus playerStatus)
     case QMediaPlayer::InvalidMedia:
         triggerSkipNextTrack();
         break;
-    case QMediaPlayer::UnknownMediaStatus:
-        break;
     }
 }
 
-void ManageAudioPlayer::setPlayerPlaybackState(QMediaPlayer::State playerPlaybackState)
+void ManageAudioPlayer::setPlayerPlaybackState(QMediaPlayer::PlaybackState playerPlaybackState)
 {
     if (mPlayerPlaybackState == playerPlaybackState) {
         return;
@@ -372,7 +375,6 @@ void ManageAudioPlayer::playPause()
     case QMediaPlayer::NoMedia:
     case QMediaPlayer::StalledMedia:
     case QMediaPlayer::InvalidMedia:
-    case QMediaPlayer::UnknownMediaStatus:
         break;
     }
 }

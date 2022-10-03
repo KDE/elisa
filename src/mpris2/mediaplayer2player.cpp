@@ -16,9 +16,14 @@
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
 #include "audiowrapper.h"
+#include <kfilemetadata/extractorcollection.h>
 
 #if KF5FileMetaData_FOUND
+#include <KFileMetaData/ExtractorCollection>
+#include <KFileMetaData/Extractor>
+#include <KFileMetaData/SimpleExtractionResult>
 #include <KFileMetaData/EmbeddedImageData>
+#include <QMimeDatabase>
 #endif
 
 #include <QCryptographicHash>
@@ -416,9 +421,18 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
             // adding a special case for image:// URLs that are only valid because Elisa installs a special handler for them
             // converting those URL to data URLs with embedded image data
 #if KF5FileMetaData_FOUND
-            KFileMetaData::EmbeddedImageData embeddedImage;
 
-            auto imageData = embeddedImage.imageData(m_manageHeaderBar->image().toString().mid(14));
+            const auto &mimeType = QMimeDatabase().mimeTypeForFile(m_manageHeaderBar->image().toString().mid(14)).name();
+            auto extractors = KFileMetaData::ExtractorCollection().fetchExtractors(mimeType);
+
+            QMap<KFileMetaData::EmbeddedImageData::ImageType, QByteArray> imageData;
+            for (const auto &extractor : extractors) {
+                KFileMetaData::SimpleExtractionResult result(m_manageHeaderBar->image().toString().mid(14), mimeType, KFileMetaData::ExtractionResult::ExtractImageData);
+                extractor->extract(&result);
+                if (!result.imageData().isEmpty()) {
+                    imageData = result.imageData();
+                }
+            }
 
             if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
                 result[QStringLiteral("mpris:artUrl")] = QString{QStringLiteral("data:image/png;base64,") + QLatin1String{imageData[KFileMetaData::EmbeddedImageData::FrontCover].toBase64()}};

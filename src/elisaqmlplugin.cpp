@@ -64,7 +64,7 @@
 
 #include "audiowrapper.h"
 
-#if Qt5DBus_FOUND
+#if QtDBus_FOUND
 #include "mpris2/mpris2.h"
 #include "mpris2/mediaplayer2player.h"
 #endif
@@ -145,7 +145,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterUncreatableType<QAbstractProxyModel>(uri, 1, 0, "AbstractProxyModel", QStringLiteral("Abstract Qt type"));
     qmlRegisterUncreatableType<DataTypes>(uri, 1, 0, "DataTypes", QStringLiteral("Abstract type not to be used in aml directtly"));
 
-#if Qt5DBus_FOUND
+#if QtDBus_FOUND
     qmlRegisterType<Mpris2>(uri, 1, 0, "Mpris2");
     qRegisterMetaType<MediaPlayer2Player*>();
 #endif

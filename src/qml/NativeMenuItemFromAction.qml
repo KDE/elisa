@@ -14,7 +14,7 @@ MenuItem {
 
     text: __action.text
     shortcut: ElisaApplication.actionShortcut(__action)
-    iconName: ElisaApplication.iconName(__action.icon)
+    icon.name: ElisaApplication.iconName(__action.icon)
     onTriggered: __action.trigger()
     visible: __action.text !== ""
 }

@@ -23,13 +23,13 @@ Menu {
 
     MenuItem  {
         text: i18nc("@action:inmenu", "Scan for New Music")
-        iconName: "view-refresh"
+        icon.name: "view-refresh"
         onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Soft)
     }
 
     MenuItem {
         text: i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
-        iconName: "edit-clear-all"
+        icon.name: "edit-clear-all"
         onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
     }
 
@@ -39,7 +39,7 @@ Menu {
     MenuItem {
         text: configureAction.text
         shortcut: ElisaApplication.actionShortcut(configureAction)
-        iconName: ElisaApplication.iconName(configureAction.icon)
+        icon.name: ElisaApplication.icon.name(configureAction.icon)
         onTriggered: configureAction.trigger()
         visible: configureAction.text !== ""
     }
@@ -47,7 +47,7 @@ Menu {
     MenuItem {
         text: configureShortcutsAction.text
         shortcut: ElisaApplication.actionShortcut(configureShortcutsAction)
-        iconName: ElisaApplication.iconName(configureShortcutsAction.icon)
+        icon.name: ElisaApplication.icon.name(configureShortcutsAction.icon)
         onTriggered: configureShortcutsAction.trigger()
         visible: configureShortcutsAction.text !== ""
     }
@@ -55,7 +55,7 @@ Menu {
     MenuItem {
         shortcut: ElisaApplication.actionShortcut(togglePlaylistAction)
         text: i18nc("@action:inmenu", "Show Playlist")
-        iconName: "view-media-playlist"
+        icon.name: "view-media-playlist"
         checkable: true
         checked: contentView.showPlaylist
         onTriggered: contentView.showPlaylist = !contentView.showPlaylist
@@ -69,7 +69,7 @@ Menu {
     MenuItem {
         text: reportBugAction.text
         shortcut: ElisaApplication.actionShortcut(reportBugAction)
-        iconName: ElisaApplication.iconName(reportBugAction.icon)
+        icon.name: ElisaApplication.iconName(reportBugAction.icon)
         onTriggered: reportBugAction.trigger()
         visible: reportBugAction.text !== ""
     }
@@ -81,7 +81,7 @@ Menu {
     MenuItem {
         text: helpAction.text
         shortcut: ElisaApplication.actionShortcut(helpAction)
-        iconName: ElisaApplication.iconName(helpAction.icon)
+        icon.name: ElisaApplication.iconName(helpAction.icon)
         onTriggered: helpAction.trigger()
         visible: helpAction.text !== ""
     }
@@ -89,7 +89,7 @@ Menu {
     MenuItem {
         text: aboutAppAction.text
         shortcut: ElisaApplication.actionShortcut(aboutAppAction)
-        iconName: ElisaApplication.iconName(aboutAppAction.icon)
+        icon.name: ElisaApplication.iconName(aboutAppAction.icon)
         onTriggered: aboutAppAction.trigger()
         visible: aboutAppAction.text !== ""
     }
@@ -101,7 +101,7 @@ Menu {
     MenuItem {
         text: quitApplication.text
         shortcut: ElisaApplication.actionShortcut(quitApplication)
-        iconName: ElisaApplication.iconName(quitApplication.icon)
+        icon.name: ElisaApplication.iconName(quitApplication.icon)
         onTriggered: quitApplication.trigger()
         visible: quitApplication.text !== ""
     }

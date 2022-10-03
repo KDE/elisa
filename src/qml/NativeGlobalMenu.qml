@@ -15,7 +15,7 @@ MenuBar {
 
         MenuItem {
             text: i18nc("@action:inmenu", "Save Playlist…")
-            iconName: "document-save"
+            icon.name: "document-save"
             onTriggered: {
                 mainWindow.fileDialog.savePlaylist()
             }
@@ -23,7 +23,7 @@ MenuBar {
 
         MenuItem {
             text: i18nc("@action:inmenu", "Open Playlist…")
-            iconName: "document-open"
+            icon.name: "document-open"
             onTriggered: {
                 mainWindow.fileDialog.loadPlaylist()
             }
@@ -31,7 +31,7 @@ MenuBar {
 
         MenuItem {
             text: i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
-            iconName: "view-refresh"
+            icon.name: "view-refresh"
             onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
         }
 
@@ -54,19 +54,19 @@ MenuBar {
 
         MenuItem {
             text: i18nc("@action:inmenu", "Toggle Party Mode")
-            iconName: mediaPlayerControl && mediaPlayerControl.isMaximized ? "arrow-up" : "expand"
+            icon.name: mediaPlayerControl && mediaPlayerControl.isMaximized ? "arrow-up" : "expand"
             onTriggered: mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized
         }
 
         MenuItem {
             text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Exit Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
-            iconName: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
+            icon.name: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
             onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.showNormal() : mainWindow.showFullScreen()
         }
 
         MenuItem {
             text: contentView.showPlaylist ? i18nc("@action:inmenu", "Hide Playlist") : i18nc("@action:inmenu", "Show Playlist")
-            iconName: contentView.showPlaylist ? "show-menu" : "view-media-playlist"
+            icon.name: contentView.showPlaylist ? "show-menu" : "view-media-playlist"
             onTriggered: contentView.showPlaylist = !contentView.showPlaylist
         }
     }
@@ -75,14 +75,14 @@ MenuBar {
 
         MenuItem {
             text: ElisaApplication.audioControl.playerPlaybackState == 1 ? i18nc("@action:inmenu", "Pause") : i18nc("@action:inmenu", "Play")
-            iconName: ElisaApplication.audioControl.playerPlaybackState == 1 ? "media-playback-pause" : "media-playback-start"
+            icon.name: ElisaApplication.audioControl.playerPlaybackState == 1 ? "media-playback-pause" : "media-playback-start"
             onTriggered: ElisaApplication.audioControl.playPause()
         }
 
         MenuItem {
             enabled: ElisaApplication.audioControl.playerPlaybackState != 0
             text: i18nc("@action:inmenu", "Stop")
-            iconName: "media-playback-stop"
+            icon.name: "media-playback-stop"
             onTriggered: ElisaApplication.audioControl.stop()
         }
 

@@ -14,13 +14,13 @@
 #include <QObject>
 #include <QSharedPointer>
 #include <memory>
+#include "manageaudioplayer.h"
+#include "manageheaderbar.h"
+#include "managemediaplayercontrol.h"
 
 class MediaPlayer2Player;
 class MediaPlayer2;
 class MediaPlayListProxyModel;
-class ManageAudioPlayer;
-class ManageMediaPlayerControl;
-class ManageHeaderBar;
 class AudioWrapper;
 
 class ELISALIB_EXPORT Mpris2 : public QObject

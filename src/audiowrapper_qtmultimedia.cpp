@@ -11,6 +11,7 @@
 
 #include <QTimer>
 #include <QAudio>
+#include <QAudioOutput>
 
 #include "config-upnp-qt.h"
 
@@ -23,6 +24,13 @@ public:
 
     QMediaPlayer mPlayer;
 
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+    QAudioOutput mOutput;
+#else
+#define mOutput mPlayer
+#define QAudioOutput QMediaPlayer
+#endif
+
     qint64 mSavedPosition = 0.0;
 
     qint64 mUndoSavedPosition = 0.0;
@@ -33,14 +41,24 @@ public:
 
 AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_unique<AudioWrapperPrivate>())
 {
-    connect(&d->mPlayer, &QMediaPlayer::mutedChanged, this, &AudioWrapper::playerMutedChanged);
-    connect(&d->mPlayer, &QMediaPlayer::volumeChanged, this, &AudioWrapper::playerVolumeChanged);
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+    d->mPlayer.setAudioOutput(&d->mOutput);
+#endif
+    connect(&d->mOutput, &QAudioOutput::mutedChanged, this, &AudioWrapper::playerMutedChanged);
+    connect(&d->mOutput, &QAudioOutput::volumeChanged, this, &AudioWrapper::playerVolumeChanged);
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+    connect(&d->mPlayer, &QMediaPlayer::sourceChanged, this, &AudioWrapper::sourceChanged);
+    connect(&d->mPlayer, &QMediaPlayer::playbackStateChanged, this, &AudioWrapper::playbackStateChanged);
+    connect(&d->mPlayer, &QMediaPlayer::playbackStateChanged, this, &AudioWrapper::playerStateChanged);
+    connect(&d->mPlayer, QOverload<QMediaPlayer::Error, const QString &>::of(&QMediaPlayer::errorOccurred), this, &AudioWrapper::errorChanged);
+#else
     connect(&d->mPlayer, &QMediaPlayer::mediaChanged, this, &AudioWrapper::sourceChanged);
-    connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::statusChanged);
-    connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::mediaStatusChanged);
     connect(&d->mPlayer, &QMediaPlayer::stateChanged, this, &AudioWrapper::playbackStateChanged);
     connect(&d->mPlayer, &QMediaPlayer::stateChanged, this, &AudioWrapper::playerStateChanged);
     connect(&d->mPlayer, QOverload<QMediaPlayer::Error>::of(&QMediaPlayer::error), this, &AudioWrapper::errorChanged);
+#endif
+    connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::statusChanged);
+    connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::mediaStatusChanged);
     connect(&d->mPlayer, &QMediaPlayer::durationChanged, this, &AudioWrapper::durationChanged);
     connect(&d->mPlayer, &QMediaPlayer::positionChanged, this, &AudioWrapper::positionChanged);
     connect(&d->mPlayer, &QMediaPlayer::seekableChanged, this, &AudioWrapper::seekableChanged);
@@ -53,12 +71,12 @@ AudioWrapper::~AudioWrapper()
 
 bool AudioWrapper::muted() const
 {
-    return d->mPlayer.isMuted();
+    return d->mOutput.isMuted();
 }
 
 qreal AudioWrapper::volume() const
 {
-    auto realVolume = static_cast<qreal>(d->mPlayer.volume() / 100.0);
+    auto realVolume = static_cast<qreal>(d->mOutput.volume() / 100.0);
     auto userVolume = static_cast<qreal>(QAudio::convertVolume(realVolume, QAudio::LinearVolumeScale, QAudio::LogarithmicVolumeScale));
 
     return userVolume * 100.0;
@@ -67,7 +85,11 @@ qreal AudioWrapper::volume() const
 QUrl AudioWrapper::source() const
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+    return d->mPlayer.source();
+#else
     return d->mPlayer.media().request().url();
+#endif
 #else
     return d->mPlayer.media().canonicalUrl();
 #endif
@@ -97,9 +119,9 @@ bool AudioWrapper::seekable() const
     return d->mPlayer.isSeekable();
 }
 
-QMediaPlayer::State AudioWrapper::playbackState() const
+QMediaPlayer::PlaybackState AudioWrapper::playbackState() const
 {
-    return d->mPlayer.state();
+    return d->mPlayer.playbackState();
 }
 
 QMediaPlayer::MediaStatus AudioWrapper::status() const
@@ -109,7 +131,7 @@ QMediaPlayer::MediaStatus AudioWrapper::status() const
 
 void AudioWrapper::setMuted(bool muted)
 {
-    d->mPlayer.setMuted(muted);
+    d->mOutput.setMuted(muted);
 }
 
 void AudioWrapper::setVolume(qreal volume)
@@ -117,14 +139,17 @@ void AudioWrapper::setVolume(qreal volume)
     qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::setVolume" << volume;
 
     auto realVolume = static_cast<qreal>(QAudio::convertVolume(volume / 100.0, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale));
-    d->mPlayer.setVolume(qRound(realVolume * 100));
+    d->mOutput.setVolume(qRound(realVolume * 100));
 }
 
 void AudioWrapper::setSource(const QUrl &source)
 {
     qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::setSource" << source;
-
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+    d->mPlayer.setSource({source});
+#else
     d->mPlayer.setMedia({source});
+#endif
 }
 
 void AudioWrapper::setPosition(qint64 position)
@@ -181,19 +206,19 @@ void AudioWrapper::mediaStatusChanged()
 
 void AudioWrapper::playerStateChanged()
 {
-    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerStateChanged" << d->mPlayer.state();
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerStateChanged" << d->mPlayer.playbackState();
 
-    switch(d->mPlayer.state())
+    switch(d->mPlayer.playbackState())
     {
-    case QMediaPlayer::State::StoppedState:
+    case QMediaPlayer::PlaybackState::StoppedState:
         Q_EMIT stopped();
         d->mPowerInterface.setPreventSleep(false);
         break;
-    case QMediaPlayer::State::PlayingState:
+    case QMediaPlayer::PlaybackState::PlayingState:
         Q_EMIT playing();
         d->mPowerInterface.setPreventSleep(true);
         break;
-    case QMediaPlayer::State::PausedState:
+    case QMediaPlayer::PlaybackState::PausedState:
         Q_EMIT paused();
         d->mPowerInterface.setPreventSleep(false);
         break;
@@ -202,7 +227,7 @@ void AudioWrapper::playerStateChanged()
 
 void AudioWrapper::playerVolumeChanged()
 {
-    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerVolumeChanged" << d->mPlayer.volume();
+    qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerVolumeChanged" << d->mOutput.volume();
 
     QTimer::singleShot(0, [this]() {Q_EMIT volumeChanged();});
 }
@@ -214,7 +239,7 @@ void AudioWrapper::playerMutedChanged()
     QTimer::singleShot(0, [this]() {Q_EMIT mutedChanged(muted());});
 }
 
-void AudioWrapper::playerStateSignalChanges(QMediaPlayer::State newState)
+void AudioWrapper::playerStateSignalChanges(QMediaPlayer::PlaybackState newState)
 {
     qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerStateSignalChanges" << newState;
 

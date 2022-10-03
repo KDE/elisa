@@ -551,7 +551,11 @@ bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
 #if KF5XmlGui_FOUND
     auto *keyEvent = static_cast<QKeyEvent*>(event);
     auto playPauseAction = d->mCollection.action(QStringLiteral("Play-Pause"));
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+    if (keyEvent->key() == Qt::Key_Space && playPauseAction->shortcut()[0].key() == Qt::Key_Space) {
+#else
     if (keyEvent->key() == Qt::Key_Space && playPauseAction->shortcut()[0] == Qt::Key_Space) {
+#endif
         return true;
     }
 #else

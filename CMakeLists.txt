@@ -42,6 +42,10 @@ if (NOT WIN32 AND NOT ANDROID)
         TYPE OPTIONAL)
 endif()
 
+if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
+set(QtDBus_FOUND 1)
+endif()
+
 find_package(Qt${QT_MAJOR_VERSION}QuickWidgets ${REQUIRED_QT_VERSION} CONFIG QUIET)
 set_package_properties(Qt${QT_MAJOR_VERSION}QuickWidgets PROPERTIES
     DESCRIPTION "Qt${QT_MAJOR_VERSION} Quick Widgets is needed at runtime to provide the interface."
@@ -57,6 +61,7 @@ if (ANDROID)
     set_package_properties(Qt5AndroidExtras PROPERTIES
         DESCRIPTION "Qt5 AndroidExtras is needed to provide the Android integration."
         TYPE REQUIRED)
+    set(QtAndroidExtras_FOUND 1)
 endif()
 
 find_package(KF5Kirigami2 ${REQUIRED_KF5_VERSION} CONFIG QUIET)

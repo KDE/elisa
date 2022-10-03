@@ -17,7 +17,6 @@
 #include <KFileMetaData/SimpleExtractionResult>
 #include <KFileMetaData/UserMetaData>
 #include <KFileMetaData/Properties>
-#include <KFileMetaData/EmbeddedImageData>
 
 #if KF5Baloo_FOUND
 
@@ -39,7 +38,11 @@ public:
 #if KF5FileMetaData_FOUND
     KFileMetaData::ExtractorCollection mAllExtractors;
 
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+    KFileMetaData::PropertyMultiMap mAllProperties;
+#else
     KFileMetaData::PropertyMap mAllProperties;
+#endif
 
     KFileMetaData::EmbeddedImageData mImageScanner;
 #endif
@@ -220,11 +223,13 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
         } else {
             value = (*rangeBegin).second;
         }
-        const auto &translatedKey = d->propertyTranslation.find(key);
-        if (translatedKey.value() == DataTypes::DurationRole) {
-            trackData.insert(translatedKey.value(), QTime::fromMSecsSinceStartOfDay(int(1000 * (*rangeBegin).second.toDouble())));
-        } else if (translatedKey != d->propertyTranslation.end()) {
-            trackData.insert(translatedKey.value(), (*rangeBegin).second);
+        if (d->propertyTranslation.contains(key)) {
+            const auto &translatedKey = d->propertyTranslation.find(key);
+            if (translatedKey.value() == DataTypes::DurationRole) {
+                trackData.insert(translatedKey.value(), QTime::fromMSecsSinceStartOfDay(int(1000 * (*rangeBegin).second.toDouble())));
+            } else if (translatedKey != d->propertyTranslation.end()) {
+                trackData.insert(translatedKey.value(), (*rangeBegin).second);
+            }
         }
         rangeBegin = rangeEnd;
     }
@@ -287,11 +292,17 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
 bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
 {
 #if KF5FileMetaData_FOUND
-    const auto &imageData = d->mImageScanner.imageData(localFileName);
+    const auto &mimeType = QMimeDatabase().mimeTypeForFile(localFileName).name();
+    auto extractors = d->mAllExtractors.fetchExtractors(mimeType);
 
-    if (!imageData.isEmpty()) {
-        return true;
+    for (const auto &extractor : extractors) {
+        KFileMetaData::SimpleExtractionResult result(localFileName, mimeType, KFileMetaData::ExtractionResult::ExtractImageData);
+        extractor->extract(&result);
+        if (!result.imageData().isEmpty()) {
+            return true;
+        }
     }
+
 #else
     Q_UNUSED(localFileName)
 #endif

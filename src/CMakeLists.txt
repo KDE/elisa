@@ -146,7 +146,7 @@ if (KF5KIO_FOUND)
 endif()
 
 if (KF5Baloo_FOUND)
-    if (Qt5DBus_FOUND)
+    if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
         ecm_qt_declare_logging_category(elisaLib_SOURCES
             HEADER "baloo/baloocommon.h"
             IDENTIFIER "orgKdeElisaBaloo"
@@ -179,7 +179,7 @@ if (KF5Baloo_FOUND)
     endif()
 endif()
 
-if (Qt5DBus_FOUND)
+if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
     set(elisaLib_SOURCES
         ${elisaLib_SOURCES}
         mpris2/mpris2.cpp
@@ -202,7 +202,7 @@ if (UPNPQT_FOUND)
 endif()
 
 if (KF5Baloo_FOUND)
-    if (Qt5DBus_FOUND)
+    if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
         qt_add_dbus_interface(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
             baloo/fileindexer)
@@ -263,7 +263,7 @@ if (KF5ConfigWidgets_FOUND)
 endif()
 
 if (KF5Baloo_FOUND)
-    if (Qt5DBus_FOUND)
+    if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
         target_link_libraries(elisaLib
             LINK_PUBLIC
             KF5::Baloo
@@ -271,7 +271,7 @@ if (KF5Baloo_FOUND)
     endif()
 endif()
 
-if (Qt5DBus_FOUND)
+if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
     target_link_libraries(elisaLib
         LINK_PUBLIC
         Qt::DBus
@@ -342,6 +342,12 @@ target_link_libraries(elisaqmlplugin
     elisaLib
     )
 
+if(QT_MAJOR_VERSION STREQUAL "6")
+    target_sources(elisaqmlplugin PUBLIC res-qt6.qrc)
+else()
+    target_sources(elisaqmlplugin PUBLIC res-qt5.qrc)
+endif()
+
 if (KF5FileMetaData_FOUND)
     target_link_libraries(elisaqmlplugin
         LINK_PRIVATE
@@ -381,7 +387,7 @@ add_dependencies(elisaqmlplugin copy copy2)
 ecm_generate_qmltypes(org.kde.elisa 1.0
                       DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa)
 
-if (Qt5Quick_FOUND AND Qt5Widgets_FOUND)
+if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
     set(elisa_SOURCES
         main.cpp
 

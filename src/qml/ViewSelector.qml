@@ -7,7 +7,7 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
 import QtQml.Models 2.2
-import QtGraphicalEffects 1.0
+import ElisaGraphicalEffects 1.15
 import org.kde.kirigami 2.10 as Kirigami
 import org.kde.elisa 1.0
 

@@ -12,7 +12,6 @@
 #include "elisa_settings.h"
 #include <QItemSelection>
 #include <QList>
-#include <QMediaPlaylist>
 #include <QRandomGenerator>
 #include <QFile>
 #include <QFileInfo>
@@ -35,8 +34,6 @@ public:
 
     QPersistentModelIndex mNextTrack;
 
-    QMediaPlaylist mLoadPlaylist;
-
     QList<int> mRandomMapping;
 
     QVariantMap mPersistentSettingsForUndo;
@@ -58,8 +55,6 @@ public:
 MediaPlayListProxyModel::MediaPlayListProxyModel(QObject *parent) : QAbstractProxyModel (parent),
     d(std::make_unique<MediaPlayListProxyModelPrivate>())
 {
-    connect(&d->mLoadPlaylist, &QMediaPlaylist::loaded, this, &MediaPlayListProxyModel::loadPlayListLoaded);
-    connect(&d->mLoadPlaylist, &QMediaPlaylist::loadFailed, this, &MediaPlayListProxyModel::loadPlayListLoadFailed);
     d->mRandomGenerator.seed(static_cast<unsigned int>(QTime::currentTime().msec()));
 }
 
@@ -719,13 +714,18 @@ void MediaPlayListProxyModel::determineTracks()
 
 bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
 {
-    QMediaPlaylist savePlaylist;
+    QFile outputFile(fileName.toLocalFile());
+    auto open = outputFile.open(QFile::WriteOnly);
+    if (!open) {
+        return false;
+    }
 
     if (Elisa::ElisaConfiguration::self()->alwaysUseAbsolutePlaylistPaths()) {
         for (int i = 0; i < rowCount(); ++i) {
             if (data(index(i,0), MediaPlayList::IsValidRole).toBool()) {
                 data(index(i,0), MediaPlayList::ResourceRole).toUrl();
-                savePlaylist.addMedia(QUrl(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile()));
+                outputFile.write(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile().toUtf8());
+                outputFile.write("\n");
             }
         }
     } else {
@@ -737,45 +737,36 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
                 QFileInfo musicFile(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
 
                 if (musicFile.dir().path() == dir.absolutePath()) {
-                    savePlaylist.addMedia(QUrl(musicFile.fileName()));
+                    outputFile.write(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile().toUtf8());
                 } else {
-                    savePlaylist.addMedia(QUrl(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile()));
+                    outputFile.write(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile().toUtf8());
                 }
+                outputFile.write("\n");
             }
         }
     }
 
-    return savePlaylist.save(fileName, "m3u8");
+    return true;
 }
 
 void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
 {
-    d->mLoadPlaylist.clear();
-    d->mLoadPlaylist.load(fileName, "m3u8");
-}
-
-void MediaPlayListProxyModel::loadPlayListLoaded()
-{
-    clearPlayList();
-
-    auto newTracks = DataTypes::EntryDataList{};
-    for (int i = 0; i < d->mLoadPlaylist.mediaCount(); ++i) {
-        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-                               {DataTypes::ResourceRole, d->mLoadPlaylist.media(i).request().url()}}}, {}, {}});
+    QFile inputFile(fileName.toLocalFile());
+    auto open = inputFile.open(QFile::ReadOnly);
+    if (!open) {
+        Q_EMIT playListLoadFailed();
     }
-
+    const auto data = inputFile.readAll();
+    clearPlayList();
+    auto newTracks = DataTypes::EntryDataList{};
+    for (const auto &line : data.split('\n')) {
+        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+            {DataTypes::ResourceRole, QUrl::fromLocalFile(QString::fromUtf8(line))}}}, {}, {}});
+    }
     enqueue(newTracks, ElisaUtils::ReplacePlayList, ElisaUtils::DoNotTriggerPlay);
 
     Q_EMIT persistentStateChanged();
-
-    d->mLoadPlaylist.clear();
     Q_EMIT playListLoaded();
-}
-
-void MediaPlayListProxyModel::loadPlayListLoadFailed()
-{
-    d->mLoadPlaylist.clear();
-    Q_EMIT playListLoadFailed();
 }
 
 QVariantMap MediaPlayListProxyModel::persistentState() const

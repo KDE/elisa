@@ -15,11 +15,12 @@
 #include <QDBusObjectPath>
 #include <QDBusMessage>
 
+#include "audiowrapper.h"
+
 class MediaPlayListProxyModel;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
-class AudioWrapper;
 
 class ELISALIB_EXPORT MediaPlayer2Player : public QDBusAbstractAdaptor
 {

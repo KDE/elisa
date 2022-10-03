@@ -244,12 +244,6 @@ private Q_SLOTS:
 
     void sourceModelReset();
 
-private Q_SLOTS:
-
-    void loadPlayListLoaded();
-
-    void loadPlayListLoadFailed();
-
 private:
 
     void setSourceModel(QAbstractItemModel *sourceModel) override;

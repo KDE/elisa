@@ -1,0 +1,3 @@
+module ElisaGraphicalEffects
+import QtGraphicalEffects
+Dummy 1.15 Dummy.qml

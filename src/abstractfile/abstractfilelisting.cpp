@@ -151,7 +151,7 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
         }
     }
 
-    auto &currentDirectoryListingFiles = d->mDiscoveredFiles[path];
+    auto currentDirectoryListingFiles = d->mDiscoveredFiles[path];
 
     auto currentFilesList = QSet<QUrl>();
 

@@ -10,9 +10,9 @@
 
 #cmakedefine01 UPNPQT_FOUND
 
-#cmakedefine01 Qt5DBus_FOUND
+#cmakedefine01 QtDBus_FOUND
 
-#cmakedefine01 Qt5AndroidExtras_FOUND
+#cmakedefine01 QtAndroidExtras_FOUND
 
 #cmakedefine01 KF5DBusAddons_FOUND
 

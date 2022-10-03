@@ -19,7 +19,7 @@
 #include "baloo/baloodetector.h"
 #endif
 
-#if Qt5AndroidExtras_FOUND
+#if QtAndroidExtras_FOUND
 #include "android/androidmusiclistener.h"
 #endif
 
@@ -62,7 +62,7 @@ public:
 
     FileListener mFileListener;
 
-#if Qt5AndroidExtras_FOUND
+#if QtAndroidExtras_FOUND
     AndroidMusicListener mAndroidMusicListener;
 #endif
 

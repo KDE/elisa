@@ -138,7 +138,7 @@ msgstr "Implementació de dreta a esquerra en la interfície"
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
-msgstr "Diverses millores a la interfície"
+msgstr "Diverses millores en la interfície"
 
 #: main.cpp:118
 #, kde-format

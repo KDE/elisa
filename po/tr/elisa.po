@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-29 00:45+0000\n"
-"PO-Revision-Date: 2022-09-09 20:50+0300\n"
+"PO-Revision-Date: 2022-10-13 01:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 22.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1203,7 +1203,7 @@ msgstr "Başlangıçta çalmaya başla"
 #, kde-format
 msgctxt "@option:check"
 msgid "Scan for New Music on startup"
-msgstr "Başlangıçta Yeni Müzikleri Tara"
+msgstr "Başlangıçta yeni müzikleri tara"
 
 #: qml/SettingsForm.qml:98
 #, kde-kuit-format
@@ -1531,14 +1531,14 @@ msgstr "Yıl"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
-msgstr "Önce En Eski"
+msgstr "En Eski Önce"
 
 #: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:561
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
-msgstr "Önce En Yeni"
+msgstr "En Yeni Önce"
 
 #: viewslistdata.cpp:23
 #, kde-format
@@ -1562,13 +1562,13 @@ msgstr "Son Çalma Tarihi"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
-msgstr "İlk En Az Çalınanlar"
+msgstr "En Eski Çalınanlar Önce"
 
 #: viewslistdata.cpp:36
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
-msgstr "İlk En Çok Çalınanlar"
+msgstr "En Son Çalınanlar Önce"
 
 #: viewslistdata.cpp:41
 #, kde-format
@@ -1586,13 +1586,13 @@ msgstr "Çalma Sıklığı"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
-msgstr "İlk En Az Sıklıkla Çalınanlar"
+msgstr "Pek Sık Çalınmayanlar Önce"
 
 #: viewslistdata.cpp:51
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
-msgstr "İlk En Çok Sıklıkla Çalınanlar"
+msgstr "En Sık Çalınanlar Önce"
 
 #: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:559
 #, kde-format

@@ -1685,15 +1685,3 @@ msgstr "Файлове"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Радиостанции"
-
-#~ msgctxt "@title:window"
-#~ msgid "View Details"
-#~ msgstr "Преглед на подробностите"
-
-#~ msgctxt "@action:button Show track metadata"
-#~ msgid "View Details"
-#~ msgstr "Преглед на подробностите"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Leave Full Screen"
-#~ msgstr "Напускане на цял екран"

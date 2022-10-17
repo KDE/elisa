@@ -378,7 +378,7 @@ msgstr "Sense coincidències"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
-msgstr "No hi ha res per a mostrar"
+msgstr "No hi ha res que s'haja de mostrar"
 
 #: qml/ApplicationMenu.qml:16 qml/NativeTrayMenu.qml:14
 #, kde-format

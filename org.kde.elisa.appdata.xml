@@ -10,7 +10,6 @@ SPDX-License-Identifier: CC0-1.0
   <project_license>LGPL-3.0</project_license>
   <name>Elisa</name>
   <name xml:lang="ar">إليسّا</name>
-  <name xml:lang="ast">Elisa</name>
   <name xml:lang="az">Elisa</name>
   <name xml:lang="bg">Elisa</name>
   <name xml:lang="ca">Elisa</name>
@@ -95,7 +94,6 @@ SPDX-License-Identifier: CC0-1.0
   <description>
     <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
     <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>
-    <p xml:lang="ast">Elisa ye un reproductor de música que debería ser fácil d'usar. Nun rique nenguna configuración enantes de poder usalu.</p>
     <p xml:lang="az">Rahat istifadə oluna biləcək sadə musiqi pleyeri. İstifadə etmək üçün hansısa ayarlama tələb etmir.</p>
     <p xml:lang="bg">Прост музикален плеър, който трябва да е лесен за използване. Той не изисква никаква конфигурация, преди да може да се използва.</p>
     <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
@@ -144,7 +142,6 @@ SPDX-License-Identifier: CC0-1.0
     <screenshot type="default">
       <caption>The Elisa music player</caption>
       <caption xml:lang="ar">مشغّل الموسيقى إليسّا</caption>
-      <caption xml:lang="ast">El reproductor de música Elisa</caption>
       <caption xml:lang="az">Elisa musiqi pleyeri</caption>
       <caption xml:lang="bg">Слушане на музика с Elisa</caption>
       <caption xml:lang="ca">El reproductor de música Elisa</caption>
@@ -194,7 +191,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="az">Elisa Plasma Mobile-da</caption>
       <caption xml:lang="bg">Elisa на Plasma Mobile</caption>
       <caption xml:lang="ca">Elisa al Plasma Mobile</caption>
-      <caption xml:lang="ca-valencia">Elisa a Plasma Mobile</caption>
+      <caption xml:lang="ca-valencia">Elisa en Plasma Mobile</caption>
       <caption xml:lang="cs">Elisa v Plasma Mobile</caption>
       <caption xml:lang="da">Elisa på Plasma Mobile</caption>
       <caption xml:lang="de">Elisa auf Plasma Mobile</caption>

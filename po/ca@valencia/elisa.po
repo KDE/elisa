@@ -1460,7 +1460,7 @@ msgid ""
 "need to add those other locations to the list as well."
 msgstr ""
 "L'indexador natiu ràpid de fitxers no seguix els enllaços simbòlics. Si "
-"alguna de les ubicacions d'esta llista conté enllaços simbòlics a altres "
+"alguna de les ubicacions d'esta llista conté enllaços simbòlics cap a altres "
 "ubicacions, també caldrà afegir estes altres ubicacions a la llista."
 
 #: qml/SortMenu.qml:20

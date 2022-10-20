@@ -3,6 +3,6 @@
 <RCC>
     <qresource prefix="/">
         <file alias="imports/ElisaGraphicalEffects/qmldir">qml/qt5/ElisaGraphicalEffects/qmldir</file>
-        <file alias="imports/ElisaGraphicalEffects/qmldir">qml/qt5/ElisaGraphicalEffects/Dummy.qml</file>
+        <file alias="imports/ElisaGraphicalEffects/Dummy.qml">qml/qt5/ElisaGraphicalEffects/Dummy.qml</file>
     </qresource>
 </RCC>

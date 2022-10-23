@@ -759,9 +759,11 @@ void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
     const auto data = inputFile.readAll();
     clearPlayList();
     auto newTracks = DataTypes::EntryDataList{};
-    for (const auto &line : data.split('\n')) {
+    for (const auto &l : data.split('\n')) {
+        const auto &line = QString::fromUtf8(l);
+        const auto &url = line.startsWith(QStringLiteral("file:/")) ? QUrl(line) : QUrl::fromLocalFile(line);
         newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-            {DataTypes::ResourceRole, QUrl::fromLocalFile(QString::fromUtf8(line))}}}, {}, {}});
+            {DataTypes::ResourceRole, url}}}, {}, {}});
     }
     enqueue(newTracks, ElisaUtils::ReplacePlayList, ElisaUtils::DoNotTriggerPlay);
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-29 00:45+0000\n"
+"POT-Creation-Date: 2022-10-26 00:45+0000\n"
 "PO-Revision-Date: 2022-09-10 10:53+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -560,47 +560,47 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Saving failed"
 
-#: qml/GridBrowserDelegate.qml:237 qml/GridBrowserDelegate.qml:447
-#: qml/ListBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:433
+#: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
+#: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
 #: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:81
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Show in folder"
 
-#: qml/GridBrowserDelegate.qml:261 qml/ListBrowserDelegate.qml:270
+#: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
 #: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "View details"
 
-#: qml/GridBrowserDelegate.qml:292 qml/ListBrowserDelegate.qml:291
+#: qml/GridBrowserDelegate.qml:289 qml/ListBrowserDelegate.qml:289
 #: qml/NavigationActionBar.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Play now, replacing current playlist"
 
-#: qml/GridBrowserDelegate.qml:315 qml/ListBrowserDelegate.qml:280
+#: qml/GridBrowserDelegate.qml:312 qml/ListBrowserDelegate.qml:278
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Add to playlist"
 
-#: qml/GridBrowserDelegate.qml:401
+#: qml/GridBrowserDelegate.qml:398
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
 msgstr "Options"
 
-#: qml/GridBrowserDelegate.qml:438
+#: qml/GridBrowserDelegate.qml:435
 #, kde-format
 msgctxt "@action:button Clear play list and add whole container to play list"
 msgid "Play now, replacing current queue"
 msgstr "Play now, replacing current queue"
 
-#: qml/GridBrowserDelegate.qml:455
+#: qml/GridBrowserDelegate.qml:452
 #, kde-format
 msgctxt "@action:button Add whole container to play list"
 msgid "Add to queue"
@@ -612,75 +612,75 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Exit Full Screen"
 
-#: qml/ListBrowserDelegate.qml:173 qml/ListBrowserDelegate.qml:189
+#: qml/ListBrowserDelegate.qml:171 qml/ListBrowserDelegate.qml:187
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:184
+#: qml/ListBrowserDelegate.qml:182
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/ListBrowserDelegate.qml:196
+#: qml/ListBrowserDelegate.qml:194
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:304 qml/PlayListEntry.qml:101
+#: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Set track rating"
 
-#: qml/ListBrowserDelegate.qml:317 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Un-mark this song as a favourite"
 
-#: qml/ListBrowserDelegate.qml:317 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Mark this song as a favourite"
 
-#: qml/ListBrowserDelegate.qml:352 qml/PlayListEntry.qml:336
+#: qml/ListBrowserDelegate.qml:350 qml/PlayListEntry.qml:336
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Cancel rating this track"
 
-#: qml/ListBrowserDelegate.qml:407
+#: qml/ListBrowserDelegate.qml:405
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Song Options"
 
-#: qml/ListBrowserDelegate.qml:441
+#: qml/ListBrowserDelegate.qml:439
 #, kde-format
 msgctxt "@action:button"
 msgid "View details"
 msgstr "View details"
 
-#: qml/ListBrowserDelegate.qml:455
+#: qml/ListBrowserDelegate.qml:453
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark as favorite"
 msgstr "Un-mark as favourite"
 
-#: qml/ListBrowserDelegate.qml:455
+#: qml/ListBrowserDelegate.qml:453
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark as favorite"
 msgstr "Mark as favourite"
 
-#: qml/ListBrowserDelegate.qml:463
+#: qml/ListBrowserDelegate.qml:461
 #, kde-format
 msgctxt "@action:button Enqueue current track"
 msgid "Add to queue"

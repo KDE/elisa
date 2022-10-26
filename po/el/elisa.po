@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-29 00:45+0000\n"
+"POT-Creation-Date: 2022-10-26 00:45+0000\n"
 "PO-Revision-Date: 2021-10-23 08:43+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -673,8 +673,8 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Αποτυχία αποθήκευσης"
 
-#: qml/GridBrowserDelegate.qml:237 qml/GridBrowserDelegate.qml:447
-#: qml/ListBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:433
+#: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
+#: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
 #: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:81
 #, fuzzy, kde-format
 #| msgctxt "Show the file for this song in the file manager"
@@ -683,7 +683,7 @@ msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Εμφάνιση στο φάκελο"
 
-#: qml/GridBrowserDelegate.qml:261 qml/ListBrowserDelegate.qml:270
+#: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
 #: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
@@ -692,7 +692,7 @@ msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "Προβολή λεπτομερειών"
 
-#: qml/GridBrowserDelegate.qml:292 qml/ListBrowserDelegate.qml:291
+#: qml/GridBrowserDelegate.qml:289 qml/ListBrowserDelegate.qml:289
 #: qml/NavigationActionBar.qml:140
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
@@ -701,7 +701,7 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Αναπαραγωγή τώρα, αντικατάσταση τρέχουσας λίστας αναπαραγωγής"
 
-#: qml/GridBrowserDelegate.qml:315 qml/ListBrowserDelegate.qml:280
+#: qml/GridBrowserDelegate.qml:312 qml/ListBrowserDelegate.qml:278
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to Playlist"
@@ -709,7 +709,7 @@ msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Προσθήκη στη λίστα αναπαραγωγής"
 
-#: qml/GridBrowserDelegate.qml:401
+#: qml/GridBrowserDelegate.qml:398
 #, fuzzy, kde-format
 #| msgctxt "Options"
 #| msgid "Options"
@@ -717,7 +717,7 @@ msgctxt "@action:button"
 msgid "Options"
 msgstr "Επιλογές"
 
-#: qml/GridBrowserDelegate.qml:438
+#: qml/GridBrowserDelegate.qml:435
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current queue"
@@ -725,7 +725,7 @@ msgctxt "@action:button Clear play list and add whole container to play list"
 msgid "Play now, replacing current queue"
 msgstr "Αναπαραγωγή τώρα, αντικατάσταση τρέχουσας ουράς αναμονής"
 
-#: qml/GridBrowserDelegate.qml:455
+#: qml/GridBrowserDelegate.qml:452
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to queue"
@@ -741,7 +741,7 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Είσοδος σε πλήρη οθόνη"
 
-#: qml/ListBrowserDelegate.qml:173 qml/ListBrowserDelegate.qml:189
+#: qml/ListBrowserDelegate.qml:171 qml/ListBrowserDelegate.qml:187
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title."
 #| msgid "%1 - %2"
@@ -749,7 +749,7 @@ msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:184
+#: qml/ListBrowserDelegate.qml:182
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title. %3: artist name"
 #| msgid "%1 - %2 - %3"
@@ -757,7 +757,7 @@ msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/ListBrowserDelegate.qml:196
+#: qml/ListBrowserDelegate.qml:194
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title."
 #| msgid "%1 - %2"
@@ -765,7 +765,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:304 qml/PlayListEntry.qml:101
+#: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
 #, fuzzy, kde-format
 #| msgctxt "Show track rating"
 #| msgid "Set track rating"
@@ -773,7 +773,7 @@ msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Ρύθμιση αξιολόγησης κομματιού"
 
-#: qml/ListBrowserDelegate.qml:317 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:109
 #, fuzzy, kde-format
 #| msgid "Un-mark this song as a favorite"
@@ -781,7 +781,7 @@ msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Να αναιρεθεί η σημείωση αυτού του τραγουδιού ως προτιμώμενο"
 
-#: qml/ListBrowserDelegate.qml:317 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:109
 #, fuzzy, kde-format
 #| msgid "Mark this song as a favorite"
@@ -789,7 +789,7 @@ msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Να σημειωθεί αυτό το τραγούδι ως προτιμώμενο"
 
-#: qml/ListBrowserDelegate.qml:352 qml/PlayListEntry.qml:336
+#: qml/ListBrowserDelegate.qml:350 qml/PlayListEntry.qml:336
 #, fuzzy, kde-format
 #| msgctxt "Cancel rating this track"
 #| msgid "Cancel rating this track"
@@ -797,7 +797,7 @@ msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Ακύρωση αξιολόγησης του κομματιού"
 
-#: qml/ListBrowserDelegate.qml:407
+#: qml/ListBrowserDelegate.qml:405
 #, fuzzy, kde-format
 #| msgctxt "Song options"
 #| msgid "Song Options"
@@ -805,7 +805,7 @@ msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Επιλογές τραγουδιού"
 
-#: qml/ListBrowserDelegate.qml:441
+#: qml/ListBrowserDelegate.qml:439
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
 #| msgid "View details"
@@ -813,21 +813,21 @@ msgctxt "@action:button"
 msgid "View details"
 msgstr "Προβολή λεπτομερειών"
 
-#: qml/ListBrowserDelegate.qml:455
+#: qml/ListBrowserDelegate.qml:453
 #, fuzzy, kde-format
 #| msgid "Un-mark this song as a favorite"
 msgctxt "@action:button"
 msgid "Un-mark as favorite"
 msgstr "Να αναιρεθεί η σημείωση αυτού του τραγουδιού ως προτιμώμενο"
 
-#: qml/ListBrowserDelegate.qml:455
+#: qml/ListBrowserDelegate.qml:453
 #, fuzzy, kde-format
 #| msgid "Mark this song as a favorite"
 msgctxt "@action:button"
 msgid "Mark as favorite"
 msgstr "Να σημειωθεί αυτό το τραγούδι ως προτιμώμενο"
 
-#: qml/ListBrowserDelegate.qml:463
+#: qml/ListBrowserDelegate.qml:461
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to queue"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-26 00:45+0000\n"
-"PO-Revision-Date: 2022-10-12 15:34+0200\n"
+"PO-Revision-Date: 2022-11-03 15:28+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -29,8 +29,7 @@ msgstr "g.sora@tiscali.it"
 
 #: databaseinterface.cpp:7173 databaseinterface.cpp:8220
 #: databaseinterface.cpp:8304
-#, fuzzy, kde-format
-#| msgid "Various Artists"
+#, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Artistas Varie"
@@ -66,8 +65,7 @@ msgid "Go to next track"
 msgstr "Va a proxime tracia"
 
 #: elisaapplication.cpp:197
-#, fuzzy, kde-format
-#| msgid "Go to previous track"
+#, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Va a previe tracia"
@@ -79,8 +77,7 @@ msgid "Play/pause"
 msgstr "Reproduce/Pausa"
 
 #: elisaapplication.cpp:214
-#, fuzzy, kde-format
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Commuta Modo de Party (Festa)"
@@ -177,8 +174,7 @@ msgid "Title"
 msgstr "Titulo"
 
 #: models/lyricsmodel.cpp:162
-#, fuzzy, kde-format
-#| msgid "Length"
+#, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "Longitude"
@@ -190,8 +186,7 @@ msgid "Created by"
 msgstr "Create per"
 
 #: models/lyricsmodel.cpp:164
-#, fuzzy, kde-format
-#| msgid "Editor"
+#, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "Editor"
@@ -203,12 +198,10 @@ msgid "Version"
 msgstr "Version"
 
 #: models/lyricsmodel.cpp:188
-#, fuzzy, kde-format
-#| msgctxt "this is a key => value map"
-#| msgid "%1: %2\n"
+#, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
-msgstr "N"
+msgstr "%1: %2\n"
 
 #: models/trackmetadatamodel.cpp:444 models/trackmetadatamodel.cpp:491
 #, kde-format
@@ -247,9 +240,7 @@ msgid "Disc Number"
 msgstr "Numero de disco"
 
 #: models/trackmetadatamodel.cpp:456 models/trackmetadatamodel.cpp:512
-#, fuzzy, kde-format
-#| msgctxt "Rating label for information panel"
-#| msgid "Rating"
+#, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "Evalutation"
@@ -393,9 +384,7 @@ msgid "Application Menu"
 msgstr "Menu de application"
 
 #: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
-#, fuzzy, kde-format
-#| msgctxt "menu entry"
-#| msgid "Enter Fullscreen"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "Exi del schermo integre"
@@ -420,8 +409,7 @@ msgid "Reset Database and Re-Scan Everything"
 msgstr "Refixa Base de Datos e re-scande toto"
 
 #: qml/ApplicationMenu.qml:53
-#, fuzzy, kde-format
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
 msgstr "Schema de color"
@@ -478,9 +466,7 @@ msgid "Show In Folder"
 msgstr "Monstra In  dossier"
 
 #: qml/DurationSlider.qml:39
-#, fuzzy, kde-format
-#| msgctxt "This is used to preserve a fixed width for the duration text."
-#| msgid "00:00:00"
+#, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
 "text."
@@ -488,8 +474,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/ElisaConfigurationDialog.qml:21
-#, fuzzy, kde-format
-#| msgid "Configure"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure"
 msgstr "Configura"
@@ -507,15 +492,13 @@ msgid "Apply"
 msgstr "Applica"
 
 #: qml/ElisaConfigurationDialog.qml:64
-#, fuzzy, kde-format
-#| msgid "Cancel"
+#, kde-format
 msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Cancella"
 
 #: qml/ElisaConfigurationDialog.qml:81
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Aviso"
@@ -527,11 +510,10 @@ msgid "Loading failed"
 msgstr "Il falleva cargar "
 
 #: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:165
-#, fuzzy, kde-format
-#| msgid "Retry"
+#, kde-format
 msgctxt "@action:button"
 msgid "Retry"
-msgstr "Prova de nove"
+msgstr "Prova novemente"
 
 #: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:404
 #, kde-format
@@ -625,33 +607,25 @@ msgid "Add to queue"
 msgstr "Adde a cauda"
 
 #: qml/HeaderBar.qml:127
-#, fuzzy, kde-format
-#| msgctxt "menu entry"
-#| msgid "Enter Fullscreen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Exi del schermo integre"
 
 #: qml/ListBrowserDelegate.qml:171 qml/ListBrowserDelegate.qml:187
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title."
-#| msgid "%1 - %2"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
 #: qml/ListBrowserDelegate.qml:182
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
 #: qml/ListBrowserDelegate.qml:194
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title."
-#| msgid "%1 - %2"
+#, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
@@ -695,15 +669,13 @@ msgid "View details"
 msgstr "Vide detalios"
 
 #: qml/ListBrowserDelegate.qml:453
-#, fuzzy, kde-format
-#| msgid "Un-mark this song as a favorite"
+#, kde-format
 msgctxt "@action:button"
 msgid "Un-mark as favorite"
 msgstr "Demarca iste canto como un favorite"
 
 #: qml/ListBrowserDelegate.qml:453
-#, fuzzy, kde-format
-#| msgid "Mark this song as a favorite"
+#, kde-format
 msgctxt "@action:button"
 msgid "Mark as favorite"
 msgstr "Marca iste canto como un favorite"
@@ -715,8 +687,7 @@ msgid "Add to queue"
 msgstr "Adde a cauda"
 
 #: qml/MediaPlayerControl.qml:50
-#, fuzzy, kde-format
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "Commuta Modo de Party (Festa)"
@@ -724,9 +695,7 @@ msgstr "Commuta Modo de Party (Festa)"
 #: qml/MediaPlayerControl.qml:58
 #: qml/mobile/MobileMinimizedPlayerControl.qml:225
 #: qml/mobile/MobileTrackPlayer.qml:318
-#, fuzzy, kde-format
-#| msgctxt "skip backward in playlists"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Salta retro"
@@ -734,8 +703,7 @@ msgstr "Salta retro"
 #: qml/MediaPlayerControl.qml:66
 #: qml/mobile/MobileMinimizedPlayerControl.qml:241
 #: qml/mobile/MobileTrackPlayer.qml:333
-#, fuzzy, kde-format
-#| msgid "Pause"
+#, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Pausa"
@@ -743,24 +711,19 @@ msgstr "Pausa"
 #: qml/MediaPlayerControl.qml:66
 #: qml/mobile/MobileMinimizedPlayerControl.qml:241
 #: qml/mobile/MobileTrackPlayer.qml:333
-#, fuzzy, kde-format
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Reproduce"
 
 #: qml/MediaPlayerControl.qml:74
-#, fuzzy, kde-format
-#| msgctxt "skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "Salta avante"
 
 #: qml/MediaPlayerControl.qml:93
-#, fuzzy, kde-format
-#| msgctxt "toggle mute mode for player"
-#| msgid "Toggle Mute"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "Commuta Surdina"
@@ -802,8 +765,7 @@ msgid "One"
 msgstr "Uno"
 
 #: qml/MediaPlayerControl.qml:163 qml/mobile/MobileTrackPlayer.qml:269
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Necun"
@@ -823,17 +785,13 @@ msgid "Playlist"
 msgstr "Lista de reproduction"
 
 #: qml/MediaPlayListView.qml:63
-#, fuzzy, kde-format
-#| msgctxt "Save a playlist file"
-#| msgid "Save…"
+#, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
-msgstr "Salveguarda"
+msgstr "Salveguarda…"
 
 #: qml/MediaPlayListView.qml:73
-#, fuzzy, kde-format
-#| msgctxt "Load a playlist file"
-#| msgid "Load…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Carga..."
@@ -875,10 +833,7 @@ msgid "1 track"
 msgstr "1 tracia"
 
 #: qml/MediaPlayListView.qml:433
-#, fuzzy, kde-format
-#| msgctxt "number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
 msgid_plural "%1 remaining"
@@ -924,8 +879,7 @@ msgid "Modify"
 msgstr "Modifica"
 
 #: qml/MediaTrackMetadataForm.qml:129 qml/MediaTrackMetadataView.qml:147
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@action:button"
 msgid "Delete"
 msgstr "Dele"
@@ -946,25 +900,21 @@ msgstr "Vide detalios"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:44
 #: qml/mobile/MobileSettingsPage.qml:30
-#, fuzzy, kde-format
-#| msgid "Save"
+#, kde-format
 msgctxt "@action:button"
 msgid "Save"
 msgstr "Salveguarda"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:56
 #: qml/mobile/MobileSettingsPage.qml:38
-#, fuzzy, kde-format
-#| msgid "Close"
+#, kde-format
 msgctxt "@action:button"
 msgid "Close"
 msgstr "Claude"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:257
 #: qml/mobile/MobileTrackPlayer.qml:348
-#, fuzzy, kde-format
-#| msgctxt "skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Salta avante"
@@ -1006,9 +956,7 @@ msgid "Change Volume"
 msgstr "Cambia volumine"
 
 #: qml/NativeGlobalMenu.qml:14
-#, fuzzy, kde-format
-#| msgctxt "menu category"
-#| msgid "File"
+#, kde-format
 msgctxt "@title:menu"
 msgid "File"
 msgstr "File"
@@ -1026,16 +974,13 @@ msgid "Open Playlist…"
 msgstr "Aperi lista de reproduction…"
 
 #: qml/NativeGlobalMenu.qml:53
-#, fuzzy, kde-format
-#| msgctxt "menu category"
-#| msgid "View"
+#, kde-format
 msgctxt "@title:menu"
 msgid "View"
 msgstr "Vista"
 
 #: qml/NativeGlobalMenu.qml:56
-#, fuzzy, kde-format
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "Commuta Modo de Party (Festa)"
@@ -1059,36 +1004,31 @@ msgid "Controls"
 msgstr "Controlos"
 
 #: qml/NativeGlobalMenu.qml:77
-#, fuzzy, kde-format
-#| msgid "Pause"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Pause"
 msgstr "Pausa"
 
 #: qml/NativeGlobalMenu.qml:77
-#, fuzzy, kde-format
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Play"
 msgstr "Reproduce"
 
 #: qml/NativeGlobalMenu.qml:84
-#, fuzzy, kde-format
-#| msgid "Stop"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop"
 msgstr "Stoppa"
 
 #: qml/NativeGlobalMenu.qml:93
-#, fuzzy, kde-format
-#| msgid "Increase Volume"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Increase Volume"
 msgstr "Augmenta volumine"
 
 #: qml/NativeGlobalMenu.qml:98
-#, fuzzy, kde-format
-#| msgid "Decrease Volume"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Decrease Volume"
 msgstr "Diminue Volumine"
@@ -1100,22 +1040,19 @@ msgid "Shuffle"
 msgstr "Shuffle (miscer)"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgid "On"
+#, kde-format
 msgctxt "@action:inmenu shuffle mode is turned on"
 msgid "On"
 msgstr "Activate (On)"
 
 #: qml/NativeGlobalMenu.qml:121
-#, fuzzy, kde-format
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu shuffle mode is turned off"
 msgid "Off"
 msgstr "De-Activate (Off)"
 
 #: qml/NativeGlobalMenu.qml:130
-#, fuzzy, kde-format
-#| msgid "Repeat"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Repeat"
 msgstr "Repete"
@@ -1133,8 +1070,7 @@ msgid "One"
 msgstr "Uno"
 
 #: qml/NativeGlobalMenu.qml:145
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt ""
 "@action:inmenu no repeat mode set; stop playback after last song in the "
 "playlist"
@@ -1154,9 +1090,7 @@ msgid "Sort: %1"
 msgstr "Ordina: %1"
 
 #: qml/NavigationActionBar.qml:94
-#, fuzzy, kde-format
-#| msgctxt "Sort By Menu Title with no sort selected"
-#| msgid "Sort"
+#, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Ordina"
@@ -1216,23 +1150,19 @@ msgid "Only Show Favorites"
 msgstr "Solmente Monstra favoritos"
 
 #: qml/PlayListEntry.qml:127
-#, fuzzy, kde-format
-#| msgid "Pause"
+#, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "Pausa"
 
 #: qml/PlayListEntry.qml:127
-#, fuzzy, kde-format
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Reproduce"
 
 #: qml/PlayListEntry.qml:141
-#, fuzzy, kde-format
-#| msgctxt "Remove current track from play list"
-#| msgid "Remove"
+#, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Remove"
@@ -1308,15 +1238,13 @@ msgid "Favorite/not favorite"
 msgstr "Favorite/non Favorite"
 
 #: qml/SettingsForm.qml:139
-#, fuzzy, kde-format
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@action:button"
 msgid "Color Scheme"
 msgstr "Schema de color"
 
 #: qml/SettingsForm.qml:144
-#, fuzzy, kde-format
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Color Scheme"
 msgstr "Schema de color"
@@ -1459,8 +1387,7 @@ msgstr ""
 "como un bug."
 
 #: qml/SettingsForm.qml:291
-#, fuzzy, kde-format
-#| msgid "Report Bug"
+#, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "Reporta Bug"

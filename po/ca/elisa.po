@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-26 00:45+0000\n"
-"PO-Revision-Date: 2022-09-09 12:31+0200\n"
+"PO-Revision-Date: 2022-11-06 11:31+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -300,7 +300,7 @@ msgstr "Freqüència de mostreig"
 #, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
-msgstr "Lletres"
+msgstr "Lletra"
 
 #: models/trackmetadatamodel.cpp:476 models/trackmetadatamodel.cpp:494
 #, kde-format
@@ -441,7 +441,7 @@ msgstr "Metadades"
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
-msgstr "Lletres"
+msgstr "Lletra"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:190
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164

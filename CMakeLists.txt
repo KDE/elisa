@@ -129,11 +129,6 @@ if (NOT WIN32 AND NOT ANDROID)
         TYPE OPTIONAL)
 endif()
 
-find_package(KF5Package ${REQUIRED_KF5_VERSION} CONFIG QUIET)
-set_package_properties(KF5Package PROPERTIES
-    DESCRIPTION "KF5 package management library needed to get the configuration dialogs."
-    TYPE RECOMMENDED)
-
 if (NOT ANDROID)
     find_package(KF5KIO ${REQUIRED_KF5_VERSION} CONFIG QUIET)
     set_package_properties(KF5KIO PROPERTIES

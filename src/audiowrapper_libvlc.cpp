@@ -244,6 +244,13 @@ void AudioWrapper::setSource(const QUrl &source)
         }
     }
 
+    // By default, libvlc caches only next 1000 (ms, 0..60000) of the playback,
+    // which is unreasonable given our usecase of sequential playback.
+    libvlc_media_add_option(d->mMedia, ":file-caching=10000");
+    libvlc_media_add_option(d->mMedia, ":live-caching=10000");
+    libvlc_media_add_option(d->mMedia, ":disc-caching=10000");
+    libvlc_media_add_option(d->mMedia, ":network-caching=10000");
+
     libvlc_media_player_set_media(d->mPlayer, d->mMedia);
 
     if (d->signalPlaybackChange(QMediaPlayer::StoppedState)) {

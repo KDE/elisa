@@ -74,9 +74,6 @@ Kirigami.ApplicationWindow {
 
     title: ElisaApplication.manageHeaderBar.title ? i18nc("@title:window", "%1 — Elisa", ElisaApplication.manageHeaderBar.title) : i18nc("@title:window", "Elisa")
 
-    Accessible.role: Accessible.Application
-    Accessible.name: title
-
     readonly property int initialViewIndex: 3
 
     property var goBackAction: ElisaApplication.action("go_back")

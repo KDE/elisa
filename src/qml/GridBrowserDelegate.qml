@@ -156,8 +156,9 @@ FocusScope {
                 layer.enabled: !coverImage.usingFallback && !Kirigami.Settings.isMobile // don't use drop shadow on mobile
                 layer.effect: DropShadow {
                     source: coverImage
-
-                    radius: 10
+                    radius: 16
+                    samples: (radius * 2) + 1
+                    cached: true
                     color: myPalette.shadow
                 }
             }

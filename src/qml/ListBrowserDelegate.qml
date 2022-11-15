@@ -137,9 +137,9 @@ FocusScope {
 
                     layer.effect: DropShadow {
                         source: coverImageElement
-
-                        radius: 10
-
+                        radius: 8
+                        samples: (radius * 2) + 1
+                        cached: true
                         color: myPalette.shadow
                     }
                 }

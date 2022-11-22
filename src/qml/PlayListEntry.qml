@@ -413,6 +413,14 @@ BasePlayListDelegate {
                         action: actionList.playPauseAction
                     }
                     MenuItem {
+                        action: actionList.ratingAction
+                        visible: !ElisaApplication.useFavoriteStyleRatings
+                    }
+                    MenuItem {
+                        action: actionList.favoriteAction
+                        visible: ElisaApplication.useFavoriteStyleRatings
+                    }
+                    MenuItem {
                         action: actionList.removeAction
                     }
                 }

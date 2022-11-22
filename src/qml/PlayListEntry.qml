@@ -404,13 +404,13 @@ BasePlayListDelegate {
                     onVisibleChanged: menuLoader.menuVisible = visible
 
                     MenuItem {
-                        action: actionList.locateFileAction
+                        action: actionList.playPauseAction
                     }
                     MenuItem {
                         action: actionList.infoAction
                     }
                     MenuItem {
-                        action: actionList.playPauseAction
+                        action: actionList.locateFileAction
                     }
                     MenuItem {
                         action: actionList.ratingAction
@@ -420,6 +420,7 @@ BasePlayListDelegate {
                         action: actionList.favoriteAction
                         visible: ElisaApplication.useFavoriteStyleRatings
                     }
+                    MenuSeparator { }
                     MenuItem {
                         action: actionList.removeAction
                     }

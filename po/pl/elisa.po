@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-16 02:51+0000\n"
-"PO-Revision-Date: 2022-08-21 07:03+0200\n"
+"PO-Revision-Date: 2022-11-23 19:53+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 22.04.1\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -384,9 +384,7 @@ msgid "Application Menu"
 msgstr "Menu programu"
 
 #: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Exit Full Screen"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "Opuść tryb pełnoekranowy"
@@ -395,7 +393,7 @@ msgstr "Opuść tryb pełnoekranowy"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
-msgstr "Przejdź w tryb pełnoekranowy"
+msgstr "Przejdź do trybu pełnoekranowego"
 
 #: qml/ApplicationMenu.qml:33 qml/NativeTrayMenu.qml:25
 #, kde-format
@@ -535,6 +533,8 @@ msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr ""
+"Nie można wczytać niektórych plików. Elisa może otwierać tylko pliki "
+"dźwiękowe i list odtwarzania."
 
 #: qml/ElisaMainWindow.qml:75 qml/mobile/MobileSidebar.qml:20
 #, kde-format
@@ -897,9 +897,7 @@ msgstr "Utwórz radio"
 
 #: qml/MediaTrackMetadataView.qml:36
 #: qml/mobile/MobileMediaTrackMetadataView.qml:40
-#, fuzzy, kde-format
-#| msgctxt "@action:button Show track metadata"
-#| msgid "View details"
+#, kde-format
 msgctxt "@title:window"
 msgid "View details"
 msgstr "Pokaż szczegóły"
@@ -1397,19 +1395,19 @@ msgstr "Zgłoś błąd"
 #: qml/SettingsForm.qml:306
 #, kde-format
 msgid "When saving playlist files:"
-msgstr ""
+msgstr "Przy zapisywaniu plików list odtwarzania:"
 
 #: qml/SettingsForm.qml:315
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
-msgstr ""
+msgstr "Skłaniaj się ku ścieżką względnym"
 
 #: qml/SettingsForm.qml:316
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
-msgstr ""
+msgstr "Zawsze używaj ścieżek bezwzględnych"
 
 #: qml/SettingsForm.qml:327
 #, kde-kuit-format
@@ -1419,6 +1417,9 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
+"Po wybraniu <interface>Skłaniaj się ku ścieżką względnym</interface>, pliki, "
+"w tym samym katalogu co lista odtwarzania, będą wywoływane po nazwie pliku. "
+"W innych przypadkach będą używane ścieżki bezwzględne."
 
 #: qml/SettingsForm.qml:342
 #, kde-format

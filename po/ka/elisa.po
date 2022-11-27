@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-16 02:51+0000\n"
-"PO-Revision-Date: 2022-09-26 09:09+0200\n"
+"PO-Revision-Date: 2022-11-26 07:09+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -81,7 +81,7 @@ msgstr "დაკვრა/პაუზა"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
-msgstr ""
+msgstr "წვეულების რეჟიმის გადართვა"
 
 #: main.cpp:105
 #, kde-format
@@ -93,13 +93,13 @@ msgstr "Elisa"
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
-msgstr ""
+msgstr "მარტივი მუსიკის დამკვრელი, თქვენთვის. სიყვარულით, KDE-ის საზოგადოება"
 
 #: main.cpp:109
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
-msgstr ""
+msgstr "(c) 2015-2020, Elisa -ის შემომწირავები, ყველა უფლება დაცულია"
 
 #: main.cpp:111 models/lyricsmodel.cpp:161
 #, kde-format
@@ -692,7 +692,7 @@ msgstr "რიგში ჩამატება"
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
-msgstr ""
+msgstr "წვეულების რეჟიმის გადართვა"
 
 #: qml/MediaPlayerControl.qml:58
 #: qml/mobile/MobileMinimizedPlayerControl.qml:225
@@ -740,19 +740,19 @@ msgstr "შემთხვევითობის გადართვა"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
-msgstr ""
+msgstr "მიმდინარე: ტრეკები არ განმეორდება"
 
 #: qml/MediaPlayerControl.qml:124 qml/mobile/MobileTrackPlayer.qml:231
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
-msgstr ""
+msgstr "მიმდინარე: მიმდინარე ტრეკის გამეორება"
 
 #: qml/MediaPlayerControl.qml:125 qml/mobile/MobileTrackPlayer.qml:232
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
-msgstr ""
+msgstr "მიმდინარე: დასაკრავ სიაში ყველა ტრეკის გამეორება"
 
 #: qml/MediaPlayerControl.qml:155 qml/mobile/MobileTrackPlayer.qml:261
 #, kde-format
@@ -985,7 +985,7 @@ msgstr "ნახვა"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
-msgstr ""
+msgstr "წვეულების რეჟიმის გადართვა"
 
 #: qml/NativeGlobalMenu.qml:68
 #, kde-format
@@ -1214,6 +1214,9 @@ msgid ""
 "do this with the <interface>Scan for new music</interface> item in Elisa's "
 "hamburger menu."
 msgstr ""
+"როცა იყენებთ ამ პარამეტრს. მუსიკის საქაღალდეებში ფაილების ჩამატებისას "
+"კოლექცია ხელით უნდა განაახლოთ. ამისი გაკეთება Elisa-ის ჰამბურგერის მენუში "
+"<interface>ახალი მუსიკის მოძებნით</interface> შეგიძლიათ."
 
 #: qml/SettingsForm.qml:109
 #, kde-format
@@ -1377,6 +1380,9 @@ msgid ""
 "cannot find your music and searching for one of the missing music files "
 "using your file manager also does not work. Please report this as a bug."
 msgstr ""
+"ეს უფრო ნელია, ვიდრე ჩქარი ინდექსერი. ჩართეთ მხოლოდ მაშინ, თუ Elisa ვერ "
+"პოულობს თქვენ მუსიკას და ერთი ან მეტი მუსიკის ფაილის მოძებნა თქვენი ფაილების "
+"მმართველით არ მუშაობს. ასევე, გთხოვთ, მოგვწერეთ, როგორც შეცდომის შესახებ."
 
 #: qml/SettingsForm.qml:291
 #, kde-format
@@ -1393,13 +1399,13 @@ msgstr "დასაკრავი სიის ფაილის შენა
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
-msgstr ""
+msgstr "დამოკიდებული ბილიკების არჩევანი"
 
 #: qml/SettingsForm.qml:316
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
-msgstr ""
+msgstr "ყოველთვის აბსოლუტური ბილიკების გამოყენება"
 
 #: qml/SettingsForm.qml:327
 #, kde-kuit-format
@@ -1409,13 +1415,16 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
+"როცა <interface>დამოკიდებული ბილიკების გამოყენება</interface> ჩართულია, "
+"ფაილის სახელად მხოლოდ ის ფაილები ჩაითვლება, რომლებიც დასაკრავი სიის შემცველ "
+"საქაღალდეებშია. აბსოლუტური ბილიკები სხვა შემთხვევებში გამოიყენება."
 
 #: qml/SettingsForm.qml:342
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
-msgstr ""
+msgstr "მუსიკის საქაღალდეები:"
 
 #: qml/SettingsForm.qml:384
 #, kde-format
@@ -1443,6 +1452,9 @@ msgid ""
 "locations in this list contain symbolic links to other locations, you will "
 "need to add those other locations to the list as well."
 msgstr ""
+"სწრაფ ფაილების ინდექსერს სიმბოლური ბმულების მხარდაჭერა არ გააჩნია. თუ "
+"ნებისმიერი მდებარეობა სიაში სიმბოლურ ბმულებს შეიცავს, იმ სხვა მდებარეობების "
+"სიაში ჩამატება მოგიწევთ."
 
 #: qml/SortMenu.qml:20
 #, kde-format

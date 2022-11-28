@@ -211,43 +211,6 @@ Kirigami.Page {
                                 showDragHandle: playListView.count > 1
                             }
                         }
-
-                        // separator
-                        Rectangle {
-                            readonly property bool largeSeparator: entry.currentAlbum && (entry.previousAlbum === entry.currentAlbum) && (entry.nextAlbum !== entry.currentAlbum) && !playListDelegate.nextDelegateHasSection
-
-                            implicitWidth: playListView.width - (largeSeparator ? 0 : Kirigami.Units.iconSizes.smallMedium)
-                            implicitHeight: largeSeparator ? Kirigami.Units.largeSpacing : 1
-
-                            Layout.alignment: Qt.AlignHCenter
-
-                            // the last item should never have the separator
-                            visible: index < playListView.count - 1
-
-                            // same color with Kirigami.ListSectionHeader
-                            Kirigami.Theme.inherit: false
-                            Kirigami.Theme.colorSet: Kirigami.Theme.Window
-                            color: Kirigami.Theme.backgroundColor
-
-                            Connections {
-                                target: entry
-                                function onSectionVisibleChanged() {
-                                    var previousDelegate = playListView.itemAtIndex(model.index - 1)
-                                    if (previousDelegate) {
-                                        previousDelegate.nextDelegateHasSection = entry.sectionVisible
-                                    }
-                                }
-                            }
-                            Connections {
-                                target: entry
-                                function onNextAlbumChanged() {
-                                    var nextDelegate = playListView.itemAtIndex(model.index + 1)
-                                    if (nextDelegate) {
-                                        playListDelegate.nextDelegateHasSection = nextDelegate.entry.sectionVisible
-                                    }
-                                }
-                            }
-                        }
                     }
 
                     onCountChanged: if (count === 0) {

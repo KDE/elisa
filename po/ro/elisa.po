@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-16 02:51+0000\n"
+"POT-Creation-Date: 2022-11-29 02:31+0000\n"
 "PO-Revision-Date: 2022-08-14 16:01+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -627,14 +627,14 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Reîncearcă"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:404
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:367
 #, fuzzy, kde-format
 #| msgid "Playlist cleared"
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Lista de redare a fost curățată"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:408
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:371
 #, fuzzy, kde-format
 #| msgid "Undo"
 msgctxt "@action:button"
@@ -975,14 +975,14 @@ msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Încarcă…"
 
-#: qml/MediaPlayListView.qml:267
+#: qml/MediaPlayListView.qml:230
 #, fuzzy, kde-format
 #| msgid "Playlist is empty"
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Lista de redare e goală"
 
-#: qml/MediaPlayListView.qml:268
+#: qml/MediaPlayListView.qml:231
 #, fuzzy, kde-format
 #| msgid ""
 #| "Add some songs to get started. You can browse your music using the views "
@@ -995,7 +995,7 @@ msgstr ""
 "Adăugați câteva cântece pentru a începe. Vă puteți răsfoi muzica folosind "
 "vizualizările din stânga."
 
-#: qml/MediaPlayListView.qml:342
+#: qml/MediaPlayListView.qml:305
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid "Your playlist is empty."
@@ -1003,7 +1003,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Lista de redare e goală."
 
-#: qml/MediaPlayListView.qml:427 qml/MediaPlayListView.qml:432
+#: qml/MediaPlayListView.qml:390 qml/MediaPlayListView.qml:395
 #, fuzzy, kde-format
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks"
@@ -1014,14 +1014,14 @@ msgstr[0] "%1 piesă"
 msgstr[1] "%1 piese"
 msgstr[2] "%1 de piese"
 
-#: qml/MediaPlayListView.qml:430
+#: qml/MediaPlayListView.qml:393
 #, fuzzy, kde-format
 #| msgid "1 track"
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 piesă"
 
-#: qml/MediaPlayListView.qml:433
+#: qml/MediaPlayListView.qml:396
 #, fuzzy, kde-format
 #| msgctxt "number of tracks remaining"
 #| msgid "%1 remaining"
@@ -1033,7 +1033,7 @@ msgstr[0] "%1 rămasă"
 msgstr[1] "%1 rămase"
 msgstr[2] "%1 rămase"
 
-#: qml/MediaPlayListView.qml:434
+#: qml/MediaPlayListView.qml:397
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "%1 is the translation of track[s], %2 is the translation of remaining"
@@ -1044,7 +1044,7 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:448
+#: qml/MediaPlayListView.qml:411
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current"
@@ -1052,7 +1052,7 @@ msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Arată actuală"
 
-#: qml/MediaPlayListView.qml:459
+#: qml/MediaPlayListView.qml:422
 #, fuzzy, kde-format
 #| msgctxt "Remove all tracks from play list"
 #| msgid "Clear All"

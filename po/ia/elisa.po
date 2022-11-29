@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-16 02:51+0000\n"
-"PO-Revision-Date: 2022-11-03 15:28+0100\n"
+"POT-Creation-Date: 2022-11-29 02:31+0000\n"
+"PO-Revision-Date: 2022-11-28 12:31+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -515,13 +515,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Prova novemente"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:404
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:367
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Lista de reproduction clarate"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:408
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:371
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -533,6 +533,8 @@ msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr ""
+"Nonpote cargar alcun files. Elisa pote solmente aperir file audio e de lista "
+"de sonar (playlist)."
 
 #: qml/ElisaMainWindow.qml:75 qml/mobile/MobileSidebar.qml:20
 #, kde-format
@@ -796,13 +798,13 @@ msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Carga..."
 
-#: qml/MediaPlayListView.qml:267
+#: qml/MediaPlayListView.qml:230
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Tu lista de reproduction es vacue"
 
-#: qml/MediaPlayListView.qml:268
+#: qml/MediaPlayListView.qml:231
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -812,13 +814,13 @@ msgstr ""
 "Adde alcun cantos per initiar. Tu pote navigar in tu musica per usar le "
 "vistas a sinistra."
 
-#: qml/MediaPlayListView.qml:342
+#: qml/MediaPlayListView.qml:305
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Tu lista de reproduction es vacue."
 
-#: qml/MediaPlayListView.qml:427 qml/MediaPlayListView.qml:432
+#: qml/MediaPlayListView.qml:390 qml/MediaPlayListView.qml:395
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -826,13 +828,13 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 tracia"
 msgstr[1] "%1 tracias"
 
-#: qml/MediaPlayListView.qml:430
+#: qml/MediaPlayListView.qml:393
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 tracia"
 
-#: qml/MediaPlayListView.qml:433
+#: qml/MediaPlayListView.qml:396
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -840,7 +842,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "%1 remanente"
 msgstr[1] "%1 remanente"
 
-#: qml/MediaPlayListView.qml:434
+#: qml/MediaPlayListView.qml:397
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -848,13 +850,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:448
+#: qml/MediaPlayListView.qml:411
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Monstra currente"
 
-#: qml/MediaPlayListView.qml:459
+#: qml/MediaPlayListView.qml:422
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -1395,19 +1397,19 @@ msgstr "Reporta Bug"
 #: qml/SettingsForm.qml:306
 #, kde-format
 msgid "When saving playlist files:"
-msgstr ""
+msgstr "Quando salveguardar files de lista de sonar (playlist):"
 
 #: qml/SettingsForm.qml:315
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
-msgstr ""
+msgstr "Prefere percursos relative"
 
 #: qml/SettingsForm.qml:316
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
-msgstr ""
+msgstr "Usa sempre percursos absolute"
 
 #: qml/SettingsForm.qml:327
 #, kde-kuit-format
@@ -1417,6 +1419,9 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
+"Quando <interface>Prefere Percursos Relative</interface> es selectionate, "
+"files in le mesme dossier del lista de sonar essera referite solmente con le "
+"nomine de file. Percursos absolute es usate in altere casos."
 
 #: qml/SettingsForm.qml:342
 #, kde-format

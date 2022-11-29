@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-16 00:46+0000\n"
+"POT-Creation-Date: 2022-11-29 00:46+0000\n"
 "PO-Revision-Date: 2022-11-19 02:12+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
@@ -529,13 +529,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Bandyti dar kartą"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:404
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:367
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Grojaraštis išvalytas"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:408
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:371
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -820,13 +820,13 @@ msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Įkelti…"
 
-#: qml/MediaPlayListView.qml:267
+#: qml/MediaPlayListView.qml:230
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Grojaraštis yra tuščias"
 
-#: qml/MediaPlayListView.qml:268
+#: qml/MediaPlayListView.qml:231
 #, fuzzy, kde-format
 #| msgid ""
 #| "Add some songs to get started. You can browse your music using the views "
@@ -839,7 +839,7 @@ msgstr ""
 "Norėdami pradėti, pridėkite dainų. Galite naršyti savo muziką naudodami "
 "rodinius kairėje."
 
-#: qml/MediaPlayListView.qml:342
+#: qml/MediaPlayListView.qml:305
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid "Your playlist is empty."
@@ -847,7 +847,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Jūsų grojaraštis yra tuščias."
 
-#: qml/MediaPlayListView.qml:427 qml/MediaPlayListView.qml:432
+#: qml/MediaPlayListView.qml:390 qml/MediaPlayListView.qml:395
 #, fuzzy, kde-format
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks"
@@ -859,13 +859,13 @@ msgstr[1] "%1 takeliai"
 msgstr[2] "%1 takelių"
 msgstr[3] "%1 takelis"
 
-#: qml/MediaPlayListView.qml:430
+#: qml/MediaPlayListView.qml:393
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 takelis"
 
-#: qml/MediaPlayListView.qml:433
+#: qml/MediaPlayListView.qml:396
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -875,7 +875,7 @@ msgstr[1] "Liko %1"
 msgstr[2] "Liko %1"
 msgstr[3] "Liko %1"
 
-#: qml/MediaPlayListView.qml:434
+#: qml/MediaPlayListView.qml:397
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "%1 is the translation of track[s], %2 is the translation of remaining"
@@ -886,7 +886,7 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:448
+#: qml/MediaPlayListView.qml:411
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current"
@@ -894,7 +894,7 @@ msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Rodyti dabartinį"
 
-#: qml/MediaPlayListView.qml:459
+#: qml/MediaPlayListView.qml:422
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"

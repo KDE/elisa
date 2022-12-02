@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-29 02:31+0000\n"
-"PO-Revision-Date: 2022-11-19 14:50\n"
+"PO-Revision-Date: 2022-12-01 06:56\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -386,7 +386,7 @@ msgstr "应用程序菜单"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
-msgstr ""
+msgstr "退出全屏"
 
 #: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
 #, kde-format
@@ -531,7 +531,7 @@ msgstr "撤销"
 msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
-msgstr ""
+msgstr "有些文件无法加载。Elisa 只能打开音频和播放列表文件。"
 
 #: qml/ElisaMainWindow.qml:75 qml/mobile/MobileSidebar.qml:20
 #, kde-format
@@ -1385,19 +1385,19 @@ msgstr "报告程序缺陷"
 #: qml/SettingsForm.qml:306
 #, kde-format
 msgid "When saving playlist files:"
-msgstr ""
+msgstr "保存播放列表文件时："
 
 #: qml/SettingsForm.qml:315
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
-msgstr ""
+msgstr "优先使用相对路径"
 
 #: qml/SettingsForm.qml:316
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
-msgstr ""
+msgstr "总是使用绝对路径"
 
 #: qml/SettingsForm.qml:327
 #, kde-kuit-format
@@ -1407,6 +1407,8 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
+"选择<interface>优先使用相对路径</interface>时，与播放列表在同一文件夹的音频文"
+"件将只用文件名表示。在其他情况下都使用绝对路径。"
 
 #: qml/SettingsForm.qml:342
 #, kde-format

@@ -158,6 +158,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMGenerateDBusServiceFile)
 include(CMakePackageConfigHelpers)
+include(ECMDeprecationSettings)
 
 configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h)
 
@@ -166,6 +167,12 @@ ecm_setup_version(${RELEASE_SERVICE_VERSION}
     VERSION_HEADER elisa-version.h)
 
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/bin CACHE STRING "" FORCE)
+
+ecm_set_disabled_deprecation_versions(
+    QT 5.15.2
+    KF 5.101
+)
+
 
 add_subdirectory(src)
 add_subdirectory(icons)

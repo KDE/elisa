@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-29 02:31+0000\n"
-"PO-Revision-Date: 2022-09-13 19:57+0530\n"
+"PO-Revision-Date: 2022-12-13 19:55+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -350,7 +350,7 @@ msgstr "பாடல்வகைகள்"
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
-msgstr "uகலைஞர்கள்"
+msgstr "கலைஞர்கள்"
 
 #: powermanagementinterface.cpp:171
 #, kde-format

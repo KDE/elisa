@@ -141,19 +141,20 @@ Kirigami.ApplicationWindow {
         id: fileDialog
 
         function savePlaylist() {
+            fileDialog.nameFilters = [i18nc("@option file type (mime type) for m3u, m3u8 playlist file formats; do not translate *.m3u*", "m3u8, m3u Playlist File (*.m3u*)"), i18nc("@option file type (mime type) for pls playlist file formats; do not translate *.pls", "pls Playlist File (*.pls)")]
+            fileDialog.defaultSuffix = 'm3u8'
             fileDialog.fileMode = FileDialog.SaveFile
             fileDialog.file = ''
             fileDialog.open()
         }
         function loadPlaylist() {
+            fileDialog.nameFilters = [i18nc("@option file type (mime type) for m3u, m3u8 and pls playlist file formats; do not translate *.m3u8 *.m3u *.pls", "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)")]
             fileDialog.fileMode = FileDialog.OpenFile
             fileDialog.file = ''
             fileDialog.open()
         }
 
-        defaultSuffix: 'm3u8'
         folder: StandardPaths.writableLocation(StandardPaths.MusicLocation)
-        nameFilters: [i18nc("@option file type (mime type) for m3u and m3u8 playlist file formats; do not translate *.m3u*", "Playlist (*.m3u*)")]
 
         onAccepted:
         {

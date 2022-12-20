@@ -27,6 +27,16 @@ private Q_SLOTS:
 
     void initTestCase();
 
+    void m3uPlaylistParser_SimpleCase();
+
+    void m3uPlaylistParser_CommentCase();
+
+    void plsPlaylistParserCase();
+
+    void m3uPlaylistParser_ToPlaylist();
+
+    void plsPlaylistParser_ToPlaylist();
+
     void simpleInitialCase();
 
     void enqueueAlbumCase();

@@ -20,6 +20,113 @@
 
 #include <algorithm>
 
+QList<QUrl> M3uPlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray &fileContent) {
+    Q_UNUSED(fileName);
+    QList<QUrl> result;
+
+    for (const QByteArray &l : fileContent.split('\n')) {
+        const QString &line = QString::fromUtf8(l);
+        if (!line.isEmpty() && !line.startsWith(QStringLiteral("#"))) {
+            const QUrl &url = line.contains(QStringLiteral("://")) ? QUrl(line) : QUrl::fromLocalFile(line);
+            result.append(url);
+        }
+    }
+
+    return result;
+}
+
+QString M3uPlaylistParser::toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls) {
+    Q_UNUSED(fileName);
+    QString result;
+
+    for (const QString &line : listOfUrls) {
+        if (!line.isEmpty()) {
+            result += line + QStringLiteral("\n");
+        }
+    }
+
+    return result;
+}
+
+QList<QUrl> PlsPlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray &fileContent) {
+    Q_UNUSED(fileName);
+    QList<QUrl> result;
+    for (const QByteArray &l : fileContent.split('\n')) {
+        const QString &line = QString::fromUtf8(l);
+        if (!line.isEmpty() && line.startsWith(QStringLiteral("File")) && line.contains(QStringLiteral("="))) {
+            int indexOfEquals = line.indexOf(QStringLiteral("="));
+            QString urlAsString = line.mid(indexOfEquals + QStringLiteral("=").length());
+            const QUrl &url = urlAsString.contains(QStringLiteral("://")) ? QUrl(urlAsString) : QUrl::fromLocalFile(urlAsString);
+            result.append(url);
+        }
+    }
+
+    return result;
+}
+
+QString PlsPlaylistParser::toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls) {
+    Q_UNUSED(fileName);
+    QString result = QStringLiteral(R"--([playlist]
+
+Version=2
+NumberOfEntries=%1
+)--").arg(listOfUrls.count());
+
+    // Sample:
+/*[playlist]
+
+Version=2
+NumberOfEntries=2
+
+File1=http://example.example:8068
+
+File2=example2.mp3
+*/
+
+    int counter=0;
+    for (const QString &line : listOfUrls) {
+        if (!line.isEmpty()) {
+            QString oneLine = QStringLiteral("\nFile%1=%2\n").arg(counter + 1).arg(line);
+            result += oneLine;
+            counter++;
+        }
+    }
+
+    return result;
+}
+
+QList<QUrl> PlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray &fileContent) {
+    QList<QUrl> result;
+
+    if (fileName.isValid() && !fileName.isEmpty()) {
+        if (fileName.fileName().endsWith(QStringLiteral(".pls"), Qt::CaseInsensitive)) {
+            PlsPlaylistParser plsPlaylistParser;
+            result = plsPlaylistParser.fromPlaylist(fileName, fileContent);
+        } else {
+            M3uPlaylistParser m3uPlaylistParser;
+            result = m3uPlaylistParser.fromPlaylist(fileName, fileContent);
+        }
+    }
+
+    return result;
+}
+
+QString PlaylistParser::toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls) {
+    QString result;
+
+    if (fileName.isValid() && !fileName.isEmpty()) {
+        if (fileName.fileName().endsWith(QStringLiteral(".pls"), Qt::CaseInsensitive)) {
+            PlsPlaylistParser plsPlaylistParser;
+            result = plsPlaylistParser.toPlaylist(fileName, listOfUrls);
+        } else {
+            M3uPlaylistParser m3uPlaylistParser;
+            result = m3uPlaylistParser.toPlaylist(fileName, listOfUrls);
+        }
+    }
+
+    return result;
+}
+
 class MediaPlayListProxyModelPrivate
 {
 public:
@@ -720,12 +827,13 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
         return false;
     }
 
+    QList<QString> listOfFilePaths;
+
     if (Elisa::ElisaConfiguration::self()->alwaysUseAbsolutePlaylistPaths()) {
         for (int i = 0; i < rowCount(); ++i) {
             if (data(index(i,0), MediaPlayList::IsValidRole).toBool()) {
                 data(index(i,0), MediaPlayList::ResourceRole).toUrl();
-                outputFile.write(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile().toUtf8());
-                outputFile.write("\n");
+                listOfFilePaths.append(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
             }
         }
     } else {
@@ -737,14 +845,18 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
                 QFileInfo musicFile(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
 
                 if (musicFile.dir().path() == dir.absolutePath()) {
-                    outputFile.write(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile().toUtf8());
+                    listOfFilePaths.append(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
                 } else {
-                    outputFile.write(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile().toUtf8());
+                    listOfFilePaths.append(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
                 }
-                outputFile.write("\n");
             }
         }
     }
+
+    PlaylistParser playlistParser;
+    QString fileContent = playlistParser.toPlaylist(fileName, listOfFilePaths);
+
+    outputFile.write(fileContent.toUtf8());
 
     return true;
 }
@@ -752,19 +864,22 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
 void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
 {
     QFile inputFile(fileName.toLocalFile());
-    auto open = inputFile.open(QFile::ReadOnly);
+    bool open = inputFile.open(QFile::ReadOnly);
     if (!open) {
         Q_EMIT playListLoadFailed();
     }
-    const auto data = inputFile.readAll();
+    const QByteArray fileContent = inputFile.readAll();
     clearPlayList();
-    auto newTracks = DataTypes::EntryDataList{};
-    for (const auto &l : data.split('\n')) {
-        const auto &line = QString::fromUtf8(l);
-        const auto &url = line.startsWith(QStringLiteral("file:/")) ? QUrl(line) : QUrl::fromLocalFile(line);
+
+    PlaylistParser playlistParser;
+    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(fileName, fileContent);
+
+    DataTypes::EntryDataList newTracks = DataTypes::EntryDataList{};
+    for (const QUrl &oneUrl : listOfUrls) {
         newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-            {DataTypes::ResourceRole, url}}}, {}, {}});
+            {DataTypes::ResourceRole, oneUrl}}}, {}, {}});
     }
+
     enqueue(newTracks, ElisaUtils::ReplacePlayList, ElisaUtils::DoNotTriggerPlay);
 
     Q_EMIT persistentStateChanged();

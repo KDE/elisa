@@ -18,6 +18,27 @@
 
 #include <memory>
 
+class M3uPlaylistParser
+{
+public:
+    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent);
+    QString toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls);
+};
+
+class PlsPlaylistParser
+{
+public:
+    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent);
+    QString toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls);
+};
+
+class ELISALIB_EXPORT PlaylistParser
+{
+public:
+    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent);
+    QString toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls);
+};
+
 class MediaPlayList;
 class MediaPlayListProxyModelPrivate;
 

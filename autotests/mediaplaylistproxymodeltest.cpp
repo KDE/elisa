@@ -33,6 +33,69 @@ void MediaPlayListProxyModelTest::initTestCase()
     qRegisterMetaType<ElisaUtils::PlayListEntryType>("PlayListEntryType");
 }
 
+void MediaPlayListProxyModelTest::m3uPlaylistParser_SimpleCase()
+{
+    PlaylistParser playlistParser;
+    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(QUrl(QStringLiteral("file:///home/n/a.m3u")), QStringLiteral("/home/n/Music/1.mp3\n/home/n/Music/2.mp3\n").toUtf8());
+
+    QCOMPARE(listOfUrls.count(), 2);
+}
+
+void MediaPlayListProxyModelTest::m3uPlaylistParser_CommentCase()
+{
+    const char * asString = R"--(#EXTM3U
+#EXTINF:-1 tvg-id="ArianaAfghanistanInternationalTV.us" status="online",Ariana Afghanistan International TV (720p) [Not 24/7]
+http://iptv.arianaafgtv.com/ariana/playlist.m3u8
+#EXTINF:-1 tvg-id="ArianaTVNational.af" status="online",Ariana TV National (720p) [Not 24/7]
+https://d10rltuy0iweup.cloudfront.net/ATNNAT/myStream/playlist.m3u8
+)--";
+    PlaylistParser playlistParser;
+    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(QUrl(QStringLiteral("file:///home/n/a.m3u")), QString::fromUtf8(asString).toUtf8());
+
+    QCOMPARE(listOfUrls.count(), 2);
+}
+
+void MediaPlayListProxyModelTest::plsPlaylistParserCase()
+{
+    const char * asString = R"--([playlist]
+
+File1=https://test.test-dom:8068
+Length1=-1
+
+File2=example2.mp3
+Title2=Relative path
+Length2=120
+
+File3=/home/n/Music/1.mp3
+Title3=Absolute path
+
+NumberOfEntries=3
+Version=2
+)--";
+    PlaylistParser playlistParser;
+    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(QUrl(QStringLiteral("file:///home/n/a.pls")), QString::fromUtf8(asString).toUtf8());
+
+    QCOMPARE(listOfUrls.count(), 3);
+}
+
+void MediaPlayListProxyModelTest::m3uPlaylistParser_ToPlaylist()
+{
+    PlaylistParser playlistParser;
+    QList<QString> listOfUrls {QStringLiteral("/home/n/Music/1.mp3"), QStringLiteral("/home/n/Music/2.mp3")};
+    QString fileContent = playlistParser.toPlaylist(QUrl(QStringLiteral("file:///home/n/a.m3u")), listOfUrls);
+
+    QCOMPARE(fileContent.count(QLatin1Char('\n')), 2);
+}
+
+void MediaPlayListProxyModelTest::plsPlaylistParser_ToPlaylist()
+{
+    PlaylistParser playlistParser;
+    QList<QString> listOfUrls {QStringLiteral("/home/n/Music/1.mp3"), QStringLiteral("/home/n/Music/2.mp3")};
+    QString fileContent = playlistParser.toPlaylist(QUrl(QStringLiteral("file:///home/n/a.pls")), listOfUrls);
+
+    QCOMPARE(fileContent.count(QStringLiteral("\nFile")), 2);
+}
+
 void MediaPlayListProxyModelTest::simpleInitialCase()
 {
     MediaPlayList myPlayList;

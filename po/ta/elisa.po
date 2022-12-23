@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-29 02:31+0000\n"
-"PO-Revision-Date: 2022-12-13 19:55+0530\n"
+"PO-Revision-Date: 2022-12-22 21:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -284,7 +284,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
-msgstr ""
+msgstr "பிட்டு விகிதம்"
 
 #: models/trackmetadatamodel.cpp:472 models/trackmetadatamodel.cpp:536
 #, kde-format

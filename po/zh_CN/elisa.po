@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:46+0000\n"
-"PO-Revision-Date: 2022-12-13 12:20\n"
+"PO-Revision-Date: 2022-12-24 11:42\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -546,28 +546,20 @@ msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
 #: qml/ElisaMainWindow.qml:144
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr "播放列表 (*.m3u*)"
+msgstr ""
 
 #: qml/ElisaMainWindow.qml:144
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr "播放列表 (*.m3u*)"
+msgstr ""
 
 #: qml/ElisaMainWindow.qml:151
 #, kde-format

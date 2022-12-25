@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:46+0000\n"
-"PO-Revision-Date: 2022-09-10 17:57+0200\n"
+"PO-Revision-Date: 2022-12-23 17:36+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -551,28 +551,20 @@ msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
 #: qml/ElisaMainWindow.qml:144
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr "Lista de reproducción (*.m3u*)"
+msgstr "Archivo de lista de reproducción m3u8, m3u (*.m3u*)"
 
 #: qml/ElisaMainWindow.qml:144
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr "Lista de reproducción (*.m3u*)"
+msgstr "Archivo de lista de reproducción pls (*.pls)"
 
 #: qml/ElisaMainWindow.qml:151
 #, kde-format
@@ -580,7 +572,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
 "do not translate *.m3u8 *.m3u *.pls"
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr ""
+msgstr "Archivo de lista de reproducción m3u8, m3u, pls (*.m3u8 *.m3u *.pls)"
 
 #: qml/ElisaMainWindow.qml:163
 #, kde-format
@@ -1714,144 +1706,3 @@ msgstr "Archivos"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estaciones de radio"
-
-#~ msgctxt "@title:window"
-#~ msgid "View Details"
-#~ msgstr "Ver detalles"
-
-#~ msgctxt "@action:button Show track metadata"
-#~ msgid "View Details"
-#~ msgstr "Ver detalles"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Leave Full Screen"
-#~ msgstr "Abandonar pantalla completa"
-
-#~ msgctxt "Track title for track metadata view"
-#~ msgid "Title"
-#~ msgstr "Título"
-
-#~ msgctxt "Track artist for track metadata view"
-#~ msgid "Artist"
-#~ msgstr "Artista"
-
-#~ msgctxt "Album name for track metadata view"
-#~ msgid "Album"
-#~ msgstr "Álbum"
-
-#~ msgctxt "Genre label for track metadata view"
-#~ msgid "Genre"
-#~ msgstr "Género"
-
-#~ msgctxt "Lyricist label for track metadata view"
-#~ msgid "Lyricist"
-#~ msgstr "Letrista"
-
-#~ msgctxt "Composer name for track metadata view"
-#~ msgid "Composer"
-#~ msgstr "Compositor"
-
-#~ msgctxt "Year label for track metadata view"
-#~ msgid "Year"
-#~ msgstr "Año"
-
-#~ msgctxt "Duration label for track metadata view"
-#~ msgid "Duration"
-#~ msgstr "Duración"
-
-#~ msgctxt "Scan for New Music application menu entry"
-#~ msgid "Scan for New Music"
-#~ msgstr "Escanear nueva música"
-
-#~ msgctxt "Reset Database and Re-Scan Everything application menu entry"
-#~ msgid "Reset Database and Re-Scan Everything"
-#~ msgstr "Reiniciar base de datos y escanear de nuevo todo"
-
-#~ msgctxt "One of the 'now playing' views"
-#~ msgid "Lyrics"
-#~ msgstr "Letra"
-
-#~ msgctxt "show the playlist"
-#~ msgid "Show Playlist"
-#~ msgstr "Mostrar la lista de reproducción"
-
-#~ msgctxt "Window title"
-#~ msgid "Elisa"
-#~ msgstr "Elisa"
-
-#~ msgctxt "Clear play list and add whole container to play list"
-#~ msgid "Play now, replacing current playlist"
-#~ msgstr "Reproducir ahora, sustituyendo la lista de reproducción actual"
-
-#~ msgctxt "%1: track title. %2: artist name"
-#~ msgid "%1 - %2"
-#~ msgstr "%1 - %2"
-
-#~ msgctxt "Enqueue current track"
-#~ msgid "Add to playlist"
-#~ msgstr "Añadir a la lista de reproducción"
-
-#~ msgid "Mark this song as no longer being a favorite"
-#~ msgstr "Desmarcar esta canción como favorita"
-
-#~ msgctxt "Enqueue current track"
-#~ msgid "Add to queue"
-#~ msgstr "Añadir a la cola"
-
-#~ msgctxt "toggle the party mode"
-#~ msgid "Toggle Party Mode"
-#~ msgstr "Alternar modo fiesta"
-
-#~ msgctxt "Pause any media that is playing"
-#~ msgid "Pause"
-#~ msgstr "Pausar"
-
-#~ msgctxt "Start playing media"
-#~ msgid "Play"
-#~ msgstr "Reproducir"
-
-#~ msgctxt ""
-#~ "@info Title of the view of the playlist; keep this string as short as "
-#~ "possible because horizontal space is quite scarce"
-#~ msgid "Playlist"
-#~ msgstr "Lista de reproducción"
-
-#~ msgctxt "Playlist cleared"
-#~ msgid "Playlist cleared"
-#~ msgstr "Lista de reproducción borrada"
-
-#~ msgctxt "menu entry"
-#~ msgid "Toggle Party Mode"
-#~ msgstr "Alternar modo fiesta"
-
-#~ msgctxt "Show track metadata"
-#~ msgid "View Details"
-#~ msgstr "Ver detalles"
-
-#~ msgctxt "Pause current track from play list"
-#~ msgid "Pause"
-#~ msgstr "Pausar"
-
-#~ msgctxt "Play this track from play list"
-#~ msgid "Play"
-#~ msgstr "Reproducir"
-
-#~ msgctxt "Configure dialog, embed all albums in views navigation list"
-#~ msgid "Albums"
-#~ msgstr "Álbumes"
-
-#~ msgctxt "Configure dialog, embed all artists in views navigation list"
-#~ msgid "Artists"
-#~ msgstr "Artistas"
-
-#~ msgctxt "Configure dialog, embed all genres in views navigation list"
-#~ msgid "Genres"
-#~ msgstr "Géneros"
-
-#~ msgctxt "Title of the view of the playlist"
-#~ msgid "Now Playing"
-#~ msgstr "Reproduciendo"
-
-#~ msgctxt "Title of the file radios browser view"
-#~ msgid "Radio Stations"
-#~ msgstr "Estaciones de radio"

@@ -3140,7 +3140,18 @@ void DatabaseInterface::upgradeDatabaseV15()
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
         const auto &result = createSchemaQuery.exec(QStringLiteral("INSERT INTO `Radios` (`HttpAddress`, `ImageAddress`, `Title`) "
-                                        "SELECT 'https://chai5she.cdn.dvmr.fr/francemusique-lofi.mp3', 'https://static.radio.fr/images/broadcasts/07/f7/3366/c44.png', 'France Musique'"
+                                        "VALUES ('https://ice1.somafm.com/groovesalad-256.mp3', 'https://somafm.com/img/groovesalad120.png', 'SomaFM - Groove Salad'),"
+                                        "       ('https://ice1.somafm.com/dronezone-256.mp3', 'https://somafm.com/img/dronezone120.jpg', 'SomaFM - Drone Zone'),"
+                                        "       ('https://ice1.somafm.com/deepspaceone-128.mp3', 'https://somafm.com/img/deepspaceone120.gif', 'SomaFM - Deep Space One'),"
+                                        "       ('https://ice1.somafm.com/u80s-256-mp3', 'https://somafm.com/img/u80s-120.png', 'SomaFM - Underground 80s'),"
+                                        "       ('https://ice1.somafm.com/synphaera-256-mp3', 'https://somafm.com/img3/synphaera120.jpg', 'SomaFM - Synphaera Radio'),"
+                                        "       ('https://ice1.somafm.com/defcon-256-mp3', 'https://somafm.com/img/defcon120.png', 'SomaFM - DEF CON Radio'),"
+                                        "       ('https://ice1.somafm.com/dubstep-256-mp3', 'https://somafm.com/img/dubstep120.png', 'SomaFM - Dub Step Beyond'),"
+                                        "       ('https://ice1.somafm.com/vaporwaves-128-mp3', 'https://somafm.com/img/vaporwaves120.jpg', 'SomaFM - Vaporwaves'),"
+                                        "       ('https://ice1.somafm.com/missioncontrol-128-mp3', 'https://somafm.com/img/missioncontrol120.jpg', 'SomaFM - Mission Control'),"
+                                        "       ('http://ams1.reliastream.com:8054/stream', 'https://c64radio.com/images/coollogo_com-24210747.png', 'c64radio.com - The SID Station'),"
+                                        "       ('http://relay1.slayradio.org:8000/', 'https://www.slayradio.org/styles/default/images/SLAY_Radio_top_log_metal.png', 'slayradio.org - SLAYRadio'),"
+                                        "       ('https://chai5she.cdn.dvmr.fr/francemusique-lofi.mp3', 'https://static.radio.fr/images/broadcasts/07/f7/3366/c44.png', 'France Musique')"
                                                                    ));
         if (!result) {
             qCInfo(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << createSchemaQuery.lastQuery();

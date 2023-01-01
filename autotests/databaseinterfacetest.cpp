@@ -55,7 +55,7 @@ private Q_SLOTS:
         qRegisterMetaType<DataTypes::AlbumDataType>("AlbumDataType");
         qRegisterMetaType<DataTypes::ArtistDataType>("ArtistDataType");
         qRegisterMetaType<DataTypes::GenreDataType>("GenreDataType");
-	qRegisterMetaType<DataTypes::ListRadioDataType>("ListRadioDataType");
+        qRegisterMetaType<DataTypes::ListRadioDataType>("ListRadioDataType");
     }
 
     void avoidCrashInTrackIdFromTitleAlbumArtist()
@@ -76,12 +76,24 @@ private Q_SLOTS:
         musicDb.allAlbumsData();
     }
 
-    void avoidCrashInAllRadios(){
+    void avoidCrashInAllRadios()
+    {
         DatabaseInterface musicDb;
         musicDb.allRadiosData();
     }
 
-      void addOneRadio()
+    void verifyNumberOfRadioStations()
+    {
+        QTemporaryFile databaseFile;
+        databaseFile.open();
+        qDebug() << "verifyNumberOfRadioStations" << databaseFile.fileName();
+        DatabaseInterface musicDb;
+        musicDb.init(QStringLiteral("testDb"),databaseFile.fileName());
+        QSignalSpy musicDbRadioAddedSpy(&musicDb,&DatabaseInterface::radioAdded);
+        QCOMPARE(musicDb.allRadiosData().count(),20);
+    }
+
+    void addOneRadio()
     {
         QTemporaryFile databaseFile;
         databaseFile.open();
@@ -89,8 +101,7 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         musicDb.init(QStringLiteral("testDb"),databaseFile.fileName());
         QSignalSpy musicDbRadioAddedSpy(&musicDb,&DatabaseInterface::radioAdded);
-	//9 because elisa inits the radio table with 9 radio streams
-        QCOMPARE(musicDb.allRadiosData().count(),9);
+        int initialCount = musicDb.allRadiosData().count();
 
         auto newRadio = DataTypes::TrackDataType();
         newRadio[DataTypes::CommentRole]=QStringLiteral("Test Comment");
@@ -106,7 +117,7 @@ private Q_SLOTS:
         musicDb.insertTracksList(newRadios,mNewCovers);
         musicDbRadioAddedSpy.wait(300);
 
-        QCOMPARE(musicDb.allRadiosData().count(),10);
+        QCOMPARE(musicDb.allRadiosData().count(),initialCount + 1);
         QCOMPARE(musicDbRadioAddedSpy.count(),1);
         databaseFile.close();
     }
@@ -114,13 +125,12 @@ private Q_SLOTS:
     void modifyOneRadio(){
         QTemporaryFile databaseFile;
         databaseFile.open();
-        qDebug() << "addOneRadio" << databaseFile.fileName();
+        qDebug() << "modifyOneRadio" << databaseFile.fileName();
         DatabaseInterface musicDb;
         musicDb.init(QStringLiteral("testDb"),databaseFile.fileName());
         QSignalSpy musicDbRadioAddedSpy(&musicDb,&DatabaseInterface::radioAdded);
         QSignalSpy musicDbRadioModifiedSpy(&musicDb,&DatabaseInterface::radioModified);
-
-        QCOMPARE(musicDb.allRadiosData().count(),9);
+        int initialCount = musicDb.allRadiosData().count();
 
         auto newRadio = DataTypes::TrackDataType();
         newRadio[DataTypes::CommentRole]=QStringLiteral("Test Comment");
@@ -136,12 +146,10 @@ private Q_SLOTS:
         musicDb.insertTracksList(newRadios,mNewCovers);
         musicDbRadioAddedSpy.wait(300);
 
-        QCOMPARE(musicDb.allRadiosData().count(),10);
+        QCOMPARE(musicDb.allRadiosData().count(),initialCount + 1);
         QCOMPARE(musicDbRadioAddedSpy.count(),1);
 
-
         newRadios.clear();
-
 
         auto radioId = musicDb.radioIdFromFileName(QUrl::fromEncoded("http://ice2.somafm.com/defcon-128-aac"));
         auto modifiedRadio = musicDb.radioDataFromDatabaseId(radioId);
@@ -149,15 +157,10 @@ private Q_SLOTS:
         newRadios.push_back(modifiedRadio);
         musicDb.insertTracksList(newRadios,mNewCovers);
 
-        QCOMPARE(musicDb.allRadiosData().count(),10);
+        QCOMPARE(musicDb.allRadiosData().count(),initialCount + 1);
         QCOMPARE(musicDbRadioAddedSpy.count(),1);
         QCOMPARE(musicDbRadioModifiedSpy.count(),1);
         databaseFile.close();
-
-
-
-
-
     }
 
     void addOneTrackWithoutAlbumArtist()

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-21 00:46+0000\n"
+"POT-Creation-Date: 2023-01-02 00:59+0000\n"
 "PO-Revision-Date: 2022-12-27 10:19+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -34,14 +34,14 @@ msgstr ""
 "aspotashev@gmail.com,vitalijrabicev@gmail.com,kekcuha@gmail.com,translation-"
 "team@basealt.ru,translation-team@basealt.ru,farline99@yandex.ru"
 
-#: databaseinterface.cpp:7173 databaseinterface.cpp:8220
-#: databaseinterface.cpp:8304
+#: databaseinterface.cpp:7184 databaseinterface.cpp:8231
+#: databaseinterface.cpp:8315
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Различные исполнители"
 
-#: databaseinterface.cpp:7237
+#: databaseinterface.cpp:7248
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

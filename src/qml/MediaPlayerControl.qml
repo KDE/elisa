@@ -201,9 +201,13 @@ BasePlayerControl {
             icon.name: "open-menu-symbolic"
 
             down: pressed || applicationMenu.visible
+            Accessible.role: Accessible.ButtonMenu
+
             onPressed: {
                 if (!applicationMenu.visible) {
                     applicationMenu.open()
+                } else {
+                    applicationMenu.dismiss()
                 }
             }
 

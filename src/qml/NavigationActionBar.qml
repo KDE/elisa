@@ -60,23 +60,14 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             display: AbstractButton.TextOnly
-
-            checkable: true
-            checked: sortMenu.visible
-
-            onClicked: {
-                if (sortMenu.visible) {
-                    sortMenu.dismiss()
-                } else {
-                    sortMenu.sortOrder = navigationBar.sortOrder
-                    sortMenu.popup(sortMenuButton, sortMenuButton.x, sortMenuButton.y + sortMenuButton.height)
-                }
-            }
+            down: sortMenu.visible || pressed
+            Accessible.role: Accessible.ButtonMenu
 
             // Custom content item for now to replicate the look of a button
             // that opens a dropdown menu
             // TODO: Port more fully to Kirigami so we get this for free
             contentItem: RowLayout {
+                id: internalLayout
                 spacing: Kirigami.Units.smallSpacing
 
                 Kirigami.Icon {
@@ -95,13 +86,17 @@ Item {
                     }
                 }
 
-                Kirigami.Icon {
-                    Layout.leftMargin: Kirigami.Units.smallSpacing
-                    Layout.rightMargin: Kirigami.Units.largeSpacing
-                    implicitWidth: Kirigami.Units.iconSizes.small
-                    implicitHeight: Kirigami.Units.iconSizes.small
-                    source: 'arrow-down'
-                    isMask: true
+                Item {
+                    implicitWidth: Kirigami.Units.iconSizes.small + internalLayout.spacing
+                }
+            }
+
+            onPressed: {
+                if (sortMenu.visible) {
+                    sortMenu.dismiss()
+                } else {
+                    sortMenu.sortOrder = navigationBar.sortOrder
+                    sortMenu.popup(sortMenuButton, sortMenuButton.x, sortMenuButton.y + sortMenuButton.height)
                 }
             }
         }

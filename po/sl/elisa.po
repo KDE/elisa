@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 00:59+0000\n"
+"POT-Creation-Date: 2023-01-07 00:48+0000\n"
 "PO-Revision-Date: 2022-12-22 07:35+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -423,7 +423,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Pravkar se predvaja"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:196
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -442,7 +442,7 @@ msgid "Lyrics"
 msgstr "Besedilo"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:190
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:159
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -595,7 +595,7 @@ msgid "View details"
 msgstr "Pogled podrobnosti"
 
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:140
+#: qml/NavigationActionBar.qml:135
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -1106,67 +1106,67 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Pomoč"
 
-#: qml/NavigationActionBar.qml:92
+#: qml/NavigationActionBar.qml:83
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Razvrsti: %1"
 
-#: qml/NavigationActionBar.qml:94
+#: qml/NavigationActionBar.qml:85
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Razvrsti"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:111
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Ustvari radio"
 
-#: qml/NavigationActionBar.qml:128
+#: qml/NavigationActionBar.qml:123
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Dodaj na seznam predvajanja"
 
-#: qml/NavigationActionBar.qml:152
+#: qml/NavigationActionBar.qml:147
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Prikaži avtorja"
 
-#: qml/NavigationActionBar.qml:209
+#: qml/NavigationActionBar.qml:204
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Nazaj"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Išči in filtriraj"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Skrij iskanje in filtriranje"
 
-#: qml/NavigationActionBar.qml:390
+#: qml/NavigationActionBar.qml:385
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Poišči po imenu albuma, avtorju, itd."
 
-#: qml/NavigationActionBar.qml:399
+#: qml/NavigationActionBar.qml:394
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtriraj po oceni: "
 
-#: qml/NavigationActionBar.qml:414
+#: qml/NavigationActionBar.qml:409
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

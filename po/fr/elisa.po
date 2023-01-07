@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 00:59+0000\n"
-"PO-Revision-Date: 2023-01-02 21:59+0100\n"
+"POT-Creation-Date: 2023-01-07 00:48+0000\n"
+"PO-Revision-Date: 2023-01-06 11:13+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -430,7 +430,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "En cours de lecture"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:196
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -449,7 +449,7 @@ msgid "Lyrics"
 msgstr "Paroles"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:190
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:159
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -602,7 +602,7 @@ msgid "View details"
 msgstr "Afficher les détails"
 
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:140
+#: qml/NavigationActionBar.qml:135
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -1109,67 +1109,67 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Aide"
 
-#: qml/NavigationActionBar.qml:92
+#: qml/NavigationActionBar.qml:83
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Tri : %1"
 
-#: qml/NavigationActionBar.qml:94
+#: qml/NavigationActionBar.qml:85
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Trier"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:111
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Créer une radio"
 
-#: qml/NavigationActionBar.qml:128
+#: qml/NavigationActionBar.qml:123
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Ajouter à la liste de lecture"
 
-#: qml/NavigationActionBar.qml:152
+#: qml/NavigationActionBar.qml:147
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Afficher l'artiste"
 
-#: qml/NavigationActionBar.qml:209
+#: qml/NavigationActionBar.qml:204
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "En arrière"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Rechercher et filtrer"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Masquer la recherche et le filtrage"
 
-#: qml/NavigationActionBar.qml:390
+#: qml/NavigationActionBar.qml:385
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Chercher un nom d'album, un artiste, etc."
 
-#: qml/NavigationActionBar.qml:399
+#: qml/NavigationActionBar.qml:394
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrer par note : "
 
-#: qml/NavigationActionBar.qml:414
+#: qml/NavigationActionBar.qml:409
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
@@ -1244,7 +1244,7 @@ msgstr ""
 "collection de musique chaque fois que de nouveaux fichiers seront ajoutés "
 "aux dossiers de musique configurés. Vous pouvez le faire avec l'élément "
 "<interface>Rechercher de nouveaux morceaux de musique</interface> dans le "
-"menu en hamburger d'Elisa."
+"menu en hamburger de Elisa."
 
 #: qml/SettingsForm.qml:109
 #, kde-format

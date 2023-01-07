@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 00:59+0000\n"
+"POT-Creation-Date: 2023-01-07 00:48+0000\n"
 "PO-Revision-Date: 2021-10-23 08:43+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -506,7 +506,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Τώρα γίνεται αναπαραγωγή"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:196
 #, fuzzy, kde-format
 #| msgctxt "open the sidebar"
 #| msgid "Open sidebar"
@@ -531,7 +531,7 @@ msgid "Lyrics"
 msgstr "Στίχοι"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:190
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:159
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -711,7 +711,7 @@ msgid "View details"
 msgstr "Προβολή λεπτομερειών"
 
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:140
+#: qml/NavigationActionBar.qml:135
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -1339,7 +1339,7 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: qml/NavigationActionBar.qml:92
+#: qml/NavigationActionBar.qml:83
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort: %1"
@@ -1347,7 +1347,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Ταξινόμηση: %1"
 
-#: qml/NavigationActionBar.qml:94
+#: qml/NavigationActionBar.qml:85
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort"
@@ -1355,7 +1355,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Ταξινόμηση"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:111
 #, fuzzy, kde-format
 #| msgctxt "Create a new radio"
 #| msgid "Create a radio"
@@ -1363,7 +1363,7 @@ msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Δημιουργία ραδιοφώνου"
 
-#: qml/NavigationActionBar.qml:128
+#: qml/NavigationActionBar.qml:123
 #, fuzzy, kde-format
 #| msgctxt "Add current list to playlist"
 #| msgid "Add to Playlist"
@@ -1371,7 +1371,7 @@ msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Προσθήκη στη λίστα αναπαραγωγής"
 
-#: qml/NavigationActionBar.qml:152
+#: qml/NavigationActionBar.qml:147
 #, fuzzy, kde-format
 #| msgctxt "Button to navigate to the artist of the album"
 #| msgid "Display Artist"
@@ -1379,7 +1379,7 @@ msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Εμφάνιση καλλιτέχνη"
 
-#: qml/NavigationActionBar.qml:209
+#: qml/NavigationActionBar.qml:204
 #, fuzzy, kde-format
 #| msgctxt "navigate back in the views stack"
 #| msgid "Back"
@@ -1387,7 +1387,7 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Πίσω"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, fuzzy, kde-format
 #| msgctxt "Show filters in the navigation bar"
 #| msgid "Search and Filter"
@@ -1395,7 +1395,7 @@ msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Αναζήτηση και φιλτράρισμα"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search and Filter"
@@ -1403,21 +1403,21 @@ msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Απόκρυψη αναζήτησης και φιλτραρίσματος"
 
-#: qml/NavigationActionBar.qml:390
+#: qml/NavigationActionBar.qml:385
 #, fuzzy, kde-format
 #| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Αναζήτηση για όνομα λευκώματος, καλλιτέχνη, κλπ."
 
-#: qml/NavigationActionBar.qml:399
+#: qml/NavigationActionBar.qml:394
 #, fuzzy, kde-format
 #| msgid "Filter by rating: "
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Φιλτράρισμα με αξιολόγηση: "
 
-#: qml/NavigationActionBar.qml:414
+#: qml/NavigationActionBar.qml:409
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

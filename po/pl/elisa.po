@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 00:59+0000\n"
+"POT-Creation-Date: 2023-01-07 00:48+0000\n"
 "PO-Revision-Date: 2023-01-02 20:36+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -422,7 +422,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Teraz odtwarzany"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:196
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -441,7 +441,7 @@ msgid "Lyrics"
 msgstr "Słowa"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:190
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:159
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -594,7 +594,7 @@ msgid "View details"
 msgstr "Pokaż szczegóły"
 
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:140
+#: qml/NavigationActionBar.qml:135
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -1103,67 +1103,67 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Pomoc"
 
-#: qml/NavigationActionBar.qml:92
+#: qml/NavigationActionBar.qml:83
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Uszereguj wg: %1"
 
-#: qml/NavigationActionBar.qml:94
+#: qml/NavigationActionBar.qml:85
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Uszereguj"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:111
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Utwórz radio"
 
-#: qml/NavigationActionBar.qml:128
+#: qml/NavigationActionBar.qml:123
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Dodaj do listy odtwarzania"
 
-#: qml/NavigationActionBar.qml:152
+#: qml/NavigationActionBar.qml:147
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Wyświetl wykonawcę"
 
-#: qml/NavigationActionBar.qml:209
+#: qml/NavigationActionBar.qml:204
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Wstecz"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Szukaj i odfiltruj"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Ukryj Szukaj i Odfiltruj"
 
-#: qml/NavigationActionBar.qml:390
+#: qml/NavigationActionBar.qml:385
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Szukaj po nazwie albumu, artyście, itp."
 
-#: qml/NavigationActionBar.qml:399
+#: qml/NavigationActionBar.qml:394
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Odfiltruj wg oceny: "
 
-#: qml/NavigationActionBar.qml:414
+#: qml/NavigationActionBar.qml:409
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

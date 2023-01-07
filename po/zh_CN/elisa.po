@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-02 00:59+0000\n"
+"POT-Creation-Date: 2023-01-07 00:48+0000\n"
 "PO-Revision-Date: 2023-01-02 07:11\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -421,7 +421,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "正在播放"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:196
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -440,7 +440,7 @@ msgid "Lyrics"
 msgstr "歌词"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:190
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:159
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -591,7 +591,7 @@ msgid "View details"
 msgstr "查看详情"
 
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:140
+#: qml/NavigationActionBar.qml:135
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -1094,67 +1094,67 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "帮助"
 
-#: qml/NavigationActionBar.qml:92
+#: qml/NavigationActionBar.qml:83
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "排序: %1"
 
-#: qml/NavigationActionBar.qml:94
+#: qml/NavigationActionBar.qml:85
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "排序"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:111
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "新建广播"
 
-#: qml/NavigationActionBar.qml:128
+#: qml/NavigationActionBar.qml:123
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "添加至播放列表"
 
-#: qml/NavigationActionBar.qml:152
+#: qml/NavigationActionBar.qml:147
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "显示艺人"
 
-#: qml/NavigationActionBar.qml:209
+#: qml/NavigationActionBar.qml:204
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "返回"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "搜索和筛选"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:283
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "隐藏搜索和筛选"
 
-#: qml/NavigationActionBar.qml:390
+#: qml/NavigationActionBar.qml:385
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "搜索专辑名称、艺术家等。"
 
-#: qml/NavigationActionBar.qml:399
+#: qml/NavigationActionBar.qml:394
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "按评分筛选: "
 
-#: qml/NavigationActionBar.qml:414
+#: qml/NavigationActionBar.qml:409
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

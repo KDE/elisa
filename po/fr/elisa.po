@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-29 02:31+0000\n"
-"PO-Revision-Date: 2023-01-02 21:59+0100\n"
+"PO-Revision-Date: 2023-01-06 11:13+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -1228,7 +1228,7 @@ msgstr ""
 "collection de musique chaque fois que de nouveaux fichiers seront ajoutés "
 "aux dossiers de musique configurés. Vous pouvez le faire avec l'élément "
 "<interface>Rechercher de nouveaux morceaux de musique</interface> dans le "
-"menu en hamburger d'Elisa."
+"menu en hamburger de Elisa."
 
 #: qml/SettingsForm.qml:109
 #, kde-format

@@ -3181,7 +3181,47 @@ void DatabaseInterface::upgradeDatabaseV15()
 
 void DatabaseInterface::upgradeDatabaseV16()
 {
+    qCInfo(orgKdeElisaDatabase) << __FUNCTION__ << "begin update to v16 of database schema";
 
+    {
+        QSqlQuery sqlQuery(d->mTracksDatabase);
+
+        bool resultOfSqlQuery = sqlQuery.exec(QStringLiteral("DELETE FROM Radios WHERE Title='Nostalgie' OR Title='Nostalgie Johnny'"));
+
+        if (!resultOfSqlQuery) {
+            qCWarning(orgKdeElisaDatabase) << __FUNCTION__ << sqlQuery.lastQuery();
+            qCWarning(orgKdeElisaDatabase) << __FUNCTION__ << sqlQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        QSqlQuery sqlQuery(d->mTracksDatabase);
+
+        QStringList sqlUpdates = QStringLiteral(
+            "UPDATE Radios SET HttpAddress='https://ouifm.ice.infomaniak.ch/ouifm-high.mp3' WHERE HttpAddress='http://classicrock.stream.ouifm.fr/ouifm3.mp3'; "
+            "UPDATE Radios SET HttpAddress='https://ouifmrock70s.ice.infomaniak.ch/ouifmseventies.mp3' WHERE HttpAddress='http://rock70s.stream.ouifm.fr/ouifmseventies.mp3'; "
+            "UPDATE Radios SET HttpAddress='https://jazzradio.ice.infomaniak.ch/jazzradio-high.mp3' WHERE HttpAddress='http://jazzradio.ice.infomaniak.ch/jazzradio-high.mp3'; "
+            "UPDATE Radios SET HttpAddress='https://quincy.torontocast.com:1925/stream' WHERE HttpAddress='http://agnes.torontocast.com:8151/stream'; "
+            "UPDATE Radios SET HttpAddress='https://icecast.radiofrance.fr/francemusique-lofi.mp3' WHERE HttpAddress='https://chai5she.cdn.dvmr.fr/francemusique-lofi.mp3'").split(QStringLiteral(";"));
+
+        for (const QString& oneSqlUpdate : sqlUpdates)
+        {
+            if (!sqlQuery.exec(oneSqlUpdate)) {
+                qCWarning(orgKdeElisaDatabase) << __FUNCTION__ << sqlQuery.lastQuery();
+                qCWarning(orgKdeElisaDatabase) << __FUNCTION__ << sqlQuery.lastError();
+
+                Q_EMIT databaseError();
+            }
+        }
+    }
+
+    qCInfo(orgKdeElisaDatabase) << __FUNCTION__ << "finished update to v16 of database schema";
+}
+
+void DatabaseInterface::upgradeDatabaseV17()
+{
 }
 
 void DatabaseInterface::checkDatabaseSchema()
@@ -3390,7 +3430,7 @@ void DatabaseInterface::manageNewDatabaseVersion()
     }
 
     int version = versionBegin;
-    for (; version-1 != DatabaseInterface::V16; version++) {
+    for (; version-1 != DatabaseInterface::V17; version++) {
         callUpgradeFunctionForVersion(static_cast<DatabaseVersion>(version));
     }
 
@@ -3402,7 +3442,7 @@ void DatabaseInterface::manageNewDatabaseVersion()
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV14"));
     }
 
-    setDatabaseVersionInTable(DatabaseInterface::V16);
+    setDatabaseVersionInTable(DatabaseInterface::V17);
 
     checkDatabaseSchema();
 }
@@ -3511,6 +3551,9 @@ void DatabaseInterface::callUpgradeFunctionForVersion(DatabaseVersion databaseVe
         break;
     case DatabaseInterface::V16:
         upgradeDatabaseV16();
+        break;
+    case DatabaseInterface::V17:
+        upgradeDatabaseV17();
         break;
     }
 }

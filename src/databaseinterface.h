@@ -39,7 +39,8 @@ public:
         V13 = 13,
         V14 = 14,
         V15 = 15,
-        V16 = 16, //Does not exist yet, for testing purpose only.
+        V16 = 16,
+        V17 = 17,
     };
 
     explicit DatabaseInterface(QObject *parent = nullptr);
@@ -309,6 +310,8 @@ private:
     void upgradeDatabaseV15();
 
     void upgradeDatabaseV16();
+
+    void upgradeDatabaseV17();
 
     void checkDatabaseSchema();
 

@@ -90,7 +90,7 @@ private Q_SLOTS:
         DatabaseInterface musicDb;
         musicDb.init(QStringLiteral("testDb"),databaseFile.fileName());
         QSignalSpy musicDbRadioAddedSpy(&musicDb,&DatabaseInterface::radioAdded);
-        QCOMPARE(musicDb.allRadiosData().count(),20);
+        QCOMPARE(musicDb.allRadiosData().count(), 18);
     }
 
     void addOneRadio()

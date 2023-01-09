@@ -4,8 +4,8 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
-import QtQuick.Controls 2.3
+import QtQuick 2.15
+import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.kde.kirigami 2.5 as Kirigami
@@ -36,7 +36,9 @@ Kirigami.ApplicationWindow {
         handleClosedIcon.source: "view-media-playlist"
         handleOpenIcon.source: "view-right-close"
 
-        handle.visible: !Kirigami.Settings.isMobile
+        handle.visible: !Kirigami.Settings.isMobile &&
+                        (playlistDrawer.drawerOpen || headerBarLoader.height > elisaTheme.mediaPlayerControlHeight * 2)
+
         Component.onCompleted: close() // drawer is opened when the layout is narrow, we want it closed
 
         // without this drawer button is never shown
@@ -60,6 +62,15 @@ Kirigami.ApplicationWindow {
     // HACK: since elisa's main view hasn't been ported to a page, but page layers are used for mobile settings
     // lower the main view and mobile footer's z to be behind the layer when there are layers added (normally it is in front)
     property bool layerOnTop: pageStack.layers.depth > 1
+
+    // disable certain transitions at startup
+    property bool transitionsEnabled: false
+    Timer {
+        interval: 10
+        running: true
+        repeat: false
+        onTriggered: { transitionsEnabled = true }
+    }
 
     minimumWidth: Kirigami.Settings.isMobile ? 320 : 620
     property int minHeight: 320
@@ -188,6 +199,7 @@ Kirigami.ApplicationWindow {
         property bool showPlaylist: true
 
         property bool headerBarIsMaximized: false
+        property real headerBarHeight : 100000.0
 
         property bool nowPlayingPreferLyric: false
     }
@@ -254,35 +266,6 @@ Kirigami.ApplicationWindow {
         }
     }
 
-    // track import notification
-    TrackImportNotification {
-        z: 2
-        id: importedTracksCountNotification
-
-        anchors {
-            right: mainContent.right
-            top: mainContent.top
-            rightMargin: Kirigami.Units.largeSpacing * 2
-            topMargin: Kirigami.Units.largeSpacing * 3
-        }
-    }
-
-    Binding {
-        id: indexerBusyBinding
-
-        target: importedTracksCountNotification
-        property: 'indexingRunning'
-        value: ElisaApplication.musicManager.indexerBusy
-        when: ElisaApplication.musicManager !== undefined
-    }
-
-    Binding {
-        target: importedTracksCountNotification
-        property: 'importedTracksCount'
-        value: ElisaApplication.musicManager.importedTracksCount
-        when: ElisaApplication.musicManager !== undefined
-    }
-
     // mobile footer bar
     Loader {
         id: mobileFooterBarLoader
@@ -334,6 +317,7 @@ Kirigami.ApplicationWindow {
         anchors.fill: parent
         anchors.bottomMargin: Kirigami.Settings.isMobile? elisaTheme.mediaPlayerControlHeight : 0
 
+
         ColumnLayout {
             anchors.fill: parent
             spacing: 0
@@ -344,14 +328,30 @@ Kirigami.ApplicationWindow {
                 active: !Kirigami.Settings.isMobile
                 visible: active
 
-                Layout.minimumHeight: Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight)
-                Layout.maximumHeight: Layout.minimumHeight
+                Layout.minimumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : elisaTheme.mediaPlayerControlHeight
+                Layout.maximumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight)
                 Layout.fillWidth: true
+                Layout.preferredHeight: status == Loader.Ready ? item.handlePosition : normalHeight
+
+                // height when HeaderBar is not maximized
+                property int normalHeight : persistentSettings.headerBarHeight
+
+                Component.onDestruction: {
+                    // saving height in onAboutToQuit() leads to invalid values, so we do it here
+                    if (!Kirigami.Settings.isMobile) {
+                        if (headerBarLoader.item.isMaximized) {
+                            persistentSettings.headerBarHeight = normalHeight
+                        } else {
+                            persistentSettings.headerBarHeight = Layout.preferredHeight
+                        }
+                    }
+                }
 
                 sourceComponent: HeaderBar {
                     id: headerBar
 
                     focus: true
+                    transitionsEnabled: mainWindow.transitionsEnabled
 
                     album: (ElisaApplication.manageHeaderBar.album !== undefined ? ElisaApplication.manageHeaderBar.album : '')
                     title: ElisaApplication.manageHeaderBar.title
@@ -359,6 +359,7 @@ Kirigami.ApplicationWindow {
                     albumArtist: (ElisaApplication.manageHeaderBar.albumArtist !== undefined ? ElisaApplication.manageHeaderBar.albumArtist : '')
                     image: ElisaApplication.manageHeaderBar.image
                     albumID: ElisaApplication.manageHeaderBar.albumId
+                    handlePosition: persistentSettings.headerBarHeight
 
                     ratingVisible: false
 
@@ -382,14 +383,14 @@ Kirigami.ApplicationWindow {
                                     },
                                     PropertyChanges {
                                         target: headerBarLoader
-                                        Layout.minimumHeight: Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight)
-                                        Layout.maximumHeight: Layout.minimumHeight
+                                        Layout.preferredHeight: headerBar.handlePosition
                                     }
                                 ]
                             },
                             State {
                                 name: "headerBarIsMaximized"
-                                when: headerBar.isMaximized
+                                // Workaround: only do this when transitions are enabled, or the playlist layout will be messed up
+                                when: headerBar.isMaximized && transitionsEnabled
                                 changes: [
                                     PropertyChanges {
                                         target: mainWindow
@@ -400,6 +401,7 @@ Kirigami.ApplicationWindow {
                                         target: headerBarLoader
                                         Layout.minimumHeight: mainWindow.height
                                         Layout.maximumHeight: mainWindow.height
+                                        Layout.preferredHeight: Layout.maximumHeight
                                     },
                                     PropertyChanges {
                                         target: playlistDrawer
@@ -407,11 +409,15 @@ Kirigami.ApplicationWindow {
                                         visible: false
                                         drawerOpen: false
                                         handleVisible: false
+                                    },
+                                    StateChangeScript {
+                                        script: headerBarLoader.normalHeight = headerBarLoader.height
                                     }
                                 ]
                             }
                         ]
                         transitions: Transition {
+                            enabled: mainWindow.transitionsEnabled
                             NumberAnimation {
                                 properties: "Layout.minimumHeight, Layout.maximumHeight, minimumHeight"
                                 easing.type: Easing.InOutQuad
@@ -422,11 +428,6 @@ Kirigami.ApplicationWindow {
                 }
             }
 
-            Kirigami.Separator {
-                visible: !Kirigami.Settings.isMobile
-                Layout.fillWidth: true
-            }
-
             ContentView {
                 id: contentView
                 Layout.fillHeight: true
@@ -435,6 +436,10 @@ Kirigami.ApplicationWindow {
                 showExpandedFilterView: persistentSettings.expandedFilterView
                 playlistDrawer: playlistDrawer
                 initialIndex: ElisaApplication.initialViewIndex
+            }
+
+            FooterBar {
+                Layout.fillWidth: true
             }
         }
     }

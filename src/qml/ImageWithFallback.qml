@@ -15,6 +15,8 @@ Item {
     property alias fillMode: image.fillMode
     property alias asynchronous: image.asynchronous
     property alias mipmap: image.mipmap
+    property alias paintedWidth: image.paintedWidth
+    property alias paintedHeight: image.paintedHeight
 
     implicitWidth: image.width
     implicitHeight: image.height

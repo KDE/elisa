@@ -19,9 +19,17 @@ BasePlayerControl {
 
     property alias volume: volumeSlider.value
     property bool isMaximized
+    property bool isTranslucent
+    property bool isNearCollapse
 
     signal maximize()
     signal minimize()
+    /*
+      Emmited when User uses the Item as a handle to resize the layout.
+      y: difference to previous position
+      offset: cursor offset (y coordinate relative to this Item, where dragging begun)
+      */
+    signal handlePositionChanged(int y, int offset)
 
     SystemPalette {
         id: myPalette
@@ -35,8 +43,38 @@ BasePlayerControl {
     Rectangle {
         anchors.fill: parent
 
-        color: myPalette.midlight
-        opacity: elisaTheme.mediaPlayerControlOpacity
+        Kirigami.Theme.colorSet: Kirigami.Theme.Header
+        Kirigami.Theme.inherit: false
+
+        color: isTranslucent ? myPalette.midlight : Kirigami.Theme.backgroundColor
+        opacity: isTranslucent ? elisaTheme.mediaPlayerControlOpacity : 1.0
+
+        Kirigami.Separator {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            visible: !isTranslucent
+        }
+
+        MouseArea {
+          anchors.fill: parent
+          property int dragStartOffset: 0
+
+          cursorShape: isMaximized ? Qt.ArrowCursor : Qt.SizeVerCursor
+
+          onPressed: {
+            dragStartOffset = mouse.y
+          }
+
+          onPositionChanged: {
+            musicWidget.handlePositionChanged(mouse.y, dragStartOffset)
+          }
+
+          drag.axis: Drag.YAxis
+          drag.threshold: 1
+        }
     }
 
     RowLayout {
@@ -178,20 +216,30 @@ BasePlayerControl {
         }
 
         FlatButtonWithToolTip {
+            // normally toggles the playlist in contentView, but when the headerbar is too narrow to
+            // show the playlistDrawer handle, this opens the drawer instead
+
             id: showHidePlaylistAction
+            property bool _togglesDrawer: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
+
             action: Action {
                 shortcut: ElisaApplication.actionShortcut(ElisaApplication.action("toggle_playlist"))
-                onTriggered: contentView.showPlaylist = !contentView.showPlaylist
+                onTriggered: {
+                    if (showHidePlaylistAction._togglesDrawer)
+                        playlistDrawer.visible = !playlistDrawer.visible
+                    else
+                        contentView.showPlaylist = !contentView.showPlaylist
+                }
             }
 
-            visible: !musicWidget.isMaximized && mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+            visible: !musicWidget.isMaximized && (!_togglesDrawer || isNearCollapse)
 
-            display: AbstractButton.TextBesideIcon
+            display: _togglesDrawer ? AbstractButton.IconOnly: AbstractButton.TextBesideIcon
             text: i18nc("@action:button", "Show Playlist")
             icon.name: "view-media-playlist"
 
             checkable: true
-            checked: contentView.showPlaylist
+            checked: _togglesDrawer ? playlistDrawer.visible : contentView.showPlaylist
         }
 
         FlatButtonWithToolTip {

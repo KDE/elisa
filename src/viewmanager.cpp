@@ -479,7 +479,7 @@ int ViewManager::computePreferredSortRole(int initialValue, ElisaUtils::FilterTy
     case ElisaUtils::FilterByRecentlyPlayed:
         return DataTypes::LastPlayDate;
     case ElisaUtils::FilterByFrequentlyPlayed:
-        return DataTypes::PlayFrequency;
+        return DataTypes::PlayCounter;
     default:
         break;
     }

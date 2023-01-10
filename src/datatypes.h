@@ -64,7 +64,6 @@ public:
         FirstPlayDate,
         LastPlayDate,
         PlayCounter,
-        PlayFrequency,
         ElementTypeRole,
         LyricsRole,
         FullDataRole,

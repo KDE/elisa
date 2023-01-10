@@ -193,7 +193,6 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         case DataTypes::AlbumIdRole:
         case DataTypes::HasEmbeddedCover:
         case DataTypes::FileModificationTime:
-        case DataTypes::PlayFrequency:
         case DataTypes::ElementTypeRole:
         case DataTypes::FullDataRole:
         case DataTypes::IsDirectoryRole:
@@ -569,7 +568,6 @@ QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
     case DataTypes::AlbumIdRole:
     case DataTypes::HasEmbeddedCover:
     case DataTypes::FileModificationTime:
-    case DataTypes::PlayFrequency:
     case DataTypes::ElementTypeRole:
     case DataTypes::FullDataRole:
     case DataTypes::IsDirectoryRole:

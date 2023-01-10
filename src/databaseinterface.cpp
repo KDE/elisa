@@ -61,7 +61,6 @@ public:
         TrackFirstPlayDate,
         TrackLastPlayDate,
         TrackPlayCounter,
-        TrackPlayFrequency,
         TrackEmbeddedCover,
     };
 
@@ -4148,7 +4147,6 @@ void DatabaseInterface::initRequest()
                                                   "tracksMapping.`FirstPlayDate`, "
                                                   "tracksMapping.`LastPlayDate`, "
                                                   "tracksMapping.`PlayCounter`, "
-                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
                                                   "( "
                                                   "SELECT tracksCover.`FileName` "
                                                   "FROM "
@@ -4304,7 +4302,6 @@ void DatabaseInterface::initRequest()
                                                   "tracksMapping.`FirstPlayDate`, "
                                                   "tracksMapping.`LastPlayDate`, "
                                                   "tracksMapping.`PlayCounter`, "
-                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
                                                   "( "
                                                   "SELECT tracksCover.`FileName` "
                                                   "FROM "
@@ -4435,7 +4432,6 @@ void DatabaseInterface::initRequest()
                                                   "tracksMapping.`FirstPlayDate`, "
                                                   "tracksMapping.`LastPlayDate`, "
                                                   "tracksMapping.`PlayCounter`, "
-                                                  "CAST(tracksMapping.`PlayCounter` AS REAL) / ((CAST(strftime('%s','now') as INTEGER) - CAST(tracksMapping.`FirstPlayDate` / 1000 as INTEGER)) / CAST(1000 AS REAL)) as PlayFrequency, "
                                                   "( "
                                                   "SELECT tracksCover.`FileName` "
                                                   "FROM "
@@ -4483,7 +4479,7 @@ void DatabaseInterface::initRequest()
                                                   "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
                                                   "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
                                                   ")"
-                                                  "ORDER BY CAST(tracksMapping.`PlayCounter` AS REAL) / ((CAST(strftime('%s','now') as INTEGER) - CAST(tracksMapping.`FirstPlayDate` / 1000 as INTEGER)) / CAST(1000 AS REAL)) DESC "
+                                                  "ORDER BY tracksMapping.`PlayCounter` DESC "
                                                   "LIMIT :maximumResults");
 
         auto result = prepareQuery(d->mSelectAllFrequentlyPlayedTracksQuery, selectAllTracksText);
@@ -4833,7 +4829,6 @@ void DatabaseInterface::initRequest()
                                                    "tracksMapping.`FirstPlayDate`, "
                                                    "tracksMapping.`LastPlayDate`, "
                                                    "tracksMapping.`PlayCounter`, "
-                                                   "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
                                                    "( "
                                                    "SELECT tracksCover.`FileName` "
                                                    "FROM "
@@ -5006,7 +5001,6 @@ void DatabaseInterface::initRequest()
                                                          "tracksMapping.`FirstPlayDate`, "
                                                          "tracksMapping.`LastPlayDate`, "
                                                          "tracksMapping.`PlayCounter`, "
-                                                         "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
                                                          "( "
                                                          "SELECT tracksCover.`FileName` "
                                                          "FROM "
@@ -5124,7 +5118,6 @@ void DatabaseInterface::initRequest()
                                                          "tracksMapping.`FirstPlayDate`, "
                                                          "tracksMapping.`LastPlayDate`, "
                                                          "tracksMapping.`PlayCounter`, "
-                                                         "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
                                                          "( "
                                                          "SELECT tracksCover.`FileName` "
                                                          "FROM "
@@ -5537,7 +5530,6 @@ void DatabaseInterface::initRequest()
                                                                   "tracksMapping.`FirstPlayDate`, "
                                                                   "tracksMapping.`LastPlayDate`, "
                                                                   "tracksMapping.`PlayCounter`, "
-                                                                  "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
                                                                   "( "
                                                                   "SELECT tracksCover.`FileName` "
                                                                   "FROM "
@@ -6216,7 +6208,6 @@ void DatabaseInterface::initRequest()
                                                               "tracksMapping.`FirstPlayDate`, "
                                                               "tracksMapping.`LastPlayDate`, "
                                                               "tracksMapping.`PlayCounter`, "
-                                                              "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
                                                               "( "
                                                               "SELECT tracksCover.`FileName` "
                                                               "FROM "
@@ -6351,7 +6342,6 @@ void DatabaseInterface::initRequest()
                                                              "tracksMapping.`FirstPlayDate`, "
                                                              "tracksMapping.`LastPlayDate`, "
                                                              "tracksMapping.`PlayCounter`, "
-                                                             "tracksMapping.`PlayCounter` / (strftime('%s', 'now') - tracksMapping.`FirstPlayDate`) as PlayFrequency, "
                                                              "( "
                                                              "SELECT tracksCover.`FileName` "
                                                              "FROM "
@@ -7276,7 +7266,6 @@ DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(con
         result[DataTypes::TrackDataType::key_type::LastPlayDate] = trackRecord.value(DatabaseInterfacePrivate::TrackLastPlayDate);
     }
     result[DataTypes::TrackDataType::key_type::PlayCounter] = trackRecord.value(DatabaseInterfacePrivate::TrackPlayCounter);
-    result[DataTypes::TrackDataType::key_type::PlayFrequency] = trackRecord.value(DatabaseInterfacePrivate::TrackPlayFrequency);
     result[DataTypes::TrackDataType::key_type::ElementTypeRole] = QVariant::fromValue(ElisaUtils::Track);
 
     return result;

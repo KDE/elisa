@@ -109,9 +109,6 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
         case DataTypes::FirstPlayDate:
             result = true;
             break;
-        case DataTypes::PlayFrequency:
-            result = true;
-            break;
         case DataTypes::SecondaryTextRole:
         case DataTypes::ShadowForImageRole:
         case DataTypes::ChildModelRole:
@@ -181,7 +178,6 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
             case DataTypes::HasEmbeddedCover:
             case DataTypes::FileModificationTime:
             case DataTypes::FirstPlayDate:
-            case DataTypes::PlayFrequency:
             case DataTypes::ElementTypeRole:
             case DataTypes::FullDataRole:
             case DataTypes::IsDirectoryRole:

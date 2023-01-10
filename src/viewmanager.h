@@ -166,9 +166,9 @@ private:
 
     QStringList::iterator findViewPreference(QStringList &list, const QString &viewId) const;
 
-    [[nodiscard]] Qt::SortOrder computePreferredSortOrder(Qt::SortOrder initialValue) const;
+    [[nodiscard]] Qt::SortOrder computePreferredSortOrder(Qt::SortOrder initialValue, ElisaUtils::FilterType filterType) const;
 
-    [[nodiscard]] int computePreferredSortRole(int initialValue) const;
+    [[nodiscard]] int computePreferredSortRole(int initialValue, ElisaUtils::FilterType filterType) const;
 
 private:
 

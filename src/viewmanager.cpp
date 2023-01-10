@@ -331,9 +331,9 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                                                          viewParamaters.mMainImage, viewParamaters.mDataType,
                                                                          newModel, proxyModel, viewParamaters.mFallbackItemIcon,
                                                                          viewParamaters.mDataFilter,
-                                                                         computePreferredSortRole(viewParamaters.mSortRole),
+                                                                         computePreferredSortRole(viewParamaters.mSortRole, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
-                                                                         computePreferredSortOrder(viewParamaters.mSortOrder),
+                                                                         computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortOrderNames,
                                                                          viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates,
                                                                          viewParamaters.mIsTreeModel);
@@ -358,9 +358,9 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                                                          viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
                                                                          viewParamaters.mMainImage, viewParamaters.mDataType,
                                                                          newModel, proxyModel, viewParamaters.mDataFilter,
-                                                                         computePreferredSortRole(viewParamaters.mSortRole),
+                                                                         computePreferredSortRole(viewParamaters.mSortRole, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
-                                                                         computePreferredSortOrder(viewParamaters.mSortOrder),
+                                                                         computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortOrderNames,
                                                                          viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle,
                                                                          viewParamaters.mRadioSpecificStyle, viewParamaters.mIsTreeModel);
@@ -435,8 +435,17 @@ QStringList::iterator ViewManager::findViewPreference(QStringList &list, const Q
     return itViewPreference;
 }
 
-Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue) const
+Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue, ElisaUtils::FilterType filterType) const
 {
+    switch (filterType)
+    {
+    case ElisaUtils::FilterByRecentlyPlayed:
+    case ElisaUtils::FilterByFrequentlyPlayed:
+        return Qt::DescendingOrder;
+    default:
+        break;
+    }
+
     auto currentSortOrderPreferences = Elisa::ElisaConfiguration::sortOrderPreferences();
     auto viewId = buildViewId();
     auto itViewPreference = findViewPreference(currentSortOrderPreferences, viewId);
@@ -456,8 +465,18 @@ Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue)
     return initialValue;
 }
 
-int ViewManager::computePreferredSortRole(int initialValue) const
+int ViewManager::computePreferredSortRole(int initialValue, ElisaUtils::FilterType filterType) const
 {
+    switch (filterType)
+    {
+    case ElisaUtils::FilterByRecentlyPlayed:
+        return DataTypes::LastPlayDate;
+    case ElisaUtils::FilterByFrequentlyPlayed:
+        return DataTypes::PlayFrequency;
+    default:
+        break;
+    }
+
     auto currentSortRolePreferences = Elisa::ElisaConfiguration::sortRolePreferences();
     auto viewId = buildViewId();
     auto itViewPreference = findViewPreference(currentSortRolePreferences, viewId);

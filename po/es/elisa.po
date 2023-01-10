@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-07 00:48+0000\n"
+"POT-Creation-Date: 2023-01-10 00:55+0000\n"
 "PO-Revision-Date: 2022-12-23 17:36+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -30,14 +30,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "ecuadra@eloihr.net,vrcordoba@gmail.com"
 
-#: databaseinterface.cpp:7184 databaseinterface.cpp:8231
-#: databaseinterface.cpp:8315
+#: databaseinterface.cpp:7227 databaseinterface.cpp:8274
+#: databaseinterface.cpp:8358
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Varios artistas"
 
-#: databaseinterface.cpp:7248
+#: databaseinterface.cpp:7291
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -442,7 +442,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Letra"
 
-#: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:190
+#: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:238
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:159
 #, kde-format
 msgctxt "@action:button"
@@ -511,7 +511,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "La apertura ha fallado"
 
-#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:163
+#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:174
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -529,7 +529,7 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "Deshacer"
 
-#: qml/ElisaMainWindow.qml:54 qml/ElisaMainWindow.qml:475
+#: qml/ElisaMainWindow.qml:56 qml/ElisaMainWindow.qml:480
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -538,19 +538,19 @@ msgstr ""
 "No se pudieron cargar algunos archivos. Elisa solo puede abrir archivos de "
 "audio y listas de reproducción."
 
-#: qml/ElisaMainWindow.qml:75 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:86 qml/mobile/MobileSidebar.qml:20
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:75
+#: qml/ElisaMainWindow.qml:86
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:144
+#: qml/ElisaMainWindow.qml:155
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -558,7 +558,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "Archivo de lista de reproducción m3u8, m3u (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:144
+#: qml/ElisaMainWindow.qml:155
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -566,7 +566,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "Archivo de lista de reproducción pls (*.pls)"
 
-#: qml/ElisaMainWindow.qml:151
+#: qml/ElisaMainWindow.qml:162
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -574,7 +574,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "Archivo de lista de reproducción m3u8, m3u, pls (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:163
+#: qml/ElisaMainWindow.qml:174
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -626,7 +626,7 @@ msgctxt "@action:button Add whole container to play list"
 msgid "Add to queue"
 msgstr "Añadir a la cola"
 
-#: qml/HeaderBar.qml:127
+#: qml/HeaderBar.qml:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
@@ -706,13 +706,13 @@ msgctxt "@action:button Enqueue current track"
 msgid "Add to queue"
 msgstr "Añadir a la cola"
 
-#: qml/MediaPlayerControl.qml:50
+#: qml/MediaPlayerControl.qml:88
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "Alternar modo fiesta"
 
-#: qml/MediaPlayerControl.qml:58
+#: qml/MediaPlayerControl.qml:96
 #: qml/mobile/MobileMinimizedPlayerControl.qml:225
 #: qml/mobile/MobileTrackPlayer.qml:318
 #, kde-format
@@ -720,7 +720,7 @@ msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Omitir hacia atrás"
 
-#: qml/MediaPlayerControl.qml:66
+#: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:241
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
@@ -728,7 +728,7 @@ msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Pausar"
 
-#: qml/MediaPlayerControl.qml:66
+#: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:241
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
@@ -736,61 +736,61 @@ msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Reproducir"
 
-#: qml/MediaPlayerControl.qml:74
+#: qml/MediaPlayerControl.qml:112
 #, kde-format
 msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "Omitir hacia adelante"
 
-#: qml/MediaPlayerControl.qml:93
+#: qml/MediaPlayerControl.qml:131
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "Conmutar silencio"
 
-#: qml/MediaPlayerControl.qml:112 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:150 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Shuffle"
 msgstr "Conmutar mezcla"
 
-#: qml/MediaPlayerControl.qml:123 qml/mobile/MobileTrackPlayer.qml:230
+#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:230
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Actual: No repetir pistas"
 
-#: qml/MediaPlayerControl.qml:124 qml/mobile/MobileTrackPlayer.qml:231
+#: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:231
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Actual: Repetir la pista actual"
 
-#: qml/MediaPlayerControl.qml:125 qml/mobile/MobileTrackPlayer.qml:232
+#: qml/MediaPlayerControl.qml:163 qml/mobile/MobileTrackPlayer.qml:232
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Actual: Repetir todas las pistas en la lista"
 
-#: qml/MediaPlayerControl.qml:155 qml/mobile/MobileTrackPlayer.qml:261
+#: qml/MediaPlayerControl.qml:193 qml/mobile/MobileTrackPlayer.qml:261
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Lista de reproducción"
 
-#: qml/MediaPlayerControl.qml:159 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:265
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Una"
 
-#: qml/MediaPlayerControl.qml:163 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Ninguna"
 
-#: qml/MediaPlayerControl.qml:200
+#: qml/MediaPlayerControl.qml:248
 #, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"

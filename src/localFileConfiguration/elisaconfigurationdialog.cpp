@@ -73,6 +73,7 @@ void ElisaConfigurationDialog::save()
 {
     Elisa::ElisaConfiguration::setRootPath(mRootPath);
     Elisa::ElisaConfiguration::setShowNowPlayingBackground(mShowNowPlayingBackground);
+    Elisa::ElisaConfiguration::setShowHeader(mShowHeader);
     Elisa::ElisaConfiguration::setShowProgressOnTaskBar(mShowProgressInTaskBar);
     Elisa::ElisaConfiguration::setShowSystemTrayIcon(mShowSystemTrayIcon);
     Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(!mForceUsageOfSlowFileSystemIndexing);
@@ -132,6 +133,18 @@ void ElisaConfigurationDialog::setShowNowPlayingBackground(bool showNowPlayingBa
 
     mShowNowPlayingBackground = showNowPlayingBackground;
     Q_EMIT showNowPlayingBackgroundChanged();
+
+    setDirty();
+}
+
+void ElisaConfigurationDialog::setShowHeader(bool showHeader)
+{
+    if (mShowHeader == showHeader) {
+        return;
+    }
+
+    mShowHeader = showHeader;
+    Q_EMIT showHeaderChanged();
 
     setDirty();
 }
@@ -265,6 +278,9 @@ void ElisaConfigurationDialog::configChanged()
 
     mShowNowPlayingBackground = Elisa::ElisaConfiguration::showNowPlayingBackground();
     Q_EMIT showNowPlayingBackgroundChanged();
+
+    mShowHeader = Elisa::ElisaConfiguration::showHeader();
+    Q_EMIT showHeaderChanged();
 
     mShowProgressInTaskBar = Elisa::ElisaConfiguration::showProgressOnTaskBar();
     Q_EMIT showProgressInTaskBarChanged();

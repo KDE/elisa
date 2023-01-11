@@ -11,7 +11,12 @@
   </entry>
  </group>
  <group name="PlayerSettings">
- <entry key="ShowNowPlayingBackground" type="Bool">
+  <entry key="ShowNowPlayingBackground" type="Bool">
+     <default>
+         true
+     </default>
+  </entry>
+  <entry key="ShowHeader" type="Bool">
      <default>
          true
      </default>

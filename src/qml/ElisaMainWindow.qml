@@ -36,7 +36,7 @@ Kirigami.ApplicationWindow {
         handleClosedIcon.source: "view-media-playlist"
         handleOpenIcon.source: "view-right-close"
 
-        handle.visible: !Kirigami.Settings.isMobile
+        handle.visible: !Kirigami.Settings.isMobile && playlistDrawer.drawerOpen
         Component.onCompleted: close() // drawer is opened when the layout is narrow, we want it closed
 
         // without this drawer button is never shown
@@ -262,8 +262,8 @@ Kirigami.ApplicationWindow {
         anchors {
             right: mainContent.right
             top: mainContent.top
-            rightMargin: Kirigami.Units.largeSpacing * 2
-            topMargin: Kirigami.Units.largeSpacing * 3
+            rightMargin: Kirigami.Units.largeSpacing
+            topMargin: Kirigami.Units.smallSpacing
         }
     }
 
@@ -344,7 +344,7 @@ Kirigami.ApplicationWindow {
                 active: !Kirigami.Settings.isMobile
                 visible: active
 
-                Layout.minimumHeight: Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight)
+                Layout.minimumHeight: ElisaApplication.showHeader ? Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight) : elisaTheme.mediaPlayerControlHeight
                 Layout.maximumHeight: Layout.minimumHeight
                 Layout.fillWidth: true
 
@@ -382,7 +382,7 @@ Kirigami.ApplicationWindow {
                                     },
                                     PropertyChanges {
                                         target: headerBarLoader
-                                        Layout.minimumHeight: Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight)
+                                        Layout.minimumHeight: ElisaApplication.showHeader ? Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight) : elisaTheme.mediaPlayerControlHeight
                                         Layout.maximumHeight: Layout.minimumHeight
                                     }
                                 ]

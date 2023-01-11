@@ -39,6 +39,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setShowNowPlayingBackground
                NOTIFY showNowPlayingBackgroundChanged)
 
+    Q_PROPERTY(bool showHeader
+               READ showHeader
+               WRITE setShowHeader
+               NOTIFY showHeaderChanged)
+
     Q_PROPERTY(bool showProgressInTaskBar
                READ showProgressInTaskBar
                WRITE setShowProgressInTaskBar
@@ -101,6 +106,10 @@ public:
         return mShowNowPlayingBackground;
     }
 
+    [[nodiscard]] bool showHeader() const
+    {
+        return mShowHeader;
+    }
 
     [[nodiscard]] bool showProgressInTaskBar() const
     {
@@ -163,6 +172,8 @@ Q_SIGNALS:
 
     void showNowPlayingBackgroundChanged();
 
+    void showHeaderChanged();
+
     void showProgressInTaskBarChanged();
 
     void showSystemTrayIconChanged();
@@ -192,6 +203,8 @@ public Q_SLOTS:
     void cancel();
 
     void setShowNowPlayingBackground(bool showNowPlayingBackground);
+
+    void setShowHeader(bool showHeader);
 
     void setShowProgressInTaskBar(bool showProgressInTaskBar);
 
@@ -228,6 +241,8 @@ private:
     bool mIsDirty = false;
 
     bool mShowNowPlayingBackground = true;
+
+    bool mShowHeader = true;
 
     bool mShowProgressInTaskBar = true;
 

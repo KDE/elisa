@@ -471,6 +471,7 @@ Module {
         }
         Property { name: "manageHeaderBar"; type: "ManageHeaderBar"; isReadonly: true; isPointer: true }
         Property { name: "showNowPlayingBackground"; type: "bool"; isReadonly: true }
+        Property { name: "showHeader"; type: "bool"; isReadonly: true }
         Property { name: "showProgressOnTaskBar"; type: "bool"; isReadonly: true }
         Property { name: "showSystemTrayIcon"; type: "bool"; isReadonly: true }
         Property { name: "useFavoriteStyleRatings"; type: "bool"; isReadonly: true }
@@ -561,6 +562,7 @@ Module {
         Property { name: "rootPath"; type: "QStringList" }
         Property { name: "forceUsageOfSlowFileSystemIndexing"; type: "bool" }
         Property { name: "showNowPlayingBackground"; type: "bool" }
+        Property { name: "showHeader"; type: "bool" }
         Property { name: "showProgressInTaskBar"; type: "bool" }
         Property { name: "showSystemTrayIcon"; type: "bool" }
         Property { name: "embeddedView"; type: "ElisaUtils::PlayListEntryType" }
@@ -583,6 +585,10 @@ Module {
         Method {
             name: "setShowNowPlayingBackground"
             Parameter { name: "showNowPlayingBackground"; type: "bool" }
+        }
+        Method {
+            name: "setShowHeader"
+            Parameter { name: "showHeader"; type: "bool" }
         }
         Method {
             name: "setShowProgressInTaskBar"

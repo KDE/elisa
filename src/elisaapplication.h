@@ -77,6 +77,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ showNowPlayingBackground
                NOTIFY showNowPlayingBackgroundChanged)
 
+    Q_PROPERTY(bool showHeader
+               READ showHeader
+               NOTIFY showHeaderChanged)
+
     Q_PROPERTY(bool showProgressOnTaskBar
                READ showProgressOnTaskBar
                NOTIFY showProgressOnTaskBarChanged)
@@ -129,6 +133,8 @@ public:
 
     [[nodiscard]] bool showNowPlayingBackground() const;
 
+    [[nodiscard]] bool showHeader() const;
+
     [[nodiscard]] bool showProgressOnTaskBar() const;
 
     [[nodiscard]] bool showSystemTrayIcon() const;
@@ -162,6 +168,8 @@ Q_SIGNALS:
     void initializationDone();
 
     void showNowPlayingBackgroundChanged();
+
+    void showHeaderChanged();
 
     void showProgressOnTaskBarChanged();
 

@@ -354,6 +354,7 @@ void ElisaApplication::configChanged()
     currentConfiguration->read();
 
     Q_EMIT showNowPlayingBackgroundChanged();
+    Q_EMIT showHeaderChanged();
     Q_EMIT showProgressOnTaskBarChanged();
     Q_EMIT showSystemTrayIconChanged();
     Q_EMIT useFavoriteStyleRatingsChanged();
@@ -614,6 +615,12 @@ bool ElisaApplication::showNowPlayingBackground() const
 {
     auto currentConfiguration = Elisa::ElisaConfiguration::self();
     return currentConfiguration->showNowPlayingBackground();
+}
+
+bool ElisaApplication::showHeader() const
+{
+    auto currentConfiguration = Elisa::ElisaConfiguration::self();
+    return currentConfiguration->showHeader();
 }
 
 bool ElisaApplication::showProgressOnTaskBar() const

@@ -39,6 +39,18 @@ ColumnLayout {
         }
 
         QQC2.CheckBox {
+
+            Layout.fillWidth: true
+
+            text: i18nc("@option:check", "Show header")
+
+            checked: ElisaConfigurationDialog.showHeader
+            onToggled: ElisaConfigurationDialog.showHeader = checked
+            Accessible.onToggleAction: onToggled
+            Accessible.onPressAction: onToggled
+        }
+
+        QQC2.CheckBox {
             id: progressCheckBox
 
             Layout.fillWidth: true

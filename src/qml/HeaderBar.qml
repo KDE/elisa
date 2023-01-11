@@ -49,13 +49,12 @@ FocusScope {
         changeBackgroundTransition.start()
     }
 
+
     Item {
         id: background
         anchors.fill: parent
-
         ImageWithFallback {
             id: oldBackground
-
             source: oldImage
             fallback: elisaTheme.defaultBackgroundImage
             asynchronous: true
@@ -66,6 +65,7 @@ FocusScope {
             // make the FastBlur effect more strong
             sourceSize.height: 10
 
+            visible: ElisaApplication.showHeader || headerBar.isMaximized
             opacity: 1
 
             layer.enabled: true
@@ -142,6 +142,8 @@ FocusScope {
         height: elisaTheme.mediaPlayerControlHeight
     }
 
+
+
     ColumnLayout {
         id: contentZone
 
@@ -150,7 +152,6 @@ FocusScope {
         anchors.right: parent.right
         anchors.bottom: playControlItem.top
         anchors.leftMargin: Kirigami.Units.smallSpacing
-
         spacing: 0
 
         // Hardcoded because the headerbar blur always makes a dark-ish
@@ -195,13 +196,13 @@ FocusScope {
                 id: images
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 property double imageSize: (smallerDimension * 0.9 < (portrait?
-                                                                      gridLayoutContent.height/3:
-                                                                      gridLayoutContent.width/2
-                                        ))?
-                                          smallerDimension * 0.9:
-                                          portrait?
-                                                   gridLayoutContent.height/3:
-                                                   gridLayoutContent.width/2
+                gridLayoutContent.height/3:
+                gridLayoutContent.width/2
+                ))?
+                smallerDimension * 0.9:
+                portrait?
+                gridLayoutContent.height/3:
+                gridLayoutContent.width/2
 
                 Layout.preferredHeight: imageSize
                 Layout.preferredWidth: imageSize
@@ -212,6 +213,7 @@ FocusScope {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
 
                     anchors.fill: parent
+                    visible: ElisaApplication.showHeader || headerBar.isMaximized
 
                     asynchronous: true
                     mipmap: true
@@ -266,6 +268,7 @@ FocusScope {
                     Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
                     Layout.fillWidth: true
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+                    visible: ElisaApplication.showHeader || headerBar.isMaximized
 
                     level: 1
                     font.bold: true
@@ -287,6 +290,7 @@ FocusScope {
                     Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
                     Layout.fillWidth: true
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+                    visible: ElisaApplication.showHeader || headerBar.isMaximized
 
                     level: 3
 
@@ -307,6 +311,7 @@ FocusScope {
                     Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
                     Layout.fillWidth: true
                     horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+                    visible: ElisaApplication.showHeader || headerBar.isMaximized
 
                     level: 3
 

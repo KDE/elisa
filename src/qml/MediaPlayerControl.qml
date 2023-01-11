@@ -19,6 +19,12 @@ BasePlayerControl {
 
     property alias volume: volumeSlider.value
     property bool isMaximized
+    property string image: ElisaApplication.manageHeaderBar.image
+    property string title: ElisaApplication.manageHeaderBar.title
+    property string artist: ElisaApplication.manageHeaderBar.artist !== undefined ?
+                            ElisaApplication.manageHeaderBar.artist : ''
+    property string album:  ElisaApplication.manageHeaderBar.album !== undefined ?
+                            ElisaApplication.manageHeaderBar.album : ''
 
     signal maximize()
     signal minimize()
@@ -35,8 +41,10 @@ BasePlayerControl {
     Rectangle {
         anchors.fill: parent
 
-        color: myPalette.midlight
-        opacity: elisaTheme.mediaPlayerControlOpacity
+        Kirigami.Theme.colorSet: Kirigami.Theme.Header
+        Kirigami.Theme.inherit: false
+        color: ElisaApplication.showHeader ? myPalette.midlight : Kirigami.Theme.backgroundColor
+        opacity: ElisaApplication.showHeader ? elisaTheme.mediaPlayerControlOpacity : 1.0
     }
 
     RowLayout {
@@ -74,6 +82,53 @@ BasePlayerControl {
             text: i18nc("@action:button skip forward in playlists", "Skip Forward")
             icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
             onClicked: musicWidget.playNext()
+        }
+
+        Loader {
+            active: !ElisaApplication.showHeader && !headerBar.isMaximized
+            visible: active
+
+            Layout.preferredWidth: elisaTheme.coverArtSize
+            Layout.preferredHeight: Layout.preferredWidth
+            Layout.leftMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : Kirigami.Units.largeSpacing * 2
+
+            sourceComponent: ImageWithFallback {
+                asynchronous: true
+                mipmap: true
+
+                source: image
+                fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
+
+                sourceSize {
+                    width: elisaTheme.coverArtSize
+                    height: width
+                }
+
+                fillMode: Image.PreserveAspectFit
+            }
+        }
+
+        ColumnLayout {
+            spacing: 0
+            visible: !ElisaApplication.showHeader && !headerBar.isMaximized
+
+            Layout.minimumWidth: parent.width * 0.1
+            Layout.maximumWidth: Layout.minimumWidth
+            Layout.fillHeight: true
+            Layout.leftMargin: Kirigami.Units.largeSpacing
+
+            LabelWithToolTip {
+                text: title
+                //font.weight: isPlaying ? Font.Bold : Font.Normal
+                Layout.fillWidth: true
+            }
+
+            LabelWithToolTip {
+                text: [artist, album].filter(Boolean).join(" - ")
+                type: Kirigami.Heading.Type.Secondary
+                Layout.fillWidth: true
+                visible: !playListEntry.grouped && (artist || album)
+            }
         }
 
         DurationSlider {

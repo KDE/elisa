@@ -245,19 +245,23 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: menuButton
 
-            text: i18nc("@action:button", "Application Menu")
-            icon.name: "open-menu-symbolic"
-
-            down: pressed || applicationMenu.visible
-            Accessible.role: Accessible.ButtonMenu
-
-            onPressed: {
+            function openMenu() {
                 if (!applicationMenu.visible) {
                     applicationMenu.open()
                 } else {
                     applicationMenu.dismiss()
                 }
             }
+
+            text: i18nc("@action:button", "Application Menu")
+            icon.name: "open-menu-symbolic"
+
+            down: pressed || applicationMenu.visible
+            Accessible.role: Accessible.ButtonMenu
+
+            onPressed: openMenu()
+            // Need this too because the base control sends onClicked for return/enter
+            onClicked: openMenu()
 
             ApplicationMenu {
                 id: applicationMenu

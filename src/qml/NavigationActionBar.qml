@@ -57,6 +57,16 @@ Item {
         id: sortMenuComponent
         FlatButtonWithToolTip {
             id: sortMenuButton
+
+            function openMenu() {
+                if (sortMenu.visible) {
+                    sortMenu.dismiss()
+                } else {
+                    sortMenu.sortOrder = navigationBar.sortOrder
+                    sortMenu.popup(sortMenuButton, sortMenuButton.x, sortMenuButton.y + sortMenuButton.height)
+                }
+            }
+
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             display: AbstractButton.TextOnly
@@ -91,14 +101,9 @@ Item {
                 }
             }
 
-            onPressed: {
-                if (sortMenu.visible) {
-                    sortMenu.dismiss()
-                } else {
-                    sortMenu.sortOrder = navigationBar.sortOrder
-                    sortMenu.popup(sortMenuButton, sortMenuButton.x, sortMenuButton.y + sortMenuButton.height)
-                }
-            }
+            onPressed: openMenu()
+            // Need this too because the base control sends onClicked for return/enter
+            onClicked: openMenu()
         }
     }
 

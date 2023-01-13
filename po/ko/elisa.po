@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:54+0000\n"
+"POT-Creation-Date: 2023-01-13 00:55+0000\n"
 "PO-Revision-Date: 2022-07-13 15:27+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -514,7 +514,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "지금 재생 중"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:196
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
 #, fuzzy, kde-format
 #| msgctxt "open the sidebar"
 #| msgid "Open sidebar"
@@ -539,7 +539,7 @@ msgid "Lyrics"
 msgstr "가사"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:238
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:159
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -717,7 +717,7 @@ msgid "View details"
 msgstr "자세한 정보 표시"
 
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:135
+#: qml/NavigationActionBar.qml:140
 #, fuzzy, kde-format
 #| msgid "Play now, replacing current playlist"
 msgctxt "@action:button"
@@ -959,7 +959,7 @@ msgctxt "@action:inmenu"
 msgid "None"
 msgstr "없음"
 
-#: qml/MediaPlayerControl.qml:248
+#: qml/MediaPlayerControl.qml:256
 #, fuzzy, kde-format
 #| msgctxt "open application menu"
 #| msgid "Application Menu"
@@ -1347,7 +1347,7 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "도움말"
 
-#: qml/NavigationActionBar.qml:83
+#: qml/NavigationActionBar.qml:93
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort: %1"
@@ -1355,7 +1355,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "정렬: %1"
 
-#: qml/NavigationActionBar.qml:85
+#: qml/NavigationActionBar.qml:95
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort"
@@ -1363,7 +1363,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "정렬"
 
-#: qml/NavigationActionBar.qml:111
+#: qml/NavigationActionBar.qml:116
 #, fuzzy, kde-format
 #| msgctxt "Create a new radio"
 #| msgid "Create a radio"
@@ -1371,7 +1371,7 @@ msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "라디오 만들기"
 
-#: qml/NavigationActionBar.qml:123
+#: qml/NavigationActionBar.qml:128
 #, fuzzy, kde-format
 #| msgctxt "Add current list to playlist"
 #| msgid "Add to Playlist"
@@ -1379,7 +1379,7 @@ msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "재생 목록에 추가"
 
-#: qml/NavigationActionBar.qml:147
+#: qml/NavigationActionBar.qml:152
 #, fuzzy, kde-format
 #| msgctxt "Button to navigate to the artist of the album"
 #| msgid "Display Artist"
@@ -1387,7 +1387,7 @@ msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "아티스트 표시"
 
-#: qml/NavigationActionBar.qml:204
+#: qml/NavigationActionBar.qml:209
 #, fuzzy, kde-format
 #| msgctxt "navigate back in the views stack"
 #| msgid "Back"
@@ -1395,7 +1395,7 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "뒤로"
 
-#: qml/NavigationActionBar.qml:283
+#: qml/NavigationActionBar.qml:288
 #, fuzzy, kde-format
 #| msgctxt "Show filters in the navigation bar"
 #| msgid "Search and Filter"
@@ -1403,7 +1403,7 @@ msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "검색과 필터"
 
-#: qml/NavigationActionBar.qml:283
+#: qml/NavigationActionBar.qml:288
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search and Filter"
@@ -1411,21 +1411,21 @@ msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "검색과 필터 숨기기"
 
-#: qml/NavigationActionBar.qml:385
+#: qml/NavigationActionBar.qml:390
 #, fuzzy, kde-format
 #| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "앨범 이름, 아티스트 등에서 검색합니다."
 
-#: qml/NavigationActionBar.qml:394
+#: qml/NavigationActionBar.qml:399
 #, fuzzy, kde-format
 #| msgid "Filter by rating: "
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "별점으로 필터링: "
 
-#: qml/NavigationActionBar.qml:409
+#: qml/NavigationActionBar.qml:414
 #, fuzzy, kde-format
 #| msgid "Only Show Favorites"
 msgctxt "@action:button"

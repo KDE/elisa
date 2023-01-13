@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:54+0000\n"
+"POT-Creation-Date: 2023-01-13 00:55+0000\n"
 "PO-Revision-Date: 2022-07-03 13:59+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -513,7 +513,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "İndi səslənir"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:196
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
 #, fuzzy, kde-format
 #| msgctxt "open the sidebar"
 #| msgid "Open sidebar"
@@ -538,7 +538,7 @@ msgid "Lyrics"
 msgstr "Sözlıri"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:238
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:159
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -716,7 +716,7 @@ msgid "View details"
 msgstr "Təfərrüatları göstərmək"
 
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:135
+#: qml/NavigationActionBar.qml:140
 #, fuzzy, kde-format
 #| msgid "Play now, replacing current playlist"
 msgctxt "@action:button"
@@ -958,7 +958,7 @@ msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Heç biri"
 
-#: qml/MediaPlayerControl.qml:248
+#: qml/MediaPlayerControl.qml:256
 #, fuzzy, kde-format
 #| msgctxt "open application menu"
 #| msgid "Application Menu"
@@ -1348,7 +1348,7 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Kömək"
 
-#: qml/NavigationActionBar.qml:83
+#: qml/NavigationActionBar.qml:93
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort: %1"
@@ -1356,7 +1356,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Çeşidləmək: %1"
 
-#: qml/NavigationActionBar.qml:85
+#: qml/NavigationActionBar.qml:95
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort"
@@ -1364,7 +1364,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Çeşidləmə"
 
-#: qml/NavigationActionBar.qml:111
+#: qml/NavigationActionBar.qml:116
 #, fuzzy, kde-format
 #| msgctxt "Create a new radio"
 #| msgid "Create a radio"
@@ -1372,7 +1372,7 @@ msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Radio yaratmaq"
 
-#: qml/NavigationActionBar.qml:123
+#: qml/NavigationActionBar.qml:128
 #, fuzzy, kde-format
 #| msgctxt "Add current list to playlist"
 #| msgid "Add to Playlist"
@@ -1380,7 +1380,7 @@ msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Mahnı siyahısına əlavə edin"
 
-#: qml/NavigationActionBar.qml:147
+#: qml/NavigationActionBar.qml:152
 #, fuzzy, kde-format
 #| msgctxt "Button to navigate to the artist of the album"
 #| msgid "Display Artist"
@@ -1388,7 +1388,7 @@ msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "İfaçını göstərmək"
 
-#: qml/NavigationActionBar.qml:204
+#: qml/NavigationActionBar.qml:209
 #, fuzzy, kde-format
 #| msgctxt "navigate back in the views stack"
 #| msgid "Back"
@@ -1396,7 +1396,7 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Geriyə"
 
-#: qml/NavigationActionBar.qml:283
+#: qml/NavigationActionBar.qml:288
 #, fuzzy, kde-format
 #| msgctxt "Show filters in the navigation bar"
 #| msgid "Search and Filter"
@@ -1404,7 +1404,7 @@ msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Axtarış və Süzgəc"
 
-#: qml/NavigationActionBar.qml:283
+#: qml/NavigationActionBar.qml:288
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search and Filter"
@@ -1412,21 +1412,21 @@ msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Axtarış və Süzgəci gizlədin"
 
-#: qml/NavigationActionBar.qml:385
+#: qml/NavigationActionBar.qml:390
 #, fuzzy, kde-format
 #| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Albom adı, ifaçı və s. üzrə axtarış."
 
-#: qml/NavigationActionBar.qml:394
+#: qml/NavigationActionBar.qml:399
 #, fuzzy, kde-format
 #| msgid "Filter by rating: "
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Reytingə görə filtr: "
 
-#: qml/NavigationActionBar.qml:409
+#: qml/NavigationActionBar.qml:414
 #, fuzzy, kde-format
 #| msgid "Only Show Favorites"
 msgctxt "@action:button"

@@ -52,7 +52,6 @@
         <file>qml/mobile/MobileVolumeButton.qml</file>
         <file>qml/shared/BasePlayerControl.qml</file>
         <file>qml/shared/BasePlayListDelegate.qml</file>
-        <file>qml/FooterBar.qml</file>
     </qresource>
     <qresource prefix="/qml/+windows">
         <file alias="Theme.qml">windows/WindowsTheme.qml</file>

@@ -30,13 +30,10 @@ FocusScope {
     property int imageSourceSize: 512
 
     property bool portrait: (contentZone.height/contentZone.width) > 0.7
-    property bool transitionsEnabled: true
 
     property double smallerDimension: contentZone.height < contentZone.width?
                                         contentZone.height - 4 * Kirigami.Units.largeSpacing:
                                         contentZone.width - 4 * Kirigami.Units.largeSpacing
-
-    property int handlePosition: implicitHeight
 
     signal openArtist()
     signal openAlbum()
@@ -49,16 +46,11 @@ FocusScope {
         }
 
         newImage = image
-        if (transitionsEnabled) {
-            changeBackgroundTransition.start()
-        } else {
-            oldImage = newImage
-        }
+        changeBackgroundTransition.start()
     }
 
     Item {
         id: background
-        visible: headerBar.height > playControlItem.height
         anchors.fill: parent
 
         ImageWithFallback {
@@ -69,16 +61,10 @@ FocusScope {
             asynchronous: true
 
             anchors.fill: parent
+            fillMode: Image.PreserveAspectCrop
 
             // make the FastBlur effect more strong
             sourceSize.height: 10
-            // Switch to Stretch if the effective height of the image to blur would be 0 with PreserveAspectCrop
-            // We need to know the aspect ratio, which we compute from oldMainIcon.painted*, because:
-            // - QML does not currently provide a direct way to get original source dimensions
-            // - painted* of this image won't get us the right value when fillMode is set to Stretch
-            // - oldMainIcon uses the same source and is set to preserve aspect ratio
-            fillMode: width / height < oldMainIcon.paintedWidth / oldMainIcon.paintedHeight * sourceSize.height
-                      ? Image.PreserveAspectCrop : Image.Stretch
 
             opacity: 1
 
@@ -148,19 +134,12 @@ FocusScope {
         id: playControlItem
 
         focus: true
-        z: 1
 
         anchors.left: background.left
         anchors.right: background.right
         anchors.bottom: background.bottom
 
         height: elisaTheme.mediaPlayerControlHeight
-        isTranslucent: headerBar.height > elisaTheme.mediaPlayerControlHeight
-        isNearCollapse: headerBar.height < elisaTheme.mediaPlayerControlHeight * 2
-
-        onHandlePositionChanged: {
-            handlePosition = headerBar.height - offset + y
-        }
     }
 
     ColumnLayout {
@@ -182,12 +161,12 @@ FocusScope {
 
         GridLayout {
             id: gridLayoutContent
-            visible: contentZone.height > mainLabel.height
 
             columns: portrait? 1: 2
 
             columnSpacing: Kirigami.Units.largeSpacing * (isMaximized ? 4 : 1)
             rowSpacing: Kirigami.Units.largeSpacing
+
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
@@ -199,7 +178,6 @@ FocusScope {
             Layout.maximumWidth: contentZone.width - 2 * ((!portrait && !isMaximized) ? contentZone.width * 0.15 : 4 * Kirigami.Units.largeSpacing)
 
             Behavior on Layout.topMargin {
-                enabled: transitionsEnabled
                 NumberAnimation {
                     easing.type: Easing.InOutQuad
                     duration: Kirigami.Units.shortDuration
@@ -207,7 +185,6 @@ FocusScope {
             }
 
             Behavior on Layout.leftMargin {
-                enabled: transitionsEnabled
                 NumberAnimation {
                     easing.type: Easing.InOutQuad
                     duration: Kirigami.Units.shortDuration
@@ -228,8 +205,7 @@ FocusScope {
 
                 Layout.preferredHeight: imageSize
                 Layout.preferredWidth: imageSize
-                Layout.minimumHeight: mainLabel.height - Kirigami.Units.smallSpacing
-                Layout.minimumWidth: mainLabel.height - Kirigami.Units.smallSpacing
+
 
                 ImageWithFallback {
                     id: oldMainIcon
@@ -276,136 +252,96 @@ FocusScope {
             }
 
             ColumnLayout {
-                // fillHeight needs to adapt to playlist height when isMaximized && !portrait
-                Layout.fillHeight: trackInfoGrid.height + playLoader.implicitHeight > images.height
-                Layout.alignment: Qt.AlignTop
-                Grid {
-                    // Part of HeaderBar that shows track information. Depending on it's size, that information is
-                    // shown in a Column, Row or completely hidden (visibility handled in parent).
-                    id: trackInfoGrid
-                    flow: Grid.TopToBottom
-                    rows: 4
-                    columns: 1
-                    verticalItemAlignment: Grid.AlignVCenter
-                    horizontalItemAlignment: portrait && isMaximized ? Grid.AlignHCenter : Grid.AlignLeft
+                spacing: 0
+                Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
 
-                    rowSpacing: Kirigami.Units.largeSpacing
-                    columnSpacing: Kirigami.Units.largeSpacing * 6
-                    Layout.alignment:  (portrait && isMaximized ? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-                    Layout.fillWidth: !(portrait && isMaximized)
-                    Layout.fillHeight: isMaximized
-                    Layout.maximumHeight: {
-                        var h = headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing
-                        if (h < gridLayoutContent.height)
-                            return h
-                        return gridLayoutContent.height + 8
-                    }
+                Layout.maximumHeight: (headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing) < gridLayoutContent.height ? (headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing): gridLayoutContent.height
 
-                    states: State {
-                        name: "leftToRight"
-                        when: contentZone.height < (mainLabel.height * 3 + Kirigami.Units.largeSpacing * 4
-                                                + (ratingVisible ? mainRating.height + Kirigami.Units.largeSpacing : 0) )
-                        PropertyChanges {
-                            target: trackInfoGrid
-                            flow: Grid.LeftToRight
-                            Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignVCenter
-                            Layout.maximumHeight: gridLayoutContent.height
-                            rows: 1
-                            columns: 4
+                LabelWithToolTip {
+                    id: mainLabel
+                    text: title
+                    Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    Layout.fillWidth: true
+                    horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+
+                    level: 1
+                    font.bold: true
+
+                    MouseArea {
+                        id: titleMouseArea
+                        width: Math.min(parent.implicitWidth, parent.width)
+                        height: parent.height
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openNowPlaying()
                         }
-                    }
-
-                    move: Transition {
-                        NumberAnimation {
-                            // if Maximized, this would happen after change from and to portrait-layout, which we don't want
-                            properties: isMaximized ? "" : "x,y"
-                            easing.type: Easing.InOutCubic
-                            duration: Kirigami.Units.longDuration
-                        }
-                    }
-
-                    LabelWithToolTip {
-                        id: mainLabel
-                        text: title
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignVCenter
-                        Layout.fillWidth: true
-                        horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-                        level: 1
-                        font.bold: true
-
-                        MouseArea {
-                            id: titleMouseArea
-                            width: Math.min(parent.implicitWidth, parent.width)
-                            height: parent.height
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                openNowPlaying()
-                            }
-                        }
-                    }
-
-                    LabelWithToolTip {
-                        id: authorLabel
-                        text: artist
-                        Layout.alignment: portrait? Qt.AlignHCenter: Qt.AlignLeft | Qt.AlignVCenter
-                        Layout.fillWidth: false
-                        horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-
-                        level: 3
-
-                        MouseArea {
-                            id: authorMouseArea
-                            width: Math.min(parent.implicitWidth, parent.width)
-                            height: parent.height
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                openArtist()
-                            }
-                        }
-                    }
-
-                    LabelWithToolTip {
-                        id: albumLabel
-                        text: album
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignVCenter
-                        Layout.fillWidth: true
-                        horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-
-                        level: 3
-
-                        MouseArea {
-                            id: albumMouseArea
-                            width: Math.min(parent.implicitWidth, parent.width)
-                            height: parent.height
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: {
-                                openAlbum()
-                            }
-                        }
-                    }
-
-                    RatingStar {
-                        id: mainRating
-                        visible: ratingVisible
-                        starRating: trackRating
-                        Layout.fillWidth: true
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignVCenter
                     }
                 }
+
+                LabelWithToolTip {
+                    id: authorLabel
+                    text: artist
+                    Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    Layout.fillWidth: true
+                    horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+
+                    level: 3
+
+                    MouseArea {
+                        id: authorMouseArea
+                        width: Math.min(parent.implicitWidth, parent.width)
+                        height: parent.height
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openArtist()
+                        }
+                    }
+                }
+
+                LabelWithToolTip {
+                    id: albumLabel
+                    text: album
+                    Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    Layout.fillWidth: true
+                    horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+
+                    level: 3
+
+                    MouseArea {
+                        id: albumMouseArea
+                        width: Math.min(parent.implicitWidth, parent.width)
+                        height: parent.height
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            openAlbum()
+                        }
+                    }
+                }
+
+                RatingStar {
+                    id: mainRating
+                    visible: ratingVisible
+                    starRating: trackRating
+                    Layout.fillWidth: true
+                    Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                }
+
                 Loader {
                     id: playLoader
                     active: headerBar.isMaximized
-                    visible: headerBar.isMaximized
 
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.fillHeight:  true
                     Layout.alignment: Qt.AlignRight | Qt.AlignTop
                     Layout.topMargin: Kirigami.Units.largeSpacing
 
                     sourceComponent: SimplePlayListView {
                         model: ElisaApplication.mediaPlayListProxyModel
                     }
+
                 }
             }
         }

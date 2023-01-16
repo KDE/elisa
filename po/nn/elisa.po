@@ -1,12 +1,12 @@
 # Translation of elisa to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2017, 2018, 2019, 2020, 2021, 2022.
+# Karl Ove Hufthammer <karl@huftis.org>, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:54+0000\n"
-"PO-Revision-Date: 2022-10-30 09:39+0100\n"
+"POT-Creation-Date: 2023-01-13 00:55+0000\n"
+"PO-Revision-Date: 2023-01-15 12:21+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.1\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -448,7 +448,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Spelar no"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:196
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -468,7 +468,7 @@ msgstr "Songtekst"
 
 # unreviewed-context
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:238
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:159
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -588,7 +588,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr ""
+msgstr "m3u8-/m3u-spelelistefil (*.m3u*)"
 
 #: qml/ElisaMainWindow.qml:155
 #, kde-format
@@ -596,7 +596,7 @@ msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr ""
+msgstr "pls-spelelistefil (*.pls)"
 
 #: qml/ElisaMainWindow.qml:162
 #, kde-format
@@ -604,7 +604,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
 "do not translate *.m3u8 *.m3u *.pls"
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr ""
+msgstr "m3u8-/m3u-/pls-spelelistefil (*.m3u8 *.m3u *.pls)"
 
 # unreviewed-context
 #: qml/ElisaMainWindow.qml:174
@@ -631,7 +631,7 @@ msgstr "Vis detaljar"
 
 # unreviewed-context
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:135
+#: qml/NavigationActionBar.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -842,7 +842,7 @@ msgid "None"
 msgstr "Ingen"
 
 # unreviewed-context
-#: qml/MediaPlayerControl.qml:248
+#: qml/MediaPlayerControl.qml:256
 #, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"
@@ -1180,72 +1180,72 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Hjelp"
 
-#: qml/NavigationActionBar.qml:83
+#: qml/NavigationActionBar.qml:93
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Sortering: %1"
 
-#: qml/NavigationActionBar.qml:85
+#: qml/NavigationActionBar.qml:95
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Sorter"
 
-#: qml/NavigationActionBar.qml:111
+#: qml/NavigationActionBar.qml:116
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Legg til radiokanal"
 
-#: qml/NavigationActionBar.qml:123
+#: qml/NavigationActionBar.qml:128
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Legg til i speleliste"
 
-#: qml/NavigationActionBar.qml:147
+#: qml/NavigationActionBar.qml:152
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Vis artist"
 
-#: qml/NavigationActionBar.qml:204
+#: qml/NavigationActionBar.qml:209
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Tilbake"
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:283
+#: qml/NavigationActionBar.qml:288
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Søk og filtrering"
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:283
+#: qml/NavigationActionBar.qml:288
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Gøyme søkje- og filterlinja"
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:385
+#: qml/NavigationActionBar.qml:390
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Søk etter albumtittel, artist, …"
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:394
+#: qml/NavigationActionBar.qml:399
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrer etter karakter: "
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:409
+#: qml/NavigationActionBar.qml:414
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

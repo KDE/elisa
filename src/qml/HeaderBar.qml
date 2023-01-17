@@ -220,8 +220,8 @@ FocusScope {
                     fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
 
                     sourceSize {
-                        width: imageSourceSize
-                        height: imageSourceSize
+                        width: imageSourceSize * Screen.devicePixelRatio
+                        height: imageSourceSize * Screen.devicePixelRatio
                     }
 
                     fillMode: Image.PreserveAspectFit
@@ -243,8 +243,8 @@ FocusScope {
                     opacity: 0
 
                     sourceSize {
-                        width: imageSourceSize
-                        height: imageSourceSize
+                        width: imageSourceSize * Screen.devicePixelRatio
+                        height: imageSourceSize * Screen.devicePixelRatio
                     }
 
                     fillMode: Image.PreserveAspectFit

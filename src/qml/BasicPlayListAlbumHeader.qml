@@ -5,6 +5,7 @@
  */
 
 import QtQuick 2.7
+import QtQuick.Window 2.2
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import org.kde.kirigami 2.10 as Kirigami
@@ -46,8 +47,8 @@ Kirigami.ListSectionHeader {
             source: imageUrl
             fallback: elisaTheme.defaultAlbumImage
 
-            sourceSize.width: height
-            sourceSize.height: height
+            sourceSize.width: height * Screen.devicePixelRatio
+            sourceSize.height: height * Screen.devicePixelRatio
 
             fillMode: Image.PreserveAspectFit
             asynchronous: true

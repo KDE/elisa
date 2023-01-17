@@ -144,8 +144,8 @@ FocusScope {
                 id: coverImage
                 property var imageSource
 
-                sourceSize.width: width
-                sourceSize.height: height
+                sourceSize.width: width * Screen.devicePixelRatio
+                sourceSize.height: height * Screen.devicePixelRatio
                 fillMode: Image.PreserveAspectFit
 
                 source: imageSource ? imageSource : ""

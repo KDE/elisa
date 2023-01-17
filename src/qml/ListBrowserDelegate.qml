@@ -123,8 +123,8 @@ FocusScope {
                 sourceComponent: ImageWithFallback {
                     id: coverImageElement
 
-                    sourceSize.width: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
-                    sourceSize.height: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
+                    sourceSize.width: (mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)) * Screen.devicePixelRatio
+                    sourceSize.height: (mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)) * Screen.devicePixelRatio
                     fillMode: Image.PreserveAspectFit
                     smooth: true
 

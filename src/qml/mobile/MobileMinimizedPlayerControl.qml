@@ -8,8 +8,9 @@
 
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
-import ElisaGraphicalEffects 1.15
 import QtQuick.Controls 2.7
+import QtQuick.Window 2.2
+import ElisaGraphicalEffects 1.15
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
@@ -127,8 +128,8 @@ BasePlayerControl {
                         fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
 
                         sourceSize {
-                            width: imageSourceSize
-                            height: imageSourceSize
+                            width: imageSourceSize * Screen.devicePixelRatio
+                            height: imageSourceSize * Screen.devicePixelRatio
                         }
 
                         fillMode: Image.PreserveAspectFit

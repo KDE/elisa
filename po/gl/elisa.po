@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-29 02:31+0000\n"
+"POT-Creation-Date: 2023-01-19 02:57+0000\n"
 "PO-Revision-Date: 2019-08-24 16:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -825,7 +825,7 @@ msgid "Toggle Party Mode"
 msgstr "Conmutar a orde"
 
 #: qml/MediaPlayerControl.qml:58
-#: qml/mobile/MobileMinimizedPlayerControl.qml:225
+#: qml/mobile/MobileMinimizedPlayerControl.qml:226
 #: qml/mobile/MobileTrackPlayer.qml:318
 #, fuzzy, kde-format
 #| msgctxt "skip backward in playlists"
@@ -835,7 +835,7 @@ msgid "Skip Backward"
 msgstr "Saltar cara atrás"
 
 #: qml/MediaPlayerControl.qml:66
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, fuzzy, kde-format
 #| msgctxt "Pause current track from play list"
@@ -845,7 +845,7 @@ msgid "Pause"
 msgstr "Pór en pausa"
 
 #: qml/MediaPlayerControl.qml:66
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of the playlist"
@@ -1099,7 +1099,7 @@ msgctxt "@action:button"
 msgid "Close"
 msgstr ""
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:257
+#: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:348
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"

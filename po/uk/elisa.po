@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-29 02:31+0000\n"
+"POT-Creation-Date: 2023-01-19 02:57+0000\n"
 "PO-Revision-Date: 2022-09-09 13:34+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -697,7 +697,7 @@ msgid "Toggle Party Mode"
 msgstr "Перемкнути режим вечірки"
 
 #: qml/MediaPlayerControl.qml:58
-#: qml/mobile/MobileMinimizedPlayerControl.qml:225
+#: qml/mobile/MobileMinimizedPlayerControl.qml:226
 #: qml/mobile/MobileTrackPlayer.qml:318
 #, kde-format
 msgctxt "@action:button"
@@ -705,7 +705,7 @@ msgid "Skip Backward"
 msgstr "Гортати назад"
 
 #: qml/MediaPlayerControl.qml:66
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
@@ -713,7 +713,7 @@ msgid "Pause"
 msgstr "Пауза"
 
 #: qml/MediaPlayerControl.qml:66
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
 msgctxt "@action:button Start playing media"
@@ -920,7 +920,7 @@ msgctxt "@action:button"
 msgid "Close"
 msgstr "Закрити"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:257
+#: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:348
 #, kde-format
 msgctxt "@action:button"

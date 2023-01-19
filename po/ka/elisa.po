@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-29 02:31+0000\n"
+"POT-Creation-Date: 2023-01-19 02:57+0000\n"
 "PO-Revision-Date: 2022-11-26 07:09+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -695,7 +695,7 @@ msgid "Toggle Party Mode"
 msgstr "წვეულების რეჟიმის გადართვა"
 
 #: qml/MediaPlayerControl.qml:58
-#: qml/mobile/MobileMinimizedPlayerControl.qml:225
+#: qml/mobile/MobileMinimizedPlayerControl.qml:226
 #: qml/mobile/MobileTrackPlayer.qml:318
 #, kde-format
 msgctxt "@action:button"
@@ -703,7 +703,7 @@ msgid "Skip Backward"
 msgstr "უკან გადახტომა"
 
 #: qml/MediaPlayerControl.qml:66
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
@@ -711,7 +711,7 @@ msgid "Pause"
 msgstr "შეჩერება"
 
 #: qml/MediaPlayerControl.qml:66
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
 msgctxt "@action:button Start playing media"
@@ -914,7 +914,7 @@ msgctxt "@action:button"
 msgid "Close"
 msgstr "დახურვა"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:257
+#: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:348
 #, kde-format
 msgctxt "@action:button"

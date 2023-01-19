@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-13 00:55+0000\n"
+"POT-Creation-Date: 2023-01-19 00:57+0000\n"
 "PO-Revision-Date: 2022-02-01 10:43+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -858,7 +858,7 @@ msgid "Toggle Party Mode"
 msgstr "Parti mód be-/kikapcsolása"
 
 #: qml/MediaPlayerControl.qml:96
-#: qml/mobile/MobileMinimizedPlayerControl.qml:225
+#: qml/mobile/MobileMinimizedPlayerControl.qml:226
 #: qml/mobile/MobileTrackPlayer.qml:318
 #, fuzzy, kde-format
 #| msgctxt "skip backward in playlists"
@@ -868,7 +868,7 @@ msgid "Skip Backward"
 msgstr "Kihagyás visszafelé"
 
 #: qml/MediaPlayerControl.qml:104
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, fuzzy, kde-format
 #| msgid "Pause"
@@ -877,7 +877,7 @@ msgid "Pause"
 msgstr "Szünet"
 
 #: qml/MediaPlayerControl.qml:104
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, fuzzy, kde-format
 #| msgid "Play"
@@ -1127,7 +1127,7 @@ msgctxt "@action:button"
 msgid "Close"
 msgstr "Bezárás"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:257
+#: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:348
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"

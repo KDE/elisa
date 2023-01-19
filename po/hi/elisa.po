@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-13 00:55+0000\n"
+"POT-Creation-Date: 2023-01-19 00:57+0000\n"
 "PO-Revision-Date: 2022-02-10 11:46+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -858,7 +858,7 @@ msgid "Toggle Party Mode"
 msgstr "पार्टी मोड टॉगल करें"
 
 #: qml/MediaPlayerControl.qml:96
-#: qml/mobile/MobileMinimizedPlayerControl.qml:225
+#: qml/mobile/MobileMinimizedPlayerControl.qml:226
 #: qml/mobile/MobileTrackPlayer.qml:318
 #, fuzzy, kde-format
 #| msgctxt "skip backward in playlists"
@@ -868,7 +868,7 @@ msgid "Skip Backward"
 msgstr "पीछें जाएँ"
 
 #: qml/MediaPlayerControl.qml:104
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, fuzzy, kde-format
 #| msgid "Pause"
@@ -877,7 +877,7 @@ msgid "Pause"
 msgstr "रोकें"
 
 #: qml/MediaPlayerControl.qml:104
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, fuzzy, kde-format
 #| msgid "Play"
@@ -1127,7 +1127,7 @@ msgctxt "@action:button"
 msgid "Close"
 msgstr "बंद करें"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:257
+#: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:348
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"

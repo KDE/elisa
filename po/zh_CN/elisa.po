@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-13 00:55+0000\n"
+"POT-Creation-Date: 2023-01-19 00:57+0000\n"
 "PO-Revision-Date: 2023-01-12 10:29\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -709,7 +709,7 @@ msgid "Toggle Party Mode"
 msgstr "切换派对模式"
 
 #: qml/MediaPlayerControl.qml:96
-#: qml/mobile/MobileMinimizedPlayerControl.qml:225
+#: qml/mobile/MobileMinimizedPlayerControl.qml:226
 #: qml/mobile/MobileTrackPlayer.qml:318
 #, kde-format
 msgctxt "@action:button"
@@ -717,7 +717,7 @@ msgid "Skip Backward"
 msgstr "上一曲目"
 
 #: qml/MediaPlayerControl.qml:104
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
@@ -725,7 +725,7 @@ msgid "Pause"
 msgstr "暂停"
 
 #: qml/MediaPlayerControl.qml:104
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
 msgctxt "@action:button Start playing media"
@@ -924,7 +924,7 @@ msgctxt "@action:button"
 msgid "Close"
 msgstr "关闭"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:257
+#: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:348
 #, kde-format
 msgctxt "@action:button"

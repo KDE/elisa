@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-29 02:31+0000\n"
+"POT-Creation-Date: 2023-01-19 02:57+0000\n"
 "PO-Revision-Date: 2022-10-30 09:39+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -741,7 +741,7 @@ msgid "Toggle Party Mode"
 msgstr "Festmodus på/av"
 
 #: qml/MediaPlayerControl.qml:58
-#: qml/mobile/MobileMinimizedPlayerControl.qml:225
+#: qml/mobile/MobileMinimizedPlayerControl.qml:226
 #: qml/mobile/MobileTrackPlayer.qml:318
 #, kde-format
 msgctxt "@action:button"
@@ -749,7 +749,7 @@ msgid "Skip Backward"
 msgstr "Spol bakover"
 
 #: qml/MediaPlayerControl.qml:66
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
@@ -757,7 +757,7 @@ msgid "Pause"
 msgstr "Pause"
 
 #: qml/MediaPlayerControl.qml:66
-#: qml/mobile/MobileMinimizedPlayerControl.qml:241
+#: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, kde-format
 msgctxt "@action:button Start playing media"
@@ -980,7 +980,7 @@ msgid "Close"
 msgstr "Lukk"
 
 # unreviewed-context
-#: qml/mobile/MobileMinimizedPlayerControl.qml:257
+#: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:348
 #, kde-format
 msgctxt "@action:button"

@@ -239,7 +239,7 @@ bool LyricsModel::LyricsModelPrivate::parse(const QString &lyric)
         timeStamps.clear();
     }
 
-    std::sort(lyrics.begin(),
+    std::stable_sort(lyrics.begin(),
               lyrics.end(),
               [](const std::pair<QString, qint64> &lhs,
                  const std::pair<QString, qint64> &rhs) {

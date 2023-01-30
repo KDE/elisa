@@ -4742,11 +4742,11 @@ private Q_SLOTS:
         auto frequentlyPlayedTracksData = musicDb.frequentlyPlayedTracksData(5);
 
         QCOMPARE(frequentlyPlayedTracksData.count(), 5);
-        QCOMPARE(frequentlyPlayedTracksData[0].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$17")));
-        QCOMPARE(frequentlyPlayedTracksData[1].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$2")));
-        QCOMPARE(frequentlyPlayedTracksData[2].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$18")));
-        QCOMPARE(frequentlyPlayedTracksData[3].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$7")));
-        QCOMPARE(frequentlyPlayedTracksData[4].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$9")));
+        QCOMPARE(frequentlyPlayedTracksData[0].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$2")));
+        QCOMPARE(frequentlyPlayedTracksData[1].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$7")));
+        QCOMPARE(frequentlyPlayedTracksData[2].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$9")));
+        QCOMPARE(frequentlyPlayedTracksData[3].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$17")));
+        QCOMPARE(frequentlyPlayedTracksData[4].resourceURI(), QUrl::fromLocalFile(QStringLiteral("/$18")));
     }
 
     void readAllGenresData()

@@ -151,6 +151,8 @@ public Q_SLOTS:
 
     void trackHasStartedPlaying(const QUrl &fileName, const QDateTime &time);
 
+    void trackHasFinishedPlaying(const QUrl &fileName, const QDateTime &time);
+
     void clearData();
 
     void removeRadio(qulonglong radioId);
@@ -293,7 +295,9 @@ private:
 
     QVariantList internalGetLatestFourCoversForArtist(const QString& artistName);
 
-    void updateTrackStatistics(const QUrl &fileName, const QDateTime &time);
+    void updateTrackStartedStatistics(const QUrl &fileName, const QDateTime &time);
+
+    void updateTrackFinishedStatistics(const QUrl &fileName, const QDateTime &time);
 
     void createDatabaseV9();
 

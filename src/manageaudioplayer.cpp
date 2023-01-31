@@ -263,6 +263,9 @@ void ManageAudioPlayer::setPlayerPlaybackState(QMediaPlayer::PlaybackState playe
     if (!mSkippingCurrentTrack) {
         switch(mPlayerPlaybackState) {
         case QMediaPlayer::StoppedState:
+            if (mPlayerStatus == QMediaPlayer::EndOfMedia) {
+                Q_EMIT finishedPlayingTrack(mCurrentTrack.data(mUrlRole).toUrl(), QDateTime::currentDateTime());
+            }
             if (mPlayerStatus == QMediaPlayer::EndOfMedia || mPlayerStatus == QMediaPlayer::InvalidMedia) {
                 triggerSkipNextTrack();
             }

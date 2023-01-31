@@ -197,6 +197,8 @@ Q_SIGNALS:
 
     void startedPlayingTrack(const QUrl &fileName, const QDateTime &time);
 
+    void finishedPlayingTrack(const QUrl &fileName, const QDateTime &time);
+
     void updateData(const QPersistentModelIndex &index, const QVariant &value, int role);
 
 public Q_SLOTS:

@@ -118,7 +118,8 @@ public:
           mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery(mTracksDatabase),
           mSelectAllAlbumsFromArtistQuery(mTracksDatabase), mSelectAllArtistsQuery(mTracksDatabase),
           mInsertArtistsQuery(mTracksDatabase), mSelectArtistByNameQuery(mTracksDatabase),
-          mSelectArtistQuery(mTracksDatabase), mUpdateTrackStatistics(mTracksDatabase),
+          mSelectArtistQuery(mTracksDatabase),
+          mUpdateTrackStartedStatistics(mTracksDatabase), mUpdateTrackFinishedStatistics(mTracksDatabase),
           mRemoveTrackQuery(mTracksDatabase), mRemoveAlbumQuery(mTracksDatabase),
           mRemoveArtistQuery(mTracksDatabase), mSelectAllTracksQuery(mTracksDatabase),
           mSelectAllRadiosQuery(mTracksDatabase),
@@ -198,7 +199,9 @@ public:
 
     QSqlQuery mSelectArtistQuery;
 
-    QSqlQuery mUpdateTrackStatistics;
+    QSqlQuery mUpdateTrackStartedStatistics;
+
+    QSqlQuery mUpdateTrackFinishedStatistics;
 
     QSqlQuery mRemoveTrackQuery;
 
@@ -1010,7 +1013,22 @@ void DatabaseInterface::trackHasStartedPlaying(const QUrl &fileName, const QDate
         return;
     }
 
-    updateTrackStatistics(fileName, time);
+    updateTrackStartedStatistics(fileName, time);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return;
+    }
+}
+
+void DatabaseInterface::trackHasFinishedPlaying(const QUrl &fileName, const QDateTime &time)
+{
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return;
+    }
+
+    updateTrackFinishedStatistics(fileName, time);
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -6442,18 +6460,34 @@ void DatabaseInterface::initRequest()
     }
 
     {
-        auto updateTrackStatisticsQueryText = QStringLiteral("UPDATE `TracksData` "
+        auto updateTrackStartedStatisticsQueryText = QStringLiteral("UPDATE `TracksData` "
                                                              "SET "
-                                                             "`LastPlayDate` = :playDate, "
+                                                             "`LastPlayDate` = :playDate "
+                                                             "WHERE "
+                                                             "`FileName` = :fileName");
+
+        auto result = prepareQuery(d->mUpdateTrackStartedStatistics, updateTrackStartedStatisticsQueryText);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateTrackStartedStatistics.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateTrackStartedStatistics.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        auto updateTrackFinishedStatisticsQueryText = QStringLiteral("UPDATE `TracksData` "
+                                                             "SET "
                                                              "`PlayCounter` = `PlayCounter` + 1 "
                                                              "WHERE "
                                                              "`FileName` = :fileName");
 
-        auto result = prepareQuery(d->mUpdateTrackStatistics, updateTrackStatisticsQueryText);
+        auto result = prepareQuery(d->mUpdateTrackFinishedStatistics, updateTrackFinishedStatisticsQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateTrackStatistics.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateTrackStatistics.lastError();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateTrackFinishedStatistics.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initRequest" << d->mUpdateTrackFinishedStatistics.lastError();
 
             Q_EMIT databaseError();
         }
@@ -8751,26 +8785,48 @@ QVariantList DatabaseInterface::internalGetLatestFourCoversForArtist(const QStri
     return covers;
 }
 
-void DatabaseInterface::updateTrackStatistics(const QUrl &fileName, const QDateTime &time)
+void DatabaseInterface::updateTrackStartedStatistics(const QUrl &fileName, const QDateTime &time)
 {
-    d->mUpdateTrackStatistics.bindValue(QStringLiteral(":fileName"), fileName);
-    d->mUpdateTrackStatistics.bindValue(QStringLiteral(":playDate"), time.toMSecsSinceEpoch());
+    d->mUpdateTrackStartedStatistics.bindValue(QStringLiteral(":fileName"), fileName);
+    d->mUpdateTrackStartedStatistics.bindValue(QStringLiteral(":playDate"), time.toMSecsSinceEpoch());
 
-    auto queryResult = execQuery(d->mUpdateTrackStatistics);
+    auto queryResult = execQuery(d->mUpdateTrackStartedStatistics);
 
-    if (!queryResult || !d->mUpdateTrackStatistics.isActive()) {
+    if (!queryResult || !d->mUpdateTrackStartedStatistics.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStatistics" << d->mUpdateTrackStatistics.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStatistics" << d->mUpdateTrackStatistics.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStatistics" << d->mUpdateTrackStatistics.lastError();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStartedStatistics" << d->mUpdateTrackStartedStatistics.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStartedStatistics" << d->mUpdateTrackStartedStatistics.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStartedStatistics" << d->mUpdateTrackStartedStatistics.lastError();
 
-        d->mUpdateTrackStatistics.finish();
+        d->mUpdateTrackStartedStatistics.finish();
 
         return;
     }
 
-    d->mUpdateTrackStatistics.finish();
+    d->mUpdateTrackStartedStatistics.finish();
+}
+
+void DatabaseInterface::updateTrackFinishedStatistics(const QUrl &fileName, const QDateTime &time)
+{
+    d->mUpdateTrackFinishedStatistics.bindValue(QStringLiteral(":fileName"), fileName);
+    d->mUpdateTrackFinishedStatistics.bindValue(QStringLiteral(":playDate"), time.toMSecsSinceEpoch());
+
+    auto queryResult = execQuery(d->mUpdateTrackFinishedStatistics);
+
+    if (!queryResult || !d->mUpdateTrackFinishedStatistics.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFinishedStatistics.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFinishedStatistics.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFinishedStatistics.lastError();
+
+        d->mUpdateTrackFinishedStatistics.finish();
+
+        return;
+    }
+
+    d->mUpdateTrackFinishedStatistics.finish();
 
     d->mUpdateTrackFirstPlayStatistics.bindValue(QStringLiteral(":fileName"), fileName);
     d->mUpdateTrackFirstPlayStatistics.bindValue(QStringLiteral(":playDate"), time.toMSecsSinceEpoch());
@@ -8780,9 +8836,9 @@ void DatabaseInterface::updateTrackStatistics(const QUrl &fileName, const QDateT
     if (!queryResult || !d->mUpdateTrackFirstPlayStatistics.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStatistics" << d->mUpdateTrackFirstPlayStatistics.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStatistics" << d->mUpdateTrackFirstPlayStatistics.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStatistics" << d->mUpdateTrackFirstPlayStatistics.lastError();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFirstPlayStatistics.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFirstPlayStatistics.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFirstPlayStatistics.lastError();
 
         d->mUpdateTrackFirstPlayStatistics.finish();
 
@@ -8791,6 +8847,5 @@ void DatabaseInterface::updateTrackStatistics(const QUrl &fileName, const QDateT
 
     d->mUpdateTrackFirstPlayStatistics.finish();
 }
-
 
 #include "moc_databaseinterface.cpp"

@@ -4649,6 +4649,17 @@ private Q_SLOTS:
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$5")), QDateTime::fromSecsSinceEpoch(1536689));
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$13")), QDateTime::fromSecsSinceEpoch(1537689));
 
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$9")), QDateTime::fromSecsSinceEpoch(1534689));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$17")), QDateTime::fromSecsSinceEpoch(1534692));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$16")), QDateTime::fromSecsSinceEpoch(1534759));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$8")), QDateTime::fromSecsSinceEpoch(1534869));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::fromSecsSinceEpoch(1535189));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$11")), QDateTime::fromSecsSinceEpoch(1535389));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$18")), QDateTime::fromSecsSinceEpoch(1535689));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$7")), QDateTime::fromSecsSinceEpoch(1536189));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$5")), QDateTime::fromSecsSinceEpoch(1536689));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$13")), QDateTime::fromSecsSinceEpoch(1537689));
+
         QCOMPARE(musicDb.allAlbumsData().count(), 5);
         QCOMPARE(musicDb.allArtistsData().count(), 7);
         QCOMPARE(musicDb.allTracksData().count(), 22);
@@ -4723,21 +4734,21 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$9")), QDateTime::fromSecsSinceEpoch(1553279650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$17")), QDateTime::fromSecsSinceEpoch(1553288650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$16")), QDateTime::fromSecsSinceEpoch(1553287650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$8")), QDateTime::fromSecsSinceEpoch(1553286650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::fromSecsSinceEpoch(1553285650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$11")), QDateTime::fromSecsSinceEpoch(1553284650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$18")), QDateTime::fromSecsSinceEpoch(1553283650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$7")), QDateTime::fromSecsSinceEpoch(1553282650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$5")), QDateTime::fromSecsSinceEpoch(1553281650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$13")), QDateTime::fromSecsSinceEpoch(1553280650));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$9")), QDateTime::fromSecsSinceEpoch(1553289660));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::fromSecsSinceEpoch(1553289680));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$18")), QDateTime::fromSecsSinceEpoch(1553289700));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$17")), QDateTime::fromSecsSinceEpoch(1553289720));
-        musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$7")), QDateTime::fromSecsSinceEpoch(1553289740));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$9")), QDateTime::fromSecsSinceEpoch(1553279650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$17")), QDateTime::fromSecsSinceEpoch(1553288650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$16")), QDateTime::fromSecsSinceEpoch(1553287650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$8")), QDateTime::fromSecsSinceEpoch(1553286650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::fromSecsSinceEpoch(1553285650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$11")), QDateTime::fromSecsSinceEpoch(1553284650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$18")), QDateTime::fromSecsSinceEpoch(1553283650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$7")), QDateTime::fromSecsSinceEpoch(1553282650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$5")), QDateTime::fromSecsSinceEpoch(1553281650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$13")), QDateTime::fromSecsSinceEpoch(1553280650));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$9")), QDateTime::fromSecsSinceEpoch(1553289660));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::fromSecsSinceEpoch(1553289680));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$18")), QDateTime::fromSecsSinceEpoch(1553289700));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$17")), QDateTime::fromSecsSinceEpoch(1553289720));
+        musicDb.trackHasFinishedPlaying(QUrl::fromLocalFile(QStringLiteral("/$7")), QDateTime::fromSecsSinceEpoch(1553289740));
 
         auto frequentlyPlayedTracksData = musicDb.frequentlyPlayedTracksData(5);
 

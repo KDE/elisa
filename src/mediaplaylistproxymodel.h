@@ -37,6 +37,9 @@ class ELISALIB_EXPORT PlaylistParser
 public:
     QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent);
     QString toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls);
+
+private:
+    void filterImported(QList<QUrl>& result, const QUrl &playlistUrl);
 };
 
 class MediaPlayList;

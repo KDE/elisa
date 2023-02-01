@@ -106,6 +106,8 @@ QList<QUrl> PlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray 
             M3uPlaylistParser m3uPlaylistParser;
             result = m3uPlaylistParser.fromPlaylist(fileName, fileContent);
         }
+
+        filterImported(result, fileName);
     }
 
     return result;
@@ -125,6 +127,37 @@ QString PlaylistParser::toPlaylist(const QUrl &fileName, const QList<QString> &l
     }
 
     return result;
+}
+
+void PlaylistParser::filterImported(QList<QUrl>& result, const QUrl &playlistUrl)
+{
+    for (auto iterator = result.begin(); iterator != result.end();)
+    {
+        auto& url = *iterator;
+        if (!url.isLocalFile() || !playlistUrl.isLocalFile()) {
+            continue;
+        }
+
+        QString file = url.toLocalFile();
+
+        QFileInfo fileInfo(file);
+        if (fileInfo.isRelative()) {
+            auto absoluteDir = QFileInfo(playlistUrl.toLocalFile()).absoluteDir();
+            if (fileInfo.isDir()) {
+                file = absoluteDir.absolutePath() + QDir::separator() + fileInfo.path();
+            } else {
+                file = absoluteDir.absoluteFilePath(file);
+            }
+            fileInfo.setFile(file);
+            url = QUrl::fromLocalFile(file);
+        }
+
+        if (fileInfo.exists()) {
+            ++iterator;
+        } else {
+            iterator = result.erase(iterator);
+        }
+    }
 }
 
 class MediaPlayListProxyModelPrivate

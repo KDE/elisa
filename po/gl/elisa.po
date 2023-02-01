@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-19 00:57+0000\n"
+"POT-Creation-Date: 2023-02-01 00:56+0000\n"
 "PO-Revision-Date: 2019-08-24 16:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -28,8 +28,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "adrian@chaves.io"
 
-#: databaseinterface.cpp:7217 databaseinterface.cpp:8263
-#: databaseinterface.cpp:8347
+#: databaseinterface.cpp:7251 databaseinterface.cpp:8297
+#: databaseinterface.cpp:8381
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "Artist name for albums with more than one artist (like compilations"
@@ -38,7 +38,7 @@ msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Varios intérpretes"
 
-#: databaseinterface.cpp:7280
+#: databaseinterface.cpp:7314
 #, fuzzy, kde-format
 #| msgctxt "Title of the file radios browser view"
 #| msgid "Radios"

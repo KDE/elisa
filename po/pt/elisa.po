@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-19 00:57+0000\n"
+"POT-Creation-Date: 2023-02-01 00:56+0000\n"
 "PO-Revision-Date: 2022-12-23 20:47+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -24,14 +24,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "zepires@gmail.com"
 
-#: databaseinterface.cpp:7217 databaseinterface.cpp:8263
-#: databaseinterface.cpp:8347
+#: databaseinterface.cpp:7251 databaseinterface.cpp:8297
+#: databaseinterface.cpp:8381
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Vários Artistas"
 
-#: databaseinterface.cpp:7280
+#: databaseinterface.cpp:7314
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

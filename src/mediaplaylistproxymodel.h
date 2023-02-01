@@ -193,10 +193,7 @@ public Q_SLOTS:
 
     void setPersistentState(const QVariantMap &persistentState);
 
-    void enqueueDirectory(const QUrl &fileName,
-                          ElisaUtils::PlayListEntryType databaseIdType,
-                          ElisaUtils::PlayListEnqueueMode enqueueMode,
-                          ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, int depth);
+    void enqueueDirectory(const QUrl &fileName, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, int depth);
 
 Q_SIGNALS:
 

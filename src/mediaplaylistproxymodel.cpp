@@ -907,13 +907,22 @@ void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
     PlaylistParser playlistParser;
     QList<QUrl> listOfUrls = playlistParser.fromPlaylist(fileName, fileContent);
 
+    ElisaUtils::PlayListEnqueueMode enqueueMode = ElisaUtils::ReplacePlayList;
+    ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay = ElisaUtils::DoNotTriggerPlay;
+
     DataTypes::EntryDataList newTracks = DataTypes::EntryDataList{};
-    for (const QUrl &oneUrl : listOfUrls) {
-        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-            {DataTypes::ResourceRole, oneUrl}}}, {}, {}});
+    for (QUrl &oneUrl : listOfUrls) {
+        if (oneUrl.isLocalFile()) {
+            if (QFileInfo(oneUrl.toLocalFile()).isDir()) {
+                enqueueDirectory(oneUrl, enqueueMode, triggerPlay, 5);
+                enqueueMode = ElisaUtils::AppendPlayList;
+                continue;
+            }
+        }
+        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, oneUrl}}}, {}, {}});
     }
 
-    enqueue(newTracks, ElisaUtils::ReplacePlayList, ElisaUtils::DoNotTriggerPlay);
+    enqueue(newTracks, enqueueMode, triggerPlay);
 
     Q_EMIT persistentStateChanged();
     Q_EMIT playListLoaded();
@@ -967,9 +976,10 @@ void MediaPlayListProxyModel::setPersistentState(const QVariantMap &persistentSt
     Q_EMIT persistentStateChanged();
 }
 
-void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName, ElisaUtils::PlayListEntryType databaseIdType,
-                                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, int depth)
+void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName,
+                                               ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                               ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay,
+                                               int depth)
 {
     if (!fileName.isLocalFile()) return;
     // clear playlist if required
@@ -993,7 +1003,7 @@ void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName, ElisaUtils:
         else if (file.isDir() && depth > 1)
         {
             // recurse through directory
-            enqueueDirectory(fileUrl, databaseIdType, ElisaUtils::AppendPlayList, triggerPlay, depth-1);
+            enqueueDirectory(fileUrl, ElisaUtils::AppendPlayList, triggerPlay, depth-1);
         }
     }
     if (newFiles.size() != 0) enqueue(newFiles, ElisaUtils::AppendPlayList, triggerPlay);

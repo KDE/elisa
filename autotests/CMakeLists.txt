@@ -211,3 +211,12 @@ ecm_add_test(${filewriterTest_SOURCES}
     TEST_NAME "filewriterTest"
     LINK_LIBRARIES Qt::Test elisaLib
 )
+
+set(lyricmodelTest_SOURCES
+    lyricmodeltest.cpp
+)
+
+ecm_add_test(${lyricmodelTest_SOURCES}
+    TEST_NAME "lyricmodelTest"
+    LINK_LIBRARIES Qt::Test elisaLib
+)

@@ -109,7 +109,6 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
                         break;
                 }
             } else {
-                begin++;
                 return -1;
             }
             break;
@@ -128,15 +127,19 @@ LyricsModel::LyricsModelPrivate::parseOneLine(QString::const_iterator &begin,
     auto size{0};
     auto it = begin;
     while (begin != end) {
-        if (begin->toLatin1() != '[') {
+        if (begin->toLatin1() != '[' && begin->toLatin1() != '\n') {
             size++;
-        } else
+        } else {
             break;
+        }
+        begin++;
+    }
+    // skip to next timestamp start
+    while (begin != end && begin->toLatin1() != '[') {
         begin++;
     }
     if (size) {
-        return QString(--it, size); // FIXME: really weird workaround for QChar,
-                                    // otherwise first char is lost
+        return QString(it, size);
     } else
         return {};
 }

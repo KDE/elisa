@@ -45,7 +45,7 @@ public:
 
     qint64 mMediaDuration = 0;
 
-    QMediaPlayer::State mPreviousPlayerState = QMediaPlayer::StoppedState;
+    QMediaPlayer::PlaybackState mPreviousPlayerState = QMediaPlayer::StoppedState;
 
     QMediaPlayer::MediaStatus mPreviousMediaStatus = QMediaPlayer::NoMedia;
 
@@ -69,7 +69,7 @@ public:
 
     void mediaIsEnded();
 
-    bool signalPlaybackChange(QMediaPlayer::State newPlayerState);
+    bool signalPlaybackChange(QMediaPlayer::PlaybackState newPlayerState);
 
     void signalMediaStatusChange(QMediaPlayer::MediaStatus newMediaStatus);
 
@@ -189,7 +189,7 @@ bool AudioWrapper::seekable() const
     return d->mIsSeekable;
 }
 
-QMediaPlayer::State AudioWrapper::playbackState() const
+QMediaPlayer::PlaybackState AudioWrapper::playbackState() const
 {
     return d->mPreviousPlayerState;
 }
@@ -346,7 +346,7 @@ void AudioWrapper::playerVolumeChanged()
 {
 }
 
-void AudioWrapper::playerStateSignalChanges(QMediaPlayer::State newState)
+void AudioWrapper::playerStateSignalChanges(QMediaPlayer::PlaybackState newState)
 {
     QMetaObject::invokeMethod(this, [this, newState]() {
         Q_EMIT playbackStateChanged(newState);
@@ -485,7 +485,7 @@ void AudioWrapperPrivate::mediaIsEnded()
     mMedia = nullptr;
 }
 
-bool AudioWrapperPrivate::signalPlaybackChange(QMediaPlayer::State newPlayerState)
+bool AudioWrapperPrivate::signalPlaybackChange(QMediaPlayer::PlaybackState newPlayerState)
 {
     if (mPreviousPlayerState != newPlayerState) {
         mPreviousPlayerState = newPlayerState;

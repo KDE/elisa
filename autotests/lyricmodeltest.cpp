@@ -6,6 +6,7 @@
 #include <QtTest>
 #include <array>
 #include <locale.h>
+#include <cstdlib>
 #include "models/lyricsmodel.h"
 class LyricsModelTests: public QObject
 {
@@ -15,7 +16,7 @@ public:
 private Q_SLOTS:
     void initTestCase() {
         setlocale(LC_ALL, "en_US.UTF-8");
-        setenv("LANG", "en_US.UTF-8", 1);
+        putenv(const_cast<char *>("LANG=en_US.UTF-8"));
     }
     void testLyricsParse() {
         const auto data = QStringLiteral(R"ESCAPE(

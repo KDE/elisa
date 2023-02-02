@@ -1,4 +1,11 @@
+/*
+   SPDX-FileCopyrightText: 2023 Han Young <hanyoung@protonmail.com>
+
+   SPDX-License-Identifier: LGPL-3.0-or-later
+ */
 #include <QtTest>
+#include <array>
+#include <locale.h>
 #include "models/lyricsmodel.h"
 class LyricsModelTests: public QObject
 {

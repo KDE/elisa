@@ -131,6 +131,7 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
                                                                   {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://icon/folder"))}});
         } else {
             if (item.currentMimeType().inherits(QStringLiteral("audio/x-mpegurl"))) {
+                // TODO: Fix playlist load
             } else {
                 result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::ResourceRole, item.url()},
                                                                       {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::Track},

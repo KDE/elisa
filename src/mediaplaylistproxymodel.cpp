@@ -1025,8 +1025,15 @@ void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName,
     for (const auto &file : files)
     {
         auto fileUrl = QUrl::fromLocalFile(file.filePath());
-        if (file.isFile() && d->mMimeDb.mimeTypeForUrl(fileUrl).name().startsWith(QLatin1String("audio/")))
+        auto mimeType = d->mMimeDb.mimeTypeForUrl(fileUrl);
+        if (file.isFile() && mimeType.name().startsWith(QLatin1String("audio/")))
         {
+            // FIXME: Handle references to other playlists correctly
+            if (mimeType.inherits(QStringLiteral("audio/x-ms-wax")) || mimeType.inherits(QStringLiteral("audio/x-scpls"))
+                || mimeType.inherits(QStringLiteral("audio/x-mpegurl")) || mimeType.inherits(QStringLiteral("audio/mpegurl"))
+                || mimeType.inherits(QStringLiteral("audio/vnd.rn-realaudio")) || mimeType.inherits(QStringLiteral("audio/x-pn-realaudio"))) {
+                continue;
+            }
             newFiles.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
                                  {DataTypes::ResourceRole, fileUrl}},{}, {}});
         }

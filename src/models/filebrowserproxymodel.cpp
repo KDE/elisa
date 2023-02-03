@@ -171,6 +171,9 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
         break;
     }
 
+    if (mPendingEntries.empty()) {
+        return;
+    }
 
     mEnqueueInProgress = true;
     mEnqueueMode = enqueueMode;

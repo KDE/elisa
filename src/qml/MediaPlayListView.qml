@@ -85,6 +85,47 @@ Kirigami.Page {
     ColumnLayout {
         anchors.fill: parent
 
+        Kirigami.InlineMessage {
+            id: partiallyLoadedMessage
+            Layout.fillWidth: true
+            Layout.margins: Kirigami.Units.smallSpacing
+
+            visible: false
+            showCloseButton: true
+
+            type: Kirigami.MessageType.Warning
+            text: i18nc("@info", "Failed to load some tracks. Make sure that they have not been removed or renamed.")
+
+            actions: [
+                Kirigami.Action {
+                    id: actionButton
+                    visible: false
+                    text: i18nc("@action:button", "Edit Playlist File")
+                    icon.name: "document-edit"
+                    onTriggered: {
+                        ElisaApplication.mediaPlayListProxyModel.openLoadedPlayList()
+                        partiallyLoadedMessage.visible = false
+                    }
+                }
+            ]
+
+            onVisibleChanged: {
+                if (!visible) {
+                    ElisaApplication.mediaPlayListProxyModel.resetPartiallyLoaded()
+                }
+            }
+
+            Connections {
+                target: ElisaApplication.mediaPlayListProxyModel
+                onPartiallyLoadedChanged: {
+                    partiallyLoadedMessage.visible = ElisaApplication.mediaPlayListProxyModel.partiallyLoaded
+                }
+                onCanOpenLoadedPlaylistChanged: {
+                    actionButton.visible = ElisaApplication.mediaPlayListProxyModel.canOpenLoadedPlaylist
+                }
+            }
+        }
+
         // ========== desktop listview ==========
         Component {
             id: desktopListView

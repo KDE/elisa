@@ -35,11 +35,11 @@ public:
 class ELISALIB_EXPORT PlaylistParser
 {
 public:
-    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent);
+    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent, bool* partiallyLoaded = nullptr);
     QString toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls);
 
 private:
-    void filterImported(QList<QUrl>& result, const QUrl &playlistUrl);
+    int filterImported(QList<QUrl>& result, const QUrl &playlistUrl);
 };
 
 class MediaPlayList;
@@ -99,6 +99,15 @@ private:
                READ tracksCount
                NOTIFY tracksCountChanged)
 
+    Q_PROPERTY(bool partiallyLoaded
+               READ partiallyLoaded
+               NOTIFY partiallyLoadedChanged
+               RESET resetPartiallyLoaded)
+
+    Q_PROPERTY(bool canOpenLoadedPlaylist
+               READ canOpenLoadedPlaylist
+               NOTIFY canOpenLoadedPlaylistChanged)
+
 public:
 
     explicit MediaPlayListProxyModel(QObject *parent = nullptr);
@@ -146,6 +155,10 @@ public:
     [[nodiscard]] int tracksCount() const;
 
     [[nodiscard]] QVariantMap persistentState() const;
+
+    [[nodiscard]] bool partiallyLoaded() const;
+
+    [[nodiscard]] bool canOpenLoadedPlaylist() const;
 
     int mSeekToBeginningDelay = 2000;
 
@@ -195,6 +208,10 @@ public Q_SLOTS:
 
     void enqueueDirectory(const QUrl &fileName, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, int depth);
 
+    void openLoadedPlayList();
+
+    void resetPartiallyLoaded();
+
 Q_SIGNALS:
 
     void previousTrackChanged(const QPersistentModelIndex &previousTrack);
@@ -238,6 +255,10 @@ Q_SIGNALS:
     void hideUndoNotification();
 
     void seek(qint64 position);
+
+    void partiallyLoadedChanged();
+
+    void canOpenLoadedPlaylistChanged();
 
 private Q_SLOTS:
 

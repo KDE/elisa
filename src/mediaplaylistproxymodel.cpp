@@ -10,6 +10,7 @@
 #include "mediaplaylist.h"
 #include "playListLogging.h"
 #include "elisa_settings.h"
+#include "config-upnp-qt.h"
 #include <QItemSelection>
 #include <QList>
 #include <QRandomGenerator>
@@ -17,6 +18,10 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QMimeDatabase>
+
+#if KF5KIO_FOUND
+#include <KIO/OpenUrlJob>
+#endif
 
 #include <algorithm>
 
@@ -95,7 +100,7 @@ File2=example2.mp3
     return result;
 }
 
-QList<QUrl> PlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray &fileContent) {
+QList<QUrl> PlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray &fileContent, bool* partiallyLoaded) {
     QList<QUrl> result;
 
     if (fileName.isValid() && !fileName.isEmpty()) {
@@ -107,7 +112,12 @@ QList<QUrl> PlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray 
             result = m3uPlaylistParser.fromPlaylist(fileName, fileContent);
         }
 
-        filterImported(result, fileName);
+        int filtered = filterImported(result, fileName);
+        if (filtered != 0) {
+            if (partiallyLoaded != nullptr) {
+                *partiallyLoaded = true;
+            }
+        }
     }
 
     return result;
@@ -129,12 +139,18 @@ QString PlaylistParser::toPlaylist(const QUrl &fileName, const QList<QString> &l
     return result;
 }
 
-void PlaylistParser::filterImported(QList<QUrl>& result, const QUrl &playlistUrl)
+int PlaylistParser::filterImported(QList<QUrl>& result, const QUrl &playlistUrl)
 {
+    if (!playlistUrl.isLocalFile()) {
+        return 0;
+    }
+
+    int filtered = 0;
+
     for (auto iterator = result.begin(); iterator != result.end();)
     {
         auto& url = *iterator;
-        if (!url.isLocalFile() || !playlistUrl.isLocalFile()) {
+        if (!url.isLocalFile()) {
             continue;
         }
 
@@ -155,9 +171,12 @@ void PlaylistParser::filterImported(QList<QUrl>& result, const QUrl &playlistUrl
         if (fileInfo.exists()) {
             ++iterator;
         } else {
+            ++filtered;
             iterator = result.erase(iterator);
         }
     }
+
+    return filtered;
 }
 
 class MediaPlayListProxyModelPrivate
@@ -189,6 +208,10 @@ public:
     MediaPlayListProxyModel::Repeat mRepeatMode = MediaPlayListProxyModel::Repeat::None;
 
     bool mShufflePlayList = false;
+
+    bool mPartiallyLoaded = false;
+
+    QUrl mLoadedPlayListUrl;
 
 };
 
@@ -896,16 +919,21 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
 
 void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
 {
+    resetPartiallyLoaded();
+
     QFile inputFile(fileName.toLocalFile());
     bool open = inputFile.open(QFile::ReadOnly);
     if (!open) {
         Q_EMIT playListLoadFailed();
     }
+
+    d->mLoadedPlayListUrl = fileName;
+
     const QByteArray fileContent = inputFile.readAll();
     clearPlayList();
 
     PlaylistParser playlistParser;
-    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(fileName, fileContent);
+    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(fileName, fileContent, &d->mPartiallyLoaded);
 
     ElisaUtils::PlayListEnqueueMode enqueueMode = ElisaUtils::ReplacePlayList;
     ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay = ElisaUtils::DoNotTriggerPlay;
@@ -926,6 +954,8 @@ void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
 
     Q_EMIT persistentStateChanged();
     Q_EMIT playListLoaded();
+    Q_EMIT partiallyLoadedChanged();
+    Q_EMIT canOpenLoadedPlaylistChanged();
 }
 
 QVariantMap MediaPlayListProxyModel::persistentState() const
@@ -1007,6 +1037,34 @@ void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName,
         }
     }
     if (newFiles.size() != 0) enqueue(newFiles, ElisaUtils::AppendPlayList, triggerPlay);
+}
+
+bool MediaPlayListProxyModel::partiallyLoaded() const
+{
+    return d->mPartiallyLoaded;
+}
+
+bool MediaPlayListProxyModel::canOpenLoadedPlaylist() const
+{
+#if !KF5KIO_FOUND
+    return false;
+#endif
+    return d->mLoadedPlayListUrl.isValid() && d->mLoadedPlayListUrl.isLocalFile();
+}
+
+void MediaPlayListProxyModel::openLoadedPlayList()
+{
+#if KF5KIO_FOUND
+    auto job = new KIO::OpenUrlJob(d->mLoadedPlayListUrl, QLatin1String("text/plain"));
+    job->start();
+#endif
+}
+
+void MediaPlayListProxyModel::resetPartiallyLoaded()
+{
+    d->mPartiallyLoaded = false;
+
+    Q_EMIT partiallyLoadedChanged();
 }
 
 #include "moc_mediaplaylistproxymodel.cpp"

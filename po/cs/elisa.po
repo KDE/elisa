@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 00:56+0000\n"
-"PO-Revision-Date: 2023-01-03 16:04+0100\n"
+"PO-Revision-Date: 2023-01-31 14:25+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -570,7 +570,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
 "do not translate *.m3u8 *.m3u *.pls"
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr ""
+msgstr "m3u8, m3u, pls Soubor seznamu skladeb(*.m3u8 *.m3u *.pls)"
 
 #: qml/ElisaMainWindow.qml:174
 #, kde-format
@@ -1234,6 +1234,10 @@ msgid ""
 "do this with the <interface>Scan for new music</interface> item in Elisa's "
 "hamburger menu."
 msgstr ""
+"Při použití tohoto nastavení je potřeba ručně obnovit sbírku hudby kdykoliv "
+"jsou přidány nové soubory do nastavených složek s hudbou. Toto můžete "
+"provést pomocí položky <interface>Vyhledat novou hudbu</interface> v "
+"hamburgerové nabídce."
 
 #: qml/SettingsForm.qml:109
 #, kde-format
@@ -1466,6 +1470,9 @@ msgid ""
 "locations in this list contain symbolic links to other locations, you will "
 "need to add those other locations to the list as well."
 msgstr ""
+"Poslední vlastní indexovač nenásleduje symbolické odkazy. Pokud jakékoliv z "
+"míst v tomto seznamu obsahuje symbolické odkazy na jiná místa, budete muset "
+"tato místa rovněž přidat do seznamu."
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1486,7 +1493,7 @@ msgstr[2] "Importováno %1 skladeb"
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"
-msgstr "Prohledávání adresářů s hudbou"
+msgstr "Hledám hudbu"
 
 #: qml/TracksDiscHeader.qml:20
 #, kde-format

@@ -98,13 +98,13 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
             result = true;
             break;
         case DataTypes::SampleRateRole:
-            result = false;
+            result = true;
             break;
         case DataTypes::BitRateRole:
-            result = false;
+            result = true;
             break;
         case DataTypes::ChannelsRole:
-            result = false;
+            result = true;
             break;
         case DataTypes::FirstPlayDate:
             result = true;

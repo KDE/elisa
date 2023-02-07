@@ -824,12 +824,10 @@ msgid ""
 msgstr ""
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Přidat do seznamu skladeb"
+msgstr ""
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format

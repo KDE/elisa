@@ -200,12 +200,6 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
     for (const auto &newFilePath : currentFilesList) {
         QFileInfo oneEntry(newFilePath.toLocalFile());
 
-        auto itFilePath = std::find(currentDirectoryListingFiles.begin(), currentDirectoryListingFiles.end(), QPair<QUrl, bool>{newFilePath, oneEntry.isFile()});
-
-        if (itFilePath != currentDirectoryListingFiles.end()) {
-            continue;
-        }
-
         if (oneEntry.isDir()) {
             addFileInDirectory(newFilePath, path, WatchChangedDirectories | WatchChangedFiles);
             scanDirectory(newFiles, newFilePath, WatchChangedDirectories | WatchChangedFiles);

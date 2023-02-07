@@ -50,62 +50,26 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
             }
             break;
         case DataTypes::ImageUrlRole:
-            result = false;
-            break;
         case DataTypes::ArtistRole:
-            result = false;
-            break;
         case DataTypes::AlbumRole:
-            result = false;
-            break;
         case DataTypes::AlbumArtistRole:
-            result = false;
-            break;
         case DataTypes::TrackNumberRole:
-            result = false;
-            break;
         case DataTypes::DiscNumberRole:
-            result = false;
-            break;
         case DataTypes::RatingRole:
-            result = false;
-            break;
         case DataTypes::GenreRole:
-            result = false;
-            break;
         case DataTypes::LyricistRole:
-            result = false;
-            break;
         case DataTypes::ComposerRole:
-            result = false;
-            break;
         case DataTypes::CommentRole:
-            result = false;
-            break;
         case DataTypes::YearRole:
-            result = false;
-            break;
-        case DataTypes::LastPlayDate:
-            result = true;
-            break;
-        case DataTypes::PlayCounter:
-            result = true;
-            break;
         case DataTypes::LyricsRole:
             result = false;
             break;
+        case DataTypes::LastPlayDate:
+        case DataTypes::PlayCounter:
         case DataTypes::DurationRole:
-            result = true;
-            break;
         case DataTypes::SampleRateRole:
-            result = true;
-            break;
         case DataTypes::BitRateRole:
-            result = true;
-            break;
         case DataTypes::ChannelsRole:
-            result = true;
-            break;
         case DataTypes::FirstPlayDate:
             result = true;
             break;

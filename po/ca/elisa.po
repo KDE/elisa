@@ -1,16 +1,16 @@
 # Translation of elisa.po to Catalan
-# Copyright (C) 2016-2022 This_file_is_part_of_KDE
+# Copyright (C) 2016-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2016, 2017, 2018, 2019, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-19 02:57+0000\n"
-"PO-Revision-Date: 2022-11-06 11:31+0100\n"
+"PO-Revision-Date: 2023-02-06 13:12+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -66,13 +66,13 @@ msgstr "Retrocedeix 10 segons"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
-msgstr "Ves a la pista següent"
+msgstr "Ves a la peça següent"
 
 #: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
-msgstr "Ves a la pista anterior"
+msgstr "Ves a la peça anterior"
 
 #: elisaapplication.cpp:203
 #, kde-format
@@ -639,7 +639,7 @@ msgstr "%1 - %2"
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
-msgstr "Estableix la qualificació de la pista"
+msgstr "Estableix la qualificació de la peça"
 
 #: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:109
@@ -659,7 +659,7 @@ msgstr "Marca aquesta cançó com a preferida"
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
-msgstr "Cancel·la la qualificació d'aquesta pista"
+msgstr "Cancel·la la qualificació d'aquesta peça"
 
 #: qml/ListBrowserDelegate.qml:405
 #, kde-format
@@ -743,19 +743,19 @@ msgstr "Commuta la barreja"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
-msgstr "Actual: No repeteixis les pistes"
+msgstr "Actual: No repeteixis les peces"
 
 #: qml/MediaPlayerControl.qml:124 qml/mobile/MobileTrackPlayer.qml:231
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
-msgstr "Actual: Repeteix la pista actual"
+msgstr "Actual: Repeteix la peça actual"
 
 #: qml/MediaPlayerControl.qml:125 qml/mobile/MobileTrackPlayer.qml:232
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
-msgstr "Actual: Repeteix totes les pistes a la llista de reproducció"
+msgstr "Actual: Repeteix totes les peces a la llista de reproducció"
 
 #: qml/MediaPlayerControl.qml:155 qml/mobile/MobileTrackPlayer.qml:261
 #, kde-format
@@ -828,14 +828,14 @@ msgstr "La vostra llista de reproducció està buida."
 msgctxt "@info:status"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] "%1 pista"
-msgstr[1] "%1 pistes"
+msgstr[0] "%1 peça"
+msgstr[1] "%1 peces"
 
 #: qml/MediaPlayListView.qml:393
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
-msgstr "1 pista"
+msgstr "1 peça"
 
 #: qml/MediaPlayListView.qml:396
 #, kde-format
@@ -928,7 +928,7 @@ msgstr "Salta cap endavant"
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
-msgstr "Opcions de les pistes"
+msgstr "Opcions de les peces"
 
 #: qml/mobile/MobilePlayListDelegate.qml:189
 #, kde-format
@@ -1340,7 +1340,7 @@ msgstr "Artistes"
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
-msgstr "Pistes"
+msgstr "Peces"
 
 #: qml/SettingsForm.qml:239
 #, kde-format
@@ -1474,8 +1474,8 @@ msgstr "Ordena per"
 msgctxt "number of imported tracks"
 msgid "Imported one track"
 msgid_plural "Imported %1 tracks"
-msgstr[0] "S'ha importat una pista"
-msgstr[1] "S'han importat %1 pistes"
+msgstr[0] "S'ha importat una peça"
+msgstr[1] "S'han importat %1 peces"
 
 #: qml/TrackImportNotification.qml:73
 #, kde-format
@@ -1634,7 +1634,7 @@ msgstr "Nom"
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
-msgstr "Pistes"
+msgstr "Peces"
 
 #: viewslistdata.cpp:97
 #, kde-format

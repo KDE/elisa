@@ -94,6 +94,8 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
         case DataTypes::IsDirectoryRole:
         case DataTypes::IsPlayListRole:
         case DataTypes::FilePathRole:
+        case DataTypes::HasChildrenRole:
+        case DataTypes::MultipleImageUrlsRole:
             break;
         }
         break;
@@ -148,6 +150,8 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
             case DataTypes::IsPlayListRole:
             case DataTypes::FilePathRole:
             case DataTypes::ResourceRole:
+            case DataTypes::HasChildrenRole:
+            case DataTypes::MultipleImageUrlsRole:
                 result = false;
                 break;
             }

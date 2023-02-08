@@ -1,16 +1,16 @@
 # Translation for elisa.po to Euskara/Basque (eu).
-# Copyright (C) 2019-2022 This file is copyright:
+# Copyright (C) 2019-2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2019, 2020, 2021, 2022.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-06 00:59+0000\n"
-"PO-Revision-Date: 2022-12-28 22:39+0100\n"
+"PO-Revision-Date: 2023-02-07 20:10+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -823,14 +823,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"Pista batzuk zamatzea huts egin du. Egiaztatu ez direla ez ezabatu ez "
+"berrizendatu."
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Gehitu jotze-zerrendara"
+msgstr "Editatu jotze-zerrenda fitxategia"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format

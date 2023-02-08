@@ -3,13 +3,13 @@
 #
 # pan93412 <pan93412@gmail.com>, 2019, 2020.
 # Jeff Huang <s8321414@gmail.com>, 2020.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2022.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-06 00:59+0000\n"
-"PO-Revision-Date: 2022-12-24 02:04+0900\n"
+"PO-Revision-Date: 2023-02-07 23:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
 "Language: Traditional Chinese\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 23.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -819,15 +819,13 @@ msgctxt "@info"
 msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
-msgstr ""
+msgstr "無法載入某些音軌。請確認它們沒有被移除或重新命名。"
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "新增至播放清單"
+msgstr "編輯播放清單檔案"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format

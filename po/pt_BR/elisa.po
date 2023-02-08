@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-06 00:59+0000\n"
-"PO-Revision-Date: 2023-01-16 23:05-0300\n"
+"PO-Revision-Date: 2023-02-07 10:51-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -823,14 +823,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"Falha ao carregar algumas faixas. Certifique-se de que elas não foram "
+"removidas ou renomeadas."
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Adicionar à lista de músicas"
+msgstr "Editar arquivo da lista de músicas"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format

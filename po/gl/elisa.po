@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-06 00:59+0000\n"
+"POT-Creation-Date: 2023-02-09 01:00+0000\n"
 "PO-Revision-Date: 2019-08-24 16:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -169,13 +169,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr ""
 
-#: models/editabletrackmetadatamodel.cpp:343
+#: models/editabletrackmetadatamodel.cpp:311
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr ""
 
-#: models/editabletrackmetadatamodel.cpp:353
+#: models/editabletrackmetadatamodel.cpp:321
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."

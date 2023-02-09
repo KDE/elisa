@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-06 00:59+0000\n"
+"POT-Creation-Date: 2023-02-09 01:00+0000\n"
 "PO-Revision-Date: 2022-10-28 22:22+0300\n"
 "Last-Translator: Lasse Liehu <lasse.liehu@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -158,7 +158,7 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Verkkoradiotuki"
 
-#: models/editabletrackmetadatamodel.cpp:343
+#: models/editabletrackmetadatamodel.cpp:311
 #, fuzzy, kde-format
 #| msgctxt "Error message when track URL is invalid"
 #| msgid "Invalid URL."
@@ -166,7 +166,7 @@ msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Virheellinen verkko-osoite."
 
-#: models/editabletrackmetadatamodel.cpp:353
+#: models/editabletrackmetadatamodel.cpp:321
 #, fuzzy, kde-format
 #| msgctxt "Error message when track title is empty"
 #| msgid "Empty title."

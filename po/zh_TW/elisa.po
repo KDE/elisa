@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-06 00:59+0000\n"
+"POT-Creation-Date: 2023-02-09 01:00+0000\n"
 "PO-Revision-Date: 2023-02-07 23:31+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -144,13 +144,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "線上廣播的支援"
 
-#: models/editabletrackmetadatamodel.cpp:343
+#: models/editabletrackmetadatamodel.cpp:311
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "網址無效。"
 
-#: models/editabletrackmetadatamodel.cpp:353
+#: models/editabletrackmetadatamodel.cpp:321
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."

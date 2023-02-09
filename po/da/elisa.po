@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-06 00:59+0000\n"
+"POT-Creation-Date: 2023-02-09 01:00+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -163,7 +163,7 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Understøttelse af netradio"
 
-#: models/editabletrackmetadatamodel.cpp:343
+#: models/editabletrackmetadatamodel.cpp:311
 #, fuzzy, kde-format
 #| msgctxt "Error message when track URL is invalid"
 #| msgid "Invalid URL."
@@ -171,7 +171,7 @@ msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Ugyldig URL."
 
-#: models/editabletrackmetadatamodel.cpp:353
+#: models/editabletrackmetadatamodel.cpp:321
 #, fuzzy, kde-format
 #| msgctxt "Error message when track title is empty"
 #| msgid "Empty title."

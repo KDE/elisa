@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-06 00:59+0000\n"
-"PO-Revision-Date: 2023-01-31 14:25+0100\n"
+"POT-Creation-Date: 2023-02-09 01:00+0000\n"
+"PO-Revision-Date: 2023-02-07 09:36+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -143,13 +143,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Podpora pro rádia online"
 
-#: models/editabletrackmetadatamodel.cpp:343
+#: models/editabletrackmetadatamodel.cpp:311
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Neplatné URL."
 
-#: models/editabletrackmetadatamodel.cpp:353
+#: models/editabletrackmetadatamodel.cpp:321
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
@@ -822,12 +822,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"Načtení některých skladeb selhalo. Prosím, ujistěte se, že nebyly smazány "
+"nebo přejmenovány."
 
 #: qml/MediaPlayListView.qml:103
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr ""
+msgstr "Upravit seznam skladeb"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format
@@ -1450,6 +1452,9 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
+"Pokud je vybráno <interface>Preferovat relativní cesty</interface>, soubory "
+"ve stejné složce jako seznam skladeb budou odkazovány pouze podle názvu "
+"souboru. Jinak budou použity absolutní cesty."
 
 #: qml/SettingsForm.qml:342
 #, kde-format

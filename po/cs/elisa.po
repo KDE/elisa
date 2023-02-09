@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-19 02:57+0000\n"
-"PO-Revision-Date: 2023-01-31 14:25+0100\n"
+"PO-Revision-Date: 2023-02-07 09:36+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1420,6 +1420,9 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
+"Pokud je vybráno <interface>Preferovat relativní cesty</interface>, soubory "
+"ve stejné složce jako seznam skladeb budou odkazovány pouze podle názvu "
+"souboru. Jinak budou použity absolutní cesty."
 
 #: qml/SettingsForm.qml:342
 #, kde-format

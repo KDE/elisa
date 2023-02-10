@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-01 00:56+0000\n"
-"PO-Revision-Date: 2023-01-15 12:21+0100\n"
+"POT-Creation-Date: 2023-02-09 01:00+0000\n"
+"PO-Revision-Date: 2023-02-09 21:42+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -149,14 +149,14 @@ msgid "Support for online radios"
 msgstr "Støtte for nettradiokanalar"
 
 # unreviewed-context
-#: models/editabletrackmetadatamodel.cpp:343
+#: models/editabletrackmetadatamodel.cpp:311
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Ugyldig nettadresse."
 
 # unreviewed-context
-#: models/editabletrackmetadatamodel.cpp:353
+#: models/editabletrackmetadatamodel.cpp:321
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
@@ -547,14 +547,14 @@ msgid "Retry"
 msgstr "Prøv på nytt"
 
 # unreviewed-context
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:367
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:408
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Spelelista vart tømd"
 
 # unreviewed-context
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:371
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:412
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -870,15 +870,31 @@ msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Opna …"
 
+#: qml/MediaPlayListView.qml:97
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Failed to load some tracks. Make sure that they have not been removed or "
+"renamed."
+msgstr ""
+"Klarte ikkje lasta alle spora. Sjå om nokon spor har blitt sletta eller fått "
+"nye namn."
+
+#: qml/MediaPlayListView.qml:103
+#, kde-format
+msgctxt "@action:button"
+msgid "Edit Playlist File"
+msgstr "Rediger spelelistefil"
+
 # unreviewed-context
-#: qml/MediaPlayListView.qml:230
+#: qml/MediaPlayListView.qml:271
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Spelelista er tom"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:231
+#: qml/MediaPlayListView.qml:272
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -889,14 +905,14 @@ msgstr ""
 "venstre."
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:305
+#: qml/MediaPlayListView.qml:346
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Spelelista er tom."
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:390 qml/MediaPlayListView.qml:395
+#: qml/MediaPlayListView.qml:431 qml/MediaPlayListView.qml:436
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -905,13 +921,13 @@ msgstr[0] "%1 spor"
 msgstr[1] "%1 spor"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:393
+#: qml/MediaPlayListView.qml:434
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 spor"
 
-#: qml/MediaPlayListView.qml:396
+#: qml/MediaPlayListView.qml:437
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -919,7 +935,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "%1 att"
 msgstr[1] "%1 att"
 
-#: qml/MediaPlayListView.qml:397
+#: qml/MediaPlayListView.qml:438
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -927,14 +943,14 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:411
+#: qml/MediaPlayListView.qml:452
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Vis gjeldande spor"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:422
+#: qml/MediaPlayListView.qml:463
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"

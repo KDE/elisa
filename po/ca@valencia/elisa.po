@@ -1,16 +1,16 @@
 # Translation of elisa.po to Catalan (Valencian)
-# Copyright (C) 2016-2022 This_file_is_part_of_KDE
+# Copyright (C) 2016-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2016, 2017, 2018, 2019, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-09 01:00+0000\n"
-"PO-Revision-Date: 2022-12-21 10:13+0100\n"
+"PO-Revision-Date: 2023-02-06 13:12+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -66,13 +66,13 @@ msgstr "Retrocedix 10 segons"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
-msgstr "Ves a la pista següent"
+msgstr "Ves a la peça següent"
 
 #: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
-msgstr "Ves a la pista anterior"
+msgstr "Ves a la peça anterior"
 
 #: elisaapplication.cpp:203
 #, kde-format
@@ -655,7 +655,7 @@ msgstr "%1 - %2"
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
-msgstr "Establix la qualificació de la pista"
+msgstr "Establix la qualificació de la peça"
 
 #: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:109
@@ -675,7 +675,7 @@ msgstr "Marca esta cançó com a preferida"
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
-msgstr "Cancel·la la qualificació d'esta pista"
+msgstr "Cancel·la la qualificació d'esta peça"
 
 #: qml/ListBrowserDelegate.qml:405
 #, kde-format
@@ -759,19 +759,19 @@ msgstr "Canvia la barreja"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
-msgstr "Actual: No repetisques les pistes"
+msgstr "Actual: No repetisques les peces"
 
 #: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:231
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
-msgstr "Actual: Repetix la pista actual"
+msgstr "Actual: Repetix la peça actual"
 
 #: qml/MediaPlayerControl.qml:163 qml/mobile/MobileTrackPlayer.qml:232
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
-msgstr "Actual: Repetix totes les pistes en la llista de reproducció"
+msgstr "Actual: Repetix totes les peces a la llista de reproducció"
 
 #: qml/MediaPlayerControl.qml:193 qml/mobile/MobileTrackPlayer.qml:261
 #, kde-format
@@ -824,14 +824,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"No s'ha pogut carregar algunes peces. Assegureu-vos que no s'hagen eliminat "
+"o canviat de nom."
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Afig a la llista de reproducció"
+msgstr "Edita el fitxer de la llista de reproducció"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format
@@ -860,14 +860,14 @@ msgstr "La vostra llista de reproducció està buida."
 msgctxt "@info:status"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] "%1 pista"
-msgstr[1] "%1 pistes"
+msgstr[0] "%1 peça"
+msgstr[1] "%1 peces"
 
 #: qml/MediaPlayListView.qml:434
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
-msgstr "1 pista"
+msgstr "1 peça"
 
 #: qml/MediaPlayListView.qml:437
 #, kde-format
@@ -960,7 +960,7 @@ msgstr "Salta cap avant"
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
-msgstr "Opcions de les pistes"
+msgstr "Opcions de les peces"
 
 #: qml/mobile/MobilePlayListDelegate.qml:189
 #, kde-format
@@ -1372,7 +1372,7 @@ msgstr "Artistes"
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
-msgstr "Pistes"
+msgstr "Peces"
 
 #: qml/SettingsForm.qml:239
 #, kde-format
@@ -1506,8 +1506,8 @@ msgstr "Ordena per"
 msgctxt "number of imported tracks"
 msgid "Imported one track"
 msgid_plural "Imported %1 tracks"
-msgstr[0] "S'ha importat una pista"
-msgstr[1] "S'han importat %1 pistes"
+msgstr[0] "S'ha importat una peça"
+msgstr[1] "S'han importat %1 peces"
 
 #: qml/TrackImportNotification.qml:73
 #, kde-format
@@ -1666,7 +1666,7 @@ msgstr "Nom"
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
-msgstr "Pistes"
+msgstr "Peces"
 
 #: viewslistdata.cpp:97
 #, kde-format

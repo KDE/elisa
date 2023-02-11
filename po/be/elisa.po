@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: 86ff119b1606fcaa910d6b44fc14b611\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-09 01:00+0000\n"
-"PO-Revision-Date: 2023-01-16 19:01\n"
+"PO-Revision-Date: 2023-02-09 05:31\n"
 "Last-Translator: Zmicier <zmicerturok@gmail.com>\n"
 "Language-Team: Belarusian\n"
 "Language: be\n"
@@ -824,14 +824,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"Не ўдалося загрузіць некаторыя кампазіцыі. Пераканайцеся, што яны не былі "
+"выдалены або іх назвы не змяніліся."
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Дадаць у спіс прайгравання"
+msgstr "Рэдагаваць файл спіса прайгравання"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format

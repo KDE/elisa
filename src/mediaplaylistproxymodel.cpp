@@ -145,34 +145,31 @@ QString PlaylistParser::toPlaylist(const QUrl &fileName, const QList<QString> &l
 
 int PlaylistParser::filterImported(QList<QUrl>& result, const QUrl &playlistUrl)
 {
-    if (!playlistUrl.isLocalFile()) {
-        return 0;
-    }
-
     int filtered = 0;
 
-    for (auto iterator = result.begin(); iterator != result.end();)
-    {
-        auto& url = *iterator;
-        if (!url.isLocalFile()) {
-            continue;
-        }
+    for (auto iterator = result.begin(); iterator != result.end();) {
+        bool exists = true;
 
-        QString file = url.toLocalFile();
+        auto &url = *iterator;
+        if (url.isLocalFile()) {
+            QString file = url.toLocalFile();
 
-        QFileInfo fileInfo(file);
-        if (fileInfo.isRelative()) {
-            auto absoluteDir = QFileInfo(playlistUrl.toLocalFile()).absoluteDir();
-            if (fileInfo.isDir()) {
-                file = absoluteDir.absolutePath() + QDir::separator() + fileInfo.path();
-            } else {
-                file = absoluteDir.absoluteFilePath(file);
+            QFileInfo fileInfo(file);
+            if (playlistUrl.isLocalFile() && fileInfo.isRelative()) {
+                auto absoluteDir = QFileInfo(playlistUrl.toLocalFile()).absoluteDir();
+                if (fileInfo.isDir()) {
+                    file = absoluteDir.absolutePath() + QDir::separator() + fileInfo.path();
+                } else {
+                    file = absoluteDir.absoluteFilePath(file);
+                }
+                fileInfo.setFile(file);
+                url = QUrl::fromLocalFile(file);
             }
-            fileInfo.setFile(file);
-            url = QUrl::fromLocalFile(file);
+
+            exists = fileInfo.exists();
         }
 
-        if (fileInfo.exists()) {
+        if (exists) {
             ++iterator;
         } else {
             ++filtered;

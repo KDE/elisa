@@ -231,7 +231,7 @@ bool ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workin
     const QMimeDatabase mimeDB;
     for (const auto &file : files) {
         const QMimeType mime = mimeDB.mimeTypeForUrl(file);
-        if (mime.inherits(QStringLiteral("audio/x-mpegurl"))) {
+        if (ElisaUtils::isPlayList(mime)) {
             d->mMediaPlayListProxyModel->loadPlayList(file);
         } else if (mime.name().startsWith(QStringLiteral("audio/"))) {
             audioFiles.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},

@@ -13,6 +13,7 @@
 #include <QUrl>
 #include <QString>
 #include <QMetaType>
+#include <QMimeType>
 
 namespace ElisaUtils {
 
@@ -42,6 +43,7 @@ enum PlayListEntryType {
     FileName,
     Container,
     Radio,
+    PlayList,
     Unknown,
 };
 
@@ -60,6 +62,8 @@ enum FilterType {
 };
 
 Q_ENUM_NS(FilterType)
+
+bool isPlayList(const QMimeType& mimeType);
 
 }
 

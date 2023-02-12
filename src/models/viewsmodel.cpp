@@ -117,6 +117,7 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
             case ElisaUtils::FileName:
             case ElisaUtils::Lyricist:
             case ElisaUtils::Container:
+            case ElisaUtils::PlayList:
                 break;
             }
         }

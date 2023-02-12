@@ -274,6 +274,7 @@ void ViewsListData::setEmbeddedCategory(ElisaUtils::PlayListEntryType aEmbeddedV
         case ElisaUtils::Album:
         case ElisaUtils::Artist:
         case ElisaUtils::Genre:
+        case ElisaUtils::PlayList:
             break;
         }
     }
@@ -465,6 +466,7 @@ void ViewsListData::cleanedDatabase()
     case ElisaUtils::FileName:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }
@@ -496,6 +498,7 @@ void ViewsListData::refreshEmbeddedCategory()
     case ElisaUtils::FileName:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 
@@ -524,6 +527,7 @@ void ViewsListData::refreshEmbeddedCategory()
     case ElisaUtils::FileName:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 
@@ -541,6 +545,7 @@ void ViewsListData::refreshEmbeddedCategory()
     case ElisaUtils::FileName:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 
@@ -610,6 +615,7 @@ void ViewsListData::refreshEmbeddedCategory()
     case ElisaUtils::FileName:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }

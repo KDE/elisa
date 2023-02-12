@@ -293,6 +293,7 @@ void MusicListenersManager::deleteElementById(ElisaUtils::PlayListEntryType entr
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }

@@ -107,6 +107,7 @@ void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     case ElisaUtils::Radio:
         Q_EMIT allRadiosData(d->mDatabase->allRadiosData());
@@ -142,6 +143,7 @@ void ModelDataLoader::loadDataByAlbumId(ElisaUtils::PlayListEntryType dataType, 
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }
@@ -169,6 +171,7 @@ void ModelDataLoader::loadDataByGenre(ElisaUtils::PlayListEntryType dataType, co
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }
@@ -196,6 +199,7 @@ void ModelDataLoader::loadDataByArtist(ElisaUtils::PlayListEntryType dataType, c
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }
@@ -224,6 +228,7 @@ void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }
@@ -254,6 +259,7 @@ void ModelDataLoader::loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType d
     case ElisaUtils::Lyricist:
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }
@@ -298,6 +304,7 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
     case ElisaUtils::Lyricist:
     case ElisaUtils::Unknown:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }
@@ -324,6 +331,7 @@ void ModelDataLoader::loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataT
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }
@@ -350,6 +358,7 @@ void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 }

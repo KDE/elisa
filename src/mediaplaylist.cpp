@@ -137,6 +137,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             case ElisaUtils::Unknown:
             case ElisaUtils::Lyricist:
             case ElisaUtils::Container:
+            case ElisaUtils::PlayList:
                 result = false;
                 break;
             case ElisaUtils::Radio:

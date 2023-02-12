@@ -112,7 +112,7 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
     case DataTypes::ColumnsRoles::IsPlayListRole:
     {
         KFileItem item = itemForIndex(index);
-        result = (item.currentMimeType().inherits(QStringLiteral("audio/x-mpegurl")));
+        result = (ElisaUtils::isPlayList(item.currentMimeType()));
         break;
     }
     case DataTypes::ColumnsRoles::ElementTypeRole:
@@ -130,8 +130,12 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
                                                                   {DataTypes::TitleRole, item.name()},
                                                                   {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://icon/folder"))}});
         } else {
-            if (item.currentMimeType().inherits(QStringLiteral("audio/x-mpegurl"))) {
-                // TODO: Fix playlist load
+            auto mimeType = item.currentMimeType();
+            if (ElisaUtils::isPlayList(mimeType)) {
+                result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::ResourceRole, item.url()},
+                                                                      {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::PlayList},
+                                                                      {DataTypes::TitleRole, item.name()},
+                                                                      {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://icon/audio-x-generic"))}});
             } else {
                 result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::ResourceRole, item.url()},
                                                                       {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::Track},

@@ -1194,6 +1194,7 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
         case ElisaUtils::Genre:
         case ElisaUtils::Lyricist:
         case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
             qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "invalid track data";
             break;
         }

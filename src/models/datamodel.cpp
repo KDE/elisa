@@ -154,6 +154,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::FileName:
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
             break;
         }
         break;
@@ -180,6 +181,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Radio:
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
             break;
         }
         break;
@@ -204,6 +206,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::FileName:
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
             break;
         }
         break;
@@ -239,6 +242,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::FileName:
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
             break;
         }
         break;
@@ -266,6 +270,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::FileName:
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
             break;
         }
         break;
@@ -287,6 +292,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Composer:
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
             result = QUrl{};
             break;
         }
@@ -308,6 +314,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
         case ElisaUtils::Container:
+        case ElisaUtils::PlayList:
             result = true;
             break;
         }
@@ -336,6 +343,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         case ElisaUtils::FileName:
         case ElisaUtils::Container:
         case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
             break;
         }
     }

@@ -93,12 +93,11 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
 
         auto mimeType = mMimeDatabase.mimeTypeForUrl(fullPathUrl);
 
-        if (!mimeType.name().startsWith(QLatin1String("audio/"))) {
+        if (!mimeType.name().startsWith(QLatin1String("audio/")) || ElisaUtils::isPlayList(mimeType)) {
             continue;
         }
 
-        newData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-                            {DataTypes::ResourceRole, fullPathUrl}}, fullPath, {}});
+        newData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, fullPathUrl}}, fullPath, {}});
     }
 
     mAllData.append(newData);
@@ -153,14 +152,21 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
     switch (newEntry.elementType())
     {
     case ElisaUtils::Container:
-        mPendingEntries.emplace(newEntry[DataTypes::FilePathRole].toUrl(),
-                newEntry.elementType() == ElisaUtils::Container);
+        mPendingEntries.emplace(newEntry[DataTypes::FilePathRole].toUrl(), true);
         break;
     case ElisaUtils::FileName:
     case ElisaUtils::Track:
-        mPendingEntries.emplace(newEntry[DataTypes::ResourceRole].toUrl(),
-                newEntry.elementType() == ElisaUtils::Container);
+        mPendingEntries.emplace(newEntry[DataTypes::ResourceRole].toUrl(), false);
         break;
+    case ElisaUtils::PlayList:
+        if (mPlayList) {
+            QMetaObject::invokeMethod(mPlayList,
+                                      "loadPlayList",
+                                      Q_ARG(QUrl, newEntry[DataTypes::ResourceRole].toUrl()),
+                                      Q_ARG(ElisaUtils::PlayListEnqueueMode, enqueueMode),
+                                      Q_ARG(ElisaUtils::PlayListEnqueueTriggerPlay, triggerPlay));
+        }
+        return;
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
     case ElisaUtils::Composer:
@@ -223,10 +229,9 @@ void FileBrowserProxyModel::recursiveEnqueue()
                 this, &FileBrowserProxyModel::listRecursiveNewEntries);
     } else {
         if (mPlayList) {
-            mAllData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-                                 {DataTypes::ResourceRole, rootUrl}},
-                                rootUrl.toString(),
-                                rootUrl});
+            if (!ElisaUtils::isPlayList(mMimeDatabase.mimeTypeForUrl(rootUrl))) {
+                mAllData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, rootUrl}}, rootUrl.toString(), rootUrl});
+            }
 
             if (mPendingEntries.empty()) {
                 mEnqueueInProgress = false;

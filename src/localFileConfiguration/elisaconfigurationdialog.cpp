@@ -103,6 +103,7 @@ void ElisaConfigurationDialog::save()
     case ElisaUtils::FileName:
     case ElisaUtils::Lyricist:
     case ElisaUtils::Container:
+    case ElisaUtils::PlayList:
         break;
     }
 

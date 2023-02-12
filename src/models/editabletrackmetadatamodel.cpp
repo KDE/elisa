@@ -37,6 +37,9 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
             case ElisaUtils::Radio:
                 result = false;
                 break;
+            case ElisaUtils::PlayList:
+                result = false;
+                break;
             case ElisaUtils::Album:
             case ElisaUtils::Artist:
             case ElisaUtils::Composer:
@@ -165,6 +168,7 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
         case ElisaUtils::Genre:
         case ElisaUtils::Lyricist:
         case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
             result = false;
             break;
         }

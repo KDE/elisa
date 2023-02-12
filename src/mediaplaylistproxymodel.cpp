@@ -104,10 +104,12 @@ QList<QUrl> PlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray 
     QList<QUrl> result;
 
     if (fileName.isValid() && !fileName.isEmpty()) {
-        if (fileName.fileName().endsWith(QStringLiteral(".pls"), Qt::CaseInsensitive)) {
+        auto mimeType = QMimeDatabase().mimeTypeForUrl(fileName);
+
+        if (mimeType.inherits(QStringLiteral("audio/x-scpls"))) {
             PlsPlaylistParser plsPlaylistParser;
             result = plsPlaylistParser.fromPlaylist(fileName, fileContent);
-        } else {
+        } else if (mimeType.inherits(QStringLiteral("audio/x-mpegurl")) || mimeType.inherits(QStringLiteral("audio/mpegurl"))) {
             M3uPlaylistParser m3uPlaylistParser;
             result = m3uPlaylistParser.fromPlaylist(fileName, fileContent);
         }
@@ -127,10 +129,12 @@ QString PlaylistParser::toPlaylist(const QUrl &fileName, const QList<QString> &l
     QString result;
 
     if (fileName.isValid() && !fileName.isEmpty()) {
-        if (fileName.fileName().endsWith(QStringLiteral(".pls"), Qt::CaseInsensitive)) {
+        auto mimeType = QMimeDatabase().mimeTypeForUrl(fileName);
+
+        if (mimeType.inherits(QStringLiteral("audio/x-scpls"))) {
             PlsPlaylistParser plsPlaylistParser;
             result = plsPlaylistParser.toPlaylist(fileName, listOfUrls);
-        } else {
+        } else if (mimeType.inherits(QStringLiteral("audio/x-mpegurl")) || mimeType.inherits(QStringLiteral("audio/mpegurl"))) {
             M3uPlaylistParser m3uPlaylistParser;
             result = m3uPlaylistParser.toPlaylist(fileName, listOfUrls);
         }

@@ -920,6 +920,13 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
 
 void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
 {
+    loadPlayList(fileName, ElisaUtils::ReplacePlayList, ElisaUtils::DoNotTriggerPlay);
+}
+
+void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName,
+                                           ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                           ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
     resetPartiallyLoaded();
 
     QFile inputFile(fileName.toLocalFile());
@@ -928,28 +935,17 @@ void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
         Q_EMIT playListLoadFailed();
     }
 
+    const QByteArray fileContent = inputFile.readAll();
+
+    if (enqueueMode == ElisaUtils::ReplacePlayList) {
+        clearPlayList();
+    }
+
     d->mLoadedPlayListUrl = fileName;
 
-    const QByteArray fileContent = inputFile.readAll();
-    clearPlayList();
-
-    PlaylistParser playlistParser;
-    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(fileName, fileContent, &d->mPartiallyLoaded);
-
-    ElisaUtils::PlayListEnqueueMode enqueueMode = ElisaUtils::ReplacePlayList;
-    ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay = ElisaUtils::DoNotTriggerPlay;
-
-    DataTypes::EntryDataList newTracks = DataTypes::EntryDataList{};
-    for (QUrl &oneUrl : listOfUrls) {
-        if (oneUrl.isLocalFile()) {
-            if (QFileInfo(oneUrl.toLocalFile()).isDir()) {
-                enqueueDirectory(oneUrl, enqueueMode, triggerPlay, 5);
-                enqueueMode = ElisaUtils::AppendPlayList;
-                continue;
-            }
-        }
-        newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, oneUrl}}}, {}, {}});
-    }
+    DataTypes::EntryDataList newTracks;
+    QSet<QString> processedFiles{QFileInfo(inputFile).canonicalFilePath()};
+    loadLocalPlayList(newTracks, processedFiles, fileName, fileContent);
 
     enqueue(newTracks, enqueueMode, triggerPlay);
 
@@ -1007,46 +1003,6 @@ void MediaPlayListProxyModel::setPersistentState(const QVariantMap &persistentSt
     Q_EMIT persistentStateChanged();
 }
 
-void MediaPlayListProxyModel::enqueueDirectory(const QUrl &fileName,
-                                               ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                               ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay,
-                                               int depth)
-{
-    if (!fileName.isLocalFile()) return;
-    // clear playlist if required
-    if (enqueueMode == ElisaUtils::ReplacePlayList) {
-        if (rowCount() != 0) {
-            clearPlayList();
-        }
-    }
-    // get contents of directory
-    QDir dirInfo = QDir(fileName.toLocalFile());
-    auto files = dirInfo.entryInfoList(QDir::NoDotAndDotDot | QDir::Readable | QDir::Files | QDir::Dirs, QDir::Name);
-    auto newFiles = DataTypes::EntryDataList();
-    for (const auto &file : files)
-    {
-        auto fileUrl = QUrl::fromLocalFile(file.filePath());
-        auto mimeType = d->mMimeDb.mimeTypeForUrl(fileUrl);
-        if (file.isFile() && mimeType.name().startsWith(QLatin1String("audio/")))
-        {
-            // FIXME: Handle references to other playlists correctly
-            if (mimeType.inherits(QStringLiteral("audio/x-ms-wax")) || mimeType.inherits(QStringLiteral("audio/x-scpls"))
-                || mimeType.inherits(QStringLiteral("audio/x-mpegurl")) || mimeType.inherits(QStringLiteral("audio/mpegurl"))
-                || mimeType.inherits(QStringLiteral("audio/vnd.rn-realaudio")) || mimeType.inherits(QStringLiteral("audio/x-pn-realaudio"))) {
-                continue;
-            }
-            newFiles.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                 {DataTypes::ResourceRole, fileUrl}},{}, {}});
-        }
-        else if (file.isDir() && depth > 1)
-        {
-            // recurse through directory
-            enqueueDirectory(fileUrl, ElisaUtils::AppendPlayList, triggerPlay, depth-1);
-        }
-    }
-    if (newFiles.size() != 0) enqueue(newFiles, ElisaUtils::AppendPlayList, triggerPlay);
-}
-
 bool MediaPlayListProxyModel::partiallyLoaded() const
 {
     return d->mPartiallyLoaded;
@@ -1073,6 +1029,67 @@ void MediaPlayListProxyModel::resetPartiallyLoaded()
     d->mPartiallyLoaded = false;
 
     Q_EMIT partiallyLoadedChanged();
+}
+
+void MediaPlayListProxyModel::loadLocalFile(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QFileInfo &fileInfo)
+{
+    // protection against recursion
+    auto canonicalFilePath = fileInfo.canonicalFilePath();
+    if (processedFiles.contains(canonicalFilePath)) {
+        return;
+    }
+    processedFiles.insert(canonicalFilePath);
+
+    auto fileUrl = QUrl::fromLocalFile(fileInfo.filePath());
+    auto mimeType = d->mMimeDb.mimeTypeForUrl(fileUrl);
+    if (fileInfo.isDir()) {
+        if (fileInfo.isSymLink()) {
+            return;
+        }
+        loadLocalDirectory(newTracks, processedFiles, fileUrl);
+    } else {
+        if (!mimeType.name().startsWith(QLatin1String("audio/"))) {
+            return;
+        }
+        if (ElisaUtils::isPlayList(mimeType)) {
+            QFile file(fileInfo.filePath());
+            if (!file.open(QIODevice::ReadOnly)) {
+                d->mPartiallyLoaded = true;
+                return;
+            }
+            loadLocalPlayList(newTracks, processedFiles, fileUrl, file.readAll());
+            return;
+        }
+        newTracks.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, fileUrl}}, {}, {}});
+    }
+}
+
+void MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTracks,
+                                                QSet<QString> &processedFiles,
+                                                const QUrl &fileName,
+                                                const QByteArray &fileContent)
+{
+    PlaylistParser playlistParser;
+    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(fileName, fileContent, &d->mPartiallyLoaded);
+
+    for (const QUrl &oneUrl : listOfUrls) {
+        if (oneUrl.isLocalFile()) {
+            QFileInfo fileInfo(oneUrl.toLocalFile());
+            loadLocalFile(newTracks, processedFiles, fileInfo);
+        } else {
+            newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, oneUrl}}}, {}, {}});
+        }
+    }
+}
+
+void MediaPlayListProxyModel::loadLocalDirectory(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &dirName)
+{
+    QDir dirInfo(dirName.toLocalFile());
+    auto fileInfoList = dirInfo.entryInfoList(QDir::NoDotAndDotDot | QDir::Readable | QDir::Files | QDir::Dirs, QDir::Name);
+
+    for (const auto &fileInfo : fileInfoList) {
+        loadLocalFile(newTracks, processedFiles, fileInfo);
+    }
 }
 
 #include "moc_mediaplaylistproxymodel.cpp"

@@ -15,6 +15,8 @@
 
 #include <QAbstractProxyModel>
 #include <QMediaPlayer>
+#include <QMimeType>
+#include <QFileInfo>
 
 #include <memory>
 
@@ -204,9 +206,9 @@ public Q_SLOTS:
 
     void loadPlayList(const QUrl &fileName);
 
-    void setPersistentState(const QVariantMap &persistentState);
+    void loadPlayList(const QUrl &fileName, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
-    void enqueueDirectory(const QUrl &fileName, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay, int depth);
+    void setPersistentState(const QVariantMap &persistentState);
 
     void openLoadedPlayList();
 
@@ -295,6 +297,12 @@ private:
     void notifyCurrentTrackChanged();
 
     void determineAndNotifyPreviousAndNextTracks();
+
+    void loadLocalFile(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QFileInfo &fileInfo);
+
+    void loadLocalPlayList(DataTypes::EntryDataList &newTracks, QSet<QString> &processedUFiles, const QUrl &fileName, const QByteArray &fileContent);
+
+    void loadLocalDirectory(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &dirName);
 
     std::unique_ptr<MediaPlayListProxyModelPrivate> d;
 };

@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# Kishore G <kishore96@gmail.com>, 2022.
+# Kishore G <kishore96@gmail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-09 01:00+0000\n"
-"PO-Revision-Date: 2022-12-22 21:27+0530\n"
+"PO-Revision-Date: 2023-02-14 19:51+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -820,14 +820,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"சில பாடல்களை ஏற்ற முடியவில்லை. அவை நீக்கப்படவில்லையெனும், அவற்றின் பெயர்கள் "
+"மாற்றப்படவில்லையெனும் சரிபாருங்கள்."
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "பாடல்வரிசையில் செர்"
+msgstr "பாடல்வரிசை கோப்பை திருத்து"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format

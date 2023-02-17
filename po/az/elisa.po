@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# Kheyyam Gojayev <xxmn77@gmail.com>, 2020, 2021, 2022.
+# Kheyyam Gojayev <xxmn77@gmail.com>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-09 01:00+0000\n"
-"PO-Revision-Date: 2022-07-03 13:59+0400\n"
+"PO-Revision-Date: 2023-02-17 01:44+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -29,484 +29,392 @@ msgstr "xxmn77@gmail.com"
 
 #: databaseinterface.cpp:7251 databaseinterface.cpp:8297
 #: databaseinterface.cpp:8381
-#, fuzzy, kde-format
-#| msgid "Various Artists"
+#, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Müxtəlif ifaçılar"
 
 #: databaseinterface.cpp:7314
-#, fuzzy, kde-format
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radio stansiyaları"
 
 #: elisaapplication.cpp:174
-#, fuzzy, kde-format
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
-msgstr "Siyahını dəyişmək"
+msgstr "Siyahını dəyişin"
 
 #: elisaapplication.cpp:179
-#, fuzzy, kde-format
-#| msgid "Seek forward 10 seconds"
+#, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10 saniyə irəli"
 
 #: elisaapplication.cpp:185
-#, fuzzy, kde-format
-#| msgid "Scrub backwards 10 seconds"
+#, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
-msgstr "10n saniyə geri"
+msgstr "10 saniyə geri"
 
 #: elisaapplication.cpp:191
-#, fuzzy, kde-format
-#| msgid "Go to next track"
+#, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Növbəti mahnıya keç"
 
 #: elisaapplication.cpp:197
-#, fuzzy, kde-format
-#| msgid "Go to previous track"
+#, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Əvvəlki mahnıya keç"
 
 #: elisaapplication.cpp:203
-#, fuzzy, kde-format
-#| msgid "Play/pause"
+#, kde-format
 msgctxt "@action"
 msgid "Play/pause"
-msgstr "Oynatmaq/fasilə"
+msgstr "Başlat/dayandır"
 
 #: elisaapplication.cpp:214
-#, fuzzy, kde-format
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
-msgstr "Əyləncə rejiminə dəyişmək"
+msgstr "Əyləncə rejiminə keç"
 
 #: main.cpp:105
-#, fuzzy, kde-format
-#| msgid "Elisa"
+#, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
 #: main.cpp:107
-#, fuzzy, kde-format
-#| msgid "A Simple Music Player made with love by the KDE community"
+#, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
-msgstr "KDE icması tərəfindən məmnuniyyətlə hazırlanmış Sadə Musiqi Pleyeri"
+msgstr "KDE icması tərəfindən məmnuniyyətlə hazırlanmış Sadə Musiqi Oynadıcı"
 
 #: main.cpp:109
-#, fuzzy, kde-format
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa əməkdaşları"
 
 #: main.cpp:111 models/lyricsmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "Creator"
+#, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Yaradıcı"
 
 #: main.cpp:112
-#, fuzzy, kde-format
-#| msgid "Author"
+#, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Müəllif"
 
 #: main.cpp:114
-#, fuzzy, kde-format
-#| msgid "Concept and design work"
+#, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Konsepsiya və dizayn işi"
 
 #: main.cpp:115
-#, fuzzy, kde-format
-#| msgid "Localization support"
+#, kde-format
 msgctxt "@label"
 msgid "Localization support"
-msgstr "Lokallaşma dəstəyi"
+msgstr "Yerli dil dəstəyi"
 
 #: main.cpp:116
-#, fuzzy, kde-format
-#| msgid "Right to left support in interface"
+#, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Sağdan sola yazı interfeysi dəstəyi"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid "Various improvements to the interface"
+#, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Müxtəlif interfeys yaxşılaşdırmaları"
 
 #: main.cpp:118
-#, fuzzy, kde-format
-#| msgid "Support for online radios"
+#, kde-format
 msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Onlayn radio dəstəyi"
 
 #: models/editabletrackmetadatamodel.cpp:311
-#, fuzzy, kde-format
-#| msgctxt "Error message when track URL is invalid"
-#| msgid "Invalid URL."
+#, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Səhv URL."
 
 #: models/editabletrackmetadatamodel.cpp:321
-#, fuzzy, kde-format
-#| msgctxt "Error message when track title is empty"
-#| msgid "Empty title."
+#, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "Boş başlıq."
 
 #: models/lyricsmodel.cpp:158
-#, fuzzy, kde-format
-#| msgid "Artist"
+#, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "İfaçı"
 
 #: models/lyricsmodel.cpp:159
-#, fuzzy, kde-format
-#| msgid "Album"
+#, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "Albom"
 
 #: models/lyricsmodel.cpp:160
-#, fuzzy, kde-format
-#| msgid "Title"
+#, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "Başlıq"
 
 #: models/lyricsmodel.cpp:162
-#, fuzzy, kde-format
-#| msgid "Length"
+#, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "Müddət"
 
 #: models/lyricsmodel.cpp:163
-#, fuzzy, kde-format
-#| msgctxt "as in `Created by: Joe`"
-#| msgid "Created by"
+#, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
-msgstr "Yaradılıb"
+msgstr "Müəllif"
 
 #: models/lyricsmodel.cpp:164
-#, fuzzy, kde-format
-#| msgid "Editor"
+#, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "Redaktor"
 
 #: models/lyricsmodel.cpp:165
-#, fuzzy, kde-format
-#| msgid "Version"
+#, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "Versiya"
 
 #: models/lyricsmodel.cpp:188
-#, fuzzy, kde-format
-#| msgctxt "this is a key => value map"
-#| msgid "%1: %2\n"
+#, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
 #: models/trackmetadatamodel.cpp:443 models/trackmetadatamodel.cpp:490
-#, fuzzy, kde-format
-#| msgid "Title"
+#, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "Başlıq"
 
 #: models/trackmetadatamodel.cpp:445 models/trackmetadatamodel.cpp:496
-#, fuzzy, kde-format
-#| msgid "Artist"
+#, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "İfaçı"
 
 #: models/trackmetadatamodel.cpp:447 models/trackmetadatamodel.cpp:499
-#, fuzzy, kde-format
-#| msgid "Album"
+#, kde-format
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "Albom"
 
 #: models/trackmetadatamodel.cpp:449 models/trackmetadatamodel.cpp:502
-#, fuzzy, kde-format
-#| msgctxt "Album artist for track metadata view"
-#| msgid "Album Artist"
+#, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
 msgstr "Albomun İfaçısı"
 
 #: models/trackmetadatamodel.cpp:451 models/trackmetadatamodel.cpp:505
-#, fuzzy, kde-format
-#| msgctxt "Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
-msgstr "Mahnı Nömrəsi"
+msgstr "Mahnının nömrəsi"
 
 #: models/trackmetadatamodel.cpp:453 models/trackmetadatamodel.cpp:508
-#, fuzzy, kde-format
-#| msgctxt "Disc number for track metadata view"
-#| msgid "Disc Number"
+#, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
-msgstr "Disk Nömrəsi"
+msgstr "Diskin nömrəsi"
 
 #: models/trackmetadatamodel.cpp:455 models/trackmetadatamodel.cpp:511
-#, fuzzy, kde-format
-#| msgctxt "Rating label for information panel"
-#| msgid "Rating"
+#, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
-msgstr "Reytinq"
+msgstr "Qiymət"
 
 #: models/trackmetadatamodel.cpp:457 models/trackmetadatamodel.cpp:514
-#, fuzzy, kde-format
-#| msgid "Genre"
+#, kde-format
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "Janr"
 
 #: models/trackmetadatamodel.cpp:459 models/trackmetadatamodel.cpp:517
-#, fuzzy, kde-format
-#| msgid "Lyricist"
+#, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
-msgstr "Sözlərin Müəllifi"
+msgstr "Sözlərin müəllifi"
 
 #: models/trackmetadatamodel.cpp:461 models/trackmetadatamodel.cpp:520
-#, fuzzy, kde-format
-#| msgid "Composer"
+#, kde-format
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "Bəstəkar"
 
 #: models/trackmetadatamodel.cpp:463 models/trackmetadatamodel.cpp:523
-#, fuzzy, kde-format
-#| msgctxt "Comment label for track metadata view"
-#| msgid "Comment"
+#, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "Şərh"
 
 #: models/trackmetadatamodel.cpp:465 models/trackmetadatamodel.cpp:526
-#, fuzzy, kde-format
-#| msgid "Year"
+#, kde-format
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "İl"
 
 #: models/trackmetadatamodel.cpp:467 models/trackmetadatamodel.cpp:529
-#, fuzzy, kde-format
-#| msgctxt "Channels label for track metadata view"
-#| msgid "Channels"
+#, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "Kanallar"
 
 #: models/trackmetadatamodel.cpp:469 models/trackmetadatamodel.cpp:532
-#, fuzzy, kde-format
-#| msgctxt "Bit rate label for track metadata view"
-#| msgid "Bit Rate"
+#, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
 msgstr "Bitreyt"
 
 #: models/trackmetadatamodel.cpp:471 models/trackmetadatamodel.cpp:535
-#, fuzzy, kde-format
-#| msgctxt "Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
+#, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
-msgstr "Sadə tezlik"
+msgstr "Diskretləşmə tezliyi"
 
 #: models/trackmetadatamodel.cpp:473 models/trackmetadatamodel.cpp:547
-#, fuzzy, kde-format
-#| msgctxt "Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
-msgstr "Sözlıri"
+msgstr "Mahnının sözləri"
 
 #: models/trackmetadatamodel.cpp:475 models/trackmetadatamodel.cpp:493
-#, fuzzy, kde-format
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "Müddət"
 
 #: models/trackmetadatamodel.cpp:538
-#, fuzzy, kde-format
-#| msgctxt "Last play date label for track metadata view"
-#| msgid "Last played"
+#, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "Sonuncu səslənən"
 
 #: models/trackmetadatamodel.cpp:541
-#, fuzzy, kde-format
-#| msgctxt "First play date label for track metadata view"
-#| msgid "First played"
+#, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "İlk səslənən"
 
 #: models/trackmetadatamodel.cpp:544
-#, fuzzy, kde-format
-#| msgctxt "Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "Səsləndirmə sayı"
 
 #: models/trackmetadatamodel.cpp:550
-#, fuzzy, kde-format
-#| msgctxt "Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
-msgstr "Yayımın Http ünvanı"
+msgstr "Yayımın http ünvanı"
 
 #: models/trackmetadatamodel.cpp:553
-#, fuzzy, kde-format
-#| msgctxt "Image address for radio metadata view"
-#| msgid "Image Address"
+#, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Şəkilin ünvanı"
 
 #: models/viewsmodel.cpp:105 viewslistdata.cpp:56 viewslistdata.cpp:551
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all albums"
-#| msgid "Albums"
+#, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Albomlar"
 
 #: models/viewsmodel.cpp:108 viewslistdata.cpp:108 viewslistdata.cpp:589
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all genres"
-#| msgid "Genres"
+#, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Janrlar"
 
 #: models/viewsmodel.cpp:111 viewslistdata.cpp:71 viewslistdata.cpp:570
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all artists"
-#| msgid "Artists"
+#, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
 msgstr "İfaçılar"
 
 #: powermanagementinterface.cpp:171
-#, fuzzy, kde-format
-#| msgctxt "explanation for sleep inhibit during play of music"
-#| msgid "Playing music"
+#, kde-format
 msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Musiqinin səslənməsi"
 
 #: powermanagementinterface.cpp:221
-#, fuzzy, kde-format
-#| msgctxt "explanation for sleep inhibit during play of music"
-#| msgid "Playing music"
+#, kde-format
 msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Musiqinin səslənməsi"
 
 #: qml/AbstractDataView.qml:217
-#, fuzzy, kde-format
-#| msgid "No matches"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Uyğun gələn yoxdur"
 
 #: qml/AbstractDataView.qml:217
-#, fuzzy, kde-format
-#| msgid "Nothing to display"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
-msgstr "Göstəriləsi heç nə yoxdur"
+msgstr "Heç nə tapılmadı"
 
 #: qml/ApplicationMenu.qml:16 qml/NativeTrayMenu.qml:14
-#, fuzzy, kde-format
-#| msgctxt "open application menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "Tətbiq menyusu"
 
 #: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
-#, fuzzy, kde-format
-#| msgctxt "menu entry"
-#| msgid "Enter Fullscreen"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
-msgstr "Tam ekran açmaq"
+msgstr "Tam ekrandan çıxış"
 
 #: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
-#, fuzzy, kde-format
-#| msgctxt "menu entry"
-#| msgid "Enter Fullscreen"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "Tam ekran açmaq"
 
 #: qml/ApplicationMenu.qml:33 qml/NativeTrayMenu.qml:25
-#, fuzzy, kde-format
-#| msgid "Scan for New Music"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "Yeni mahnı axtarışı"
 
 #: qml/ApplicationMenu.qml:42 qml/NativeGlobalMenu.qml:33
 #: qml/NativeTrayMenu.qml:31
-#, fuzzy, kde-format
-#| msgid "Reset Database and Re-Scan Everything"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
-msgstr "Verilənlər bazasını sıfırlansın və hər yerdə axtarılsın"
+msgstr "Verilənlər bazası sıfırlansın və hər yerdə axtarılsın"
 
 #: qml/ApplicationMenu.qml:53
-#, fuzzy, kde-format
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
 msgstr "Rəng Seçimi"
 
 #: qml/ContextView.qml:39
-#, fuzzy, kde-format
-#| msgctxt "Title of the context view related to the currently playing track"
-#| msgid "Now Playing"
+#, kde-format
 msgctxt ""
 "@title:window Title of the context view related to the currently playing "
 "track"
@@ -514,62 +422,50 @@ msgid "Now Playing"
 msgstr "İndi səslənir"
 
 #: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
-#, fuzzy, kde-format
-#| msgctxt "open the sidebar"
-#| msgid "Open sidebar"
+#, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Yan paneli açın"
 
 #: qml/ContextView.qml:104
-#, fuzzy, kde-format
-#| msgctxt "One of the 'now playing' views"
-#| msgid "Metadata"
+#, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Meta məlumatları"
 
 #: qml/ContextView.qml:115
-#, fuzzy, kde-format
-#| msgctxt "Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
-msgstr "Sözlıri"
+msgstr "Mahnının sözləri"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:238
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
-#, fuzzy, kde-format
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Mahnı siyahısını göstərmək"
 
 #: qml/ContextView.qml:341
-#, fuzzy, kde-format
-#| msgid "No lyrics found"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
-msgstr "Mahnını sözləri tapılmadı"
+msgstr "Mahnının sözləri tapılmadı"
 
 #: qml/ContextView.qml:359
-#, fuzzy, kde-format
-#| msgid "Nothing playing"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Heç nə səslənmir"
 
 #: qml/ContextView.qml:393
-#, fuzzy, kde-format
-#| msgid "Show In Folder"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "Qovluqda göstərmək"
 
 #: qml/DurationSlider.qml:39
-#, fuzzy, kde-format
-#| msgctxt "This is used to preserve a fixed width for the duration text."
-#| msgid "00:00:00"
+#, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
 "text."
@@ -577,36 +473,31 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/ElisaConfigurationDialog.qml:21
-#, fuzzy, kde-format
-#| msgid "Configure"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure"
-msgstr "Tənzimləmək"
+msgstr "Tənzimləyin"
 
 #: qml/ElisaConfigurationDialog.qml:43 qml/MediaTrackMetadataView.qml:192
-#, fuzzy, kde-format
-#| msgid "OK"
+#, kde-format
 msgctxt "@action:button"
 msgid "OK"
-msgstr "OK"
+msgstr "OLDU"
 
 #: qml/ElisaConfigurationDialog.qml:54 qml/MediaTrackMetadataView.qml:178
-#, fuzzy, kde-format
-#| msgid "Apply"
+#, kde-format
 msgctxt "@action:button"
 msgid "Apply"
-msgstr "Tətbiq etmək"
+msgstr "Tətbiq edin"
 
 #: qml/ElisaConfigurationDialog.qml:64
-#, fuzzy, kde-format
-#| msgid "Cancel"
+#, kde-format
 msgctxt "@action:button"
 msgid "Cancel"
 msgstr "İmtina"
 
 #: qml/ElisaConfigurationDialog.qml:81
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Xəbərdarlıq"

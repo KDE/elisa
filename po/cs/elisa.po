@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-19 02:57+0000\n"
-"PO-Revision-Date: 2023-02-07 09:36+0100\n"
+"PO-Revision-Date: 2023-02-16 09:04+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -1195,7 +1195,7 @@ msgstr "Zobrazit průběh v položkách Správce úloh"
 #, kde-format
 msgctxt "@option:check"
 msgid "Keep running in System Tray when main window is closed"
-msgstr "Nechat běžet v systémové liště i po zavření hlavního okna"
+msgstr "Nechat běžet v systémovém panelu i po zavření hlavního okna"
 
 #: qml/SettingsForm.qml:68
 #, kde-format

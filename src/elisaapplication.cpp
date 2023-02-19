@@ -238,13 +238,13 @@ bool ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workin
                             {DataTypes::ResourceRole, file}}, {}, {}});
         }
     }
-    audioFiles = checkFileListAndMakeAbsolute(audioFiles, workingDirectory);
-    if (!audioFiles.isEmpty()) {
-        Q_EMIT enqueue(audioFiles,
+    auto filesToOpen = checkFileListAndMakeAbsolute(audioFiles, workingDirectory);
+    if (!filesToOpen.isEmpty()) {
+        Q_EMIT enqueue(filesToOpen,
                        ElisaUtils::PlayListEnqueueMode::AppendPlayList,
                        ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }
-    return (audioFiles.count() == files.count());
+    return (audioFiles.count() == filesToOpen.count());
 }
 
 void ElisaApplication::activateActionRequested(const QString &actionName, const QVariant &parameter)

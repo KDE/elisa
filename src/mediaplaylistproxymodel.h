@@ -37,7 +37,7 @@ public:
 class ELISALIB_EXPORT PlaylistParser
 {
 public:
-    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent, bool* partiallyLoaded = nullptr);
+    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent);
     QString toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls);
 
 private:
@@ -303,6 +303,8 @@ private:
     void loadLocalPlayList(DataTypes::EntryDataList &newTracks, QSet<QString> &processedUFiles, const QUrl &fileName, const QByteArray &fileContent);
 
     void loadLocalDirectory(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &dirName);
+
+    int filterLocalPlayList(QList<QUrl>& result, const QUrl &playlistUrl);
 
     std::unique_ptr<MediaPlayListProxyModelPrivate> d;
 };

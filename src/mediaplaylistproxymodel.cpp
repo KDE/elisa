@@ -100,7 +100,7 @@ File2=example2.mp3
     return result;
 }
 
-QList<QUrl> PlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray &fileContent, bool* partiallyLoaded) {
+QList<QUrl> PlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray &fileContent) {
     QList<QUrl> result;
 
     if (fileName.isValid() && !fileName.isEmpty()) {
@@ -109,16 +109,9 @@ QList<QUrl> PlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray 
         if (mimeType.inherits(QStringLiteral("audio/x-scpls"))) {
             PlsPlaylistParser plsPlaylistParser;
             result = plsPlaylistParser.fromPlaylist(fileName, fileContent);
-        } else if (mimeType.inherits(QStringLiteral("audio/x-mpegurl")) || mimeType.inherits(QStringLiteral("audio/mpegurl"))) {
+        } else if (mimeType.name().contains(QStringLiteral("mpegurl"))) {
             M3uPlaylistParser m3uPlaylistParser;
             result = m3uPlaylistParser.fromPlaylist(fileName, fileContent);
-        }
-
-        int filtered = filterImported(result, fileName);
-        if (filtered != 0) {
-            if (partiallyLoaded != nullptr) {
-                *partiallyLoaded = true;
-            }
         }
     }
 
@@ -134,50 +127,13 @@ QString PlaylistParser::toPlaylist(const QUrl &fileName, const QList<QString> &l
         if (mimeType.inherits(QStringLiteral("audio/x-scpls"))) {
             PlsPlaylistParser plsPlaylistParser;
             result = plsPlaylistParser.toPlaylist(fileName, listOfUrls);
-        } else if (mimeType.inherits(QStringLiteral("audio/x-mpegurl")) || mimeType.inherits(QStringLiteral("audio/mpegurl"))) {
+        } else if (mimeType.name().contains(QStringLiteral("mpegurl"))) {
             M3uPlaylistParser m3uPlaylistParser;
             result = m3uPlaylistParser.toPlaylist(fileName, listOfUrls);
         }
     }
 
     return result;
-}
-
-int PlaylistParser::filterImported(QList<QUrl>& result, const QUrl &playlistUrl)
-{
-    int filtered = 0;
-
-    for (auto iterator = result.begin(); iterator != result.end();) {
-        bool exists = true;
-
-        auto &url = *iterator;
-        if (url.isLocalFile()) {
-            QString file = url.toLocalFile();
-
-            QFileInfo fileInfo(file);
-            if (playlistUrl.isLocalFile() && fileInfo.isRelative()) {
-                auto absoluteDir = QFileInfo(playlistUrl.toLocalFile()).absoluteDir();
-                if (fileInfo.isDir()) {
-                    file = absoluteDir.absolutePath() + QDir::separator() + fileInfo.path();
-                } else {
-                    file = absoluteDir.absoluteFilePath(file);
-                }
-                fileInfo.setFile(file);
-                url = QUrl::fromLocalFile(file);
-            }
-
-            exists = fileInfo.exists();
-        }
-
-        if (exists) {
-            ++iterator;
-        } else {
-            ++filtered;
-            iterator = result.erase(iterator);
-        }
-    }
-
-    return filtered;
 }
 
 class MediaPlayListProxyModelPrivate
@@ -1070,9 +1026,14 @@ void MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTra
                                                 const QByteArray &fileContent)
 {
     PlaylistParser playlistParser;
-    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(fileName, fileContent, &d->mPartiallyLoaded);
+    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(fileName, fileContent);
 
-    for (const QUrl &oneUrl : listOfUrls) {
+    int filtered = filterLocalPlayList(listOfUrls, fileName);
+    if (filtered != 0) {
+        d->mPartiallyLoaded = true;
+    }
+
+    for (const QUrl &oneUrl : qAsConst(listOfUrls)) {
         if (oneUrl.isLocalFile()) {
             QFileInfo fileInfo(oneUrl.toLocalFile());
             loadLocalFile(newTracks, processedFiles, fileInfo);
@@ -1090,6 +1051,43 @@ void MediaPlayListProxyModel::loadLocalDirectory(DataTypes::EntryDataList &newTr
     for (const auto &fileInfo : fileInfoList) {
         loadLocalFile(newTracks, processedFiles, fileInfo);
     }
+}
+
+int MediaPlayListProxyModel::filterLocalPlayList(QList<QUrl>& result, const QUrl &playlistUrl)
+{
+    int filtered = 0;
+
+    for (auto iterator = result.begin(); iterator != result.end();) {
+        bool exists = true;
+
+        auto &url = *iterator;
+        if (url.isLocalFile()) {
+            QString file = url.toLocalFile();
+
+            QFileInfo fileInfo(file);
+            if (playlistUrl.isLocalFile() && fileInfo.isRelative()) {
+                auto absoluteDir = QFileInfo(playlistUrl.toLocalFile()).absoluteDir();
+                if (fileInfo.isDir()) {
+                    file = absoluteDir.absolutePath() + QDir::separator() + fileInfo.path();
+                } else {
+                    file = absoluteDir.absoluteFilePath(file);
+                }
+                fileInfo.setFile(file);
+                url = QUrl::fromLocalFile(file);
+            }
+
+            exists = fileInfo.exists();
+        }
+
+        if (exists) {
+            ++iterator;
+        } else {
+            ++filtered;
+            iterator = result.erase(iterator);
+        }
+    }
+
+    return filtered;
 }
 
 #include "moc_mediaplaylistproxymodel.cpp"

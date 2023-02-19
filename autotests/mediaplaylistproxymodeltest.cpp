@@ -14,6 +14,8 @@
 #include "databaseinterface.h"
 #include "trackslistener.h"
 
+#include "elisa_settings.h"
+
 #include "config-upnp-qt.h"
 
 #include <QtTest>
@@ -31,6 +33,7 @@ void MediaPlayListProxyModelTest::initTestCase()
     qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
     qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
     qRegisterMetaType<ElisaUtils::PlayListEntryType>("PlayListEntryType");
+    Elisa::ElisaConfiguration::instance(QStringLiteral("testfoo"));
 }
 
 void MediaPlayListProxyModelTest::m3uPlaylistParser_SimpleCase()
@@ -1181,18 +1184,17 @@ void MediaPlayListProxyModelTest::testSaveLoadPlayList()
     QCOMPARE(playListLoadedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadFailedRestoreSpy.count(), 0);
 
-    myPlayListProxyModelSave.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                        {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
-                                       QStringLiteral("track1"), {}}}, {}, {});
-    myPlayListProxyModelSave.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                        {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
-                                       QStringLiteral("track3"), {}}}, {}, {});
-    myPlayListProxyModelSave.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                        {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
-                                       QStringLiteral("track5"), {}}}, {}, {});
-    myPlayListProxyModelSave.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                        {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
-                                       QStringLiteral("track1"), {}}}, {}, {});
+    myPlayListProxyModelSave.enqueue(
+        {{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+           {DataTypes::ResourceRole, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"))}},
+          {},
+          {}},
+         {{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+           {DataTypes::ResourceRole, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}},
+          {},
+          {}}},
+        {},
+        {});
 
     QVERIFY(dataChangedSaveSpy.wait());
 

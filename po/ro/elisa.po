@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-09 01:00+0000\n"
+"POT-Creation-Date: 2023-02-22 00:57+0000\n"
 "PO-Revision-Date: 2022-12-29 17:08+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sergiu@cip.md"
 
-#: databaseinterface.cpp:7251 databaseinterface.cpp:8297
-#: databaseinterface.cpp:8381
+#: databaseinterface.cpp:7252 databaseinterface.cpp:8298
+#: databaseinterface.cpp:8382
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Diferiți interpreți"
 
-#: databaseinterface.cpp:7314
+#: databaseinterface.cpp:7315
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -144,13 +144,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Susținere pentru radiouri online"
 
-#: models/editabletrackmetadatamodel.cpp:311
+#: models/editabletrackmetadatamodel.cpp:315
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "URL nevalid."
 
-#: models/editabletrackmetadatamodel.cpp:321
+#: models/editabletrackmetadatamodel.cpp:325
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
@@ -336,19 +336,19 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Adresa imaginii"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:56 viewslistdata.cpp:551
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:56 viewslistdata.cpp:556
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Albume"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:108 viewslistdata.cpp:589
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:108 viewslistdata.cpp:594
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Genuri"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:71 viewslistdata.cpp:570
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:71 viewslistdata.cpp:575
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
@@ -1530,7 +1530,7 @@ msgstr "Titlu"
 #: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:561
+#: viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
@@ -1539,7 +1539,7 @@ msgstr "A-Z"
 #: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:561
+#: viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
@@ -1564,14 +1564,14 @@ msgid "Year"
 msgstr "An"
 
 #: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:561
+#: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "Întâi cele mai vechi"
 
 #: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:561
+#: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
@@ -1631,32 +1631,32 @@ msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Întâi cele redate mai des"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:559
+#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
 #, kde-format
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "Titlu"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:559
+#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
 #, kde-format
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "Interpret"
 
 #: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:116
-#: viewslistdata.cpp:559 viewslistdata.cpp:597
+#: viewslistdata.cpp:564 viewslistdata.cpp:602
 #, kde-format
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Gen"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:98 viewslistdata.cpp:559
+#: viewslistdata.cpp:64 viewslistdata.cpp:98 viewslistdata.cpp:564
 #, kde-format
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "An"
 
-#: viewslistdata.cpp:79 viewslistdata.cpp:143 viewslistdata.cpp:578
+#: viewslistdata.cpp:79 viewslistdata.cpp:143 viewslistdata.cpp:583
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"

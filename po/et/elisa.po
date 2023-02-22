@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-09 01:00+0000\n"
+"POT-Creation-Date: 2023-02-22 00:57+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -28,15 +28,15 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "qiilaq69@gmail.com"
 
-#: databaseinterface.cpp:7251 databaseinterface.cpp:8297
-#: databaseinterface.cpp:8381
+#: databaseinterface.cpp:7252 databaseinterface.cpp:8298
+#: databaseinterface.cpp:8382
 #, fuzzy, kde-format
 #| msgid "Various Artists"
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Teised esitajad"
 
-#: databaseinterface.cpp:7314
+#: databaseinterface.cpp:7315
 #, fuzzy, kde-format
 #| msgid "Radios"
 msgctxt "@item:intable"
@@ -167,7 +167,7 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Internetiraadiote toetus"
 
-#: models/editabletrackmetadatamodel.cpp:311
+#: models/editabletrackmetadatamodel.cpp:315
 #, fuzzy, kde-format
 #| msgctxt "Error message when track URL is invalid"
 #| msgid "Invalid URL."
@@ -175,7 +175,7 @@ msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Vigane URL."
 
-#: models/editabletrackmetadatamodel.cpp:321
+#: models/editabletrackmetadatamodel.cpp:325
 #, fuzzy, kde-format
 #| msgctxt "Error message when track title is empty"
 #| msgid "Empty title."
@@ -411,7 +411,7 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Pildi aadress"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:56 viewslistdata.cpp:551
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:56 viewslistdata.cpp:556
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -419,7 +419,7 @@ msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumid"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:108 viewslistdata.cpp:589
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:108 viewslistdata.cpp:594
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -427,7 +427,7 @@ msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Žanrid"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:71 viewslistdata.cpp:570
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:71 viewslistdata.cpp:575
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1803,7 +1803,7 @@ msgstr "Pealkiri"
 #: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:561
+#: viewslistdata.cpp:566
 #, fuzzy, kde-format
 #| msgid "A-Z"
 msgctxt "@item:inmenu"
@@ -1813,7 +1813,7 @@ msgstr "A-Y"
 #: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:561
+#: viewslistdata.cpp:566
 #, fuzzy, kde-format
 #| msgid "Z-A"
 msgctxt "@item:inmenu"
@@ -1842,14 +1842,14 @@ msgid "Year"
 msgstr "Aasta"
 
 #: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:561
+#: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr ""
 
 #: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:561
+#: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
@@ -1925,7 +1925,7 @@ msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Sageli esitatud"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:559
+#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
 #, fuzzy, kde-format
 #| msgctxt "Track title for track metadata view"
 #| msgid "Title"
@@ -1933,7 +1933,7 @@ msgctxt "@title:menu"
 msgid "Title"
 msgstr "Pealkiri"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:559
+#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
 #, fuzzy, kde-format
 #| msgctxt "Track artist for track metadata view"
 #| msgid "Artist"
@@ -1942,21 +1942,21 @@ msgid "Artist"
 msgstr "Esitaja"
 
 #: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:116
-#: viewslistdata.cpp:559 viewslistdata.cpp:597
+#: viewslistdata.cpp:564 viewslistdata.cpp:602
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Žanr"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:98 viewslistdata.cpp:559
+#: viewslistdata.cpp:64 viewslistdata.cpp:98 viewslistdata.cpp:564
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "Aasta"
 
-#: viewslistdata.cpp:79 viewslistdata.cpp:143 viewslistdata.cpp:578
+#: viewslistdata.cpp:79 viewslistdata.cpp:143 viewslistdata.cpp:583
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "@title:menu"

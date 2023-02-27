@@ -159,7 +159,8 @@ FocusScope {
         isNearCollapse: headerBar.height < elisaTheme.mediaPlayerControlHeight * 2
 
         onHandlePositionChanged: {
-            handlePosition = headerBar.height - offset + y
+            const newHeight = headerBar.height - offset + y
+            handlePosition = newHeight > 0 ? newHeight : 0
         }
     }
 

@@ -4,13 +4,13 @@
 #
 # Automatically generated, 2016.
 # Eloy Cuadra <ecuadra@eloihr.net>, 2016, 2017, 2018, 2019.
-# Víctor Rodrigo Córdoba <vrcordoba@gmail.com>, 2019, 2020, 2021, 2022, %Y.
+# Víctor Rodrigo Córdoba <vrcordoba@gmail.com>, 2019, 2020, 2021, 2022, 2023, %Y.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-22 00:57+0000\n"
-"PO-Revision-Date: 2022-12-23 17:36+0100\n"
+"PO-Revision-Date: 2023-02-25 16:51+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -823,14 +823,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"Error al cargar algunas pistas. Asegúrese que no han sido borradas o "
+"renombradas."
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Añadir a la lista de reproducción"
+msgstr "Editar archivo de la lista de reproducción"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format

@@ -1,0 +1,254 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY elisa "<application>Elisa</application>">
+  <!ENTITY i18n-translatable-entity "<application>Elisa</application>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE">
+]>
+<book id="elisa" lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title>The &elisa; Handbook</title>
+
+<authorgroup>
+<author>
+<personname>
+<firstname>Matthieu</firstname>
+<surname>Gallien</surname>
+</personname>
+<email>matthieu_gallien@yahoo.fr</email>
+</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+
+<copyright>
+<year>2017-2018</year>
+<holder>Matthieu Gallien</holder>
+</copyright>
+<legalnotice>&CCBYSA4Notice;</legalnotice>
+
+<date>2018-09-14</date>
+
+<releaseinfo>Elisa 0.3.80</releaseinfo>
+
+<abstract>
+<para>
+Elisa is a music player developed by the KDE community that strives to be 
+simple and nice to use. We also recognize that we need a flexible product to 
+account for the different workflows and use-cases of our users.
+</para>
+<para>
+We focus on a very good integration with the Plasma desktop of the KDE 
+community without compromising the support for other platforms (other Linux 
+desktop environments, Windows and Android).
+</para>
+<para>
+We are creating a reliable product that is a joy to use and respects our users 
+privacy. As such, we will prefer to support online services where users are in 
+control of their data.
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdemultimedia</keyword>
+<keyword>Elisa</keyword>
+<keyword>audio</keyword>
+<keyword>music</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>
+&elisa; is a music player designed to be simple to use.
+
+<screenshot>
+<screeninfo>Here's a screenshot of &elisa; start screen</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Screenshot_20180912_232200.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title>Using &elisa;</title>
+
+<para>
+&elisa; indexes your music either by using Baloo if possible or by searching in a list of paths configured by the user through a dedicated interface.
+</para>
+<para>
+In case the Baloo support is activated and your setup is not working, a notification is shown with hints allowing to deactivate the indexer or to activate the Baloo indexer and to feed &elisa; with music tracks.
+</para>
+<para>
+In case the file indexer is not finding anything, a notification is shown with a button to open the configuration interface.
+</para>
+
+<para>
+You can find a list of changes at <ulink
+url="https://phabricator.kde.org/project/profile/193/">Elisa Project</ulink>.
+</para>
+
+<para>Currently no configuration is required before use of &elisa;.
+You can explore the menu of the application to see the customization possibilities. It is possible to choose the paths that will be indexed for music. It is also possible to modify the shortcuts for common actions inside the application.
+</para>
+
+<para>
+If you use the internal music indexer, you can configure the paths that will be searched.
+</para>
+
+
+<sect1 id="kapp-features">
+<title>&elisa; features</title>
+
+<para>
+&elisa; provides two different tasks: browsing your music to build a playlist and playing music.
+</para>
+
+<sect2>
+<title>Browsing Music</title>
+<para>
+From the different sources of music, it collects all your music and analyses their metadata such that their title, artist, ...
+It provides fourth ways to browse your music: a list of all albums, a list of all artists, a list of all tracks or a list of all genres.
+</para>
+<para>
+Each method uses a view of all your music along with a filter to allow to quickly find what you are looking for. You can also filter by rating.
+</para>
+<para>
+The filter of the view of all albums is implemented on the title or the artist of albums or the list of artists of each track of an album.
+The filter of the view of all artists is implemented on the name of the artists.
+The filter of the view of all tracks is implemented on the track title, track artist and track album name (if any).
+</para>
+<para>
+It is also possible to directly browse the file system and play music files.
+</para>
+</sect2>
+
+<sect2>
+<title>Building a Playlist</title>
+<para>
+When browsing your music, artists, albums and tracks can be added with a button shown when mouse is over it.
+It is also possible to clear the playlist and at the same time add some music.
+</para>
+<para>
+A toolbar below the playlist allows to operate on it. The following actions are possible:
+<itemizedlist>
+  <listitem>
+    <para>
+      You can clear the whole playlist.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      You can navigate to the currently playing track.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      You can save the playlist to the m3u8 format.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      You can load a playlist that will replace your current one.
+    </para>
+  </listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2>
+<title>Playing Music</title>
+<para>
+The playlist is read in the order of the tracks unless the <guilabel>Shuffle</guilabel> option is selected.
+At the end of the list playing is stopped unless the <guilabel>Repeat</guilabel> option is selected.
+</para>
+<para>
+It is possible to switch to the next or previous track in the list. If the mouse is over a track, it is possible to skip to it by pressing a button.
+</para>
+<para>
+The currently playing track is indicated by a flashing play icon.
+</para>
+</sect2>
+
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title>Credits and License</title>
+
+<para>
+&elisa;
+</para>
+<para>
+Program copyright 2015-2018 The Elisa Team
+</para>
+<para>
+Contributors:
+<itemizedlist>
+<listitem><para>Matthieu Gallien Maintainer <email>matthieu_gallien@yahoo.fr</email></para>
+</listitem>
+<listitem><para>Andrew Lake (concept and design work) <email>jamboarder@gmail.com</email></para>
+</listitem>
+<listitem><para>Luigi Toscano (localizations) <email>luigi.toscano@tiscali.it</email></para>
+</listitem>
+<listitem><para>Safa Alfulaij (right-to-left support in interface) <email>safa1996alfulaij@gmail.com</email></para>
+</listitem>
+<listitem><para>Alexander Stippich Core developer <email>a.stippich@gmx.net</email></para>
+</listitem>
+<listitem><para>Diego Gangl (various improvements to the interface) <email>diego@sinestesia.co</email></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>
+Documentation Copyright &copy; 2017-2018 Matthieu Gallien <email>matthieu_gallien@yahoo.fr</email>
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underCCBYSA4;               <!-- CC BY-SA 4.0: do not remove -->
+
+<!-- Determine which license your application is licensed under,
+     and delete all the remaining licenses below:
+
+     (NOTE:  All documentation are licensed under the CC BY-SA 4.0,
+     regardless of what license the application uses) -->
+
+&underLGPL;        	 <!-- LGPL License -->
+
+</chapter>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

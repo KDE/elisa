@@ -94,7 +94,7 @@ msgstr "إليسّا"
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
-msgstr "مشغل موسيقى بسيط صنعه مجتمع كدي بحب"
+msgstr "مشغل موسيقى بسيط صنعه مجتمع كِيدِي بحب"
 
 #: main.cpp:109
 #, kde-format

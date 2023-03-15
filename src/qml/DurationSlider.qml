@@ -32,6 +32,13 @@ RowLayout {
         musicProgress.value = Qt.binding(() => durationSlider.position / 1000)
     }
 
+    Connections {
+        target: ElisaApplication.mediaPlayListProxyModel
+        function onClearPlayListPlayer() {
+            musicProgress.value = 0;
+        }
+    }
+
     spacing: 0
 
     TextMetrics {

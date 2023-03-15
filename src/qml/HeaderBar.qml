@@ -141,7 +141,7 @@ FocusScope {
         text: i18nc("@action:button", "Exit Full Screen")
         icon.name: "view-restore"
 
-        onClicked: mainWindow.showNormal();
+        onClicked: mainWindow.restorePreviousStateBeforeFullScreen();
     }
 
     MediaPlayerControl {

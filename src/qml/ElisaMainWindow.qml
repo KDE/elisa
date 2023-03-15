@@ -75,6 +75,37 @@ Kirigami.ApplicationWindow {
     minimumWidth: Kirigami.Settings.isMobile ? 320 : 620
     property int minHeight: 320
 
+    property string previousStateBeforeFullScreen: "windowed"
+    function restorePreviousStateBeforeFullScreen() {
+        if (previousStateBeforeFullScreen === "windowed") {
+            showNormal()
+        } else if (previousStateBeforeFullScreen === "maximized") {
+            // Need to make it windowed before showMaximized will work, apparently
+            showNormal()
+            showMaximized()
+        } else if (previousStateBeforeFullScreen === "minimized") {
+            showMinimized()
+        } else if (previousStateBeforeFullScreen === "hidden") {
+            show()
+        } else if (previousStateBeforeFullScreen === "automatic") {
+            show()
+        }
+    }
+    function goFullScreen() {
+        if (visibility === Window.Windowed) {
+            previousStateBeforeFullScreen = "windowed"
+        } else if (visibility === Window.Maximized) {
+            previousStateBeforeFullScreen = "maximized"
+        } else if (visibility === Window.Minimized) {
+            previousStateBeforeFullScreen = "minimized"
+        } else if (visibility === Window.Hidden) {
+            previousStateBeforeFullScreen = "hidden"
+        } else if (visibility === Window.Automatic){
+            previousStateBeforeFullScreen = "automatic"
+        }
+        showFullScreen()
+    }
+
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 

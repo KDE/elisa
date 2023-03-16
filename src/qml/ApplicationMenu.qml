@@ -20,6 +20,7 @@ Menu {
     property var aboutAppAction: ElisaApplication.action("help_about_app")
     property var configureShortcutsAction: ElisaApplication.action("options_configure_keybinding")
     property var configureAction: ElisaApplication.action("options_configure")
+    property var quitAction: ElisaApplication.action("file_quit")
 
     Action {
         text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Exit Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
@@ -117,5 +118,22 @@ Menu {
             applicationMenu.close()
             reportBugAction.trigger()
         }
+    }
+
+    MenuSeparator {
+        visible: ElisaApplication.showSystemTrayIcon
+    }
+
+    MenuItem {
+        action: Action {
+            text: quitAction.text
+            shortcut: ElisaApplication.actionShortcut(quitAction)
+            icon.name: ElisaApplication.iconName(quitAction.icon)
+            onTriggered: {
+                applicationMenu.close()
+                quitAction.trigger()
+            }
+        }
+        visible: ElisaApplication.showSystemTrayIcon
     }
 }

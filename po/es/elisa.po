@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-22 00:57+0000\n"
+"POT-Creation-Date: 2023-03-16 00:59+0000\n"
 "PO-Revision-Date: 2023-02-25 16:51+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -467,7 +467,7 @@ msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "Mostrar en carpeta"
 
-#: qml/DurationSlider.qml:39
+#: qml/DurationSlider.qml:46
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "

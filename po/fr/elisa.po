@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-16 02:47+0000\n"
+"POT-Creation-Date: 2023-03-17 03:15+0000\n"
 "PO-Revision-Date: 2023-02-07 20:18+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -391,32 +391,32 @@ msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "Menu d'application"
 
-#: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
+#: qml/ApplicationMenu.qml:26 qml/NativeGlobalMenu.qml:62
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "Sortir du mode plein écran"
 
-#: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
+#: qml/ApplicationMenu.qml:26 qml/NativeGlobalMenu.qml:62
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "Passer en mode plein écran"
 
-#: qml/ApplicationMenu.qml:33 qml/NativeTrayMenu.qml:25
+#: qml/ApplicationMenu.qml:34 qml/NativeTrayMenu.qml:25
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "Rechercher de nouveaux morceaux de musique"
 
-#: qml/ApplicationMenu.qml:42 qml/NativeGlobalMenu.qml:33
+#: qml/ApplicationMenu.qml:43 qml/NativeGlobalMenu.qml:33
 #: qml/NativeTrayMenu.qml:31
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Ré-initialiser la base de données et tout ré-analyser"
 
-#: qml/ApplicationMenu.qml:53
+#: qml/ApplicationMenu.qml:54
 #, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
@@ -517,7 +517,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "Échec du chargement"
 
-#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:174
+#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:205
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -535,7 +535,7 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "Annuler"
 
-#: qml/ElisaMainWindow.qml:56 qml/ElisaMainWindow.qml:480
+#: qml/ElisaMainWindow.qml:56 qml/ElisaMainWindow.qml:511
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -544,19 +544,19 @@ msgstr ""
 "Impossible de charger certains fichiers. Elisa ne peut ouvrir que des "
 "fichiers audio et des listes de lecture."
 
-#: qml/ElisaMainWindow.qml:86 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:117 qml/mobile/MobileSidebar.qml:20
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:86
+#: qml/ElisaMainWindow.qml:117
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:155
+#: qml/ElisaMainWindow.qml:186
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -564,7 +564,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "Fichier de liste de lecture m3u8, m3u (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:155
+#: qml/ElisaMainWindow.qml:186
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -572,7 +572,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "Fichier de liste de lecture pls (*.pls)"
 
-#: qml/ElisaMainWindow.qml:162
+#: qml/ElisaMainWindow.qml:193
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -580,7 +580,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "Fichiers de liste de lecture m3u8, m3u, pls (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:174
+#: qml/ElisaMainWindow.qml:205
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"

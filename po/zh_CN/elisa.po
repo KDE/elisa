@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-16 02:47+0000\n"
+"POT-Creation-Date: 2023-03-17 03:15+0000\n"
 "PO-Revision-Date: 2023-03-11 04:54\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -383,32 +383,32 @@ msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "应用程序菜单"
 
-#: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
+#: qml/ApplicationMenu.qml:26 qml/NativeGlobalMenu.qml:62
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "退出全屏"
 
-#: qml/ApplicationMenu.qml:25 qml/NativeGlobalMenu.qml:62
+#: qml/ApplicationMenu.qml:26 qml/NativeGlobalMenu.qml:62
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "进入全屏模式"
 
-#: qml/ApplicationMenu.qml:33 qml/NativeTrayMenu.qml:25
+#: qml/ApplicationMenu.qml:34 qml/NativeTrayMenu.qml:25
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "扫描新的音乐"
 
-#: qml/ApplicationMenu.qml:42 qml/NativeGlobalMenu.qml:33
+#: qml/ApplicationMenu.qml:43 qml/NativeGlobalMenu.qml:33
 #: qml/NativeTrayMenu.qml:31
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "重置数据库并重新扫描所有内容"
 
-#: qml/ApplicationMenu.qml:53
+#: qml/ApplicationMenu.qml:54
 #, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
@@ -509,7 +509,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "加载失败"
 
-#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:174
+#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:205
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -527,26 +527,26 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "撤销"
 
-#: qml/ElisaMainWindow.qml:56 qml/ElisaMainWindow.qml:480
+#: qml/ElisaMainWindow.qml:56 qml/ElisaMainWindow.qml:511
 #, kde-format
 msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr "有些文件无法加载。Elisa 只能打开音频和播放列表文件。"
 
-#: qml/ElisaMainWindow.qml:86 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:117 qml/mobile/MobileSidebar.qml:20
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:86
+#: qml/ElisaMainWindow.qml:117
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:155
+#: qml/ElisaMainWindow.qml:186
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
@@ -558,7 +558,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "播放列表 (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:155
+#: qml/ElisaMainWindow.qml:186
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
@@ -570,7 +570,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "播放列表 (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:162
+#: qml/ElisaMainWindow.qml:193
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -578,7 +578,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:174
+#: qml/ElisaMainWindow.qml:205
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"

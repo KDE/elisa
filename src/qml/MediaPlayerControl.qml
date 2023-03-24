@@ -287,15 +287,17 @@ BasePlayerControl {
     }
 
     Component.onCompleted: {
-
-        var elementList = [menuButton, repeatButton, shuffleButton, muteButton, skipForwardButton, skipBackwardButton, playPauseButton, minimizeMaximizeButton]
-
-        for (var i=0; i<elementList.length; i++)
-            installFilter(elementList[i])
-
-        function installFilter(element) {
+        for (const element of [
+                menuButton,
+                repeatButton,
+                shuffleButton,
+                muteButton,
+                skipForwardButton,
+                skipBackwardButton,
+                playPauseButton,
+                minimizeMaximizeButton,
+        ]) {
             ElisaApplication.installKeyEventFilter(element)
         }
     }
 }
-

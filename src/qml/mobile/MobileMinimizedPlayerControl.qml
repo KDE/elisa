@@ -269,16 +269,12 @@ BasePlayerControl {
     }
 
     Component.onCompleted: {
-
-        var elementList = [skipForwardButton, skipBackwardButton, playPauseButton]
-
-        for (var i=0; i<elementList.length; i++)
-            installFilter(elementList[i])
-
-        function installFilter(element) {
+        for (const element of [
+            skipForwardButton,
+            skipBackwardButton,
+            playPauseButton,
+        ]) {
             ElisaApplication.installKeyEventFilter(element)
         }
     }
 }
-
-

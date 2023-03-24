@@ -244,11 +244,7 @@ BasePlayerControl {
                     icon.color: "white"
                     checked: repeat !== 0
                     onClicked: {
-                        let nextRepeat = trackPlayer.repeat + 1
-                        if (nextRepeat >= 3) {
-                            nextRepeat = 0
-                        }
-                        trackPlayer.repeat = nextRepeat
+                        trackPlayer.repeat = (trackPlayer.repeat + 1) % 3
                     }
                     onPressAndHold: {
                         playlistModeMenu.popup()

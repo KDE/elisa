@@ -177,7 +177,6 @@ FocusScope {
 
             Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.leftMargin: Kirigami.Units.smallSpacing
 
             // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff

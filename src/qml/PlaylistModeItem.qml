@@ -9,6 +9,7 @@ import QtQuick.Controls 2.3
 
 MenuItem {
     required property int mode
+    autoExclusive: true
     checkable: true
     checked: ElisaApplication.mediaPlayListProxyModel.repeatMode === mode
     onTriggered: ElisaApplication.mediaPlayListProxyModel.repeatMode = mode

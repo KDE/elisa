@@ -26,7 +26,7 @@ FocusScope {
     signal playNext()
     signal seek(int position)
 
-    onSeek: ElisaApplication.audioControl.playerSeek(position)
+    onSeek: position => ElisaApplication.audioControl.playerSeek(position)
     onPlay: ElisaApplication.audioControl.playPause()
     onPause: ElisaApplication.audioControl.playPause()
     onPlayPrevious: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position)

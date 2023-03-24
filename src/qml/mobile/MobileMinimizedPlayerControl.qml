@@ -87,7 +87,7 @@ BasePlayerControl {
         anchors.left: parent.left
         height: Kirigami.Units.gridUnit / 6
         color: Kirigami.Theme.highlightColor
-        width: parent.width * position / duration
+        width: parent.width * musicWidget.position / musicWidget.duration
         visible: !musicWidget.isWidescreen
     }
 
@@ -101,7 +101,7 @@ BasePlayerControl {
             Layout.fillWidth: true
             Layout.maximumWidth: Kirigami.Units.gridUnit * 16
             Layout.preferredWidth: Kirigami.Units.gridUnit * 16
-            color: Qt.rgba(0, 0, 0, trackClick.containsMouse? 0.1 : trackClick.pressed? 0.3 : 0)
+            color: Qt.rgba(0, 0, 0, trackClick.containsMouse ? 0.1 : trackClick.pressed ? 0.3 : 0)
 
             RowLayout {
                 anchors.fill: parent
@@ -199,7 +199,7 @@ BasePlayerControl {
                 duration: musicWidget.duration
                 seekable: musicWidget.seekable
                 playEnabled: musicWidget.playEnabled
-                onSeek: musicWidget.seek(position)
+                onSeek: position => musicWidget.seek(position)
 
                 // this color works well over the blurred/darkened background
                 labelColor: "white"
@@ -241,7 +241,7 @@ BasePlayerControl {
             enabled: playEnabled
             text: musicWidget.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
             onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
-            icon.name: musicWidget.isPlaying? "media-playback-pause" : "media-playback-start"
+            icon.name: musicWidget.isPlaying ? "media-playback-pause" : "media-playback-start"
             icon.width: Kirigami.Units.gridUnit
             icon.height: Kirigami.Units.gridUnit
             icon.color: "white"

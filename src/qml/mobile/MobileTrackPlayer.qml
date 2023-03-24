@@ -281,7 +281,7 @@ BasePlayerControl {
                 duration: trackPlayer.duration
                 seekable: trackPlayer.seekable
                 playEnabled: trackPlayer.playEnabled
-                onSeek: trackPlayer.seek(position)
+                onSeek: position => trackPlayer.seek(position)
 
                 // this color works well over the blurred/darkened background
                 labelColor: "white"
@@ -329,10 +329,10 @@ BasePlayerControl {
                     Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
-                    enabled: playEnabled
+                    enabled: trackPlayer.playEnabled
                     text: trackPlayer.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
                     onClicked: trackPlayer.isPlaying ? trackPlayer.pause() : trackPlayer.play()
-                    icon.name: trackPlayer.isPlaying? "media-playback-pause" : "media-playback-start"
+                    icon.name: trackPlayer.isPlaying ? "media-playback-pause" : "media-playback-start"
                     icon.width: Kirigami.Units.gridUnit
                     icon.height: Kirigami.Units.gridUnit
                     icon.color: "white"

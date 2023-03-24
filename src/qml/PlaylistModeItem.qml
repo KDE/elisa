@@ -10,6 +10,6 @@ import QtQuick.Controls 2.3
 MenuItem {
     required property int mode
     checkable: true
-    checked: ElisaApplication.mediaPlayListProxyModel.repeatMode == mode
+    checked: ElisaApplication.mediaPlayListProxyModel.repeatMode === mode
     onTriggered: ElisaApplication.mediaPlayListProxyModel.repeatMode = mode
 }

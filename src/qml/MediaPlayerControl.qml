@@ -59,21 +59,21 @@ BasePlayerControl {
         }
 
         MouseArea {
-          anchors.fill: parent
-          property int dragStartOffset: 0
+            property int dragStartOffset: 0
 
-          cursorShape: isMaximized ? Qt.ArrowCursor : Qt.SizeVerCursor
+            anchors.fill: parent
+            cursorShape: isMaximized ? Qt.ArrowCursor : Qt.SizeVerCursor
 
-          onPressed: {
-            dragStartOffset = mouse.y
-          }
+            onPressed: {
+                dragStartOffset = mouse.y
+            }
 
-          onPositionChanged: {
-            musicWidget.handlePositionChanged(mouse.y, dragStartOffset)
-          }
+            onPositionChanged: {
+                musicWidget.handlePositionChanged(mouse.y, dragStartOffset)
+            }
 
-          drag.axis: Drag.YAxis
-          drag.threshold: 1
+            drag.axis: Drag.YAxis
+            drag.threshold: 1
         }
     }
 
@@ -100,9 +100,9 @@ BasePlayerControl {
 
         FlatButtonWithToolTip {
             id: playPauseButton
-            enabled: playEnabled
+            enabled: musicWidget.playEnabled
             text: musicWidget.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
-            icon.name: musicWidget.isPlaying? "media-playback-pause" : "media-playback-start"
+            icon.name: musicWidget.isPlaying ? "media-playback-pause" : "media-playback-start"
             onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
         }
 
@@ -121,7 +121,7 @@ BasePlayerControl {
             duration: musicWidget.duration
             seekable: musicWidget.seekable
             playEnabled: musicWidget.playEnabled
-            onSeek: musicWidget.seek(position)
+            onSeek: position => musicWidget.seek(position)
 
             labelColor: myPalette.text
         }
@@ -140,7 +140,7 @@ BasePlayerControl {
             Layout.minimumWidth: elisaTheme.volumeSliderWidth
             Layout.fillHeight: true
 
-            muted: muted
+            muted: musicWidget.muted
         }
 
         Item { implicitWidth: Kirigami.Units.largeSpacing }
@@ -177,7 +177,7 @@ BasePlayerControl {
             Accessible.role: Accessible.ButtonMenu
 
             checkable: true
-            checked: repeat !== 0
+            checked: musicWidget.repeat !== 0
             onClicked: {
                 musicWidget.repeat = (musicWidget.repeat + 1) % 3
             }
@@ -222,16 +222,17 @@ BasePlayerControl {
             action: Action {
                 shortcut: ElisaApplication.actionShortcut(ElisaApplication.action("toggle_playlist"))
                 onTriggered: {
-                    if (showHidePlaylistAction._togglesDrawer)
+                    if (showHidePlaylistAction._togglesDrawer) {
                         playlistDrawer.visible = !playlistDrawer.visible
-                    else
+                    } else {
                         contentView.showPlaylist = !contentView.showPlaylist
+                    }
                 }
             }
 
-            visible: !musicWidget.isMaximized && (!_togglesDrawer || isNearCollapse)
+            visible: !musicWidget.isMaximized && (!_togglesDrawer || musicWidget.isNearCollapse)
 
-            display: _togglesDrawer ? AbstractButton.IconOnly: AbstractButton.TextBesideIcon
+            display: _togglesDrawer ? AbstractButton.IconOnly : AbstractButton.TextBesideIcon
             text: i18nc("@action:button", "Show Playlist")
             icon.name: "view-media-playlist"
 
@@ -265,15 +266,15 @@ BasePlayerControl {
                 // without modal, clicking on menuButton will not close the menu
                 modal: true
                 dim: false
-
             }
         }
 
-        Item { implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2) }
+        Item {
+            implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2)
+        }
     }
 
-    onIsMaximizedChanged:
-    {
+    onIsMaximizedChanged: {
         if (musicWidget.isMaximized) {
             musicWidget.maximize()
         } else {

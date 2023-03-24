@@ -171,7 +171,6 @@ FocusScope {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: playControlItem.top
-        anchors.leftMargin: Kirigami.Units.smallSpacing
 
         spacing: 0
 

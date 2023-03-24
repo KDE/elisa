@@ -304,7 +304,7 @@ RowLayout {
 
     Kirigami.Separator {
         id: playListSeparatorItem
-        visible: false
+        visible: playList.width > 0
         Layout.fillHeight: true
     }
 
@@ -344,10 +344,6 @@ RowLayout {
             PropertyChanges {
                 target: playList
                 Layout.preferredWidth: contentViewContainer.width * 0.28
-            }
-            PropertyChanges {
-                target: playListSeparatorItem
-                visible: true
             }
             PropertyChanges {
                 target: playlistDrawer

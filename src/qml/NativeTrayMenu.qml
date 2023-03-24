@@ -39,7 +39,7 @@ Menu {
     MenuItem {
         text: configureAction.text
         shortcut: ElisaApplication.actionShortcut(configureAction)
-        icon.name: ElisaApplication.icon.name(configureAction.icon)
+        icon.name: ElisaApplication.iconName(configureAction.icon)
         onTriggered: configureAction.trigger()
         visible: configureAction.text !== ""
     }
@@ -47,7 +47,7 @@ Menu {
     MenuItem {
         text: configureShortcutsAction.text
         shortcut: ElisaApplication.actionShortcut(configureShortcutsAction)
-        icon.name: ElisaApplication.icon.name(configureShortcutsAction.icon)
+        icon.name: ElisaApplication.iconName(configureShortcutsAction.icon)
         onTriggered: configureShortcutsAction.trigger()
         visible: configureShortcutsAction.text !== ""
     }

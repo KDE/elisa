@@ -8,7 +8,7 @@ import org.kde.elisa 1.0
 import QtQuick.Controls 2.3
 
 MenuItem {
-    property int mode: -1
+    required property int mode
     checkable: true
     checked: ElisaApplication.mediaPlayListProxyModel.repeatMode == mode
     onTriggered: ElisaApplication.mediaPlayListProxyModel.repeatMode = mode

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 03:15+0000\n"
+"POT-Creation-Date: 2023-03-25 02:42+0000\n"
 "PO-Revision-Date: 2023-02-16 11:13+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -366,13 +366,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "يشغل صوتيات"
 
-#: qml/AbstractDataView.qml:217
+#: qml/AbstractDataView.qml:216
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "لا يوجد متطابقات"
 
-#: qml/AbstractDataView.qml:217
+#: qml/AbstractDataView.qml:216
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"

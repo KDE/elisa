@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 03:15+0000\n"
+"POT-Creation-Date: 2023-03-25 02:42+0000\n"
 "PO-Revision-Date: 2019-08-24 16:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -449,13 +449,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Reproducindo música"
 
-#: qml/AbstractDataView.qml:217
+#: qml/AbstractDataView.qml:216
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr ""
 
-#: qml/AbstractDataView.qml:217
+#: qml/AbstractDataView.qml:216
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"

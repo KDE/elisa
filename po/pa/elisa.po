@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-17 03:15+0000\n"
+"POT-Creation-Date: 2023-03-25 02:42+0000\n"
 "PO-Revision-Date: 2021-05-01 23:39-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -426,13 +426,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "ਸੰਗੀਤ ਚੱਲ ਰਿਹਾ ਹੈ"
 
-#: qml/AbstractDataView.qml:217
+#: qml/AbstractDataView.qml:216
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr ""
 
-#: qml/AbstractDataView.qml:217
+#: qml/AbstractDataView.qml:216
 #, fuzzy, kde-format
 #| msgid "Nothing playing"
 msgctxt "@info:placeholder"

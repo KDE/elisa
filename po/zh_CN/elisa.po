@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-25 02:42+0000\n"
-"PO-Revision-Date: 2023-03-11 04:54\n"
+"PO-Revision-Date: 2023-03-26 02:20\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -547,28 +547,20 @@ msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
 #: qml/ElisaMainWindow.qml:186
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr "播放列表 (*.m3u*)"
+msgstr "m3u8, m3u 播放列表文件 (*.m3u*)"
 
 #: qml/ElisaMainWindow.qml:186
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr "播放列表 (*.m3u*)"
+msgstr "pls 播放列表文件 (*.pls)"
 
 #: qml/ElisaMainWindow.qml:193
 #, kde-format
@@ -576,7 +568,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
 "do not translate *.m3u8 *.m3u *.pls"
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr ""
+msgstr "m3u8, m3u, pls 播放列表文件 (*.m3u8 *.m3u *.pls)"
 
 #: qml/ElisaMainWindow.qml:205
 #, kde-format
@@ -826,15 +818,13 @@ msgctxt "@info"
 msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
-msgstr ""
+msgstr "加载某些曲目失败。请检查它们是否已经被移除或重命名。"
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "添加至播放列表"
+msgstr "编辑播放列表文件"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format

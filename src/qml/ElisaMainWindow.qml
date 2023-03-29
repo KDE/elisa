@@ -23,11 +23,11 @@ Kirigami.ApplicationWindow {
     Connections {
         target: ElisaApplication.mediaPlayListProxyModel
         function onPlayListLoadFailed() {
-            showPassiveNotification(i18nc("@label", "Loading failed"), 7000, i18nc("@action:button", "Retry"), function() { loadPlaylistButton.clicked(); })
+            showPassiveNotification(i18nc("@label", "Loading failed"), 7000, i18nc("@action:button", "Retry"), () => loadPlaylistButton.clicked())
         }
 
         function onDisplayUndoNotification() {
-            showPassiveNotification(i18nc("@label", "Playlist cleared"), 7000, i18nc("@action:button", "Undo"), function() { ElisaApplication.mediaPlayListProxyModel.undoClearPlayList(); })
+            showPassiveNotification(i18nc("@label", "Playlist cleared"), 7000, i18nc("@action:button", "Undo"), () => ElisaApplication.mediaPlayListProxyModel.undoClearPlayList())
         }
     }
 
@@ -106,7 +106,7 @@ Kirigami.ApplicationWindow {
         showFullScreen()
     }
 
-    LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
+    LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
     x: persistentSettings.x
@@ -198,11 +198,10 @@ Kirigami.ApplicationWindow {
 
         folder: StandardPaths.writableLocation(StandardPaths.MusicLocation)
 
-        onAccepted:
-        {
+        onAccepted: {
             if (fileMode === FileDialog.SaveFile) {
                 if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(fileDialog.file)) {
-                    showPassiveNotification(i18nc("@label", "Saving failed"), 7000, i18nc("@action:button", "Retry"), function() { savePlaylistButton.clicked(); })
+                    showPassiveNotification(i18nc("@label", "Saving failed"), 7000, i18nc("@action:button", "Retry"), () => savePlaylistButton.clicked())
                 }
             } else {
                 ElisaApplication.mediaPlayListProxyModel.loadPlayList(fileDialog.file)
@@ -286,12 +285,12 @@ Kirigami.ApplicationWindow {
     Connections {
         target: ElisaApplication.audioPlayer
         function onVolumeChanged() {
-            if (mediaPlayerControl != null) {
+            if (mediaPlayerControl !== null) {
                 mediaPlayerControl.playerControl.volume = ElisaApplication.audioPlayer.volume
             }
         }
         function onMutedChanged() {
-            if (mediaPlayerControl != null) {
+            if (mediaPlayerControl !== null) {
                 mediaPlayerControl.playerControl.muted = ElisaApplication.audioPlayer.muted
             }
         }
@@ -307,7 +306,7 @@ Kirigami.ApplicationWindow {
 
         // footer bar fills the whole page, so only be in front of the main view when it is opened
         // otherwise, it captures all mouse/touch events on the main view
-        z: (!item || item.contentY == 0) ? (mainWindow.layerOnTop ? -1 : 0) : 999
+        z: (!item || item.contentY === 0) ? (mainWindow.layerOnTop ? -1 : 0) : 999
 
         sourceComponent: MobileFooterBar {
             id: mobileFooterBar
@@ -330,7 +329,7 @@ Kirigami.ApplicationWindow {
                 value: mobileFooterBar.trackControl.volume
             }
             Component.onCompleted: {
-                trackControl.volume = Qt.binding(function() { return mobileFooterBar.playerControl.volume })
+                trackControl.volume = Qt.binding(() => mobileFooterBar.playerControl.volume);
             }
 
             onOpenArtist: { contentView.openArtist(artist) }
@@ -346,7 +345,7 @@ Kirigami.ApplicationWindow {
 
         color: myPalette.base
         anchors.fill: parent
-        anchors.bottomMargin: Kirigami.Settings.isMobile? elisaTheme.mediaPlayerControlHeight : 0
+        anchors.bottomMargin: Kirigami.Settings.isMobile ? elisaTheme.mediaPlayerControlHeight : 0
 
 
         ColumnLayout {
@@ -362,7 +361,7 @@ Kirigami.ApplicationWindow {
                 Layout.minimumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : elisaTheme.mediaPlayerControlHeight
                 Layout.maximumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight)
                 Layout.fillWidth: true
-                Layout.preferredHeight: status == Loader.Ready ? item.handlePosition : normalHeight
+                Layout.preferredHeight: status === Loader.Ready ? item.handlePosition : normalHeight
 
                 // height when HeaderBar is not maximized
                 property int normalHeight : persistentSettings.headerBarHeight
@@ -395,9 +394,9 @@ Kirigami.ApplicationWindow {
                     ratingVisible: false
 
                     playerControl.isMaximized: persistentSettings.headerBarIsMaximized
-                    onOpenArtist: { contentView.openArtist(artist) }
-                    onOpenNowPlaying: { contentView.openNowPlaying() }
-                    onOpenAlbum: { contentView.openAlbum(album, albumArtist, image, albumID) }
+                    onOpenArtist: contentView.openArtist(artist)
+                    onOpenNowPlaying: contentView.openNowPlaying()
+                    onOpenAlbum: contentView.openAlbum(album, albumArtist, image, albumID)
 
                     // animations
                     StateGroup {
@@ -477,7 +476,7 @@ Kirigami.ApplicationWindow {
 
     // capture mouse events behind flickable when it is open
     MouseArea {
-        visible: Kirigami.Settings.isMobile && mobileFooterBarLoader.item.contentY != 0 // only capture when the mobile footer panel is open
+        visible: Kirigami.Settings.isMobile && mobileFooterBarLoader.item.contentY !== 0 // only capture when the mobile footer panel is open
         anchors.fill: mobileFooterBarLoader
         preventStealing: true
         onClicked: mouse.accepted = true
@@ -500,10 +499,10 @@ Kirigami.ApplicationWindow {
         mediaPlayerControl.playerControl.volume = persistentSettings.playControlItemVolume;
         mediaPlayerControl.playerControl.muted = persistentSettings.playControlItemMuted;
 
-        ElisaApplication.mediaPlayListProxyModel.shufflePlayList = Qt.binding(function() { return mediaPlayerControl.playerControl.shuffle })
-        ElisaApplication.mediaPlayListProxyModel.repeatMode = Qt.binding(function() { return mediaPlayerControl.playerControl.repeat })
-        ElisaApplication.audioPlayer.muted = Qt.binding(function() { return mediaPlayerControl.playerControl.muted })
-        ElisaApplication.audioPlayer.volume = Qt.binding(function() { return mediaPlayerControl.playerControl.volume })
+        ElisaApplication.mediaPlayListProxyModel.shufflePlayList = Qt.binding(() => mediaPlayerControl.playerControl.shuffle);
+        ElisaApplication.mediaPlayListProxyModel.repeatMode = Qt.binding(() => mediaPlayerControl.playerControl.repeat);
+        ElisaApplication.audioPlayer.muted = Qt.binding(() => mediaPlayerControl.playerControl.muted);
+        ElisaApplication.audioPlayer.volume = Qt.binding(() => mediaPlayerControl.playerControl.volume);
 
         mprisloader.active = true
 

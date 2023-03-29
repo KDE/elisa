@@ -59,9 +59,9 @@ MenuBar {
         }
 
         MenuItem {
-            text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Exit Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
-            icon.name: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
-            onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.restorePreviousStateBeforeFullScreen() : mainWindow.goFullScreen()
+            text: mainWindow.visibility === Window.FullScreen ? i18nc("@action:inmenu", "Exit Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
+            icon.name: mainWindow.visibility === Window.FullScreen ? "view-restore" : "view-fullscreen"
+            onTriggered: mainWindow.visibility === Window.FullScreen ? mainWindow.restorePreviousStateBeforeFullScreen() : mainWindow.goFullScreen()
         }
 
         MenuItem {
@@ -74,13 +74,13 @@ MenuBar {
         title: i18nc("@title:menu", "Controls")
 
         MenuItem {
-            text: ElisaApplication.audioControl.playerPlaybackState == 1 ? i18nc("@action:inmenu", "Pause") : i18nc("@action:inmenu", "Play")
-            icon.name: ElisaApplication.audioControl.playerPlaybackState == 1 ? "media-playback-pause" : "media-playback-start"
+            text: ElisaApplication.audioControl.playerPlaybackState === 1 ? i18nc("@action:inmenu", "Pause") : i18nc("@action:inmenu", "Play")
+            icon.name: ElisaApplication.audioControl.playerPlaybackState === 1 ? "media-playback-pause" : "media-playback-start"
             onTriggered: ElisaApplication.audioControl.playPause()
         }
 
         MenuItem {
-            enabled: ElisaApplication.audioControl.playerPlaybackState != 0
+            enabled: ElisaApplication.audioControl.playerPlaybackState !== 0
             text: i18nc("@action:inmenu", "Stop")
             icon.name: "media-playback-stop"
             onTriggered: ElisaApplication.audioControl.stop()

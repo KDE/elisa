@@ -8,15 +8,15 @@ import QtQuick 2.7
 import org.kde.elisa 1.0
 
 FocusScope {
-    property int position: ElisaApplication.audioControl.playerPosition
-    property int duration: ElisaApplication.audioControl.audioDuration
-    property bool muted
-    property bool isPlaying: ElisaApplication.playerControl.musicPlaying
-    property bool seekable: ElisaApplication.audioPlayer.seekable
-    property bool playEnabled: ElisaApplication.playerControl.playControlEnabled
-    property bool skipForwardEnabled: ElisaApplication.playerControl.skipForwardControlEnabled
-    property bool skipBackwardEnabled: ElisaApplication.playerControl.skipBackwardControlEnabled
+    readonly property int position: ElisaApplication.audioControl.playerPosition
+    readonly property int duration: ElisaApplication.audioControl.audioDuration
+    readonly property bool isPlaying: ElisaApplication.playerControl.musicPlaying
+    readonly property bool seekable: ElisaApplication.audioPlayer.seekable
+    readonly property bool playEnabled: ElisaApplication.playerControl.playControlEnabled
+    readonly property bool skipForwardEnabled: ElisaApplication.playerControl.skipForwardControlEnabled
+    readonly property bool skipBackwardEnabled: ElisaApplication.playerControl.skipBackwardControlEnabled
 
+    property bool muted
     property bool shuffle: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
     property int repeat: ElisaApplication.mediaPlayListProxyModel.repeatMode
 

@@ -18,7 +18,6 @@ FocusScope {
 
     property bool muted
     property bool shuffle: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
-    property int repeat: ElisaApplication.mediaPlayListProxyModel.repeatMode
 
     signal play()
     signal pause()

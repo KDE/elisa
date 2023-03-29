@@ -500,7 +500,6 @@ Kirigami.ApplicationWindow {
         mediaPlayerControl.playerControl.muted = persistentSettings.playControlItemMuted;
 
         ElisaApplication.mediaPlayListProxyModel.shufflePlayList = Qt.binding(() => mediaPlayerControl.playerControl.shuffle);
-        ElisaApplication.mediaPlayListProxyModel.repeatMode = Qt.binding(() => mediaPlayerControl.playerControl.repeat);
         ElisaApplication.audioPlayer.muted = Qt.binding(() => mediaPlayerControl.playerControl.muted);
         ElisaApplication.audioPlayer.volume = Qt.binding(() => mediaPlayerControl.playerControl.volume);
 

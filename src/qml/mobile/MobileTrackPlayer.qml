@@ -231,7 +231,7 @@ BasePlayerControl {
                             [MediaPlayListProxyModel.One]: i18nc("@info:tooltip", "Current: Repeat current track"),
                             [MediaPlayListProxyModel.Playlist]: i18nc("@info:tooltip", "Current: Repeat all tracks in playlist"),
                         }
-                        return map[trackPlayer.repeat]
+                        return map[ElisaApplication.mediaPlayListProxyModel.repeatMode]
                     }
                     icon.name: {
                         const map = {
@@ -239,7 +239,7 @@ BasePlayerControl {
                             [MediaPlayListProxyModel.One]: "media-repeat-single",
                             [MediaPlayListProxyModel.Playlist]: "media-repeat-all",
                         }
-                        return map[trackPlayer.repeat]
+                        return map[ElisaApplication.mediaPlayListProxyModel.repeatMode]
                     }
                     icon.color: "white"
 
@@ -247,10 +247,10 @@ BasePlayerControl {
                     Accessible.role: Accessible.ButtonMenu
 
                     checkable: true
-                    checked: trackPlayer.repeat !== 0
+                    checked: ElisaApplication.mediaPlayListProxyModel.repeatMode !== 0
 
                     onClicked: {
-                        trackPlayer.repeat = (trackPlayer.repeat + 1) % 3
+                        ElisaApplication.mediaPlayListProxyModel.repeatMode = (ElisaApplication.mediaPlayListProxyModel.repeatMode + 1) % 3
                     }
                     onPressAndHold: {
                         menu.popup()

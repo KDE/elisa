@@ -118,17 +118,17 @@ Kirigami.ApplicationWindow {
 
     readonly property int initialViewIndex: 3
 
-    property var goBackAction: ElisaApplication.action("go_back")
-    property var seekAction: ElisaApplication.action("Seek")
-    property var scrubAction: ElisaApplication.action("Scrub")
-    property var nextTrackAction : ElisaApplication.action("NextTrack")
-    property var previousTrackAction: ElisaApplication.action("PreviousTrack")
-    property var playPauseAction: ElisaApplication.action("Play-Pause")
-    property var findAction: ElisaApplication.action("edit_find")
-    property var togglePartyModeAction: ElisaApplication.action("togglePartyMode")
+    readonly property var goBackAction: ElisaApplication.action("go_back")
+    readonly property var seekAction: ElisaApplication.action("Seek")
+    readonly property var scrubAction: ElisaApplication.action("Scrub")
+    readonly property var nextTrackAction : ElisaApplication.action("NextTrack")
+    readonly property var previousTrackAction: ElisaApplication.action("PreviousTrack")
+    readonly property var playPauseAction: ElisaApplication.action("Play-Pause")
+    readonly property var findAction: ElisaApplication.action("edit_find")
+    readonly property var togglePartyModeAction: ElisaApplication.action("togglePartyMode")
 
-    property var mediaPlayerControl: Kirigami.Settings.isMobile ? mobileFooterBarLoader.item : headerBarLoader.item
-    property var fileDialog: fileDialog
+    readonly property var mediaPlayerControl: Kirigami.Settings.isMobile ? mobileFooterBarLoader.item : headerBarLoader.item
+    readonly property alias fileDialog: fileDialog
 
     Action {
         shortcut: ElisaApplication.actionShortcut(goBackAction)

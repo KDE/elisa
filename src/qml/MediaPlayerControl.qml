@@ -158,17 +158,17 @@ BasePlayerControl {
             id: repeatButton
             text: {
                 const map = {
-                    0: i18nc("@info:tooltip", "Current: Don't repeat tracks"),
-                    1: i18nc("@info:tooltip", "Current: Repeat current track"),
-                    2: i18nc("@info:tooltip", "Current: Repeat all tracks in playlist")
+                    [MediaPlayListProxyModel.None]: i18nc("@info:tooltip", "Current: Don't repeat tracks"),
+                    [MediaPlayListProxyModel.One]: i18nc("@info:tooltip", "Current: Repeat current track"),
+                    [MediaPlayListProxyModel.Playlist]: i18nc("@info:tooltip", "Current: Repeat all tracks in playlist"),
                 }
                 return map[musicWidget.repeat]
             }
             icon.name: {
                 const map = {
-                    0: "media-repeat-none",
-                    1: "media-repeat-single",
-                    2: "media-repeat-all"
+                    [MediaPlayListProxyModel.None]: "media-repeat-none",
+                    [MediaPlayListProxyModel.One]: "media-repeat-single",
+                    [MediaPlayListProxyModel.Playlist]: "media-repeat-all",
                 }
                 return map[musicWidget.repeat]
             }

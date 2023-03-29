@@ -243,7 +243,7 @@ BasePlayerControl {
                     }
                     icon.color: "white"
 
-                    down: pressed || playlistModeMenu.visible
+                    down: pressed || menu.visible
                     Accessible.role: Accessible.ButtonMenu
 
                     checkable: true
@@ -253,12 +253,10 @@ BasePlayerControl {
                         trackPlayer.repeat = (trackPlayer.repeat + 1) % 3
                     }
                     onPressAndHold: {
-                        playlistModeMenu.popup()
+                        menu.popup()
                     }
 
-                    Menu {
-                        id: playlistModeMenu
-
+                    menu: Menu {
                         PlaylistModeItem {
                             text: i18nc("@action:inmenu", "Playlist")
                             mode: MediaPlayListProxyModel.Playlist

@@ -173,7 +173,7 @@ BasePlayerControl {
                 return map[musicWidget.repeat]
             }
 
-            down: pressed || playlistModeMenu.visible
+            down: pressed || menu.visible
             Accessible.role: Accessible.ButtonMenu
 
             checkable: true
@@ -182,12 +182,10 @@ BasePlayerControl {
                 musicWidget.repeat = (musicWidget.repeat + 1) % 3
             }
             onPressAndHold: {
-                playlistModeMenu.popup()
+                menu.popup()
             }
 
-            Menu {
-                id: playlistModeMenu
-
+            menu: Menu {
                 PlaylistModeItem {
                     text: i18nc("@action:inmenu", "Playlist")
                     mode: MediaPlayListProxyModel.Playlist
@@ -245,26 +243,24 @@ BasePlayerControl {
             id: menuButton
 
             function openMenu() {
-                if (!applicationMenu.visible) {
-                    applicationMenu.open()
+                if (!menu.visible) {
+                    menu.open()
                 } else {
-                    applicationMenu.dismiss()
+                    menu.dismiss()
                 }
             }
 
             text: i18nc("@action:button", "Application Menu")
             icon.name: "open-menu-symbolic"
 
-            down: pressed || applicationMenu.visible
+            down: pressed || menu.visible
             Accessible.role: Accessible.ButtonMenu
 
             onPressed: openMenu()
             // Need this too because the base control sends onClicked for return/enter
             onClicked: openMenu()
 
-            ApplicationMenu {
-                id: applicationMenu
-
+            menu: ApplicationMenu {
                 y: menuButton.height
                 // without modal, clicking on menuButton will not close the menu
                 modal: true

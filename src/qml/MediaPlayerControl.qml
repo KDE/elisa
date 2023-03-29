@@ -173,6 +173,9 @@ BasePlayerControl {
                 return map[musicWidget.repeat]
             }
 
+            down: pressed || playlistModeMenu.visible
+            Accessible.role: Accessible.ButtonMenu
+
             checkable: true
             checked: repeat !== 0
             onClicked: {

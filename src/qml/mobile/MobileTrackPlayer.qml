@@ -243,6 +243,10 @@ BasePlayerControl {
                     }
                     icon.color: "white"
                     checked: repeat !== 0
+
+                    down: pressed || playlistModeMenu.visible
+                    Accessible.role: Accessible.ButtonMenu
+
                     onClicked: {
                         trackPlayer.repeat = (trackPlayer.repeat + 1) % 3
                     }

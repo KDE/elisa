@@ -242,10 +242,12 @@ BasePlayerControl {
                         return map[trackPlayer.repeat]
                     }
                     icon.color: "white"
-                    checked: repeat !== 0
 
                     down: pressed || playlistModeMenu.visible
                     Accessible.role: Accessible.ButtonMenu
+
+                    checkable: true
+                    checked: trackPlayer.repeat !== 0
 
                     onClicked: {
                         trackPlayer.repeat = (trackPlayer.repeat + 1) % 3

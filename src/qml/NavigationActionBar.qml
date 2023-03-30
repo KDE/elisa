@@ -84,7 +84,7 @@ Item {
                     Layout.leftMargin: Kirigami.Units.largeSpacing
                     implicitWidth: Kirigami.Units.iconSizes.smallMedium
                     implicitHeight: Kirigami.Units.iconSizes.smallMedium
-                    source: 'view-sort'
+                    source: "view-sort"
                     isMask: true
                 }
 
@@ -112,7 +112,7 @@ Item {
         FlatButtonWithToolTip {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
-            objectName: 'createRadioButton'
+            objectName: "createRadioButton"
             text: i18nc("@action:button", "Create a radio")
             icon.name: "list-add"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
@@ -124,7 +124,7 @@ Item {
         FlatButtonWithToolTip {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
-            objectName: 'enqueueButton'
+            objectName: "enqueueButton"
             text: i18nc("@action:button", "Add to Playlist")
             icon.name: "list-add"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
@@ -136,7 +136,7 @@ Item {
         FlatButtonWithToolTip {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
-            objectName: 'replaceAndPlayButton'
+            objectName: "replaceAndPlayButton"
             text: i18nc("@action:button", "Play now, replacing current playlist")
             icon.name: "media-playback-start"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
@@ -148,7 +148,7 @@ Item {
         FlatButtonWithToolTip {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
-            objectName: 'showArtistButton'
+            objectName: "showArtistButton"
             text: i18nc("@action:button navigate to the view for artist of this album", "Display Artist")
             icon.name: "view-media-artist"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
@@ -185,7 +185,7 @@ Item {
         HeaderFooterToolbar {
             id: mainHeader
             toolbarType: Kirigami.Settings.isMobile || filterRow.visible ? HeaderFooterToolbar.ToolbarType.Other
-                                                                        : HeaderFooterToolbar.ToolbarType.Header
+                                                                         : HeaderFooterToolbar.ToolbarType.Header
             Layout.fillWidth: true
 
             // on mobile, the header is translucent
@@ -196,7 +196,7 @@ Item {
             contentItems: [
                 FlatButtonWithToolTip {
                     id: showSidebarButton
-                    objectName: 'showSidebarButton'
+                    objectName: "showSidebarButton"
                     visible: Kirigami.Settings.isMobile
                     text: i18nc("@action:button", "Open sidebar")
                     icon.name: "open-menu-symbolic"
@@ -204,10 +204,10 @@ Item {
                 },
                 FlatButtonWithToolTip {
                     id: goPreviousButton
-                    objectName: 'goPreviousButton'
+                    objectName: "goPreviousButton"
                     visible: enableGoBack
                     text: i18nc("@action:button navigate back in the view's stack", "Back")
-                    icon.name: (Qt.application.layoutDirection == Qt.RightToLeft) ? "go-next" : "go-previous"
+                    icon.name: (Qt.application.layoutDirection === Qt.RightToLeft) ? "go-next" : "go-previous"
                     onClicked: goBack()
                 },
                 Kirigami.Icon {
@@ -283,10 +283,10 @@ Item {
                 FlatButtonWithToolTip {
                     Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
                     Kirigami.Theme.inherit: false
-                    objectName: 'showFilterButton'
+                    objectName: "showFilterButton"
                     visible: !showCreateRadioButton
                     text: !navigationBar.expandedFilterView ? i18nc("@action:button Show filters in the navigation bar", "Search and Filter") : i18nc("@action:button Hide filters in the navigation bar", "Hide Search and Filter")
-                    icon.name: 'search'
+                    icon.name: "search"
                     checkable: true
                     checked: expandedFilterView
                     onClicked: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView;
@@ -378,7 +378,7 @@ Item {
             contentItems: [
                 Kirigami.SearchField {
                     id: filterTextInput
-                    objectName: 'filterTextInput'
+                    objectName: "filterTextInput"
 
                     Layout.fillWidth: true
                     focusSequence: ""
@@ -402,7 +402,7 @@ Item {
                 },
                 RatingStar {
                     id: ratingFilter
-                    objectName: 'ratingFilter'
+                    objectName: "ratingFilter"
 
                     visible: showRating && !ElisaApplication.useFavoriteStyleRatings
 
@@ -414,7 +414,7 @@ Item {
                     text: i18nc("@action:button", "Only Show Favorites")
                     icon.name: "rating"
                     checkable: true
-                    checked: ratingFilter.starRating == 10
+                    checked: ratingFilter.starRating === 10
                     onToggled: {
                         if (checked) {
                             ratingFilter.starRating = 10;

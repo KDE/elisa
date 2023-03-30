@@ -117,10 +117,10 @@ Kirigami.Page {
 
             Connections {
                 target: ElisaApplication.mediaPlayListProxyModel
-                onPartiallyLoadedChanged: {
+                function onPartiallyLoadedChanged() {
                     partiallyLoadedMessage.visible = ElisaApplication.mediaPlayListProxyModel.partiallyLoaded
                 }
-                onCanOpenLoadedPlaylistChanged: {
+                function onCanOpenLoadedPlaylistChanged() {
                     actionButton.visible = ElisaApplication.mediaPlayListProxyModel.canOpenLoadedPlaylist
                 }
             }

@@ -111,7 +111,7 @@ RowLayout {
             RatingStar {
                 starRating: delegateRow.display
 
-                readOnly: false
+                readOnly: delegateRow.readOnly
 
                 anchors.verticalCenter: parent.verticalCenter
 

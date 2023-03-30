@@ -5,11 +5,12 @@
  */
 
 import QtQuick 2.7
+import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.2
 import ElisaGraphicalEffects 1.15
 import org.kde.kirigami 2.5 as Kirigami
 
-Row {
+QQC2.Control {
     id: control
 
     property int starRating
@@ -22,23 +23,66 @@ Row {
 
     signal ratingEdited()
 
-    spacing: 0
+    function decreaseRating() {
+        if (!readOnly) {
+            starRating = Math.max(0, starRating - 2);
+            ratingEdited();
+        }
+    }
 
-    Repeater {
-        model: 5
+    function increaseRating() {
+        if (!readOnly) {
+            starRating = Math.min(10, starRating + 2);
+            ratingEdited();
+        }
+    }
 
-        Item {
-            id: delegate
+    Keys.onLeftPressed: event => {
+        if (readOnly) {
+            event.accepted = false;
+        } else {
+            event.accepted = true;
+            decreaseRating();
+        }
+    }
 
-            readonly property int ratingThreshold: 2 + index * 2
+    Keys.onRightPressed: event => {
+        if (readOnly) {
+            event.accepted = false;
+        } else {
+            event.accepted = true;
+            increaseRating();
+        }
+    }
 
-            width: Kirigami.Units.iconSizes.small
-            height: Kirigami.Units.iconSizes.small
+    focusPolicy: readOnly ? Qt.NoFocus : Qt.StrongFocus
 
-            Kirigami.Icon {
+    padding: Kirigami.Units.smallSpacing
+    // Reset paddings after qqc2-desktop-style Control
+    topPadding: undefined
+    leftPadding: undefined
+    rightPadding: undefined
+    bottomPadding: undefined
+
+    contentItem: Row {
+
+        spacing: 0
+
+        Repeater {
+            model: 5
+
+            Item {
+                id: delegate
+
+                readonly property int ratingThreshold: 2 + index * 2
+
                 width: Kirigami.Units.iconSizes.small
                 height: Kirigami.Units.iconSizes.small
-                anchors.centerIn: parent
+
+                Kirigami.Icon {
+                    width: Kirigami.Units.iconSizes.small
+                    height: Kirigami.Units.iconSizes.small
+                    anchors.centerIn: parent
 
                 layer.enabled: control.hoveredRating >= delegate.ratingThreshold
 
@@ -51,29 +95,47 @@ Row {
                     ? Qt.resolvedUrl(elisaTheme.ratingIcon)
                     : Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
 
-                opacity: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
-                    ? 1 : 0.7
-            }
-
-            MouseArea {
-                anchors.fill: parent
-
-                enabled: !control.readOnly
-
-                acceptedButtons: Qt.LeftButton
-                hoverEnabled: true
-
-                onClicked: {
-                    if (control.starRating !== delegate.ratingThreshold) {
-                        control.starRating = delegate.ratingThreshold
-                    } else {
-                        control.starRating = 0
-                    }
-                    control.ratingEdited()
+                    opacity: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
+                        ? 1 : 0.7
                 }
 
-                onEntered: control.hoveredRating = delegate.ratingThreshold
-                onExited: control.hoveredRating = 0
+                MouseArea {
+                    anchors.fill: parent
+
+                    enabled: !control.readOnly
+
+                    acceptedButtons: Qt.LeftButton
+                    hoverEnabled: true
+
+                    onClicked: {
+                        if (control.starRating !== delegate.ratingThreshold) {
+                            control.starRating = delegate.ratingThreshold
+                        } else {
+                            control.starRating = 0
+                        }
+                        control.ratingEdited()
+                    }
+
+                    onEntered: control.hoveredRating = delegate.ratingThreshold
+                    onExited: control.hoveredRating = 0
+                }
+            }
+        }
+    }
+
+    background: Rectangle {
+        color: "transparent"
+        border.color: control.palette.highlight
+        border.width: 1
+        radius: Kirigami.Units.smallSpacing
+
+        opacity: control.activeFocus && [Qt.TabFocusReason, Qt.BacktabFocusReason].includes(control.focusReason)
+            ? 1 : 0
+
+        Behavior on opacity {
+            OpacityAnimator {
+                duration: Kirigami.Units.shortDuration
+                easing.type: Easing.InOutCubic
             }
         }
     }

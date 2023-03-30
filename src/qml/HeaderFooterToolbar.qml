@@ -33,7 +33,7 @@ Rectangle {
 
     // Top separator line for a footer
     Kirigami.Separator {
-        visible: toolbarType == HeaderFooterToolbar.ToolbarType.Footer
+        visible: toolbarType === HeaderFooterToolbar.ToolbarType.Footer
         width: parent.width
         anchors.top: parent.top
     }
@@ -53,7 +53,7 @@ Rectangle {
 
     // Bottom separator line for a header
     Kirigami.Separator {
-        visible: toolbarType == HeaderFooterToolbar.ToolbarType.Header
+        visible: toolbarType === HeaderFooterToolbar.ToolbarType.Header
         width: parent.width
         anchors.bottom: parent.bottom
     }

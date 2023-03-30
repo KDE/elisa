@@ -96,7 +96,7 @@ MenuBar {
         }
         MenuItem {
             text: i18nc("@action:inmenu", "Decrease Volume")
-            enabled: ElisaApplication.audioPlayer.volume > 100.0
+            enabled: ElisaApplication.audioPlayer.volume > 0.0
             onTriggered: ElisaApplication.audioPlayer.setVolume(ElisaApplication.audioPlayer.volume - 5)
         }
 

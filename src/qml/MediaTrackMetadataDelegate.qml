@@ -114,14 +114,12 @@ RowLayout {
                 readOnly: false
 
                 anchors.verticalCenter: parent.verticalCenter
-                height: Kirigami.Units.gridUnit
 
                 onRatingEdited: {
                     if (display !== starRating) {
                         display = starRating
                         ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, starRating)
                         edited()
-
                     }
                 }
             }

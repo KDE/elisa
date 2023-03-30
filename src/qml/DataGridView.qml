@@ -20,16 +20,25 @@ AbstractDataView {
     signal replaceAndPlay(var fullData, string name)
     signal open(var fullData)
 
-    onEnqueue: proxyModel.enqueue(fullData, name,
-                                  ElisaUtils.AppendPlayList,
-                                  ElisaUtils.DoNotTriggerPlay)
+    onEnqueue: (fullData, name) => {
+        proxyModel.enqueue(
+            fullData,
+            name,
+            ElisaUtils.AppendPlayList,
+            ElisaUtils.DoNotTriggerPlay
+        );
+    }
 
-    onReplaceAndPlay: proxyModel.enqueue(fullData, name,
-                                         ElisaUtils.ReplacePlayList,
-                                         ElisaUtils.TriggerPlay)
+    onReplaceAndPlay: (fullData, name) => {
+        proxyModel.enqueue(
+            fullData,
+            name,
+            ElisaUtils.ReplacePlayList,
+            ElisaUtils.TriggerPlay
+        );
+    }
 
-    onOpen: viewManager.openChildView(fullData)
-
+    onOpen: fullData => viewManager.openChildView(fullData)
 
     delegate: GridBrowserDelegate {
         width: Kirigami.Settings.isMobile ? contentDirectoryView.cellWidth : elisaTheme.gridDelegateSize
@@ -77,7 +86,6 @@ AbstractDataView {
             }
         }
     }
-
 
     contentView: GridView {
         id: contentDirectoryView

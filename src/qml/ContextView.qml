@@ -19,13 +19,13 @@ Kirigami.Page {
 
     property int databaseId: 0
     property var trackType
-    property string songTitle: ''
-    property string albumName: ''
-    property string artistName: ''
-    property url albumArtUrl: ''
-    property url fileUrl: ''
+    property string songTitle: ""
+    property string albumName: ""
+    property string artistName: ""
+    property url albumArtUrl: ""
+    property url fileUrl: ""
     property int albumId
-    property string albumArtist: ''
+    property string albumArtist: ""
 
     signal openArtist()
     signal openAlbum()
@@ -145,7 +145,7 @@ Kirigami.Page {
                 id: albumArtBackground
                 anchors.fill: parent
 
-                source: albumArtUrl.toString() === '' ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
+                source: albumArtUrl.toString() === "" ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
 
                 asynchronous: true
 
@@ -160,14 +160,18 @@ Kirigami.Page {
                 }
 
                 // HACK: set sourceSize to a fixed value to prevent background flickering (BUG431607)
-                onStatusChanged: if (status === Image.Ready && (sourceSize.width > Kirigami.Units.gridUnit * 50 || sourceSize.height > Kirigami.Units.gridUnit * 50)) sourceSize = Qt.size(Kirigami.Units.gridUnit * 50, Kirigami.Units.gridUnit * 50)
+                onStatusChanged: {
+                    if (status === Image.Ready && (sourceSize.width > Kirigami.Units.gridUnit * 50 || sourceSize.height > Kirigami.Units.gridUnit * 50)) {
+                        sourceSize = Qt.size(Kirigami.Units.gridUnit * 50, Kirigami.Units.gridUnit * 50);
+                    }
+                }
             }
         }
 
         RowLayout {
             id: contentLayout
 
-            property bool wideMode: allMetaDataLoader.width  <= width * 0.5
+            property bool wideMode: allMetaDataLoader.width <= width * 0.5
                                     && allMetaDataLoader.height <= height
 
             anchors.fill: parent
@@ -183,7 +187,7 @@ Kirigami.Page {
                     if (contentLayout.wideMode) {
                         return contentLayout.width * 0.5
                     } else {
-                        return showMetaDataButton.checked? contentLayout.width : 0
+                        return showMetaDataButton.checked ? contentLayout.width : 0
                     }
                 }
 
@@ -277,7 +281,7 @@ Kirigami.Page {
                     id: lyricItem
                     property real margins: Kirigami.Units.largeSpacing + lyricScroll.ScrollBar.vertical.width
                     width: lyricScroll.width - margins
-                    height: lyricsView.count == 0 ? lyricPlaceholder.height : lyricsView.height
+                    height: lyricsView.count === 0 ? lyricPlaceholder.height : lyricsView.height
                     x: Kirigami.Units.largeSpacing
 
                     ListView {
@@ -294,7 +298,7 @@ Kirigami.Page {
                             MouseArea {
                                 height: parent.height
                                 width: Math.min(parent.width, parent.contentWidth)
-                                x: contentLayout.wideMode? 0 : (parent.width - width) / 2
+                                x: contentLayout.wideMode ? 0 : (parent.width - width) / 2
                                 enabled: lyricsModel.isLRC
                                 cursorShape: enabled ? Qt.PointingHandCursor : undefined
                                 onClicked: {

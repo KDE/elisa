@@ -60,8 +60,7 @@ FocusScope {
     Accessible.role: Accessible.Pane
     Accessible.name: mainTitle
 
-    function initializeModel()
-    {
+    function initializeModel() {
         if (!proxyModel) {
             return
         }
@@ -80,7 +79,7 @@ FocusScope {
 
         proxyModel.sourceModel = realModel
         proxyModel.dataType = modelType
-        proxyModel.playList = Qt.binding(function() { return ElisaApplication.mediaPlayListProxyModel })
+        proxyModel.playList = Qt.binding(() => ElisaApplication.mediaPlayListProxyModel)
         abstractView.contentModel = proxyModel
 
         if (sortModel) {
@@ -102,13 +101,11 @@ FocusScope {
         }
     }
 
-
     // Model
     DelegateModel {
         id: delegateModel
         model: abstractView.contentModel
     }
-
 
     // Main view components
     ColumnLayout {
@@ -132,21 +129,21 @@ FocusScope {
 
             Binding {
                 target: abstractView.contentModel
-                property: 'filterText'
+                property: "filterText"
                 when: abstractView.contentModel
                 value: navigationBar.filterText
             }
 
             Binding {
                 target: abstractView.contentModel
-                property: 'filterRating'
+                property: "filterRating"
                 when: abstractView.contentModel
                 value: navigationBar.filterRating
             }
 
             Binding {
                 target: abstractView.contentModel
-                property: 'sortRole'
+                property: "sortRole"
                 when: abstractView.contentModel && navigationBar.enableSorting
                 value: navigationBar.sortRole
             }
@@ -167,12 +164,13 @@ FocusScope {
                 if ((contentModel.sortedAscending && sortOrder !== Qt.AscendingOrder) ||
                     (!contentModel.sortedAscending && sortOrder !== Qt.DescendingOrder)) {
                     contentModel.sortModel(sortOrder)
-                    }
+                }
             }
         }
 
         ScrollView {
             id: scrollView
+
             readonly property int scrollBarWidth: ScrollBar.vertical.visible ? ScrollBar.vertical.width : 0
 
             Layout.fillHeight: true
@@ -185,7 +183,6 @@ FocusScope {
         }
     }
 
-
     // Loading spinner
     Loader {
         id: busyIndicatorLoader
@@ -194,38 +191,35 @@ FocusScope {
         width: height
 
         active: realModel ? realModel.isBusy : true
-        visible: active && status == Loader.Ready
+        visible: active && status === Loader.Ready
 
         sourceComponent: BusyIndicator {
             anchors.centerIn: parent
         }
     }
 
-
     // "Nothing here" placeholder message
     Loader {
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: Math.round(navigationBar.height/2)
+        anchors.verticalCenterOffset: Math.round(navigationBar.height / 2)
         width: parent.width - (Kirigami.Units.largeSpacing * 4)
         active: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
-        visible: active && status == Loader.Ready
+        visible: active && status === Loader.Ready
 
         sourceComponent: Kirigami.PlaceholderMessage {
             anchors.centerIn: parent
             icon.name: "edit-none"
-            text: navigationBar.filterText.length > 0 ? i18nc("@info:placeholder", "No matches") :  i18nc("@info:placeholder", "Nothing to display")
+            text: navigationBar.filterText.length > 0 ? i18nc("@info:placeholder", "No matches") : i18nc("@info:placeholder", "Nothing to display")
         }
     }
-
 
     Connections {
         target: ElisaApplication
 
         function onMusicManagerChanged() {
-            initializeModel()
+            abstractView.initializeModel()
         }
     }
-
 
     Component.onCompleted: {
         initializeModel()

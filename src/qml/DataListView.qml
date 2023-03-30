@@ -28,32 +28,31 @@ AbstractDataView {
 
     function openMetaDataView(databaseId, url, entryType) {
         metadataLoader.setSource(Kirigami.Settings.isMobile ? "mobile/MobileMediaTrackMetadataView.qml" : "MediaTrackMetadataView.qml",
-                                 {
-                                     "fileName": url,
-                                     "modelType": entryType,
-                                     "showImage": entryType !== ElisaUtils.Radio,
-                                     "showTrackFileName": entryType !== ElisaUtils.Radio,
-                                     "showDeleteButton": entryType === ElisaUtils.Radio,
-                                     "editableMetadata": true,
-                                     "canAddMoreMetadata": entryType !== ElisaUtils.Radio,
-                                 });
-        metadataLoader.active = true
+            {
+                fileName: url,
+                modelType: entryType,
+                showImage: entryType !== ElisaUtils.Radio,
+                showTrackFileName: entryType !== ElisaUtils.Radio,
+                showDeleteButton: entryType === ElisaUtils.Radio,
+                editableMetadata: true,
+                canAddMoreMetadata: entryType !== ElisaUtils.Radio,
+            });
+        metadataLoader.active = true;
     }
     function openCreateRadioView()
     {
         metadataLoader.setSource(Kirigami.Settings.isMobile ? "mobile/MobileMediaTrackMetadataView.qml" : "MediaTrackMetadataView.qml",
-                                 {
-                                     "modelType": ElisaUtils.Radio,
-                                     "isCreating": true,
-                                     "showImage": false,
-                                     "showTrackFileName": false,
-                                     "showDeleteButton": true,
-                                     "editableMetadata": true,
-                                     "canAddMoreMetadata": false,
-                                 });
-        metadataLoader.active = true
+            {
+                modelType: ElisaUtils.Radio,
+                isCreating: true,
+                showImage: false,
+                showTrackFileName: false,
+                showDeleteButton: true,
+                editableMetadata: true,
+                canAddMoreMetadata: false,
+            });
+        metadataLoader.active = true;
     }
-
 
     Loader {
         id: metadataLoader
@@ -69,7 +68,6 @@ AbstractDataView {
         }
     }
 
-
     delegate: ListBrowserDelegate {
         id: entry
 
@@ -79,12 +77,12 @@ AbstractDataView {
 
         trackUrl: model.url
         dataType: model.dataType
-        title: model.display ? model.display : ''
-        artist: model.artist ? model.artist : ''
-        album: model.album ? model.album : ''
-        albumArtist: model.albumArtist ? model.albumArtist : ''
-        duration: model.duration ? model.duration : ''
-        imageUrl: model.imageUrl ? model.imageUrl : ''
+        title: model.display ? model.display : ""
+        artist: model.artist ? model.artist : ""
+        album: model.album ? model.album : ""
+        albumArtist: model.albumArtist ? model.albumArtist : ""
+        duration: model.duration ? model.duration : ""
+        imageUrl: model.imageUrl ? model.imageUrl : ""
         trackNumber: model.trackNumber ? model.trackNumber : -1
         discNumber: model.discNumber ? model.discNumber : -1
         rating: model.rating
@@ -93,7 +91,7 @@ AbstractDataView {
         isAlternateColor: (index % 2) === 1
         detailedView: !listView.displaySingleAlbum
 
-        onTrackRatingChanged: {
+        onTrackRatingChanged: (url, rating) => {
             ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, rating)
         }
 
@@ -116,7 +114,7 @@ AbstractDataView {
             }
         }
 
-        onCallOpenMetaDataView: {
+        onCallOpenMetaDataView: (url, entryType) => {
             openMetaDataView(databaseId, url, entryType)
         }
     }
@@ -139,7 +137,7 @@ AbstractDataView {
         Accessible.name: mainTitle
         Accessible.description: secondaryTitle
 
-        section.property: (showSection ? 'discNumber' : '')
+        section.property: showSection ? "discNumber" : ""
         section.criteria: ViewSection.FullString
         section.labelPositioning: ViewSection.InlineLabels
         section.delegate: TracksDiscHeader {
@@ -156,7 +154,7 @@ AbstractDataView {
         target: navigationBar // lives in parent item
 
         function onCreateRadio() {
-            openCreateRadioView()
+            listView.openCreateRadioView()
         }
     }
 }

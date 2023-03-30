@@ -10,6 +10,8 @@ import ElisaGraphicalEffects 1.15
 import org.kde.kirigami 2.5 as Kirigami
 
 Row {
+    id: control
+
     property int starRating
     property bool readOnly: true
 
@@ -26,7 +28,9 @@ Row {
         model: 5
 
         Item {
-            property int ratingThreshold: 2 + index * 2
+            id: delegate
+
+            readonly property int ratingThreshold: 2 + index * 2
 
             width: Kirigami.Units.iconSizes.small
             height: Kirigami.Units.iconSizes.small
@@ -36,42 +40,40 @@ Row {
                 height: Kirigami.Units.iconSizes.small
                 anchors.centerIn: parent
 
-                layer.enabled: hoveredRating >= ratingThreshold
+                layer.enabled: control.hoveredRating >= delegate.ratingThreshold
 
                 layer.effect: BrightnessContrast {
-                    brightness: hoverBrightness
-                    contrast: hoverContrast
+                    brightness: control.hoverBrightness
+                    contrast: control.hoverContrast
                 }
 
-                source: if (starRating >= ratingThreshold || hoveredRating >= ratingThreshold)
-                            Qt.resolvedUrl(elisaTheme.ratingIcon)
-                        else
-                            Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
-                opacity: if (starRating >= ratingThreshold || hoveredRating >= ratingThreshold)
-                            1
-                        else
-                            0.7
+                source: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
+                    ? Qt.resolvedUrl(elisaTheme.ratingIcon)
+                    : Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
+
+                opacity: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
+                    ? 1 : 0.7
             }
 
             MouseArea {
                 anchors.fill: parent
 
-                enabled: !readOnly
+                enabled: !control.readOnly
 
                 acceptedButtons: Qt.LeftButton
                 hoverEnabled: true
 
                 onClicked: {
-                    if (starRating !== ratingThreshold) {
-                        starRating = ratingThreshold
+                    if (control.starRating !== delegate.ratingThreshold) {
+                        control.starRating = delegate.ratingThreshold
                     } else {
-                        starRating = 0
+                        control.starRating = 0
                     }
-                    ratingEdited()
+                    control.ratingEdited()
                 }
 
-                onEntered: hoveredRating = ratingThreshold
-                onExited: hoveredRating = 0
+                onEntered: control.hoveredRating = delegate.ratingThreshold
+                onExited: control.hoveredRating = 0
             }
         }
     }

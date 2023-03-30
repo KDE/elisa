@@ -149,9 +149,9 @@ BasePlayerControl {
             id: shuffleButton
             text: i18nc("@action:button", "Toggle Shuffle")
             icon.name: "media-playlist-shuffle"
-            onClicked: musicWidget.shuffle = !musicWidget.shuffle
             checkable: true
-            checked: musicWidget.shuffle
+            checked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
+            onClicked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList = !ElisaApplication.mediaPlayListProxyModel.shufflePlayList
         }
 
         FlatButtonWithToolTip {

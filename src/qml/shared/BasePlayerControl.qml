@@ -17,7 +17,6 @@ FocusScope {
     readonly property bool skipBackwardEnabled: ElisaApplication.playerControl.skipBackwardControlEnabled
 
     property bool muted
-    property bool shuffle: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
 
     signal play()
     signal pause()

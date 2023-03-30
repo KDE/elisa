@@ -215,8 +215,8 @@ BasePlayerControl {
                     text: i18nc("@action:button", "Toggle Shuffle")
                     icon.name: "media-playlist-shuffle"
                     icon.color: "white"
-                    onClicked: trackPlayer.shuffle = !trackPlayer.shuffle
-                    checked: trackPlayer.shuffle
+                    checked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
+                    onClicked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList = !ElisaApplication.mediaPlayListProxyModel.shufflePlayList
                 }
 
                 FlatButtonWithToolTip {

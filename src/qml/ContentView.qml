@@ -68,91 +68,91 @@ RowLayout {
 
         viewsData: viewsData
 
-        onOpenGridView: {
+        onOpenGridView: configurationData => {
             if (configurationData.expectedDepth === 1) {
                 contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
             }
 
-            while(browseStackView.depth > configurationData.expectedDepth) {
+            while (browseStackView.depth > configurationData.expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(dataGridView, {
-                                     filterType: configurationData.filterType,
-                                     mainTitle: configurationData.mainTitle,
-                                     secondaryTitle: configurationData.secondaryTitle,
-                                     image: configurationData.imageUrl,
-                                     modelType: configurationData.dataType,
-                                     realModel: configurationData.model,
-                                     proxyModel: configurationData.associatedProxyModel,
-                                     defaultIcon: configurationData.viewDefaultIcon,
-                                     showRating: configurationData.viewShowRating,
-                                     delegateDisplaySecondaryText: configurationData.viewDelegateDisplaySecondaryText,
-                                     filter: configurationData.dataFilter,
-                                     isSubPage: (browseStackView.depth >= 2),
-                                     haveTreeModel: configurationData.isTreeModel,
-                                     stackView: configurationData.browseStackView,
-                                     sortRole: configurationData.sortRole,
-                                     sortRoles: configurationData.sortRoles,
-                                     sortRoleNames: configurationData.sortRoleNames,
-                                     sortOrder: configurationData.sortOrder,
-                                     sortOrderNames: configurationData.sortOrderNames,
-                                     viewManager: viewManager,
-                                     opacity: 1,
-                                 })
+                filterType: configurationData.filterType,
+                mainTitle: configurationData.mainTitle,
+                secondaryTitle: configurationData.secondaryTitle,
+                image: configurationData.imageUrl,
+                modelType: configurationData.dataType,
+                realModel: configurationData.model,
+                proxyModel: configurationData.associatedProxyModel,
+                defaultIcon: configurationData.viewDefaultIcon,
+                showRating: configurationData.viewShowRating,
+                delegateDisplaySecondaryText: configurationData.viewDelegateDisplaySecondaryText,
+                filter: configurationData.dataFilter,
+                isSubPage: (browseStackView.depth >= 2),
+                haveTreeModel: configurationData.isTreeModel,
+                stackView: configurationData.browseStackView,
+                sortRole: configurationData.sortRole,
+                sortRoles: configurationData.sortRoles,
+                sortRoleNames: configurationData.sortRoleNames,
+                sortOrder: configurationData.sortOrder,
+                sortOrderNames: configurationData.sortOrderNames,
+                viewManager: viewManager,
+                opacity: 1,
+            })
         }
 
-        onOpenListView: {
+        onOpenListView: configurationData => {
             if (configurationData.expectedDepth === 1) {
                 contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
             }
 
-            while(browseStackView.depth > configurationData.expectedDepth) {
+            while (browseStackView.depth > configurationData.expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(dataListView, {
-                                     filterType: configurationData.filterType,
-                                     isSubPage: configurationData.expectedDepth > 1,
-                                     mainTitle: configurationData.mainTitle,
-                                     secondaryTitle: configurationData.secondaryTitle,
-                                     filter: configurationData.dataFilter,
-                                     image: configurationData.imageUrl,
-                                     modelType: configurationData.dataType,
-                                     realModel: configurationData.model,
-                                     proxyModel: configurationData.associatedProxyModel,
-                                     sortRole: configurationData.sortRole,
-                                     sortAscending: configurationData.sortOrder,
-                                     stackView: browseStackView,
-                                     displaySingleAlbum: configurationData.displaySingleAlbum,
-                                     showSection: configurationData.showDiscHeaders,
-                                     radioCase: configurationData.radioCase,
-                                     haveTreeModel: configurationData.isTreeModel,
-                                     sortRole: configurationData.sortRole,
-                                     sortRoles: configurationData.sortRoles,
-                                     sortRoleNames: configurationData.sortRoleNames,
-                                     sortOrder: configurationData.sortOrder,
-                                     sortOrderNames: configurationData.sortOrderNames,
-                                     viewManager: viewManager,
-                                     opacity: 1,
-                                 })
+                filterType: configurationData.filterType,
+                isSubPage: configurationData.expectedDepth > 1,
+                mainTitle: configurationData.mainTitle,
+                secondaryTitle: configurationData.secondaryTitle,
+                filter: configurationData.dataFilter,
+                image: configurationData.imageUrl,
+                modelType: configurationData.dataType,
+                realModel: configurationData.model,
+                proxyModel: configurationData.associatedProxyModel,
+                sortRole: configurationData.sortRole,
+                sortAscending: configurationData.sortOrder,
+                stackView: browseStackView,
+                displaySingleAlbum: configurationData.displaySingleAlbum,
+                showSection: configurationData.showDiscHeaders,
+                radioCase: configurationData.radioCase,
+                haveTreeModel: configurationData.isTreeModel,
+                sortRole: configurationData.sortRole,
+                sortRoles: configurationData.sortRoles,
+                sortRoleNames: configurationData.sortRoleNames,
+                sortOrder: configurationData.sortOrder,
+                sortOrderNames: configurationData.sortOrderNames,
+                viewManager: viewManager,
+                opacity: 1,
+            })
         }
 
-        onSwitchContextView: {
-            if (preloadIndex == -1) {
+        onSwitchContextView: (expectedDepth, mainTitle, imageUrl) => {
+            if (preloadIndex === -1) {
                 // prevent changing page to viewManager.viewIndex if there is a pending page change
                 contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
             }
 
-            while(browseStackView.depth > expectedDepth) {
+            while (browseStackView.depth > expectedDepth) {
                 browseStackView.pop()
             }
 
             browseStackView.push(albumContext, {
-                                     mainTitle: mainTitle,
-                                     image: imageUrl,
-                                     opacity: 1,
-                                 })
+                mainTitle,
+                image: imageUrl,
+                opacity: 1,
+            })
         }
 
         onPopOneView: {
@@ -193,7 +193,7 @@ RowLayout {
         Layout.fillHeight: true
 
         onLoaded: {
-            if (contentViewContainer.preloadIndex != -1) {
+            if (contentViewContainer.preloadIndex !== -1) {
                 item.setCurrentIndex(contentViewContainer.preloadIndex);
                 viewManager.openView(contentViewContainer.preloadIndex);
                 contentViewContainer.preloadIndex = -1;
@@ -210,7 +210,7 @@ RowLayout {
         id: mobileSidebar
         active: Kirigami.Settings.isMobile
         onLoaded: {
-            if (contentViewContainer.preloadIndex != -1) {
+            if (contentViewContainer.preloadIndex !== -1) {
                 item.switchView(contentViewContainer.preloadIndex);
                 viewManager.openView(contentViewContainer.preloadIndex);
                 contentViewContainer.preloadIndex = -1;
@@ -218,7 +218,7 @@ RowLayout {
         }
         sourceComponent: MobileSidebar {
             model: pageProxyModel
-            onSwitchView: viewManager.openView(viewIndex)
+            onSwitchView: viewIndex => viewManager.openView(viewIndex)
         }
     }
 
@@ -352,9 +352,9 @@ RowLayout {
                 drawerOpen: false
                 handleVisible: false
             }
-
         }
     ]
+
     transitions: Transition {
         NumberAnimation {
             property: "Layout.preferredWidth"
@@ -395,9 +395,9 @@ RowLayout {
             albumArtUrl: ElisaApplication.manageHeaderBar.image
             fileUrl: ElisaApplication.manageHeaderBar.fileUrl
             albumId: ElisaApplication.manageHeaderBar.albumId
-            albumArtist: (ElisaApplication.manageHeaderBar.albumArtist !== undefined ? ElisaApplication.manageHeaderBar.albumArtist : '')
-            onOpenArtist: { contentViewContainer.openArtist(artistName) }
-            onOpenAlbum: { contentViewContainer.openAlbum(albumName, albumArtist, albumArtUrl, albumId) }
+            albumArtist: ElisaApplication.manageHeaderBar.albumArtist !== undefined ? ElisaApplication.manageHeaderBar.albumArtist : ''
+            onOpenArtist: contentViewContainer.openArtist(artistName)
+            onOpenAlbum: contentViewContainer.openAlbum(albumName, albumArtist, albumArtUrl, albumId)
         }
     }
 }

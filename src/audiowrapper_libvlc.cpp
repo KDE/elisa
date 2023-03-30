@@ -22,6 +22,8 @@ typedef SSIZE_T ssize_t;
 
 #endif
 
+#include <cmath>
+
 #include <vlc/vlc.h>
 #include <vlc/libvlc_version.h>
 
@@ -223,8 +225,8 @@ void AudioWrapper::setVolume(qreal volume)
         return;
     }
 
-    //auto realVolume = static_cast<qreal>(QAudio::convertVolume(volume / 100.0, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale));
-    libvlc_audio_set_volume(d->mPlayer, qRound(volume));
+    const int intVolume = std::clamp(qRound(volume), 0, 100);
+    libvlc_audio_set_volume(d->mPlayer, intVolume);
 }
 
 void AudioWrapper::setSource(const QUrl &source)

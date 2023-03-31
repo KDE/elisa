@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-25 00:45+0000\n"
+"POT-Creation-Date: 2023-03-31 00:46+0000\n"
 "PO-Revision-Date: 2023-02-12 09:50+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -365,13 +365,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Odtwarza muzykę"
 
-#: qml/AbstractDataView.qml:216
+#: qml/AbstractDataView.qml:212
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Brak pasujących wyrażeń"
 
-#: qml/AbstractDataView.qml:216
+#: qml/AbstractDataView.qml:212
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -440,26 +440,26 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Słowa"
 
-#: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:238
+#: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:236
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Pokaż listę odtwarzania"
 
-#: qml/ContextView.qml:341
+#: qml/ContextView.qml:345
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Nie znaleziono żadnych słów"
 
-#: qml/ContextView.qml:359
+#: qml/ContextView.qml:363
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nic nie jest odtwarzane"
 
-#: qml/ContextView.qml:393
+#: qml/ContextView.qml:397
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -509,7 +509,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "Nie udało się wczytać"
 
-#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:205
+#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:204
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -527,7 +527,7 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "Cofnij"
 
-#: qml/ElisaMainWindow.qml:56 qml/ElisaMainWindow.qml:511
+#: qml/ElisaMainWindow.qml:56 qml/ElisaMainWindow.qml:508
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -572,7 +572,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "m3u8, m3u, plik pls listy odtwarzania (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:205
+#: qml/ElisaMainWindow.qml:204
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -770,25 +770,25 @@ msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Bieżący: Powtórz wszystkie utwory na liście odtwarzania"
 
-#: qml/MediaPlayerControl.qml:193 qml/mobile/MobileTrackPlayer.qml:261
+#: qml/MediaPlayerControl.qml:190 qml/mobile/MobileTrackPlayer.qml:261
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Lista odtwarzania"
 
-#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:194 qml/mobile/MobileTrackPlayer.qml:265
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Jeden"
 
-#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:198 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Brak"
 
-#: qml/MediaPlayerControl.qml:256
+#: qml/MediaPlayerControl.qml:254
 #, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"

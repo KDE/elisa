@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-31 00:46+0000\n"
+"POT-Creation-Date: 2023-04-01 00:50+0000\n"
 "PO-Revision-Date: 2023-02-06 08:14+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -656,14 +656,14 @@ msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Встановити оцінку композиції"
 
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Зняти позначення цієї композиції як улюбленої"
 
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"

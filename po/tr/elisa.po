@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-31 00:46+0000\n"
+"POT-Creation-Date: 2023-04-01 00:50+0000\n"
 "PO-Revision-Date: 2023-03-28 00:14+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -654,14 +654,14 @@ msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Parça derecelendirmesini ayarla"
 
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Bu şarkıyı beğenilenlerden çıkar"
 
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"

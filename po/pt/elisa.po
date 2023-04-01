@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-31 00:46+0000\n"
+"POT-Creation-Date: 2023-04-01 00:50+0000\n"
 "PO-Revision-Date: 2023-02-15 12:44+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -650,14 +650,14 @@ msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Definir a classificação da faixa"
 
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Retirar esta música dos favoritos"
 
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"

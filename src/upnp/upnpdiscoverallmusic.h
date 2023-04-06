@@ -7,6 +7,8 @@
 #ifndef UPNPDISCOVERALLMUSIC_H
 #define UPNPDISCOVERALLMUSIC_H
 
+#include "elisaLib_export.h"
+
 #include "datatypes.h"
 
 #include <QObject>
@@ -19,7 +21,7 @@ class UpnpDiscoveryResult;
 class UpnpDiscoverAllMusicPrivate;
 class UpnpDeviceDescription;
 
-class UpnpDiscoverAllMusic : public QObject
+class ELISALIB_EXPORT UpnpDiscoverAllMusic : public QObject
 {
 
     Q_OBJECT

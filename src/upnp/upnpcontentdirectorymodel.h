@@ -7,6 +7,8 @@
 #ifndef UPNPCONTENTDIRECTORYMODEL_H
 #define UPNPCONTENTDIRECTORYMODEL_H
 
+#include "elisaLib_export.h"
+
 #include "elisautils.h"
 #include "datatypes.h"
 
@@ -19,7 +21,7 @@ class UpnpControlContentDirectory;
 class MusicListenersManager;
 class DatabaseInterface;
 
-class UpnpContentDirectoryModel : public QAbstractItemModel
+class ELISALIB_EXPORT UpnpContentDirectoryModel : public QAbstractItemModel
 {
     Q_OBJECT
 

@@ -204,6 +204,7 @@ if (UpnpLibQt_FOUND)
         upnp/upnpcontrolmediaserver.cpp
         upnp/didlparser.cpp
         upnp/upnpdiscoverallmusic.cpp
+        upnp/upnplistener.cpp
         )
 endif()
 

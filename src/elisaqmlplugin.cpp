@@ -8,7 +8,7 @@
 
 #include "config-upnp-qt.h"
 
-#if UPNPQT_FOUND
+#if UpnpLibQt_FOUND
 #include "upnp/upnpcontrolconnectionmanager.h"
 #include "upnp/upnpcontrolmediaserver.h"
 #include "upnp/upnpcontrolcontentdirectory.h"
@@ -28,8 +28,8 @@
 #include <KDBusService>
 #endif
 
-#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
-#include <UpnpLibQt/UpnpDiscoveryResult>
+#if UpnpLibQt_FOUND
+#include <KF5/UpnpLibQt/upnpdiscoveryresult.h>
 #endif
 
 #include "elisautils.h"
@@ -96,7 +96,7 @@ void ElisaQmlTestPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 
 void ElisaQmlTestPlugin::registerTypes(const char *uri)
 {
-#if UPNPQT_FOUND
+#if UpnpLibQt_FOUND
     qmlRegisterType<UpnpSsdpEngine>(uri, 1, 0, "UpnpSsdpEngine");
     qmlRegisterType<UpnpDiscoverAllMusic>(uri, 1, 0, "UpnpDiscoverAllMusic");
 
@@ -109,13 +109,11 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<UpnpContentDirectoryModel>(uri, 1, 0, "UpnpContentDirectoryModel");
     qmlRegisterType<DidlParser>(uri, 1, 0, "DidlParser");
     qmlRegisterType<UpnpControlContentDirectory>(uri, 1, 0, "UpnpControlContentDirectory");
-    qmlRegisterType<UpnpDeviceDescription>(uri, 1, 0, "UpnpDeviceDescription");
 
     qRegisterMetaType<A_ARG_TYPE_InstanceID>();
     qRegisterMetaType<QPointer<UpnpAbstractDevice> >();
     qRegisterMetaType<UpnpControlConnectionManager*>();
     qRegisterMetaType<UpnpContentDirectoryModel*>();
-    qRegisterMetaType<UpnpDeviceDescription*>();
     qRegisterMetaType<UpnpDiscoveryResult>("UpnpDiscoveryResult");
 #endif
 

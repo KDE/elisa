@@ -10,8 +10,10 @@
 
 #include "indexersManager.h"
 
-#if UPNPQT_FOUND
+#if UpnpLibQt_FOUND
 #include "upnp/upnplistener.h"
+#include "upnp/upnpdiscoverallmusic.h"
+#include <KF5/UpnpLibQt/upnpssdpengine.h>
 #endif
 
 #if KF5Baloo_FOUND
@@ -21,14 +23,6 @@
 
 #if QtAndroidExtras_FOUND
 #include "android/androidmusiclistener.h"
-#endif
-
-#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
-
-#include "upnp/upnpdiscoverallmusic.h"
-
-#include <UpnpLibQt/UpnpSsdpEngine>
-
 #endif
 
 #include "databaseinterface.h"
@@ -58,7 +52,7 @@ public:
 
     QThread mListenerThread;
 
-#if UPNPQT_FOUND
+#if UpnpLibQt_FOUND
     UpnpListener mUpnpListener;
 #endif
 
@@ -458,7 +452,7 @@ void MusicListenersManager::configChanged()
 #endif
     }
 
-#if UPNPQT_FOUND
+#if UpnpLibQt_FOUND
     d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mUpnpListener.moveToThread(&d->mDatabaseThread);
     connect(this, &MusicListenersManager::applicationIsTerminating,

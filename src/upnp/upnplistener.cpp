@@ -26,8 +26,6 @@ UpnpListener::UpnpListener(QObject *parent) : QObject(parent), d(new UpnpListene
     d->mSsdpEngine.initialize();
     d->mSsdpEngine.searchAllUpnpDevice();
 
-    d->mUpnpManager.setDeviceId(QStringLiteral("urn:schemas-upnp-org:service:ContentDirectory:1"));
-
     connect(&d->mSsdpEngine, &UpnpSsdpEngine::newService,
             &d->mUpnpManager, &UpnpDiscoverAllMusic::newDevice);
     connect(&d->mSsdpEngine, &UpnpSsdpEngine::removedService,
@@ -44,8 +42,6 @@ DatabaseInterface *UpnpListener::databaseInterface() const
 
 void UpnpListener::setDatabaseInterface(DatabaseInterface *model)
 {
-    d->mUpnpManager.setAlbumDatabase(model);
-
     Q_EMIT databaseInterfaceChanged();
 }
 

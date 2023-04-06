@@ -7,6 +7,8 @@
 #ifndef UPNPCONTROLCONTENTDIRECTORY_H
 #define UPNPCONTROLCONTENTDIRECTORY_H
 
+#include "elisaLib_export.h"
+
 #include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
 
@@ -15,7 +17,7 @@
 class UpnpControlContentDirectoryPrivate;
 class UpnpControlAbstractServiceReply;
 
-class UpnpControlContentDirectory : public UpnpControlAbstractService
+class ELISALIB_EXPORT UpnpControlContentDirectory : public UpnpControlAbstractService
 {
     Q_OBJECT
 

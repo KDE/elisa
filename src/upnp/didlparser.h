@@ -7,6 +7,8 @@
 #ifndef DIDLPARSER_H
 #define DIDLPARSER_H
 
+#include "elisaLib_export.h"
+
 #include "datatypes.h"
 
 #include <QObject>
@@ -20,7 +22,7 @@ class QDomNode;
 class UpnpControlContentDirectory;
 class DidlParserPrivate;
 
-class DidlParser : public QObject
+class ELISALIB_EXPORT DidlParser : public QObject
 {
 
     Q_OBJECT

@@ -23,7 +23,7 @@
 
 #include <KLocalizedString>
 
-#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+#if UpnpLibQt_FOUND
 #include "upnp/upnpcontentdirectorymodel.h"
 #endif
 
@@ -308,29 +308,21 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
 
     switch (viewParamaters.mModelType)
     {
-<<<<<<< HEAD
-    case FileBrowserModel:
-    {
+    case FileBrowserModelType:
 #if KF5KIO_FOUND
-        newModel = new ::FileBrowserModel;
-        auto *realProxyModel = new FileBrowserProxyModel;
-        proxyModel = realProxyModel;
+        newModel = std::make_unique<FileBrowserModel>();
+        proxyModel = std::make_unique<FileBrowserProxyModel>();
 #else
         newModel = nullptr;
         proxyModel = nullptr;
 #endif
-=======
-    case FileBrowserModelType:
-        newModel = std::make_unique<FileBrowserModel>();
-        proxyModel = std::make_unique<FileBrowserProxyModel>();
->>>>>>> be1ecece (compatibility with newer version of upnp lib and Elisa master branch)
         break;
     case GenericDataModelType:
         newModel = std::make_unique<DataModel>();
         proxyModel = std::make_unique<GridViewProxyModel>();
         break;
     case UpnpContentDirectoryModelType:
-#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+#if UpnpLibQt_FOUND
         newModel = std::make_unique<UpnpContentDirectoryModel>();
         proxyModel = std::make_unique<GridViewProxyModel>();
 #endif
@@ -388,13 +380,8 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
         auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType, viewParamaters.mDepth,
                                                                          viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
                                                                          viewParamaters.mMainImage, viewParamaters.mDataType,
-<<<<<<< HEAD
-                                                                         newModel, proxyModel, viewParamaters.mDataFilter,
-                                                                         computePreferredSortRole(viewParamaters.mSortRole, viewParamaters.mFilterType),
-=======
                                                                          std::move(newModel), std::move(proxyModel), viewParamaters.mDataFilter,
-                                                                         computePreferredSortRole(viewParamaters.mSortRole),
->>>>>>> be1ecece (compatibility with newer version of upnp lib and Elisa master branch)
+                                                                         computePreferredSortRole(viewParamaters.mSortRole, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
                                                                          computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortOrderNames,

@@ -7,6 +7,8 @@
 #ifndef UPNPLISTENER_H
 #define UPNPLISTENER_H
 
+#include "elisaLib_export.h"
+
 #include "datatypes.h"
 
 #include <QObject>
@@ -18,7 +20,7 @@ class UpnpListenerPrivate;
 
 class DatabaseInterface;
 
-class UpnpListener : public QObject
+class ELISALIB_EXPORT UpnpListener : public QObject
 {
     Q_OBJECT
 

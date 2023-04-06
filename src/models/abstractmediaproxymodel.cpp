@@ -83,11 +83,11 @@ void AbstractMediaProxyModel::sortModel(Qt::SortOrder order)
 
 void AbstractMediaProxyModel::setPlayList(MediaPlayListProxyModel *playList)
 {
-    disconnectPlayList();
-
     if (mPlayList == playList) {
         return;
     }
+
+    disconnectPlayList();
 
     mPlayList = playList;
     Q_EMIT playListChanged();

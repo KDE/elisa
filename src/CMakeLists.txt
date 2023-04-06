@@ -225,6 +225,7 @@ if (UpnpLibQt_FOUND)
         upnp/upnpcontrolmediaserver.cpp
         upnp/didlparser.cpp
         upnp/upnpdiscoverallmusic.cpp
+        upnp/upnplistener.cpp
         )
     set(elisaLib_INCLUDEDIRS
         ${CMAKE_CURRENT_SOURCE_DIR}/upnp

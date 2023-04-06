@@ -23,7 +23,7 @@
 
 #include <KLocalizedString>
 
-#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+#if UpnpLibQt_FOUND
 #include "upnp/upnpcontentdirectorymodel.h"
 #endif
 
@@ -316,7 +316,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
         proxyModel = std::make_unique<GridViewProxyModel>();
         break;
     case UpnpContentDirectoryModelType:
-#if defined UpnpLibQt_FOUND && UpnpLibQt_FOUND
+#if UpnpLibQt_FOUND
         newModel = std::make_unique<UpnpContentDirectoryModel>();
         proxyModel = std::make_unique<GridViewProxyModel>();
 #endif

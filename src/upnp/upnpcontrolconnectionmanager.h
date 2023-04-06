@@ -7,6 +7,8 @@
 #ifndef UPNPCONTROLCONNECTIONMANAGER_H
 #define UPNPCONTROLCONNECTIONMANAGER_H
 
+#include "elisaLib_export.h"
+
 #include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
 
@@ -16,7 +18,7 @@
 
 class UpnpControlConnectionManagerPrivate;
 
-class UpnpControlConnectionManager : public UpnpControlAbstractService
+class ELISALIB_EXPORT UpnpControlConnectionManager : public UpnpControlAbstractService
 {
     Q_OBJECT
 

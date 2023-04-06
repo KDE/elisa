@@ -13,6 +13,7 @@
 #include "upnpLogging.h"
 
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 #include "upnpdevicedescription.h"
 #include "upnpdiscoveryresult.h"

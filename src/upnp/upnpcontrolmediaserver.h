@@ -7,6 +7,8 @@
 #ifndef UPNPCONTROLMEDIASERVER_H
 #define UPNPCONTROLMEDIASERVER_H
 
+#include "elisaLib_export.h"
+
 #include "upnpcontrolabstractdevice.h"
 
 #include <QQmlEngine>
@@ -16,7 +18,7 @@
 
 class UpnpControlMediaServerPrivate;
 
-class UpnpControlMediaServer : public UpnpControlAbstractDevice
+class ELISALIB_EXPORT UpnpControlMediaServer : public UpnpControlAbstractDevice
 {
 
     Q_OBJECT

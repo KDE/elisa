@@ -21,11 +21,11 @@
 #include <KAuthorized>
 #include <KLocalizedString>
 
-#if KF5ConfigWidgets_FOUND
+#if KFConfigWidgets_FOUND
 #include <KStandardAction>
 #endif
 
-#if defined KF5XmlGui_FOUND
+#if defined KFXmlGui_FOUND
 #include <KActionCollection>
 #include <KAboutApplicationDialog>
 #include <KHelpMenu>
@@ -36,7 +36,7 @@
 #include <KColorSchemeManager>
 #include <KAboutData>
 
-#if KF5KIO_FOUND
+#if KFKIO_FOUND
 #include <KIO/OpenFileManagerWindowJob>
 #endif
 
@@ -63,14 +63,14 @@ class ElisaApplicationPrivate
 public:
 
     explicit ElisaApplicationPrivate(QObject *parent)
-#if KF5XmlGui_FOUND
+#if KFXmlGui_FOUND
         : mCollection(parent)
 #endif
     {
         Q_UNUSED(parent)
     }
 
-#if KF5XmlGui_FOUND
+#if KFXmlGui_FOUND
     KActionCollection mCollection;
 #endif
 
@@ -132,7 +132,7 @@ void ElisaApplication::activateColorScheme(const QString &name)
 
 void ElisaApplication::setupActions(const QString &actionName)
 {
-#if KF5XmlGui_FOUND
+#if KFXmlGui_FOUND
     if (actionName == QLatin1String("file_quit")) {
         auto quitAction = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &d->mCollection);
         d->mCollection.addAction(actionName, quitAction);
@@ -281,7 +281,7 @@ void ElisaApplication::appHelpActivated()
 
 void ElisaApplication::aboutApplication()
 {
-#if KF5XmlGui_FOUND
+#if KFXmlGui_FOUND
     static QPointer<QDialog> dialog;
     if (!dialog) {
         dialog = new KAboutApplicationDialog(KAboutData::applicationData(), nullptr);
@@ -293,7 +293,7 @@ void ElisaApplication::aboutApplication()
 
 void ElisaApplication::reportBug()
 {
-#if KF5XmlGui_FOUND
+#if KFXmlGui_FOUND
     static QPointer<QDialog> dialog;
     if (!dialog) {
         dialog = new KBugReport(KAboutData::applicationData(), nullptr);
@@ -305,7 +305,7 @@ void ElisaApplication::reportBug()
 
 void ElisaApplication::configureShortcuts()
 {
-#if KF5XmlGui_FOUND
+#if KFXmlGui_FOUND
     KShortcutsDialog dlg(KShortcutsEditor::ApplicationAction, KShortcutsEditor::LetterShortcutsAllowed, nullptr);
     dlg.setModal(true);
     dlg.addCollection(&d->mCollection);
@@ -511,7 +511,7 @@ void ElisaApplication::initializePlayer()
 
 QAction * ElisaApplication::action(const QString& name)
 {
-#if KF5XmlGui_FOUND
+#if KFXmlGui_FOUND
     auto resultAction = d->mCollection.action(name);
 
     if (!resultAction) {
@@ -550,7 +550,7 @@ void ElisaApplication::installKeyEventFilter(QObject *object)
 bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
 {
     Q_UNUSED(object)
-#if KF5XmlGui_FOUND
+#if KFXmlGui_FOUND
     auto *keyEvent = static_cast<QKeyEvent*>(event);
     auto playPauseAction = d->mCollection.action(QStringLiteral("Play-Pause"));
 #if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
@@ -568,7 +568,7 @@ bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
 
 void ElisaApplication::showInFolder(QUrl filePath)
 {
-#if KF5KIO_FOUND
+#if KFKIO_FOUND
     KIO::highlightInFileManager({filePath});
 #else
     Q_UNUSED(filePath)

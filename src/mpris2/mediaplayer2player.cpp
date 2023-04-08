@@ -18,7 +18,7 @@
 #include "audiowrapper.h"
 #include <kfilemetadata/extractorcollection.h>
 
-#if KF5FileMetaData_FOUND
+#if KFFileMetaData_FOUND
 #include <KFileMetaData/ExtractorCollection>
 #include <KFileMetaData/Extractor>
 #include <KFileMetaData/SimpleExtractionResult>
@@ -420,7 +420,7 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
         if (m_manageHeaderBar->image().scheme() == QStringLiteral("image")) {
             // adding a special case for image:// URLs that are only valid because Elisa installs a special handler for them
             // converting those URL to data URLs with embedded image data
-#if KF5FileMetaData_FOUND
+#if KFFileMetaData_FOUND
 
             const auto &mimeType = QMimeDatabase().mimeTypeForFile(m_manageHeaderBar->image().toString().mid(14)).name();
             KFileMetaData::ExtractorCollection extractorCollection;

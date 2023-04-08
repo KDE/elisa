@@ -19,7 +19,7 @@
 #include <QDir>
 #include <QMimeDatabase>
 
-#if KF5KIO_FOUND
+#if KFKIO_FOUND
 #include <KIO/OpenUrlJob>
 #endif
 
@@ -966,7 +966,7 @@ bool MediaPlayListProxyModel::partiallyLoaded() const
 
 bool MediaPlayListProxyModel::canOpenLoadedPlaylist() const
 {
-#if !KF5KIO_FOUND
+#if !KFKIO_FOUND
     return false;
 #endif
     return d->mLoadedPlayListUrl.isValid() && d->mLoadedPlayListUrl.isLocalFile();
@@ -974,7 +974,7 @@ bool MediaPlayListProxyModel::canOpenLoadedPlaylist() const
 
 void MediaPlayListProxyModel::openLoadedPlayList()
 {
-#if KF5KIO_FOUND
+#if KFKIO_FOUND
     auto job = new KIO::OpenUrlJob(d->mLoadedPlayListUrl, QLatin1String("text/plain"));
     job->start();
 #endif

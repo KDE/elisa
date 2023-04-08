@@ -24,7 +24,7 @@
 #include "upnpbasictypes.h"
 #endif
 
-#if KF5DBusAddons_FOUND
+#if KFDBusAddons_FOUND
 #include <KDBusService>
 #endif
 
@@ -53,11 +53,11 @@
 #include "models/lyricsmodel.h"
 #include "localFileConfiguration/elisaconfigurationdialog.h"
 
-#if KF5FileMetaData_FOUND
+#if KFFileMetaData_FOUND
 #include "embeddedcoverageimageprovider.h"
 #endif
 
-#if KF5KIO_FOUND
+#if KFKIO_FOUND
 #include "models/filebrowsermodel.h"
 #include "models/filebrowserproxymodel.h"
 #endif
@@ -85,7 +85,7 @@ ElisaQmlTestPlugin::ElisaQmlTestPlugin(QObject *aParent)
 void ElisaQmlTestPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     QQmlExtensionPlugin::initializeEngine(engine, uri);
-#if KF5FileMetaData_FOUND
+#if KFFileMetaData_FOUND
     engine->addImageProvider(QStringLiteral("cover"), new EmbeddedCoverageImageProvider);
 #endif
 }
@@ -134,7 +134,7 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
     qmlRegisterType<GridViewProxyModel>(uri, 1, 0, "GridViewProxyModel");
     qmlRegisterType<LyricsModel>(uri, 1, 0, "LyricsModel");
 
-#if KF5KIO_FOUND
+#if KFKIO_FOUND
     qmlRegisterType<FileBrowserModel>(uri, 1, 0, "FileBrowserModel");
     qmlRegisterType<FileBrowserProxyModel>(uri, 1, 0, "FileBrowserProxyModel");
 #endif
@@ -200,11 +200,11 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 
         auto newApplication = std::make_unique<ElisaApplication>();
 
-#if KF5DBusAddons_FOUND
+#if KFDBusAddons_FOUND
         auto *elisaService = new KDBusService(KDBusService::Unique, newApplication.get());
 #endif
 
-#if KF5DBusAddons_FOUND
+#if KFDBusAddons_FOUND
         QObject::connect(elisaService, &KDBusService::activateActionRequested, newApplication.get(), &ElisaApplication::activateActionRequested);
         QObject::connect(elisaService, &KDBusService::activateRequested, newApplication.get(), &ElisaApplication::activateRequested);
         QObject::connect(elisaService, &KDBusService::openRequested, newApplication.get(), &ElisaApplication::openRequested);

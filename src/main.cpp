@@ -19,7 +19,7 @@
 
 #include <KAboutData>
 
-#if KF5Crash_FOUND
+#if KFCrash_FOUND
 #include <KCrash>
 #endif
 
@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
                                               QtAndroid::androidContext().object());
 #endif
 
-#if KF5Crash_FOUND
+#if KFCrash_FOUND
     KCrash::initialize();
 #endif
 

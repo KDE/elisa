@@ -14,7 +14,7 @@
 #include "upnp/upnplistener.h"
 #endif
 
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
 #include "baloo/baloolistener.h"
 #include "baloo/baloodetector.h"
 #endif
@@ -54,7 +54,7 @@ public:
     UpnpListener mUpnpListener;
 #endif
 
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
     BalooDetector mBalooDetector;
 
     BalooListener mBalooListener;
@@ -98,7 +98,7 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
     connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
             this, &MusicListenersManager::increaseImportedTracksCount);
 
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
     connect(&d->mBalooDetector, &BalooDetector::balooAvailabilityChanged,
             this, &MusicListenersManager::balooAvailabilityChanged);
 #endif
@@ -325,7 +325,7 @@ void MusicListenersManager::configChanged()
     currentConfiguration->read();
 
     bool configurationHasChanged = false;
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
     if (d->mBalooIndexerAvailable && d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths() && !currentConfiguration->forceUsageOfFastFileSearch()) {
         configurationHasChanged = true;
     } else if (d->mBalooIndexerAvailable && !d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths() && currentConfiguration->forceUsageOfFastFileSearch()) {
@@ -373,7 +373,7 @@ void MusicListenersManager::configChanged()
 
     d->mFileListener.setAllRootPaths(allRootPaths);
 
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
     d->mBalooListener.setAllRootPaths(allRootPaths);
 #endif
 
@@ -381,7 +381,7 @@ void MusicListenersManager::configChanged()
         testBalooIndexerAvailability();
     }
 
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
     if (d->mBalooIndexerAvailable && !d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths() && currentConfiguration->forceUsageOfFastFileSearch()) {
         qCDebug(orgKdeElisaIndexersManager()) << "trigger start of baloo file indexer";
         QMetaObject::invokeMethod(d->mFileListener.fileListing(), "stop", Qt::BlockingQueuedConnection);
@@ -400,7 +400,7 @@ void MusicListenersManager::configChanged()
 
     if (d->mBalooIndexerActive) {
         qCInfo(orgKdeElisaIndexersManager()) << "trigger init of baloo file indexer";
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
         QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "init", Qt::QueuedConnection);
 #endif
     } else if (d->mFileSystemIndexerActive) {
@@ -456,7 +456,7 @@ void MusicListenersManager::cleanedDatabase()
 
 void MusicListenersManager::balooAvailabilityChanged()
 {
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
     if (!d->mBalooDetector.balooAvailability() || !d->mBalooListener.canHandleRootPaths()) {
         if (d->mBalooDetector.balooAvailability()) {
             qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is available";
@@ -466,7 +466,7 @@ void MusicListenersManager::balooAvailabilityChanged()
     if (true) {
 #endif
 
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
         if (!d->mBalooListener.canHandleRootPaths() && d->mBalooDetector.balooAvailability())
         {
             qCInfo(orgKdeElisaIndexersManager()) << "Baloo cannot handle all configured paths: falling back to plain filex indexer";
@@ -491,7 +491,7 @@ void MusicListenersManager::balooAvailabilityChanged()
 
 void MusicListenersManager::testBalooIndexerAvailability()
 {
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
     d->mBalooDetector.checkBalooAvailability();
 #else
     qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is unavailable";
@@ -554,7 +554,7 @@ void MusicListenersManager::startAndroidIndexing()
 
 void MusicListenersManager::startBalooIndexing()
 {
-#if KF5Baloo_FOUND
+#if KFBaloo_FOUND
     d->mBalooListener.moveToThread(&d->mListenerThread);
     d->mBalooListener.setDatabaseInterface(&d->mDatabaseInterface);
     connect(this, &MusicListenersManager::applicationIsTerminating,

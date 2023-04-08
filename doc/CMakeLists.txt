@@ -4,7 +4,7 @@
 
 # documentation
 
-if (KF5DocTools_FOUND)
+if (KF${QT_MAJOR_VERSION}DocTools_FOUND)
     KDOCTOOLS_CREATE_HANDBOOK(
         index.docbook
             INSTALL_DESTINATION ${KDE_INSTALL_DOCBUNDLEDIR}/en

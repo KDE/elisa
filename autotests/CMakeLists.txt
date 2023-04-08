@@ -147,7 +147,7 @@ ecm_add_test(${trackmetadatamodeltest_SOURCES}
 
 target_include_directories(trackmetadatamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
-if (KF5FileMetaData_FOUND)
+if (KF${QT_MAJOR_VERSION}FileMetaData_FOUND)
     set(localfilelistingtest_SOURCES
         localfilelistingtest.cpp
     )
@@ -161,7 +161,7 @@ if (KF5FileMetaData_FOUND)
     target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()
 
-if (KF5XmlGui_FOUND AND KF5KCMUtils_FOUND)
+if (KF${QT_MAJOR_VERSION}XmlGui_FOUND AND KF${QT_MAJOR_VERSION}KCMUtils_FOUND)
     set(elisaapplicationtest_SOURCES
         elisaapplicationtest.cpp
         ../src/elisautils.cpp

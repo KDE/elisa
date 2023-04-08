@@ -137,7 +137,7 @@ if (ANDROID)
         )
 endif()
 
-if (KF5KIO_FOUND)
+if (KF${QT_MAJOR_VERSION}KIO_FOUND)
     set(elisaLib_SOURCES
         ${elisaLib_SOURCES}
         models/filebrowsermodel.cpp
@@ -145,7 +145,7 @@ if (KF5KIO_FOUND)
         )
 endif()
 
-if (KF5Baloo_FOUND)
+if (KF${QT_MAJOR_VERSION}Baloo_FOUND)
     if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
         ecm_qt_declare_logging_category(elisaLib_SOURCES
             HEADER "baloo/baloocommon.h"
@@ -201,7 +201,7 @@ if (UPNPQT_FOUND)
         )
 endif()
 
-if (KF5Baloo_FOUND)
+if (KF${QT_MAJOR_VERSION}Baloo_FOUND)
     if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
         qt_add_dbus_interface(elisaLib_SOURCES
             ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
@@ -231,42 +231,42 @@ target_link_libraries(elisaLib
     Qt::Multimedia
     LINK_PRIVATE
     Qt::Core Qt::Sql Qt::Widgets Qt::Concurrent Qt::Qml
-    KF5::I18n KF5::CoreAddons
-    KF5::ConfigCore KF5::ConfigGui)
+    KF${QT_MAJOR_VERSION}::I18n KF${QT_MAJOR_VERSION}::CoreAddons
+    KF${QT_MAJOR_VERSION}::ConfigCore KF${QT_MAJOR_VERSION}::ConfigGui)
 
-if (KF5FileMetaData_FOUND)
+if (KF${QT_MAJOR_VERSION}FileMetaData_FOUND)
     target_link_libraries(elisaLib
         LINK_PRIVATE
-        KF5::FileMetaData
+        KF${QT_MAJOR_VERSION}::FileMetaData
         )
 endif()
 
-if (KF5KIO_FOUND)
+if (KF${QT_MAJOR_VERSION}KIO_FOUND)
     target_link_libraries(elisaLib
         LINK_PUBLIC
-        KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
+        KF${QT_MAJOR_VERSION}::KIOCore KF${QT_MAJOR_VERSION}::KIOFileWidgets KF${QT_MAJOR_VERSION}::KIOWidgets
         )
 endif()
 
-if (KF5XmlGui_FOUND)
+if (KF${QT_MAJOR_VERSION}XmlGui_FOUND)
     target_link_libraries(elisaLib
         LINK_PUBLIC
-        KF5::XmlGui
+        KF${QT_MAJOR_VERSION}::XmlGui
         )
 endif()
 
-if (KF5ConfigWidgets_FOUND)
+if (KF${QT_MAJOR_VERSION}ConfigWidgets_FOUND)
     target_link_libraries(elisaLib
         LINK_PUBLIC
-        KF5::ConfigWidgets
+        KF${QT_MAJOR_VERSION}::ConfigWidgets
         )
 endif()
 
-if (KF5Baloo_FOUND)
+if (KF${QT_MAJOR_VERSION}Baloo_FOUND)
     if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
         target_link_libraries(elisaLib
             LINK_PUBLIC
-            KF5::Baloo
+            KF${QT_MAJOR_VERSION}::Baloo
             )
     endif()
 endif()
@@ -277,10 +277,10 @@ if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
         Qt::DBus
         )
 
-    if (KF5DBusAddons_FOUND)
+    if (KF${QT_MAJOR_VERSION}DBusAddons_FOUND)
         target_link_libraries(elisaLib
             LINK_PUBLIC
-            KF5::DBusAddons
+            KF${QT_MAJOR_VERSION}::DBusAddons
             )
     endif()
 endif()
@@ -327,7 +327,7 @@ set(elisaqmlplugin_SOURCES
     elisautils.cpp
 )
 
-if (KF5FileMetaData_FOUND)
+if (KF${QT_MAJOR_VERSION}FileMetaData_FOUND)
     set(elisaqmlplugin_SOURCES
         ${elisaqmlplugin_SOURCES}
         embeddedcoverageimageprovider.cpp
@@ -338,7 +338,7 @@ add_library(elisaqmlplugin SHARED ${elisaqmlplugin_SOURCES})
 target_link_libraries(elisaqmlplugin
     LINK_PRIVATE
     Qt::Quick Qt::Widgets
-    KF5::ConfigCore KF5::ConfigGui
+    KF${QT_MAJOR_VERSION}::ConfigCore KF${QT_MAJOR_VERSION}::ConfigGui
     elisaLib
     )
 
@@ -348,10 +348,10 @@ else()
     target_sources(elisaqmlplugin PUBLIC res-qt5.qrc)
 endif()
 
-if (KF5FileMetaData_FOUND)
+if (KF${QT_MAJOR_VERSION}FileMetaData_FOUND)
     target_link_libraries(elisaqmlplugin
         LINK_PRIVATE
-        KF5::FileMetaData
+        KF${QT_MAJOR_VERSION}::FileMetaData
         )
 endif()
 
@@ -473,21 +473,21 @@ if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
         LINK_PRIVATE
         elisaLib
         Qt::Widgets Qt::QuickControls2
-        KF5::I18n KF5::CoreAddons KF5::ConfigCore KF5::ConfigGui
-        KF5::IconThemes
+        KF${QT_MAJOR_VERSION}::I18n KF${QT_MAJOR_VERSION}::CoreAddons KF${QT_MAJOR_VERSION}::ConfigCore KF${QT_MAJOR_VERSION}::ConfigGui
+        KF${QT_MAJOR_VERSION}::IconThemes
         )
 
     if (ANDROID)
         target_link_libraries(elisa
             PRIVATE
-            Qt::AndroidExtras Qt::Svg Qt::Sql Qt::Concurrent KF5::Kirigami2
+            Qt::AndroidExtras Qt::Svg Qt::Sql Qt::Concurrent KF${QT_MAJOR_VERSION}::Kirigami2
         )
     endif()
 
-    if (KF5Crash_FOUND)
+    if (KF${QT_MAJOR_VERSION}Crash_FOUND)
         target_link_libraries(elisa
             LINK_PRIVATE
-            KF5::Crash
+            KF${QT_MAJOR_VERSION}::Crash
             )
     endif()
 
@@ -509,14 +509,14 @@ add_executable(elisaImport ${elisaImport_SOURCES})
 
 target_link_libraries(elisaImport
     LINK_PRIVATE
-    KF5::ConfigCore KF5::ConfigGui
+    KF${QT_MAJOR_VERSION}::ConfigCore KF${QT_MAJOR_VERSION}::ConfigGui
     elisaLib
     )
 
-if (KF5FileMetaData_FOUND)
+if (KF${QT_MAJOR_VERSION}FileMetaData_FOUND)
     target_link_libraries(elisaImport
         LINK_PRIVATE
-        KF5::FileMetaData
+        KF${QT_MAJOR_VERSION}::FileMetaData
         )
 endif()
 

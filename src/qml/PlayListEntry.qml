@@ -340,7 +340,7 @@ BasePlayListDelegate {
             RatingStar {
                 id: ratingWidget
 
-                readOnly: false
+                readOnly: !playListEntry.editingRating
                 starRating: rating
 
                 visible: (playListEntry.editingRating || (rating > 0 && !containsMouse && !playListEntry.hasActiveFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode

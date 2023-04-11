@@ -72,7 +72,7 @@ class ELISALIB_EXPORT MusicListenersManager : public QObject
 
 public:
 
-    enum CollectionScan {
+    enum class CollectionScan {
         Soft,
         Hard,
     };

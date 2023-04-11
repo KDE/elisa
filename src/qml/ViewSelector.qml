@@ -22,13 +22,6 @@ ScrollView {
 
     signal switchView(int viewIndex)
 
-    function setCurrentIndex(index)
-    {
-        viewModeView.ignoreCurrentItemChanges = true
-        viewModeView.currentIndex = index
-        viewModeView.ignoreCurrentItemChanges = false
-    }
-
     implicitWidth: mainWindow.width > elisaTheme.viewSelectorSmallSizeThreshold ? wideWidth : iconsOnlyWidth
     Behavior on implicitWidth {
         NumberAnimation {
@@ -42,7 +35,6 @@ ScrollView {
 
     contentItem: ListView {
         id: viewModeView
-        property bool ignoreCurrentItemChanges: false
 
         focus: true
         clip: true
@@ -61,7 +53,7 @@ ScrollView {
             ToolTip.text: model.display
 
             onClicked: {
-                viewModeView.currentIndex = index
+                switchView(index)
                 forceActiveFocus()
             }
         }
@@ -82,7 +74,5 @@ ScrollView {
                 }
             }
         }
-
-        onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
     }
 }

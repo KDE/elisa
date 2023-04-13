@@ -850,18 +850,9 @@ bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
             }
         }
     } else {
-        QFileInfo playlistFile(fileName.toLocalFile());
-        QDir dir(playlistFile.absolutePath());
-
         for (int i = 0; i < rowCount(); ++i) {
             if (data(index(i,0), MediaPlayList::IsValidRole).toBool()) {
-                QFileInfo musicFile(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
-
-                if (musicFile.dir().path() == dir.absolutePath()) {
-                    listOfFilePaths.append(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
-                } else {
-                    listOfFilePaths.append(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
-                }
+                listOfFilePaths.append(data(index(i,0), MediaPlayList::ResourceRole).toUrl().toLocalFile());
             }
         }
     }

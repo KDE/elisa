@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the elisa package.
-# Sergiu Bivol <sergiu@cip.md>, 2022.
+# Sergiu Bivol <sergiu@cip.md>, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-01 00:50+0000\n"
-"PO-Revision-Date: 2022-12-29 17:08+0000\n"
+"PO-Revision-Date: 2023-04-10 17:59+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -822,14 +822,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"Încărcarea unor piese a eșuat. Asigurați-vă că acestea nu au fost șterse sau "
+"redenumite."
 
 #: qml/MediaPlayListView.qml:103
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Adaugă la lista de redare"
+msgstr "Modifică fișierul listei de redare"
 
 #: qml/MediaPlayListView.qml:271
 #, kde-format

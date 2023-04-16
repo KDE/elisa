@@ -57,7 +57,7 @@ RowLayout {
         if (mobileSidebar.item != null) {
             mobileSidebar.item.switchView(index);
         } else if (desktopSidebar.item != null) {
-            desktopSidebar.item.switchView(index);
+            desktopSidebar.item.setCurrentIndex(index);
         } else {
             contentViewContainer.preloadIndex = index;
         }
@@ -194,7 +194,7 @@ RowLayout {
 
         onLoaded: {
             if (contentViewContainer.preloadIndex !== -1) {
-                item.switchView(contentViewContainer.preloadIndex);
+                item.setCurrentIndex(contentViewContainer.preloadIndex);
                 viewManager.openView(contentViewContainer.preloadIndex);
                 contentViewContainer.preloadIndex = -1;
             }

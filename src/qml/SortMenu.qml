@@ -5,9 +5,9 @@
  */
 
 import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls 2.15 as QQC2
 
-Menu {
+QQC2.Menu {
     id: sortMenu
 
     property int sortRole
@@ -33,7 +33,7 @@ Menu {
         }
     }
 
-    ButtonGroup {
+    QQC2.ButtonGroup {
         id: rolesButtonGroup
     }
 
@@ -42,7 +42,7 @@ Menu {
 
         model: sortRoleNames.length > 1 ? sortRoleNames.length : 0
 
-        delegate: MenuItem {
+        delegate: QQC2.MenuItem {
             text: sortMenu.sortRoleNames[index]
 
             checkable: true
@@ -54,19 +54,19 @@ Menu {
                 checked = (sortMenu.sortRoles[index] === sortMenu.sortRole)
             }
 
-            ButtonGroup.group: rolesButtonGroup
+            QQC2.ButtonGroup.group: rolesButtonGroup
         }
     }
 
-    MenuSeparator {
+    QQC2.MenuSeparator {
         visible: sortRoleNames.length > 1
     }
 
-    ButtonGroup {
+    QQC2.ButtonGroup {
         id: orderButtonGroup
     }
 
-    MenuItem {
+    QQC2.MenuItem {
         id: ascendingSortOrder
 
         checkable: true
@@ -74,10 +74,10 @@ Menu {
 
         onToggled: sortOrder = Qt.AscendingOrder
 
-        ButtonGroup.group: orderButtonGroup
+        QQC2.ButtonGroup.group: orderButtonGroup
     }
 
-    MenuItem {
+    QQC2.MenuItem {
         id: descendingSortOrder
 
         checkable: true
@@ -85,7 +85,7 @@ Menu {
 
         onToggled: sortOrder = Qt.DescendingOrder
 
-        ButtonGroup.group: orderButtonGroup
+        QQC2.ButtonGroup.group: orderButtonGroup
     }
 
     onSortRoleChanged: refreshSortOrderNames()

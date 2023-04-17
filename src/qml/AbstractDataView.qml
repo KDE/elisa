@@ -150,7 +150,7 @@ FocusScope {
 
             onEnqueue: contentModel.enqueueToPlayList(delegateModel.rootIndex)
 
-            onReplaceAndPlay:contentModel.replaceAndPlayOfPlayList(delegateModel.rootIndex)
+            onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList(delegateModel.rootIndex)
 
             onGoBack: {
                 abstractView.goToBack()

@@ -62,7 +62,7 @@ BasePlayListDelegate {
             active: false
             onLoaded: item.show()
 
-            sourceComponent:  MediaTrackMetadataView {
+            sourceComponent: MediaTrackMetadataView {
                 fileName: playListEntry.fileName
                 showImage: entryType !== ElisaUtils.Radio
                 modelType: entryType

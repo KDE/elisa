@@ -43,6 +43,8 @@ QQC2.Menu {
         model: root.sortRoleNames.length > 1 ? root.sortRoleNames.length : 0
 
         delegate: QQC2.MenuItem {
+            required property int index
+
             text: root.sortRoleNames[index]
 
             checkable: true

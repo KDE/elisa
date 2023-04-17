@@ -1,6 +1,7 @@
 /*
    SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
    SPDX-FileCopyrightText: 2020 (c) Carson Black <uhhadd@gmail.com>
+   SPDX-FileCopyrightText: 2023 (c) ivan tkachenko <me@ratijas.tk>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -173,18 +174,13 @@ BasePlayerControl {
                 return map[ElisaApplication.mediaPlayListProxyModel.repeatMode]
             }
 
-            down: pressed || menu.visible
-            Accessible.role: Accessible.ButtonMenu
-
             checkable: true
             checked: ElisaApplication.mediaPlayListProxyModel.repeatMode !== 0
             onClicked: {
                 ElisaApplication.mediaPlayListProxyModel.repeatMode = (ElisaApplication.mediaPlayListProxyModel.repeatMode + 1) % 3
             }
-            onPressAndHold: {
-                menu.popup()
-            }
 
+            menuPolicy: FlatButtonWithToolTip.MenuPolicy.OnPressAndHold
             menu: Menu {
                 PlaylistModeItem {
                     text: i18nc("@action:inmenu", "Playlist")
@@ -243,26 +239,11 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: menuButton
 
-            function openMenu() {
-                if (!menu.visible) {
-                    menu.open()
-                } else {
-                    menu.dismiss()
-                }
-            }
-
             text: i18nc("@action:button", "Application Menu")
             icon.name: "open-menu-symbolic"
 
-            down: pressed || menu.visible
-            Accessible.role: Accessible.ButtonMenu
-
-            onPressed: openMenu()
-            // Need this too because the base control sends onClicked for return/enter
-            onClicked: openMenu()
-
+            menuPolicy: FlatButtonWithToolTip.MenuPolicy.OnClickOrPressOrEnter
             menu: ApplicationMenu {
-                y: menuButton.height
                 // without modal, clicking on menuButton will not close the menu
                 modal: true
                 dim: false

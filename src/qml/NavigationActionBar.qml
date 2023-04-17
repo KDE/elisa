@@ -57,29 +57,16 @@ Item {
     Component {
         id: sortMenuComponent
         FlatButtonWithToolTip {
-            function openMenu() {
-                if (sortMenu.visible) {
-                    sortMenu.dismiss()
-                } else {
-                    sortMenu.sortOrder = navigationBar.sortOrder
-                    sortMenu.popup(this, x, y + height)
-                }
-            }
-
-            display: AbstractButton.TextBesideIcon
-            down: sortMenu.visible || pressed
-            Accessible.role: Accessible.ButtonMenu
-
+            menuPolicy: FlatButtonWithToolTip.MenuPolicy.OnClickOrPressOrEnter
             menu: sortMenu
 
+            display: AbstractButton.TextBesideIcon
             icon.name: "view-sort"
-            text: sortMenu.sortRoleName !== ""
-                ? i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
-                : i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort")
-
-            onPressed: openMenu()
-            // Need this too because the base control sends onClicked for return/enter
-            onClicked: openMenu()
+            text: if (sortMenu.sortRoleName !== "") {
+                i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
+            } else {
+                i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort")
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 /*
    SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2023 (c) ivan tkachenko <me@ratijas.tk>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -379,50 +380,35 @@ BasePlayListDelegate {
                 visible: active
                 sourceComponent: FlatButtonWithToolTip {
                     icon.name: "overflow-menu"
-                    down: pressed || menuLoader.menuVisible
-                    onPressed: menuLoader.item.open()
-                    Keys.onReturnPressed: menuLoader.item.open()
-                    Keys.onEnterPressed: menuLoader.item.open()
-                    activeFocusOnTab: isSelected
-                }
-            }
-            Loader {
-                id: menuLoader
-                property bool menuVisible: false
-                active: menuButtonLoader.active
-                onActiveChanged: {
-                    if (!active) {
-                        menuVisible = false
-                    }
-                }
-                sourceComponent: Menu {
-                    dim: false
-                    modal: true
-                    x: -width
-                    parent: menuButtonLoader.item
+                    activeFocusOnTab: playListEntry.isSelected
 
-                    onVisibleChanged: menuLoader.menuVisible = visible
+                    menuPolicy: FlatButtonWithToolTip.MenuPolicy.OnClickOrPressOrEnter
+                    menu: Menu {
+                        // without modal, clicking on button will not close the menu
+                        modal: true
+                        dim: false
 
-                    MenuItem {
-                        action: actionList.playPauseAction
-                    }
-                    MenuItem {
-                        action: actionList.infoAction
-                    }
-                    MenuItem {
-                        action: actionList.locateFileAction
-                    }
-                    MenuItem {
-                        action: actionList.ratingAction
-                        visible: !ElisaApplication.useFavoriteStyleRatings
-                    }
-                    MenuItem {
-                        action: actionList.favoriteAction
-                        visible: ElisaApplication.useFavoriteStyleRatings
-                    }
-                    MenuSeparator { }
-                    MenuItem {
-                        action: actionList.removeAction
+                        MenuItem {
+                            action: actionList.playPauseAction
+                        }
+                        MenuItem {
+                            action: actionList.infoAction
+                        }
+                        MenuItem {
+                            action: actionList.locateFileAction
+                        }
+                        MenuItem {
+                            action: actionList.ratingAction
+                            visible: !ElisaApplication.useFavoriteStyleRatings
+                        }
+                        MenuItem {
+                            action: actionList.favoriteAction
+                            visible: ElisaApplication.useFavoriteStyleRatings
+                        }
+                        MenuSeparator { }
+                        MenuItem {
+                            action: actionList.removeAction
+                        }
                     }
                 }
             }

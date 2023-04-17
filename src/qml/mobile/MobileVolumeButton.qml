@@ -1,5 +1,6 @@
 /*
    SPDX-FileCopyrightText: 2020 (c) Devin Lin <espidev@gmail.com>
+   SPDX-FileCopyrightText: 2023 (c) ivan tkachenko <me@ratijas.tk>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -29,18 +30,9 @@ FlatButtonWithToolTip {
     icon.color: "white"
     Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
     Kirigami.Theme.inherit: false
-    
-    onClicked: {
-        if (volumeSliderPopup.visible) {
-            volumeSliderPopup.close();
-        } else {
-            volumeSliderPopup.open();
-        }
-    }
 
-    Popup {
-        id: volumeSliderPopup
-        y: -volumeSliderPopup.height
+    menuPolicy: FlatButtonWithToolTip.MenuPolicy.OnClickOrPressOrEnter
+    menu: Popup {
         height: Kirigami.Units.gridUnit + Kirigami.Units.largeSpacing * 2
         width: Kirigami.Units.gridUnit * 10
         focus: true
@@ -50,9 +42,8 @@ FlatButtonWithToolTip {
             color: "#616161" // hardcode colour, since background is darkened blur (theming doesn't make sense)
         }
 
-        VolumeSlider {
+        contentItem: VolumeSlider {
             id: slider
-            anchors.fill: parent
 
             muted: volumeButton.muted
         }

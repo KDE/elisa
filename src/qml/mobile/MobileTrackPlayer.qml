@@ -1,5 +1,6 @@
 /*
    SPDX-FileCopyrightText: 2020 (c) Devin Lin <espidev@gmail.com>
+   SPDX-FileCopyrightText: 2023 (c) ivan tkachenko <me@ratijas.tk>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -243,19 +244,14 @@ BasePlayerControl {
                     }
                     icon.color: "white"
 
-                    down: pressed || menu.visible
-                    Accessible.role: Accessible.ButtonMenu
-
                     checkable: true
                     checked: ElisaApplication.mediaPlayListProxyModel.repeatMode !== 0
 
                     onClicked: {
                         ElisaApplication.mediaPlayListProxyModel.repeatMode = (ElisaApplication.mediaPlayListProxyModel.repeatMode + 1) % 3
                     }
-                    onPressAndHold: {
-                        menu.popup()
-                    }
 
+                    menuPolicy: FlatButtonWithToolTip.MenuPolicy.OnPressAndHold
                     menu: Menu {
                         PlaylistModeItem {
                             text: i18nc("@action:inmenu", "Playlist")

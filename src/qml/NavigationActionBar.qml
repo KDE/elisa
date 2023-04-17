@@ -70,6 +70,8 @@ Item {
             down: sortMenu.visible || pressed
             Accessible.role: Accessible.ButtonMenu
 
+            menu: sortMenu
+
             icon.name: "view-sort"
             text: sortMenu.sortRoleName !== ""
                 ? i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)

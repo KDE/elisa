@@ -1,5 +1,6 @@
 /*
    SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2023 (c) ivan tkachenko <me@ratijas.tk>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -67,39 +68,14 @@ Item {
                 }
             }
 
-            Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
-            Kirigami.Theme.inherit: false
-            display: AbstractButton.TextOnly
+            display: AbstractButton.TextBesideIcon
             down: sortMenu.visible || pressed
             Accessible.role: Accessible.ButtonMenu
 
-            // Custom content item for now to replicate the look of a button
-            // that opens a dropdown menu
-            // TODO: Port more fully to Kirigami so we get this for free
-            contentItem: RowLayout {
-                id: internalLayout
-                spacing: Kirigami.Units.smallSpacing
-
-                Kirigami.Icon {
-                    Layout.leftMargin: Kirigami.Units.largeSpacing
-                    implicitWidth: Kirigami.Units.iconSizes.smallMedium
-                    implicitHeight: Kirigami.Units.iconSizes.smallMedium
-                    source: "view-sort"
-                    isMask: true
-                }
-
-                Label {
-                    text: if (sortMenu.sortRoleName !== "") {
-                        i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
-                    } else {
-                        i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort")
-                    }
-                }
-
-                Item {
-                    implicitWidth: Kirigami.Units.iconSizes.small + internalLayout.spacing
-                }
-            }
+            icon.name: "view-sort"
+            text: sortMenu.sortRoleName !== ""
+                ? i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
+                : i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort")
 
             onPressed: openMenu()
             // Need this too because the base control sends onClicked for return/enter
@@ -263,7 +239,6 @@ Item {
                     sourceComponent: sortMenuComponent
                     active: !Kirigami.Settings.isMobile && enableSorting && !showCreateRadioButton
                     Layout.maximumHeight: parent.height
-                    Layout.preferredWidth: item ? item.implicitContentWidth : 0
                 },
                 Loader {
                     sourceComponent: createRadioButton
@@ -316,7 +291,6 @@ Item {
                         sourceComponent: sortMenuComponent
                         active: enableSorting && !showCreateRadioButton
                         Layout.maximumHeight: parent.height
-                        Layout.preferredWidth: item ? item.implicitContentWidth : 0
                     },
                     Item {
                         Layout.fillWidth: true

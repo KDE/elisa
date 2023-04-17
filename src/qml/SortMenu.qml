@@ -8,7 +8,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15 as QQC2
 
 QQC2.Menu {
-    id: sortMenu
+    id: root
 
     property int sortRole
     property string sortRoleName
@@ -20,15 +20,15 @@ QQC2.Menu {
     title: i18nc("@title:menu", "Sort By")
 
     function refreshSortOrderNames() {
-        if (!sortMenu.sortOrderNames) {
+        if (!root.sortOrderNames) {
             return
         }
 
         for (let i = 0; i < sortRoleNames.length; ++i) {
-            if (sortRoles[i] === sortMenu.sortRole && sortMenu.sortOrderNames.length >= (i * 2 + 1)) {
-                ascendingSortOrder.text = sortMenu.sortOrderNames[i * 2]
-                descendingSortOrder.text = sortMenu.sortOrderNames[i * 2 + 1]
-                sortMenu.sortRoleName = sortMenu.sortRoleNames[i]
+            if (sortRoles[i] === root.sortRole && root.sortOrderNames.length >= (i * 2 + 1)) {
+                ascendingSortOrder.text = root.sortOrderNames[i * 2]
+                descendingSortOrder.text = root.sortOrderNames[i * 2 + 1]
+                root.sortRoleName = root.sortRoleNames[i]
             }
         }
     }
@@ -43,15 +43,15 @@ QQC2.Menu {
         model: sortRoleNames.length > 1 ? sortRoleNames.length : 0
 
         delegate: QQC2.MenuItem {
-            text: sortMenu.sortRoleNames[index]
+            text: root.sortRoleNames[index]
 
             checkable: true
 
-            checked: sortMenu.sortRoles[index] === sortMenu.sortRole
+            checked: root.sortRoles[index] === root.sortRole
 
             onToggled: {
-                sortMenu.sortRole = sortMenu.sortRoles[index]
-                checked = (sortMenu.sortRoles[index] === sortMenu.sortRole)
+                root.sortRole = root.sortRoles[index]
+                checked = (root.sortRoles[index] === root.sortRole)
             }
 
             QQC2.ButtonGroup.group: rolesButtonGroup

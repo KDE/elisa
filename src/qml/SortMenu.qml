@@ -14,7 +14,7 @@ QQC2.Menu {
     property string sortRoleName
     property var sortRoles
     property var sortRoleNames
-    property var sortOrder
+    property /*Qt::SortOrder*/int sortOrder
     property var sortOrderNames
 
     title: i18nc("@title:menu", "Sort By")

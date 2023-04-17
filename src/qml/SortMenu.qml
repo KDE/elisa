@@ -20,15 +20,15 @@ QQC2.Menu {
     title: i18nc("@title:menu", "Sort By")
 
     function refreshSortOrderNames() {
-        if (!root.sortOrderNames) {
+        if (!sortOrderNames) {
             return
         }
 
         for (let i = 0; i < sortRoleNames.length; ++i) {
-            if (sortRoles[i] === root.sortRole && root.sortOrderNames.length >= (i * 2 + 1)) {
-                ascendingSortOrder.text = root.sortOrderNames[i * 2]
-                descendingSortOrder.text = root.sortOrderNames[i * 2 + 1]
-                root.sortRoleName = root.sortRoleNames[i]
+            if (sortRoles[i] === sortRole && sortOrderNames.length >= (i * 2 + 1)) {
+                ascendingSortOrder.text = sortOrderNames[i * 2]
+                descendingSortOrder.text = sortOrderNames[i * 2 + 1]
+                sortRoleName = sortRoleNames[i]
             }
         }
     }
@@ -40,7 +40,7 @@ QQC2.Menu {
     Repeater {
         id: rolesRepeater
 
-        model: sortRoleNames.length > 1 ? sortRoleNames.length : 0
+        model: root.sortRoleNames.length > 1 ? root.sortRoleNames.length : 0
 
         delegate: QQC2.MenuItem {
             text: root.sortRoleNames[index]
@@ -59,7 +59,7 @@ QQC2.Menu {
     }
 
     QQC2.MenuSeparator {
-        visible: sortRoleNames.length > 1
+        visible: root.sortRoleNames.length > 1
     }
 
     QQC2.ButtonGroup {
@@ -70,9 +70,9 @@ QQC2.Menu {
         id: ascendingSortOrder
 
         checkable: true
-        checked: sortOrder === Qt.AscendingOrder
+        checked: root.sortOrder === Qt.AscendingOrder
 
-        onToggled: sortOrder = Qt.AscendingOrder
+        onToggled: root.sortOrder = Qt.AscendingOrder
 
         QQC2.ButtonGroup.group: orderButtonGroup
     }
@@ -81,9 +81,9 @@ QQC2.Menu {
         id: descendingSortOrder
 
         checkable: true
-        checked: sortOrder === Qt.DescendingOrder
+        checked: root.sortOrder === Qt.DescendingOrder
 
-        onToggled: sortOrder = Qt.DescendingOrder
+        onToggled: root.sortOrder = Qt.DescendingOrder
 
         QQC2.ButtonGroup.group: orderButtonGroup
     }

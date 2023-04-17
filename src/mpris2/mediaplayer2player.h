@@ -42,6 +42,8 @@ class ELISALIB_EXPORT MediaPlayer2Player : public QDBusAbstractAdaptor
     Q_PROPERTY(bool CanSeek READ CanSeek NOTIFY canSeekChanged)
     Q_PROPERTY(int currentTrack READ currentTrack WRITE setCurrentTrack NOTIFY currentTrackChanged)
     Q_PROPERTY(int mediaPlayerPresent READ mediaPlayerPresent WRITE setMediaPlayerPresent NOTIFY mediaPlayerPresentChanged)
+    Q_PROPERTY(bool Shuffle READ Shuffle WRITE setShuffle NOTIFY shuffleChanged)
+    Q_PROPERTY(QString LoopStatus READ LoopStatus WRITE setLoopStatus NOTIFY loopStatusChanged)
 
 public:
     explicit MediaPlayer2Player(MediaPlayListProxyModel *playListControler,
@@ -68,6 +70,8 @@ public:
     bool CanControl() const;
     int currentTrack() const;
     int mediaPlayerPresent() const;
+    QString LoopStatus() const;
+    bool Shuffle() const;
 
     bool showProgressOnTaskBar() const;
     void setShowProgressOnTaskBar(bool value);
@@ -86,6 +90,8 @@ Q_SIGNALS:
     void canSeekChanged();
     void currentTrackChanged();
     void mediaPlayerPresentChanged();
+    void shuffleChanged();
+    void loopStatusChanged();
     void next();
     void previous();
     void playPause();
@@ -125,6 +131,10 @@ private Q_SLOTS:
 
     void playerVolumeChanged();
 
+    void shufflePlayListChanged();
+
+    void repeatModeChanged();
+
 private:
     void signalPropertiesChange(const QString &property, const QVariant &value);
 
@@ -133,6 +143,8 @@ private:
     void setVolume(double volume);
     void setPropertyPosition(int newPositionInMs);
     void setCurrentTrack(int newTrackPosition);
+    void setShuffle(bool shuffle);
+    void setLoopStatus(const QString& loopStatus);
 
     QVariantMap getMetadataOfCurrentTrack();
 

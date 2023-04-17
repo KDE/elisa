@@ -68,6 +68,10 @@ MediaPlayer2Player::MediaPlayer2Player(MediaPlayListProxyModel *playListControle
             this, &MediaPlayer2Player::audioDurationChanged);
     connect(m_audioPlayer, &AudioWrapper::volumeChanged,
             this, &MediaPlayer2Player::playerVolumeChanged);
+    connect(m_playListControler, &MediaPlayListProxyModel::shufflePlayListChanged,
+            this, &MediaPlayer2Player::shufflePlayListChanged);
+    connect(m_playListControler, &MediaPlayListProxyModel::repeatModeChanged,
+            this, &MediaPlayer2Player::repeatModeChanged);
 
     m_volume = m_audioPlayer->volume() / 100;
     m_canPlay = m_manageMediaPlayerControl->playControlEnabled();
@@ -491,6 +495,69 @@ void MediaPlayer2Player::setMediaPlayerPresent(int status)
         Q_EMIT canPauseChanged();
         Q_EMIT canPlayChanged();
     }
+}
+
+void MediaPlayer2Player::setShuffle(bool shuffle)
+{
+    if (m_playListControler) {
+        m_playListControler->setShufflePlayList(shuffle);
+        signalPropertiesChange(QStringLiteral("Shuffle"), Shuffle());
+    }
+}
+
+bool MediaPlayer2Player::Shuffle() const
+{
+    if (m_playListControler) {
+        return m_playListControler->shufflePlayList();
+    }
+
+    return false;
+}
+
+void MediaPlayer2Player::shufflePlayListChanged()
+{
+    signalPropertiesChange(QStringLiteral("Shuffle"), Shuffle());
+}
+
+void MediaPlayer2Player::setLoopStatus(const QString& loopStatus)
+{
+    MediaPlayListProxyModel::Repeat repeatMode;
+
+    if (m_playListControler) {
+        if (loopStatus == QStringLiteral("Playlist")) {
+            repeatMode = MediaPlayListProxyModel::Playlist;
+        } else if (loopStatus == QStringLiteral("Track")) {
+            repeatMode = MediaPlayListProxyModel::One;
+        } else {
+            repeatMode = MediaPlayListProxyModel::None;
+        }
+
+        m_playListControler->setRepeatMode(repeatMode);
+        signalPropertiesChange(QStringLiteral("LoopStatus"), LoopStatus());
+    }
+}
+
+QString MediaPlayer2Player::LoopStatus() const
+{
+    if (m_playListControler) {
+        const auto repeatMode = m_playListControler->repeatMode();
+        switch (repeatMode) {
+            case MediaPlayListProxyModel::Playlist:
+                return QStringLiteral("Playlist");
+            case MediaPlayListProxyModel::One:
+                return QStringLiteral("Track");
+            case MediaPlayListProxyModel::None:
+            default:
+                return QStringLiteral("None");
+        }
+    }
+
+    return QStringLiteral("None");
+}
+
+void MediaPlayer2Player::repeatModeChanged()
+{
+    signalPropertiesChange(QStringLiteral("LoopStatus"), LoopStatus());
 }
 
 void MediaPlayer2Player::signalPropertiesChange(const QString &property, const QVariant &value)

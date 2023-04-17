@@ -48,8 +48,8 @@ BasePlayListDelegate {
 
     topPadding: grouped ? 0 : Kirigami.Units.smallSpacing
     bottomPadding: grouped ? 0 : Kirigami.Units.smallSpacing
-    leftPadding: 0
-    rightPadding: Kirigami.Units.smallSpacing
+    leftPadding: mirrored ? Kirigami.Units.smallSpacing : 0
+    rightPadding: mirrored ? 0 : Kirigami.Units.smallSpacing
     alternatingBackground: false
     separatorVisible: false
 

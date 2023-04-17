@@ -38,7 +38,9 @@ Kirigami.Page {
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
-        leftPadding: Kirigami.Units.largeSpacing
+
+        leftPadding: mirrored ? undefined : Kirigami.Units.largeSpacing
+        rightPadding: mirrored ? Kirigami.Units.largeSpacing : undefined
 
         // Override color to use standard window colors, not header colors
         // TODO: remove this if the HeaderBar component is ever removed or moved
@@ -419,7 +421,9 @@ Kirigami.Page {
 
     footer: ToolBar {
         implicitHeight: Math.round(Kirigami.Units.gridUnit * 2)
-        leftPadding: Kirigami.Units.largeSpacing
+
+        leftPadding: mirrored ? undefined : Kirigami.Units.largeSpacing
+        rightPadding: mirrored ? Kirigami.Units.largeSpacing : undefined
 
         RowLayout {
             anchors.fill: parent

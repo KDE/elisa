@@ -57,14 +57,12 @@ Item {
     Component {
         id: sortMenuComponent
         FlatButtonWithToolTip {
-            id: sortMenuButton
-
             function openMenu() {
                 if (sortMenu.visible) {
                     sortMenu.dismiss()
                 } else {
                     sortMenu.sortOrder = navigationBar.sortOrder
-                    sortMenu.popup(sortMenuButton, sortMenuButton.x, sortMenuButton.y + sortMenuButton.height)
+                    sortMenu.popup(this, x, y + height)
                 }
             }
 

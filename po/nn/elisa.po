@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-31 00:46+0000\n"
+"POT-Creation-Date: 2023-04-01 00:50+0000\n"
 "PO-Revision-Date: 2023-02-09 21:42+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -697,7 +697,7 @@ msgid "Set track rating"
 msgstr "Gje spor karakter"
 
 # unreviewed-context
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"
@@ -705,7 +705,7 @@ msgid "Un-mark this song as a favorite"
 msgstr "Fjern favoritt­merking"
 
 # unreviewed-context
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:134
+#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"

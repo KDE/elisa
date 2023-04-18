@@ -59,6 +59,11 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setInitialViewIndex
                NOTIFY initialViewIndexChanged)
 
+    Q_PROPERTY(QString initialFilesViewPath
+               READ initialFilesViewPath
+               WRITE setInitialFilesViewPath
+               NOTIFY initialFilesViewPathChanged)
+
     Q_PROPERTY(bool isDirty
                READ isDirty
                NOTIFY isDirtyChanged)
@@ -132,6 +137,11 @@ public:
         return mInitialViewIndex;
     }
 
+    [[nodiscard]] QString initialFilesViewPath() const
+    {
+        return mInitialFilesViewPath;
+    }
+
     [[nodiscard]] bool playAtStartup() const
     {
         return mPlayAtStartup;
@@ -175,6 +185,8 @@ Q_SIGNALS:
 
     void initialViewIndexChanged();
 
+    void initialFilesViewPathChanged();
+
     void playAtStartupChanged();
 
     void scanAtStartupChanged();
@@ -204,6 +216,8 @@ public Q_SLOTS:
     void setEmbeddedView(ElisaUtils::PlayListEntryType embeddedView);
 
     void setInitialViewIndex(int initialViewIndex);
+
+    void setInitialFilesViewPath(const QString &path);
 
     void setPlayAtStartup(bool playAtStartup);
 
@@ -248,6 +262,8 @@ private:
     ElisaUtils::PlayListEntryType mEmbeddedView = ElisaUtils::Unknown;
 
     int mInitialViewIndex = 2;
+
+    QString mInitialFilesViewPath;
 };
 
 #endif

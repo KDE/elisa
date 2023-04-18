@@ -257,6 +257,42 @@ ColumnLayout {
             }
         }
 
+        RowLayout {
+            Kirigami.FormData.label: i18nc("@label:textbox", "Initial location for Files view:")
+            spacing: Kirigami.Units.smallSpacing
+
+            QQC2.TextField {
+                id: initialFilesViewPathTextField
+
+                text: ElisaConfigurationDialog.initialFilesViewPath
+                onTextChanged: {
+                    ElisaConfigurationDialog.initialFilesViewPath = text
+                }
+            }
+
+            QQC2.Button {
+                icon.name: "document-open-folder"
+                text: i18nc("@action:button as in, choose a file path on disk", "Choose…")
+                onClicked: {
+                    filesViewPathChooserDialog.visible = true
+                }
+
+                Dialogs.FileDialog {
+                    id: filesViewPathChooserDialog
+
+                    title: i18nc("@title:window", "Choose a Folder")
+                    selectFolder: true
+                    folder: ElisaConfigurationDialog.initialFilesViewPath
+
+                    onAccepted: {
+                        const url = fileUrl
+                        console.warn("The selected URL was " + url)
+                        initialFilesViewPathTextField.text = url.toString().replace("file://", "")
+                    }
+                }
+            }
+        }
+
         Item {
             Kirigami.FormData.isSection: true
         }

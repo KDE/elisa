@@ -71,6 +71,9 @@
     <choice name="Radios" />
    </choices>
   </entry>
+  <entry key="InitialFilesViewPath" type="String">
+    <default>/</default>
+  </entry>
   <entry key="ColorScheme" type="String">
   </entry>
   <entry key="SortRolePreferences" type="StringList">

@@ -108,6 +108,7 @@ void ElisaConfigurationDialog::save()
     }
 
     Elisa::ElisaConfiguration::setInitialView(mInitialViewIndex);
+    Elisa::ElisaConfiguration::setInitialFilesViewPath(mInitialFilesViewPath);
 
     Elisa::ElisaConfiguration::self()->save();
 
@@ -205,6 +206,18 @@ void ElisaConfigurationDialog::setInitialViewIndex(int initialViewIndex)
 
     mInitialViewIndex = initialViewIndex;
     QTimer::singleShot(0, [this](){ Q_EMIT initialViewIndexChanged(); });
+
+    setDirty();
+}
+
+void ElisaConfigurationDialog::setInitialFilesViewPath(const QString &path)
+{
+    if (mInitialFilesViewPath == path) {
+        return;
+    }
+
+    mInitialFilesViewPath = path;
+    Q_EMIT initialFilesViewPathChanged();
 
     setDirty();
 }
@@ -310,6 +323,9 @@ void ElisaConfigurationDialog::configChanged()
 
     mInitialViewIndex = Elisa::ElisaConfiguration::initialView();
     Q_EMIT initialViewIndexChanged();
+
+    mInitialFilesViewPath = Elisa::ElisaConfiguration::initialFilesViewPath();
+    Q_EMIT initialFilesViewPathChanged();
 }
 
 void ElisaConfigurationDialog::setDirty()

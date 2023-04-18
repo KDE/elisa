@@ -243,11 +243,7 @@ BasePlayerControl {
             icon.name: "open-menu-symbolic"
 
             menuPolicy: FlatButtonWithToolTip.MenuPolicy.OnClickOrPressOrEnter
-            menu: ApplicationMenu {
-                // without modal, clicking on menuButton will not close the menu
-                modal: true
-                dim: false
-            }
+            menu: ApplicationMenu { }
         }
 
         Item {

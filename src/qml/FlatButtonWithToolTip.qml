@@ -48,6 +48,10 @@ ToolButton {
                 menu.close();
             }
         } else {
+            // Without modal, clicking on the button will not close the menu.
+            menu.modal = true;
+            menu.dim = false;
+
             if (menu instanceof T.Menu) {
                 menu.popup(this);
             } else {

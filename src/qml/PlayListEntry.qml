@@ -384,10 +384,6 @@ BasePlayListDelegate {
 
                     menuPolicy: FlatButtonWithToolTip.MenuPolicy.OnClickOrPressOrEnter
                     menu: Menu {
-                        // without modal, clicking on button will not close the menu
-                        modal: true
-                        dim: false
-
                         MenuItem {
                             action: actionList.playPauseAction
                         }

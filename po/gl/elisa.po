@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-01 00:50+0000\n"
+"POT-Creation-Date: 2023-04-18 00:46+0000\n"
 "PO-Revision-Date: 2019-08-24 16:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -617,7 +617,7 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Intentalo de novo"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:408
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:410
 #, fuzzy, kde-format
 #| msgctxt "Playlist cleared"
 #| msgid "Playlist cleared"
@@ -625,7 +625,7 @@ msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Baleirouse a lista de reprodución"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:412
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:414
 #, fuzzy, kde-format
 #| msgctxt "Undo"
 #| msgid "Undo"
@@ -959,7 +959,7 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Lista de reprodución"
 
-#: qml/MediaPlayListView.qml:63
+#: qml/MediaPlayListView.qml:65
 #, fuzzy, kde-format
 #| msgctxt "Save a playlist file"
 #| msgid "Save Playlist..."
@@ -967,13 +967,13 @@ msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Gardar a lista de reprodución…"
 
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:75
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:97
+#: qml/MediaPlayListView.qml:99
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -981,7 +981,7 @@ msgid ""
 "renamed."
 msgstr ""
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:105
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to playlist"
@@ -989,7 +989,7 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Engadir á lista de reprodución"
 
-#: qml/MediaPlayListView.qml:271
+#: qml/MediaPlayListView.qml:273
 #, fuzzy, kde-format
 #| msgctxt "Your playlist is empty"
 #| msgid "Your playlist is empty"
@@ -997,7 +997,7 @@ msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "A lista de reprodución está baleira"
 
-#: qml/MediaPlayListView.qml:272
+#: qml/MediaPlayListView.qml:274
 #, fuzzy, kde-format
 #| msgctxt "Text shown when play list is empty"
 #| msgid ""
@@ -1011,7 +1011,7 @@ msgstr ""
 "Engada algunhas cancións para empezar. Pode examinar a súa música usando as "
 "vistas da esquerda."
 
-#: qml/MediaPlayListView.qml:346
+#: qml/MediaPlayListView.qml:348
 #, fuzzy, kde-format
 #| msgctxt "Your playlist is empty"
 #| msgid "Your playlist is empty"
@@ -1019,7 +1019,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "A lista de reprodución está baleira"
 
-#: qml/MediaPlayListView.qml:431 qml/MediaPlayListView.qml:436
+#: qml/MediaPlayListView.qml:435 qml/MediaPlayListView.qml:440
 #, fuzzy, kde-format
 #| msgid "1 track"
 #| msgid_plural "%1 tracks"
@@ -1029,7 +1029,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "1 pista"
 msgstr[1] "%1 pistas"
 
-#: qml/MediaPlayListView.qml:434
+#: qml/MediaPlayListView.qml:438
 #, fuzzy, kde-format
 #| msgid "1 track"
 #| msgid_plural "%1 tracks"
@@ -1037,7 +1037,7 @@ msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 pista"
 
-#: qml/MediaPlayListView.qml:437
+#: qml/MediaPlayListView.qml:441
 #, fuzzy, kde-format
 #| msgid "1 track remaining"
 #| msgid_plural "%1 tracks remaining"
@@ -1047,7 +1047,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "Resta 1 pista"
 msgstr[1] "Resta 1 pista"
 
-#: qml/MediaPlayListView.qml:438
+#: qml/MediaPlayListView.qml:442
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -1055,7 +1055,7 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:452
+#: qml/MediaPlayListView.qml:456
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current Track"
@@ -1063,7 +1063,7 @@ msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Mostrar a pista actual"
 
-#: qml/MediaPlayListView.qml:463
+#: qml/MediaPlayListView.qml:467
 #, fuzzy, kde-format
 #| msgctxt "Remove all tracks from play list"
 #| msgid "Clear Playlist"

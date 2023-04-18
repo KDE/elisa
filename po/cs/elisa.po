@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-01 00:50+0000\n"
+"POT-Creation-Date: 2023-04-18 00:46+0000\n"
 "PO-Revision-Date: 2023-02-16 09:04+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -515,13 +515,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Zkusit znovu"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:408
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:410
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Seznam skladeb byl vymazán"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:412
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:414
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -803,19 +803,19 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Seznam skladeb"
 
-#: qml/MediaPlayListView.qml:63
+#: qml/MediaPlayListView.qml:65
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Uložit…"
 
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:75
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Načíst…"
 
-#: qml/MediaPlayListView.qml:97
+#: qml/MediaPlayListView.qml:99
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -825,19 +825,19 @@ msgstr ""
 "Načtení některých skladeb selhalo. Prosím, ujistěte se, že nebyly smazány "
 "nebo přejmenovány."
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Upravit seznam skladeb"
 
-#: qml/MediaPlayListView.qml:271
+#: qml/MediaPlayListView.qml:273
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Seznam skladeb je prázdný"
 
-#: qml/MediaPlayListView.qml:272
+#: qml/MediaPlayListView.qml:274
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -847,13 +847,13 @@ msgstr ""
 "Pro začátek můžete přidat nějakou skladbu. Hudbu můžete prohlížet pohledy "
 "nalevo."
 
-#: qml/MediaPlayListView.qml:346
+#: qml/MediaPlayListView.qml:348
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Seznam skladeb je prázdný."
 
-#: qml/MediaPlayListView.qml:431 qml/MediaPlayListView.qml:436
+#: qml/MediaPlayListView.qml:435 qml/MediaPlayListView.qml:440
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -862,13 +862,13 @@ msgstr[0] "%1 skladba"
 msgstr[1] "%1 skladby"
 msgstr[2] "%1 skladeb"
 
-#: qml/MediaPlayListView.qml:434
+#: qml/MediaPlayListView.qml:438
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 skladba"
 
-#: qml/MediaPlayListView.qml:437
+#: qml/MediaPlayListView.qml:441
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -877,7 +877,7 @@ msgstr[0] "Zbývá %1"
 msgstr[1] "Zbývá %1"
 msgstr[2] "Zbývá %1"
 
-#: qml/MediaPlayListView.qml:438
+#: qml/MediaPlayListView.qml:442
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -885,13 +885,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:452
+#: qml/MediaPlayListView.qml:456
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Zobrazit současný"
 
-#: qml/MediaPlayListView.qml:463
+#: qml/MediaPlayListView.qml:467
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"

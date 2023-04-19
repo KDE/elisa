@@ -19,14 +19,11 @@ RowLayout {
 
     property bool showPlaylist
     property bool showExpandedFilterView
-    property int currentViewIndex: getCurrentViewIndex()
     property Kirigami.ContextDrawer playlistDrawer
     property alias initialIndex: viewManager.initialIndex
 
     property alias sidebar: mobileSidebar.item
-
-    // setCurrentViewIndex be called before loaders are loaded, so store the value
-    property int preloadIndex: -1
+    property Loader activeSidebarLoader: Kirigami.Settings.isMobile ? mobileSidebar : desktopSidebar
 
     function goBack() {
         viewManager.goBack()
@@ -50,23 +47,10 @@ RowLayout {
             browseStackView.pop()
         }
         browseStackView.push(viewDelegate, viewProperties)
-    }
 
-    function getCurrentViewIndex() {
-        if (mobileSidebar.item != null) {
-            return mobileSidebar.item.viewIndex;
-        } else if (desktopSidebar.item != null) {
-            return desktopSidebar.item.currentIndex;
-        }
-    }
-
-    function setCurrentViewIndex(index) {
-        if (mobileSidebar.item != null) {
-            mobileSidebar.item.switchView(index);
-        } else if (desktopSidebar.item != null) {
-            desktopSidebar.item.setCurrentIndex(index);
-        } else {
-            contentViewContainer.preloadIndex = index;
+        // Sometimes the sidebar loads after the page is pushed
+        if (activeSidebarLoader.status === Loader.Ready) {
+            activeSidebarLoader.item.viewIndex = viewManager.viewIndex
         }
     }
 
@@ -76,10 +60,6 @@ RowLayout {
         viewsData: viewsData
 
         onOpenGridView: configurationData => {
-            if (configurationData.expectedDepth === 1) {
-                contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
-            }
-
             openViewCommon(dataGridView, {
                 filterType: configurationData.filterType,
                 mainTitle: configurationData.mainTitle,
@@ -106,10 +86,6 @@ RowLayout {
         }
 
         onOpenListView: configurationData => {
-            if (configurationData.expectedDepth === 1) {
-                contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
-            }
-
             openViewCommon(dataListView, {
                 filterType: configurationData.filterType,
                 isSubPage: configurationData.expectedDepth > 1,
@@ -138,11 +114,6 @@ RowLayout {
         }
 
         onSwitchContextView: (expectedDepth, mainTitle, imageUrl) => {
-            if (preloadIndex === -1) {
-                // prevent changing page to viewManager.viewIndex if there is a pending page change
-                contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
-            }
-
             openViewCommon(albumContext, {
                 mainTitle,
                 image: imageUrl,
@@ -187,16 +158,10 @@ RowLayout {
         active: !Kirigami.Settings.isMobile
         Layout.fillHeight: true
 
-        onLoaded: {
-            if (contentViewContainer.preloadIndex !== -1) {
-                item.setCurrentIndex(contentViewContainer.preloadIndex);
-                viewManager.openView(contentViewContainer.preloadIndex);
-                contentViewContainer.preloadIndex = -1;
-            }
-        }
         sourceComponent: ViewSelector {
             model: pageProxyModel
-            onSwitchView: viewManager.openView(viewIndex)
+            viewIndex: viewManager.viewIndex
+            onSwitchView: viewIndex => viewManager.openView(viewIndex)
         }
     }
 
@@ -204,15 +169,10 @@ RowLayout {
     Loader {
         id: mobileSidebar
         active: Kirigami.Settings.isMobile
-        onLoaded: {
-            if (contentViewContainer.preloadIndex !== -1) {
-                item.switchView(contentViewContainer.preloadIndex);
-                viewManager.openView(contentViewContainer.preloadIndex);
-                contentViewContainer.preloadIndex = -1;
-            }
-        }
+
         sourceComponent: MobileSidebar {
             model: pageProxyModel
+            viewIndex: viewManager.viewIndex
             onSwitchView: viewIndex => viewManager.openView(viewIndex)
         }
     }

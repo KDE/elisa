@@ -16,18 +16,11 @@ ScrollView {
 
     property alias model: viewModeView.model
 
-    readonly property alias currentIndex: viewModeView.currentIndex
+    property alias viewIndex: viewModeView.currentIndex
     readonly property int wideWidth: Kirigami.Units.gridUnit * 12
     readonly property int iconsOnlyWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing + (ScrollBar.vertical.visible ? ScrollBar.vertical.implicitWidth : 0)
 
     signal switchView(int viewIndex)
-
-    function setCurrentIndex(index)
-    {
-        viewModeView.ignoreCurrentItemChanges = true
-        viewModeView.currentIndex = index
-        viewModeView.ignoreCurrentItemChanges = false
-    }
 
     implicitWidth: mainWindow.width > elisaTheme.viewSelectorSmallSizeThreshold ? wideWidth : iconsOnlyWidth
     Behavior on implicitWidth {
@@ -42,7 +35,6 @@ ScrollView {
 
     contentItem: ListView {
         id: viewModeView
-        property bool ignoreCurrentItemChanges: false
 
         focus: true
         clip: true
@@ -61,7 +53,7 @@ ScrollView {
             ToolTip.text: model.display
 
             onClicked: {
-                viewModeView.currentIndex = index
+                switchView(index)
                 forceActiveFocus()
             }
         }
@@ -82,7 +74,5 @@ ScrollView {
                 }
             }
         }
-
-        onCurrentItemChanged: if (!ignoreCurrentItemChanges) switchView(currentIndex)
     }
 }

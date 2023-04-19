@@ -45,6 +45,13 @@ RowLayout {
         viewManager.openNowPlaying();
     }
 
+    function openViewCommon(viewDelegate, viewProperties, expectedDepth) {
+        while (browseStackView.depth > expectedDepth) {
+            browseStackView.pop()
+        }
+        browseStackView.push(viewDelegate, viewProperties)
+    }
+
     function getCurrentViewIndex() {
         if (mobileSidebar.item != null) {
             return mobileSidebar.item.viewIndex;
@@ -73,11 +80,7 @@ RowLayout {
                 contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
             }
 
-            while (browseStackView.depth > configurationData.expectedDepth) {
-                browseStackView.pop()
-            }
-
-            browseStackView.push(dataGridView, {
+            openViewCommon(dataGridView, {
                 filterType: configurationData.filterType,
                 mainTitle: configurationData.mainTitle,
                 secondaryTitle: configurationData.secondaryTitle,
@@ -99,7 +102,7 @@ RowLayout {
                 sortOrderNames: configurationData.sortOrderNames,
                 viewManager: viewManager,
                 opacity: 1,
-            })
+            }, configurationData.expectedDepth)
         }
 
         onOpenListView: configurationData => {
@@ -107,11 +110,7 @@ RowLayout {
                 contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
             }
 
-            while (browseStackView.depth > configurationData.expectedDepth) {
-                browseStackView.pop()
-            }
-
-            browseStackView.push(dataListView, {
+            openViewCommon(dataListView, {
                 filterType: configurationData.filterType,
                 isSubPage: configurationData.expectedDepth > 1,
                 mainTitle: configurationData.mainTitle,
@@ -135,7 +134,7 @@ RowLayout {
                 sortOrderNames: configurationData.sortOrderNames,
                 viewManager: viewManager,
                 opacity: 1,
-            })
+            }, configurationData.expectedDepth)
         }
 
         onSwitchContextView: (expectedDepth, mainTitle, imageUrl) => {
@@ -144,15 +143,11 @@ RowLayout {
                 contentViewContainer.setCurrentViewIndex(viewManager.viewIndex)
             }
 
-            while (browseStackView.depth > expectedDepth) {
-                browseStackView.pop()
-            }
-
-            browseStackView.push(albumContext, {
+            openViewCommon(albumContext, {
                 mainTitle,
                 image: imageUrl,
                 opacity: 1,
-            })
+            }, expectedDepth)
         }
 
         onPopOneView: {

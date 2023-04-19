@@ -210,11 +210,6 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
         }
     }
 
-    if (lastView.mFilterType == ElisaUtils::FilterByArtist && dataType == ElisaUtils::Album && lastView.mDataFilter[DataTypes::ArtistRole].toString() != innerSecondaryTitle) {
-        nextViewParameters = lastView;
-        nextViewParameters.mDataFilter[DataTypes::ArtistRole] = innerSecondaryTitle;
-    }
-
     openViewFromData(nextViewParameters);
 }
 

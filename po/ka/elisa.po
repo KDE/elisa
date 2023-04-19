@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-18 00:46+0000\n"
+"POT-Creation-Date: 2023-04-19 00:48+0000\n"
 "PO-Revision-Date: 2023-02-07 07:48+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -422,7 +422,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "მიმდინარეობს დაკვრა"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:177
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -441,7 +441,7 @@ msgid "Lyrics"
 msgstr "ლირიკა"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -594,7 +594,7 @@ msgid "View details"
 msgstr "დეტალების ნახვა"
 
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:140
+#: qml/NavigationActionBar.qml:116
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -1117,67 +1117,67 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "დახმარება"
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:77
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "დალაგება: %1"
 
-#: qml/NavigationActionBar.qml:95
+#: qml/NavigationActionBar.qml:78
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "სორტი"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:92
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "რადიოს შექმნა"
 
-#: qml/NavigationActionBar.qml:128
+#: qml/NavigationActionBar.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "დასაკრავი სიაში დამატება"
 
-#: qml/NavigationActionBar.qml:152
+#: qml/NavigationActionBar.qml:128
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "შემსრულებლის ჩვენება"
 
-#: qml/NavigationActionBar.qml:209
+#: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "უკან"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:263
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "ძებნა და გაფილტვრა"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:263
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "ძებნისა და ფილტრის დამალვა"
 
-#: qml/NavigationActionBar.qml:390
+#: qml/NavigationActionBar.qml:364
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "მოძებნეთ ალბომის სახელით, შემსრულებლით და სხვ."
 
-#: qml/NavigationActionBar.qml:399
+#: qml/NavigationActionBar.qml:373
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "შეფასებით გაფილტვრა: "
 
-#: qml/NavigationActionBar.qml:414
+#: qml/NavigationActionBar.qml:388
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

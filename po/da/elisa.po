@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-18 00:46+0000\n"
+"POT-Creation-Date: 2023-04-19 00:48+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -505,7 +505,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Afspiller nu"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:177
 #, fuzzy, kde-format
 #| msgctxt "open the sidebar"
 #| msgid "Open sidebar"
@@ -530,7 +530,7 @@ msgid "Lyrics"
 msgstr "Sangtekst"
 
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -710,7 +710,7 @@ msgid "View details"
 msgstr "Vis detaljer"
 
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:140
+#: qml/NavigationActionBar.qml:116
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -1345,7 +1345,7 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Hjælp"
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:77
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort: %1"
@@ -1353,7 +1353,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Sortering: %1"
 
-#: qml/NavigationActionBar.qml:95
+#: qml/NavigationActionBar.qml:78
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort"
@@ -1361,7 +1361,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Sortér"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:92
 #, fuzzy, kde-format
 #| msgctxt "Create a new radio"
 #| msgid "Create a radio"
@@ -1369,7 +1369,7 @@ msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Opret en radio"
 
-#: qml/NavigationActionBar.qml:128
+#: qml/NavigationActionBar.qml:104
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to playlist"
@@ -1377,7 +1377,7 @@ msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Føj til spilleliste"
 
-#: qml/NavigationActionBar.qml:152
+#: qml/NavigationActionBar.qml:128
 #, fuzzy, kde-format
 #| msgctxt "Button to navigate to the artist of the album"
 #| msgid "Display Artist"
@@ -1385,7 +1385,7 @@ msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Vis kunstner"
 
-#: qml/NavigationActionBar.qml:209
+#: qml/NavigationActionBar.qml:185
 #, fuzzy, kde-format
 #| msgctxt "navigate back in the views stack"
 #| msgid "Back"
@@ -1393,7 +1393,7 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Tilbage"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:263
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"
@@ -1401,7 +1401,7 @@ msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Skjul søgeindstillinger"
 
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:263
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"
@@ -1409,21 +1409,21 @@ msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Skjul søgeindstillinger"
 
-#: qml/NavigationActionBar.qml:390
+#: qml/NavigationActionBar.qml:364
 #, fuzzy, kde-format
 #| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Søg efter albumnavn, kunster, osv."
 
-#: qml/NavigationActionBar.qml:399
+#: qml/NavigationActionBar.qml:373
 #, fuzzy, kde-format
 #| msgid "Filter by rating: "
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrér efter vurdering: "
 
-#: qml/NavigationActionBar.qml:414
+#: qml/NavigationActionBar.qml:388
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

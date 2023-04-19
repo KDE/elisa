@@ -89,7 +89,7 @@ RowLayout {
                 showRating: configurationData.viewShowRating,
                 delegateDisplaySecondaryText: configurationData.viewDelegateDisplaySecondaryText,
                 filter: configurationData.dataFilter,
-                isSubPage: (browseStackView.depth >= 2),
+                isSubPage: configurationData.expectedDepth > 1,
                 haveTreeModel: configurationData.isTreeModel,
                 stackView: configurationData.browseStackView,
                 sortRole: configurationData.sortRole,
@@ -160,7 +160,7 @@ RowLayout {
                 browseStackView.currentItem.goToBack()
             }
 
-            if (browseStackView.depth > 2) {
+            if (browseStackView.depth > 1) {
                 browseStackView.pop()
             }
         }
@@ -248,9 +248,6 @@ RowLayout {
             anchors.fill: parent
 
             clip: true
-
-            initialItem: Item {
-            }
 
             popEnter: Transition {
                 OpacityAnimator {

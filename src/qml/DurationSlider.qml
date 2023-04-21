@@ -104,7 +104,7 @@ RowLayout {
 
         text: durationIndicator.progressDuration
 
-        color: labelColor
+        color: root.labelColor
 
         Layout.alignment: Qt.AlignVCenter
         Layout.fillHeight: true

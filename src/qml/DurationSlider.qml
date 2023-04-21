@@ -23,7 +23,7 @@ RowLayout {
     signal seek(int position)
 
     onPositionChanged: {
-        if (!slider.seekStarted) {
+        if (!slider.pressed) {
             slider.value = position / 1000
         }
     }
@@ -68,8 +68,6 @@ RowLayout {
     }
 
     Slider {
-        property bool seekStarted: false
-
         id: slider
         Layout.alignment: Qt.AlignVCenter
         Layout.fillHeight: true

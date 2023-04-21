@@ -28,8 +28,8 @@ RowLayout {
         }
     }
     onDurationChanged: {
-        musicProgress.to = root.duration / 1000
-        musicProgress.value = Qt.binding(() => root.position / 1000)
+        musicProgress.to = duration / 1000
+        musicProgress.value = Qt.binding(() => position / 1000)
     }
 
     Connections {

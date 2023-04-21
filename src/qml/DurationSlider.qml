@@ -12,7 +12,7 @@ import org.kde.kirigami 2.5 as Kirigami
 import ".."
 
 RowLayout {
-    id: durationSlider
+    id: root
     property int position
     property int duration
     property bool seekable
@@ -28,8 +28,8 @@ RowLayout {
         }
     }
     onDurationChanged: {
-        musicProgress.to = durationSlider.duration / 1000
-        musicProgress.value = Qt.binding(() => durationSlider.position / 1000)
+        musicProgress.to = root.duration / 1000
+        musicProgress.value = Qt.binding(() => root.position / 1000)
     }
 
     Connections {
@@ -51,7 +51,7 @@ RowLayout {
 
         text: timeIndicator.progressDuration
 
-        color: durationSlider.labelColor
+        color: root.labelColor
 
         Layout.alignment: Qt.AlignVCenter
         Layout.fillHeight: true
@@ -63,7 +63,7 @@ RowLayout {
 
         ProgressIndicator {
             id: timeIndicator
-            position: durationSlider.position
+            position: root.position
         }
     }
 
@@ -79,13 +79,13 @@ RowLayout {
 
         // from, to and value of Slider are rescaled to seconds to avoid integer overflow issues
         from: 0
-        to: durationSlider.duration / 1000
+        to: root.duration / 1000
 
-        enabled: durationSlider.seekable && durationSlider.playEnabled
+        enabled: root.seekable && root.playEnabled
         live: true
 
         onMoved: {
-            durationSlider.seek(value * 1000)
+            root.seek(value * 1000)
         }
 
         MouseArea {
@@ -93,9 +93,9 @@ RowLayout {
             acceptedButtons: Qt.NoButton
             onWheel: {
                 if (wheel.angleDelta.y > 0) {
-                    durationSlider.seek((musicProgress.value + 10) * 1000)
+                    root.seek((musicProgress.value + 10) * 1000)
                 } else {
-                    durationSlider.seek((musicProgress.value - 10) * 1000)
+                    root.seek((musicProgress.value - 10) * 1000)
                 }
             }
         }
@@ -118,7 +118,7 @@ RowLayout {
 
         ProgressIndicator {
             id: durationIndicator
-            position: durationSlider.duration
+            position: root.duration
         }
     }
 }

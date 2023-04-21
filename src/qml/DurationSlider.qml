@@ -29,7 +29,6 @@ RowLayout {
     }
     onDurationChanged: {
         slider.to = duration / 1000
-        slider.value = Qt.binding(() => position / 1000)
     }
 
     Connections {

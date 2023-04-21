@@ -23,19 +23,19 @@ RowLayout {
     signal seek(int position)
 
     onPositionChanged: {
-        if (!musicProgress.seekStarted) {
-            musicProgress.value = position / 1000
+        if (!slider.seekStarted) {
+            slider.value = position / 1000
         }
     }
     onDurationChanged: {
-        musicProgress.to = duration / 1000
-        musicProgress.value = Qt.binding(() => position / 1000)
+        slider.to = duration / 1000
+        slider.value = Qt.binding(() => position / 1000)
     }
 
     Connections {
         target: ElisaApplication.mediaPlayListProxyModel
         function onClearPlayListPlayer() {
-            musicProgress.value = 0;
+            slider.value = 0;
         }
     }
 
@@ -70,7 +70,7 @@ RowLayout {
     Slider {
         property bool seekStarted: false
 
-        id: musicProgress
+        id: slider
         Layout.alignment: Qt.AlignVCenter
         Layout.fillHeight: true
         Layout.fillWidth: true
@@ -93,9 +93,9 @@ RowLayout {
             acceptedButtons: Qt.NoButton
             onWheel: {
                 if (wheel.angleDelta.y > 0) {
-                    root.seek((musicProgress.value + 10) * 1000)
+                    root.seek((slider.value + 10) * 1000)
                 } else {
-                    root.seek((musicProgress.value - 10) * 1000)
+                    root.seek((slider.value - 10) * 1000)
                 }
             }
         }

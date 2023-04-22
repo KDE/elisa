@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-01 00:50+0000\n"
+"POT-Creation-Date: 2023-04-19 00:48+0000\n"
 "PO-Revision-Date: 2023-02-09 21:42+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -448,7 +448,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Spelar no"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:201
+#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:177
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -468,7 +468,7 @@ msgstr "Songtekst"
 
 # unreviewed-context
 #: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:164
+#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -547,14 +547,14 @@ msgid "Retry"
 msgstr "Prøv på nytt"
 
 # unreviewed-context
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:408
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:410
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Spelelista vart tømd"
 
 # unreviewed-context
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:412
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:414
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -631,7 +631,7 @@ msgstr "Vis detaljar"
 
 # unreviewed-context
 #: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:140
+#: qml/NavigationActionBar.qml:116
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -857,20 +857,20 @@ msgid "Playlist"
 msgstr "Speleliste"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:63
+#: qml/MediaPlayListView.qml:65
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Lagra …"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:75
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Opna …"
 
-#: qml/MediaPlayListView.qml:97
+#: qml/MediaPlayListView.qml:99
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -880,21 +880,21 @@ msgstr ""
 "Klarte ikkje lasta alle spora. Sjå om nokon spor har blitt sletta eller fått "
 "nye namn."
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Rediger spelelistefil"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:271
+#: qml/MediaPlayListView.qml:273
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Spelelista er tom"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:272
+#: qml/MediaPlayListView.qml:274
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -905,14 +905,14 @@ msgstr ""
 "venstre."
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:346
+#: qml/MediaPlayListView.qml:348
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Spelelista er tom."
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:431 qml/MediaPlayListView.qml:436
+#: qml/MediaPlayListView.qml:435 qml/MediaPlayListView.qml:440
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -921,13 +921,13 @@ msgstr[0] "%1 spor"
 msgstr[1] "%1 spor"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:434
+#: qml/MediaPlayListView.qml:438
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 spor"
 
-#: qml/MediaPlayListView.qml:437
+#: qml/MediaPlayListView.qml:441
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -935,7 +935,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "%1 att"
 msgstr[1] "%1 att"
 
-#: qml/MediaPlayListView.qml:438
+#: qml/MediaPlayListView.qml:442
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -943,14 +943,14 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:452
+#: qml/MediaPlayListView.qml:456
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Vis gjeldande spor"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:463
+#: qml/MediaPlayListView.qml:467
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -1196,72 +1196,72 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Hjelp"
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:77
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Sortering: %1"
 
-#: qml/NavigationActionBar.qml:95
+#: qml/NavigationActionBar.qml:78
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Sorter"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:92
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Legg til radiokanal"
 
-#: qml/NavigationActionBar.qml:128
+#: qml/NavigationActionBar.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Legg til i speleliste"
 
-#: qml/NavigationActionBar.qml:152
+#: qml/NavigationActionBar.qml:128
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Vis artist"
 
-#: qml/NavigationActionBar.qml:209
+#: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Tilbake"
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:263
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Søk og filtrering"
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:288
+#: qml/NavigationActionBar.qml:263
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Gøyme søkje- og filterlinja"
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:390
+#: qml/NavigationActionBar.qml:364
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Søk etter albumtittel, artist, …"
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:399
+#: qml/NavigationActionBar.qml:373
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrer etter karakter: "
 
 # unreviewed-context
-#: qml/NavigationActionBar.qml:414
+#: qml/NavigationActionBar.qml:388
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

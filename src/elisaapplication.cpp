@@ -356,7 +356,6 @@ void ElisaApplication::configChanged()
     Q_EMIT showNowPlayingBackgroundChanged();
     Q_EMIT showProgressOnTaskBarChanged();
     Q_EMIT showSystemTrayIconChanged();
-    Q_EMIT doubleClickSongToEnqueueChanged();
     Q_EMIT useFavoriteStyleRatingsChanged();
     Q_EMIT embeddedViewChanged();
     Q_EMIT initialViewIndexChanged();
@@ -473,6 +472,7 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::updateData, d->mMediaPlayList.get(), &MediaPlayList::setData);
 
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::ensurePlay, d->mAudioControl.get(), &ManageAudioPlayer::ensurePlay);
+    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::requestPlay, d->mAudioControl.get(), &ManageAudioPlayer::requestPlay);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::playListFinished, d->mAudioControl.get(), &ManageAudioPlayer::playListFinished);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackChanged, d->mAudioControl.get(), &ManageAudioPlayer::setCurrentTrack);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::clearPlayListPlayer, d->mAudioControl.get(), &ManageAudioPlayer::saveForUndoClearPlaylist);
@@ -631,12 +631,6 @@ bool ElisaApplication::showSystemTrayIcon() const
     auto currentConfiguration = Elisa::ElisaConfiguration::self();
 
     return currentConfiguration->showSystemTrayIcon();
-}
-
-bool ElisaApplication::doubleClickSongToEnqueue() const
-{
-    auto currentConfiguration = Elisa::ElisaConfiguration::self();
-    return currentConfiguration->doubleClickSongToEnqueue();
 }
 
 bool ElisaApplication::useFavoriteStyleRatings() const

@@ -798,6 +798,15 @@ int MediaPlayListProxyModel::indexForTrackUrl(const QUrl &url)
     return -1;
 }
 
+void MediaPlayListProxyModel::switchToTrackUrl(const QUrl &url, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+{
+    switchTo(indexForTrackUrl(url));
+
+    if (triggerPlay == ElisaUtils::TriggerPlay) {
+        Q_EMIT requestPlay();
+    }
+}
+
 void MediaPlayListProxyModel::clearPlayList()
 {
     if (rowCount() == 0) {

@@ -17,6 +17,8 @@
 #include <QRegularExpression>
 #include <QReadWriteLock>
 #include <QThreadPool>
+#include <QFuture>
+#include <QFutureWatcher>
 
 class MediaPlayListProxyModel;
 
@@ -69,10 +71,14 @@ public Q_SLOTS:
 
     void replaceAndPlayOfPlayList(const QModelIndex &rootIndex);
 
+    void replaceAndPlayOfPlayListFromTrackUrl(const QModelIndex &rootIndex, const QUrl &switchTrackUrl);
+
     void enqueue(const DataTypes::MusicDataType &newEntry,
                  const QString &newEntryTitle,
                  ElisaUtils::PlayListEnqueueMode enqueueMode,
                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
+    void afterPlaylistEnqueue();
 
 Q_SIGNALS:
 
@@ -87,6 +93,8 @@ Q_SIGNALS:
     void entriesToEnqueue(const DataTypes::EntryDataList &newEntries,
                           ElisaUtils::PlayListEnqueueMode enqueueMode,
                           ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
+    void switchToTrackUrl(const QUrl &url, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 protected:
 
@@ -108,9 +116,14 @@ protected:
 
     MediaPlayListProxyModel* mPlayList = nullptr;
 
+    QFutureWatcher<void> mEnqueueWatcher;
+
+    QUrl mEnqueueWatcherTrackUrl;
+
+
 private:
 
-    void genericEnqueueToPlayList(const QModelIndex &rootIndex,
+    QFuture<void> genericEnqueueToPlayList(const QModelIndex &rootIndex,
                                   ElisaUtils::PlayListEnqueueMode enqueueMode,
                                   ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 

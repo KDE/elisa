@@ -347,6 +347,10 @@ void ManageAudioPlayer::ensurePlay()
     }
 }
 
+void ManageAudioPlayer::requestPlay() {
+    mPlayingState = true;
+}
+
 void ManageAudioPlayer::stop()
 {
     mPlayingState = false;

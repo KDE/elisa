@@ -38,8 +38,7 @@ FocusScope {
 
     signal clicked()
     signal enqueue()
-    signal replaceAndPlay()
-    signal replaceWithParentViewContentAndPlayUrl(var url)
+    signal replaceAndPlay(var url)
     signal callOpenMetaDataView(var url, var entryType)
     signal trackRatingChanged(var url, var rating)
 
@@ -93,17 +92,13 @@ FocusScope {
 
             // open track on click for mobile
             if (Kirigami.Settings.isMobile) {
-                replaceAndPlay();
+                replaceAndPlay(trackUrl);
             }
         }
 
         onDoubleClicked: {
             if (!Kirigami.Settings.isMobile) {
-                if (ElisaApplication.doubleClickSongToEnqueue) {
-                    enqueue();
-                } else {
-                    replaceWithParentViewContentAndPlayUrl(mediaTrack.trackUrl)
-                }
+                replaceAndPlay(trackUrl)
             }
         }
 
@@ -261,7 +256,7 @@ FocusScope {
                         text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                         icon.name: "document-open-folder"
                         onClicked: {
-                            ElisaApplication.showInFolder(mediaTrack.trackUrl)
+                            ElisaApplication.showInFolder(trackUrl)
                         }
                     }
 
@@ -291,9 +286,9 @@ FocusScope {
                         width: singleLineHeight
                         height: singleLineHeight
 
-                        text: i18nc("@action:button", "Play now, replacing current playlist")
+                        text: i18nc("@action:button", "Play from here, replacing current playlist")
                         icon.name: "media-playback-start"
-                        onClicked: replaceAndPlay()
+                        onClicked: replaceAndPlay(trackUrl)
                     }
 
                     FlatButtonWithToolTip {

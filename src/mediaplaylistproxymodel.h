@@ -216,6 +216,8 @@ public Q_SLOTS:
 
     int indexForTrackUrl(const QUrl &url);
 
+    void switchToTrackUrl(const QUrl &url, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+
 Q_SIGNALS:
 
     void previousTrackChanged(const QPersistentModelIndex &previousTrack);
@@ -237,6 +239,8 @@ Q_SIGNALS:
     void remainingTracksChanged();
 
     void ensurePlay();
+
+    void requestPlay();
 
     void currentTrackRowChanged();
 

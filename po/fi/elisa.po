@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-19 00:48+0000\n"
+"POT-Creation-Date: 2023-04-25 00:49+0000\n"
 "PO-Revision-Date: 2023-03-05 21:48+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -466,7 +466,7 @@ msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "Näytä kansiossa"
 
-#: qml/DurationSlider.qml:46
+#: qml/DurationSlider.qml:45
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "

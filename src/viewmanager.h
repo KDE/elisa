@@ -174,6 +174,7 @@ private:
 
     std::unique_ptr<ViewManagerPrivate> d;
 
+    bool isSameView(const ViewParameters &currentView, const ViewParameters &otherView) const;
 };
 
 #endif // VIEWMANAGER_H

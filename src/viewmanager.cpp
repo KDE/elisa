@@ -191,24 +191,17 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
 
     applyFilter(nextViewParameters, title, lastView);
 
+    // Prevent the user from clicking the same view other and over again
+    if (this->isSameView(nextViewParameters, lastView)) {
+        return;
+    }
+
     if (dataType == ElisaUtils::Album && nextViewParameters.mDataFilter[DataTypes::IsSingleDiscAlbumRole].toBool())
     {
         nextViewParameters.mAlbumViewStyle = NoDiscHeaders;
     }
 
     d->mNextViewParameters = nextViewParameters;
-
-    if (lastView.mDataType != dataType) {
-        for(int i = 0; i < d->mViewsListData->count(); ++i) {
-            if (d->mViewsListData->viewParameters(i).mDataType == dataType) {
-                d->mViewIndex = i;
-                Q_EMIT viewIndexChanged();
-
-                nextViewParameters = d->mViewsListData->viewParameters(i);
-                break;
-            }
-        }
-    }
 
     openViewFromData(nextViewParameters);
 }
@@ -613,6 +606,26 @@ void ViewManager::sortRoleChanged(int sortRole)
 
     Elisa::ElisaConfiguration::setSortRolePreferences(currentSortRolePreferences);
     Elisa::ElisaConfiguration::self()->save();
+}
+
+bool ViewManager::isSameView(const ViewParameters &currentView, const ViewParameters &otherView) const {
+    if (currentView.mDataType != otherView.mDataType) {
+        return false;
+    }
+
+    // Best case scenario is matching up database ids
+    if (currentView.mDataFilter.hasDatabaseId() && otherView.mDataFilter.hasDatabaseId()) {
+        return currentView.mDataFilter.databaseId() == otherView.mDataFilter.databaseId();
+    }
+
+    // Unfortunately we don't have access to database ids for most of these types, so handle specific types differently.
+    switch (currentView.mDataType) {
+        case ElisaUtils::PlayListEntryType::Album:
+        case ElisaUtils::PlayListEntryType::Artist:
+            return currentView.mMainTitle == otherView.mMainTitle;
+        default:
+            return false;
+    }
 }
 
 

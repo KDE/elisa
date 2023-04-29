@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-25 00:49+0000\n"
+"POT-Creation-Date: 2023-04-29 00:49+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -708,8 +708,7 @@ msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "詳細を表示"
 
-#: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:116
+#: qml/GridBrowserDelegate.qml:290 qml/NavigationActionBar.qml:116
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -780,6 +779,14 @@ msgstr "%1 - %2 - %3"
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
+
+#: qml/ListBrowserDelegate.qml:289
+#, fuzzy, kde-format
+#| msgctxt "Clear play list and add whole container to play list"
+#| msgid "Play now, replacing current playlist"
+msgctxt "@action:button"
+msgid "Play from here, replacing current playlist"
+msgstr "現在のプレイリストを置き換えて再生"
 
 #: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
 #, fuzzy, kde-format

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-19 00:48+0000\n"
+"POT-Creation-Date: 2023-04-29 00:49+0000\n"
 "PO-Revision-Date: 2023-02-09 21:42+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -495,7 +495,7 @@ msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "Vis i mappe"
 
-#: qml/DurationSlider.qml:46
+#: qml/DurationSlider.qml:45
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -630,8 +630,7 @@ msgid "View details"
 msgstr "Vis detaljar"
 
 # unreviewed-context
-#: qml/GridBrowserDelegate.qml:290 qml/ListBrowserDelegate.qml:289
-#: qml/NavigationActionBar.qml:116
+#: qml/GridBrowserDelegate.qml:290 qml/NavigationActionBar.qml:116
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -689,6 +688,12 @@ msgstr "%1 – %2 – %3"
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 – %2"
+
+#: qml/ListBrowserDelegate.qml:289
+#, kde-format
+msgctxt "@action:button"
+msgid "Play from here, replacing current playlist"
+msgstr ""
 
 #: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
 #, kde-format

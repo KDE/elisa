@@ -1,5 +1,5 @@
 # Burkhard Lück <lueck@hube-lueck.de>, 2016, 2017, 2018, 2019, 2020, 2021.
-# Frederik Schwarzer <schwarzer@kde.org>, 2016, 2018, 2020, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2016, 2018, 2020, 2022, 2023.
 # Konstantin Tutsch <konstantin.tutsch@e.email>, 2022.
 # Jannick Kuhr <opensource@kuhr.org>, 2023.
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"

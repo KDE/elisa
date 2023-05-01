@@ -268,6 +268,12 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
 {
     const QFileInfo trackFilePath(localFileName);
     QDir trackFileDir = trackFilePath.absoluteDir();
+
+    static QHash<QString, QUrl> directoryCache;
+    if (directoryCache.contains(trackFileDir.path())) {
+        return directoryCache.value(trackFileDir.path());
+    }
+
     trackFileDir.setFilter(QDir::Files);
     trackFileDir.setNameFilters(d->constSearchStrings);
     QFileInfoList coverFiles = trackFileDir.entryInfoList();
@@ -284,9 +290,14 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
         coverFiles = trackFileDir.entryInfoList();
     }
     if (coverFiles.isEmpty()) {
+        directoryCache.insert(trackFileDir.path(), QUrl());
         return QUrl();
     }
-    return QUrl::fromLocalFile(coverFiles.first().absoluteFilePath());
+
+    const QUrl url = QUrl::fromLocalFile(coverFiles.first().absoluteFilePath());
+    directoryCache.insert(trackFileDir.path(), url);
+
+    return url;
 }
 
 bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)

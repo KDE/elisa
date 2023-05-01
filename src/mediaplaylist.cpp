@@ -22,6 +22,7 @@ class MediaPlayListPrivate
 public:
 
     QList<MediaPlayListEntry> mData;
+    QMap<QUrl, int> mDataMapping;
 
     QList<DataTypes::TrackDataType> mTrackData;
 
@@ -328,6 +329,7 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
         auto mEntryType = static_cast<ElisaUtils::PlayListEntryType>(trackData[6].toInt());
         auto newEntry = MediaPlayListEntry({restoredId, restoredTitle, restoredArtist, restoredAlbum, restoredFileUrl, restoredTrackNumber, restoredDiscNumber, mEntryType});
 
+        d->mDataMapping[newEntry.mTrackUrl.toUrl()] = d->mData.size();
         d->mData.push_back(newEntry);
         d->mTrackData.push_back({});
 
@@ -373,6 +375,7 @@ void MediaPlayList::enqueueFilesList(const DataTypes::EntryDataList &newEntries)
         const auto &trackUrl = std::get<2>(oneTrackUrl);
         auto newEntry = MediaPlayListEntry(trackUrl);
         newEntry.mEntryType = ElisaUtils::FileName;
+        d->mDataMapping[newEntry.mTrackUrl.toUrl()] = d->mData.size();
         d->mData.push_back(newEntry);
         if (trackUrl.isValid()) {
             if (trackUrl.isLocalFile()) {
@@ -402,7 +405,8 @@ void MediaPlayList::enqueueOneEntry(const DataTypes::EntryData &entryData)
         if (!std::get<0>(entryData).databaseId() && std::get<2>(entryData).isValid()) {
             auto newEntry = MediaPlayListEntry{std::get<2>(entryData)};
             newEntry.mEntryType = ElisaUtils::FileName;
-            d->mData.push_back(std::move(newEntry));
+            d->mDataMapping[newEntry.mTrackUrl.toUrl()] = d->mData.size();
+            d->mData.push_back(newEntry);
             d->mTrackData.push_back({});
         } else {
             qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueOneEntry" << std::get<0>(entryData) << std::get<1>(entryData) << std::get<0>(entryData).elementType();
@@ -439,7 +443,8 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
         if (!std::get<0>(entryData).databaseId() && trackUrl.isValid()) {
             auto newEntry = MediaPlayListEntry{trackUrl};
             newEntry.mEntryType = ElisaUtils::FileName;
-            d->mData.push_back(std::move(newEntry));
+            d->mDataMapping[newEntry.mTrackUrl.toUrl()] = d->mData.size();
+            d->mData.push_back(newEntry);
             d->mTrackData.push_back({});
         } else {
             d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType()});
@@ -559,6 +564,30 @@ void MediaPlayList::tracksListAdded(qulonglong newDatabaseId,
 void MediaPlayList::trackChanged(const TrackDataType &track)
 {
     qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::trackChanged" << track[DataTypes::TitleRole];
+
+    if (d->mDataMapping.contains(track.resourceURI())) {
+        const int i = d->mDataMapping[track.resourceURI()];
+
+        const auto &trackData = d->mTrackData[i];
+
+        if (!trackData.empty()) {
+            bool sameData = true;
+            for (auto oneKeyIterator = track.constKeyValueBegin(); oneKeyIterator != track.constKeyValueEnd(); ++oneKeyIterator) {
+                if (trackData[(*oneKeyIterator).first] != (*oneKeyIterator).second) {
+                    sameData = false;
+                    break;
+                }
+            }
+            if (sameData) {
+                return;
+            }
+        }
+
+        d->mTrackData[i] = track;
+
+        Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
+        return;
+    }
 
     for (int i = 0; i < d->mData.size(); ++i) {
         auto &oneEntry = d->mData[i];

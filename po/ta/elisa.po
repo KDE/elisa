@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-29 00:49+0000\n"
-"PO-Revision-Date: 2023-02-14 19:51+0530\n"
+"PO-Revision-Date: 2023-04-30 21:11+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -290,7 +290,7 @@ msgstr "பிட்டு விகிதம்"
 #, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
-msgstr ""
+msgstr "பதிவுவிகிதம்"
 
 #: models/trackmetadatamodel.cpp:473 models/trackmetadatamodel.cpp:547
 #, kde-format
@@ -647,12 +647,10 @@ msgid "%1 - %2"
 msgstr "%1 - %2"
 
 #: qml/ListBrowserDelegate.qml:289
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
+msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இங்கிருந்து இதை இசை"
 
 #: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
 #, kde-format

@@ -124,12 +124,18 @@ int main(int argc, char *argv[])
     parser.process(app);
     aboutData.processCommandLine(&parser);
 
-#if defined Q_OS_ANDROID
-    QQuickStyle::setStyle(QStringLiteral("Material"));
+
+    // If styling has not been set via QT_QUICK_CONTROLS_STYLE, default to some
+    // styles that make sense for desktop and mobile form factors.
+    if (qEnvironmentVariableIsEmpty("QT_QUICK_CONTROLS_STYLE")) {
+#ifdef Q_OS_ANDROID
+        QQuickStyle::setStyle(QStringLiteral("org.kde.breeze"));
+        QQuickStyle::setFallbackStyle(QStringLiteral("Material"));
 #else
-    QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
-    QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
+        QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
+        QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
 #endif
+    }
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));

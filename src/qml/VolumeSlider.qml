@@ -22,9 +22,15 @@ Slider {
 
     readonly property int wheelEffect: 5
 
+    onPressedChanged: {
+        tooltip.delay = pressed ? 0 : Kirigami.Units.toolTipDelay
+    }
+
     MouseArea {
+        id: sliderMouseArea
         anchors.fill: parent
         acceptedButtons: Qt.NoButton
+        hoverEnabled: true
         onWheel: {
             // Can't use Slider's built-in increase() and decrease() functions here
             // since they go in increments of 0.1 when the slider's stepSize is not
@@ -39,5 +45,16 @@ Slider {
                 volumeSlider.value = Math.max(volumeSlider.from, volumeSlider.value - wheelEffect);
             }
         }
+    }
+
+    ToolTip {
+        id: tooltip
+        x: volumeSlider.visualPosition * volumeSlider.width - width / 2
+        visible: volumeSlider.pressed || sliderMouseArea.containsMouse
+        // delay is actually handled in volumeSlider.onPressedChanged, because property bindings aren't immediate
+        delay: volumeSlider.pressed ? 0 : Kirigami.Units.toolTipDelay
+        closePolicy: Popup.NoAutoClose
+        timeout: -1
+        text: i18nc("Volume as a percentage", "%1%", Math.round(volumeSlider.value))
     }
 }

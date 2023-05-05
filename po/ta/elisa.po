@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-02 00:47+0000\n"
+"POT-Creation-Date: 2023-05-05 00:47+0000\n"
 "PO-Revision-Date: 2023-04-30 21:11+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1517,6 +1517,12 @@ msgstr "பாடல்கள் கண்டறியப்படுகின�
 msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "வட்டு %1"
+
+#: qml/VolumeSlider.qml:58
+#, kde-format
+msgctxt "Volume as a percentage"
+msgid "%1%"
+msgstr ""
 
 #: viewmanager.cpp:41 viewmanager.cpp:71
 #, kde-format

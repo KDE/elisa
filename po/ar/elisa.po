@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-02 00:47+0000\n"
-"PO-Revision-Date: 2023-02-16 11:13+0400\n"
+"POT-Creation-Date: 2023-05-05 00:47+0000\n"
+"PO-Revision-Date: 2023-05-04 10:07+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -650,12 +650,10 @@ msgid "%1 - %2"
 msgstr "‏‏%1 - ‏%2"
 
 #: qml/ListBrowserDelegate.qml:289
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "شغّل الآن واستبدل قائمة الحالية"
+msgstr "شغّل من هنا، واستبدل قائمة الحالية"
 
 #: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
 #, kde-format
@@ -1533,6 +1531,12 @@ msgstr "يفحص الموسيقى"
 msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "القرص %1"
+
+#: qml/VolumeSlider.qml:58
+#, kde-format
+msgctxt "Volume as a percentage"
+msgid "%1%"
+msgstr ""
 
 #: viewmanager.cpp:41 viewmanager.cpp:71
 #, kde-format

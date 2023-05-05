@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-02 00:47+0000\n"
+"POT-Creation-Date: 2023-05-05 00:47+0000\n"
 "PO-Revision-Date: 2023-02-19 13:47+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1540,6 +1540,14 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "Диск %1"
 
+#: qml/VolumeSlider.qml:58
+#, fuzzy, kde-format
+#| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
+#| msgid "%1:"
+msgctxt "Volume as a percentage"
+msgid "%1%"
+msgstr "%1"
+
 #: viewmanager.cpp:41 viewmanager.cpp:71
 #, kde-format
 msgctxt "@title:inmenu"
@@ -1947,10 +1955,6 @@ msgstr "Радиостанции"
 #~ msgctxt "message of passive notification when playlist load failed"
 #~ msgid "Load of playlist failed"
 #~ msgstr "Не удалось загрузить список воспроизведения"
-
-#~ msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
-#~ msgid "%1:"
-#~ msgstr "%1"
 
 #~ msgctxt "%1: track number. %2: track title"
 #~ msgid "%1 - %2"

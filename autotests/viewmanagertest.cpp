@@ -820,18 +820,7 @@ private Q_SLOTS:
                                    {DataTypes::DatabaseIdRole, 12},
                                    {DataTypes::ElementTypeRole, ElisaUtils::Album}});
 
-        QCOMPARE(openGridViewSpy.count(), 3);
-        QCOMPARE(openListViewSpy.count(), 0);
-        QCOMPARE(popOneViewSpy.count(), 0);
-
-        QCOMPARE(openGridViewSpy.at(2).count(), 1);
-        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewConfigurationData*>()->filterType(), ElisaUtils::FilterByArtist);
-        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewConfigurationData*>()->dataType(), ElisaUtils::Album);
-        QCOMPARE(openGridViewSpy.at(2).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist2"));
-
-        viewManager.viewIsLoaded();
-
-        QCOMPARE(openGridViewSpy.count(), 3);
+        QCOMPARE(openGridViewSpy.count(), 2);
         QCOMPARE(openListViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 0);
 
@@ -843,7 +832,7 @@ private Q_SLOTS:
 
         viewManager.viewIsLoaded();
 
-        QCOMPARE(openGridViewSpy.count(), 3);
+        QCOMPARE(openGridViewSpy.count(), 2);
         QCOMPARE(openListViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 0);
     }

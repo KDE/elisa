@@ -39,27 +39,27 @@ Kirigami.ScrollablePage {
     title: isCreating ? i18nc("@title:window", "Create a Radio") :
                         i18nc("@title:window", "View details")
 
-    actions.main: Kirigami.Action {
-        iconName: "dialog-ok-apply"
-        text: i18nc("@action:button", "Save")
-        onTriggered: {
-            realModel.saveData()
-            if (isCreating) {
-                isCreating = false
-                isModifying = true
+    actions: [
+        Kirigami.Action {
+            icon.name: "dialog-cancel"
+                text: i18nc("@action:button", "Close")
+            onTriggered: {
+                trackMetadata.rejected();
+                mainWindow.pageStack.layers.pop();
             }
-            mainWindow.pageStack.layers.pop();
-        }
-    }
-    actions.left: Kirigami.Action {
-        iconName: "dialog-cancel"
-            text: i18nc("@action:button", "Close")
-        onTriggered: {
-            trackMetadata.rejected();
-            mainWindow.pageStack.layers.pop();
-        }
-    }
-
+        },
+        Kirigami.Action {
+            icon.name: "dialog-ok-apply"
+            text: i18nc("@action:button", "Save")
+            onTriggered: {
+                realModel.saveData()
+                if (isCreating) {
+                    isCreating = false
+                    isModifying = true
+                }
+                mainWindow.pageStack.layers.pop();
+            }
+        }]
     Component.onCompleted: {
         if (ElisaApplication.musicManager) {
             if (isCreating) {

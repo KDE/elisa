@@ -8,6 +8,7 @@
 import QtQuick 2.7
 import QtQuick.Window 2.7
 import QtQuick.Controls 2.3
+import QtQuick.Layouts 1.0
 import org.kde.elisa 1.0
 import org.kde.kirigami 2.5 as Kirigami
 
@@ -54,15 +55,25 @@ Menu {
         title: i18nc("@action:inmenu this has child menu items", "Color Scheme")
         Repeater {
             model: ElisaApplication.colorSchemesModel
-            delegate: Kirigami.BasicListItem {
-                icon: model.decoration
-                text: model.display
+            delegate: Kirigami.AbstractListItem {
                 highlighted: model.display === ElisaConfigurationDialog.colorScheme
+                width: parent.width
                 onClicked: {
                     ElisaApplication.activateColorScheme(model.display)
                     ElisaConfigurationDialog.setColorScheme(model.display)
                     ElisaConfigurationDialog.save()
                     applicationMenu.close()
+                }
+                 contentItem: RowLayout {
+                    Kirigami.Icon {
+                        source: model.decoration
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                    }
+                    Label {
+                        text: model.display
+                        color: highlighted ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+                        Layout.fillWidth: true
+                    }
                 }
             }
         }

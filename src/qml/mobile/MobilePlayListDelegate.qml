@@ -161,7 +161,7 @@ BasePlayListDelegate {
                 actions: [
                     Kirigami.Action {
                         visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
-                        iconName: "document-open-folder"
+                        icon.name: "document-open-folder"
                         text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                         onTriggered: {
                             ElisaApplication.showInFolder(playListEntry.fileName)
@@ -170,7 +170,7 @@ BasePlayListDelegate {
                     },
                     Kirigami.Action {
                         visible: isValid
-                        iconName: "documentinfo"
+                        icon.name: "documentinfo"
                         text: i18nc("@action:button Show track metadata", "View details")
                         onTriggered: {
                             if (metadataLoader.active === false) {
@@ -185,7 +185,7 @@ BasePlayListDelegate {
                     },
                     Kirigami.Action {
                         visible: isValid
-                        iconName: "error"
+                        icon.name: "error"
                         text: i18nc("@action:button", "Remove from queue")
                         onTriggered: {
                             playListEntry.removeFromPlaylist(playListEntry.index)

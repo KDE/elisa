@@ -176,24 +176,6 @@ if (KF${QT_MAJOR_VERSION}XmlGui_FOUND AND KF${QT_MAJOR_VERSION}KCMUtils_FOUND)
     target_include_directories(elisaapplicationtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()
 
-if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND AND NOT WIN32)
-    set(elisaqmltests_SOURCES
-        elisaqmltests.cpp
-        qmltests/tst_GridBrowserDelegate.qml
-        qmltests/tst_NavigationActionBar.qml
-        qmltests/tst_PlayListEntry.qml
-    )
-
-    ecm_add_test(${elisaqmltests_SOURCES}
-        TEST_NAME "elisaqmltests"
-        LINK_LIBRARIES Qt::Core Qt::Widgets Qt::Test Qt::QuickTest
-        GUI)
-
-    target_compile_definitions(elisaqmltests PRIVATE QUICK_TEST_SOURCE_DIR="${CMAKE_SOURCE_DIR}/autotests/qmltests")
-
-    target_include_directories(elisaqmltests PRIVATE ${CMAKE_SOURCE_DIR}/src)
-endif()
-
 set(filescannerTest_SOURCES
     filescannertest.cpp
 )

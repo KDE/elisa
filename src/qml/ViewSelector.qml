@@ -45,7 +45,7 @@ ScrollView {
         delegate: Kirigami.BasicListItem {
             separatorVisible: false
 
-            icon.source: model.image
+            @KIRIGAMI_ICON_SOURCE@: model.image
             label: model.display
 
             ToolTip.visible: labelItem.truncated && hovered

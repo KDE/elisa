@@ -427,7 +427,7 @@ FocusScope {
                         ElisaApplication.showInFolder(mediaTrack.trackUrl);
                         contextMenu.close();
                     }
-                    icon.name: "document-open-folder"
+                    @KIRIGAMI_ICON_NAME@: "document-open-folder"
                     text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                 },
                 Kirigami.Action {
@@ -435,7 +435,7 @@ FocusScope {
                         callOpenMetaDataView(trackUrl, dataType);
                         contextMenu.close();
                     }
-                    icon.name: "documentinfo"
+                    @KIRIGAMI_ICON_NAME@: "documentinfo"
                     text: i18nc("@action:button", "View details")
                 },
                 Kirigami.Action {
@@ -449,7 +449,7 @@ FocusScope {
                         }
                         contextMenu.close();
                     }
-                    icon.name: rating == 10 ? "rating-unrated" : "rating"
+                    @KIRIGAMI_ICON_NAME@: rating == 10 ? "rating-unrated" : "rating"
                     text: rating == 10 ? i18nc("@action:button", "Un-mark as favorite") : i18nc("@action:button", "Mark as favorite")
                 },
                 Kirigami.Action {
@@ -457,7 +457,7 @@ FocusScope {
                         enqueue();
                         contextMenu.close();
                     }
-                    icon.name: "list-add"
+                    @KIRIGAMI_ICON_NAME@: "list-add"
                     text: i18nc("@action:button Enqueue current track", "Add to queue")
                 }
             ]

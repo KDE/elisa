@@ -388,6 +388,24 @@ ecm_generate_qmltypes(org.kde.elisa 1.0
                       DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa)
 
 if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
+    if(QT_MAJOR_VERSION STREQUAL "6")
+        set(KIRIGAMI_ICON_NAME "icon.name")
+        set(KIRIGAMI_ICON_SOURCE "icon.source")
+        set(KIRIGAMI_PAGE_ACTIONS "actions")
+    else()
+        set(KIRIGAMI_ICON_NAME "iconName")
+        set(KIRIGAMI_ICON_SOURCE "icon")
+        set(KIRIGAMI_PAGE_ACTIONS "contextualActions")
+    endif()
+    # The qrc paths need to be relative, or we adjust all of them :/
+    configure_file(resources.qrc.in ${CMAKE_CURRENT_SOURCE_DIR}/resources.generated.qrc)
+    configure_file(qml/ApplicationMenu.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/ApplicationMenu.qml)
+    configure_file(qml/mobile/MobilePlayListDelegate.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/mobile/MobilePlayListDelegate.qml)
+    configure_file(qml/GridBrowserDelegate.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/GridBrowserDelegate.qml)
+    configure_file(qml/ListBrowserDelegate.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/ListBrowserDelegate.qml)
+    configure_file(qml/ViewSelector.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/ViewSelector.qml)
+    configure_file(qml/mobile/MobileMediaTrackMetadataView.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/mobile/MobileMediaTrackMetadataView.qml)
+
     set(elisa_SOURCES
         main.cpp
 
@@ -397,7 +415,7 @@ if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
         android/PlatformIntegration.qml
 
         qml/ElisaMainWindow.qml
-        qml/ApplicationMenu.qml
+        ${CMAKE_CURRENT_BINARY_DIR}/qml/ApplicationMenu.qml
         qml/NativeGlobalMenu.qml
         qml/NativeTrayMenu.qml
         qml/NativeMenuItemFromAction.qml
@@ -416,7 +434,7 @@ if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
         qml/MediaPlayerControl.qml
         qml/ContextView.qml
         qml/ContentView.qml
-        qml/ViewSelector.qml
+        ${CMAKE_CURRENT_BINARY_DIR}/qml/ViewSelector.qml
         qml/AbstractDataView.qml
         qml/DataGridView.qml
         qml/DataListView.qml
@@ -432,8 +450,8 @@ if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
         qml/MediaTrackMetadataForm.qml
         qml/TracksDiscHeader.qml
         qml/MediaTrackMetadataView.qml
-        qml/GridBrowserDelegate.qml
-        qml/ListBrowserDelegate.qml
+        ${CMAKE_CURRENT_BINARY_DIR}/qml/GridBrowserDelegate.qml
+        ${CMAKE_CURRENT_BINARY_DIR}/qml/ListBrowserDelegate.qml
         qml/FlatButtonWithToolTip.qml
         qml/HeaderFooterToolbar.qml
 
@@ -441,16 +459,16 @@ if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
         qml/ElisaConfigurationDialog.qml
 
         qml/mobile/MobileFooterBar.qml
-        qml/mobile/MobileMediaTrackMetadataView.qml
+        ${CMAKE_CURRENT_BINARY_DIR}/qml/mobile/MobileMediaTrackMetadataView.qml
         qml/mobile/MobileMinimizedPlayerControl.qml
-        qml/mobile/MobilePlayListDelegate.qml
+        ${CMAKE_CURRENT_BINARY_DIR}/qml/mobile/MobilePlayListDelegate.qml
         qml/mobile/MobileSettingsPage.qml
         qml/mobile/MobileSidebar.qml
         qml/mobile/MobileTrackPlayer.qml
         qml/mobile/MobileVolumeButton.qml
     )
 
-    qt_add_resources(elisa_SOURCES resources.qrc)
+    qt_add_resources(elisa_SOURCES resources.generated.qrc)
     set_property(SOURCE qrc_resources.cpp PROPERTY SKIP_AUTOMOC ON)
 
     set(elisa_ICONS_PNG

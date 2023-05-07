@@ -33,3 +33,4 @@ CMakeLists.txt.user*
 .cache
 .idea
 /cmake-build*
+src/resources.generated.qrc

@@ -432,7 +432,7 @@ FocusScope {
                         replaceAndPlay();
                         contextMenu.close();
                     }
-                    icon.name: "media-playback-start"
+                    @KIRIGAMI_ICON_NAME@: "media-playback-start"
                     text: i18nc("@action:button Clear play list and add whole container to play list", "Play now, replacing current queue")
                 },
                 Kirigami.Action {
@@ -441,7 +441,7 @@ FocusScope {
                        ElisaApplication.showInFolder(gridEntry.fileUrl)
                         contextMenu.close();
                     }
-                    icon.name: "document-open-folder"
+                    @KIRIGAMI_ICON_NAME@: "document-open-folder"
                     text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                 },
                 Kirigami.Action {
@@ -449,7 +449,7 @@ FocusScope {
                         enqueue();
                         contextMenu.close();
                     }
-                    icon.name: "list-add"
+                    @KIRIGAMI_ICON_NAME@: "list-add"
                     text: i18nc("@action:button Add whole container to play list", "Add to queue")
                 }
             ]

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-05 00:47+0000\n"
+"POT-Creation-Date: 2023-05-09 00:46+0000\n"
 "PO-Revision-Date: 2023-05-06 15:30+0200\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -377,38 +377,38 @@ msgctxt "@info:placeholder"
 msgid "Nothing to display"
 msgstr "Niente da mostrare"
 
-#: qml/ApplicationMenu.qml:16 qml/NativeTrayMenu.qml:14
+#: qml/ApplicationMenu.qml:17 qml/NativeTrayMenu.qml:14
 #, kde-format
 msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "Menu dell'applicazione"
 
-#: qml/ApplicationMenu.qml:26 qml/NativeGlobalMenu.qml:62
+#: qml/ApplicationMenu.qml:27 qml/NativeGlobalMenu.qml:62
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "Esci da schermo intero"
 
-#: qml/ApplicationMenu.qml:26 qml/NativeGlobalMenu.qml:62
+#: qml/ApplicationMenu.qml:27 qml/NativeGlobalMenu.qml:62
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "Passa a schermo intero"
 
-#: qml/ApplicationMenu.qml:34 qml/NativeTrayMenu.qml:25
+#: qml/ApplicationMenu.qml:35 qml/NativeTrayMenu.qml:25
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "Scansiona per trovare nuova musica"
 
-#: qml/ApplicationMenu.qml:43 qml/NativeGlobalMenu.qml:33
+#: qml/ApplicationMenu.qml:44 qml/NativeGlobalMenu.qml:33
 #: qml/NativeTrayMenu.qml:31
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Azzera la banca dati e ri-scansiona tutto"
 
-#: qml/ApplicationMenu.qml:54
+#: qml/ApplicationMenu.qml:55
 #, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
@@ -940,19 +940,19 @@ msgctxt "@title:window"
 msgid "View details"
 msgstr "Visualizza dettagli"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:44
-#: qml/mobile/MobileSettingsPage.qml:30
-#, kde-format
-msgctxt "@action:button"
-msgid "Save"
-msgstr "Salva"
-
-#: qml/mobile/MobileMediaTrackMetadataView.qml:56
+#: qml/mobile/MobileMediaTrackMetadataView.qml:45
 #: qml/mobile/MobileSettingsPage.qml:38
 #, kde-format
 msgctxt "@action:button"
 msgid "Close"
 msgstr "Chiudi"
+
+#: qml/mobile/MobileMediaTrackMetadataView.qml:53
+#: qml/mobile/MobileSettingsPage.qml:30
+#, kde-format
+msgctxt "@action:button"
+msgid "Save"
+msgstr "Salva"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:348

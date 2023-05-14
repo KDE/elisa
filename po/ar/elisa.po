@@ -52,13 +52,13 @@ msgstr "بدل قائمة التّشغيل"
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
-msgstr "قدم ١٠ ثواني"
+msgstr "قدم 10 ثواني"
 
 #: elisaapplication.cpp:185
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
-msgstr "أخّر ١٠ ثواني"
+msgstr "أخّر 10 ثواني"
 
 #: elisaapplication.cpp:191
 #, kde-format
@@ -2025,7 +2025,7 @@ msgstr "محطات الإذاعة"
 
 #~ msgctxt "This is used to preserve a fixed width for the duration text."
 #~ msgid "00:00"
-#~ msgstr "٨٨:٨٨"
+#~ msgstr "88:88"
 
 #~ msgctxt "Add whole container to play list"
 #~ msgid "Enqueue"
@@ -2047,7 +2047,7 @@ msgstr "محطات الإذاعة"
 #~ msgstr "خطأ أثناء تشغيل %1"
 
 #~ msgid "(c) 2015-2017, Matthieu Gallien &lt;mgallien@mgallien.fr&gt;"
-#~ msgstr "‏© ٢٠١٥-٢٠١٧، لِ‍ Matthieu Gallien ‏&lt;mgallien@mgallien.fr&gt;"
+#~ msgstr "‏© 2015-2017، لِ‍ Matthieu Gallien ‏&lt;mgallien@mgallien.fr&gt;"
 
 #~ msgctxt "Placeholder text in the filter text box"
 #~ msgid "Filter"
@@ -2056,7 +2056,7 @@ msgstr "محطات الإذاعة"
 #~ msgctxt "Copyright text shown for an image"
 #~ msgid "by Edward Betts (Own work) [CC BY-SA 3.0]"
 #~ msgstr ""
-#~ "لِـإدوارد بِتس (عمل خاصّ) [المشاع الإبداعيّ نَسب المُصنَّف الترخيص بالمثل ٣٫٠]"
+#~ "لِـإدوارد بِتس (عمل خاصّ) [المشاع الإبداعيّ نَسب المُصنَّف الترخيص بالمثل 3٫0]"
 
 #~ msgctxt "Open album view"
 #~ msgid "Open Album"
@@ -2078,7 +2078,7 @@ msgstr "محطات الإذاعة"
 #~ msgstr "ضبط فهرسة الملفّات المحليّة ل‍«إليسّا»"
 
 #~ msgid "Copyright 2017 Matthieu Gallien <matthieu_gallien@yahoo.fr>"
-#~ msgstr "الحقوق محفوظة ٢٠١٧ Matthieu Gallien ‏<matthieu_gallien@yahoo.fr>"
+#~ msgstr "الحقوق محفوظة 2017 Matthieu Gallien ‏<matthieu_gallien@yahoo.fr>"
 
 #~ msgid "Matthieu Gallien"
 #~ msgstr "Matthieu Gallien"

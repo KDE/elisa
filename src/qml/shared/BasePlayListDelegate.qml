@@ -54,13 +54,6 @@ QQC2.ItemDelegate {
         listView.currentIndex = index
         forceActiveFocus()
 
-        if (model.isValid && (simpleMode || Kirigami.Settings.isMobile || Kirigami.Settings.hasTransientTouchInput)) {
-            switchToTrack(index)
-            startPlayback()
-        }
-    }
-
-    onDoubleClicked: {
         if (model.isValid) {
             switchToTrack(index)
             startPlayback()

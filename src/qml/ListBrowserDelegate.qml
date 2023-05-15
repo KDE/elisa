@@ -144,17 +144,7 @@ FocusScope {
 
         onClicked: {
             mediaTrack.clicked()
-
-            // open track on click for mobile
-            if (Kirigami.Settings.isMobile) {
-                replaceAndPlay(trackUrl);
-            }
-        }
-
-        onDoubleClicked: {
-            if (!Kirigami.Settings.isMobile) {
-                replaceAndPlay(trackUrl)
-            }
+            replaceAndPlay(trackUrl);
         }
 
         RowLayout {

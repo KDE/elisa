@@ -130,7 +130,6 @@ FocusScope {
             }
 
             hoverEnabled: true
-            cursorShape: hasChildren ? Qt.PointingHandCursor : Qt.ArrowCursor
 
             onClicked: hasChildren ? open() : enqueue()
 

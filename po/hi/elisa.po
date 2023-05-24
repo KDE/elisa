@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-09 00:46+0000\n"
+"POT-Creation-Date: 2023-05-24 00:46+0000\n"
 "PO-Revision-Date: 2023-02-12 20:05+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -578,7 +578,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "सहेजने में असफल"
 
-#: qml/GridBrowserDelegate.qml:235 qml/GridBrowserDelegate.qml:445
+#: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
 #: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
 #: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:81
 #, kde-format
@@ -586,38 +586,38 @@ msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "फ़ोल्डर में दिखाएँ"
 
-#: qml/GridBrowserDelegate.qml:259 qml/ListBrowserDelegate.qml:268
+#: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
 #: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "विवरण देखें"
 
-#: qml/GridBrowserDelegate.qml:290 qml/NavigationActionBar.qml:116
+#: qml/GridBrowserDelegate.qml:289 qml/NavigationActionBar.qml:116
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "मौजूदा गीत-सूची परिस्थापित करते हुए, अभी बजाएँ"
 
-#: qml/GridBrowserDelegate.qml:313 qml/ListBrowserDelegate.qml:278
+#: qml/GridBrowserDelegate.qml:312 qml/ListBrowserDelegate.qml:278
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "गीत-सूची में जोड़ें"
 
-#: qml/GridBrowserDelegate.qml:399
+#: qml/GridBrowserDelegate.qml:398
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
 msgstr "विकल्प"
 
-#: qml/GridBrowserDelegate.qml:436
+#: qml/GridBrowserDelegate.qml:435
 #, kde-format
 msgctxt "@action:button Clear play list and add whole container to play list"
 msgid "Play now, replacing current queue"
 msgstr "मौजूदा पंक्ति परिस्थापित करते हुए, अभी बजाएँ"
 
-#: qml/GridBrowserDelegate.qml:453
+#: qml/GridBrowserDelegate.qml:452
 #, kde-format
 msgctxt "@action:button Add whole container to play list"
 msgid "Add to queue"

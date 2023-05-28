@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-09 00:46+0000\n"
-"PO-Revision-Date: 2023-02-09 21:42+0100\n"
+"POT-Creation-Date: 2023-05-24 00:46+0000\n"
+"PO-Revision-Date: 2023-05-27 14:31+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.1\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -613,7 +613,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Feil ved lagring"
 
-#: qml/GridBrowserDelegate.qml:235 qml/GridBrowserDelegate.qml:445
+#: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
 #: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
 #: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:81
 #, kde-format
@@ -622,7 +622,7 @@ msgid "Show in folder"
 msgstr "Vis i mappe"
 
 # unreviewed-context
-#: qml/GridBrowserDelegate.qml:259 qml/ListBrowserDelegate.qml:268
+#: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
 #: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -630,33 +630,33 @@ msgid "View details"
 msgstr "Vis detaljar"
 
 # unreviewed-context
-#: qml/GridBrowserDelegate.qml:290 qml/NavigationActionBar.qml:116
+#: qml/GridBrowserDelegate.qml:289 qml/NavigationActionBar.qml:116
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Spel no og byt ut spelelista"
 
-#: qml/GridBrowserDelegate.qml:313 qml/ListBrowserDelegate.qml:278
+#: qml/GridBrowserDelegate.qml:312 qml/ListBrowserDelegate.qml:278
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Legg til i speleliste"
 
-#: qml/GridBrowserDelegate.qml:399
+#: qml/GridBrowserDelegate.qml:398
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
 msgstr "Val"
 
 # unreviewed-context
-#: qml/GridBrowserDelegate.qml:436
+#: qml/GridBrowserDelegate.qml:435
 #, kde-format
 msgctxt "@action:button Clear play list and add whole container to play list"
 msgid "Play now, replacing current queue"
 msgstr "Spel no og byt ut avspelingskøen"
 
 # unreviewed-context
-#: qml/GridBrowserDelegate.qml:453
+#: qml/GridBrowserDelegate.qml:452
 #, kde-format
 msgctxt "@action:button Add whole container to play list"
 msgid "Add to queue"
@@ -689,11 +689,12 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 – %2"
 
+# unreviewed-context
 #: qml/ListBrowserDelegate.qml:289
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr ""
+msgstr "Spel herifrå og byt ut spelelista"
 
 #: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
 #, kde-format
@@ -1636,7 +1637,7 @@ msgstr "Plate %1"
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr ""
+msgstr "%1 %"
 
 # unreviewed-context
 #: viewmanager.cpp:41 viewmanager.cpp:71

@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Wantoyo <wantoyek@gmail.com>, 2018, 2019, 2020, 2021, 2022.
+# Wantoyo <wantoyek@gmail.com>, 2018, 2019, 2020, 2021, 2022, 2023.
 # Linerly <linerly@protonmail.com>, 2022.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-24 00:46+0000\n"
-"PO-Revision-Date: 2022-09-27 17:54+0700\n"
+"PO-Revision-Date: 2023-05-28 10:21+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
 "Language: id\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -551,28 +551,20 @@ msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
 #: qml/ElisaMainWindow.qml:186
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr "Playlist (*.m3u*)"
+msgstr "File Playlist m3u8, m3u (*.m3u*)"
 
 #: qml/ElisaMainWindow.qml:186
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr "Playlist (*.m3u*)"
+msgstr "File Playlist pls (*.pls)"
 
 #: qml/ElisaMainWindow.qml:193
 #, kde-format
@@ -580,7 +572,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
 "do not translate *.m3u8 *.m3u *.pls"
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr ""
+msgstr "File Playlist m3u8, m3u, pls (*.m3u8 *.m3u *.pls)"
 
 #: qml/ElisaMainWindow.qml:204
 #, kde-format
@@ -658,12 +650,10 @@ msgid "%1 - %2"
 msgstr "%1 - %2"
 
 #: qml/ListBrowserDelegate.qml:289
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "Putar sekarang, ganti playlist saat ini"
+msgstr "Putar dari sini, menggantikan playlist saat ini"
 
 #: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
 #, kde-format
@@ -838,14 +828,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"Gagal memuat beberapa trek. Pastikan bahwa mereka tidak disingkirkan atau "
+"diubah namanya."
 
 #: qml/MediaPlayListView.qml:105
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Tambahkan ke Playlist"
+msgstr "Edit File Playlist"
 
 #: qml/MediaPlayListView.qml:273
 #, kde-format
@@ -927,7 +917,7 @@ msgstr "Tambahkan tag baru:"
 #, kde-format
 msgctxt "@action:button"
 msgid "Modify"
-msgstr "Modifikasikan"
+msgstr "Modif"
 
 #: qml/MediaTrackMetadataForm.qml:129 qml/MediaTrackMetadataView.qml:147
 #, kde-format
@@ -1534,12 +1524,10 @@ msgid "Disc %1"
 msgstr "Cakram %1"
 
 #: qml/VolumeSlider.qml:58
-#, fuzzy, kde-format
-#| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
-#| msgid "%1:"
+#, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr "%1:"
+msgstr "%1%"
 
 #: viewmanager.cpp:41 viewmanager.cpp:71
 #, kde-format
@@ -1716,7 +1704,7 @@ msgstr "Penulis Lirik"
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
-msgstr "Dimodifikasi Terakhir"
+msgstr "Terakhir Dimodifikasi"
 
 #: viewslistdata.cpp:102
 #, kde-format

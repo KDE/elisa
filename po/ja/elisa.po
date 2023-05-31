@@ -12,7 +12,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 "X-Generator: Poedit 2.4.2\n"
@@ -1039,8 +1039,7 @@ msgstr "プレイリストは空です。"
 msgctxt "@info:status"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] "%1 個のトラック"
-msgstr[1] "%1 個のトラック (残り %2)"
+msgstr[0] "%1 個のトラック (残り %2)"
 
 #: qml/MediaPlayListView.qml:438
 #, fuzzy, kde-format
@@ -1056,7 +1055,6 @@ msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
 msgid_plural "%1 remaining"
 msgstr[0] ""
-msgstr[1] ""
 
 #: qml/MediaPlayListView.qml:442
 #, kde-format
@@ -1808,8 +1806,7 @@ msgstr "次で並び替え"
 msgctxt "number of imported tracks"
 msgid "Imported one track"
 msgid_plural "Imported %1 tracks"
-msgstr[0] "1 件のトラックをインポートしました"
-msgstr[1] "%1 件のトラックをインポートしました"
+msgstr[0] "%1 件のトラックをインポートしました"
 
 #: qml/TrackImportNotification.qml:73
 #, fuzzy, kde-format

@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-24 00:46+0000\n"
-"PO-Revision-Date: 2023-02-07 10:51-0300\n"
+"PO-Revision-Date: 2023-05-31 14:24-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -650,12 +650,10 @@ msgid "%1 - %2"
 msgstr "%1 - %2"
 
 #: qml/ListBrowserDelegate.qml:289
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "Reproduzir agora, substituindo a lista de músicas atual"
+msgstr "Reproduzir a partir daqui, substituindo a lista de músicas atual"
 
 #: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
 #, kde-format
@@ -1527,12 +1525,10 @@ msgid "Disc %1"
 msgstr "Disco %1"
 
 #: qml/VolumeSlider.qml:58
-#, fuzzy, kde-format
-#| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
-#| msgid "%1:"
+#, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr "%1:"
+msgstr "%1%"
 
 #: viewmanager.cpp:41 viewmanager.cpp:71
 #, kde-format

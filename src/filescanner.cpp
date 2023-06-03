@@ -180,6 +180,20 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "no metadata provider" << newTrack;
 #endif
 
+    // try to find lyric in FILENAME.lrc if no lyric in metadata
+    if (!newTrack.hasLyrics()) {
+        QString baseName = scanFileInfo.baseName();
+        QDir dir = scanFileInfo.dir();
+        QString lyricPath = dir.filePath(baseName + QStringLiteral(".lrc"));
+        QFile lyric(lyricPath);
+        if (lyric.exists() && lyric.open(QFile::ReadOnly)) {
+            QString lyricString = QString::fromUtf8(lyric.readAll());
+            if (!lyricString.isEmpty()) {
+                newTrack[DataTypes::LyricsRole] = lyricString;
+            }
+        }
+    }
+
     return newTrack;
 }
 

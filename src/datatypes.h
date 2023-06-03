@@ -257,7 +257,7 @@ public:
 
         [[nodiscard]] bool hasLyrics() const
         {
-            return find(key_type::LyricsRole) != end();
+            return find(key_type::LyricsRole) != end() && !lyrics().isEmpty();
         }
 
         [[nodiscard]] QString comment() const

@@ -15,13 +15,11 @@ import org.kde.elisa 1.0
   For now it only supports TrackImportNotification
  */
 ToolBar {
-    // TODO using implicitHeight like this this is a workaround to enable the fade-in/out animation.
-    // A solution that doesn't cause an "binding loop detected" error would be better..
-    implicitHeight: importedTracksCountNotification.opacity > 0 ? infoFooter.childrenRect.height + childrenRect.y + Kirigami.Units.mediumSpacing : 0
+    implicitHeight: importedTracksCountNotification.opacity > 0 ? importedTracksCountNotification.height + (Kirigami.Units.smallSpacing * 2) : 0
 
     position: ToolBar.Footer
+
     contentItem: RowLayout {
-        id: infoFooter
         layoutDirection: Qt.RightToLeft
 
         // track import notification

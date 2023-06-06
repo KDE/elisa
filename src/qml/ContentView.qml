@@ -97,7 +97,7 @@ RowLayout {
                 realModel: configurationData.model,
                 proxyModel: configurationData.associatedProxyModel,
                 sortRole: configurationData.sortRole,
-                sortAscending: configurationData.sortOrder,
+                sortOrder: configurationData.sortOrder,
                 stackView: browseStackView,
                 displaySingleAlbum: configurationData.displaySingleAlbum,
                 showSection: configurationData.showDiscHeaders,

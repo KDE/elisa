@@ -54,7 +54,6 @@ BasePlayListDelegate {
     separatorVisible: false
 
     contentItem: Item {
-        implicitWidth: playListEntry.width
         implicitHeight: childrenRect.height
 
         Loader {

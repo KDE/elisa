@@ -359,7 +359,6 @@ Kirigami.Page {
             visible: active && status === Loader.Ready
 
             sourceComponent: Kirigami.PlaceholderMessage {
-                anchors.centerIn: parent
                 text: i18nc("@info:placeholder", "Nothing playing")
                 icon.name: "view-media-track"
             }

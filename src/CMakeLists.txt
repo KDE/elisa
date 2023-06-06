@@ -376,11 +376,13 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa)
 
 add_custom_command(TARGET copy PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E
-    copy ${CMAKE_CURRENT_SOURCE_DIR}/qmldir ${CMAKE_BINARY_DIR}/bin/org/kde/elisa/)
+    copy ${CMAKE_CURRENT_SOURCE_DIR}/qmldir ${CMAKE_BINARY_DIR}/bin/org/kde/elisa
+    )
 
 add_custom_command(TARGET copy2 PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E
-    copy ${CMAKE_CURRENT_SOURCE_DIR}/plugins.qmltypes ${CMAKE_BINARY_DIR}/bin/org/kde/elisa/)
+    copy ${CMAKE_CURRENT_SOURCE_DIR}/plugins.qmltypes ${CMAKE_BINARY_DIR}/bin/org/kde/elisa/
+    )
 
 add_dependencies(elisaqmlplugin copy copy2)
 

@@ -10,7 +10,7 @@ import QtQuick 2.11
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.4 as QQC2
-import QtQuick.Dialogs 1.3 as Dialogs
+import @QTQUICK_DIALOGS_IMPORT@ as Dialogs
 
 import org.kde.kirigami 2.14 as Kirigami
 

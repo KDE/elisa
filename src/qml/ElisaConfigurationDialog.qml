@@ -9,7 +9,7 @@ import QtQuick 2.11
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.4 as QQC2
-import QtQuick.Dialogs 1.3 as Dialogs
+import @QTQUICK_DIALOGS_IMPORT@ as Dialogs
 
 import org.kde.kirigami 2.14 as Kirigami
 
@@ -73,31 +73,36 @@ Window {
         }
     }
 
-    Dialogs.MessageDialog {
-        id: dirtyClosingDialog
+    // FIXME: the Dialogs.MessageDialog API changed completely and we can't do
+    // simple line-by-line text replacement. Re-evaluate whether it even makes
+    // sense to use this API at all as it's now very limited and can't even show
+    // an icon!
 
-        standardButtons: Dialogs.StandardButton.Save | Dialogs.StandardButton.Discard | Dialogs.StandardButton.Cancel
-
-        title: i18nc("@title:window", "Warning")
-
-        icon: Dialogs.StandardIcon.Warning
-        text: i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
-
-        onDiscard: {
-            ElisaConfigurationDialog.cancel()
-            dialog.close()
-        }
-
-        onAccepted: {
-            ElisaConfigurationDialog.save()
-            dialog.close()
-        }
-    }
-
-    onClosing: {
-        if (ElisaConfigurationDialog.isDirty) {
-            close.accepted = false
-            dirtyClosingDialog.open()
-        }
-    }
+    // Dialogs.MessageDialog {
+    //     id: dirtyClosingDialog
+    // 
+    //     // standardButtons: Dialogs.StandardButton.Save | Dialogs.StandardButton.Discard | Dialogs.StandardButton.Cancel
+    // 
+    //     title: i18nc("@title:window", "Warning")
+    // 
+    //     // icon: Dialogs.StandardIcon.Warning
+    //     text: i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
+    // 
+    //     // onDiscard: {
+    //     //     ElisaConfigurationDialog.cancel()
+    //     //     dialog.close()
+    //     // }
+    //     // 
+    //     // onAccepted: {
+    //     //     ElisaConfigurationDialog.save()
+    //     //     dialog.close()
+    //     // }
+    // }
+    // 
+    // onClosing: {
+    //     if (ElisaConfigurationDialog.isDirty) {
+    //         close.accepted = false
+    //         dirtyClosingDialog.open()
+    //     }
+    // }
 }

@@ -10,7 +10,7 @@ import QtQuick 2.11
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.4 as QQC2
-import QtQuick.Dialogs 1.3 as Dialogs
+import @QTQUICK_DIALOGS_IMPORT@ as Dialogs
 
 import org.kde.kirigami 2.14 as Kirigami
 
@@ -289,7 +289,7 @@ ColumnLayout {
             actions: [
                 Kirigami.Action {
                     text: i18nc("@action:button", "Report Bug")
-                    iconName: "tools-report-bug"
+                    @KIRIGAMI_ICON_NAME@: "tools-report-bug"
                     onTriggered: Qt.openUrlExternally("https://bugs.kde.org/enter_bug.cgi?product=frameworks-baloo")
                 }
             ]
@@ -380,7 +380,7 @@ ColumnLayout {
 
                     actions: Kirigami.Action {
                         id: action
-                        iconName: "edit-delete"
+                        @KIRIGAMI_ICON_NAME@: "edit-delete"
                         text: i18nc("@action:button", "Stop looking for music here")
 
                         visible: pathList.count > 1
@@ -405,14 +405,14 @@ ColumnLayout {
                 Dialogs.FileDialog {
                     id: fileDialog
                     title: i18nc("@title:window", "Choose a Folder")
-                    folder: shortcuts.home
-                    selectFolder: true
+                    @FILEDIALOG_CURRENT_FOLDER@: shortcuts.home
+                    @FILEDIALOG_MODE_LOAD_FOLDER_SELECTFOLDER@
 
                     visible: false
 
                     onAccepted: {
                         var oldPaths = ElisaConfigurationDialog.rootPath
-                        oldPaths.push(fileDialog.fileUrls)
+                        oldPaths.push(fileDialog.@FILEDIALOG_SELECTED_FILES@)
                         ElisaConfigurationDialog.rootPath = oldPaths
                     }
                 }

@@ -185,6 +185,9 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         QString baseName = scanFileInfo.baseName();
         QDir dir = scanFileInfo.dir();
         QString lyricPath = dir.filePath(baseName + QStringLiteral(".lrc"));
+        if (!QFile::exists(lyricPath)) {
+            lyricPath = dir.filePath(baseName + QStringLiteral(".LRC"));
+        }
         QFile lyric(lyricPath);
         if (lyric.exists() && lyric.open(QFile::ReadOnly)) {
             QString lyricString = QString::fromUtf8(lyric.readAll());

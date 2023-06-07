@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-24 00:46+0000\n"
+"POT-Creation-Date: 2023-06-07 00:46+0000\n"
 "PO-Revision-Date: 2023-03-01 02:17+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -453,13 +453,13 @@ msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "가사를 찾을 수 없음"
 
-#: qml/ContextView.qml:363
+#: qml/ContextView.qml:362
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "재생 중인 곡 없음"
 
-#: qml/ContextView.qml:397
+#: qml/ContextView.qml:396
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -515,13 +515,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "다시 시도"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:410
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:409
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "재생 목록 지워짐"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:414
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:413
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -580,14 +580,14 @@ msgstr "저장 실패"
 
 #: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
 #: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
-#: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:81
+#: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:80
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "포함하는 폴더 열기"
 
 #: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -655,27 +655,27 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "바로 재생 및 재생 목록 바꾸기"
 
-#: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
+#: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:100
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "곡 점수 설정"
 
 #: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:109
+#: qml/PlayListEntry.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "이 곡을 책갈피에서 삭제"
 
 #: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:109
+#: qml/PlayListEntry.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "이 곡을 책갈피에 추가"
 
-#: qml/ListBrowserDelegate.qml:350 qml/PlayListEntry.qml:336
+#: qml/ListBrowserDelegate.qml:350 qml/PlayListEntry.qml:335
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -837,13 +837,13 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "재생 목록 파일 편집"
 
-#: qml/MediaPlayListView.qml:273
+#: qml/MediaPlayListView.qml:272
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "재생 목록이 비어 있음"
 
-#: qml/MediaPlayListView.qml:274
+#: qml/MediaPlayListView.qml:273
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -853,33 +853,33 @@ msgstr ""
 "시작하려면 노래를 추가하십시오. 왼쪽에 있는 보기에서 음악을 탐색할 수 있습니"
 "다."
 
-#: qml/MediaPlayListView.qml:348
+#: qml/MediaPlayListView.qml:347
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "재생 목록이 비어 있습니다."
 
-#: qml/MediaPlayListView.qml:435 qml/MediaPlayListView.qml:440
+#: qml/MediaPlayListView.qml:434 qml/MediaPlayListView.qml:439
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1곡"
 
-#: qml/MediaPlayListView.qml:438
+#: qml/MediaPlayListView.qml:437
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1곡"
 
-#: qml/MediaPlayListView.qml:441
+#: qml/MediaPlayListView.qml:440
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
 msgid_plural "%1 remaining"
 msgstr[0] "%1 남음"
 
-#: qml/MediaPlayListView.qml:442
+#: qml/MediaPlayListView.qml:441
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -887,13 +887,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1(%2)"
 
-#: qml/MediaPlayListView.qml:456
+#: qml/MediaPlayListView.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "현재 곡 표시"
 
-#: qml/MediaPlayListView.qml:467
+#: qml/MediaPlayListView.qml:466
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -1188,19 +1188,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "책갈피에 있는 항목만 표시"
 
-#: qml/PlayListEntry.qml:127
+#: qml/PlayListEntry.qml:126
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "일시 정지"
 
-#: qml/PlayListEntry.qml:127
+#: qml/PlayListEntry.qml:126
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "재생"
 
-#: qml/PlayListEntry.qml:141
+#: qml/PlayListEntry.qml:140
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"

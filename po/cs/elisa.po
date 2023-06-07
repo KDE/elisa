@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-24 00:46+0000\n"
-"PO-Revision-Date: 2023-02-16 09:04+0100\n"
+"POT-Creation-Date: 2023-06-07 00:46+0000\n"
+"PO-Revision-Date: 2023-05-16 10:56+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -453,13 +453,13 @@ msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Text písně nebyl nalezen"
 
-#: qml/ContextView.qml:363
+#: qml/ContextView.qml:362
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nic nehraje."
 
-#: qml/ContextView.qml:397
+#: qml/ContextView.qml:396
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -515,13 +515,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Zkusit znovu"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:410
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:409
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Seznam skladeb byl vymazán"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:414
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:413
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -580,14 +580,14 @@ msgstr "Ukládání selhalo"
 
 #: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
 #: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
-#: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:81
+#: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:80
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Zobrazit ve složce"
 
 #: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -648,34 +648,32 @@ msgid "%1 - %2"
 msgstr "%1 - %2"
 
 #: qml/ListBrowserDelegate.qml:289
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "Přehrát nyní a nahradit současný seznam skladeb"
+msgstr "Přehrávat odsud a nahradit současný seznam skladeb"
 
-#: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
+#: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:100
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Zadat hodnocení skladby"
 
 #: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:109
+#: qml/PlayListEntry.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Zrušit označení této písně jako oblíbené"
 
 #: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:109
+#: qml/PlayListEntry.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Označit tuto píseň jako oblíbenou"
 
-#: qml/ListBrowserDelegate.qml:350 qml/PlayListEntry.qml:336
+#: qml/ListBrowserDelegate.qml:350 qml/PlayListEntry.qml:335
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -838,13 +836,13 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Upravit seznam skladeb"
 
-#: qml/MediaPlayListView.qml:273
+#: qml/MediaPlayListView.qml:272
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Seznam skladeb je prázdný"
 
-#: qml/MediaPlayListView.qml:274
+#: qml/MediaPlayListView.qml:273
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -854,13 +852,13 @@ msgstr ""
 "Pro začátek můžete přidat nějakou skladbu. Hudbu můžete prohlížet pohledy "
 "nalevo."
 
-#: qml/MediaPlayListView.qml:348
+#: qml/MediaPlayListView.qml:347
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Seznam skladeb je prázdný."
 
-#: qml/MediaPlayListView.qml:435 qml/MediaPlayListView.qml:440
+#: qml/MediaPlayListView.qml:434 qml/MediaPlayListView.qml:439
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -869,13 +867,13 @@ msgstr[0] "%1 skladba"
 msgstr[1] "%1 skladby"
 msgstr[2] "%1 skladeb"
 
-#: qml/MediaPlayListView.qml:438
+#: qml/MediaPlayListView.qml:437
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 skladba"
 
-#: qml/MediaPlayListView.qml:441
+#: qml/MediaPlayListView.qml:440
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -884,7 +882,7 @@ msgstr[0] "Zbývá %1"
 msgstr[1] "Zbývá %1"
 msgstr[2] "Zbývá %1"
 
-#: qml/MediaPlayListView.qml:442
+#: qml/MediaPlayListView.qml:441
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -892,13 +890,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:456
+#: qml/MediaPlayListView.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Zobrazit současný"
 
-#: qml/MediaPlayListView.qml:467
+#: qml/MediaPlayListView.qml:466
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -1194,19 +1192,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Zobrazit pouze oblíbené"
 
-#: qml/PlayListEntry.qml:127
+#: qml/PlayListEntry.qml:126
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: qml/PlayListEntry.qml:127
+#: qml/PlayListEntry.qml:126
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Přehrát"
 
-#: qml/PlayListEntry.qml:141
+#: qml/PlayListEntry.qml:140
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
@@ -1531,7 +1529,7 @@ msgstr "Disk %1"
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: viewmanager.cpp:41 viewmanager.cpp:71
 #, kde-format

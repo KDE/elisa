@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-24 00:46+0000\n"
+"POT-Creation-Date: 2023-06-07 00:46+0000\n"
 "PO-Revision-Date: 2023-03-05 21:48+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -454,13 +454,13 @@ msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Sanoja ei löytynyt"
 
-#: qml/ContextView.qml:363
+#: qml/ContextView.qml:362
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Mikään ei soi"
 
-#: qml/ContextView.qml:397
+#: qml/ContextView.qml:396
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -516,13 +516,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Yritä uudelleen"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:410
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:409
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Soittolista tyhjennetty"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:414
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:413
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -581,14 +581,14 @@ msgstr "Tallennus epäonnistui"
 
 #: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
 #: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
-#: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:81
+#: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:80
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Näytä kansiossa"
 
 #: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -656,27 +656,27 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Soita nyt ja korvaa soittolista"
 
-#: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:101
+#: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:100
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Aseta kappaleen arvostelu"
 
 #: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:109
+#: qml/PlayListEntry.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Poista tämä kappale suosikeista"
 
 #: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:109
+#: qml/PlayListEntry.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Merkitse tämä kappale suosikiksi"
 
-#: qml/ListBrowserDelegate.qml:350 qml/PlayListEntry.qml:336
+#: qml/ListBrowserDelegate.qml:350 qml/PlayListEntry.qml:335
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -838,14 +838,14 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Muokkaa soittolistatiedostoa"
 
-#: qml/MediaPlayListView.qml:273
+#: qml/MediaPlayListView.qml:272
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Soittolista on tyhjä"
 
 # Tämä jatkaa jonoa ”Your playlist is empty”
-#: qml/MediaPlayListView.qml:274
+#: qml/MediaPlayListView.qml:273
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -855,13 +855,13 @@ msgstr ""
 "Lisäämällä musiikkia pääsee alkuun. Sitä voi selata vasemman puolen "
 "näkymästä."
 
-#: qml/MediaPlayListView.qml:348
+#: qml/MediaPlayListView.qml:347
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Soittolista on tyhjä."
 
-#: qml/MediaPlayListView.qml:435 qml/MediaPlayListView.qml:440
+#: qml/MediaPlayListView.qml:434 qml/MediaPlayListView.qml:439
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -869,13 +869,13 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 kappale"
 msgstr[1] "%1 kappaletta"
 
-#: qml/MediaPlayListView.qml:438
+#: qml/MediaPlayListView.qml:437
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 kappale"
 
-#: qml/MediaPlayListView.qml:441
+#: qml/MediaPlayListView.qml:440
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -883,7 +883,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "%1 jäljellä"
 msgstr[1] "%1 jäljellä"
 
-#: qml/MediaPlayListView.qml:442
+#: qml/MediaPlayListView.qml:441
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -891,13 +891,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:456
+#: qml/MediaPlayListView.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Näytä nykyinen"
 
-#: qml/MediaPlayListView.qml:467
+#: qml/MediaPlayListView.qml:466
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -1192,19 +1192,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Näytä vain suosikit"
 
-#: qml/PlayListEntry.qml:127
+#: qml/PlayListEntry.qml:126
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "Tauko"
 
-#: qml/PlayListEntry.qml:127
+#: qml/PlayListEntry.qml:126
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Soita"
 
-#: qml/PlayListEntry.qml:141
+#: qml/PlayListEntry.qml:140
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"

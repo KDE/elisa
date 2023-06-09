@@ -318,7 +318,6 @@ RowLayout {
         id: dataGridView
 
         DataGridView {
-            StackView.onActivated: viewManager.viewIsLoaded()
             expandedFilterView: showExpandedFilterView
         }
     }
@@ -327,7 +326,6 @@ RowLayout {
         id: dataListView
 
         DataListView {
-            StackView.onActivated: viewManager.viewIsLoaded()
             expandedFilterView: showExpandedFilterView
         }
     }
@@ -336,8 +334,6 @@ RowLayout {
         id: albumContext
 
         ContextView {
-            StackView.onActivated: viewManager.viewIsLoaded()
-
             databaseId: ElisaApplication.manageHeaderBar.databaseId
             trackType: ElisaApplication.manageHeaderBar.trackType
             songTitle: ElisaApplication.manageHeaderBar.title

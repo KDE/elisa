@@ -139,8 +139,6 @@ public Q_SLOTS:
 
     void openNowPlaying();
 
-    void viewIsLoaded();
-
     void goBack();
 
     void setViewsData(ViewsListData* viewsData);

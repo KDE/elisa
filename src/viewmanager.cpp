@@ -97,8 +97,6 @@ public:
     int mInitialIndex = -1;
 
     QList<ViewParameters> mViewParametersStack = (mViewsListData ? QList<ViewParameters>{mViewsListData->viewParameters(0)} : QList<ViewParameters>{});
-
-    ViewParameters mNextViewParameters;
 };
 
 ViewManager::ViewManager(QObject *parent)
@@ -138,16 +136,15 @@ void ViewManager::openView(int viewIndex)
         viewIndex = 0;
     }
 
-    const auto &viewParameters = d->mViewsListData->viewParameters(viewIndex);
+    auto viewParameters = d->mViewsListData->viewParameters(viewIndex);
 
     qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << "changing view" << viewIndex;
 
     d->mViewIndex = viewIndex;
     Q_EMIT viewIndexChanged();
 
-    d->mNextViewParameters = viewParameters;
-    applyFilter(d->mNextViewParameters, viewParameters.mMainTitle, d->mNextViewParameters);
-    openViewFromData(d->mNextViewParameters);
+    applyFilter(viewParameters, viewParameters.mMainTitle, viewParameters);
+    openViewFromData(viewParameters);
 }
 
 void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
@@ -200,8 +197,6 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
         nextViewParameters.mAlbumViewStyle = NoDiscHeaders;
     }
 
-    d->mNextViewParameters = nextViewParameters;
-
     openViewFromData(nextViewParameters);
 }
 
@@ -243,20 +238,6 @@ void ViewManager::openArtistView(const QString &artist)
 void ViewManager::openNowPlaying()
 {
     openView(0);
-}
-
-void ViewManager::viewIsLoaded()
-{
-    qCDebug(orgKdeElisaViews()) << "ViewManager::viewIsLoaded" << d->mViewParametersStack.size()
-                                << d->mViewsListData;
-
-    if (!d->mViewParametersStack.size()) {
-        return;
-    }
-
-    if (d->mNextViewParameters.mIsValid && d->mNextViewParameters != d->mViewParametersStack.back()) {
-        openViewFromData(d->mNextViewParameters);
-    }
 }
 
 void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
@@ -501,7 +482,6 @@ void ViewManager::goBack()
 
     if (d->mViewParametersStack.size() > 1) {
         d->mViewParametersStack.pop_back();
-        d->mNextViewParameters = {};
     }
 
     qCDebug(orgKdeElisaViews()) << "ViewManager::goBack" << d->mViewParametersStack.size();

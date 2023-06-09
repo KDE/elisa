@@ -43,10 +43,11 @@ RowLayout {
     }
 
     function openViewCommon(viewDelegate, viewProperties, expectedDepth) {
-        while (browseStackView.depth > expectedDepth) {
-            browseStackView.pop()
+        if (expectedDepth === 1) {
+            browseStackView.replace(null, viewDelegate, viewProperties)
+        } else {
+            browseStackView.push(viewDelegate, viewProperties)
         }
-        browseStackView.push(viewDelegate, viewProperties)
 
         // Sometimes the sidebar loads after the page is pushed
         if (activeSidebarLoader.status === Loader.Ready) {

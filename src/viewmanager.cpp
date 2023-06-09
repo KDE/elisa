@@ -132,23 +132,22 @@ void ViewManager::openView(int viewIndex)
         return;
     }
 
+    d->mViewParametersStack.clear();
+
     if (viewIndex < 0 || viewIndex >= d->mViewsListData->count()) {
         viewIndex = 0;
     }
 
     const auto &viewParameters = d->mViewsListData->viewParameters(viewIndex);
 
-    qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << "selected view" << viewIndex;
+    qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << "changing view" << viewIndex;
 
-    if (d->mViewParametersStack.isEmpty() || viewParameters != d->mViewParametersStack.back()) {
-        qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << "changing view";
-        d->mViewIndex = viewIndex;
-        Q_EMIT viewIndexChanged();
+    d->mViewIndex = viewIndex;
+    Q_EMIT viewIndexChanged();
 
-        d->mNextViewParameters = viewParameters;
-        applyFilter(d->mNextViewParameters, viewParameters.mMainTitle, d->mNextViewParameters);
-        openViewFromData(d->mNextViewParameters);
-    }
+    d->mNextViewParameters = viewParameters;
+    applyFilter(d->mNextViewParameters, viewParameters.mMainTitle, d->mNextViewParameters);
+    openViewFromData(d->mNextViewParameters);
 }
 
 void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
@@ -263,12 +262,6 @@ void ViewManager::viewIsLoaded()
 void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << d->mViewParametersStack.size();
-
-    const auto viewsCountToRemove = d->mViewParametersStack.size() + 1 - viewParamaters.mDepth;
-    for (int i = 0; i < viewsCountToRemove; ++i) {
-        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << "pop_back";
-        d->mViewParametersStack.pop_back();
-    }
 
     QAbstractItemModel *newModel = nullptr;
     QAbstractProxyModel *proxyModel = nullptr;

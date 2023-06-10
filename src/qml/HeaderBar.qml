@@ -1,12 +1,13 @@
 /*
    SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2023 (c) Fushan Wen <qydwhotmail@gmail.com>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.15
 import QtQuick.Window 2.2
 import ElisaGraphicalEffects 1.15
 import org.kde.kirigami 2.5 as Kirigami
@@ -20,8 +21,6 @@ FocusScope {
     property string albumArtist
     property string album
     property string image
-    property string newImage
-    property string oldImage
     property int trackRating
     property int albumID
     property bool ratingVisible
@@ -42,33 +41,104 @@ FocusScope {
     signal openAlbum()
     signal openNowPlaying()
 
-    onImageChanged:
-    {
+    onImageChanged: {
         if (changeBackgroundTransition.running) {
             changeBackgroundTransition.complete()
         }
 
-        newImage = image
+        loadImage();
+
         if (transitionsEnabled) {
             changeBackgroundTransition.start()
-        } else {
-            oldImage = newImage
         }
     }
 
-    Item {
+    function loadImage() {
+        if (background.pendingImageIncubator) {
+            background.pendingImageIncubator.forceCompletion();
+            background.pendingImageIncubator.object.statusChanged.disconnect(replaceWhenLoaded);
+            background.pendingImageIncubator.object.destroy();
+            background.pendingImageIncubator = undefined;
+        }
+
+        if (images.pendingImageIncubator) {
+            images.pendingImageIncubator.forceCompletion();
+            images.pendingImageIncubator.object.statusChanged.disconnect(replaceIconWhenLoaded);
+            images.pendingImageIncubator.object.destroy();
+            images.pendingImageIncubator = undefined;
+        }
+
+        background.doesSkipAnimation = background.currentItem == undefined || !headerBar.transitionsEnabled;
+        background.pendingImageIncubator = backgroundComponent.incubateObject(background, {
+            "source": image,
+            "opacity": 0,
+        });
+        images.pendingImageIncubator = mainIconComponent.incubateObject(images, {
+            "source": image,
+            "opacity": 0,
+        });
+    }
+
+    function replaceWhenLoaded() {
+        background.pendingImageIncubator.object.statusChanged.disconnect(replaceWhenLoaded);
+        background.replace(background.pendingImageIncubator.object, {}, StackView.Transition);
+        background.pendingImageIncubator = undefined;
+    }
+
+    function replaceIconWhenLoaded() {
+        images.pendingImageIncubator.object.statusChanged.disconnect(replaceIconWhenLoaded);
+        images.replace(images.pendingImageIncubator.object, {}, StackView.Transition);
+        images.pendingImageIncubator = undefined;
+    }
+
+    StackView {
         id: background
-        visible: headerBar.height > playControlItem.height
+
         anchors.fill: parent
+        visible: headerBar.height > playControlItem.height
+
+        property var pendingImageIncubator
+        property bool doesSkipAnimation: true
+
+        replaceEnter: Transition {
+            OpacityAnimator {
+                id: replaceEnterOpacityAnimator
+                from: 0
+                to: 1
+                // 1 is HACK for https://bugreports.qt.io/browse/QTBUG-106797 to avoid flickering
+                duration: background.doesSkipAnimation ? 1 : Kirigami.Units.longDuration
+            }
+        }
+        // Keep the old image around till the new one is fully faded in
+        // If we fade both at the same time you can see the background behind glimpse through
+        replaceExit: Transition {
+            PauseAnimation {
+                duration: replaceEnterOpacityAnimator.duration
+            }
+        }
+
+        layer.enabled: true
+        layer.effect: HueSaturation {
+            cached: true
+
+            lightness: -0.5
+            saturation: 0.9
+
+            layer.enabled: true
+            layer.effect: FastBlur {
+                cached: true
+                radius: 64
+                transparentBorder: false
+            }
+        }
+    }
+
+    Component {
+        id: backgroundComponent
 
         ImageWithFallback {
-            id: oldBackground
-
-            source: oldImage
-            fallback: elisaTheme.defaultBackgroundImage
+            fallback: Qt.resolvedUrl(elisaTheme.defaultBackgroundImage)
             asynchronous: true
-
-            anchors.fill: parent
 
             // make the FastBlur effect more strong
             sourceSize.height: 10
@@ -77,55 +147,18 @@ FocusScope {
             // - QML does not currently provide a direct way to get original source dimensions
             // - painted* of this image won't get us the right value when fillMode is set to Stretch
             // - oldMainIcon uses the same source and is set to preserve aspect ratio
-            fillMode: width / height < oldMainIcon.paintedWidth / oldMainIcon.paintedHeight * sourceSize.height
+            fillMode: width / height < (images.currentItem ? images.currentItem.paintedWidth / images.currentItem.paintedHeight * sourceSize.height : 1)
                       ? Image.PreserveAspectCrop : Image.Stretch
 
-            opacity: 1
-
-            layer.enabled: true
-            layer.effect: HueSaturation {
-                cached: true
-
-                lightness: -0.5
-                saturation: 0.9
-
-                layer.enabled: true
-                layer.effect: FastBlur {
-                    cached: true
-                    radius: 64
-                    transparentBorder: false
-                }
+            StackView.onRemoved: {
+                destroy();
             }
-        }
 
-        ImageWithFallback {
-            id: newBackground
-
-            source: newImage
-            fallback: Qt.resolvedUrl(elisaTheme.defaultBackgroundImage)
-
-            asynchronous: true
-
-            anchors.fill: parent
-            fillMode: Image.PreserveAspectCrop
-
-            sourceSize.height: oldBackground.sourceSize.height
-
-            visible: false
-            opacity: 0
-
-            layer.enabled: true
-            layer.effect: HueSaturation {
-                cached: true
-
-                lightness: -0.5
-                saturation: 0.9
-
-                layer.enabled: true
-                layer.effect: FastBlur {
-                    cached: true
-                    radius: 64
-                    transparentBorder: false
+            Component.onCompleted: {
+                if (status === Image.Loading) {
+                    statusChanged.connect(headerBar.replaceWhenLoaded);
+                } else {
+                    headerBar.replaceWhenLoaded();
                 }
             }
         }
@@ -214,7 +247,7 @@ FocusScope {
                 }
             }
 
-            Item {
+            StackView {
                 id: images
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 property double imageSize: (smallerDimension * 0.9 < (portrait?
@@ -225,46 +258,37 @@ FocusScope {
                                           portrait?
                                                    gridLayoutContent.height/3:
                                                    gridLayoutContent.width/2
+                property var pendingImageIncubator
 
                 Layout.preferredHeight: imageSize
                 Layout.preferredWidth: imageSize
                 Layout.minimumHeight: mainLabel.height - Kirigami.Units.smallSpacing
                 Layout.minimumWidth: mainLabel.height - Kirigami.Units.smallSpacing
 
-                ImageWithFallback {
-                    id: oldMainIcon
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-                    anchors.fill: parent
-
-                    asynchronous: true
-                    mipmap: true
-
-                    source: oldImage
-                    fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
-
-                    sourceSize {
-                        width: imageSourceSize * Screen.devicePixelRatio
-                        height: imageSourceSize * Screen.devicePixelRatio
+                replaceEnter: Transition {
+                    OpacityAnimator {
+                        from: 0
+                        to: 1
+                        duration: replaceEnterOpacityAnimator.duration
                     }
-
-                    fillMode: Image.PreserveAspectFit
                 }
+                // Keep the old image around till the new one is fully faded in
+                // If we fade both at the same time you can see the background behind glimpse through
+                replaceExit: Transition {
+                    PauseAnimation {
+                        duration: replaceEnterOpacityAnimator.duration
+                    }
+                }
+            }
+
+            Component {
+                id: mainIconComponent
 
                 ImageWithFallback {
-                    id: newMainIcon
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-                    anchors.fill: parent
-
                     asynchronous: true
                     mipmap: true
 
-                    source: newImage
                     fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
-
-                    visible: false
-                    opacity: 0
 
                     sourceSize {
                         width: imageSourceSize * Screen.devicePixelRatio
@@ -272,6 +296,18 @@ FocusScope {
                     }
 
                     fillMode: Image.PreserveAspectFit
+
+                    StackView.onRemoved: {
+                        destroy();
+                    }
+
+                    Component.onCompleted: {
+                        if (status === Image.Loading) {
+                            statusChanged.connect(headerBar.replaceIconWhenLoaded);
+                        } else {
+                            headerBar.replaceIconWhenLoaded();
+                        }
+                    }
                 }
             }
 
@@ -396,6 +432,7 @@ FocusScope {
                 Loader {
                     id: playLoader
                     active: headerBar.isMaximized
+                    asynchronous: true
                     visible: headerBar.isMaximized
 
                     Layout.fillWidth: true
@@ -414,83 +451,19 @@ FocusScope {
     SequentialAnimation {
         id: changeBackgroundTransition
 
-        PropertyAction {
-            targets: [newBackground, newMainIcon]
-            property: 'opacity'
-            value: 0
-        }
-
-        PropertyAction {
-            targets: [newBackground, newMainIcon]
-            property: 'visible'
-            value: true
-        }
-
-        PropertyAction {
-            target: newBackground
-            property: "source"
-            value: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage))
-        }
-
-        PropertyAction {
-            target: newMainIcon
-            property: "source"
-            value: (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
-        }
-
         ParallelAnimation {
             NumberAnimation {
-                targets: [newBackground, newMainIcon, mainLabel, authorLabel, albumLabel]
+                targets: [mainLabel, authorLabel, albumLabel]
                 property: 'opacity'
                 from: 0
                 to: 1
                 duration: Kirigami.Units.longDuration
                 easing.type: Easing.Linear
             }
-
-            NumberAnimation {
-                targets: [oldBackground, oldMainIcon]
-                property: 'opacity'
-                from: 1
-                to: 0
-                duration: Kirigami.Units.longDuration
-                easing.type: Easing.Linear
-            }
         }
+    }
 
-        PropertyAction {
-            target: headerBar
-            property: "oldImage"
-            value: image
-        }
-
-        PropertyAction {
-            target: oldBackground
-            property: 'source'
-            value: (headerBar.oldImage ? headerBar.oldImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage))
-        }
-
-        PropertyAction {
-            target: oldMainIcon
-            property: 'source'
-            value: (headerBar.oldImage ? headerBar.oldImage : Qt.resolvedUrl(elisaTheme.defaultAlbumImage))
-        }
-
-        PropertyAction {
-            targets: [oldBackground, oldMainIcon]
-            property: 'opacity'
-            value: 1
-        }
-
-        PropertyAction {
-            targets: [newBackground, newMainIcon]
-            property: 'visible'
-            value: false
-        }
-
-        onStopped:
-        {
-            oldImage = newImage
-        }
+    Component.onCompleted: {
+        loadImage();
     }
 }

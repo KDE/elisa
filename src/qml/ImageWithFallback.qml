@@ -12,6 +12,7 @@ Item {
     property url fallback
     property bool usingFallback: false
     property alias sourceSize: image.sourceSize
+    readonly property alias status: image.status
     property alias fillMode: image.fillMode
     property alias asynchronous: image.asynchronous
     property alias mipmap: image.mipmap
@@ -38,6 +39,7 @@ Item {
     Image {
         id: image
         anchors.fill: parent
+        cache: false
         source: imageWithFallback.getImageUrl()
 
         onStatusChanged: {

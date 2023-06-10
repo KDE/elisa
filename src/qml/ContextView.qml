@@ -7,7 +7,7 @@
 
 import QtQuick 2.15
 import QtQuick.Window 2.2
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.15
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
 import ElisaGraphicalEffects 1.15
@@ -40,6 +40,10 @@ Kirigami.Page {
     padding: 0
 
     property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+
+    onAlbumArtUrlChanged: {
+        background.loadImage();
+    }
 
     TrackContextMetaDataModel {
         id: metaDataModel
@@ -137,33 +141,91 @@ Kirigami.Page {
         anchors.fill: parent
 
         // Blurred album art background
-        Loader {
-            active: ElisaApplication.showNowPlayingBackground && !topItem.nothingPlaying
+        StackView {
+            id: background
             anchors.fill: parent
 
-            sourceComponent: Image {
-                id: albumArtBackground
-                anchors.fill: parent
+            readonly property bool active: ElisaApplication.showNowPlayingBackground && !topItem.nothingPlaying
+            property Item pendingImage
+            property bool doesSkipAnimation: true
 
-                source: albumArtUrl.toString() === "" ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : albumArtUrl
+            layer.enabled: true
+            opacity: 0.2
+            layer.effect: FastBlur {
+                radius: 40
+            }
 
-                asynchronous: true
-
-                fillMode: Image.PreserveAspectCrop
-
-                layer.enabled: true
-                opacity: 0.2
-                layer.effect: FastBlur {
-                    source: albumArtBackground
-                    // anchors.fill: parent
-                    radius: 40
+            replaceEnter: Transition {
+                OpacityAnimator {
+                    id: replaceEnterOpacityAnimator
+                    from: 0
+                    to: 1
+                    // 1 is HACK for https://bugreports.qt.io/browse/QTBUG-106797 to avoid flickering
+                    duration: background.doesSkipAnimation ? 1 : Kirigami.Units.longDuration
                 }
+            }
+            // Keep the old image around till the new one is fully faded in
+            // If we fade both at the same time you can see the background behind glimpse through
+            replaceExit: Transition {
+                PauseAnimation {
+                    duration: replaceEnterOpacityAnimator.duration
+                }
+            }
+
+            onActiveChanged: loadImage()
+
+            function loadImage() {
+                if (pendingImage) {
+                    pendingImage.statusChanged.disconnect(replaceWhenLoaded);
+                    pendingImage.destroy();
+                    pendingImage = null;
+                }
+
+                if (!active) {
+                    clear();
+                    return;
+                }
+
+                doesSkipAnimation = currentItem == undefined;
+                pendingImage = backgroundComponent.createObject(background, {
+                    "source": topItem.albumArtUrl.toString() === "" ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : topItem.albumArtUrl,
+                    "opacity": 0,
+                });
+
+                if (pendingImage.status === Image.Loading) {
+                    pendingImage.statusChanged.connect(background.replaceWhenLoaded);
+                } else {
+                    background.replaceWhenLoaded();
+                }
+            }
+
+            function replaceWhenLoaded() {
+                pendingImage.statusChanged.disconnect(replaceWhenLoaded);
+                replace(pendingImage, {}, StackView.Transition);
+                pendingImage = null;
+            }
+
+            Component.onCompleted: {
+                loadImage();
+            }
+        }
+
+        Component {
+            id: backgroundComponent
+
+            Image {
+                asynchronous: true
+                fillMode: Image.PreserveAspectCrop
 
                 // HACK: set sourceSize to a fixed value to prevent background flickering (BUG431607)
                 onStatusChanged: {
                     if (status === Image.Ready && (sourceSize.width > Kirigami.Units.gridUnit * 50 || sourceSize.height > Kirigami.Units.gridUnit * 50)) {
                         sourceSize = Qt.size(Kirigami.Units.gridUnit * 50, Kirigami.Units.gridUnit * 50);
                     }
+                }
+
+                StackView.onRemoved: {
+                    destroy();
                 }
             }
         }

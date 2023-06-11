@@ -106,6 +106,34 @@ public:
         }
     };
 
+    class LyricsData
+    {
+    public:
+        LyricsData(const QString& lyrics = QString(), bool fromMetaData = true, const QString &filePath = QString())
+            : m_fromMetaData(fromMetaData)
+            , m_filePath(filePath)
+            , m_lyrics(lyrics)
+            {};
+        const QString &lyrics() const {
+            return m_lyrics;
+        }
+        bool fromMetaData() const {
+            return m_fromMetaData;
+        }
+        /**
+         * @brief filePath
+         * @return  path to the file lyrics defined in, empty if this lyrics is from MetaData
+         */
+        const QString &filePath() const {
+            return m_filePath;
+        }
+
+    private:
+        bool m_fromMetaData;
+        QString m_filePath;
+        QString m_lyrics;
+    };
+
     class TrackDataType : public MusicDataType
     {
     public:
@@ -250,14 +278,14 @@ public:
             return find(key_type::LyricistRole) != end();
         }
 
-        [[nodiscard]] QString lyrics() const
+        [[nodiscard]] LyricsData lyrics() const
         {
-            return operator[](key_type::LyricsRole).toString();
+            return operator[](key_type::LyricsRole).value<LyricsData>();
         }
 
         [[nodiscard]] bool hasLyrics() const
         {
-            return find(key_type::LyricsRole) != end() && !lyrics().isEmpty();
+            return find(key_type::LyricsRole) != end() && !lyrics().lyrics().isEmpty();
         }
 
         [[nodiscard]] QString comment() const
@@ -429,5 +457,6 @@ Q_DECLARE_METATYPE(DataTypes::ListGenreDataType)
 
 Q_DECLARE_METATYPE(DataTypes::EntryData)
 Q_DECLARE_METATYPE(DataTypes::EntryDataList)
+Q_DECLARE_METATYPE(DataTypes::LyricsData);
 
 #endif // DATATYPES_H

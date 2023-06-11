@@ -28,6 +28,7 @@ public:
     bool writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackDataType &data);
 
 private:
+    bool writeLyricsToLyricsFile(const DataTypes::LyricsData lyrics);
 
     std::unique_ptr<FileWriterPrivate> d;
 

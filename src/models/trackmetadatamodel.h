@@ -189,7 +189,7 @@ private:
 
     QMutex mFileScannerMutex;
 
-    QFutureWatcher<QString> mLyricsValueWatcher;
+    QFutureWatcher<DataTypes::LyricsData> mLyricsValueWatcher;
 };
 
 #endif // TRACKMETADATAMODEL_H

@@ -102,6 +102,11 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             }
             break;
         }
+        case DataTypes::LyricsRole:
+        {
+            result = mTrackData[currentKey].value<DataTypes::LyricsData>().lyrics();
+            break;
+        }
         default:
             result = mTrackData[currentKey];
             break;
@@ -212,9 +217,16 @@ bool TrackMetadataModel::setData(const QModelIndex &index, const QVariant &value
 {
     if (data(index, role) != value) {
         auto dataType = mTrackKeys[index.row()];
-
-        mTrackData[dataType] = value;
-        mFullData[dataType] = value;
+        if (dataType == DataTypes::LyricsRole) {
+            DataTypes::LyricsData lyrics = mTrackData[dataType].value<DataTypes::LyricsData>();
+            QVariant var;
+            var.setValue(DataTypes::LyricsData(value.toString(), lyrics.fromMetaData(), lyrics.filePath()));
+            mTrackData[dataType] = var;
+            mFullData[dataType] = var;
+        } else {
+            mTrackData[dataType] = value;
+            mFullData[dataType] = value;
+        }
 
         Q_EMIT dataChanged(index, index, QVector<int>() << role);
         return true;
@@ -257,7 +269,7 @@ MusicListenersManager *TrackMetadataModel::manager() const
 
 QString TrackMetadataModel::lyrics() const
 {
-    return mFullData[TrackDataType::key_type::LyricsRole].toString();
+    return mFullData[TrackDataType::key_type::LyricsRole].value<DataTypes::LyricsData>().lyrics();
 }
 
 qulonglong TrackMetadataModel::databaseId() const
@@ -344,7 +356,9 @@ void TrackMetadataModel::fillLyricsDataFromTrack()
 {
     beginInsertRows({}, mTrackData.size(), mTrackData.size());
     mTrackKeys.push_back(DataTypes::LyricsRole);
-    mTrackData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
+    QVariant var;
+    var.setValue<DataTypes::LyricsData>(DataTypes::LyricsData(mLyricsValueWatcher.result()));
+    mTrackData[DataTypes::LyricsRole] = var;
     endInsertRows();
 }
 
@@ -355,10 +369,11 @@ const TrackMetadataModel::TrackDataType &TrackMetadataModel::allTrackData() cons
 
 void TrackMetadataModel::lyricsValueIsReady()
 {
-    if (!mLyricsValueWatcher.result().isEmpty()) {
+    if (!mLyricsValueWatcher.result().lyrics().isEmpty()) {
         fillLyricsDataFromTrack();
-
-        mFullData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
+        QVariant var;
+        var.setValue<DataTypes::LyricsData>(DataTypes::LyricsData(mLyricsValueWatcher.result()));
+        mFullData[DataTypes::LyricsRole] = var;
 
         Q_EMIT lyricsChanged();
     }
@@ -593,10 +608,10 @@ void TrackMetadataModel::fetchLyrics()
     auto lyricicsValue = QtConcurrent::run(QThreadPool::globalInstance(), [fileUrl, this]() {
         auto locker = QMutexLocker(&mFileScannerMutex);
         auto trackData = mFileScanner.scanOneFile(fileUrl);
-        if (!trackData.lyrics().isEmpty()) {
+        if (!trackData.lyrics().lyrics().isEmpty()) {
             return trackData.lyrics();
         }
-        return QString{};
+        return DataTypes::LyricsData();
     });
 
     mLyricsValueWatcher.setFuture(lyricicsValue);

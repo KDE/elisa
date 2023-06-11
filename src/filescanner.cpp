@@ -192,7 +192,9 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         if (lyric.exists() && lyric.open(QFile::ReadOnly)) {
             QString lyricString = QString::fromUtf8(lyric.readAll());
             if (!lyricString.isEmpty()) {
-                newTrack[DataTypes::LyricsRole] = lyricString;
+                QVariant var;
+                var.setValue(DataTypes::LyricsData(lyricString, false, lyricPath));
+                newTrack[DataTypes::LyricsRole] = var;
             }
         }
     }

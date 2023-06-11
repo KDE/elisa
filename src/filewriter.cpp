@@ -17,6 +17,7 @@
 #include <KFileMetaData/UserMetaData>
 #include <KFileMetaData/WriteData>
 #include <QHash>
+#include <QFile>
 
 #endif
 
@@ -54,8 +55,32 @@ FileWriter::FileWriter() : d(std::make_unique<FileWriterPrivate>())
 
 FileWriter::~FileWriter() = default;
 
+bool FileWriter::writeLyricsToLyricsFile(const DataTypes::LyricsData lyrics)
+{
+    QFile file(lyrics.filePath());
+    bool succeed = false;
+    if (file.exists() && file.open(QFile::WriteOnly)) {
+        QByteArray lyricsData = lyrics.lyrics().toUtf8();
+        qint64 len = file.write(lyricsData);
+        if (len == lyricsData.length()) {
+            succeed = true;
+        }
+    }
+    return succeed;
+}
+
 bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::ColumnsRoles role, const QVariant &data)
 {
+    QVariant dataCopy;
+    // if lyrics is from local file, write changes into local file and return early, otherwise write to metadata
+    if (role == DataTypes::LyricsRole) {
+        DataTypes::LyricsData lyrics = data.value<DataTypes::LyricsData>();
+        if (lyrics.fromMetaData()) {
+            dataCopy.setValue(lyrics.lyrics());
+        } else {
+            return writeLyricsToLyricsFile(lyrics);
+        }
+    }
 #if KFFileMetaData_FOUND
 
     if (!url.isLocalFile()) {
@@ -77,7 +102,7 @@ bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::Col
     KFileMetaData::WriteData writeData(localFileName, mimetype);
     auto translatedKey = d->mPropertyTranslation.find(role);
     if (translatedKey != d->mPropertyTranslation.end()) {
-        writeData.add(translatedKey.value(), data);
+        writeData.add(translatedKey.value(), dataCopy);
     }
     writer->write(writeData);
 
@@ -85,11 +110,11 @@ bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::Col
     auto fileData = KFileMetaData::UserMetaData(localFileName);
 
     if (role == DataTypes::RatingRole) {
-        fileData.setRating(data.toInt());
+        fileData.setRating(dataCopy.toInt());
     }
 
     if (role == DataTypes::CommentRole) {
-        fileData.setUserComment(data.toString());
+        fileData.setUserComment(dataCopy.toString());
     }
 #endif
 
@@ -98,6 +123,7 @@ bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::Col
     Q_UNUSED(url)
     Q_UNUSED(role)
     Q_UNUSED(data)
+    Q_UNUSED(dataCopy)
 
     return false;
 #endif
@@ -134,6 +160,15 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
         auto key = (*rangeBegin).first;
         auto translatedKey = d->mPropertyTranslation.find(key);
         if (translatedKey != d->mPropertyTranslation.end()) {
+            if (key == DataTypes::LyricsRole) {
+                DataTypes::LyricsData lyrics = (*rangeBegin).second.value<DataTypes::LyricsData>();
+                if (lyrics.fromMetaData()) {
+                    writeData.add(translatedKey.value(), lyrics.lyrics());
+                } else {
+                    writeLyricsToLyricsFile(lyrics);
+                }
+                continue;
+            }
             writeData.add(translatedKey.value(), (*rangeBegin).second);
         }
         rangeBegin++;

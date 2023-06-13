@@ -275,15 +275,6 @@ void LocalBalooFileListing::registerToBaloo()
     if (pendingCallWatcher->isFinished()) {
         registeredToBaloo(pendingCallWatcher);
     }
-
-    auto pendingCall = d->mBalooMainInterface->registerBalooWatcher(QStringLiteral("org.mpris.MediaPlayer2.elisa/org/kde/BalooWatcherApplication"));
-    qCDebug(orgKdeElisaBaloo) << "LocalBalooFileListing::registerToBaloo" << "call registerBalooWatcher";
-    auto pendingCallWatcher2 = new QDBusPendingCallWatcher(pendingCall);
-
-    connect(pendingCallWatcher2, &QDBusPendingCallWatcher::finished, this, &LocalBalooFileListing::registeredToBalooWatcher);
-    if (pendingCallWatcher2->isFinished()) {
-        registeredToBalooWatcher(pendingCallWatcher2);
-    }
 }
 
 void LocalBalooFileListing::renamedFiles(const QString &from, const QString &to, const QStringList &listFiles)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-07 00:46+0000\n"
+"POT-Creation-Date: 2023-06-14 00:46+0000\n"
 "PO-Revision-Date: 2023-02-05 01:16+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
@@ -427,44 +427,44 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Dabar atkuriama"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:177
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:177
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Atverti šoninę juostą"
 
-#: qml/ContextView.qml:104
+#: qml/ContextView.qml:108
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metaduomenys"
 
-#: qml/ContextView.qml:115
+#: qml/ContextView.qml:119
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Dainos žodžiai"
 
-#: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:236
+#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Rodyti grojaraštį"
 
-#: qml/ContextView.qml:345
+#: qml/ContextView.qml:407
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Nerasta dainos žodžių"
 
-#: qml/ContextView.qml:362
+#: qml/ContextView.qml:424
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nieko neatkuriama"
 
-#: qml/ContextView.qml:396
+#: qml/ContextView.qml:458
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -634,7 +634,7 @@ msgctxt "@action:button Add whole container to play list"
 msgid "Add to queue"
 msgstr "Pridėti į eilę"
 
-#: qml/HeaderBar.qml:141
+#: qml/HeaderBar.qml:174
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"

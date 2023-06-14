@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-07 00:46+0000\n"
+"POT-Creation-Date: 2023-06-14 00:46+0000\n"
 "PO-Revision-Date: 2022-02-01 10:43+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -505,7 +505,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Most játszott"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:177
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:177
 #, fuzzy, kde-format
 #| msgctxt "open the sidebar"
 #| msgid "Open sidebar"
@@ -513,7 +513,7 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Oldalsáv megnyitása"
 
-#: qml/ContextView.qml:104
+#: qml/ContextView.qml:108
 #, fuzzy, kde-format
 #| msgctxt "One of the 'now playing' views"
 #| msgid "Metadata"
@@ -521,7 +521,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metaadat"
 
-#: qml/ContextView.qml:115
+#: qml/ContextView.qml:119
 #, fuzzy, kde-format
 #| msgctxt "Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -529,7 +529,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Dalszöveg"
 
-#: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:236
+#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
@@ -537,21 +537,21 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Lejátszási lista megjelenítése"
 
-#: qml/ContextView.qml:345
+#: qml/ContextView.qml:407
 #, fuzzy, kde-format
 #| msgid "No lyrics found"
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Nem található dalszöveg"
 
-#: qml/ContextView.qml:362
+#: qml/ContextView.qml:424
 #, fuzzy, kde-format
 #| msgid "Nothing playing"
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nincs lejátszás"
 
-#: qml/ContextView.qml:396
+#: qml/ContextView.qml:458
 #, fuzzy, kde-format
 #| msgid "Show In Folder"
 msgctxt "@action:button"
@@ -747,7 +747,7 @@ msgctxt "@action:button Add whole container to play list"
 msgid "Add to queue"
 msgstr "Hozzáadás a várólistához"
 
-#: qml/HeaderBar.qml:141
+#: qml/HeaderBar.qml:174
 #, fuzzy, kde-format
 #| msgctxt "menu entry"
 #| msgid "Enter Fullscreen"

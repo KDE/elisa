@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-07 00:46+0000\n"
+"POT-Creation-Date: 2023-06-14 00:46+0000\n"
 "PO-Revision-Date: 2023-03-01 02:17+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -422,44 +422,44 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "지금 재생 중"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:177
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:177
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "사이드바 열기"
 
-#: qml/ContextView.qml:104
+#: qml/ContextView.qml:108
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "메타데이터"
 
-#: qml/ContextView.qml:115
+#: qml/ContextView.qml:119
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "가사"
 
-#: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:236
+#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "재생 목록 표시"
 
-#: qml/ContextView.qml:345
+#: qml/ContextView.qml:407
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "가사를 찾을 수 없음"
 
-#: qml/ContextView.qml:362
+#: qml/ContextView.qml:424
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "재생 중인 곡 없음"
 
-#: qml/ContextView.qml:396
+#: qml/ContextView.qml:458
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -623,7 +623,7 @@ msgctxt "@action:button Add whole container to play list"
 msgid "Add to queue"
 msgstr "대기열에 추가"
 
-#: qml/HeaderBar.qml:141
+#: qml/HeaderBar.qml:174
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"

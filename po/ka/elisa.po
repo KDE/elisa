@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-07 00:46+0000\n"
+"POT-Creation-Date: 2023-06-14 00:46+0000\n"
 "PO-Revision-Date: 2023-05-06 06:29+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -422,44 +422,44 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "მიმდინარეობს დაკვრა"
 
-#: qml/ContextView.qml:69 qml/NavigationActionBar.qml:177
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:177
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "გვერდითი ზოლის გახსნა"
 
-#: qml/ContextView.qml:104
+#: qml/ContextView.qml:108
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "მეტამონაცემები"
 
-#: qml/ContextView.qml:115
+#: qml/ContextView.qml:119
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "ლირიკა"
 
-#: qml/ContextView.qml:122 qml/MediaPlayerControl.qml:236
+#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "დასაკრავი სიის ჩვენება"
 
-#: qml/ContextView.qml:345
+#: qml/ContextView.qml:407
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "ლირიკის პოვნა შეუძლებელია"
 
-#: qml/ContextView.qml:362
+#: qml/ContextView.qml:424
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "დაკვრა არ მიმდინარეობს"
 
-#: qml/ContextView.qml:396
+#: qml/ContextView.qml:458
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -623,7 +623,7 @@ msgctxt "@action:button Add whole container to play list"
 msgid "Add to queue"
 msgstr "რიგში ჩამატება"
 
-#: qml/HeaderBar.qml:141
+#: qml/HeaderBar.qml:174
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"

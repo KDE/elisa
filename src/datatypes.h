@@ -280,6 +280,7 @@ public:
 
         [[nodiscard]] LyricsData lyrics() const
         {
+            assert(!contains(key_type::LyricsRole) || operator[](key_type::LyricsRole).canConvert<LyricsData>());
             return operator[](key_type::LyricsRole).value<LyricsData>();
         }
 

@@ -269,6 +269,10 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
             const auto &translatedKey = d->propertyTranslation.find(key);
             if (translatedKey.value() == DataTypes::DurationRole) {
                 trackData.insert(translatedKey.value(), QTime::fromMSecsSinceStartOfDay(int(1000 * (*rangeBegin).second.toDouble())));
+            } else if (translatedKey.value() == DataTypes::LyricsRole) {
+                QVariant var;
+                var.setValue(DataTypes::LyricsData((*rangeBegin).second.toString()));
+                trackData.insert(translatedKey.value(), var);
             } else if (translatedKey != d->propertyTranslation.end()) {
                 trackData.insert(translatedKey.value(), (*rangeBegin).second);
             }

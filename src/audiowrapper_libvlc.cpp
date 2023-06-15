@@ -303,6 +303,7 @@ void AudioWrapper::setPosition(qint64 position)
 #else
     libvlc_media_player_set_position(d->mPlayer, static_cast<float>(position) / d->mMediaDuration);
 #endif
+    Q_EMIT positionChanged(position);
 }
 
 void AudioWrapper::savePosition(qint64 position)

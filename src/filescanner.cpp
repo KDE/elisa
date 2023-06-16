@@ -182,7 +182,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
     // try to find lyric in FILENAME.lrc if no lyric in metadata
     if (!newTrack.hasLyrics()) {
-        QString baseName = scanFileInfo.baseName();
+        QString baseName = scanFileInfo.completeBaseName();
         QDir dir = scanFileInfo.dir();
         QString lyricPath = dir.filePath(baseName + QStringLiteral(".lrc"));
         if (!QFile::exists(lyricPath)) {

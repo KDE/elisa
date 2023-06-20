@@ -84,6 +84,7 @@ public:
         ,QStringLiteral("*[Aa]lbumart*")
     };
 
+    QStringList coverFileAllImages;
     QStringList coverFileGlobs;
 };
 
@@ -100,6 +101,7 @@ QStringList buildCoverFileNames(const QStringList &fileNames, const QStringList 
 
 FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
 {
+    d->coverFileAllImages = buildCoverFileNames({QStringLiteral("*")}, d->constCoverExtensions);
     d->coverFileGlobs = buildCoverFileNames(d->constCoverGlobs, d->constCoverExtensions);
 }
 
@@ -287,8 +289,13 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
     }
 
     trackFileDir.setFilter(QDir::Files);
-    trackFileDir.setNameFilters(d->coverFileGlobs);
+    trackFileDir.setNameFilters(d->coverFileAllImages);
     QFileInfoList coverFiles = trackFileDir.entryInfoList();
+
+    if (coverFiles.length() != 1) {
+        trackFileDir.setNameFilters(d->coverFileGlobs);
+        coverFiles = trackFileDir.entryInfoList();
+    }
 
     if (coverFiles.isEmpty()) {
         const QString dirNamePattern = QLatin1String("*") + trackFileDir.dirName() + QLatin1String("*");

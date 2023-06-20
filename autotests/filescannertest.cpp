@@ -78,7 +78,9 @@ private Q_SLOTS:
     void testFindCoverInDirectory()
     {
         FileScanner fileScanner;
-        QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(0)).isEmpty());
+        auto singleImageInDir = fileScanner.searchForCoverFile(mTestTracksForDirectory.at(0));
+        QVERIFY(!singleImageInDir.isEmpty());
+        QCOMPARE(singleImageInDir.fileName(), QStringLiteral("image_file.jpg"));
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(1)).isEmpty());
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(2)).isEmpty());
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(3)).isEmpty());

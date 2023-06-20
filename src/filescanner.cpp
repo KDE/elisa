@@ -320,6 +320,11 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
     }
 
     if (coverFiles.isEmpty()) {
+        trackFileDir.setNameFilters(d->coverFileAllImages);
+        coverFiles = trackFileDir.entryInfoList();
+    }
+
+    if (coverFiles.isEmpty()) {
         directoryCache.insert(trackFileDir.path(), QUrl());
         return QUrl();
     }

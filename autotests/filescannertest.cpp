@@ -81,8 +81,13 @@ private Q_SLOTS:
         auto singleImageInDir = fileScanner.searchForCoverFile(mTestTracksForDirectory.at(0));
         QVERIFY(!singleImageInDir.isEmpty());
         QCOMPARE(singleImageInDir.fileName(), QStringLiteral("image_file.jpg"));
+
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(1)).isEmpty());
-        QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(2)).isEmpty());
+
+        auto matchExactName = fileScanner.searchForCoverFile(mTestTracksForDirectory.at(2));
+        QVERIFY(!matchExactName.isEmpty());
+        QCOMPARE(matchExactName.fileName(), QStringLiteral("folder.jpg"));
+
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(3)).isEmpty());
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(4)).isEmpty());
         QVERIFY(!fileScanner.searchForCoverFile(mTestTracksForDirectory.at(5)).isEmpty());

@@ -77,6 +77,13 @@ public:
         ,QStringLiteral(".png")
     };
 
+    const QStringList constCoverNames {
+        QStringLiteral("[Cc]over")
+        ,QStringLiteral("[Cc]over[Ii]mage")
+        ,QStringLiteral("[Ff]older")
+        ,QStringLiteral("[Aa]lbumart")
+    };
+
     const QStringList constCoverGlobs = {
         QStringLiteral("*[Cc]over*")
         ,QStringLiteral("*[Ff]older*")
@@ -85,6 +92,7 @@ public:
     };
 
     QStringList coverFileAllImages;
+    QStringList coverFileNames;
     QStringList coverFileGlobs;
 };
 
@@ -102,6 +110,7 @@ QStringList buildCoverFileNames(const QStringList &fileNames, const QStringList 
 FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
 {
     d->coverFileAllImages = buildCoverFileNames({QStringLiteral("*")}, d->constCoverExtensions);
+    d->coverFileNames = buildCoverFileNames(d->constCoverNames, d->constCoverExtensions);
     d->coverFileGlobs = buildCoverFileNames(d->constCoverGlobs, d->constCoverExtensions);
 }
 
@@ -293,6 +302,11 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
     QFileInfoList coverFiles = trackFileDir.entryInfoList();
 
     if (coverFiles.length() != 1) {
+        trackFileDir.setNameFilters(d->coverFileNames);
+        coverFiles = trackFileDir.entryInfoList();
+    }
+
+    if (coverFiles.isEmpty()) {
         trackFileDir.setNameFilters(d->coverFileGlobs);
         coverFiles = trackFileDir.entryInfoList();
     }

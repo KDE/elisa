@@ -71,24 +71,36 @@ public:
     };
 #endif
 
-    const QStringList constSearchStrings = {
-        QStringLiteral("*[Cc]over*.jpg")
-        ,QStringLiteral("*[Cc]over*.jpeg")
-        ,QStringLiteral("*[Cc]over*.png")
-        ,QStringLiteral("*[Ff]older*.jpg")
-        ,QStringLiteral("*[Ff]older*.jpeg")
-        ,QStringLiteral("*[Ff]older*.png")
-        ,QStringLiteral("*[Ff]ront*.jpg")
-        ,QStringLiteral("*[Ff]ront*.jpeg")
-        ,QStringLiteral("*[Ff]ront*.png")
-        ,QStringLiteral("*[Aa]lbumart*.jpg")
-        ,QStringLiteral("*[Aa]lbumart*.jpeg")
-        ,QStringLiteral("*[Aa]lbumart*.png")
+    const QStringList constCoverExtensions {
+        QStringLiteral(".jpg")
+        ,QStringLiteral(".jpeg")
+        ,QStringLiteral(".png")
     };
+
+    const QStringList constCoverGlobs = {
+        QStringLiteral("*[Cc]over*")
+        ,QStringLiteral("*[Ff]older*")
+        ,QStringLiteral("*[Ff]ront*")
+        ,QStringLiteral("*[Aa]lbumart*")
+    };
+
+    QStringList coverFileGlobs;
 };
+
+QStringList buildCoverFileNames(const QStringList &fileNames, const QStringList &fileExtensions)
+{
+    QStringList covers {};
+    for (auto fileName : fileNames) {
+        for (auto fileExtension : fileExtensions) {
+            covers.push_back(fileName + fileExtension);
+        }
+    }
+    return covers;
+}
 
 FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
 {
+    d->coverFileGlobs = buildCoverFileNames(d->constCoverGlobs, d->constCoverExtensions);
 }
 
 bool FileScanner::shouldScanFile(const QString &scanFile)
@@ -275,20 +287,17 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
     }
 
     trackFileDir.setFilter(QDir::Files);
-    trackFileDir.setNameFilters(d->constSearchStrings);
+    trackFileDir.setNameFilters(d->coverFileGlobs);
     QFileInfoList coverFiles = trackFileDir.entryInfoList();
+
     if (coverFiles.isEmpty()) {
         const QString dirNamePattern = QLatin1String("*") + trackFileDir.dirName() + QLatin1String("*");
         const QString dirNameNoSpaces = QLatin1String("*") + trackFileDir.dirName().remove(QLatin1Char(' ')) + QLatin1String("*");
-        const QStringList filters = {
-            dirNamePattern + QStringLiteral(".jpg"),
-            dirNamePattern + QStringLiteral(".png"),
-            dirNameNoSpaces + QStringLiteral(".jpg"),
-            dirNameNoSpaces + QStringLiteral(".png")
-        };
+        auto filters = buildCoverFileNames({dirNamePattern, dirNameNoSpaces}, d->constCoverExtensions);
         trackFileDir.setNameFilters(filters);
         coverFiles = trackFileDir.entryInfoList();
     }
+
     if (coverFiles.isEmpty()) {
         directoryCache.insert(trackFileDir.path(), QUrl());
         return QUrl();

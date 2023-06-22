@@ -41,6 +41,10 @@ Kirigami.ApplicationWindow {
 
         Component.onCompleted: close() // drawer is opened when the layout is narrow, we want it closed
 
+        // Don't allow dragging it as the UX is not so great; see
+        // https://bugs.kde.org/show_bug.cgi?id=468211
+        interactive: false
+
         // without this drawer button is never shown
         enabled: true
         MediaPlayListView {

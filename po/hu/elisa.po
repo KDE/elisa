@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-14 00:46+0000\n"
+"POT-Creation-Date: 2023-06-23 00:46+0000\n"
 "PO-Revision-Date: 2022-02-01 10:43+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -610,7 +610,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "Betöltés sikertelen"
 
-#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:204
+#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:208
 #, fuzzy, kde-format
 #| msgid "Retry"
 msgctxt "@action:button"
@@ -631,21 +631,21 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "Visszavonás"
 
-#: qml/ElisaMainWindow.qml:56 qml/ElisaMainWindow.qml:508
+#: qml/ElisaMainWindow.qml:60 qml/ElisaMainWindow.qml:512
 #, kde-format
 msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:117 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:121 qml/mobile/MobileSidebar.qml:20
 #, fuzzy, kde-format
 #| msgid "Elisa"
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:117
+#: qml/ElisaMainWindow.qml:121
 #, fuzzy, kde-format
 #| msgctxt "Window title"
 #| msgid "%1 — Elisa"
@@ -653,7 +653,7 @@ msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:186
+#: qml/ElisaMainWindow.qml:190
 #, fuzzy, kde-format
 #| msgctxt "file type (mime type) for m3u and m3u8 playlist file formats"
 #| msgid "Playlist (*.m3u*)"
@@ -663,7 +663,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "Lejátszási lista (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:186
+#: qml/ElisaMainWindow.qml:190
 #, fuzzy, kde-format
 #| msgctxt "file type (mime type) for m3u and m3u8 playlist file formats"
 #| msgid "Playlist (*.m3u*)"
@@ -673,7 +673,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "Lejátszási lista (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:193
+#: qml/ElisaMainWindow.qml:197
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -681,7 +681,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:204
+#: qml/ElisaMainWindow.qml:208
 #, fuzzy, kde-format
 #| msgid "Saving failed"
 msgctxt "@label"

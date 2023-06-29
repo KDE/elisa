@@ -76,7 +76,9 @@ BasePlayListDelegate {
                 visible: playListEntry.showDragHandle
                 listItem: playListEntry
                 listView: playListEntry.listView
-                onMoveRequested: ElisaApplication.mediaPlayListProxyModel.moveRow(oldIndex, newIndex)
+                onMoveRequested: (oldIndex, newIndex) => {
+                    ElisaApplication.mediaPlayListProxyModel.moveRow(oldIndex, newIndex);
+                }
             }
 
             ColumnLayout {
@@ -155,9 +157,9 @@ BasePlayListDelegate {
             sourceComponent: Kirigami.MenuDialog {
                 id: contextMenu
                 title: playListEntry.title
-                
+
                 preferredWidth: Kirigami.Units.gridUnit * 20
-                
+
                 actions: [
                     Kirigami.Action {
                         visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'

@@ -160,7 +160,7 @@ BasePlayListDelegate {
                     listItem: playListEntry
                     listView: playListEntry.listView
 
-                    onMoveRequested: {
+                    onMoveRequested: (oldIndex, newIndex) => {
                         playListEntry.listView.dragging = true
                         ElisaApplication.mediaPlayListProxyModel.moveRow(oldIndex, newIndex)
                     }

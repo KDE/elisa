@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-23 00:46+0000\n"
+"POT-Creation-Date: 2023-06-30 00:47+0000\n"
 "PO-Revision-Date: 2023-03-02 18:26+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -581,14 +581,14 @@ msgstr "Ukladanie zlyhalo"
 
 #: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
 #: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
-#: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:80
+#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:80
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Zobraziť v priečinku"
 
 #: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:87
+#: qml/mobile/MobilePlayListDelegate.qml:176 qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -963,13 +963,13 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Preskočiť dopredu"
 
-#: qml/mobile/MobilePlayListDelegate.qml:144
+#: qml/mobile/MobilePlayListDelegate.qml:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Možnosti skladby"
 
-#: qml/mobile/MobilePlayListDelegate.qml:189
+#: qml/mobile/MobilePlayListDelegate.qml:191
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"

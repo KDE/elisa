@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-23 00:46+0000\n"
+"POT-Creation-Date: 2023-06-30 00:47+0000\n"
 "PO-Revision-Date: 2023-06-18 19:44+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -581,14 +581,14 @@ msgstr "Salvarea a eșuat"
 
 #: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
 #: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
-#: qml/mobile/MobilePlayListDelegate.qml:165 qml/PlayListEntry.qml:80
+#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:80
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Arată în dosar"
 
 #: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:87
+#: qml/mobile/MobilePlayListDelegate.qml:176 qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -961,13 +961,13 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Derulează înainte"
 
-#: qml/mobile/MobilePlayListDelegate.qml:144
+#: qml/mobile/MobilePlayListDelegate.qml:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Opțiuni piesă"
 
-#: qml/mobile/MobilePlayListDelegate.qml:189
+#: qml/mobile/MobilePlayListDelegate.qml:191
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"

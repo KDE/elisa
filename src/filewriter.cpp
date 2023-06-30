@@ -167,9 +167,9 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
                 } else {
                     writeLyricsToLyricsFile(lyrics);
                 }
-                continue;
+            } else {
+                writeData.add(translatedKey.value(), (*rangeBegin).second);
             }
-            writeData.add(translatedKey.value(), (*rangeBegin).second);
         }
         rangeBegin++;
     }

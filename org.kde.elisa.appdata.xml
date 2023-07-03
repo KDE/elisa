@@ -20,6 +20,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="de">Elisa</name>
   <name xml:lang="el">Elisa</name>
   <name xml:lang="en-GB">Elisa</name>
+  <name xml:lang="eo">Elisa</name>
   <name xml:lang="es">Elisa</name>
   <name xml:lang="et">Elisa</name>
   <name xml:lang="eu">Elisa</name>
@@ -64,6 +65,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="de">Schöner, unkomplizierter Medienspieler mit Online-Radio-Unterstützung</summary>
   <summary xml:lang="el">Όμορφο και σοβαρό πρόγραμμα μουσικής αναπαραγωγής με επιγραμμική υποστήριξη ραδιοφώνου </summary>
   <summary xml:lang="en-GB">Beautiful no-nonsense music player with online radio support</summary>
+  <summary xml:lang="eo">Bela senpretenda muzikludilo kun subteno por retradio</summary>
   <summary xml:lang="es">Reproductor de música bello y práctico con soporte para radios en línea</summary>
   <summary xml:lang="et">Kaunis mõistliku muusika mängija veebiraadio toetusega</summary>
   <summary xml:lang="eu">Musika jotzaile eder eta txorakeriarik gabea lerroko irratien euskarria duena</summary>
@@ -156,6 +158,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="de">Elisa-Musikwiedergabe</caption>
       <caption xml:lang="el">Η συσκευή αναπαραγωγής μουσικής Elisa</caption>
       <caption xml:lang="en-GB">The Elisa music player</caption>
+      <caption xml:lang="eo">La muzikludilo Elisa</caption>
       <caption xml:lang="es">El reproductor de música Elisa</caption>
       <caption xml:lang="et">Muusikamängija Elisa</caption>
       <caption xml:lang="eu">Elisa musika jotzailea</caption>
@@ -203,6 +206,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="de">Elisa auf Plasma Mobile</caption>
       <caption xml:lang="el">Η Elisa στο Plasma Mobile</caption>
       <caption xml:lang="en-GB">Elisa on Plasma Mobile</caption>
+      <caption xml:lang="eo">Elisa sur Plasma Mobile</caption>
       <caption xml:lang="es">Elisa en Plasma Mobile</caption>
       <caption xml:lang="eu">Elisa Plasma Mugikorrean</caption>
       <caption xml:lang="fi">Elisa Plasma Mobilessa</caption>

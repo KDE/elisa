@@ -32,6 +32,17 @@
 #include <QHash>
 #include <QMimeDatabase>
 
+QStringList buildCoverFileNames(const QStringList &fileNames, const QStringList &fileExtensions)
+{
+    QStringList covers {};
+    for (const auto &fileName : fileNames) {
+        for (const auto &fileExtension : fileExtensions) {
+            covers.push_back(fileName + fileExtension);
+        }
+    }
+    return covers;
+}
+
 class FileScannerPrivate
 {
 public:
@@ -91,27 +102,13 @@ public:
         ,QStringLiteral("*[Aa]lbumart*")
     };
 
-    QStringList coverFileAllImages;
-    QStringList coverFileNames;
-    QStringList coverFileGlobs;
+    const QStringList coverFileAllImages = buildCoverFileNames({QStringLiteral("*")}, constCoverExtensions);
+    const QStringList coverFileNames = buildCoverFileNames(constCoverNames, constCoverExtensions);
+    const QStringList coverFileGlobs = buildCoverFileNames(constCoverGlobs, constCoverExtensions);
 };
-
-QStringList buildCoverFileNames(const QStringList &fileNames, const QStringList &fileExtensions)
-{
-    QStringList covers {};
-    for (auto fileName : fileNames) {
-        for (auto fileExtension : fileExtensions) {
-            covers.push_back(fileName + fileExtension);
-        }
-    }
-    return covers;
-}
 
 FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
 {
-    d->coverFileAllImages = buildCoverFileNames({QStringLiteral("*")}, d->constCoverExtensions);
-    d->coverFileNames = buildCoverFileNames(d->constCoverNames, d->constCoverExtensions);
-    d->coverFileGlobs = buildCoverFileNames(d->constCoverGlobs, d->constCoverExtensions);
 }
 
 bool FileScanner::shouldScanFile(const QString &scanFile)

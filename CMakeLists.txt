@@ -30,7 +30,7 @@ include(ECMGenerateQmlTypes)
 
 set(REQUIRED_QT_VERSION "5.15.0")
 if (ANDROID)
-    set(REQUIRED_QT_VERSION "5.15.8")
+    set(REQUIRED_QT_VERSION "5.15.10")
 endif()
 find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent QuickControls2)
 

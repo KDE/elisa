@@ -391,11 +391,9 @@ ecm_generate_qmltypes(org.kde.elisa 1.0
 
 if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
     if(QT_MAJOR_VERSION STREQUAL "6")
-        set(KIRIGAMI_ICON_NAME "icon.name")
         set(KIRIGAMI_ICON_SOURCE "icon.source")
         set(KIRIGAMI_PAGE_ACTIONS "actions")
     else()
-        set(KIRIGAMI_ICON_NAME "iconName")
         set(KIRIGAMI_ICON_SOURCE "icon")
         set(KIRIGAMI_PAGE_ACTIONS "contextualActions")
     endif()

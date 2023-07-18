@@ -20,7 +20,6 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="de">Elisa</name>
   <name xml:lang="el">Elisa</name>
   <name xml:lang="en-GB">Elisa</name>
-  <name xml:lang="eo">Elisa</name>
   <name xml:lang="es">Elisa</name>
   <name xml:lang="et">Elisa</name>
   <name xml:lang="eu">Elisa</name>
@@ -65,7 +64,6 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="de">Schöner, unkomplizierter Medienspieler mit Online-Radio-Unterstützung</summary>
   <summary xml:lang="el">Όμορφο και σοβαρό πρόγραμμα μουσικής αναπαραγωγής με επιγραμμική υποστήριξη ραδιοφώνου </summary>
   <summary xml:lang="en-GB">Beautiful no-nonsense music player with online radio support</summary>
-  <summary xml:lang="eo">Bela senpretenda muzikludilo kun subteno por retradio</summary>
   <summary xml:lang="es">Reproductor de música bello y práctico con soporte para radios en línea</summary>
   <summary xml:lang="et">Kaunis mõistliku muusika mängija veebiraadio toetusega</summary>
   <summary xml:lang="eu">Musika jotzaile eder eta txorakeriarik gabea lerroko irratien euskarria duena</summary>
@@ -109,7 +107,6 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="de">Ein einfacher Medienspieler, der leicht zu benutzen sein sollte. Er kann ganz ohne vorherige Konfiguration verwendet werden.</p>
     <p xml:lang="el">Μια απλή συσκευή αναπαραγωγής μουσικής, εύκολης στη χρήση. Δεν απαιτεί κάποια διαμόρφωση πριν τη χρήση της.</p>
     <p xml:lang="en-GB">A simple music player that should be easy to use. It does not require any configuration before one can use it.</p>
-    <p xml:lang="eo">Simpla muzikilo, kiu devus esti facile uzebla. Ĝi ne postulas ajnan agordon antaŭ ol oni povas uzi ĝin.</p>
     <p xml:lang="es">Un sencillo reproductor de música que debería ser fácil de usar. No necesita ninguna configuración antes de poder usarlo.</p>
     <p xml:lang="et">Lihtne, hõlpsasti kasutatav muusikamängija. See ei nõua enne kasutamist mingit erilisemat seadistamist.</p>
     <p xml:lang="eu">Erabiltzeko erraza izan beharko litzatekeen musika jotzaile bat. Ez du konfiguraziorik behar erabiltzen hasi aurretik.</p>
@@ -159,7 +156,6 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="de">Elisa-Musikwiedergabe</caption>
       <caption xml:lang="el">Η συσκευή αναπαραγωγής μουσικής Elisa</caption>
       <caption xml:lang="en-GB">The Elisa music player</caption>
-      <caption xml:lang="eo">La muzikludilo Elisa</caption>
       <caption xml:lang="es">El reproductor de música Elisa</caption>
       <caption xml:lang="et">Muusikamängija Elisa</caption>
       <caption xml:lang="eu">Elisa musika jotzailea</caption>
@@ -207,7 +203,6 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="de">Elisa auf Plasma Mobile</caption>
       <caption xml:lang="el">Η Elisa στο Plasma Mobile</caption>
       <caption xml:lang="en-GB">Elisa on Plasma Mobile</caption>
-      <caption xml:lang="eo">Elisa sur Plasma Mobile</caption>
       <caption xml:lang="es">Elisa en Plasma Mobile</caption>
       <caption xml:lang="eu">Elisa Plasma Mugikorrean</caption>
       <caption xml:lang="fi">Elisa Plasma Mobilessa</caption>
@@ -233,7 +228,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sl">Elisa na Plasma Mobile</caption>
       <caption xml:lang="sv">Elisa på Plasma Mobil</caption>
       <caption xml:lang="ta">பிளாஸ்மா மொபைலில் எலைசா</caption>
-      <caption xml:lang="tr">Plasma Cep Üzerinde Elisa</caption>
+      <caption xml:lang="tr">Plasma Mobile'de Elisa</caption>
       <caption xml:lang="uk">Elisa на мобільній Плазмі</caption>
       <caption xml:lang="x-test">xxElisa on Plasma Mobilexx</caption>
       <caption xml:lang="zh-CN">Elisa 运行于 Plasma Mobile 平台</caption>

@@ -137,6 +137,10 @@ if (NOT ANDROID)
     set_package_properties(KF${QT_MAJOR_VERSION}KIO PROPERTIES
         DESCRIPTION "File management libraries used for file browsing."
         TYPE REQUIRED)
+    find_package(KF${QT_MAJOR_VERSION}QQC2DesktopStyle ${REQUIRED_KF_VERSION} CONFIG QUIET)
+    set_package_properties(KF${QT_MAJOR_VERSION}QQC2DesktopStyle PROPERTIES
+        DESCRIPTION "KDE QtQuick style for desktop"
+        TYPE REQUIRED)
 endif()
 
 find_package(UPNPQT CONFIG QUIET)

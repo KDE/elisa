@@ -97,49 +97,9 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="zh-CN">简约优雅的音乐播放器，支持网络电台。</summary>
   <summary xml:lang="zh-TW">漂亮且簡潔明瞭的音樂播放程式，支援線上廣播</summary>
   <description>
-    <p> A simple music player that should be easy to use. It does not require any configuration before one can use it. </p>
-    <p xml:lang="ar">مشغّل موسيقى بسيط سهل الاستخدام. لا يحتاج منك ضبطه قبل أن تستخدمه.</p>
-    <p xml:lang="az">Rahat istifadə oluna biləcək sadə musiqi pleyeri. İstifadə etmək üçün hansısa ayarlama tələb etmir.</p>
-    <p xml:lang="be">Просты музычны прайгравальнік, які павінен быць зручным у выкарыстанні. Можна адразу карыстацца, няма патрэбы ў наладжванні.</p>
-    <p xml:lang="bg">Прост музикален плеър, който трябва да е лесен за използване. Той не изисква никаква конфигурация, преди да може да се използва.</p>
-    <p xml:lang="ca">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requereix cap configuració abans de poder utilitzar-lo.</p>
-    <p xml:lang="ca-valencia">Un reproductor de música senzill que hauria de ser fàcil d'utilitzar. No requerix cap configuració abans de poder utilitzar-lo.</p>
-    <p xml:lang="cs">Jednoduchý snadno použitelný přehrávač hudby, Před použitím nevyžaduje jakékoliv nastavovaní.</p>
-    <p xml:lang="da">En simpel musikafspiller der burde være let af bruge. Den kræver ikke nogen konfiguration inden den kan bruges.</p>
-    <p xml:lang="de">Ein einfacher Medienspieler, der leicht zu benutzen sein sollte. Er kann ganz ohne vorherige Konfiguration verwendet werden.</p>
-    <p xml:lang="el">Μια απλή συσκευή αναπαραγωγής μουσικής, εύκολης στη χρήση. Δεν απαιτεί κάποια διαμόρφωση πριν τη χρήση της.</p>
-    <p xml:lang="en-GB">A simple music player that should be easy to use. It does not require any configuration before one can use it.</p>
-    <p xml:lang="eo">Simpla muzikilo, kiu devus esti facile uzebla. Ĝi ne postulas ajnan agordon antaŭ ol oni povas uzi ĝin.</p>
-    <p xml:lang="es">Un sencillo reproductor de música que debería ser fácil de usar. No necesita ninguna configuración antes de poder usarlo.</p>
-    <p xml:lang="et">Lihtne, hõlpsasti kasutatav muusikamängija. See ei nõua enne kasutamist mingit erilisemat seadistamist.</p>
-    <p xml:lang="eu">Erabiltzeko erraza izan beharko litzatekeen musika jotzaile bat. Ez du konfiguraziorik behar erabiltzen hasi aurretik.</p>
-    <p xml:lang="fi">Yksinkertainen musiikkisoitin, jota tulisi olla helppo käyttää. Ei vaadi asettamista ennen käyttöä.</p>
-    <p xml:lang="fr">Un lecteur de musique simple qui se veut facile à utiliser. Il ne requiert aucune configuration pour pouvoir être utilisé.</p>
-    <p xml:lang="gl">Un reprodutor de música simple e fácil de usar. Non require ningún tipo de configuración inicial.</p>
-    <p xml:lang="hi">एक सरल संगीत वादक जो उपयोग करने में आसान है. इसे चलाने के लिए कुछ कॉन्फ़िगर नहीं करना पड़ता.</p>
-    <p xml:lang="hu">Egy egyszerű zenelejátszó, amely könnyen használható. Nem igényel semmilyen beállítást használat előtt.</p>
-    <p xml:lang="ia">Un simple reproductor de musica que deberea esser facile de usar. Illo non require ulle configuration ante que un pote usar lo.</p>
-    <p xml:lang="id">Sebuah pemutar musik sederhana yang seharusnya mudah digunakan. Yang tidak memerlukan konfigurasi apa pun sebelum seseorang bisa menggunakannya.</p>
-    <p xml:lang="it">Un semplice lettore musicale che dovrebbe essere semplice da usare. Non richiede alcuna configurazione per iniziare a usarlo.</p>
-    <p xml:lang="ja">直感的に使えるシンプルな音楽プレーヤーです。音楽を再生するまでに設定をする必要はありません。</p>
-    <p xml:lang="ka">მარტივი დამკვრელი, რომელიც უადვილესად შეგიძლიათ გამოიყენოთ. გამოყენებამდე მას არანაირი მორგება არ სჭირდება.</p>
-    <p xml:lang="ko">사용하기 쉬운 간편한 음악 재생기. 먼저 설정하지 않아도 사용할 수 있습니다.</p>
-    <p xml:lang="lt">Paprastas muzikos grotuvas, kurį turėtų būti lengva naudoti. Prieš pradedant juo naudojantis, nereikalinga jokia konfigūracija.</p>
-    <p xml:lang="nl">Eenvoudige muziekspeler die gemakkelijk te gebruiken is. Het vereist geen enkele configuratie om te gebruiken.</p>
-    <p xml:lang="nn">Ein enkel og brukarvennleg musikkspelar. Kan takast  i bruk med ein gong, utan noko oppsettprosedyre.</p>
-    <p xml:lang="pl">Prosty odtwarzacz multimediów, który powinien być łatwy w obsłudze. Nie wymaga żadnych ustawień do jego używania.</p>
-    <p xml:lang="pt">Um leitor de música simples que deveria ser simples de usar. Não necessita de nenhuma configuração antes de poder ser usado.</p>
-    <p xml:lang="pt-BR">Um reprodutor de músicas simples que deve ser fácil de usar. Não requer qualquer configuração antes de usá-lo.</p>
-    <p xml:lang="ro">Un lector de muzică simplu și ușor de folosit. Nu necesită niciun fel de configurare înainte de a putea fi folosit.</p>
-    <p xml:lang="ru">Простое в использовании приложение для проигрывания музыки. Для начала использования не требуется никакой предварительной настройки.</p>
-    <p xml:lang="sk">Jednoduchý hudobný prehliadač, ktorý by malo byť jednoduché používať. Nevyžaduje žiadne nastavenie pred použitím.</p>
-    <p xml:lang="sl">Preprost predvajalnik glasbe, ki naj bi bil enostaven za uporabo. Pred uporabo ne potrebuje nastavljanja.</p>
-    <p xml:lang="sv">En enkel musikspelare som ska vara lättanvänd. Den kräver inga inställningar innan man kan använda den.</p>
-    <p xml:lang="tr">Kullanımı kolay yalın bir müzik çalar. Kullanmadan önce herhangi bir yapılandırma gerektirmez.</p>
-    <p xml:lang="uk">Простий у користуванні музичний програвач. Не потребує налаштовування перед користуванням.</p>
-    <p xml:lang="x-test">xxA simple music player that should be easy to use. It does not require any configuration before one can use it.xx</p>
-    <p xml:lang="zh-CN">一个简单易用的音乐播放器，无需任何配置即可使用。</p>
-    <p xml:lang="zh-TW">一款或許易用的簡易音樂播放器，使用前不須任何設定。</p>
+    <p>Elisa is developed by the KDE community and strives to be simple and nice to use. With Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.</p>
+    <p>Indexing your music is lightning fast thanks to integration with KDE's Baloo file indexer, or use a built-in indexer if Baloo isn't available or in use. And Elisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.</p>
+    <p>Chill out with Party Mode, which puts your music's album art front and center.</p>
   </description>
   <url type="homepage">https://elisa.kde.org</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?product=elisa</url>

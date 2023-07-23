@@ -97,8 +97,9 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="zh-CN">简约优雅的音乐播放器，支持网络电台。</summary>
   <summary xml:lang="zh-TW">漂亮且簡潔明瞭的音樂播放程式，支援線上廣播</summary>
   <description>
-    <p>Elisa is developed by the KDE community and strives to be simple and nice to use. With Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.</p>
-    <p>Indexing your music is lightning fast thanks to integration with KDE's Baloo file indexer, or use a built-in indexer if Baloo isn't available or in use. And Elisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.</p>
+    <p>The Elisa music player is developed by the KDE community and strives to be simple and pleasant to use. It's available on Linux, Microsoft Windows, and Android.</p>
+    <p>With Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.</p>
+    <p>Indexing your music is lightning fast thanks to integration with KDE's Baloo file indexer, or it can use a built-in indexer if Baloo isn't available or in use. And Elisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.</p>
     <p>Chill out with Party Mode, which puts your music's album art front and center.</p>
   </description>
   <url type="homepage">https://elisa.kde.org</url>

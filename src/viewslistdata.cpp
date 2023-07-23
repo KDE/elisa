@@ -23,7 +23,10 @@
 class ViewsListDataPrivate
 {
 public:
-    QString mInitialFilesViewPath = QDir::rootPath();
+    explicit ViewsListDataPrivate(const QString &initialFilesViewPath)
+        : mInitialFilesViewPath{initialFilesViewPath} {}
+
+    QString mInitialFilesViewPath;
 
     QList<ViewParameters> mViewsParameters = {{{i18nc("@title:window Title of the view of the playlist", "Now Playing")},
                                                QUrl{QStringLiteral("image://icon/view-media-lyrics")},
@@ -170,16 +173,14 @@ public:
     bool mIsFullyInitialized = true;
 };
 
-ViewsListData::ViewsListData(QObject *parent) : QObject(parent), d(std::make_unique<ViewsListDataPrivate>())
-{
+ViewsListData::ViewsListData(QObject *parent) : QObject(parent) {
     // Need to instantiate a config object to read the user's preferred initial Files view path
     auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
     configurationFileName += QStringLiteral("/elisarc");
     Elisa::ElisaConfiguration::instance(configurationFileName);
     Elisa::ElisaConfiguration::self()->load();
-    // FIXME: this doesn't work because we get the data too late I think, so it starts
-    // up with the defaut fallback path, rather than the one in the config file
-    d->mInitialFilesViewPath = Elisa::ElisaConfiguration::initialFilesViewPath();
+
+    d = std::make_unique<ViewsListDataPrivate>(Elisa::ElisaConfiguration::initialFilesViewPath());
 
     d->mDataLoader = new ModelDataLoader;
     connect(this, &ViewsListData::destroyed, d->mDataLoader, &ModelDataLoader::deleteLater);

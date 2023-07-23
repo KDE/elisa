@@ -204,6 +204,7 @@ SPDX-License-Identifier: CC0-1.0
   <provides>
     <binary>elisa</binary>
   </provides>
+  <launchable type="desktop-id">org.kde.elisa.desktop</launchable>
   <project_group>KDE</project_group>
   <content_rating type="oars-1.0"/>
   <releases>

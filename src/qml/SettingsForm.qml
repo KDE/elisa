@@ -286,7 +286,6 @@ ColumnLayout {
 
                     onAccepted: {
                         const url = fileUrl
-                        console.warn("The selected URL was " + url)
                         initialFilesViewPathTextField.text = url.toString().replace("file://", "")
                     }
                 }

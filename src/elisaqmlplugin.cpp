@@ -217,3 +217,5 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 
     qmlRegisterUncreatableMetaObject(ElisaUtils::staticMetaObject, uri, 1, 0, "ElisaUtils", QStringLiteral("Namespace ElisaUtils"));
 }
+
+#include "moc_elisaqmlplugin.cpp"

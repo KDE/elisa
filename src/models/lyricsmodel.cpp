@@ -348,3 +348,5 @@ QHash<int, QByteArray> LyricsModel::roleNames() const
 {
     return {{LyricsRole::Lyric, QByteArrayLiteral("lyric")}, {LyricsRole::TimeStamp, QByteArrayLiteral("timestamp")}};
 }
+
+#include "moc_lyricsmodel.cpp"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-30 00:47+0000\n"
-"PO-Revision-Date: 2023-03-01 02:17+0100\n"
+"PO-Revision-Date: 2023-07-22 23:40+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -381,7 +381,7 @@ msgstr "표시할 항목 없음"
 #, kde-format
 msgctxt "@title:menu"
 msgid "Application Menu"
-msgstr "프로그램 메뉴"
+msgstr "앱 메뉴"
 
 #: qml/ApplicationMenu.qml:27 qml/NativeGlobalMenu.qml:62
 #, kde-format
@@ -648,12 +648,10 @@ msgid "%1 - %2"
 msgstr "%1 - %2"
 
 #: qml/ListBrowserDelegate.qml:289
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "바로 재생 및 재생 목록 바꾸기"
+msgstr "여기서부터 재생 및 재생 목록 바꾸기"
 
 #: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:100
 #, kde-format
@@ -799,7 +797,7 @@ msgstr "없음"
 #, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"
-msgstr "프로그램 메뉴"
+msgstr "앱 메뉴"
 
 #: qml/MediaPlayListView.qml:27
 #, kde-format
@@ -1518,12 +1516,10 @@ msgid "Disc %1"
 msgstr "디스크 %1"
 
 #: qml/VolumeSlider.qml:58
-#, fuzzy, kde-format
-#| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
-#| msgid "%1:"
+#, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr "%1:"
+msgstr "%1%"
 
 #: viewmanager.cpp:41 viewmanager.cpp:71
 #, kde-format

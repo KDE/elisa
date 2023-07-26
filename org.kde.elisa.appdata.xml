@@ -76,7 +76,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="hu">Zenelejáts online rádió támogatással</summary>
   <summary xml:lang="ia">Belle reproductor rationabile de musica con suporto de radio in linea</summary>
   <summary xml:lang="id">Pemutar musik indah yang kerèn dengan dukungan radio online</summary>
-  <summary xml:lang="it">Meraviglioso letture multimediale senza fronzoli con supporto per le radio online</summary>
+  <summary xml:lang="it">Meraviglioso lettore multimediale senza fronzoli con supporto per le radio online</summary>
   <summary xml:lang="ja">オンラインラジオをサポートした、無駄のない美しい音楽プレーヤー</summary>
   <summary xml:lang="ka">ლამაზი, არა უაზრო დამკვრელი ონლაინ რადიოს მხარდაჭერით</summary>
   <summary xml:lang="ko">온라인 라디오를 지원하는 아름다운 음악 재생기</summary>
@@ -99,6 +99,9 @@ SPDX-License-Identifier: CC0-1.0
   <description>
     <p>The Elisa music player is developed by the KDE community and strives to be simple and pleasant to use. It's available on Linux, Microsoft Windows, and Android.</p>
     <p xml:lang="ca">El reproductor de música Elisa és desenvolupat per la comunitat KDE i s'esforça per ser senzill i agradable d'utilitzar. Està disponible al Linux, Microsoft Windows i Android.</p>
+    <p xml:lang="eo">La muzikludilo Elisa estas evoluigita de la KDE-komunumo kaj klopodas esti simpla kaj agrabla por uzi. Ĝi disponeblas en Linukso, Vindozo kaj Androido.</p>
+    <p xml:lang="it">Il riproduttore multimediale Elisa è sviluppato dalla comunità KDE e cerca di essere semplice e piacevole da usare. È disponibile su Linux, Microsoft Windows e Android.</p>
+    <p xml:lang="ka">მუსიკის დამკვრელი Elisa შეიქმნა KDE-ის საზოგადოების მიერ და მიიღწვის, რათა სასიამოვნო და მარტივი იყოს. ხელმისაწვდომია Linux-ზე, Microsoft Windows-ზე და Android-ზე.</p>
     <p xml:lang="nl">De Elisa muziekspeler is ontwikkeld door de KDE gemeenschap en streeft er naar om eenvoudig en plezierig in gebruik te zijn. Deze is beschikbaar op Linux, Microsoft Windows en Android.</p>
     <p xml:lang="sl">Predvajalnik glasbe Elisa je razvila skupnost KDE in si prizadeva, da bi bil preprost in prijeten za uporabo. Na voljo je v sistemih Linux, Microsoft Windows in Android.</p>
     <p xml:lang="tr">Elisa müzik çaları, KDE topluluğu tarafından geliştirilir ve yalın ve kullanımı kolay bir deneyim sunmaya çalışır. Linux, Microsoft Windows ve Android üzerinde kullanılabilirdir.</p>
@@ -106,6 +109,9 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="x-test">xxThe Elisa music player is developed by the KDE community and strives to be simple and pleasant to use. It's available on Linux, Microsoft Windows, and Android.xx</p>
     <p>With Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.</p>
     <p xml:lang="ca">Amb l'Elisa, podeu navegar per la vostra col·lecció de música local per gènere, artista, àlbum o peça, escoltar ràdio en línia, crear i gestionar llistes de reproducció, mostrar les lletres i més.</p>
+    <p xml:lang="eo">Kun Elisa, vi povas foliumi vian lokan muzikkolekton laŭ ĝenro, artisto, albumo, aŭ trako, aŭskulti interretan radion, krei kaj administri ludlistojn, montri kantotekstojn, kaj pli.</p>
+    <p xml:lang="it">Con Elisa puoi navigare la raccolta di musica locale per genere, artista, album o traccia, ascolta le radio in linea, crea e gestisci scalette, mostra testi, e altro.</p>
+    <p xml:lang="ka">Elisa-სთან ერთად შეგიძლიათ ლოკალური მუსიკის კოლექცია ჟანრის, შემსრულებლის, ალბომის ან ტრეკების მიხედვით დაალაგოთ, მოუსმინოთ ონლაინ-რადიოს, შექმნათ და მართოთ დასაკრავი სიები, აჩვენოთ ლირიკა და სხვ.</p>
     <p xml:lang="nl">Met Elisa kunt u in uw lokale muziekverzameling bladeren op genre, artiest, album of track, luisteren naar online radio, afspeellijsten aanmaken en beheren, liedteksten tonen en meer.</p>
     <p xml:lang="sl">Z Eliso lahko brskate po lokalni glasbeni zbirki po zvrsti, izvajalcu, albumu ali skladbi, poslušate spletni radio, ustvarjate in upravljate sezname predvajanja, prikazujete besedila in drugo.</p>
     <p xml:lang="tr">Elisa ile yerel müzik koleksiyonunuza türe, sanatçıya, albüme veya parçaya göre göz atabilir, çevrimiçi radyo dinleyebilir, çalma listeleri oluşturabilir ve yönetebilir, şarkı sözlerini görüntüleyebilir ve daha fazlasını yapabilirsiniz.</p>
@@ -113,6 +119,9 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="x-test">xxWith Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.xx</p>
     <p>Indexing your music is lightning fast thanks to integration with KDE's Baloo file indexer, or it can use a built-in indexer if Baloo isn't available or in use. And Elisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.</p>
     <p xml:lang="ca">Indexar la música és un ràpid com un llamp gràcies a la integració amb l'indexador de fitxers Baloo de KDE, o pot utilitzar un indexador integrat si el Baloo no està disponible o en ús. I l'Elisa admet l'esquema de color KDE complet quan s'utilitza a l'escriptori Plasma, o els modes clars i foscos estàndard.</p>
+    <p xml:lang="eo">Indeksado de via muziko estas fulmrapida danke al integriĝo kun la Baloo dosier-indeksilo de KDE, aŭ ĝi povas uzi enkonstruitan indeksilon se Baloo ne estas disponebla aŭ en uzo. Kaj Elisa subtenas vian plenan kolorskemon de KDE kiam uzata en la Plasma-labortablo, aŭ alie la normajn helan kaj malhelan reĝimojn.</p>
+    <p xml:lang="it">L'indicizzazione delle musica è super-veloce grazie all'integrazione con l'indicizzatore di file Baloo di KDE, ma  può usare un indicizzatore integrato se Baloo non è disponibile o non in uso. E Elisa supporta lo schema di colori completo di KDE quando usato nel desktop plasma, altrimenti le modalità standard chiare e scure.</p>
+    <p xml:lang="ka">თქვენი მუსიკის დაინდექსებას, KDE-ის Baloo ინდექსერის დახმარებით ახლა ერთი თვალის დახამხამებაღა სჭირდება. ან, თუ Baloo ხელმისაწვდომი არაა, შეუძლია თავისი ინდექსერიც გამოიყენოს. Elisa-ს აქვს KDE-ის ფერის თემების სრული მხარდაჭერა, როცა ის Plasma-ის სამუშაო გარემოშია გაშვებული ისევე, როგორც ღია და მუქი რეჟიმებისაც.</p>
     <p xml:lang="nl">Uw muziek indexeren is super snel dankzij de integratie met de bestanden indexering met Baloo van KDE of het kan een ingebouwde indexering gebruiken als Baloo niet beschikbaar is of in gebruik. En Elisa ondersteunt uw volledige KDE kleurenschema bij gebruikt op het Plasma bureaublad of anders de standaard lichte end donkere modi.</p>
     <p xml:lang="sl">Indeksiranje vaše glasbe je bliskovito hitro zahvaljujoč integraciji s KDE-jevim indekserjem datotek Baloo, lahko uporabimo vgrajen indekser, če Baloo ni na voljo ali se ne uporablja. In Elisa podpira vašo celotno barvno shemo KDE, ko jo uporabljate na namizju Plasma tako v standardnem svetlem in temnem načinu.</p>
     <p xml:lang="tr">KDE'nin Baloo dosya indeksleyicisi tümleştirmesi ile müziğinizin indekslenmesi ışık hızındadır. Baloo kullanılabilir değilse yerleşik bir indeksleyicisi de vardır. Elisa, Plasma masaüstünüzün tüm renk şemasına uyum sağlar; ayrı olarak açık ve koyu temalar ile de kullanılabilir.</p>
@@ -120,6 +129,9 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="x-test">xxIndexing your music is lightning fast thanks to integration with KDE's Baloo file indexer, or it can use a built-in indexer if Baloo isn't available or in use. And Elisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.xx</p>
     <p>Chill out with Party Mode, which puts your music's album art front and center.</p>
     <p xml:lang="ca">Gaudiu amb el mode festa, que posa l'art dels àlbums de la música al davant de tot.</p>
+    <p xml:lang="eo">Malstreĉiĝu kun Party Mode, kiu elstarigas la albumarton de via muziko fronte kaj centre.</p>
+    <p xml:lang="it">Rilassati con la modalità party, che mette in evidenza la grafica degli album della tua musica.</p>
+    <p xml:lang="ka">დაისვენეთ წვეულების რეჟიმში, რომელიც მუსიკის ალბომის ყდას ეკრანზე გაჩვენებთ.</p>
     <p xml:lang="nl">Ontspan met Party modus, die de illustraties van uw muziekalbum voorop en gecentreerd plaatst.</p>
     <p xml:lang="sl">Sprostite se s party načinom, ki postavi sliko albuma vaše glasbe v ospredje in v center.</p>
     <p xml:lang="tr">Müziğinizin albüm kapağını öne ve merkeze koyan Parti Kipi ile kendinize bir mola verin.</p>

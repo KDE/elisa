@@ -393,9 +393,11 @@ if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
     if(QT_MAJOR_VERSION STREQUAL "6")
         set(KIRIGAMI_ICON_SOURCE "icon.source")
         set(KIRIGAMI_PAGE_ACTIONS "actions")
+        set(FILEDIALOG_SELECTEDFILES "selectedFiles")
     else()
         set(KIRIGAMI_ICON_SOURCE "icon")
         set(KIRIGAMI_PAGE_ACTIONS "contextualActions")
+        set(FILEDIALOG_SELECTEDFILES "fileUrls")
     endif()
     # The qrc paths need to be relative, or we adjust all of them :/
     configure_file(resources.qrc.in ${CMAKE_CURRENT_SOURCE_DIR}/resources.generated.qrc)
@@ -405,6 +407,7 @@ if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
     configure_file(qml/ListBrowserDelegate.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/ListBrowserDelegate.qml)
     configure_file(qml/ViewSelector.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/ViewSelector.qml)
     configure_file(qml/mobile/MobileMediaTrackMetadataView.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/mobile/MobileMediaTrackMetadataView.qml)
+    configure_file(qml/SettingsForm.qml ${CMAKE_CURRENT_BINARY_DIR}/qml/SettingsForm.qml)
 
     set(elisa_SOURCES
         main.cpp

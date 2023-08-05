@@ -90,20 +90,118 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
     }
 
     if (d->mData[index.row()].mIsValid) {
+        const auto &trackData = d->mTrackData[index.row()];
         switch(role)
         {
         case ColumnsRoles::IsValidRole:
             result = d->mData[index.row()].mIsValid;
             break;
+        case ColumnsRoles::DatabaseIdRole:
+            if (trackData.databaseId().has_value()) {
+                result = trackData.databaseId().value();
+            }
+            break;
+        case ColumnsRoles::ArtistRole:
+            if (trackData.artist().has_value()) {
+                result = trackData.artist().value();
+            }
+            break;
+        case ColumnsRoles::AlbumArtistRole:
+            if (trackData.albumArtist().has_value()) {
+                result = trackData.albumArtist().value();
+            }
+            break;
+        case ColumnsRoles::AlbumRole:
+            if (trackData.album().has_value()) {
+                result = trackData.album().value();
+            }
+            break;
+        case ColumnsRoles::AlbumIdRole:
+            result = trackData.albumId();
+            break;
+        case ColumnsRoles::TrackNumberRole:
+            if (trackData.trackNumber().has_value()) {
+                result = trackData.trackNumber().value();
+            }
+            break;
+        case ColumnsRoles::DiscNumberRole:
+            if (trackData.discNumber().has_value()) {
+                result = trackData.discNumber().value();
+            }
+            break;
+        case ColumnsRoles::RatingRole:
+            result = trackData.rating();
+            break;
+        case ColumnsRoles::GenreRole:
+            if (trackData.genre().has_value()) {
+                result = trackData.genre().value();
+            }
+            break;
+        case ColumnsRoles::LyricistRole:
+            if (trackData.lyricist().has_value()) {
+                result = trackData.lyricist().value();
+            }
+            break;
+        case ColumnsRoles::ComposerRole:
+            if (trackData.composer().has_value()) {
+                result = trackData.composer().value();
+            }
+            break;
+        case ColumnsRoles::CommentRole:
+            if (trackData.comment().has_value()) {
+                result = trackData.comment().value();
+            }
+            break;
+        case ColumnsRoles::YearRole:
+            if (trackData.year().has_value()) {
+                result = trackData.year().value();
+            }
+            break;
+        case ColumnsRoles::ChannelsRole:
+            if (trackData.channels().has_value()) {
+                result = trackData.channels().value();
+            }
+            break;
+        case ColumnsRoles::BitRateRole:
+            if (trackData.bitRate().has_value()) {
+                result = trackData.bitRate().value();
+            }
+            break;
+        case ColumnsRoles::SampleRateRole:
+            if (trackData.sampleRate().has_value()) {
+                trackData.sampleRate().value();
+            }
+            break;
+        case ColumnsRoles::CountRole:
+            result = trackData.playCounter();
+            break;
         case ColumnsRoles::IsPlayingRole:
             result = d->mData[index.row()].mIsPlaying;
+            break;
+        case ColumnsRoles::IsSingleDiscAlbumRole:
+            result = trackData.isSingleDiscAlbum();
+            break;
+        case ColumnsRoles::SecondaryTextRole:
+            result = trackData.secondaryText();
+            break;
+        case ColumnsRoles::ImageUrlRole:
+            result = trackData.albumCover();
+            break;
+        case ColumnsRoles::ShadowForImageRole:
+            result = false; // seems unused
+            break;
+        case ColumnsRoles::ResourceRole:
+            result = trackData.resourceURI();
+            break;
+        case ColumnsRoles::FullDataRole:
+            result = QVariant::fromValue<DataTypes::MusicDataType>(static_cast<DataTypes::MusicDataType>(trackData));
             break;
         case ColumnsRoles::ElementTypeRole:
             result = QVariant::fromValue(d->mData[index.row()].mEntryType);
             break;
         case ColumnsRoles::StringDurationRole:
         {
-            QTime trackDuration = d->mTrackData[index.row()][TrackDataType::key_type::DurationRole].toTime();
+            QTime trackDuration = d->mTrackData[index.row()].duration();
             if (trackDuration.hour() == 0) {
                 result = trackDuration.toString(QStringLiteral("mm:ss"));
             } else {
@@ -112,18 +210,16 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             break;
         }
         case ColumnsRoles::AlbumSectionRole:
-            result = QJsonDocument{QJsonArray{d->mTrackData[index.row()][TrackDataType::key_type::AlbumRole].toString(),
-                    d->mTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole].toString(),
-                    d->mTrackData[index.row()][TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}.toJson();
+            result = QJsonDocument{QJsonArray{d->mTrackData[index.row()].album().value_or(QString()),
+                                              d->mTrackData[index.row()].albumArtist().value_or(QString()),
+                    d->mTrackData[index.row()].albumCover().toString()}}.toJson();
             break;
         case ColumnsRoles::TitleRole:
         {
-            const auto &trackData = d->mTrackData[index.row()];
-            auto titleData = trackData[TrackDataType::key_type::TitleRole];
-            if (titleData.toString().isEmpty()) {
-                result = trackData[TrackDataType::key_type::ResourceRole].toUrl().fileName();
+            if (trackData.title().isEmpty()) {
+                result = trackData.resourceURI().fileName();
             } else {
-                result = titleData;
+                result = trackData.title();
             }
             break;
         }
@@ -150,14 +246,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             }
             break;
         default:
-            const auto &trackData = d->mTrackData[index.row()];
-            auto roleEnum = static_cast<TrackDataType::key_type>(role);
-            auto itData = trackData.find(roleEnum);
-            if (itData != trackData.end()) {
-                result = itData.value();
-            } else {
-                result = {};
-            }
+            Q_UNREACHABLE();
         }
     } else {
         switch(role)
@@ -242,7 +331,7 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
     {
         modelModified = true;
         d->mData[index.row()].mTitle = value;
-        d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)] = value;
+        d->mTrackData[index.row()].setTitle(value.toString());
         Q_EMIT dataChanged(index, index, {role});
 
         break;
@@ -251,7 +340,7 @@ bool MediaPlayList::setData(const QModelIndex &index, const QVariant &value, int
     {
         modelModified = true;
         d->mData[index.row()].mArtist = value;
-        d->mTrackData[index.row()][static_cast<TrackDataType::key_type>(role)] = value;
+        d->mTrackData[index.row()].setArtist(value.toString());
         Q_EMIT dataChanged(index, index, {role});
 
         break;
@@ -375,16 +464,19 @@ void MediaPlayList::enqueueFilesList(const DataTypes::EntryDataList &newEntries)
         newEntry.mEntryType = ElisaUtils::FileName;
         d->mData.push_back(newEntry);
         if (trackUrl.isValid()) {
+            DataTypes::TrackDataType track;
             if (trackUrl.isLocalFile()) {
-                d->mTrackData.push_back({{DataTypes::ColumnsRoles::ResourceRole, trackUrl}});
+                track.setResourceURI(trackUrl);
+                d->mTrackData.push_back(track);
                 auto entryString =  trackUrl.toLocalFile();
                 QFileInfo newTrackFile(entryString);
                 if (newTrackFile.exists()) {
                     d->mData.last().mIsValid = true;
                 }
             } else {
-                d->mTrackData.push_back({{DataTypes::ColumnsRoles::ResourceRole, trackUrl},
-                                         {DataTypes::ColumnsRoles::TitleRole, trackUrl.fileName()}});
+                track.setResourceURI(trackUrl);
+                track.setTitle(trackUrl.fileName());
+                d->mTrackData.push_back(track);
                 d->mData.last().mIsValid = true;
             }
             Q_EMIT newUrlInList(trackUrl, newEntry.mEntryType);
@@ -397,19 +489,19 @@ void MediaPlayList::enqueueFilesList(const DataTypes::EntryDataList &newEntries)
 
 void MediaPlayList::enqueueOneEntry(const DataTypes::EntryData &entryData)
 {
-    if (!std::get<0>(entryData).isEmpty() || !std::get<1>(entryData).isEmpty() || !std::get<2>(entryData).isEmpty()) {
+    if (std::get<0>(entryData).isValid() || !std::get<1>(entryData).isEmpty() || !std::get<2>(entryData).isEmpty()) {
         beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
-        if (!std::get<0>(entryData).databaseId() && std::get<2>(entryData).isValid()) {
+        if (!std::get<0>(entryData).databaseId().has_value() && std::get<2>(entryData).isValid()) {
             auto newEntry = MediaPlayListEntry{std::get<2>(entryData)};
             newEntry.mEntryType = ElisaUtils::FileName;
             d->mData.push_back(std::move(newEntry));
             d->mTrackData.push_back({});
         } else {
-            qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueOneEntry" << std::get<0>(entryData) << std::get<1>(entryData) << std::get<0>(entryData).elementType();
+            qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueOneEntry" << std::get<0>(entryData) << std::get<1>(entryData) << std::get<0>(entryData).elementType().value();
 
-            d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType()});
+            d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId().value(), std::get<1>(entryData), std::get<0>(entryData).elementType().value()});
             const auto &data = std::get<0>(entryData);
-            switch (data.elementType())
+            switch (data.elementType().value())
             {
             case ElisaUtils::Track:
             case ElisaUtils::Radio:
@@ -420,9 +512,9 @@ void MediaPlayList::enqueueOneEntry(const DataTypes::EntryData &entryData)
             }
         }
         if (std::get<2>(entryData).isValid()) {
-            Q_EMIT newUrlInList(std::get<2>(entryData), std::get<0>(entryData).elementType());
+            Q_EMIT newUrlInList(std::get<2>(entryData), std::get<0>(entryData).elementType().value());
         } else {
-            Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType());
+            Q_EMIT newEntryInList(std::get<0>(entryData).databaseId().value(), std::get<1>(entryData), std::get<0>(entryData).elementType().value());
         }
         endInsertRows();
     }
@@ -435,16 +527,16 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
     for (const auto &entryData : entriesData) {
         qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << std::get<0>(entryData);
-        auto trackUrl = std::get<0>(entryData)[DataTypes::ResourceRole].toUrl();
-        if (!std::get<0>(entryData).databaseId() && trackUrl.isValid()) {
+        auto trackUrl = std::get<0>(entryData).resourceURI();
+        if (!std::get<0>(entryData).databaseId().has_value() && trackUrl.isValid()) {
             auto newEntry = MediaPlayListEntry{trackUrl};
             newEntry.mEntryType = ElisaUtils::FileName;
             d->mData.push_back(std::move(newEntry));
             d->mTrackData.push_back({});
         } else {
-            d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType()});
+            d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId().value(), std::get<1>(entryData), std::get<0>(entryData).elementType().value()});
             const auto &data = std::get<0>(entryData);
-            switch (data.elementType())
+            switch (data.elementType().value())
             {
             case ElisaUtils::Track:
             case ElisaUtils::Radio:

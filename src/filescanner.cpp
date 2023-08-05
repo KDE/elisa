@@ -132,10 +132,10 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
     const auto &localFileName = scanFile.toLocalFile();
 
-    newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
-    newTrack[DataTypes::ResourceRole] = scanFile;
-    newTrack[DataTypes::RatingRole] = 0;
-    newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
+    newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
+    newTrack.setResourceURI(scanFile);
+    newTrack.setRating(0);
+    newTrack.setElementType(ElisaUtils::Track);
 
 #if KFFileMetaData_FOUND
     const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
@@ -153,11 +153,11 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
         qCDebug(orgKdeElisaIndexer()) << "FileScanner::shouldScanFile" << scanFile << localFileName << "no extractors" << fileMimeType;
 
-        newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
-        newTrack[DataTypes::ResourceRole] = scanFile;
-        newTrack[DataTypes::RatingRole] = 0;
-        newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(1);
-        newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
+        newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
+        newTrack.setResourceURI(scanFile);
+        newTrack.setRating(0);
+        newTrack.setDuration(QTime::fromMSecsSinceStartOfDay(1));
+        newTrack.setElementType(ElisaUtils::Track);
 
         return newTrack;
     }
@@ -181,7 +181,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 #endif
 
     // try to find lyric in FILENAME.lrc if no lyric in metadata
-    if (!newTrack.hasLyrics()) {
+    if (!newTrack.lyrics().has_value()) {
         QString baseName = scanFileInfo.completeBaseName();
         QDir dir = scanFileInfo.dir();
         QString lyricPath = dir.filePath(baseName + QStringLiteral(".lrc"));
@@ -192,9 +192,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         if (lyric.exists() && lyric.open(QFile::ReadOnly)) {
             QString lyricString = QString::fromUtf8(lyric.readAll());
             if (!lyricString.isEmpty()) {
-                QVariant var;
-                var.setValue(DataTypes::LyricsData(lyricString, false, lyricPath));
-                newTrack[DataTypes::LyricsRole] = var;
+                newTrack.setLyrics(DataTypes::LyricsData(lyricString, false, lyricPath));
             }
         }
     }
@@ -218,10 +216,10 @@ DataTypes::TrackDataType FileScanner::scanOneBalooFile(const QUrl &scanFile, con
 #if KFBaloo_FOUND
     const auto &localFileName = scanFile.toLocalFile();
 
-    newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
-    newTrack[DataTypes::ResourceRole] = scanFile;
-    newTrack[DataTypes::RatingRole] = 0;
-    newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
+    newTrack.setFileModificationTime(scanFileInfo.metadataChangeTime());
+    newTrack.setResourceURI(scanFile);
+    newTrack.setRating(0);
+    newTrack.setElementType(ElisaUtils::Track);
 
     Baloo::File match(localFileName);
 
@@ -265,18 +263,63 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
         } else {
             value = (*rangeBegin).second;
         }
-        if (d->propertyTranslation.contains(key)) {
-            const auto &translatedKey = d->propertyTranslation.find(key);
-            if (translatedKey.value() == DataTypes::DurationRole) {
-                trackData.insert(translatedKey.value(), QTime::fromMSecsSinceStartOfDay(int(1000 * (*rangeBegin).second.toDouble())));
-            } else if (translatedKey.value() == DataTypes::LyricsRole) {
-                QVariant var;
-                var.setValue(DataTypes::LyricsData((*rangeBegin).second.toString()));
-                trackData.insert(translatedKey.value(), var);
-            } else if (translatedKey != d->propertyTranslation.end()) {
-                trackData.insert(translatedKey.value(), (*rangeBegin).second);
-            }
+        switch (key) {
+        case KFileMetaData::Property::BitRate:
+            trackData.setBitRate(value.toInt());
+            break;
+        case KFileMetaData::Property::Channels:
+            trackData.setChannels(value.toInt());
+            break;
+        case KFileMetaData::Property::Duration:
+            trackData.setDuration(QTime(0, 0, value.toInt()));
+            break;
+        case KFileMetaData::Property::Genre:
+            trackData.setGenre(value.toString());
+            break;
+        case KFileMetaData::Property::SampleRate:
+            trackData.setSampleRate(value.toInt());
+            break;
+        case KFileMetaData::Property::TrackNumber:
+            trackData.setTrackNumber(value.toInt());
+            break;
+        case KFileMetaData::Property::ReleaseYear:
+            trackData.setYear(value.toInt());
+            break;
+        case KFileMetaData::Property::Comment:
+            trackData.setComment(value.toString());
+            break;
+        case KFileMetaData::Property::Artist:
+            trackData.setArtist(value.toString());
+            break;
+        case KFileMetaData::Property::Album:
+            trackData.setAlbum(value.toString());
+            break;
+        case KFileMetaData::Property::AlbumArtist:
+            trackData.setAlbumArtist(value.toString());
+            break;
+        case KFileMetaData::Property::Composer:
+            trackData.setComposer(value.toString());
+            break;
+        case KFileMetaData::Property::Lyricist:
+            trackData.setLyricist(value.toString());
+            break;
+        case KFileMetaData::Property::Title:
+            trackData.setTitle(value.toString());
+            break;
+        case KFileMetaData::Property::DiscNumber:
+            trackData.setDiscNumber(value.toInt());
+            break;
+        case KFileMetaData::Property::Rating:
+            trackData.setRating(value.toInt());
+            break;
+        case KFileMetaData::Property::Lyrics:
+            trackData.setLyrics(DataTypes::LyricsData(value.toString()));
+            break;
+        default:
+            // other unsupported values
+            break;
         }
+
         rangeBegin = rangeEnd;
     }
 
@@ -285,22 +328,22 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
     }
 
     if (checkEmbeddedCoverImage(localFileName)) {
-        trackData[DataTypes::HasEmbeddedCover] = true;
-        trackData[DataTypes::ImageUrlRole] = QUrl(QLatin1String("image://cover/") + localFileName);
+        trackData.setHasEmbeddedCover(true);
+        trackData.setAlbumCover(QUrl(QLatin1String("image://cover/") + localFileName));
     } else {
-        trackData[DataTypes::HasEmbeddedCover] = false;
+        trackData.setHasEmbeddedCover(false);
     }
 
 #if !defined Q_OS_ANDROID && !defined Q_OS_WIN
     const auto fileData = KFileMetaData::UserMetaData(localFileName);
     const auto &comment = fileData.userComment();
     if (!comment.isEmpty()) {
-        trackData[DataTypes::CommentRole] = comment;
+        trackData.setComment(comment);
     }
 
     const auto rating = fileData.rating();
     if (rating >= 0) {
-        trackData[DataTypes::RatingRole] = rating;
+        trackData.setRating(rating);
     }
 #endif
 

@@ -46,7 +46,7 @@ TracksListener::~TracksListener()
 void TracksListener::tracksAdded(const ListTrackDataType &allTracks)
 {
     for (const auto &oneTrack : allTracks) {
-        if (d->mTracksByIdSet.contains(oneTrack.databaseId())) {
+        if (d->mTracksByIdSet.contains(oneTrack.databaseId().value())) {
             Q_EMIT trackHasChanged(oneTrack);
         }
 
@@ -82,7 +82,7 @@ void TracksListener::tracksAdded(const ListTrackDataType &allTracks)
 
             Q_EMIT trackHasChanged(TrackDataType(oneTrack));
 
-            d->mTracksByIdSet.insert(oneTrack.databaseId());
+            d->mTracksByIdSet.insert(oneTrack.databaseId().value());
             itTrack = d->mTracksByNameSet.erase(itTrack);
         }
     }
@@ -97,7 +97,7 @@ void TracksListener::trackRemoved(qulonglong id)
 
 void TracksListener::trackModified(const TrackDataType &modifiedTrack)
 {
-    if (d->mTracksByIdSet.contains(modifiedTrack.databaseId())) {
+    if (d->mTracksByIdSet.contains(modifiedTrack.databaseId().value())) {
         Q_EMIT trackHasChanged(modifiedTrack);
     }
 }
@@ -138,7 +138,7 @@ void TracksListener::trackByNameInList(const QVariant &title, const QVariant &ar
 
     auto newTrack = d->mDatabase->trackDataFromDatabaseId(newTrackId);
 
-    if (!newTrack.isEmpty()) {
+    if (!newTrack.isValid()) {
         Q_EMIT trackHasChanged(newTrack);
     }
 }
@@ -168,7 +168,7 @@ void TracksListener::trackByFileNameInList(ElisaUtils::PlayListEntryType type, c
         if (newRadioId) {
             auto newRadio = d->mDatabase->radioDataFromDatabaseId(newRadioId);
 
-            if (!newRadio.isEmpty()) {
+            if (!newRadio.isValid()) {
                 Q_EMIT trackHasChanged({newRadio});
             }
         }
@@ -193,7 +193,7 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
         d->mTracksByIdSet.insert(newDatabaseId);
 
         auto newTrack = d->mDatabase->trackDataFromDatabaseId(newDatabaseId);
-        if (!newTrack.isEmpty()) {
+        if (!newTrack.isValid()) {
             Q_EMIT trackHasChanged(newTrack);
         }
         break;
@@ -203,7 +203,7 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
         d->mRadiosByIdSet.insert(newDatabaseId);
 
         auto newRadio = d->mDatabase->radioDataFromDatabaseId(newDatabaseId);
-        if (!newRadio.isEmpty()) {
+        if (!newRadio.isValid()) {
             Q_EMIT trackHasChanged(newRadio);
         }
         break;
@@ -247,7 +247,7 @@ void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntr
         d->mTracksByIdSet.insert(newDatabaseId);
 
         auto newTrack = d->mDatabase->trackDataFromDatabaseIdAndUrl(newDatabaseId, entryUrl);
-        if (!newTrack.isEmpty()) {
+        if (!newTrack.isValid()) {
             Q_EMIT trackHasChanged(newTrack);
         }
         break;
@@ -264,7 +264,7 @@ void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntr
         d->mRadiosByIdSet.insert(newDatabaseId);
 
         auto newRadio = d->mDatabase->radioDataFromDatabaseId(newDatabaseId);
-        if (!newRadio.isEmpty()) {
+        if (!newRadio.isValid()) {
             Q_EMIT trackHasChanged(newRadio);
         }
         break;
@@ -289,7 +289,7 @@ void TracksListener::newArtistInList(qulonglong newDatabaseId, const QString &ar
     }
 
     for (const auto &oneTrack : newTracks) {
-        d->mTracksByIdSet.insert(oneTrack.databaseId());
+        d->mTracksByIdSet.insert(oneTrack.databaseId().value());
     }
 
     Q_EMIT tracksListAdded(newDatabaseId, artist, ElisaUtils::Artist, newTracks);
@@ -304,7 +304,7 @@ void TracksListener::newGenreInList(qulonglong newDatabaseId, const QString &ent
     }
 
     for (const auto &oneTrack : newTracks) {
-        d->mTracksByIdSet.insert(oneTrack.databaseId());
+        d->mTracksByIdSet.insert(oneTrack.databaseId().value());
     }
 
     Q_EMIT tracksListAdded(newDatabaseId, entryTitle, ElisaUtils::Genre, newTracks);

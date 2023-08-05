@@ -132,22 +132,22 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         switch(d->mModelType)
         {
         case ElisaUtils::Track:
-            result = d->mAllTrackData[index.row()][TrackDataType::key_type::TitleRole];
+            result = d->mAllTrackData[index.row()].title();
             if (result.toString().isEmpty()) {
-                result = d->mAllTrackData[index.row()][TrackDataType::key_type::ResourceRole].toUrl().fileName();
+                result = d->mAllTrackData[index.row()].resourceURI().fileName();
             }
             break;
         case ElisaUtils::Album:
-            result = d->mAllAlbumData[index.row()][AlbumDataType::key_type::TitleRole];
+            result = d->mAllAlbumData[index.row()].title();
             break;
         case ElisaUtils::Artist:
-            result = d->mAllArtistData[index.row()][ArtistDataType::key_type::TitleRole];
+            result = d->mAllArtistData[index.row()].name();
             break;
         case ElisaUtils::Genre:
-            result = d->mAllGenreData[index.row()][GenreDataType::key_type::TitleRole];
+            result = d->mAllGenreData[index.row()].title();
             break;
         case ElisaUtils::Radio:
-            result = d->mAllRadiosData[index.row()][GenreDataType::key_type::TitleRole];
+            result = d->mAllRadiosData[index.row()].title();
             break;
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
@@ -164,7 +164,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         {
         case ElisaUtils::Track:
         {
-            auto trackDuration = d->mAllTrackData[index.row()][TrackDataType::key_type::DurationRole].toTime();
+            auto trackDuration = d->mAllTrackData[index.row()].duration();
             if (trackDuration.hour() == 0) {
                 result = trackDuration.toString(QStringLiteral("mm:ss"));
             } else {
@@ -191,13 +191,13 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         switch (d->mModelType)
         {
         case ElisaUtils::Track:
-            result = d->mAllTrackData[index.row()][TrackDataType::key_type::IsSingleDiscAlbumRole];
+            result = d->mAllTrackData[index.row()].isSingleDiscAlbum();
             break;
         case ElisaUtils::Radio:
             result = false;
             break;
         case ElisaUtils::Album:
-            result = d->mAllAlbumData[index.row()][AlbumDataType::key_type::IsSingleDiscAlbumRole];
+            result = d->mAllAlbumData[index.row()].isSingleDiscAlbum();
             break;
         case ElisaUtils::Artist:
         case ElisaUtils::Genre:
@@ -217,25 +217,24 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         {
         case ElisaUtils::Track:
         {
-            auto itArtist = d->mAllTrackData[index.row()].find(TrackDataType::key_type::ArtistRole);
-            if (itArtist != d->mAllTrackData[index.row()].end()) {
-                result = d->mAllTrackData[index.row()][TrackDataType::key_type::ArtistRole];
+            if (d->mAllTrackData[index.row()].artist().has_value()) {
+                result = d->mAllTrackData[index.row()].artist().value();
             } else {
-                result = d->mAllTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole];
+                result = d->mAllTrackData[index.row()].albumArtist().value_or(QString());
             }
             break;
         }
         case ElisaUtils::Album:
-            result = d->mAllAlbumData[index.row()][static_cast<AlbumDataType::key_type>(role)];
+            result = d->mAllAlbumData[index.row()].artist().value_or(QString());
             break;
         case ElisaUtils::Artist:
-            result = d->mAllArtistData[index.row()][static_cast<ArtistDataType::key_type>(role)];
+            result = d->mAllArtistData[index.row()].name();
             break;
         case ElisaUtils::Genre:
-            result = d->mAllGenreData[index.row()][static_cast<GenreDataType::key_type>(role)];
+            result = QString();
             break;
         case ElisaUtils::Radio:
-            result = d->mAllRadiosData[index.row()][static_cast<TrackDataType::key_type>(role)];
+            result = d->mAllRadiosData[index.row()].artist().value_or(QString());
             break;
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:
@@ -280,10 +279,10 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         {
         case ElisaUtils::Track:
         case ElisaUtils::FileName:
-            result = d->mAllTrackData[index.row()][TrackDataType::key_type::ResourceRole];
+            result = d->mAllTrackData[index.row()].resourceURI();
             break;
         case ElisaUtils::Radio:
-            result = d->mAllRadiosData[index.row()][TrackDataType::key_type::ResourceRole];
+            result = d->mAllRadiosData[index.row()].resourceURI();
             break;
         case ElisaUtils::Album:
         case ElisaUtils::Artist:
@@ -321,22 +320,148 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         break;
     }
     default:
+        const auto &data = d->mAllTrackData[index.row()];
         switch(d->mModelType)
         {
         case ElisaUtils::Track:
-            result = d->mAllTrackData[index.row()][static_cast<TrackDataType::key_type>(role)];
+            switch (role) {
+            case    DataTypes::ColumnsRoles::TitleRole:
+                result = data.title();
+                break;
+            case        DataTypes::ColumnsRoles::SecondaryTextRole:
+                result = data.secondaryText();
+                break;
+            case            DataTypes::ColumnsRoles::ImageUrlRole:
+                result = data.albumCover();
+                break;
+            case            DataTypes::ColumnsRoles::MultipleImageUrlsRole:
+                break;
+            case            DataTypes::ColumnsRoles::DatabaseIdRole:
+                if (data.databaseId().has_value()) {
+                    result = data.databaseId().value();
+                }
+                break;
+            case            DataTypes::ColumnsRoles::ElementTypeRole:
+                if (data.elementType().has_value()) {
+                    result = data.elementType().value();
+                }
+            case            DataTypes::ColumnsRoles::AllArtistsRole:
+                break;
+            case            DataTypes::ColumnsRoles::HighestTrackRating:
+                break;
+            case            DataTypes::ColumnsRoles::GenreRole:
+                if (data.genre().has_value()) {
+                    result = data.genre().value();
+                }
+                break;
+            case            DataTypes::ColumnsRoles::AlbumRole:
+                if (data.album().has_value()) {
+                    result = data.album().value();
+                }
+            case            DataTypes::ColumnsRoles::AlbumArtistRole:
+                if (data.albumArtist().has_value()) {
+                    result = data.albumArtist().value();
+                }
+                break;
+            case            DataTypes::ColumnsRoles::TrackNumberRole:
+                if (data.trackNumber().has_value()) {
+                    result = data.trackNumber().value();
+                }
+                break;
+            case            DataTypes::ColumnsRoles::DiscNumberRole:
+                if (data.discNumber().has_value()) {
+                    result = data.discNumber().value();
+                }
+            case            DataTypes::ColumnsRoles::RatingRole:
+                result = data.rating();
+                break;
+            case            DataTypes::ColumnsRoles::YearRole:
+                if (data.year().has_value()) {
+                    result = data.year().value();
+                }
+                break;
+            }
             break;
         case ElisaUtils::Album:
-            result = d->mAllAlbumData[index.row()][static_cast<AlbumDataType::key_type>(role)];
+#error not done
+            switch (role) {
+            case    DataTypes::ColumnsRoles::TitleRole:
+            case        DataTypes::ColumnsRoles::SecondaryTextRole:
+            case            DataTypes::ColumnsRoles::ImageUrlRole:
+            case            DataTypes::ColumnsRoles::MultipleImageUrlsRole:
+            case            DataTypes::ColumnsRoles::DatabaseIdRole:
+            case            DataTypes::ColumnsRoles::ElementTypeRole:
+            case            DataTypes::ColumnsRoles::AllArtistsRole:
+            case            DataTypes::ColumnsRoles::HighestTrackRating:
+            case            DataTypes::ColumnsRoles::GenreRole:
+            case            DataTypes::ColumnsRoles::AlbumRole:
+            case            DataTypes::ColumnsRoles::AlbumArtistRole:
+            case            DataTypes::ColumnsRoles::TrackNumberRole:
+            case            DataTypes::ColumnsRoles::DiscNumberRole:
+            case            DataTypes::ColumnsRoles::RatingRole:
+            case            DataTypes::ColumnsRoles::YearRole:
+                break;
+            }
             break;
         case ElisaUtils::Artist:
-            result = d->mAllArtistData[index.row()][static_cast<ArtistDataType::key_type>(role)];
+            switch (role) {
+            case    DataTypes::ColumnsRoles::TitleRole:
+            case        DataTypes::ColumnsRoles::SecondaryTextRole:
+            case            DataTypes::ColumnsRoles::ImageUrlRole:
+            case            DataTypes::ColumnsRoles::MultipleImageUrlsRole:
+            case            DataTypes::ColumnsRoles::DatabaseIdRole:
+            case            DataTypes::ColumnsRoles::ElementTypeRole:
+            case            DataTypes::ColumnsRoles::AllArtistsRole:
+            case            DataTypes::ColumnsRoles::HighestTrackRating:
+            case            DataTypes::ColumnsRoles::GenreRole:
+            case            DataTypes::ColumnsRoles::AlbumRole:
+            case            DataTypes::ColumnsRoles::AlbumArtistRole:
+            case            DataTypes::ColumnsRoles::TrackNumberRole:
+            case            DataTypes::ColumnsRoles::DiscNumberRole:
+            case            DataTypes::ColumnsRoles::RatingRole:
+            case            DataTypes::ColumnsRoles::YearRole:
+                break;
+            }
             break;
         case ElisaUtils::Genre:
-            result = d->mAllGenreData[index.row()][static_cast<GenreDataType::key_type>(role)];
+            switch (role) {
+            case    DataTypes::ColumnsRoles::TitleRole:
+            case        DataTypes::ColumnsRoles::SecondaryTextRole:
+            case            DataTypes::ColumnsRoles::ImageUrlRole:
+            case            DataTypes::ColumnsRoles::MultipleImageUrlsRole:
+            case            DataTypes::ColumnsRoles::DatabaseIdRole:
+            case            DataTypes::ColumnsRoles::ElementTypeRole:
+            case            DataTypes::ColumnsRoles::AllArtistsRole:
+            case            DataTypes::ColumnsRoles::HighestTrackRating:
+            case            DataTypes::ColumnsRoles::GenreRole:
+            case            DataTypes::ColumnsRoles::AlbumRole:
+            case            DataTypes::ColumnsRoles::AlbumArtistRole:
+            case            DataTypes::ColumnsRoles::TrackNumberRole:
+            case            DataTypes::ColumnsRoles::DiscNumberRole:
+            case            DataTypes::ColumnsRoles::RatingRole:
+            case            DataTypes::ColumnsRoles::YearRole:
+                break;
+            }
             break;
         case ElisaUtils::Radio:
-            result = d->mAllRadiosData[index.row()][static_cast<TrackDataType::key_type>(role)];
+            switch (role) {
+            case    DataTypes::ColumnsRoles::TitleRole:
+            case        DataTypes::ColumnsRoles::SecondaryTextRole:
+            case            DataTypes::ColumnsRoles::ImageUrlRole:
+            case            DataTypes::ColumnsRoles::MultipleImageUrlsRole:
+            case            DataTypes::ColumnsRoles::DatabaseIdRole:
+            case            DataTypes::ColumnsRoles::ElementTypeRole:
+            case            DataTypes::ColumnsRoles::AllArtistsRole:
+            case            DataTypes::ColumnsRoles::HighestTrackRating:
+            case            DataTypes::ColumnsRoles::GenreRole:
+            case            DataTypes::ColumnsRoles::AlbumRole:
+            case            DataTypes::ColumnsRoles::AlbumArtistRole:
+            case            DataTypes::ColumnsRoles::TrackNumberRole:
+            case            DataTypes::ColumnsRoles::DiscNumberRole:
+            case            DataTypes::ColumnsRoles::RatingRole:
+            case            DataTypes::ColumnsRoles::YearRole:
+                break;
+            }
             break;
         case ElisaUtils::Lyricist:
         case ElisaUtils::Composer:

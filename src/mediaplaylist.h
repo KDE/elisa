@@ -177,11 +177,11 @@ public:
     }
 
     explicit MediaPlayListEntry(const MediaPlayList::TrackDataType &track)
-        : mTitle(track[DataTypes::TitleRole]),
-          mAlbum(track[DataTypes::AlbumRole]),
-          mTrackNumber(track[DataTypes::TrackNumberRole]),
-          mDiscNumber(track[DataTypes::DiscNumberRole]),
-          mId(track[DataTypes::DatabaseIdRole].toULongLong()),
+        : mTitle(track.title()),
+        mAlbum(track.album().value_or(QString())),
+          mTrackNumber(track.trackNumber().value_or(0)),
+          mDiscNumber(track.discNumber().value_or(0)),
+          mId(track.databaseId().value_or(0)),
           mIsValid(true) {
     }
 

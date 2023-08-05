@@ -143,8 +143,8 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
     }
 
     KFileMetaData::UserMetaData md(localFileName);
-    md.setUserComment(data.value(DataTypes::ColumnsRoles::CommentRole).toString());
-    md.setRating(data.value(DataTypes::ColumnsRoles::RatingRole).toInt());
+    md.setUserComment(data.comment().value_or(QString()));
+    md.setRating(data.rating());
 
     const auto &mimetype = fileMimeType.name();
     const QList<KFileMetaData::Writer*> &writerList = d->mAllWriters.fetchWriters(mimetype);
@@ -155,24 +155,45 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
 
     KFileMetaData::Writer *writer = writerList.first();
     KFileMetaData::WriteData writeData(localFileName, mimetype);
-    auto rangeBegin = data.constKeyValueBegin();
-    while (rangeBegin != data.constKeyValueEnd()) {
-        auto key = (*rangeBegin).first;
-        auto translatedKey = d->mPropertyTranslation.find(key);
-        if (translatedKey != d->mPropertyTranslation.end()) {
-            if (key == DataTypes::LyricsRole) {
-                DataTypes::LyricsData lyrics = (*rangeBegin).second.value<DataTypes::LyricsData>();
-                if (lyrics.fromMetaData()) {
-                    writeData.add(translatedKey.value(), lyrics.lyrics());
-                } else {
-                    writeLyricsToLyricsFile(lyrics);
-                }
-            } else {
-                writeData.add(translatedKey.value(), (*rangeBegin).second);
-            }
-        }
-        rangeBegin++;
+    if (data.artist().has_value()) {
+        writeData.add(KFileMetaData::Property::Artist, data.artist().value());
     }
+    if (data.albumArtist().has_value()) {
+        writeData.add(KFileMetaData::Property::AlbumArtist, data.albumArtist().value());
+    }
+    if (data.genre().has_value()) {
+        writeData.add(KFileMetaData::Property::Genre, data.genre().value());
+    }
+    if (data.composer().has_value()) {
+        writeData.add(KFileMetaData::Property::Composer, data.composer().value());
+    }
+    if (data.lyricist().has_value()) {
+        writeData.add(KFileMetaData::Property::Lyricist, data.lyricist().value());
+    }
+    writeData.add(KFileMetaData::Property::Title, data.title());
+    if (data.album().has_value()) {
+        writeData.add(KFileMetaData::Property::Album, data.album().value());
+    }
+    if (data.trackNumber().has_value()) {
+        writeData.add(KFileMetaData::Property::TrackNumber, data.trackNumber().value());
+    }
+    if (data.discNumber().has_value()) {
+        writeData.add(KFileMetaData::Property::DiscNumber, data.discNumber().value());
+    }
+    if (data.year().has_value()) {
+        writeData.add(KFileMetaData::Property::ReleaseYear, data.year().value());
+    }
+    if (data.lyrics().has_value()) {
+        if (data.lyrics()->fromMetaData()) {
+            writeData.add(KFileMetaData::Property::Lyrics, data.lyrics()->lyrics());
+        } else {
+            writeLyricsToLyricsFile(data.lyrics()->lyrics());
+        }
+    }
+    if (data.comment().has_value()) {
+        writeData.add(KFileMetaData::Property::Comment, data.comment().value());
+    }
+    writeData.add(KFileMetaData::Property::Rating, data.rating());
     writer->write(writeData);
 
     return true;

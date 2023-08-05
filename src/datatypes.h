@@ -19,6 +19,8 @@
 #include <QUrl>
 #include <QDateTime>
 #include <QMap>
+#include <optional>
+#include <QDebug>
 
 class ELISALIB_EXPORT DataTypes : public QObject
 {
@@ -79,31 +81,32 @@ public:
     using DataType = QMap<ColumnsRoles, QVariant>;
 
 public:
-
-    class MusicDataType : public DataType
+    class MusicDataType
     {
     public:
-        using DataType::DataType;
-
-        [[nodiscard]] bool hasDatabaseId() const
+        [[nodiscard]] std::optional<qulonglong> databaseId() const
         {
-            return find(key_type::DatabaseIdRole) != end();
+            return m_databaseId;
         }
 
-        [[nodiscard]] qulonglong databaseId() const
+        [[nodiscard]] std::optional<ElisaUtils::PlayListEntryType> elementType() const
         {
-            return operator[](key_type::DatabaseIdRole).toULongLong();
+            return m_elementType;
         }
 
-        [[nodiscard]] bool hasElementType() const
+        void setElementType(ElisaUtils::PlayListEntryType type)
         {
-            return find(key_type::ElementTypeRole) != end();
+            m_elementType = type;
         }
 
-        [[nodiscard]] ElisaUtils::PlayListEntryType elementType() const
+        [[nodiscard]] bool isValid() const
         {
-            return operator[](key_type::ElementTypeRole).value<ElisaUtils::PlayListEntryType>();
+            return m_databaseId.has_value() && m_elementType.has_value();
         }
+
+    private:
+        std::optional<qulonglong> m_databaseId;
+        std::optional<ElisaUtils::PlayListEntryType> m_elementType;
     };
 
     class LyricsData
@@ -137,218 +140,326 @@ public:
     class TrackDataType : public MusicDataType
     {
     public:
-
-        using MusicDataType::MusicDataType;
-
         TrackDataType(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
                       QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
                       const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
                       QString aGenre, QString aComposer, QString aLyricist, bool aHasEmbeddedCover)
-            : MusicDataType({{key_type::TitleRole, std::move(aTitle)}, {key_type::AlbumRole, std::move(aAlbumName)},
-                             {key_type::ArtistRole, std::move(aArtist)}, {key_type::AlbumArtistRole, std::move(aAlbumArtist)},
-                             {key_type::IdRole, std::move(aId)}, {key_type::ParentIdRole, std::move(aParentId)},
-                             {key_type::TrackNumberRole, aTrackNumber}, {key_type::DiscNumberRole, aDiscNumber},
-                             {key_type::DurationRole, aDuration}, {key_type::ResourceRole, std::move(aResourceURI)},
-                             {key_type::FileModificationTime, fileModificationTime}, {key_type::ImageUrlRole, std::move(aAlbumCover)},
-                             {key_type::RatingRole, rating}, {key_type::IsSingleDiscAlbumRole, aIsSingleDiscAlbum},
-                             {key_type::GenreRole, std::move(aGenre)}, {key_type::ComposerRole, std::move(aComposer)},
-                             {key_type::LyricistRole, std::move(aLyricist)}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},
-                             {key_type::ElementTypeRole, ElisaUtils::Track},})
+            : m_id(aId)
+            , m_parentId(aParentId)
+            , m_title(aTitle)
+            , m_artist(aArtist)
+            , m_albumName(aAlbumName)
+            , m_albumArtist(aAlbumArtist)
+            , m_trackNumber(aTrackNumber)
+            , m_discNumber(aDiscNumber)
+            , m_duration(aDuration)
+            , m_resourceURI(aResourceURI)
+            , m_fileModificationTime(fileModificationTime)
+            , m_albumCover(aAlbumCover)
+            , m_rating(rating)
+            , m_isSingleDiscAlbum(aIsSingleDiscAlbum)
+            , m_genre(aGenre)
+            , m_composer(aComposer)
+            , m_lyricist(aLyricist)
+            , m_hasEmbeddedCover(aHasEmbeddedCover)
         {
             Q_UNUSED(aValid)
         }
+        TrackDataType() {};
 
         [[nodiscard]] bool isValid() const
         {
-            return !isEmpty() && duration().isValid();
+            return duration().isValid();
         }
 
         [[nodiscard]] QString title() const
         {
-            return operator[](key_type::TitleRole).toString();
+            return m_title;
         }
 
-        [[nodiscard]] QString artist() const
+        void setTitle(const QString &title)
         {
-            return operator[](key_type::ArtistRole).toString();
+            m_title = title;
         }
 
-        [[nodiscard]] bool hasArtist() const
+        [[nodiscard]] QString secondaryText() const
         {
-            return find(key_type::ArtistRole) != end();
+            return m_secondaryText;
+        }
+
+        void setSecondaryText(const QString &text)
+        {
+            m_secondaryText = text;
+        }
+
+        [[nodiscard]] std::optional<QString> artist() const
+        {
+            return m_artist;
+        }
+
+        void setArtist(const QString &artist)
+        {
+            m_artist = artist;
         }
 
         [[nodiscard]] qulonglong albumId() const
         {
-            return operator[](key_type::AlbumIdRole).toULongLong();
+            return m_albumId;
         }
 
-        [[nodiscard]] bool hasAlbum() const
+        void setAlbumId(qulonglong id)
         {
-            return find(key_type::AlbumRole) != end();
+            m_albumId = id;
         }
 
-        [[nodiscard]] QString album() const
+        [[nodiscard]] std::optional<QString> album() const
         {
-            return operator[](key_type::AlbumRole).toString();
+            return m_albumName;
         }
 
-        [[nodiscard]] QString albumArtist() const
+        void setAlbum(const QString &album)
         {
-            return operator[](key_type::AlbumArtistRole).toString();
+            m_albumName = album;
         }
 
-        [[nodiscard]] bool hasAlbumArtist() const
+        [[nodiscard]] std::optional<QString> albumArtist() const
         {
-            return find(key_type::AlbumArtistRole) != end();
+            return m_albumArtist;
         }
 
-        [[nodiscard]] bool hasTrackNumber() const
+        void setAlbumArtist(const QString &artist)
         {
-            return find(key_type::TrackNumberRole) != end();
+            m_albumArtist = artist;
         }
 
-        [[nodiscard]] int trackNumber() const
+        [[nodiscard]] std::optional<int> trackNumber() const
         {
-            return operator[](key_type::TrackNumberRole).toInt();
+            return m_trackNumber;
         }
 
-        [[nodiscard]] bool hasDiscNumber() const
+        void setTrackNumber(int number)
         {
-            return find(key_type::DiscNumberRole) != end();
+            m_trackNumber = number;
         }
 
-        [[nodiscard]] int discNumber() const
+        [[nodiscard]] std::optional<int> discNumber() const
         {
-            return operator[](key_type::DiscNumberRole).toInt();
+            return m_discNumber;
+        }
+
+        void setDiscNumber(int number)
+        {
+            m_discNumber = number;
         }
 
         [[nodiscard]] QTime duration() const
         {
-            return operator[](key_type::DurationRole).toTime();
+            return m_duration;
+        }
+
+        void setDuration(const QTime &time)
+        {
+            m_duration = time;
         }
 
         [[nodiscard]] QUrl resourceURI() const
         {
-            return operator[](key_type::ResourceRole).toUrl();
+            return m_resourceURI;
+        }
+
+        void setResourceURI(const QUrl &url)
+        {
+            m_resourceURI = url;
         }
 
         [[nodiscard]] QUrl albumCover() const
         {
-            return operator[](key_type::ImageUrlRole).toUrl();
+            return m_albumCover;
+        }
+
+        void setAlbumCover(const QUrl &cover)
+        {
+            m_albumCover = cover;
         }
 
         [[nodiscard]] bool isSingleDiscAlbum() const
         {
-            return operator[](key_type::IsSingleDiscAlbumRole).toBool();
+            return m_isSingleDiscAlbum;
+        }
+
+        void setIsSingleDiscAlbum(bool is)
+        {
+            m_isSingleDiscAlbum = is;
         }
 
         [[nodiscard]] int rating() const
         {
-            return operator[](key_type::RatingRole).toInt();
+            return m_rating;
         }
 
-        [[nodiscard]] QString genre() const
+        void setRating(int rating)
         {
-            return operator[](key_type::GenreRole).toString();
+            m_rating = rating;
         }
 
-        [[nodiscard]] bool hasGenre() const
+        [[nodiscard]] int playCounter() const
         {
-            return find(key_type::GenreRole) != end();
+            return m_playCounter;
         }
 
-        [[nodiscard]] QString composer() const
+        void setPlayCounter(int count)
         {
-            return operator[](key_type::ComposerRole).toString();
+            m_playCounter = count;
         }
 
-        [[nodiscard]] bool hasComposer() const
+        [[nodiscard]] std::optional<QString> genre() const
         {
-            return find(key_type::ComposerRole) != end();
+            return m_genre;
         }
 
-        [[nodiscard]] QString lyricist() const
+        void setGenre(const QString &genre)
         {
-            return operator[](key_type::LyricistRole).toString();
+            m_genre = genre;
         }
 
-        [[nodiscard]] bool hasLyricist() const
+        [[nodiscard]] std::optional<QString> composer() const
         {
-            return find(key_type::LyricistRole) != end();
+            return m_composer;
         }
 
-        [[nodiscard]] LyricsData lyrics() const
+        void setComposer(const QString &composer)
         {
-            assert(!contains(key_type::LyricsRole) || operator[](key_type::LyricsRole).canConvert<LyricsData>());
-            return operator[](key_type::LyricsRole).value<LyricsData>();
+            m_composer = composer;
         }
 
-        [[nodiscard]] bool hasLyrics() const
+        [[nodiscard]] std::optional<QString> lyricist() const
         {
-            return find(key_type::LyricsRole) != end() && !lyrics().lyrics().isEmpty();
+            return m_lyricist;
         }
 
-        [[nodiscard]] QString comment() const
+        void setLyricist(const QString &lyricist)
         {
-            return operator[](key_type::CommentRole).toString();
+            m_lyricist =  lyricist;
         }
 
-        [[nodiscard]] bool hasComment() const
+        [[nodiscard]] std::optional<LyricsData> lyrics() const
         {
-            return find(key_type::CommentRole) != end();
+            return m_lyrics;
         }
 
-        [[nodiscard]] int year() const
+        void setLyrics(const LyricsData &data)
         {
-            return operator[](key_type::YearRole).toInt();
+            m_lyrics = data;
         }
 
-        [[nodiscard]] bool hasYear() const
+        [[nodiscard]] std::optional<QString> comment() const
         {
-            return find(key_type::YearRole) != end();
+            return m_comment;
         }
 
-        [[nodiscard]] int channels() const
+        void setComment(const QString &comment)
         {
-            return operator[](key_type::ChannelsRole).toInt();
+            m_comment = comment;
         }
 
-        [[nodiscard]] bool hasChannels() const
+        [[nodiscard]] std::optional<int> year() const
         {
-            return find(key_type::ChannelsRole) != end();
+            return m_year;
         }
 
-        [[nodiscard]] int bitRate() const
+        void setYear(int year)
         {
-            return operator[](key_type::BitRateRole).toInt();
+            m_year = year;
         }
 
-        [[nodiscard]] bool hasBitRate() const
+        [[nodiscard]] std::optional<int> channels() const
         {
-            return find(key_type::BitRateRole) != end();
+            return m_channels;
         }
 
-        [[nodiscard]] int sampleRate() const
+        void setChannels(int channels)
         {
-            return operator[](key_type::SampleRateRole).toInt();
+            m_channels = channels;
         }
 
-        [[nodiscard]] bool hasSampleRate() const
+        [[nodiscard]] std::optional<int> bitRate() const
         {
-            return find(key_type::SampleRateRole) != end();
+            return m_bitRate;
         }
 
+        void setBitRate(int bitRate)
+        {
+            m_bitRate = bitRate;
+        }
+
+        [[nodiscard]] std::optional<int> sampleRate() const
+        {
+            return m_sampleRate;
+        }
+
+        void setSampleRate(int rate)
+        {
+            m_sampleRate = rate;
+        }
+
+        [[nodiscard]] std::optional<qulonglong> databaseId() const
+        {
+            return m_databaseId;
+        }
+
+        void setDatabaseId(qulonglong id)
+        {
+            m_databaseId = id;
+        }
 
         [[nodiscard]] bool hasEmbeddedCover() const
         {
-            return operator[](key_type::HasEmbeddedCover).toBool();
+            return m_hasEmbeddedCover;
+        }
+
+        void setHasEmbeddedCover(bool cover)
+        {
+            m_hasEmbeddedCover = cover;
         }
 
         [[nodiscard]] QDateTime fileModificationTime() const
         {
-            return operator[](key_type::FileModificationTime).toDateTime();
+            return m_fileModificationTime;
         }
+
+        void setFileModificationTime(const QDateTime &time)
+        {
+            m_fileModificationTime = time;
+        }
+    private:
+        QString m_id;
+        QString m_parentId;
+        QString m_title;
+        QString m_secondaryText;
+        std::optional<QString> m_artist;
+        std::optional<QString> m_albumName;
+        std::optional<QString> m_albumArtist;
+        qulonglong m_albumId;
+        std::optional<int> m_trackNumber;
+        std::optional<int> m_discNumber;
+        std::optional<int> m_year;
+        std::optional<int> m_channels;
+        std::optional<int> m_bitRate;
+        std::optional<int> m_sampleRate;
+        std::optional<qulonglong> m_databaseId;
+        QTime m_duration;
+        QUrl m_resourceURI;
+        QDateTime m_fileModificationTime;
+        QUrl m_albumCover;
+        int m_rating = 0;
+        int m_playCounter = 0;
+        bool m_isSingleDiscAlbum;
+        std::optional<QString> m_genre;
+        std::optional<QString> m_composer;
+        std::optional<QString> m_lyricist;
+        std::optional<LyricsData> m_lyrics;
+        std::optional<QString> m_comment;
+        bool m_hasEmbeddedCover;
     };
 
     using ListTrackDataType = QList<TrackDataType>;
@@ -363,40 +474,44 @@ public:
 
         [[nodiscard]] QString title() const
         {
-            return operator[](key_type::TitleRole).toString();
+            return m_title;
         }
 
-        [[nodiscard]] QString artist() const
+        [[nodiscard]] std::optional<QString> artist() const
         {
-            return operator[](key_type::ArtistRole).toString();
+            return m_artist;
         }
 
         [[nodiscard]] bool isValidArtist() const
         {
-            const auto &artistData = operator[](key_type::ArtistRole);
-            return artistData.isValid() && !artistData.toString().isEmpty();
+            return m_artist.has_value() && !m_artist->isEmpty();
         }
 
         [[nodiscard]] QStringList genres() const
         {
-            return operator[](key_type::GenreRole).toStringList();
+            return m_genres;
         }
 
         [[nodiscard]] QUrl albumArtURI() const
         {
-            return operator[](key_type::ImageUrlRole).toUrl();
+            return m_albumArtURI;
         }
 
         [[nodiscard]] bool isSingleDiscAlbum() const
         {
-            return operator[](key_type::IsSingleDiscAlbumRole).toBool();
+            return m_isSingleDiscAlbum;
         }
 
         [[nodiscard]] bool isValid() const
         {
-            return !isEmpty();
+            return !m_title.isEmpty();
         }
-
+    private:
+        QString m_title;
+        std::optional<QString> m_artist;
+        QStringList m_genres;
+        QUrl m_albumArtURI;
+        bool m_isSingleDiscAlbum;
     };
 
     using ListAlbumDataType = QList<AlbumDataType>;
@@ -409,18 +524,22 @@ public:
 
         [[nodiscard]] QString name() const
         {
-            return operator[](key_type::TitleRole).toString();
+            return m_name;
         }
 
         [[nodiscard]] qulonglong databaseId() const
         {
-            return operator[](key_type::DatabaseIdRole).toULongLong();
+            return m_databaseId;
         }
 
        [[nodiscard]] QUrl artistArtURI() const
         {
-            return operator[](key_type::ImageUrlRole).toUrl();
+            return m_artistArtURI;
         }
+    private:
+        QString m_name;
+        qulonglong m_databaseId;
+        QUrl m_artistArtURI;
     };
 
     using ListArtistDataType = QList<ArtistDataType>;
@@ -433,17 +552,19 @@ public:
 
         [[nodiscard]] QString title() const
         {
-            return operator[](key_type::TitleRole).toString();
+            return m_title;
         }
-
+    private:
+        QString m_title;
     };
 
     using ListGenreDataType = QList<GenreDataType>;
 
-    using EntryData = std::tuple<MusicDataType, QString, QUrl>;
+    using EntryData = std::tuple<TrackDataType, QString, QUrl>;
     using EntryDataList = QList<EntryData>;
 
 };
+QDebug operator<<(QDebug debug, const DataTypes::MusicDataType &c);
 
 Q_DECLARE_METATYPE(DataTypes::MusicDataType)
 Q_DECLARE_METATYPE(DataTypes::TrackDataType)

@@ -81,34 +81,6 @@ public:
     using DataType = QMap<ColumnsRoles, QVariant>;
 
 public:
-    class MusicDataType
-    {
-    public:
-        [[nodiscard]] std::optional<qulonglong> databaseId() const
-        {
-            return m_databaseId;
-        }
-
-        [[nodiscard]] std::optional<ElisaUtils::PlayListEntryType> elementType() const
-        {
-            return m_elementType;
-        }
-
-        void setElementType(ElisaUtils::PlayListEntryType type)
-        {
-            m_elementType = type;
-        }
-
-        [[nodiscard]] bool isValid() const
-        {
-            return m_databaseId.has_value() && m_elementType.has_value();
-        }
-
-    private:
-        std::optional<qulonglong> m_databaseId;
-        std::optional<ElisaUtils::PlayListEntryType> m_elementType;
-    };
-
     class LyricsData
     {
     public:
@@ -137,7 +109,7 @@ public:
         QString m_lyrics;
     };
 
-    class TrackDataType : public MusicDataType
+    class TrackDataType
     {
     public:
         TrackDataType(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
@@ -402,16 +374,6 @@ public:
             m_sampleRate = rate;
         }
 
-        [[nodiscard]] std::optional<qulonglong> databaseId() const
-        {
-            return m_databaseId;
-        }
-
-        void setDatabaseId(qulonglong id)
-        {
-            m_databaseId = id;
-        }
-
         [[nodiscard]] bool hasEmbeddedCover() const
         {
             return m_hasEmbeddedCover;
@@ -446,7 +408,6 @@ public:
         std::optional<int> m_channels;
         std::optional<int> m_bitRate;
         std::optional<int> m_sampleRate;
-        std::optional<qulonglong> m_databaseId;
         QTime m_duration;
         QUrl m_resourceURI;
         QDateTime m_fileModificationTime;
@@ -466,11 +427,11 @@ public:
 
     using ListRadioDataType = QList<TrackDataType>;
 
-    class AlbumDataType : public MusicDataType
+    class AlbumDataType
     {
     public:
 
-        using MusicDataType::MusicDataType;
+        AlbumDataType() {};
 
         [[nodiscard]] QString title() const
         {
@@ -516,12 +477,10 @@ public:
 
     using ListAlbumDataType = QList<AlbumDataType>;
 
-    class ArtistDataType : public MusicDataType
+    class ArtistDataType
     {
     public:
-
-        using MusicDataType::MusicDataType;
-
+        ArtistDataType() {};
         [[nodiscard]] QString name() const
         {
             return m_name;
@@ -544,11 +503,10 @@ public:
 
     using ListArtistDataType = QList<ArtistDataType>;
 
-    class GenreDataType : public MusicDataType
+    class GenreDataType
     {
     public:
-
-        using MusicDataType::MusicDataType;
+        GenreDataType() {};
 
         [[nodiscard]] QString title() const
         {
@@ -560,9 +518,109 @@ public:
 
     using ListGenreDataType = QList<GenreDataType>;
 
-    using EntryData = std::tuple<TrackDataType, QString, QUrl>;
-    using EntryDataList = QList<EntryData>;
+    class MusicDataType
+    {
+    public:
+        [[nodiscard]] std::optional<qulonglong> databaseId() const
+        {
+            return m_databaseId;
+        }
 
+        [[nodiscard]] ElisaUtils::PlayListEntryType elementType() const
+        {
+            return m_elementType;
+        }
+
+        void setTrackData(const TrackDataType &data)
+        {
+            m_elementType = ElisaUtils::PlayListEntryType::Track;
+            m_data.trackData = data;
+        }
+
+        void setAlbumData(const AlbumDataType &data)
+        {
+            m_elementType = ElisaUtils::PlayListEntryType::Album;
+            m_data.albumData = data;
+        }
+
+        void setArtistData(const ArtistDataType &data)
+        {
+            m_elementType = ElisaUtils::PlayListEntryType::Artist;
+            m_data.artistData = data;
+        }
+
+        void setGenreData(const GenreDataType &data)
+        {
+            m_elementType= ElisaUtils::PlayListEntryType::Genre;
+            m_data.genreData = data;
+        }
+
+        TrackDataType &trackData()
+        {
+            assert(m_elementType == ElisaUtils::PlayListEntryType::Track);
+            return m_data.trackData;
+        }
+
+        const TrackDataType &trackData() const
+        {
+            assert(m_elementType == ElisaUtils::PlayListEntryType::Track);
+            return m_data.trackData;
+        }
+
+        AlbumDataType &albumData()
+        {
+            assert(m_elementType == ElisaUtils::PlayListEntryType::Album);
+            return m_data.albumData;
+        }
+
+        const AlbumDataType &albumData() const
+        {
+            assert(m_elementType == ElisaUtils::PlayListEntryType::Album);
+            return m_data.albumData;
+        }
+
+        ArtistDataType &artistData()
+        {
+            assert(m_elementType == ElisaUtils::PlayListEntryType::Artist);
+            return m_data.artistData;
+        }
+
+        const ArtistDataType &artistData() const
+        {
+            assert(m_elementType == ElisaUtils::PlayListEntryType::Artist);
+            return m_data.artistData;
+        }
+
+        GenreDataType &genreData()
+        {
+            assert(m_elementType == ElisaUtils::PlayListEntryType::Genre);
+            return m_data.genreData;
+        }
+
+        const GenreDataType &genreData() const
+        {
+            assert(m_elementType == ElisaUtils::PlayListEntryType::Genre);
+            return m_data.genreData;
+        }
+
+        [[nodiscard]] bool isValid() const
+        {
+            return m_databaseId.has_value() && m_elementType != ElisaUtils::PlayListEntryType::Unknown;
+        }
+
+    private:
+        std::optional<qulonglong> m_databaseId;
+        ElisaUtils::PlayListEntryType m_elementType = ElisaUtils::PlayListEntryType::Unknown;
+        union data {
+            DataTypes::TrackDataType trackData;
+            DataTypes::AlbumDataType albumData;
+            DataTypes::ArtistDataType artistData;
+            DataTypes::GenreDataType genreData;
+        };
+        data m_data;
+    };
+    using EntryData = std::tuple<MusicDataType, QString, QUrl>;
+    using EntryDataList = QList<EntryData>;
 };
 QDebug operator<<(QDebug debug, const DataTypes::MusicDataType &c);
 

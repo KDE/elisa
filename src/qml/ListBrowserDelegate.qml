@@ -123,6 +123,13 @@ FocusScope {
         contextMenuLoader.item.open();
     }
 
+    onActiveFocusChanged: {
+        if (!activeFocus) {
+            editingRating = false
+        }
+    }
+
+
     Rectangle {
         id: rowRoot
 

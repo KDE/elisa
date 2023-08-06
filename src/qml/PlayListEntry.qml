@@ -31,7 +31,7 @@ BasePlayListDelegate {
     readonly property bool grouped: currentAlbum && (previousAlbum === currentAlbum || nextAlbum === currentAlbum)
     readonly property bool sectionVisible: currentAlbum && (previousAlbum !== currentAlbum && nextAlbum === currentAlbum)
 
-    readonly property bool hasActiveFocus: playListEntry.activeFocus || buttonRowLoader.activeFocus || menuButtonLoader.activeFocus
+    readonly property bool hasActiveFocus: playListEntry.activeFocus || entryFocusScope.activeFocus
 
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
@@ -53,7 +53,14 @@ BasePlayListDelegate {
     alternatingBackground: false
     separatorVisible: false
 
-    contentItem: Item {
+    onHasActiveFocusChanged: {
+        if (!hasActiveFocus) {
+            editingRating = false
+        }
+    }
+
+    contentItem: FocusScope {
+        id: entryFocusScope
         implicitHeight: childrenRect.height
 
         Loader {

@@ -458,7 +458,7 @@ if (Qt${QT_MAJOR_VERSION}Quick_FOUND AND Qt${QT_MAJOR_VERSION}Widgets_FOUND)
         qml/FlatButtonWithToolTip.qml
         qml/HeaderFooterToolbar.qml
 
-        qml/SettingsForm.qml
+        ${CMAKE_CURRENT_BINARY_DIR}/qml/SettingsForm.qml
         qml/ElisaConfigurationDialog.qml
 
         qml/mobile/MobileFooterBar.qml

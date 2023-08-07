@@ -39,7 +39,7 @@
         <file>qml/PlaylistModeItem.qml</file>
         <file>qml/ElisaConfigurationDialog.qml</file>
         <file>qml/SortMenu.qml</file>
-        <file>qml/SettingsForm.qml</file>
+        <file alias="qml/SettingsForm.qml">@CMAKE_CURRENT_BINARY_DIR@/qml/SettingsForm.qml</file>
         <file>qml/DurationSlider.qml</file>
         <file>qml/VolumeSlider.qml</file>
         <file>qml/mobile/MobileFooterBar.qml</file>

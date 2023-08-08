@@ -120,6 +120,7 @@ FocusScope {
             mainTitle: abstractView.mainTitle
             secondaryTitle: abstractView.secondaryTitle
             image: abstractView.image
+            enableSorting: abstractView.sortModel
             enableGoBack: abstractView.isSubPage || abstractView.depth > 1
             allowArtistNavigation: abstractView.isSubPage
             showCreateRadioButton: abstractView.modelType === ElisaUtils.Radio

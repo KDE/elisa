@@ -372,11 +372,9 @@ void ViewManager::applyFilter(ViewParameters &nextViewParameters,
 QString ViewManager::buildViewId() const
 {
     const auto &entryTypeMetaEnum = QMetaEnum::fromType<ElisaUtils::PlayListEntryType>();
-    QString viewId;
 
-    for (const auto &oneView : std::as_const(d->mViewParametersStack)) {
-        viewId += QString::fromLatin1(entryTypeMetaEnum.valueToKey(oneView.mDataType)) + QStringLiteral("::");
-    }
+    const auto currView = d->mViewParametersStack.back();
+    const auto viewId = QString::fromLatin1(entryTypeMetaEnum.valueToKey(currView.mDataType));
 
     return viewId;
 }

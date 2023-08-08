@@ -36,11 +36,12 @@ public:
                              ViewManager::GenericDataModel,
                              ElisaUtils::FilterById,
                              ElisaUtils::Track,
-                             Qt::DisplayRole,
-                             {Qt::DisplayRole},
-                             {i18nc("@title:inmenu", "Title")},
+                             DataTypes::TrackNumberRole,
+                             {DataTypes::TrackNumberRole, Qt::DisplayRole},
+                             {i18nc("@title:inmenu", "Track Number"), i18nc("@title:inmenu", "Title")},
                              Qt::AscendingOrder,
-                             {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
+                             {i18nc("@item:inmenu", "Ascending"), i18nc("@item:inmenu", "Descending"),
+                              i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
                              ViewManager::SingleAlbum,
                              ViewManager::DiscHeaders,
                              ViewManager::IsTrack,
@@ -406,6 +407,7 @@ bool ViewManager::viewHasDefaultSortRole(const ElisaUtils::FilterType filterType
     {
     case ElisaUtils::FilterByRecentlyPlayed:
     case ElisaUtils::FilterByFrequentlyPlayed:
+    case ElisaUtils::FilterById: // Tracks in album view
         return true;
     default:
         return false;

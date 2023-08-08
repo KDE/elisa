@@ -400,15 +400,22 @@ QStringList::iterator ViewManager::findViewPreference(QStringList &list, const Q
     return itViewPreference;
 }
 
-Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue, ElisaUtils::FilterType filterType) const
+bool ViewManager::viewHasDefaultSortRole(const ElisaUtils::FilterType filterType) const
 {
     switch (filterType)
     {
     case ElisaUtils::FilterByRecentlyPlayed:
     case ElisaUtils::FilterByFrequentlyPlayed:
-        return Qt::DescendingOrder;
+        return true;
     default:
-        break;
+        return false;
+    }
+}
+
+Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue, ElisaUtils::FilterType filterType) const
+{
+    if (viewHasDefaultSortRole(filterType)) {
+        return initialValue;
     }
 
     auto currentSortOrderPreferences = Elisa::ElisaConfiguration::sortOrderPreferences();
@@ -436,14 +443,8 @@ Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue,
 
 int ViewManager::computePreferredSortRole(int initialValue, ElisaUtils::FilterType filterType) const
 {
-    switch (filterType)
-    {
-    case ElisaUtils::FilterByRecentlyPlayed:
-        return DataTypes::LastPlayDate;
-    case ElisaUtils::FilterByFrequentlyPlayed:
-        return DataTypes::PlayCounter;
-    default:
-        break;
+    if (viewHasDefaultSortRole(filterType)) {
+        return initialValue;
     }
 
     auto currentSortRolePreferences = Elisa::ElisaConfiguration::sortRolePreferences();

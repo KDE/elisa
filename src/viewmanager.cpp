@@ -536,6 +536,10 @@ void ViewManager::openInitialView()
 
 void ViewManager::sortOrderChanged(Qt::SortOrder sortOrder)
 {
+    if (viewHasDefaultSortRole(d->mViewParametersStack.back().mFilterType)) {
+        return;
+    }
+
     auto currentSortOrderPreferences = Elisa::ElisaConfiguration::sortOrderPreferences();
 
     auto viewId = buildViewId();
@@ -560,6 +564,10 @@ void ViewManager::sortOrderChanged(Qt::SortOrder sortOrder)
 
 void ViewManager::sortRoleChanged(int sortRole)
 {
+    if (viewHasDefaultSortRole(d->mViewParametersStack.back().mFilterType)) {
+        return;
+    }
+
     auto currentSortRolePreferences = Elisa::ElisaConfiguration::sortRolePreferences();
 
     auto viewId = buildViewId();

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 86ff119b1606fcaa910d6b44fc14b611\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-30 00:47+0000\n"
+"POT-Creation-Date: 2023-08-09 00:45+0000\n"
 "PO-Revision-Date: 2023-02-09 05:31\n"
 "Last-Translator: Zmicier <zmicerturok@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -368,13 +368,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Прайграванне музыкі"
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Няма супадзенняў"
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -1538,13 +1538,33 @@ msgctxt "Volume as a percentage"
 msgid "%1%"
 msgstr ""
 
-#: viewmanager.cpp:41 viewmanager.cpp:71
+#: viewmanager.cpp:41
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Track number for track metadata view"
+#| msgid "Track Number"
+msgctxt "@title:inmenu"
+msgid "Track Number"
+msgstr "Нумар кампазіцыі"
+
+#: viewmanager.cpp:41 viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Title"
 msgstr "Назва"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Ascending"
+msgstr ""
+
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Descending"
+msgstr ""
+
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1553,7 +1573,7 @@ msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "А-Я"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1562,32 +1582,32 @@ msgctxt "@item:inmenu"
 msgid "Z-A"
 msgstr "Я-А"
 
-#: viewmanager.cpp:56 viewmanager.cpp:86
+#: viewmanager.cpp:57 viewmanager.cpp:87
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "Назва"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "Жанр"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "Год"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "Спачатку старэйшыя"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"

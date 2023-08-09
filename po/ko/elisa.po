@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-30 00:47+0000\n"
+"POT-Creation-Date: 2023-08-09 00:45+0000\n"
 "PO-Revision-Date: 2023-07-22 23:40+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -365,13 +365,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "음악 재생 중"
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "검색 결과 없음"
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -1521,13 +1521,33 @@ msgctxt "Volume as a percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: viewmanager.cpp:41 viewmanager.cpp:71
+#: viewmanager.cpp:41
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Track number for track metadata view"
+#| msgid "Track Number"
+msgctxt "@title:inmenu"
+msgid "Track Number"
+msgstr "트랙 번호"
+
+#: viewmanager.cpp:41 viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Title"
 msgstr "제목"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Ascending"
+msgstr ""
+
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Descending"
+msgstr ""
+
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1536,7 +1556,7 @@ msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "가-힣"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1545,32 +1565,32 @@ msgctxt "@item:inmenu"
 msgid "Z-A"
 msgstr "힣-가"
 
-#: viewmanager.cpp:56 viewmanager.cpp:86
+#: viewmanager.cpp:57 viewmanager.cpp:87
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "이름"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "장르"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "연도"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "오래된 항목 먼저"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-30 00:47+0000\n"
+"POT-Creation-Date: 2023-08-09 00:45+0000\n"
 "PO-Revision-Date: 2021-05-01 23:39-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -426,13 +426,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "ਸੰਗੀਤ ਚੱਲ ਰਿਹਾ ਹੈ"
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr ""
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, fuzzy, kde-format
 #| msgid "Nothing playing"
 msgctxt "@info:placeholder"
@@ -1772,14 +1772,34 @@ msgctxt "Volume as a percentage"
 msgid "%1%"
 msgstr "%1:"
 
-#: viewmanager.cpp:41 viewmanager.cpp:71
+#: viewmanager.cpp:41
+#, fuzzy, kde-format
+#| msgctxt "Track number for track metadata view"
+#| msgid "Track Number"
+msgctxt "@title:inmenu"
+msgid "Track Number"
+msgstr "ਟਰੈਕ ਨੰਬਰ"
+
+#: viewmanager.cpp:41 viewmanager.cpp:72
 #, fuzzy, kde-format
 #| msgid "Title"
 msgctxt "@title:inmenu"
 msgid "Title"
 msgstr "ਟਾਈਟਲ"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Ascending"
+msgstr ""
+
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Descending"
+msgstr ""
+
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1789,7 +1809,7 @@ msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "A-Z"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1799,28 +1819,28 @@ msgctxt "@item:inmenu"
 msgid "Z-A"
 msgstr "Z-A"
 
-#: viewmanager.cpp:56 viewmanager.cpp:86
+#: viewmanager.cpp:57 viewmanager.cpp:87
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "ਨਾਂ"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "ਧੁਨ"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "ਸਾਲ"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, fuzzy, kde-format
 #| msgid "Oldest First"
@@ -1828,7 +1848,7 @@ msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "ਸਭ ਤੋਂ ਪੁਰਾਣਾ ਪਹਿਲਾਂ"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, fuzzy, kde-format
 #| msgid "Newest First"

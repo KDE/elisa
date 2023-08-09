@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-30 00:47+0000\n"
+"POT-Creation-Date: 2023-08-09 00:45+0000\n"
 "PO-Revision-Date: 2023-05-11 09:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -366,13 +366,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "يشغل صوتيات"
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "لا يوجد متطابقات"
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -1538,13 +1538,33 @@ msgctxt "Volume as a percentage"
 msgid "%1%"
 msgstr "%1٪"
 
-#: viewmanager.cpp:41 viewmanager.cpp:71
+#: viewmanager.cpp:41
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Track number for track metadata view"
+#| msgid "Track Number"
+msgctxt "@title:inmenu"
+msgid "Track Number"
+msgstr "رقم المقطوعة"
+
+#: viewmanager.cpp:41 viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Title"
 msgstr "العنوان"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Ascending"
+msgstr ""
+
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Descending"
+msgstr ""
+
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1553,7 +1573,7 @@ msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "أ-ي"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1562,32 +1582,32 @@ msgctxt "@item:inmenu"
 msgid "Z-A"
 msgstr "ي-أ"
 
-#: viewmanager.cpp:56 viewmanager.cpp:86
+#: viewmanager.cpp:57 viewmanager.cpp:87
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "الاسم"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "النوع"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "السنة"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "الأقدم أولاً"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"

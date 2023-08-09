@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-30 00:47+0000\n"
+"POT-Creation-Date: 2023-08-09 00:45+0000\n"
 "PO-Revision-Date: 2023-05-16 10:56+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -365,13 +365,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Přehrávám hudbu"
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Žádné shody"
 
-#: qml/AbstractDataView.qml:212
+#: qml/AbstractDataView.qml:213
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -1531,13 +1531,33 @@ msgctxt "Volume as a percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: viewmanager.cpp:41 viewmanager.cpp:71
+#: viewmanager.cpp:41
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Track number for track metadata view"
+#| msgid "Track Number"
+msgctxt "@title:inmenu"
+msgid "Track Number"
+msgstr "Číslo stopy"
+
+#: viewmanager.cpp:41 viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Title"
 msgstr "Název"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Ascending"
+msgstr ""
+
+#: viewmanager.cpp:43
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Descending"
+msgstr ""
+
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1546,7 +1566,7 @@ msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "A-Z"
 
-#: viewmanager.cpp:43 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:88
+#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
 #: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
 #: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
 #: viewslistdata.cpp:566
@@ -1556,32 +1576,32 @@ msgid "Z-A"
 msgstr "Z-A"
 
 # Tohle vypadá na název vlastnosti. Jméno bycvh nechal pro lidi a zvířata.
-#: viewmanager.cpp:56 viewmanager.cpp:86
+#: viewmanager.cpp:57 viewmanager.cpp:87
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "Název"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "Žánr"
 
-#: viewmanager.cpp:71
+#: viewmanager.cpp:72
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "Rok"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "Nejdříve nejstarší"
 
-#: viewmanager.cpp:73 viewslistdata.cpp:66 viewslistdata.cpp:102
+#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
 #: viewslistdata.cpp:103 viewslistdata.cpp:566
 #, kde-format
 msgctxt "@item:inmenu"

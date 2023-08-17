@@ -39,7 +39,7 @@ Kirigami.ScrollablePage {
     title: isCreating ? i18nc("@title:window", "Create a Radio") :
                         i18nc("@title:window", "View details")
 
-    contextualActions: [
+    actions: [
         Kirigami.Action {
             icon.name: "dialog-cancel"
                 text: i18nc("@action:button", "Close")

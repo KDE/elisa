@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-09 00:45+0000\n"
+"POT-Creation-Date: 2023-08-17 00:45+0000\n"
 "PO-Revision-Date: 2023-07-22 23:40+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -335,19 +335,19 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "이미지 주소"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:56 viewslistdata.cpp:556
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:64 viewslistdata.cpp:571
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "앨범"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:108 viewslistdata.cpp:594
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:116 viewslistdata.cpp:609
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "장르"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:71 viewslistdata.cpp:575
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:79 viewslistdata.cpp:590
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
@@ -1389,25 +1389,43 @@ msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "라디오 방송국"
 
-#: qml/SettingsForm.qml:268
+#: qml/SettingsForm.qml:261
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Initial location for Files view:"
+msgstr ""
+
+#: qml/SettingsForm.qml:275
+#, kde-format
+msgctxt "@action:button as in, choose a file path on disk"
+msgid "Choose…"
+msgstr ""
+
+#: qml/SettingsForm.qml:283 qml/SettingsForm.qml:442
+#, kde-format
+msgctxt "@title:window"
+msgid "Choose a Folder"
+msgstr "폴더 선택"
+
+#: qml/SettingsForm.qml:303
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "음악 색인:"
 
-#: qml/SettingsForm.qml:272
+#: qml/SettingsForm.qml:307
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "빠른 기본 인덱서 사용"
 
-#: qml/SettingsForm.qml:273
+#: qml/SettingsForm.qml:308
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "파일 시스템 직접 검색"
 
-#: qml/SettingsForm.qml:287
+#: qml/SettingsForm.qml:322
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1418,30 +1436,30 @@ msgstr ""
 "빠른 검색보다 더 느립니다. Elisa에서 곡을 찾을 수 없고 파일 관리자에서 빠진 "
 "파일을 검색할 수 없을 때에만 선택하십시오. 이 상황을 버그로 보고해 주십시오."
 
-#: qml/SettingsForm.qml:291
+#: qml/SettingsForm.qml:326
 #, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "버그 보고"
 
-#: qml/SettingsForm.qml:306
+#: qml/SettingsForm.qml:341
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "재생 목록 파일을 저장할 때:"
 
-#: qml/SettingsForm.qml:315
+#: qml/SettingsForm.qml:350
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "상대 경로 선호"
 
-#: qml/SettingsForm.qml:316
+#: qml/SettingsForm.qml:351
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "항상 절대 경로 사용"
 
-#: qml/SettingsForm.qml:327
+#: qml/SettingsForm.qml:362
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1453,32 +1471,26 @@ msgstr ""
 "은 폴더에 있는 파일을 파일 이름만으로 참조하며, 다른 경우에 절대 경로를 사용"
 "합니다."
 
-#: qml/SettingsForm.qml:342
+#: qml/SettingsForm.qml:377
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "음악 폴더:"
 
-#: qml/SettingsForm.qml:384
+#: qml/SettingsForm.qml:419
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "여기에서 음악 찾기 중지"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "새 위치 추가"
 
-#: qml/SettingsForm.qml:407
-#, kde-format
-msgctxt "@title:window"
-msgid "Choose a Folder"
-msgstr "폴더 선택"
-
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:459
 #, kde-format
 msgctxt "@label"
 msgid ""
@@ -1548,18 +1560,18 @@ msgid "Descending"
 msgstr ""
 
 #: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
-#: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
-#: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:566
+#: viewslistdata.cpp:74 viewslistdata.cpp:89 viewslistdata.cpp:109
+#: viewslistdata.cpp:110 viewslistdata.cpp:126 viewslistdata.cpp:153
+#: viewslistdata.cpp:581
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "가-힣"
 
 #: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
-#: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
-#: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:566
+#: viewslistdata.cpp:74 viewslistdata.cpp:89 viewslistdata.cpp:109
+#: viewslistdata.cpp:110 viewslistdata.cpp:126 viewslistdata.cpp:153
+#: viewslistdata.cpp:581
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
@@ -1583,160 +1595,160 @@ msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "연도"
 
-#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:566
+#: viewmanager.cpp:74 viewslistdata.cpp:74 viewslistdata.cpp:110
+#: viewslistdata.cpp:111 viewslistdata.cpp:581
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "오래된 항목 먼저"
 
-#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:566
+#: viewmanager.cpp:74 viewslistdata.cpp:74 viewslistdata.cpp:110
+#: viewslistdata.cpp:111 viewslistdata.cpp:581
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "새 항목 먼저"
 
-#: viewslistdata.cpp:23
+#: viewslistdata.cpp:31
 #, kde-format
 msgctxt "@title:window Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "지금 재생 중"
 
-#: viewslistdata.cpp:26
+#: viewslistdata.cpp:34
 #, kde-format
 msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "최근 재생한 곡"
 
-#: viewslistdata.cpp:34
+#: viewslistdata.cpp:42
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Played Date"
 msgstr "마지막 재생 날짜"
 
-#: viewslistdata.cpp:36
+#: viewslistdata.cpp:44
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
 msgstr "오래 전에 재생한 곡 먼저"
 
-#: viewslistdata.cpp:36
+#: viewslistdata.cpp:44
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "최근 재생한 곡 먼저"
 
-#: viewslistdata.cpp:41
+#: viewslistdata.cpp:49
 #, kde-format
 msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "자주 재생한 곡"
 
-#: viewslistdata.cpp:49
+#: viewslistdata.cpp:57
 #, kde-format
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "재생 빈도"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:59
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "자주 재생하지 않은 곡 먼저"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:59
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "자주 재생한 곡 먼저"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
+#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:579
 #, kde-format
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "제목"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
+#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:579
 #, kde-format
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "아티스트"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:116
-#: viewslistdata.cpp:564 viewslistdata.cpp:602
+#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:124
+#: viewslistdata.cpp:579 viewslistdata.cpp:617
 #, kde-format
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "장르"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:98 viewslistdata.cpp:564
+#: viewslistdata.cpp:72 viewslistdata.cpp:106 viewslistdata.cpp:579
 #, kde-format
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "연도"
 
-#: viewslistdata.cpp:79 viewslistdata.cpp:143 viewslistdata.cpp:583
+#: viewslistdata.cpp:87 viewslistdata.cpp:151 viewslistdata.cpp:598
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "이름"
 
-#: viewslistdata.cpp:86
+#: viewslistdata.cpp:94
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "곡"
 
-#: viewslistdata.cpp:97
+#: viewslistdata.cpp:105
 #, kde-format
 msgctxt "@title:menu"
 msgid "Album"
 msgstr "앨범"
 
-#: viewslistdata.cpp:98
+#: viewslistdata.cpp:106
 #, kde-format
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "시간"
 
-#: viewslistdata.cpp:98
+#: viewslistdata.cpp:106
 #, kde-format
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "작곡가"
 
-#: viewslistdata.cpp:98
+#: viewslistdata.cpp:106
 #, kde-format
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "작사자"
 
-#: viewslistdata.cpp:99
+#: viewslistdata.cpp:107
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr "수정한 날짜"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:110
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "짧은 것부터"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:110
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "긴 것부터"
 
-#: viewslistdata.cpp:123
+#: viewslistdata.cpp:131
 #, kde-format
 msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "파일"
 
-#: viewslistdata.cpp:135
+#: viewslistdata.cpp:143
 #, kde-format
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"

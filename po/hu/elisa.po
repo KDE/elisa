@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-09 00:45+0000\n"
+"POT-Creation-Date: 2023-08-17 00:45+0000\n"
 "PO-Revision-Date: 2022-02-01 10:43+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -397,7 +397,7 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Kép címe"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:56 viewslistdata.cpp:556
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:64 viewslistdata.cpp:571
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -405,7 +405,7 @@ msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumok"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:108 viewslistdata.cpp:594
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:116 viewslistdata.cpp:609
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -413,7 +413,7 @@ msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Műfajok"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:71 viewslistdata.cpp:575
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:79 viewslistdata.cpp:590
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1689,14 +1689,33 @@ msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Rádióállomások"
 
-#: qml/SettingsForm.qml:268
+#: qml/SettingsForm.qml:261
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Initial location for Files view:"
+msgstr ""
+
+#: qml/SettingsForm.qml:275
+#, kde-format
+msgctxt "@action:button as in, choose a file path on disk"
+msgid "Choose…"
+msgstr ""
+
+#: qml/SettingsForm.qml:283 qml/SettingsForm.qml:442
+#, fuzzy, kde-format
+#| msgid "Choose a Folder"
+msgctxt "@title:window"
+msgid "Choose a Folder"
+msgstr "Válasszon egy mappát"
+
+#: qml/SettingsForm.qml:303
 #, fuzzy, kde-format
 #| msgid "Music indexing:"
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "Zene indexelése:"
 
-#: qml/SettingsForm.qml:272
+#: qml/SettingsForm.qml:307
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, indexing type"
 #| msgid "Use fast native indexer"
@@ -1704,7 +1723,7 @@ msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "Gyors, natív indexelő használata"
 
-#: qml/SettingsForm.qml:273
+#: qml/SettingsForm.qml:308
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, indexing type"
 #| msgid "Scan the filesystem directly"
@@ -1712,7 +1731,7 @@ msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "Fájlrendszer átvizsgálása közvetlenül"
 
-#: qml/SettingsForm.qml:287
+#: qml/SettingsForm.qml:322
 #, fuzzy, kde-format
 #| msgid ""
 #| "This is slower than the fast indexer. Please activate it only if Elisa "
@@ -1728,31 +1747,31 @@ msgstr ""
 "találja a zenéit, és a hiányzó zenei fájlok keresése a fájlkezelővel szintén "
 "nem működik. Kérjük, jelentse ezt a hibát."
 
-#: qml/SettingsForm.qml:291
+#: qml/SettingsForm.qml:326
 #, fuzzy, kde-format
 #| msgid "Report Bug"
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "Hiba bejelentése"
 
-#: qml/SettingsForm.qml:306
+#: qml/SettingsForm.qml:341
 #, kde-format
 msgid "When saving playlist files:"
 msgstr ""
 
-#: qml/SettingsForm.qml:315
+#: qml/SettingsForm.qml:350
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:316
+#: qml/SettingsForm.qml:351
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:327
+#: qml/SettingsForm.qml:362
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1761,7 +1780,7 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 
-#: qml/SettingsForm.qml:342
+#: qml/SettingsForm.qml:377
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "The configured folders where the user's music collection can be found"
@@ -1771,28 +1790,21 @@ msgctxt ""
 msgid "Music folders:"
 msgstr "Zenemappák:"
 
-#: qml/SettingsForm.qml:384
+#: qml/SettingsForm.qml:419
 #, fuzzy, kde-format
 #| msgid "Stop looking for music here"
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Zene keresésének leállítása itt"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:432
 #, fuzzy, kde-format
 #| msgid "Add New Location"
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Új hely hozzáadása"
 
-#: qml/SettingsForm.qml:407
-#, fuzzy, kde-format
-#| msgid "Choose a Folder"
-msgctxt "@title:window"
-msgid "Choose a Folder"
-msgstr "Válasszon egy mappát"
-
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:459
 #, kde-format
 msgctxt "@label"
 msgid ""
@@ -1867,9 +1879,9 @@ msgid "Descending"
 msgstr ""
 
 #: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
-#: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
-#: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:566
+#: viewslistdata.cpp:74 viewslistdata.cpp:89 viewslistdata.cpp:109
+#: viewslistdata.cpp:110 viewslistdata.cpp:126 viewslistdata.cpp:153
+#: viewslistdata.cpp:581
 #, fuzzy, kde-format
 #| msgid "A-Z"
 msgctxt "@item:inmenu"
@@ -1877,9 +1889,9 @@ msgid "A-Z"
 msgstr "A-Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
-#: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
-#: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:566
+#: viewslistdata.cpp:74 viewslistdata.cpp:89 viewslistdata.cpp:109
+#: viewslistdata.cpp:110 viewslistdata.cpp:126 viewslistdata.cpp:153
+#: viewslistdata.cpp:581
 #, fuzzy, kde-format
 #| msgid "Z-A"
 msgctxt "@item:inmenu"
@@ -1907,23 +1919,23 @@ msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "Év"
 
-#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:566
+#: viewmanager.cpp:74 viewslistdata.cpp:74 viewslistdata.cpp:110
+#: viewslistdata.cpp:111 viewslistdata.cpp:581
 #, fuzzy, kde-format
 #| msgid "Oldest First"
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "Legrégebbi előre"
 
-#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:566
+#: viewmanager.cpp:74 viewslistdata.cpp:74 viewslistdata.cpp:110
+#: viewslistdata.cpp:111 viewslistdata.cpp:581
 #, fuzzy, kde-format
 #| msgid "Newest First"
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "Legújabb előre"
 
-#: viewslistdata.cpp:23
+#: viewslistdata.cpp:31
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -1931,7 +1943,7 @@ msgctxt "@title:window Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Most játszott"
 
-#: viewslistdata.cpp:26
+#: viewslistdata.cpp:34
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of recently played tracks"
 #| msgid "Recently Played"
@@ -1939,28 +1951,28 @@ msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Legutóbb lejátszott"
 
-#: viewslistdata.cpp:34
+#: viewslistdata.cpp:42
 #, fuzzy, kde-format
 #| msgid "Last Played Date"
 msgctxt "@title:menu"
 msgid "Last Played Date"
 msgstr "Utolsó lejátszás dátuma"
 
-#: viewslistdata.cpp:36
+#: viewslistdata.cpp:44
 #, fuzzy, kde-format
 #| msgid "Least Recently Played First"
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
 msgstr "Legkevésbé mostanában lejátszott előre"
 
-#: viewslistdata.cpp:36
+#: viewslistdata.cpp:44
 #, fuzzy, kde-format
 #| msgid "Most Recently Played First"
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "Legutóbb lejátszott előre"
 
-#: viewslistdata.cpp:41
+#: viewslistdata.cpp:49
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of frequently played tracks"
 #| msgid "Frequently Played"
@@ -1968,64 +1980,64 @@ msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Gyakran lejátszott"
 
-#: viewslistdata.cpp:49
+#: viewslistdata.cpp:57
 #, fuzzy, kde-format
 #| msgid "Play Frequency"
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "Lejátszási gyakoriság"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:59
 #, fuzzy, kde-format
 #| msgid "Least Frequently Played First"
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "Legkevésbé gyakran lejátszott előre"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:59
 #, fuzzy, kde-format
 #| msgid "Most Frequently Played First"
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Leggyakrabban lejátszott előre"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
+#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:579
 #, fuzzy, kde-format
 #| msgid "Title"
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "Cím"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
+#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:579
 #, fuzzy, kde-format
 #| msgid "Artist"
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "Előadó"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:116
-#: viewslistdata.cpp:564 viewslistdata.cpp:602
+#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:124
+#: viewslistdata.cpp:579 viewslistdata.cpp:617
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Műfaj"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:98 viewslistdata.cpp:564
+#: viewslistdata.cpp:72 viewslistdata.cpp:106 viewslistdata.cpp:579
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "Év"
 
-#: viewslistdata.cpp:79 viewslistdata.cpp:143 viewslistdata.cpp:583
+#: viewslistdata.cpp:87 viewslistdata.cpp:151 viewslistdata.cpp:598
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "Név"
 
-#: viewslistdata.cpp:86
+#: viewslistdata.cpp:94
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -2033,55 +2045,55 @@ msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Számok"
 
-#: viewslistdata.cpp:97
+#: viewslistdata.cpp:105
 #, fuzzy, kde-format
 #| msgid "Album"
 msgctxt "@title:menu"
 msgid "Album"
 msgstr "Album"
 
-#: viewslistdata.cpp:98
+#: viewslistdata.cpp:106
 #, fuzzy, kde-format
 #| msgid "Duration"
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "Hossz"
 
-#: viewslistdata.cpp:98
+#: viewslistdata.cpp:106
 #, fuzzy, kde-format
 #| msgid "Composer"
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "Zeneszerző"
 
-#: viewslistdata.cpp:98
+#: viewslistdata.cpp:106
 #, fuzzy, kde-format
 #| msgid "Lyricist"
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "Dalszerző"
 
-#: viewslistdata.cpp:99
+#: viewslistdata.cpp:107
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr ""
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:110
 #, fuzzy, kde-format
 #| msgid "Shortest First"
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "Legrövidebb előre"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:110
 #, fuzzy, kde-format
 #| msgid "Longest First"
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "Leghosszabb előre"
 
-#: viewslistdata.cpp:123
+#: viewslistdata.cpp:131
 #, fuzzy, kde-format
 #| msgctxt "Title of the file browser view"
 #| msgid "Files"
@@ -2089,7 +2101,7 @@ msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "Fájlok"
 
-#: viewslistdata.cpp:135
+#: viewslistdata.cpp:143
 #, fuzzy, kde-format
 #| msgid "Radio Stations"
 msgctxt "@title:window Title of the file radios browser view"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-09 00:45+0000\n"
+"POT-Creation-Date: 2023-08-17 00:45+0000\n"
 "PO-Revision-Date: 2023-05-07 14:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -334,19 +334,19 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "படத்திற்கான முகவரி"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:56 viewslistdata.cpp:556
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:64 viewslistdata.cpp:571
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "ஆல்பங்கள்"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:108 viewslistdata.cpp:594
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:116 viewslistdata.cpp:609
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "பாடல்வகைகள்"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:71 viewslistdata.cpp:575
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:79 viewslistdata.cpp:590
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
@@ -1389,25 +1389,43 @@ msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "வானொலி நிலையங்கள்"
 
-#: qml/SettingsForm.qml:268
+#: qml/SettingsForm.qml:261
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Initial location for Files view:"
+msgstr ""
+
+#: qml/SettingsForm.qml:275
+#, kde-format
+msgctxt "@action:button as in, choose a file path on disk"
+msgid "Choose…"
+msgstr ""
+
+#: qml/SettingsForm.qml:283 qml/SettingsForm.qml:442
+#, kde-format
+msgctxt "@title:window"
+msgid "Choose a Folder"
+msgstr "அடைவைத் தேர்வு செய்தல்"
+
+#: qml/SettingsForm.qml:303
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "பாடல் அட்டவணையாக்கம்:"
 
-#: qml/SettingsForm.qml:272
+#: qml/SettingsForm.qml:307
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "விரைவான பொது அட்டவணையாக்கியை பயன்படுத்து"
 
-#: qml/SettingsForm.qml:273
+#: qml/SettingsForm.qml:308
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "கோப்புகளை நேரடியாக ஆராய்"
 
-#: qml/SettingsForm.qml:287
+#: qml/SettingsForm.qml:322
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1419,30 +1437,30 @@ msgstr ""
 "கோப்பு உலாவியின் தேடல் அம்சத்தாலும் கண்டுபிடிக்க முடியாத பட்சத்தில் மட்டும் இதை "
 "பயன்படுத்துங்கள். தயவுசெய்து இதை ஓர் நிரலாக்க பிழையாக எங்களிடம் தெரிவியுங்கள்."
 
-#: qml/SettingsForm.qml:291
+#: qml/SettingsForm.qml:326
 #, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "பிழையை தெரிவி"
 
-#: qml/SettingsForm.qml:306
+#: qml/SettingsForm.qml:341
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "பாடல்வரிசைக் கோப்புகளை சேமிக்கும்போது:"
 
-#: qml/SettingsForm.qml:315
+#: qml/SettingsForm.qml:350
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "சார்புடைய பாதைகளை பயன்படுத்து"
 
-#: qml/SettingsForm.qml:316
+#: qml/SettingsForm.qml:351
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "முழுமையான பாதைகளை எப்போதும் பயன்படுத்து"
 
-#: qml/SettingsForm.qml:327
+#: qml/SettingsForm.qml:362
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1455,32 +1473,26 @@ msgstr ""
 "முழுமையான பாதை பயன்படுத்தப்படாது. மற்ற சூழல்களில் முழுமையான பாதைகளே எப்போதும் "
 "பயன்படுத்தப்படும்."
 
-#: qml/SettingsForm.qml:342
+#: qml/SettingsForm.qml:377
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "பாடல் அடைவுகள்:"
 
-#: qml/SettingsForm.qml:384
+#: qml/SettingsForm.qml:419
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "இங்குள்ள பாடல்களை கண்டறியாதே"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "புதிய இடத்தைச் சேர்"
 
-#: qml/SettingsForm.qml:407
-#, kde-format
-msgctxt "@title:window"
-msgid "Choose a Folder"
-msgstr "அடைவைத் தேர்வு செய்தல்"
-
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:459
 #, kde-format
 msgctxt "@label"
 msgid ""
@@ -1551,18 +1563,18 @@ msgid "Descending"
 msgstr ""
 
 #: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
-#: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
-#: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:566
+#: viewslistdata.cpp:74 viewslistdata.cpp:89 viewslistdata.cpp:109
+#: viewslistdata.cpp:110 viewslistdata.cpp:126 viewslistdata.cpp:153
+#: viewslistdata.cpp:581
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "அ–ஃ"
 
 #: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
-#: viewslistdata.cpp:66 viewslistdata.cpp:81 viewslistdata.cpp:101
-#: viewslistdata.cpp:102 viewslistdata.cpp:118 viewslistdata.cpp:145
-#: viewslistdata.cpp:566
+#: viewslistdata.cpp:74 viewslistdata.cpp:89 viewslistdata.cpp:109
+#: viewslistdata.cpp:110 viewslistdata.cpp:126 viewslistdata.cpp:153
+#: viewslistdata.cpp:581
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
@@ -1586,160 +1598,160 @@ msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "ஆண்டு"
 
-#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:566
+#: viewmanager.cpp:74 viewslistdata.cpp:74 viewslistdata.cpp:110
+#: viewslistdata.cpp:111 viewslistdata.cpp:581
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "பழையது முதலில்"
 
-#: viewmanager.cpp:74 viewslistdata.cpp:66 viewslistdata.cpp:102
-#: viewslistdata.cpp:103 viewslistdata.cpp:566
+#: viewmanager.cpp:74 viewslistdata.cpp:74 viewslistdata.cpp:110
+#: viewslistdata.cpp:111 viewslistdata.cpp:581
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "புதியது முதலில்"
 
-#: viewslistdata.cpp:23
+#: viewslistdata.cpp:31
 #, kde-format
 msgctxt "@title:window Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "இப்போது இசைக்கப்படுவது"
 
-#: viewslistdata.cpp:26
+#: viewslistdata.cpp:34
 #, kde-format
 msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "சமீபத்தில் இசைத்தவை"
 
-#: viewslistdata.cpp:34
+#: viewslistdata.cpp:42
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Played Date"
 msgstr "கடைசியாக இசைத்த தேதி"
 
-#: viewslistdata.cpp:36
+#: viewslistdata.cpp:44
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
 msgstr "சமீபத்தில் இசைக்காதவை முதலில்"
 
-#: viewslistdata.cpp:36
+#: viewslistdata.cpp:44
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "சமீபத்தில் இசைத்தவை முதலில்"
 
-#: viewslistdata.cpp:41
+#: viewslistdata.cpp:49
 #, kde-format
 msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "அடிக்கடி இசைப்பவை"
 
-#: viewslistdata.cpp:49
+#: viewslistdata.cpp:57
 #, kde-format
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "எத்தனைமுறை இசைக்கப்பட்டுள்ளது"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:59
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "குறைவாக இசைத்தவை முதலில்"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:59
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "அதிகமாக இசைத்தவை முதலில்"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
+#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:579
 #, kde-format
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "தலைப்பு"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:564
+#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:579
 #, kde-format
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "கலைஞர்"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:97 viewslistdata.cpp:116
-#: viewslistdata.cpp:564 viewslistdata.cpp:602
+#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:124
+#: viewslistdata.cpp:579 viewslistdata.cpp:617
 #, kde-format
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "பாடல்வகை"
 
-#: viewslistdata.cpp:64 viewslistdata.cpp:98 viewslistdata.cpp:564
+#: viewslistdata.cpp:72 viewslistdata.cpp:106 viewslistdata.cpp:579
 #, kde-format
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "ஆண்டு"
 
-#: viewslistdata.cpp:79 viewslistdata.cpp:143 viewslistdata.cpp:583
+#: viewslistdata.cpp:87 viewslistdata.cpp:151 viewslistdata.cpp:598
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "பெயர்"
 
-#: viewslistdata.cpp:86
+#: viewslistdata.cpp:94
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "பாடல்கள்"
 
-#: viewslistdata.cpp:97
+#: viewslistdata.cpp:105
 #, kde-format
 msgctxt "@title:menu"
 msgid "Album"
 msgstr "ஆல்பம்"
 
-#: viewslistdata.cpp:98
+#: viewslistdata.cpp:106
 #, kde-format
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "நீளம்"
 
-#: viewslistdata.cpp:98
+#: viewslistdata.cpp:106
 #, kde-format
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "இசையமைப்பாளர்"
 
-#: viewslistdata.cpp:98
+#: viewslistdata.cpp:106
 #, kde-format
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "கவிஞர்"
 
-#: viewslistdata.cpp:99
+#: viewslistdata.cpp:107
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr "கடைசியாக மாற்றியது"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:110
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "குறுகியது முதலில்"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:110
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "நீண்டது முதலில்"
 
-#: viewslistdata.cpp:123
+#: viewslistdata.cpp:131
 #, kde-format
 msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "கோப்புகள்"
 
-#: viewslistdata.cpp:135
+#: viewslistdata.cpp:143
 #, kde-format
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"

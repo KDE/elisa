@@ -4,7 +4,7 @@
         <file>qml/RatingStar.qml</file>
         <file>qml/MediaPlayListView.qml</file>
         <file>qml/ElisaMainWindow.qml</file>
-        <file alias="qml/ApplicationMenu.qml">@CMAKE_CURRENT_BINARY_DIR@/qml/ApplicationMenu.qml</file>
+        <file>qml/ApplicationMenu.qml</file>
         <file>qml/HeaderBar.qml</file>
         <file>qml/ContextView.qml</file>
         <file>qml/ContentView.qml</file>
@@ -15,8 +15,8 @@
         <file>qml/LabelWithToolTip.qml</file>
         <file>qml/TrackImportNotification.qml</file>
         <file>qml/MediaTrackMetadataView.qml</file>
-        <file alias="qml/GridBrowserDelegate.qml">@CMAKE_CURRENT_BINARY_DIR@/qml/GridBrowserDelegate.qml</file>
-        <file alias="qml/ListBrowserDelegate.qml">@CMAKE_CURRENT_BINARY_DIR@/qml/ListBrowserDelegate.qml</file>
+        <file>qml/GridBrowserDelegate.qml</file>
+        <file>qml/ListBrowserDelegate.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>background.png</file>
         <file>qml/BaseTheme.qml</file>
@@ -25,7 +25,7 @@
         <file>qml/DataGridView.qml</file>
         <file>qml/DataListView.qml</file>
         <file>qml/SimplePlayListView.qml</file>
-        <file alias="qml/ViewSelector.qml">@CMAKE_CURRENT_BINARY_DIR@/qml/ViewSelector.qml</file>
+        <file>qml/ViewSelector.qml</file>
         <file>qml/BasicPlayListAlbumHeader.qml</file>
         <file>qml/MediaTrackMetadataDelegate.qml</file>
         <file>qml/MediaTrackMetadataForm.qml</file>
@@ -39,7 +39,7 @@
         <file>qml/PlaylistModeItem.qml</file>
         <file>qml/ElisaConfigurationDialog.qml</file>
         <file>qml/SortMenu.qml</file>
-        <file alias="qml/SettingsForm.qml">@CMAKE_CURRENT_BINARY_DIR@/qml/SettingsForm.qml</file>
+        <file>qml/SettingsForm.qml</file>
         <file>qml/DurationSlider.qml</file>
         <file>qml/VolumeSlider.qml</file>
         <file>qml/mobile/MobileFooterBar.qml</file>
@@ -47,8 +47,8 @@
         <file>qml/mobile/MobileTrackPlayer.qml</file>
         <file>qml/mobile/MobileSidebar.qml</file>
         <file>qml/mobile/MobileSettingsPage.qml</file>
-        <file alias="qml/mobile/MobileMediaTrackMetadataView.qml">@CMAKE_CURRENT_BINARY_DIR@/qml/mobile/MobileMediaTrackMetadataView.qml</file>
-        <file alias="qml/mobile/MobilePlayListDelegate.qml">@CMAKE_CURRENT_BINARY_DIR@/qml/mobile/MobilePlayListDelegate.qml</file>
+        <file>qml/mobile/MobileMediaTrackMetadataView.qml</file>
+        <file>qml/mobile/MobilePlayListDelegate.qml</file>
         <file>qml/mobile/MobileVolumeButton.qml</file>
         <file>qml/shared/BasePlayerControl.qml</file>
         <file>qml/shared/BasePlayListDelegate.qml</file>

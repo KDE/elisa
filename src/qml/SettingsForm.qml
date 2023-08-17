@@ -447,7 +447,7 @@ ColumnLayout {
 
                     onAccepted: {
                         var oldPaths = ElisaConfigurationDialog.rootPath
-                        oldPaths.push(fileDialog.@FILEDIALOG_SELECTEDFILES@)
+                        oldPaths.push(fileDialog.fileUrls)
                         ElisaConfigurationDialog.rootPath = oldPaths
                     }
                 }

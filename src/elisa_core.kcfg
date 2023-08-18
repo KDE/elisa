@@ -3,6 +3,8 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+ <include>QDir</include>
+ <include>QStandardPaths</include>
  <kcfgfile arg="true" />
  <group name="ElisaFileIndexer">
   <entry key="RootPath" type="PathList" >
@@ -72,7 +74,15 @@
    </choices>
   </entry>
   <entry key="InitialFilesViewPath" type="String">
-    <default>/</default>
+    <default code="true">
+      !QStandardPaths::writableLocation(QStandardPaths::MusicLocation).isEmpty()?
+          (
+              QDir(QStandardPaths::writableLocation(QStandardPaths::MusicLocation)).exists() ?
+              QStandardPaths::writableLocation(QStandardPaths::MusicLocation) :
+              QDir::rootPath()
+          ) :
+          QDir::rootPath()
+    </default>
   </entry>
   <entry key="ColorScheme" type="String">
   </entry>

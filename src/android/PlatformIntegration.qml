@@ -5,7 +5,6 @@
  */
 
 import QtQuick 2.7
-import Qt.labs.platform 1.1 as NativeMenu
 import org.kde.elisa 1.0
 
 Item {

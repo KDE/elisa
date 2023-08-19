@@ -38,6 +38,11 @@ class ELISALIB_EXPORT ViewManager : public QObject
                WRITE setInitialIndex
                NOTIFY initialIndexChanged)
 
+    Q_PROPERTY(QString initialFilesViewPath
+               READ initialFilesViewPath
+               WRITE setInitialFilesViewPath
+               NOTIFY initialFilesViewPathChanged)
+
     Q_PROPERTY(ViewsListData* viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
 
 public:
@@ -102,6 +107,8 @@ public:
 
     [[nodiscard]] int initialIndex() const;
 
+    [[nodiscard]] QString initialFilesViewPath() const;
+
     [[nodiscard]] ViewsListData* viewsData() const;
 
 Q_SIGNALS:
@@ -119,6 +126,8 @@ Q_SIGNALS:
     void initialIndexChanged();
 
     void viewsDataChanged();
+
+    void initialFilesViewPathChanged();
 
 public Q_SLOTS:
 
@@ -141,6 +150,8 @@ public Q_SLOTS:
     void sortRoleChanged(int sortRole);
 
     void setInitialIndex(int newIndex);
+
+    void setInitialFilesViewPath(const QString &initialPath);
 
 private Q_SLOTS:
 

@@ -97,6 +97,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ initialViewIndex
                NOTIFY initialViewIndexChanged)
 
+    Q_PROPERTY(QString initialFilesViewPath
+               READ initialFilesViewPath
+               NOTIFY initialFilesViewPathChanged)
+
 public:
     explicit ElisaApplication(QObject *parent = nullptr);
 
@@ -139,6 +143,8 @@ public:
 
     int initialViewIndex() const;
 
+    [[nodiscard]] QString initialFilesViewPath() const;
+
 Q_SIGNALS:
 
     void musicManagerChanged();
@@ -174,6 +180,8 @@ Q_SIGNALS:
     void embeddedViewChanged();
 
     void initialViewIndexChanged();
+
+    void initialFilesViewPathChanged();
 
 public Q_SLOTS:
 

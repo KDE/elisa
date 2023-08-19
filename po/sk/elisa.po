@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-17 00:45+0000\n"
+"POT-Creation-Date: 2023-08-19 00:44+0000\n"
 "PO-Revision-Date: 2023-03-02 18:26+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -943,14 +943,14 @@ msgid "View details"
 msgstr "Zobraziť podrobnosti"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:45
-#: qml/mobile/MobileSettingsPage.qml:38
+#: qml/mobile/MobileSettingsPage.qml:36
 #, kde-format
 msgctxt "@action:button"
 msgid "Close"
 msgstr "Zatvoriť"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:53
-#: qml/mobile/MobileSettingsPage.qml:30
+#: qml/mobile/MobileSettingsPage.qml:28
 #, kde-format
 msgctxt "@action:button"
 msgid "Save"
@@ -975,7 +975,7 @@ msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr "Odstrániť z poradia"
 
-#: qml/mobile/MobileSettingsPage.qml:26 qml/mobile/MobileSidebar.qml:38
+#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:38
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"

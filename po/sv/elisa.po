@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-17 00:45+0000\n"
+"POT-Creation-Date: 2023-08-19 00:44+0000\n"
 "PO-Revision-Date: 2023-08-17 08:42+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -937,14 +937,14 @@ msgid "View details"
 msgstr "Visa detaljinformation"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:45
-#: qml/mobile/MobileSettingsPage.qml:38
+#: qml/mobile/MobileSettingsPage.qml:36
 #, kde-format
 msgctxt "@action:button"
 msgid "Close"
 msgstr "Stäng"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:53
-#: qml/mobile/MobileSettingsPage.qml:30
+#: qml/mobile/MobileSettingsPage.qml:28
 #, kde-format
 msgctxt "@action:button"
 msgid "Save"
@@ -969,7 +969,7 @@ msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr "Ta bort från kö"
 
-#: qml/mobile/MobileSettingsPage.qml:26 qml/mobile/MobileSidebar.qml:38
+#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:38
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"

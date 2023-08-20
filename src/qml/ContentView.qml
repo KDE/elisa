@@ -74,7 +74,6 @@ RowLayout {
                 delegateDisplaySecondaryText: configurationData.viewDelegateDisplaySecondaryText,
                 filter: configurationData.dataFilter,
                 isSubPage: configurationData.expectedDepth > 1,
-                haveTreeModel: configurationData.isTreeModel,
                 sortRole: configurationData.sortRole,
                 sortRoles: configurationData.sortRoles,
                 sortRoleNames: configurationData.sortRoleNames,
@@ -101,7 +100,6 @@ RowLayout {
                 displaySingleAlbum: configurationData.displaySingleAlbum,
                 showSection: configurationData.showDiscHeaders,
                 radioCase: configurationData.radioCase,
-                haveTreeModel: configurationData.isTreeModel,
                 sortRole: configurationData.sortRole,
                 sortRoles: configurationData.sortRoles,
                 sortRoleNames: configurationData.sortRoleNames,
@@ -121,10 +119,6 @@ RowLayout {
         }
 
         onPopOneView: {
-            if (browseStackView.currentItem.haveTreeModel) {
-                browseStackView.currentItem.goToBack()
-            }
-
             if (browseStackView.depth > 1) {
                 browseStackView.pop()
             }

@@ -63,18 +63,8 @@ AbstractDataView {
 
         onEnqueue: gridView.enqueue(model.fullData, model.display)
         onReplaceAndPlay: gridView.replaceAndPlay(model.fullData, model.display)
-        onOpen: {
-            if (haveTreeModel && !model.hasModelChildren) {
-                return
-            }
+        onOpen: gridView.open(model.fullData)
 
-            if (haveTreeModel) {
-                delegateModel.rootIndex = delegateModel.modelIndex(model.index)
-                ++depth
-            } else {
-                gridView.open(model.fullData)
-            }
-        }
         onSelected: {
             forceActiveFocus()
             contentDirectoryView.currentIndex = model.index

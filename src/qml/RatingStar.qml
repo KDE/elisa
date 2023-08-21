@@ -86,16 +86,16 @@ QQC2.Control {
                     height: Kirigami.Units.iconSizes.small
                     anchors.centerIn: parent
 
-                layer.enabled: control.hoveredRating >= delegate.ratingThreshold
+                    layer.enabled: control.hoveredRating >= delegate.ratingThreshold
 
-                layer.effect: BrightnessContrast {
-                    brightness: control.hoverBrightness
-                    contrast: control.hoverContrast
-                }
+                    layer.effect: BrightnessContrast {
+                        brightness: control.hoverBrightness
+                        contrast: control.hoverContrast
+                    }
 
-                source: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
-                    ? Qt.resolvedUrl(elisaTheme.ratingIcon)
-                    : Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
+                    source: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
+                        ? Qt.resolvedUrl(elisaTheme.ratingIcon)
+                        : Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
 
                     opacity: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
                         ? 1 : 0.7

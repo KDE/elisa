@@ -93,6 +93,7 @@ QQC2.Control {
                         contrast: control.hoverContrast
                     }
 
+                    animated: false
                     source: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
                         ? Qt.resolvedUrl(elisaTheme.ratingIcon)
                         : Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)

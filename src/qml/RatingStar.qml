@@ -120,7 +120,9 @@ QQC2.Control {
                     }
 
                     onEntered: control.hoveredRating = delegate.ratingThreshold
-                    onExited: control.hoveredRating = 0
+                    onExited: if (control.hoveredRating === delegate.ratingThreshold) {
+                        control.hoveredRating = 0;
+                    }
                 }
             }
         }

@@ -74,6 +74,8 @@ QQC2.Control {
             Item {
                 id: delegate
 
+                required property int index
+
                 readonly property int ratingThreshold: 2 + index * 2
 
                 width: Kirigami.Units.iconSizes.small

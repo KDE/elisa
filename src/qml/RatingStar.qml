@@ -74,6 +74,8 @@ QQC2.Control {
             Item {
                 id: delegate
 
+                required property int index
+
                 readonly property int ratingThreshold: 2 + index * 2
 
                 width: Kirigami.Units.iconSizes.small
@@ -84,16 +86,17 @@ QQC2.Control {
                     height: Kirigami.Units.iconSizes.small
                     anchors.centerIn: parent
 
-                layer.enabled: control.hoveredRating >= delegate.ratingThreshold
+                    layer.enabled: control.hoveredRating >= delegate.ratingThreshold
 
-                layer.effect: BrightnessContrast {
-                    brightness: control.hoverBrightness
-                    contrast: control.hoverContrast
-                }
+                    layer.effect: BrightnessContrast {
+                        brightness: control.hoverBrightness
+                        contrast: control.hoverContrast
+                    }
 
-                source: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
-                    ? Qt.resolvedUrl(elisaTheme.ratingIcon)
-                    : Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
+                    animated: false
+                    source: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
+                        ? Qt.resolvedUrl(elisaTheme.ratingIcon)
+                        : Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
 
                     opacity: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
                         ? 1 : 0.7
@@ -117,7 +120,9 @@ QQC2.Control {
                     }
 
                     onEntered: control.hoveredRating = delegate.ratingThreshold
-                    onExited: control.hoveredRating = 0
+                    onExited: if (control.hoveredRating === delegate.ratingThreshold) {
+                        control.hoveredRating = 0;
+                    }
                 }
             }
         }

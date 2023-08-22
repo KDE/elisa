@@ -83,10 +83,9 @@ FocusScope {
         },
         Kirigami.Action {
             text: i18nc("@action:button", "Play from here, replacing current playlist")
-            icon.name: "media-playback-start"
+            icon.name: Qt.application.layoutDirection !== Qt.RightToLeft ? "media-playback-start-symbolic"
+                                                                         : "media-playback-start-symbolic-rtl"
             onTriggered: mediaTrack.replaceAndPlay(mediaTrack.trackUrl)
-            // TODO: Still needed for RTL?
-            // scale: LayoutMirroring.enabled ? -1 : 1
         },
         Kirigami.Action {
             text: i18nc("@action:button", "Set track rating")

@@ -61,7 +61,8 @@ FocusScope {
     property list<Kirigami.Action> actions: [
         Kirigami.Action {
             text: i18nc("@action:button", "Play now, replacing current playlist")
-            icon.name: 'media-playback-start'
+            icon.name: Qt.application.layoutDirection !== Qt.RightToLeft ? "media-playback-start-symbolic"
+                                                                         : "media-playback-start-symbolic-rtl"
             visible: gridEntry.showPlayButton
             onTriggered: gridEntry.replaceAndPlay()
         },

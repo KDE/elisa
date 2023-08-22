@@ -58,6 +58,21 @@ FocusScope {
         }
     }
 
+    property list<Kirigami.Action> actions: [
+        Kirigami.Action {
+            text: i18nc("@action:button", "Play now, replacing current playlist")
+            icon.name: 'media-playback-start'
+            visible: gridEntry.showPlayButton
+            onTriggered: gridEntry.replaceAndPlay()
+        },
+        Kirigami.Action {
+            text: i18nc("@action:button", "Add to playlist")
+            icon.name: 'list-add'
+            visible: gridEntry.showEnqueueButton
+            onTriggered: gridEntry.enqueue()
+        }
+    ]
+
     Loader {
         id: metadataLoader
         active: false && gridEntry.fileUrl
@@ -222,50 +237,27 @@ FocusScope {
                 sourceComponent: Row {
                     spacing: 2
 
-                    Button {
-                        id: replaceAndPlayButton
-                        objectName: 'replaceAndPlayButton'
+                    Repeater {
+                        model: gridEntry.actions
 
-                        visible: gridEntry.showPlayButton
-                        hoverEnabled: true
+                        delegate: Button {
+                            action: modelData
+                            hoverEnabled: true
+                            flat: false
 
-                        icon.name: 'media-playback-start'
+                            display: AbstractButton.IconOnly
 
-                        ToolTip.visible: hovered
-                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("@action:button", "Play now, replacing current playlist")
+                            ToolTip.visible: hovered
+                            ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
+                            ToolTip.text: action.text
 
-                        Accessible.name: ToolTip.text
-                        Accessible.description: ToolTip.text
-                        Accessible.onPressAction: onClicked
+                            Accessible.name: ToolTip.text
+                            Accessible.description: ToolTip.text
+                            Accessible.onPressAction: onClicked
 
-                        Keys.onReturnPressed: replaceAndPlay()
-                        Keys.onEnterPressed: replaceAndPlay()
-
-                        onClicked: replaceAndPlay()
-                    }
-
-                    Button {
-                        id: enqueueButton
-                        objectName: 'enqueueButton'
-
-                        visible: gridEntry.showEnqueueButton
-                        hoverEnabled: true
-
-                        icon.name: 'list-add'
-
-                        ToolTip.visible: hovered
-                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("@action:button", "Add to playlist")
-
-                        Accessible.name: ToolTip.text
-                        Accessible.description: ToolTip.text
-                        Accessible.onPressAction: onClicked
-
-                        Keys.onReturnPressed: enqueue()
-                        Keys.onEnterPressed: enqueue()
-
-                        onClicked: enqueue()
+                            Keys.onReturnPressed: action.trigger()
+                            Keys.onEnterPressed: action.trigger()
+                        }
                     }
                 }
             }

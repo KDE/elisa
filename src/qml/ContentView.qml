@@ -111,11 +111,7 @@ RowLayout {
         }
 
         onSwitchContextView: (expectedDepth, mainTitle, imageUrl) => {
-            openViewCommon(albumContext, {
-                mainTitle,
-                image: imageUrl,
-                opacity: 1,
-            }, expectedDepth)
+            openViewCommon(albumContext, {opacity: 1}, expectedDepth)
         }
 
         onPopOneView: {

@@ -43,10 +43,10 @@ Kirigami.AbstractListItem {
     signal removeFromPlaylist(int trackIndex)
     signal switchToTrack(int trackIndex)
 
-    onSwitchToTrack: ElisaApplication.mediaPlayListProxyModel.switchTo(trackIndex)
+    onSwitchToTrack: trackIndex => ElisaApplication.mediaPlayListProxyModel.switchTo(trackIndex)
     onStartPlayback: ElisaApplication.audioControl.ensurePlay()
     onPausePlayback: ElisaApplication.audioControl.playPause()
-    onRemoveFromPlaylist: ElisaApplication.mediaPlayListProxyModel.removeRow(trackIndex)
+    onRemoveFromPlaylist: trackIndex => ElisaApplication.mediaPlayListProxyModel.removeRow(trackIndex)
 
     onClicked: {
         listView.currentIndex = index

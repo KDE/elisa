@@ -64,13 +64,11 @@ BasePlayerControl {
             anchors.fill: parent
             cursorShape: isMaximized ? Qt.ArrowCursor : Qt.SizeVerCursor
 
-            onPressed: {
+            onPressed: mouse => {
                 dragStartOffset = mouse.y
             }
 
-            onPositionChanged: {
-                musicWidget.handlePositionChanged(mouse.y, dragStartOffset)
-            }
+            onPositionChanged: mouse => musicWidget.handlePositionChanged(mouse.y, dragStartOffset)
 
             drag.axis: Drag.YAxis
             drag.threshold: 1

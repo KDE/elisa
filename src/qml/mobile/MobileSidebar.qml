@@ -35,7 +35,7 @@ Kirigami.GlobalDrawer {
         // disable default handle as it covers content
         handle.visible = false;
 
-        let settings = action.createObject(drawer, {iconName: "settings-configure", text: i18nc("@title:window", "Settings")});
+        let settings = action.createObject(drawer, {"icon.name": "settings-configure", text: i18nc("@title:window", "Settings")});
         settings.onTriggered.connect(() => {
             mainWindow.pageStack.layers.push("MobileSettingsPage.qml");
         });
@@ -50,7 +50,7 @@ Kirigami.GlobalDrawer {
                 // HACK: the images provided by the model are in the form "image://icon/view-media-genre"
                 // remove the "image://icon/" in order to use icons
                 let icon = String(model.image).substring(13);
-                let object = action.createObject(drawer, {iconName: icon, text: model.display});
+                let object = action.createObject(drawer, {"icon.name": icon, text: model.display});
                 object.onTriggered.connect(() => {
                     viewIndex = model.index;
                     switchView(model.index);

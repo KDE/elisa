@@ -6,11 +6,12 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+import QtCore
 import QtQuick 2.11
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.4 as QQC2
-import QtQuick.Dialogs 1.3 as Dialogs
+import QtQuick.Dialogs as Dialogs
 
 import org.kde.kirigami 2.14 as Kirigami
 
@@ -144,15 +145,25 @@ ColumnLayout {
                 title: i18nc("@title:menu", "Color Scheme")
                 Repeater {
                     model: ElisaApplication.colorSchemesModel
-                    delegate: Kirigami.BasicListItem {
-                        icon: model.decoration
-                        text: model.display
+                    delegate: Kirigami.AbstractListItem {
                         highlighted: model.display === ElisaConfigurationDialog.colorScheme
+                        width: parent.width
                         onClicked: {
                             ElisaApplication.activateColorScheme(model.display)
                             ElisaConfigurationDialog.setColorScheme(model.display)
                             ElisaConfigurationDialog.save()
                             colorSchemeMenu.close()
+                        }
+                        contentItem: RowLayout {
+                            Kirigami.Icon {
+                                source: model.decoration
+                                Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                            }
+                            QQC2.Label {
+                                text: model.display
+                                color: highlighted ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+                                Layout.fillWidth: true
+                            }
                         }
                     }
                 }
@@ -277,15 +288,14 @@ ColumnLayout {
                     filesViewPathChooserDialog.visible = true
                 }
 
-                Dialogs.FileDialog {
+                Dialogs.FolderDialog {
                     id: filesViewPathChooserDialog
 
                     title: i18nc("@title:window", "Choose a Folder")
-                    selectFolder: true
-                    folder: ElisaConfigurationDialog.initialFilesViewPath
+                    currentFolder: ElisaConfigurationDialog.initialFilesViewPath
 
                     onAccepted: {
-                        const url = fileUrl
+                        const url = selectedFolder
                         initialFilesViewPathTextField.text = url.toString().replace("file://", "")
                     }
                 }
@@ -324,7 +334,7 @@ ColumnLayout {
             actions: [
                 Kirigami.Action {
                     text: i18nc("@action:button", "Report Bug")
-                    iconName: "tools-report-bug"
+                    icon.name: "tools-report-bug"
                     onTriggered: Qt.openUrlExternally("https://bugs.kde.org/enter_bug.cgi?product=frameworks-baloo")
                 }
             ]
@@ -415,7 +425,7 @@ ColumnLayout {
 
                     actions: Kirigami.Action {
                         id: action
-                        iconName: "edit-delete"
+                        icon.name: "edit-delete"
                         text: i18nc("@action:button", "Stop looking for music here")
 
                         visible: pathList.count > 1
@@ -437,17 +447,17 @@ ColumnLayout {
                 onClicked: fileDialog.open()
                 Accessible.onPressAction: onClicked
 
-                Dialogs.FileDialog {
+                Dialogs.FolderDialog {
                     id: fileDialog
                     title: i18nc("@title:window", "Choose a Folder")
-                    folder: shortcuts.home
-                    selectFolder: true
+
+                    currentFolder: StandardPaths.standardLocations(StandardPaths.HomeLocation)[0]
 
                     visible: false
 
                     onAccepted: {
                         var oldPaths = ElisaConfigurationDialog.rootPath
-                        oldPaths.push(fileDialog.selectedFiles)
+                        oldPaths.push(fileDialog.selectedFolder)
                         ElisaConfigurationDialog.rootPath = oldPaths
                     }
                 }

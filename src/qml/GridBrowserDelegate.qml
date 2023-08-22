@@ -37,7 +37,6 @@ FocusScope {
     signal open()
     signal selected()
 
-    property bool showDetailsButton: false
     property bool showPlayButton: true
     property bool showEnqueueButton: true
 
@@ -222,58 +221,6 @@ FocusScope {
 
                 sourceComponent: Row {
                     spacing: 2
-
-                    Button {
-                        visible: gridEntry.showDetailsButton && (trackUrl.toString().substring(0, 7) === 'file://')
-                        hoverEnabled: true
-
-                        icon.name: 'document-open-folder'
-
-                        ToolTip.visible: hovered
-                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
-
-                        Accessible.role: Accessible.Button
-                        Accessible.name: ToolTip.text
-                        Accessible.description: ToolTip.text
-                        Accessible.onPressAction: clicked()
-
-                        Keys.onReturnPressed: clicked()
-                        Keys.onEnterPressed: clicked()
-
-                        onClicked: ElisaApplication.showInFolder(gridEntry.fileUrl)
-                    }
-
-                    Button {
-                        id: detailsButton
-                        objectName: 'detailsButton'
-
-                        visible: gridEntry.showDetailsButton
-                        hoverEnabled: true
-
-                        icon.name: 'help-about'
-
-                        ToolTip.visible: hovered
-                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("@action:button Show track metadata", "View details")
-
-                        Accessible.name: ToolTip.text
-                        Accessible.description: ToolTip.text
-                        Accessible.onPressAction: clicked()
-
-                        Keys.onReturnPressed: clicked()
-                        Keys.onEnterPressed: clicked()
-
-                        onClicked: {
-                            if (metadataLoader.active === false) {
-                                metadataLoader.active = true
-                            }
-                            else {
-                                metadataLoader.item.close();
-                                metadataLoader.active = false
-                            }
-                        }
-                    }
 
                     Button {
                         id: replaceAndPlayButton

@@ -63,6 +63,61 @@ FocusScope {
     }
     height: singleLineHeight + (!Kirigami.Settings.isMobile && detailedView ? Kirigami.Units.gridUnit : 0)
 
+    property list<Kirigami.Action> actions: [
+        Kirigami.Action {
+            text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
+            icon.name: "document-open-folder"
+            onTriggered: ElisaApplication.showInFolder(mediaTrack.trackUrl)
+
+            visible: mediaTrack.trackUrl.toString().substring(0, 7) === 'file://'
+        },
+        Kirigami.Action {
+            text: i18nc("@action:button Show track metadata", "View details")
+            icon.name: "help-about"
+            onTriggered: mediaTrack.callOpenMetaDataView(mediaTrack.trackUrl, mediaTrack.dataType)
+        },
+        Kirigami.Action {
+            text: i18nc("@action:button", "Add to playlist")
+            icon.name: "list-add"
+            onTriggered: mediaTrack.enqueue()
+        },
+        Kirigami.Action {
+            text: i18nc("@action:button", "Play from here, replacing current playlist")
+            icon.name: "media-playback-start"
+            onTriggered: mediaTrack.replaceAndPlay(mediaTrack.trackUrl)
+            // TODO: Still needed for RTL?
+            // scale: LayoutMirroring.enabled ? -1 : 1
+        },
+        Kirigami.Action {
+            text: i18nc("@action:button", "Set track rating")
+            icon.name: "view-media-favorite"
+            onTriggered: {
+                mediaTrack.editingRating = true;
+            }
+            visible: !ElisaApplication.useFavoriteStyleRatings
+        },
+        Kirigami.Action {
+            text: mediaTrack.rating == 10 ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
+            icon.name: mediaTrack.rating == 10 ? "rating" : "rating-unrated"
+
+            onTriggered: {
+                var newRating = 0;
+                if (mediaTrack.rating == 10) {
+                    newRating = 0;
+                    // Change icon immediately in case backend is slow
+                    icon.name = "rating-unrated";
+                } else {
+                    newRating = 10;
+                    // Change icon immediately in case backend is slow
+                    icon.name = "rating";
+                }
+                mediaTrack.trackRatingChanged(mediaTrack.trackUrl, newRating);
+            }
+
+            visible: ElisaApplication.useFavoriteStyleRatings
+        }
+    ]
+
     // open mobile context menu
     function openContextMenu() {
         contextMenuLoader.active = true;
@@ -247,86 +302,14 @@ FocusScope {
                 sourceComponent: Row {
                     anchors.centerIn: parent
 
-                    FlatButtonWithToolTip {
-                        width: singleLineHeight
-                        height: singleLineHeight
+                    Repeater {
+                        model: mediaTrack.actions
 
-                        visible: trackUrl.toString().substring(0, 7) === 'file://'
-
-                        text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
-                        icon.name: "document-open-folder"
-                        onClicked: {
-                            ElisaApplication.showInFolder(trackUrl)
-                        }
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: detailsButton
-                        width: singleLineHeight
-                        height: singleLineHeight
-
-                        text: i18nc("@action:button Show track metadata", "View details")
-                        icon.name: "help-about"
-                        onClicked: callOpenMetaDataView(trackUrl, dataType)
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: enqueueButton
-                        width: singleLineHeight
-                        height: singleLineHeight
-
-                        text: i18nc("@action:button", "Add to playlist")
-                        icon.name: "list-add"
-                        onClicked: enqueue()
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: clearAndEnqueueButton
-                        scale: LayoutMirroring.enabled ? -1 : 1
-                        width: singleLineHeight
-                        height: singleLineHeight
-
-                        text: i18nc("@action:button", "Play from here, replacing current playlist")
-                        icon.name: "media-playback-start"
-                        onClicked: replaceAndPlay(trackUrl)
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: ratingButton
-
-                        visible: !ElisaApplication.useFavoriteStyleRatings
-
-                        width: singleLineHeight
-                        height: singleLineHeight
-
-                        text: i18nc("@action:button", "Set track rating")
-                        icon.name: "view-media-favorite"
-                        onClicked: {
-                            mediaTrack.editingRating = true;
-                        }
-                    }
-
-                    FlatButtonWithToolTip {
-                        visible: ElisaApplication.useFavoriteStyleRatings
-
-                        width: singleLineHeight
-                        height: singleLineHeight
-
-                        text: rating == 10 ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
-                        icon.name: rating == 10 ? "rating" : "rating-unrated"
-
-                        onClicked: {
-                            var newRating = 0;
-                            if (rating == 10) {
-                                newRating = 0;
-                                // Change icon immediately in case backend is slow
-                                icon.name = "rating-unrated";
-                            } else {
-                                newRating = 10;
-                                // Change icon immediately in case backend is slow
-                                icon.name = "rating";
-                            }
-                            trackRatingChanged(trackUrl, newRating);
+                        delegate: FlatButtonWithToolTip {
+                            width: singleLineHeight
+                            height: singleLineHeight
+                            action: modelData
+                            visible: action.visible
                         }
                     }
                 }

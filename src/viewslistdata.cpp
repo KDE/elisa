@@ -44,8 +44,7 @@ public:
                                                {i18nc("@item:inmenu", "Least Recently Played First"), i18nc("@item:inmenu", "Most Recently Played First")},
                                                ViewManager::MultipleAlbum,
                                                ViewManager::NoDiscHeaders,
-                                               ViewManager::IsTrack,
-                                               ViewManager::IsFlatModel},
+                                               ViewManager::IsTrack},
                                               {{i18nc("@title:window Title of the view of frequently played tracks", "Frequently Played")},
                                                QUrl{QStringLiteral("image://icon/view-media-playcount")},
                                                ViewManager::ListView,
@@ -59,8 +58,7 @@ public:
                                                {i18nc("@item:inmenu", "Least Frequently Played First"), i18nc("@item:inmenu", "Most Frequently Played First")},
                                                ViewManager::MultipleAlbum,
                                                ViewManager::NoDiscHeaders,
-                                               ViewManager::IsTrack,
-                                               ViewManager::IsFlatModel},
+                                               ViewManager::IsTrack},
                                               {{i18nc("@title:window Title of the view of all albums", "Albums")},
                                                QUrl{QStringLiteral("image://icon/view-media-album-cover")},
                                                ViewManager::GridView,
@@ -74,8 +72,7 @@ public:
                                                {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
                                                QUrl{QStringLiteral("image://icon/media-default-album")},
                                                ViewManager::DelegateWithSecondaryText,
-                                               ViewManager::ViewShowRating,
-                                               ViewManager::IsFlatModel},
+                                               ViewManager::ViewShowRating},
                                               {{i18nc("@title:window Title of the view of all artists", "Artists")},
                                                QUrl{QStringLiteral("image://icon/view-media-artist")},
                                                ViewManager::GridView,
@@ -89,8 +86,7 @@ public:
                                                {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
                                                QUrl{QStringLiteral("image://icon/view-media-artist")},
                                                ViewManager::DelegateWithoutSecondaryText,
-                                               ViewManager::ViewHideRating,
-                                               ViewManager::IsFlatModel},
+                                               ViewManager::ViewHideRating},
                                               {{i18nc("@title:window Title of the view of all tracks", "Tracks")},
                                                QUrl{QStringLiteral("image://icon/view-media-track")},
                                                ViewManager::ListView,
@@ -111,8 +107,7 @@ public:
                                                 i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
                                                ViewManager::MultipleAlbum,
                                                ViewManager::NoDiscHeaders,
-                                               ViewManager::IsTrack,
-                                               ViewManager::IsFlatModel},
+                                               ViewManager::IsTrack},
                                               {{i18nc("@title:window Title of the view of all genres", "Genres")},
                                                QUrl{QStringLiteral("image://icon/view-media-genre")},
                                                ViewManager::GridView,
@@ -126,8 +121,7 @@ public:
                                                {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
                                                QUrl{QStringLiteral("image://icon/view-media-genre")},
                                                ViewManager::DelegateWithoutSecondaryText,
-                                               ViewManager::ViewHideRating,
-                                               ViewManager::IsFlatModel},
+                                               ViewManager::ViewHideRating},
                                               {{i18nc("@title:window Title of the file browser view", "Files")},
                                                QUrl{QStringLiteral("image://icon/document-open-folder")},
                                                ViewManager::GridView,
@@ -137,7 +131,6 @@ public:
                                                QUrl{QStringLiteral("image://icon/document-open-folder")},
                                                ViewManager::DelegateWithoutSecondaryText,
                                                ViewManager::ViewHideRating,
-                                               ViewManager::IsFlatModel,
                                                QUrl::fromLocalFile(mInitialFilesViewPath)
                                               },
                                               {{i18nc("@title:window Title of the file radios browser view", "Radio Stations")},
@@ -153,8 +146,7 @@ public:
                                                {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
                                                ViewManager::MultipleAlbum,
                                                ViewManager::NoDiscHeaders,
-                                               ViewManager::IsRadio,
-                                               ViewManager::IsFlatModel}};
+                                               ViewManager::IsRadio}};
 
     QMap<ElisaUtils::PlayListEntryType, QUrl> mDefaultIcons = {{ElisaUtils::Album, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
                                                                {ElisaUtils::Artist, QUrl{QStringLiteral("image://icon/view-media-artist")}},
@@ -581,8 +573,7 @@ void ViewsListData::refreshEmbeddedCategory()
                                        {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
                                        QUrl{QStringLiteral("image://icon/media-default-album")},
                                        ViewManager::DelegateWithSecondaryText,
-                                       ViewManager::ViewShowRating,
-                                       ViewManager::IsFlatModel});
+                                       ViewManager::ViewShowRating});
         Q_EMIT dataAdded();
         break;
     case ElisaUtils::Artist:
@@ -600,8 +591,7 @@ void ViewsListData::refreshEmbeddedCategory()
                                        {QStringLiteral("A-Z"), QStringLiteral("Z-A")},
                                        QUrl{QStringLiteral("image://icon/view-media-artist")},
                                        ViewManager::DelegateWithoutSecondaryText,
-                                       ViewManager::ViewHideRating,
-                                       ViewManager::IsFlatModel});
+                                       ViewManager::ViewHideRating});
         Q_EMIT dataAdded();
         break;
     case ElisaUtils::Genre:
@@ -619,8 +609,7 @@ void ViewsListData::refreshEmbeddedCategory()
                                        {QStringLiteral("A-Z"), QStringLiteral("Z-A")},
                                        QUrl{QStringLiteral("image://icon/view-media-genre")},
                                        ViewManager::DelegateWithoutSecondaryText,
-                                       ViewManager::ViewHideRating,
-                                       ViewManager::IsFlatModel});
+                                       ViewManager::ViewHideRating});
         Q_EMIT dataAdded();
         break;
     case ElisaUtils::Radio:

@@ -31,7 +31,6 @@ FocusScope {
     property url image
     property bool sortModel: true
     property bool isSubPage: false
-    property bool haveTreeModel: false
     property bool modelIsInitialized: false
     property bool allowArtistNavigation: false
     property bool showCreateRadioButton: false
@@ -92,15 +91,6 @@ FocusScope {
         modelIsInitialized = true
     }
 
-    function goToBack() {
-        if (haveTreeModel) {
-            delegateModel.rootIndex = delegateModel.parentModelIndex()
-            --depth
-        } else {
-            viewManager.goBack()
-        }
-    }
-
     // Model
     DelegateModel {
         id: delegateModel
@@ -153,9 +143,7 @@ FocusScope {
 
             onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList(delegateModel.rootIndex)
 
-            onGoBack: {
-                abstractView.goToBack()
-            }
+            onGoBack: abstractView.viewManager.goBack()
 
             onSortOrderChanged: {
                 if (!contentModel || !navigationBar.enableSorting) {

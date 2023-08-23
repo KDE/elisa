@@ -44,8 +44,7 @@ public:
                               i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
                              ViewManager::SingleAlbum,
                              ViewManager::DiscHeaders,
-                             ViewManager::IsTrack,
-                             ViewManager::IsFlatModel}},
+                             ViewManager::IsTrack}},
         {ElisaUtils::Genre, {{},
                              QUrl{QStringLiteral("image://icon/view-media-artist")},
                              ViewManager::GridView,
@@ -59,8 +58,7 @@ public:
                              {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
                              QUrl{QStringLiteral("image://icon/view-media-artist")},
                              ViewManager::DelegateWithoutSecondaryText,
-                             ViewManager::ViewHideRating,
-                             ViewManager::IsFlatModel}},
+                             ViewManager::ViewHideRating}},
         {ElisaUtils::Artist, {{},
                               QUrl{QStringLiteral("image://icon/view-media-album-cover")},
                               ViewManager::GridView,
@@ -74,8 +72,7 @@ public:
                               {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
                               QUrl{QStringLiteral("image://icon/media-default-album")},
                               ViewManager::DelegateWithSecondaryText,
-                              ViewManager::ViewShowRating,
-                              ViewManager::IsFlatModel}},
+                              ViewManager::ViewShowRating}},
         {ElisaUtils::Container, {{},
                                  QUrl{QStringLiteral("image://icon/folder")},
                                  ViewManager::GridView,
@@ -89,8 +86,7 @@ public:
                                  {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
                                  QUrl{QStringLiteral("image://icon/folder")},
                                  ViewManager::DelegateWithoutSecondaryText,
-                                 ViewManager::ViewHideRating,
-                                 ViewManager::IsFlatModel}},
+                                 ViewManager::ViewHideRating}},
     };
 
     int mViewIndex = -1;
@@ -285,8 +281,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                     << viewParamaters.mMainImage << viewParamaters.mDataType
                                     << viewParamaters.mModelType << viewParamaters.mFallbackItemIcon
                                     << viewParamaters.mDataFilter
-                                    << viewParamaters.mViewCanBeRated << viewParamaters.mShowSecondaryTextOnDelegates
-                                    << viewParamaters.mIsTreeModel;
+                                    << viewParamaters.mViewCanBeRated << viewParamaters.mShowSecondaryTextOnDelegates;
 
         auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType, viewParamaters.mDepth,
                                                                          viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
@@ -297,8 +292,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                                                          viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
                                                                          computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortOrderNames,
-                                                                         viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates,
-                                                                         viewParamaters.mIsTreeModel);
+                                                                         viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates);
 
         QQmlEngine::setObjectOwnership(configurationData.get(), QQmlEngine::JavaScriptOwnership);
 
@@ -313,8 +307,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                     << viewParamaters.mModelType << viewParamaters.mDataType
                                     << viewParamaters.mDataFilter << viewParamaters.mSortRole
                                     << viewParamaters.mSortOrder << viewParamaters.mAlbumCardinality
-                                    << viewParamaters.mAlbumViewStyle << viewParamaters.mRadioSpecificStyle
-                                    << viewParamaters.mIsTreeModel;
+                                    << viewParamaters.mAlbumViewStyle << viewParamaters.mRadioSpecificStyle;
 
         auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType, viewParamaters.mDepth,
                                                                          viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
@@ -325,7 +318,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                                                          computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortOrderNames,
                                                                          viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle,
-                                                                         viewParamaters.mRadioSpecificStyle, viewParamaters.mIsTreeModel);
+                                                                         viewParamaters.mRadioSpecificStyle);
 
         QQmlEngine::setObjectOwnership(configurationData.get(), QQmlEngine::JavaScriptOwnership);
 

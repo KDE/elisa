@@ -60,8 +60,7 @@ public:
                    Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                    QUrl fallbackItemIcon,
                    ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
-                   ViewManager::ViewCanBeRated viewCanBeRated,
-                   ViewManager::IsTreeModelType isTreeModel)
+                   ViewManager::ViewCanBeRated viewCanBeRated)
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
@@ -71,7 +70,6 @@ public:
         , mFallbackItemIcon(std::move(fallbackItemIcon))
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
-        , mIsTreeModel(isTreeModel)
         , mSortRole(sortRole)
         , mSortRoles(std::move(sortRoles))
         , mSortRoleNames(std::move(sortRoleNames))
@@ -90,7 +88,6 @@ public:
                    QUrl fallbackItemIcon,
                    ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
                    ViewManager::ViewCanBeRated viewCanBeRated,
-                   ViewManager::IsTreeModelType isTreeModel,
                    QUrl pathFilter)
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
@@ -101,7 +98,6 @@ public:
         , mFallbackItemIcon(std::move(fallbackItemIcon))
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
-        , mIsTreeModel(isTreeModel)
         , mDataFilter{{DataTypes::FilePathRole, std::move(pathFilter)}}
         , mIsValid(true)
     {
@@ -117,15 +113,13 @@ public:
                    Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle,
-                   ViewManager::RadioSpecificStyle radioSpecificStyle,
-                   ViewManager::IsTreeModelType isTreeModel)
+                   ViewManager::RadioSpecificStyle radioSpecificStyle)
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
         , mModelType(modelType)
         , mFilterType(filterType)
         , mDataType(dataType)
-        , mIsTreeModel(isTreeModel)
         , mSortRole(sortRole)
         , mSortRoles(std::move(sortRoles))
         , mSortRoleNames(std::move(sortRoleNames))
@@ -201,7 +195,7 @@ public:
         return mMainTitle == other.mMainTitle && mMainImage == other.mMainImage &&
                 mSecondaryTitle == other.mSecondaryTitle && mViewPresentationType == other.mViewPresentationType &&
                 mModelType == other.mModelType && mFilterType == other.mFilterType &&
-                mDataType == other.mDataType && mIsTreeModel == other.mIsTreeModel && mFallbackItemIcon == other.mFallbackItemIcon &&
+                mDataType == other.mDataType && mFallbackItemIcon == other.mFallbackItemIcon &&
                 mShowSecondaryTextOnDelegates == other.mShowSecondaryTextOnDelegates && mViewCanBeRated == other.mViewCanBeRated &&
                 mSortRole == other.mSortRole && mSortRoles == other.mSortRoles && mSortRoleNames == other.mSortRoleNames &&
                 mSortOrder == other.mSortOrder && mSortOrderNames == other.mSortOrderNames &&
@@ -214,7 +208,7 @@ public:
         return mMainTitle != other.mMainTitle || mMainImage != other.mMainImage ||
                 mSecondaryTitle != other.mSecondaryTitle || mViewPresentationType != other.mViewPresentationType ||
                 mModelType != other.mModelType || mFilterType != other.mFilterType ||
-                mDataType != other.mDataType || mIsTreeModel != other.mIsTreeModel || mFallbackItemIcon != other.mFallbackItemIcon ||
+                mDataType != other.mDataType || mFallbackItemIcon != other.mFallbackItemIcon ||
                 mShowSecondaryTextOnDelegates != other.mShowSecondaryTextOnDelegates || mViewCanBeRated != other.mViewCanBeRated ||
                 mSortRole != other.mSortRole || mSortRoles != other.mSortRoles || mSortRoleNames != other.mSortRoleNames ||
                 mSortOrder != other.mSortOrder || mSortOrderNames != other.mSortOrderNames ||
@@ -244,8 +238,6 @@ public:
     ViewManager::DelegateUseSecondaryText mShowSecondaryTextOnDelegates = ViewManager::DelegateWithSecondaryText;
 
     ViewManager::ViewCanBeRated mViewCanBeRated = ViewManager::ViewHideRating;
-
-    ViewManager::IsTreeModelType mIsTreeModel = ViewManager::IsFlatModel;
 
     int mSortRole = Qt::DisplayRole;
 

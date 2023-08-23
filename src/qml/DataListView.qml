@@ -22,9 +22,7 @@ AbstractDataView {
 
     signal showArtist(var name)
 
-    onShowArtist: {
-        viewManager.openArtistView(name)
-    }
+    onShowArtist: name => viewManager.openArtistView(name)
 
     function openMetaDataView(databaseId, url, entryType) {
         metadataLoader.setSource(Kirigami.Settings.isMobile ? "mobile/MobileMediaTrackMetadataView.qml" : "MediaTrackMetadataView.qml",

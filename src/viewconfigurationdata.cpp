@@ -20,8 +20,7 @@ public:
                                  int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                                  Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                  ViewManager::ViewCanBeRated viewShowRating,
-                                 ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
-                                 ViewManager::IsTreeModelType isTreeModel)
+                                 ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText)
         : mFilterType(filterType)
         , mExpectedDepth(expectedDepth)
         , mMainTitle(std::move(mainTitle))
@@ -34,7 +33,6 @@ public:
         , mDataFilter(std::move(dataFilter))
         , mViewShowRating(viewShowRating)
         , mViewDelegateDisplaySecondaryText(viewDelegateDisplaySecondaryText)
-        , mIsTreeModel(isTreeModel)
         , mSortRole(sortRole)
         , mSortRoles(std::move(sortRoles))
         , mSortRoleNames(std::move(sortRoleNames))
@@ -52,8 +50,7 @@ public:
                                  Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                  ViewManager::AlbumCardinality displaySingleAlbum,
                                  ViewManager::AlbumViewStyle showDiscHeaders,
-                                 ViewManager::RadioSpecificStyle radioCase,
-                                 ViewManager::IsTreeModelType isTreeModel)
+                                 ViewManager::RadioSpecificStyle radioCase)
         : mFilterType(filterType)
         , mExpectedDepth(expectedDepth)
         , mMainTitle(std::move(mainTitle))
@@ -63,7 +60,6 @@ public:
         , mModel(model)
         , mAssociatedProxyModel(associatedProxyModel)
         , mDataFilter(std::move(dataFilter))
-        , mIsTreeModel(isTreeModel)
         , mSortRole(sortRole)
         , mSortRoles(std::move(sortRoles))
         , mSortRoleNames(std::move(sortRoleNames))
@@ -99,8 +95,6 @@ public:
 
     ViewManager::DelegateUseSecondaryText mViewDelegateDisplaySecondaryText;
 
-    ViewManager::IsTreeModelType mIsTreeModel;
-
     int mSortRole;
 
     QVector<int> mSortRoles;
@@ -133,7 +127,7 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                              Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                              ViewManager::ViewCanBeRated viewShowRating,
                                              ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
-                                             ViewManager::IsTreeModelType isTreeModel, QObject *parent)
+                                             QObject *parent)
     : QObject(parent)
     , d(std::make_unique<ViewConfigurationDataPrivate>(filterType, expectedDepth, std::move(mainTitle),
                                                        std::move(secondaryTitle), std::move(imageUrl),
@@ -141,8 +135,7 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                                        std::move(viewDefaultIcon), std::move(dataFilter),
                                                        sortRole, std::move(sortRoles), std::move(sortRoleNames),
                                                        sortOrder, std::move(sortOrderNames),
-                                                       viewShowRating,viewDelegateDisplaySecondaryText,
-                                                       isTreeModel))
+                                                       viewShowRating,viewDelegateDisplaySecondaryText))
 {
 }
 
@@ -156,14 +149,14 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                              ViewManager::AlbumCardinality displaySingleAlbum,
                                              ViewManager::AlbumViewStyle showDiscHeaders,
                                              ViewManager::RadioSpecificStyle radioCase,
-                                             ViewManager::IsTreeModelType isTreeModel, QObject *parent)
+                                             QObject *parent)
     : QObject(parent)
     , d(std::make_unique<ViewConfigurationDataPrivate>(filterType, expectedDepth, std::move(mainTitle),
                                                        std::move(secondaryTitle), std::move(imageUrl),
                                                        dataType, model, associatedProxyModel, std::move(dataFilter),
                                                        sortRole, std::move(sortRoles), std::move(sortRoleNames),
                                                        sortOrder, std::move(sortOrderNames), displaySingleAlbum, showDiscHeaders,
-                                                       radioCase, isTreeModel))
+                                                       radioCase))
 {
 }
 
@@ -225,11 +218,6 @@ ViewManager::ViewCanBeRated ViewConfigurationData::viewShowRating() const
 ViewManager::DelegateUseSecondaryText ViewConfigurationData::viewDelegateDisplaySecondaryText() const
 {
     return d->mViewDelegateDisplaySecondaryText;
-}
-
-ViewManager::IsTreeModelType ViewConfigurationData::isTreeModel() const
-{
-    return d->mIsTreeModel;
 }
 
 int ViewConfigurationData::sortRole() const

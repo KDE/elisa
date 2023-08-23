@@ -34,7 +34,6 @@ private Q_SLOTS:
         qRegisterMetaType<ViewManager::ViewCanBeRated>("ViewManager::ViewCanBeRated");
         qRegisterMetaType<ViewManager::DelegateUseSecondaryText>("ViewManager::DelegateUseSecondaryText");
         qRegisterMetaType<ViewManager::AlbumCardinality>("ViewManager::AlbumCardinality");
-        qRegisterMetaType<ViewManager::IsTreeModelType>("ViewManager::IsTreeModelType");
         qRegisterMetaType<Qt::SortOrder>("Qt::SortOrder");
         qRegisterMetaType<QAbstractItemModel*>("QAbstractItemModel*");
         qRegisterMetaType<QAbstractProxyModel*>("QAbstractProxyModel*");

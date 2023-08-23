@@ -97,7 +97,7 @@ Window {
         }
     }
 
-    onClosing: {
+    onClosing: close => {
         if (ElisaConfigurationDialog.isDirty) {
             close.accepted = false
             dirtyClosingDialog.open()

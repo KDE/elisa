@@ -94,13 +94,6 @@ public:
 
     Q_ENUM(ModelType)
 
-    enum IsTreeModelType {
-        IsTreeModel = true,
-        IsFlatModel = false,
-    };
-
-    Q_ENUM(IsTreeModelType)
-
     explicit ViewManager(QObject *parent = nullptr);
 
     ~ViewManager() override;

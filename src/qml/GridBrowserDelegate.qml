@@ -37,7 +37,6 @@ FocusScope {
     signal open()
     signal selected()
 
-    property bool showDetailsButton: false
     property bool showPlayButton: true
     property bool showEnqueueButton: true
 
@@ -58,6 +57,22 @@ FocusScope {
             return 0;
         }
     }
+
+    property list<Kirigami.Action> actions: [
+        Kirigami.Action {
+            text: i18nc("@action:button", "Play now, replacing current playlist")
+            icon.name: Qt.application.layoutDirection !== Qt.RightToLeft ? "media-playback-start-symbolic"
+                                                                         : "media-playback-start-symbolic-rtl"
+            visible: gridEntry.showPlayButton
+            onTriggered: gridEntry.replaceAndPlay()
+        },
+        Kirigami.Action {
+            text: i18nc("@action:button", "Add to playlist")
+            icon.name: 'list-add'
+            visible: gridEntry.showEnqueueButton
+            onTriggered: gridEntry.enqueue()
+        }
+    ]
 
     Loader {
         id: metadataLoader
@@ -223,102 +238,27 @@ FocusScope {
                 sourceComponent: Row {
                     spacing: 2
 
-                    Button {
-                        visible: gridEntry.showDetailsButton && (trackUrl.toString().substring(0, 7) === 'file://')
-                        hoverEnabled: true
+                    Repeater {
+                        model: gridEntry.actions
 
-                        icon.name: 'document-open-folder'
+                        delegate: Button {
+                            action: modelData
+                            hoverEnabled: true
+                            flat: false
 
-                        ToolTip.visible: hovered
-                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
+                            display: AbstractButton.IconOnly
 
-                        Accessible.role: Accessible.Button
-                        Accessible.name: ToolTip.text
-                        Accessible.description: ToolTip.text
-                        Accessible.onPressAction: clicked()
+                            ToolTip.visible: hovered
+                            ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
+                            ToolTip.text: action.text
 
-                        Keys.onReturnPressed: clicked()
-                        Keys.onEnterPressed: clicked()
+                            Accessible.name: ToolTip.text
+                            Accessible.description: ToolTip.text
+                            Accessible.onPressAction: onClicked
 
-                        onClicked: ElisaApplication.showInFolder(gridEntry.fileUrl)
-                    }
-
-                    Button {
-                        id: detailsButton
-                        objectName: 'detailsButton'
-
-                        visible: gridEntry.showDetailsButton
-                        hoverEnabled: true
-
-                        icon.name: 'help-about'
-
-                        ToolTip.visible: hovered
-                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("@action:button Show track metadata", "View details")
-
-                        Accessible.name: ToolTip.text
-                        Accessible.description: ToolTip.text
-                        Accessible.onPressAction: clicked()
-
-                        Keys.onReturnPressed: clicked()
-                        Keys.onEnterPressed: clicked()
-
-                        onClicked: {
-                            if (metadataLoader.active === false) {
-                                metadataLoader.active = true
-                            }
-                            else {
-                                metadataLoader.item.close();
-                                metadataLoader.active = false
-                            }
+                            Keys.onReturnPressed: action.trigger()
+                            Keys.onEnterPressed: action.trigger()
                         }
-                    }
-
-                    Button {
-                        id: replaceAndPlayButton
-                        objectName: 'replaceAndPlayButton'
-
-                        visible: gridEntry.showPlayButton
-                        hoverEnabled: true
-
-                        icon.name: 'media-playback-start'
-
-                        ToolTip.visible: hovered
-                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("@action:button", "Play now, replacing current playlist")
-
-                        Accessible.name: ToolTip.text
-                        Accessible.description: ToolTip.text
-                        Accessible.onPressAction: onClicked
-
-                        Keys.onReturnPressed: replaceAndPlay()
-                        Keys.onEnterPressed: replaceAndPlay()
-
-                        onClicked: replaceAndPlay()
-                    }
-
-                    Button {
-                        id: enqueueButton
-                        objectName: 'enqueueButton'
-
-                        visible: gridEntry.showEnqueueButton
-                        hoverEnabled: true
-
-                        icon.name: 'list-add'
-
-                        ToolTip.visible: hovered
-                        ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                        ToolTip.text: i18nc("@action:button", "Add to playlist")
-
-                        Accessible.name: ToolTip.text
-                        Accessible.description: ToolTip.text
-                        Accessible.onPressAction: onClicked
-
-                        Keys.onReturnPressed: enqueue()
-                        Keys.onEnterPressed: enqueue()
-
-                        onClicked: enqueue()
                     }
                 }
             }

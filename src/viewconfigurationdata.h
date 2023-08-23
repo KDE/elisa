@@ -75,10 +75,6 @@ class ELISALIB_EXPORT ViewConfigurationData : public QObject
                READ viewDelegateDisplaySecondaryText
                CONSTANT)
 
-    Q_PROPERTY(ViewManager::IsTreeModelType isTreeModel
-               READ isTreeModel
-               CONSTANT)
-
     Q_PROPERTY(int sortRole
                READ sortRole
                CONSTANT)
@@ -123,7 +119,7 @@ public:
                                    Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                    ViewManager::ViewCanBeRated viewShowRating,
                                    ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
-                                   ViewManager::IsTreeModelType isTreeModel, QObject *parent = nullptr);
+                                   QObject *parent = nullptr);
 
     explicit ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                    QString mainTitle, QString secondaryTitle,
@@ -133,7 +129,7 @@ public:
                                    Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                    ViewManager::AlbumCardinality displaySingleAlbum,
                                    ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase,
-                                   ViewManager::IsTreeModelType isTreeModel, QObject *parent = nullptr);
+                                   QObject *parent = nullptr);
 
     ~ViewConfigurationData() override;
 
@@ -160,8 +156,6 @@ public:
     [[nodiscard]] ViewManager::ViewCanBeRated viewShowRating() const;
 
     [[nodiscard]] ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText() const;
-
-    [[nodiscard]] ViewManager::IsTreeModelType isTreeModel() const;
 
     [[nodiscard]] int sortRole() const;
 

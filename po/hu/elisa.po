@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-19 00:44+0000\n"
+"POT-Creation-Date: 2023-08-24 00:45+0000\n"
 "PO-Revision-Date: 2022-02-01 10:43+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -397,7 +397,7 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Kép címe"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:64 viewslistdata.cpp:571
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:62 viewslistdata.cpp:563
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -405,7 +405,7 @@ msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumok"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:116 viewslistdata.cpp:609
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:111 viewslistdata.cpp:599
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -413,7 +413,7 @@ msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Műfajok"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:79 viewslistdata.cpp:590
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:76 viewslistdata.cpp:581
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -437,13 +437,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Zenelejátszás"
 
-#: qml/AbstractDataView.qml:213
+#: qml/AbstractDataView.qml:201
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr ""
 
-#: qml/AbstractDataView.qml:213
+#: qml/AbstractDataView.qml:201
 #, fuzzy, kde-format
 #| msgid "Nothing to display"
 msgctxt "@info:placeholder"
@@ -529,7 +529,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Dalszöveg"
 
-#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
+#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:234
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
@@ -688,26 +688,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "A mentés nem sikerült"
 
-#: qml/GridBrowserDelegate.qml:234 qml/GridBrowserDelegate.qml:444
-#: qml/ListBrowserDelegate.qml:256 qml/ListBrowserDelegate.qml:431
-#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:80
-#, fuzzy, kde-format
-#| msgctxt "Show the file for this song in the file manager"
-#| msgid "Show in folder"
-msgctxt "@action:button Show the file for this song in the file manager"
-msgid "Show in folder"
-msgstr "Megjelenítés mappában"
-
-#: qml/GridBrowserDelegate.qml:258 qml/ListBrowserDelegate.qml:268
-#: qml/mobile/MobilePlayListDelegate.qml:176 qml/PlayListEntry.qml:87
-#, fuzzy, kde-format
-#| msgctxt "Show track metadata"
-#| msgid "View details"
-msgctxt "@action:button Show track metadata"
-msgid "View details"
-msgstr "Részletek megjelenítése"
-
-#: qml/GridBrowserDelegate.qml:289 qml/NavigationActionBar.qml:116
+#: qml/GridBrowserDelegate.qml:63 qml/NavigationActionBar.qml:116
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -715,7 +696,7 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Lejátszás most, a jelenlegi lejátszási lista lecserélése"
 
-#: qml/GridBrowserDelegate.qml:312 qml/ListBrowserDelegate.qml:278
+#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:80
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to Playlist"
@@ -723,7 +704,7 @@ msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Hozzáadás a lejátszási listához"
 
-#: qml/GridBrowserDelegate.qml:398
+#: qml/GridBrowserDelegate.qml:338
 #, fuzzy, kde-format
 #| msgctxt "Options"
 #| msgid "Options"
@@ -731,7 +712,7 @@ msgctxt "@action:button"
 msgid "Options"
 msgstr "Opciók"
 
-#: qml/GridBrowserDelegate.qml:435
+#: qml/GridBrowserDelegate.qml:375
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current queue"
@@ -739,7 +720,17 @@ msgctxt "@action:button Clear play list and add whole container to play list"
 msgid "Play now, replacing current queue"
 msgstr "Lejátszás most, jelenlegi várólista cseréje"
 
-#: qml/GridBrowserDelegate.qml:452
+#: qml/GridBrowserDelegate.qml:384 qml/ListBrowserDelegate.qml:68
+#: qml/ListBrowserDelegate.qml:413 qml/mobile/MobilePlayListDelegate.qml:167
+#: qml/PlayListEntry.qml:80
+#, fuzzy, kde-format
+#| msgctxt "Show the file for this song in the file manager"
+#| msgid "Show in folder"
+msgctxt "@action:button Show the file for this song in the file manager"
+msgid "Show in folder"
+msgstr "Megjelenítés mappában"
+
+#: qml/GridBrowserDelegate.qml:392
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to queue"
@@ -755,31 +746,16 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Belépés teljes képernyős módba"
 
-#: qml/ListBrowserDelegate.qml:171 qml/ListBrowserDelegate.qml:187
+#: qml/ListBrowserDelegate.qml:75 qml/mobile/MobilePlayListDelegate.qml:176
+#: qml/PlayListEntry.qml:87
 #, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title."
-#| msgid "%1 - %2"
-msgctxt "@item:intable %1: track number. %2: track title."
-msgid "%1 - %2"
-msgstr "%1 - %2"
+#| msgctxt "Show track metadata"
+#| msgid "View details"
+msgctxt "@action:button Show track metadata"
+msgid "View details"
+msgstr "Részletek megjelenítése"
 
-#: qml/ListBrowserDelegate.qml:182
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
-msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-msgid "%1 - %2 - %3"
-msgstr "%1 - %2 - %3"
-
-#: qml/ListBrowserDelegate.qml:194
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title."
-#| msgid "%1 - %2"
-msgctxt "@item:intable %1: track title. %2: artist name"
-msgid "%1 - %2"
-msgstr "%1 - %2"
-
-#: qml/ListBrowserDelegate.qml:289
+#: qml/ListBrowserDelegate.qml:85
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -787,7 +763,7 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Lejátszás most, a jelenlegi lejátszási lista lecserélése"
 
-#: qml/ListBrowserDelegate.qml:302 qml/PlayListEntry.qml:100
+#: qml/ListBrowserDelegate.qml:91 qml/PlayListEntry.qml:100
 #, fuzzy, kde-format
 #| msgctxt "Show track rating"
 #| msgid "Set track rating"
@@ -795,7 +771,7 @@ msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Szám értékelése"
 
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:108
 #, fuzzy, kde-format
 #| msgid "Un-mark this song as a favorite"
@@ -803,7 +779,7 @@ msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Szám kedvencelésének visszavonása"
 
-#: qml/ListBrowserDelegate.qml:315 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
 #: qml/PlayListEntry.qml:108
 #, fuzzy, kde-format
 #| msgid "Mark this song as a favorite"
@@ -811,7 +787,31 @@ msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Szám megjelölése kedvencként"
 
-#: qml/ListBrowserDelegate.qml:350 qml/PlayListEntry.qml:335
+#: qml/ListBrowserDelegate.qml:225 qml/ListBrowserDelegate.qml:241
+#, fuzzy, kde-format
+#| msgctxt "%1: track number. %2: track title."
+#| msgid "%1 - %2"
+msgctxt "@item:intable %1: track number. %2: track title."
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/ListBrowserDelegate.qml:236
+#, fuzzy, kde-format
+#| msgctxt "%1: track number. %2: track title. %3: artist name"
+#| msgid "%1 - %2 - %3"
+msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
+msgid "%1 - %2 - %3"
+msgstr "%1 - %2 - %3"
+
+#: qml/ListBrowserDelegate.qml:248
+#, fuzzy, kde-format
+#| msgctxt "%1: track number. %2: track title."
+#| msgid "%1 - %2"
+msgctxt "@item:intable %1: track title. %2: artist name"
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/ListBrowserDelegate.qml:332 qml/PlayListEntry.qml:335
 #, fuzzy, kde-format
 #| msgctxt "Cancel rating this track"
 #| msgid "Cancel rating this track"
@@ -819,7 +819,7 @@ msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Szám értékelésének megszakítása"
 
-#: qml/ListBrowserDelegate.qml:405
+#: qml/ListBrowserDelegate.qml:387
 #, fuzzy, kde-format
 #| msgctxt "Song options"
 #| msgid "Song Options"
@@ -827,7 +827,7 @@ msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Dalbeállítások"
 
-#: qml/ListBrowserDelegate.qml:439
+#: qml/ListBrowserDelegate.qml:421
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
 #| msgid "View details"
@@ -835,21 +835,21 @@ msgctxt "@action:button"
 msgid "View details"
 msgstr "Részletek megjelenítése"
 
-#: qml/ListBrowserDelegate.qml:453
+#: qml/ListBrowserDelegate.qml:435
 #, fuzzy, kde-format
 #| msgid "Un-mark this song as a favorite"
 msgctxt "@action:button"
 msgid "Un-mark as favorite"
 msgstr "Szám kedvencelésének visszavonása"
 
-#: qml/ListBrowserDelegate.qml:453
+#: qml/ListBrowserDelegate.qml:435
 #, fuzzy, kde-format
 #| msgid "Mark this song as a favorite"
 msgctxt "@action:button"
 msgid "Mark as favorite"
 msgstr "Szám megjelölése kedvencként"
 
-#: qml/ListBrowserDelegate.qml:461
+#: qml/ListBrowserDelegate.qml:443
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to queue"
@@ -857,14 +857,14 @@ msgctxt "@action:button Enqueue current track"
 msgid "Add to queue"
 msgstr "Hozzáadás a várólistához"
 
-#: qml/MediaPlayerControl.qml:88
+#: qml/MediaPlayerControl.qml:86
 #, fuzzy, kde-format
 #| msgid "Toggle Party Mode"
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "Parti mód be-/kikapcsolása"
 
-#: qml/MediaPlayerControl.qml:96
+#: qml/MediaPlayerControl.qml:94
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
 #: qml/mobile/MobileTrackPlayer.qml:318
 #, fuzzy, kde-format
@@ -874,7 +874,7 @@ msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Kihagyás visszafelé"
 
-#: qml/MediaPlayerControl.qml:104
+#: qml/MediaPlayerControl.qml:102
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, fuzzy, kde-format
@@ -883,7 +883,7 @@ msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Szünet"
 
-#: qml/MediaPlayerControl.qml:104
+#: qml/MediaPlayerControl.qml:102
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:333
 #, fuzzy, kde-format
@@ -892,7 +892,7 @@ msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Lejátszás"
 
-#: qml/MediaPlayerControl.qml:112
+#: qml/MediaPlayerControl.qml:110
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"
 #| msgid "Skip Forward"
@@ -900,7 +900,7 @@ msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "Kihagyás előrefelé"
 
-#: qml/MediaPlayerControl.qml:131
+#: qml/MediaPlayerControl.qml:129
 #, fuzzy, kde-format
 #| msgctxt "toggle mute mode for player"
 #| msgid "Toggle Mute"
@@ -908,7 +908,7 @@ msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "Némítás be-/kikapcsolása"
 
-#: qml/MediaPlayerControl.qml:150 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:148 qml/mobile/MobileTrackPlayer.qml:215
 #, fuzzy, kde-format
 #| msgctxt "toggle shuffle mode for playlist"
 #| msgid "Toggle Shuffle"
@@ -916,49 +916,49 @@ msgctxt "@action:button"
 msgid "Toggle Shuffle"
 msgstr "Véletlen sorrend be-/kikapcsolása"
 
-#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:230
+#: qml/MediaPlayerControl.qml:159 qml/mobile/MobileTrackPlayer.qml:230
 #, fuzzy, kde-format
 #| msgid "Current: Don't repeat tracks"
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Jelenleg: ne ismételjen számokat"
 
-#: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:231
+#: qml/MediaPlayerControl.qml:160 qml/mobile/MobileTrackPlayer.qml:231
 #, fuzzy, kde-format
 #| msgid "Current: Repeat current track"
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Jelenleg: aktuális szám ismétlése"
 
-#: qml/MediaPlayerControl.qml:163 qml/mobile/MobileTrackPlayer.qml:232
+#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:232
 #, fuzzy, kde-format
 #| msgid "Current: Repeat all tracks in playlist"
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Jelenleg: a lejátszási lista összes számának ismétlése"
 
-#: qml/MediaPlayerControl.qml:190 qml/mobile/MobileTrackPlayer.qml:261
+#: qml/MediaPlayerControl.qml:188 qml/mobile/MobileTrackPlayer.qml:261
 #, fuzzy, kde-format
 #| msgid "Playlist"
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Lejátszási lista"
 
-#: qml/MediaPlayerControl.qml:194 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:192 qml/mobile/MobileTrackPlayer.qml:265
 #, fuzzy, kde-format
 #| msgid "One"
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Egy"
 
-#: qml/MediaPlayerControl.qml:198 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:196 qml/mobile/MobileTrackPlayer.qml:269
 #, fuzzy, kde-format
 #| msgid "None"
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Nincs"
 
-#: qml/MediaPlayerControl.qml:254
+#: qml/MediaPlayerControl.qml:252
 #, fuzzy, kde-format
 #| msgctxt "open application menu"
 #| msgid "Application Menu"
@@ -1859,7 +1859,7 @@ msgctxt "@title:inmenu"
 msgid "Track Number"
 msgstr "Szám sorszám"
 
-#: viewmanager.cpp:41 viewmanager.cpp:72
+#: viewmanager.cpp:41 viewmanager.cpp:70
 #, fuzzy, kde-format
 #| msgid "Title"
 msgctxt "@title:inmenu"
@@ -1878,57 +1878,57 @@ msgctxt "@item:inmenu"
 msgid "Descending"
 msgstr ""
 
-#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
-#: viewslistdata.cpp:74 viewslistdata.cpp:89 viewslistdata.cpp:109
-#: viewslistdata.cpp:110 viewslistdata.cpp:126 viewslistdata.cpp:153
-#: viewslistdata.cpp:581
+#: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
+#: viewslistdata.cpp:72 viewslistdata.cpp:86 viewslistdata.cpp:105
+#: viewslistdata.cpp:106 viewslistdata.cpp:121 viewslistdata.cpp:146
+#: viewslistdata.cpp:573
 #, fuzzy, kde-format
 #| msgid "A-Z"
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "A-Z"
 
-#: viewmanager.cpp:44 viewmanager.cpp:59 viewmanager.cpp:74 viewmanager.cpp:89
-#: viewslistdata.cpp:74 viewslistdata.cpp:89 viewslistdata.cpp:109
-#: viewslistdata.cpp:110 viewslistdata.cpp:126 viewslistdata.cpp:153
-#: viewslistdata.cpp:581
+#: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
+#: viewslistdata.cpp:72 viewslistdata.cpp:86 viewslistdata.cpp:105
+#: viewslistdata.cpp:106 viewslistdata.cpp:121 viewslistdata.cpp:146
+#: viewslistdata.cpp:573
 #, fuzzy, kde-format
 #| msgid "Z-A"
 msgctxt "@item:inmenu"
 msgid "Z-A"
 msgstr "Z-A"
 
-#: viewmanager.cpp:57 viewmanager.cpp:87
+#: viewmanager.cpp:56 viewmanager.cpp:84
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "Név"
 
-#: viewmanager.cpp:72
+#: viewmanager.cpp:70
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "Műfaj"
 
-#: viewmanager.cpp:72
+#: viewmanager.cpp:70
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "Év"
 
-#: viewmanager.cpp:74 viewslistdata.cpp:74 viewslistdata.cpp:110
-#: viewslistdata.cpp:111 viewslistdata.cpp:581
+#: viewmanager.cpp:72 viewslistdata.cpp:72 viewslistdata.cpp:106
+#: viewslistdata.cpp:107 viewslistdata.cpp:573
 #, fuzzy, kde-format
 #| msgid "Oldest First"
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "Legrégebbi előre"
 
-#: viewmanager.cpp:74 viewslistdata.cpp:74 viewslistdata.cpp:110
-#: viewslistdata.cpp:111 viewslistdata.cpp:581
+#: viewmanager.cpp:72 viewslistdata.cpp:72 viewslistdata.cpp:106
+#: viewslistdata.cpp:107 viewslistdata.cpp:573
 #, fuzzy, kde-format
 #| msgid "Newest First"
 msgctxt "@item:inmenu"
@@ -1972,7 +1972,7 @@ msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "Legutóbb lejátszott előre"
 
-#: viewslistdata.cpp:49
+#: viewslistdata.cpp:48
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of frequently played tracks"
 #| msgid "Frequently Played"
@@ -1980,64 +1980,64 @@ msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Gyakran lejátszott"
 
-#: viewslistdata.cpp:57
+#: viewslistdata.cpp:56
 #, fuzzy, kde-format
 #| msgid "Play Frequency"
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "Lejátszási gyakoriság"
 
-#: viewslistdata.cpp:59
+#: viewslistdata.cpp:58
 #, fuzzy, kde-format
 #| msgid "Least Frequently Played First"
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "Legkevésbé gyakran lejátszott előre"
 
-#: viewslistdata.cpp:59
+#: viewslistdata.cpp:58
 #, fuzzy, kde-format
 #| msgid "Most Frequently Played First"
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Leggyakrabban lejátszott előre"
 
-#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:579
+#: viewslistdata.cpp:70 viewslistdata.cpp:101 viewslistdata.cpp:571
 #, fuzzy, kde-format
 #| msgid "Title"
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "Cím"
 
-#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:579
+#: viewslistdata.cpp:70 viewslistdata.cpp:101 viewslistdata.cpp:571
 #, fuzzy, kde-format
 #| msgid "Artist"
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "Előadó"
 
-#: viewslistdata.cpp:72 viewslistdata.cpp:105 viewslistdata.cpp:124
-#: viewslistdata.cpp:579 viewslistdata.cpp:617
+#: viewslistdata.cpp:70 viewslistdata.cpp:101 viewslistdata.cpp:119
+#: viewslistdata.cpp:571 viewslistdata.cpp:607
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Műfaj"
 
-#: viewslistdata.cpp:72 viewslistdata.cpp:106 viewslistdata.cpp:579
+#: viewslistdata.cpp:70 viewslistdata.cpp:102 viewslistdata.cpp:571
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "Év"
 
-#: viewslistdata.cpp:87 viewslistdata.cpp:151 viewslistdata.cpp:598
+#: viewslistdata.cpp:84 viewslistdata.cpp:144 viewslistdata.cpp:589
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "Név"
 
-#: viewslistdata.cpp:94
+#: viewslistdata.cpp:90
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -2045,55 +2045,55 @@ msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Számok"
 
-#: viewslistdata.cpp:105
+#: viewslistdata.cpp:101
 #, fuzzy, kde-format
 #| msgid "Album"
 msgctxt "@title:menu"
 msgid "Album"
 msgstr "Album"
 
-#: viewslistdata.cpp:106
+#: viewslistdata.cpp:102
 #, fuzzy, kde-format
 #| msgid "Duration"
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "Hossz"
 
-#: viewslistdata.cpp:106
+#: viewslistdata.cpp:102
 #, fuzzy, kde-format
 #| msgid "Composer"
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "Zeneszerző"
 
-#: viewslistdata.cpp:106
+#: viewslistdata.cpp:102
 #, fuzzy, kde-format
 #| msgid "Lyricist"
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "Dalszerző"
 
-#: viewslistdata.cpp:107
+#: viewslistdata.cpp:103
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr ""
 
-#: viewslistdata.cpp:110
+#: viewslistdata.cpp:106
 #, fuzzy, kde-format
 #| msgid "Shortest First"
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "Legrövidebb előre"
 
-#: viewslistdata.cpp:110
+#: viewslistdata.cpp:106
 #, fuzzy, kde-format
 #| msgid "Longest First"
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "Leghosszabb előre"
 
-#: viewslistdata.cpp:131
+#: viewslistdata.cpp:125
 #, fuzzy, kde-format
 #| msgctxt "Title of the file browser view"
 #| msgid "Files"
@@ -2101,7 +2101,7 @@ msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "Fájlok"
 
-#: viewslistdata.cpp:143
+#: viewslistdata.cpp:136
 #, fuzzy, kde-format
 #| msgid "Radio Stations"
 msgctxt "@title:window Title of the file radios browser view"

@@ -1,0 +1,104 @@
+{
+    "id": "org.kde.elisa",
+    "branch": "master",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.15-22.08",
+    "sdk": "org.kde.Sdk",
+    "command": "elisa",
+    "tags": ["nightly"],
+    "desktop-file-name-suffix": " (Nightly)",
+    "finish-args": ["--share=ipc", "--socket=x11", "--socket=wayland", "--filesystem=home", "--socket=pulseaudio", "--device=dri", "--socket=session-bus", "--env=BALOO_DB_PATH=.local/share/baloo" ],
+
+    "modules": [
+        {
+            "config-opts": [ "-DBUILD_SHARED_LIBS=ON" ],
+            "name": "taglib",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://taglib.github.io/releases/taglib-1.12.tar.gz",
+                    "sha256": "7fccd07669a523b07a15bd24c8da1bbb92206cb19e9366c3692af3d79253b703",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1982,
+                        "stable-only": true,
+                        "url-template": "https://taglib.github.io/releases/taglib-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "config-opts": [ "BUILDCC=gcc", "--disable-lua", "--disable-a52", "--disable-qt", "--disable-ncurses", "--disable-udev" ],
+            "name": "libvlc",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://get.videolan.org/vlc/3.0.18/vlc-3.0.18.tar.xz",
+                    "sha256": "57094439c365d8aa8b9b41fa3080cc0eef2befe6025bb5cef722accc625aedec"
+                }
+            ]
+        },
+        {
+            "name": "lmdb",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://git.openldap.org/openldap/openldap.git",
+                    "tag": "LMDB_0.9.29",
+                    "x-checker-data": {
+                        "type": "git",
+                        "tag-pattern": "^LMDB_([\\d.]+)$"
+                    },
+                    "commit": "8ad7be2510414b9506ec9f9e24f24d04d9b04a1a"
+                }
+            ],
+            "no-autogen": true,
+            "make-install-args": ["prefix=/app"],
+            "subdir" : "libraries/liblmdb"
+        },
+        {
+            "config-opts": ["-DENABLE_TESTING=OFF"],
+            "name": "kfilemetadata",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/frameworks/kfilemetadata.git",
+                    "tag": "v5.92.0",
+                    "x-checker-data": {
+                        "type": "git",
+                        "tag-pattern": "^v([\\d.]+)$"
+                    },
+                    "commit": "26c5dbb8026cbd14fd9661f8ffec02f4d27bbe7b"
+                }
+            ]
+        },
+        {
+            "config-opts": ["-DENABLE_TESTING=OFF", "-DCMAKE_INSTALL_LIBDIR=lib", "-DLMDB_DIR=/app"],
+            "name": "baloo",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/frameworks/baloo.git",
+                    "tag": "v5.92.0",
+                    "x-checker-data": {
+                        "type": "git",
+                        "tag-pattern": "^v([\\d.]+)$"
+                    },
+                    "commit": "5aa4d1eb22b00802405b0c2e2a4446a223e50fd2"
+                }
+            ]
+        },
+        {
+            "name": "elisa",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                { "type": "dir", "path": "." }
+            ]
+        }
+    ]
+}

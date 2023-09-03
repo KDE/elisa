@@ -1544,12 +1544,10 @@ msgid "%1%"
 msgstr "%1%"
 
 #: viewmanager.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
-msgstr "Číslo stopy"
+msgstr ""
 
 #: viewmanager.cpp:41 viewmanager.cpp:70
 #, kde-format

@@ -43,7 +43,6 @@ FlatButtonWithToolTip {
         id: volumeSliderPopup
         x: mirrored ? parent.width - width : 0
         y: -volumeSliderPopup.height
-        height: Kirigami.Units.gridUnit + Kirigami.Units.largeSpacing * 2
         width: Kirigami.Units.gridUnit * 10
         margins: Kirigami.Units.smallSpacing
         focus: true
@@ -53,9 +52,8 @@ FlatButtonWithToolTip {
             color: "#616161" // hardcode colour, since background is darkened blur (theming doesn't make sense)
         }
 
-        VolumeSlider {
+        contentItem: VolumeSlider {
             id: slider
-            anchors.fill: parent
 
             muted: volumeButton.muted
         }

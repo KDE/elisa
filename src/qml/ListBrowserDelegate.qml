@@ -123,6 +123,13 @@ FocusScope {
         contextMenuLoader.item.open();
     }
 
+    onActiveFocusChanged: {
+        if (!activeFocus) {
+            editingRating = false
+        }
+    }
+
+
     Rectangle {
         id: rowRoot
 
@@ -339,7 +346,7 @@ FocusScope {
                 id: ratingWidget
                 visible: !Kirigami.Settings.isMobile && (mediaTrack.editingRating || (rating > 0 && !hoverArea.containsMouse && !mediaTrack.activeFocus && !ElisaApplication.useFavoriteStyleRatings))
 
-                readOnly: false
+                readOnly: !mediaTrack.editingRating
 
                 starRating: rating
 

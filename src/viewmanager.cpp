@@ -93,6 +93,8 @@ public:
 
     int mInitialIndex = -1;
 
+    QString mInitialFilesViewPath = QDir::rootPath();
+
     QList<ViewParameters> mViewParametersStack = (mViewsListData ? QList<ViewParameters>{mViewsListData->viewParameters(0)} : QList<ViewParameters>{});
 };
 
@@ -115,6 +117,11 @@ int ViewManager::initialIndex() const
 ViewsListData *ViewManager::viewsData() const
 {
     return d->mViewsListData;
+}
+
+QString ViewManager::initialFilesViewPath() const
+{
+    return d->mInitialFilesViewPath;
 }
 
 ViewManager::~ViewManager() = default;
@@ -340,6 +347,10 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
 void ViewManager::applyFilter(ViewParameters &nextViewParameters,
                               QString title, const ViewParameters &lastView) const
 {
+    if (nextViewParameters.mDataType == ElisaUtils::FileName) { // Folder view
+        nextViewParameters.mDataFilter[DataTypes::FilePathRole] = QUrl::fromLocalFile(d->mInitialFilesViewPath);
+    }
+
     switch (nextViewParameters.mFilterType)
     {
     case ElisaUtils::NoFilter:
@@ -520,6 +531,16 @@ void ViewManager::setInitialIndex(int newIndex)
     if (d->mViewsListData && d->mViewIndex >= 0 && d->mViewIndex < d->mViewsListData->count() && d->mViewsListData->isFullyInitialized()) {
         openView(d->mViewIndex);
     }
+}
+
+void ViewManager::setInitialFilesViewPath(const QString &initialPath)
+{
+    if (d->mInitialFilesViewPath == initialPath) {
+        return;
+    }
+
+    d->mInitialFilesViewPath = initialPath;
+    Q_EMIT initialFilesViewPathChanged();
 }
 
 void ViewManager::openInitialView()

@@ -359,6 +359,7 @@ void ElisaApplication::configChanged()
     Q_EMIT useFavoriteStyleRatingsChanged();
     Q_EMIT embeddedViewChanged();
     Q_EMIT initialViewIndexChanged();
+    Q_EMIT initialFilesViewPathChanged();
 }
 
 DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
@@ -669,5 +670,11 @@ int ElisaApplication::initialViewIndex() const
 
     return result;
 }
+
+QString ElisaApplication::initialFilesViewPath() const
+{
+    return Elisa::ElisaConfiguration::initialFilesViewPath();
+}
+
 
 #include "moc_elisaapplication.cpp"

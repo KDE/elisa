@@ -59,6 +59,7 @@ RowLayout {
         id: viewManager
 
         viewsData: viewsData
+        initialFilesViewPath: ElisaApplication.initialFilesViewPath
 
         onOpenGridView: configurationData => {
             openViewCommon(dataGridView, {

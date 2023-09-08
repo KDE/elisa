@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-24 00:45+0000\n"
+"POT-Creation-Date: 2023-09-08 00:44+0000\n"
 "PO-Revision-Date: 2023-05-31 14:24-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -337,19 +337,19 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Endereço da imagem"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:62 viewslistdata.cpp:563
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:55 viewslistdata.cpp:551
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Álbuns"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:111 viewslistdata.cpp:599
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:104 viewslistdata.cpp:587
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Gêneros"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:76 viewslistdata.cpp:581
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:69 viewslistdata.cpp:569
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
@@ -605,8 +605,8 @@ msgid "Play now, replacing current queue"
 msgstr "Reproduzir agora e substituir a fila atual"
 
 #: qml/GridBrowserDelegate.qml:384 qml/ListBrowserDelegate.qml:68
-#: qml/ListBrowserDelegate.qml:413 qml/mobile/MobilePlayListDelegate.qml:167
-#: qml/PlayListEntry.qml:80
+#: qml/ListBrowserDelegate.qml:420 qml/mobile/MobilePlayListDelegate.qml:167
+#: qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -625,7 +625,7 @@ msgid "Exit Full Screen"
 msgstr "Sair do modo de tela cheia"
 
 #: qml/ListBrowserDelegate.qml:75 qml/mobile/MobilePlayListDelegate.qml:176
-#: qml/PlayListEntry.qml:87
+#: qml/PlayListEntry.qml:94
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -637,75 +637,75 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Reproduzir a partir daqui, substituindo a lista de músicas atual"
 
-#: qml/ListBrowserDelegate.qml:91 qml/PlayListEntry.qml:100
+#: qml/ListBrowserDelegate.qml:91 qml/PlayListEntry.qml:107
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Definir avaliação da faixa"
 
 #: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:108
+#: qml/PlayListEntry.qml:115
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Desmarcar esta música como favorita"
 
 #: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:108
+#: qml/PlayListEntry.qml:115
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Marcar esta música como favorita"
 
-#: qml/ListBrowserDelegate.qml:225 qml/ListBrowserDelegate.qml:241
+#: qml/ListBrowserDelegate.qml:232 qml/ListBrowserDelegate.qml:248
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:236
+#: qml/ListBrowserDelegate.qml:243
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/ListBrowserDelegate.qml:248
+#: qml/ListBrowserDelegate.qml:255
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:332 qml/PlayListEntry.qml:335
+#: qml/ListBrowserDelegate.qml:339 qml/PlayListEntry.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Cancelar a avaliação desta faixa"
 
-#: qml/ListBrowserDelegate.qml:387
+#: qml/ListBrowserDelegate.qml:394
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Opções da música"
 
-#: qml/ListBrowserDelegate.qml:421
+#: qml/ListBrowserDelegate.qml:428
 #, kde-format
 msgctxt "@action:button"
 msgid "View details"
 msgstr "Mostrar detalhes"
 
-#: qml/ListBrowserDelegate.qml:435
+#: qml/ListBrowserDelegate.qml:442
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark as favorite"
 msgstr "Desmarcar como favorita"
 
-#: qml/ListBrowserDelegate.qml:435
+#: qml/ListBrowserDelegate.qml:442
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark as favorite"
 msgstr "Marcar como favorita"
 
-#: qml/ListBrowserDelegate.qml:443
+#: qml/ListBrowserDelegate.qml:450
 #, kde-format
 msgctxt "@action:button Enqueue current track"
 msgid "Add to queue"
@@ -1190,19 +1190,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Mostrar apenas favoritos"
 
-#: qml/PlayListEntry.qml:126
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "Pausar"
 
-#: qml/PlayListEntry.qml:126
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Reproduzir"
 
-#: qml/PlayListEntry.qml:140
+#: qml/PlayListEntry.qml:147
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
@@ -1569,18 +1569,18 @@ msgid "Descending"
 msgstr ""
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
-#: viewslistdata.cpp:72 viewslistdata.cpp:86 viewslistdata.cpp:105
-#: viewslistdata.cpp:106 viewslistdata.cpp:121 viewslistdata.cpp:146
-#: viewslistdata.cpp:573
+#: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
+#: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
+#: viewslistdata.cpp:561
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "A-Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
-#: viewslistdata.cpp:72 viewslistdata.cpp:86 viewslistdata.cpp:105
-#: viewslistdata.cpp:106 viewslistdata.cpp:121 viewslistdata.cpp:146
-#: viewslistdata.cpp:573
+#: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
+#: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
+#: viewslistdata.cpp:561
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
@@ -1604,160 +1604,160 @@ msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "Ano"
 
-#: viewmanager.cpp:72 viewslistdata.cpp:72 viewslistdata.cpp:106
-#: viewslistdata.cpp:107 viewslistdata.cpp:573
+#: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
+#: viewslistdata.cpp:100 viewslistdata.cpp:561
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "Primeiro os mais antigos"
 
-#: viewmanager.cpp:72 viewslistdata.cpp:72 viewslistdata.cpp:106
-#: viewslistdata.cpp:107 viewslistdata.cpp:573
+#: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
+#: viewslistdata.cpp:100 viewslistdata.cpp:561
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "Primeiro os mais novos"
 
-#: viewslistdata.cpp:31
+#: viewslistdata.cpp:24
 #, kde-format
 msgctxt "@title:window Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Reproduzindo agora"
 
-#: viewslistdata.cpp:34
+#: viewslistdata.cpp:27
 #, kde-format
 msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Recentemente reproduzidos"
 
-#: viewslistdata.cpp:42
+#: viewslistdata.cpp:35
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Played Date"
 msgstr "Última reprodução"
 
-#: viewslistdata.cpp:44
+#: viewslistdata.cpp:37
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
 msgstr "Primeiro os mais reproduzidos recentemente"
 
-#: viewslistdata.cpp:44
+#: viewslistdata.cpp:37
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "Primeiro os menos reproduzidos recentemente"
 
-#: viewslistdata.cpp:48
+#: viewslistdata.cpp:41
 #, kde-format
 msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Frequentemente reproduzidos"
 
-#: viewslistdata.cpp:56
+#: viewslistdata.cpp:49
 #, kde-format
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "Frequência de reprodução"
 
-#: viewslistdata.cpp:58
+#: viewslistdata.cpp:51
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "Primeiro os menos reproduzidos frequentemente"
 
-#: viewslistdata.cpp:58
+#: viewslistdata.cpp:51
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Primeiro os mais reproduzidos frequentemente"
 
-#: viewslistdata.cpp:70 viewslistdata.cpp:101 viewslistdata.cpp:571
+#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:559
 #, kde-format
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "Título"
 
-#: viewslistdata.cpp:70 viewslistdata.cpp:101 viewslistdata.cpp:571
+#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:559
 #, kde-format
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "Artista"
 
-#: viewslistdata.cpp:70 viewslistdata.cpp:101 viewslistdata.cpp:119
-#: viewslistdata.cpp:571 viewslistdata.cpp:607
+#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:112
+#: viewslistdata.cpp:559 viewslistdata.cpp:595
 #, kde-format
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Gênero"
 
-#: viewslistdata.cpp:70 viewslistdata.cpp:102 viewslistdata.cpp:571
+#: viewslistdata.cpp:63 viewslistdata.cpp:95 viewslistdata.cpp:559
 #, kde-format
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "Ano"
 
-#: viewslistdata.cpp:84 viewslistdata.cpp:144 viewslistdata.cpp:589
+#: viewslistdata.cpp:77 viewslistdata.cpp:137 viewslistdata.cpp:577
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "Nome"
 
-#: viewslistdata.cpp:90
+#: viewslistdata.cpp:83
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Faixas"
 
-#: viewslistdata.cpp:101
+#: viewslistdata.cpp:94
 #, kde-format
 msgctxt "@title:menu"
 msgid "Album"
 msgstr "Álbum"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:95
 #, kde-format
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "Duração"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:95
 #, kde-format
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "Compositor"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:95
 #, kde-format
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "Letrista"
 
-#: viewslistdata.cpp:103
+#: viewslistdata.cpp:96
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr "Última modificação"
 
-#: viewslistdata.cpp:106
+#: viewslistdata.cpp:99
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "Primeiro as mais curtas"
 
-#: viewslistdata.cpp:106
+#: viewslistdata.cpp:99
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "Primeiro as mais longas"
 
-#: viewslistdata.cpp:125
+#: viewslistdata.cpp:118
 #, kde-format
 msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "Arquivos"
 
-#: viewslistdata.cpp:136
+#: viewslistdata.cpp:129
 #, kde-format
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"

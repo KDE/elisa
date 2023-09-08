@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-24 00:45+0000\n"
+"POT-Creation-Date: 2023-09-08 00:44+0000\n"
 "PO-Revision-Date: 2023-08-18 06:07+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -335,19 +335,19 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "გამოსახულების მისამართი"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:62 viewslistdata.cpp:563
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:55 viewslistdata.cpp:551
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "ალბომები"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:111 viewslistdata.cpp:599
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:104 viewslistdata.cpp:587
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "ჟანრები"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:76 viewslistdata.cpp:581
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:69 viewslistdata.cpp:569
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
@@ -603,8 +603,8 @@ msgid "Play now, replacing current queue"
 msgstr "ახლავე დაკვრა, მიმდინარე რიგის ჩანაცვლებით"
 
 #: qml/GridBrowserDelegate.qml:384 qml/ListBrowserDelegate.qml:68
-#: qml/ListBrowserDelegate.qml:413 qml/mobile/MobilePlayListDelegate.qml:167
-#: qml/PlayListEntry.qml:80
+#: qml/ListBrowserDelegate.qml:420 qml/mobile/MobilePlayListDelegate.qml:167
+#: qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -623,7 +623,7 @@ msgid "Exit Full Screen"
 msgstr "სრული ეკრანიდან გამოსვლა"
 
 #: qml/ListBrowserDelegate.qml:75 qml/mobile/MobilePlayListDelegate.qml:176
-#: qml/PlayListEntry.qml:87
+#: qml/PlayListEntry.qml:94
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -635,75 +635,75 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "აქედან დაკვრა, მიმდინარე დასაკრავი სიის ჩანაცვლებით"
 
-#: qml/ListBrowserDelegate.qml:91 qml/PlayListEntry.qml:100
+#: qml/ListBrowserDelegate.qml:91 qml/PlayListEntry.qml:107
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "ამ ტრეკის შეფასების დაყენება"
 
 #: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:108
+#: qml/PlayListEntry.qml:115
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "რჩეულად მონიშვნის მოხსნა"
 
 #: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:108
+#: qml/PlayListEntry.qml:115
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "რჩეულად მონიშვნა"
 
-#: qml/ListBrowserDelegate.qml:225 qml/ListBrowserDelegate.qml:241
+#: qml/ListBrowserDelegate.qml:232 qml/ListBrowserDelegate.qml:248
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:236
+#: qml/ListBrowserDelegate.qml:243
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/ListBrowserDelegate.qml:248
+#: qml/ListBrowserDelegate.qml:255
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:332 qml/PlayListEntry.qml:335
+#: qml/ListBrowserDelegate.qml:339 qml/PlayListEntry.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "ამ ტრეკის შეფასების გაუქმება"
 
-#: qml/ListBrowserDelegate.qml:387
+#: qml/ListBrowserDelegate.qml:394
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "სიმღერის პარამეტრები"
 
-#: qml/ListBrowserDelegate.qml:421
+#: qml/ListBrowserDelegate.qml:428
 #, kde-format
 msgctxt "@action:button"
 msgid "View details"
 msgstr "დეტალების ნახვა"
 
-#: qml/ListBrowserDelegate.qml:435
+#: qml/ListBrowserDelegate.qml:442
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark as favorite"
 msgstr "რჩეულად მონიშვნის მოხსნა"
 
-#: qml/ListBrowserDelegate.qml:435
+#: qml/ListBrowserDelegate.qml:442
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark as favorite"
 msgstr "რჩეულად მონიშვნა"
 
-#: qml/ListBrowserDelegate.qml:443
+#: qml/ListBrowserDelegate.qml:450
 #, kde-format
 msgctxt "@action:button Enqueue current track"
 msgid "Add to queue"
@@ -1188,19 +1188,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "მხოლოდ რჩეულების ჩვენება"
 
-#: qml/PlayListEntry.qml:126
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "შეჩერება"
 
-#: qml/PlayListEntry.qml:126
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "დაკვრა"
 
-#: qml/PlayListEntry.qml:140
+#: qml/PlayListEntry.qml:147
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
@@ -1562,18 +1562,18 @@ msgid "Descending"
 msgstr "დაღმავალი"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
-#: viewslistdata.cpp:72 viewslistdata.cpp:86 viewslistdata.cpp:105
-#: viewslistdata.cpp:106 viewslistdata.cpp:121 viewslistdata.cpp:146
-#: viewslistdata.cpp:573
+#: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
+#: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
+#: viewslistdata.cpp:561
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "A-Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
-#: viewslistdata.cpp:72 viewslistdata.cpp:86 viewslistdata.cpp:105
-#: viewslistdata.cpp:106 viewslistdata.cpp:121 viewslistdata.cpp:146
-#: viewslistdata.cpp:573
+#: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
+#: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
+#: viewslistdata.cpp:561
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
@@ -1597,160 +1597,160 @@ msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "წელი"
 
-#: viewmanager.cpp:72 viewslistdata.cpp:72 viewslistdata.cpp:106
-#: viewslistdata.cpp:107 viewslistdata.cpp:573
+#: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
+#: viewslistdata.cpp:100 viewslistdata.cpp:561
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "ჯერ ძველები"
 
-#: viewmanager.cpp:72 viewslistdata.cpp:72 viewslistdata.cpp:106
-#: viewslistdata.cpp:107 viewslistdata.cpp:573
+#: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
+#: viewslistdata.cpp:100 viewslistdata.cpp:561
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "ჯერ ახლები"
 
-#: viewslistdata.cpp:31
+#: viewslistdata.cpp:24
 #, kde-format
 msgctxt "@title:window Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "მიმდინარეობს დაკვრა"
 
-#: viewslistdata.cpp:34
+#: viewslistdata.cpp:27
 #, kde-format
 msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "ახლახანს დაკრული"
 
-#: viewslistdata.cpp:42
+#: viewslistdata.cpp:35
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Played Date"
 msgstr "ბოლოს დაკვრის თარიღი"
 
-#: viewslistdata.cpp:44
+#: viewslistdata.cpp:37
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
 msgstr "პირველად დაკვრის დრო"
 
-#: viewslistdata.cpp:44
+#: viewslistdata.cpp:37
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "ბოლოს დაკვრის დრო"
 
-#: viewslistdata.cpp:48
+#: viewslistdata.cpp:41
 #, kde-format
 msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "ხშირად დაკრული"
 
-#: viewslistdata.cpp:56
+#: viewslistdata.cpp:49
 #, kde-format
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "დაკვრის სიხშირე"
 
-#: viewslistdata.cpp:58
+#: viewslistdata.cpp:51
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "ჯერ იშვიათად დაკრულები"
 
-#: viewslistdata.cpp:58
+#: viewslistdata.cpp:51
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "ჯერ ყველაზე ხშირად დაკრულები"
 
-#: viewslistdata.cpp:70 viewslistdata.cpp:101 viewslistdata.cpp:571
+#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:559
 #, kde-format
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "სათაური"
 
-#: viewslistdata.cpp:70 viewslistdata.cpp:101 viewslistdata.cpp:571
+#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:559
 #, kde-format
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "შემსრულებელი"
 
-#: viewslistdata.cpp:70 viewslistdata.cpp:101 viewslistdata.cpp:119
-#: viewslistdata.cpp:571 viewslistdata.cpp:607
+#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:112
+#: viewslistdata.cpp:559 viewslistdata.cpp:595
 #, kde-format
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "ჟანრი"
 
-#: viewslistdata.cpp:70 viewslistdata.cpp:102 viewslistdata.cpp:571
+#: viewslistdata.cpp:63 viewslistdata.cpp:95 viewslistdata.cpp:559
 #, kde-format
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "წელი"
 
-#: viewslistdata.cpp:84 viewslistdata.cpp:144 viewslistdata.cpp:589
+#: viewslistdata.cpp:77 viewslistdata.cpp:137 viewslistdata.cpp:577
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "სახელი"
 
-#: viewslistdata.cpp:90
+#: viewslistdata.cpp:83
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "აუდიობილიკები"
 
-#: viewslistdata.cpp:101
+#: viewslistdata.cpp:94
 #, kde-format
 msgctxt "@title:menu"
 msgid "Album"
 msgstr "ალბომი"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:95
 #, kde-format
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "ხანგრძლოვობა"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:95
 #, kde-format
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "კომპოზიტორი"
 
-#: viewslistdata.cpp:102
+#: viewslistdata.cpp:95
 #, kde-format
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "ლირიკოსი"
 
-#: viewslistdata.cpp:103
+#: viewslistdata.cpp:96
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr "ბოლოს შეიცვლა"
 
-#: viewslistdata.cpp:106
+#: viewslistdata.cpp:99
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "ჯერ უმოკლესი"
 
-#: viewslistdata.cpp:106
+#: viewslistdata.cpp:99
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "ჯერ უგრძესი"
 
-#: viewslistdata.cpp:125
+#: viewslistdata.cpp:118
 #, kde-format
 msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "ფაილები"
 
-#: viewslistdata.cpp:136
+#: viewslistdata.cpp:129
 #, kde-format
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"

@@ -55,14 +55,7 @@ FocusScope {
     ListView.onPooled: delegateLoaded = false
     ListView.onReused: delegateLoaded = true
 
-    property int singleLineHeight: {
-        if (Kirigami.Settings.isMobile) {
-            return 4 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit * 2;
-        } else {
-            return 3 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit;
-        }
-    }
-    height: singleLineHeight + (!Kirigami.Settings.isMobile && detailedView ? Kirigami.Units.gridUnit : 0)
+    height: elisaTheme.listDelegateHeight
 
     property list<Kirigami.Action> actions: [
         Kirigami.Action {
@@ -296,8 +289,8 @@ FocusScope {
                         model: mediaTrack.actions
 
                         delegate: FlatButtonWithToolTip {
-                            width: singleLineHeight
-                            height: singleLineHeight
+                            width: elisaTheme.listDelegateSingleLineHeight
+                            height: elisaTheme.listDelegateSingleLineHeight
                             action: modelData
                             visible: action.visible
                         }
@@ -316,8 +309,8 @@ FocusScope {
                 z: 1
 
                 sourceComponent: FlatButtonWithToolTip {
-                    width: singleLineHeight
-                    height: singleLineHeight
+                    width: elisaTheme.listDelegateSingleLineHeight
+                    height: elisaTheme.listDelegateSingleLineHeight
                     text: i18nc("@action:button", "Cancel rating this track")
                     icon.name: "dialog-cancel"
                     onClicked: { mediaTrack.editingRating = false; }
@@ -344,8 +337,8 @@ FocusScope {
                 visible: !Kirigami.Settings.isMobile && ElisaApplication.useFavoriteStyleRatings && !hoverLoader.active && mediaTrack.isFavorite
 
                 sourceComponent: FlatButtonWithToolTip {
-                    width: singleLineHeight
-                    height: singleLineHeight
+                    width: elisaTheme.listDelegateSingleLineHeight
+                    height: elisaTheme.listDelegateSingleLineHeight
                     icon.name: mediaTrack.isFavorite ? "rating" : "rating-unrated"
                 }
             }
@@ -368,7 +361,7 @@ FocusScope {
                 Layout.alignment: Qt.AlignVCenter
                 Layout.maximumHeight: parent.height
                 Layout.preferredWidth: height
-                Layout.preferredHeight: singleLineHeight - Kirigami.Units.smallSpacing * 2
+                Layout.preferredHeight: elisaTheme.listDelegateSingleLineHeight - Kirigami.Units.smallSpacing * 2
 
                 text: i18nc("@action:button", "Song Options")
                 icon.name: "view-more-symbolic"

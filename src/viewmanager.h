@@ -95,6 +95,13 @@ public:
 
     Q_ENUM(ModelType)
 
+    enum ViewStyle {
+        ListStyle,
+        GridStyle,
+    };
+
+    Q_ENUM(ViewStyle)
+
     explicit ViewManager(QObject *parent = nullptr);
 
     ~ViewManager() override;
@@ -145,6 +152,8 @@ public Q_SLOTS:
 
     void sortRoleChanged(int sortRole);
 
+    void setViewStyle(const ViewStyle viewStyle);
+
     void setInitialIndex(int newIndex);
 
     void setInitialFilesViewPath(const QString &initialPath);
@@ -172,9 +181,13 @@ private:
 
     bool viewHasDefaultSortRole(const ElisaUtils::FilterType filterType) const;
 
+    bool viewHasDefaultViewStyle(const ElisaUtils::PlayListEntryType entryType) const;
+
     [[nodiscard]] Qt::SortOrder computePreferredSortOrder(Qt::SortOrder initialValue, ElisaUtils::FilterType filterType) const;
 
     [[nodiscard]] int computePreferredSortRole(int initialValue, ElisaUtils::FilterType filterType) const;
+
+    [[nodiscard]] ViewStyle computePreferredViewStyle(ViewStyle initialValue, ElisaUtils::PlayListEntryType dataType) const;
 
 private:
 

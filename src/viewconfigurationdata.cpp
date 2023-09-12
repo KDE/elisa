@@ -12,6 +12,7 @@ public:
     ViewConfigurationDataPrivate()
     = default;
 
+    // Grid/List views
     ViewConfigurationDataPrivate(ElisaUtils::FilterType filterType, int expectedDepth,
                                  QString mainTitle, QString secondaryTitle,
                                  QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
@@ -20,7 +21,8 @@ public:
                                  int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                                  Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                  ViewManager::ViewCanBeRated viewShowRating,
-                                 ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText)
+                                 ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
+                                 ViewManager::ViewStyle viewStyle)
         : mFilterType(filterType)
         , mExpectedDepth(expectedDepth)
         , mMainTitle(std::move(mainTitle))
@@ -38,9 +40,11 @@ public:
         , mSortRoleNames(std::move(sortRoleNames))
         , mSortOrder(sortOrder)
         , mSortOrderNames(std::move(sortOrderNames))
+        , mViewStyle(viewStyle)
     {
     }
 
+    // Track views
     ViewConfigurationDataPrivate(ElisaUtils::FilterType filterType, int expectedDepth,
                                  QString mainTitle, QString secondaryTitle,
                                  QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
@@ -106,6 +110,8 @@ public:
     ViewManager::AlbumCardinality mDisplaySingleAlbum;
 
     ViewManager::AlbumViewStyle mShowDiscHeaders;
+
+    ViewManager::ViewStyle mViewStyle = ViewManager::ListStyle;
 };
 
 ViewConfigurationData::ViewConfigurationData(QObject *parent)
@@ -114,6 +120,7 @@ ViewConfigurationData::ViewConfigurationData(QObject *parent)
 {
 }
 
+// Grid/List views
 ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                              QString mainTitle, QString secondaryTitle,
                                              QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
@@ -123,6 +130,7 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                              Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                              ViewManager::ViewCanBeRated viewShowRating,
                                              ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
+                                             ViewManager::ViewStyle viewStyle,
                                              QObject *parent)
     : QObject(parent)
     , d(std::make_unique<ViewConfigurationDataPrivate>(filterType, expectedDepth, std::move(mainTitle),
@@ -131,10 +139,12 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                                        std::move(viewDefaultIcon), std::move(dataFilter),
                                                        sortRole, std::move(sortRoles), std::move(sortRoleNames),
                                                        sortOrder, std::move(sortOrderNames),
-                                                       viewShowRating,viewDelegateDisplaySecondaryText))
+                                                       viewShowRating, viewDelegateDisplaySecondaryText,
+                                                       viewStyle))
 {
 }
 
+// Track views
 ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                              QString mainTitle, QString secondaryTitle,
                                              QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
@@ -247,6 +257,11 @@ ViewManager::AlbumCardinality ViewConfigurationData::displaySingleAlbum() const
 ViewManager::AlbumViewStyle ViewConfigurationData::showDiscHeaders() const
 {
     return d->mShowDiscHeaders;
+}
+
+ViewManager::ViewStyle ViewConfigurationData::viewStyle() const
+{
+    return d->mViewStyle;
 }
 
 ViewConfigurationData::~ViewConfigurationData() = default;

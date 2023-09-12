@@ -333,6 +333,7 @@ qt_add_qml_module(elisaLib
         qml/HeaderFooterToolbar.qml
         qml/ImageWithFallback.qml
         qml/LabelWithToolTip.qml
+        qml/ListBrowserDelegate.qml
         qml/MediaPlayerControl.qml
         qml/MediaPlayListView.qml
         qml/MediaTrackMetadataDelegate.qml
@@ -460,6 +461,8 @@ if (ANDROID)
         media-playback-start
         dialog-close
         arrow-down
+        view-list-details-symbolic
+        view-list-icons-symbolic
         view-media-playlist
         view-media-artist
         view-right-close

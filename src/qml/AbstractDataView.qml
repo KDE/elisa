@@ -44,6 +44,8 @@ FocusScope {
     property alias sortOrder: navigationBar.sortOrder
     property alias viewManager: navigationBar.viewManager
     property alias expandedFilterView: navigationBar.expandedFilterView
+    property alias canToggleViewStyle: navigationBar.canToggleViewStyle
+    property alias viewStyle: navigationBar.viewStyle
 
     // Inner items exposed to subclasses for various purposes
     readonly property alias delegateModel: delegateModel

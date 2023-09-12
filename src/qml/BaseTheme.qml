@@ -26,7 +26,11 @@ Item {
     property int volumeSliderWidth: Kirigami.Units.gridUnit * 5
 
     property int gridDelegateSize: Kirigami.Units.gridUnit * 9
-
+    readonly property real listDelegateSingleLineHeight: Kirigami.Settings.isMobile
+                                                            ? 4 * Kirigami.Units.smallSpacing + 2 * Kirigami.Units.gridUnit
+                                                            : 3 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit
+    readonly property real listDelegateHeight: listDelegateSingleLineHeight + (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.gridUnit
+)
     property int viewSelectorSmallSizeThreshold: Kirigami.Units.gridUnit * 44
 
     readonly property alias toolButtonHeight: button.height

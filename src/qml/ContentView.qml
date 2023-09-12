@@ -78,6 +78,7 @@ RowLayout {
                 defaultIcon: configurationData.viewDefaultIcon,
                 showRating: configurationData.viewShowRating,
                 delegateDisplaySecondaryText: configurationData.viewDelegateDisplaySecondaryText,
+                viewStyle: configurationData.viewStyle,
                 filter: configurationData.dataFilter,
                 isSubPage: configurationData.expectedDepth > 1,
                 sortRole: configurationData.sortRole,

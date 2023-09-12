@@ -106,9 +106,14 @@ class ELISALIB_EXPORT ViewConfigurationData : public QObject
                READ showDiscHeaders
                CONSTANT)
 
+    Q_PROPERTY(ViewManager::ViewStyle viewStyle
+               READ viewStyle
+               CONSTANT)
+
 public:
     explicit ViewConfigurationData(QObject *parent = nullptr);
 
+    // Grid/List views
     explicit ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                    QString mainTitle, QString secondaryTitle, QUrl imageUrl,
                                    ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
@@ -118,8 +123,10 @@ public:
                                    Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                    ViewManager::ViewCanBeRated viewShowRating,
                                    ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
+                                   ViewManager::ViewStyle viewStyle,
                                    QObject *parent = nullptr);
 
+    // Track views
     explicit ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
                                    QString mainTitle, QString secondaryTitle,
                                    QUrl imageUrl, ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
@@ -169,6 +176,8 @@ public:
     [[nodiscard]] ViewManager::AlbumCardinality displaySingleAlbum() const;
 
     [[nodiscard]] ViewManager::AlbumViewStyle showDiscHeaders() const;
+
+    [[nodiscard]] ViewManager::ViewStyle viewStyle() const;
 
 private:
 

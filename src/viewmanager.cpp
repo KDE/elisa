@@ -281,7 +281,8 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                                                          viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
                                                                          computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortOrderNames,
-                                                                         viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates);
+                                                                         viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates,
+                                                                         computePreferredViewStyle(GridStyle, viewParamaters.mDataType));
 
         QQmlEngine::setObjectOwnership(configurationData.get(), QQmlEngine::JavaScriptOwnership);
 
@@ -429,6 +430,17 @@ bool ViewManager::viewHasDefaultSortRole(const ElisaUtils::FilterType filterType
         return false;
     }
 }
+bool ViewManager::viewHasDefaultViewStyle(const ElisaUtils::PlayListEntryType entryType) const
+{
+    switch (entryType)
+    {
+    case ElisaUtils::Track:
+    case ElisaUtils::Radio:
+        return true;
+    default:
+        return false;
+    }
+}
 
 Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue, ElisaUtils::FilterType filterType) const
 {
@@ -448,6 +460,16 @@ int ViewManager::computePreferredSortRole(int initialValue, ElisaUtils::FilterTy
 
     auto currentSortRolePreferences = Elisa::ElisaConfiguration::sortRolePreferences();
     return computeViewPreference(static_cast<DataTypes::ColumnsRoles>(initialValue), currentSortRolePreferences);
+}
+
+ViewManager::ViewStyle ViewManager::computePreferredViewStyle(ViewStyle initialValue, ElisaUtils::PlayListEntryType dataType) const
+{
+    if (viewHasDefaultViewStyle(dataType)) {
+        return initialValue;
+    }
+
+    auto currentViewStylePreferences = Elisa::ElisaConfiguration::viewStylePreferences();
+    return computeViewPreference(initialValue, currentViewStylePreferences);
 }
 
 void ViewManager::goBack()
@@ -542,6 +564,19 @@ void ViewManager::sortRoleChanged(int sortRole)
     updateViewPreference(static_cast<DataTypes::ColumnsRoles>(sortRole), currentSortRolePreferences);
 
     Elisa::ElisaConfiguration::setSortRolePreferences(currentSortRolePreferences);
+    Elisa::ElisaConfiguration::self()->save();
+}
+
+void ViewManager::setViewStyle(const ViewStyle viewStyle)
+{
+    if (viewHasDefaultViewStyle(d->mViewParametersStack.back().mDataType)) {
+        return;
+    }
+
+    auto currentViewStylePreferences = Elisa::ElisaConfiguration::viewStylePreferences();
+    updateViewPreference(viewStyle, currentViewStylePreferences);
+
+    Elisa::ElisaConfiguration::setViewStylePreferences(currentViewStylePreferences);
     Elisa::ElisaConfiguration::self()->save();
 }
 

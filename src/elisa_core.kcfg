@@ -90,5 +90,7 @@
   </entry>
   <entry key="SortOrderPreferences" type="StringList">
   </entry>
+  <entry key="ViewStylePreferences" type="StringList">
+  </entry>
  </group>
 </kcfg>

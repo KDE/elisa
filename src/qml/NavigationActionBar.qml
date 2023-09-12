@@ -22,6 +22,8 @@ Item {
     property bool allowArtistNavigation: false
     property bool showEnqueueButton: true
     property bool showCreateRadioButton
+    property bool canToggleViewStyle: false
+    property int /*ViewManager::ViewStyle*/ viewStyle: ViewManager.ListStyle
 
     property string labelText
     property bool showRating: !Kirigami.Settings.isMobile
@@ -47,6 +49,12 @@ Item {
     property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
 
     implicitHeight: layout.height
+
+    onViewStyleChanged: {
+        if (viewManager) {
+            viewManager.setViewStyle(viewStyle);
+        }
+    }
 
     SortMenu {
         id: sortMenu
@@ -142,6 +150,33 @@ Item {
             icon.name: "view-media-playlist"
             display: navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: navigationBar.isWidescreen ? mainWindow.toggleDrawer() : playlistDrawer.open()
+        }
+    }
+    Component {
+        id: toggleViewStyleButton
+        FlatButtonWithToolTip {
+            Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
+            Kirigami.Theme.inherit: false
+            text: i18nc("@action:button", "Toggle View Style")
+            icon.name: {
+                switch (navigationBar.viewStyle) {
+                case ViewManager.ListStyle:
+                    return "view-list-details-symbolic";
+                case ViewManager.GridStyle:
+                    return "view-list-icons-symbolic";
+                }
+            }
+
+            onClicked: {
+                switch (navigationBar.viewStyle) {
+                case ViewManager.ListStyle:
+                    navigationBar.viewStyle = ViewManager.GridStyle;
+                    break;
+                case ViewManager.GridStyle:
+                    navigationBar.viewStyle = ViewManager.ListStyle;
+                    break;
+                }
+            }
         }
     }
 
@@ -250,6 +285,11 @@ Item {
                     active: !Kirigami.Settings.isMobile && !showCreateRadioButton
                     Layout.maximumHeight: parent.height
                 },
+                Loader {
+                    sourceComponent: toggleViewStyleButton
+                    active: !Kirigami.Settings.isMobile && navigationBar.canToggleViewStyle
+                    Layout.maximumHeight: parent.height
+                },
                 FlatButtonWithToolTip {
                     Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
                     Kirigami.Theme.inherit: false
@@ -308,6 +348,11 @@ Item {
                     Loader {
                         sourceComponent: showArtistButton
                         active: allowArtistNavigation && !showCreateRadioButton
+                        Layout.maximumHeight: parent.height
+                    },
+                    Loader {
+                        sourceComponent: toggleViewStyleButton
+                        active: navigationBar.canToggleViewStyle
                         Layout.maximumHeight: parent.height
                     },
                     Loader {

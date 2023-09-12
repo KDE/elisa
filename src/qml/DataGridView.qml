@@ -7,6 +7,8 @@
 
 import QtQuick 2.15
 
+import QtQml.Models
+
 import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa
 
@@ -15,6 +17,10 @@ AbstractDataView {
 
     property url defaultIcon
     property bool delegateDisplaySecondaryText: true
+
+    canToggleViewStyle: true
+    viewStyle: ViewManager.GridStyle
+    readonly property bool showingGridViewStyle: viewStyle === ViewManager.GridStyle
 
     signal enqueue(var fullData, string name)
     signal replaceAndPlay(var fullData, string name)
@@ -40,30 +46,75 @@ AbstractDataView {
 
     onOpen: fullData => viewManager.openChildView(fullData)
 
-    delegate: GridBrowserDelegate {
-        width: Kirigami.Settings.isMobile ? contentDirectoryView.cellWidth : elisaTheme.gridDelegateSize
-        height: contentDirectoryView.cellHeight
+    delegate: Package {
+        id: delegatePackage
 
-        focus: true
+        required property int index
+        required property string display
+        required property string secondaryText
+        required property url url
+        required property url imageUrl
+        property bool multipleImageUrls
+        required property bool hasChildren
+        required property var fullData
 
-        isSelected: contentDirectoryView.currentIndex === index
+        GridBrowserDelegate {
+            Package.name: 'grid'
 
-        mainText: model.display
-        fileUrl: model.url ? model.url : ""
-        secondaryText: gridView.delegateDisplaySecondaryText && model.secondaryText ? model.secondaryText : ""
-        imageUrl: model.imageUrl ? model.imageUrl : ''
-        multipleImageUrls: model.multipleImageUrls
-        imageFallbackUrl: defaultIcon
-        displaySecondaryText: gridView.delegateDisplaySecondaryText
-        hasChildren: model.hasChildren
+            width: Kirigami.Settings.isMobile ? contentDirectoryView.cellWidth : elisaTheme.gridDelegateSize
+            height: contentDirectoryView.cellHeight
 
-        onEnqueue: gridView.enqueue(model.fullData, model.display)
-        onReplaceAndPlay: gridView.replaceAndPlay(model.fullData, model.display)
-        onOpen: gridView.open(model.fullData)
+            focus: true
 
-        onActiveFocusChanged: {
-            if (activeFocus && contentDirectoryView.currentIndex !== model.index) {
-                contentDirectoryView.currentIndex = model.index
+            isSelected: contentDirectoryView.currentIndex === delegatePackage.index
+
+            mainText: delegatePackage.display
+            fileUrl: delegatePackage.url ? delegatePackage.url : ""
+            secondaryText: delegatePackage.secondaryText ? delegatePackage.secondaryText : ""
+            imageUrl: delegatePackage.imageUrl ? delegatePackage.imageUrl : ""
+            multipleImageUrls: delegatePackage.multipleImageUrls
+            imageFallbackUrl: defaultIcon
+            displaySecondaryText: gridView.delegateDisplaySecondaryText
+            hasChildren: delegatePackage.hasChildren
+
+            onEnqueue: gridView.enqueue(delegatePackage.fullData, delegatePackage.display)
+            onReplaceAndPlay: gridView.replaceAndPlay(delegatePackage.fullData, delegatePackage.display)
+            onOpen: gridView.open(delegatePackage.fullData)
+
+            onActiveFocusChanged: {
+                if (activeFocus && gridView.currentIndex !== delegatePackage.index) {
+                    gridView.currentIndex = delegatePackage.index;
+                }
+            }
+        }
+
+        ListBrowserDelegate {
+            Package.name: 'list'
+
+            width: contentDirectoryView.width
+
+            focus: true
+
+            isSelected: contentDirectoryView.currentIndex === delegatePackage.index
+
+            index: delegatePackage.index
+            mainText: delegatePackage.display
+            fileUrl: delegatePackage.url ? delegatePackage.url : ""
+            secondaryText: delegatePackage.secondaryText ? delegatePackage.secondaryText : ""
+            imageUrl: delegatePackage.imageUrl ? delegatePackage.imageUrl : ""
+            multipleImageUrls: delegatePackage.multipleImageUrls
+            imageFallbackUrl: defaultIcon
+            displaySecondaryText: gridView.delegateDisplaySecondaryText
+            hasChildren: delegatePackage.hasChildren
+
+            onEnqueue: gridView.enqueue(delegatePackage.fullData, delegatePackage.display)
+            onReplaceAndPlay: gridView.replaceAndPlay(delegatePackage.fullData, delegatePackage.display)
+            onOpen: gridView.open(delegatePackage.fullData)
+
+            onActiveFocusChanged: {
+                if (activeFocus && contentDirectoryView.currentIndex !== delegatePackage.index) {
+                    contentDirectoryView.currentIndex = delegatePackage.index;
+                }
             }
         }
     }
@@ -76,7 +127,7 @@ AbstractDataView {
 
         reuseItems: true
 
-        model: delegateModel
+        model: gridView.showingGridViewStyle ? gridView.delegateModel.parts.grid : gridView.delegateModel.parts.list
 
         // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
         currentIndex: Kirigami.Settings.isMobile ? 0 : -1
@@ -85,10 +136,18 @@ AbstractDataView {
         Accessible.name: mainTitle
 
         cellWidth: {
-            const columns = Math.max(Math.floor(width / elisaTheme.gridDelegateSize), 2);
+            if (!gridView.showingGridViewStyle) {
+                return width;
+            }
+
+            let columns = Math.max(Math.floor(width / elisaTheme.gridDelegateSize), 2);
             return Math.floor(width / columns);
         }
         cellHeight: {
+            if (!gridView.showingGridViewStyle) {
+                return elisaTheme.listDelegateHeight;
+            }
+
             if (Kirigami.Settings.isMobile) {
                 return cellWidth + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
             } else {

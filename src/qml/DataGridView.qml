@@ -48,27 +48,18 @@ AbstractDataView {
 
         isSelected: contentDirectoryView.currentIndex === index
 
-        isPartial: false
-
         mainText: model.display
         fileUrl: model.url ? model.url : ""
         secondaryText: gridView.delegateDisplaySecondaryText && model.secondaryText ? model.secondaryText : ""
         imageUrl: model.imageUrl ? model.imageUrl : ''
         multipleImageUrls: model.multipleImageUrls
         imageFallbackUrl: defaultIcon
-        databaseId: model.databaseId
         delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
-        entryType: model.dataType
         hasChildren: model.hasChildren
 
         onEnqueue: gridView.enqueue(model.fullData, model.display)
         onReplaceAndPlay: gridView.replaceAndPlay(model.fullData, model.display)
         onOpen: gridView.open(model.fullData)
-
-        onSelected: {
-            forceActiveFocus()
-            contentDirectoryView.currentIndex = model.index
-        }
 
         onActiveFocusChanged: {
             if (activeFocus && contentDirectoryView.currentIndex !== model.index) {

@@ -23,19 +23,15 @@ FocusScope {
     property url imageFallbackUrl
     property var multipleImageUrls
     property url fileUrl
-    property var entryType
     property string mainText
     property string secondaryText
-    property var databaseId
     property bool delegateDisplaySecondaryText: true
-    property bool isPartial
     property bool isSelected
     property bool hasChildren: true
 
     signal enqueue()
     signal replaceAndPlay()
     signal open()
-    signal selected()
 
     property bool showPlayButton: true
     property bool showEnqueueButton: true
@@ -79,24 +75,6 @@ FocusScope {
             text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
         }
     ]
-
-    Loader {
-        id: metadataLoader
-        active: false && gridEntry.fileUrl
-        onLoaded: item.show()
-
-        sourceComponent: MediaTrackMetadataView {
-            fileName: gridEntry.fileUrl ? gridEntry.fileUrl : ''
-            showImage: true
-            modelType: gridEntry.entryType
-            showTrackFileName: true
-            showDeleteButton: false
-            editableMetadata: false
-            canAddMoreMetadata: false
-
-            onRejected: metadataLoader.active = false;
-        }
-    }
 
     property bool delegateLoaded: true
 
@@ -220,7 +198,7 @@ FocusScope {
                 width: gridEntry.width - 2 * Kirigami.Units.largeSpacing
                 height: gridEntry.width - 2 * Kirigami.Units.largeSpacing
 
-                active: gridEntry.delegateLoaded && !isPartial
+                active: gridEntry.delegateLoaded
 
                 sourceComponent: gridEntry.multipleImageUrls && gridEntry.multipleImageUrls.length == 4
                                   ? quartersCover : singleCover
@@ -333,18 +311,6 @@ FocusScope {
                     icon.name: "view-more-symbolic"
                     onClicked: openContextMenu()
                 }
-            }
-        }
-
-        Loader {
-            active: isPartial
-            anchors.centerIn: parent
-            height: Kirigami.Units.gridUnit * 5
-            width: height
-
-            sourceComponent: BusyIndicator {
-                anchors.centerIn: parent
-                running: true
             }
         }
     }

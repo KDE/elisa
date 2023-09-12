@@ -54,7 +54,7 @@ AbstractDataView {
         imageUrl: model.imageUrl ? model.imageUrl : ''
         multipleImageUrls: model.multipleImageUrls
         imageFallbackUrl: defaultIcon
-        delegateDisplaySecondaryText: gridView.delegateDisplaySecondaryText
+        displaySecondaryText: gridView.delegateDisplaySecondaryText
         hasChildren: model.hasChildren
 
         onEnqueue: gridView.enqueue(model.fullData, model.display)

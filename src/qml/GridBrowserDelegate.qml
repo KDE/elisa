@@ -25,7 +25,7 @@ FocusScope {
     property url fileUrl
     property string mainText
     property string secondaryText
-    property bool delegateDisplaySecondaryText: true
+    property bool displaySecondaryText: true
     property bool isSelected
     property bool hasChildren: true
 
@@ -263,19 +263,19 @@ FocusScope {
                         horizontalAlignment: Kirigami.Settings.isMobile ? Text.AlignLeft : Text.AlignHCenter
 
                         Layout.fillWidth: true
-                        Layout.maximumHeight: delegateDisplaySecondaryText ? mainLabelSize.boundingRect.height : mainLabelSize.boundingRect.height * 2
+                        Layout.maximumHeight: gridEntry.displaySecondaryText ? mainLabelSize.boundingRect.height : mainLabelSize.boundingRect.height * 2
                         Layout.alignment: Kirigami.Settings.isMobile ? Qt.AlignLeft : Qt.AlignVCenter
                         Layout.leftMargin: Kirigami.Settings.isMobile ? 0 : Kirigami.Units.largeSpacing
                         Layout.rightMargin: Kirigami.Settings.isMobile ? 0 : Kirigami.Units.largeSpacing
 
-                        wrapMode: !Kirigami.Settings.isMobile && delegateDisplaySecondaryText ? Label.NoWrap : Label.Wrap
+                        wrapMode: !Kirigami.Settings.isMobile && gridEntry.displaySecondaryText ? Label.NoWrap : Label.Wrap
                         maximumLineCount: Kirigami.Settings.isMobile ? 1 : 2
                         elide: Text.ElideRight
                     }
 
                     LabelWithToolTip {
                         id: secondaryLabel
-                        visible: delegateDisplaySecondaryText
+                        visible: gridEntry.displaySecondaryText
                         text: gridEntry.secondaryText
 
                         opacity: 0.6

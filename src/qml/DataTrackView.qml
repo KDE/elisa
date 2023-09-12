@@ -61,7 +61,7 @@ AbstractDataView {
         }
     }
 
-    delegate: ListBrowserDelegate {
+    delegate: TrackBrowserDelegate {
         id: entry
 
         width: contentDirectoryView.width

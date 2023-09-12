@@ -32,7 +32,7 @@ public:
     QMap<ElisaUtils::PlayListEntryType, ViewParameters> mChildViews = {
         {ElisaUtils::Album, {{},
                              QUrl{QStringLiteral("image://icon/view-media-track")},
-                             ViewManager::ListView,
+                             ViewManager::TrackView,
                              ViewManager::GenericDataModel,
                              ElisaUtils::FilterById,
                              ElisaUtils::Track,
@@ -288,7 +288,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
         Q_EMIT openGridView(configurationData.release());
         break;
     }
-    case ViewPresentationType::ListView:
+    case ViewPresentationType::TrackView:
     {
         qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mFilterType
                                     << viewParamaters.mDepth << viewParamaters.mMainTitle << viewParamaters.mSecondaryTitle
@@ -310,7 +310,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
 
         QQmlEngine::setObjectOwnership(configurationData.get(), QQmlEngine::JavaScriptOwnership);
 
-        Q_EMIT openListView(configurationData.release());
+        Q_EMIT openTrackView(configurationData.release());
         break;
     }
     case ContextView:

@@ -322,7 +322,7 @@ qt_add_qml_module(elisaLib
         qml/ContentView.qml
         qml/ContextView.qml
         qml/DataGridView.qml
-        qml/DataListView.qml
+        qml/DataTrackView.qml
         qml/DurationSlider.qml
         qml/ElisaMainWindow.qml
         qml/FlatButtonWithToolTip.qml
@@ -332,7 +332,6 @@ qt_add_qml_module(elisaLib
         qml/HeaderFooterToolbar.qml
         qml/ImageWithFallback.qml
         qml/LabelWithToolTip.qml
-        qml/ListBrowserDelegate.qml
         qml/MediaPlayerControl.qml
         qml/MediaPlayListView.qml
         qml/MediaTrackMetadataDelegate.qml
@@ -351,6 +350,7 @@ qt_add_qml_module(elisaLib
         qml/SimplePlayListView.qml
         qml/SortMenu.qml
         qml/Theme.qml
+        qml/TrackBrowserDelegate.qml
         qml/TrackImportNotification.qml
         qml/TracksDiscHeader.qml
         qml/ViewSelector.qml

@@ -81,7 +81,7 @@ public:
     enum ViewPresentationType {
         ContextView,
         GridView,
-        ListView,
+        TrackView,
         UnknownViewPresentation,
     };
 
@@ -111,7 +111,7 @@ Q_SIGNALS:
 
     void openGridView(ViewConfigurationData *configurationData);
 
-    void openListView(ViewConfigurationData *configurationData);
+    void openTrackView(ViewConfigurationData *configurationData);
 
     void switchContextView(int expectedDepth, const QString &mainTitle, const QUrl &imageUrl);
 

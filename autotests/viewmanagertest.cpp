@@ -50,13 +50,13 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("album1")},
@@ -65,12 +65,12 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Album}});
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(openTrackViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 1);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
+        QCOMPARE(openTrackViewSpy.at(0).count(), 1);
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
     }
 
     void openAlbumView2Test()
@@ -81,19 +81,19 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(3);
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -106,17 +106,17 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Album}});
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(openTrackViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 1);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
+        QCOMPARE(openTrackViewSpy.at(0).count(), 1);
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
 
         viewManager.openView(3);
 
         QCOMPARE(openGridViewSpy.count(), 2);
-        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(openTrackViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(1).count(), 1);
@@ -129,12 +129,12 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Album}});
 
         QCOMPARE(openGridViewSpy.count(), 2);
-        QCOMPARE(openListViewSpy.count(), 2);
+        QCOMPARE(openTrackViewSpy.count(), 2);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(1).count(), 1);
-        QCOMPARE(openListViewSpy.at(1).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(1).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
+        QCOMPARE(openTrackViewSpy.at(1).count(), 1);
+        QCOMPARE(openTrackViewSpy.at(1).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
+        QCOMPARE(openTrackViewSpy.at(1).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
     }
 
     void openAlbumView3Test()
@@ -145,19 +145,19 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(3);
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -170,17 +170,17 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Album}});
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(openTrackViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 1);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
+        QCOMPARE(openTrackViewSpy.at(0).count(), 1);
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
 
         viewManager.goBack();
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(openTrackViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 1);
 
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("album1")},
@@ -189,12 +189,12 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Album}});
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 2);
+        QCOMPARE(openTrackViewSpy.count(), 2);
         QCOMPARE(popOneViewSpy.count(), 1);
 
-        QCOMPARE(openListViewSpy.at(1).count(), 1);
-        QCOMPARE(openListViewSpy.at(1).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(1).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
+        QCOMPARE(openTrackViewSpy.at(1).count(), 1);
+        QCOMPARE(openTrackViewSpy.at(1).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
+        QCOMPARE(openTrackViewSpy.at(1).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
     }
 
     void openArtistViewTest()
@@ -205,13 +205,13 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("artist1")},
@@ -219,7 +219,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -236,19 +236,19 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(4);
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -260,7 +260,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
 
         QCOMPARE(openGridViewSpy.count(), 2);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(1).count(), 1);
@@ -271,7 +271,7 @@ private Q_SLOTS:
         viewManager.openView(4);
 
         QCOMPARE(openGridViewSpy.count(), 3);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(2).count(), 1);
@@ -283,7 +283,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
 
         QCOMPARE(openGridViewSpy.count(), 4);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(3).count(), 1);
@@ -300,19 +300,19 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(4);
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -324,7 +324,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
 
         QCOMPARE(openGridViewSpy.count(), 2);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(1).count(), 1);
@@ -335,7 +335,7 @@ private Q_SLOTS:
         viewManager.goBack();
 
         QCOMPARE(openGridViewSpy.count(), 2);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 1);
 
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("artist1")},
@@ -343,7 +343,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
 
         QCOMPARE(openGridViewSpy.count(), 3);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 1);
 
         QCOMPARE(openGridViewSpy.at(2).count(), 1);
@@ -360,13 +360,13 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("genre1")},
@@ -374,7 +374,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Genre}});
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -391,19 +391,19 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(6);
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -415,7 +415,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Genre}});
 
         QCOMPARE(openGridViewSpy.count(), 2);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(1).count(), 1);
@@ -426,7 +426,7 @@ private Q_SLOTS:
         viewManager.openView(6);
 
         QCOMPARE(openGridViewSpy.count(), 3);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(2).count(), 1);
@@ -438,7 +438,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Genre}});
 
         QCOMPARE(openGridViewSpy.count(), 4);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(3).count(), 1);
@@ -455,19 +455,19 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(6);
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -479,7 +479,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Genre}});
 
         QCOMPARE(openGridViewSpy.count(), 2);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(1).count(), 1);
@@ -490,7 +490,7 @@ private Q_SLOTS:
         viewManager.goBack();
 
         QCOMPARE(openGridViewSpy.count(), 2);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 1);
 
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("genre1")},
@@ -498,7 +498,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Genre}});
 
         QCOMPARE(openGridViewSpy.count(), 3);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 1);
 
         QCOMPARE(openGridViewSpy.at(2).count(), 1);
@@ -516,19 +516,19 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openView(6);
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -540,7 +540,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Genre}});
 
         QCOMPARE(openGridViewSpy.count(), 2);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(1).count(), 1);
@@ -553,7 +553,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
 
         QCOMPARE(openGridViewSpy.count(), 3);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(2).count(), 1);
@@ -571,13 +571,13 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         viewManager.openChildView({{DataTypes::TitleRole, QStringLiteral("artist1")},
@@ -585,7 +585,7 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Artist}});
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(popOneViewSpy.count(), 0);
 
         QCOMPARE(openGridViewSpy.at(0).count(), 1);
@@ -599,14 +599,14 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Album}});
 
         QCOMPARE(openGridViewSpy.count(), 1);
-        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(openTrackViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 1);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->filterType(), ElisaUtils::FilterById);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist2"));
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataType(), ElisaUtils::Track);
+        QCOMPARE(openTrackViewSpy.at(0).count(), 1);
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->filterType(), ElisaUtils::FilterById);
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist2"));
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataType(), ElisaUtils::Track);
     }
 
     void openNowPlayingViewTest()
@@ -617,14 +617,14 @@ private Q_SLOTS:
         viewManager.setViewsData(&viewsData);
 
         QSignalSpy openGridViewSpy(&viewManager, &ViewManager::openGridView);
-        QSignalSpy openListViewSpy(&viewManager, &ViewManager::openListView);
+        QSignalSpy openTrackViewSpy(&viewManager, &ViewManager::openTrackView);
         QSignalSpy switchContextViewSpy(&viewManager, &ViewManager::switchContextView);
         QSignalSpy popOneViewSpy(&viewManager, &ViewManager::popOneView);
 
         viewManager.setInitialIndex(0);
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 0);
+        QCOMPARE(openTrackViewSpy.count(), 0);
         QCOMPARE(switchContextViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 0);
 
@@ -634,17 +634,17 @@ private Q_SLOTS:
                                    {DataTypes::ElementTypeRole, ElisaUtils::Album}});
 
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(openTrackViewSpy.count(), 1);
         QCOMPARE(switchContextViewSpy.count(), 1);
         QCOMPARE(popOneViewSpy.count(), 0);
 
-        QCOMPARE(openListViewSpy.at(0).count(), 1);
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
-        QCOMPARE(openListViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
+        QCOMPARE(openTrackViewSpy.at(0).count(), 1);
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::TitleRole].toString(), QStringLiteral("album1"));
+        QCOMPARE(openTrackViewSpy.at(0).at(0).value<ViewConfigurationData*>()->dataFilter()[DataTypes::ArtistRole].toString(), QStringLiteral("artist1"));
 
         viewManager.openNowPlaying();
         QCOMPARE(openGridViewSpy.count(), 0);
-        QCOMPARE(openListViewSpy.count(), 1);
+        QCOMPARE(openTrackViewSpy.count(), 1);
         QCOMPARE(switchContextViewSpy.count(), 2);
         QCOMPARE(popOneViewSpy.count(), 0);
     }

@@ -90,8 +90,8 @@ RowLayout {
             }, configurationData.expectedDepth)
         }
 
-        onOpenListView: configurationData => {
-            openViewCommon(dataListView, {
+        onOpenTrackView: configurationData => {
+            openViewCommon(dataTrackView, {
                 filterType: configurationData.filterType,
                 isSubPage: configurationData.expectedDepth > 1,
                 mainTitle: configurationData.mainTitle,
@@ -294,9 +294,9 @@ RowLayout {
     }
 
     Component {
-        id: dataListView
+        id: dataTrackView
 
-        DataListView {
+        DataTrackView {
             expandedFilterView: showExpandedFilterView
         }
     }

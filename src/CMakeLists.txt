@@ -312,6 +312,7 @@ qt_add_qml_module(elisaLib
         windows/PlatformIntegration.qml
         windows/WindowsTheme.qml
 
+        qml/AbstractBrowserDelegate.qml
         qml/AbstractDataView.qml
         qml/AccessibleSlider.qml
         qml/ApplicationMenu.qml

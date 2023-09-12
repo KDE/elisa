@@ -14,27 +14,8 @@ import Qt5Compat.GraphicalEffects
 import org.kde.kirigami 2.19 as Kirigami
 import org.kde.elisa
 
-import "mobile"
-
-FocusScope {
+AbstractBrowserDelegate {
     id: gridEntry
-
-    property url imageUrl
-    property url imageFallbackUrl
-    property var multipleImageUrls
-    property url fileUrl
-    property string mainText
-    property string secondaryText
-    property bool displaySecondaryText: true
-    property bool isSelected
-    property bool hasChildren: true
-
-    signal enqueue()
-    signal replaceAndPlay()
-    signal open()
-
-    property bool showPlayButton: true
-    property bool showEnqueueButton: true
 
     property color stateIndicatorColor: {
         if (gridEntry.activeFocus || hoverHandle.pressed || hoverHandle.containsMouse) {
@@ -45,6 +26,7 @@ FocusScope {
             return "transparent";
         }
     }
+
     property real stateIndicatorOpacity: {
         if ((!Kirigami.Settings.isMobile && gridEntry.activeFocus) ||
             (!Kirigami.Settings.isMobile && gridEntry.isSelected) || hoverHandle.pressed || hoverHandle.containsMouse) {
@@ -53,45 +35,6 @@ FocusScope {
             return 0;
         }
     }
-
-    property list<Kirigami.Action> actions: [
-        Kirigami.Action {
-            text: i18nc("@action:button", "Play now, replacing current playlist")
-            icon.name: Qt.application.layoutDirection !== Qt.RightToLeft ? "media-playback-start-symbolic"
-                                                                         : "media-playback-start-symbolic-rtl"
-            visible: gridEntry.showPlayButton
-            onTriggered: gridEntry.replaceAndPlay()
-        },
-        Kirigami.Action {
-            text: i18nc("@action:button", "Add to playlist")
-            icon.name: 'list-add'
-            visible: gridEntry.showEnqueueButton
-            onTriggered: gridEntry.enqueue()
-        },
-        Kirigami.Action {
-            visible: fileUrl.toString().substring(0, 7) === 'file://' && Kirigami.Settings.isMobile
-            onTriggered: ElisaApplication.showInFolder(gridEntry.fileUrl)
-            icon.name: "document-open-folder"
-            text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
-        }
-    ]
-
-    property bool delegateLoaded: true
-
-    ListView.onPooled: delegateLoaded = false
-    ListView.onReused: delegateLoaded = true
-
-    // open mobile context menu
-    function openContextMenu() {
-        contextMenuLoader.active = true;
-        contextMenuLoader.item.open();
-    }
-
-    Keys.onReturnPressed: open()
-    Keys.onEnterPressed: open()
-
-    Accessible.role: Accessible.ListItem
-    Accessible.name: mainText
 
     Item {
         id: parentItem
@@ -300,32 +243,14 @@ FocusScope {
 
                 // mobile context menu button
                 FlatButtonWithToolTip {
-                    id: contextMenuButton
-                    visible: Kirigami.Settings.isMobile
+                    action: gridEntry.mobileContextMenuAction
+                    visible: gridEntry.mobileContextMenuAction.visible
                     scale: LayoutMirroring.enabled ? -1 : 1
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                     Layout.preferredHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
                     Layout.preferredWidth: Math.round(Kirigami.Units.gridUnit * 1.5)
-
-                    text: i18nc("@action:button", "Options")
-                    icon.name: "view-more-symbolic"
-                    onClicked: openContextMenu()
                 }
             }
-        }
-    }
-
-    // mobile context menu sheet
-    Loader {
-        id: contextMenuLoader
-        active: false
-
-        sourceComponent: Kirigami.MenuDialog {
-            id: contextMenu
-            title: gridEntry.mainText
-            preferredWidth: Kirigami.Units.gridUnit * 20
-
-            actions: gridEntry.actions
         }
     }
 }

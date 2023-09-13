@@ -14,7 +14,7 @@ project(elisa
     VERSION ${RELEASE_SERVICE_VERSION}
     LANGUAGES CXX)
 
-set(REQUIRED_KF_VERSION "5.105.0")
+set(REQUIRED_KF_VERSION "5.240.0")
 find_package(ECM ${REQUIRED_KF_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH})
 
@@ -28,7 +28,7 @@ include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
 include(ECMGenerateQmlTypes)
 
-set(REQUIRED_QT_VERSION "5.15.0")
+set(REQUIRED_QT_VERSION "6.5.0")
 if (ANDROID)
     set(REQUIRED_QT_VERSION "5.15.10")
 endif()

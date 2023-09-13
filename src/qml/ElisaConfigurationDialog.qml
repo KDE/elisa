@@ -9,7 +9,7 @@ import QtQuick 2.11
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.4 as QQC2
-import QtQuick.Dialogs 1.3 as Dialogs
+import QtQuick.Dialogs as Dialogs
 
 import org.kde.kirigami 2.14 as Kirigami
 
@@ -76,21 +76,24 @@ Window {
     Dialogs.MessageDialog {
         id: dirtyClosingDialog
 
-        standardButtons: Dialogs.StandardButton.Save | Dialogs.StandardButton.Discard | Dialogs.StandardButton.Cancel
+        buttons: Dialogs.MessageDialog.Save | Dialogs.MessageDialog.Discard | Dialogs.MessageDialog.Cancel
 
         title: i18nc("@title:window", "Warning")
 
-        icon: Dialogs.StandardIcon.Warning
         text: i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
 
-        onDiscard: {
-            ElisaConfigurationDialog.cancel()
-            dialog.close()
-        }
+        onButtonClicked: (button, role) => {
+            switch(button) {
+                case Dialogs.MessageDialog.Discard: {
+                    ElisaConfigurationDialog.cancel()
+                    dialog.close()
+                }
 
-        onAccepted: {
-            ElisaConfigurationDialog.save()
-            dialog.close()
+                case Dialogs.MessageDialog.Save: {
+                    ElisaConfigurationDialog.save()
+                    dialog.close()
+                }
+            }
         }
     }
 

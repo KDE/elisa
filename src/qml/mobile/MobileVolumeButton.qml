@@ -25,11 +25,12 @@ FlatButtonWithToolTip {
     Layout.preferredWidth: height
 
     text: i18nc("@action:button", "Change Volume")
-    icon.name: volumeButton.muted || volumeButton.slider.visualPosition == 0 ? "player-volume-muted" : "player-volume"
+    icon.name: volumeButton.muted || volumeButton.slider.value == 0
+        ? "player-volume-muted" : "player-volume"
     icon.color: "white"
     Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
     Kirigami.Theme.inherit: false
-    
+
     onClicked: {
         if (volumeSliderPopup.visible) {
             volumeSliderPopup.close();
@@ -40,9 +41,10 @@ FlatButtonWithToolTip {
 
     Popup {
         id: volumeSliderPopup
+        x: mirrored ? parent.width - width : 0
         y: -volumeSliderPopup.height
-        height: Kirigami.Units.gridUnit + Kirigami.Units.largeSpacing * 2
         width: Kirigami.Units.gridUnit * 10
+        margins: Kirigami.Units.smallSpacing
         focus: true
 
         background: Rectangle {
@@ -50,9 +52,8 @@ FlatButtonWithToolTip {
             color: "#616161" // hardcode colour, since background is darkened blur (theming doesn't make sense)
         }
 
-        VolumeSlider {
+        contentItem: VolumeSlider {
             id: slider
-            anchors.fill: parent
 
             muted: volumeButton.muted
         }

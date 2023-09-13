@@ -60,7 +60,7 @@ Item {
     NativeMenu.SystemTrayIcon {
         id: systemTrayIcon
 
-        icon.name: 'elisa'
+        icon.name: "elisa-symbolic"
         tooltip: mainWindow.title
         visible: available && showSystemTrayIcon && !mainWindow.visible
 

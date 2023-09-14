@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-08 00:44+0000\n"
+"POT-Creation-Date: 2023-09-14 01:54+0000\n"
 "PO-Revision-Date: 2023-08-17 23:42+0200\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -1209,25 +1209,25 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: qml/SettingsForm.qml:29
+#: qml/SettingsForm.qml:30
 #, kde-format
 msgctxt "@title:group"
 msgid "General:"
 msgstr "Generale:"
 
-#: qml/SettingsForm.qml:33
+#: qml/SettingsForm.qml:34
 #, kde-format
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "Mostra sfondo nella pagina «In riproduzione»"
 
-#: qml/SettingsForm.qml:46
+#: qml/SettingsForm.qml:47
 #, kde-format
 msgctxt "@option:check"
 msgid "Show progress on Task Manager entries"
 msgstr "Mostra avanzamento nelle voci del gestore dei processi"
 
-#: qml/SettingsForm.qml:57
+#: qml/SettingsForm.qml:58
 #, kde-format
 msgctxt "@option:check"
 msgid "Keep running in System Tray when main window is closed"
@@ -1235,19 +1235,19 @@ msgstr ""
 "Mantieni in esecuzione nel vassoio di sistema alla chiusura della finestra "
 "principale"
 
-#: qml/SettingsForm.qml:68
+#: qml/SettingsForm.qml:69
 #, kde-format
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "Inizia la riproduzione all'avvio"
 
-#: qml/SettingsForm.qml:79
+#: qml/SettingsForm.qml:80
 #, kde-format
 msgctxt "@option:check"
 msgid "Scan for New Music on startup"
 msgstr "Scansiona all'avvio per trovare nuova musica"
 
-#: qml/SettingsForm.qml:98
+#: qml/SettingsForm.qml:99
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1262,179 +1262,179 @@ msgstr ""
 "<interface>Scansiona per trovare nuova musica</interface> nel menu "
 "«hamburger» di Elisa."
 
-#: qml/SettingsForm.qml:109
+#: qml/SettingsForm.qml:110
 #, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "Stile di valutazione delle canzoni:"
 
-#: qml/SettingsForm.qml:113
+#: qml/SettingsForm.qml:114
 #, kde-format
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "0-5 stelle"
 
-#: qml/SettingsForm.qml:125
+#: qml/SettingsForm.qml:126
 #, kde-format
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "Preferita/non preferita"
 
-#: qml/SettingsForm.qml:139
+#: qml/SettingsForm.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Color Scheme"
 msgstr "Schema di colori"
 
-#: qml/SettingsForm.qml:144
+#: qml/SettingsForm.qml:145
 #, kde-format
 msgctxt "@title:menu"
 msgid "Color Scheme"
 msgstr "Schema di colori"
 
-#: qml/SettingsForm.qml:165
+#: qml/SettingsForm.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "Scansiona per trovare nuova musica"
 
-#: qml/SettingsForm.qml:175
+#: qml/SettingsForm.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Azzera la banca dati e ri-scansiona tutto"
 
-#: qml/SettingsForm.qml:193
+#: qml/SettingsForm.qml:204
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Integra categoria nella barra laterale:"
 
-#: qml/SettingsForm.qml:195
+#: qml/SettingsForm.qml:206
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "Nessuna"
 
-#: qml/SettingsForm.qml:196
+#: qml/SettingsForm.qml:207
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "Album"
 
-#: qml/SettingsForm.qml:197
+#: qml/SettingsForm.qml:208
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "Artisti"
 
-#: qml/SettingsForm.qml:198
+#: qml/SettingsForm.qml:209
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "Generi"
 
-#: qml/SettingsForm.qml:231
+#: qml/SettingsForm.qml:242
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "Vista iniziale all'avvio:"
 
-#: qml/SettingsForm.qml:233
+#: qml/SettingsForm.qml:244
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "In riproduzione"
 
-#: qml/SettingsForm.qml:234
+#: qml/SettingsForm.qml:245
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Riprodotti di recente"
 
-#: qml/SettingsForm.qml:235
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Riprodotti di frequente"
 
-#: qml/SettingsForm.qml:236
+#: qml/SettingsForm.qml:247
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Album"
 
-#: qml/SettingsForm.qml:237
+#: qml/SettingsForm.qml:248
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Artisti"
 
-#: qml/SettingsForm.qml:238
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Tracce"
 
-#: qml/SettingsForm.qml:239
+#: qml/SettingsForm.qml:250
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Generi"
 
-#: qml/SettingsForm.qml:240
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "File"
 
-#: qml/SettingsForm.qml:241
+#: qml/SettingsForm.qml:252
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Stazioni radio"
 
-#: qml/SettingsForm.qml:261
+#: qml/SettingsForm.qml:272
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr "Posizione iniziale per la vista File:"
 
-#: qml/SettingsForm.qml:275
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "Scegli…"
 
-#: qml/SettingsForm.qml:283 qml/SettingsForm.qml:442
+#: qml/SettingsForm.qml:294 qml/SettingsForm.qml:452
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Scegli una cartella"
 
-#: qml/SettingsForm.qml:303
+#: qml/SettingsForm.qml:313
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "Indicizzazione della musica:"
 
-#: qml/SettingsForm.qml:307
+#: qml/SettingsForm.qml:317
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "Usa l'indicizzatore veloce nativo"
 
-#: qml/SettingsForm.qml:308
+#: qml/SettingsForm.qml:318
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "Scansiona direttamente il filesystem"
 
-#: qml/SettingsForm.qml:322
+#: qml/SettingsForm.qml:332
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1446,30 +1446,30 @@ msgstr ""
 "riesce a trovare la musica e non funziona neppure la ricerca dei file di "
 "musica mancanti tramite il gestore dei file. Nel caso, segnalatelo come bug."
 
-#: qml/SettingsForm.qml:326
+#: qml/SettingsForm.qml:336
 #, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "Segnala un bug"
 
-#: qml/SettingsForm.qml:341
+#: qml/SettingsForm.qml:351
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "Al salvataggio dei file delle scalette:"
 
-#: qml/SettingsForm.qml:350
+#: qml/SettingsForm.qml:360
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "Preferisci percorsi relativi"
 
-#: qml/SettingsForm.qml:351
+#: qml/SettingsForm.qml:361
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "Usa sempre percorsi assoluti"
 
-#: qml/SettingsForm.qml:362
+#: qml/SettingsForm.qml:372
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1481,26 +1481,26 @@ msgstr ""
 "farà riferimento ai file nella stessa cartella della scaletta tramite il "
 "solo nome del file. In altri casi vengono usati i percorsi assoluti."
 
-#: qml/SettingsForm.qml:377
+#: qml/SettingsForm.qml:387
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "Cartelle delle musica:"
 
-#: qml/SettingsForm.qml:419
+#: qml/SettingsForm.qml:429
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Non cercare qui la musica"
 
-#: qml/SettingsForm.qml:432
+#: qml/SettingsForm.qml:442
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Aggiungi nuova posizione"
 
-#: qml/SettingsForm.qml:459
+#: qml/SettingsForm.qml:469
 #, kde-format
 msgctxt "@label"
 msgid ""

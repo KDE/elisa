@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-08 00:44+0000\n"
+"POT-Creation-Date: 2023-09-14 01:54+0000\n"
 "PO-Revision-Date: 2021-10-23 08:43+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1468,28 +1468,28 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Αφαίρεση"
 
-#: qml/SettingsForm.qml:29
+#: qml/SettingsForm.qml:30
 #, fuzzy, kde-format
 #| msgid "General:"
 msgctxt "@title:group"
 msgid "General:"
 msgstr "Γενικά:"
 
-#: qml/SettingsForm.qml:33
+#: qml/SettingsForm.qml:34
 #, fuzzy, kde-format
 #| msgid "Show background on Now Playing page"
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "Εμφάνιση φόντου στη σελίδα Τώρα γίνεται αναπαραγωγή"
 
-#: qml/SettingsForm.qml:46
+#: qml/SettingsForm.qml:47
 #, fuzzy, kde-format
 #| msgid "Show progress on Task Manager entries"
 msgctxt "@option:check"
 msgid "Show progress on Task Manager entries"
 msgstr "Εμφάνιση προόδου στις εγγραφές του διαχειριστή εργασιών"
 
-#: qml/SettingsForm.qml:57
+#: qml/SettingsForm.qml:58
 #, fuzzy, kde-format
 #| msgid "Keep running in System Tray when main window is closed"
 msgctxt "@option:check"
@@ -1498,21 +1498,21 @@ msgstr ""
 "Να συνεχίσει να εκτελείται στο πλαίσιο συστήματος όταν κλείσει το κύριο "
 "παράθυρο"
 
-#: qml/SettingsForm.qml:68
+#: qml/SettingsForm.qml:69
 #, fuzzy, kde-format
 #| msgid "Start playing on startup"
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "Έναρξη αναπαραγωγής στην εκκίνηση"
 
-#: qml/SettingsForm.qml:79
+#: qml/SettingsForm.qml:80
 #, fuzzy, kde-format
 #| msgid "Start playing on startup"
 msgctxt "@option:check"
 msgid "Scan for New Music on startup"
 msgstr "Έναρξη αναπαραγωγής στην εκκίνηση"
 
-#: qml/SettingsForm.qml:98
+#: qml/SettingsForm.qml:99
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1522,62 +1522,62 @@ msgid ""
 "hamburger menu."
 msgstr ""
 
-#: qml/SettingsForm.qml:109
+#: qml/SettingsForm.qml:110
 #, fuzzy, kde-format
 #| msgid "Song rating style:"
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "Στιλ αξιολόγησης τραγουδιού:"
 
-#: qml/SettingsForm.qml:113
+#: qml/SettingsForm.qml:114
 #, fuzzy, kde-format
 #| msgid "0-5 stars"
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "0-5 αστέρια"
 
-#: qml/SettingsForm.qml:125
+#: qml/SettingsForm.qml:126
 #, fuzzy, kde-format
 #| msgid "Favorite/not favorite"
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "Προτιμώμενο/μη-προτιμώμενο"
 
-#: qml/SettingsForm.qml:139
+#: qml/SettingsForm.qml:140
 #, fuzzy, kde-format
 #| msgid "Color Scheme"
 msgctxt "@action:button"
 msgid "Color Scheme"
 msgstr "Σχήμα χρωμάτων"
 
-#: qml/SettingsForm.qml:144
+#: qml/SettingsForm.qml:145
 #, fuzzy, kde-format
 #| msgid "Color Scheme"
 msgctxt "@title:menu"
 msgid "Color Scheme"
 msgstr "Σχήμα χρωμάτων"
 
-#: qml/SettingsForm.qml:165
+#: qml/SettingsForm.qml:176
 #, fuzzy, kde-format
 #| msgid "Start playing on startup"
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "Έναρξη αναπαραγωγής στην εκκίνηση"
 
-#: qml/SettingsForm.qml:175
+#: qml/SettingsForm.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr ""
 
-#: qml/SettingsForm.qml:193
+#: qml/SettingsForm.qml:204
 #, fuzzy, kde-format
 #| msgid "Embed category in sidebar:"
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Ενσωμάτωση κατηγορίας στην πλευρική γραμμή:"
 
-#: qml/SettingsForm.qml:195
+#: qml/SettingsForm.qml:206
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, embed no category in views navigation list"
 #| msgid "Nothing"
@@ -1586,7 +1586,7 @@ msgctxt ""
 msgid "Nothing"
 msgstr "Τίποτε"
 
-#: qml/SettingsForm.qml:196
+#: qml/SettingsForm.qml:207
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1595,7 +1595,7 @@ msgctxt ""
 msgid "Albums"
 msgstr "Λευκώματα"
 
-#: qml/SettingsForm.qml:197
+#: qml/SettingsForm.qml:208
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1604,7 +1604,7 @@ msgctxt ""
 msgid "Artists"
 msgstr "Καλλιτέχνες"
 
-#: qml/SettingsForm.qml:198
+#: qml/SettingsForm.qml:209
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -1613,14 +1613,14 @@ msgctxt ""
 msgid "Genres"
 msgstr "Είδη"
 
-#: qml/SettingsForm.qml:231
+#: qml/SettingsForm.qml:242
 #, fuzzy, kde-format
 #| msgid "Initial view on startup:"
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "Αρχική προβολή στην εκκίνηση:"
 
-#: qml/SettingsForm.qml:233
+#: qml/SettingsForm.qml:244
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -1628,7 +1628,7 @@ msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Τώρα γίνεται αναπαραγωγή"
 
-#: qml/SettingsForm.qml:234
+#: qml/SettingsForm.qml:245
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of recently played tracks"
 #| msgid "Recently Played"
@@ -1636,7 +1636,7 @@ msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Πρόσφατη αναπαραγωγή"
 
-#: qml/SettingsForm.qml:235
+#: qml/SettingsForm.qml:246
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of frequently played tracks"
 #| msgid "Frequently Played"
@@ -1644,7 +1644,7 @@ msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Συχνή αναπαραγωγή"
 
-#: qml/SettingsForm.qml:236
+#: qml/SettingsForm.qml:247
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1652,7 +1652,7 @@ msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Λευκώματα"
 
-#: qml/SettingsForm.qml:237
+#: qml/SettingsForm.qml:248
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1660,7 +1660,7 @@ msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Καλλιτέχνες"
 
-#: qml/SettingsForm.qml:238
+#: qml/SettingsForm.qml:249
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1668,7 +1668,7 @@ msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Κομμάτια"
 
-#: qml/SettingsForm.qml:239
+#: qml/SettingsForm.qml:250
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -1676,7 +1676,7 @@ msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Είδη"
 
-#: qml/SettingsForm.qml:240
+#: qml/SettingsForm.qml:251
 #, fuzzy, kde-format
 #| msgctxt "Title of the file browser view"
 #| msgid "Files"
@@ -1684,40 +1684,40 @@ msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "Αρχεία"
 
-#: qml/SettingsForm.qml:241
+#: qml/SettingsForm.qml:252
 #, fuzzy, kde-format
 #| msgid "Radio Stations"
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Ραδιοφωνικοί σταθμοί"
 
-#: qml/SettingsForm.qml:261
+#: qml/SettingsForm.qml:272
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr ""
 
-#: qml/SettingsForm.qml:275
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:283 qml/SettingsForm.qml:442
+#: qml/SettingsForm.qml:294 qml/SettingsForm.qml:452
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Επιλογή φακέλου"
 
-#: qml/SettingsForm.qml:303
+#: qml/SettingsForm.qml:313
 #, fuzzy, kde-format
 #| msgid "Music indexing:"
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "Δεικτοδότηση μουσικής:"
 
-#: qml/SettingsForm.qml:307
+#: qml/SettingsForm.qml:317
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, indexing type"
 #| msgid "Use fast native indexer"
@@ -1725,7 +1725,7 @@ msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "Χρήση γρήγορου εγγενούς ευρετηρίου"
 
-#: qml/SettingsForm.qml:308
+#: qml/SettingsForm.qml:318
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, indexing type"
 #| msgid "Scan the filesystem directly"
@@ -1733,7 +1733,7 @@ msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "Απευθείας σάρωση του συστήματος αρχείων"
 
-#: qml/SettingsForm.qml:322
+#: qml/SettingsForm.qml:332
 #, fuzzy, kde-format
 #| msgid ""
 #| "This is slower than the fast indexer. Please activate it only if Elisa "
@@ -1750,31 +1750,31 @@ msgstr ""
 "τα μουσικά αρχεία που λείπουν με τον διαχειριστή αρχείων δεν έχει "
 "αποτέλεσμα. Αναφέρετέ το ως σφάλμα."
 
-#: qml/SettingsForm.qml:326
+#: qml/SettingsForm.qml:336
 #, fuzzy, kde-format
 #| msgid "Report Bug"
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "Αναφορά σφάλματος"
 
-#: qml/SettingsForm.qml:341
+#: qml/SettingsForm.qml:351
 #, kde-format
 msgid "When saving playlist files:"
 msgstr ""
 
-#: qml/SettingsForm.qml:350
+#: qml/SettingsForm.qml:360
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:351
+#: qml/SettingsForm.qml:361
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:362
+#: qml/SettingsForm.qml:372
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1783,7 +1783,7 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 
-#: qml/SettingsForm.qml:377
+#: qml/SettingsForm.qml:387
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "The configured folders where the user's music collection can be found"
@@ -1793,21 +1793,21 @@ msgctxt ""
 msgid "Music folders:"
 msgstr "Μουσικοί φάκελοι"
 
-#: qml/SettingsForm.qml:419
+#: qml/SettingsForm.qml:429
 #, fuzzy, kde-format
 #| msgid "Stop looking for music here"
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Σταματήστε να αναζητάτε μουσική εδώ"
 
-#: qml/SettingsForm.qml:432
+#: qml/SettingsForm.qml:442
 #, fuzzy, kde-format
 #| msgid "Add New Location"
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Προσθήκη νέας θέσης"
 
-#: qml/SettingsForm.qml:459
+#: qml/SettingsForm.qml:469
 #, kde-format
 msgctxt "@label"
 msgid ""

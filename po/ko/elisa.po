@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-08 00:44+0000\n"
+"POT-Creation-Date: 2023-09-14 01:54+0000\n"
 "PO-Revision-Date: 2023-08-25 21:05+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1204,43 +1204,43 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "삭제"
 
-#: qml/SettingsForm.qml:29
+#: qml/SettingsForm.qml:30
 #, kde-format
 msgctxt "@title:group"
 msgid "General:"
 msgstr "일반:"
 
-#: qml/SettingsForm.qml:33
+#: qml/SettingsForm.qml:34
 #, kde-format
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "지금 재생 페이지에 배경 표시"
 
-#: qml/SettingsForm.qml:46
+#: qml/SettingsForm.qml:47
 #, kde-format
 msgctxt "@option:check"
 msgid "Show progress on Task Manager entries"
 msgstr "작업 관리자 항목에 진행 상황 표시"
 
-#: qml/SettingsForm.qml:57
+#: qml/SettingsForm.qml:58
 #, kde-format
 msgctxt "@option:check"
 msgid "Keep running in System Tray when main window is closed"
 msgstr "주 창을 닫아도 시스템 트레이에서 계속 실행"
 
-#: qml/SettingsForm.qml:68
+#: qml/SettingsForm.qml:69
 #, kde-format
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "시작할 때 재생 시작"
 
-#: qml/SettingsForm.qml:79
+#: qml/SettingsForm.qml:80
 #, kde-format
 msgctxt "@option:check"
 msgid "Scan for New Music on startup"
 msgstr "시작할 때 새 음악 검색"
 
-#: qml/SettingsForm.qml:98
+#: qml/SettingsForm.qml:99
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1253,179 +1253,179 @@ msgstr ""
 "을 새로 고쳐야 합니다. Elisa 햄버거 메뉴의 <interface>새 음악 검색</"
 "interface>에서 수행할 수 있습니다."
 
-#: qml/SettingsForm.qml:109
+#: qml/SettingsForm.qml:110
 #, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "음악 점수 스타일:"
 
-#: qml/SettingsForm.qml:113
+#: qml/SettingsForm.qml:114
 #, kde-format
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "별점 0-5개"
 
-#: qml/SettingsForm.qml:125
+#: qml/SettingsForm.qml:126
 #, kde-format
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "책갈피 추가/삭제"
 
-#: qml/SettingsForm.qml:139
+#: qml/SettingsForm.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Color Scheme"
 msgstr "색 구성표"
 
-#: qml/SettingsForm.qml:144
+#: qml/SettingsForm.qml:145
 #, kde-format
 msgctxt "@title:menu"
 msgid "Color Scheme"
 msgstr "색 구성표"
 
-#: qml/SettingsForm.qml:165
+#: qml/SettingsForm.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "새 음악 검색"
 
-#: qml/SettingsForm.qml:175
+#: qml/SettingsForm.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "데이터베이스를 초기화하고 모두 다시 검색"
 
-#: qml/SettingsForm.qml:193
+#: qml/SettingsForm.qml:204
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "사이드바에 분류 포함:"
 
-#: qml/SettingsForm.qml:195
+#: qml/SettingsForm.qml:206
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "없음"
 
-#: qml/SettingsForm.qml:196
+#: qml/SettingsForm.qml:207
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "앨범"
 
-#: qml/SettingsForm.qml:197
+#: qml/SettingsForm.qml:208
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "아티스트"
 
-#: qml/SettingsForm.qml:198
+#: qml/SettingsForm.qml:209
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "장르"
 
-#: qml/SettingsForm.qml:231
+#: qml/SettingsForm.qml:242
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "시작할 때 표시할 보기:"
 
-#: qml/SettingsForm.qml:233
+#: qml/SettingsForm.qml:244
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "지금 재생 중"
 
-#: qml/SettingsForm.qml:234
+#: qml/SettingsForm.qml:245
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "최근 재생한 곡"
 
-#: qml/SettingsForm.qml:235
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "자주 재생한 곡"
 
-#: qml/SettingsForm.qml:236
+#: qml/SettingsForm.qml:247
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "앨범"
 
-#: qml/SettingsForm.qml:237
+#: qml/SettingsForm.qml:248
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "아티스트"
 
-#: qml/SettingsForm.qml:238
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "곡"
 
-#: qml/SettingsForm.qml:239
+#: qml/SettingsForm.qml:250
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "장르"
 
-#: qml/SettingsForm.qml:240
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "파일"
 
-#: qml/SettingsForm.qml:241
+#: qml/SettingsForm.qml:252
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "라디오 방송국"
 
-#: qml/SettingsForm.qml:261
+#: qml/SettingsForm.qml:272
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr "파일 보기 초기 위치:"
 
-#: qml/SettingsForm.qml:275
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "선택…"
 
-#: qml/SettingsForm.qml:283 qml/SettingsForm.qml:442
+#: qml/SettingsForm.qml:294 qml/SettingsForm.qml:452
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "폴더 선택"
 
-#: qml/SettingsForm.qml:303
+#: qml/SettingsForm.qml:313
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "음악 색인:"
 
-#: qml/SettingsForm.qml:307
+#: qml/SettingsForm.qml:317
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "빠른 기본 인덱서 사용"
 
-#: qml/SettingsForm.qml:308
+#: qml/SettingsForm.qml:318
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "파일 시스템 직접 검색"
 
-#: qml/SettingsForm.qml:322
+#: qml/SettingsForm.qml:332
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1436,30 +1436,30 @@ msgstr ""
 "빠른 검색보다 더 느립니다. Elisa에서 곡을 찾을 수 없고 파일 관리자에서 빠진 "
 "파일을 검색할 수 없을 때에만 선택하십시오. 이 상황을 버그로 보고해 주십시오."
 
-#: qml/SettingsForm.qml:326
+#: qml/SettingsForm.qml:336
 #, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "버그 보고"
 
-#: qml/SettingsForm.qml:341
+#: qml/SettingsForm.qml:351
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "재생 목록 파일을 저장할 때:"
 
-#: qml/SettingsForm.qml:350
+#: qml/SettingsForm.qml:360
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "상대 경로 선호"
 
-#: qml/SettingsForm.qml:351
+#: qml/SettingsForm.qml:361
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "항상 절대 경로 사용"
 
-#: qml/SettingsForm.qml:362
+#: qml/SettingsForm.qml:372
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1471,26 +1471,26 @@ msgstr ""
 "은 폴더에 있는 파일을 파일 이름만으로 참조하며, 다른 경우에 절대 경로를 사용"
 "합니다."
 
-#: qml/SettingsForm.qml:377
+#: qml/SettingsForm.qml:387
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "음악 폴더:"
 
-#: qml/SettingsForm.qml:419
+#: qml/SettingsForm.qml:429
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "여기에서 음악 찾기 중지"
 
-#: qml/SettingsForm.qml:432
+#: qml/SettingsForm.qml:442
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "새 위치 추가"
 
-#: qml/SettingsForm.qml:459
+#: qml/SettingsForm.qml:469
 #, kde-format
 msgctxt "@label"
 msgid ""

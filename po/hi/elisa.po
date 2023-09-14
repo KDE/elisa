@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-08 00:44+0000\n"
+"POT-Creation-Date: 2023-09-14 01:54+0000\n"
 "PO-Revision-Date: 2023-02-12 20:05+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -1208,43 +1208,43 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "हटाएँ"
 
-#: qml/SettingsForm.qml:29
+#: qml/SettingsForm.qml:30
 #, kde-format
 msgctxt "@title:group"
 msgid "General:"
 msgstr "सामान्य :"
 
-#: qml/SettingsForm.qml:33
+#: qml/SettingsForm.qml:34
 #, kde-format
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "अभी बज रहा है पृष्ठ पर पृष्ठभूमि दिखाएं"
 
-#: qml/SettingsForm.qml:46
+#: qml/SettingsForm.qml:47
 #, kde-format
 msgctxt "@option:check"
 msgid "Show progress on Task Manager entries"
 msgstr "कार्य प्रबंधक प्रविष्टियों में प्रगति दिखाएँ।"
 
-#: qml/SettingsForm.qml:57
+#: qml/SettingsForm.qml:58
 #, kde-format
 msgctxt "@option:check"
 msgid "Keep running in System Tray when main window is closed"
 msgstr "मुख्य विंडो बंद होने पर तंत्र तश्तरी में चालू रखें।"
 
-#: qml/SettingsForm.qml:68
+#: qml/SettingsForm.qml:69
 #, kde-format
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "खुलने पर बजाना प्रारंभ कर दें"
 
-#: qml/SettingsForm.qml:79
+#: qml/SettingsForm.qml:80
 #, kde-format
 msgctxt "@option:check"
 msgid "Scan for New Music on startup"
 msgstr "खुलने पर बजाना प्रारंभ कर दें"
 
-#: qml/SettingsForm.qml:98
+#: qml/SettingsForm.qml:99
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1257,179 +1257,179 @@ msgstr ""
 "जाती हैं, तो आपको संगीत संग्रह को स्वयं रूप से ताज़ा करना होगा। आप एलिसा के हैमबर्गर मेनू में "
 "<interface>नए संगीत के लिए स्कैन करें</interface> आइटम के साथ ऐसा कर सकते हैं।"
 
-#: qml/SettingsForm.qml:109
+#: qml/SettingsForm.qml:110
 #, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "गीत मूल्यांकन शैली :"
 
-#: qml/SettingsForm.qml:113
+#: qml/SettingsForm.qml:114
 #, kde-format
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "०-५ तारे"
 
-#: qml/SettingsForm.qml:125
+#: qml/SettingsForm.qml:126
 #, kde-format
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "पसंदीदा / पसंदीदा नही"
 
-#: qml/SettingsForm.qml:139
+#: qml/SettingsForm.qml:140
 #, kde-format
 msgctxt "@action:button"
 msgid "Color Scheme"
 msgstr "रंग योजना"
 
-#: qml/SettingsForm.qml:144
+#: qml/SettingsForm.qml:145
 #, kde-format
 msgctxt "@title:menu"
 msgid "Color Scheme"
 msgstr "रंग योजना"
 
-#: qml/SettingsForm.qml:165
+#: qml/SettingsForm.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "नए संगीत के लिए स्कैन करें"
 
-#: qml/SettingsForm.qml:175
+#: qml/SettingsForm.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "डेटाबेस रीसेट करें और सब कुछ पुनः स्कैन करें"
 
-#: qml/SettingsForm.qml:193
+#: qml/SettingsForm.qml:204
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "श्रेणी, बाजूपट्टी में जोड़ें:"
 
-#: qml/SettingsForm.qml:195
+#: qml/SettingsForm.qml:206
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "कुछ नही"
 
-#: qml/SettingsForm.qml:196
+#: qml/SettingsForm.qml:207
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "एल्बम्स"
 
-#: qml/SettingsForm.qml:197
+#: qml/SettingsForm.qml:208
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "कलाकार"
 
-#: qml/SettingsForm.qml:198
+#: qml/SettingsForm.qml:209
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "घराने"
 
-#: qml/SettingsForm.qml:231
+#: qml/SettingsForm.qml:242
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "प्रारंभिक दृश्य :"
 
-#: qml/SettingsForm.qml:233
+#: qml/SettingsForm.qml:244
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "अभी बज रहा है"
 
-#: qml/SettingsForm.qml:234
+#: qml/SettingsForm.qml:245
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "हाल ही में बजने वाले"
 
-#: qml/SettingsForm.qml:235
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "प्राय‍ः बजने वाले"
 
-#: qml/SettingsForm.qml:236
+#: qml/SettingsForm.qml:247
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "एल्बम्स"
 
-#: qml/SettingsForm.qml:237
+#: qml/SettingsForm.qml:248
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "कलाकार"
 
-#: qml/SettingsForm.qml:238
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "गीत"
 
-#: qml/SettingsForm.qml:239
+#: qml/SettingsForm.qml:250
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "घराने"
 
-#: qml/SettingsForm.qml:240
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "फ़ाइलें"
 
-#: qml/SettingsForm.qml:241
+#: qml/SettingsForm.qml:252
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "रेडियो स्टेशन"
 
-#: qml/SettingsForm.qml:261
+#: qml/SettingsForm.qml:272
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr ""
 
-#: qml/SettingsForm.qml:275
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:283 qml/SettingsForm.qml:442
+#: qml/SettingsForm.qml:294 qml/SettingsForm.qml:452
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "एक फ़ोल्डर चुनें"
 
-#: qml/SettingsForm.qml:303
+#: qml/SettingsForm.qml:313
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "गीत अनुक्रमित किये जा रहे"
 
-#: qml/SettingsForm.qml:307
+#: qml/SettingsForm.qml:317
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "तेज अनुक्रमणिकार का प्रयोग करें"
 
-#: qml/SettingsForm.qml:308
+#: qml/SettingsForm.qml:318
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "फ़ाइल-तंत्र को सीधे स्कैन करें"
 
-#: qml/SettingsForm.qml:322
+#: qml/SettingsForm.qml:332
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1441,30 +1441,30 @@ msgstr ""
 "पाए और फ़ाईल प्रबंधक भी आपकी अनुपस्थित संगीत फ़ाइल को ढूँढ़ न पाए. कृपया इस त्रुटी को दर्ज "
 "करें।"
 
-#: qml/SettingsForm.qml:326
+#: qml/SettingsForm.qml:336
 #, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "त्रुटि दर्ज करें"
 
-#: qml/SettingsForm.qml:341
+#: qml/SettingsForm.qml:351
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "प्लेलिस्ट फ़ाइलों को सहेजते समय :"
 
-#: qml/SettingsForm.qml:350
+#: qml/SettingsForm.qml:360
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "सापेक्ष पथों को प्राथमिकता दें"
 
-#: qml/SettingsForm.qml:351
+#: qml/SettingsForm.qml:361
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "हमेशा पूर्ण पथ का प्रयोग करें"
 
-#: qml/SettingsForm.qml:362
+#: qml/SettingsForm.qml:372
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1476,26 +1476,26 @@ msgstr ""
 "गीत-सूची के समान फ़ोल्डर में फ़ाइलों को केवल फ़ाइल नाम के साथ संदर्भित किया जाएगा। पूर्ण पथ "
 "अन्य मामलों में उपयोग किए जाते हैं।"
 
-#: qml/SettingsForm.qml:377
+#: qml/SettingsForm.qml:387
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "संगीत फ़ोल्डर :"
 
-#: qml/SettingsForm.qml:419
+#: qml/SettingsForm.qml:429
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "यहाँ संगीत ढूँढ़ना बंद करें"
 
-#: qml/SettingsForm.qml:432
+#: qml/SettingsForm.qml:442
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "नया स्थान जोड़ें"
 
-#: qml/SettingsForm.qml:459
+#: qml/SettingsForm.qml:469
 #, kde-format
 msgctxt "@label"
 msgid ""

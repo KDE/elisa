@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-08 00:44+0000\n"
+"POT-Creation-Date: 2023-09-14 01:54+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -1460,49 +1460,49 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "削除"
 
-#: qml/SettingsForm.qml:29
+#: qml/SettingsForm.qml:30
 #, fuzzy, kde-format
 #| msgid "General:"
 msgctxt "@title:group"
 msgid "General:"
 msgstr "一般:"
 
-#: qml/SettingsForm.qml:33
+#: qml/SettingsForm.qml:34
 #, fuzzy, kde-format
 #| msgid "Show background on Now Playing page"
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "再生中ページに背景を表示"
 
-#: qml/SettingsForm.qml:46
+#: qml/SettingsForm.qml:47
 #, fuzzy, kde-format
 #| msgid "Show progress on Task Manager entries"
 msgctxt "@option:check"
 msgid "Show progress on Task Manager entries"
 msgstr "タスクマネージャーの項目に進捗を表示"
 
-#: qml/SettingsForm.qml:57
+#: qml/SettingsForm.qml:58
 #, fuzzy, kde-format
 #| msgid "Keep running in System Tray when main window is closed"
 msgctxt "@option:check"
 msgid "Keep running in System Tray when main window is closed"
 msgstr "メインウィンドウが閉じられた場合はシステムトレイで実行を継続"
 
-#: qml/SettingsForm.qml:68
+#: qml/SettingsForm.qml:69
 #, fuzzy, kde-format
 #| msgid "Start playing on startup"
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "起動時に再生を開始"
 
-#: qml/SettingsForm.qml:79
+#: qml/SettingsForm.qml:80
 #, fuzzy, kde-format
 #| msgid "Start playing on startup"
 msgctxt "@option:check"
 msgid "Scan for New Music on startup"
 msgstr "起動時に再生を開始"
 
-#: qml/SettingsForm.qml:98
+#: qml/SettingsForm.qml:99
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1512,62 +1512,62 @@ msgid ""
 "hamburger menu."
 msgstr ""
 
-#: qml/SettingsForm.qml:109
+#: qml/SettingsForm.qml:110
 #, fuzzy, kde-format
 #| msgid "Song rating style:"
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "曲の評価スタイル:"
 
-#: qml/SettingsForm.qml:113
+#: qml/SettingsForm.qml:114
 #, fuzzy, kde-format
 #| msgid "0-5 stars"
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "星 0-5"
 
-#: qml/SettingsForm.qml:125
+#: qml/SettingsForm.qml:126
 #, fuzzy, kde-format
 #| msgid "Favorite/not favorite"
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "お気に入り/お気に入りではない"
 
-#: qml/SettingsForm.qml:139
+#: qml/SettingsForm.qml:140
 #, fuzzy, kde-format
 #| msgid "Color Scheme"
 msgctxt "@action:button"
 msgid "Color Scheme"
 msgstr "カラーテーマ"
 
-#: qml/SettingsForm.qml:144
+#: qml/SettingsForm.qml:145
 #, fuzzy, kde-format
 #| msgid "Color Scheme"
 msgctxt "@title:menu"
 msgid "Color Scheme"
 msgstr "カラーテーマ"
 
-#: qml/SettingsForm.qml:165
+#: qml/SettingsForm.qml:176
 #, fuzzy, kde-format
 #| msgid "Start playing on startup"
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "起動時に再生を開始"
 
-#: qml/SettingsForm.qml:175
+#: qml/SettingsForm.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr ""
 
-#: qml/SettingsForm.qml:193
+#: qml/SettingsForm.qml:204
 #, fuzzy, kde-format
 #| msgid "Embed category in sidebar:"
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "サイドバーにカテゴリーを埋め込み:"
 
-#: qml/SettingsForm.qml:195
+#: qml/SettingsForm.qml:206
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, embed no category in views navigation list"
 #| msgid "Nothing"
@@ -1576,7 +1576,7 @@ msgctxt ""
 msgid "Nothing"
 msgstr "なし"
 
-#: qml/SettingsForm.qml:196
+#: qml/SettingsForm.qml:207
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1585,7 +1585,7 @@ msgctxt ""
 msgid "Albums"
 msgstr "アルバム"
 
-#: qml/SettingsForm.qml:197
+#: qml/SettingsForm.qml:208
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1594,7 +1594,7 @@ msgctxt ""
 msgid "Artists"
 msgstr "アーティスト"
 
-#: qml/SettingsForm.qml:198
+#: qml/SettingsForm.qml:209
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -1603,14 +1603,14 @@ msgctxt ""
 msgid "Genres"
 msgstr "ジャンル"
 
-#: qml/SettingsForm.qml:231
+#: qml/SettingsForm.qml:242
 #, fuzzy, kde-format
 #| msgid "Initial view on startup:"
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "起動時に表示する画面:"
 
-#: qml/SettingsForm.qml:233
+#: qml/SettingsForm.qml:244
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -1618,7 +1618,7 @@ msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "再生中"
 
-#: qml/SettingsForm.qml:234
+#: qml/SettingsForm.qml:245
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of recently played tracks"
 #| msgid "Recently Played"
@@ -1626,7 +1626,7 @@ msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "最近再生した項目"
 
-#: qml/SettingsForm.qml:235
+#: qml/SettingsForm.qml:246
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of frequently played tracks"
 #| msgid "Frequently Played"
@@ -1634,7 +1634,7 @@ msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "よく再生する項目"
 
-#: qml/SettingsForm.qml:236
+#: qml/SettingsForm.qml:247
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1642,7 +1642,7 @@ msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "アルバム"
 
-#: qml/SettingsForm.qml:237
+#: qml/SettingsForm.qml:248
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1650,7 +1650,7 @@ msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "アーティスト"
 
-#: qml/SettingsForm.qml:238
+#: qml/SettingsForm.qml:249
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1658,7 +1658,7 @@ msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "トラック"
 
-#: qml/SettingsForm.qml:239
+#: qml/SettingsForm.qml:250
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -1666,7 +1666,7 @@ msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "ジャンル"
 
-#: qml/SettingsForm.qml:240
+#: qml/SettingsForm.qml:251
 #, fuzzy, kde-format
 #| msgctxt "Title of the file browser view"
 #| msgid "Files"
@@ -1674,40 +1674,40 @@ msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "ファイル"
 
-#: qml/SettingsForm.qml:241
+#: qml/SettingsForm.qml:252
 #, fuzzy, kde-format
 #| msgid "Radio Stations"
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "ラジオ局"
 
-#: qml/SettingsForm.qml:261
+#: qml/SettingsForm.qml:272
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr ""
 
-#: qml/SettingsForm.qml:275
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:283 qml/SettingsForm.qml:442
+#: qml/SettingsForm.qml:294 qml/SettingsForm.qml:452
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "フォルダを選択"
 
-#: qml/SettingsForm.qml:303
+#: qml/SettingsForm.qml:313
 #, fuzzy, kde-format
 #| msgid "Music indexing:"
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "曲のインデックス:"
 
-#: qml/SettingsForm.qml:307
+#: qml/SettingsForm.qml:317
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, indexing type"
 #| msgid "Use fast native indexer"
@@ -1715,7 +1715,7 @@ msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "標準の高速インデクサーを使う"
 
-#: qml/SettingsForm.qml:308
+#: qml/SettingsForm.qml:318
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, indexing type"
 #| msgid "Scan the filesystem directly"
@@ -1723,7 +1723,7 @@ msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "ファイルシステムを直接検索"
 
-#: qml/SettingsForm.qml:322
+#: qml/SettingsForm.qml:332
 #, fuzzy, kde-format
 #| msgid ""
 #| "This is slower than the fast indexer. Please activate it only if Elisa "
@@ -1739,31 +1739,31 @@ msgstr ""
 "ネージャでも探せない場合のみ有効にしてください。これをバグとして報告してくだ"
 "さい。"
 
-#: qml/SettingsForm.qml:326
+#: qml/SettingsForm.qml:336
 #, fuzzy, kde-format
 #| msgid "Report Bug"
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "バグを報告"
 
-#: qml/SettingsForm.qml:341
+#: qml/SettingsForm.qml:351
 #, kde-format
 msgid "When saving playlist files:"
 msgstr ""
 
-#: qml/SettingsForm.qml:350
+#: qml/SettingsForm.qml:360
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:351
+#: qml/SettingsForm.qml:361
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:362
+#: qml/SettingsForm.qml:372
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1772,7 +1772,7 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 
-#: qml/SettingsForm.qml:377
+#: qml/SettingsForm.qml:387
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "The configured folders where the user's music collection can be found"
@@ -1782,21 +1782,21 @@ msgctxt ""
 msgid "Music folders:"
 msgstr "音楽フォルダー:"
 
-#: qml/SettingsForm.qml:419
+#: qml/SettingsForm.qml:429
 #, fuzzy, kde-format
 #| msgid "Stop looking for music here"
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "ここで曲を探すことを停止"
 
-#: qml/SettingsForm.qml:432
+#: qml/SettingsForm.qml:442
 #, fuzzy, kde-format
 #| msgid "Add New Location"
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "新しい場所を追加"
 
-#: qml/SettingsForm.qml:459
+#: qml/SettingsForm.qml:469
 #, kde-format
 msgctxt "@label"
 msgid ""

@@ -145,6 +145,7 @@ private Q_SLOTS:
 
     void testMoveAndShuffle();
 
+    void testMoveCurrentTrack();
 };
 
 #endif // MEDIAPLAYLISTPROXYMODELTEST_H

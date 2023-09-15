@@ -7334,6 +7334,133 @@ void MediaPlayListProxyModelTest::testMoveAndShuffle()
     QCOMPARE(newEntryInListSpy.count(), 3);
 }
 
+void MediaPlayListProxyModelTest::testMoveCurrentTrack()
+{
+    MediaPlayList myPlayList;
+    QAbstractItemModelTester testModel(&myPlayList);
+    MediaPlayListProxyModel myPlayListProxyModel;
+    myPlayListProxyModel.setPlayListModel(&myPlayList);
+    QAbstractItemModelTester testProxyModel(&myPlayListProxyModel);
+    DatabaseInterface myDatabaseContent;
+    TracksListener myListener(&myDatabaseContent);
+
+    QSignalSpy rowsAboutToBeMovedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::rowsAboutToBeMoved);
+    QSignalSpy rowsMovedSpy(&myPlayListProxyModel, &MediaPlayListProxyModel::rowsMoved);
+
+    myDatabaseContent.init(QStringLiteral("testDbDirectContent"));
+
+    connect(&myListener, &TracksListener::trackHasChanged,
+            &myPlayList, &MediaPlayList::trackChanged,
+            Qt::QueuedConnection);
+    connect(&myListener, &TracksListener::tracksListAdded,
+            &myPlayList, &MediaPlayList::tracksListAdded,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newTrackByNameInList,
+            &myListener, &TracksListener::trackByNameInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newEntryInList,
+            &myListener, &TracksListener::newEntryInList,
+            Qt::QueuedConnection);
+    connect(&myPlayList, &MediaPlayList::newUrlInList,
+            &myListener, &TracksListener::newUrlInList,
+            Qt::QueuedConnection);
+    connect(&myDatabaseContent, &DatabaseInterface::tracksAdded,
+            &myListener, &TracksListener::tracksAdded);
+
+    myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
+
+    const auto firstTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, firstTrackId}}, {}, {}}}, {}, {});
+
+    const auto secondTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("album2"), 2, 1);
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, secondTrackId}}, {}, {}}}, {}, {});
+
+    const auto thirdTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, thirdTrackId}}, {}, {}}}, {}, {});
+
+    const auto fourthTrackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
+    myPlayListProxyModel.enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, fourthTrackId}}, {}, {}}}, {}, {});
+
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+
+    // Set current track index
+    myPlayListProxyModel.switchTo(1);
+
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
+    QCOMPARE(rowsMovedSpy.count(), 0);
+    QCOMPARE(myPlayListProxyModel.previousTrack().row(), 0);
+    QCOMPARE(myPlayListProxyModel.currentTrack().row(), 1);
+    QCOMPARE(myPlayListProxyModel.nextTrack().row(), 2);
+
+    // Move current track
+    myPlayListProxyModel.moveRow(1, 2);
+
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 1);
+    QCOMPARE(rowsMovedSpy.count(), 1);
+    QCOMPARE(myPlayListProxyModel.previousTrack().row(), 1);
+    QCOMPARE(myPlayListProxyModel.currentTrack().row(), 2);
+    QCOMPARE(myPlayListProxyModel.nextTrack().row(), 3);
+
+    // Move previous track to after current track
+    myPlayListProxyModel.moveRow(1, 3);
+
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 2);
+    QCOMPARE(rowsMovedSpy.count(), 2);
+    QCOMPARE(myPlayListProxyModel.previousTrack().row(), 0);
+    QCOMPARE(myPlayListProxyModel.currentTrack().row(), 1);
+    QCOMPARE(myPlayListProxyModel.nextTrack().row(), 2);
+
+    // Move next track to before current track
+    myPlayListProxyModel.moveRow(2, 0);
+
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 3);
+    QCOMPARE(rowsMovedSpy.count(), 3);
+    QCOMPARE(myPlayListProxyModel.previousTrack().row(), 1);
+    QCOMPARE(myPlayListProxyModel.currentTrack().row(), 2);
+    QCOMPARE(myPlayListProxyModel.nextTrack().row(), 3);
+
+    // Move into position of current track (from below)
+    myPlayListProxyModel.moveRow(0, 2);
+
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 4);
+    QCOMPARE(rowsMovedSpy.count(), 4);
+    QCOMPARE(myPlayListProxyModel.previousTrack().row(), 0);
+    QCOMPARE(myPlayListProxyModel.currentTrack().row(), 1);
+    QCOMPARE(myPlayListProxyModel.nextTrack().row(), 2);
+
+    // Move into position of current track (from above)
+    myPlayListProxyModel.moveRow(3, 1);
+
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 5);
+    QCOMPARE(rowsMovedSpy.count(), 5);
+    QCOMPARE(myPlayListProxyModel.previousTrack().row(), 1);
+    QCOMPARE(myPlayListProxyModel.currentTrack().row(), 2);
+    QCOMPARE(myPlayListProxyModel.nextTrack().row(), 3);
+
+    // Move current track to start
+    myPlayListProxyModel.moveRow(2, 0);
+
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 6);
+    QCOMPARE(rowsMovedSpy.count(), 6);
+    QCOMPARE(myPlayListProxyModel.previousTrack().isValid(), false);
+    QCOMPARE(myPlayListProxyModel.currentTrack().row(), 0);
+    QCOMPARE(myPlayListProxyModel.nextTrack().row(), 1);
+
+    // Move current track to end
+    myPlayListProxyModel.moveRow(0, 3);
+
+    QCOMPARE(rowsAboutToBeMovedSpy.count(), 7);
+    QCOMPARE(rowsMovedSpy.count(), 7);
+    QCOMPARE(myPlayListProxyModel.previousTrack().row(), 2);
+    QCOMPARE(myPlayListProxyModel.currentTrack().row(), 3);
+    QCOMPARE(myPlayListProxyModel.nextTrack().isValid(), false);
+}
+
 QTEST_GUILESS_MAIN(MediaPlayListProxyModelTest)
 
 

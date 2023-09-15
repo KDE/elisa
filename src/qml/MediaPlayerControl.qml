@@ -218,6 +218,7 @@ BasePlayerControl {
             property bool _togglesDrawer: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
 
             action: Action {
+                checkable: true
                 shortcut: ElisaApplication.actionShortcut(ElisaApplication.action("toggle_playlist"))
                 onTriggered: {
                     if (showHidePlaylistAction._togglesDrawer) {
@@ -234,7 +235,6 @@ BasePlayerControl {
             text: i18nc("@action:button", "Show Playlist")
             icon.name: "view-media-playlist"
 
-            checkable: true
             checked: _togglesDrawer ? playlistDrawer.visible : contentView.showPlaylist
         }
 

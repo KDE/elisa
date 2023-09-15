@@ -33,6 +33,7 @@ Kirigami.AbstractListItem {
     property int rating
     property bool hasValidDiscNumber: true
     property bool metadataModifiableRole: false
+    readonly property bool isFavorite: rating === 10
 
     property var listView
     property bool simpleMode: false

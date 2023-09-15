@@ -165,10 +165,7 @@ BasePlayListDelegate {
                         visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
                         icon.name: "document-open-folder"
                         text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
-                        onTriggered: {
-                            ElisaApplication.showInFolder(playListEntry.fileName)
-                            contextMenu.close();
-                        }
+                        onTriggered: ElisaApplication.showInFolder(playListEntry.fileName)
                     },
                     Kirigami.Action {
                         visible: isValid
@@ -177,22 +174,17 @@ BasePlayListDelegate {
                         onTriggered: {
                             if (metadataLoader.active === false) {
                                 metadataLoader.active = true
-                            }
-                            else {
+                            } else {
                                 metadataLoader.item.close();
                                 metadataLoader.active = false
                             }
-                            contextMenu.close();
                         }
                     },
                     Kirigami.Action {
                         visible: isValid
                         icon.name: "error"
                         text: i18nc("@action:button", "Remove from queue")
-                        onTriggered: {
-                            playListEntry.removeFromPlaylist(playListEntry.index)
-                            contextMenu.close();
-                        }
+                        onTriggered: playListEntry.removeFromPlaylist(playListEntry.index)
                     }
                 ]
             }

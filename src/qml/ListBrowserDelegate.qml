@@ -35,6 +35,7 @@ FocusScope {
     property bool isAlternateColor
     property bool detailedView: true
     property bool editingRating: false
+    readonly property bool isFavorite: rating === 10
 
     signal clicked()
     signal enqueue()
@@ -93,23 +94,16 @@ FocusScope {
             onTriggered: {
                 mediaTrack.editingRating = true;
             }
-            visible: !ElisaApplication.useFavoriteStyleRatings
+            visible: !ElisaApplication.useFavoriteStyleRatings && !Kirigami.Settings.isMobile
         },
         Kirigami.Action {
-            text: mediaTrack.rating == 10 ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
-            icon.name: mediaTrack.rating == 10 ? "rating" : "rating-unrated"
+            text: mediaTrack.isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
+            icon.name: mediaTrack.isFavorite ? "rating" : "rating-unrated"
 
             onTriggered: {
-                var newRating = 0;
-                if (mediaTrack.rating == 10) {
-                    newRating = 0;
-                    // Change icon immediately in case backend is slow
-                    icon.name = "rating-unrated";
-                } else {
-                    newRating = 10;
-                    // Change icon immediately in case backend is slow
-                    icon.name = "rating";
-                }
+                const newRating = mediaTrack.isFavorite ? 0 : 10
+                // Change icon immediately in case backend is slow
+                icon.name = mediaTrack.isFavorite ? "rating-unrated" : "rating"
                 mediaTrack.trackRatingChanged(mediaTrack.trackUrl, newRating);
             }
 
@@ -331,15 +325,12 @@ FocusScope {
 
                 z: 1
 
-                sourceComponent: Row {
-                    anchors.centerIn: parent
-                        FlatButtonWithToolTip {
-                        width: singleLineHeight
-                        height: singleLineHeight
-                        text: i18nc("@action:button", "Cancel rating this track")
-                        icon.name: "dialog-cancel"
-                        onClicked: { mediaTrack.editingRating = false; }
-                    }
+                sourceComponent: FlatButtonWithToolTip {
+                    width: singleLineHeight
+                    height: singleLineHeight
+                    text: i18nc("@action:button", "Cancel rating this track")
+                    icon.name: "dialog-cancel"
+                    onClicked: { mediaTrack.editingRating = false; }
                 }
             }
             RatingStar {
@@ -360,14 +351,12 @@ FocusScope {
             Loader {
                 id: favoriteMark
 
-                visible: !Kirigami.Settings.isMobile && ElisaApplication.useFavoriteStyleRatings && !hoverLoader.active && rating == 10
+                visible: !Kirigami.Settings.isMobile && ElisaApplication.useFavoriteStyleRatings && !hoverLoader.active && mediaTrack.isFavorite
 
-                sourceComponent: Row {
-                    FlatButtonWithToolTip {
-                        width: singleLineHeight
-                        height: singleLineHeight
-                        icon.name: rating == 10 ? "rating" : "rating-unrated"
-                    }
+                sourceComponent: FlatButtonWithToolTip {
+                    width: singleLineHeight
+                    height: singleLineHeight
+                    icon.name: mediaTrack.isFavorite ? "rating" : "rating-unrated"
                 }
             }
 
@@ -409,47 +398,7 @@ FocusScope {
             title: mediaTrack.title
             preferredWidth: Kirigami.Units.gridUnit * 20
 
-            actions: [
-                Kirigami.Action {
-                    visible: trackUrl.toString().substring(0, 7) === 'file://'
-                    onTriggered: {
-                        ElisaApplication.showInFolder(mediaTrack.trackUrl);
-                        contextMenu.close();
-                    }
-                    icon.name: "document-open-folder"
-                    text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
-                },
-                Kirigami.Action {
-                    onTriggered: {
-                        callOpenMetaDataView(trackUrl, dataType);
-                        contextMenu.close();
-                    }
-                    icon.name: "documentinfo"
-                    text: i18nc("@action:button", "View details")
-                },
-                Kirigami.Action {
-                    visible: ElisaApplication.useFavoriteStyleRatings
-                    onTriggered: {
-                        var newRating = 0;
-                        if (rating == 10) {
-                            newRating = 0;
-                        } else {
-                            newRating = 10;
-                        }
-                        contextMenu.close();
-                    }
-                    icon.name: rating == 10 ? "rating-unrated" : "rating"
-                    text: rating == 10 ? i18nc("@action:button", "Un-mark as favorite") : i18nc("@action:button", "Mark as favorite")
-                },
-                Kirigami.Action {
-                    onTriggered: {
-                        enqueue();
-                        contextMenu.close();
-                    }
-                    icon.name: "list-add"
-                    text: i18nc("@action:button Enqueue current track", "Add to queue")
-                }
-            ]
+            actions: mediaTrack.actions
         }
     }
 

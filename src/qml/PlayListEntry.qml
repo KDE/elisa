@@ -83,16 +83,17 @@ BasePlayListDelegate {
 
         QtObject {
             id: actionList
-            property var locateFileAction: Action {
+            property var locateFileAction: Kirigami.Action {
                 text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                 icon.name: "document-open-folder"
-                onTriggered: {
-                    ElisaApplication.showInFolder(playListEntry.fileName)
-                }
+                visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
+                enabled: isValid
+                onTriggered: ElisaApplication.showInFolder(playListEntry.fileName)
             }
-            property var infoAction: Action {
+            property var infoAction: Kirigami.Action {
                 text: i18nc("@action:button Show track metadata", "View details")
                 icon.name: "help-about"
+                enabled: isValid
                 onTriggered: {
                     if (metadataLoader.active === false) {
                         metadataLoader.active = true
@@ -103,35 +104,33 @@ BasePlayListDelegate {
                     }
                 }
             }
-            property var ratingAction: Action {
+            property var ratingAction: Kirigami.Action {
                 text: i18nc("@action:button", "Set track rating")
                 icon.name: "view-media-favorite"
+                visible: !ElisaApplication.useFavoriteStyleRatings
+                enabled: isValid
 
                 onTriggered: {
                     playListEntry.editingRating = true;
                 }
             }
-            property var favoriteAction: Action {
-                text: rating == 10 ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
-                icon.name: rating == 10 ? "rating" : "rating-unrated"
+            property var favoriteAction: Kirigami.Action {
+                text: playListEntry.isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
+                icon.name: playListEntry.isFavorite ? "rating" : "rating-unrated"
+                visible: ElisaApplication.useFavoriteStyleRatings
+                enabled: isValid
 
                 onTriggered: {
-                    var newRating = 0;
-                    if (rating == 10) {
-                        newRating = 0;
-                        // Change icon immediately in case backend is slow
-                        icon.name = "rating-unrated";
-                    } else {
-                        newRating = 10;
-                        // Change icon immediately in case backend is slow
-                        icon.name = "rating";
-                    }
+                    const newRating = playListEntry.isFavorite ? 0 : 10;
+                    // Change icon immediately in case backend is slow
+                    icon.name = playListEntry.isFavorite ? "rating-unrated" : "rating";
                     ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, newRating);
                 }
             }
-            property var playPauseAction: Action {
+            property var playPauseAction: Kirigami.Action {
                 text: (isPlaying === MediaPlayList.IsPlaying) ? i18nc("@action:button Pause current track from playlist", "Pause") : i18nc("@action:button Play this track from playlist", "Play")
                 icon.name: (isPlaying === MediaPlayList.IsPlaying) ? "media-playback-pause" : "media-playback-start"
+                enabled: isValid
                 onTriggered: {
                     if (isPlaying === MediaPlayList.IsPlaying) {
                         playListEntry.pausePlayback()
@@ -143,7 +142,7 @@ BasePlayListDelegate {
                     }
                 }
             }
-            property var removeAction: Action {
+            property var removeAction: Kirigami.Action {
                 text: i18nc("@action:button Remove current track from play list", "Remove")
                 icon.name: "edit-delete-remove"
                 onTriggered: {
@@ -274,65 +273,20 @@ BasePlayListDelegate {
                 visible: active && !playListEntry.editingRating
 
                 sourceComponent: Row {
-                    FlatButtonWithToolTip {
-                        id: locateFileButton
-                        objectName: 'locateFileButton'
-                        enabled: isValid
-                        visible: playListEntry.wideMode && playListEntry.fileName.toString().substring(0, 7) === 'file://'
-                        action: actionList.locateFileAction
-                        KeyNavigation.left: favoriteButton
-                        KeyNavigation.right: infoButton
-                        activeFocusOnTab: isSelected
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: infoButton
-                        objectName: 'infoButton'
-                        enabled: isValid
-                        visible: playListEntry.wideMode
-                        action: actionList.infoAction
-                        KeyNavigation.right: playPauseButton
-                        activeFocusOnTab: isSelected
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: playPauseButton
-                        objectName: 'playPauseButton'
-                        enabled: isValid
-                        scale: LayoutMirroring.enabled ? -1 : 1 // We can mirror the symmetrical pause icon
-                        visible: playListEntry.wideMode
-                        action: actionList.playPauseAction
-                        KeyNavigation.right: removeButton
-                        activeFocusOnTab: isSelected
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: removeButton
-                        objectName: 'removeButton'
-                        visible: playListEntry.wideMode
-                        action: actionList.removeAction
-                        KeyNavigation.right: ratingButton
-                        activeFocusOnTab: isSelected
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: ratingButton
-                        objectName: 'ratingButton'
-                        visible: playListEntry.wideMode && !ElisaApplication.useFavoriteStyleRatings
-                        enabled: isValid
-                        action: actionList.ratingAction
-                        KeyNavigation.right: favoriteButton
-                        activeFocusOnTab: isSelected
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: favoriteButton
-                        objectName: 'favoriteButton'
-                        visible: playListEntry.wideMode && ElisaApplication.useFavoriteStyleRatings
-                        enabled: isValid
-                        action: actionList.favoriteAction
-                        KeyNavigation.right: locateFileButton
-                        activeFocusOnTab: isSelected
+                    Repeater {
+                        model: [
+                            actionList.locateFileAction,
+                            actionList.infoAction,
+                            actionList.playPauseAction,
+                            actionList.removeAction,
+                            actionList.ratingAction,
+                            actionList.favoriteAction
+                        ]
+                        delegate: FlatButtonWithToolTip {
+                            action: modelData
+                            visible: action.visible
+                            activeFocusOnTab: isSelected
+                        }
                     }
                 }
             }
@@ -361,14 +315,11 @@ BasePlayListDelegate {
             Loader {
                 id: favoriteMark
 
-                visible: rating == 10 && !containsMouse && !playListEntry.hasActiveFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
+                visible: playListEntry.isFavorite && !containsMouse && !playListEntry.hasActiveFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
 
-                sourceComponent: Row {
-                    FlatButtonWithToolTip {
-                        visible: playListEntry.wideMode && ElisaApplication.useFavoriteStyleRatings
-                        enabled: isValid
-                        action: actionList.favoriteAction
-                    }
+                sourceComponent: FlatButtonWithToolTip {
+                    visible: action.visible
+                    action: actionList.favoriteAction
                 }
             }
 
@@ -420,11 +371,11 @@ BasePlayListDelegate {
                     }
                     MenuItem {
                         action: actionList.ratingAction
-                        visible: !ElisaApplication.useFavoriteStyleRatings
+                        visible: action.visible
                     }
                     MenuItem {
                         action: actionList.favoriteAction
-                        visible: ElisaApplication.useFavoriteStyleRatings
+                        visible: action.visible
                     }
                     MenuSeparator { }
                     MenuItem {

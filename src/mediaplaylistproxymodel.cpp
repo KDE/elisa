@@ -717,6 +717,9 @@ void MediaPlayListProxyModel::removeRow(int row)
 
 void MediaPlayListProxyModel::moveRow(int from, int to)
 {
+    const bool currentTrackIndexChanged = from < to ? (from <= d->mCurrentTrack.row() && d->mCurrentTrack.row() <= to)
+                                                    : (to <= d->mCurrentTrack.row() && d->mCurrentTrack.row() <= from);
+
     if (d->mShufflePlayList) {
         beginMoveRows({}, from, from, {}, from < to ? to + 1 : to);
         d->mRandomMapping.move(from, to);
@@ -724,9 +727,13 @@ void MediaPlayListProxyModel::moveRow(int from, int to)
     } else {
         d->mPlayListModel->moveRows({}, from, 1, {}, from < to ? to + 1 : to);
     }
+
+    if (currentTrackIndexChanged) {
+        notifyCurrentTrackRowChanged();
+    }
 }
 
-void MediaPlayListProxyModel::notifyCurrentTrackChanged()
+void MediaPlayListProxyModel::notifyCurrentTrackRowChanged()
 {
     if (d->mCurrentTrack.isValid()) {
         d->mCurrentPlayListPosition = d->mCurrentTrack.row();
@@ -734,9 +741,14 @@ void MediaPlayListProxyModel::notifyCurrentTrackChanged()
         d->mCurrentPlayListPosition = -1;
     }
     determineAndNotifyPreviousAndNextTracks();
-    Q_EMIT currentTrackChanged(d->mCurrentTrack);
     Q_EMIT currentTrackRowChanged();
     Q_EMIT remainingTracksChanged();
+}
+
+void MediaPlayListProxyModel::notifyCurrentTrackChanged()
+{
+    notifyCurrentTrackRowChanged();
+    Q_EMIT currentTrackChanged(d->mCurrentTrack);
 }
 
 void MediaPlayListProxyModel::determineAndNotifyPreviousAndNextTracks()

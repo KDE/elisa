@@ -300,6 +300,8 @@ private:
 
     void determineTracks();
 
+    void notifyCurrentTrackRowChanged();
+
     void notifyCurrentTrackChanged();
 
     void determineAndNotifyPreviousAndNextTracks();

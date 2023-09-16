@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-14 01:54+0000\n"
+"POT-Creation-Date: 2023-09-16 01:55+0000\n"
 "PO-Revision-Date: 2023-08-13 16:21+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -583,37 +583,24 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Jetzt abspielen und aktuelle Wiedergabeliste ersetzen"
 
-#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:80
+#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:81
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Zur Wiedergabeliste hinzufügen"
 
-#: qml/GridBrowserDelegate.qml:338
-#, kde-format
-msgctxt "@action:button"
-msgid "Options"
-msgstr "Einstellungen"
-
-#: qml/GridBrowserDelegate.qml:375
-#, kde-format
-msgctxt "@action:button Clear play list and add whole container to play list"
-msgid "Play now, replacing current queue"
-msgstr "Jetzt abspielen und aktuelle Warteschlange ersetzen"
-
-#: qml/GridBrowserDelegate.qml:384 qml/ListBrowserDelegate.qml:68
-#: qml/ListBrowserDelegate.qml:420 qml/mobile/MobilePlayListDelegate.qml:167
-#: qml/PlayListEntry.qml:87
+#: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
+#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Im Ordner anzeigen"
 
-#: qml/GridBrowserDelegate.qml:392
+#: qml/GridBrowserDelegate.qml:345
 #, kde-format
-msgctxt "@action:button Add whole container to play list"
-msgid "Add to queue"
-msgstr "Zur Warteschlange hinzufügen"
+msgctxt "@action:button"
+msgid "Options"
+msgstr "Einstellungen"
 
 #: qml/HeaderBar.qml:174
 #, kde-format
@@ -621,92 +608,68 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Vollbildmodus"
 
-#: qml/ListBrowserDelegate.qml:75 qml/mobile/MobilePlayListDelegate.qml:176
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
 #: qml/PlayListEntry.qml:94
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "Details anzeigen"
 
-#: qml/ListBrowserDelegate.qml:85
+#: qml/ListBrowserDelegate.qml:86
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Ab hier abspielen und aktuelle Wiedergabeliste ersetzen"
 
-#: qml/ListBrowserDelegate.qml:91 qml/PlayListEntry.qml:107
+#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Bewerten"
 
-#: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:115
+#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/PlayListEntry.qml:118
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Dieses Lied nicht mehr als Favoriten markieren"
 
-#: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:115
+#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/PlayListEntry.qml:118
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Dieses Lied als Favoriten markieren"
 
-#: qml/ListBrowserDelegate.qml:232 qml/ListBrowserDelegate.qml:248
+#: qml/ListBrowserDelegate.qml:226 qml/ListBrowserDelegate.qml:242
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:243
+#: qml/ListBrowserDelegate.qml:237
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/ListBrowserDelegate.qml:255
+#: qml/ListBrowserDelegate.qml:249
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:339 qml/PlayListEntry.qml:342
+#: qml/ListBrowserDelegate.qml:331 qml/PlayListEntry.qml:296
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Bewerten abbrechen"
 
-#: qml/ListBrowserDelegate.qml:394
+#: qml/ListBrowserDelegate.qml:383
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Lied-Einstellungen"
-
-#: qml/ListBrowserDelegate.qml:428
-#, kde-format
-msgctxt "@action:button"
-msgid "View details"
-msgstr "Details anzeigen"
-
-#: qml/ListBrowserDelegate.qml:442
-#, kde-format
-msgctxt "@action:button"
-msgid "Un-mark as favorite"
-msgstr "Nicht mehr als Favoriten markieren"
-
-#: qml/ListBrowserDelegate.qml:442
-#, kde-format
-msgctxt "@action:button"
-msgid "Mark as favorite"
-msgstr "Als Favoriten markieren"
-
-#: qml/ListBrowserDelegate.qml:450
-#, kde-format
-msgctxt "@action:button Enqueue current track"
-msgid "Add to queue"
-msgstr "Zur Warteschlange hinzufügen"
 
 #: qml/MediaPlayerControl.qml:86
 #, kde-format
@@ -963,7 +926,7 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Stück-Einstellungen"
 
-#: qml/mobile/MobilePlayListDelegate.qml:191
+#: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
@@ -1187,19 +1150,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Nur Favoriten anzeigen"
 
-#: qml/PlayListEntry.qml:133
+#: qml/PlayListEntry.qml:131
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "Pause"
 
-#: qml/PlayListEntry.qml:133
+#: qml/PlayListEntry.qml:131
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Wiedergabe"
 
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:146
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
@@ -1758,6 +1721,31 @@ msgstr "Dateien"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiostation"
+
+#~ msgctxt ""
+#~ "@action:button Clear play list and add whole container to play list"
+#~ msgid "Play now, replacing current queue"
+#~ msgstr "Jetzt abspielen und aktuelle Warteschlange ersetzen"
+
+#~ msgctxt "@action:button Add whole container to play list"
+#~ msgid "Add to queue"
+#~ msgstr "Zur Warteschlange hinzufügen"
+
+#~ msgctxt "@action:button"
+#~ msgid "View details"
+#~ msgstr "Details anzeigen"
+
+#~ msgctxt "@action:button"
+#~ msgid "Un-mark as favorite"
+#~ msgstr "Nicht mehr als Favoriten markieren"
+
+#~ msgctxt "@action:button"
+#~ msgid "Mark as favorite"
+#~ msgstr "Als Favoriten markieren"
+
+#~ msgctxt "@action:button Enqueue current track"
+#~ msgid "Add to queue"
+#~ msgstr "Zur Warteschlange hinzufügen"
 
 #, fuzzy
 #~| msgctxt "Window title for track metadata"

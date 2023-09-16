@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-14 01:54+0000\n"
+"POT-Creation-Date: 2023-09-16 01:55+0000\n"
 "PO-Revision-Date: 2023-08-17 12:45+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -584,37 +584,24 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Geçerli çalma listesini değiştirerek şimdi çal"
 
-#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:80
+#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:81
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Çalma listesine ekle"
 
-#: qml/GridBrowserDelegate.qml:338
-#, kde-format
-msgctxt "@action:button"
-msgid "Options"
-msgstr "Seçenekler"
-
-#: qml/GridBrowserDelegate.qml:375
-#, kde-format
-msgctxt "@action:button Clear play list and add whole container to play list"
-msgid "Play now, replacing current queue"
-msgstr "Geçerli kuyruğun yerini alarak şimdi çal"
-
-#: qml/GridBrowserDelegate.qml:384 qml/ListBrowserDelegate.qml:68
-#: qml/ListBrowserDelegate.qml:420 qml/mobile/MobilePlayListDelegate.qml:167
-#: qml/PlayListEntry.qml:87
+#: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
+#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Klasörde göster"
 
-#: qml/GridBrowserDelegate.qml:392
+#: qml/GridBrowserDelegate.qml:345
 #, kde-format
-msgctxt "@action:button Add whole container to play list"
-msgid "Add to queue"
-msgstr "Kuyruğa ekle"
+msgctxt "@action:button"
+msgid "Options"
+msgstr "Seçenekler"
 
 #: qml/HeaderBar.qml:174
 #, kde-format
@@ -622,92 +609,68 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Tam Ekran Kipinden Çık"
 
-#: qml/ListBrowserDelegate.qml:75 qml/mobile/MobilePlayListDelegate.qml:176
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
 #: qml/PlayListEntry.qml:94
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "Ayrıntıları göster"
 
-#: qml/ListBrowserDelegate.qml:85
+#: qml/ListBrowserDelegate.qml:86
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Geçerli çalma listesini değiştirerek buradan çal"
 
-#: qml/ListBrowserDelegate.qml:91 qml/PlayListEntry.qml:107
+#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Parça derecelendirmesini ayarla"
 
-#: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:115
+#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/PlayListEntry.qml:118
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Bu şarkıyı beğenilenlerden çıkar"
 
-#: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:115
+#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/PlayListEntry.qml:118
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Bu şarkıyı beğenilenlere ekle"
 
-#: qml/ListBrowserDelegate.qml:232 qml/ListBrowserDelegate.qml:248
+#: qml/ListBrowserDelegate.qml:226 qml/ListBrowserDelegate.qml:242
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:243
+#: qml/ListBrowserDelegate.qml:237
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/ListBrowserDelegate.qml:255
+#: qml/ListBrowserDelegate.qml:249
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:339 qml/PlayListEntry.qml:342
+#: qml/ListBrowserDelegate.qml:331 qml/PlayListEntry.qml:296
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Bu şarkıdaki derecelendirmeyi iptal et"
 
-#: qml/ListBrowserDelegate.qml:394
+#: qml/ListBrowserDelegate.qml:383
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Şarkı Seçenekleri"
-
-#: qml/ListBrowserDelegate.qml:428
-#, kde-format
-msgctxt "@action:button"
-msgid "View details"
-msgstr "Ayrıntıları göster"
-
-#: qml/ListBrowserDelegate.qml:442
-#, kde-format
-msgctxt "@action:button"
-msgid "Un-mark as favorite"
-msgstr "Bu şarkıyı beğenilenlerden çıkar"
-
-#: qml/ListBrowserDelegate.qml:442
-#, kde-format
-msgctxt "@action:button"
-msgid "Mark as favorite"
-msgstr "Bu şarkıyı beğenilenlere ekle"
-
-#: qml/ListBrowserDelegate.qml:450
-#, kde-format
-msgctxt "@action:button Enqueue current track"
-msgid "Add to queue"
-msgstr "Kuyruğa ekle"
 
 #: qml/MediaPlayerControl.qml:86
 #, kde-format
@@ -964,7 +927,7 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Parça Seçenekleri"
 
-#: qml/mobile/MobilePlayListDelegate.qml:191
+#: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
@@ -1188,19 +1151,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Yalnızca Beğenilenleri Göster"
 
-#: qml/PlayListEntry.qml:133
+#: qml/PlayListEntry.qml:131
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "Duraklat"
 
-#: qml/PlayListEntry.qml:133
+#: qml/PlayListEntry.qml:131
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Çal"
 
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:146
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
@@ -1758,214 +1721,27 @@ msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radyo İstasyonları"
 
-#~ msgctxt "@title:window"
-#~ msgid "View Details"
-#~ msgstr "Ayrıntıları Görüntüle"
+#~ msgctxt ""
+#~ "@action:button Clear play list and add whole container to play list"
+#~ msgid "Play now, replacing current queue"
+#~ msgstr "Geçerli kuyruğun yerini alarak şimdi çal"
 
-#~ msgctxt "@action:button Show track metadata"
-#~ msgid "View Details"
-#~ msgstr "Ayrıntıları Görüntüle"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Leave Full Screen"
-#~ msgstr "Tam Ekran Kipinden Çık"
-
-#~ msgctxt "@action:button"
-#~ msgid "Show the file for this song in the file manager"
-#~ msgstr "Bu şarkı için olan dosyayı, dosya yöneticisinde göster"
-
-#~ msgctxt "Track title for track metadata view"
-#~ msgid "Title"
-#~ msgstr "Başlık"
-
-#~ msgctxt "Track artist for track metadata view"
-#~ msgid "Artist"
-#~ msgstr "Sanatçı"
-
-#~ msgctxt "Album name for track metadata view"
-#~ msgid "Album"
-#~ msgstr "Albüm"
-
-#~ msgctxt "Genre label for track metadata view"
-#~ msgid "Genre"
-#~ msgstr "Tür"
-
-#~ msgctxt "Lyricist label for track metadata view"
-#~ msgid "Lyricist"
-#~ msgstr "Söz yazarı"
-
-#~ msgctxt "Composer name for track metadata view"
-#~ msgid "Composer"
-#~ msgstr "Besteci"
-
-#~ msgctxt "Year label for track metadata view"
-#~ msgid "Year"
-#~ msgstr "Yıl"
-
-#~ msgctxt "Duration label for track metadata view"
-#~ msgid "Duration"
-#~ msgstr "Süre"
-
-#~ msgctxt "Scan for New Music application menu entry"
-#~ msgid "Scan for New Music"
-#~ msgstr "Yeni Müzikleri Tara"
-
-#~ msgctxt "Reset Database and Re-Scan Everything application menu entry"
-#~ msgid "Reset Database and Re-Scan Everything"
-#~ msgstr "Veritabanını Sıfırla ve Tümünü Yeniden Tara"
-
-#~ msgctxt "One of the 'now playing' views"
-#~ msgid "Lyrics"
-#~ msgstr "Şarkı sözleri"
-
-#~ msgctxt "show the playlist"
-#~ msgid "Show Playlist"
-#~ msgstr "Çalma Listesini Göster"
-
-#~ msgctxt "Window title"
-#~ msgid "Elisa"
-#~ msgstr "Elisa"
-
-#~ msgctxt "Clear play list and add whole container to play list"
-#~ msgid "Play now, replacing current playlist"
-#~ msgstr "Mevcut çalma listesinin yerini alarak şimdi çal"
-
-#~ msgctxt "%1: track title. %2: artist name"
-#~ msgid "%1 - %2"
-#~ msgstr "%1 - %2"
-
-#~ msgctxt "Enqueue current track"
-#~ msgid "Add to playlist"
-#~ msgstr "Çalma listesine ekle"
-
-#~ msgid "Mark this song as no longer being a favorite"
-#~ msgstr "Bu şarkıyı artık beğenilmiyor olarak imle"
-
-#~ msgctxt "Enqueue current track"
+#~ msgctxt "@action:button Add whole container to play list"
 #~ msgid "Add to queue"
 #~ msgstr "Kuyruğa ekle"
 
-#~ msgctxt "toggle the party mode"
-#~ msgid "Toggle Party Mode"
-#~ msgstr "Parti Kipini Aç/Kapat"
+#~ msgctxt "@action:button"
+#~ msgid "View details"
+#~ msgstr "Ayrıntıları göster"
 
-#~ msgctxt "Pause any media that is playing"
-#~ msgid "Pause"
-#~ msgstr "Duraklat"
+#~ msgctxt "@action:button"
+#~ msgid "Un-mark as favorite"
+#~ msgstr "Bu şarkıyı beğenilenlerden çıkar"
 
-#~ msgctxt "Start playing media"
-#~ msgid "Play"
-#~ msgstr "Çal"
+#~ msgctxt "@action:button"
+#~ msgid "Mark as favorite"
+#~ msgstr "Bu şarkıyı beğenilenlere ekle"
 
-#~ msgctxt ""
-#~ "@info Title of the view of the playlist; keep this string as short as "
-#~ "possible because horizontal space is quite scarce"
-#~ msgid "Playlist"
-#~ msgstr "Çalma Listesi"
-
-#~ msgctxt "Playlist cleared"
-#~ msgid "Playlist cleared"
-#~ msgstr "Çalma listesi temizlendi"
-
-#~ msgctxt "menu entry"
-#~ msgid "Toggle Party Mode"
-#~ msgstr "Parti Kipini Aç/Kapat"
-
-#~ msgctxt "Show track metadata"
-#~ msgid "View Details"
-#~ msgstr "Ayrıntıları Görüntüle"
-
-#~ msgctxt "Pause current track from play list"
-#~ msgid "Pause"
-#~ msgstr "Duraklat"
-
-#~ msgctxt "Play this track from play list"
-#~ msgid "Play"
-#~ msgstr "Çal"
-
-#~ msgctxt "Configure dialog, embed all albums in views navigation list"
-#~ msgid "Albums"
-#~ msgstr "Albümler"
-
-#~ msgctxt "Configure dialog, embed all artists in views navigation list"
-#~ msgid "Artists"
-#~ msgstr "Sanatçılar"
-
-#~ msgctxt "Configure dialog, embed all genres in views navigation list"
-#~ msgid "Genres"
-#~ msgstr "Türler"
-
-#~ msgctxt "Title of the view of the playlist"
-#~ msgid "Now Playing"
-#~ msgstr "Şimdi Çalınıyor"
-
-#~ msgctxt "Title of the file radios browser view"
-#~ msgid "Radio Stations"
-#~ msgstr "Radyo İstasyonları"
-
-#~ msgctxt "Refresh Music Collection application menu entry"
-#~ msgid "Refresh Music Collection"
-#~ msgstr "Müzik Koleksiyonunu Yenile"
-
-#~ msgid "Refresh Music Collection"
-#~ msgstr "Müzik Koleksiyonunu Yenile"
-
-#~ msgctxt "toggle play and pause for the audio player"
-#~ msgid "Toggle Play and Pause"
-#~ msgstr "Çal/Duraklat"
-
-#~ msgctxt "Clear play list and enqueue current track"
-#~ msgid "Play Now and Replace Play List"
-#~ msgstr "Şimdi Çalın ve Çalma Listesini Değiştirin"
-
-#, fuzzy
-#~| msgid "Save"
-#~ msgctxt "Save a playlist file"
-#~ msgid "Save..."
-#~ msgstr "Kaydet"
-
-#, fuzzy
-#~| msgctxt "Load a playlist file"
-#~| msgid "Load Playlist..."
-#~ msgctxt "Load a playlist file"
-#~ msgid "Load..."
-#~ msgstr "Oynatma listesini Yükle..."
-
-#~ msgctxt "Undo"
-#~ msgid "Undo"
-#~ msgstr "Geri Al"
-
-#~ msgctxt "Enqueue current track"
-#~ msgid "Enqueue"
-#~ msgstr "Kuyruk"
-
-#~ msgctxt "Add current list to playlist"
-#~ msgid "Enqueue"
-#~ msgstr "Sıraya al"
-
-#~ msgctxt "Show filters in the navigation bar"
-#~ msgid "Show Search Options"
-#~ msgstr "Arama Seçeneklerini Göster"
-
-#~ msgctxt "Title of the file radios browser view"
-#~ msgid "Radios"
-#~ msgstr "Radyolar"
-
-#~ msgctxt "Save a playlist file"
-#~ msgid "Save Playlist..."
-#~ msgstr "Oynatma listesini Kaydet..."
-
-#~ msgid "Last track"
-#~ msgstr "Son parça"
-
-#~ msgctxt "toggle between maximized and minimized ivre"
-#~ msgid "Toggle Maximize"
-#~ msgstr "Büyütmeyi Aç/Kapat"
-
-#~ msgctxt "menu entry"
-#~ msgid "Collapse Player"
-#~ msgstr "Oynatıcıyı Daralt"
-
-#~ msgctxt "menu entry"
-#~ msgid "Expand Player"
-#~ msgstr "Oynatıcıyı Genişlet"
+#~ msgctxt "@action:button Enqueue current track"
+#~ msgid "Add to queue"
+#~ msgstr "Kuyruğa ekle"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-14 01:54+0000\n"
+"POT-Creation-Date: 2023-09-16 01:55+0000\n"
 "PO-Revision-Date: 2023-08-18 06:07+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -584,37 +584,24 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "ახლავე დაკვრა, მიმდინარე რიგის ჩანაცვლებით"
 
-#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:80
+#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:81
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "დასაკრავი სიაში დამატება"
 
-#: qml/GridBrowserDelegate.qml:338
-#, kde-format
-msgctxt "@action:button"
-msgid "Options"
-msgstr "პარამეტრები"
-
-#: qml/GridBrowserDelegate.qml:375
-#, kde-format
-msgctxt "@action:button Clear play list and add whole container to play list"
-msgid "Play now, replacing current queue"
-msgstr "ახლავე დაკვრა, მიმდინარე რიგის ჩანაცვლებით"
-
-#: qml/GridBrowserDelegate.qml:384 qml/ListBrowserDelegate.qml:68
-#: qml/ListBrowserDelegate.qml:420 qml/mobile/MobilePlayListDelegate.qml:167
-#: qml/PlayListEntry.qml:87
+#: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
+#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:87
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "საქაღალდეში ჩვენება"
 
-#: qml/GridBrowserDelegate.qml:392
+#: qml/GridBrowserDelegate.qml:345
 #, kde-format
-msgctxt "@action:button Add whole container to play list"
-msgid "Add to queue"
-msgstr "რიგში ჩამატება"
+msgctxt "@action:button"
+msgid "Options"
+msgstr "პარამეტრები"
 
 #: qml/HeaderBar.qml:174
 #, kde-format
@@ -622,92 +609,68 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "სრული ეკრანიდან გამოსვლა"
 
-#: qml/ListBrowserDelegate.qml:75 qml/mobile/MobilePlayListDelegate.qml:176
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
 #: qml/PlayListEntry.qml:94
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "დეტალების ნახვა"
 
-#: qml/ListBrowserDelegate.qml:85
+#: qml/ListBrowserDelegate.qml:86
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "აქედან დაკვრა, მიმდინარე დასაკრავი სიის ჩანაცვლებით"
 
-#: qml/ListBrowserDelegate.qml:91 qml/PlayListEntry.qml:107
+#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "ამ ტრეკის შეფასების დაყენება"
 
-#: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:115
+#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/PlayListEntry.qml:118
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "რჩეულად მონიშვნის მოხსნა"
 
-#: qml/ListBrowserDelegate.qml:99 qml/MediaTrackMetadataDelegate.qml:132
-#: qml/PlayListEntry.qml:115
+#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/PlayListEntry.qml:118
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "რჩეულად მონიშვნა"
 
-#: qml/ListBrowserDelegate.qml:232 qml/ListBrowserDelegate.qml:248
+#: qml/ListBrowserDelegate.qml:226 qml/ListBrowserDelegate.qml:242
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:243
+#: qml/ListBrowserDelegate.qml:237
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/ListBrowserDelegate.qml:255
+#: qml/ListBrowserDelegate.qml:249
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:339 qml/PlayListEntry.qml:342
+#: qml/ListBrowserDelegate.qml:331 qml/PlayListEntry.qml:296
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "ამ ტრეკის შეფასების გაუქმება"
 
-#: qml/ListBrowserDelegate.qml:394
+#: qml/ListBrowserDelegate.qml:383
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "სიმღერის პარამეტრები"
-
-#: qml/ListBrowserDelegate.qml:428
-#, kde-format
-msgctxt "@action:button"
-msgid "View details"
-msgstr "დეტალების ნახვა"
-
-#: qml/ListBrowserDelegate.qml:442
-#, kde-format
-msgctxt "@action:button"
-msgid "Un-mark as favorite"
-msgstr "რჩეულად მონიშვნის მოხსნა"
-
-#: qml/ListBrowserDelegate.qml:442
-#, kde-format
-msgctxt "@action:button"
-msgid "Mark as favorite"
-msgstr "რჩეულად მონიშვნა"
-
-#: qml/ListBrowserDelegate.qml:450
-#, kde-format
-msgctxt "@action:button Enqueue current track"
-msgid "Add to queue"
-msgstr "რიგში ჩამატება"
 
 #: qml/MediaPlayerControl.qml:86
 #, kde-format
@@ -964,7 +927,7 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "ტრეკის მორგება"
 
-#: qml/mobile/MobilePlayListDelegate.qml:191
+#: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
@@ -1188,19 +1151,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "მხოლოდ რჩეულების ჩვენება"
 
-#: qml/PlayListEntry.qml:133
+#: qml/PlayListEntry.qml:131
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "შეჩერება"
 
-#: qml/PlayListEntry.qml:133
+#: qml/PlayListEntry.qml:131
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "დაკვრა"
 
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:146
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
@@ -1755,3 +1718,28 @@ msgstr "ფაილები"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "რადიოსადგურები"
+
+#~ msgctxt ""
+#~ "@action:button Clear play list and add whole container to play list"
+#~ msgid "Play now, replacing current queue"
+#~ msgstr "ახლავე დაკვრა, მიმდინარე რიგის ჩანაცვლებით"
+
+#~ msgctxt "@action:button Add whole container to play list"
+#~ msgid "Add to queue"
+#~ msgstr "რიგში ჩამატება"
+
+#~ msgctxt "@action:button"
+#~ msgid "View details"
+#~ msgstr "დეტალების ნახვა"
+
+#~ msgctxt "@action:button"
+#~ msgid "Un-mark as favorite"
+#~ msgstr "რჩეულად მონიშვნის მოხსნა"
+
+#~ msgctxt "@action:button"
+#~ msgid "Mark as favorite"
+#~ msgstr "რჩეულად მონიშვნა"
+
+#~ msgctxt "@action:button Enqueue current track"
+#~ msgid "Add to queue"
+#~ msgstr "რიგში ჩამატება"

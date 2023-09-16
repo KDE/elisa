@@ -148,6 +148,9 @@ void ViewManager::openView(int viewIndex)
     Q_EMIT viewIndexChanged();
 
     applyFilter(viewParameters, viewParameters.mMainTitle, viewParameters);
+    if (viewParameters.mDataType == ElisaUtils::FileName) { // Folder view
+        viewParameters.mDataFilter[DataTypes::FilePathRole] = QUrl::fromLocalFile(d->mInitialFilesViewPath);
+    }
     openViewFromData(viewParameters);
 }
 
@@ -347,10 +350,6 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
 void ViewManager::applyFilter(ViewParameters &nextViewParameters,
                               QString title, const ViewParameters &lastView) const
 {
-    if (nextViewParameters.mDataType == ElisaUtils::FileName) { // Folder view
-        nextViewParameters.mDataFilter[DataTypes::FilePathRole] = QUrl::fromLocalFile(d->mInitialFilesViewPath);
-    }
-
     switch (nextViewParameters.mFilterType)
     {
     case ElisaUtils::NoFilter:

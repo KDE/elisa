@@ -1855,31 +1855,3 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
-
-# unreviewed-context
-#~ msgctxt ""
-#~ "@action:button Clear play list and add whole container to play list"
-#~ msgid "Play now, replacing current queue"
-#~ msgstr "Spel no og byt ut avspelingskøen"
-
-# unreviewed-context
-#~ msgctxt "@action:button Add whole container to play list"
-#~ msgid "Add to queue"
-#~ msgstr "Legg i avspelingskøen"
-
-#~ msgctxt "@action:button"
-#~ msgid "View details"
-#~ msgstr "Vis detaljar"
-
-#~ msgctxt "@action:button"
-#~ msgid "Un-mark as favorite"
-#~ msgstr "Fjern favoritt­merking"
-
-# unreviewed-context
-#~ msgctxt "@action:button"
-#~ msgid "Mark as favorite"
-#~ msgstr "Merk som favoritt"
-
-#~ msgctxt "@action:button Enqueue current track"
-#~ msgid "Add to queue"
-#~ msgstr "Legg i avspelingskøen"

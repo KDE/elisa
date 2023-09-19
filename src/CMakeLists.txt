@@ -322,27 +322,83 @@ else()
     install(TARGETS elisaLib ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 endif()
 
-set(elisaqmlplugin_SOURCES
+ecm_add_qml_module(elisaqmlplugin URI org.kde.elisa)
+
+target_sources(elisaqmlplugin PRIVATE
     elisaqmlplugin.cpp
     elisautils.cpp
+    res.qrc
 )
 
 if (KF6FileMetaData_FOUND)
-    set(elisaqmlplugin_SOURCES
-        ${elisaqmlplugin_SOURCES}
+    target_sources(elisaqmlplugin PRIVATE
         embeddedcoverageimageprovider.cpp
     )
 endif()
 
-add_library(elisaqmlplugin SHARED ${elisaqmlplugin_SOURCES})
+ecm_target_qml_sources(elisaqmlplugin SOURCES
+    qml/ApplicationMenu.qml
+    qml/NativeGlobalMenu.qml
+    qml/ElisaMainWindow.qml
+    qml/NativeTrayMenu.qml
+    qml/NativeMenuItemFromAction.qml
+    qml/BaseTheme.qml
+    qml/Theme.qml
+    qml/PlatformIntegration.qml
+    qml/LabelWithToolTip.qml
+
+    qml/RatingStar.qml
+    qml/TrackImportNotification.qml
+    qml/ImageWithFallback.qml
+
+    # qml/HeaderBar.qml
+    # qml/NavigationActionBar.qml
+    # qml/SortMenu.qml
+    # qml/MediaPlayerControl.qml
+    # qml/ContextView.qml
+    # qml/ContentView.qml
+    # qml/ViewSelector.qml
+    # qml/AbstractDataView.qml
+    # qml/DataGridView.qml
+    # qml/DataListView.qml
+    # qml/DurationSlider.qml
+    # qml/VolumeSlider.qml
+
+    qml/MediaPlayListView.qml
+    qml/PlayListEntry.qml
+    qml/SimplePlayListView.qml
+    qml/BasicPlayListAlbumHeader.qml
+
+    qml/MediaTrackMetadataDelegate.qml
+    qml/MediaTrackMetadataForm.qml
+    qml/TracksDiscHeader.qml
+    qml/MediaTrackMetadataView.qml
+    qml/GridBrowserDelegate.qml
+    qml/ListBrowserDelegate.qml
+    qml/FlatButtonWithToolTip.qml
+    qml/HeaderFooterToolbar.qml
+
+    qml/SettingsForm.qml
+    qml/ElisaConfigurationDialog.qml
+)
+
+ecm_target_qml_sources(elisaqmlplugin PATH mobile SOURCES
+    qml/mobile/MobileFooterBar.qml
+    qml/mobile/MobileMediaTrackMetadataView.qml
+    qml/mobile/MobileMinimizedPlayerControl.qml
+    qml/mobile/MobilePlayListDelegate.qml
+    qml/mobile/MobileSettingsPage.qml
+    qml/mobile/MobileSidebar.qml
+    qml/mobile/MobileTrackPlayer.qml
+    # qml/mobile/MobileVolumeButton.qml
+)
+
 target_link_libraries(elisaqmlplugin
     LINK_PRIVATE
     Qt::Quick Qt::Widgets
     KF6::ConfigCore KF6::ConfigGui
     elisaLib
     )
-
-target_sources(elisaqmlplugin PUBLIC res.qrc)
 
 if (KF6FileMetaData_FOUND)
     target_link_libraries(elisaqmlplugin
@@ -351,39 +407,7 @@ if (KF6FileMetaData_FOUND)
         )
 endif()
 
-set_target_properties(elisaqmlplugin PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa
-    )
-
-if (NOT APPLE AND NOT WIN32)
-    set_target_properties(elisaqmlplugin PROPERTIES
-        INSTALL_RPATH "${KDE_INSTALL_FULL_LIBDIR}/elisa;${CMAKE_INSTALL_RPATH}"
-        )
-endif()
-
-install(TARGETS elisaqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa/)
-
-install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa)
-
-add_custom_target(copy)
-add_custom_target(copy2)
-
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa)
-
-add_custom_command(TARGET copy PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E
-    copy ${CMAKE_CURRENT_SOURCE_DIR}/qmldir ${CMAKE_BINARY_DIR}/bin/org/kde/elisa
-    )
-
-add_custom_command(TARGET copy2 PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E
-    copy ${CMAKE_CURRENT_SOURCE_DIR}/plugins.qmltypes ${CMAKE_BINARY_DIR}/bin/org/kde/elisa/
-    )
-
-add_dependencies(elisaqmlplugin copy copy2)
-
-ecm_generate_qmltypes(org.kde.elisa 1.0
-                      DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa)
+ecm_finalize_qml_module(elisaqmlplugin)
 
 if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
 
@@ -395,58 +419,7 @@ if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
 
         android/PlatformIntegration.qml
 
-        qml/ElisaMainWindow.qml
-        qml/ApplicationMenu.qml
-        qml/NativeGlobalMenu.qml
-        qml/NativeTrayMenu.qml
-        qml/NativeMenuItemFromAction.qml
-        qml/BaseTheme.qml
-        qml/Theme.qml
-        qml/PlatformIntegration.qml
-        qml/LabelWithToolTip.qml
 
-        qml/RatingStar.qml
-        qml/TrackImportNotification.qml
-        qml/ImageWithFallback.qml
-
-        qml/HeaderBar.qml
-        qml/NavigationActionBar.qml
-        qml/SortMenu.qml
-        qml/MediaPlayerControl.qml
-        qml/ContextView.qml
-        qml/ContentView.qml
-        qml/ViewSelector.qml
-        qml/AbstractDataView.qml
-        qml/DataGridView.qml
-        qml/DataListView.qml
-        qml/DurationSlider.qml
-        qml/VolumeSlider.qml
-
-        qml/MediaPlayListView.qml
-        qml/PlayListEntry.qml
-        qml/SimplePlayListView.qml
-        qml/BasicPlayListAlbumHeader.qml
-
-        qml/MediaTrackMetadataDelegate.qml
-        qml/MediaTrackMetadataForm.qml
-        qml/TracksDiscHeader.qml
-        qml/MediaTrackMetadataView.qml
-        qml/GridBrowserDelegate.qml
-        qml/ListBrowserDelegate.qml
-        qml/FlatButtonWithToolTip.qml
-        qml/HeaderFooterToolbar.qml
-
-        qml/SettingsForm.qml
-        qml/ElisaConfigurationDialog.qml
-
-        qml/mobile/MobileFooterBar.qml
-        qml/mobile/MobileMediaTrackMetadataView.qml
-        qml/mobile/MobileMinimizedPlayerControl.qml
-        qml/mobile/MobilePlayListDelegate.qml
-        qml/mobile/MobileSettingsPage.qml
-        qml/mobile/MobileSidebar.qml
-        qml/mobile/MobileTrackPlayer.qml
-        qml/mobile/MobileVolumeButton.qml
     )
 
     qt_add_resources(elisa_SOURCES resources.qrc)

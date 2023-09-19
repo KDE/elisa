@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.16)
 
 # KDE Applications version, managed by release script.
 set(RELEASE_SERVICE_VERSION_MAJOR "23")
@@ -26,7 +26,7 @@ include(FeatureSummary)
 include(ECMAddAppIcon)
 include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
-include(ECMGenerateQmlTypes)
+include(ECMQmlModule)
 
 set(REQUIRED_QT_VERSION "6.5.0")
 find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent QuickControls2)

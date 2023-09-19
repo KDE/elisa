@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-16 01:55+0000\n"
-"PO-Revision-Date: 2023-05-31 14:24-0300\n"
+"POT-Creation-Date: 2023-09-19 01:55+0000\n"
+"PO-Revision-Date: 2023-09-18 11:43-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -442,7 +442,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Letra"
 
-#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:234
+#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:235
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, kde-format
 msgctxt "@action:button"
@@ -1361,13 +1361,13 @@ msgstr "Estações de rádio"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
-msgstr ""
+msgstr "Localização inicial da visualização dos arquivos"
 
 #: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr ""
+msgstr "Escolher..."
 
 #: qml/SettingsForm.qml:294 qml/SettingsForm.qml:452
 #, kde-format
@@ -1506,9 +1506,7 @@ msgid "%1%"
 msgstr "%1%"
 
 #: viewmanager.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
 msgstr "Número da faixa"
@@ -1523,13 +1521,13 @@ msgstr "Título"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Ascending"
-msgstr ""
+msgstr "Crescente"
 
 #: viewmanager.cpp:43
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Descending"
-msgstr ""
+msgstr "Decrescente"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98

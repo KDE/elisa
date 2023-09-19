@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-16 01:55+0000\n"
+"POT-Creation-Date: 2023-09-19 01:55+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -528,7 +528,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:234
+#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:235
 #: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
 #, fuzzy, kde-format
 #| msgid "Show Playlist"

@@ -29,116 +29,113 @@ include(ECMQtDeclareLoggingCategory)
 include(ECMGenerateQmlTypes)
 
 set(REQUIRED_QT_VERSION "6.5.0")
-if (ANDROID)
-    set(REQUIRED_QT_VERSION "5.15.10")
-endif()
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent QuickControls2)
+find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent QuickControls2)
 
-find_package(Qt${QT_MAJOR_VERSION}Core ${REQUIRED_QT_VERSION} CONFIG REQUIRED Private)
+find_package(Qt6Core ${REQUIRED_QT_VERSION} CONFIG REQUIRED Private)
 
 
 
 if (NOT WIN32 AND NOT ANDROID)
-    find_package(Qt${QT_MAJOR_VERSION}DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)
-    set_package_properties(Qt${QT_MAJOR_VERSION}DBus PROPERTIES
-        DESCRIPTION "Qt${QT_MAJOR_VERSION} DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace."
+    find_package(Qt6DBus ${REQUIRED_QT_VERSION} CONFIG QUIET)
+    set_package_properties(Qt6DBus PROPERTIES
+        DESCRIPTION "Qt6 DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace."
         TYPE OPTIONAL)
 endif()
 
-if (Qt${QT_MAJOR_VERSION}DBus_FOUND)
+if (Qt6DBus_FOUND)
 set(QtDBus_FOUND 1)
 endif()
 
-find_package(Qt${QT_MAJOR_VERSION}QuickWidgets ${REQUIRED_QT_VERSION} CONFIG QUIET)
-set_package_properties(Qt${QT_MAJOR_VERSION}QuickWidgets PROPERTIES
-    DESCRIPTION "Qt${QT_MAJOR_VERSION} Quick Widgets is needed at runtime to provide the interface."
+find_package(Qt6QuickWidgets ${REQUIRED_QT_VERSION} CONFIG QUIET)
+set_package_properties(Qt6QuickWidgets PROPERTIES
+    DESCRIPTION "Qt6 Quick Widgets is needed at runtime to provide the interface."
     TYPE RUNTIME)
 
-find_package(Qt${QT_MAJOR_VERSION}QuickControls2 ${REQUIRED_QT_VERSION} CONFIG QUIET)
-set_package_properties(Qt${QT_MAJOR_VERSION}QuickControls2 PROPERTIES
-    DESCRIPTION "Qt${QT_MAJOR_VERSION} Quick Controls version 2 is needed at runtime to provide the interface."
+find_package(Qt6QuickControls2 ${REQUIRED_QT_VERSION} CONFIG QUIET)
+set_package_properties(Qt6QuickControls2 PROPERTIES
+    DESCRIPTION "Qt6 Quick Controls version 2 is needed at runtime to provide the interface."
     TYPE RUNTIME)
 
 if (ANDROID)
-    find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)
+    find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)
     set_package_properties(Qt5AndroidExtras PROPERTIES
         DESCRIPTION "Qt5 AndroidExtras is needed to provide the Android integration."
         TYPE REQUIRED)
     set(QtAndroidExtras_FOUND 1)
 endif()
 
-find_package(KF${QT_MAJOR_VERSION}Kirigami2 ${REQUIRED_KF_VERSION} CONFIG QUIET)
+find_package(KF6Kirigami2 ${REQUIRED_KF_VERSION} CONFIG QUIET)
 
-set_package_properties(KF${QT_MAJOR_VERSION}Kirigami2 PROPERTIES
+set_package_properties(KF6Kirigami2 PROPERTIES
     DESCRIPTION "KF Kirigami 2 is needed to provide the mobile UI components."
     TYPE REQUIRED)
 
-find_package(KF${QT_MAJOR_VERSION}I18n ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}I18n PROPERTIES
+find_package(KF6I18n ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6I18n PROPERTIES
     DESCRIPTION "KF text internationalization library."
     TYPE REQUIRED)
 
-find_package(KF${QT_MAJOR_VERSION}CoreAddons ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}CoreAddons PROPERTIES
+find_package(KF6CoreAddons ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6CoreAddons PROPERTIES
     DESCRIPTION "Qt addon library with a collection of non-GUI utilities."
     TYPE REQUIRED)
 
-find_package(KF${QT_MAJOR_VERSION}IconThemes ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}IconThemes PROPERTIES
+find_package(KF6IconThemes ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6IconThemes PROPERTIES
     DESCRIPTION "Support for icon themes."
     TYPE REQUIRED)
 
 if (NOT WIN32)
-find_package(KF${QT_MAJOR_VERSION}Baloo ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}Baloo PROPERTIES
+find_package(KF6Baloo ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6Baloo PROPERTIES
     DESCRIPTION "Baloo provides file searching and indexing."
     TYPE RECOMMENDED)
 endif()
 
-find_package(KF${QT_MAJOR_VERSION}FileMetaData ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}FileMetaData PROPERTIES
+find_package(KF6FileMetaData ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6FileMetaData PROPERTIES
     DESCRIPTION "Provides a simple library for extracting metadata."
     TYPE RECOMMENDED)
 
-find_package(KF${QT_MAJOR_VERSION}DocTools ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}DocTools PROPERTIES
+find_package(KF6DocTools ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6DocTools PROPERTIES
     DESCRIPTION "Create documentation from DocBook library."
     TYPE OPTIONAL)
 
-find_package(KF${QT_MAJOR_VERSION}XmlGui ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}XmlGui PROPERTIES
+find_package(KF6XmlGui ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6XmlGui PROPERTIES
     DESCRIPTION "Framework for managing menu and toolbar actions."
     TYPE RECOMMENDED)
 
-find_package(KF${QT_MAJOR_VERSION}Config ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}Config PROPERTIES
+find_package(KF6Config ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6Config PROPERTIES
     DESCRIPTION "Persistent platform-independent application settings."
     TYPE REQUIRED)
 
-find_package(KF${QT_MAJOR_VERSION}ConfigWidgets ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}ConfigWidgets PROPERTIES
+find_package(KF6ConfigWidgets ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6ConfigWidgets PROPERTIES
     DESCRIPTION "Widgets for configuration dialogs."
     TYPE RECOMMENDED)
 
-find_package(KF${QT_MAJOR_VERSION}Crash ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF${QT_MAJOR_VERSION}Crash PROPERTIES
+find_package(KF6Crash ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6Crash PROPERTIES
     DESCRIPTION "Graceful handling of application crashes."
     TYPE OPTIONAL)
 
 if (NOT WIN32 AND NOT ANDROID)
-    find_package(KF${QT_MAJOR_VERSION}DBusAddons ${REQUIRED_KF_VERSION} CONFIG QUIET)
-    set_package_properties(KF${QT_MAJOR_VERSION}DBusAddons PROPERTIES
+    find_package(KF6DBusAddons ${REQUIRED_KF_VERSION} CONFIG QUIET)
+    set_package_properties(KF6DBusAddons PROPERTIES
         DESCRIPTION "Convenience classes for D-Bus."
         TYPE OPTIONAL)
 endif()
 
 if (NOT ANDROID)
-    find_package(KF${QT_MAJOR_VERSION}KIO ${REQUIRED_KF_VERSION} CONFIG QUIET)
-    set_package_properties(KF${QT_MAJOR_VERSION}KIO PROPERTIES
+    find_package(KF6KIO ${REQUIRED_KF_VERSION} CONFIG QUIET)
+    set_package_properties(KF6KIO PROPERTIES
         DESCRIPTION "File management libraries used for file browsing."
         TYPE REQUIRED)
-    find_package(KF${QT_MAJOR_VERSION}QQC2DesktopStyle ${REQUIRED_KF_VERSION} CONFIG QUIET)
-    set_package_properties(KF${QT_MAJOR_VERSION}QQC2DesktopStyle PROPERTIES
+    find_package(KF6QQC2DesktopStyle ${REQUIRED_KF_VERSION} CONFIG QUIET)
+    set_package_properties(KF6QQC2DesktopStyle PROPERTIES
         DESCRIPTION "KDE QtQuick style for desktop"
         TYPE REQUIRED)
 endif()
@@ -167,13 +164,13 @@ include(ECMGenerateDBusServiceFile)
 include(CMakePackageConfigHelpers)
 include(ECMDeprecationSettings)
 
-set(KFBaloo_FOUND ${KF${QT_MAJOR_VERSION}Baloo_FOUND})
-set(KFXmlGui_FOUND ${KF${QT_MAJOR_VERSION}XmlGui_FOUND})
-set(KFCrash_FOUND ${KF${QT_MAJOR_VERSION}Crash_FOUND})
-set(KFDBusAddons_FOUND ${KF${QT_MAJOR_VERSION}DBusAddons_FOUND})
-set(KFConfigWidgets_FOUND ${KF${QT_MAJOR_VERSION}ConfigWidgets_FOUND})
-set(KFKIO_FOUND ${KF${QT_MAJOR_VERSION}KIO_FOUND})
-set(KFFileMetaData_FOUND ${KF${QT_MAJOR_VERSION}FileMetaData_FOUND})
+set(KFBaloo_FOUND ${KF6Baloo_FOUND})
+set(KFXmlGui_FOUND ${KF6XmlGui_FOUND})
+set(KFCrash_FOUND ${KF6Crash_FOUND})
+set(KFDBusAddons_FOUND ${KF6DBusAddons_FOUND})
+set(KFConfigWidgets_FOUND ${KF6ConfigWidgets_FOUND})
+set(KFKIO_FOUND ${KF6KIO_FOUND})
+set(KFFileMetaData_FOUND ${KF6FileMetaData_FOUND})
 
 configure_file(config-upnp-qt.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-upnp-qt.h)
 
@@ -196,7 +193,7 @@ if (BUILD_TESTING)
 endif()
 add_subdirectory(doc)
 
-if (KF${QT_MAJOR_VERSION}DBusAddons_FOUND)
+if (KF6DBusAddons_FOUND)
     ecm_generate_dbus_service_file(
         NAME org.kde.elisa
         EXECUTABLE ${KDE_INSTALL_FULL_BINDIR}/elisa
@@ -219,7 +216,7 @@ install(
 )
 
 ki18n_install(po)
-if (KF${QT_MAJOR_VERSION}DocTools_FOUND)
+if (KF6DocTools_FOUND)
     kdoctools_install(po)
 endif()
 

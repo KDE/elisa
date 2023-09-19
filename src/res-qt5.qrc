@@ -1,8 +1,0 @@
-<!-- SPDX-FileCopyrightText: 2022 Tobias Fella <fella@posteo.de> -->
-<!-- SPDX-License-Identifier: CC0-1.0 -->
-<RCC>
-    <qresource prefix="/">
-        <file alias="imports/ElisaGraphicalEffects/qmldir">qml/qt5/ElisaGraphicalEffects/qmldir</file>
-        <file alias="imports/ElisaGraphicalEffects/Dummy.qml">qml/qt5/ElisaGraphicalEffects/Dummy.qml</file>
-    </qresource>
-</RCC>

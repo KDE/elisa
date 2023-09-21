@@ -189,7 +189,7 @@ FocusScope {
         anchors.centerIn: parent
         anchors.verticalCenterOffset: Math.round(navigationBar.height / 2)
         width: parent.width - (Kirigami.Units.largeSpacing * 4)
-        active: contentDirectoryView.count === 0 && !busyIndicatorLoader.active
+        active: delegateModel.count === 0 && !busyIndicatorLoader.active
         visible: active && status === Loader.Ready
 
         sourceComponent: Kirigami.PlaceholderMessage {

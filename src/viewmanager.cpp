@@ -209,37 +209,17 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
 
 void ViewManager::openAlbumView(const QString &title, const QString &artist, qulonglong databaseId, const QUrl &albumCoverUrl)
 {
-    if (d->mViewsListData->embeddedCategory() == ElisaUtils::Album) {
-        auto index = d->mViewsListData->indexFromEmbeddedDatabaseId(databaseId);
-
-        if (index == -1) {
-            return;
-        }
-
-        openView(index);
-    } else {
-        openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Album},
-                       {DataTypes::DatabaseIdRole, databaseId},
-                       {DataTypes::TitleRole, title},
-                       {DataTypes::ArtistRole, artist},
-                       {DataTypes::ImageUrlRole, albumCoverUrl},});
-    }
+    openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Album},
+                   {DataTypes::DatabaseIdRole, databaseId},
+                   {DataTypes::TitleRole, title},
+                   {DataTypes::ArtistRole, artist},
+                   {DataTypes::ImageUrlRole, albumCoverUrl},});
 }
 
 void ViewManager::openArtistView(const QString &artist)
 {
-    if (d->mViewsListData->embeddedCategory() == ElisaUtils::Artist) {
-        auto index = d->mViewsListData->indexFromEmbeddedName(artist);
-
-        if (index == -1) {
-            return;
-        }
-
-        openView(index);
-    } else {
-        openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Artist},
-                       {DataTypes::TitleRole, artist},});
-    }
+    openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Artist},
+                   {DataTypes::TitleRole, artist},});
 }
 
 void ViewManager::openNowPlaying()

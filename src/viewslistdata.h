@@ -310,10 +310,6 @@ public:
 
     [[nodiscard]] bool defaultEntry(int index) const;
 
-    [[nodiscard]] int indexFromEmbeddedDatabaseId(qulonglong databaseId) const;
-
-    [[nodiscard]] int indexFromEmbeddedName(const QString &name) const;
-
     [[nodiscard]] ElisaUtils::PlayListEntryType embeddedCategory() const;
 
     [[nodiscard]] MusicListenersManager* manager() const;

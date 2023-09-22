@@ -351,10 +351,10 @@ MediaPlayListProxyModel::Repeat MediaPlayListProxyModel::repeatMode() const
 void MediaPlayListProxyModel::setShufflePlayList(const bool value)
 {
     if (d->mShufflePlayList != value) {
-        Q_EMIT layoutAboutToBeChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
         auto playListSize = d->mPlayListModel->rowCount();
 
         if (playListSize != 0) {
+            Q_EMIT layoutAboutToBeChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
             if (value) {
                 d->mRandomMapping.clear();
                 d->mRandomMapping.reserve(playListSize);

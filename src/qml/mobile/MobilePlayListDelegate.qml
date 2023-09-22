@@ -21,7 +21,7 @@ BasePlayListDelegate {
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
 
-    alternatingBackground: true
+    Kirigami.Theme.useAlternateBackgroundColor: true
     padding: 0
 
     Keys.onReturnPressed: {

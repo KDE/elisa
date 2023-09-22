@@ -50,8 +50,10 @@ BasePlayListDelegate {
     bottomPadding: grouped ? 0 : Kirigami.Units.smallSpacing
     leftPadding: mirrored ? Kirigami.Units.smallSpacing : 0
     rightPadding: mirrored ? 0 : Kirigami.Units.smallSpacing
-    alternatingBackground: false
-    separatorVisible: false
+
+    // Set this explicitly since we rely on it; we don't want the theme setting
+    // it to false under us!
+    hoverEnabled: true
 
     onHasActiveFocusChanged: {
         if (!hasActiveFocus) {
@@ -304,7 +306,7 @@ BasePlayListDelegate {
                 readOnly: !playListEntry.editingRating
                 starRating: rating
 
-                visible: (playListEntry.editingRating || (rating > 0 && !containsMouse && !playListEntry.hasActiveFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode
+                visible: (playListEntry.editingRating || (rating > 0 && !playListEntry.hovered && !playListEntry.hasActiveFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode
 
                 onRatingEdited: {
                     ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, starRating);
@@ -315,7 +317,7 @@ BasePlayListDelegate {
             Loader {
                 id: favoriteMark
 
-                visible: playListEntry.isFavorite && !containsMouse && !playListEntry.hasActiveFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
+                visible: playListEntry.isFavorite && !playListEntry.hovered && !playListEntry.hasActiveFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
 
                 sourceComponent: FlatButtonWithToolTip {
                     visible: action.visible
@@ -392,7 +394,7 @@ BasePlayListDelegate {
             },
             State {
                 name: 'hovered'
-                when: containsMouse && !playListEntry.hasActiveFocus && !simpleMode
+                when: playListEntry.hovered && !playListEntry.hasActiveFocus && !simpleMode
                 PropertyChanges {
                     target: buttonRowLoader
                     active: playListEntry.wideMode

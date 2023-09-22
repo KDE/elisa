@@ -42,16 +42,12 @@ ScrollView {
         keyNavigationEnabled: true
         interactive: true
 
-        delegate: Kirigami.BasicListItem {
-            separatorVisible: false
+        delegate: ItemDelegate {
+            width: viewModeView.width
 
             icon.source: model.image
-            label: model.display
+            text: model.display
             highlighted: ListView.isCurrentItem
-
-            ToolTip.visible: labelItem.truncated && hovered
-            ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-            ToolTip.text: model.display
 
             onClicked: {
                 switchView(index)

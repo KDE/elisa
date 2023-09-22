@@ -14,7 +14,7 @@ import org.kde.elisa 1.0
 
 import QtQuick 2.0
 
-Kirigami.ListSectionHeader {
+Rectangle {
     property var headerData
     property string album: headerData[0]
     property string albumArtist: headerData[1]
@@ -22,15 +22,20 @@ Kirigami.ListSectionHeader {
 
     property bool simpleMode: false
 
-    // keep section's elements aligned with playlistEntry's ones
-    leftPadding: 0
+    implicitHeight: contentLayout.height + contentLayout.anchors.topMargin * 2
 
-    backgroundColor: simpleMode ? "transparent" : Kirigami.Theme.backgroundColor
+    color: simpleMode ? "transparent" : myPalette.window
 
-    contentItem: RowLayout {
+    RowLayout {
         id: contentLayout
 
-        width: parent.width
+        anchors {
+            top: parent.top
+            topMargin: Kirigami.Units.smallSpacing
+            left: parent.left
+            right: parent.right
+        }
+
         spacing: Kirigami.Units.smallSpacing
 
         // keep section's elements aligned with playlistEntry's ones

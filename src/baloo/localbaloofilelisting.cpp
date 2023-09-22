@@ -118,6 +118,14 @@ QList<QString> filterParentPaths(const QString &child, const QList<QString> &pat
     return parents;
 }
 
+// Assumes all of `paths` are either parents or children of each other
+// E.g. deepestPath({"/path/to/my/files", "/path/to/my"}) == "/path/to/my/files"
+QString deepestPath(const QList<QString> &paths)
+{
+    const auto op = [](const QString &acc, const QString &path) {return isSubPath(acc, path) ? acc : path;};
+    return std::reduce(++paths.cbegin(), paths.cend(), paths.first(), op);
+}
+
 bool canHandlePath(const QString &path, const QList<QString> &includePaths, const QList<QString> &excludePaths)
 {
     const auto parentIncludePaths = filterParentPaths(path, includePaths);
@@ -128,7 +136,10 @@ bool canHandlePath(const QString &path, const QList<QString> &includePaths, cons
     if (parentExcludePaths.isEmpty()) {
         return true;
     }
-    return false;
+
+    const auto closestIncludePath = deepestPath(parentIncludePaths);
+    const auto closestExcludePath = deepestPath(parentExcludePaths);
+    return isSubPath(closestIncludePath, closestExcludePath);
 }
 
 bool LocalBalooFileListing::canHandleRootPaths() const

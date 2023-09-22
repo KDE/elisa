@@ -103,40 +103,37 @@ void LocalBalooFileListing::applicationAboutToQuit()
     d->mStopRequest = 1;
 }
 
+bool isSubPath(const QString &subPath, const QString &parentPath)
+{
+    const auto parentUrl = QUrl::fromLocalFile(parentPath);
+    const auto childUrl = QUrl::fromLocalFile(subPath);
+    return parentUrl == childUrl || parentUrl.isParentOf(childUrl);
+}
+
 bool LocalBalooFileListing::canHandleRootPaths() const
 {
-    Baloo::IndexerConfig balooConfiguration;
-
-    auto balooIncludedFolders = balooConfiguration.includeFolders();
-    auto balooExcludedFolders = balooConfiguration.excludeFolders();
+    const Baloo::IndexerConfig balooConfiguration;
+    const auto includePaths = balooConfiguration.includeFolders();
+    const auto excludePaths = balooConfiguration.excludeFolders();
 
     for (const auto &onePath : allRootPaths()) {
-        auto onePathInfo = QFileInfo{onePath};
-        auto onePathCanonicalPath = onePathInfo.canonicalFilePath();
+        auto canHandleCurrentPath = false;
 
-        auto includedPath = false;
-
-        for (const auto &balooIncludedPath : balooIncludedFolders) {
-            auto balooIncludedPathInfo = QFileInfo{balooIncludedPath};
-            auto balooIncludedCanonicalPath = balooIncludedPathInfo.canonicalFilePath();
-
-            if (onePathCanonicalPath.startsWith(balooIncludedCanonicalPath)) {
-                includedPath = true;
+        for (const auto &includePath : includePaths) {
+            if (isSubPath(onePath, includePath)) {
+                canHandleCurrentPath = true;
                 break;
             }
         }
 
-        for (const auto &balooExcludedPath : balooExcludedFolders) {
-            auto balooExcludedPathInfo = QFileInfo{balooExcludedPath};
-            auto balooExcludedCanonicalPath = balooExcludedPathInfo.canonicalFilePath();
-
-            if (onePathCanonicalPath.startsWith(balooExcludedCanonicalPath)) {
-                includedPath = false;
+        for (const auto &excludePath : excludePaths) {
+            if (isSubPath(onePath, excludePath)) {
+                canHandleCurrentPath = false;
                 break;
             }
         }
 
-        if (!includedPath) {
+        if (!canHandleCurrentPath) {
             return false;
         }
     }

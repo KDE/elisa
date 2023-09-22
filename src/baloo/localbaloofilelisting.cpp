@@ -110,25 +110,25 @@ bool isSubPath(const QString &subPath, const QString &parentPath)
     return parentUrl == childUrl || parentUrl.isParentOf(childUrl);
 }
 
+QList<QString> filterParentPaths(const QString &child, const QList<QString> &paths)
+{
+    const auto predicate = [&child](const QString &path) {return isSubPath(child, path);};
+    QList<QString> parents;
+    std::copy_if(paths.cbegin(), paths.cend(), std::back_inserter(parents), predicate);
+    return parents;
+}
+
 bool canHandlePath(const QString &path, const QList<QString> &includePaths, const QList<QString> &excludePaths)
 {
-    bool canHandle = false;
-
-    for (const auto &includePath : includePaths) {
-        if (isSubPath(path, includePath)) {
-            canHandle = true;
-            break;
-        }
+    const auto parentIncludePaths = filterParentPaths(path, includePaths);
+    if (parentIncludePaths.isEmpty()) {
+        return false;
     }
-
-    for (const auto &excludePath : excludePaths) {
-        if (isSubPath(path, excludePath)) {
-            canHandle = false;
-            break;
-        }
+    const auto parentExcludePaths = filterParentPaths(path, excludePaths);
+    if (parentExcludePaths.isEmpty()) {
+        return true;
     }
-
-    return canHandle;
+    return false;
 }
 
 bool LocalBalooFileListing::canHandleRootPaths() const

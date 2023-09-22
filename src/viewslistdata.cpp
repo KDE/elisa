@@ -213,6 +213,11 @@ bool ViewsListData::defaultEntry(int index) const
     return d->mEmbeddedCategory == ElisaUtils::Unknown || d->mViewsParameters[index].mEntryType != d->mEmbeddedCategory;
 }
 
+ElisaUtils::PlayListEntryType ViewsListData::dataType(int index) const
+{
+    return d->mViewsParameters[index].mDataType;
+}
+
 ElisaUtils::PlayListEntryType ViewsListData::embeddedCategory() const
 {
     return d->mEmbeddedCategory;
@@ -471,108 +476,12 @@ void ViewsListData::refreshEmbeddedCategory()
         break;
     }
 
-    auto categoryToRemove = ElisaUtils::Unknown;
-
-    switch (d->mEmbeddedCategory)
-    {
-    case ElisaUtils::Album:
-    case ElisaUtils::Genre:
-    case ElisaUtils::Artist:
-        categoryToRemove = d->mEmbeddedCategory;
-        for (int i = 0; i < d->mViewsParameters.size(); ) {
-            if (d->mViewsParameters.at(i).mDataType == categoryToRemove) {
-                Q_EMIT dataAboutToBeRemoved(i, i);
-                d->mViewsParameters.removeAt(i);
-                Q_EMIT dataRemoved();
-            } else {
-                ++i;
-            }
-        }
-        break;
-    case ElisaUtils::Radio:
-    case ElisaUtils::Track:
-    case ElisaUtils::Unknown:
-    case ElisaUtils::Composer:
-    case ElisaUtils::FileName:
-    case ElisaUtils::Lyricist:
-    case ElisaUtils::Container:
-    case ElisaUtils::PlayList:
-        break;
-    }
-
     switch (d->mEmbeddedCategory)
     {
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
     case ElisaUtils::Genre:
         Q_EMIT needData(d->mEmbeddedCategory);
-        break;
-    case ElisaUtils::Radio:
-    case ElisaUtils::Track:
-    case ElisaUtils::Unknown:
-    case ElisaUtils::Composer:
-    case ElisaUtils::FileName:
-    case ElisaUtils::Lyricist:
-    case ElisaUtils::Container:
-    case ElisaUtils::PlayList:
-        break;
-    }
-
-    switch (d->mOldEmbeddedCategory)
-    {
-    case ElisaUtils::Album:
-        Q_EMIT dataAboutToBeAdded(3, 3);
-        d->mViewsParameters.insert(3, {{i18nc("@title:window Title of the view of all albums", "Albums")},
-                                       QUrl{QStringLiteral("image://icon/view-media-album-cover")},
-                                       ViewManager::GridView,
-                                       ViewManager::GenericDataModel,
-                                       ElisaUtils::NoFilter,
-                                       ElisaUtils::Album,
-                                       Qt::DisplayRole,
-                                       {DataTypes::TitleRole, DataTypes::ArtistRole, DataTypes::GenreRole, DataTypes::YearRole},
-                                       {i18nc("@title:menu", "Title"), i18nc("@title:menu", "Artist"), i18nc("@title:menu", "Genre"), i18nc("@title:menu", "Year")},
-                                       Qt::AscendingOrder,
-                                       {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
-                                       QUrl{QStringLiteral("image://icon/media-default-album")},
-                                       ViewManager::DelegateWithSecondaryText,
-                                       ViewManager::ViewShowRating});
-        Q_EMIT dataAdded();
-        break;
-    case ElisaUtils::Artist:
-        Q_EMIT dataAboutToBeAdded(4, 4);
-        d->mViewsParameters.insert(4, {{i18nc("@title:window Title of the view of all artists", "Artists")},
-                                       QUrl{QStringLiteral("image://icon/view-media-artist")},
-                                       ViewManager::GridView,
-                                       ViewManager::GenericDataModel,
-                                       ElisaUtils::NoFilter,
-                                       ElisaUtils::Artist,
-                                       Qt::DisplayRole,
-                                       {Qt::DisplayRole},
-                                       {i18nc("@title:menu", "Name")},
-                                       Qt::AscendingOrder,
-                                       {QStringLiteral("A-Z"), QStringLiteral("Z-A")},
-                                       QUrl{QStringLiteral("image://icon/view-media-artist")},
-                                       ViewManager::DelegateWithoutSecondaryText,
-                                       ViewManager::ViewHideRating});
-        Q_EMIT dataAdded();
-        break;
-    case ElisaUtils::Genre:
-        Q_EMIT dataAboutToBeAdded(6, 6);
-        d->mViewsParameters.insert(6, {{i18nc("@title:window Title of the view of all genres", "Genres")},
-                                       QUrl{QStringLiteral("image://icon/view-media-genre")},
-                                       ViewManager::GridView,
-                                       ViewManager::GenericDataModel,
-                                       ElisaUtils::NoFilter,
-                                       ElisaUtils::Genre,
-                                       Qt::DisplayRole,
-                                       {Qt::DisplayRole},
-                                       {i18nc("@title:menu", "Genre")},
-                                       Qt::AscendingOrder,
-                                       {QStringLiteral("A-Z"), QStringLiteral("Z-A")},
-                                       QUrl{QStringLiteral("image://icon/view-media-genre")},
-                                       ViewManager::DelegateWithoutSecondaryText,
-                                       ViewManager::ViewHideRating});
-        Q_EMIT dataAdded();
         break;
     case ElisaUtils::Radio:
     case ElisaUtils::Track:

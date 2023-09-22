@@ -121,7 +121,9 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
                 break;
             }
         }
-
+        break;
+    case DataTypeRole:
+        result = d->mViewsData->dataType(index.row());
         break;
     }
 

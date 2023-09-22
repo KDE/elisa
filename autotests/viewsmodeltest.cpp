@@ -81,21 +81,23 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Genre);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Genre);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1 + 4);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 4);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 4);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Unknown);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Unknown);
 
-        QCOMPARE(beginInsertRowsSpy.count(), 2);
-        QCOMPARE(endInsertRowsSpy.count(), 2);
-        QCOMPARE(beginRemoveRowsSpy.count(), 5);
-        QCOMPARE(endRemoveRowsSpy.count(), 5);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 4);
+        QCOMPARE(endRemoveRowsSpy.count(), 4);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
@@ -132,23 +134,24 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Genre);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Genre);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 4);
         QCOMPARE(endInsertRowsSpy.count(), 4);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1 + 4);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 4);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 4);
 
         auto newTracks = DataTypes::ListTrackDataType{
@@ -180,10 +183,10 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 7);
         QCOMPARE(endInsertRowsSpy.count(), 7);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1 + 7);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 7);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 7);
 
         const auto newTrack = DataTypes::TrackDataType {
@@ -200,10 +203,10 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 8);
         QCOMPARE(endInsertRowsSpy.count(), 8);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1 + 8);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 8);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 8);
 
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
@@ -224,11 +227,12 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(15, 0), Qt::DisplayRole), QStringLiteral("genre7"));
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Unknown);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Unknown);
 
-        QCOMPARE(beginInsertRowsSpy.count(), 9);
-        QCOMPARE(endInsertRowsSpy.count(), 9);
-        QCOMPARE(beginRemoveRowsSpy.count(), 9);
-        QCOMPARE(endRemoveRowsSpy.count(), 9);
+        QCOMPARE(beginInsertRowsSpy.count(), 8);
+        QCOMPARE(endInsertRowsSpy.count(), 8);
+        QCOMPARE(beginRemoveRowsSpy.count(),8);
+        QCOMPARE(endRemoveRowsSpy.count(), 8);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
@@ -265,23 +269,24 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Album);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Album);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1 + 5);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 5);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 5);
 
         auto newTracks = DataTypes::ListTrackDataType{
@@ -313,10 +318,10 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1 + 8);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 8);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 8);
 
         musicDb.removeTracksList({{QUrl::fromLocalFile(QStringLiteral("/test/$23"))},
@@ -325,18 +330,19 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
-        QCOMPARE(beginRemoveRowsSpy.count(), 4);
-        QCOMPARE(endRemoveRowsSpy.count(), 4);
+        QCOMPARE(beginRemoveRowsSpy.count(), 3);
+        QCOMPARE(endRemoveRowsSpy.count(), 3);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1 + 5);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 5);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 5);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Unknown);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Unknown);
 
-        QCOMPARE(beginInsertRowsSpy.count(), 3);
-        QCOMPARE(endInsertRowsSpy.count(), 3);
-        QCOMPARE(beginRemoveRowsSpy.count(), 9);
-        QCOMPARE(endRemoveRowsSpy.count(), 9);
+        QCOMPARE(beginInsertRowsSpy.count(), 2);
+        QCOMPARE(endInsertRowsSpy.count(), 2);
+        QCOMPARE(beginRemoveRowsSpy.count(), 8);
+        QCOMPARE(endRemoveRowsSpy.count(), 8);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
@@ -373,23 +379,24 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Album);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Album);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Artists"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Artists"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedArtistCategory()
@@ -423,23 +430,24 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Artist);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Artist);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedGenreCategory()
@@ -473,23 +481,24 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Genre);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Genre);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedAlbumCategoryWithoutDatabase()
@@ -518,23 +527,24 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Album);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Album);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Artists"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Artists"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedArtistCategoryWithoutDatabase()
@@ -563,23 +573,24 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Artist);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Artist);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void simpleSwitchToEmbeddedGenreCategoryWithoutDatabase()
@@ -608,23 +619,24 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Genre);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Genre);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 
     void switchToEmbeddedAlbumCategoryAndToEmbeddedArtistCategory()
@@ -667,91 +679,94 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Genres"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Genres"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Album);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Album);
 
         beginInsertRowsSpy.wait(100);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
-        QCOMPARE(beginRemoveRowsSpy.count(), 1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 0);
+        QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1 + 5);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 5);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 5);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Artists"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
-        QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("album1"));
-        QCOMPARE(viewsModel.data(viewsModel.index(9, 0), Qt::DisplayRole), QStringLiteral("album2"));
-        QCOMPARE(viewsModel.data(viewsModel.index(10, 0), Qt::DisplayRole), QStringLiteral("album3"));
-        QCOMPARE(viewsModel.data(viewsModel.index(11, 0), Qt::DisplayRole), QStringLiteral("album3"));
-        QCOMPARE(viewsModel.data(viewsModel.index(12, 0), Qt::DisplayRole), QStringLiteral("album4"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Artists"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("album1"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(9, 0), Qt::DisplayRole), QStringLiteral("album2"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(10, 0), Qt::DisplayRole), QStringLiteral("album3"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(11, 0), Qt::DisplayRole), QStringLiteral("album3"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(12, 0), Qt::DisplayRole), QStringLiteral("album4"));
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Artist);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Artist);
 
         beginInsertRowsSpy.wait(100);
 
-        QCOMPARE(beginInsertRowsSpy.count(), 3);
-        QCOMPARE(endInsertRowsSpy.count(), 3);
-        QCOMPARE(beginRemoveRowsSpy.count(), 7);
-        QCOMPARE(endRemoveRowsSpy.count(), 7);
+        QCOMPARE(beginInsertRowsSpy.count(), 2);
+        QCOMPARE(endInsertRowsSpy.count(), 2);
+        QCOMPARE(beginRemoveRowsSpy.count(), 5);
+        QCOMPARE(endRemoveRowsSpy.count(), 5);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews - 1 + 7);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 7);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 7);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
-        QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("artist1"));
-        QCOMPARE(viewsModel.data(viewsModel.index(9, 0), Qt::DisplayRole), QStringLiteral("artist1 and artist2"));
-        QCOMPARE(viewsModel.data(viewsModel.index(10, 0), Qt::DisplayRole), QStringLiteral("artist2"));
-        QCOMPARE(viewsModel.data(viewsModel.index(11, 0), Qt::DisplayRole), QStringLiteral("artist3"));
-        QCOMPARE(viewsModel.data(viewsModel.index(12, 0), Qt::DisplayRole), QStringLiteral("artist4"));
-        QCOMPARE(viewsModel.data(viewsModel.index(13, 0), Qt::DisplayRole), QStringLiteral("artist7"));
-        QCOMPARE(viewsModel.data(viewsModel.index(14, 0), Qt::DisplayRole), QStringLiteral("Various Artists"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Genres"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("artist1"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(9, 0), Qt::DisplayRole), QStringLiteral("artist1 and artist2"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(10, 0), Qt::DisplayRole), QStringLiteral("artist2"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(11, 0), Qt::DisplayRole), QStringLiteral("artist3"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(12, 0), Qt::DisplayRole), QStringLiteral("artist4"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(13, 0), Qt::DisplayRole), QStringLiteral("artist7"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(14, 0), Qt::DisplayRole), QStringLiteral("Various Artists"));
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Unknown);
+        viewsProxyModel.setEmbeddedCategory(ElisaUtils::Unknown);
 
         beginInsertRowsSpy.wait(100);
 
-        QCOMPARE(beginInsertRowsSpy.count(), 4);
-        QCOMPARE(endInsertRowsSpy.count(), 4);
-        QCOMPARE(beginRemoveRowsSpy.count(), 14);
-        QCOMPARE(endRemoveRowsSpy.count(), 14);
+        QCOMPARE(beginInsertRowsSpy.count(), 2);
+        QCOMPARE(endInsertRowsSpy.count(), 2);
+        QCOMPARE(beginRemoveRowsSpy.count(), 12);
+        QCOMPARE(endRemoveRowsSpy.count(), 12);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
-        QCOMPARE(viewsModel.data(viewsModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
-        QCOMPARE(viewsModel.data(viewsModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
-        QCOMPARE(viewsModel.data(viewsModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
-        QCOMPARE(viewsModel.data(viewsModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
-        QCOMPARE(viewsModel.data(viewsModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
-        QCOMPARE(viewsModel.data(viewsModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Genres"));
-        QCOMPARE(viewsModel.data(viewsModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Files"));
-        QCOMPARE(viewsModel.data(viewsModel.index(8, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(2, 0), Qt::DisplayRole), QStringLiteral("Frequently Played"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(3, 0), Qt::DisplayRole), QStringLiteral("Albums"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(4, 0), Qt::DisplayRole), QStringLiteral("Artists"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(5, 0), Qt::DisplayRole), QStringLiteral("Tracks"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(6, 0), Qt::DisplayRole), QStringLiteral("Genres"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(7, 0), Qt::DisplayRole), QStringLiteral("Files"));
+        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(8, 0), Qt::DisplayRole), QStringLiteral("Radio Stations"));
     }
 };
 

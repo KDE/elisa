@@ -33,6 +33,7 @@ public:
         DatabaseIdRole,
         EntryTypeRole,
         EntryCategoryRole,
+        DataTypeRole,
     };
 
     explicit ViewsModel(QObject *parent = nullptr);

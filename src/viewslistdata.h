@@ -310,6 +310,8 @@ public:
 
     [[nodiscard]] bool defaultEntry(int index) const;
 
+    [[nodiscard]] ElisaUtils::PlayListEntryType dataType(int index) const;
+
     [[nodiscard]] ElisaUtils::PlayListEntryType embeddedCategory() const;
 
     [[nodiscard]] MusicListenersManager* manager() const;

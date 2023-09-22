@@ -132,6 +132,7 @@ RowLayout {
         id: pageProxyModel
 
         sourceModel: pageModel
+        embeddedCategory: ElisaApplication.embeddedView
     }
 
     ViewsListData {

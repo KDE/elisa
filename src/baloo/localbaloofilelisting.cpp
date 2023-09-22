@@ -110,34 +110,38 @@ bool isSubPath(const QString &subPath, const QString &parentPath)
     return parentUrl == childUrl || parentUrl.isParentOf(childUrl);
 }
 
+bool canHandlePath(const QString &path, const QList<QString> &includePaths, const QList<QString> &excludePaths)
+{
+    bool canHandle = false;
+
+    for (const auto &includePath : includePaths) {
+        if (isSubPath(path, includePath)) {
+            canHandle = true;
+            break;
+        }
+    }
+
+    for (const auto &excludePath : excludePaths) {
+        if (isSubPath(path, excludePath)) {
+            canHandle = false;
+            break;
+        }
+    }
+
+    return canHandle;
+}
+
 bool LocalBalooFileListing::canHandleRootPaths() const
 {
     const Baloo::IndexerConfig balooConfiguration;
     const auto includePaths = balooConfiguration.includeFolders();
     const auto excludePaths = balooConfiguration.excludeFolders();
 
-    for (const auto &onePath : allRootPaths()) {
-        auto canHandleCurrentPath = false;
-
-        for (const auto &includePath : includePaths) {
-            if (isSubPath(onePath, includePath)) {
-                canHandleCurrentPath = true;
-                break;
-            }
+    return std::all_of(allRootPaths().cbegin(), allRootPaths().cend(),
+        [&includePaths, &excludePaths](const auto &path) {
+            return canHandlePath(path, includePaths, excludePaths);
         }
-
-        for (const auto &excludePath : excludePaths) {
-            if (isSubPath(onePath, excludePath)) {
-                canHandleCurrentPath = false;
-                break;
-            }
-        }
-
-        if (!canHandleCurrentPath) {
-            return false;
-        }
-    }
-    return true;
+    );
 }
 
 void LocalBalooFileListing::newBalooFile(const QString &fileName)

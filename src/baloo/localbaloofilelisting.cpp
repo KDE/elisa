@@ -118,6 +118,14 @@ QList<QString> filterParentPaths(const QString &child, const QList<QString> &pat
     return parents;
 }
 
+QList<QString> filterChildPaths(const QString &parent, const QList<QString> &paths)
+{
+    const auto predicate = [&parent](const QString &path) {return isSubPath(path, parent);};
+    QList<QString> children;
+    std::copy_if(paths.cbegin(), paths.cend(), std::back_inserter(children), predicate);
+    return children;
+}
+
 // Assumes all of `paths` are either parents or children of each other
 // E.g. deepestPath({"/path/to/my/files", "/path/to/my"}) == "/path/to/my/files"
 QString deepestPath(const QList<QString> &paths)
@@ -130,6 +138,11 @@ bool canHandlePath(const QString &path, const QList<QString> &includePaths, cons
 {
     const auto parentIncludePaths = filterParentPaths(path, includePaths);
     if (parentIncludePaths.isEmpty()) {
+        return false;
+    }
+    // E.g. we want to scan `/home/music` but the path `/home/music/album` is excluded
+    const auto childExcludePaths = filterChildPaths(path, excludePaths);
+    if (!childExcludePaths.isEmpty()) {
         return false;
     }
     const auto parentExcludePaths = filterParentPaths(path, excludePaths);

@@ -101,7 +101,7 @@ as Authors, publish date, the abstract, and Keywords -->
 <para
 >En el cas que s'activi el suport de Baloo i la vostra configuració no funcioni, es mostrarà una notificació que permetrà desactivar l'indexador o activar l'indexador Baloo i alimentar l'&elisa; amb pistes de música. </para>
 <para
->En el cas que l'indexador de fitxers no trobi res, es mostrarà una notificació amb un botó per obrir la interfície de configuració. </para>
+>En el cas que l'indexador de fitxers no trobi res, es mostrarà una notificació amb un botó per a obrir la interfície de configuració. </para>
 
 <para
 >Podeu trobar una llista de canvis al <ulink url="https://phabricator.kde.org/project/profile/193/"
@@ -120,7 +120,7 @@ as Authors, publish date, the abstract, and Keywords -->
 >Característiques de l'&elisa;</title>
 
 <para
->L'&elisa; proporciona dues tasques diferents: navegar per la vostra música per crear una llista de reproducció i reproduir la música. </para>
+>L'&elisa; proporciona dues tasques diferents: navegar per la vostra música per a crear una llista de reproducció i reproduir la música. </para>
 
 <sect2>
 <title
@@ -128,7 +128,7 @@ as Authors, publish date, the abstract, and Keywords -->
 <para
 >Des de les diferents fonts de música, recopila tota la vostra música i analitza les seves metadades tals com el seu títol, artista... Ofereix quatre maneres de navegar per la vostra música: una llista de tots els àlbums, una llista de tots els artistes, una llista de totes les pistes o una llista de tots els gèneres. </para>
 <para
->Cada mètode utilitza una vista de tota la vostra música juntament amb un filtre per permetre trobar ràpidament el que cerqueu. També podeu filtrar per puntuació. </para>
+>Cada mètode utilitza una vista de tota la vostra música juntament amb un filtre per a permetre trobar ràpidament el que cerqueu. També podeu filtrar per puntuació. </para>
 <para
 >El filtre de la vista de tots els àlbums s'implementa sobre el títol o l'artista dels àlbums o sobre la llista dels artistes de cada tema d'un àlbum. El filtre de la vista de tots els artistes s'implementa sobre el nom dels artistes. El filtre de la vista de totes les pistes s'implementa sobre el títol de la pista, l'artista de la pista i el nom de l'àlbum de la pista (si n'hi ha). </para>
 <para

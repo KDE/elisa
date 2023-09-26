@@ -141,13 +141,13 @@ public:
                                                ViewManager::NoDiscHeaders,
                                                ViewManager::IsRadio}};
 
+    const int mNumOfBaseViews = mViewsParameters.count();
+
     QMap<ElisaUtils::PlayListEntryType, QUrl> mDefaultIcons = {{ElisaUtils::Album, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
                                                                {ElisaUtils::Artist, QUrl{QStringLiteral("image://icon/view-media-artist")}},
                                                                {ElisaUtils::Genre, QUrl{QStringLiteral("image://icon/view-media-genre")}},};
 
     ElisaUtils::PlayListEntryType mEmbeddedCategory = ElisaUtils::Unknown;
-
-    ElisaUtils::PlayListEntryType mOldEmbeddedCategory = ElisaUtils::Unknown;
 
     ModelDataLoader *mDataLoader = nullptr;
 
@@ -225,9 +225,7 @@ ElisaUtils::PlayListEntryType ViewsListData::embeddedCategory() const
 
 void ViewsListData::setEmbeddedCategory(ElisaUtils::PlayListEntryType aEmbeddedView)
 {
-    if (d->mEmbeddedCategory != aEmbeddedView)
-    {
-        d->mOldEmbeddedCategory = d->mEmbeddedCategory;
+    if (d->mEmbeddedCategory != aEmbeddedView) {
         d->mEmbeddedCategory = aEmbeddedView;
 
         Q_EMIT embeddedCategoryChanged();
@@ -414,67 +412,26 @@ void ViewsListData::albumModified(const DataTypes::AlbumDataType &modifiedAlbum)
     }
 }
 
+void ViewsListData::clearEmbeddedItems()
+{
+    if (d->mViewsParameters.count() > d->mNumOfBaseViews) {
+        const int startIndex = d->mNumOfBaseViews;
+        const int numToRemove = d->mViewsParameters.count() - startIndex;
+        Q_EMIT dataAboutToBeRemoved(startIndex, d->mViewsParameters.count() - 1);
+        d->mViewsParameters.remove(startIndex, numToRemove);
+        Q_EMIT dataRemoved();
+    }
+}
+
 void ViewsListData::cleanedDatabase()
 {
     qCDebug(orgKdeElisaViews) << "ViewsListData::cleanedDatabase" << d->mEmbeddedCategory;
-
-    switch (d->mEmbeddedCategory)
-    {
-    case ElisaUtils::Album:
-    case ElisaUtils::Genre:
-    case ElisaUtils::Artist:
-        Q_EMIT dataAboutToBeReset();
-        for (int i = 0; i < d->mViewsParameters.size(); ) {
-            if (d->mViewsParameters.at(i).mEntryType == d->mEmbeddedCategory) {
-                d->mViewsParameters.removeAt(i);
-            } else {
-                ++i;
-            }
-        }
-        Q_EMIT dataReset();
-        break;
-    case ElisaUtils::Radio:
-    case ElisaUtils::Track:
-    case ElisaUtils::Unknown:
-    case ElisaUtils::Composer:
-    case ElisaUtils::FileName:
-    case ElisaUtils::Lyricist:
-    case ElisaUtils::Container:
-    case ElisaUtils::PlayList:
-        break;
-    }
+    clearEmbeddedItems();
 }
 
 void ViewsListData::refreshEmbeddedCategory()
 {
-    auto elementsCategoryToRemove = ElisaUtils::Unknown;
-
-    switch (d->mOldEmbeddedCategory)
-    {
-    case ElisaUtils::Album:
-    case ElisaUtils::Artist:
-    case ElisaUtils::Genre:
-        elementsCategoryToRemove = d->mOldEmbeddedCategory;
-        for (int i = 0; i < d->mViewsParameters.size(); ) {
-            if (d->mViewsParameters.at(i).mEntryType == elementsCategoryToRemove) {
-                Q_EMIT dataAboutToBeRemoved(i, i);
-                d->mViewsParameters.removeAt(i);
-                Q_EMIT dataRemoved();
-            } else {
-                ++i;
-            }
-        }
-        break;
-    case ElisaUtils::Radio:
-    case ElisaUtils::Track:
-    case ElisaUtils::Unknown:
-    case ElisaUtils::Composer:
-    case ElisaUtils::FileName:
-    case ElisaUtils::Lyricist:
-    case ElisaUtils::Container:
-    case ElisaUtils::PlayList:
-        break;
-    }
+    clearEmbeddedItems();
 
     switch (d->mEmbeddedCategory)
     {

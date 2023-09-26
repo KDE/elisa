@@ -96,8 +96,8 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
-        QCOMPARE(beginRemoveRowsSpy.count(), 4);
-        QCOMPARE(endRemoveRowsSpy.count(), 4);
+        QCOMPARE(beginRemoveRowsSpy.count(), 1);
+        QCOMPARE(endRemoveRowsSpy.count(), 1);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
@@ -231,8 +231,8 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 8);
         QCOMPARE(endInsertRowsSpy.count(), 8);
-        QCOMPARE(beginRemoveRowsSpy.count(),8);
-        QCOMPARE(endRemoveRowsSpy.count(), 8);
+        QCOMPARE(beginRemoveRowsSpy.count(),1);
+        QCOMPARE(endRemoveRowsSpy.count(), 1);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
@@ -341,8 +341,8 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
-        QCOMPARE(beginRemoveRowsSpy.count(), 8);
-        QCOMPARE(endRemoveRowsSpy.count(), 8);
+        QCOMPARE(beginRemoveRowsSpy.count(), 4);
+        QCOMPARE(endRemoveRowsSpy.count(), 4);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
@@ -723,8 +723,8 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
-        QCOMPARE(beginRemoveRowsSpy.count(), 5);
-        QCOMPARE(endRemoveRowsSpy.count(), 5);
+        QCOMPARE(beginRemoveRowsSpy.count(), 1);
+        QCOMPARE(endRemoveRowsSpy.count(), 1);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 7);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 7);
@@ -752,8 +752,8 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
-        QCOMPARE(beginRemoveRowsSpy.count(), 12);
-        QCOMPARE(endRemoveRowsSpy.count(), 12);
+        QCOMPARE(beginRemoveRowsSpy.count(), 2);
+        QCOMPARE(endRemoveRowsSpy.count(), 2);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);

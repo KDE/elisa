@@ -370,6 +370,8 @@ public Q_SLOTS:
 
 private:
 
+    void clearEmbeddedItems();
+
     void refreshEmbeddedCategory();
 
     std::unique_ptr<ViewsListDataPrivate> d;

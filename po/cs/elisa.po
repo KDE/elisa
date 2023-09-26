@@ -1726,28 +1726,3 @@ msgstr "Soubory"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Rozhlasové stanice"
-
-#~ msgctxt ""
-#~ "@action:button Clear play list and add whole container to play list"
-#~ msgid "Play now, replacing current queue"
-#~ msgstr "Přehrát nyní a nahradit současnou frontu"
-
-#~ msgctxt "@action:button Add whole container to play list"
-#~ msgid "Add to queue"
-#~ msgstr "Zařadit do fronty"
-
-#~ msgctxt "@action:button"
-#~ msgid "View details"
-#~ msgstr "Zobrazit podrobnosti"
-
-#~ msgctxt "@action:button"
-#~ msgid "Un-mark as favorite"
-#~ msgstr "Zrušit označení jako oblíbené"
-
-#~ msgctxt "@action:button"
-#~ msgid "Mark as favorite"
-#~ msgstr "Označit jako oblíbenou"
-
-#~ msgctxt "@action:button Enqueue current track"
-#~ msgid "Add to queue"
-#~ msgstr "Zařadit do fronty"

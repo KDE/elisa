@@ -45,10 +45,13 @@ RowLayout {
     function openViewCommon(viewDelegate, viewProperties, expectedDepth) {
         if (expectedDepth === 1) {
             browseStackView.replace(null, viewDelegate, viewProperties)
+            updateSidebarIndex()
         } else {
             browseStackView.push(viewDelegate, viewProperties)
         }
+    }
 
+    function updateSidebarIndex() {
         // Sometimes the sidebar loads after the page is pushed
         if (activeSidebarLoader.status === Loader.Ready) {
             activeSidebarLoader.item.viewIndex = pageProxyModel.mapRowFromSource(viewManager.viewIndex)
@@ -133,6 +136,8 @@ RowLayout {
 
         sourceModel: pageModel
         embeddedCategory: Kirigami.Settings.isMobile ? ElisaUtils.Unknown : ElisaApplication.embeddedView
+
+        onEmbeddedCategoryChanged: updateSidebarIndex()
     }
 
     ViewsListData {

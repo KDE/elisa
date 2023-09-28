@@ -283,10 +283,6 @@ class ELISALIB_EXPORT ViewsListData : public QObject
                WRITE setDatabase
                NOTIFY databaseChanged)
 
-    Q_PROPERTY(bool isFullyInitialized
-               READ isFullyInitialized
-               NOTIFY isFullyInitializedChanged)
-
 public:
     explicit ViewsListData(QObject *parent = nullptr);
 
@@ -318,8 +314,6 @@ public:
 
     [[nodiscard]] DatabaseInterface* database() const;
 
-    [[nodiscard]] bool isFullyInitialized() const;
-
 Q_SIGNALS:
 
     void embeddedCategoryChanged();
@@ -343,8 +337,6 @@ Q_SIGNALS:
     void dataAboutToBeReset();
 
     void dataReset();
-
-    void isFullyInitializedChanged();
 
 public Q_SLOTS:
 

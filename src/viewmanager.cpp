@@ -130,7 +130,7 @@ void ViewManager::openView(int viewIndex)
 {
     qCDebug(orgKdeElisaViews()) << "ViewManager::openView" << viewIndex << d->mViewParametersStack.size() << d->mViewsListData;
 
-    if (!d->mViewsListData || d->mViewsListData->isEmpty() || !d->mViewsListData->isFullyInitialized()) {
+    if (!d->mViewsListData || d->mViewsListData->isEmpty()) {
         return;
     }
 
@@ -170,7 +170,7 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
         return;
     }
 
-    if (!d->mViewsListData || d->mViewsListData->isEmpty() || !d->mViewsListData->isFullyInitialized()) {
+    if (!d->mViewsListData || d->mViewsListData->isEmpty()) {
         return;
     }
 
@@ -484,13 +484,8 @@ void ViewManager::setViewsData(ViewsListData *viewsData)
         d->mViewIndex = d->mInitialIndex;
     }
 
-    if (d->mViewsListData && d->mViewIndex >= 0 && d->mViewIndex < d->mViewsListData->count() && d->mViewsListData->isFullyInitialized()) {
+    if (d->mViewsListData && d->mViewIndex >= 0 && d->mViewIndex < d->mViewsListData->count()) {
         openView(d->mViewIndex);
-    }
-
-    if (d->mViewsListData) {
-        connect(d->mViewsListData, &ViewsListData::isFullyInitializedChanged,
-                this, &ViewManager::openInitialView);
     }
 }
 
@@ -507,7 +502,7 @@ void ViewManager::setInitialIndex(int newIndex)
         d->mViewIndex = d->mInitialIndex;
     }
 
-    if (d->mViewsListData && d->mViewIndex >= 0 && d->mViewIndex < d->mViewsListData->count() && d->mViewsListData->isFullyInitialized()) {
+    if (d->mViewsListData && d->mViewIndex >= 0 && d->mViewIndex < d->mViewsListData->count()) {
         openView(d->mViewIndex);
     }
 }

@@ -10,9 +10,18 @@
 ViewsProxyModel::ViewsProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
 {
-    setDynamicSortFilter(false);
     setSortCaseSensitivity(Qt::CaseInsensitive);
     sort(0, Qt::AscendingOrder);
+}
+
+int ViewsProxyModel::mapRowToSource(int row) const
+{
+    return mapToSource(index(row, 0)).row();
+}
+
+int ViewsProxyModel::mapRowFromSource(int row) const
+{
+    return mapFromSource(sourceModel()->index(row, 0)).row();
 }
 
 bool ViewsProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const

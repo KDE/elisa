@@ -51,7 +51,7 @@ RowLayout {
 
         // Sometimes the sidebar loads after the page is pushed
         if (activeSidebarLoader.status === Loader.Ready) {
-            activeSidebarLoader.item.viewIndex = viewManager.viewIndex
+            activeSidebarLoader.item.viewIndex = pageProxyModel.mapRowFromSource(viewManager.viewIndex)
         }
     }
 
@@ -150,8 +150,8 @@ RowLayout {
 
         sourceComponent: ViewSelector {
             model: pageProxyModel
-            viewIndex: viewManager.viewIndex
-            onSwitchView: viewIndex => viewManager.openView(viewIndex)
+            viewIndex: model.mapRowFromSource(viewManager.viewIndex)
+            onSwitchView: viewIndex => viewManager.openView(model.mapRowToSource(viewIndex))
         }
     }
 
@@ -162,8 +162,8 @@ RowLayout {
 
         sourceComponent: MobileSidebar {
             model: pageProxyModel
-            viewIndex: viewManager.viewIndex
-            onSwitchView: viewIndex => viewManager.openView(viewIndex)
+            viewIndex: model.mapRowFromSource(viewManager.viewIndex)
+            onSwitchView: viewIndex => viewManager.openView(model.mapRowToSource(viewIndex))
         }
     }
 

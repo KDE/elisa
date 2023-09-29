@@ -132,7 +132,7 @@ RowLayout {
         id: pageProxyModel
 
         sourceModel: pageModel
-        embeddedCategory: ElisaApplication.embeddedView
+        embeddedCategory: Kirigami.Settings.isMobile ? ElisaUtils.Unknown : ElisaApplication.embeddedView
     }
 
     ViewsListData {
@@ -140,7 +140,7 @@ RowLayout {
 
         manager: ElisaApplication.musicManager
         database: ElisaApplication.musicManager.viewDatabase
-        embeddedCategory: ElisaApplication.embeddedView
+        embeddedCategory: Kirigami.Settings.isMobile ? ElisaUtils.Unknown : ElisaApplication.embeddedView
     }
 
     // sidebar used on desktop

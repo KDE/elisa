@@ -44,7 +44,9 @@ RowLayout {
 
     function openViewCommon(viewDelegate, viewProperties, expectedDepth) {
         if (expectedDepth === 1) {
-            browseStackView.replace(null, viewDelegate, viewProperties)
+            // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-117720
+            const operation = StackView.ReplaceTransition
+            browseStackView.replace(null, viewDelegate, viewProperties, operation)
             updateSidebarIndex()
         } else {
             browseStackView.push(viewDelegate, viewProperties)

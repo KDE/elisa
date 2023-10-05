@@ -47,6 +47,7 @@ ScrollView {
 
             icon.source: model.image
             label: model.display
+            highlighted: ListView.isCurrentItem
 
             ToolTip.visible: labelItem.truncated && hovered
             ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval

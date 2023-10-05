@@ -22,7 +22,6 @@ Kirigami.GlobalDrawer {
 
     modal: true
     width: Kirigami.Units.gridUnit * 11
-    bannerVisible: true
 
     actions: []
 

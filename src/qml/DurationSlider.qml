@@ -88,7 +88,7 @@ RowLayout {
         MouseArea {
             anchors.fill: parent
             acceptedButtons: Qt.NoButton
-            onWheel: {
+            onWheel: wheel => {
                 if (wheel.angleDelta.y > 0) {
                     root.seek((slider.value + 10) * 1000)
                 } else {

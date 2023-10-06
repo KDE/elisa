@@ -31,7 +31,7 @@ Slider {
         anchors.fill: parent
         acceptedButtons: Qt.NoButton
         hoverEnabled: true
-        onWheel: {
+        onWheel: wheel => {
             // Can't use Slider's built-in increase() and decrease() functions here
             // since they go in increments of 0.1 when the slider's stepSize is not
             // defined, which is much too slow. And we don't define a stepSize for

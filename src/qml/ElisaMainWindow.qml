@@ -483,7 +483,7 @@ Kirigami.ApplicationWindow {
         visible: Kirigami.Settings.isMobile && mobileFooterBarLoader.item.contentY !== 0 // only capture when the mobile footer panel is open
         anchors.fill: mobileFooterBarLoader
         preventStealing: true
-        onClicked: mouse.accepted = true
+        onClicked: mouse => mouse.accepted = true
     }
 
     Component.onCompleted:

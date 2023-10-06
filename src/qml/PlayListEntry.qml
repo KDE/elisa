@@ -386,26 +386,26 @@ BasePlayListDelegate {
         }
 
         states: [
-        State {
-            name: "dragging"
-            when: playListEntry.listView.draggingEntry
-        },
-        State {
-            name: 'hovered'
-            when: containsMouse && !playListEntry.hasActiveFocus && !simpleMode
-            PropertyChanges {
-                target: buttonRowLoader
-                active: playListEntry.wideMode
+            State {
+                name: "dragging"
+                when: playListEntry.listView.draggingEntry
+            },
+            State {
+                name: 'hovered'
+                when: containsMouse && !playListEntry.hasActiveFocus && !simpleMode
+                PropertyChanges {
+                    target: buttonRowLoader
+                    active: playListEntry.wideMode
+                }
+            },
+            State {
+                name: 'focused'
+                when: playListEntry.hasActiveFocus && !simpleMode
+                PropertyChanges {
+                    target: buttonRowLoader
+                    active: playListEntry.wideMode
+                }
             }
-        },
-        State {
-            name: 'focused'
-            when: playListEntry.hasActiveFocus && !simpleMode
-            PropertyChanges {
-                target: buttonRowLoader
-                active: playListEntry.wideMode
-            }
-        }
         ]
     }
 }

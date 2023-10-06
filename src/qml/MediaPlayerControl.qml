@@ -31,6 +31,8 @@ BasePlayerControl {
       */
     signal handlePositionChanged(int y, int offset)
 
+    onIsMaximizedChanged: isMaximized ? maximize() : minimize()
+
     SystemPalette {
         id: myPalette
         colorGroup: SystemPalette.Active
@@ -269,14 +271,6 @@ BasePlayerControl {
 
         Item {
             implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2)
-        }
-    }
-
-    onIsMaximizedChanged: {
-        if (musicWidget.isMaximized) {
-            musicWidget.maximize()
-        } else {
-            musicWidget.minimize()
         }
     }
 

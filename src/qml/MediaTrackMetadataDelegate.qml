@@ -129,20 +129,15 @@ RowLayout {
             id: favoriteButton
 
             FlatButtonWithToolTip {
-                text: delegateRow.display == 10 ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
-                icon.name: delegateRow.display == 10 ? "rating" : "rating-unrated"
+                readonly property bool isFavorite: delegateRow.display === 10
+
+                text: isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
+                icon.name: isFavorite ? "rating" : "rating-unrated"
 
                 onClicked: {
-                    var newRating = 0;
-                    if (delegateRow.display == 10) {
-                        newRating = 0;
-                        // Change icon immediately in case backend is slow
-                        icon.name = "rating-unrated";
-                    } else {
-                        newRating = 10;
-                        // Change icon immediately in case backend is slow
-                        icon.name = "rating";
-                    }
+                    const newRating = isFavorite ? 0 : 10;
+                    // Change icon immediately in case backend is slow
+                    icon.name = isFavorite ? "rating-unrated" : "rating";
                     ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, newRating)
                     edited()
                 }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-28 01:39+0000\n"
+"POT-Creation-Date: 2023-10-06 01:40+0000\n"
 "PO-Revision-Date: 2023-08-18 06:07+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -335,19 +335,19 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "გამოსახულების მისამართი"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:55 viewslistdata.cpp:525
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:55
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "ალბომები"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:104 viewslistdata.cpp:561
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:104
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "ჟანრები"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:69 viewslistdata.cpp:543
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:69
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
@@ -933,7 +933,7 @@ msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr "რიგიდან წაშლა"
 
-#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:38
+#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:37
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"
@@ -1527,7 +1527,6 @@ msgstr "დაღმავალი"
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
 #: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
-#: viewslistdata.cpp:535
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
@@ -1536,7 +1535,6 @@ msgstr "A-Z"
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
 #: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
-#: viewslistdata.cpp:535
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
@@ -1561,14 +1559,14 @@ msgid "Year"
 msgstr "წელი"
 
 #: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100 viewslistdata.cpp:535
+#: viewslistdata.cpp:100
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "ჯერ ძველები"
 
 #: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100 viewslistdata.cpp:535
+#: viewslistdata.cpp:100
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
@@ -1628,32 +1626,31 @@ msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "ჯერ ყველაზე ხშირად დაკრულები"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:533
+#: viewslistdata.cpp:63 viewslistdata.cpp:94
 #, kde-format
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "სათაური"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:533
+#: viewslistdata.cpp:63 viewslistdata.cpp:94
 #, kde-format
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "შემსრულებელი"
 
 #: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:112
-#: viewslistdata.cpp:533 viewslistdata.cpp:569
 #, kde-format
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "ჟანრი"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:95 viewslistdata.cpp:533
+#: viewslistdata.cpp:63 viewslistdata.cpp:95
 #, kde-format
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "წელი"
 
-#: viewslistdata.cpp:77 viewslistdata.cpp:137 viewslistdata.cpp:551
+#: viewslistdata.cpp:77 viewslistdata.cpp:137
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"

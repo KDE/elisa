@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-28 01:39+0000\n"
+"POT-Creation-Date: 2023-10-06 01:40+0000\n"
 "PO-Revision-Date: 2019-08-24 16:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -409,7 +409,7 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr ""
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:55 viewslistdata.cpp:525
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:55
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -417,7 +417,7 @@ msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Álbums"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:104 viewslistdata.cpp:561
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:104
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -425,7 +425,7 @@ msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Xéneros"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:69 viewslistdata.cpp:543
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:69
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1122,7 +1122,7 @@ msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr ""
 
-#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:38
+#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:37
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"
@@ -1785,7 +1785,6 @@ msgstr ""
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
 #: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
-#: viewslistdata.cpp:535
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
@@ -1794,7 +1793,6 @@ msgstr ""
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
 #: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
-#: viewslistdata.cpp:535
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
@@ -1823,14 +1821,14 @@ msgid "Year"
 msgstr "Ano"
 
 #: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100 viewslistdata.cpp:535
+#: viewslistdata.cpp:100
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr ""
 
 #: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100 viewslistdata.cpp:535
+#: viewslistdata.cpp:100
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
@@ -1906,7 +1904,7 @@ msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Reproducido frecuentemente"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:533
+#: viewslistdata.cpp:63 viewslistdata.cpp:94
 #, fuzzy, kde-format
 #| msgctxt "Track title for track metadata view"
 #| msgid "Title"
@@ -1914,7 +1912,7 @@ msgctxt "@title:menu"
 msgid "Title"
 msgstr "Título"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:533
+#: viewslistdata.cpp:63 viewslistdata.cpp:94
 #, fuzzy, kde-format
 #| msgctxt "Track artist for track metadata view"
 #| msgid "Artist"
@@ -1923,7 +1921,6 @@ msgid "Artist"
 msgstr "Intérprete"
 
 #: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:112
-#: viewslistdata.cpp:533 viewslistdata.cpp:569
 #, fuzzy, kde-format
 #| msgctxt "Genre label for track metadata view"
 #| msgid "Genre"
@@ -1931,7 +1928,7 @@ msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Xénero"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:95 viewslistdata.cpp:533
+#: viewslistdata.cpp:63 viewslistdata.cpp:95
 #, fuzzy, kde-format
 #| msgctxt "Year label for track metadata view"
 #| msgid "Year"
@@ -1939,7 +1936,7 @@ msgctxt "@title:menu"
 msgid "Year"
 msgstr "Ano"
 
-#: viewslistdata.cpp:77 viewslistdata.cpp:137 viewslistdata.cpp:551
+#: viewslistdata.cpp:77 viewslistdata.cpp:137
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"

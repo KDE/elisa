@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-28 01:39+0000\n"
+"POT-Creation-Date: 2023-10-06 01:40+0000\n"
 "PO-Revision-Date: 2022-02-01 10:43+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -397,7 +397,7 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Kép címe"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:55 viewslistdata.cpp:525
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:55
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -405,7 +405,7 @@ msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumok"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:104 viewslistdata.cpp:561
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:104
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -413,7 +413,7 @@ msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Műfajok"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:69 viewslistdata.cpp:543
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:69
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1128,7 +1128,7 @@ msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr "Törlés a várólistából"
 
-#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:38
+#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:37
 #, fuzzy, kde-format
 #| msgid "Settings"
 msgctxt "@title:window"
@@ -1834,7 +1834,6 @@ msgstr ""
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
 #: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
-#: viewslistdata.cpp:535
 #, fuzzy, kde-format
 #| msgid "A-Z"
 msgctxt "@item:inmenu"
@@ -1844,7 +1843,6 @@ msgstr "A-Z"
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
 #: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
-#: viewslistdata.cpp:535
 #, fuzzy, kde-format
 #| msgid "Z-A"
 msgctxt "@item:inmenu"
@@ -1873,7 +1871,7 @@ msgid "Year"
 msgstr "Év"
 
 #: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100 viewslistdata.cpp:535
+#: viewslistdata.cpp:100
 #, fuzzy, kde-format
 #| msgid "Oldest First"
 msgctxt "@item:inmenu"
@@ -1881,7 +1879,7 @@ msgid "Oldest First"
 msgstr "Legrégebbi előre"
 
 #: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100 viewslistdata.cpp:535
+#: viewslistdata.cpp:100
 #, fuzzy, kde-format
 #| msgid "Newest First"
 msgctxt "@item:inmenu"
@@ -1954,14 +1952,14 @@ msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Leggyakrabban lejátszott előre"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:533
+#: viewslistdata.cpp:63 viewslistdata.cpp:94
 #, fuzzy, kde-format
 #| msgid "Title"
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "Cím"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:533
+#: viewslistdata.cpp:63 viewslistdata.cpp:94
 #, fuzzy, kde-format
 #| msgid "Artist"
 msgctxt "@title:menu"
@@ -1969,21 +1967,20 @@ msgid "Artist"
 msgstr "Előadó"
 
 #: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:112
-#: viewslistdata.cpp:533 viewslistdata.cpp:569
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Műfaj"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:95 viewslistdata.cpp:533
+#: viewslistdata.cpp:63 viewslistdata.cpp:95
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "Év"
 
-#: viewslistdata.cpp:77 viewslistdata.cpp:137 viewslistdata.cpp:551
+#: viewslistdata.cpp:77 viewslistdata.cpp:137
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "@title:menu"

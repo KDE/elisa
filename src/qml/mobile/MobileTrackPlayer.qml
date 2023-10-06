@@ -90,9 +90,7 @@ BasePlayerControl {
 
             Layout.alignment: Qt.AlignBottom
             Layout.fillWidth: true
-
-            property int maxWidth: mainWindow.width - Kirigami.Units.largeSpacing * 4
-            Layout.maximumWidth: maxWidth
+            Layout.maximumWidth: mainWindow.width - Kirigami.Units.largeSpacing * 4
 
             LabelWithToolTip {
                 id: mainLabel

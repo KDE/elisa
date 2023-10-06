@@ -17,8 +17,6 @@ ScrollView {
 
     property alias model: playListView.model
 
-    signal displayError(var errorText)
-
     // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 

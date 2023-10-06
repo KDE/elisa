@@ -20,10 +20,6 @@ AbstractDataView {
     // Otherwise tracks are sorted in the wrong order
     sortModel: !displaySingleAlbum
 
-    signal showArtist(var name)
-
-    onShowArtist: name => viewManager.openArtistView(name)
-
     function openMetaDataView(databaseId, url, entryType) {
         metadataLoader.setSource(Kirigami.Settings.isMobile ? "mobile/MobileMediaTrackMetadataView.qml" : "MediaTrackMetadataView.qml",
             {
@@ -164,6 +160,10 @@ AbstractDataView {
 
         function onCreateRadio() {
             listView.openCreateRadioView()
+        }
+
+        function onShowArtist(name: string) {
+            viewManager.openArtistView(name)
         }
     }
 }

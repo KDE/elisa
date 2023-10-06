@@ -42,6 +42,7 @@ Item {
     signal replaceAndPlay();
     signal createRadio();
     signal goBack();
+    signal showArtist(string name)
 
     property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
 
@@ -128,7 +129,7 @@ Item {
             text: i18nc("@action:button navigate to the view for artist of this album", "Display Artist")
             icon.name: "view-media-artist"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: if (secondaryTitle) { showArtist(secondaryTitle) }
+            onClicked: if (secondaryTitle) { navigationBar.showArtist(secondaryTitle) }
         }
     }
     Component {
@@ -227,7 +228,7 @@ Item {
                         TapHandler {
                             id: showArtistTaphandler
                             enabled: navigationBar.allowArtistNavigation && !navigationBar.showCreateRadioButton
-                            onTapped: showArtist(secondaryTitle)
+                            onTapped: navigationBar.showArtist(secondaryTitle)
                         }
                         HoverHandler {
                             enabled: showArtistTaphandler.enabled

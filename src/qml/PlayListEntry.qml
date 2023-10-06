@@ -167,11 +167,11 @@ BasePlayListDelegate {
                     listView: playListEntry.listView
 
                     onMoveRequested: (oldIndex, newIndex) => {
-                        playListEntry.listView.dragging = true
+                        playListEntry.listView.draggingEntry = true
                         ElisaApplication.mediaPlayListProxyModel.moveRow(oldIndex, newIndex)
                     }
                     onDropped: {
-                        playListEntry.listView.dragging = false
+                        playListEntry.listView.draggingEntry = false
                     }
                 }
             }
@@ -388,7 +388,7 @@ BasePlayListDelegate {
         states: [
         State {
             name: "dragging"
-            when: playListEntry.listView.dragging
+            when: playListEntry.listView.draggingEntry
         },
         State {
             name: 'hovered'

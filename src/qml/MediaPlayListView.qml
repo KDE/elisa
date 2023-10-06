@@ -142,7 +142,7 @@ Kirigami.Page {
                     id: playListView
 
                     signal moveItemRequested(int oldIndex, int newIndex)
-                    property bool dragging: false
+                    property bool draggingEntry: false
 
                     clip: true
                     keyNavigationEnabled: true

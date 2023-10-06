@@ -32,6 +32,8 @@ ScrollView {
             }
         }
 
+        property bool draggingEntry: false
+
         clip: true
         focus: true
         activeFocusOnTab: true

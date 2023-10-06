@@ -154,23 +154,25 @@ Kirigami.Page {
                         if (activeFocus) {
                             // callLater to make sure this is a Tab focusing
                             Qt.callLater(function() {
-                                var currentItemPos = currentItem ? currentItem.mapToItem(playListLoader, 0, 0) : undefined
-
-                                // if the currentItem is not visible, focus on the top visible one
-                                if (!(currentItem && currentItemPos.y >= 0 && currentItemPos.y < playListLoader.height)) {
-                                    var topPos = playListLoader.mapToItem(playListView.contentItem, 0, 0)
-                                    var topIndex = playListView.indexAt(topPos.x, topPos.y)
-                                    var topItem = playListView.itemAtIndex(topIndex)
+                                // if the currentItem is not visible, focus on the top fully visible item
+                                if (!itemIsFullyVisible(currentIndex)) {
+                                    const topIndex = indexAt(0, contentY)
                                     if (topIndex > -1) {
-                                        if (topItem.mapToItem(playListLoader, 0, 0).y < 0) {
-                                            ++topIndex
-                                        }
-                                        playListView.currentIndex = Math.min(topIndex, playListView.count - 1)
+                                        playListView.currentIndex = Math.min(itemIsFullyVisible(topIndex) ? topIndex : topIndex + 1, playListView.count - 1)
                                         playListView.currentItem.forceActiveFocus()
                                     }
                                 }
                             })
                         }
+                    }
+
+                    function itemIsFullyVisible(index) {
+                        if (index < 0 || index > count - 1) {
+                            return false
+                        }
+                        const item = itemAtIndex(index)
+                        // `item === null` can be true if the delegate is not loaded, hence check `item`
+                        return item && contentY <= item.y && item.y <= (contentY + height)
                     }
 
                     Accessible.role: Accessible.List

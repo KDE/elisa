@@ -31,9 +31,7 @@ FocusScope {
     property bool portrait: (contentZone.height/contentZone.width) > 0.7
     property bool transitionsEnabled: true
 
-    property double smallerDimension: contentZone.height < contentZone.width?
-                                        contentZone.height - 4 * Kirigami.Units.largeSpacing:
-                                        contentZone.width - 4 * Kirigami.Units.largeSpacing
+    property double smallerDimension: Math.min(contentZone.height, contentZone.width) - 4 * Kirigami.Units.largeSpacing
 
     property int handlePosition: implicitHeight
 
@@ -193,7 +191,7 @@ FocusScope {
 
         onHandlePositionChanged: (y, offset) => {
             const newHeight = headerBar.height - offset + y
-            handlePosition = newHeight > 0 ? newHeight : 0
+            handlePosition = Math.max(newHeight, 0)
         }
     }
 
@@ -250,14 +248,7 @@ FocusScope {
             StackView {
                 id: images
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                property double imageSize: (smallerDimension * 0.9 < (portrait?
-                                                                      gridLayoutContent.height/3:
-                                                                      gridLayoutContent.width/2
-                                        ))?
-                                          smallerDimension * 0.9:
-                                          portrait?
-                                                   gridLayoutContent.height/3:
-                                                   gridLayoutContent.width/2
+                property double imageSize: Math.min(smallerDimension * 0.9, portrait ? gridLayoutContent.height/3 : gridLayoutContent.width/2)
                 property var pendingImageIncubator
 
                 Layout.preferredHeight: imageSize

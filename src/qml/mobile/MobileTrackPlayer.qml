@@ -59,11 +59,7 @@ BasePlayerControl {
             property double specWidth: {
                 let allowedWidth = mainWindow.width - Kirigami.Units.largeSpacing * 4;
                 let allowedHeight = mainWindow.height - Kirigami.Units.largeSpacing * 8 - (minimizePlayer.height + bottomPlayerControls.height);
-                if (allowedWidth > allowedHeight) {
-                    return allowedHeight;
-                } else {
-                    return allowedWidth;
-                }
+                return Math.min(allowedWidth, allowedHeight);
             }
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
             Layout.preferredWidth: specWidth

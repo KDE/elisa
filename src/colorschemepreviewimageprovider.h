@@ -1,5 +1,5 @@
 /*
-   SPDX-FileCopyrightText: 2018 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2022 (c) Tranter Madi <trmdi@yandex.com>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */

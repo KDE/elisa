@@ -134,40 +134,39 @@ ColumnLayout {
             Accessible.onPressAction: onToggled
         }
 
-        // select colour scheme (mobile only, since desktop has it in the application menu)
-        QQC2.Button {
+        Item {
+            Kirigami.FormData.isSection: true
             visible: Kirigami.Settings.isMobile
-            text: i18nc("@action:button","Color Scheme")
-            onClicked: colorSchemeMenu.popup(parent)
+        }
 
-            QQC2.Menu {
-                id: colorSchemeMenu
-                title: i18nc("@title:menu", "Color Scheme")
-                Repeater {
-                    model: ElisaApplication.colorSchemesModel
-                    delegate: Kirigami.AbstractListItem {
-                        highlighted: model.display === ElisaConfigurationDialog.colorScheme
-                        width: parent.width
-                        onClicked: {
-                            ElisaApplication.activateColorScheme(model.display)
-                            ElisaConfigurationDialog.setColorScheme(model.display)
-                            ElisaConfigurationDialog.save()
-                            colorSchemeMenu.close()
-                        }
-                        contentItem: RowLayout {
-                            Kirigami.Icon {
-                                source: model.decoration
-                                Layout.preferredWidth: Kirigami.Units.iconSizes.small
-                            }
-                            QQC2.Label {
-                                text: model.display
-                                color: highlighted ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
-                                Layout.fillWidth: true
-                            }
-                        }
-                    }
+        // select colour scheme (mobile only, since desktop has it in the application menu)
+        QQC2.ComboBox {
+            Kirigami.FormData.label: i18nc("@label:listbox", "Color Scheme:")
+
+            visible: Kirigami.Settings.isMobile
+
+            model: ElisaApplication.colorSchemesModel
+            textRole: "display"
+
+            delegate: QQC2.ItemDelegate {
+                width: parent.width
+
+                required property var model
+
+                icon.name: "image://colorScheme/" + model.display
+                text: model.display
+                checked: model.display === ElisaConfigurationDialog.colorScheme
+                onClicked: {
+                    ElisaApplication.activateColorScheme(model.display)
+                    ElisaConfigurationDialog.setColorScheme(model.display)
+                    ElisaConfigurationDialog.save()
                 }
             }
+        }
+
+        Item {
+            Kirigami.FormData.isSection: true
+            visible: Kirigami.Settings.isMobile
         }
 
         // scan for new music (mobile only, since on desktop it is in the application menu)

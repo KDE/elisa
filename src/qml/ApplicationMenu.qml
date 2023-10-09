@@ -60,6 +60,7 @@ Menu {
                 text: model.display
                 checkable: true
                 checked: model.display === ElisaConfigurationDialog.colorScheme
+                autoExclusive: true
                 onTriggered: {
                     ElisaApplication.activateColorScheme(model.display)
                     ElisaConfigurationDialog.setColorScheme(model.display)

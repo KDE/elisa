@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-06 01:40+0000\n"
+"POT-Creation-Date: 2023-10-10 01:46+0000\n"
 "PO-Revision-Date: 2023-08-25 21:05+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -422,7 +422,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "지금 재생 중"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:177
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:178
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -440,8 +440,8 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "가사"
 
-#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:235
-#: qml/mobile/MobileTrackPlayer.qml:364 qml/NavigationActionBar.qml:140
+#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:237
+#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -515,13 +515,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "다시 시도"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:409
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:411
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "재생 목록 지워짐"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:413
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:415
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -578,7 +578,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "저장 실패"
 
-#: qml/GridBrowserDelegate.qml:63 qml/NavigationActionBar.qml:116
+#: qml/GridBrowserDelegate.qml:63 qml/NavigationActionBar.qml:117
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -603,7 +603,7 @@ msgctxt "@action:button"
 msgid "Options"
 msgstr "옵션"
 
-#: qml/HeaderBar.qml:174
+#: qml/HeaderBar.qml:172
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
@@ -628,14 +628,14 @@ msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "곡 점수 설정"
 
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:118
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "이 곡을 책갈피에서 삭제"
 
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:132
+#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:118
 #, kde-format
 msgctxt "@action:button"
@@ -672,91 +672,91 @@ msgctxt "@action:button"
 msgid "Song Options"
 msgstr "노래 옵션"
 
-#: qml/MediaPlayerControl.qml:86
+#: qml/MediaPlayerControl.qml:88
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "파티 모드 전환"
 
-#: qml/MediaPlayerControl.qml:94
+#: qml/MediaPlayerControl.qml:96
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
-#: qml/mobile/MobileTrackPlayer.qml:318
+#: qml/mobile/MobileTrackPlayer.qml:312
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "이전 곡으로 건너뛰기"
 
-#: qml/MediaPlayerControl.qml:102
+#: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:333
+#: qml/mobile/MobileTrackPlayer.qml:327
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "일시 정지"
 
-#: qml/MediaPlayerControl.qml:102
+#: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:333
+#: qml/mobile/MobileTrackPlayer.qml:327
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "재생"
 
-#: qml/MediaPlayerControl.qml:110
+#: qml/MediaPlayerControl.qml:112
 #, kde-format
 msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "다음 곡으로 건너뛰기"
 
-#: qml/MediaPlayerControl.qml:129
+#: qml/MediaPlayerControl.qml:131
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "음소거 전환"
 
-#: qml/MediaPlayerControl.qml:148 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:150 qml/mobile/MobileTrackPlayer.qml:209
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Shuffle"
 msgstr "무순서 재생 전환"
 
-#: qml/MediaPlayerControl.qml:159 qml/mobile/MobileTrackPlayer.qml:230
+#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:224
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "현재: 곡 반복 안 함"
 
-#: qml/MediaPlayerControl.qml:160 qml/mobile/MobileTrackPlayer.qml:231
+#: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:225
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "현재: 현재 곡 반복"
 
-#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:232
+#: qml/MediaPlayerControl.qml:163 qml/mobile/MobileTrackPlayer.qml:226
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "현재: 재생 목록의 모든 곡 반복"
 
-#: qml/MediaPlayerControl.qml:188 qml/mobile/MobileTrackPlayer.qml:261
+#: qml/MediaPlayerControl.qml:190 qml/mobile/MobileTrackPlayer.qml:255
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "재생 목록"
 
-#: qml/MediaPlayerControl.qml:192 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:194 qml/mobile/MobileTrackPlayer.qml:259
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "한 곡"
 
-#: qml/MediaPlayerControl.qml:196 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:198 qml/mobile/MobileTrackPlayer.qml:263
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "없음"
 
-#: qml/MediaPlayerControl.qml:252
+#: qml/MediaPlayerControl.qml:254
 #, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"
@@ -798,13 +798,13 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "재생 목록 파일 편집"
 
-#: qml/MediaPlayListView.qml:272
+#: qml/MediaPlayListView.qml:274
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "재생 목록이 비어 있음"
 
-#: qml/MediaPlayListView.qml:273
+#: qml/MediaPlayListView.qml:275
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -814,33 +814,33 @@ msgstr ""
 "시작하려면 노래를 추가하십시오. 왼쪽에 있는 보기에서 음악을 탐색할 수 있습니"
 "다."
 
-#: qml/MediaPlayListView.qml:347
+#: qml/MediaPlayListView.qml:349
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "재생 목록이 비어 있습니다."
 
-#: qml/MediaPlayListView.qml:434 qml/MediaPlayListView.qml:439
+#: qml/MediaPlayListView.qml:436 qml/MediaPlayListView.qml:441
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1곡"
 
-#: qml/MediaPlayListView.qml:437
+#: qml/MediaPlayListView.qml:439
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1곡"
 
-#: qml/MediaPlayListView.qml:440
+#: qml/MediaPlayListView.qml:442
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
 msgid_plural "%1 remaining"
 msgstr[0] "%1 남음"
 
-#: qml/MediaPlayListView.qml:441
+#: qml/MediaPlayListView.qml:443
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -848,13 +848,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1(%2)"
 
-#: qml/MediaPlayListView.qml:455
+#: qml/MediaPlayListView.qml:457
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "현재 곡 표시"
 
-#: qml/MediaPlayListView.qml:466
+#: qml/MediaPlayListView.qml:468
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -913,7 +913,7 @@ msgid "Save"
 msgstr "저장"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
-#: qml/mobile/MobileTrackPlayer.qml:348
+#: qml/mobile/MobileTrackPlayer.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
@@ -943,7 +943,7 @@ msgctxt "@action:button"
 msgid "Minimize Player"
 msgstr "재생기 최소화"
 
-#: qml/mobile/MobileTrackPlayer.qml:203
+#: qml/mobile/MobileTrackPlayer.qml:197
 #, kde-format
 msgctxt "@action:button show track information"
 msgid "Show Info"
@@ -1083,67 +1083,67 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "도움말"
 
-#: qml/NavigationActionBar.qml:77
+#: qml/NavigationActionBar.qml:78
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "정렬: %1"
 
-#: qml/NavigationActionBar.qml:78
+#: qml/NavigationActionBar.qml:79
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "정렬"
 
-#: qml/NavigationActionBar.qml:92
+#: qml/NavigationActionBar.qml:93
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "라디오 만들기"
 
-#: qml/NavigationActionBar.qml:104
+#: qml/NavigationActionBar.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "재생 목록에 추가"
 
-#: qml/NavigationActionBar.qml:128
+#: qml/NavigationActionBar.qml:129
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "아티스트 표시"
 
-#: qml/NavigationActionBar.qml:185
+#: qml/NavigationActionBar.qml:186
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "뒤로"
 
-#: qml/NavigationActionBar.qml:263
+#: qml/NavigationActionBar.qml:264
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "검색과 필터"
 
-#: qml/NavigationActionBar.qml:263
+#: qml/NavigationActionBar.qml:264
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "검색과 필터 숨기기"
 
-#: qml/NavigationActionBar.qml:364
+#: qml/NavigationActionBar.qml:365
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "앨범 이름, 아티스트 등에서 검색합니다."
 
-#: qml/NavigationActionBar.qml:373
+#: qml/NavigationActionBar.qml:374
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "별점으로 필터하기: "
 
-#: qml/NavigationActionBar.qml:388
+#: qml/NavigationActionBar.qml:389
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

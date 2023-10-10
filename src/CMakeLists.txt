@@ -232,7 +232,8 @@ target_link_libraries(elisaLib
     LINK_PRIVATE
     Qt::Core Qt::Sql Qt::Widgets Qt::Concurrent Qt::Qml
     KF6::I18n KF6::CoreAddons
-    KF6::ConfigCore KF6::ConfigGui)
+    KF6::ConfigCore KF6::ConfigGui
+    KF6::ColorScheme)
 
 if (KF6FileMetaData_FOUND)
     target_link_libraries(elisaLib

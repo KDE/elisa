@@ -112,6 +112,11 @@ set_package_properties(KF6Config PROPERTIES
     DESCRIPTION "Persistent platform-independent application settings."
     TYPE REQUIRED)
 
+find_package(KF6ColorScheme ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6ColorScheme PROPERTIES
+    DESCRIPTION "Allows changing the app's color scheme."
+    TYPE REQUIRED)
+
 find_package(KF6ConfigWidgets ${REQUIRED_KF_VERSION} CONFIG QUIET)
 set_package_properties(KF6ConfigWidgets PROPERTIES
     DESCRIPTION "Widgets for configuration dialogs."

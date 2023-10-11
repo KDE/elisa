@@ -23,22 +23,22 @@ Kirigami.ScrollablePage {
 
     title: i18nc("@title:window", "Settings")
 
-    actions.main: Kirigami.Action {
-        icon.name: "dialog-ok-apply"
-        text: i18nc("@action:button", "Save")
-        onTriggered: {
-            ElisaConfigurationDialog.save()
-            mainWindow.pageStack.layers.pop();
+    actions: [
+        Kirigami.Action {
+            icon.name: "dialog-ok-apply"
+            text: i18nc("@action:button", "Save")
+            onTriggered: settingsForm.saveAndCloseForm()
+            enabled: ElisaConfigurationDialog.isDirty
+        },
+        Kirigami.Action {
+            icon.name: "dialog-cancel"
+            text: i18nc("@action:button", "Cancel")
+            onTriggered: settingsForm.discardAndCloseForm()
         }
-    }
-    actions.left: Kirigami.Action {
-        icon.name: "dialog-cancel"
-        text: i18nc("@action:button", "Close")
-        onTriggered: {
-            ElisaConfigurationDialog.cancel()
-            mainWindow.pageStack.layers.pop()
-        }
-    }
+    ]
 
-    SettingsForm {}
+    SettingsForm {
+        id: settingsForm
+        onCloseForm: mainWindow.pageStack.layers.pop()
+    }
 }

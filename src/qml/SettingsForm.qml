@@ -20,6 +20,21 @@ import org.kde.elisa 1.0
 import ".."
 
 ColumnLayout {
+    signal closeForm()
+
+    function saveAndCloseForm() {
+        ElisaConfigurationDialog.save()
+        closeForm()
+    }
+
+    function discardAndCloseForm() {
+        ElisaConfigurationDialog.cancel()
+        closeForm()
+    }
+
+    function applyChanges() {
+        ElisaConfigurationDialog.save()
+    }
 
     // General settings
     // ================

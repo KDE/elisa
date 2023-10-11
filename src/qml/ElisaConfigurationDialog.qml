@@ -35,20 +35,19 @@ Window {
     Kirigami.ScrollablePage {
         anchors.fill: parent
 
-        SettingsForm {}
+        SettingsForm {
+            id: settingsForm
+            onCloseForm: dialog.close()
+        }
 
         footer: QQC2.DialogButtonBox {
-
             QQC2.Button {
                 text: i18nc("@action:button", "OK")
                 icon.name: 'dialog-ok-apply'
                 QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.AcceptRole
                 Accessible.onPressAction: onClicked
             }
-            onAccepted: {
-                ElisaConfigurationDialog.save()
-                close()
-            }
+            onAccepted: settingsForm.saveAndCloseForm()
 
             QQC2.Button {
                 text: i18nc("@action:button", "Apply")
@@ -58,7 +57,7 @@ Window {
 
                 enabled: ElisaConfigurationDialog.isDirty
             }
-            onApplied: ElisaConfigurationDialog.save()
+            onApplied: settingsForm.applyChanges()
 
             QQC2.Button {
                 text: i18nc("@action:button", "Cancel")
@@ -66,10 +65,7 @@ Window {
                 QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.RejectRole
                 Accessible.onPressAction: onClicked
             }
-            onRejected: {
-                ElisaConfigurationDialog.cancel()
-                close()
-            }
+            onRejected: settingsForm.discardAndCloseForm()
         }
     }
 
@@ -85,12 +81,12 @@ Window {
         onButtonClicked: (button, role) => {
             switch(button) {
                 case Dialogs.MessageDialog.Discard: {
-                    ElisaConfigurationDialog.cancel()
+                    settingsForm.discardAndCloseForm()
                     dialog.close()
                 }
 
                 case Dialogs.MessageDialog.Save: {
-                    ElisaConfigurationDialog.save()
+                    settingsForm.saveAndCloseForm()
                     dialog.close()
                 }
             }

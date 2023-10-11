@@ -69,34 +69,10 @@ Window {
         }
     }
 
-    Dialogs.MessageDialog {
-        id: dirtyClosingDialog
-
-        buttons: Dialogs.MessageDialog.Save | Dialogs.MessageDialog.Discard | Dialogs.MessageDialog.Cancel
-
-        title: i18nc("@title:window", "Warning")
-
-        text: i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
-
-        onButtonClicked: (button, role) => {
-            switch(button) {
-                case Dialogs.MessageDialog.Discard: {
-                    settingsForm.discardAndCloseForm()
-                    dialog.close()
-                }
-
-                case Dialogs.MessageDialog.Save: {
-                    settingsForm.saveAndCloseForm()
-                    dialog.close()
-                }
-            }
-        }
-    }
-
     onClosing: close => {
         if (ElisaConfigurationDialog.isDirty) {
             close.accepted = false
-            dirtyClosingDialog.open()
+            settingsForm.dirtyClosingDialog.open()
         }
     }
 }

@@ -23,6 +23,13 @@ Kirigami.ScrollablePage {
 
     title: i18nc("@title:window", "Settings")
 
+    onBackRequested: event => {
+        if (ElisaConfigurationDialog.isDirty) {
+            settingsForm.dirtyClosingDialog.open()
+            event.accepted = true
+        }
+    }
+
     actions: [
         Kirigami.Action {
             icon.name: "dialog-ok-apply"

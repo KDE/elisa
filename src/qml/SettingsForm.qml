@@ -20,6 +20,8 @@ import org.kde.elisa 1.0
 import ".."
 
 ColumnLayout {
+    readonly property alias dirtyClosingDialog: dirtyClosingDialog
+
     signal closeForm()
 
     function saveAndCloseForm() {
@@ -34,6 +36,26 @@ ColumnLayout {
 
     function applyChanges() {
         ElisaConfigurationDialog.save()
+    }
+
+    Dialogs.MessageDialog {
+        id: dirtyClosingDialog
+
+        title: i18nc("@title:window", "Warning")
+        text: i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
+        buttons: Dialogs.MessageDialog.Save | Dialogs.MessageDialog.Discard | Dialogs.MessageDialog.Cancel
+
+        onButtonClicked: (button, role) => {
+            switch(button) {
+                case Dialogs.MessageDialog.Save: {
+                    saveAndCloseForm()
+                }
+                case Dialogs.MessageDialog.Discard: {
+                    discardAndCloseForm()
+                }
+            }
+            close()
+        }
     }
 
     // General settings

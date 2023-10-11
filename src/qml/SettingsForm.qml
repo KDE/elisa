@@ -191,7 +191,7 @@ ColumnLayout {
             icon.name: "view-refresh"
             onClicked: {
                 ElisaApplication.musicManager.scanCollection(MusicListenersManager.Soft)
-                mainWindow.pageStack.layers.pop();
+                showPassiveNotification(i18nc("@info", "Started scanning for music"))
             }
         }
 
@@ -200,8 +200,9 @@ ColumnLayout {
             text: i18nc("@action:button", "Reset Database and Re-Scan Everything")
             icon.name: "edit-clear-all"
             onClicked: {
-                ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard);
-                mainWindow.pageStack.layers.pop();
+                ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
+                showPassiveNotification(i18nc("@info", "Database has been reset"))
+                showPassiveNotification(i18nc("@info", "Started scanning for music"))
             }
         }
 

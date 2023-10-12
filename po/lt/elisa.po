@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2023-10-12 01:42+0000\n"
 "PO-Revision-Date: 2023-02-05 01:16+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
@@ -42,43 +42,43 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radijo stotys"
 
-#: elisaapplication.cpp:174
+#: elisaapplication.cpp:179
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Perjungti grojaraštį"
 
-#: elisaapplication.cpp:179
+#: elisaapplication.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Persukti 10 sekundžių pirmyn"
 
-#: elisaapplication.cpp:185
+#: elisaapplication.cpp:190
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Persukti 10 sekundžių atgal"
 
-#: elisaapplication.cpp:191
+#: elisaapplication.cpp:196
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Pereiti prie kito takelio"
 
-#: elisaapplication.cpp:197
+#: elisaapplication.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Pereiti prie ankstesnio takelio"
 
-#: elisaapplication.cpp:203
+#: elisaapplication.cpp:208
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Atkurti/pristabdyti"
 
-#: elisaapplication.cpp:214
+#: elisaapplication.cpp:219
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
@@ -1260,39 +1260,35 @@ msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "Mėgstama/nemėgstama"
 
-#: qml/SettingsForm.qml:140
-#, kde-format
-msgctxt "@action:button"
-msgid "Color Scheme"
+#: qml/SettingsForm.qml:144
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu this has child menu items"
+#| msgid "Color Scheme"
+msgctxt "@label:listbox"
+msgid "Color Scheme:"
 msgstr "Spalvų rinkinys"
 
-#: qml/SettingsForm.qml:145
-#, kde-format
-msgctxt "@title:menu"
-msgid "Color Scheme"
-msgstr "Spalvų rinkinys"
-
-#: qml/SettingsForm.qml:176
+#: qml/SettingsForm.qml:175
 #, fuzzy, kde-format
 #| msgid "Start playing on startup"
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "Pradėti atkūrimą paleidus programą"
 
-#: qml/SettingsForm.qml:186
+#: qml/SettingsForm.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr ""
 
-#: qml/SettingsForm.qml:204
+#: qml/SettingsForm.qml:203
 #, fuzzy, kde-format
 #| msgid "Embed category in sidebar:"
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Įterpti kategoriją į šoninę juostą:"
 
-#: qml/SettingsForm.qml:206
+#: qml/SettingsForm.qml:205
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, embed no category in views navigation list"
 #| msgid "Nothing"
@@ -1301,7 +1297,7 @@ msgctxt ""
 msgid "Nothing"
 msgstr "Nieko"
 
-#: qml/SettingsForm.qml:207
+#: qml/SettingsForm.qml:206
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1310,7 +1306,7 @@ msgctxt ""
 msgid "Albums"
 msgstr "Albumai"
 
-#: qml/SettingsForm.qml:208
+#: qml/SettingsForm.qml:207
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1319,7 +1315,7 @@ msgctxt ""
 msgid "Artists"
 msgstr "Atlikėjai"
 
-#: qml/SettingsForm.qml:209
+#: qml/SettingsForm.qml:208
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -1328,103 +1324,103 @@ msgctxt ""
 msgid "Genres"
 msgstr "Žanrai"
 
-#: qml/SettingsForm.qml:242
+#: qml/SettingsForm.qml:241
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "Pradinis rodinys paleidus programą:"
 
-#: qml/SettingsForm.qml:244
+#: qml/SettingsForm.qml:243
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Dabar atkuriama"
 
-#: qml/SettingsForm.qml:245
+#: qml/SettingsForm.qml:244
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Paskiausiai atkurta"
 
-#: qml/SettingsForm.qml:246
+#: qml/SettingsForm.qml:245
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Dažniausiai atkurta"
 
-#: qml/SettingsForm.qml:247
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumai"
 
-#: qml/SettingsForm.qml:248
+#: qml/SettingsForm.qml:247
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Atlikėjai"
 
-#: qml/SettingsForm.qml:249
+#: qml/SettingsForm.qml:248
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Takeliai"
 
-#: qml/SettingsForm.qml:250
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Žanrai"
 
-#: qml/SettingsForm.qml:251
+#: qml/SettingsForm.qml:250
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "Failai"
 
-#: qml/SettingsForm.qml:252
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radijo stotys"
 
-#: qml/SettingsForm.qml:272
+#: qml/SettingsForm.qml:271
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr ""
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:285
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:294 qml/SettingsForm.qml:452
+#: qml/SettingsForm.qml:293 qml/SettingsForm.qml:451
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Pasirinkti aplanką"
 
-#: qml/SettingsForm.qml:313
+#: qml/SettingsForm.qml:312
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "Muzikos indeksavimas:"
 
-#: qml/SettingsForm.qml:317
+#: qml/SettingsForm.qml:316
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "Naudoti greitą savą indeksatorių"
 
-#: qml/SettingsForm.qml:318
+#: qml/SettingsForm.qml:317
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "Peržiūrėti failų sistemą tiesiogiai"
 
-#: qml/SettingsForm.qml:332
+#: qml/SettingsForm.qml:331
 #, fuzzy, kde-format
 #| msgid ""
 #| "This is slower than the fast indexer. Please activate it only if Elisa "
@@ -1441,30 +1437,30 @@ msgstr ""
 "naudojant failų tvarkytuvę taip pat neveikia. Prašome pranešti apie tai, "
 "kaip apie programos klaidą."
 
-#: qml/SettingsForm.qml:336
+#: qml/SettingsForm.qml:335
 #, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "Pranešti apie programos klaidą"
 
-#: qml/SettingsForm.qml:351
+#: qml/SettingsForm.qml:350
 #, kde-format
 msgid "When saving playlist files:"
 msgstr ""
 
-#: qml/SettingsForm.qml:360
+#: qml/SettingsForm.qml:359
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:361
+#: qml/SettingsForm.qml:360
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:372
+#: qml/SettingsForm.qml:371
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1473,26 +1469,26 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 
-#: qml/SettingsForm.qml:387
+#: qml/SettingsForm.qml:386
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "Muzikos aplankai:"
 
-#: qml/SettingsForm.qml:429
+#: qml/SettingsForm.qml:428
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Nustoti ieškoti čia muzikos"
 
-#: qml/SettingsForm.qml:442
+#: qml/SettingsForm.qml:441
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Pridėti naują vietą"
 
-#: qml/SettingsForm.qml:469
+#: qml/SettingsForm.qml:468
 #, kde-format
 msgctxt "@label"
 msgid ""
@@ -1767,6 +1763,14 @@ msgstr "Failai"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radijo stotys"
+
+#~ msgctxt "@action:button"
+#~ msgid "Color Scheme"
+#~ msgstr "Spalvų rinkinys"
+
+#~ msgctxt "@title:menu"
+#~ msgid "Color Scheme"
+#~ msgstr "Spalvų rinkinys"
 
 #~ msgctxt ""
 #~ "@action:button Clear play list and add whole container to play list"

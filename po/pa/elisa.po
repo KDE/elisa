@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2023-10-12 01:42+0000\n"
 "PO-Revision-Date: 2021-05-01 23:39-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -42,47 +42,47 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "ਰੇਡੀਓ"
 
-#: elisaapplication.cpp:174
+#: elisaapplication.cpp:179
 #, fuzzy, kde-format
 #| msgid "Hide Playlist"
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "ਪਲੇਅਲਿਸਟ ਲੁਕਾਓ"
 
-#: elisaapplication.cpp:179
+#: elisaapplication.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr ""
 
-#: elisaapplication.cpp:185
+#: elisaapplication.cpp:190
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr ""
 
-#: elisaapplication.cpp:191
+#: elisaapplication.cpp:196
 #, fuzzy, kde-format
 #| msgid "Go to next track"
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "ਪਿਛਲੇ ਟਰੈਕ ਉੱਤੇ ਜਾਓ"
 
-#: elisaapplication.cpp:197
+#: elisaapplication.cpp:202
 #, fuzzy, kde-format
 #| msgid "Go to previous track"
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "ਪਿਛਲੇ ਟਰੈਕ ਉੱਤੇ ਜਾਓ"
 
-#: elisaapplication.cpp:203
+#: elisaapplication.cpp:208
 #, fuzzy, kde-format
 #| msgid "Play/pause"
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "ਚਲਾਓ/ਰੋਕੋ"
 
-#: elisaapplication.cpp:214
+#: elisaapplication.cpp:219
 #, fuzzy, kde-format
 #| msgctxt "toggle mute mode for player"
 #| msgid "Toggle Mute"
@@ -1447,39 +1447,32 @@ msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr ""
 
-#: qml/SettingsForm.qml:140
+#: qml/SettingsForm.qml:144
 #, fuzzy, kde-format
 #| msgid "Color Scheme"
-msgctxt "@action:button"
-msgid "Color Scheme"
+msgctxt "@label:listbox"
+msgid "Color Scheme:"
 msgstr "ਰੰਗ ਸਕੀਮ"
 
-#: qml/SettingsForm.qml:145
-#, fuzzy, kde-format
-#| msgid "Color Scheme"
-msgctxt "@title:menu"
-msgid "Color Scheme"
-msgstr "ਰੰਗ ਸਕੀਮ"
-
-#: qml/SettingsForm.qml:176
+#: qml/SettingsForm.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr ""
 
-#: qml/SettingsForm.qml:186
+#: qml/SettingsForm.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr ""
 
-#: qml/SettingsForm.qml:204
+#: qml/SettingsForm.qml:203
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr ""
 
-#: qml/SettingsForm.qml:206
+#: qml/SettingsForm.qml:205
 #, fuzzy, kde-format
 #| msgctxt "Configure dialog, embed no category in views navigation list"
 #| msgid "Nothing"
@@ -1488,7 +1481,7 @@ msgctxt ""
 msgid "Nothing"
 msgstr "ਕੁਝ ਵੀ ਨਹੀਂ"
 
-#: qml/SettingsForm.qml:207
+#: qml/SettingsForm.qml:206
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1497,7 +1490,7 @@ msgctxt ""
 msgid "Albums"
 msgstr "ਐਲਬਮਾਂ"
 
-#: qml/SettingsForm.qml:208
+#: qml/SettingsForm.qml:207
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1506,7 +1499,7 @@ msgctxt ""
 msgid "Artists"
 msgstr "ਕਲਾਕਾਰ"
 
-#: qml/SettingsForm.qml:209
+#: qml/SettingsForm.qml:208
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -1515,13 +1508,13 @@ msgctxt ""
 msgid "Genres"
 msgstr "ਸ਼ੈਲੀਆਂ"
 
-#: qml/SettingsForm.qml:242
+#: qml/SettingsForm.qml:241
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr ""
 
-#: qml/SettingsForm.qml:244
+#: qml/SettingsForm.qml:243
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -1529,7 +1522,7 @@ msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "ਹੁਣ ਚੱਲ ਰਿਹਾ ਹੈ"
 
-#: qml/SettingsForm.qml:245
+#: qml/SettingsForm.qml:244
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of recently played tracks"
 #| msgid "Recently Played"
@@ -1537,7 +1530,7 @@ msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "ਤਾਜ਼ਾ ਚਲਾਏ"
 
-#: qml/SettingsForm.qml:246
+#: qml/SettingsForm.qml:245
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of recently played tracks"
 #| msgid "Recently Played"
@@ -1545,7 +1538,7 @@ msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "ਤਾਜ਼ਾ ਚਲਾਏ"
 
-#: qml/SettingsForm.qml:247
+#: qml/SettingsForm.qml:246
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1553,7 +1546,7 @@ msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "ਐਲਬਮਾਂ"
 
-#: qml/SettingsForm.qml:248
+#: qml/SettingsForm.qml:247
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1561,7 +1554,7 @@ msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "ਕਲਾਕਾਰ"
 
-#: qml/SettingsForm.qml:249
+#: qml/SettingsForm.qml:248
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1569,7 +1562,7 @@ msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "ਟਰੈਕ"
 
-#: qml/SettingsForm.qml:250
+#: qml/SettingsForm.qml:249
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -1577,7 +1570,7 @@ msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "ਸ਼ੈਲੀਆਂ"
 
-#: qml/SettingsForm.qml:251
+#: qml/SettingsForm.qml:250
 #, fuzzy, kde-format
 #| msgctxt "Title of the file browser view"
 #| msgid "Files"
@@ -1585,33 +1578,33 @@ msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "ਫਾਇਲਾਂ"
 
-#: qml/SettingsForm.qml:252
+#: qml/SettingsForm.qml:251
 #, fuzzy, kde-format
 #| msgid "Radios"
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "ਰੇਡੀਓ"
 
-#: qml/SettingsForm.qml:272
+#: qml/SettingsForm.qml:271
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr ""
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:285
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:294 qml/SettingsForm.qml:452
+#: qml/SettingsForm.qml:293 qml/SettingsForm.qml:451
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "ਫੋਲਡਰ ਚੁਣੋ"
 
-#: qml/SettingsForm.qml:313
+#: qml/SettingsForm.qml:312
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "The configured folders where the user's music collection can be found"
@@ -1620,19 +1613,19 @@ msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "ਸੰਗੀਤ ਫੋਲਡਰ:"
 
-#: qml/SettingsForm.qml:317
+#: qml/SettingsForm.qml:316
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr ""
 
-#: qml/SettingsForm.qml:318
+#: qml/SettingsForm.qml:317
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr ""
 
-#: qml/SettingsForm.qml:332
+#: qml/SettingsForm.qml:331
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1641,30 +1634,30 @@ msgid ""
 "using your file manager also does not work. Please report this as a bug."
 msgstr ""
 
-#: qml/SettingsForm.qml:336
+#: qml/SettingsForm.qml:335
 #, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr ""
 
-#: qml/SettingsForm.qml:351
+#: qml/SettingsForm.qml:350
 #, kde-format
 msgid "When saving playlist files:"
 msgstr ""
 
-#: qml/SettingsForm.qml:360
+#: qml/SettingsForm.qml:359
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:361
+#: qml/SettingsForm.qml:360
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:372
+#: qml/SettingsForm.qml:371
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1673,7 +1666,7 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 
-#: qml/SettingsForm.qml:387
+#: qml/SettingsForm.qml:386
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "The configured folders where the user's music collection can be found"
@@ -1683,20 +1676,20 @@ msgctxt ""
 msgid "Music folders:"
 msgstr "ਸੰਗੀਤ ਫੋਲਡਰ:"
 
-#: qml/SettingsForm.qml:429
+#: qml/SettingsForm.qml:428
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr ""
 
-#: qml/SettingsForm.qml:442
+#: qml/SettingsForm.qml:441
 #, fuzzy, kde-format
 #| msgid "Add New Location"
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "ਨਵਾਂ ਟਿਕਾਣਾ ਜੋੜੋ"
 
-#: qml/SettingsForm.qml:469
+#: qml/SettingsForm.qml:468
 #, kde-format
 msgctxt "@label"
 msgid ""
@@ -2000,6 +1993,18 @@ msgstr "ਫਾਇਲਾਂ"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "ਰੇਡੀਓ"
+
+#, fuzzy
+#~| msgid "Color Scheme"
+#~ msgctxt "@action:button"
+#~ msgid "Color Scheme"
+#~ msgstr "ਰੰਗ ਸਕੀਮ"
+
+#, fuzzy
+#~| msgid "Color Scheme"
+#~ msgctxt "@title:menu"
+#~ msgid "Color Scheme"
+#~ msgstr "ਰੰਗ ਸਕੀਮ"
 
 #, fuzzy
 #~| msgctxt "Show track metadata"

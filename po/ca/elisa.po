@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 01:46+0000\n"
+"POT-Creation-Date: 2023-10-12 01:42+0000\n"
 "PO-Revision-Date: 2023-08-17 13:01+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -44,43 +44,43 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
 
-#: elisaapplication.cpp:174
+#: elisaapplication.cpp:179
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Commuta la llista de reproducció"
 
-#: elisaapplication.cpp:179
+#: elisaapplication.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Avança 10 segons"
 
-#: elisaapplication.cpp:185
+#: elisaapplication.cpp:190
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Retrocedeix 10 segons"
 
-#: elisaapplication.cpp:191
+#: elisaapplication.cpp:196
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Ves a la peça següent"
 
-#: elisaapplication.cpp:197
+#: elisaapplication.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Ves a la peça anterior"
 
-#: elisaapplication.cpp:203
+#: elisaapplication.cpp:208
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Reproducció/pausa"
 
-#: elisaapplication.cpp:214
+#: elisaapplication.cpp:219
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
@@ -1242,161 +1242,157 @@ msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "Preferida/no preferida"
 
-#: qml/SettingsForm.qml:140
-#, kde-format
-msgctxt "@action:button"
-msgid "Color Scheme"
+#: qml/SettingsForm.qml:144
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu this has child menu items"
+#| msgid "Color Scheme"
+msgctxt "@label:listbox"
+msgid "Color Scheme:"
 msgstr "Esquema de color"
 
-#: qml/SettingsForm.qml:145
-#, kde-format
-msgctxt "@title:menu"
-msgid "Color Scheme"
-msgstr "Esquema de color"
-
-#: qml/SettingsForm.qml:176
+#: qml/SettingsForm.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "Explora cercant música nova"
 
-#: qml/SettingsForm.qml:186
+#: qml/SettingsForm.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Restableix la base de dades i torna a explorar-ho tot"
 
-#: qml/SettingsForm.qml:204
+#: qml/SettingsForm.qml:203
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Incrusta una categoria a la barra lateral:"
 
-#: qml/SettingsForm.qml:206
+#: qml/SettingsForm.qml:205
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "No fer res"
 
-#: qml/SettingsForm.qml:207
+#: qml/SettingsForm.qml:206
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "Àlbums"
 
-#: qml/SettingsForm.qml:208
+#: qml/SettingsForm.qml:207
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "Artistes"
 
-#: qml/SettingsForm.qml:209
+#: qml/SettingsForm.qml:208
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "Gèneres"
 
-#: qml/SettingsForm.qml:242
+#: qml/SettingsForm.qml:241
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "Vista inicial a l'inici:"
 
-#: qml/SettingsForm.qml:244
+#: qml/SettingsForm.qml:243
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Ara s'està reproduint"
 
-#: qml/SettingsForm.qml:245
+#: qml/SettingsForm.qml:244
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Escoltades recentment"
 
-#: qml/SettingsForm.qml:246
+#: qml/SettingsForm.qml:245
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Escoltades freqüentment"
 
-#: qml/SettingsForm.qml:247
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Àlbums"
 
-#: qml/SettingsForm.qml:248
+#: qml/SettingsForm.qml:247
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Artistes"
 
-#: qml/SettingsForm.qml:249
+#: qml/SettingsForm.qml:248
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Peces"
 
-#: qml/SettingsForm.qml:250
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Gèneres"
 
-#: qml/SettingsForm.qml:251
+#: qml/SettingsForm.qml:250
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "Fitxers"
 
-#: qml/SettingsForm.qml:252
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
 
-#: qml/SettingsForm.qml:272
+#: qml/SettingsForm.qml:271
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr "Ubicació inicial de la vista Fitxers:"
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:285
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "Trieu…"
 
-#: qml/SettingsForm.qml:294 qml/SettingsForm.qml:452
+#: qml/SettingsForm.qml:293 qml/SettingsForm.qml:451
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Selecciona una carpeta"
 
-#: qml/SettingsForm.qml:313
+#: qml/SettingsForm.qml:312
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "Indexació de la música:"
 
-#: qml/SettingsForm.qml:317
+#: qml/SettingsForm.qml:316
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "Usa l'indexador natiu ràpid"
 
-#: qml/SettingsForm.qml:318
+#: qml/SettingsForm.qml:317
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "Explora el sistema de fitxers directament"
 
-#: qml/SettingsForm.qml:332
+#: qml/SettingsForm.qml:331
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1408,30 +1404,30 @@ msgstr ""
 "vostra música i la cerca d'un dels fitxers de música que falten mitjançant "
 "el gestor de fitxers tampoc funciona. Informeu-ne com a un error."
 
-#: qml/SettingsForm.qml:336
+#: qml/SettingsForm.qml:335
 #, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "Informa d'un error"
 
-#: qml/SettingsForm.qml:351
+#: qml/SettingsForm.qml:350
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "En desar els fitxers de llista de reproducció:"
 
-#: qml/SettingsForm.qml:360
+#: qml/SettingsForm.qml:359
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "Prefereix els camins relatius"
 
-#: qml/SettingsForm.qml:361
+#: qml/SettingsForm.qml:360
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "Empra sempre camins absoluts"
 
-#: qml/SettingsForm.qml:372
+#: qml/SettingsForm.qml:371
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1444,26 +1440,26 @@ msgstr ""
 "referenciaran amb només el nom del fitxer. En altres casos s'utilitzen "
 "camins absoluts."
 
-#: qml/SettingsForm.qml:387
+#: qml/SettingsForm.qml:386
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "Carpetes de música:"
 
-#: qml/SettingsForm.qml:429
+#: qml/SettingsForm.qml:428
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Deixa de cercar música aquí"
 
-#: qml/SettingsForm.qml:442
+#: qml/SettingsForm.qml:441
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Afegeix una ubicació nova"
 
-#: qml/SettingsForm.qml:469
+#: qml/SettingsForm.qml:468
 #, kde-format
 msgctxt "@label"
 msgid ""
@@ -1722,6 +1718,14 @@ msgstr "Fitxers"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
+
+#~ msgctxt "@action:button"
+#~ msgid "Color Scheme"
+#~ msgstr "Esquema de color"
+
+#~ msgctxt "@title:menu"
+#~ msgid "Color Scheme"
+#~ msgstr "Esquema de color"
 
 #~ msgctxt ""
 #~ "@action:button Clear play list and add whole container to play list"

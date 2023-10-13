@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-12 01:42+0000\n"
-"PO-Revision-Date: 2023-09-03 11:24+0100\n"
+"PO-Revision-Date: 2023-10-12 06:03+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1238,12 +1238,10 @@ msgid "Favorite/not favorite"
 msgstr "Plej ŝatata/ne ŝatata"
 
 #: qml/SettingsForm.qml:144
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Kolorskemo"
+msgstr "Kolorskemo:"
 
 #: qml/SettingsForm.qml:175
 #, kde-format
@@ -1713,36 +1711,3 @@ msgstr "Dosieroj"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiostacioj"
-
-#~ msgctxt "@action:button"
-#~ msgid "Color Scheme"
-#~ msgstr "Kolorskemo"
-
-#~ msgctxt "@title:menu"
-#~ msgid "Color Scheme"
-#~ msgstr "Kolorskemo"
-
-#~ msgctxt ""
-#~ "@action:button Clear play list and add whole container to play list"
-#~ msgid "Play now, replacing current queue"
-#~ msgstr "Ludi nun, anstataŭigante nunan atendovicon"
-
-#~ msgctxt "@action:button Add whole container to play list"
-#~ msgid "Add to queue"
-#~ msgstr "Aldoni al vico"
-
-#~ msgctxt "@action:button"
-#~ msgid "View details"
-#~ msgstr "Rigardi detalojn"
-
-#~ msgctxt "@action:button"
-#~ msgid "Un-mark as favorite"
-#~ msgstr "Malmarki kiel plej ŝatata"
-
-#~ msgctxt "@action:button"
-#~ msgid "Mark as favorite"
-#~ msgstr "Marki kiel plej ŝatata"
-
-#~ msgctxt "@action:button Enqueue current track"
-#~ msgid "Add to queue"
-#~ msgstr "Aldoni al vico"

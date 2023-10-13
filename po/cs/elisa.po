@@ -1242,12 +1242,10 @@ msgid "Favorite/not favorite"
 msgstr "Oblíbené/neoblíbené"
 
 #: qml/SettingsForm.qml:144
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Barevné schéma"
+msgstr ""
 
 #: qml/SettingsForm.qml:175
 #, kde-format
@@ -1719,11 +1717,3 @@ msgstr "Soubory"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Rozhlasové stanice"
-
-#~ msgctxt "@action:button"
-#~ msgid "Color Scheme"
-#~ msgstr "Barevné schéma"
-
-#~ msgctxt "@title:menu"
-#~ msgid "Color Scheme"
-#~ msgstr "Barevné schéma"

@@ -113,6 +113,7 @@ parts:
         - gstreamer1.0-plugins-base
         - gstreamer1.0-plugins-bad
         - qml-module-org-kde-qqc2desktopstyle
+        - qml-module-qtquick-controls2
         source: .
         source-type: local
         plugin: cmake

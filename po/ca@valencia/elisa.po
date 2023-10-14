@@ -66,13 +66,13 @@ msgstr "Retrocedix 10 segons"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
-msgstr "Ves a la peça següent"
+msgstr "Ves fins a la peça següent"
 
 #: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
-msgstr "Ves a la peça anterior"
+msgstr "Ves fins a la peça anterior"
 
 #: elisaapplication.cpp:203
 #, kde-format

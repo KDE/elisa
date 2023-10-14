@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-12 01:42+0000\n"
+"POT-Creation-Date: 2023-10-14 01:48+0000\n"
 "PO-Revision-Date: 2023-10-10 14:25\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -479,29 +479,23 @@ msgctxt "@title:window"
 msgid "Configure"
 msgstr "配置"
 
-#: qml/ElisaConfigurationDialog.qml:43 qml/MediaTrackMetadataView.qml:192
+#: qml/ElisaConfigurationDialog.qml:45 qml/MediaTrackMetadataView.qml:192
 #, kde-format
 msgctxt "@action:button"
 msgid "OK"
 msgstr "确定"
 
-#: qml/ElisaConfigurationDialog.qml:54 qml/MediaTrackMetadataView.qml:178
+#: qml/ElisaConfigurationDialog.qml:53 qml/MediaTrackMetadataView.qml:178
 #, kde-format
 msgctxt "@action:button"
 msgid "Apply"
 msgstr "应用"
 
-#: qml/ElisaConfigurationDialog.qml:64
+#: qml/ElisaConfigurationDialog.qml:63 qml/mobile/MobileSettingsPage.qml:42
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel"
 msgstr "取消"
-
-#: qml/ElisaConfigurationDialog.qml:81
-#, kde-format
-msgctxt "@title:window"
-msgid "Warning"
-msgstr "警告"
 
 #: qml/ElisaMainWindow.qml:26
 #, kde-format
@@ -589,7 +583,7 @@ msgid "Add to playlist"
 msgstr "加入播放列表"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:87
+#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:89
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -608,7 +602,7 @@ msgid "Exit Full Screen"
 msgstr "退出全屏模式"
 
 #: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
-#: qml/PlayListEntry.qml:94
+#: qml/PlayListEntry.qml:96
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -620,21 +614,21 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "从此处开始播放，替换当前播放列表"
 
-#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:108
+#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:110
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "设置曲目评分"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:118
+#: qml/PlayListEntry.qml:120
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "取消收藏此曲目"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:118
+#: qml/PlayListEntry.qml:120
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
@@ -658,7 +652,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:331 qml/PlayListEntry.qml:296
+#: qml/ListBrowserDelegate.qml:331 qml/PlayListEntry.qml:298
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -893,14 +887,13 @@ msgid "View details"
 msgstr "查看详情"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:45
-#: qml/mobile/MobileSettingsPage.qml:36
 #, kde-format
 msgctxt "@action:button"
 msgid "Close"
 msgstr "关闭"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:53
-#: qml/mobile/MobileSettingsPage.qml:28
+#: qml/mobile/MobileSettingsPage.qml:36
 #, kde-format
 msgctxt "@action:button"
 msgid "Save"
@@ -1143,61 +1136,67 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "仅显示收藏曲目"
 
-#: qml/PlayListEntry.qml:131
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "暂停"
 
-#: qml/PlayListEntry.qml:131
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "播放"
 
-#: qml/PlayListEntry.qml:146
+#: qml/PlayListEntry.qml:148
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "移除"
 
-#: qml/SettingsForm.qml:30
+#: qml/SettingsForm.qml:44
+#, kde-format
+msgctxt "@title:window"
+msgid "Warning"
+msgstr "警告"
+
+#: qml/SettingsForm.qml:67
 #, kde-format
 msgctxt "@title:group"
 msgid "General:"
 msgstr "常规:"
 
-#: qml/SettingsForm.qml:34
+#: qml/SettingsForm.qml:71
 #, kde-format
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "在正在播放页面显示背景"
 
-#: qml/SettingsForm.qml:47
+#: qml/SettingsForm.qml:84
 #, kde-format
 msgctxt "@option:check"
 msgid "Show progress on Task Manager entries"
 msgstr "在任务管理器项目中显示进度"
 
-#: qml/SettingsForm.qml:58
+#: qml/SettingsForm.qml:95
 #, kde-format
 msgctxt "@option:check"
 msgid "Keep running in System Tray when main window is closed"
 msgstr "关闭主窗口后继续在系统托盘中运行"
 
-#: qml/SettingsForm.qml:69
+#: qml/SettingsForm.qml:106
 #, kde-format
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "启动后立即播放音乐"
 
-#: qml/SettingsForm.qml:80
+#: qml/SettingsForm.qml:117
 #, kde-format
 msgctxt "@option:check"
 msgid "Scan for New Music on startup"
 msgstr "启动时扫描新音乐"
 
-#: qml/SettingsForm.qml:99
+#: qml/SettingsForm.qml:136
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1210,25 +1209,25 @@ msgstr ""
 "库。您可以通过 Elisa 的汉堡菜单中的<interface>扫描新的音乐</interface>进行刷"
 "新。"
 
-#: qml/SettingsForm.qml:110
+#: qml/SettingsForm.qml:147
 #, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "曲目评分风格："
 
-#: qml/SettingsForm.qml:114
+#: qml/SettingsForm.qml:151
 #, kde-format
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "0-5 星"
 
-#: qml/SettingsForm.qml:126
+#: qml/SettingsForm.qml:163
 #, kde-format
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "收藏/非收藏"
 
-#: qml/SettingsForm.qml:144
+#: qml/SettingsForm.qml:181
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu this has child menu items"
 #| msgid "Color Scheme"
@@ -1236,149 +1235,163 @@ msgctxt "@label:listbox"
 msgid "Color Scheme:"
 msgstr "配色方案"
 
-#: qml/SettingsForm.qml:175
+#: qml/SettingsForm.qml:212
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "扫描新的音乐"
 
-#: qml/SettingsForm.qml:185
+#: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
+#, fuzzy, kde-format
+#| msgctxt "@info:status"
+#| msgid "Scanning music"
+msgctxt "@info"
+msgid "Started scanning for music"
+msgstr "正在扫描音乐"
+
+#: qml/SettingsForm.qml:222
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "重置数据库并重新扫描所有内容"
 
-#: qml/SettingsForm.qml:203
+#: qml/SettingsForm.qml:226
+#, kde-format
+msgctxt "@info"
+msgid "Database has been reset"
+msgstr ""
+
+#: qml/SettingsForm.qml:241
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "嵌入侧边栏的分类:"
 
-#: qml/SettingsForm.qml:205
+#: qml/SettingsForm.qml:243
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "无"
 
-#: qml/SettingsForm.qml:206
+#: qml/SettingsForm.qml:244
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "专辑"
 
-#: qml/SettingsForm.qml:207
+#: qml/SettingsForm.qml:245
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "艺人"
 
-#: qml/SettingsForm.qml:208
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "流派"
 
-#: qml/SettingsForm.qml:241
+#: qml/SettingsForm.qml:279
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "启动时的初始视图:"
 
-#: qml/SettingsForm.qml:243
+#: qml/SettingsForm.qml:281
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "正在播放"
 
-#: qml/SettingsForm.qml:244
+#: qml/SettingsForm.qml:282
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "最近播放"
 
-#: qml/SettingsForm.qml:245
+#: qml/SettingsForm.qml:283
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "最常播放"
 
-#: qml/SettingsForm.qml:246
+#: qml/SettingsForm.qml:284
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "专辑"
 
-#: qml/SettingsForm.qml:247
+#: qml/SettingsForm.qml:285
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "艺人"
 
-#: qml/SettingsForm.qml:248
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "曲目"
 
-#: qml/SettingsForm.qml:249
+#: qml/SettingsForm.qml:287
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "流派"
 
-#: qml/SettingsForm.qml:250
+#: qml/SettingsForm.qml:288
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "文件"
 
-#: qml/SettingsForm.qml:251
+#: qml/SettingsForm.qml:289
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "电台"
 
-#: qml/SettingsForm.qml:271
+#: qml/SettingsForm.qml:309
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr "文件视图的初始位置："
 
-#: qml/SettingsForm.qml:285
+#: qml/SettingsForm.qml:323
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "选择…"
 
-#: qml/SettingsForm.qml:293 qml/SettingsForm.qml:451
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "选择文件夹"
 
-#: qml/SettingsForm.qml:312
+#: qml/SettingsForm.qml:350
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Music indexing:"
 msgstr "音乐索引功能:"
 
-#: qml/SettingsForm.qml:316
+#: qml/SettingsForm.qml:354
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "使用系统快速索引器"
 
-#: qml/SettingsForm.qml:317
+#: qml/SettingsForm.qml:355
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "直接扫描文件系统"
 
-#: qml/SettingsForm.qml:331
+#: qml/SettingsForm.qml:369
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1389,30 +1402,30 @@ msgstr ""
 "此模式比快速索引器慢一些。请只在 Elisa 无法找到您的音乐，而且通过文件管理器搜"
 "索缺失的音乐也不起作用时才启用此模式。遇到上述问题时请向我们报告程序缺陷。"
 
-#: qml/SettingsForm.qml:335
+#: qml/SettingsForm.qml:373
 #, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "报告程序缺陷"
 
-#: qml/SettingsForm.qml:350
+#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "保存播放列表文件时："
 
-#: qml/SettingsForm.qml:359
+#: qml/SettingsForm.qml:397
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "优先使用相对路径"
 
-#: qml/SettingsForm.qml:360
+#: qml/SettingsForm.qml:398
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "总是使用绝对路径"
 
-#: qml/SettingsForm.qml:371
+#: qml/SettingsForm.qml:409
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1423,26 +1436,26 @@ msgstr ""
 "选择<interface>优先使用相对路径</interface>时，与播放列表在同一文件夹的音频文"
 "件将只用文件名表示。在其他情况下都使用绝对路径。"
 
-#: qml/SettingsForm.qml:386
+#: qml/SettingsForm.qml:424
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "音乐文件夹:"
 
-#: qml/SettingsForm.qml:428
+#: qml/SettingsForm.qml:466
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "停止在此处搜索音乐"
 
-#: qml/SettingsForm.qml:441
+#: qml/SettingsForm.qml:479
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "新增位置"
 
-#: qml/SettingsForm.qml:468
+#: qml/SettingsForm.qml:506
 #, kde-format
 msgctxt "@label"
 msgid ""

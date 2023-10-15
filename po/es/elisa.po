@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 01:48+0000\n"
-"PO-Revision-Date: 2023-09-02 17:26+0200\n"
+"PO-Revision-Date: 2023-10-14 18:18+0200\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1241,12 +1241,10 @@ msgid "Favorite/not favorite"
 msgstr "Favorita/No favorita"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Esquema de color"
+msgstr "Esquema de color:"
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1255,12 +1253,10 @@ msgid "Scan for New Music"
 msgstr "Escanear por nueva música"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Explorando música"
+msgstr "Exploración de música iniciada"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1272,7 +1268,7 @@ msgstr "Reiniciar base de datos y escanear de nuevo todo"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "La base de datos ha sido reiniciada"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1732,36 +1728,3 @@ msgstr "Archivos"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estaciones de radio"
-
-#~ msgctxt "@action:button"
-#~ msgid "Color Scheme"
-#~ msgstr "Esquema de color"
-
-#~ msgctxt "@title:menu"
-#~ msgid "Color Scheme"
-#~ msgstr "Esquema de color"
-
-#~ msgctxt ""
-#~ "@action:button Clear play list and add whole container to play list"
-#~ msgid "Play now, replacing current queue"
-#~ msgstr "Reproducir ahora, sustituyendo la cola actual"
-
-#~ msgctxt "@action:button Add whole container to play list"
-#~ msgid "Add to queue"
-#~ msgstr "Añadir a la cola"
-
-#~ msgctxt "@action:button"
-#~ msgid "View details"
-#~ msgstr "Ver detalles"
-
-#~ msgctxt "@action:button"
-#~ msgid "Un-mark as favorite"
-#~ msgstr "Desmarcar como favorita"
-
-#~ msgctxt "@action:button"
-#~ msgid "Mark as favorite"
-#~ msgstr "Marcar como favorita"
-
-#~ msgctxt "@action:button Enqueue current track"
-#~ msgid "Add to queue"
-#~ msgstr "Añadir a la cola"

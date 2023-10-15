@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 01:48+0000\n"
-"PO-Revision-Date: 2023-09-24 07:55+0200\n"
+"PO-Revision-Date: 2023-10-14 10:58+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -1238,12 +1238,10 @@ msgid "Favorite/not favorite"
 msgstr "Ulubiony/nieulubiony"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Zestaw barw"
+msgstr "Zestaw barw:"
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1252,12 +1250,10 @@ msgid "Scan for New Music"
 msgstr "Poszukaj nowej muzyki"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Przeszukiwanie muzyki"
+msgstr "Rozpoczęto przeszukiwanie muzyki"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1269,7 +1265,7 @@ msgstr "Wyzeruj bazę danych i poszukaj na nowo"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Baza danych została wyzerowana"
 
 #: qml/SettingsForm.qml:241
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 01:48+0000\n"
-"PO-Revision-Date: 2023-10-12 09:31+0200\n"
+"PO-Revision-Date: 2023-10-14 08:24+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1252,12 +1252,10 @@ msgid "Scan for New Music"
 msgstr "Scande per Nove Musica"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Scandente musica"
+msgstr "Initia a scander musica"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1269,7 +1267,7 @@ msgstr "Refixa Base de Datos e re-scande toto"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Le bae de datos ha essite reinitialisate"
 
 #: qml/SettingsForm.qml:241
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 01:48+0000\n"
-"PO-Revision-Date: 2023-10-12 17:29+0300\n"
+"PO-Revision-Date: 2023-10-14 05:26+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1249,12 +1249,10 @@ msgid "Scan for New Music"
 msgstr "Yeni Müzikleri Tara"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Müzik taranıyor"
+msgstr "Müzik taraması başlatıldı"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1266,7 +1264,7 @@ msgstr "Veritabanını Sıfırla ve Tümünü Yeniden Tara"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Veritabanı sıfırlandı"
 
 #: qml/SettingsForm.qml:241
 #, kde-format

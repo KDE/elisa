@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 01:48+0000\n"
-"PO-Revision-Date: 2023-10-12 04:48+0200\n"
+"PO-Revision-Date: 2023-10-14 07:28+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
 "%100<=4 ? 2 : 3);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1254,12 +1254,10 @@ msgid "Scan for New Music"
 msgstr "Prečeši za novo glasbo"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Pregledovanja glasbe"
+msgstr "Začeto prečesavanje glasbe"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1271,7 +1269,7 @@ msgstr "Ponovno nastavi zbirko in ponovno prečeši vse"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Podatkovna baza je bilo ponovno nastavljena"
 
 #: qml/SettingsForm.qml:241
 #, kde-format

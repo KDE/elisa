@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 01:48+0000\n"
-"PO-Revision-Date: 2023-10-12 09:00+0300\n"
+"PO-Revision-Date: 2023-10-14 09:06+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -1255,12 +1255,10 @@ msgid "Scan for New Music"
 msgstr "Шукати нові композиції"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Шукаємо музику"
+msgstr "Розпочато пошук музики"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1272,7 +1270,7 @@ msgstr "Скинути базу даних і виконати повторни�
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Відновлено початковий стан бази даних"
 
 #: qml/SettingsForm.qml:241
 #, kde-format

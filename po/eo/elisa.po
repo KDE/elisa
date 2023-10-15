@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 01:48+0000\n"
-"PO-Revision-Date: 2023-10-12 06:03+0100\n"
+"PO-Revision-Date: 2023-10-14 12:02+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1249,12 +1249,10 @@ msgid "Scan for New Music"
 msgstr "Skani pri Nova Muziko"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Skanado de muziko"
+msgstr "Komencis skanadon pri muziko"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1266,7 +1264,7 @@ msgstr "Restarigi datumbazon kaj re-skani ĉion"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Datumbazo estis restarigita"
 
 #: qml/SettingsForm.qml:241
 #, kde-format

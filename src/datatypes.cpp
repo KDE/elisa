@@ -7,5 +7,11 @@
 
 #include "datatypes.h"
 
+bool DataTypes::TrackDataType::albumInfoIsSame(const TrackDataType &other) const
+{
+    return hasAlbum() == other.hasAlbum() && album() == other.album() &&
+           hasAlbumArtist() == other.hasAlbumArtist() && albumArtist() == other.albumArtist();
+}
+
 
 #include "moc_datatypes.cpp"

@@ -6918,7 +6918,6 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
     if (isModifiedTrack && !oneTrack.title().isEmpty()) {
         resultId = existingTrackId;
 
-        bool albumInfoIsSame = true;
 
         auto oldTrack = internalTrackFromDatabaseId(existingTrackId);
         qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::internalInsertTrack" << existingTrackId << oldTrack;
@@ -6927,20 +6926,16 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         auto isSameTrack = true;
         isSameTrack = isSameTrack && (oldTrack.title() == oneTrack.title());
         isSameTrack = isSameTrack && (oldTrack.hasAlbum() == oneTrack.hasAlbum());
-        albumInfoIsSame = albumInfoIsSame && (oldTrack.hasAlbum() == oneTrack.hasAlbum());
         if (isSameTrack && oldTrack.hasAlbum()) {
             isSameTrack = isSameTrack && (oldTrack.album() == oneTrack.album());
-            albumInfoIsSame = albumInfoIsSame && (oldTrack.album() == oneTrack.album());
         }
         isSameTrack = isSameTrack && (oldTrack.hasArtist() == oneTrack.hasArtist());
         if (isSameTrack && oldTrack.hasArtist()) {
             isSameTrack = isSameTrack && (oldTrack.artist() == oneTrack.artist());
         }
         isSameTrack = isSameTrack && (oldTrack.hasAlbumArtist() == oneTrack.hasAlbumArtist());
-        albumInfoIsSame = albumInfoIsSame && (oldTrack.hasAlbumArtist() == oneTrack.hasAlbumArtist());
         if (isSameTrack && oldTrack.hasAlbumArtist()) {
             isSameTrack = isSameTrack && (oldTrack.albumArtist() == oneTrack.albumArtist());
-            albumInfoIsSame = albumInfoIsSame && (oldTrack.albumArtist() == oneTrack.albumArtist());
         }
         isSameTrack = isSameTrack && (oldTrack.hasTrackNumber() == oneTrack.hasTrackNumber());
         if (isSameTrack && oldTrack.hasTrackNumber()) {
@@ -7004,7 +6999,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
             auto tracksCount = fetchTrackIds(oldAlbumId).count();
 
             if (tracksCount) {
-                if (!albumInfoIsSame) {
+                if (!oldTrack.albumInfoIsSame(oneTrack)) {
                     recordModifiedAlbum(oldAlbumId);
                 }
             } else {

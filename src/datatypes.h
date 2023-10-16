@@ -320,6 +320,8 @@ public:
         {
             return operator[](key_type::FileModificationTime).toDateTime();
         }
+
+        [[nodiscard]] bool albumInfoIsSame(const TrackDataType &other) const;
     };
 
     using ListTrackDataType = QList<TrackDataType>;

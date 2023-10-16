@@ -6923,65 +6923,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::internalInsertTrack" << existingTrackId << oldTrack;
         oldAlbumId = oldTrack.albumId();
 
-        auto isSameTrack = true;
-        isSameTrack = isSameTrack && (oldTrack.title() == oneTrack.title());
-        isSameTrack = isSameTrack && (oldTrack.hasAlbum() == oneTrack.hasAlbum());
-        if (isSameTrack && oldTrack.hasAlbum()) {
-            isSameTrack = isSameTrack && (oldTrack.album() == oneTrack.album());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasArtist() == oneTrack.hasArtist());
-        if (isSameTrack && oldTrack.hasArtist()) {
-            isSameTrack = isSameTrack && (oldTrack.artist() == oneTrack.artist());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasAlbumArtist() == oneTrack.hasAlbumArtist());
-        if (isSameTrack && oldTrack.hasAlbumArtist()) {
-            isSameTrack = isSameTrack && (oldTrack.albumArtist() == oneTrack.albumArtist());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasTrackNumber() == oneTrack.hasTrackNumber());
-        if (isSameTrack && oldTrack.hasTrackNumber()) {
-            isSameTrack = isSameTrack && (oldTrack.trackNumber() == oneTrack.trackNumber());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasDiscNumber() == oneTrack.hasDiscNumber());
-        if (isSameTrack && oldTrack.hasDiscNumber()) {
-            isSameTrack = isSameTrack && (oldTrack.discNumber() == oneTrack.discNumber());
-        }
-        isSameTrack = isSameTrack && (oldTrack.duration() == oneTrack.duration());
-        isSameTrack = isSameTrack && (oldTrack.rating() == oneTrack.rating());
-        isSameTrack = isSameTrack && (oldTrack.resourceURI() == oneTrack.resourceURI());
-        isSameTrack = isSameTrack && (oldTrack.hasGenre() == oneTrack.hasGenre());
-        if (isSameTrack && oldTrack.hasGenre()) {
-            isSameTrack = isSameTrack && (oldTrack.genre() == oneTrack.genre());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasComposer() == oneTrack.hasComposer());
-        if (isSameTrack && oldTrack.hasComposer()) {
-            isSameTrack = isSameTrack && (oldTrack.composer() == oneTrack.composer());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasLyricist() == oneTrack.hasLyricist());
-        if (isSameTrack && oldTrack.hasLyricist()) {
-            isSameTrack = isSameTrack && (oldTrack.lyricist() == oneTrack.lyricist());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasComment() == oneTrack.hasComment());
-        if (isSameTrack && oldTrack.hasComment()) {
-            isSameTrack = isSameTrack && (oldTrack.comment() == oneTrack.comment());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasYear() == oneTrack.hasYear());
-        if (isSameTrack && oldTrack.hasYear()) {
-            isSameTrack = isSameTrack && (oldTrack.year() == oneTrack.year());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasChannels() == oneTrack.hasChannels());
-        if (isSameTrack && oldTrack.hasChannels()) {
-            isSameTrack = isSameTrack && (oldTrack.channels() == oneTrack.channels());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasBitRate() == oneTrack.hasBitRate());
-        if (isSameTrack && oldTrack.hasBitRate()) {
-            isSameTrack = isSameTrack && (oldTrack.bitRate() == oneTrack.bitRate());
-        }
-        isSameTrack = isSameTrack && (oldTrack.hasSampleRate() == oneTrack.hasSampleRate());
-        if (isSameTrack && oldTrack.hasSampleRate()) {
-            isSameTrack = isSameTrack && (oldTrack.sampleRate() == oneTrack.sampleRate());
-        }
-
-        if (isSameTrack) {
+        if (oldTrack.isSameTrack(oneTrack)) {
             return resultId;
         }
 

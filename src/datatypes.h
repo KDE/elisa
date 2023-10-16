@@ -322,6 +322,8 @@ public:
         }
 
         [[nodiscard]] bool albumInfoIsSame(const TrackDataType &other) const;
+
+        [[nodiscard]] bool isSameTrack(const TrackDataType &other) const;
     };
 
     using ListTrackDataType = QList<TrackDataType>;

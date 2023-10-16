@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 01:48+0000\n"
-"PO-Revision-Date: 2023-10-13 08:12+0200\n"
+"PO-Revision-Date: 2023-10-15 04:56+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1248,12 +1248,10 @@ msgid "Scan for New Music"
 msgstr "ახალი მუსიკისთვის სკანირება"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "მუსიკის ძებნა"
+msgstr "მუსიკის ძებნა გაეშვა"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1265,7 +1263,7 @@ msgstr "ბაზის გასუფთავება და სკანი
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "ბაზა ჩამოიყარა"
 
 #: qml/SettingsForm.qml:241
 #, kde-format

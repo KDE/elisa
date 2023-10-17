@@ -377,6 +377,8 @@ public:
 
     bool mInitFinished = false;
 
+    const DatabaseInterface::DatabaseVersion mLatestDatabaseVersion = DatabaseInterface::V17;
+
     struct TableSchema {
         QString name;
         QStringList fields;
@@ -3385,7 +3387,7 @@ void DatabaseInterface::upgradeDatabaseToLatestVersion()
     auto versionBegin = currentDatabaseVersion();
 
     int version = versionBegin;
-    for (; version-1 != DatabaseInterface::V17; version++) {
+    for (; version-1 != d->mLatestDatabaseVersion; version++) {
         callUpgradeFunctionForVersion(static_cast<DatabaseVersion>(version));
     }
 
@@ -3397,7 +3399,7 @@ void DatabaseInterface::upgradeDatabaseToLatestVersion()
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV14"));
     }
 
-    setDatabaseVersionInTable(DatabaseInterface::V17);
+    setDatabaseVersionInTable(d->mLatestDatabaseVersion);
 
     if (checkDatabaseSchema() == DatabaseState::BadState) {
         resetDatabase();

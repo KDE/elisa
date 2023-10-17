@@ -379,6 +379,46 @@ public:
 
     bool mIsInBadState = false;
 
+    struct TableSchema {
+        QString name;
+        QStringList fields;
+    };
+
+    const QList<TableSchema> mExpectedTableNamesAndFields {
+        {QStringLiteral("Albums"), {
+            QStringLiteral("ID"), QStringLiteral("Title"),
+            QStringLiteral("ArtistName"), QStringLiteral("AlbumPath"),
+            QStringLiteral("CoverFileName")}},
+
+        {QStringLiteral("Artists"), {
+            QStringLiteral("ID"), QStringLiteral("Name")}},
+
+        {QStringLiteral("Composer"), {
+            QStringLiteral("ID"), QStringLiteral("Name")}},
+        {QStringLiteral("Genre"), {
+            QStringLiteral("ID"), QStringLiteral("Name")}},
+
+        {QStringLiteral("Lyricist"), {
+            QStringLiteral("ID"), QStringLiteral("Name")}},
+
+        {QStringLiteral("Tracks"), {
+            QStringLiteral("ID"), QStringLiteral("FileName"),
+            QStringLiteral("Priority"), QStringLiteral("Title"),
+            QStringLiteral("ArtistName"), QStringLiteral("AlbumTitle"),
+            QStringLiteral("AlbumArtistName"), QStringLiteral("AlbumPath"),
+            QStringLiteral("TrackNumber"), QStringLiteral("DiscNumber"),
+            QStringLiteral("Duration"), QStringLiteral("Rating"),
+            QStringLiteral("Genre"), QStringLiteral("Composer"),
+            QStringLiteral("Lyricist"), QStringLiteral("Comment"),
+            QStringLiteral("Year"), QStringLiteral("Channels"),
+            QStringLiteral("BitRate"), QStringLiteral("SampleRate"),
+            QStringLiteral("HasEmbeddedCover")}},
+
+        {QStringLiteral("TracksData"), {
+            QStringLiteral("FileName"), QStringLiteral("FileModifiedTime"),
+            QStringLiteral("ImportDate"), QStringLiteral("FirstPlayDate"),
+            QStringLiteral("LastPlayDate"), QStringLiteral("PlayCounter")}},
+    };
 };
 
 DatabaseInterface::DatabaseInterface(QObject *parent) : QObject(parent), d(nullptr)
@@ -3244,120 +3284,16 @@ void DatabaseInterface::upgradeDatabaseV17()
 
 void DatabaseInterface::checkDatabaseSchema()
 {
-    checkAlbumsTableSchema();
-    if (d->mIsInBadState)
-    {
-        resetDatabase();
-        return;
-    }
-
-    checkArtistsTableSchema();
-    if (d->mIsInBadState)
-    {
-        resetDatabase();
-        return;
-    }
-
-    checkComposerTableSchema();
-    if (d->mIsInBadState)
-    {
-        resetDatabase();
-        return;
-    }
-
-    checkGenreTableSchema();
-    if (d->mIsInBadState)
-    {
-        resetDatabase();
-        return;
-    }
-
-    checkLyricistTableSchema();
-    if (d->mIsInBadState)
-    {
-        resetDatabase();
-        return;
-    }
-
-    checkTracksTableSchema();
-    if (d->mIsInBadState)
-    {
-        resetDatabase();
-        return;
-    }
-
-    checkTracksDataTableSchema();
-    if (d->mIsInBadState)
-    {
-        resetDatabase();
-        return;
+    for (const auto &expectedTableSchema : d->mExpectedTableNamesAndFields) {
+        checkTable(expectedTableSchema.name, expectedTableSchema.fields);
+        if (d->mIsInBadState) {
+            resetDatabase();
+            return;
+        }
     }
 }
 
-void DatabaseInterface::checkAlbumsTableSchema()
-{
-    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Title"),
-                                  QStringLiteral("ArtistName"), QStringLiteral("AlbumPath"),
-                                  QStringLiteral("CoverFileName")};
-
-    genericCheckTable(QStringLiteral("Albums"), fieldsList);
-}
-
-void DatabaseInterface::checkArtistsTableSchema()
-{
-    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Name")};
-
-    genericCheckTable(QStringLiteral("Artists"), fieldsList);
-}
-
-void DatabaseInterface::checkComposerTableSchema()
-{
-    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Name")};
-
-    genericCheckTable(QStringLiteral("Composer"), fieldsList);
-}
-
-void DatabaseInterface::checkGenreTableSchema()
-{
-    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Name")};
-
-    genericCheckTable(QStringLiteral("Genre"), fieldsList);
-}
-
-void DatabaseInterface::checkLyricistTableSchema()
-{
-    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("Name")};
-
-    genericCheckTable(QStringLiteral("Lyricist"), fieldsList);
-}
-
-void DatabaseInterface::checkTracksTableSchema()
-{
-    auto fieldsList = QStringList{QStringLiteral("ID"), QStringLiteral("FileName"),
-                                  QStringLiteral("Priority"), QStringLiteral("Title"),
-                                  QStringLiteral("ArtistName"), QStringLiteral("AlbumTitle"),
-                                  QStringLiteral("AlbumArtistName"), QStringLiteral("AlbumPath"),
-                                  QStringLiteral("TrackNumber"), QStringLiteral("DiscNumber"),
-                                  QStringLiteral("Duration"), QStringLiteral("Rating"),
-                                  QStringLiteral("Genre"), QStringLiteral("Composer"),
-                                  QStringLiteral("Lyricist"), QStringLiteral("Comment"),
-                                  QStringLiteral("Year"), QStringLiteral("Channels"),
-                                  QStringLiteral("BitRate"), QStringLiteral("SampleRate"),
-                                  QStringLiteral("HasEmbeddedCover")};
-
-    genericCheckTable(QStringLiteral("Tracks"), fieldsList);
-}
-
-void DatabaseInterface::checkTracksDataTableSchema()
-{
-    auto fieldsList = QStringList{QStringLiteral("FileName"), QStringLiteral("FileModifiedTime"),
-                                  QStringLiteral("ImportDate"), QStringLiteral("FirstPlayDate"),
-                                  QStringLiteral("LastPlayDate"), QStringLiteral("PlayCounter")};
-
-    genericCheckTable(QStringLiteral("TracksData"), fieldsList);
-}
-
-void DatabaseInterface::genericCheckTable(const QString &tableName, const QStringList &expectedColumns)
+void DatabaseInterface::checkTable(const QString &tableName, const QStringList &expectedColumns)
 {
     auto columnsList = d->mTracksDatabase.record(tableName);
 

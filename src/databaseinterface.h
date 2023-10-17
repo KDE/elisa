@@ -319,21 +319,7 @@ private:
 
     void checkDatabaseSchema();
 
-    void checkAlbumsTableSchema();
-
-    void checkArtistsTableSchema();
-
-    void checkComposerTableSchema();
-
-    void checkGenreTableSchema();
-
-    void checkLyricistTableSchema();
-
-    void checkTracksTableSchema();
-
-    void checkTracksDataTableSchema();
-
-    void genericCheckTable(const QString &tableName, const QStringList &expectedColumns);
+    void checkTable(const QString &tableName, const QStringList &expectedColumns);
 
     void resetDatabase();
 

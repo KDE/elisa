@@ -3280,17 +3280,13 @@ void DatabaseInterface::upgradeDatabaseV17()
 {
 }
 
-void DatabaseInterface::checkDatabaseSchema()
+DatabaseInterface::DatabaseState DatabaseInterface::checkDatabaseSchema() const
 {
     const auto tables = d->mExpectedTableNamesAndFields;
     const bool isInBadState = std::any_of(tables.cbegin(), tables.cend(), [this](const auto &table) {
         return checkTable(table.name, table.fields) == DatabaseState::BadState;
     });
-
-    if (isInBadState) {
-        resetDatabase();
-        return;
-    }
+    return isInBadState ? DatabaseState::BadState : DatabaseState::GoodState;
 }
 
 DatabaseInterface::DatabaseState DatabaseInterface::checkTable(const QString &tableName, const QStringList &expectedColumns) const
@@ -3396,7 +3392,9 @@ void DatabaseInterface::manageNewDatabaseVersion()
 
     setDatabaseVersionInTable(DatabaseInterface::V17);
 
-    checkDatabaseSchema();
+    if (checkDatabaseSchema() == DatabaseState::BadState) {
+        resetDatabase();
+    }
 }
 
 void DatabaseInterface::dropTable(const QString &query)

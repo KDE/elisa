@@ -317,7 +317,7 @@ private:
 
     void upgradeDatabaseV17();
 
-    void checkDatabaseSchema();
+    [[nodiscard]] DatabaseState checkDatabaseSchema() const;
 
     [[nodiscard]] DatabaseState checkTable(const QString &tableName, const QStringList &expectedColumns) const;
 

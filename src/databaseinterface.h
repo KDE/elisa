@@ -323,6 +323,8 @@ private:
 
     void resetDatabase();
 
+    DatabaseVersion currentDatabaseVersion();
+
     void upgradeDatabaseToLatestVersion();
 
     void dropTable(const QString &table);

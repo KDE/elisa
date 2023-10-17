@@ -3330,9 +3330,9 @@ void DatabaseInterface::resetDatabase()
     }
 }
 
-void DatabaseInterface::upgradeDatabaseToLatestVersion()
+DatabaseInterface::DatabaseVersion DatabaseInterface::currentDatabaseVersion()
 {
-    int versionBegin = 0;
+    int version = 0;
 
     auto listTables = d->mTracksDatabase.tables();
 
@@ -3350,32 +3350,39 @@ void DatabaseInterface::upgradeDatabaseToLatestVersion()
         if(d->mSelectDatabaseVersionQuery.next()) {
             const auto &currentRecord = d->mSelectDatabaseVersionQuery.record();
 
-            versionBegin = currentRecord.value(0).toInt();
+            version = currentRecord.value(0).toInt();
         }
     } else if (listTables.contains(QLatin1String("DatabaseVersionV5")) &&
                !listTables.contains(QLatin1String("DatabaseVersionV9"))) {
-        versionBegin = DatabaseInterface::V9;
+        version = DatabaseInterface::V9;
     } else {
         createDatabaseVersionTable();
         initDatabaseVersionQueries();
 
         if(listTables.contains(QLatin1String("DatabaseVersionV9"))) {
             if (!listTables.contains(QLatin1String("DatabaseVersionV11"))) {
-                versionBegin = DatabaseInterface::V11;
+                version = DatabaseInterface::V11;
             } else if (!listTables.contains(QLatin1String("DatabaseVersionV12"))) {
-                versionBegin = DatabaseInterface::V12;
+                version = DatabaseInterface::V12;
             } else if (!listTables.contains(QLatin1String("DatabaseVersionV13"))) {
-                versionBegin = DatabaseInterface::V13;
+                version = DatabaseInterface::V13;
             } else if (!listTables.contains(QLatin1String("DatabaseVersionV14"))) {
-                versionBegin = DatabaseInterface::V14;
+                version = DatabaseInterface::V14;
             } else {
-                versionBegin = DatabaseInterface::V15;
+                version = DatabaseInterface::V15;
             }
         } else {
             createDatabaseV9();
-            versionBegin = DatabaseInterface::V11;
+            version = DatabaseInterface::V11;
         }
     }
+
+    return static_cast<DatabaseVersion>(version);
+}
+
+void DatabaseInterface::upgradeDatabaseToLatestVersion()
+{
+    auto versionBegin = currentDatabaseVersion();
 
     int version = versionBegin;
     for (; version-1 != DatabaseInterface::V17; version++) {

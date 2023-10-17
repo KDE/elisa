@@ -201,7 +201,7 @@ private:
 
     void initDatabase();
 
-    void initRequest();
+    void initDataQueries();
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist,
                            const QString &trackPath, const QUrl &albumArtURI);
@@ -331,7 +331,7 @@ private:
 
     void createDatabaseVersionTable();
 
-    void manageNewDatabaseVersionInitRequests();
+    void initDatabaseVersionQueries();
 
     void callUpgradeFunctionForVersion(DatabaseVersion databaseVersion);
 

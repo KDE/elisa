@@ -377,8 +377,6 @@ public:
 
     bool mInitFinished = false;
 
-    bool mIsInBadState = false;
-
     struct TableSchema {
         QString name;
         QStringList fields;
@@ -3284,32 +3282,34 @@ void DatabaseInterface::upgradeDatabaseV17()
 
 void DatabaseInterface::checkDatabaseSchema()
 {
-    for (const auto &expectedTableSchema : d->mExpectedTableNamesAndFields) {
-        checkTable(expectedTableSchema.name, expectedTableSchema.fields);
-        if (d->mIsInBadState) {
-            resetDatabase();
-            return;
-        }
+    const auto tables = d->mExpectedTableNamesAndFields;
+    const bool isInBadState = std::any_of(tables.cbegin(), tables.cend(), [this](const auto &table) {
+        return checkTable(table.name, table.fields) == DatabaseState::BadState;
+    });
+
+    if (isInBadState) {
+        resetDatabase();
+        return;
     }
 }
 
-void DatabaseInterface::checkTable(const QString &tableName, const QStringList &expectedColumns)
+DatabaseInterface::DatabaseState DatabaseInterface::checkTable(const QString &tableName, const QStringList &expectedColumns) const
 {
-    auto columnsList = d->mTracksDatabase.record(tableName);
+    const auto columnsList = d->mTracksDatabase.record(tableName);
 
     if (columnsList.count() != expectedColumns.count()) {
         qCInfo(orgKdeElisaDatabase()) << tableName << "table has wrong number of columns" << columnsList.count() << "expected" << expectedColumns.count();
-        d->mIsInBadState = true;
-        return;
+        return DatabaseState::BadState;
     }
 
     for (const auto &oneField : expectedColumns) {
         if (!columnsList.contains(oneField)) {
             qCInfo(orgKdeElisaDatabase()) << tableName << "table has missing column" << oneField;
-            d->mIsInBadState = true;
-            return;
+            return DatabaseState::BadState;
         }
     }
+
+    return DatabaseState::GoodState;
 }
 
 void DatabaseInterface::resetDatabase()
@@ -3332,8 +3332,6 @@ void DatabaseInterface::resetDatabase()
             break;
         }
     }
-
-    d->mIsInBadState = false;
 }
 
 void DatabaseInterface::manageNewDatabaseVersion()

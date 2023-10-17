@@ -159,6 +159,11 @@ public Q_SLOTS:
 
 private:
 
+    enum class DatabaseState {
+        GoodState,
+        BadState,
+    };
+
     void initChangesTrackers();
 
     void recordModifiedTrack(qulonglong trackId);
@@ -314,7 +319,7 @@ private:
 
     void checkDatabaseSchema();
 
-    void checkTable(const QString &tableName, const QStringList &expectedColumns);
+    [[nodiscard]] DatabaseState checkTable(const QString &tableName, const QStringList &expectedColumns) const;
 
     void resetDatabase();
 

@@ -1056,7 +1056,7 @@ void MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTra
         d->mPartiallyLoaded = true;
     }
 
-    for (const QUrl &oneUrl : qAsConst(listOfUrls)) {
+    for (const QUrl &oneUrl : std::as_const(listOfUrls)) {
         if (oneUrl.isLocalFile()) {
             QFileInfo fileInfo(oneUrl.toLocalFile());
             loadLocalFile(newTracks, processedFiles, fileInfo);

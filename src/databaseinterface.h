@@ -164,17 +164,67 @@ private:
         BadState,
     };
 
-    void initChangesTrackers();
+    /********* Init and upgrade methods *********/
 
-    void recordModifiedTrack(qulonglong trackId);
+    void initDatabase();
 
-    void recordModifiedAlbum(qulonglong albumId);
+    void createDatabaseV9();
+
+    void upgradeDatabaseV9();
+
+    void upgradeDatabaseV11();
+
+    void upgradeDatabaseV12();
+
+    void upgradeDatabaseV13();
+
+    void upgradeDatabaseV14();
+
+    void upgradeDatabaseV15();
+
+    void upgradeDatabaseV16();
+
+    void upgradeDatabaseV17();
+
+    [[nodiscard]] DatabaseState checkDatabaseSchema() const;
+
+    [[nodiscard]] DatabaseState checkTable(const QString &tableName, const QStringList &expectedColumns) const;
+
+    void resetDatabase();
+
+    DatabaseVersion currentDatabaseVersion();
+
+    void upgradeDatabaseToLatestVersion();
+
+    void dropTable(const QString &table);
+
+    void setDatabaseVersionInTable(int version);
+
+    void createDatabaseVersionTable();
+
+    void initDatabaseVersionQueries();
+
+    void callUpgradeFunctionForVersion(DatabaseVersion databaseVersion);
+
+    /********* Data query methods *********/
 
     bool startTransaction();
 
     bool finishTransaction();
 
     bool rollBackTransaction();
+
+    bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
+
+    bool execQuery(QSqlQuery &query);
+
+    void initDataQueries();
+
+    void initChangesTrackers();
+
+    void recordModifiedTrack(qulonglong trackId);
+
+    void recordModifiedAlbum(qulonglong albumId);
 
     QList<qulonglong> fetchTrackIds(qulonglong albumId);
 
@@ -198,10 +248,6 @@ private:
     DataTypes::ListTrackDataType internalTracksFromGenre(const QString &genre);
 
     QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName);
-
-    void initDatabase();
-
-    void initDataQueries();
 
     qulonglong insertAlbum(const QString &title, const QString &albumArtist,
                            const QString &trackPath, const QUrl &albumArtURI);
@@ -284,10 +330,6 @@ private:
 
     DataTypes::ListArtistDataType internalAllLyricistsPartialData();
 
-    bool prepareQuery(QSqlQuery &query, const QString &queryText) const;
-
-    bool execQuery(QSqlQuery &query);
-
     void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath,
                            const QString &artistName);
 
@@ -298,44 +340,6 @@ private:
     void updateTrackStartedStatistics(const QUrl &fileName, const QDateTime &time);
 
     void updateTrackFinishedStatistics(const QUrl &fileName, const QDateTime &time);
-
-    void createDatabaseV9();
-
-    void upgradeDatabaseV9();
-
-    void upgradeDatabaseV11();
-
-    void upgradeDatabaseV12();
-
-    void upgradeDatabaseV13();
-
-    void upgradeDatabaseV14();
-
-    void upgradeDatabaseV15();
-
-    void upgradeDatabaseV16();
-
-    void upgradeDatabaseV17();
-
-    [[nodiscard]] DatabaseState checkDatabaseSchema() const;
-
-    [[nodiscard]] DatabaseState checkTable(const QString &tableName, const QStringList &expectedColumns) const;
-
-    void resetDatabase();
-
-    DatabaseVersion currentDatabaseVersion();
-
-    void upgradeDatabaseToLatestVersion();
-
-    void dropTable(const QString &table);
-
-    void setDatabaseVersionInTable(int version);
-
-    void createDatabaseVersionTable();
-
-    void initDatabaseVersionQueries();
-
-    void callUpgradeFunctionForVersion(DatabaseVersion databaseVersion);
 
     void internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack, const QHash<QString, QUrl> &covers);
 

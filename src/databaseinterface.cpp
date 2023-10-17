@@ -1029,6 +1029,141 @@ void DatabaseInterface::applicationAboutToQuit()
     d->mStopRequest = 1;
 }
 
+void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers)
+{
+    qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << tracks.count();
+    if (d->mStopRequest == 1) {
+        Q_EMIT finishInsertingTracksList();
+        return;
+    }
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        Q_EMIT finishInsertingTracksList();
+        return;
+    }
+
+    initChangesTrackers();
+
+    for(const auto &oneTrack : tracks) {
+        switch (oneTrack.elementType())
+        {
+        case ElisaUtils::Track:
+        {
+            qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "insert one track";
+            internalInsertOneTrack(oneTrack, covers);
+            break;
+        }
+        case ElisaUtils::Radio:
+        {
+            qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "insert one radio";
+            internalInsertOneRadio(oneTrack);
+            break;
+        }
+        case ElisaUtils::Album:
+        case ElisaUtils::Artist:
+        case ElisaUtils::Composer:
+        case ElisaUtils::Container:
+        case ElisaUtils::FileName:
+        case ElisaUtils::Genre:
+        case ElisaUtils::Lyricist:
+        case ElisaUtils::Unknown:
+        case ElisaUtils::PlayList:
+            qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "invalid track data";
+            break;
+        }
+
+        if (d->mStopRequest == 1) {
+            transactionResult = finishTransaction();
+            if (!transactionResult) {
+                Q_EMIT finishInsertingTracksList();
+                return;
+            }
+            Q_EMIT finishInsertingTracksList();
+            return;
+        }
+    }
+
+    if (!d->mInsertedArtists.isEmpty()) {
+        DataTypes::ListArtistDataType newArtists;
+
+        for (auto newArtistId : std::as_const(d->mInsertedArtists)) {
+            newArtists.push_back(internalOneArtistPartialData(newArtistId));
+        }
+
+        qCInfo(orgKdeElisaDatabase) << "artistsAdded" << newArtists.size();
+        Q_EMIT artistsAdded(newArtists);
+    }
+
+    if (!d->mInsertedAlbums.isEmpty()) {
+        DataTypes::ListAlbumDataType newAlbums;
+
+        for (auto albumId : std::as_const(d->mInsertedAlbums)) {
+            d->mModifiedAlbumIds.remove(albumId);
+            newAlbums.push_back(internalOneAlbumPartialData(albumId));
+        }
+
+        qCInfo(orgKdeElisaDatabase) << "albumsAdded" << newAlbums.size();
+        Q_EMIT albumsAdded(newAlbums);
+    }
+
+    for (auto albumId : std::as_const(d->mModifiedAlbumIds)) {
+        Q_EMIT albumModified({{DataTypes::DatabaseIdRole, albumId}}, albumId);
+    }
+
+    if (!d->mInsertedTracks.isEmpty()) {
+        DataTypes::ListTrackDataType newTracks;
+
+        for (auto trackId : std::as_const(d->mInsertedTracks)) {
+            newTracks.push_back(internalOneTrackPartialData(trackId));
+            d->mModifiedTrackIds.remove(trackId);
+        }
+
+        qCInfo(orgKdeElisaDatabase) << "tracksAdded" << newTracks.size();
+        Q_EMIT tracksAdded(newTracks);
+    }
+
+    for (auto trackId : std::as_const(d->mModifiedTrackIds)) {
+        Q_EMIT trackModified(internalOneTrackPartialData(trackId));
+    }
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        Q_EMIT finishInsertingTracksList();
+        return;
+    }
+    Q_EMIT finishInsertingTracksList();
+}
+
+void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
+{
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        Q_EMIT finishRemovingTracksList();
+        return;
+    }
+
+    initChangesTrackers();
+
+    internalRemoveTracksList(removedTracks);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        Q_EMIT finishRemovingTracksList();
+        return;
+    }
+
+    if (!d->mInsertedArtists.isEmpty()) {
+        DataTypes::ListArtistDataType newArtists;
+        for (auto newArtistId : std::as_const(d->mInsertedArtists)) {
+            newArtists.push_back(internalOneArtistPartialData(newArtistId));
+        }
+        Q_EMIT artistsAdded(newArtists);
+    }
+
+    Q_EMIT finishRemovingTracksList();
+}
+
 void DatabaseInterface::askRestoredTracks()
 {
     auto transactionResult = startTransaction();
@@ -1175,210 +1310,7 @@ void DatabaseInterface::clearData()
     Q_EMIT cleanedDatabase();
 }
 
-void DatabaseInterface::initChangesTrackers()
-{
-    d->mModifiedTrackIds.clear();
-    d->mModifiedAlbumIds.clear();
-    d->mModifiedArtistIds.clear();
-    d->mInsertedTracks.clear();
-    d->mInsertedAlbums.clear();
-    d->mInsertedArtists.clear();
-}
-
-void DatabaseInterface::recordModifiedTrack(qulonglong trackId)
-{
-    d->mModifiedTrackIds.insert(trackId);
-}
-
-void DatabaseInterface::recordModifiedAlbum(qulonglong albumId)
-{
-    d->mModifiedAlbumIds.insert(albumId);
-}
-
-void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers)
-{
-    qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << tracks.count();
-    if (d->mStopRequest == 1) {
-        Q_EMIT finishInsertingTracksList();
-        return;
-    }
-
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        Q_EMIT finishInsertingTracksList();
-        return;
-    }
-
-    initChangesTrackers();
-
-    for(const auto &oneTrack : tracks) {
-        switch (oneTrack.elementType())
-        {
-        case ElisaUtils::Track:
-        {
-            qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "insert one track";
-            internalInsertOneTrack(oneTrack, covers);
-            break;
-        }
-        case ElisaUtils::Radio:
-        {
-            qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "insert one radio";
-            internalInsertOneRadio(oneTrack);
-            break;
-        }
-        case ElisaUtils::Album:
-        case ElisaUtils::Artist:
-        case ElisaUtils::Composer:
-        case ElisaUtils::Container:
-        case ElisaUtils::FileName:
-        case ElisaUtils::Genre:
-        case ElisaUtils::Lyricist:
-        case ElisaUtils::Unknown:
-        case ElisaUtils::PlayList:
-            qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "invalid track data";
-            break;
-        }
-
-        if (d->mStopRequest == 1) {
-            transactionResult = finishTransaction();
-            if (!transactionResult) {
-                Q_EMIT finishInsertingTracksList();
-                return;
-            }
-            Q_EMIT finishInsertingTracksList();
-            return;
-        }
-    }
-
-    if (!d->mInsertedArtists.isEmpty()) {
-        DataTypes::ListArtistDataType newArtists;
-
-        for (auto newArtistId : std::as_const(d->mInsertedArtists)) {
-            newArtists.push_back(internalOneArtistPartialData(newArtistId));
-        }
-
-        qCInfo(orgKdeElisaDatabase) << "artistsAdded" << newArtists.size();
-        Q_EMIT artistsAdded(newArtists);
-    }
-
-    if (!d->mInsertedAlbums.isEmpty()) {
-        DataTypes::ListAlbumDataType newAlbums;
-
-        for (auto albumId : std::as_const(d->mInsertedAlbums)) {
-            d->mModifiedAlbumIds.remove(albumId);
-            newAlbums.push_back(internalOneAlbumPartialData(albumId));
-        }
-
-        qCInfo(orgKdeElisaDatabase) << "albumsAdded" << newAlbums.size();
-        Q_EMIT albumsAdded(newAlbums);
-    }
-
-    for (auto albumId : std::as_const(d->mModifiedAlbumIds)) {
-        Q_EMIT albumModified({{DataTypes::DatabaseIdRole, albumId}}, albumId);
-    }
-
-    if (!d->mInsertedTracks.isEmpty()) {
-        DataTypes::ListTrackDataType newTracks;
-
-        for (auto trackId : std::as_const(d->mInsertedTracks)) {
-            newTracks.push_back(internalOneTrackPartialData(trackId));
-            d->mModifiedTrackIds.remove(trackId);
-        }
-
-        qCInfo(orgKdeElisaDatabase) << "tracksAdded" << newTracks.size();
-        Q_EMIT tracksAdded(newTracks);
-    }
-
-    for (auto trackId : std::as_const(d->mModifiedTrackIds)) {
-        Q_EMIT trackModified(internalOneTrackPartialData(trackId));
-    }
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        Q_EMIT finishInsertingTracksList();
-        return;
-    }
-    Q_EMIT finishInsertingTracksList();
-}
-
-void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
-{
-    auto transactionResult = startTransaction();
-    if (!transactionResult) {
-        Q_EMIT finishRemovingTracksList();
-        return;
-    }
-
-    initChangesTrackers();
-
-    internalRemoveTracksList(removedTracks);
-
-    transactionResult = finishTransaction();
-    if (!transactionResult) {
-        Q_EMIT finishRemovingTracksList();
-        return;
-    }
-
-    if (!d->mInsertedArtists.isEmpty()) {
-        DataTypes::ListArtistDataType newArtists;
-        for (auto newArtistId : std::as_const(d->mInsertedArtists)) {
-            newArtists.push_back(internalOneArtistPartialData(newArtistId));
-        }
-        Q_EMIT artistsAdded(newArtists);
-    }
-
-    Q_EMIT finishRemovingTracksList();
-}
-
-bool DatabaseInterface::startTransaction()
-{
-    auto result = false;
-
-    auto transactionResult = d->mTracksDatabase.transaction();
-    if (!transactionResult) {
-        qCDebug(orgKdeElisaDatabase) << "transaction failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().driverText();
-
-        return result;
-    }
-
-    result = true;
-
-    return result;
-}
-
-bool DatabaseInterface::finishTransaction()
-{
-    auto result = false;
-
-    auto transactionResult = d->mTracksDatabase.commit();
-
-    if (!transactionResult) {
-        qCDebug(orgKdeElisaDatabase) << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
-
-        return result;
-    }
-
-    result = true;
-
-    return result;
-}
-
-bool DatabaseInterface::rollBackTransaction()
-{
-    auto result = false;
-
-    auto transactionResult = d->mTracksDatabase.rollback();
-
-    if (!transactionResult) {
-        qCDebug(orgKdeElisaDatabase) << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
-
-        return result;
-    }
-
-    result = true;
-
-    return result;
-}
+/********* Init and upgrade methods *********/
 
 void DatabaseInterface::initDatabase()
 {
@@ -3517,82 +3449,80 @@ void DatabaseInterface::callUpgradeFunctionForVersion(DatabaseVersion databaseVe
     }
 }
 
-void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack, const QHash<QString, QUrl> &covers)
+/********* Data query methods *********/
+
+bool DatabaseInterface::startTransaction()
 {
-    d->mSelectTracksMapping.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
+    auto result = false;
 
-    auto result = execQuery(d->mSelectTracksMapping);
+    auto transactionResult = d->mTracksDatabase.transaction();
+    if (!transactionResult) {
+        qCDebug(orgKdeElisaDatabase) << "transaction failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().driverText();
 
-    if (!result || !d->mSelectTracksMapping.isSelect() || !d->mSelectTracksMapping.isActive()) {
-        Q_EMIT databaseError();
-
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastError();
-
-        d->mSelectTracksMapping.finish();
-
-        rollBackTransaction();
-        Q_EMIT finishInsertingTracksList();
-        return;
+        return result;
     }
 
-    bool isNewTrack = !d->mSelectTracksMapping.next();
+    result = true;
 
-    if (isNewTrack) {
-        insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(),
-                          QDateTime::currentDateTime());
-    } else if (!d->mSelectTracksMapping.record().value(0).isNull() && d->mSelectTracksMapping.record().value(0).toULongLong() != 0) {
-        updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
-    }
-
-    d->mSelectTracksMapping.finish();
-
-    bool isInserted = false;
-
-    const auto insertedTrackId = internalInsertTrack(oneTrack, covers, isInserted);
-
-    if (isInserted && insertedTrackId != 0) {
-        d->mInsertedTracks.insert(insertedTrackId);
-    }
+    return result;
 }
 
-void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &oneTrack)
+bool DatabaseInterface::finishTransaction()
 {
-    QSqlQuery query = d->mUpdateRadioQuery;
+    auto result = false;
 
-    if (!oneTrack.hasDatabaseId()) {
-        query = d->mInsertRadioQuery;
+    auto transactionResult = d->mTracksDatabase.commit();
+
+    if (!transactionResult) {
+        qCDebug(orgKdeElisaDatabase) << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
+
+        return result;
     }
 
-    query.bindValue(QStringLiteral(":httpAddress"), oneTrack.resourceURI());
-    query.bindValue(QStringLiteral(":radioId"), oneTrack.databaseId());
-    query.bindValue(QStringLiteral(":title"), oneTrack.title());
-    query.bindValue(QStringLiteral(":comment"), oneTrack.comment());
-    query.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
-    query.bindValue(QStringLiteral(":imageAddress"), oneTrack.albumCover());
+    result = true;
 
-    auto result = execQuery(query);
+    return result;
+}
 
-    if (!result || !query.isActive()) {
-        Q_EMIT databaseError();
+bool DatabaseInterface::rollBackTransaction()
+{
+    auto result = false;
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.lastError();
-    } else {
-        if (!oneTrack.hasDatabaseId()) {
-            auto radio = internalOneRadioPartialData(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
+    auto transactionResult = d->mTracksDatabase.rollback();
 
-            Q_EMIT radioAdded(radio);
-        } else {
-            auto radio = internalOneRadioPartialData(oneTrack.databaseId());
+    if (!transactionResult) {
+        qCDebug(orgKdeElisaDatabase) << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
 
-            Q_EMIT radioModified(radio);
-        }
+        return result;
     }
 
-    query.finish();
+    result = true;
+
+    return result;
+}
+
+bool DatabaseInterface::prepareQuery(QSqlQuery &query, const QString &queryText) const
+{
+    query.setForwardOnly(true);
+    return query.prepare(queryText);
+}
+
+bool DatabaseInterface::execQuery(QSqlQuery &query)
+{
+#if !defined NDEBUG
+    auto timer = QElapsedTimer{};
+    timer.start();
+#endif
+
+    auto result = query.exec();
+
+#if !defined NDEBUG
+    if (timer.nsecsElapsed() > 10000000) {
+        qCDebug(orgKdeElisaDatabase) << "[[" << timer.nsecsElapsed() << "]]" << query.lastQuery();
+    }
+#endif
+
+    return result;
 }
 
 void DatabaseInterface::initDataQueries()
@@ -6551,6 +6481,104 @@ void DatabaseInterface::initDataQueries()
     Q_EMIT requestsInitDone();
 }
 
+void DatabaseInterface::initChangesTrackers()
+{
+    d->mModifiedTrackIds.clear();
+    d->mModifiedAlbumIds.clear();
+    d->mModifiedArtistIds.clear();
+    d->mInsertedTracks.clear();
+    d->mInsertedAlbums.clear();
+    d->mInsertedArtists.clear();
+}
+
+void DatabaseInterface::recordModifiedTrack(qulonglong trackId)
+{
+    d->mModifiedTrackIds.insert(trackId);
+}
+
+void DatabaseInterface::recordModifiedAlbum(qulonglong albumId)
+{
+    d->mModifiedAlbumIds.insert(albumId);
+}
+
+void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack, const QHash<QString, QUrl> &covers)
+{
+    d->mSelectTracksMapping.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
+
+    auto result = execQuery(d->mSelectTracksMapping);
+
+    if (!result || !d->mSelectTracksMapping.isSelect() || !d->mSelectTracksMapping.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastError();
+
+        d->mSelectTracksMapping.finish();
+
+        rollBackTransaction();
+        Q_EMIT finishInsertingTracksList();
+        return;
+    }
+
+    bool isNewTrack = !d->mSelectTracksMapping.next();
+
+    if (isNewTrack) {
+        insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(),
+                          QDateTime::currentDateTime());
+    } else if (!d->mSelectTracksMapping.record().value(0).isNull() && d->mSelectTracksMapping.record().value(0).toULongLong() != 0) {
+        updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
+    }
+
+    d->mSelectTracksMapping.finish();
+
+    bool isInserted = false;
+
+    const auto insertedTrackId = internalInsertTrack(oneTrack, covers, isInserted);
+
+    if (isInserted && insertedTrackId != 0) {
+        d->mInsertedTracks.insert(insertedTrackId);
+    }
+}
+
+void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &oneTrack)
+{
+    QSqlQuery query = d->mUpdateRadioQuery;
+
+    if (!oneTrack.hasDatabaseId()) {
+        query = d->mInsertRadioQuery;
+    }
+
+    query.bindValue(QStringLiteral(":httpAddress"), oneTrack.resourceURI());
+    query.bindValue(QStringLiteral(":radioId"), oneTrack.databaseId());
+    query.bindValue(QStringLiteral(":title"), oneTrack.title());
+    query.bindValue(QStringLiteral(":comment"), oneTrack.comment());
+    query.bindValue(QStringLiteral(":trackRating"), oneTrack.rating());
+    query.bindValue(QStringLiteral(":imageAddress"), oneTrack.albumCover());
+
+    auto result = execQuery(query);
+
+    if (!result || !query.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.lastError();
+    } else {
+        if (!oneTrack.hasDatabaseId()) {
+            auto radio = internalOneRadioPartialData(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
+
+            Q_EMIT radioAdded(radio);
+        } else {
+            auto radio = internalOneRadioPartialData(oneTrack.databaseId());
+
+            Q_EMIT radioModified(radio);
+        }
+    }
+
+    query.finish();
+}
+
 qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &albumArtist,
                                           const QString &trackPath, const QUrl &albumArtURI)
 {
@@ -8525,30 +8553,6 @@ DataTypes::ListArtistDataType DatabaseInterface::internalAllLyricistsPartialData
     }
 
     d->mSelectAllLyricistsQuery.finish();
-
-    return result;
-}
-
-bool DatabaseInterface::prepareQuery(QSqlQuery &query, const QString &queryText) const
-{
-    query.setForwardOnly(true);
-    return query.prepare(queryText);
-}
-
-bool DatabaseInterface::execQuery(QSqlQuery &query)
-{
-#if !defined NDEBUG
-    auto timer = QElapsedTimer{};
-    timer.start();
-#endif
-
-    auto result = query.exec();
-
-#if !defined NDEBUG
-    if (timer.nsecsElapsed() > 10000000) {
-        qCDebug(orgKdeElisaDatabase) << "[[" << timer.nsecsElapsed() << "]]" << query.lastQuery();
-    }
-#endif
 
     return result;
 }

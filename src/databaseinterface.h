@@ -159,11 +159,6 @@ public Q_SLOTS:
 
 private:
 
-    enum class TrackFileInsertType {
-        NewTrackFileInsert,
-        ModifiedTrackFileInsert,
-    };
-
     void initChangesTrackers();
 
     void recordModifiedTrack(qulonglong trackId);

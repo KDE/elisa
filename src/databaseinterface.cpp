@@ -1430,7 +1430,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    manageNewDatabaseVersion();
+    upgradeDatabaseToLatestVersion();
 }
 
 void DatabaseInterface::createDatabaseV9()
@@ -3330,7 +3330,7 @@ void DatabaseInterface::resetDatabase()
     }
 }
 
-void DatabaseInterface::manageNewDatabaseVersion()
+void DatabaseInterface::upgradeDatabaseToLatestVersion()
 {
     int versionBegin = 0;
 
@@ -3341,8 +3341,8 @@ void DatabaseInterface::manageNewDatabaseVersion()
 
         auto queryResult = execQuery(d->mSelectDatabaseVersionQuery);
         if (!queryResult) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersion" << d->mUpdateDatabaseVersionQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::manageNewDatabaseVersion" << d->mUpdateDatabaseVersionQuery.lastError();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseToLatestVersion" << d->mUpdateDatabaseVersionQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseToLatestVersion" << d->mUpdateDatabaseVersionQuery.lastError();
 
             Q_EMIT databaseError();
         }

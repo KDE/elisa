@@ -681,11 +681,7 @@ void MediaPlayListProxyModel::skipPreviousTrack(qint64 position)
             return;
         }
     } else {
-        if (d->mRepeatMode == Repeat::One) {
-            d->mCurrentTrack = index(d->mCurrentTrack.row(), 0);
-        } else {
-            d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, 0);
-        }
+        d->mCurrentTrack = index(d->mCurrentTrack.row() - 1, 0);
     }
 
     notifyCurrentTrackChanged();

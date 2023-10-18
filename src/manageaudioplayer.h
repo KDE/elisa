@@ -8,6 +8,7 @@
 #define MANAGEAUDIOPLAYER_H
 
 #include "elisaLib_export.h"
+#include "elisautils.h"
 
 #include <QObject>
 #include <QPersistentModelIndex>
@@ -167,7 +168,7 @@ Q_SIGNALS:
 
     void playerStop();
 
-    void skipNextTrack();
+    void skipNextTrack(ElisaUtils::SkipReason reason = ElisaUtils::SkipReason::Automatic);
 
     void audioDurationChanged();
 
@@ -265,7 +266,7 @@ private:
 
     void triggerStop();
 
-    void triggerSkipNextTrack();
+    void triggerSkipNextTrack(ElisaUtils::SkipReason reason = ElisaUtils::SkipReason::Automatic);
 
     void restorePreviousState();
 

@@ -33,6 +33,14 @@ enum PlayListEnqueueTriggerPlay {
 
 Q_ENUM_NS(PlayListEnqueueTriggerPlay)
 
+enum SkipReason {
+    Automatic,  // e.g. song ended
+    Manual,     // e.g. user pressed skip forward button
+
+};
+
+Q_ENUM_NS(SkipReason)
+
 enum PlayListEntryType {
     Album,
     Artist,

@@ -7,6 +7,7 @@
  */
 
 #include "mediaplaylistproxymodel.h"
+#include "elisautils.h"
 #include "mediaplaylist.h"
 #include "playListLogging.h"
 #include "elisa_settings.h"
@@ -633,17 +634,19 @@ void MediaPlayListProxyModel::trackInError(const QUrl &sourceInError, QMediaPlay
     d->mPlayListModel->trackInError(sourceInError, playerError);
 }
 
-void MediaPlayListProxyModel::skipNextTrack()
+void MediaPlayListProxyModel::skipNextTrack(ElisaUtils::SkipReason reason /*= ElisaUtils::SkipReason::Automatic*/)
 {
     if (!d->mCurrentTrack.isValid()) {
         return;
     }
 
-    if (d->mCurrentTrack.row() >= rowCount() - 1) {
+    if (d->mRepeatMode == Repeat::One && reason == ElisaUtils::SkipReason::Automatic) {
+        // case 1: repeat current track
+        d->mCurrentTrack = index(d->mCurrentTrack.row(), 0);
+    } else if (d->mCurrentTrack.row() >= rowCount() - 1) {
+        // case 2: end of playlist, check if we loop back
         switch (d->mRepeatMode) {
         case Repeat::One:
-            d->mCurrentTrack = index(d->mCurrentTrack.row(), 0);
-            break;
         case Repeat::Playlist:
             d->mCurrentTrack = index(0, 0);
             break;
@@ -653,11 +656,8 @@ void MediaPlayListProxyModel::skipNextTrack()
             break;
         }
     } else {
-        if (d->mRepeatMode == Repeat::One) {
-            d->mCurrentTrack = index(d->mCurrentTrack.row(), 0);
-        } else {
-            d->mCurrentTrack = index(d->mCurrentTrack.row() + 1, 0);
-        }
+        // default case: start playing next track
+        d->mCurrentTrack = index(d->mCurrentTrack.row() + 1, 0);
     }
 
     notifyCurrentTrackChanged();

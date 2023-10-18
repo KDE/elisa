@@ -546,9 +546,9 @@ void ManageAudioPlayer::triggerStop()
     QTimer::singleShot(0, this, [this]() {Q_EMIT playerStop();});
 }
 
-void ManageAudioPlayer::triggerSkipNextTrack()
+void ManageAudioPlayer::triggerSkipNextTrack(ElisaUtils::SkipReason reason /*= SkipReason::Automatic */)
 {
-    QTimer::singleShot(0, this, [this]() {Q_EMIT skipNextTrack();});
+    QTimer::singleShot(0, this, [this, reason]() {Q_EMIT skipNextTrack(reason);});
 }
 
 void ManageAudioPlayer::restorePreviousState()

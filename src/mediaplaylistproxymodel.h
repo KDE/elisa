@@ -186,7 +186,7 @@ public Q_SLOTS:
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
-    void skipNextTrack();
+    void skipNextTrack(ElisaUtils::SkipReason reason = ElisaUtils::SkipReason::Automatic);
 
     void skipPreviousTrack(qint64 position);
 

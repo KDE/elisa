@@ -645,6 +645,13 @@ Module {
             }
         }
         Enum {
+            name: "SkipReason"
+            values: {
+                "Automatic": 0,
+                "Manual": 1
+            }
+        }
+        Enum {
             name: "PlayListEntryType"
             values: {
                 "Album": 0,
@@ -799,7 +806,10 @@ Module {
         Signal { name: "playerPlay" }
         Signal { name: "playerPause" }
         Signal { name: "playerStop" }
-        Signal { name: "skipNextTrack" }
+        Signal {
+            name: "skipNextTrack"
+            Parameter { name: "reason"; type: "ElisaUtils.SkipReason" }
+        }
         Signal {
             name: "seek"
             Parameter { name: "position"; type: "qlonglong" }
@@ -1211,7 +1221,10 @@ Module {
             Parameter { name: "sourceInError"; type: "QUrl" }
             Parameter { name: "playerError"; type: "QMediaPlayer::Error" }
         }
-        Method { name: "skipNextTrack" }
+        Method {
+            name: "skipNextTrack"
+            Parameter { name: "reason"; type: "ElisaUtils.SkipReason" }
+        }
         Method {
             name: "skipPreviousTrack"
             Parameter { name: "position"; type: "qlonglong" }

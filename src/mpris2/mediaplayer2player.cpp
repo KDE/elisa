@@ -129,7 +129,7 @@ void MediaPlayer2Player::Next()
     Q_EMIT next();
 
     if (m_playListControler) {
-        m_playListControler->skipNextTrack();
+        m_playListControler->skipNextTrack(ElisaUtils::SkipReason::Manual);
     }
 }
 

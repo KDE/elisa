@@ -28,5 +28,5 @@ FocusScope {
     onPlay: ElisaApplication.audioControl.playPause()
     onPause: ElisaApplication.audioControl.playPause()
     onPlayPrevious: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position)
-    onPlayNext: ElisaApplication.mediaPlayListProxyModel.skipNextTrack()
+    onPlayNext: ElisaApplication.mediaPlayListProxyModel.skipNextTrack(ElisaUtils.Manual)
 }

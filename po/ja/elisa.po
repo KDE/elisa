@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-14 01:48+0000\n"
+"POT-Creation-Date: 2023-10-19 01:41+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -27,15 +27,15 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "tomhioo@outlook.jp,21r.suga@gmail.com"
 
-#: databaseinterface.cpp:7252 databaseinterface.cpp:8298
-#: databaseinterface.cpp:8382
+#: databaseinterface.cpp:7158 databaseinterface.cpp:8204
+#: databaseinterface.cpp:8288
 #, fuzzy, kde-format
 #| msgid "Various Artists"
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "さまざまなアーティスト"
 
-#: databaseinterface.cpp:7315
+#: databaseinterface.cpp:7221
 #, fuzzy, kde-format
 #| msgid "Radio Stations"
 msgctxt "@item:intable"
@@ -764,7 +764,7 @@ msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "この曲をお気に入りに追加"
 
-#: qml/ListBrowserDelegate.qml:226 qml/ListBrowserDelegate.qml:242
+#: qml/ListBrowserDelegate.qml:216 qml/ListBrowserDelegate.qml:232
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title."
 #| msgid "%1 - %2"
@@ -772,7 +772,7 @@ msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:237
+#: qml/ListBrowserDelegate.qml:227
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title. %3: artist name"
 #| msgid "%1 - %2 - %3"
@@ -780,7 +780,7 @@ msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/ListBrowserDelegate.qml:249
+#: qml/ListBrowserDelegate.qml:239
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title."
 #| msgid "%1 - %2"
@@ -788,7 +788,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:331 qml/PlayListEntry.qml:298
+#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:298
 #, fuzzy, kde-format
 #| msgctxt "Cancel rating this track"
 #| msgid "Cancel rating this track"
@@ -796,7 +796,7 @@ msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "このトラックの評価をキャンセル"
 
-#: qml/ListBrowserDelegate.qml:383
+#: qml/ListBrowserDelegate.qml:373
 #, fuzzy, kde-format
 #| msgctxt "Song options"
 #| msgid "Song Options"

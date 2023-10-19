@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-14 01:48+0000\n"
+"POT-Creation-Date: 2023-10-19 01:41+0000\n"
 "PO-Revision-Date: 2023-10-14 10:02+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -31,14 +31,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "txemaq@gmail.com"
 
-#: databaseinterface.cpp:7252 databaseinterface.cpp:8298
-#: databaseinterface.cpp:8382
+#: databaseinterface.cpp:7158 databaseinterface.cpp:8204
+#: databaseinterface.cpp:8288
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Artistes diversos"
 
-#: databaseinterface.cpp:7315
+#: databaseinterface.cpp:7221
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -639,31 +639,31 @@ msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Marca aquesta cançó com a preferida"
 
-#: qml/ListBrowserDelegate.qml:226 qml/ListBrowserDelegate.qml:242
+#: qml/ListBrowserDelegate.qml:216 qml/ListBrowserDelegate.qml:232
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:237
+#: qml/ListBrowserDelegate.qml:227
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/ListBrowserDelegate.qml:249
+#: qml/ListBrowserDelegate.qml:239
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:331 qml/PlayListEntry.qml:298
+#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:298
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Cancel·la la qualificació d'aquesta peça"
 
-#: qml/ListBrowserDelegate.qml:383
+#: qml/ListBrowserDelegate.qml:373
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"

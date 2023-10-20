@@ -7082,26 +7082,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
     auto result = execQuery(d->mInsertTrackQuery);
     qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << "is inserted";
 
-    if (result && d->mInsertTrackQuery.isActive()) {
-        d->mInsertTrackQuery.finish();
-
-        updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
-
-        if (albumId != 0) {
-            if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, trackPath)) {
-                auto modifiedTracks = fetchTrackIds(albumId);
-                for (auto oneModifiedTrack : modifiedTracks) {
-                    if (oneModifiedTrack != resultId) {
-                        recordModifiedTrack(oneModifiedTrack);
-                    }
-                }
-            }
-            recordModifiedAlbum(albumId);
-        }
-
-        resultId = d->mTrackId++;
-        isInserted = true;
-    } else {
+    if (!result || !d->mInsertTrackQuery.isActive()) {
         d->mInsertTrackQuery.finish();
 
         Q_EMIT databaseError();
@@ -7112,7 +7093,27 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastError();
 
         isInserted = false;
+        return resultId;
     }
+
+    d->mInsertTrackQuery.finish();
+
+    updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
+
+    if (albumId != 0) {
+        if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, trackPath)) {
+            auto modifiedTracks = fetchTrackIds(albumId);
+            for (auto oneModifiedTrack : modifiedTracks) {
+                if (oneModifiedTrack != resultId) {
+                    recordModifiedTrack(oneModifiedTrack);
+                }
+            }
+        }
+        recordModifiedAlbum(albumId);
+    }
+
+    resultId = d->mTrackId++;
+    isInserted = true;
 
     return resultId;
 }

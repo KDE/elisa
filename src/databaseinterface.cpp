@@ -6990,17 +6990,16 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         return resultId;
     }
 
-    int priority = 1;
-    while(true) {
-        auto otherTrackId = getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(oneTrack.title(), oneTrack.artist(), oneTrack.album(),
-                                                                             oneTrack.albumArtist(), trackPath, oneTrack.trackNumber(),
-                                                                             oneTrack.discNumber(), priority);
+    const auto needsHigherPriority = [this, &oneTrack, &trackPath](const int currentPriority) {
+        return getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(
+            oneTrack.title(), oneTrack.artist(), oneTrack.album(),
+            oneTrack.albumArtist(), trackPath, oneTrack.trackNumber(),
+            oneTrack.discNumber(), currentPriority) != 0;
+    };
 
-        if (otherTrackId) {
-            ++priority;
-        } else {
-            break;
-        }
+    int priority = 1;
+    while (needsHigherPriority(priority)) {
+        ++priority;
     }
 
     d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), d->mTrackId);

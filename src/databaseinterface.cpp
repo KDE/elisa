@@ -6938,8 +6938,6 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
     auto albumId = insertAlbum(oneTrack.album(), (oneTrack.hasAlbumArtist() ? oneTrack.albumArtist() : QString()),
                                trackPath, oneTrack.hasEmbeddedCover() ? QUrl{} : albumCover);
 
-    auto oldAlbumId = albumId;
-
     auto existingTrackId = internalTrackIdFromFileName(oneTrack.resourceURI());
     bool isModifiedTrack = (existingTrackId != 0);
 
@@ -6949,7 +6947,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
         auto oldTrack = internalTrackFromDatabaseId(existingTrackId);
         qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::internalInsertTrack" << existingTrackId << oldTrack;
-        oldAlbumId = oldTrack.albumId();
+        const auto oldAlbumId = oldTrack.albumId();
 
         if (oldTrack.isSameTrack(oneTrack)) {
             return resultId;
@@ -6983,7 +6981,6 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         return resultId;
     }
 
-    oldAlbumId = 0;
     existingTrackId = d->mTrackId;
 
     isInserted = true;
@@ -7095,9 +7092,6 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
                 recordModifiedTrack(existingTrackId);
                 if (albumId != 0) {
                     recordModifiedAlbum(albumId);
-                }
-                if (oldAlbumId != 0) {
-                    recordModifiedAlbum(oldAlbumId);
                 }
             }
 

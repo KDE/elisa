@@ -1,11 +1,14 @@
-# Trigger build 2
+
+# SPDX-FileCopyrightText: 2023 Scarlett Moore <sgmoore@kde.org>
+#
+# SPDX-License-Identifier: CC0-1.0
 ---
 name: elisa
 base: core22
 confinement: strict
 grade: stable
 adopt-info: elisa
-icon: $CRAFT_PROJECT_DIR/snap/gui/logo.png
+icon: $CRAFT_PROJECT_DIR/logo.png
 apps:
     elisa:
         # extensions:
@@ -46,7 +49,7 @@ plugs:
         target: $SNAP/kf5
 environment:
     SNAP_DESKTOP_RUNTIME: $SNAP/kf5
-    QML2_IMPORT_PATH: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/qml:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qml:/$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/qml"
+    QML2_IMPORT_PATH: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/qml:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qml:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/qml"
     QT_PLUGIN_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins:$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins/kf5:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins"
     LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/elisa/:$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/blas:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/lapack"
     GST_PLUGIN_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0"

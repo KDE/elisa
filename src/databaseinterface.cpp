@@ -6990,10 +6990,6 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         return resultId;
     }
 
-    existingTrackId = d->mTrackId;
-
-    isInserted = true;
-
     int priority = 1;
     while(true) {
         auto otherTrackId = getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(oneTrack.title(), oneTrack.artist(), oneTrack.album(),
@@ -7007,9 +7003,8 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         }
     }
 
-    resultId = existingTrackId;
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), d->mTrackId);
 
-    d->mInsertTrackQuery.bindValue(QStringLiteral(":trackId"), existingTrackId);
     d->mInsertTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
     d->mInsertTrackQuery.bindValue(QStringLiteral(":priority"), priority);
     d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
@@ -7104,7 +7099,8 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
             recordModifiedAlbum(albumId);
         }
 
-        ++d->mTrackId;
+        resultId = d->mTrackId++;
+        isInserted = true;
     } else {
         d->mInsertTrackQuery.finish();
 
@@ -7114,6 +7110,8 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastQuery();
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.boundValues();
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastError();
+
+        isInserted = false;
     }
 
     return resultId;

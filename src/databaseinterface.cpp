@@ -6981,12 +6981,12 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         isInserted = false;
 
         return resultId;
-    } else {
-        oldAlbumId = 0;
-        existingTrackId = d->mTrackId;
-
-        isInserted = true;
     }
+
+    oldAlbumId = 0;
+    existingTrackId = d->mTrackId;
+
+    isInserted = true;
 
     int priority = 1;
     while(true) {

@@ -31,7 +31,7 @@ set(databaseInterfaceTest_SOURCES
 ecm_add_test(${databaseInterfaceTest_SOURCES}
     TEST_NAME "databaseInterfaceTest"
     LINK_LIBRARIES
-        Qt::Test elisaLib)
+        Qt::Test elisaLib Qt::Sql)
 
 target_include_directories(databaseInterfaceTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 

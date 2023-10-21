@@ -166,7 +166,9 @@ private:
 
     /********* Init and upgrade methods *********/
 
-    void initDatabase();
+    void initConnection(const QString &connectionName, const QString &databaseFileName);
+
+    bool initDatabase();
 
     void createDatabaseV9();
 
@@ -190,11 +192,11 @@ private:
 
     [[nodiscard]] DatabaseState checkTable(const QString &tableName, const QStringList &expectedColumns) const;
 
-    void resetDatabase();
+    bool resetDatabase();
 
     DatabaseVersion currentDatabaseVersion();
 
-    void upgradeDatabaseToLatestVersion();
+    bool upgradeDatabaseToLatestVersion();
 
     void dropTable(const QString &table);
 

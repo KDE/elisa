@@ -20,6 +20,9 @@
 #include <QStandardPaths>
 #include <QDir>
 #include <QFile>
+#include <QSqlError>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 #include <QTemporaryFile>
 
 #include <QDebug>
@@ -5676,6 +5679,76 @@ private Q_SLOTS:
 
         QVERIFY(modifiedTrack.hasEmbeddedCover());
         QCOMPARE(modifiedTrack[DataTypes::ImageUrlRole].toString(), QStringLiteral("image://cover//test/$23"));
+    }
+
+    void testInvalidDatabase()
+    {
+        const auto dbName = QStringLiteral("testDb");
+        QString databaseFileName;
+
+        {
+            // NOTE: a QTemporaryFile cannot be deleted but `resetDatabase()` attempts to delete the database file,
+            // hence why we use a QFile in this test. Remember to delete the file when the test has finished!
+            QTemporaryFile tempFile;
+            tempFile.open();
+            databaseFileName = tempFile.fileName();
+            tempFile.setAutoRemove(false);
+        }
+
+        QFile databaseFile(databaseFileName);
+
+        // Make a valid database
+        {
+            DatabaseInterface musicDb;
+
+            QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
+
+            musicDb.init(dbName, databaseFileName);
+
+            QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
+        }
+
+        // Invalidate the database
+        {
+            auto invalidDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), dbName);
+            invalidDatabase.setDatabaseName(databaseFileName);
+            QCOMPARE(invalidDatabase.open(), true);
+
+            QCOMPARE(invalidDatabase.transaction(), true);
+
+            auto dropQuery = QSqlQuery(invalidDatabase);
+            QCOMPARE(dropQuery.prepare(QStringLiteral("ALTER TABLE `Albums` DROP COLUMN `CoverFileName`")), true);
+            QCOMPARE(dropQuery.exec(), true);
+            dropQuery.finish();
+
+            QCOMPARE(invalidDatabase.commit(), true);
+
+            invalidDatabase.close();
+        }
+
+        // This one should detect the error & fix it
+        {
+            DatabaseInterface musicDb;
+
+            QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
+
+            musicDb.init(dbName, databaseFileName);
+
+            QCOMPARE(musicDbDatabaseErrorSpy.count(), 1);
+        }
+
+        // Check database has been fixed
+        {
+            DatabaseInterface musicDb;
+
+            QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
+
+            musicDb.init(dbName, databaseFileName);
+
+            QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
+        }
+
+        databaseFile.remove();
     }
 };
 

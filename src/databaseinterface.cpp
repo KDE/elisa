@@ -18,6 +18,7 @@
 #include <QSqlRecord>
 #include <QSqlError>
 
+#include <QFile>
 #include <QMutex>
 #include <QVariant>
 #include <QAtomicInt>
@@ -107,8 +108,9 @@ public:
         SingleAlbumEmbeddedCover,
     };
 
-    DatabaseInterfacePrivate(const QSqlDatabase &tracksDatabase)
-        : mTracksDatabase(tracksDatabase), mSelectAlbumQuery(mTracksDatabase),
+    DatabaseInterfacePrivate(const QSqlDatabase &tracksDatabase, const QString &connectionName, const QString &databaseFileName)
+        : mTracksDatabase(tracksDatabase), mConnectionName(connectionName),
+          mDatabaseFileName(databaseFileName), mSelectAlbumQuery(mTracksDatabase),
           mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
           mInsertAlbumQuery(mTracksDatabase), mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase),
           mInsertTrackQuery(mTracksDatabase), mSelectTracksFromArtist(mTracksDatabase),
@@ -164,6 +166,10 @@ public:
     }
 
     QSqlDatabase mTracksDatabase;
+
+    const QString mConnectionName;
+
+    const QString mDatabaseFileName;
 
     QSqlQuery mSelectAlbumQuery;
 
@@ -395,6 +401,7 @@ public:
 
         {QStringLiteral("Composer"), {
             QStringLiteral("ID"), QStringLiteral("Name")}},
+
         {QStringLiteral("Genre"), {
             QStringLiteral("ID"), QStringLiteral("Name")}},
 
@@ -434,28 +441,14 @@ DatabaseInterface::~DatabaseInterface()
 
 void DatabaseInterface::init(const QString &dbName, const QString &databaseFileName)
 {
-    QSqlDatabase tracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), dbName);
+    initConnection(dbName, databaseFileName);
 
-    if (!databaseFileName.isEmpty()) {
-        tracksDatabase.setDatabaseName(QStringLiteral("file:") + databaseFileName);
-    } else {
-        tracksDatabase.setDatabaseName(QStringLiteral("file:memdb1?mode=memory"));
+    if (!initDatabase()) {
+        if (!resetDatabase() || !initDatabase()) {
+            qCCritical(orgKdeElisaDatabase()) << "Database cannot be initialized";
+            return;
+        }
     }
-    tracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON;locking_mode = EXCLUSIVE;QSQLITE_OPEN_URI;QSQLITE_BUSY_TIMEOUT=500000"));
-
-    auto result = tracksDatabase.open();
-    if (result) {
-        qCDebug(orgKdeElisaDatabase) << "database open";
-    } else {
-        qCDebug(orgKdeElisaDatabase) << "database not open";
-    }
-    qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::init" << (tracksDatabase.driver()->hasFeature(QSqlDriver::Transactions) ? "yes" : "no");
-
-    tracksDatabase.exec(QStringLiteral("PRAGMA foreign_keys = ON;"));
-
-    d = std::make_unique<DatabaseInterfacePrivate>(tracksDatabase);
-
-    initDatabase();
     initDataQueries();
 
     if (!databaseFileName.isEmpty()) {
@@ -1312,7 +1305,31 @@ void DatabaseInterface::clearData()
 
 /********* Init and upgrade methods *********/
 
-void DatabaseInterface::initDatabase()
+void DatabaseInterface::initConnection(const QString &connectionName, const QString &databaseFileName)
+{
+    QSqlDatabase tracksDatabase = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connectionName);
+
+    if (!databaseFileName.isEmpty()) {
+        tracksDatabase.setDatabaseName(QStringLiteral("file:") + databaseFileName);
+    } else {
+        tracksDatabase.setDatabaseName(QStringLiteral("file:memdb1?mode=memory"));
+    }
+    tracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON;locking_mode = EXCLUSIVE;QSQLITE_OPEN_URI;QSQLITE_BUSY_TIMEOUT=500000"));
+
+    auto result = tracksDatabase.open();
+    if (result) {
+        qCDebug(orgKdeElisaDatabase) << "database open";
+    } else {
+        qCDebug(orgKdeElisaDatabase) << "database not open";
+    }
+    qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::init" << (tracksDatabase.driver()->hasFeature(QSqlDriver::Transactions) ? "yes" : "no");
+
+    tracksDatabase.exec(QStringLiteral("PRAGMA foreign_keys = ON;"));
+
+    d = std::make_unique<DatabaseInterfacePrivate>(tracksDatabase, connectionName, databaseFileName);
+}
+
+bool DatabaseInterface::initDatabase()
 {
     auto listTables = d->mTracksDatabase.tables();
 
@@ -1364,7 +1381,7 @@ void DatabaseInterface::initDatabase()
         }
     }
 
-    upgradeDatabaseToLatestVersion();
+    return upgradeDatabaseToLatestVersion();
 }
 
 void DatabaseInterface::createDatabaseV9()
@@ -3242,26 +3259,24 @@ DatabaseInterface::DatabaseState DatabaseInterface::checkTable(const QString &ta
     return DatabaseState::GoodState;
 }
 
-void DatabaseInterface::resetDatabase()
+bool DatabaseInterface::resetDatabase()
 {
     qCInfo(orgKdeElisaDatabase()) << "Full reset of database due to corrupted database";
 
-    auto listTables = d->mTracksDatabase.tables();
+    const auto connectionName = d->mConnectionName;
+    const auto databaseFileName = d->mDatabaseFileName;
 
-    while(!listTables.isEmpty()) {
-        for (const auto &oneTable : listTables) {
-            QSqlQuery createSchemaQuery(d->mTracksDatabase);
+    d->mTracksDatabase.close();
+    d.reset();
 
-            qCDebug(orgKdeElisaDatabase()) << "dropping table" << oneTable;
-            createSchemaQuery.exec(QStringLiteral("DROP TABLE ") + oneTable);
-        }
-
-        listTables = d->mTracksDatabase.tables();
-
-        if (listTables == QStringList{QStringLiteral("sqlite_sequence")}) {
-            break;
-        }
+    auto dbFile = QFile(databaseFileName);
+    if (!dbFile.remove()) {
+        qCCritical(orgKdeElisaDatabase()) << "Database file could not be deleted" << dbFile.errorString();
+        return false;
     }
+
+    initConnection(connectionName, databaseFileName);
+    return true;
 }
 
 DatabaseInterface::DatabaseVersion DatabaseInterface::currentDatabaseVersion()
@@ -3314,7 +3329,7 @@ DatabaseInterface::DatabaseVersion DatabaseInterface::currentDatabaseVersion()
     return static_cast<DatabaseVersion>(version);
 }
 
-void DatabaseInterface::upgradeDatabaseToLatestVersion()
+bool DatabaseInterface::upgradeDatabaseToLatestVersion()
 {
     auto versionBegin = currentDatabaseVersion();
 
@@ -3334,8 +3349,10 @@ void DatabaseInterface::upgradeDatabaseToLatestVersion()
     setDatabaseVersionInTable(d->mLatestDatabaseVersion);
 
     if (checkDatabaseSchema() == DatabaseState::BadState) {
-        resetDatabase();
+        Q_EMIT databaseError();
+        return false;
     }
+    return true;
 }
 
 void DatabaseInterface::dropTable(const QString &query)

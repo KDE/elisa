@@ -408,6 +408,12 @@ public:
         {QStringLiteral("Lyricist"), {
             QStringLiteral("ID"), QStringLiteral("Name")}},
 
+        {QStringLiteral("Radios"), {
+            QStringLiteral("ID"), QStringLiteral("HttpAddress"),
+            QStringLiteral("ImageAddress"), QStringLiteral("Title"),
+            QStringLiteral("Rating"), QStringLiteral("Genre"),
+            QStringLiteral("Comment")}},
+
         {QStringLiteral("Tracks"), {
             QStringLiteral("ID"), QStringLiteral("FileName"),
             QStringLiteral("Priority"), QStringLiteral("Title"),

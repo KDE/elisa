@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 01:41+0000\n"
-"PO-Revision-Date: 2023-10-10 14:25\n"
+"POT-Creation-Date: 2023-10-22 02:05+0000\n"
+"PO-Revision-Date: 2023-10-21 13:51\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -28,14 +28,14 @@ msgid "Your emails"
 msgstr ""
 "kde-china@kde.org, EasternLi@kde.org, i@guoyunhe.me, tysontan@tysontan.com"
 
-#: databaseinterface.cpp:7158 databaseinterface.cpp:8204
-#: databaseinterface.cpp:8288
+#: databaseinterface.cpp:7112 databaseinterface.cpp:8135
+#: databaseinterface.cpp:8219
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "多位艺术家"
 
-#: databaseinterface.cpp:7221
+#: databaseinterface.cpp:7180
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -1228,12 +1228,10 @@ msgid "Favorite/not favorite"
 msgstr "收藏/非收藏"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "配色方案"
+msgstr "配色方案："
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1242,12 +1240,10 @@ msgid "Scan for New Music"
 msgstr "扫描新的音乐"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "正在扫描音乐"
+msgstr "开始扫描音乐"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1259,7 +1255,7 @@ msgstr "重置数据库并重新扫描所有内容"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "数据库已重置"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1712,11 +1708,3 @@ msgstr "文件"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "电台"
-
-#~ msgctxt "@action:button"
-#~ msgid "Color Scheme"
-#~ msgstr "配色方案"
-
-#~ msgctxt "@title:menu"
-#~ msgid "Color Scheme"
-#~ msgstr "配色方案"

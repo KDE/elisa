@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 01:41+0000\n"
+"POT-Creation-Date: 2023-10-22 02:05+0000\n"
 "PO-Revision-Date: 2023-10-20 03:03+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -29,14 +29,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pan93412@gmail.com, s8321414@gmail.com, mail@kisaragi-hiu.com"
 
-#: databaseinterface.cpp:7158 databaseinterface.cpp:8204
-#: databaseinterface.cpp:8288
+#: databaseinterface.cpp:7112 databaseinterface.cpp:8135
+#: databaseinterface.cpp:8219
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "多名藝人"
 
-#: databaseinterface.cpp:7221
+#: databaseinterface.cpp:7180
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

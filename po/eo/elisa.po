@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 01:41+0000\n"
+"POT-Creation-Date: 2023-10-22 02:05+0000\n"
 "PO-Revision-Date: 2023-10-14 12:02+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "okellogg@users.sourceforge.net"
 
-#: databaseinterface.cpp:7158 databaseinterface.cpp:8204
-#: databaseinterface.cpp:8288
+#: databaseinterface.cpp:7112 databaseinterface.cpp:8135
+#: databaseinterface.cpp:8219
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Diversaj Artistoj"
 
-#: databaseinterface.cpp:7221
+#: databaseinterface.cpp:7180
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

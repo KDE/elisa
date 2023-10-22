@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 01:41+0000\n"
+"POT-Creation-Date: 2023-10-22 02:05+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -29,15 +29,15 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "dansk@dansk-gruppen.dk"
 
-#: databaseinterface.cpp:7158 databaseinterface.cpp:8204
-#: databaseinterface.cpp:8288
+#: databaseinterface.cpp:7112 databaseinterface.cpp:8135
+#: databaseinterface.cpp:8219
 #, fuzzy, kde-format
 #| msgid "Various Artists"
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Diverse kunstnere"
 
-#: databaseinterface.cpp:7221
+#: databaseinterface.cpp:7180
 #, fuzzy, kde-format
 #| msgid "Radios"
 msgctxt "@item:intable"

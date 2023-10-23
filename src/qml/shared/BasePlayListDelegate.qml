@@ -59,4 +59,13 @@ QQC2.ItemDelegate {
             startPlayback()
         }
     }
+
+    onIsValidChanged: {
+        if (!isValid) {
+            showPassiveNotification(i18nc("@info:status", "\"%1\" could not be played", title))
+            // Can't make it too long due to https://bugs.kde.org/show_bug.cgi?id=476021.
+            // TODO: Once that's fixed, use this longer and more descriptive string!
+            // showPassiveNotification(i18nc("@label", "\"%1\" could not be played; make sure it has not been deleted or renamed", title))
+        }
+    }
 }

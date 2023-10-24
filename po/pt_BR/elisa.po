@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-22 02:05+0000\n"
+"POT-Creation-Date: 2023-10-24 01:41+0000\n"
 "PO-Revision-Date: 2023-10-12 16:28-0300\n"
 "Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -32,14 +32,14 @@ msgid "Your emails"
 msgstr ""
 "elchevive@opensuse.org, alvarenga@kde.org, geraldosimiao@fedoraproject.org"
 
-#: databaseinterface.cpp:7112 databaseinterface.cpp:8135
-#: databaseinterface.cpp:8219
+#: databaseinterface.cpp:7135 databaseinterface.cpp:8158
+#: databaseinterface.cpp:8242
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Vários artistas"
 
-#: databaseinterface.cpp:7180
+#: databaseinterface.cpp:7203
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

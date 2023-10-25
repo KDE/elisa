@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-24 01:41+0000\n"
+"POT-Creation-Date: 2023-10-25 01:50+0000\n"
 "PO-Revision-Date: 2023-05-29 22:07+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1476,6 +1476,12 @@ msgstr ""
 "Sürətli yerli fayl indeksləyicisi simvolik bağlantıları izləmir. Əgər bu "
 "siyahıdakı yerlərdən hansısa biri başqa yerə simvolik bağlantıdan ibarət "
 "olarsa, siz həmin yerləri də syahıya daxil etməli olacaqsınız."
+
+#: qml/shared/BasePlayListDelegate.qml:65
+#, kde-format
+msgctxt "@info:status"
+msgid "\"%1\" could not be played"
+msgstr ""
 
 #: qml/SortMenu.qml:20
 #, kde-format

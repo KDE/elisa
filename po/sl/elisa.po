@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-24 01:41+0000\n"
+"POT-Creation-Date: 2023-10-25 01:50+0000\n"
 "PO-Revision-Date: 2023-10-14 07:28+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -1478,6 +1478,12 @@ msgstr ""
 "Hitri vgrajeni indekser datotek ne sledi simbolnim povezavam. Če katera od "
 "lokacij na tem seznamu vsebuje simbolne povezave do drugih lokacij, boste "
 "morali dodati tudi te lokacije na seznam."
+
+#: qml/shared/BasePlayListDelegate.qml:65
+#, kde-format
+msgctxt "@info:status"
+msgid "\"%1\" could not be played"
+msgstr ""
 
 #: qml/SortMenu.qml:20
 #, kde-format

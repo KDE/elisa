@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-24 01:41+0000\n"
+"POT-Creation-Date: 2023-10-25 01:50+0000\n"
 "PO-Revision-Date: 2023-08-13 16:21+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1479,6 +1479,12 @@ msgstr ""
 "Die native Schnell-Indizierung geht symbolischen Verknüpfungen nicht nach. "
 "Wenn einer der Orte dieser Liste symbolische Verknüpfungen enthält, müssen "
 "die Ziele dieser Verknüpfungen auch zu dieser Liste hinzugefügt werden."
+
+#: qml/shared/BasePlayListDelegate.qml:65
+#, kde-format
+msgctxt "@info:status"
+msgid "\"%1\" could not be played"
+msgstr ""
 
 #: qml/SortMenu.qml:20
 #, kde-format

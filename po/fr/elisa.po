@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-24 01:41+0000\n"
+"POT-Creation-Date: 2023-10-25 01:50+0000\n"
 "PO-Revision-Date: 2023-10-16 13:44+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -1487,6 +1487,12 @@ msgstr ""
 "symboliques. Si l'un des emplacements de cette liste contient des liens "
 "symboliques vers d'autres emplacements, vous devrez ajouter ces derniers à "
 "la liste également."
+
+#: qml/shared/BasePlayListDelegate.qml:65
+#, kde-format
+msgctxt "@info:status"
+msgid "\"%1\" could not be played"
+msgstr ""
 
 #: qml/SortMenu.qml:20
 #, kde-format

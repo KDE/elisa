@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 86ff119b1606fcaa910d6b44fc14b611\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-24 01:41+0000\n"
+"POT-Creation-Date: 2023-10-25 01:50+0000\n"
 "PO-Revision-Date: 2023-02-09 05:31\n"
 "Last-Translator: Zmicier <zmicerturok@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -1487,6 +1487,12 @@ msgstr ""
 "Хуткая ўласная індэксацыя файлаў не падтрымлівае сімвалічных спасылак. Калі "
 "любое з размяшчэнняў у гэтым спісе змяшчае сімвалічныя спасылкі на іншыя "
 "размяшчэнні, вам трэба будзе дадаць гэтыя размяшчэнні ў спіс."
+
+#: qml/shared/BasePlayListDelegate.qml:65
+#, kde-format
+msgctxt "@info:status"
+msgid "\"%1\" could not be played"
+msgstr ""
 
 #: qml/SortMenu.qml:20
 #, kde-format

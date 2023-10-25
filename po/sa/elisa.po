@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-24 01:41+0000\n"
+"POT-Creation-Date: 2023-10-25 01:50+0000\n"
 "PO-Revision-Date: 2023-09-28 00:31+0530\n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1478,6 +1478,12 @@ msgstr ""
 "द्रुतदेशीयसञ्चिकासूचकाङ्ककः प्रतीकात्मकसम्बन्धानां अनुसरणं न करोति । यदि अस्मिन् सूचौ कस्मिन् "
 "अपि स्थाने अन्यस्थानानां प्रतीकात्मकसम्बन्धानि सन्ति तर्हि भवद्भिः तानि अन्यस्थानानि अपि "
 "सूचीयां योजयितव्यानि भविष्यन्ति ।."
+
+#: qml/shared/BasePlayListDelegate.qml:65
+#, kde-format
+msgctxt "@info:status"
+msgid "\"%1\" could not be played"
+msgstr ""
 
 #: qml/SortMenu.qml:20
 #, kde-format

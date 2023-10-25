@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-24 01:41+0000\n"
+"POT-Creation-Date: 2023-10-25 01:50+0000\n"
 "PO-Revision-Date: 2021-05-01 23:39-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -1709,6 +1709,12 @@ msgid ""
 "The fast native file indexer does not follow symbolic links. If any of the "
 "locations in this list contain symbolic links to other locations, you will "
 "need to add those other locations to the list as well."
+msgstr ""
+
+#: qml/shared/BasePlayListDelegate.qml:65
+#, kde-format
+msgctxt "@info:status"
+msgid "\"%1\" could not be played"
 msgstr ""
 
 #: qml/SortMenu.qml:20

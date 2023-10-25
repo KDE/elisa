@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-24 01:41+0000\n"
+"POT-Creation-Date: 2023-10-25 01:50+0000\n"
 "PO-Revision-Date: 2023-08-19 22:06+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1485,6 +1485,12 @@ msgstr ""
 "لا يتبع مفهرس الملف الأصلي السريع الروابط الرمزية. إذا كان أي من المواقع في "
 "هذه القائمة يحتوي على روابط رمزية لمواقع أخرى فستحتاج إلى إضافة تلك المواقع "
 "الأخرى إلى القائمة أيضًا."
+
+#: qml/shared/BasePlayListDelegate.qml:65
+#, kde-format
+msgctxt "@info:status"
+msgid "\"%1\" could not be played"
+msgstr ""
 
 #: qml/SortMenu.qml:20
 #, kde-format

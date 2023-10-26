@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:50+0000\n"
-"PO-Revision-Date: 2023-10-14 05:26+0300\n"
+"PO-Revision-Date: 2023-10-25 12:54+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1479,7 +1479,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "\"%1\" çalınamadı"
 
 #: qml/SortMenu.qml:20
 #, kde-format

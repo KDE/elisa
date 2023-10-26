@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:50+0000\n"
-"PO-Revision-Date: 2023-10-14 10:22+0200\n"
+"PO-Revision-Date: 2023-10-25 10:58+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -1479,7 +1479,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "\"%1\" kon niet worden afgespeeld"
 
 #: qml/SortMenu.qml:20
 #, kde-format

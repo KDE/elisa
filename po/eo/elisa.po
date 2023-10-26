@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:50+0000\n"
-"PO-Revision-Date: 2023-10-14 12:02+0100\n"
+"PO-Revision-Date: 2023-10-25 19:09+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1479,7 +1479,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "\"%1\" ne povis esti ludata"
 
 #: qml/SortMenu.qml:20
 #, kde-format

@@ -15,11 +15,6 @@
 #include <QTimer>
 #include <QDateTime>
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#define PlaybackState State
-#define playbackState state
-#endif
-
 ManageAudioPlayer::ManageAudioPlayer(QObject *parent) : QObject(parent)
 {
 

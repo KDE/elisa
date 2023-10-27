@@ -49,11 +49,7 @@ public:
 #if KFFileMetaData_FOUND
     KFileMetaData::ExtractorCollection mAllExtractors;
 
-#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
     KFileMetaData::PropertyMultiMap mAllProperties;
-#else
-    KFileMetaData::PropertyMap mAllProperties;
-#endif
 
     KFileMetaData::EmbeddedImageData mImageScanner;
 #endif

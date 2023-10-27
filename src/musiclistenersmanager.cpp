@@ -355,11 +355,7 @@ void MusicListenersManager::configChanged()
         QFileInfo pathFileInfo(workPath);
         auto directoryPath = pathFileInfo.canonicalFilePath();
         if (!directoryPath.isEmpty()) {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-            if (directoryPath.rightRef(1) != QLatin1Char('/'))
-#else
             if (QStringView(directoryPath).right(1) != QLatin1Char('/'))
-#endif
             {
                 directoryPath.append(QLatin1Char('/'));
             }

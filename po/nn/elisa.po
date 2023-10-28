@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-25 01:50+0000\n"
+"POT-Creation-Date: 2023-10-28 01:45+0000\n"
 "PO-Revision-Date: 2023-08-21 19:53+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -84,65 +84,65 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Festmodus på/av"
 
-#: main.cpp:105
+#: main.cpp:101
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:107
+#: main.cpp:103
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Enkel musikkspelar, laga med omsorg av KDE-fellesskapet"
 
-#: main.cpp:109
+#: main.cpp:105
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "© 2015–2020 Elisa-bidragsytarane"
 
-#: main.cpp:111 models/lyricsmodel.cpp:161
+#: main.cpp:107 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Opphavsprogram"
 
-#: main.cpp:112
+#: main.cpp:108
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Forfattar"
 
-#: main.cpp:114
+#: main.cpp:110
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Konsept og design"
 
 # unreviewed-context
-#: main.cpp:115
+#: main.cpp:111
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Støtte for omsetjing"
 
 # unreviewed-context
-#: main.cpp:116
+#: main.cpp:112
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Støtte for høgre-til-venstre-tekst"
 
 # unreviewed-context
-#: main.cpp:117
+#: main.cpp:113
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Ymse forbetringar i brukargrensesnittet"
 
 # unreviewed-context
-#: main.cpp:118
+#: main.cpp:114
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

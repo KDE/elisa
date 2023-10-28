@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-25 01:50+0000\n"
+"POT-Creation-Date: 2023-10-28 01:45+0000\n"
 "PO-Revision-Date: 2023-02-12 20:05+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -83,61 +83,61 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "पार्टी मोड टॉगल करें"
 
-#: main.cpp:105
+#: main.cpp:101
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "एलिसा"
 
-#: main.cpp:107
+#: main.cpp:103
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "एक सरल संगीत वादक जो केडीई समुदाय द्वारा प्रेम पूर्वक बनाया गया है।"
 
-#: main.cpp:109
+#: main.cpp:105
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) २०१५-२०२०, एलिसा के अंशदाता"
 
-#: main.cpp:111 models/lyricsmodel.cpp:161
+#: main.cpp:107 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "सृजक"
 
-#: main.cpp:112
+#: main.cpp:108
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "लेखक"
 
-#: main.cpp:114
+#: main.cpp:110
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "मूल विचार तथा कलाकृति"
 
-#: main.cpp:115
+#: main.cpp:111
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "स्थानीयकरण समर्थन"
 
-#: main.cpp:116
+#: main.cpp:112
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "इंटरफेस में दाहिने से बांयें का समर्थन"
 
-#: main.cpp:117
+#: main.cpp:113
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "इंटरफ़ेस में अनेकानेक सुधार"
 
-#: main.cpp:118
+#: main.cpp:114
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-25 01:50+0000\n"
+"POT-Creation-Date: 2023-10-28 01:45+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -97,70 +97,70 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Sortimisjärjekorra lülitamine"
 
-#: main.cpp:105
+#: main.cpp:101
 #, fuzzy, kde-format
 #| msgid "Elisa"
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:107
+#: main.cpp:103
 #, fuzzy, kde-format
 #| msgid "A Simple Music Player made with love by the KDE community"
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Lihtne muusikamängija, loodud armastusega KDE kogukonna poolt"
 
-#: main.cpp:109
+#: main.cpp:105
 #, fuzzy, kde-format
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020: Elisa autorid"
 
-#: main.cpp:111 models/lyricsmodel.cpp:161
+#: main.cpp:107 models/lyricsmodel.cpp:161
 #, fuzzy, kde-format
 #| msgid "Creator"
 msgctxt "@label"
 msgid "Creator"
 msgstr "Looja"
 
-#: main.cpp:112
+#: main.cpp:108
 #, fuzzy, kde-format
 #| msgid "Author"
 msgctxt "@label"
 msgid "Author"
 msgstr "Autor"
 
-#: main.cpp:114
+#: main.cpp:110
 #, fuzzy, kde-format
 #| msgid "Concept and design work"
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Algmõte ja kujundus"
 
-#: main.cpp:115
+#: main.cpp:111
 #, fuzzy, kde-format
 #| msgid "Localization support"
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Lokaliseerimise toetus"
 
-#: main.cpp:116
+#: main.cpp:112
 #, fuzzy, kde-format
 #| msgid "Right to left support in interface"
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Liideses paremalt vasakule toetus"
 
-#: main.cpp:117
+#: main.cpp:113
 #, fuzzy, kde-format
 #| msgid "Various improvements to the interface"
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Liidese mitmesugused parandused"
 
-#: main.cpp:118
+#: main.cpp:114
 #, fuzzy, kde-format
 #| msgid "Support for online radios"
 msgctxt "@label"

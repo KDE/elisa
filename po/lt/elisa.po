@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-25 01:50+0000\n"
+"POT-Creation-Date: 2023-10-28 01:45+0000\n"
 "PO-Revision-Date: 2023-02-05 01:16+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
@@ -84,64 +84,64 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Perjungti vakarėlio veikseną"
 
-#: main.cpp:105
+#: main.cpp:101
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:107
+#: main.cpp:103
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Paprastas muzikos grotuvas, su meile sukurtas KDE bendruomenės"
 
-#: main.cpp:109
+#: main.cpp:105
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa talkininkai"
 
-#: main.cpp:111 models/lyricsmodel.cpp:161
+#: main.cpp:107 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Kūrėjas"
 
-#: main.cpp:112
+#: main.cpp:108
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Autorius"
 
-#: main.cpp:114
+#: main.cpp:110
 #, fuzzy, kde-format
 #| msgid "Concept and design work"
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Koncepcijos ir dizaino darbas"
 
-#: main.cpp:115
+#: main.cpp:111
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Lokalizavimo palaikymas"
 
-#: main.cpp:116
+#: main.cpp:112
 #, fuzzy, kde-format
 #| msgid "Right to left support in interface"
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Palaikymas sąsajoje teksto iš dešinės į kairę"
 
-#: main.cpp:117
+#: main.cpp:113
 #, fuzzy, kde-format
 #| msgid "Various improvements to the interface"
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Įvairūs sąsajos patobulinimai"
 
-#: main.cpp:118
+#: main.cpp:114
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

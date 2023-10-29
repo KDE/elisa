@@ -22,44 +22,29 @@ Rectangle {
     property bool indexingRunning
     property int importedTracksCount
 
-    color: Kirigami.Theme.activeTextColor
+    readonly property int margins: Kirigami.Units.smallSpacing
 
-    width: (labelWidth.boundingRect.width - labelWidth.boundingRect.x) + 3 * Kirigami.Units.largeSpacing +
-           indicator.width
-    height: indicator.height
+    implicitWidth: layout.implicitWidth + (margins * 2)
+    implicitHeight: layout.implicitHeight + (margins * 2)
+
+    radius: Kirigami.Units.smallSpacing / 2
+
+    color: Qt.alpha(Kirigami.Theme.activeTextColor, 0.2)
+    border.color: Kirigami.Theme.activeTextColor
+    border.width: 2
 
     visible: opacity > 0
     opacity: 0
 
-    radius: Kirigami.Units.smallSpacing / 2
-
-    Rectangle {
-        id: bgFillRect
-
-        anchors.fill: parent
-        anchors.margins: 1
-
-        color: Kirigami.Theme.backgroundColor
-
-        radius: rootComponent.radius * 0.60
-    }
-
-    Rectangle {
-        anchors.fill: bgFillRect
-
-        color: rootComponent.color
-
-        opacity: 0.20
-
-        radius: bgFillRect.radius
-    }
-
     RowLayout {
-        anchors.fill: parent
-        spacing: Kirigami.Units.largeSpacing
+        id: layout
 
-        BusyIndicator{
-            id: indicator
+        anchors.centerIn: parent
+        spacing: Kirigami.Units.smallSpacing
+
+        BusyIndicator {
+            Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+            Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
             Layout.alignment: Qt.AlignVCenter
         }
 

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-28 01:45+0000\n"
-"PO-Revision-Date: 2023-10-16 13:44+0200\n"
+"PO-Revision-Date: 2023-10-27 09:37+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -1492,7 +1492,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "Il est impossible de lire « %1 »"
 
 #: qml/SortMenu.qml:20
 #, kde-format

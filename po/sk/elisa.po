@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-28 01:45+0000\n"
+"POT-Creation-Date: 2023-10-30 01:40+0000\n"
 "PO-Revision-Date: 2023-03-02 18:26+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -1495,7 +1495,7 @@ msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "Usporiadať podľa"
 
-#: qml/TrackImportNotification.qml:70 qml/TrackImportNotification.qml:85
+#: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
@@ -1504,7 +1504,7 @@ msgstr[0] "Importovaná jedna skladba"
 msgstr[1] "Importované %1 skladby"
 msgstr[2] "Importovaných %1 skladieb"
 
-#: qml/TrackImportNotification.qml:73
+#: qml/TrackImportNotification.qml:58
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"

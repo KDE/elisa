@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-28 01:45+0000\n"
+"POT-Creation-Date: 2023-10-30 01:40+0000\n"
 "PO-Revision-Date: 2023-10-27 15:06+0200\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -1492,7 +1492,7 @@ msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "Ordina per"
 
-#: qml/TrackImportNotification.qml:70 qml/TrackImportNotification.qml:85
+#: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
@@ -1500,7 +1500,7 @@ msgid_plural "Imported %1 tracks"
 msgstr[0] "Importata una traccia"
 msgstr[1] "Importate %1 tracce"
 
-#: qml/TrackImportNotification.qml:73
+#: qml/TrackImportNotification.qml:58
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"

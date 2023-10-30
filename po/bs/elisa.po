@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: d 664cf4f-342c-46fd-8dc1-63f78e432d04\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-28 01:45+0000\n"
+"POT-Creation-Date: 2023-10-30 01:40+0000\n"
 "PO-Revision-Date: 2017-04-08 03:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1470,7 +1470,7 @@ msgctxt "@title:menu"
 msgid "Sort By"
 msgstr ""
 
-#: qml/TrackImportNotification.qml:70 qml/TrackImportNotification.qml:85
+#: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
@@ -1479,7 +1479,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: qml/TrackImportNotification.qml:73
+#: qml/TrackImportNotification.qml:58
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"

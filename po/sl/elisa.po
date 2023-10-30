@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-28 01:45+0000\n"
+"POT-Creation-Date: 2023-10-30 01:40+0000\n"
 "PO-Revision-Date: 2023-10-25 07:06+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -1491,7 +1491,7 @@ msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "Razvrsti po"
 
-#: qml/TrackImportNotification.qml:70 qml/TrackImportNotification.qml:85
+#: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
@@ -1501,7 +1501,7 @@ msgstr[1] "Uvoženi %1 sledi"
 msgstr[2] "Uvožene %1 sledi"
 msgstr[3] "Uvoženo %1 sledi"
 
-#: qml/TrackImportNotification.qml:73
+#: qml/TrackImportNotification.qml:58
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-28 01:45+0000\n"
+"POT-Creation-Date: 2023-10-30 01:40+0000\n"
 "PO-Revision-Date: 2019-08-24 16:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -1735,7 +1735,7 @@ msgctxt "@title:menu"
 msgid "Sort By"
 msgstr ""
 
-#: qml/TrackImportNotification.qml:70 qml/TrackImportNotification.qml:85
+#: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
@@ -1743,7 +1743,7 @@ msgid_plural "Imported %1 tracks"
 msgstr[0] "Importar unha pista"
 msgstr[1] "Importar %1 pistas"
 
-#: qml/TrackImportNotification.qml:73
+#: qml/TrackImportNotification.qml:58
 #, fuzzy, kde-format
 #| msgctxt "message to show when Elisa is scanning music files"
 #| msgid "Scanning music"

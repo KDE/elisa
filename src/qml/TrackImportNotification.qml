@@ -60,7 +60,7 @@ Rectangle {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.alignment: Qt.AlignVCenter
+            verticalAlignment: Text.AlignVCenter
         }
     }
 

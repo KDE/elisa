@@ -2,8 +2,11 @@
 # SPDX-License-Identifier: CC0-1.0
 
 include:
-  #- https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/android-qt6.yml # Doesn't work with Qt6 yet
-  - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/linux-qt6.yml
-  - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/freebsd-qt6.yml
-  - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/windows-qt6.yml
-  # - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/flatpak.yml # There's no Flatpak runtime for Qt6 yet
+  - project: sysadmin/ci-utilities
+    file:
+      # - /gitlab-templates/android-qt6.yml # Doesn't work with Qt6 yet
+      - /gitlab-templates/linux-qt6.yml
+      - /gitlab-templates/freebsd-qt6.yml
+      - /gitlab-templates/windows-qt6.yml
+      # - /gitlab-templates/flatpak.yml # There's no Flatpak runtime for Qt6 yet
+      - /gitlab-templates/craft-android-qt6-apks.yml

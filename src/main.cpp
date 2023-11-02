@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     QApplication::setStyle(QStringLiteral("breeze"));
 #endif
 
-    KLocalizedString::setApplicationDomain("elisa");
+    KLocalizedString::setApplicationDomain(QByteArrayLiteral("elisa"));
 
 #if QtAndroidExtras_FOUND
     qInfo() << QCoreApplication::arguments();

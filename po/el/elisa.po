@@ -1,106 +1,98 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
+# SPDX-FileCopyrightText: 2023 Geosrge Stefanakis <george.stefanakis@gmail.com>
 # Stelios <sstavra@gmail.com>, 2018, 2019, 2021.
+# George Stefanakis <george.stefanakis@gmail.com>, 2023.
+# Petros Vidalis <pvidalis@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-30 01:40+0000\n"
-"PO-Revision-Date: 2021-10-23 08:43+0300\n"
-"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"PO-Revision-Date: 2023-11-01 09:34+0200\n"
+"Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Stelios"
+msgstr "Γιώργος Στεφανάκης, Stelios"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sstavra@gmail.com"
+msgstr "george.stefanakis@gmail.com, sstavra@gmail.com"
 
 #: databaseinterface.cpp:7135 databaseinterface.cpp:8158
 #: databaseinterface.cpp:8242
-#, fuzzy, kde-format
-#| msgid "Various Artists"
+#, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Διάφοροι καλλιτέχνες"
 
 #: databaseinterface.cpp:7203
-#, fuzzy, kde-format
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Ραδιοφωνικοί σταθμοί"
 
 #: elisaapplication.cpp:179
-#, fuzzy, kde-format
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Εναλλαγή λίστας αναπαραγωγής"
 
 #: elisaapplication.cpp:184
-#, fuzzy, kde-format
-#| msgid "Seek forward 10 seconds"
+#, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Αναζήτηση προς τα εμπρός 10 δευτερόλεπτα"
 
 #: elisaapplication.cpp:190
-#, fuzzy, kde-format
-#| msgid "Scrub backwards 10 seconds"
+#, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Αναζήτηση προς τα πίσω 10 δευτερόλεπτα"
 
 #: elisaapplication.cpp:196
-#, fuzzy, kde-format
-#| msgid "Go to next track"
+#, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Μετάβαση στο επόμενο κομμάτι"
 
 #: elisaapplication.cpp:202
-#, fuzzy, kde-format
-#| msgid "Go to previous track"
+#, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Μετάβαση στο προηγούμενο κομμάτι"
 
 #: elisaapplication.cpp:208
-#, fuzzy, kde-format
-#| msgid "Play/pause"
+#, kde-format
 msgctxt "@action"
 msgid "Play/pause"
-msgstr "Αναπαραγωγή/παύση"
+msgstr "Αναπαραγωγή/Παύση"
 
 #: elisaapplication.cpp:219
-#, fuzzy, kde-format
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Εναλλαγή λειτουργίας πάρτι"
 
 #: main.cpp:101
-#, fuzzy, kde-format
-#| msgid "Elisa"
+#, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
 #: main.cpp:103
-#, fuzzy, kde-format
-#| msgid "A Simple Music Player made with love by the KDE community"
+#, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr ""
@@ -108,94 +100,79 @@ msgstr ""
 "κοινότητα του KDE"
 
 #: main.cpp:105
-#, fuzzy, kde-format
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, οι συνεισφέροντες στην Elisa"
 
 #: main.cpp:107 models/lyricsmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "Creator"
+#, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Δημιουργός"
 
 #: main.cpp:108
-#, fuzzy, kde-format
-#| msgid "Author"
+#, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Συγγραφέας"
 
 #: main.cpp:110
-#, fuzzy, kde-format
-#| msgid "Concept and design work"
+#, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Σύλληψη και σχεδιασμός"
 
 #: main.cpp:111
-#, fuzzy, kde-format
-#| msgid "Localization support"
+#, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Υποστήριξη τοπικότητας"
 
 #: main.cpp:112
-#, fuzzy, kde-format
-#| msgid "Right to left support in interface"
+#, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Υποστήριξη δεξιά προς αριστερά στο περιβάλλον χρήστη"
 
 #: main.cpp:113
-#, fuzzy, kde-format
-#| msgid "Various improvements to the interface"
+#, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Διάφορες βελτιώσεις στο περιβάλλον χρήστη"
 
 #: main.cpp:114
-#, fuzzy, kde-format
-#| msgid "Support for online radios"
+#, kde-format
 msgctxt "@label"
 msgid "Support for online radios"
-msgstr "Υποστήριξη για επιγραμμικά ραδιόφωνα"
+msgstr "Υποστήριξη για διαδυκτιακά ραδιόφωνα"
 
 #: models/editabletrackmetadatamodel.cpp:315
-#, fuzzy, kde-format
-#| msgctxt "Error message when track URL is invalid"
-#| msgid "Invalid URL."
+#, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Μη έγκυρο URL."
 
 #: models/editabletrackmetadatamodel.cpp:325
-#, fuzzy, kde-format
-#| msgctxt "Error message when track title is empty"
-#| msgid "Empty title."
+#, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "Κενός τίτλος."
 
 #: models/lyricsmodel.cpp:158
-#, fuzzy, kde-format
-#| msgid "Artist"
+#, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
 #: models/lyricsmodel.cpp:159
-#, fuzzy, kde-format
-#| msgid "Album"
+#, kde-format
 msgctxt "@label musical album"
 msgid "Album"
-msgstr "Λεύκωμα"
+msgstr "Άλμπουμ"
 
 #: models/lyricsmodel.cpp:160
-#, fuzzy, kde-format
-#| msgid "Title"
+#, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "Τίτλος"
@@ -204,365 +181,296 @@ msgstr "Τίτλος"
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
-msgstr ""
+msgstr "Διάρκεια"
 
 #: models/lyricsmodel.cpp:163
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
-msgstr ""
+msgstr "Δημιουργήθηκε από"
 
 #: models/lyricsmodel.cpp:164
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
-msgstr ""
+msgstr "Επεξεργαστής"
 
 #: models/lyricsmodel.cpp:165
 #, kde-format
 msgctxt "@label"
 msgid "Version"
-msgstr ""
+msgstr "Έκδοση"
 
 #: models/lyricsmodel.cpp:188
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
-msgstr ""
+msgstr "%1: %2\n"
 
 #: models/trackmetadatamodel.cpp:445 models/trackmetadatamodel.cpp:492
-#, fuzzy, kde-format
-#| msgid "Title"
+#, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "Τίτλος"
 
 #: models/trackmetadatamodel.cpp:447 models/trackmetadatamodel.cpp:498
-#, fuzzy, kde-format
-#| msgid "Artist"
+#, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
 #: models/trackmetadatamodel.cpp:449 models/trackmetadatamodel.cpp:501
-#, fuzzy, kde-format
-#| msgid "Album"
+#, kde-format
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
-msgstr "Λεύκωμα"
+msgstr "Άλμπουμ"
 
 #: models/trackmetadatamodel.cpp:451 models/trackmetadatamodel.cpp:504
-#, fuzzy, kde-format
-#| msgctxt "Album artist for track metadata view"
-#| msgid "Album Artist"
+#, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
-msgstr "Καλλιτέχνης λευκώματος"
+msgstr "Καλλιτέχνης άλμπουμ"
 
 #: models/trackmetadatamodel.cpp:453 models/trackmetadatamodel.cpp:507
-#, fuzzy, kde-format
-#| msgctxt "Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
 msgstr "Αριθμός κομματιού"
 
 #: models/trackmetadatamodel.cpp:455 models/trackmetadatamodel.cpp:510
-#, fuzzy, kde-format
-#| msgctxt "Disc number for track metadata view"
-#| msgid "Disc Number"
+#, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
 msgstr "Αριθμός δίσκου"
 
 #: models/trackmetadatamodel.cpp:457 models/trackmetadatamodel.cpp:513
-#, fuzzy, kde-format
-#| msgctxt "Rating label for information panel"
-#| msgid "Rating"
+#, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "Αξιολόγηση"
 
 #: models/trackmetadatamodel.cpp:459 models/trackmetadatamodel.cpp:516
-#, fuzzy, kde-format
-#| msgid "Genre"
+#, kde-format
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "Είδος"
 
 #: models/trackmetadatamodel.cpp:461 models/trackmetadatamodel.cpp:519
-#, fuzzy, kde-format
-#| msgid "Lyricist"
+#, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "Στιχουργός"
 
 #: models/trackmetadatamodel.cpp:463 models/trackmetadatamodel.cpp:522
-#, fuzzy, kde-format
-#| msgid "Composer"
+#, kde-format
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "Συνθέτης"
 
 #: models/trackmetadatamodel.cpp:465 models/trackmetadatamodel.cpp:525
-#, fuzzy, kde-format
-#| msgctxt "Comment label for track metadata view"
-#| msgid "Comment"
+#, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "Σχόλιο"
 
 #: models/trackmetadatamodel.cpp:467 models/trackmetadatamodel.cpp:528
-#, fuzzy, kde-format
-#| msgid "Year"
+#, kde-format
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "Έτος"
 
 #: models/trackmetadatamodel.cpp:469 models/trackmetadatamodel.cpp:531
-#, fuzzy, kde-format
-#| msgctxt "Channels label for track metadata view"
-#| msgid "Channels"
+#, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
-msgstr "Δίαυλοι"
+msgstr "Κανάλια"
 
 #: models/trackmetadatamodel.cpp:471 models/trackmetadatamodel.cpp:534
-#, fuzzy, kde-format
-#| msgctxt "Bit rate label for track metadata view"
-#| msgid "Bit Rate"
+#, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
-msgstr "Ρυθμός μετάδοσης"
+msgstr "Ρυθμός δειγματοληψίας"
 
 #: models/trackmetadatamodel.cpp:473 models/trackmetadatamodel.cpp:537
-#, fuzzy, kde-format
-#| msgctxt "Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
+#, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
 msgstr "Δειγματοληψία"
 
 #: models/trackmetadatamodel.cpp:475 models/trackmetadatamodel.cpp:549
-#, fuzzy, kde-format
-#| msgctxt "Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "Στίχοι"
 
 #: models/trackmetadatamodel.cpp:477 models/trackmetadatamodel.cpp:495
-#, fuzzy, kde-format
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "Διάρκεια"
 
 #: models/trackmetadatamodel.cpp:540
-#, fuzzy, kde-format
-#| msgctxt "Last play date label for track metadata view"
-#| msgid "Last played"
+#, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "Τελευταία αναπαραγωγή"
 
 #: models/trackmetadatamodel.cpp:543
-#, fuzzy, kde-format
-#| msgctxt "First play date label for track metadata view"
-#| msgid "First played"
+#, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "Πρώτη αναπαραγωγή"
 
 #: models/trackmetadatamodel.cpp:546
-#, fuzzy, kde-format
-#| msgctxt "Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "Καταμέτρηση αναπαραγωγής"
 
 #: models/trackmetadatamodel.cpp:552
-#, fuzzy, kde-format
-#| msgctxt "Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "Ροή http διεύθυνσης"
 
 #: models/trackmetadatamodel.cpp:555
-#, fuzzy, kde-format
-#| msgctxt "Image address for radio metadata view"
-#| msgid "Image Address"
+#, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Διεύθυνση εικόνας"
 
 #: models/viewsmodel.cpp:105 viewslistdata.cpp:55
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all albums"
-#| msgid "Albums"
+#, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
-msgstr "Λευκώματα"
+msgstr "Άλμπουμ"
 
 #: models/viewsmodel.cpp:108 viewslistdata.cpp:104
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all genres"
-#| msgid "Genres"
+#, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Είδη"
 
 #: models/viewsmodel.cpp:111 viewslistdata.cpp:69
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all artists"
-#| msgid "Artists"
+#, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
 msgstr "Καλλιτέχνες"
 
 #: powermanagementinterface.cpp:171
-#, fuzzy, kde-format
-#| msgctxt "explanation for sleep inhibit during play of music"
-#| msgid "Playing music"
+#, kde-format
 msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
-msgstr "Γίνεται αναπαραγωγή μουσικής"
+msgstr "Αναπαραγωγή μουσικής"
 
 #: powermanagementinterface.cpp:221
-#, fuzzy, kde-format
-#| msgctxt "explanation for sleep inhibit during play of music"
-#| msgid "Playing music"
+#, kde-format
 msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
-msgstr "Γίνεται αναπαραγωγή μουσικής"
+msgstr "Αναπαραγωγή μουσικής"
 
 #: qml/AbstractDataView.qml:201
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
-msgstr ""
+msgstr "Καμιά αντιστοιχία"
 
 #: qml/AbstractDataView.qml:201
-#, fuzzy, kde-format
-#| msgid "Nothing to display"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
-msgstr "Τίποτε για εμφάνιση"
+msgstr "Τίποτα για εμφάνιση"
 
 #: qml/ApplicationMenu.qml:17 qml/NativeTrayMenu.qml:14
-#, fuzzy, kde-format
-#| msgctxt "open application menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "Μενού εφαρμογής"
 
 #: qml/ApplicationMenu.qml:27 qml/NativeGlobalMenu.qml:62
-#, fuzzy, kde-format
-#| msgctxt "menu entry"
-#| msgid "Enter Fullscreen"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
-msgstr "Είσοδος σε πλήρη οθόνη"
+msgstr "Έξοδος από πλήρη οθόνη"
 
 #: qml/ApplicationMenu.qml:27 qml/NativeGlobalMenu.qml:62
-#, fuzzy, kde-format
-#| msgctxt "menu entry"
-#| msgid "Enter Fullscreen"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "Είσοδος σε πλήρη οθόνη"
 
 #: qml/ApplicationMenu.qml:35 qml/NativeTrayMenu.qml:25
-#, fuzzy, kde-format
-#| msgid "Start playing on startup"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
-msgstr "Έναρξη αναπαραγωγής στην εκκίνηση"
+msgstr "Σάρωση για νέα Μουσική"
 
 #: qml/ApplicationMenu.qml:44 qml/NativeGlobalMenu.qml:33
 #: qml/NativeTrayMenu.qml:31
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
-msgstr ""
+msgstr "Επαναφορά Βάσης Δεδομένων και επανασάρωση Όλων"
 
 #: qml/ApplicationMenu.qml:55
-#, fuzzy, kde-format
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
-msgstr "Σχήμα χρωμάτων"
+msgstr "Θέμα χρώματος"
 
 #: qml/ContextView.qml:39
-#, fuzzy, kde-format
-#| msgctxt "Title of the context view related to the currently playing track"
-#| msgid "Now Playing"
+#, kde-format
 msgctxt ""
 "@title:window Title of the context view related to the currently playing "
 "track"
 msgid "Now Playing"
-msgstr "Τώρα γίνεται αναπαραγωγή"
+msgstr "Αναπαράγεται τώρα"
 
 #: qml/ContextView.qml:73 qml/NavigationActionBar.qml:178
-#, fuzzy, kde-format
-#| msgctxt "open the sidebar"
-#| msgid "Open sidebar"
+#, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
-msgstr "Άνοιγμα πλευρικής γραμμής"
+msgstr "Άνοιγμα πλευρικής μπάρας"
 
 #: qml/ContextView.qml:108
-#, fuzzy, kde-format
-#| msgctxt "One of the 'now playing' views"
-#| msgid "Metadata"
+#, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Μεταδεδομένα"
 
 #: qml/ContextView.qml:119
-#, fuzzy, kde-format
-#| msgctxt "Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Στίχοι"
 
 #: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:237
 #: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
-#, fuzzy, kde-format
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Εμφάνιση λίστας αναπαραγωγής"
 
 #: qml/ContextView.qml:407
-#, fuzzy, kde-format
-#| msgid "No lyrics found"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Δε βρέθηκαν στίχοι"
 
 #: qml/ContextView.qml:424
-#, fuzzy, kde-format
-#| msgid "Nothing playing"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
-msgstr "Δεν γίνεται αναπαραγωγή"
+msgstr "Καμία αναπαραγωγή"
 
 #: qml/ContextView.qml:458
-#, fuzzy, kde-format
-#| msgid "Show In Folder"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
-msgstr "Εμφάνιση στο φάκελο"
+msgstr "Εμφάνιση στον φάκελο"
 
 #: qml/DurationSlider.qml:45
-#, fuzzy, kde-format
-#| msgctxt "This is used to preserve a fixed width for the duration text."
-#| msgid "00:00:00"
+#, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
 "text."
@@ -570,60 +478,49 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/ElisaConfigurationDialog.qml:21
-#, fuzzy, kde-format
-#| msgid "Configure"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure"
 msgstr "Διαμόρφωση"
 
 #: qml/ElisaConfigurationDialog.qml:45 qml/MediaTrackMetadataView.qml:192
-#, fuzzy, kde-format
-#| msgid "OK"
+#, kde-format
 msgctxt "@action:button"
 msgid "OK"
-msgstr "Εντάξει"
+msgstr "ΟΚ"
 
 #: qml/ElisaConfigurationDialog.qml:53 qml/MediaTrackMetadataView.qml:178
-#, fuzzy, kde-format
-#| msgid "Apply"
+#, kde-format
 msgctxt "@action:button"
 msgid "Apply"
 msgstr "Εφαρμογή"
 
 #: qml/ElisaConfigurationDialog.qml:63 qml/mobile/MobileSettingsPage.qml:42
-#, fuzzy, kde-format
-#| msgid "Cancel"
+#, kde-format
 msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
 #: qml/ElisaMainWindow.qml:26
-#, fuzzy, kde-format
-#| msgctxt "Message when playlist load failed"
-#| msgid "Loading failed"
+#, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "Αποτυχία φόρτωσης"
 
 #: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:208
-#, fuzzy, kde-format
-#| msgctxt "Retry"
-#| msgid "Retry"
+#, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "Επανάληψη"
 
 #: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:411
-#, fuzzy, kde-format
-#| msgctxt "Playlist cleared"
-#| msgid "Playlist cleared"
+#, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
-msgstr "Καθαρισμός λίστας αναπαραγωγής"
+msgstr "Έγινε εκκαθάριση της λίστας αναπαραγωγής"
 
 #: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:415
-#, fuzzy, kde-format
-#| msgid "Undo"
+#, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Αναίρεση"
@@ -634,10 +531,11 @@ msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr ""
+"Δεν έγινε φόρτωση ορισμένων αρχείων. Το Elisa μπορεί να ανοίξει αρχεία "
+"μουσικής και λίστες αναπαραγωγής."
 
 #: qml/ElisaMainWindow.qml:121 qml/mobile/MobileSidebar.qml:20
-#, fuzzy, kde-format
-#| msgid "Elisa"
+#, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
@@ -646,27 +544,23 @@ msgstr "Elisa"
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
-msgstr ""
+msgstr "%1 — Elisa"
 
 #: qml/ElisaMainWindow.qml:190
-#, fuzzy, kde-format
-#| msgctxt "file type (mime type) for m3u and m3u8 playlist file formats"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr "Λίστα αναπαραγωγής (*.m3u)"
+msgstr "m3u8, m3u Αρχεία Λίστας Αναπαραγωγής (*.m3u*)"
 
 #: qml/ElisaMainWindow.qml:190
-#, fuzzy, kde-format
-#| msgctxt "file type (mime type) for m3u and m3u8 playlist file formats"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr "Λίστα αναπαραγωγής (*.m3u)"
+msgstr "pls Αρχείο Λίστας Αναπαραγωγής (*.pls)"
 
 #: qml/ElisaMainWindow.qml:197
 #, kde-format
@@ -674,141 +568,110 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
 "do not translate *.m3u8 *.m3u *.pls"
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr ""
+msgstr "m3u8, m3u, pls Αρχείο Λίστας Αναπαραγωγής (*.m3u8 *.m3u *.pls)"
 
 #: qml/ElisaMainWindow.qml:208
-#, fuzzy, kde-format
-#| msgctxt "Message when saving a playlist failed"
-#| msgid "Saving failed"
+#, kde-format
 msgctxt "@label"
 msgid "Saving failed"
 msgstr "Αποτυχία αποθήκευσης"
 
 #: qml/GridBrowserDelegate.qml:63 qml/NavigationActionBar.qml:117
-#, fuzzy, kde-format
-#| msgctxt "Clear play list and add whole container to play list"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Αναπαραγωγή τώρα, αντικατάσταση τρέχουσας λίστας αναπαραγωγής"
 
 #: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:81
-#, fuzzy, kde-format
-#| msgctxt "Add whole container to play list"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Προσθήκη στη λίστα αναπαραγωγής"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
 #: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:89
-#, fuzzy, kde-format
-#| msgctxt "Show the file for this song in the file manager"
-#| msgid "Show in folder"
+#, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Εμφάνιση στο φάκελο"
 
 #: qml/GridBrowserDelegate.qml:345
-#, fuzzy, kde-format
-#| msgctxt "Options"
-#| msgid "Options"
+#, kde-format
 msgctxt "@action:button"
 msgid "Options"
 msgstr "Επιλογές"
 
 #: qml/HeaderBar.qml:172
-#, fuzzy, kde-format
-#| msgctxt "menu entry"
-#| msgid "Enter Fullscreen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
-msgstr "Είσοδος σε πλήρη οθόνη"
+msgstr "Έξοδος από πλήρη οθόνη"
 
 #: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
 #: qml/PlayListEntry.qml:96
-#, fuzzy, kde-format
-#| msgctxt "Show track metadata"
-#| msgid "View details"
+#, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "Προβολή λεπτομερειών"
 
 #: qml/ListBrowserDelegate.qml:86
-#, fuzzy, kde-format
-#| msgctxt "Clear play list and add whole container to play list"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "Αναπαραγωγή τώρα, αντικατάσταση τρέχουσας λίστας αναπαραγωγής"
+msgstr "Αναπαραγωγή από εδώ, αντικατάσταση της τρέχουσας λίστας αναπαραγωγής"
 
 #: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:110
-#, fuzzy, kde-format
-#| msgctxt "Show track rating"
-#| msgid "Set track rating"
+#, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Ρύθμιση αξιολόγησης κομματιού"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:120
-#, fuzzy, kde-format
-#| msgid "Un-mark this song as a favorite"
+#, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
-msgstr "Να αναιρεθεί η σημείωση αυτού του τραγουδιού ως προτιμώμενο"
+msgstr "Να αναιρεθεί η σημείωση αυτού του τραγουδιού ως αγαπημένο"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:120
-#, fuzzy, kde-format
-#| msgid "Mark this song as a favorite"
+#, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
-msgstr "Να σημειωθεί αυτό το τραγούδι ως προτιμώμενο"
+msgstr "Να σημειωθεί αυτό το τραγούδι ως αγαπημένο"
 
 #: qml/ListBrowserDelegate.qml:216 qml/ListBrowserDelegate.qml:232
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title."
-#| msgid "%1 - %2"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
 #: qml/ListBrowserDelegate.qml:227
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
 #: qml/ListBrowserDelegate.qml:239
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title."
-#| msgid "%1 - %2"
+#, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
 #: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:298
-#, fuzzy, kde-format
-#| msgctxt "Cancel rating this track"
-#| msgid "Cancel rating this track"
+#, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Ακύρωση αξιολόγησης του κομματιού"
 
 #: qml/ListBrowserDelegate.qml:373
-#, fuzzy, kde-format
-#| msgctxt "Song options"
-#| msgid "Song Options"
+#, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Επιλογές τραγουδιού"
 
 #: qml/MediaPlayerControl.qml:88
-#, fuzzy, kde-format
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "Εναλλαγή λειτουργίας πάρτι"
@@ -816,9 +679,7 @@ msgstr "Εναλλαγή λειτουργίας πάρτι"
 #: qml/MediaPlayerControl.qml:96
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
 #: qml/mobile/MobileTrackPlayer.qml:312
-#, fuzzy, kde-format
-#| msgctxt "skip backward in playlists"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Παράλειψη προς τα πίσω"
@@ -826,8 +687,7 @@ msgstr "Παράλειψη προς τα πίσω"
 #: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:327
-#, fuzzy, kde-format
-#| msgid "Pause"
+#, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Παύση"
@@ -835,89 +695,73 @@ msgstr "Παύση"
 #: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
 #: qml/mobile/MobileTrackPlayer.qml:327
-#, fuzzy, kde-format
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
 #: qml/MediaPlayerControl.qml:112
-#, fuzzy, kde-format
-#| msgctxt "skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "Παράλειψη προς τα εμπρός"
 
 #: qml/MediaPlayerControl.qml:131
-#, fuzzy, kde-format
-#| msgctxt "toggle mute mode for player"
-#| msgid "Toggle Mute"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "Εναλλαγή σίγασης"
 
 #: qml/MediaPlayerControl.qml:150 qml/mobile/MobileTrackPlayer.qml:209
-#, fuzzy, kde-format
-#| msgctxt "toggle shuffle mode for playlist"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle Shuffle"
 msgstr "Εναλλαγή ανάμιξης"
 
 #: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:224
-#, fuzzy, kde-format
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Τρέχον: να μην επαναλαμβάνονται κομμάτια"
 
 #: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:225
-#, fuzzy, kde-format
-#| msgid "Current: Repeat current track"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Τρέχον: επανάληψη τρέχοντος κομματιού"
 
 #: qml/MediaPlayerControl.qml:163 qml/mobile/MobileTrackPlayer.qml:226
-#, fuzzy, kde-format
-#| msgid "Current: Repeat all tracks in playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Τρέχον: επανάληψη όλων των κομματιών στη λίστα"
 
 #: qml/MediaPlayerControl.qml:190 qml/mobile/MobileTrackPlayer.qml:255
-#, fuzzy, kde-format
-#| msgid "Playlist"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Λίστα αναπαραγωγής"
 
 #: qml/MediaPlayerControl.qml:194 qml/mobile/MobileTrackPlayer.qml:259
-#, fuzzy, kde-format
-#| msgid "One"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Ένα"
 
 #: qml/MediaPlayerControl.qml:198 qml/mobile/MobileTrackPlayer.qml:263
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Κανένα"
 
 #: qml/MediaPlayerControl.qml:254
-#, fuzzy, kde-format
-#| msgctxt "open application menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"
 msgstr "Μενού εφαρμογής"
 
 #: qml/MediaPlayListView.qml:27
-#, fuzzy, kde-format
-#| msgid "Playlist"
+#, kde-format
 msgctxt ""
 "@title:window Title of the view of the playlist; keep this string as short "
 "as possible because horizontal space is quite scarce"
@@ -925,17 +769,16 @@ msgid "Playlist"
 msgstr "Λίστα αναπαραγωγής"
 
 #: qml/MediaPlayListView.qml:65
-#, fuzzy, kde-format
-#| msgid "Save"
+#, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
-msgstr "Αποθήκευση"
+msgstr "Αποθήκευση…"
 
 #: qml/MediaPlayListView.qml:75
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
-msgstr ""
+msgstr "Φόρτωση…"
 
 #: qml/MediaPlayListView.qml:99
 #, kde-format
@@ -944,71 +787,58 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"Αποτυχία φόρτωσης ορισμένων κομματιών. Σιγουρευτείτε ότι δεν έχουν αφαιρεθεί "
+"ή μετονομαστεί"
 
 #: qml/MediaPlayListView.qml:105
-#, fuzzy, kde-format
-#| msgctxt "Add current list to playlist"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Προσθήκη στη λίστα αναπαραγωγής"
+msgstr "Επεξεργασία αρχείου Λίστας Αναπαραγωγής"
 
 #: qml/MediaPlayListView.qml:274
-#, fuzzy, kde-format
-#| msgid "Playlist is empty"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Η λίστα είναι κενή"
 
 #: qml/MediaPlayListView.qml:275
-#, fuzzy, kde-format
-#| msgid ""
-#| "Add some songs to get started. You can browse your music using the views "
-#| "on the left."
+#, kde-format
 msgctxt "@info:usagetip"
 msgid ""
 "Add some songs to get started. You can browse your music using the views on "
 "the left."
 msgstr ""
-"Προσθέστε κάποια τραγούδια για να ξεκινήσετε. Μπορείτε να περιηγηθείτε στη "
-"μουσική που επιλέξατε με τις προβολές στα αριστερά."
+"Προσθέστε ορισμένα τραγούδια για να ξεκινήσετε. Μπορείτε να περιηγηθείτε στη "
+"μουσική σας κάνοντας χρήση τον προβολών στα αριστερά."
 
 #: qml/MediaPlayListView.qml:349
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "Your playlist is empty."
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Η λίστα αναπαραγωγής είναι κενή"
 
 #: qml/MediaPlayListView.qml:436 qml/MediaPlayListView.qml:441
-#, fuzzy, kde-format
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks (%2 remaining)"
+#, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1 κομμάτι"
-msgstr[1] "%1 κομμάτια (%2 απομένουν)"
+msgstr[1] "%1 κομμάτια"
 
 #: qml/MediaPlayListView.qml:439
-#, fuzzy, kde-format
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks (%2 remaining)"
+#, kde-format
 msgctxt "@info:status"
 msgid "1 track"
-msgstr "%1 κομμάτι"
+msgstr "1 κομμάτι"
 
 #: qml/MediaPlayListView.qml:442
-#, fuzzy, kde-format
-#| msgctxt "Number of remaining tracks in a playlist of songs"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
 msgid_plural "%1 remaining"
 msgstr[0] "%1 απομένει"
-msgstr[1] "%1 απομένει"
+msgstr[1] "%1 απομένουν"
 
 #: qml/MediaPlayListView.qml:443
 #, kde-format
@@ -1016,283 +846,230 @@ msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
 "remaining"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: qml/MediaPlayListView.qml:457
-#, fuzzy, kde-format
-#| msgctxt "Show currently played track inside playlist"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Εμφάνιση τρέχοντος"
 
 #: qml/MediaPlayListView.qml:468
-#, fuzzy, kde-format
-#| msgctxt "Remove all tracks from play list"
-#| msgid "Clear All"
+#, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Καθαρισμός όλων"
 
 #: qml/MediaTrackMetadataForm.qml:37
-#, fuzzy, kde-format
-#| msgctxt "Form validation error message for track data"
-#| msgid "Data is not valid. %1"
+#, kde-format
 msgctxt "@label"
 msgid "Data is not valid. %1"
 msgstr "Τα δεδομένα δεν είναι έγκυρα. %1"
 
 #: qml/MediaTrackMetadataForm.qml:93
-#, fuzzy, kde-format
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Add new tag:"
 msgstr "Προσθήκη νέας ετικέτας:"
 
 #: qml/MediaTrackMetadataForm.qml:112 qml/MediaTrackMetadataView.qml:168
-#, fuzzy, kde-format
-#| msgid "Modify"
+#, kde-format
 msgctxt "@action:button"
 msgid "Modify"
 msgstr "Τροποποίηση"
 
 #: qml/MediaTrackMetadataForm.qml:129 qml/MediaTrackMetadataView.qml:147
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@action:button"
 msgid "Delete"
 msgstr "Διαγραφή"
 
 #: qml/MediaTrackMetadataView.qml:35
 #: qml/mobile/MobileMediaTrackMetadataView.qml:39
-#, fuzzy, kde-format
-#| msgctxt "Window title for track metadata"
-#| msgid "Create a Radio"
+#, kde-format
 msgctxt "@title:window"
 msgid "Create a Radio"
 msgstr "Δημιουργία ραδιοφώνου"
 
 #: qml/MediaTrackMetadataView.qml:36
 #: qml/mobile/MobileMediaTrackMetadataView.qml:40
-#, fuzzy, kde-format
-#| msgctxt "Show track metadata"
-#| msgid "View details"
+#, kde-format
 msgctxt "@title:window"
 msgid "View details"
 msgstr "Προβολή λεπτομερειών"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:45
-#, fuzzy, kde-format
-#| msgid "Close"
+#, kde-format
 msgctxt "@action:button"
 msgid "Close"
 msgstr "Κλείσιμο"
 
 #: qml/mobile/MobileMediaTrackMetadataView.qml:53
 #: qml/mobile/MobileSettingsPage.qml:36
-#, fuzzy, kde-format
-#| msgid "Save"
+#, kde-format
 msgctxt "@action:button"
 msgid "Save"
 msgstr "Αποθήκευση"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:342
-#, fuzzy, kde-format
-#| msgctxt "skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Παράλειψη προς τα εμπρός"
 
 #: qml/mobile/MobilePlayListDelegate.qml:146
-#, fuzzy, kde-format
-#| msgctxt "Track options"
-#| msgid "Track Options"
+#, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Επιλογές κομματιών"
 
 #: qml/mobile/MobilePlayListDelegate.qml:186
-#, fuzzy, kde-format
-#| msgctxt "Remove current track from play list"
-#| msgid "Remove from queue"
+#, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr "Αφαίρεση από την ουρά"
 
 #: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:37
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
 #: qml/mobile/MobileTrackPlayer.qml:49
-#, fuzzy, kde-format
-#| msgctxt "minimize player"
-#| msgid "Minimize Player"
+#, kde-format
 msgctxt "@action:button"
 msgid "Minimize Player"
 msgstr "Ελαχιστοποίηση προγράμματος αναπαραγωγής"
 
 #: qml/mobile/MobileTrackPlayer.qml:197
-#, fuzzy, kde-format
-#| msgctxt "show track information"
-#| msgid "Show Info"
+#, kde-format
 msgctxt "@action:button show track information"
 msgid "Show Info"
-msgstr "Εμφάνιση πληροφοριών"
+msgstr "Εμφάνιση Πληροφοριών"
 
 #: qml/mobile/MobileVolumeButton.qml:27
-#, fuzzy, kde-format
-#| msgctxt "change player volume"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@action:button"
 msgid "Change Volume"
-msgstr "Αλλαγή έντασης"
+msgstr "Αλλαγή έντασης ήχου"
 
 #: qml/NativeGlobalMenu.qml:14
-#, fuzzy, kde-format
-#| msgctxt "menu category"
-#| msgid "File"
+#, kde-format
 msgctxt "@title:menu"
 msgid "File"
 msgstr "Αρχείο"
 
 #: qml/NativeGlobalMenu.qml:17
-#, fuzzy, kde-format
-#| msgctxt "menu entry"
-#| msgid "Save Playlist..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Save Playlist…"
 msgstr "Αποθήκευση λίστας αναπαραγωγής..."
 
 #: qml/NativeGlobalMenu.qml:25
-#, fuzzy, kde-format
-#| msgctxt "menu entry"
-#| msgid "Open Playlist..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Playlist…"
 msgstr "Άνοιγμα λίστας αναπαραγωγής..."
 
 #: qml/NativeGlobalMenu.qml:53
-#, fuzzy, kde-format
-#| msgctxt "menu category"
-#| msgid "View"
+#, kde-format
 msgctxt "@title:menu"
 msgid "View"
 msgstr "Προβολή"
 
 #: qml/NativeGlobalMenu.qml:56
-#, fuzzy, kde-format
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "Εναλλαγή λειτουργίας πάρτι"
 
 #: qml/NativeGlobalMenu.qml:68
-#, fuzzy, kde-format
-#| msgid "Hide Playlist"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Playlist"
 msgstr "Απόκρυψη λίστας αναπαραγωγής"
 
 #: qml/NativeGlobalMenu.qml:68 qml/NativeTrayMenu.qml:57
-#, fuzzy, kde-format
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Playlist"
 msgstr "Εμφάνιση λίστας αναπαραγωγής"
 
 #: qml/NativeGlobalMenu.qml:74
-#, fuzzy, kde-format
-#| msgctxt "menu category"
-#| msgid "Controls"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Controls"
 msgstr "Κουμπιά ελέγχου"
 
 #: qml/NativeGlobalMenu.qml:77
-#, fuzzy, kde-format
-#| msgid "Pause"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Pause"
 msgstr "Παύση"
 
 #: qml/NativeGlobalMenu.qml:77
-#, fuzzy, kde-format
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
 #: qml/NativeGlobalMenu.qml:84
-#, fuzzy, kde-format
-#| msgid "Stop"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop"
 msgstr "Διακοπή"
 
 #: qml/NativeGlobalMenu.qml:93
-#, fuzzy, kde-format
-#| msgid "Increase Volume"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Increase Volume"
-msgstr "Αύξηση έντασης"
+msgstr "Αύξηση έντασης ήχου"
 
 #: qml/NativeGlobalMenu.qml:98
-#, fuzzy, kde-format
-#| msgid "Decrease Volume"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Decrease Volume"
-msgstr "Μείωση έντασης"
+msgstr "Μείωση έντασης ήχου"
 
 #: qml/NativeGlobalMenu.qml:108
-#, fuzzy, kde-format
-#| msgid "Shuffle"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Shuffle"
-msgstr "Ανάμιξη"
+msgstr "Τυχαία σειρά"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgid "On"
+#, kde-format
 msgctxt "@action:inmenu shuffle mode is turned on"
 msgid "On"
-msgstr "On"
+msgstr "Ενεργό"
 
 #: qml/NativeGlobalMenu.qml:121
-#, fuzzy, kde-format
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu shuffle mode is turned off"
 msgid "Off"
-msgstr "Off"
+msgstr "Ανενεργό"
 
 #: qml/NativeGlobalMenu.qml:130
-#, fuzzy, kde-format
-#| msgid "Repeat"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Repeat"
 msgstr "Επανάληψη"
 
 #: qml/NativeGlobalMenu.qml:137
-#, fuzzy, kde-format
-#| msgid "Playlist"
+#, kde-format
 msgctxt "@action:inmenu repeat all songs in this playlist"
 msgid "Playlist"
 msgstr "Λίστα αναπαραγωγής"
 
 #: qml/NativeGlobalMenu.qml:141
-#, fuzzy, kde-format
-#| msgid "One"
+#, kde-format
 msgctxt "@action:inmenu repeat this one song"
 msgid "One"
 msgstr "Ένα"
 
 #: qml/NativeGlobalMenu.qml:145
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt ""
 "@action:inmenu no repeat mode set; stop playback after last song in the "
 "playlist"
@@ -1300,87 +1077,67 @@ msgid "None"
 msgstr "Κανένα"
 
 #: qml/NativeGlobalMenu.qml:151
-#, fuzzy, kde-format
-#| msgctxt "menu category"
-#| msgid "Help"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Help"
 msgstr "Βοήθεια"
 
 #: qml/NavigationActionBar.qml:78
-#, fuzzy, kde-format
-#| msgctxt "Sort By Menu Title with no sort selected"
-#| msgid "Sort: %1"
+#, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Ταξινόμηση: %1"
 
 #: qml/NavigationActionBar.qml:79
-#, fuzzy, kde-format
-#| msgctxt "Sort By Menu Title with no sort selected"
-#| msgid "Sort"
+#, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Ταξινόμηση"
 
 #: qml/NavigationActionBar.qml:93
-#, fuzzy, kde-format
-#| msgctxt "Create a new radio"
-#| msgid "Create a radio"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Δημιουργία ραδιοφώνου"
 
 #: qml/NavigationActionBar.qml:105
-#, fuzzy, kde-format
-#| msgctxt "Add current list to playlist"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Προσθήκη στη λίστα αναπαραγωγής"
 
 #: qml/NavigationActionBar.qml:129
-#, fuzzy, kde-format
-#| msgctxt "Button to navigate to the artist of the album"
-#| msgid "Display Artist"
+#, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Εμφάνιση καλλιτέχνη"
 
 #: qml/NavigationActionBar.qml:186
-#, fuzzy, kde-format
-#| msgctxt "navigate back in the views stack"
-#| msgid "Back"
+#, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Πίσω"
 
 #: qml/NavigationActionBar.qml:264
-#, fuzzy, kde-format
-#| msgctxt "Show filters in the navigation bar"
-#| msgid "Search and Filter"
+#, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Αναζήτηση και φιλτράρισμα"
 
 #: qml/NavigationActionBar.qml:264
-#, fuzzy, kde-format
-#| msgctxt "Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
+#, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Απόκρυψη αναζήτησης και φιλτραρίσματος"
 
 #: qml/NavigationActionBar.qml:365
-#, fuzzy, kde-format
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
-msgstr "Αναζήτηση για όνομα λευκώματος, καλλιτέχνη, κλπ."
+msgstr "Αναζήτηση για άλμπουμ, καλλιτέχνη, κλπ."
 
 #: qml/NavigationActionBar.qml:374
-#, fuzzy, kde-format
-#| msgid "Filter by rating: "
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Φιλτράρισμα με αξιολόγηση: "
@@ -1389,61 +1146,52 @@ msgstr "Φιλτράρισμα με αξιολόγηση: "
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
-msgstr ""
+msgstr "Προβολή Μόνο Αγαπημένων"
 
 #: qml/PlayListEntry.qml:133
-#, fuzzy, kde-format
-#| msgid "Pause"
+#, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "Παύση"
 
 #: qml/PlayListEntry.qml:133
-#, fuzzy, kde-format
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
 #: qml/PlayListEntry.qml:148
-#, fuzzy, kde-format
-#| msgctxt "Remove current track from play list"
-#| msgid "Remove"
+#, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Αφαίρεση"
 
 #: qml/SettingsForm.qml:44
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Προειδοποίηση"
 
 #: qml/SettingsForm.qml:67
-#, fuzzy, kde-format
-#| msgid "General:"
+#, kde-format
 msgctxt "@title:group"
 msgid "General:"
 msgstr "Γενικά:"
 
 #: qml/SettingsForm.qml:71
-#, fuzzy, kde-format
-#| msgid "Show background on Now Playing page"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "Εμφάνιση φόντου στη σελίδα Τώρα γίνεται αναπαραγωγή"
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on Task Manager entries"
 msgstr "Εμφάνιση προόδου στις εγγραφές του διαχειριστή εργασιών"
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in System Tray when main window is closed"
 msgstr ""
@@ -1451,18 +1199,16 @@ msgstr ""
 "παράθυρο"
 
 #: qml/SettingsForm.qml:106
-#, fuzzy, kde-format
-#| msgid "Start playing on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "Έναρξη αναπαραγωγής στην εκκίνηση"
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgid "Start playing on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for New Music on startup"
-msgstr "Έναρξη αναπαραγωγής στην εκκίνηση"
+msgstr "Σάρωση για νέα μουσική στην εκκίνηση"
 
 #: qml/SettingsForm.qml:136
 #, kde-kuit-format
@@ -1473,45 +1219,46 @@ msgid ""
 "do this with the <interface>Scan for new music</interface> item in Elisa's "
 "hamburger menu."
 msgstr ""
+"Όταν χρησιμοποιείτε αυτή την ρύθμιση, θα πρέπει να κάνετε χειροκίνητη "
+"ανανέωση στην μουσική συλλογή σας, 'όποτε προσθέτετε καινούργια αρχεία, "
+"στους ρυθμισμένους, φακέλους μουσικής. Μπορείτε να το κάνετε αυτό από το "
+"<interface>Σάρωση για νέα μουσική</interface> από τον μενού του Elisa."
 
 #: qml/SettingsForm.qml:147
-#, fuzzy, kde-format
-#| msgid "Song rating style:"
+#, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "Στιλ αξιολόγησης τραγουδιού:"
 
 #: qml/SettingsForm.qml:151
-#, fuzzy, kde-format
-#| msgid "0-5 stars"
+#, kde-format
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "0-5 αστέρια"
 
 #: qml/SettingsForm.qml:163
-#, fuzzy, kde-format
-#| msgid "Favorite/not favorite"
+#, kde-format
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
-msgstr "Προτιμώμενο/μη-προτιμώμενο"
+msgstr "Αγαπημένο/μη-Αγαπημένο"
 
 #: qml/SettingsForm.qml:181
 #, fuzzy, kde-format
+#| msgctxt "@action:inmenu this has child menu items"
 #| msgid "Color Scheme"
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Σχήμα χρωμάτων"
+msgstr "Θέμα χρώματος"
 
 #: qml/SettingsForm.qml:212
-#, fuzzy, kde-format
-#| msgid "Start playing on startup"
+#, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
-msgstr "Έναρξη αναπαραγωγής στην εκκίνηση"
+msgstr "Σάρωση για νέα Μουσική"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
 #, fuzzy, kde-format
-#| msgctxt "message to show when Elisa is scanning music files"
+#| msgctxt "@info:status"
 #| msgid "Scanning music"
 msgctxt "@info"
 msgid "Started scanning for music"
@@ -1521,7 +1268,7 @@ msgstr "Σάρωση μουσικής"
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
-msgstr ""
+msgstr "Επαναφορά Βάσης Δεδομένων και επανασάρωση Όλων"
 
 #: qml/SettingsForm.qml:226
 #, kde-format
@@ -1530,122 +1277,95 @@ msgid "Database has been reset"
 msgstr ""
 
 #: qml/SettingsForm.qml:241
-#, fuzzy, kde-format
-#| msgid "Embed category in sidebar:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Ενσωμάτωση κατηγορίας στην πλευρική γραμμή:"
 
 #: qml/SettingsForm.qml:243
-#, fuzzy, kde-format
-#| msgctxt "Configure dialog, embed no category in views navigation list"
-#| msgid "Nothing"
+#, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
-msgstr "Τίποτε"
+msgstr "Τίποτα"
 
 #: qml/SettingsForm.qml:244
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all albums"
-#| msgid "Albums"
+#, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
-msgstr "Λευκώματα"
+msgstr "Άλμπουμ"
 
 #: qml/SettingsForm.qml:245
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all artists"
-#| msgid "Artists"
+#, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "Καλλιτέχνες"
 
 #: qml/SettingsForm.qml:246
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all genres"
-#| msgid "Genres"
+#, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "Είδη"
 
 #: qml/SettingsForm.qml:279
-#, fuzzy, kde-format
-#| msgid "Initial view on startup:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "Αρχική προβολή στην εκκίνηση:"
 
 #: qml/SettingsForm.qml:281
-#, fuzzy, kde-format
-#| msgctxt "Title of the context view related to the currently playing track"
-#| msgid "Now Playing"
+#, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
-msgstr "Τώρα γίνεται αναπαραγωγή"
+msgstr "Αναπαράγεται τώρα"
 
 #: qml/SettingsForm.qml:282
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of recently played tracks"
-#| msgid "Recently Played"
+#, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Πρόσφατη αναπαραγωγή"
 
 #: qml/SettingsForm.qml:283
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of frequently played tracks"
-#| msgid "Frequently Played"
+#, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Συχνή αναπαραγωγή"
 
 #: qml/SettingsForm.qml:284
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all albums"
-#| msgid "Albums"
+#, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
-msgstr "Λευκώματα"
+msgstr "Άλμπουμ"
 
 #: qml/SettingsForm.qml:285
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all artists"
-#| msgid "Artists"
+#, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Καλλιτέχνες"
 
 #: qml/SettingsForm.qml:286
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Κομμάτια"
 
 #: qml/SettingsForm.qml:287
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all genres"
-#| msgid "Genres"
+#, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Είδη"
 
 #: qml/SettingsForm.qml:288
-#, fuzzy, kde-format
-#| msgctxt "Title of the file browser view"
-#| msgid "Files"
+#, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "Αρχεία"
 
 #: qml/SettingsForm.qml:289
-#, fuzzy, kde-format
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Ραδιοφωνικοί σταθμοί"
@@ -1654,64 +1374,53 @@ msgstr "Ραδιοφωνικοί σταθμοί"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
-msgstr ""
+msgstr "Αρχική τοποθεσία για προβολή Αρχείων:"
 
 #: qml/SettingsForm.qml:323
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr ""
+msgstr "Επιλογή…"
 
 #: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
-#, fuzzy, kde-format
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Επιλογή φακέλου"
 
 #: qml/SettingsForm.qml:350
-#, fuzzy, kde-format
-#| msgid "Music indexing:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Music indexing:"
-msgstr "Δεικτοδότηση μουσικής:"
+msgstr "Ευρετήριο Μουσικής:"
 
 #: qml/SettingsForm.qml:354
-#, fuzzy, kde-format
-#| msgctxt "Configure dialog, indexing type"
-#| msgid "Use fast native indexer"
+#, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Use fast native indexer"
 msgstr "Χρήση γρήγορου εγγενούς ευρετηρίου"
 
 #: qml/SettingsForm.qml:355
-#, fuzzy, kde-format
-#| msgctxt "Configure dialog, indexing type"
-#| msgid "Scan the filesystem directly"
+#, kde-format
 msgctxt "@item:inlistbox Configure dialog, indexing type"
 msgid "Scan the filesystem directly"
 msgstr "Απευθείας σάρωση του συστήματος αρχείων"
 
 #: qml/SettingsForm.qml:369
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is slower than the fast indexer. Please activate it only if Elisa "
-#| "cannot find your music and searching for one of the missing music files "
-#| "using your file manager also does not work. Please report this as a bug."
+#, kde-format
 msgctxt "@info"
 msgid ""
 "This is slower than the fast indexer. Please activate it only if Elisa "
 "cannot find your music and searching for one of the missing music files "
 "using your file manager also does not work. Please report this as a bug."
 msgstr ""
-"Αυτό είναι πιο αργό από το γρήγορο ευρετήριο. Ενεργοποιήστε το μόνο αν η "
+"Αυτό είναι πιο αργό από το γρήγορο ευρετήριο. Ενεργοποιήστε το μόνο αν το "
 "Elisa δεν μπορεί να εντοπίσει το κομμάτι και αν η αναζήτηση για κάποιο από "
 "τα μουσικά αρχεία που λείπουν με τον διαχειριστή αρχείων δεν έχει "
 "αποτέλεσμα. Αναφέρετέ το ως σφάλμα."
 
 #: qml/SettingsForm.qml:373
-#, fuzzy, kde-format
-#| msgid "Report Bug"
+#, kde-format
 msgctxt "@action:button"
 msgid "Report Bug"
 msgstr "Αναφορά σφάλματος"
@@ -1719,19 +1428,19 @@ msgstr "Αναφορά σφάλματος"
 #: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
-msgstr ""
+msgstr "Όταν γίνεται αποθήκευση αρχείων λίστας αναπαραγωγής:"
 
 #: qml/SettingsForm.qml:397
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
-msgstr ""
+msgstr "Προτίμηση σχετικών διαδρομών"
 
 #: qml/SettingsForm.qml:398
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
-msgstr ""
+msgstr "Να γίνεται, πάντα, χρήση απόλυτων διαδρομών"
 
 #: qml/SettingsForm.qml:409
 #, kde-kuit-format
@@ -1741,30 +1450,29 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
+"Όταν είναι επιλεγμένη η επιλογή <interface>Προτιμήστε σχετικές διαδρομές</"
+"interface>, τα αρχεία στο ίδιο φάκελο με τη λίστα αναπαραγωγής θα "
+"αναφέρονται μόνο με το όνομα αρχείου. Σε άλλες περιπτώσεις χρησιμοποιούνται "
+"απόλυτες διαδρομές."
 
 #: qml/SettingsForm.qml:424
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The configured folders where the user's music collection can be found"
-#| msgid "Music folders:"
+#, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
-msgstr "Μουσικοί φάκελοι"
+msgstr "Φάκελοι Μουσικής:"
 
 #: qml/SettingsForm.qml:466
-#, fuzzy, kde-format
-#| msgid "Stop looking for music here"
+#, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Σταματήστε να αναζητάτε μουσική εδώ"
 
 #: qml/SettingsForm.qml:479
-#, fuzzy, kde-format
-#| msgid "Add New Location"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
-msgstr "Προσθήκη νέας θέσης"
+msgstr "Προσθήκη νέας Τοποθεσίας"
 
 #: qml/SettingsForm.qml:506
 #, kde-format
@@ -1774,6 +1482,10 @@ msgid ""
 "locations in this list contain symbolic links to other locations, you will "
 "need to add those other locations to the list as well."
 msgstr ""
+"Ο γρήγορος εγγενής δείκτης αρχείων δεν ακολουθεί συμβολικούς συνδέσμους. Αν "
+"κάποιο από τα τοποθεσίες σε αυτή τη λίστα περιέχει συμβολικούς συνδέσμους "
+"προς άλλες τοποθεσίες, θα πρέπει να προσθέσετε και αυτές τις άλλες "
+"τοποθεσίες στη λίστα."
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -1782,12 +1494,10 @@ msgid "\"%1\" could not be played"
 msgstr ""
 
 #: qml/SortMenu.qml:20
-#, fuzzy, kde-format
-#| msgctxt "Sort By Menu"
-#| msgid "Sort By"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Sort By"
-msgstr "Ταξινόμηση με"
+msgstr "Ταξινόμηση κατά"
 
 #: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format
@@ -1798,40 +1508,31 @@ msgstr[0] "Εισήχθη ένα κομμάτι"
 msgstr[1] "Εισήχθησαν %1 κομμάτια"
 
 #: qml/TrackImportNotification.qml:58
-#, fuzzy, kde-format
-#| msgctxt "message to show when Elisa is scanning music files"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"
 msgstr "Σάρωση μουσικής"
 
 #: qml/TracksDiscHeader.qml:20
-#, fuzzy, kde-format
-#| msgctxt "disc header text when showing an album"
-#| msgid "Disc %1"
+#, kde-format
 msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "Δίσκος %1"
 
 #: qml/VolumeSlider.qml:58
-#, fuzzy, kde-format
-#| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
-#| msgid "%1:"
+#, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr "%1:"
+msgstr "%1%"
 
 #: viewmanager.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
 msgstr "Αριθμός κομματιού"
 
 #: viewmanager.cpp:41 viewmanager.cpp:70
-#, fuzzy, kde-format
-#| msgid "Title"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Title"
 msgstr "Τίτλος"
@@ -1840,19 +1541,18 @@ msgstr "Τίτλος"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Ascending"
-msgstr ""
+msgstr "Αύξουσα"
 
 #: viewmanager.cpp:43
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Descending"
-msgstr ""
+msgstr "Φθίνουσα"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
 #: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
-#, fuzzy, kde-format
-#| msgid "A-Z"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "Α-Ω"
@@ -1860,182 +1560,153 @@ msgstr "Α-Ω"
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
 #: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
-#, fuzzy, kde-format
-#| msgid "Z-A"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
 msgstr "Ω-Α"
 
 #: viewmanager.cpp:56 viewmanager.cpp:84
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "Όνομα"
 
 #: viewmanager.cpp:70
-#, fuzzy, kde-format
-#| msgid "Genre"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "Είδος"
 
 #: viewmanager.cpp:70
-#, fuzzy, kde-format
-#| msgid "Year"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "Έτος"
 
 #: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
 #: viewslistdata.cpp:100
-#, fuzzy, kde-format
-#| msgid "Oldest First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "Το παλαιότερο πρώτο"
 
 #: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
 #: viewslistdata.cpp:100
-#, fuzzy, kde-format
-#| msgid "Newest First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "Το νεότερο πρώτο"
 
 #: viewslistdata.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Title of the context view related to the currently playing track"
-#| msgid "Now Playing"
+#, kde-format
 msgctxt "@title:window Title of the view of the playlist"
 msgid "Now Playing"
-msgstr "Τώρα γίνεται αναπαραγωγή"
+msgstr "Αναπαράγεται τώρα"
 
 #: viewslistdata.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of recently played tracks"
-#| msgid "Recently Played"
+#, kde-format
 msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Πρόσφατη αναπαραγωγή"
 
 #: viewslistdata.cpp:35
-#, fuzzy, kde-format
-#| msgid "Last Played Date"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Last Played Date"
-msgstr "Ημερομηνία τελευταίας αναπαραγωγής"
+msgstr "Ημερομηνία Τελευταίας Αναπαραγωγής"
 
 #: viewslistdata.cpp:37
-#, fuzzy, kde-format
-#| msgid "Least Recently Played First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
-msgstr "Λιγότερο πρόσφατη αναπαραγωγή πρώτη"
+msgstr "Τα λιγότερο, πρόσφατα αναπαραγμένα, πρώτα"
 
 #: viewslistdata.cpp:37
-#, fuzzy, kde-format
-#| msgid "Most Recently Played First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
-msgstr "Πιο πρόσφατη αναπαραγωγή πρώτη"
+msgstr "Το πιο πρόσφατα αναπαραγμένο, πρώτα"
 
 #: viewslistdata.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of frequently played tracks"
-#| msgid "Frequently Played"
+#, kde-format
 msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Συχνή αναπαραγωγή"
 
 #: viewslistdata.cpp:49
-#, fuzzy, kde-format
-#| msgid "Play Frequency"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "Συχνότητα αναπαραγωγής"
 
 #: viewslistdata.cpp:51
-#, fuzzy, kde-format
-#| msgid "Least Frequently Played First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
-msgstr "Λιγότερο συχνή αναπαραγωγή πρώτη"
+msgstr "Το λιγότερο αναπαραγμένο, πρώτα"
 
 #: viewslistdata.cpp:51
-#, fuzzy, kde-format
-#| msgid "Most Frequently Played First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
-msgstr "Πιο συχνή αναπαραγωγή πρώτη"
+msgstr "Το πιο συχνά αναπαραγμένο, Πρώτα"
 
 #: viewslistdata.cpp:63 viewslistdata.cpp:94
-#, fuzzy, kde-format
-#| msgid "Title"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "Τίτλος"
 
 #: viewslistdata.cpp:63 viewslistdata.cpp:94
-#, fuzzy, kde-format
-#| msgid "Artist"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
 #: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:112
-#, fuzzy, kde-format
-#| msgid "Genre"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Είδος"
 
 #: viewslistdata.cpp:63 viewslistdata.cpp:95
-#, fuzzy, kde-format
-#| msgid "Year"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "Έτος"
 
 #: viewslistdata.cpp:77 viewslistdata.cpp:137
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "Όνομα"
 
 #: viewslistdata.cpp:83
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Κομμάτια"
 
 #: viewslistdata.cpp:94
-#, fuzzy, kde-format
-#| msgid "Album"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Album"
-msgstr "Λεύκωμα"
+msgstr "Άλμπουμ"
 
 #: viewslistdata.cpp:95
-#, fuzzy, kde-format
-#| msgid "Duration"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "Διάρκεια"
 
 #: viewslistdata.cpp:95
-#, fuzzy, kde-format
-#| msgid "Composer"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "Συνθέτης"
 
 #: viewslistdata.cpp:95
-#, fuzzy, kde-format
-#| msgid "Lyricist"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "Στιχουργός"
@@ -2044,50 +1715,32 @@ msgstr "Στιχουργός"
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
-msgstr ""
+msgstr "Τελευταία τροποποίηση"
 
 #: viewslistdata.cpp:99
-#, fuzzy, kde-format
-#| msgid "Shortest First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Shortest First"
-msgstr "Το συντομότερο πρώτο"
+msgstr "Το συντομότερο, Πρώτα"
 
 #: viewslistdata.cpp:99
-#, fuzzy, kde-format
-#| msgid "Longest First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Longest First"
-msgstr "Το διαρκέστερο πρώτο"
+msgstr "Το διαρκέστερο, πρώτο"
 
 #: viewslistdata.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "Title of the file browser view"
-#| msgid "Files"
+#, kde-format
 msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "Αρχεία"
 
 #: viewslistdata.cpp:129
-#, fuzzy, kde-format
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Ραδιοφωνικοί σταθμοί"
 
-#, fuzzy
-#~| msgid "Color Scheme"
-#~ msgctxt "@action:button"
-#~ msgid "Color Scheme"
-#~ msgstr "Σχήμα χρωμάτων"
-
-#, fuzzy
-#~| msgid "Color Scheme"
-#~ msgctxt "@title:menu"
-#~ msgid "Color Scheme"
-#~ msgstr "Σχήμα χρωμάτων"
-
-#, fuzzy
 #~| msgctxt "Clear play list and add whole container to play list"
 #~| msgid "Play now, replacing current queue"
 #~ msgctxt ""
@@ -2095,38 +1748,43 @@ msgstr "Ραδιοφωνικοί σταθμοί"
 #~ msgid "Play now, replacing current queue"
 #~ msgstr "Αναπαραγωγή τώρα, αντικατάσταση τρέχουσας ουράς αναμονής"
 
-#, fuzzy
 #~| msgctxt "Add whole container to play list"
 #~| msgid "Add to queue"
 #~ msgctxt "@action:button Add whole container to play list"
 #~ msgid "Add to queue"
 #~ msgstr "Προσθήκη στην ουρά"
 
-#, fuzzy
 #~| msgctxt "Show track metadata"
 #~| msgid "View details"
 #~ msgctxt "@action:button"
 #~ msgid "View details"
 #~ msgstr "Προβολή λεπτομερειών"
 
-#, fuzzy
 #~| msgid "Un-mark this song as a favorite"
 #~ msgctxt "@action:button"
 #~ msgid "Un-mark as favorite"
-#~ msgstr "Να αναιρεθεί η σημείωση αυτού του τραγουδιού ως προτιμώμενο"
+#~ msgstr "Να αναιρεθεί η σημείωση ως αγαπημένο"
 
-#, fuzzy
 #~| msgid "Mark this song as a favorite"
 #~ msgctxt "@action:button"
 #~ msgid "Mark as favorite"
-#~ msgstr "Να σημειωθεί αυτό το τραγούδι ως προτιμώμενο"
+#~ msgstr "Να σημειωθεί ως αγαπημένο"
 
-#, fuzzy
 #~| msgctxt "Add whole container to play list"
 #~| msgid "Add to queue"
 #~ msgctxt "@action:button Enqueue current track"
 #~ msgid "Add to queue"
 #~ msgstr "Προσθήκη στην ουρά"
+
+#~| msgid "Color Scheme"
+#~ msgctxt "@action:button"
+#~ msgid "Color Scheme"
+#~ msgstr "Θέμα χρώματος"
+
+#~| msgid "Color Scheme"
+#~ msgctxt "@title:menu"
+#~ msgid "Color Scheme"
+#~ msgstr "Θέμα χρώματος"
 
 #, fuzzy
 #~| msgctxt "Window title for track metadata"

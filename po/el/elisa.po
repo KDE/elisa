@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-30 01:40+0000\n"
+"POT-Creation-Date: 2023-11-04 01:38+0000\n"
 "PO-Revision-Date: 2023-11-01 09:34+0200\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -513,13 +513,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Επανάληψη"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:411
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:412
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Έγινε εκκαθάριση της λίστας αναπαραγωγής"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:415
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:416
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -796,13 +796,13 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Επεξεργασία αρχείου Λίστας Αναπαραγωγής"
 
-#: qml/MediaPlayListView.qml:274
+#: qml/MediaPlayListView.qml:275
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Η λίστα είναι κενή"
 
-#: qml/MediaPlayListView.qml:275
+#: qml/MediaPlayListView.qml:276
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -812,13 +812,13 @@ msgstr ""
 "Προσθέστε ορισμένα τραγούδια για να ξεκινήσετε. Μπορείτε να περιηγηθείτε στη "
 "μουσική σας κάνοντας χρήση τον προβολών στα αριστερά."
 
-#: qml/MediaPlayListView.qml:349
+#: qml/MediaPlayListView.qml:350
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Η λίστα αναπαραγωγής είναι κενή"
 
-#: qml/MediaPlayListView.qml:436 qml/MediaPlayListView.qml:441
+#: qml/MediaPlayListView.qml:437 qml/MediaPlayListView.qml:442
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -826,13 +826,13 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 κομμάτι"
 msgstr[1] "%1 κομμάτια"
 
-#: qml/MediaPlayListView.qml:439
+#: qml/MediaPlayListView.qml:440
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 κομμάτι"
 
-#: qml/MediaPlayListView.qml:442
+#: qml/MediaPlayListView.qml:443
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -840,7 +840,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "%1 απομένει"
 msgstr[1] "%1 απομένουν"
 
-#: qml/MediaPlayListView.qml:443
+#: qml/MediaPlayListView.qml:444
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -848,13 +848,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:457
+#: qml/MediaPlayListView.qml:458
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Εμφάνιση τρέχοντος"
 
-#: qml/MediaPlayListView.qml:468
+#: qml/MediaPlayListView.qml:469
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"

@@ -4,7 +4,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.10
+import QtQuick
 import QtQuick.Controls 2.2
 import QtQml.Models 2.1
 
@@ -34,6 +34,7 @@ ScrollView {
 
         property bool draggingEntry: false
 
+        reuseItems: true
         clip: true
         focus: true
         activeFocusOnTab: true

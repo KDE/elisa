@@ -4,7 +4,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.11
+import QtQuick
 import QtQuick.Controls 2.4
 import QtQml.Models 2.2
 import ElisaGraphicalEffects 1.15
@@ -36,8 +36,9 @@ ScrollView {
     contentItem: ListView {
         id: viewModeView
 
-        focus: true
+        reuseItems: true
         clip: true
+        focus: true
         activeFocusOnTab: true
         keyNavigationEnabled: true
         interactive: true

@@ -5,7 +5,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.15
+import QtQuick
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
@@ -144,6 +144,7 @@ Kirigami.Page {
                     signal moveItemRequested(int oldIndex, int newIndex)
                     property bool draggingEntry: false
 
+                    reuseItems: true
                     clip: true
                     keyNavigationEnabled: true
                     activeFocusOnTab: count > 0

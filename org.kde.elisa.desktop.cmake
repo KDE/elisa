@@ -52,6 +52,7 @@ GenericName[zh_TW]=音樂播放器
 Icon=elisa
 Name=Elisa
 Name[ar]=إليسّا
+Name[ast]=Elisa
 Name[az]=Elisa
 Name[be]=Elisa
 Name[bg]=Elisa

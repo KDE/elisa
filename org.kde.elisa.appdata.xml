@@ -10,6 +10,7 @@ SPDX-License-Identifier: CC0-1.0
   <project_license>LGPL-3.0</project_license>
   <name>Elisa</name>
   <name xml:lang="ar">إليسّا</name>
+  <name xml:lang="ast">Elisa</name>
   <name xml:lang="az">Elisa</name>
   <name xml:lang="be">Elisa</name>
   <name xml:lang="bg">Elisa</name>
@@ -215,6 +216,7 @@ SPDX-License-Identifier: CC0-1.0
     <screenshot type="default">
       <caption>The Elisa music player</caption>
       <caption xml:lang="ar">مشغّل الموسيقى إليسّا</caption>
+      <caption xml:lang="ast">El reproductor de música Elisa</caption>
       <caption xml:lang="az">Elisa musiqi pleyeri</caption>
       <caption xml:lang="be">Музычны прайгравальнік Elisa</caption>
       <caption xml:lang="bg">Слушане на музика с Elisa</caption>

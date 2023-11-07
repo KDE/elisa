@@ -3274,15 +3274,33 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
 
     myPlayListProxyModel.skipPreviousTrack(0);
 
-    QCOMPARE(myPlayListProxyModel.nextTrack(), QPersistentModelIndex(myPlayListProxyModel.index(5, 0)));
-    QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(5, 0)));
-    QCOMPARE(myPlayListProxyModel.previousTrack(), QPersistentModelIndex(myPlayListProxyModel.index(5, 0)));
+    QCOMPARE(myPlayListProxyModel.nextTrack(), QPersistentModelIndex(myPlayListProxyModel.index(4, 0)));
+    QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(4, 0)));
+    QCOMPARE(myPlayListProxyModel.previousTrack(), QPersistentModelIndex(myPlayListProxyModel.index(4, 0)));
+
+    myPlayListProxyModel.skipPreviousTrack(2001);
+
+    QCOMPARE(myPlayListProxyModel.nextTrack(), QPersistentModelIndex(myPlayListProxyModel.index(4, 0)));
+    QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(4, 0)));
+    QCOMPARE(myPlayListProxyModel.previousTrack(), QPersistentModelIndex(myPlayListProxyModel.index(4, 0)));
 
     myPlayListProxyModel.skipNextTrack();
 
+    QCOMPARE(myPlayListProxyModel.nextTrack(), QPersistentModelIndex(myPlayListProxyModel.index(4, 0)));
+    QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(4, 0)));
+    QCOMPARE(myPlayListProxyModel.previousTrack(), QPersistentModelIndex(myPlayListProxyModel.index(4, 0)));
+
+    myPlayListProxyModel.skipNextTrack(ElisaUtils::SkipReason::Manual);
+
     QCOMPARE(myPlayListProxyModel.nextTrack(), QPersistentModelIndex(myPlayListProxyModel.index(5, 0)));
     QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(5, 0)));
     QCOMPARE(myPlayListProxyModel.previousTrack(), QPersistentModelIndex(myPlayListProxyModel.index(5, 0)));
+
+    myPlayListProxyModel.skipNextTrack(ElisaUtils::SkipReason::Manual);
+
+    QCOMPARE(myPlayListProxyModel.nextTrack(), QPersistentModelIndex(myPlayListProxyModel.index(0, 0)));
+    QCOMPARE(myPlayListProxyModel.currentTrack(), QPersistentModelIndex(myPlayListProxyModel.index(0, 0)));
+    QCOMPARE(myPlayListProxyModel.previousTrack(), QPersistentModelIndex(myPlayListProxyModel.index(0, 0)));
 }
 
 void MediaPlayListProxyModelTest::testBringUpAndRemoveMultipleNotBeginCase()

@@ -452,7 +452,7 @@ ColumnLayout {
                     // Don't need a highlight effect on hover
                     hoverEnabled: false
 
-                    QQC2.Label {
+                    contentItem: QQC2.Label {
                         text: modelData
                         width: delegate.width - delegate.leftPadding
                                               - delegate.rightPadding

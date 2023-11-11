@@ -1467,7 +1467,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "無法播放「%1」"
 
 #: qml/SortMenu.qml:20
 #, kde-format

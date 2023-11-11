@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Vít Pelčák <vit@pelcak.org>, 2016, 2017, 2018, 2019, 2020, 2021.
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2023 Vít Pelčák <vit@pelcak.org>
 # Vit Pelcak <vit@pelcak.org>, 2021, 2022, 2023.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-04 01:38+0000\n"
-"PO-Revision-Date: 2023-05-16 10:56+0200\n"
+"PO-Revision-Date: 2023-11-02 14:04+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1244,7 +1244,7 @@ msgstr "Oblíbené/neoblíbené"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr ""
+msgstr "Barevné schéma:"
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1268,7 +1268,7 @@ msgstr "Resetovat databázi a znovu všechno projít"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Databáze byla obnovena"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1374,7 +1374,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr ""
+msgstr "Vybrat…"
 
 #: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
 #, kde-format
@@ -1482,7 +1482,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "\"%1\" nelze přehrát"
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1521,7 +1521,7 @@ msgstr "%1%"
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
-msgstr ""
+msgstr "Číslo stopy"
 
 #: viewmanager.cpp:41 viewmanager.cpp:70
 #, kde-format
@@ -1533,13 +1533,13 @@ msgstr "Název"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Ascending"
-msgstr ""
+msgstr "Vzestupně"
 
 #: viewmanager.cpp:43
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Descending"
-msgstr ""
+msgstr "Sestupně"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98

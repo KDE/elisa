@@ -53,7 +53,7 @@ environment:
     SNAP_DESKTOP_RUNTIME: $SNAP/kf5
     QML2_IMPORT_PATH: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/qml:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qml:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/qml"
     QT_PLUGIN_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins:$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins/kf5:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins"
-    LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/elisa/:$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/blas:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/lapack"
+    LD_LIBRARY_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/elisa:$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/blas:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/lapack"
     GST_PLUGIN_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0"
     GST_PLUGIN_SYSTEM_PATH: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0"
     GST_PLUGIN_SCANNER: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner"
@@ -73,6 +73,11 @@ layout:
         symlink: $SNAP/usr/share/alsa
     "/etc/alsa/conf.d":
         bind: "$SNAP/etc/alsa/conf.d"
+slots:
+    session-dbus-interface:
+        interface: dbus
+        name: org.kde.elisa
+        bus: session
 package-repositories:
 -   type: apt
     components:
@@ -108,6 +113,7 @@ parts:
         build-packages:
         - cmake
         - libkf5doctools-dev
+        - libvlc-dev
         stage-packages:
         - gstreamer1.0-alsa
         - gstreamer1.0-libav
@@ -117,6 +123,7 @@ parts:
         - gstreamer1.0-plugins-bad
         - qml-module-org-kde-qqc2desktopstyle
         - qml-module-qtquick-controls2
+        - baloo-kf5
         stage-snaps:
         - khelpcenter
         source: .

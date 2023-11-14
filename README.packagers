@@ -22,7 +22,7 @@ Elisa has the following dependencies:
  * QtConcurrent
  * Qt (required version >= 5.12.0)
  * QtQuickControls2 (required version >= 5.12.0), Qt5 Quick Controls version 2 is needed at runtime to provide the interface.
- * Kirigami2 (required version >= 5.70.0), Kirigami 2 is needed to provide the mobile UI components.
+ * Kirigami (required version >= 5.70.0), Kirigami is needed to provide the mobile UI components.
  * Gettext
  * KI18n (required version >= 5.70.0), Text internationalization library.
  * KCoreAddons (required version >= 5.70.0), Qt addon library with a collection of non-GUI utilities.

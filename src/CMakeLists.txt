@@ -481,7 +481,7 @@ if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
     if (ANDROID)
         target_link_libraries(elisa
             PRIVATE
-            Qt::AndroidExtras Qt::Svg Qt::Sql Qt::Concurrent KF6::Kirigami2
+            Qt::AndroidExtras Qt::Svg Qt::Sql Qt::Concurrent KF6::Kirigami
         )
     endif()
 

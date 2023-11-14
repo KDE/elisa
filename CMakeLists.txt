@@ -64,10 +64,10 @@ if (ANDROID)
     set(QtAndroidExtras_FOUND 1)
 endif()
 
-find_package(KF6Kirigami2 ${REQUIRED_KF_VERSION} CONFIG QUIET)
+find_package(KF6Kirigami ${REQUIRED_KF_VERSION} CONFIG QUIET)
 
-set_package_properties(KF6Kirigami2 PROPERTIES
-    DESCRIPTION "KF Kirigami 2 is needed to provide the mobile UI components."
+set_package_properties(KF6Kirigami PROPERTIES
+    DESCRIPTION "KF Kirigami is needed to provide the mobile UI components."
     TYPE REQUIRED)
 
 find_package(KF6I18n ${REQUIRED_KF_VERSION} CONFIG QUIET)

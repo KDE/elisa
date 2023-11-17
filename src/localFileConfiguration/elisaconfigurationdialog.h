@@ -24,11 +24,6 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setRootPath
                NOTIFY rootPathChanged)
 
-    Q_PROPERTY(bool forceUsageOfSlowFileSystemIndexing
-               READ forceUsageOfSlowFileSystemIndexing
-               WRITE setForceUsageOfSlowFileSystemIndexing
-               NOTIFY forceUsageOfSlowFileSystemIndexingChanged)
-
     Q_PROPERTY(bool alwaysUseAbsolutePlaylistPaths
                READ alwaysUseAbsolutePlaylistPaths
                WRITE setAlwaysUseAbsolutePlaylistPaths
@@ -117,11 +112,6 @@ public:
         return mShowSystemTrayIcon;
     }
 
-    [[nodiscard]] bool forceUsageOfSlowFileSystemIndexing() const
-    {
-        return mForceUsageOfSlowFileSystemIndexing;
-    }
-
     [[nodiscard]] bool alwaysUseAbsolutePlaylistPaths() const
     {
         return mAlwaysUseAbsolutePlaylistPaths;
@@ -177,8 +167,6 @@ Q_SIGNALS:
 
     void showSystemTrayIconChanged();
 
-    void forceUsageOfSlowFileSystemIndexingChanged();
-
     void alwaysUseAbsolutePlaylistPathsChanged();
 
     void embeddedViewChanged();
@@ -208,8 +196,6 @@ public Q_SLOTS:
     void setShowProgressInTaskBar(bool showProgressInTaskBar);
 
     void setShowSystemTrayIcon(bool showSystemTrayIcon);
-
-    void setForceUsageOfSlowFileSystemIndexing(bool forceUsageOfSlowFileSystemIndexing);
 
     void setAlwaysUseAbsolutePlaylistPaths(bool alwaysUseAbsolutePlaylistPaths);
 
@@ -246,8 +232,6 @@ private:
     bool mShowProgressInTaskBar = true;
 
     bool mShowSystemTrayIcon = false;
-
-    bool mForceUsageOfSlowFileSystemIndexing = true;
 
     bool mAlwaysUseAbsolutePlaylistPaths = false;
 

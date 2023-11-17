@@ -31,8 +31,6 @@ public:
 
     DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo);
 
-    DataTypes::TrackDataType scanOneBalooFile(const QUrl &scanFile, const QFileInfo &scanFileInfo);
-
     QUrl searchForCoverFile(const QString &localFileName);
 
 private:

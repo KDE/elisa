@@ -85,13 +85,6 @@ set_package_properties(KF6IconThemes PROPERTIES
     DESCRIPTION "Support for icon themes."
     TYPE REQUIRED)
 
-if (NOT WIN32)
-find_package(KF6Baloo ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF6Baloo PROPERTIES
-    DESCRIPTION "Baloo provides file searching and indexing."
-    TYPE RECOMMENDED)
-endif()
-
 find_package(KF6FileMetaData ${REQUIRED_KF_VERSION} CONFIG QUIET)
 set_package_properties(KF6FileMetaData PROPERTIES
     DESCRIPTION "Provides a simple library for extracting metadata."
@@ -169,7 +162,6 @@ include(ECMGenerateDBusServiceFile)
 include(CMakePackageConfigHelpers)
 include(ECMDeprecationSettings)
 
-set(KFBaloo_FOUND ${KF6Baloo_FOUND})
 set(KFXmlGui_FOUND ${KF6XmlGui_FOUND})
 set(KFCrash_FOUND ${KF6Crash_FOUND})
 set(KFDBusAddons_FOUND ${KF6DBusAddons_FOUND})

@@ -75,7 +75,6 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setShowNowPlayingBackground(mShowNowPlayingBackground);
     Elisa::ElisaConfiguration::setShowProgressOnTaskBar(mShowProgressInTaskBar);
     Elisa::ElisaConfiguration::setShowSystemTrayIcon(mShowSystemTrayIcon);
-    Elisa::ElisaConfiguration::setForceUsageOfFastFileSearch(!mForceUsageOfSlowFileSystemIndexing);
     Elisa::ElisaConfiguration::setAlwaysUseAbsolutePlaylistPaths(mAlwaysUseAbsolutePlaylistPaths);
     Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
     Elisa::ElisaConfiguration::setScanAtStartup(mScanAtStartup);
@@ -158,18 +157,6 @@ void ElisaConfigurationDialog::setShowSystemTrayIcon(bool showSystemTrayIcon)
 
     mShowSystemTrayIcon = showSystemTrayIcon;
     Q_EMIT showSystemTrayIconChanged();
-
-    setDirty();
-}
-
-void ElisaConfigurationDialog::setForceUsageOfSlowFileSystemIndexing(bool forceUsageOfSlowFileSystemIndexing)
-{
-    if (mForceUsageOfSlowFileSystemIndexing == forceUsageOfSlowFileSystemIndexing) {
-        return;
-    }
-
-    mForceUsageOfSlowFileSystemIndexing = forceUsageOfSlowFileSystemIndexing;
-    Q_EMIT forceUsageOfSlowFileSystemIndexingChanged();
 
     setDirty();
 }
@@ -297,9 +284,6 @@ void ElisaConfigurationDialog::configChanged()
 
     mUseFavoriteStyleRatings = Elisa::ElisaConfiguration::useFavoriteStyleRatings();
     Q_EMIT useFavoriteStyleRatingsChanged();
-
-    mForceUsageOfSlowFileSystemIndexing = !Elisa::ElisaConfiguration::forceUsageOfFastFileSearch();
-    Q_EMIT forceUsageOfSlowFileSystemIndexingChanged();
 
     mAlwaysUseAbsolutePlaylistPaths = Elisa::ElisaConfiguration::alwaysUseAbsolutePlaylistPaths();
     Q_EMIT alwaysUseAbsolutePlaylistPathsChanged();

@@ -18,12 +18,6 @@
 #include <KFileMetaData/UserMetaData>
 #include <KFileMetaData/Properties>
 
-#if KFBaloo_FOUND
-
-#include <Baloo/File>
-
-#endif
-
 #endif
 
 #include <QFileInfo>
@@ -184,34 +178,6 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
         const QFileInfo scanFileInfo(scanFile.toLocalFile());
         return FileScanner::scanOneFile(scanFile, scanFileInfo);
     }
-}
-
-DataTypes::TrackDataType FileScanner::scanOneBalooFile(const QUrl &scanFile, const QFileInfo &scanFileInfo)
-{
-    DataTypes::TrackDataType newTrack;
-#if KFBaloo_FOUND
-    const auto &localFileName = scanFile.toLocalFile();
-
-    newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
-    newTrack[DataTypes::ResourceRole] = scanFile;
-    newTrack[DataTypes::RatingRole] = 0;
-    newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
-
-    Baloo::File match(localFileName);
-
-    match.load();
-
-    d->mAllProperties = match.properties();
-    scanProperties(match.path(), newTrack);
-
-    qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "using Baloo" << newTrack;
-#else
-    Q_UNUSED(scanFile)
-    Q_UNUSED(scanFileInfo)
-
-    qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "no baloo metadata provider" << newTrack;
-#endif
-    return newTrack;
 }
 
 void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackDataType &trackData)

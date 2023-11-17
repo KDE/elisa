@@ -1323,8 +1323,6 @@ Module {
         Property { name: "tracksListener"; type: "TracksListener"; isReadonly: true; isPointer: true }
         Property { name: "indexerBusy"; type: "bool"; isReadonly: true }
         Property { name: "fileSystemIndexerActive"; type: "bool"; isReadonly: true }
-        Property { name: "balooIndexerActive"; type: "bool"; isReadonly: true }
-        Property { name: "balooIndexerAvailable"; type: "bool"; isReadonly: true }
         Property { name: "androidIndexerActive"; type: "bool"; isReadonly: true }
         Property { name: "androidIndexerAvailable"; type: "bool"; isReadonly: true }
         Signal { name: "applicationIsTerminating" }

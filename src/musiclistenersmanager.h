@@ -54,14 +54,6 @@ class ELISALIB_EXPORT MusicListenersManager : public QObject
                READ fileSystemIndexerActive
                NOTIFY fileSystemIndexerActiveChanged)
 
-    Q_PROPERTY(bool balooIndexerActive
-               READ balooIndexerActive
-               NOTIFY balooIndexerActiveChanged)
-
-    Q_PROPERTY(bool balooIndexerAvailable
-               READ balooIndexerAvailable
-               NOTIFY balooIndexerAvailableChanged)
-
     Q_PROPERTY(bool androidIndexerActive
                READ androidIndexerActive
                NOTIFY androidIndexerActiveChanged)
@@ -96,10 +88,6 @@ public:
 
     [[nodiscard]] bool fileSystemIndexerActive() const;
 
-    [[nodiscard]] bool balooIndexerActive() const;
-
-    [[nodiscard]] bool balooIndexerAvailable() const;
-
     [[nodiscard]] bool androidIndexerActive() const;
 
     [[nodiscard]] bool androidIndexerAvailable() const;
@@ -127,10 +115,6 @@ Q_SIGNALS:
     void clearedDatabase();
 
     void fileSystemIndexerActiveChanged();
-
-    void balooIndexerActiveChanged();
-
-    void balooIndexerAvailableChanged();
 
     void androidIndexerActiveChanged();
 
@@ -170,17 +154,11 @@ private Q_SLOTS:
 
     void cleanedDatabase();
 
-    void balooAvailabilityChanged();
-
 private:
-
-    void testBalooIndexerAvailability();
 
     void startLocalFileSystemIndexing();
 
     void startAndroidIndexing();
-
-    void startBalooIndexing();
 
     auto initializeRootPath();
 

@@ -145,40 +145,6 @@ if (KF6KIO_FOUND)
         )
 endif()
 
-if (KF6Baloo_FOUND)
-    if (Qt6DBus_FOUND)
-        ecm_qt_declare_logging_category(elisaLib_SOURCES
-            HEADER "baloo/baloocommon.h"
-            IDENTIFIER "orgKdeElisaBaloo"
-            CATEGORY_NAME "org.kde.elisa.baloo"
-            DEFAULT_SEVERITY Info
-            )
-
-        set(elisaLib_SOURCES
-            ${elisaLib_SOURCES}
-            baloo/localbaloofilelisting.cpp
-            baloo/baloolistener.cpp
-            baloo/baloodetector.cpp
-            )
-
-        qt_add_dbus_interface(elisaLib_SOURCES
-            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.main.xml
-            baloo/main)
-
-        qt_add_dbus_interface(elisaLib_SOURCES
-            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
-            baloo/fileindexer)
-
-        qt_add_dbus_interface(elisaLib_SOURCES
-            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
-            baloo/scheduler)
-
-        qt_add_dbus_adaptor(elisaLib_SOURCES
-            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.BalooWatcherApplication.xml
-            baloo/localbaloofilelisting.h LocalBalooFileListing)
-    endif()
-endif()
-
 if (Qt6DBus_FOUND)
     set(elisaLib_SOURCES
         ${elisaLib_SOURCES}
@@ -199,24 +165,6 @@ if (UPNPQT_FOUND)
         upnp/upnplistener.cpp
         upnp/upnpdiscoverallmusic.cpp
         )
-endif()
-
-if (KF6Baloo_FOUND)
-    if (Qt6DBus_FOUND)
-        qt_add_dbus_interface(elisaLib_SOURCES
-            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.fileindexer.xml
-            baloo/fileindexer)
-
-        qt_add_dbus_interface(elisaLib_SOURCES
-            ${BALOO_DBUS_INTERFACES_DIR}/org.kde.baloo.scheduler.xml
-            baloo/scheduler)
-
-        set(elisaLib_SOURCES
-            ${elisaLib_SOURCES}
-            ../src/baloo/baloolistener.cpp
-            ../src/baloo/localbaloofilelisting.cpp
-            )
-    endif()
 endif()
 
 kconfig_add_kcfg_files(elisaLib_SOURCES ../src/elisa_settings.kcfgc GENERATE_MOC )
@@ -261,15 +209,6 @@ if (KF6ConfigWidgets_FOUND)
         LINK_PUBLIC
         KF6::ConfigWidgets
         )
-endif()
-
-if (KF6Baloo_FOUND)
-    if (Qt6DBus_FOUND)
-        target_link_libraries(elisaLib
-            LINK_PUBLIC
-            KF6::Baloo
-            )
-    endif()
 endif()
 
 if (Qt6DBus_FOUND)

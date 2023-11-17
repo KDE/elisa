@@ -7,7 +7,7 @@
     "command": "elisa",
     "tags": ["nightly"],
     "desktop-file-name-suffix": " (Nightly)",
-    "finish-args": ["--share=ipc", "--socket=x11", "--socket=wayland", "--filesystem=home", "--socket=pulseaudio", "--device=dri", "--socket=session-bus", "--env=BALOO_DB_PATH=.local/share/baloo" ],
+    "finish-args": ["--share=ipc", "--socket=x11", "--socket=wayland", "--filesystem=home", "--socket=pulseaudio", "--device=dri", "--socket=session-bus"],
 
     "modules": [
         {
@@ -71,24 +71,6 @@
                         "tag-pattern": "^v([\\d.]+)$"
                     },
                     "commit": "26c5dbb8026cbd14fd9661f8ffec02f4d27bbe7b"
-                }
-            ]
-        },
-        {
-            "config-opts": ["-DENABLE_TESTING=OFF", "-DCMAKE_INSTALL_LIBDIR=lib", "-DLMDB_DIR=/app"],
-            "name": "baloo",
-            "buildsystem": "cmake-ninja",
-            "builddir": true,
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://invent.kde.org/frameworks/baloo.git",
-                    "tag": "v5.92.0",
-                    "x-checker-data": {
-                        "type": "git",
-                        "tag-pattern": "^v([\\d.]+)$"
-                    },
-                    "commit": "5aa4d1eb22b00802405b0c2e2a4446a223e50fd2"
                 }
             ]
         },

@@ -86,10 +86,7 @@ control of their data.
 <title>Using &elisa;</title>
 
 <para>
-&elisa; indexes your music either by using Baloo if possible or by searching in a list of paths configured by the user through a dedicated interface.
-</para>
-<para>
-In case the Baloo support is activated and your setup is not working, a notification is shown with hints allowing to deactivate the indexer or to activate the Baloo indexer and to feed &elisa; with music tracks.
+&elisa; indexes your music by searching in a list of paths configured by the user through a dedicated interface.
 </para>
 <para>
 In case the file indexer is not finding anything, a notification is shown with a button to open the configuration interface.

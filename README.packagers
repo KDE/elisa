@@ -33,7 +33,6 @@ Elisa has the following dependencies:
 
 -- RECOMMENDED:
 
- * Baloo (required version >= 5.70.0), Baloo provides file searching and indexing.
  * KFileMetaData (required version >= 5.70.0), Provides a simple library for extracting metadata.
  * KXmlGui (required version >= 5.70.0), Framework for managing menu and toolbar actions.
  * KConfigWidgets (required version >= 5.70.0), Widgets for configuration dialogs.

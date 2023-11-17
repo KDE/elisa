@@ -14,11 +14,6 @@
 #include "upnp/upnplistener.h"
 #endif
 
-#if KFBaloo_FOUND
-#include "baloo/baloolistener.h"
-#include "baloo/baloodetector.h"
-#endif
-
 #if QtAndroidExtras_FOUND
 #include "android/androidmusiclistener.h"
 #endif
@@ -54,12 +49,6 @@ public:
     UpnpListener mUpnpListener;
 #endif
 
-#if KFBaloo_FOUND
-    BalooDetector mBalooDetector;
-
-    BalooListener mBalooListener;
-#endif
-
     FileListener mFileListener;
 
 #if QtAndroidExtras_FOUND
@@ -82,10 +71,6 @@ public:
 
     bool mFileSystemIndexerActive = false;
 
-    bool mBalooIndexerActive = false;
-
-    bool mBalooIndexerAvailable = false;
-
     bool mAndroidIndexerActive = false;
 
     bool mAndroidIndexerAvailable = false;
@@ -97,11 +82,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
 {
     connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
             this, &MusicListenersManager::increaseImportedTracksCount);
-
-#if KFBaloo_FOUND
-    connect(&d->mBalooDetector, &BalooDetector::balooAvailabilityChanged,
-            this, &MusicListenersManager::balooAvailabilityChanged);
-#endif
 
     connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
             this, &MusicListenersManager::databaseReady);
@@ -138,8 +118,6 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
                               Q_ARG(QString, QStringLiteral("listeners")), Q_ARG(QString, databaseFileName));
 
     qCInfo(orgKdeElisaIndexersManager) << "Local file system indexer is inactive";
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is unavailable";
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is inactive";
 }
 
 MusicListenersManager::~MusicListenersManager()
@@ -190,16 +168,6 @@ bool MusicListenersManager::indexerBusy() const
 bool MusicListenersManager::fileSystemIndexerActive() const
 {
     return d->mFileSystemIndexerActive;
-}
-
-bool MusicListenersManager::balooIndexerActive() const
-{
-    return d->mBalooIndexerActive;
-}
-
-bool MusicListenersManager::balooIndexerAvailable() const
-{
-    return d->mBalooIndexerAvailable;
 }
 
 bool MusicListenersManager::androidIndexerActive() const
@@ -325,13 +293,6 @@ void MusicListenersManager::configChanged()
     currentConfiguration->read();
 
     bool configurationHasChanged = false;
-#if KFBaloo_FOUND
-    if (d->mBalooIndexerAvailable && d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths() && !currentConfiguration->forceUsageOfFastFileSearch()) {
-        configurationHasChanged = true;
-    } else if (d->mBalooIndexerAvailable && !d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths() && currentConfiguration->forceUsageOfFastFileSearch()) {
-        configurationHasChanged = true;
-    }
-#endif
 
     auto inputRootPath = currentConfiguration->rootPath();
     configurationHasChanged = configurationHasChanged || (d->mPreviousRootPathValue != inputRootPath);
@@ -369,37 +330,11 @@ void MusicListenersManager::configChanged()
 
     d->mFileListener.setAllRootPaths(allRootPaths);
 
-#if KFBaloo_FOUND
-    d->mBalooListener.setAllRootPaths(allRootPaths);
-#endif
+    // trigger start of indexers if needed
+    startLocalFileSystemIndexing();
+    startAndroidIndexing();
 
-    if (!d->mBalooIndexerActive && !d->mFileSystemIndexerActive) {
-        testBalooIndexerAvailability();
-    }
-
-#if KFBaloo_FOUND
-    if (d->mBalooIndexerAvailable && !d->mBalooIndexerActive && d->mBalooListener.canHandleRootPaths() && currentConfiguration->forceUsageOfFastFileSearch()) {
-        qCDebug(orgKdeElisaIndexersManager()) << "trigger start of baloo file indexer";
-        QMetaObject::invokeMethod(d->mFileListener.fileListing(), "stop", Qt::BlockingQueuedConnection);
-        d->mFileSystemIndexerActive = false;
-        startBalooIndexing();
-    } else if ((!d->mFileSystemIndexerActive && d->mBalooIndexerActive && !d->mBalooListener.canHandleRootPaths()) ||
-               !currentConfiguration->forceUsageOfFastFileSearch()) {
-        if (d->mBalooIndexerActive) {
-            qCDebug(orgKdeElisaIndexersManager()) << "trigger stop of baloo file indexer";
-            QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "stop", Qt::BlockingQueuedConnection);
-        }
-        d->mBalooIndexerActive = false;
-        startLocalFileSystemIndexing();
-    }
-#endif
-
-    if (d->mBalooIndexerActive) {
-        qCInfo(orgKdeElisaIndexersManager()) << "trigger init of baloo file indexer";
-#if KFBaloo_FOUND
-        QMetaObject::invokeMethod(d->mBalooListener.fileListing(), "init", Qt::QueuedConnection);
-#endif
-    } else if (d->mFileSystemIndexerActive) {
+    if (d->mFileSystemIndexerActive) {
         qCInfo(orgKdeElisaIndexersManager()) << "trigger init of local file indexer";
         QMetaObject::invokeMethod(d->mFileListener.fileListing(), "init", Qt::QueuedConnection);
     } else if (d->mAndroidIndexerActive) {
@@ -450,59 +385,6 @@ void MusicListenersManager::cleanedDatabase()
     Q_EMIT clearedDatabase();
 }
 
-void MusicListenersManager::balooAvailabilityChanged()
-{
-#if KFBaloo_FOUND
-    if (!d->mBalooDetector.balooAvailability() || !d->mBalooListener.canHandleRootPaths()) {
-        if (d->mBalooDetector.balooAvailability()) {
-            qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is available";
-            d->mBalooIndexerAvailable = true;
-        }
-#else
-    if (true) {
-#endif
-
-#if KFBaloo_FOUND
-        if (!d->mBalooListener.canHandleRootPaths() && d->mBalooDetector.balooAvailability())
-        {
-            qCInfo(orgKdeElisaIndexersManager()) << "Baloo cannot handle all configured paths: falling back to plain filex indexer";
-        }
-#endif
-
-        if (!d->mFileSystemIndexerActive) {
-            startLocalFileSystemIndexing();
-        }
-        if (!d->mAndroidIndexerActive) {
-            startAndroidIndexing();
-        }
-
-        return;
-    }
-
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is available";
-    d->mBalooIndexerAvailable = true;
-    Q_EMIT balooIndexerAvailableChanged();
-    startBalooIndexing();
-}
-
-void MusicListenersManager::testBalooIndexerAvailability()
-{
-#if KFBaloo_FOUND
-    d->mBalooDetector.checkBalooAvailability();
-#else
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is unavailable";
-    d->mBalooIndexerAvailable = false;
-    Q_EMIT balooIndexerAvailableChanged();
-
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is inactive";
-    d->mBalooIndexerActive = false;
-    Q_EMIT balooIndexerActiveChanged();
-
-    startLocalFileSystemIndexing();
-    startAndroidIndexing();
-#endif
-}
-
 void MusicListenersManager::startLocalFileSystemIndexing()
 {
     if (d->mFileSystemIndexerActive) {
@@ -545,27 +427,6 @@ void MusicListenersManager::startAndroidIndexing()
 
     d->mAndroidIndexerActive = true;
     Q_EMIT androidIndexerActiveChanged();
-#endif
-}
-
-void MusicListenersManager::startBalooIndexing()
-{
-#if KFBaloo_FOUND
-    d->mBalooListener.moveToThread(&d->mListenerThread);
-    d->mBalooListener.setDatabaseInterface(&d->mDatabaseInterface);
-    connect(this, &MusicListenersManager::applicationIsTerminating,
-            &d->mBalooListener, &BalooListener::applicationAboutToQuit, Qt::DirectConnection);
-    connect(&d->mBalooListener, &BalooListener::indexingStarted,
-            this, &MusicListenersManager::monitorStartingListeners);
-    connect(&d->mBalooListener, &BalooListener::indexingFinished,
-            this, &MusicListenersManager::monitorEndingListeners);
-    connect(&d->mBalooListener, &BalooListener::clearDatabase,
-            &d->mDatabaseInterface, &DatabaseInterface::clearData);
-
-    qCInfo(orgKdeElisaIndexersManager) << "Baloo indexer is active";
-
-    d->mBalooIndexerActive = true;
-    Q_EMIT balooIndexerActiveChanged();
 #endif
 }
 

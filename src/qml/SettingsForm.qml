@@ -343,40 +343,6 @@ ColumnLayout {
             Kirigami.FormData.isSection: true
         }
 
-        // Indexing settings
-        // =================
-        QQC2.ComboBox {
-            id: indexingTypeCombo
-            Kirigami.FormData.label: i18nc("@label:listbox", "Music indexing:")
-
-            editable: false
-
-            model: [i18nc("@item:inlistbox Configure dialog, indexing type", "Use fast native indexer"),
-                    i18nc("@item:inlistbox Configure dialog, indexing type", "Scan the filesystem directly")]
-
-            currentIndex: ElisaConfigurationDialog.forceUsageOfSlowFileSystemIndexing ? 1 : 0
-            onActivated: {
-                ElisaConfigurationDialog.forceUsageOfSlowFileSystemIndexing = currentIndex === 0 ? false : true
-            }
-        }
-
-        Kirigami.InlineMessage {
-            Layout.fillWidth: true
-
-            visible: indexingTypeCombo.currentIndex === 1
-
-            type: Kirigami.MessageType.Warning
-            text: i18nc("@info", "This is slower than the fast indexer. Please activate it only if Elisa cannot find your music and searching for one of the missing music files using your file manager also does not work. Please report this as a bug.")
-
-            actions: [
-                Kirigami.Action {
-                    text: i18nc("@action:button", "Report Bug")
-                    icon.name: "tools-report-bug"
-                    onTriggered: Qt.openUrlExternally("https://bugs.kde.org/enter_bug.cgi?product=frameworks-baloo")
-                }
-            ]
-        }
-
         Item {
             Kirigami.FormData.isSection: true
         }
@@ -498,14 +464,6 @@ ColumnLayout {
                         ElisaConfigurationDialog.rootPath = oldPaths
                     }
                 }
-            }
-
-            QQC2.Label {
-                Layout.fillWidth: true
-                visible: indexingTypeCombo.currentIndex === 0 // Native indexer
-                text: i18nc("@label", "The fast native file indexer does not follow symbolic links. If any of the locations in this list contain symbolic links to other locations, you will need to add those other locations to the list as well.")
-                wrapMode: Text.Wrap
-                font: Kirigami.Theme.smallFont
             }
         }
     }

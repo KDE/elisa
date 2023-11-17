@@ -2,8 +2,6 @@
 //
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-#cmakedefine01 KFBaloo_FOUND
-
 #cmakedefine01 KFXmlGui_FOUND
 
 #cmakedefine01 KFCrash_FOUND

@@ -24,7 +24,6 @@ Dependencies:
 
 - 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
   'require':
-    'frameworks/baloo': '@latest-kf6'
     'frameworks/kdbusaddons': '@latest-kf6'
 
 Options:

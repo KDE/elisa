@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: d 664cf4f-342c-46fd-8dc1-63f78e432d04\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2017-04-08 03:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1365,63 +1365,30 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr ""
 
-#: qml/SettingsForm.qml:350
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr ""
-
 #: qml/SettingsForm.qml:354
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr ""
-
-#: qml/SettingsForm.qml:355
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr ""
-
-#: qml/SettingsForm.qml:369
-#, kde-format
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-
-#: qml/SettingsForm.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr ""
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr ""
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1430,32 +1397,23 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr ""
 
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr ""
 
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
-msgstr ""
-
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
 msgstr ""
 
 #: qml/shared/BasePlayListDelegate.qml:65

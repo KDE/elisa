@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -1644,75 +1644,31 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Vælg en mappe"
 
-#: qml/SettingsForm.qml:350
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr ""
-
 #: qml/SettingsForm.qml:354
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr ""
-
-#: qml/SettingsForm.qml:355
-#, fuzzy, kde-format
-#| msgid "Force filesystem indexing"
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr "Gennemtving indeksering af filsystem"
-
-#: qml/SettingsForm.qml:369
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is much slower than usage of fast search!\n"
-#| "Please activate it only if Elisa cannot find your music and searching for "
-#| "the file also does not work.\n"
-#| "Please report this as a bug."
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-"Dette er meget langsommere end hurtig søgning!\n"
-"Aktivér kun hvis Elisa ikke kan finde din musik og søgning efter filen "
-"heller ikke virker.\n"
-"Rapportér venligst dette som en programfejl."
-
-#: qml/SettingsForm.qml:373
-#, fuzzy, kde-format
-#| msgid "Report Bug"
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr "Rapportér programfejl"
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr ""
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1721,34 +1677,25 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr ""
 
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr ""
 
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, fuzzy, kde-format
 #| msgid "Add new path"
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Tilføj ny sti"
-
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
-msgstr ""
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -2051,6 +1998,35 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radioer"
+
+#, fuzzy
+#~| msgid "Force filesystem indexing"
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Scan the filesystem directly"
+#~ msgstr "Gennemtving indeksering af filsystem"
+
+#, fuzzy
+#~| msgid ""
+#~| "This is much slower than usage of fast search!\n"
+#~| "Please activate it only if Elisa cannot find your music and searching "
+#~| "for the file also does not work.\n"
+#~| "Please report this as a bug."
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "This is slower than the fast indexer. Please activate it only if Elisa "
+#~ "cannot find your music and searching for one of the missing music files "
+#~ "using your file manager also does not work. Please report this as a bug."
+#~ msgstr ""
+#~ "Dette er meget langsommere end hurtig søgning!\n"
+#~ "Aktivér kun hvis Elisa ikke kan finde din musik og søgning efter filen "
+#~ "heller ikke virker.\n"
+#~ "Rapportér venligst dette som en programfejl."
+
+#, fuzzy
+#~| msgid "Report Bug"
+#~ msgctxt "@action:button"
+#~ msgid "Report Bug"
+#~ msgstr "Rapportér programfejl"
 
 #, fuzzy
 #~| msgid "Color Scheme"

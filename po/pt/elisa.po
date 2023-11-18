@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2023-05-06 11:47+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -1373,66 +1373,30 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Escolher uma Pasta"
 
-#: qml/SettingsForm.qml:350
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr "Indexação da música:"
-
 #: qml/SettingsForm.qml:354
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr "Usar a indexação nativa rápida"
-
-#: qml/SettingsForm.qml:355
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr "Sondar o sistema de ficheiros directamente"
-
-#: qml/SettingsForm.qml:369
-#, kde-format
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-"Isto é mais lento que a indexação rápida. Por favor, active-a apenas se o "
-"Elisa não conseguir encontrar a sua música e se a pesquisa pelo ficheiro "
-"também não resultar. Comunique isto como um erro."
-
-#: qml/SettingsForm.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr "Comunicar um Erro"
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "Ao gravar os ficheiros da lista de reprodução:"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "Preferir localizações relativas"
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "Usar sempre localizações absolutas"
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1445,36 +1409,24 @@ msgstr ""
 "serão referenciados apenas pelo nome do ficheiro. As localizações absolutas "
 "são usadas noutros casos."
 
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "Pastas de música:"
 
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Parar a pesquisa de música aqui"
 
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Adicionar uma Nova Localização"
-
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
-msgstr ""
-"O indexador de ficheiros nativo rápido não segue as ligações simbólicas. Se "
-"alguma das localizações nesta lista tiver ligações simbólicas para outras "
-"localizações, terá de as adicionar também à lista."
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -1731,6 +1683,42 @@ msgstr "Ficheiros"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estações de Rádio"
+
+#~ msgctxt "@label:listbox"
+#~ msgid "Music indexing:"
+#~ msgstr "Indexação da música:"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Use fast native indexer"
+#~ msgstr "Usar a indexação nativa rápida"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Scan the filesystem directly"
+#~ msgstr "Sondar o sistema de ficheiros directamente"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "This is slower than the fast indexer. Please activate it only if Elisa "
+#~ "cannot find your music and searching for one of the missing music files "
+#~ "using your file manager also does not work. Please report this as a bug."
+#~ msgstr ""
+#~ "Isto é mais lento que a indexação rápida. Por favor, active-a apenas se o "
+#~ "Elisa não conseguir encontrar a sua música e se a pesquisa pelo ficheiro "
+#~ "também não resultar. Comunique isto como um erro."
+
+#~ msgctxt "@action:button"
+#~ msgid "Report Bug"
+#~ msgstr "Comunicar um Erro"
+
+#~ msgctxt "@label"
+#~ msgid ""
+#~ "The fast native file indexer does not follow symbolic links. If any of "
+#~ "the locations in this list contain symbolic links to other locations, you "
+#~ "will need to add those other locations to the list as well."
+#~ msgstr ""
+#~ "O indexador de ficheiros nativo rápido não segue as ligações simbólicas. "
+#~ "Se alguma das localizações nesta lista tiver ligações simbólicas para "
+#~ "outras localizações, terá de as adicionar também à lista."
 
 #~ msgctxt "@action:button"
 #~ msgid "Color Scheme"

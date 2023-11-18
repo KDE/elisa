@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2022-02-01 10:43+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1660,77 +1660,31 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Válasszon egy mappát"
 
-#: qml/SettingsForm.qml:350
-#, fuzzy, kde-format
-#| msgid "Music indexing:"
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr "Zene indexelése:"
-
 #: qml/SettingsForm.qml:354
-#, fuzzy, kde-format
-#| msgctxt "Configure dialog, indexing type"
-#| msgid "Use fast native indexer"
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr "Gyors, natív indexelő használata"
-
-#: qml/SettingsForm.qml:355
-#, fuzzy, kde-format
-#| msgctxt "Configure dialog, indexing type"
-#| msgid "Scan the filesystem directly"
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr "Fájlrendszer átvizsgálása közvetlenül"
-
-#: qml/SettingsForm.qml:369
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is slower than the fast indexer. Please activate it only if Elisa "
-#| "cannot find your music and searching for one of the missing music files "
-#| "using your file manager also does not work. Please report this as a bug."
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-"Ez lassabb, mint a gyors indexelő. Csak akkor aktiválja, ha az Elisa nem "
-"találja a zenéit, és a hiányzó zenei fájlok keresése a fájlkezelővel szintén "
-"nem működik. Kérjük, jelentse ezt a hibát."
-
-#: qml/SettingsForm.qml:373
-#, fuzzy, kde-format
-#| msgid "Report Bug"
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr "Hiba bejelentése"
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr ""
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1739,7 +1693,7 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "The configured folders where the user's music collection can be found"
@@ -1749,28 +1703,19 @@ msgctxt ""
 msgid "Music folders:"
 msgstr "Zenemappák:"
 
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, fuzzy, kde-format
 #| msgid "Stop looking for music here"
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Zene keresésének leállítása itt"
 
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, fuzzy, kde-format
 #| msgid "Add New Location"
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Új hely hozzáadása"
-
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
-msgstr ""
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -2069,6 +2014,47 @@ msgstr "Fájlok"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Rádióállomások"
+
+#, fuzzy
+#~| msgid "Music indexing:"
+#~ msgctxt "@label:listbox"
+#~ msgid "Music indexing:"
+#~ msgstr "Zene indexelése:"
+
+#, fuzzy
+#~| msgctxt "Configure dialog, indexing type"
+#~| msgid "Use fast native indexer"
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Use fast native indexer"
+#~ msgstr "Gyors, natív indexelő használata"
+
+#, fuzzy
+#~| msgctxt "Configure dialog, indexing type"
+#~| msgid "Scan the filesystem directly"
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Scan the filesystem directly"
+#~ msgstr "Fájlrendszer átvizsgálása közvetlenül"
+
+#, fuzzy
+#~| msgid ""
+#~| "This is slower than the fast indexer. Please activate it only if Elisa "
+#~| "cannot find your music and searching for one of the missing music files "
+#~| "using your file manager also does not work. Please report this as a bug."
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "This is slower than the fast indexer. Please activate it only if Elisa "
+#~ "cannot find your music and searching for one of the missing music files "
+#~ "using your file manager also does not work. Please report this as a bug."
+#~ msgstr ""
+#~ "Ez lassabb, mint a gyors indexelő. Csak akkor aktiválja, ha az Elisa nem "
+#~ "találja a zenéit, és a hiányzó zenei fájlok keresése a fájlkezelővel "
+#~ "szintén nem működik. Kérjük, jelentse ezt a hibát."
+
+#, fuzzy
+#~| msgid "Report Bug"
+#~ msgctxt "@action:button"
+#~ msgid "Report Bug"
+#~ msgstr "Hiba bejelentése"
 
 #, fuzzy
 #~| msgid "Color Scheme"

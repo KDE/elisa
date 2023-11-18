@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2023-09-28 00:31+0530\n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1377,66 +1377,30 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "चिनोतु…"
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "एकं पुटं चिनोतु"
 
-#: qml/SettingsForm.qml:350
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr "सङ्गीत अनुक्रमणिकाकरणम् :"
-
 #: qml/SettingsForm.qml:354
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr "द्रुतदेशीयसूचकाङ्ककस्य उपयोगं कुर्वन्तु"
-
-#: qml/SettingsForm.qml:355
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr "सञ्चिकातन्त्रस्य प्रत्यक्षं विश्लेषणं कुर्वन्तु"
-
-#: qml/SettingsForm.qml:369
-#, kde-format
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-"एतत् द्रुतसूचकाङ्ककर्तुः अपेक्षया मन्दतरम् अस्ति । कृपया केवलं तदा एव तत् सक्रियं कुर्वन्तु यदा "
-"एलिसा भवतः सङ्गीतं न प्राप्नोति तथा च भवतः सञ्चिकाप्रबन्धकस्य उपयोगेन लुप्तसङ्गीतसञ्चिकासु "
-"एकां अन्वेषणमपि कार्यं न करोति। कृपया एतत् दोषरूपेण निवेदयन्तु ।."
-
-#: qml/SettingsForm.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr "त्रुटिं प्रतिवेदयतु"
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "वादनीयसूची सञ्चिकाः रक्षन्ते सति :"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "सापेक्षमार्गान् प्राधान्यं ददातु"
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "नित्यं निरपेक्षमार्गाणां प्रयोगं कुर्वन्तु"
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1448,36 +1412,24 @@ msgstr ""
 "वादनीयसूची इत्यस्य समानपुटे सञ्चिकाः केवलं सञ्चिकानाम्ना निर्दिश्यन्ते । अन्येषु सति "
 "निरपेक्षमार्गाः प्रयुज्यन्ते ।."
 
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "सङ्गीतपुटाः :"
 
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "अत्र सङ्गीतस्य अन्वेषणं त्यजन्तु"
 
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "नवीनं स्थानं योजयतु"
-
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
-msgstr ""
-"द्रुतदेशीयसञ्चिकासूचकाङ्ककः प्रतीकात्मकसम्बन्धानां अनुसरणं न करोति । यदि अस्मिन् सूचौ कस्मिन् "
-"अपि स्थाने अन्यस्थानानां प्रतीकात्मकसम्बन्धानि सन्ति तर्हि भवद्भिः तानि अन्यस्थानानि अपि "
-"सूचीयां योजयितव्यानि भविष्यन्ति ।."
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -1732,6 +1684,42 @@ msgstr "सञ्चिकाः"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "आकाशवाणीस्थानकानि"
+
+#~ msgctxt "@label:listbox"
+#~ msgid "Music indexing:"
+#~ msgstr "सङ्गीत अनुक्रमणिकाकरणम् :"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Use fast native indexer"
+#~ msgstr "द्रुतदेशीयसूचकाङ्ककस्य उपयोगं कुर्वन्तु"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Scan the filesystem directly"
+#~ msgstr "सञ्चिकातन्त्रस्य प्रत्यक्षं विश्लेषणं कुर्वन्तु"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "This is slower than the fast indexer. Please activate it only if Elisa "
+#~ "cannot find your music and searching for one of the missing music files "
+#~ "using your file manager also does not work. Please report this as a bug."
+#~ msgstr ""
+#~ "एतत् द्रुतसूचकाङ्ककर्तुः अपेक्षया मन्दतरम् अस्ति । कृपया केवलं तदा एव तत् सक्रियं कुर्वन्तु यदा "
+#~ "एलिसा भवतः सङ्गीतं न प्राप्नोति तथा च भवतः सञ्चिकाप्रबन्धकस्य उपयोगेन "
+#~ "लुप्तसङ्गीतसञ्चिकासु एकां अन्वेषणमपि कार्यं न करोति। कृपया एतत् दोषरूपेण निवेदयन्तु ।."
+
+#~ msgctxt "@action:button"
+#~ msgid "Report Bug"
+#~ msgstr "त्रुटिं प्रतिवेदयतु"
+
+#~ msgctxt "@label"
+#~ msgid ""
+#~ "The fast native file indexer does not follow symbolic links. If any of "
+#~ "the locations in this list contain symbolic links to other locations, you "
+#~ "will need to add those other locations to the list as well."
+#~ msgstr ""
+#~ "द्रुतदेशीयसञ्चिकासूचकाङ्ककः प्रतीकात्मकसम्बन्धानां अनुसरणं न करोति । यदि अस्मिन् सूचौ "
+#~ "कस्मिन् अपि स्थाने अन्यस्थानानां प्रतीकात्मकसम्बन्धानि सन्ति तर्हि भवद्भिः तानि "
+#~ "अन्यस्थानानि अपि सूचीयां योजयितव्यानि भविष्यन्ति ।."
 
 #~ msgctxt "@action:button"
 #~ msgid "Color Scheme"

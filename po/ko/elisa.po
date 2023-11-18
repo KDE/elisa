@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2023-08-25 21:05+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1373,65 +1373,30 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "선택…"
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "폴더 선택"
 
-#: qml/SettingsForm.qml:350
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr "음악 색인:"
-
 #: qml/SettingsForm.qml:354
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr "빠른 기본 인덱서 사용"
-
-#: qml/SettingsForm.qml:355
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr "파일 시스템 직접 검색"
-
-#: qml/SettingsForm.qml:369
-#, kde-format
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-"빠른 검색보다 더 느립니다. Elisa에서 곡을 찾을 수 없고 파일 관리자에서 빠진 "
-"파일을 검색할 수 없을 때에만 선택하십시오. 이 상황을 버그로 보고해 주십시오."
-
-#: qml/SettingsForm.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr "버그 보고"
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "재생 목록 파일을 저장할 때:"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "상대 경로 선호"
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "항상 절대 경로 사용"
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1443,36 +1408,24 @@ msgstr ""
 "은 폴더에 있는 파일을 파일 이름만으로 참조하며, 다른 경우에 절대 경로를 사용"
 "합니다."
 
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "음악 폴더:"
 
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "여기에서 음악 찾기 중지"
 
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "새 위치 추가"
-
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
-msgstr ""
-"빠른 네이티브 파일 색인 도구에서는 심볼릭 링크를 따라가지 않습니다. 이 목록"
-"에 있는 위치에 다른 위치로 향하는 심볼릭 링크가 포함되어 있다면 해당 위치를 "
-"직접 추가해야 합니다."
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -1726,6 +1679,42 @@ msgstr "파일"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "라디오 방송국"
+
+#~ msgctxt "@label:listbox"
+#~ msgid "Music indexing:"
+#~ msgstr "음악 색인:"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Use fast native indexer"
+#~ msgstr "빠른 기본 인덱서 사용"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Scan the filesystem directly"
+#~ msgstr "파일 시스템 직접 검색"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "This is slower than the fast indexer. Please activate it only if Elisa "
+#~ "cannot find your music and searching for one of the missing music files "
+#~ "using your file manager also does not work. Please report this as a bug."
+#~ msgstr ""
+#~ "빠른 검색보다 더 느립니다. Elisa에서 곡을 찾을 수 없고 파일 관리자에서 빠"
+#~ "진 파일을 검색할 수 없을 때에만 선택하십시오. 이 상황을 버그로 보고해 주십"
+#~ "시오."
+
+#~ msgctxt "@action:button"
+#~ msgid "Report Bug"
+#~ msgstr "버그 보고"
+
+#~ msgctxt "@label"
+#~ msgid ""
+#~ "The fast native file indexer does not follow symbolic links. If any of "
+#~ "the locations in this list contain symbolic links to other locations, you "
+#~ "will need to add those other locations to the list as well."
+#~ msgstr ""
+#~ "빠른 네이티브 파일 색인 도구에서는 심볼릭 링크를 따라가지 않습니다. 이 목"
+#~ "록에 있는 위치에 다른 위치로 향하는 심볼릭 링크가 포함되어 있다면 해당 위"
+#~ "치를 직접 추가해야 합니다."
 
 #~ msgctxt "@action:button"
 #~ msgid "Color Scheme"

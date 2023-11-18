@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2023-02-12 20:05+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -1377,66 +1377,30 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "एक फ़ोल्डर चुनें"
 
-#: qml/SettingsForm.qml:350
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr "गीत अनुक्रमित किये जा रहे"
-
 #: qml/SettingsForm.qml:354
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr "तेज अनुक्रमणिकार का प्रयोग करें"
-
-#: qml/SettingsForm.qml:355
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr "फ़ाइल-तंत्र को सीधे स्कैन करें"
-
-#: qml/SettingsForm.qml:369
-#, kde-format
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-"यह तेज अनुक्रमणिकार से धीमा है। कृपया इसको तभी सक्रिय करें जब एलिसा आपके गीत नहीं ढूँढ़ "
-"पाए और फ़ाईल प्रबंधक भी आपकी अनुपस्थित संगीत फ़ाइल को ढूँढ़ न पाए. कृपया इस त्रुटी को दर्ज "
-"करें।"
-
-#: qml/SettingsForm.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr "त्रुटि दर्ज करें"
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "प्लेलिस्ट फ़ाइलों को सहेजते समय :"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "सापेक्ष पथों को प्राथमिकता दें"
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "हमेशा पूर्ण पथ का प्रयोग करें"
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1448,35 +1412,24 @@ msgstr ""
 "गीत-सूची के समान फ़ोल्डर में फ़ाइलों को केवल फ़ाइल नाम के साथ संदर्भित किया जाएगा। पूर्ण पथ "
 "अन्य मामलों में उपयोग किए जाते हैं।"
 
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "संगीत फ़ोल्डर :"
 
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "यहाँ संगीत ढूँढ़ना बंद करें"
 
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "नया स्थान जोड़ें"
-
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
-msgstr ""
-"तेज़ मूल फ़ाइल अनुक्रमणिका सांकेतिक लिंक का अनुसरण नहीं करती है। यदि इस सूची के किसी भी "
-"स्थान में अन्य स्थानों के सांकेतिक लिंक हैं, तो आपको उन अन्य स्थानों को भी सूची में जोड़ना होगा।"
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -1733,6 +1686,42 @@ msgstr "फ़ाइलें"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "रेडियो स्टेशन"
+
+#~ msgctxt "@label:listbox"
+#~ msgid "Music indexing:"
+#~ msgstr "गीत अनुक्रमित किये जा रहे"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Use fast native indexer"
+#~ msgstr "तेज अनुक्रमणिकार का प्रयोग करें"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Scan the filesystem directly"
+#~ msgstr "फ़ाइल-तंत्र को सीधे स्कैन करें"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "This is slower than the fast indexer. Please activate it only if Elisa "
+#~ "cannot find your music and searching for one of the missing music files "
+#~ "using your file manager also does not work. Please report this as a bug."
+#~ msgstr ""
+#~ "यह तेज अनुक्रमणिकार से धीमा है। कृपया इसको तभी सक्रिय करें जब एलिसा आपके गीत नहीं ढूँढ़ "
+#~ "पाए और फ़ाईल प्रबंधक भी आपकी अनुपस्थित संगीत फ़ाइल को ढूँढ़ न पाए. कृपया इस त्रुटी को "
+#~ "दर्ज करें।"
+
+#~ msgctxt "@action:button"
+#~ msgid "Report Bug"
+#~ msgstr "त्रुटि दर्ज करें"
+
+#~ msgctxt "@label"
+#~ msgid ""
+#~ "The fast native file indexer does not follow symbolic links. If any of "
+#~ "the locations in this list contain symbolic links to other locations, you "
+#~ "will need to add those other locations to the list as well."
+#~ msgstr ""
+#~ "तेज़ मूल फ़ाइल अनुक्रमणिका सांकेतिक लिंक का अनुसरण नहीं करती है। यदि इस सूची के किसी भी "
+#~ "स्थान में अन्य स्थानों के सांकेतिक लिंक हैं, तो आपको उन अन्य स्थानों को भी सूची में जोड़ना "
+#~ "होगा।"
 
 #~ msgctxt "@action:button"
 #~ msgid "Color Scheme"

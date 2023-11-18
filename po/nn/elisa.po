@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2023-08-21 19:53+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -1475,71 +1475,30 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "Vel …"
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Vel ei mappe"
 
-# unreviewed-context
-#: qml/SettingsForm.qml:350
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr "Musikk­indeksering:"
-
-# unreviewed-context
 #: qml/SettingsForm.qml:354
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr "Bruk rask innebygd indekserar"
-
-# unreviewed-context
-#: qml/SettingsForm.qml:355
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr "Søk gjennom filsystemet direkte"
-
-# unreviewed-context
-#: qml/SettingsForm.qml:369
-#, kde-format
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-"Dette er tregare enn den raske indekseraren. Slå berre på dette dersom Elisa "
-"ikkje finn musikken din og du heller ikkje finn han via filhandsamaren. Meld "
-"i så fall frå om dette som ein feil."
-
-# unreviewed-context
-#: qml/SettingsForm.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr "Meld frå om feil"
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "Ved lagring av spelelistefiler:"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "Føretrekk relative adresser"
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "Bruk alltid absolutte adresser"
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1552,7 +1511,7 @@ msgstr ""
 "Absolutte adresser vert brukte elles."
 
 # unreviewed-context
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
@@ -1560,31 +1519,18 @@ msgid "Music folders:"
 msgstr "Musikkmapper:"
 
 # unreviewed-context
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Ikkje sjå etter musikk her"
 
 # unreviewed-context
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Legg til ny mappe"
-
-# unreviewed-context
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
-msgstr ""
-"Den raske filindekseraren følgjer ikkje symbolske lenkjer. Viss nokon av "
-"mappene her inneheld symbolske lenkjer til andre mapper, må du leggja til "
-"desse andre mappene òg."
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -1866,3 +1812,45 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
+
+# unreviewed-context
+#~ msgctxt "@label:listbox"
+#~ msgid "Music indexing:"
+#~ msgstr "Musikk­indeksering:"
+
+# unreviewed-context
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Use fast native indexer"
+#~ msgstr "Bruk rask innebygd indekserar"
+
+# unreviewed-context
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Scan the filesystem directly"
+#~ msgstr "Søk gjennom filsystemet direkte"
+
+# unreviewed-context
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "This is slower than the fast indexer. Please activate it only if Elisa "
+#~ "cannot find your music and searching for one of the missing music files "
+#~ "using your file manager also does not work. Please report this as a bug."
+#~ msgstr ""
+#~ "Dette er tregare enn den raske indekseraren. Slå berre på dette dersom "
+#~ "Elisa ikkje finn musikken din og du heller ikkje finn han via "
+#~ "filhandsamaren. Meld i så fall frå om dette som ein feil."
+
+# unreviewed-context
+#~ msgctxt "@action:button"
+#~ msgid "Report Bug"
+#~ msgstr "Meld frå om feil"
+
+# unreviewed-context
+#~ msgctxt "@label"
+#~ msgid ""
+#~ "The fast native file indexer does not follow symbolic links. If any of "
+#~ "the locations in this list contain symbolic links to other locations, you "
+#~ "will need to add those other locations to the list as well."
+#~ msgstr ""
+#~ "Den raske filindekseraren følgjer ikkje symbolske lenkjer. Viss nokon av "
+#~ "mappene her inneheld symbolske lenkjer til andre mapper, må du leggja til "
+#~ "desse andre mappene òg."

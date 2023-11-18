@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2023-10-25 21:10+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1374,66 +1374,30 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "Aukeratu…"
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Hautatu karpeta bat"
 
-#: qml/SettingsForm.qml:350
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr "Musika indexatzea:"
-
 #: qml/SettingsForm.qml:354
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr "Erabili berezko indexatzaile azkarra"
-
-#: qml/SettingsForm.qml:355
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr "Zuzenean aztertu fitxategi-sistema"
-
-#: qml/SettingsForm.qml:369
-#, kde-format
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-"Hau indexatzaile azkarra baino motelagoa da. Aktibatu hau, soilik, Elisak "
-"zure musika aurkitu ezin badu eta zure fitxategi-kudeatzailea erabiliz ere "
-"falta den fitxategia aurkitzea ez badabil. Mesedez, eman akats honen berri."
-
-#: qml/SettingsForm.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr "Akatsa jakinarazi"
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "Jotze-zerrendak gordetzean:"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "Hobetsi bide-izen erlatiboak"
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "Beti erabili bide-izen absolutuak"
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1446,37 +1410,24 @@ msgstr ""
 "bakarrik aipatuko dira. Bide-izen erlatiboak beste kasu batzuetan erabiltzen "
 "dira."
 
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "Musika karpetak:"
 
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Utzi hemen musika bilatzeari"
 
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Gehitu kokaleku berria"
-
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
-msgstr ""
-"Berezko fitxategi-indexatzaile azkarrak ez die jarraitzen esteka "
-"sinbolikoei. Zerrenda honetako kokapenen batek beste kokaleku batzuetarako "
-"lotura sinbolikorik balu, beste kokaleku horiek ere zerrendara gehitu "
-"beharko zenituzke."
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -1731,6 +1682,44 @@ msgstr "Fitxategiak"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Irrati-kateak"
+
+#~ msgctxt "@label:listbox"
+#~ msgid "Music indexing:"
+#~ msgstr "Musika indexatzea:"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Use fast native indexer"
+#~ msgstr "Erabili berezko indexatzaile azkarra"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Scan the filesystem directly"
+#~ msgstr "Zuzenean aztertu fitxategi-sistema"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "This is slower than the fast indexer. Please activate it only if Elisa "
+#~ "cannot find your music and searching for one of the missing music files "
+#~ "using your file manager also does not work. Please report this as a bug."
+#~ msgstr ""
+#~ "Hau indexatzaile azkarra baino motelagoa da. Aktibatu hau, soilik, Elisak "
+#~ "zure musika aurkitu ezin badu eta zure fitxategi-kudeatzailea erabiliz "
+#~ "ere falta den fitxategia aurkitzea ez badabil. Mesedez, eman akats honen "
+#~ "berri."
+
+#~ msgctxt "@action:button"
+#~ msgid "Report Bug"
+#~ msgstr "Akatsa jakinarazi"
+
+#~ msgctxt "@label"
+#~ msgid ""
+#~ "The fast native file indexer does not follow symbolic links. If any of "
+#~ "the locations in this list contain symbolic links to other locations, you "
+#~ "will need to add those other locations to the list as well."
+#~ msgstr ""
+#~ "Berezko fitxategi-indexatzaile azkarrak ez die jarraitzen esteka "
+#~ "sinbolikoei. Zerrenda honetako kokapenen batek beste kokaleku "
+#~ "batzuetarako lotura sinbolikorik balu, beste kokaleku horiek ere "
+#~ "zerrendara gehitu beharko zenituzke."
 
 #~ msgctxt "@action:button"
 #~ msgid "Color Scheme"

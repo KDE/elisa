@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 01:38+0000\n"
+"POT-Creation-Date: 2023-11-18 01:35+0000\n"
 "PO-Revision-Date: 2023-08-20 15:03+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1373,66 +1373,30 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "தேர்ந்தெடு…"
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:489
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "அடைவைத் தேர்வு செய்தல்"
 
-#: qml/SettingsForm.qml:350
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Music indexing:"
-msgstr "பாடல் அட்டவணையாக்கம்:"
-
 #: qml/SettingsForm.qml:354
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Use fast native indexer"
-msgstr "விரைவான பொது அட்டவணையாக்கியை பயன்படுத்து"
-
-#: qml/SettingsForm.qml:355
-#, kde-format
-msgctxt "@item:inlistbox Configure dialog, indexing type"
-msgid "Scan the filesystem directly"
-msgstr "கோப்புகளை நேரடியாக ஆராய்"
-
-#: qml/SettingsForm.qml:369
-#, kde-format
-msgctxt "@info"
-msgid ""
-"This is slower than the fast indexer. Please activate it only if Elisa "
-"cannot find your music and searching for one of the missing music files "
-"using your file manager also does not work. Please report this as a bug."
-msgstr ""
-"இயல்பிருப்பு அட்டவணையாக்கியைவிட இது மெதுவானதாகும். உங்கள் பாடல்களை எலைசாவாலும் உங்கள் "
-"கோப்பு உலாவியின் தேடல் அம்சத்தாலும் கண்டுபிடிக்க முடியாத பட்சத்தில் மட்டும் இதை "
-"பயன்படுத்துங்கள். தயவுசெய்து இதை ஓர் நிரலாக்க பிழையாக எங்களிடம் தெரிவியுங்கள்."
-
-#: qml/SettingsForm.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Report Bug"
-msgstr "பிழையை தெரிவி"
-
-#: qml/SettingsForm.qml:388
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "பாடல்வரிசைக் கோப்புகளை சேமிக்கும்போது:"
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "சார்புடைய பாதைகளை பயன்படுத்து"
 
-#: qml/SettingsForm.qml:398
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "முழுமையான பாதைகளை எப்போதும் பயன்படுத்து"
 
-#: qml/SettingsForm.qml:409
+#: qml/SettingsForm.qml:375
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1445,36 +1409,24 @@ msgstr ""
 "முழுமையான பாதை பயன்படுத்தப்படாது. மற்ற சூழல்களில் முழுமையான பாதைகளே எப்போதும் "
 "பயன்படுத்தப்படும்."
 
-#: qml/SettingsForm.qml:424
+#: qml/SettingsForm.qml:390
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "பாடல் அடைவுகள்:"
 
-#: qml/SettingsForm.qml:466
+#: qml/SettingsForm.qml:432
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "இங்குள்ள பாடல்களை கண்டறியாதே"
 
-#: qml/SettingsForm.qml:479
+#: qml/SettingsForm.qml:445
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "புதிய இடத்தைச் சேர்"
-
-#: qml/SettingsForm.qml:506
-#, kde-format
-msgctxt "@label"
-msgid ""
-"The fast native file indexer does not follow symbolic links. If any of the "
-"locations in this list contain symbolic links to other locations, you will "
-"need to add those other locations to the list as well."
-msgstr ""
-"விரைவான பொது அட்டவணையாக்கி, குறியிணைப்புகளை பின்தொடராது. இப்பட்டியலிலுள்ள இடங்களில் "
-"குறியிணைப்புகள் இருந்தால், அக்குறியிணைப்புகளின் சேருமிடங்களையும் நீங்கள் இப்பட்டியலில் "
-"சேர்க்க வேண்டும்."
 
 #: qml/shared/BasePlayListDelegate.qml:65
 #, kde-format
@@ -1729,6 +1681,42 @@ msgstr "கோப்புகள்"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "வானொலி நிலையங்கள்"
+
+#~ msgctxt "@label:listbox"
+#~ msgid "Music indexing:"
+#~ msgstr "பாடல் அட்டவணையாக்கம்:"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Use fast native indexer"
+#~ msgstr "விரைவான பொது அட்டவணையாக்கியை பயன்படுத்து"
+
+#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
+#~ msgid "Scan the filesystem directly"
+#~ msgstr "கோப்புகளை நேரடியாக ஆராய்"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "This is slower than the fast indexer. Please activate it only if Elisa "
+#~ "cannot find your music and searching for one of the missing music files "
+#~ "using your file manager also does not work. Please report this as a bug."
+#~ msgstr ""
+#~ "இயல்பிருப்பு அட்டவணையாக்கியைவிட இது மெதுவானதாகும். உங்கள் பாடல்களை எலைசாவாலும் "
+#~ "உங்கள் கோப்பு உலாவியின் தேடல் அம்சத்தாலும் கண்டுபிடிக்க முடியாத பட்சத்தில் மட்டும் இதை "
+#~ "பயன்படுத்துங்கள். தயவுசெய்து இதை ஓர் நிரலாக்க பிழையாக எங்களிடம் தெரிவியுங்கள்."
+
+#~ msgctxt "@action:button"
+#~ msgid "Report Bug"
+#~ msgstr "பிழையை தெரிவி"
+
+#~ msgctxt "@label"
+#~ msgid ""
+#~ "The fast native file indexer does not follow symbolic links. If any of "
+#~ "the locations in this list contain symbolic links to other locations, you "
+#~ "will need to add those other locations to the list as well."
+#~ msgstr ""
+#~ "விரைவான பொது அட்டவணையாக்கி, குறியிணைப்புகளை பின்தொடராது. இப்பட்டியலிலுள்ள "
+#~ "இடங்களில் குறியிணைப்புகள் இருந்தால், அக்குறியிணைப்புகளின் சேருமிடங்களையும் நீங்கள் "
+#~ "இப்பட்டியலில் சேர்க்க வேண்டும்."
 
 #~ msgctxt "@action:button"
 #~ msgid "Color Scheme"

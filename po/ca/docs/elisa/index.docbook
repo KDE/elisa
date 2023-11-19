@@ -97,9 +97,7 @@ as Authors, publish date, the abstract, and Keywords -->
 >Usar l'&elisa;</title>
 
 <para
->L'&elisa; indexa la vostra música bé utilitzant el Baloo, si és possible, o cercant en una llista de camins configurats per l'usuari a través d'una interfície dedicada. </para>
-<para
->En el cas que s'activi el suport de Baloo i la vostra configuració no funcioni, es mostrarà una notificació que permetrà desactivar l'indexador o activar l'indexador Baloo i alimentar l'&elisa; amb pistes de música. </para>
+>L'&elisa; indexa la vostra música cercant en una llista de camins configurats per l'usuari a través d'una interfície dedicada. </para>
 <para
 >En el cas que l'indexador de fitxers no trobi res, es mostrarà una notificació amb un botó per a obrir la interfície de configuració. </para>
 
@@ -141,7 +139,7 @@ as Authors, publish date, the abstract, and Keywords -->
 <para
 >Quan navegueu per la vostra música, podreu afegir artistes, àlbums i pistes amb un botó que apareix quan el ratolí està a sobre. També és possible netejar la llista de reproducció i, alhora, afegir música. </para>
 <para
->Una barra d'eines a sota de la llista de reproducció permet operar-hi. Són possibles les següents accions: <itemizedlist>
+>Una barra d'eines a sota de la llista de reproducció permet operar-hi. Són possibles les accions següents: <itemizedlist>
   <listitem>
     <para
 >Podeu netejar tota la llista de reproducció. </para>

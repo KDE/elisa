@@ -97,9 +97,7 @@ as Authors, publish date, the abstract, and Keywords -->
 >&elisa; gebruiken</title>
 
 <para
->&elisa; indexeert uw muziek ofwel door Baloo te gebruiken indien mogelijk of door te zoeken in een lijst met paden, geconfigureerd door de gebruiker via een eigen interface. </para>
-<para
->In geval de ondersteuning van Baloo is geactiveerd en uw opzet werkt niet, dan krijgt u een melding met hints om het indexeerprogramma te deactiveren of om Baloo, het indexeerprogramma te activeren en &elisa; te voeden met muziektracks. </para>
+>&elisa; indexeert uw muziek door te zoeken in een lijst met paden, geconfigureerd door de gebruiker via een eigen interface. </para>
 <para
 >In het geval dat het bestandsindexeerprogramma niets vindt, zal een melding worden getoond met een knop om het configuratie-interface te openen. </para>
 

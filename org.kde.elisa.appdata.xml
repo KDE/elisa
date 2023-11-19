@@ -156,6 +156,14 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="x-test">xxWith Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.xx</p>
     <p xml:lang="zh-CN">您可以通过 Elisa 按照流派、艺人、专辑、曲目等条件浏览您的本地音乐。它还支持收听网络电台、创建并管理播放列表、显示歌词等功能。</p>
     <p>Elisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.</p>
+    <p xml:lang="ca">L'Elisa admet l'esquema de color KDE complet quan s'utilitza a l'escriptori Plasma, o els modes clars i foscos estàndard.</p>
+    <p xml:lang="ca-valencia">Elisa admet l'esquema de color KDE complet quan s'utilitza en l'escriptori Plasma, o els modes clars i foscos estàndard.</p>
+    <p xml:lang="eo">Elisa subtenas vian plenan KDE-kolorskemon kiam ĝi estas uzata sur la Plasma labortablo, aŭ alie la normajn helajn kaj malhelajn reĝimojn</p>
+    <p xml:lang="nl">Elisa ondersteunt uw volledige KDE kleurenschema bij gebruik op het Plasma bureaublad of anders de standaard lichte en donkere modi.</p>
+    <p xml:lang="sl">Elisa podpira vašo celotno barvno shemo KDE, ko jo uporabljate na namizju Plasma, oziroma standardna svetla in temna načina.</p>
+    <p xml:lang="tr">Elisa, Plasma masaüstünde kullanıldığında tam KDE renk şemanızı veya standart açık ve koyu kipleri destekler.</p>
+    <p xml:lang="uk">В Elisa передбачено підтримку усієї вашої схеми кольорів KDE, якщо програму запущено у стільниці Плазми. Інакше буде використано стандартні світлий або темний режими.</p>
+    <p xml:lang="x-test">xxElisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.xx</p>
     <p>Chill out with Party Mode, which puts your music's album art front and center.</p>
     <p xml:lang="bg">Отпуснете се с режима Парти, който поставя обложката на албума ви на преден план и в центъра.</p>
     <p xml:lang="ca">Gaudiu amb el mode festa, que posa l'art dels àlbums de la música al davant de tot.</p>
@@ -232,7 +240,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sl">Glasbeni predvajalnik Elisa</caption>
       <caption xml:lang="sv">Elisa musikspelare</caption>
       <caption xml:lang="ta">எலைசா பாடல் இசைப்பி</caption>
-      <caption xml:lang="tr">Elisa müzik çalar</caption>
+      <caption xml:lang="tr">Elisa Müzik Çalar</caption>
       <caption xml:lang="uk">Музичний програвач Elisa</caption>
       <caption xml:lang="x-test">xxThe Elisa music playerxx</caption>
       <caption xml:lang="zh-CN">Elisa 音乐播放器</caption>

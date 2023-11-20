@@ -111,9 +111,7 @@ as Authors, publish date, the abstract, and Keywords -->
 >&elisa; Kullanımı</title>
 
 <para
->&elisa;, müziğinizi olanaklıysa Baloo'yu kullanarak veya özel bir arayüz aracılığıyla kullanıcı tarafından yapılandırılan bir yol listesinde arama yaparak indeksler. </para>
-<para
->Baloo desteğinin etkin olması ve ayarlarınızın çalışmaması durumunda, indeksleyiciyi devre dışı bırakmanızı veya Baloo indeksleyicisini etkinleştirip &elisa;'yı parçalarla doldurmanızı salık veren bir bildirim gösterilir. </para>
+>&elisa;, özel bir arayüz aracılığıyla kullanıcı tarafından yapılandırılan yollar listesinde arama yaparak müziğinizi indeksler. </para>
 <para
 >Dosya indeksleyicinin hiçbir şey bulmadığı durumlarda yapılandırma arayüzünü açabilmeniz için bir düğme içeren bir bildirim gösterilir. </para>
 

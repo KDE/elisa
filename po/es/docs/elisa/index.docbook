@@ -111,9 +111,7 @@ as Authors, publish date, the abstract, and Keywords -->
 >Uso de &elisa;</title>
 
 <para
->&elisa; indexa su música usando Baloo, si es posible, o buscando en una lista de rutas configurada por el usuario mediante una interfaz dedicada. </para>
-<para
->Si está activado el uso de Baloo y su configuración no es funcional, se mostrará una notificación para sugerirle que desactive el indexador o que active el indexador de Baloo y que proporcione pistas de música a &elisa;. </para>
+>&elisa; indexa su música buscando en una lista de rutas configurada por el usuario mediante una interfaz dedicada. </para>
 <para
 >Si el indexador de archivos no encuentra nada, se mostrará una notificación con un botón para abrir la interfaz de configuración. </para>
 

@@ -62,7 +62,7 @@ public:
         if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
           mCoverImage = QImage::fromData(imageData[KFileMetaData::EmbeddedImageData::FrontCover]);
         } else {
-          mCoverImage = QImage::fromData(imageData.values().first());
+          mCoverImage = QImage::fromData(imageData.first());
         }
 
         if (mCoverImage.isNull()) {

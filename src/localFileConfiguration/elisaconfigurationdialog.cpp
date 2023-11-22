@@ -180,7 +180,7 @@ void ElisaConfigurationDialog::setEmbeddedView(ElisaUtils::PlayListEntryType emb
     }
 
     mEmbeddedView = embeddedView;
-    QTimer::singleShot(0, [this](){ Q_EMIT embeddedViewChanged(); });
+    QTimer::singleShot(0, this, &ElisaConfigurationDialog::embeddedViewChanged);
 
     setDirty();
 }
@@ -192,7 +192,7 @@ void ElisaConfigurationDialog::setInitialViewIndex(int initialViewIndex)
     }
 
     mInitialViewIndex = initialViewIndex;
-    QTimer::singleShot(0, [this](){ Q_EMIT initialViewIndexChanged(); });
+    QTimer::singleShot(0, this, &ElisaConfigurationDialog::initialViewIndexChanged);
 
     setDirty();
 }

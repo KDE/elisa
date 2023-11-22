@@ -283,8 +283,6 @@ target_link_libraries(elisaqmlplugin
     elisaLib
     )
 
-target_sources(elisaqmlplugin PUBLIC res.qrc)
-
 if (KF6FileMetaData_FOUND)
     target_link_libraries(elisaqmlplugin
         LINK_PRIVATE

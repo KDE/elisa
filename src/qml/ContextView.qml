@@ -10,7 +10,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.15
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
-import ElisaGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa 1.0
 

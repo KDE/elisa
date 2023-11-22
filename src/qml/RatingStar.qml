@@ -7,7 +7,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.2
-import ElisaGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import org.kde.kirigami 2.5 as Kirigami
 
 QQC2.Control {

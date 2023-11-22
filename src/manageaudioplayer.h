@@ -16,11 +16,6 @@
 #include <QUrl>
 #include <QMediaPlayer>
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#define PlaybackState State
-#define playbackState state
-#endif
-
 class QDateTime;
 
 class ELISALIB_EXPORT ManageAudioPlayer : public QObject

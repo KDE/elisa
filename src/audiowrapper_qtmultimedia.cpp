@@ -24,12 +24,7 @@ public:
 
     QMediaPlayer mPlayer;
 
-#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
     QAudioOutput mOutput;
-#else
-#define mOutput mPlayer
-#define QAudioOutput QMediaPlayer
-#endif
 
     qint64 mSavedPosition = 0.0;
 
@@ -41,22 +36,13 @@ public:
 
 AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_unique<AudioWrapperPrivate>())
 {
-#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
     d->mPlayer.setAudioOutput(&d->mOutput);
-#endif
     connect(&d->mOutput, &QAudioOutput::mutedChanged, this, &AudioWrapper::playerMutedChanged);
     connect(&d->mOutput, &QAudioOutput::volumeChanged, this, &AudioWrapper::playerVolumeChanged);
-#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
     connect(&d->mPlayer, &QMediaPlayer::sourceChanged, this, &AudioWrapper::sourceChanged);
     connect(&d->mPlayer, &QMediaPlayer::playbackStateChanged, this, &AudioWrapper::playbackStateChanged);
     connect(&d->mPlayer, &QMediaPlayer::playbackStateChanged, this, &AudioWrapper::playerStateChanged);
     connect(&d->mPlayer, QOverload<QMediaPlayer::Error, const QString &>::of(&QMediaPlayer::errorOccurred), this, &AudioWrapper::errorChanged);
-#else
-    connect(&d->mPlayer, &QMediaPlayer::mediaChanged, this, &AudioWrapper::sourceChanged);
-    connect(&d->mPlayer, &QMediaPlayer::stateChanged, this, &AudioWrapper::playbackStateChanged);
-    connect(&d->mPlayer, &QMediaPlayer::stateChanged, this, &AudioWrapper::playerStateChanged);
-    connect(&d->mPlayer, QOverload<QMediaPlayer::Error>::of(&QMediaPlayer::error), this, &AudioWrapper::errorChanged);
-#endif
     connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::statusChanged);
     connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::mediaStatusChanged);
     connect(&d->mPlayer, &QMediaPlayer::durationChanged, this, &AudioWrapper::durationChanged);
@@ -84,15 +70,7 @@ qreal AudioWrapper::volume() const
 
 QUrl AudioWrapper::source() const
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
     return d->mPlayer.source();
-#else
-    return d->mPlayer.media().request().url();
-#endif
-#else
-    return d->mPlayer.media().canonicalUrl();
-#endif
 }
 
 QMediaPlayer::Error AudioWrapper::error() const
@@ -145,11 +123,7 @@ void AudioWrapper::setVolume(qreal volume)
 void AudioWrapper::setSource(const QUrl &source)
 {
     qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::setSource" << source;
-#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
     d->mPlayer.setSource({source});
-#else
-    d->mPlayer.setMedia({source});
-#endif
 }
 
 void AudioWrapper::setPosition(qint64 position)

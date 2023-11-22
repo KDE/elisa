@@ -12,7 +12,7 @@
 #include <QUrl>
 #include <QFile>
 
-#include <QtTest>
+#include <QTest>
 
 class FileWriterTest: public QObject
 {

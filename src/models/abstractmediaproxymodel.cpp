@@ -11,7 +11,7 @@
 
 #include <QWriteLocker>
 #include <QReadLocker>
-#include <QtConcurrent>
+#include <QtConcurrentRun>
 
 AbstractMediaProxyModel::AbstractMediaProxyModel(QObject *parent) : QSortFilterProxyModel(parent)
 {

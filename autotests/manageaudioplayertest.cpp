@@ -10,7 +10,8 @@
 
 #include "elisa_settings.h"
 
-#include <QtTest>
+#include <QSignalSpy>
+#include <QTest>
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QUrl>

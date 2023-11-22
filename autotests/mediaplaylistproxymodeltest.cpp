@@ -18,7 +18,8 @@
 
 #include "config-upnp-qt.h"
 
-#include <QtTest>
+#include <QSignalSpy>
+#include <QTest>
 #include <QUrl>
 #include <QTemporaryFile>
 #include <QAbstractItemModelTester>

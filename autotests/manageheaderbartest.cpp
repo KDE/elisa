@@ -15,7 +15,8 @@
 
 #include <QStringListModel>
 
-#include <QtTest>
+#include <QSignalSpy>
+#include <QTest>
 
 ManageHeaderBarTest::ManageHeaderBarTest(QObject *parent) : QObject(parent)
 {

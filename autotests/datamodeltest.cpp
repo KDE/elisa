@@ -11,6 +11,7 @@
 #include "models/datamodel.h"
 
 #include <QObject>
+#include <QTemporaryFile>
 #include <QUrl>
 #include <QString>
 #include <QHash>
@@ -21,7 +22,8 @@
 
 #include <QDebug>
 
-#include <QtTest>
+#include <QSignalSpy>
+#include <QTest>
 
 class DataModelTests: public QObject, public DatabaseTestData
 {

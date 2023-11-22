@@ -21,8 +21,8 @@
 #include <QThread>
 #include <QStandardPaths>
 
-
-#include <QtTest>
+#include <QSignalSpy>
+#include <QTest>
 
 class TracksListenerTests: public QObject, public DatabaseTestData
 {

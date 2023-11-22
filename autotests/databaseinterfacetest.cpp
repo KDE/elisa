@@ -27,7 +27,8 @@
 
 #include <QDebug>
 
-#include <QtTest>
+#include <QTest>
+#include <QSignalSpy>
 
 #include <algorithm>
 

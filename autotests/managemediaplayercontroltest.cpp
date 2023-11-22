@@ -17,7 +17,8 @@
 
 #include <QStringListModel>
 
-#include <QtTest>
+#include <QSignalSpy>
+#include <QTest>
 
 ManageMediaPlayerControlTest::ManageMediaPlayerControlTest(QObject *parent) : QObject(parent)
 {

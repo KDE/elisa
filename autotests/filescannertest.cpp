@@ -12,7 +12,7 @@
 #include <QUrl>
 
 
-#include <QtTest>
+#include <QTest>
 
 class FileScannerTest: public QObject
 {

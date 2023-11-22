@@ -13,7 +13,8 @@
 
 #include "config-upnp-qt.h"
 
-#include <QtTest>
+#include <QSignalSpy>
+#include <QTest>
 #include <QUrl>
 #include <QTime>
 #include <QTemporaryFile>

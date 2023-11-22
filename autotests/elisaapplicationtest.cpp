@@ -13,7 +13,7 @@
 #include <QString>
 
 
-#include <QtTest>
+#include <QTest>
 
 class ElisaApplicationTests: public QObject
 {

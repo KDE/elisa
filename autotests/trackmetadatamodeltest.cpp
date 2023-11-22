@@ -10,8 +10,10 @@
 
 #include <QAbstractItemModelTester>
 #include <QDebug>
+#include <QTemporaryFile>
 
-#include <QtTest>
+#include <QSignalSpy>
+#include <QTest>
 
 class TrackMetadataModelTests: public QObject, public DatabaseTestData
 {

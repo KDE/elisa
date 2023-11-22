@@ -20,8 +20,8 @@
 #include <QUrl>
 #include <QVector>
 
-
-#include <QtTest>
+#include <QSignalSpy>
+#include <QTest>
 
 class ViewsModelTests : public QObject, public DatabaseTestData
 {

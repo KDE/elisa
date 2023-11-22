@@ -22,8 +22,7 @@
 #include <QDir>
 #include <QFile>
 
-
-#include <QtTest>
+#include <QSignalSpy>
 #include <QTest>
 
 #include <algorithm>

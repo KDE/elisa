@@ -10,7 +10,7 @@
 
 #include <KLocalizedString>
 
-#include <QtConcurrent>
+#include <QtConcurrentRun>
 
 #include <algorithm>
 

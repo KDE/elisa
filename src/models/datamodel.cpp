@@ -754,14 +754,14 @@ void DataModel::trackRemoved(qulonglong removedTrackId)
         d->mAllTrackData.removeAt(trackIndex);
         endRemoveRows();
     } else {
-        auto itTrack = std::find_if(d->mAllTrackData.begin(), d->mAllTrackData.end(),
-                                    [removedTrackId](auto track) {return track.databaseId() == removedTrackId;});
+        const auto itTrack = std::find_if(d->mAllTrackData.cbegin(), d->mAllTrackData.cend(),
+                                         [removedTrackId](auto track) {return track.databaseId() == removedTrackId;});
 
-        if (itTrack == d->mAllTrackData.end()) {
+        if (itTrack == d->mAllTrackData.cend()) {
             return;
         }
 
-        auto position = itTrack - d->mAllTrackData.begin();
+        auto position = itTrack - d->mAllTrackData.cbegin();
 
         beginRemoveRows({}, position, position);
         d->mAllTrackData.erase(itTrack);
@@ -776,14 +776,14 @@ void DataModel::radioRemoved(qulonglong removedRadioId)
     }
 
 
-    auto itRadio = std::find_if(d->mAllRadiosData.begin(), d->mAllRadiosData.end(),
-                                [removedRadioId](auto track) {return track.databaseId() == removedRadioId;});
+    const auto itRadio = std::find_if(d->mAllRadiosData.cbegin(), d->mAllRadiosData.cend(),
+                                      [removedRadioId](auto track) {return track.databaseId() == removedRadioId;});
 
-    if (itRadio == d->mAllRadiosData.end()) {
+    if (itRadio == d->mAllRadiosData.cend()) {
         return;
     }
 
-    auto position = itRadio - d->mAllRadiosData.begin();
+    auto position = itRadio - d->mAllRadiosData.cbegin();
 
     beginRemoveRows({}, position, position);
     d->mAllRadiosData.erase(itRadio);
@@ -864,16 +864,14 @@ void DataModel::artistRemoved(qulonglong removedDatabaseId)
         return;
     }
 
-    auto removedDataIterator = d->mAllArtistData.end();
+    const auto removedDataIterator = std::find_if(d->mAllArtistData.cbegin(), d->mAllArtistData.cend(),
+                                                  [removedDatabaseId](auto album) {return album.databaseId() == removedDatabaseId;});
 
-    removedDataIterator = std::find_if(d->mAllArtistData.begin(), d->mAllArtistData.end(),
-                                       [removedDatabaseId](auto album) {return album.databaseId() == removedDatabaseId;});
-
-    if (removedDataIterator == d->mAllArtistData.end()) {
+    if (removedDataIterator == d->mAllArtistData.cend()) {
         return;
     }
 
-    int dataIndex = removedDataIterator - d->mAllArtistData.begin();
+    int dataIndex = removedDataIterator - d->mAllArtistData.cbegin();
 
     beginRemoveRows({}, dataIndex, dataIndex);
 
@@ -911,16 +909,16 @@ void DataModel::albumRemoved(qulonglong removedDatabaseId)
         return;
     }
 
-    auto removedDataIterator = d->mAllAlbumData.end();
+    auto removedDataIterator = d->mAllAlbumData.cend();
 
-    removedDataIterator = std::find_if(d->mAllAlbumData.begin(), d->mAllAlbumData.end(),
+    removedDataIterator = std::find_if(d->mAllAlbumData.cbegin(), d->mAllAlbumData.cend(),
                                        [removedDatabaseId](auto album) {return album.databaseId() == removedDatabaseId;});
 
-    if (removedDataIterator == d->mAllAlbumData.end()) {
+    if (removedDataIterator == d->mAllAlbumData.cend()) {
         return;
     }
 
-    int dataIndex = removedDataIterator - d->mAllAlbumData.begin();
+    int dataIndex = removedDataIterator - d->mAllAlbumData.cbegin();
 
     beginRemoveRows({}, dataIndex, dataIndex);
 

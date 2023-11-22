@@ -326,8 +326,8 @@ void TrackMetadataModel::filterDataFromTrackData()
 
 void TrackMetadataModel::removeMetaData(DataTypes::ColumnsRoles metaData)
 {
-    auto itMetaData = std::find(mTrackKeys.begin(), mTrackKeys.end(), metaData);
-    if (itMetaData == mTrackKeys.end()) {
+    auto itMetaData = std::find(mTrackKeys.cbegin(), mTrackKeys.cend(), metaData);
+    if (itMetaData == mTrackKeys.cend()) {
         return;
     }
 

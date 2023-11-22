@@ -214,8 +214,8 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
             continue;
         }
 
-        auto itExistingFile = allFiles().find(newFilePath);
-        if (itExistingFile != allFiles().end()) {
+        auto itExistingFile = allFiles().constFind(newFilePath);
+        if (itExistingFile != allFiles().cend()) {
             if (*itExistingFile >= oneEntry.metadataChangeTime()) {
                 allFiles().erase(itExistingFile);
                 qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectory" << newFilePath << "file not modified since last scan";
@@ -307,8 +307,8 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
     }
 
     if (scanFileInfo.exists()) {
-        auto itExistingFile = d->mAllFiles.find(scanFile);
-        if (itExistingFile != d->mAllFiles.end()) {
+        auto itExistingFile = d->mAllFiles.constFind(scanFile);
+        if (itExistingFile != d->mAllFiles.cend()) {
             if (*itExistingFile >= scanFileInfo.metadataChangeTime()) {
                 d->mAllFiles.erase(itExistingFile);
                 qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::scanOneFile" << "not changed file";
@@ -408,9 +408,9 @@ void AbstractFileListing::addCover(const DataTypes::TrackDataType &newTrack)
 
 void AbstractFileListing::removeDirectory(const QUrl &removedDirectory, QList<QUrl> &allRemovedFiles)
 {
-    const auto itRemovedDirectory = d->mDiscoveredFiles.find(removedDirectory);
+    const auto itRemovedDirectory = d->mDiscoveredFiles.constFind(removedDirectory);
 
-    if (itRemovedDirectory == d->mDiscoveredFiles.end()) {
+    if (itRemovedDirectory == d->mDiscoveredFiles.cend()) {
         return;
     }
 

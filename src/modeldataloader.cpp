@@ -470,13 +470,7 @@ void ModelDataLoader::trackHasBeenModified(ModelDataLoader::ListTrackDataType tr
 
             oneTrack[DataTypes::FileModificationTime] = trackFile.fileTime(QFileDevice::FileModificationTime);
 
-            for (auto itData = oneTrack.begin(); itData != oneTrack.end();) {
-                if (itData->isNull()) {
-                    itData = oneTrack.erase(itData);
-                } else {
-                    ++itData;
-                }
-            }
+            erase_if(oneTrack, [](const auto &trackDataItr) {return trackDataItr->isNull();});
         }
     }
 

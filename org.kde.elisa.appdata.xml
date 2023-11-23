@@ -156,6 +156,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="x-test">xxWith Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.xx</p>
     <p xml:lang="zh-CN">您可以通过 Elisa 按照流派、艺人、专辑、曲目等条件浏览您的本地音乐。它还支持收听网络电台、创建并管理播放列表、显示歌词等功能。</p>
     <p>Elisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.</p>
+    <p xml:lang="bg">Elisa поддържа пълната цветова схема на KDE, когато се използва на работния плот Plasma или стандартните светли и тъмни режими.</p>
     <p xml:lang="ca">L'Elisa admet l'esquema de color KDE complet quan s'utilitza a l'escriptori Plasma, o els modes clars i foscos estàndard.</p>
     <p xml:lang="ca-valencia">Elisa admet l'esquema de color KDE complet quan s'utilitza en l'escriptori Plasma, o els modes clars i foscos estàndard.</p>
     <p xml:lang="eo">Elisa subtenas vian plenan KDE-kolorskemon kiam ĝi estas uzata sur la Plasma labortablo, aŭ alie la normajn helajn kaj malhelajn reĝimojn</p>

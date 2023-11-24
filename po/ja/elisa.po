@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-18 01:35+0000\n"
+"POT-Creation-Date: 2023-11-24 01:34+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -528,8 +528,8 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:237
-#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
+#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
+#: qml/mobile/MobileTrackPlayer.qml:357 qml/NavigationActionBar.qml:141
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -574,14 +574,14 @@ msgctxt "@title:window"
 msgid "Configure"
 msgstr "設定"
 
-#: qml/ElisaConfigurationDialog.qml:45 qml/MediaTrackMetadataView.qml:192
+#: qml/ElisaConfigurationDialog.qml:45 qml/MediaTrackMetadataView.qml:191
 #, fuzzy, kde-format
 #| msgid "OK"
 msgctxt "@action:button"
 msgid "OK"
 msgstr "OK"
 
-#: qml/ElisaConfigurationDialog.qml:53 qml/MediaTrackMetadataView.qml:178
+#: qml/ElisaConfigurationDialog.qml:53 qml/MediaTrackMetadataView.qml:177
 #, fuzzy, kde-format
 #| msgid "Apply"
 msgctxt "@action:button"
@@ -699,7 +699,7 @@ msgid "Add to playlist"
 msgstr "プレイリストに追加"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:89
+#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:88
 #, fuzzy, kde-format
 #| msgctxt "Show the file for this song in the file manager"
 #| msgid "Show in folder"
@@ -723,8 +723,8 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "フルスクリーンにする"
 
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
-#: qml/PlayListEntry.qml:96
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
+#: qml/PlayListEntry.qml:95
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
 #| msgid "View details"
@@ -740,7 +740,7 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "現在のプレイリストを置き換えて再生"
 
-#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:110
+#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:109
 #, fuzzy, kde-format
 #| msgctxt "Show track rating"
 #| msgid "Set track rating"
@@ -749,7 +749,7 @@ msgid "Set track rating"
 msgstr "トラックに評価を付ける"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:120
+#: qml/PlayListEntry.qml:119
 #, fuzzy, kde-format
 #| msgid "Un-mark this song as a favorite"
 msgctxt "@action:button"
@@ -757,7 +757,7 @@ msgid "Un-mark this song as a favorite"
 msgstr "この曲をお気に入りから外す"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:120
+#: qml/PlayListEntry.qml:119
 #, fuzzy, kde-format
 #| msgid "Mark this song as a favorite"
 msgctxt "@action:button"
@@ -788,7 +788,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:298
+#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:297
 #, fuzzy, kde-format
 #| msgctxt "Cancel rating this track"
 #| msgid "Cancel rating this track"
@@ -804,16 +804,16 @@ msgctxt "@action:button"
 msgid "Song Options"
 msgstr "曲のオプション"
 
-#: qml/MediaPlayerControl.qml:88
+#: qml/MediaPlayerControl.qml:87
 #, fuzzy, kde-format
 #| msgid "Toggle Party Mode"
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "パーティーモードを切り替え"
 
-#: qml/MediaPlayerControl.qml:96
+#: qml/MediaPlayerControl.qml:95
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
-#: qml/mobile/MobileTrackPlayer.qml:312
+#: qml/mobile/MobileTrackPlayer.qml:311
 #, fuzzy, kde-format
 #| msgctxt "skip backward in playlists"
 #| msgid "Skip Backward"
@@ -821,25 +821,25 @@ msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "前へ"
 
-#: qml/MediaPlayerControl.qml:104
+#: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:327
+#: qml/mobile/MobileTrackPlayer.qml:326
 #, fuzzy, kde-format
 #| msgid "Pause"
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "一時停止"
 
-#: qml/MediaPlayerControl.qml:104
+#: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:327
+#: qml/mobile/MobileTrackPlayer.qml:326
 #, fuzzy, kde-format
 #| msgid "Play"
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "再生"
 
-#: qml/MediaPlayerControl.qml:112
+#: qml/MediaPlayerControl.qml:111
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"
 #| msgid "Skip Forward"
@@ -847,7 +847,7 @@ msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "次へ"
 
-#: qml/MediaPlayerControl.qml:131
+#: qml/MediaPlayerControl.qml:130
 #, fuzzy, kde-format
 #| msgctxt "toggle mute mode for player"
 #| msgid "Toggle Mute"
@@ -855,7 +855,7 @@ msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "ミュートを切り替え"
 
-#: qml/MediaPlayerControl.qml:150 qml/mobile/MobileTrackPlayer.qml:209
+#: qml/MediaPlayerControl.qml:149 qml/mobile/MobileTrackPlayer.qml:208
 #, fuzzy, kde-format
 #| msgctxt "toggle shuffle mode for playlist"
 #| msgid "Toggle Shuffle"
@@ -863,49 +863,49 @@ msgctxt "@action:button"
 msgid "Toggle Shuffle"
 msgstr "シャッフルを切り替え"
 
-#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:224
+#: qml/MediaPlayerControl.qml:160 qml/mobile/MobileTrackPlayer.qml:223
 #, fuzzy, kde-format
 #| msgid "Current: Don't repeat tracks"
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "現在: トラックをリピートしない"
 
-#: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:225
+#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:224
 #, fuzzy, kde-format
 #| msgid "Current: Repeat current track"
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "現在: 再生中のトラックをリピート"
 
-#: qml/MediaPlayerControl.qml:163 qml/mobile/MobileTrackPlayer.qml:226
+#: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:225
 #, fuzzy, kde-format
 #| msgid "Current: Repeat all tracks in playlist"
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "現在: プレイリスト内の全トラックをリピート"
 
-#: qml/MediaPlayerControl.qml:190 qml/mobile/MobileTrackPlayer.qml:255
+#: qml/MediaPlayerControl.qml:189 qml/mobile/MobileTrackPlayer.qml:254
 #, fuzzy, kde-format
 #| msgid "Playlist"
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "プレイリスト"
 
-#: qml/MediaPlayerControl.qml:194 qml/mobile/MobileTrackPlayer.qml:259
+#: qml/MediaPlayerControl.qml:193 qml/mobile/MobileTrackPlayer.qml:258
 #, fuzzy, kde-format
 #| msgid "One"
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "One"
 
-#: qml/MediaPlayerControl.qml:198 qml/mobile/MobileTrackPlayer.qml:263
+#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:262
 #, fuzzy, kde-format
 #| msgid "None"
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "なし"
 
-#: qml/MediaPlayerControl.qml:254
+#: qml/MediaPlayerControl.qml:253
 #, fuzzy, kde-format
 #| msgctxt "open application menu"
 #| msgid "Application Menu"
@@ -1026,7 +1026,7 @@ msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "すべてクリア"
 
-#: qml/MediaTrackMetadataForm.qml:37
+#: qml/MediaTrackMetadataForm.qml:36
 #, fuzzy, kde-format
 #| msgctxt "Form validation error message for track data"
 #| msgid "Data is not valid. %1"
@@ -1034,29 +1034,29 @@ msgctxt "@label"
 msgid "Data is not valid. %1"
 msgstr "有効なデータではありません。%1"
 
-#: qml/MediaTrackMetadataForm.qml:93
+#: qml/MediaTrackMetadataForm.qml:92
 #, fuzzy, kde-format
 #| msgid "Add new tag:"
 msgctxt "@label:listbox"
 msgid "Add new tag:"
 msgstr "新しいタグを追加:"
 
-#: qml/MediaTrackMetadataForm.qml:112 qml/MediaTrackMetadataView.qml:168
+#: qml/MediaTrackMetadataForm.qml:111 qml/MediaTrackMetadataView.qml:167
 #, fuzzy, kde-format
 #| msgid "Modify"
 msgctxt "@action:button"
 msgid "Modify"
 msgstr "編集"
 
-#: qml/MediaTrackMetadataForm.qml:129 qml/MediaTrackMetadataView.qml:147
+#: qml/MediaTrackMetadataForm.qml:128 qml/MediaTrackMetadataView.qml:146
 #, fuzzy, kde-format
 #| msgid "Delete"
 msgctxt "@action:button"
 msgid "Delete"
 msgstr "削除"
 
-#: qml/MediaTrackMetadataView.qml:35
-#: qml/mobile/MobileMediaTrackMetadataView.qml:39
+#: qml/MediaTrackMetadataView.qml:34
+#: qml/mobile/MobileMediaTrackMetadataView.qml:38
 #, fuzzy, kde-format
 #| msgctxt "Window title for track metadata"
 #| msgid "Create a Radio"
@@ -1064,8 +1064,8 @@ msgctxt "@title:window"
 msgid "Create a Radio"
 msgstr "ラジオを作成"
 
-#: qml/MediaTrackMetadataView.qml:36
-#: qml/mobile/MobileMediaTrackMetadataView.qml:40
+#: qml/MediaTrackMetadataView.qml:35
+#: qml/mobile/MobileMediaTrackMetadataView.qml:39
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
 #| msgid "View details"
@@ -1073,14 +1073,14 @@ msgctxt "@title:window"
 msgid "View details"
 msgstr "詳細を表示"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:45
+#: qml/mobile/MobileMediaTrackMetadataView.qml:44
 #, fuzzy, kde-format
 #| msgid "Close"
 msgctxt "@action:button"
 msgid "Close"
 msgstr "閉じる"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:53
+#: qml/mobile/MobileMediaTrackMetadataView.qml:52
 #: qml/mobile/MobileSettingsPage.qml:36
 #, fuzzy, kde-format
 #| msgid "Save"
@@ -1089,7 +1089,7 @@ msgid "Save"
 msgstr "保存"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
-#: qml/mobile/MobileTrackPlayer.qml:342
+#: qml/mobile/MobileTrackPlayer.qml:341
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"
 #| msgid "Skip Forward"
@@ -1097,7 +1097,7 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "次へ"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146
+#: qml/mobile/MobilePlayListDelegate.qml:145
 #, fuzzy, kde-format
 #| msgctxt "Track options"
 #| msgid "Track Options"
@@ -1105,7 +1105,7 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "トラックオプション"
 
-#: qml/mobile/MobilePlayListDelegate.qml:186
+#: qml/mobile/MobilePlayListDelegate.qml:185
 #, fuzzy, kde-format
 #| msgctxt "Remove current track from play list"
 #| msgid "Remove from queue"
@@ -1120,7 +1120,7 @@ msgctxt "@title:window"
 msgid "Settings"
 msgstr "設定"
 
-#: qml/mobile/MobileTrackPlayer.qml:49
+#: qml/mobile/MobileTrackPlayer.qml:48
 #, fuzzy, kde-format
 #| msgctxt "minimize player"
 #| msgid "Minimize Player"
@@ -1128,7 +1128,7 @@ msgctxt "@action:button"
 msgid "Minimize Player"
 msgstr "プレーヤーを最小化"
 
-#: qml/mobile/MobileTrackPlayer.qml:197
+#: qml/mobile/MobileTrackPlayer.qml:196
 #, fuzzy, kde-format
 #| msgctxt "show track information"
 #| msgid "Show Info"
@@ -1383,21 +1383,21 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr ""
 
-#: qml/PlayListEntry.qml:133
+#: qml/PlayListEntry.qml:132
 #, fuzzy, kde-format
 #| msgid "Pause"
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "一時停止"
 
-#: qml/PlayListEntry.qml:133
+#: qml/PlayListEntry.qml:132
 #, fuzzy, kde-format
 #| msgid "Play"
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "再生"
 
-#: qml/PlayListEntry.qml:148
+#: qml/PlayListEntry.qml:147
 #, fuzzy, kde-format
 #| msgctxt "Remove current track from play list"
 #| msgid "Remove"

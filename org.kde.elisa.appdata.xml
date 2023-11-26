@@ -161,6 +161,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ca-valencia">Elisa admet l'esquema de color KDE complet quan s'utilitza en l'escriptori Plasma, o els modes clars i foscos estàndard.</p>
     <p xml:lang="eo">Elisa subtenas vian plenan KDE-kolorskemon kiam ĝi estas uzata sur la Plasma labortablo, aŭ alie la normajn helajn kaj malhelajn reĝimojn</p>
     <p xml:lang="es">Elisa reconoce el esquema de color completo de KDE cuando se usa en el escritorio Plasma, o si no los modos estándar claro y oscuro.</p>
+    <p xml:lang="eu">«Elisa»k, Plasma mahaigainean erabiltzean, KDEren kolore-antolaera osoa  onartzen du, bestelakoan modu argi eta ilun estandarrak.</p>
     <p xml:lang="fr">Elisa prend en charge la totalité du thème de couleurs de KDE, lors de son utilisation avec le bureau Plasma, ou sinon les modes classiques clair et sombre.</p>
     <p xml:lang="ia">Elisa supporta tu schema de color  complete de KDE quando usate sur le scriptorio Plasma, o alteremente le modos standard ligier e obscur.</p>
     <p xml:lang="it">Elisa supporta lo schema di colori completo di KDE quando usato nel desktop Plasma, e altrimenti le modalità chiara e scura standard.</p>
@@ -170,6 +171,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="tr">Elisa, Plasma masaüstünde kullanıldığında tam KDE renk şemanızı veya standart açık ve koyu kipleri destekler.</p>
     <p xml:lang="uk">В Elisa передбачено підтримку усієї вашої схеми кольорів KDE, якщо програму запущено у стільниці Плазми. Інакше буде використано стандартні світлий або темний режими.</p>
     <p xml:lang="x-test">xxElisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.xx</p>
+    <p xml:lang="zh-CN">Elisa 在 Plasma 桌面环境下支持完整的 KDE 配色方案，在其他环境下也能支持标准的浅色和深色模式。</p>
     <p>Chill out with Party Mode, which puts your music's album art front and center.</p>
     <p xml:lang="bg">Отпуснете се с режима Парти, който поставя обложката на албума ви на преден план и в центъра.</p>
     <p xml:lang="ca">Gaudiu amb el mode festa, que posa l'art dels àlbums de la música al davant de tot.</p>

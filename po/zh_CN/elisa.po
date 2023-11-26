@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-30 00:47+0000\n"
-"PO-Revision-Date: 2023-11-19 03:43\n"
+"PO-Revision-Date: 2023-11-25 02:32\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -25,8 +25,7 @@ msgstr "KDE 中国, EasternLi, Guo Yunhe, Tyson Tan"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
-"kde-china@kde.org, EasternLi@kde.org, i@guoyunhe.me, tysontan@tysontan.com"
+msgstr "kde-china@kde.org, EasternLi@kde.org, i@guoyunhe.me, tds00@qq.com"
 
 #: databaseinterface.cpp:7252 databaseinterface.cpp:8298
 #: databaseinterface.cpp:8382
@@ -1154,13 +1153,13 @@ msgstr "返回"
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
-msgstr "搜索和筛选"
+msgstr "搜索和过滤"
 
 #: qml/NavigationActionBar.qml:263
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
-msgstr "隐藏搜索和筛选"
+msgstr "隐藏搜索和过滤"
 
 #: qml/NavigationActionBar.qml:364
 #, kde-format
@@ -1172,7 +1171,7 @@ msgstr "搜索专辑名称、艺术家等。"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
-msgstr "按评分筛选: "
+msgstr "按评分过滤："
 
 #: qml/NavigationActionBar.qml:388
 #, kde-format

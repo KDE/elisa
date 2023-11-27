@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-24 01:34+0000\n"
-"PO-Revision-Date: 2023-10-25 12:54+0300\n"
+"PO-Revision-Date: 2023-11-26 20:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -267,7 +267,7 @@ msgstr "Besteci"
 #, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
-msgstr "Yorum"
+msgstr "Açıklama"
 
 #: models/trackmetadatamodel.cpp:467 models/trackmetadatamodel.cpp:528
 #, kde-format
@@ -327,13 +327,13 @@ msgstr "Çalma sayısı"
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
-msgstr "Akış HTTP Adresi"
+msgstr "Akış HTTP adresi"
 
 #: models/trackmetadatamodel.cpp:555
 #, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
-msgstr "Görsel Adresi"
+msgstr "Görsel adresi"
 
 #: models/viewsmodel.cpp:105 viewslistdata.cpp:55
 #, kde-format

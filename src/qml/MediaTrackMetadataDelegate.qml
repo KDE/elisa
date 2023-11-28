@@ -160,11 +160,11 @@ RowLayout {
 
                 focus: index === 0
 
-                horizontalAlignment: Text.AlignLeft
+                horizontalAlignment: TextEdit.AlignLeft
 
                 selectByMouse: true
 
-                wrapMode: Text.WordWrap
+                wrapMode: TextEdit.Wrap
 
                 onEditingFinished: {
                     if (display !== text) {

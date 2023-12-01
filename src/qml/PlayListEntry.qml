@@ -157,11 +157,14 @@ BasePlayListDelegate {
 
             width: parent.width
             // We want the list items to be a bit taller in touch mode
-            height: Math.max((playListEntry.grouped && !Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.gridUnit : Kirigami.Units.gridUnit * 2), elisaTheme.toolButtonHeight)
+            height: Math.max(
+                (playListEntry.grouped && !Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.gridUnit : Kirigami.Units.gridUnit * 2),
+                (elisaTheme.toolButtonHeight + Kirigami.Units.smallSpacing))
 
             spacing: Kirigami.Units.smallSpacing
 
             Loader {
+                Layout.leftMargin: trackRow.spacing
                 active: !simpleMode && playListEntry.showDragHandle
                 sourceComponent: Kirigami.ListItemDragHandle {
                     listItem: playListEntry

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-24 01:34+0000\n"
+"POT-Creation-Date: 2023-12-02 01:36+0000\n"
 "PO-Revision-Date: 2023-11-06 01:05+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -651,7 +651,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr ""
 
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:297
+#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:300
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"

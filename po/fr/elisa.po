@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-24 01:34+0000\n"
+"POT-Creation-Date: 2023-12-02 01:36+0000\n"
 "PO-Revision-Date: 2023-10-27 09:37+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -662,7 +662,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:297
+#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:300
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"

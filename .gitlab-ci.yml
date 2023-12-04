@@ -13,3 +13,4 @@ include:
       - /gitlab-templates/windows.yml
       - /gitlab-templates/windows-qt6.yml
       - /gitlab-templates/craft-android-apks.yml
+      - /gitlab-templates/craft-windows-x86-64.yml

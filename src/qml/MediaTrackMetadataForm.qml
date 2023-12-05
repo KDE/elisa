@@ -26,7 +26,7 @@ Kirigami.FormLayout {
     property bool canAddMoreMetadata
     property bool showModifyDeleteButtons
     property alias imageItem: imageParent
-    property alias showImage: metadataImage.visible
+    property alias showImage: imageParent.visible
 
     signal close()
 

@@ -67,8 +67,6 @@ Window {
             id: metadataForm
 
             metadataModel: realModel
-            showModifyDeleteButtons: false
-
             imageItem.anchors.horizontalCenter: horizontalCenter
 
             onClose: trackMetadata.close()

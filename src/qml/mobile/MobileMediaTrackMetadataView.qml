@@ -41,25 +41,31 @@ Kirigami.ScrollablePage {
 
     actions: [
         Kirigami.Action {
-            icon.name: "dialog-cancel"
-                text: i18nc("@action:button", "Close")
-            onTriggered: {
-                trackMetadata.rejected();
-                mainWindow.pageStack.layers.pop();
-            }
+            icon.name: 'document-edit'
+            text: i18nc("@action:button", "Modify")
+            onTriggered: metadataForm.isModifying = true
+            visible: !metadataForm.isModifying && !metadataForm.isCreating
         },
         Kirigami.Action {
             icon.name: "dialog-ok-apply"
             text: i18nc("@action:button", "Save")
-            onTriggered: {
-                realModel.saveData()
-                if (isCreating) {
-                    isCreating = false
-                    isModifying = true
-                }
-                mainWindow.pageStack.layers.pop();
-            }
-        }]
+            onTriggered: metadataForm.isCreating ? metadataForm.applyAndClose() : metadataForm.apply()
+            visible: metadataForm.isModifying || metadataForm.isCreating
+        },
+        Kirigami.Action {
+            icon.name: 'dialog-cancel'
+            text: i18nc("@action:button", "Cancel")
+            onTriggered: metadataForm.isCreating ? metadataForm.cancelAndClose() : metadataForm.cancel()
+            visible: metadataForm.isModifying || metadataForm.isCreating
+        },
+        Kirigami.Action {
+            icon.name: 'delete'
+            text: i18nc("@action:button", "Delete")
+            onTriggered: metadataForm.deleteItem()
+            visible: showDeleteButton && !isCreating
+        }
+    ]
+
     Component.onCompleted: {
         if (ElisaApplication.musicManager) {
             if (isCreating) {
@@ -121,7 +127,6 @@ Kirigami.ScrollablePage {
             Layout.fillWidth: true
 
             metadataModel: realModel
-            showModifyDeleteButtons: true
             onClose: mainWindow.pageStack.layers.pop()
         }
     }

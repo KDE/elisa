@@ -24,7 +24,6 @@ Kirigami.FormLayout {
     property bool isCreating
     property bool isModifying
     property bool canAddMoreMetadata
-    property bool showModifyDeleteButtons
     property alias imageItem: imageParent
     property alias showImage: imageParent.visible
 
@@ -129,40 +128,5 @@ Kirigami.FormLayout {
         enabled: metadataModel.extraMetadata.length
 
         onActivated: metadataModel.addData(selectedField.currentValue)
-    }
-
-    RowLayout {
-        spacing: Kirigami.Units.smallSpacing
-        visible: showModifyDeleteButtons
-
-        Button {
-            id: modifyButton
-
-            text: i18nc("@action:button", "Modify")
-            icon.name: 'document-edit'
-            DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
-            onCheckedChanged: isModifying = checked
-            checkable: true
-        }
-
-        DialogButtonBox {
-            id: deleteButtonBox
-
-            Layout.minimumHeight: implicitHeight
-            alignment: Qt.AlignLeft
-
-            visible: showDeleteButton && !isCreating
-
-            Button {
-                id: deleteButton
-                text: i18nc("@action:button", "Delete")
-                icon.name: 'delete'
-                DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
-                onClicked: {
-                    ElisaApplication.musicManager.deleteElementById(modelType, metadataModel.databaseId)
-                    form.close()
-                }
-            }
-        }
     }
 }

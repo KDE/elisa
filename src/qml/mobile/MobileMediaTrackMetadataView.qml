@@ -125,7 +125,7 @@ Kirigami.ScrollablePage {
             canAddMoreMetadata: trackMetadata.canAddMoreMetadata
             showImage: trackMetadata.showImage
             showModifyDeleteButtons: true
-            onClose: trackMetadata.close()
+            onClose: mainWindow.pageStack.layers.pop()
         }
     }
 }

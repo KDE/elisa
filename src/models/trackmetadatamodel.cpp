@@ -36,14 +36,14 @@ int TrackMetadataModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    return mTrackKeys.count();
+    return mDisplayKeys.count();
 }
 
 QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant{};
 
-    const auto currentKey = mTrackKeys[index.row()];
+    const auto currentKey = mDisplayKeys[index.row()];
 
     switch (role)
     {
@@ -52,7 +52,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         {
         case DataTypes::TrackNumberRole:
         {
-            auto trackNumber = mTrackData.trackNumber();
+            auto trackNumber = mDisplayData.trackNumber();
             if (trackNumber > 0) {
                 result = trackNumber;
             }
@@ -60,7 +60,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         }
         case DataTypes::DiscNumberRole:
         {
-            auto discNumber = mTrackData.discNumber();
+            auto discNumber = mDisplayData.discNumber();
             if (discNumber > 0) {
                 result = discNumber;
             }
@@ -68,7 +68,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         }
         case DataTypes::ChannelsRole:
         {
-            auto channels = mTrackData.channels();
+            auto channels = mDisplayData.channels();
             if (channels > 0) {
                 result = channels;
             }
@@ -76,7 +76,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         }
         case DataTypes::BitRateRole:
         {
-            auto bitRate = mTrackData.bitRate();
+            auto bitRate = mDisplayData.bitRate();
             if (bitRate > 0) {
                 result = KFormat().formatValue(bitRate, QStringLiteral("bit/s"), 0,
                                                KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
@@ -85,7 +85,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         }
         case DataTypes::SampleRateRole:
         {
-            auto sampleRate = mTrackData.sampleRate();
+            auto sampleRate = mDisplayData.sampleRate();
             if (sampleRate > 0) {
                 result = KFormat().formatValue(sampleRate, KFormat::Unit::Hertz, 1,
                                                KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
@@ -94,7 +94,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         }
         case DataTypes::DurationRole:
         {
-            auto trackDuration = mTrackData.duration();
+            auto trackDuration = mDisplayData.duration();
             if (trackDuration.hour() == 0) {
                 result = trackDuration.toString(QStringLiteral("mm:ss"));
             } else {
@@ -103,7 +103,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             break;
         }
         default:
-            result = mTrackData[currentKey];
+            result = mDisplayData[currentKey];
             break;
         }
         break;
@@ -211,9 +211,9 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
 bool TrackMetadataModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (data(index, role) != value) {
-        auto dataType = mTrackKeys[index.row()];
+        auto dataType = mDisplayKeys[index.row()];
 
-        mTrackData[dataType] = value;
+        mDisplayData[dataType] = value;
         mFullData[dataType] = value;
 
         Q_EMIT dataChanged(index, index, QVector<int>() << role);
@@ -290,13 +290,13 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
 {
     beginResetModel();
     mFullData = trackData;
-    mTrackData.clear();
-    mTrackKeys.clear();
+    mDisplayData.clear();
+    mDisplayKeys.clear();
 
     for (DataTypes::ColumnsRoles role : fieldsForTrack) {
         if (trackData.constFind(role) != trackData.constEnd()) {
-            mTrackKeys.push_back(role);
-            mTrackData[role] = trackData[role];
+            mDisplayKeys.push_back(role);
+            mDisplayData[role] = trackData[role];
         }
     }
     filterDataFromTrackData();
@@ -326,13 +326,13 @@ void TrackMetadataModel::filterDataFromTrackData()
 
 void TrackMetadataModel::removeMetaData(DataTypes::ColumnsRoles metaData)
 {
-    auto itMetaData = std::find(mTrackKeys.cbegin(), mTrackKeys.cend(), metaData);
-    if (itMetaData == mTrackKeys.cend()) {
+    auto itMetaData = std::find(mDisplayKeys.cbegin(), mDisplayKeys.cend(), metaData);
+    if (itMetaData == mDisplayKeys.cend()) {
         return;
     }
 
-    mTrackKeys.erase(itMetaData);
-    mTrackData.remove(metaData);
+    mDisplayKeys.erase(itMetaData);
+    mDisplayData.remove(metaData);
 }
 
 TrackMetadataModel::TrackDataType::mapped_type TrackMetadataModel::dataFromType(TrackDataType::key_type metaData) const
@@ -342,9 +342,9 @@ TrackMetadataModel::TrackDataType::mapped_type TrackMetadataModel::dataFromType(
 
 void TrackMetadataModel::fillLyricsDataFromTrack()
 {
-    beginInsertRows({}, mTrackData.size(), mTrackData.size());
-    mTrackKeys.push_back(DataTypes::LyricsRole);
-    mTrackData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
+    beginInsertRows({}, mDisplayData.size(), mDisplayData.size());
+    mDisplayKeys.push_back(DataTypes::LyricsRole);
+    mDisplayData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
     endInsertRows();
 }
 
@@ -369,7 +369,7 @@ void TrackMetadataModel::initializeByIdAndUrl(ElisaUtils::PlayListEntryType type
     if (!mFullData.isEmpty()) {
         beginResetModel();
         mFullData.clear();
-        mTrackData.clear();
+        mDisplayData.clear();
         mCoverImage.clear();
         mFileUrl.clear();
         endResetModel();
@@ -421,21 +421,21 @@ ModelDataLoader &TrackMetadataModel::modelDataLoader()
 
 const TrackMetadataModel::TrackDataType &TrackMetadataModel::displayedTrackData() const
 {
-    return mTrackData;
+    return mDisplayData;
 }
 
 DataTypes::ColumnsRoles TrackMetadataModel::trackKey(int index) const
 {
-    return mTrackKeys[index];
+    return mDisplayKeys[index];
 }
 
 void TrackMetadataModel::removeDataByIndex(int index)
 {
-    auto dataKey = mTrackKeys[index];
+    auto dataKey = mDisplayKeys[index];
 
-    mTrackData[dataKey] = {};
+    mDisplayData[dataKey] = {};
     mFullData[dataKey] = {};
-    mTrackKeys.removeAt(index);
+    mDisplayKeys.removeAt(index);
 }
 
 void TrackMetadataModel::addDataByName(const QString &name)
@@ -478,9 +478,9 @@ void TrackMetadataModel::addDataByName(const QString &name)
         newRole = DataTypes::DurationRole;
     }
 
-    mTrackData[newRole] = {};
+    mDisplayData[newRole] = {};
     mFullData[newRole] = {};
-    mTrackKeys.push_back(newRole);
+    mDisplayKeys.push_back(newRole);
 }
 
 QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
@@ -584,7 +584,7 @@ QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
 
 bool TrackMetadataModel::metadataExists(DataTypes::ColumnsRoles metadataRole) const
 {
-    return std::find(mTrackKeys.begin(), mTrackKeys.end(), metadataRole) != mTrackKeys.end();
+    return std::find(mDisplayKeys.begin(), mDisplayKeys.end(), metadataRole) != mDisplayKeys.end();
 }
 
 void TrackMetadataModel::fetchLyrics()
@@ -605,7 +605,7 @@ void TrackMetadataModel::fetchLyrics()
 void TrackMetadataModel::initializeForNewRadio()
 {
     mFullData.clear();
-    mTrackData.clear();
+    mDisplayData.clear();
 
     fillDataForNewRadio();
 }
@@ -614,21 +614,21 @@ void TrackMetadataModel::fillDataForNewRadio()
 {
     beginResetModel();
     mFullData.clear();
-    mTrackData.clear();
-    mTrackKeys.clear();
+    mDisplayData.clear();
+    mDisplayKeys.clear();
 
     auto allRoles = {DataTypes::TitleRole, DataTypes::ResourceRole,
                      DataTypes::CommentRole, DataTypes::ImageUrlRole};
 
     for (auto role : allRoles) {
-        mTrackKeys.push_back(role);
+        mDisplayKeys.push_back(role);
         if (role == DataTypes::DatabaseIdRole) {
             mFullData[role] = -1;
         } else {
             mFullData[role] = QString();
         }
     }
-    mTrackData = mFullData;
+    mDisplayData = mFullData;
     mFullData[DataTypes::ElementTypeRole] = ElisaUtils::Radio;
     filterDataFromTrackData();
     endResetModel();
@@ -637,7 +637,7 @@ void TrackMetadataModel::fillDataForNewRadio()
 void TrackMetadataModel::initializeByUrl(ElisaUtils::PlayListEntryType type, const QUrl &url)
 {
     mFullData.clear();
-    mTrackData.clear();
+    mDisplayData.clear();
     mCoverImage.clear();
     mFileUrl.clear();
 

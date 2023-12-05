@@ -171,7 +171,7 @@ private:
 
     TrackDataType mFullData;
 
-    TrackDataType mTrackData;
+    TrackDataType mDisplayData;
 
     QUrl mCoverImage;
 
@@ -179,7 +179,7 @@ private:
 
     qulonglong mDatabaseId = 0;
 
-    QList<TrackDataType::key_type> mTrackKeys;
+    QList<TrackDataType::key_type> mDisplayKeys;
 
     ModelDataLoader mDataLoader;
 

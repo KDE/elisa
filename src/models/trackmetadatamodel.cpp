@@ -226,6 +226,18 @@ void TrackMetadataModel::saveChanges()
     mFullData.insert(mDisplayData);
 }
 
+void TrackMetadataModel::undoChanges()
+{
+    beginResetModel();
+    const auto dataType = mFullData[DataTypes::ElementTypeRole];
+    if (dataType == ElisaUtils::Track) {
+        trackData(mFullData);
+    } else if (dataType == ElisaUtils::Radio) {
+        radioData(mFullData);
+    }
+    endResetModel();
+}
+
 QHash<int, QByteArray> TrackMetadataModel::roleNames() const
 {
     auto names = QAbstractListModel::roleNames();

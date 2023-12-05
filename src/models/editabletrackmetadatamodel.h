@@ -86,6 +86,8 @@ public Q_SLOTS:
 
     void saveData();
 
+    void resetData();
+
     void deleteRadio();
 
     void removeData(int index);

@@ -131,6 +131,8 @@ protected:
 
     void saveChanges();
 
+    void undoChanges();
+
     virtual void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
                                        const QList<DataTypes::ColumnsRoles> &fieldsForTrack);
 

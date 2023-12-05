@@ -224,6 +224,13 @@ void EditableTrackMetadataModel::saveData()
     Q_EMIT saveTrackModified({newTrackData}, {});
 }
 
+void EditableTrackMetadataModel::resetData()
+{
+    undoChanges();
+    mIsDirty = false;
+    Q_EMIT isDirtyChanged();
+}
+
 void EditableTrackMetadataModel::deleteRadio()
 {
     auto &track = displayedTrackData();

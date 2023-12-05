@@ -214,12 +214,16 @@ bool TrackMetadataModel::setData(const QModelIndex &index, const QVariant &value
         auto dataType = mDisplayKeys[index.row()];
 
         mDisplayData[dataType] = value;
-        mFullData[dataType] = value;
 
         Q_EMIT dataChanged(index, index, QVector<int>() << role);
         return true;
     }
     return false;
+}
+
+void TrackMetadataModel::saveChanges()
+{
+    mFullData.insert(mDisplayData);
 }
 
 QHash<int, QByteArray> TrackMetadataModel::roleNames() const
@@ -434,7 +438,6 @@ void TrackMetadataModel::removeDataByIndex(int index)
     auto dataKey = mDisplayKeys[index];
 
     mDisplayData[dataKey] = {};
-    mFullData[dataKey] = {};
     mDisplayKeys.removeAt(index);
 }
 
@@ -479,7 +482,6 @@ void TrackMetadataModel::addDataByName(const QString &name)
     }
 
     mDisplayData[newRole] = {};
-    mFullData[newRole] = {};
     mDisplayKeys.push_back(newRole);
 }
 

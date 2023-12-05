@@ -204,6 +204,7 @@ bool EditableTrackMetadataModel::setData(const QModelIndex &index, const QVarian
 
 void EditableTrackMetadataModel::saveData()
 {
+    saveChanges();
     mIsNewRadio = false;
     mIsDirty = false;
     Q_EMIT isDirtyChanged();

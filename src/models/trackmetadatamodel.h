@@ -129,6 +129,8 @@ public Q_SLOTS:
 
 protected:
 
+    void saveChanges();
+
     virtual void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
                                        const QList<DataTypes::ColumnsRoles> &fieldsForTrack);
 

@@ -33,6 +33,13 @@ Kirigami.ScrollablePage {
 
     signal rejected()
 
+    onBackRequested: event => {
+        if (realModel.isDirty) {
+            metadataForm.dirtyClosingDialog.open()
+            event.accepted = true
+        }
+    }
+
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 

@@ -56,8 +56,11 @@ Window {
         onActivated: close()
     }
 
-    onClosing: {
-        trackMetadata.rejected()
+    onClosing: close => {
+        if (realModel.isDirty) {
+            metadataForm.dirtyClosingDialog.open()
+            close.accepted = false
+        }
     }
 
     Kirigami.ScrollablePage {

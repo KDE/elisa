@@ -12,6 +12,8 @@ import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
+import QtQuick.Dialogs as Dialogs
+
 import org.kde.kirigami 2.13 as Kirigami
 import org.kde.elisa 1.0
 
@@ -53,7 +55,30 @@ Kirigami.FormLayout {
 
     function deleteItem() {
         ElisaApplication.musicManager.deleteElementById(modelType, metadataModel.databaseId)
+        metadataModel.resetData() // Need this otherwise the closing dialog appears if the data has been modified
         close()
+    }
+
+    readonly property Dialogs.MessageDialog dirtyClosingDialog: Dialogs.MessageDialog {
+        id: dirtyClosingDialog
+
+        title: i18nc("@title:window", "Warning")
+        text: i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
+        buttons: Dialogs.MessageDialog.Save | Dialogs.MessageDialog.Discard | Dialogs.MessageDialog.Cancel
+
+        onButtonClicked: (button, role) => {
+            switch(button) {
+                case Dialogs.MessageDialog.Save: {
+                    form.metadataModel.saveData()
+                    form.close()
+                }
+                case Dialogs.MessageDialog.Discard: {
+                    form.metadataModel.resetData()
+                    form.close()
+                }
+            }
+            close()
+        }
     }
 
     Kirigami.InlineMessage {

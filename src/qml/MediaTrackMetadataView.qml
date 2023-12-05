@@ -53,7 +53,7 @@ Window {
     // Close when pressing Esc key
     Shortcut {
         sequence: StandardKey.Cancel
-	onActivated: close()
+        onActivated: close()
     }
 
     onClosing: {
@@ -87,8 +87,6 @@ Window {
                 Layout.topMargin: Kirigami.Units.largeSpacing
                 Layout.leftMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
                 Layout.rightMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
-
-                spacing: Kirigami.Units.largeSpacing
 
                 Kirigami.Icon {
                     readonly property int size: Kirigami.Units.iconSizes.roundedIconSize(fileNameLabel.height)
@@ -125,55 +123,54 @@ Window {
                     visible: showDeleteButton && !isCreating
 
                     Button {
-                        id: deleteButton
                         text: i18nc("@action:button", "Delete")
                         icon.name: 'delete'
                         DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
-                        onClicked: {
-                            ElisaApplication.musicManager.deleteElementById(modelType, realModel.databaseId)
-                            trackMetadata.close()
-                        }
+                        onClicked: metadataForm.deleteItem()
                     }
                 }
 
                 DialogButtonBox {
-                    id: buttons
-
                     Layout.fillWidth: true
                     Layout.minimumHeight: implicitHeight
                     alignment: Qt.AlignRight
 
-                    Button {
-                        id: modifyButton
+                    visible: !isModifying && !isCreating
+                    standardButtons: DialogButtonBox.Ok
 
+                    onAccepted: metadataForm.close()
+
+                    Button {
                         text: i18nc("@action:button", "Modify")
                         icon.name: 'document-edit'
                         DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
-                        onCheckedChanged: isModifying = checked
-                        checkable: true
+                        onClicked: metadataForm.isModifying = true
                     }
+                }
 
-                    Button {
-                        id: applyButton
+                DialogButtonBox {
+                    Layout.fillWidth: true
+                    Layout.minimumHeight: implicitHeight
+                    alignment: Qt.AlignRight
 
-                        text: i18nc("@action:button", "Apply")
-                        icon.name: 'dialog-ok-apply'
-                        DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
-                        onClicked: {
-                            realModel.saveData()
-                            if (isCreating) {
-                                isCreating = false
-                                isModifying = true
-                            }
-                        }
-                    }
+                    visible: metadataForm.isModifying
+                    standardButtons: DialogButtonBox.Apply | DialogButtonBox.Ok | DialogButtonBox.Cancel
 
-                    Button {
-                        text: i18nc("@action:button", "OK")
-                        icon.name: "dialog-ok"
-                        DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
-                        onClicked: trackMetadata.close()
-                    }
+                    onApplied: metadataForm.apply()
+                    onAccepted: metadataForm.applyAndClose()
+                    onRejected: metadataForm.cancel()
+                }
+
+                DialogButtonBox {
+                    Layout.fillWidth: true
+                    Layout.minimumHeight: implicitHeight
+                    alignment: Qt.AlignRight
+
+                    visible: metadataForm.isCreating
+                    standardButtons: DialogButtonBox.Ok | DialogButtonBox.Cancel
+
+                    onAccepted: metadataForm.applyAndClose()
+                    onRejected: metadataForm.cancelAndClose()
                 }
             }
         }
@@ -199,120 +196,5 @@ Window {
                 realModel.initializeByUrl(modelType, fileName)
             }
         }
-    }
-
-    StateGroup {
-        id: dialogStates
-
-        states: [
-            State {
-                name: 'consultOnly'
-
-                when: !editableMetadata
-
-                changes: [
-                    PropertyChanges {
-                        target: modifyButton
-                        enabled: false
-                        visible: false
-                    },
-                    PropertyChanges {
-                        target: applyButton
-                        enabled: false
-                        visible: false
-                    }
-                ]
-            },
-            State {
-                name: 'readOnly'
-
-                when: editableMetadata && !isModifying && !isCreating
-
-                changes: [
-                    PropertyChanges {
-                        target: modifyButton
-                        enabled: true
-                        visible: true
-                    },
-                    PropertyChanges {
-                        target: applyButton
-                        enabled: false
-                        visible: true
-                    }
-                ]
-            },
-            State {
-                name: 'readWrite'
-
-                when: editableMetadata && isModifying && !isCreating && (!realModel.isDataValid || !realModel.isDirty)
-
-                changes: [
-                    PropertyChanges {
-                        target: modifyButton
-                        enabled: true
-                        visible: true
-                    },
-                    PropertyChanges {
-                        target: applyButton
-                        enabled: false
-                        visible: true
-                    }
-                ]
-            },
-            State {
-                name: 'readWriteAndDirty'
-
-                when: editableMetadata && isModifying && !isCreating && realModel.isDataValid && realModel.isDirty
-
-                changes: [
-                    PropertyChanges {
-                        target: modifyButton
-                        enabled: true
-                        visible: true
-                    },
-                    PropertyChanges {
-                        target: applyButton
-                        enabled: true
-                        visible: true
-                    }
-                ]
-            },
-            State {
-                name: 'create'
-
-                when: editableMetadata && !isModifying && isCreating && (!realModel.isDataValid || !realModel.isDirty)
-
-                changes: [
-                    PropertyChanges {
-                        target: modifyButton
-                        enabled: false
-                        visible: true
-                    },
-                    PropertyChanges {
-                        target: applyButton
-                        enabled: false
-                        visible: true
-                    }
-                ]
-            },
-            State {
-                name: 'createAndDirty'
-
-                when: editableMetadata && !isModifying && isCreating && realModel.isDataValid && realModel.isDirty
-
-                changes: [
-                    PropertyChanges {
-                        target: modifyButton
-                        enabled: false
-                        visible: true
-                    },
-                    PropertyChanges {
-                        target: applyButton
-                        enabled: true
-                        visible: true
-                    }
-                ]
-            }
-        ]
     }
 }

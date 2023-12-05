@@ -30,6 +30,33 @@ Kirigami.FormLayout {
 
     signal close()
 
+    function apply() {
+        metadataModel.saveData()
+        isCreating = false
+        isModifying = false
+    }
+
+    function applyAndClose() {
+        apply()
+        close()
+    }
+
+    function cancel() {
+        metadataModel.resetData()
+        isCreating = false
+        isModifying = false
+    }
+
+    function cancelAndClose() {
+        cancel()
+        close()
+    }
+
+    function deleteItem() {
+        ElisaApplication.musicManager.deleteElementById(modelType, metadataModel.databaseId)
+        close()
+    }
+
     Kirigami.InlineMessage {
         id: formInvalidNotification
 

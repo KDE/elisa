@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# Guðmundur Erlingsson <gudmundure@gmail.com>, 2023.
+# SPDX-FileCopyrightText: 2023 Guðmundur Erlingsson <gudmundure@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-02 01:36+0000\n"
-"PO-Revision-Date: 2023-10-17 23:15+0000\n"
+"PO-Revision-Date: 2023-12-03 21:05+0000\n"
 "Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -44,7 +44,7 @@ msgstr "Útvarpsstöðvar"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
-msgstr "Víxla spilunarlista"
+msgstr "Sýna/fela spilunarlista"
 
 #: elisaapplication.cpp:184
 #, kde-format
@@ -80,7 +80,7 @@ msgstr "Spila/setja á pásu"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
-msgstr "Víxla Partísniði"
+msgstr "Sýna/fela Partísnið"
 
 #: main.cpp:101
 #, kde-format
@@ -526,8 +526,8 @@ msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr ""
-"Gat ekki hlaðið sumar skrám. Elisa getur bara opnað hljóð- "
-"ogspilunarlistaskrár."
+"Gat ekki hlaðið sumar skrár. Elisa getur bara opnað hljóð- og "
+"spilunarlistaskrár."
 
 #: qml/ElisaMainWindow.qml:121 qml/mobile/MobileSidebar.qml:20
 #, kde-format
@@ -669,7 +669,7 @@ msgstr "Valkostir lags"
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
-msgstr "Víxla Partísniði"
+msgstr "Sýna/fela Partísnið"
 
 #: qml/MediaPlayerControl.qml:95
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
@@ -705,13 +705,13 @@ msgstr "Hoppa áfram"
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Mute"
-msgstr "Víxla þöggun"
+msgstr "Þagga/afþagga"
 
 #: qml/MediaPlayerControl.qml:149 qml/mobile/MobileTrackPlayer.qml:208
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Shuffle"
-msgstr "Víxla stokkun"
+msgstr "Stokkun af/á"
 
 #: qml/MediaPlayerControl.qml:160 qml/mobile/MobileTrackPlayer.qml:223
 #, kde-format
@@ -977,7 +977,7 @@ msgstr "Skoða"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
-msgstr "Víxla Partísniði"
+msgstr "Sýna/fela Partísnið"
 
 #: qml/NativeGlobalMenu.qml:68
 #, kde-format
@@ -1129,7 +1129,7 @@ msgstr "Fela leit og síur"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
-msgstr "Leita að nafni plötu, flytjanda o.s.frv."
+msgstr "Leita að nafni á plötu, flytjanda o.s.frv."
 
 #: qml/NavigationActionBar.qml:374
 #, kde-format
@@ -1183,7 +1183,7 @@ msgstr "Sýna bakgrunn á síðunni Í spilun"
 #, kde-format
 msgctxt "@option:check"
 msgid "Show progress on Task Manager entries"
-msgstr "Sýna framvindu í færslu í verkefnisstjóra"
+msgstr "Sýna framvindu í færslum í verkefnisstjóra"
 
 #: qml/SettingsForm.qml:95
 #, kde-format
@@ -1251,7 +1251,7 @@ msgstr "Skanna eftir nýrri tónlist"
 #, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Skönnun eftir nýrri tónlist hafin"
+msgstr "Byrjað að skanna eftir nýrri tónlist"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1403,7 +1403,7 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 "Ef <interface>Velja frekar afstæðar slóðir</interface> er valið eru skrár "
-"sem eru í sömu möppu og spilunarlistinn einungis sýndar með skrárheitinu. "
+"sem eru í sömu möppu og spilunarlistinn einungis sýndar með skráarnafninu. "
 "Fullar slóðir eru notaðar í öðrum tilvikum."
 
 #: qml/SettingsForm.qml:390
@@ -1429,7 +1429,7 @@ msgstr "Bæta við nýrri möppu"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "Ekki var hægt að spila \"%1\""
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1507,7 +1507,7 @@ msgstr "Ö-A"
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Name"
-msgstr "Heiti"
+msgstr "Nafn"
 
 #: viewmanager.cpp:70
 #, kde-format
@@ -1617,7 +1617,7 @@ msgstr "Ár"
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"
-msgstr "Heiti"
+msgstr "Nafn"
 
 #: viewslistdata.cpp:83
 #, kde-format

@@ -177,13 +177,12 @@ RowLayout {
         }
     }
 
-    Button {
+    FlatButtonWithToolTip {
         Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
         Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
 
-        flat: true
-        display: AbstractButton.IconOnly
         icon.name: 'delete'
+        text: i18nc("@action:button remove a metadata tag", "Remove this tag")
 
         visible: !readOnly && isRemovable
         onClicked: deleteField()

@@ -68,7 +68,10 @@ Kirigami.FormLayout {
         model: metadataModel
 
         delegate: RowLayout {
-            Kirigami.FormData.label: i18nc("Track metadata form label, e.g. 'Artist:'", "%1:", model.name)
+            readonly property string formLabelText: i18nc("Track metadata form label, e.g. 'Artist:'", "%1:", model.name)
+            // Make labels bold on mobile read-only mode to help differentiate label from metadata
+            readonly property bool singleColumnPlainText: !form.wideMode && !form.isCreating && !form.isModifying
+            Kirigami.FormData.label: singleColumnPlainText ? "<b>" + formLabelText + "</b>" : formLabelText
 
             MediaTrackMetadataDelegate {
                 index: model.index

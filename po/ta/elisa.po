@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# Kishore G <kishore96@gmail.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-02 01:36+0000\n"
-"PO-Revision-Date: 2023-08-20 15:03+0530\n"
+"PO-Revision-Date: 2023-12-07 21:35+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1234,12 +1234,10 @@ msgid "Favorite/not favorite"
 msgstr "பிடித்த‍து/பிடிக்காத‍து"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "நிறத் திட்டம்"
+msgstr "நிறத் திட்டம்:"
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1248,12 +1246,10 @@ msgid "Scan for New Music"
 msgstr "புதிய பாடல்களுள்ளனவா என தேடு"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "பாடல்கள் கண்டறியப்படுகின்றன"
+msgstr "பாடல்களை கண்டறிவது துவங்கியது"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1265,7 +1261,7 @@ msgstr "தரவுதளத்தை நீக்கி மீண்டும�
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "தரவுதளம் மீட்டமைக்கப்பட்டுள்ளது"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1432,7 +1428,7 @@ msgstr "புதிய இடத்தைச் சேர்"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "\"%1\" தனை இசைக்க முடியவில்லை"
 
 #: qml/SortMenu.qml:20
 #, kde-format

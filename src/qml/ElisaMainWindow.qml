@@ -41,9 +41,10 @@ Kirigami.ApplicationWindow {
 
         Component.onCompleted: close() // drawer is opened when the layout is narrow, we want it closed
 
-        // Don't allow dragging it as the UX is not so great; see
-        // https://bugs.kde.org/show_bug.cgi?id=468211
-        interactive: false
+        // Don't allow dragging it on non-mobile as the UX is not so great; see
+        // https://bugs.kde.org/show_bug.cgi?id=468211 and
+        // https://bugs.kde.org/show_bug.cgi?id=478121
+        interactive: Kirigami.Settings.isMobile
 
         // without this drawer button is never shown
         enabled: true

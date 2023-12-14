@@ -16,15 +16,16 @@ import org.kde.elisa 1.0
 Window {
     id: trackMetadata
 
-    property var modelType
     property url fileName
     property bool editableMetadata
-    property bool isModifying: false
-    property bool isCreating: false
-    property bool canAddMoreMetadata: false
-    property bool showImage
     property bool showTrackFileName
-    property bool showDeleteButton: false
+
+    property alias modelType: metadataForm.modelType
+    property alias isModifying: metadataForm.isModifying
+    property alias isCreating: metadataForm.isCreating
+    property alias canAddMoreMetadata: metadataForm.canAddMoreMetadata
+    property alias showImage: metadataForm.showImage
+    property alias showDeleteButton: metadataForm.showDeleteButton
 
     signal rejected()
 
@@ -63,13 +64,9 @@ Window {
         anchors.fill: parent
 
         MediaTrackMetadataForm {
+            id: metadataForm
+
             metadataModel: realModel
-            modelType: trackMetadata.modelType
-            showDeleteButton: trackMetadata.showDeleteButton
-            isCreating: trackMetadata.isCreating
-            isModifying: trackMetadata.isModifying
-            canAddMoreMetadata: trackMetadata.canAddMoreMetadata
-            showImage: trackMetadata.showImage
             showModifyDeleteButtons: false
 
             imageItem.anchors.horizontalCenter: horizontalCenter

@@ -76,6 +76,7 @@ public:
         QStringLiteral(".jpg")
         ,QStringLiteral(".jpeg")
         ,QStringLiteral(".png")
+        ,QStringLiteral(".webp")
     };
 
     const QStringList constCoverNames {

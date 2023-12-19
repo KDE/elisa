@@ -206,9 +206,9 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="zh-CN">在派对模式下，Elisa 将把专辑封面显示在画面中间最显眼的位置。</p>
     <p xml:lang="zh-TW">用派對模式放鬆，這個模式將您的音樂的專輯封面最大化。</p>
   </description>
-  <url type="homepage">https://elisa.kde.org</url>
+  <url type="homepage">https://apps.kde.org/elisa</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?product=elisa</url>
-  <url type="donation">https://www.kde.org/community/donations</url>
+  <url type="donation">https://www.kde.org/community/donations/?app=elisa&amp;source=appdata</url>
   <url type="help">https://docs.kde.org/?application=elisa</url>
   <screenshots>
     <screenshot type="default">

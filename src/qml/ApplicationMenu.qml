@@ -19,6 +19,7 @@ Menu {
     property var helpAction: ElisaApplication.action("help_contents")
     property var reportBugAction: ElisaApplication.action("help_report_bug")
     property var aboutAppAction: ElisaApplication.action("help_about_app")
+    property var aboutKdeAction: ElisaApplication.action("open_about_kde_page")
     property var configureShortcutsAction: ElisaApplication.action("options_configure_keybinding")
     property var configureAction: ElisaApplication.action("options_configure")
     property var quitAction: ElisaApplication.action("file_quit")
@@ -110,6 +111,16 @@ Menu {
         onTriggered: {
             applicationMenu.close()
             aboutAppAction.trigger()
+        }
+    }
+
+    Action {
+        text: aboutKdeAction.text
+        shortcut: ElisaApplication.actionShortcut(aboutKdeAction)
+        icon.name: ElisaApplication.iconName(aboutKdeAction.icon)
+        onTriggered: {
+            applicationMenu.close()
+            aboutKdeAction.trigger()
         }
     }
 

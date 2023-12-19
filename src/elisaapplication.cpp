@@ -158,6 +158,12 @@ void ElisaApplication::setupActions(const QString &actionName)
         d->mCollection.addAction(aboutAppAction->objectName(), aboutAppAction);
     }
 
+    if (actionName == QLatin1String("open_about_kde_page") && KAuthorized::authorizeAction(actionName)) {
+        auto action = d->mCollection.addAction(actionName, this, &ElisaApplication::openAboutKDEPage);
+        action->setText(i18n("About KDE"));
+        action->setIcon(QIcon::fromTheme(QStringLiteral("kde")));
+    }
+
     if (actionName == QLatin1String("options_configure") && KAuthorized::authorizeAction(actionName)) {
         auto preferencesAction = KStandardAction::preferences(this, &ElisaApplication::configureElisa, this);
         d->mCollection.addAction(preferencesAction->objectName(), preferencesAction);

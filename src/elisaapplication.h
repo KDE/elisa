@@ -183,6 +183,8 @@ Q_SIGNALS:
 
     void initialFilesViewPathChanged();
 
+    void openAboutKDEPage();
+
 public Q_SLOTS:
 
     void appHelpActivated();

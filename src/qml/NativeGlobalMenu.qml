@@ -162,6 +162,10 @@ MenuBar {
         }
 
         NativeMenuItemFromAction {
+            elisaAction: "open_about_kde_page"
+        }
+
+        NativeMenuItemFromAction {
             elisaAction: "help_report_bug"
         }
     }

@@ -9,6 +9,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigamiaddons.formcard 1.0 as FormCard
 import org.kde.elisa 1.0
 import Qt.labs.settings 1.0
 import Qt.labs.platform 1.1
@@ -28,6 +29,19 @@ Kirigami.ApplicationWindow {
 
         function onDisplayUndoNotification() {
             showPassiveNotification(i18nc("@label", "Playlist cleared"), 7000, i18nc("@action:button", "Undo"), () => ElisaApplication.mediaPlayListProxyModel.undoClearPlayList())
+        }
+    }
+
+    Connections {
+        target: ElisaApplication
+
+        function onOpenAboutKDEPage() {
+            const openDialogWindow = pageStack.pushDialogLayer(aboutKDEPage, {
+                width: ElisaApplication.width
+            }, {
+                width: Kirigami.Units.gridUnit * 30,
+                height: Kirigami.Units.gridUnit * 30
+            });
         }
     }
 
@@ -499,6 +513,11 @@ Kirigami.ApplicationWindow {
         anchors.fill: mobileFooterBarLoader
         preventStealing: true
         onClicked: mouse => mouse.accepted = true
+    }
+
+    Component {
+        id: aboutKDEPage
+        FormCard.AboutKDE {}
     }
 
     Component.onCompleted:

@@ -17,6 +17,7 @@ Menu {
     property var quitApplication: ElisaApplication.action("file_quit")
     property var reportBugAction: ElisaApplication.action("help_report_bug")
     property var aboutAppAction: ElisaApplication.action("help_about_app")
+    property var aboutKdeAction: ElisaApplication.action("open_about_kde_page")
     property var configureShortcutsAction: ElisaApplication.action("options_configure_keybinding")
     property var configureAction: ElisaApplication.action("options_configure")
     property var togglePlaylistAction: ElisaApplication.action("toggle_playlist")
@@ -92,6 +93,14 @@ Menu {
         icon.name: ElisaApplication.iconName(aboutAppAction.icon)
         onTriggered: aboutAppAction.trigger()
         visible: aboutAppAction.text !== ""
+    }
+
+    MenuItem {
+        text: aboutKdeAction.text
+        shortcut: ElisaApplication.actionShortcut(aboutKdeAction)
+        icon.name: ElisaApplication.iconName(aboutKdeAction.icon)
+        onTriggered: aboutKdeAction.trigger()
+        visible: aboutKdeAction.text !== ""
     }
 
     MenuSeparator {

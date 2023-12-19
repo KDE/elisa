@@ -16,18 +16,18 @@ Item {
     property string ratingUnratedIcon: 'image://icon/rating-unrated'
     property string folderIcon: 'image://icon/document-open-folder'
 
-    property int coverImageSize: 180
+    property int coverImageSize: Kirigami.Units.gridUnit * 10
 
-    property int metaDataDialogHeight: 500
-    property int metaDataDialogWidth: 600
+    property int metaDataDialogHeight: Kirigami.Units.gridUnit * 27
+    property int metaDataDialogWidth: Kirigami.Units.gridUnit * 33
 
     property int mediaPlayerControlHeight: Kirigami.Settings.isMobile? Math.round(Kirigami.Units.gridUnit * 3.5) : Math.round(Kirigami.Units.gridUnit * 2.5)
     property real mediaPlayerControlOpacity: 0.6
-    property int volumeSliderWidth: 100
+    property int volumeSliderWidth: Kirigami.Units.gridUnit * 5
 
-    property int gridDelegateSize: 170
+    property int gridDelegateSize: Kirigami.Units.gridUnit * 9
 
-    property int viewSelectorSmallSizeThreshold: 800
+    property int viewSelectorSmallSizeThreshold: Kirigami.Units.gridUnit * 44
 
     readonly property alias toolButtonHeight: button.height
     readonly property alias trackNumberWidth: trackNumber.width

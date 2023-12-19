@@ -77,8 +77,8 @@ Kirigami.ApplicationWindow {
         onTriggered: { transitionsEnabled = true }
     }
 
-    minimumWidth: Kirigami.Settings.isMobile ? 320 : 620
-    property int minHeight: 320
+    minimumWidth: Kirigami.Units.gridUnit * (Kirigami.Settings.isMobile ? 17 : 34)
+    property int minHeight: Kirigami.Units.gridUnit * 17
 
     property string previousStateBeforeFullScreen: "windowed"
     function restorePreviousStateBeforeFullScreen() {
@@ -219,8 +219,8 @@ Kirigami.ApplicationWindow {
 
         property int x
         property int y
-        property int width : 900
-        property int height : 650
+        property int width: Kirigami.Units.gridUnit * 50
+        property int height: Kirigami.Units.gridUnit * 36
 
         property var playListState
 

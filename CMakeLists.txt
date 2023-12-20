@@ -15,6 +15,7 @@ project(elisa
     LANGUAGES CXX)
 
 set(REQUIRED_KF_VERSION "5.240.0")
+set(REQUIRED_KA_VERSION "0.11.76") # KirigamiAddons Version
 find_package(ECM ${REQUIRED_KF_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH})
 
@@ -68,6 +69,12 @@ find_package(KF6Kirigami ${REQUIRED_KF_VERSION} CONFIG QUIET)
 
 set_package_properties(KF6Kirigami PROPERTIES
     DESCRIPTION "KF Kirigami is needed to provide the mobile UI components."
+    TYPE REQUIRED)
+
+find_package(KF6KirigamiAddons ${REQUIRED_KA_VERSION} CONFIG QUIET)
+
+set_package_properties(KF6KirigamiAddons PROPERTIES
+    DESCRIPTION "KF KirigamiAddons is needed to provide the about KDE dialogue."
     TYPE REQUIRED)
 
 find_package(KF6I18n ${REQUIRED_KF_VERSION} CONFIG QUIET)

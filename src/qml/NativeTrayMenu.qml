@@ -17,7 +17,7 @@ Menu {
     property var quitApplication: ElisaApplication.action("file_quit")
     property var reportBugAction: ElisaApplication.action("help_report_bug")
     property var aboutAppAction: ElisaApplication.action("help_about_app")
-    property var aboutKdeAction: ElisaApplication.action("open_about_kde_page")
+    property var aboutKdeAction: ElisaApplication.action("help_about_kde")
     property var configureShortcutsAction: ElisaApplication.action("options_configure_keybinding")
     property var configureAction: ElisaApplication.action("options_configure")
     property var togglePlaylistAction: ElisaApplication.action("toggle_playlist")

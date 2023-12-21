@@ -162,7 +162,7 @@ MenuBar {
         }
 
         NativeMenuItemFromAction {
-            elisaAction: "open_about_kde_page"
+            elisaAction: "help_about_kde"
         }
 
         NativeMenuItemFromAction {

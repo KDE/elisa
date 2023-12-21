@@ -111,9 +111,7 @@ as Authors, publish date, the abstract, and Keywords -->
 >Utilizzare &elisa;</title>
 
 <para
->&elisa; indicizza la tua musica utilizzando Baloo, se possibile, o cercando in un elenco di percorsi configurati dall'utente tramite un'interfaccia dedicata. </para>
-<para
->Nel caso in cui il supporto Baloo sia abilitato e la tua configurazione non sia funzionante, una notifica è mostrata con suggerimenti che consentono di disattivare l'indicizzatore o attivare l'indicizzatore di Baloo e alimentare &elisa; con tracce musicali. </para>
+>&elisa; indicizza la tua musica cercando in un elenco di percorsi configurati dall'utente tramite un'interfaccia dedicata. </para>
 <para
 >Nel caso in cui l'indicizzatore dei file non trovi nulla, una notifica viene mostrata con un pulsante per aprire l'interfaccia di configurazione. </para>
 

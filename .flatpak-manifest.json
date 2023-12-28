@@ -2,12 +2,12 @@
     "id": "org.kde.elisa",
     "branch": "master",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-22.08",
+    "runtime-version": "6.6-kf6preview",
     "sdk": "org.kde.Sdk",
     "command": "elisa",
     "tags": ["nightly"],
     "desktop-file-name-suffix": " (Nightly)",
-    "finish-args": ["--share=ipc", "--socket=x11", "--socket=wayland", "--filesystem=home", "--socket=pulseaudio", "--device=dri", "--socket=session-bus"],
+    "finish-args": ["--share=ipc", "--socket=fallback-x11", "--socket=wayland", "--filesystem=home", "--socket=pulseaudio", "--device=dri", "--socket=session-bus"],
 
     "modules": [
         {
@@ -65,12 +65,12 @@
                 {
                     "type": "git",
                     "url": "https://invent.kde.org/frameworks/kfilemetadata.git",
-                    "tag": "v5.92.0",
+                    "tag": "v5.247.0",
                     "x-checker-data": {
                         "type": "git",
                         "tag-pattern": "^v([\\d.]+)$"
                     },
-                    "commit": "26c5dbb8026cbd14fd9661f8ffec02f4d27bbe7b"
+                    "commit": "2fb8561b76a0a47933f69872ac004330d9c21b2d"
                 }
             ]
         },

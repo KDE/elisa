@@ -8,4 +8,4 @@ include:
       - /gitlab-templates/linux-qt6.yml
       - /gitlab-templates/freebsd-qt6.yml
       - /gitlab-templates/windows-qt6.yml
-  #     - /gitlab-templates/flatpak.yml # There's no Flatpak runtime for Qt6 yet
+      - /gitlab-templates/flatpak.yml

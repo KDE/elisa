@@ -59,139 +59,124 @@ Window {
         trackMetadata.rejected()
     }
 
-    ColumnLayout {
-        id: column
+    Kirigami.ScrollablePage {
         anchors.fill: parent
-        spacing: 0
 
-        ScrollView {
-            id: metadataView
+        MediaTrackMetadataForm {
+            metadataModel: realModel
+            modelType: trackMetadata.modelType
+            showDeleteButton: trackMetadata.showDeleteButton
+            isCreating: trackMetadata.isCreating
+            isModifying: trackMetadata.isModifying
+            canAddMoreMetadata: trackMetadata.canAddMoreMetadata
+            showImage: trackMetadata.showImage
+            showModifyDeleteButtons: false
 
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            leftPadding: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
-            rightPadding: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+            imageItem.anchors.horizontalCenter: horizontalCenter
 
-            // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
-            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-
-            ColumnLayout {
-                MediaTrackMetadataForm {
-                    Layout.maximumWidth: column.width
-                    implicitWidth: metadataView.width - 2 * (Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing)
-                    metadataModel: realModel
-                    modelType: trackMetadata.modelType
-                    showDeleteButton: trackMetadata.showDeleteButton
-                    isCreating: trackMetadata.isCreating
-                    isModifying: trackMetadata.isModifying
-                    canAddMoreMetadata: trackMetadata.canAddMoreMetadata
-                    showImage: trackMetadata.showImage
-                    showModifyDeleteButtons: false
-
-                    imageItem.anchors.horizontalCenter: horizontalCenter
-                    
-                    onClose: trackMetadata.close()
-                }
-            }
-        }
-        
-        Kirigami.Separator { Layout.fillWidth: true }
-
-        // file location
-        RowLayout {
-            id: fileNameRow
-            visible: showTrackFileName
-            Layout.topMargin: Kirigami.Units.largeSpacing
-            Layout.leftMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
-            Layout.rightMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
-
-            spacing: Kirigami.Units.largeSpacing
-
-            Kirigami.Icon {
-                readonly property int size: Kirigami.Units.iconSizes.roundedIconSize(fileNameLabel.height)
-
-                implicitWidth: size
-                implicitHeight: size
-
-                source: elisaTheme.folderIcon
-            }
-
-            LabelWithToolTip {
-                id: fileNameLabel
-
-                Layout.fillWidth: true
-                text: realModel.fileUrl
-                wrapMode: Text.Wrap
-                elide: Text.ElideRight
-            }
+            onClose: trackMetadata.close()
         }
 
-        RowLayout {
-            Layout.topMargin: Kirigami.Units.largeSpacing
-            Layout.leftMargin: Kirigami.Units.smallSpacing
-            Layout.rightMargin: Kirigami.Units.smallSpacing
-            Layout.bottomMargin: Kirigami.Units.smallSpacing
-            spacing: Kirigami.Units.smallSpacing
+        footer: ColumnLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
 
-            DialogButtonBox {
-                id: deleteButtonBox
+            Kirigami.Separator { Layout.fillWidth: true }
 
-                Layout.minimumHeight: implicitHeight
-                alignment: Qt.AlignLeft
+            // file location
+            RowLayout {
+                id: fileNameRow
+                visible: showTrackFileName
+                Layout.topMargin: Kirigami.Units.largeSpacing
+                Layout.leftMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
+                Layout.rightMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
 
-                visible: showDeleteButton && !isCreating
+                spacing: Kirigami.Units.largeSpacing
 
-                Button {
-                    id: deleteButton
-                    text: i18nc("@action:button", "Delete")
-                    icon.name: 'delete'
-                    DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
-                    onClicked:
-                    {
-                        ElisaApplication.musicManager.deleteElementById(modelType, realModel.databaseId)
-                        trackMetadata.close()
-                    }
+                Kirigami.Icon {
+                    readonly property int size: Kirigami.Units.iconSizes.roundedIconSize(fileNameLabel.height)
+
+                    implicitWidth: size
+                    implicitHeight: size
+
+                    source: elisaTheme.folderIcon
+                }
+
+                LabelWithToolTip {
+                    id: fileNameLabel
+
+                    Layout.fillWidth: true
+                    text: realModel.fileUrl
+                    wrapMode: Text.Wrap
+                    elide: Text.ElideRight
                 }
             }
 
-            DialogButtonBox {
-                id: buttons
+            RowLayout {
+                Layout.topMargin: Kirigami.Units.largeSpacing
+                Layout.leftMargin: Kirigami.Units.smallSpacing
+                Layout.rightMargin: Kirigami.Units.smallSpacing
+                Layout.bottomMargin: Kirigami.Units.smallSpacing
+                spacing: Kirigami.Units.smallSpacing
 
-                Layout.fillWidth: true
-                Layout.minimumHeight: implicitHeight
-                alignment: Qt.AlignRight
+                DialogButtonBox {
+                    id: deleteButtonBox
 
-                Button {
-                    id: modifyButton
+                    Layout.minimumHeight: implicitHeight
+                    alignment: Qt.AlignLeft
 
-                    text: i18nc("@action:button", "Modify")
-                    icon.name: 'document-edit'
-                    DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
-                    onCheckedChanged: isModifying = checked
-                    checkable: true
-                }
+                    visible: showDeleteButton && !isCreating
 
-                Button {
-                    id: applyButton
-
-                    text: i18nc("@action:button", "Apply")
-                    icon.name: 'dialog-ok-apply'
-                    DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
-                    onClicked:
-                    {
-                        realModel.saveData()
-                        if (isCreating) {
-                            isCreating = false
-                            isModifying = true
+                    Button {
+                        id: deleteButton
+                        text: i18nc("@action:button", "Delete")
+                        icon.name: 'delete'
+                        DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
+                        onClicked: {
+                            ElisaApplication.musicManager.deleteElementById(modelType, realModel.databaseId)
+                            trackMetadata.close()
                         }
                     }
                 }
 
-                Button {
-                    text: i18nc("@action:button", "OK")
-                    icon.name: "dialog-ok"
-                    DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
-                    onClicked: trackMetadata.close()
+                DialogButtonBox {
+                    id: buttons
+
+                    Layout.fillWidth: true
+                    Layout.minimumHeight: implicitHeight
+                    alignment: Qt.AlignRight
+
+                    Button {
+                        id: modifyButton
+
+                        text: i18nc("@action:button", "Modify")
+                        icon.name: 'document-edit'
+                        DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
+                        onCheckedChanged: isModifying = checked
+                        checkable: true
+                    }
+
+                    Button {
+                        id: applyButton
+
+                        text: i18nc("@action:button", "Apply")
+                        icon.name: 'dialog-ok-apply'
+                        DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
+                        onClicked: {
+                            realModel.saveData()
+                            if (isCreating) {
+                                isCreating = false
+                                isModifying = true
+                            }
+                        }
+                    }
+
+                    Button {
+                        text: i18nc("@action:button", "OK")
+                        icon.name: "dialog-ok"
+                        DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
+                        onClicked: trackMetadata.close()
+                    }
                 }
             }
         }

@@ -11,6 +11,7 @@ import QtQuick.Window 2.2
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.kirigamiaddons.formcard 1.0 as FormCard
 import org.kde.elisa 1.0
+import org.kde.elisa.about 1.0
 import Qt.labs.settings 1.0
 import Qt.labs.platform 1.1
 
@@ -40,7 +41,18 @@ Kirigami.ApplicationWindow {
                 width: ElisaApplication.width
             }, {
                 width: Kirigami.Units.gridUnit * 30,
-                height: Kirigami.Units.gridUnit * 30
+                height: Kirigami.Units.gridUnit * 30,
+                modality: Qt.NonModal
+            });
+        }
+
+        function onOpenAboutAppPage() {
+            const openDialogWindow = pageStack.pushDialogLayer(aboutAppPage, {
+                width: ElisaApplication.width
+            }, {
+                width: Kirigami.Units.gridUnit * 30,
+                height: Kirigami.Units.gridUnit * 30,
+                modality: Qt.NonModal
             });
         }
     }
@@ -515,11 +527,6 @@ Kirigami.ApplicationWindow {
         onClicked: mouse => mouse.accepted = true
     }
 
-    Component {
-        id: aboutKDEPage
-        FormCard.AboutKDE {}
-    }
-
     Component.onCompleted:
     {
         ElisaApplication.initialize()
@@ -549,6 +556,18 @@ Kirigami.ApplicationWindow {
         // use global drawer on mobile
         if (Kirigami.Settings.isMobile) {
             globalDrawer = contentView.sidebar;
+        }
+    }
+
+    Component {
+        id: aboutKDEPage
+        FormCard.AboutKDE {}
+    }
+
+    Component {
+        id: aboutAppPage
+        FormCard.AboutPage {
+            aboutData: About
         }
     }
 }

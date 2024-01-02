@@ -115,6 +115,10 @@ int main(int argc, char *argv[])
 
     KAboutData::setApplicationData(aboutData);
 
+    qmlRegisterSingletonType("org.kde.elisa.about", 1, 0, "About", [](QQmlEngine *engine, QJSEngine *) -> QJSValue {
+        return engine->toScriptValue(KAboutData::applicationData());
+    });
+
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
     parser.process(app);

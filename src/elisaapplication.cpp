@@ -27,7 +27,6 @@
 
 #if defined KFXmlGui_FOUND
 #include <KActionCollection>
-#include <KAboutApplicationDialog>
 #include <KHelpMenu>
 #include <KBugReport>
 #include <KShortcutsDialog>
@@ -154,7 +153,7 @@ void ElisaApplication::setupActions(const QString &actionName)
     }
 
     if (actionName == QLatin1String("help_about_app") && KAuthorized::authorizeAction(actionName)) {
-        auto aboutAppAction = KStandardAction::aboutApp(this, &ElisaApplication::aboutApplication, this);
+        auto aboutAppAction = KStandardAction::aboutApp(this, &ElisaApplication::openAboutAppPage, this);
         d->mCollection.addAction(aboutAppAction->objectName(), aboutAppAction);
     }
 
@@ -287,18 +286,6 @@ void ElisaApplication::openRequested(const QList<QUrl> &uris)
 void ElisaApplication::appHelpActivated()
 {
     QDesktopServices::openUrl(QUrl(QStringLiteral("help:/")));
-}
-
-void ElisaApplication::aboutApplication()
-{
-#if KFXmlGui_FOUND
-    static QPointer<QDialog> dialog;
-    if (!dialog) {
-        dialog = new KAboutApplicationDialog(KAboutData::applicationData(), nullptr);
-        dialog->setAttribute(Qt::WA_DeleteOnClose);
-    }
-    dialog->show();
-#endif
 }
 
 void ElisaApplication::reportBug()

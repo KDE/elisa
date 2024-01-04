@@ -26,7 +26,7 @@ Item {
     Connections {
         target: elisaMainWindow
 
-        function onClosing() {
+        function onClosing(close) {
             if (systemTrayIcon.available && showSystemTrayIcon && !forceCloseWindow) {
                 close.accepted = false
                 elisaMainWindow.hide()

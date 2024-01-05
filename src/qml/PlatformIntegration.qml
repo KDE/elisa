@@ -68,7 +68,7 @@ Item {
             id: exportedMenu
         }
 
-        onActivated: {
+        onActivated: reason => {
             if (reason === NativeMenu.SystemTrayIcon.Trigger) {
                 raisePlayer();
             }

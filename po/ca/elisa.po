@@ -1,16 +1,16 @@
 # Translation of elisa.po to Catalan
-# Copyright (C) 2016-2023 This_file_is_part_of_KDE
+# Copyright (C) 2016-2024 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023 Josep M. Ferrer <txemaq@gmail.com>
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2016, 2017, 2018, 2019, 2020, 2021.
+# Josep M. Ferrer <txemaq@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-05 01:34+0000\n"
-"PO-Revision-Date: 2023-10-25 09:07+0200\n"
+"PO-Revision-Date: 2024-01-05 08:04+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -865,7 +865,7 @@ msgstr "Neteja-ho tot"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "Elimina aquesta etiqueta"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -880,12 +880,10 @@ msgid "Data is not valid. %1"
 msgstr "Les dades no són vàlides. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Volume as a percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1%"
+msgstr "%1:"
 
 #: qml/MediaTrackMetadataForm.qml:146
 #, kde-format
@@ -1697,45 +1695,3 @@ msgstr "Fitxers"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
-
-#~ msgctxt "@action:button"
-#~ msgid "Close"
-#~ msgstr "Tanca"
-
-#~ msgctxt "@label:listbox"
-#~ msgid "Music indexing:"
-#~ msgstr "Indexació de la música:"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Use fast native indexer"
-#~ msgstr "Usa l'indexador natiu ràpid"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Scan the filesystem directly"
-#~ msgstr "Explora el sistema de fitxers directament"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "This is slower than the fast indexer. Please activate it only if Elisa "
-#~ "cannot find your music and searching for one of the missing music files "
-#~ "using your file manager also does not work. Please report this as a bug."
-#~ msgstr ""
-#~ "Això és més lent que l'indexador. Activeu-la només si l'Elisa no troba la "
-#~ "vostra música i la cerca d'un dels fitxers de música que falten "
-#~ "mitjançant el gestor de fitxers tampoc funciona. Informeu-ne com a un "
-#~ "error."
-
-#~ msgctxt "@action:button"
-#~ msgid "Report Bug"
-#~ msgstr "Informa d'un error"
-
-#~ msgctxt "@label"
-#~ msgid ""
-#~ "The fast native file indexer does not follow symbolic links. If any of "
-#~ "the locations in this list contain symbolic links to other locations, you "
-#~ "will need to add those other locations to the list as well."
-#~ msgstr ""
-#~ "L'indexador natiu ràpid de fitxers no segueix els enllaços simbòlics. Si "
-#~ "alguna de les ubicacions d'aquesta llista conté enllaços simbòlics a "
-#~ "altres ubicacions, també caldrà afegir aquestes altres ubicacions a la "
-#~ "llista."

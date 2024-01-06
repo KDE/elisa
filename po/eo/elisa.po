@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-05 01:34+0000\n"
-"PO-Revision-Date: 2023-10-25 19:09+0100\n"
+"PO-Revision-Date: 2024-01-05 21:20+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -877,12 +877,10 @@ msgid "Data is not valid. %1"
 msgstr "Datumoj ne validas. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Volume as a percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1%"
+msgstr "%1:"
 
 #: qml/MediaTrackMetadataForm.qml:146
 #, kde-format
@@ -1691,44 +1689,3 @@ msgstr "Dosieroj"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiostacioj"
-
-#~ msgctxt "@action:button"
-#~ msgid "Close"
-#~ msgstr "Fermi"
-
-#~ msgctxt "@label:listbox"
-#~ msgid "Music indexing:"
-#~ msgstr "Muzika indeksado:"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Use fast native indexer"
-#~ msgstr "Uzi rapidan indiĝenan indeksilon"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Scan the filesystem directly"
-#~ msgstr "Skani la dosiersistemon rekte"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "This is slower than the fast indexer. Please activate it only if Elisa "
-#~ "cannot find your music and searching for one of the missing music files "
-#~ "using your file manager also does not work. Please report this as a bug."
-#~ msgstr ""
-#~ "Ĉi tio estas pli malrapida ol la rapida indeksilo. Bonvolu aktivigi ĝin "
-#~ "nur se Elisa ne povas trovi vian muzikon kaj serĉado de unu el la "
-#~ "mankantaj muzikdosieroj uzante vian dosieradministradon ankaŭ ne "
-#~ "funkcias. Bonvolu raporti ĉi tion kiel cimon."
-
-#~ msgctxt "@action:button"
-#~ msgid "Report Bug"
-#~ msgstr "Raporti Cimon"
-
-#~ msgctxt "@label"
-#~ msgid ""
-#~ "The fast native file indexer does not follow symbolic links. If any of "
-#~ "the locations in this list contain symbolic links to other locations, you "
-#~ "will need to add those other locations to the list as well."
-#~ msgstr ""
-#~ "La rapida denaska dosierindeksilo ne sekvas simbolajn ligilojn. Se iu el "
-#~ "la lokoj en ĉi tiu listo enhavas simbolajn ligilojn al aliaj lokoj, vi "
-#~ "devos ankaŭ aldoni tiujn aliajn lokojn al la listo."

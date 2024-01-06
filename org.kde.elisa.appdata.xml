@@ -113,6 +113,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="eu">Elisa musika jotzailea KDE Komunitateak garatzen du eta erabiltzeko erraza eta atsegina izaten saiatzen da. Erabilgarri dago Linux, Microsoft Windows, eta «Android»en.</p>
     <p xml:lang="fi">Elisa-musiikkisoittimen on kehittänyt KDE-yhteisö, ja sen tavoitteena on olla yksinkertainen ja miellyttävä käyttää. Sen saa Linuxiin, Microsoft Windowsiin ja Androidiin.</p>
     <p xml:lang="fr">Le lecteur de musique Elisa est développé par la communauté de KDE. Il s'efforce d'être simple et agréable à utiliser. Il est disponible pour Linux, Microsoft Windows et Android.</p>
+    <p xml:lang="hu">Az Elisa zenelejátszót a KDE közösség fejleszti, és egyszerű és kellemes használatra törekszik. Elérhető Linuxon, Microsoft Windowson, és Androidon.</p>
     <p xml:lang="ia">Le reproductor de musica Elisa es disveloppate per le communitate de KDE e lucta pro esser simple e agradabile a usar. Il es disponibile sur Linux, MicrosoftWindows, e Android.</p>
     <p xml:lang="is">Elisa tónlistarspilarinn er þróaður af KDE-samfélaginu og er einfaldur og þægilegur í notkun. Hann er í boði fyrir Linux, Microsoft Windows og Android.</p>
     <p xml:lang="it">Il riproduttore multimediale Elisa è sviluppato dalla comunità KDE e cerca di essere semplice e piacevole da usare. È disponibile su Linux, Microsoft Windows e Android.</p>
@@ -140,6 +141,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="eu">Elisarekin lokalean duzun musika, generoaren, artistaren, albumaren, edo pistaren arabera araka dezakezu, lerroko irratiak entzun, jotze-zerrendak sortu eta kudeatu, letrak azaldu, eta gehiago.</p>
     <p xml:lang="fi">Elisalla voi selata musiikkikokoelmaa tyylilajeittain, artisteittain, albumeittain tai raidoittain, kuunnella verkkoradiota, luoda ja hallita soittolistoja, näyttää sanoitukset ja paljon muuta.</p>
     <p xml:lang="fr">Avec Elisa, vous pouvez parcourir votre collection locale de musique par genre, par artiste, par album ou par piste, écouter la radio en ligne, créer et gérer des listes de lecture, afficher les paroles et plus encore.</p>
+    <p xml:lang="hu">Az Elisa segítségével böngészheti zenei gyűjteményét műfajok, előadók, album vagy zeneszám alapján, hallgathat online rádiót, lejátszási listákat hozhat létre és kezelhet, dalszövegek jeleníthet meg, és még sok mást is megtehet.</p>
     <p xml:lang="ia">Con Elisa, tu pote navigar in tu collection local de musica per genere, artista, album, o tracia, ascolatr radio in linea, crear e gerer listas de reproduction, monstrar lyricas, e plus.</p>
     <p xml:lang="is">Þú getur flett í tónlistarsafninu þínu í Elisa eftir tónlistartegund, flytjanda, plötu eða lagi, hlustað á netútvarp, búið til og unnið með spilunarlista, birt lagatexta og fleira.</p>
     <p xml:lang="it">Con Elisa puoi navigare la raccolta di musica locale per genere, artista, album o traccia, ascolta le radio in linea, crea e gestisci scalette, mostra testi, e altro.</p>
@@ -165,6 +167,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="es">Elisa reconoce el esquema de color completo de KDE cuando se usa en el escritorio Plasma, o si no los modos estándar claro y oscuro.</p>
     <p xml:lang="eu">«Elisa»k, Plasma mahaigainean erabiltzean, KDEren kolore-antolaera osoa  onartzen du, bestelakoan modu argi eta ilun estandarrak.</p>
     <p xml:lang="fr">Elisa prend en charge la totalité du thème de couleurs de KDE, lors de son utilisation avec le bureau Plasma, ou sinon les modes classiques clair et sombre.</p>
+    <p xml:lang="hu">Az Elisa támogatja a teljes KDE színsémát, ha a Plasma asztali környezetben használja, vagy a standard világos és sötét üzemmódot.</p>
     <p xml:lang="ia">Elisa supporta tu schema de color  complete de KDE quando usate sur le scriptorio Plasma, o alteremente le modos standard ligier e obscur.</p>
     <p xml:lang="is">Elisa styður litastefið sem þú notar í KDE þegar það er notað í Plasma skjáborðinu, en annars hefðbundin ljós eða dökk litasnið.</p>
     <p xml:lang="it">Elisa supporta lo schema di colori completo di KDE quando usato nel desktop Plasma, e altrimenti le modalità chiara e scura standard.</p>
@@ -188,6 +191,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="eu">Erlaxatu gure festa-moduarekin, zeinek zure musika-albumaren artea aurrealdean eta erdian ipintzen duen.</p>
     <p xml:lang="fi">Rentoutuminen onnistuu juhlatilassa, jossa etusijalle asettuu albumin kansitaide.</p>
     <p xml:lang="fr">Détendez-vous avec le mode « Fête » mettant la pochette d'album de votre musique au premier plan et au centre.</p>
+    <p xml:lang="hu">Lazítson a Parti móddal, amely a zenei albumok borítóit helyezi előre és a középpontba.</p>
     <p xml:lang="ia">Quieta con Party Mode (modo de Festa) que pone tu illustration de album Fronte e Central.</p>
     <p xml:lang="is">Skemmtu þér í Partísniði þar sem plötuumslögin eru í fyrirrúmi.</p>
     <p xml:lang="it">Rilassati con la modalità party, che mette in evidenza la grafica degli album della tua musica.</p>

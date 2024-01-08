@@ -96,8 +96,7 @@ public Q_SLOTS:
 
 protected:
 
-    void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
-                               const QList<DataTypes::ColumnsRoles> &fieldsForTrack) override;
+    void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData) override;
 
     void filterDataFromTrackData() override;
 

@@ -16,6 +16,28 @@
 
 #include <KFormat>
 
+QList<DataTypes::ColumnsRoles> displayFields(const ElisaUtils::PlayListEntryType dataType)
+{
+    switch (dataType) {
+    case ElisaUtils::Track:
+        return {
+            DataTypes::TitleRole, DataTypes::ArtistRole,
+            DataTypes::AlbumRole, DataTypes::AlbumArtistRole,
+            DataTypes::TrackNumberRole, DataTypes::DiscNumberRole,
+            DataTypes::RatingRole, DataTypes::GenreRole,
+            DataTypes::LyricistRole, DataTypes::ComposerRole,
+            DataTypes::CommentRole, DataTypes::YearRole,
+            DataTypes::ChannelsRole, DataTypes::BitRateRole,
+            DataTypes::SampleRateRole, DataTypes::LyricsRole,
+            DataTypes::LastPlayDate, DataTypes::PlayCounter,
+            DataTypes::DurationRole};
+    case ElisaUtils::Radio:
+        return {DataTypes::TitleRole, DataTypes::ResourceRole, DataTypes::CommentRole, DataTypes::ImageUrlRole};
+    default:
+        return {};
+    }
+}
+
 TrackMetadataModel::TrackMetadataModel(QObject *parent)
     : QAbstractListModel(parent)
 {
@@ -228,14 +250,7 @@ void TrackMetadataModel::saveChanges()
 
 void TrackMetadataModel::undoChanges()
 {
-    beginResetModel();
-    const auto dataType = mFullData[DataTypes::ElementTypeRole];
-    if (dataType == ElisaUtils::Track) {
-        trackData(mFullData);
-    } else if (dataType == ElisaUtils::Radio) {
-        radioData(mFullData);
-    }
-    endResetModel();
+    resetDisplayData();
 }
 
 QHash<int, QByteArray> TrackMetadataModel::roleNames() const
@@ -287,36 +302,13 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
         return;
     }
 
-    const QList<DataTypes::ColumnsRoles> fieldsForTrack({DataTypes::TitleRole, DataTypes::ArtistRole,
-                                                         DataTypes::AlbumRole, DataTypes::AlbumArtistRole,
-                                                         DataTypes::TrackNumberRole, DataTypes::DiscNumberRole,
-                                                         DataTypes::RatingRole, DataTypes::GenreRole,
-                                                         DataTypes::LyricistRole, DataTypes::ComposerRole,
-                                                         DataTypes::CommentRole, DataTypes::YearRole,
-                                                         DataTypes::ChannelsRole, DataTypes::BitRateRole,
-                                                         DataTypes::SampleRateRole, DataTypes::LyricsRole,
-                                                         DataTypes::LastPlayDate, DataTypes::PlayCounter,
-                                                         DataTypes::DurationRole});
-
-    fillDataFromTrackData(trackData, fieldsForTrack);
+    fillDataFromTrackData(trackData);
 }
 
-void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
-                                               const QList<DataTypes::ColumnsRoles> &fieldsForTrack)
+void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData)
 {
-    beginResetModel();
     mFullData = trackData;
-    mDisplayData.clear();
-    mDisplayKeys.clear();
-
-    for (DataTypes::ColumnsRoles role : fieldsForTrack) {
-        if (trackData.constFind(role) != trackData.constEnd()) {
-            mDisplayKeys.push_back(role);
-            mDisplayData[role] = trackData[role];
-        }
-    }
-    filterDataFromTrackData();
-    endResetModel();
+    resetDisplayData();
 
     if (trackData.hasDatabaseId()) {
         fetchLyrics();
@@ -334,6 +326,23 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
 
     mFileUrl = rawFileUrl;
     Q_EMIT fileUrlChanged();
+}
+
+void TrackMetadataModel::resetDisplayData()
+{
+    const auto fieldsForTrack = displayFields(mFullData.elementType());
+    beginResetModel();
+    mDisplayData.clear();
+    mDisplayKeys.clear();
+
+    for (DataTypes::ColumnsRoles role : fieldsForTrack) {
+        if (mFullData.constFind(role) != mFullData.constEnd()) {
+            mDisplayKeys.push_back(role);
+            mDisplayData[role] = mFullData[role];
+        }
+    }
+    filterDataFromTrackData();
+    endResetModel();
 }
 
 void TrackMetadataModel::filterDataFromTrackData()
@@ -679,10 +688,7 @@ void TrackMetadataModel::radioData(const TrackDataType &radiosData)
         return;
     }
 
-    const QList<DataTypes::ColumnsRoles> fieldsForTrack({DataTypes::TitleRole, DataTypes::ResourceRole,
-                                                                 DataTypes::CommentRole, DataTypes::ImageUrlRole});
-
-    fillDataFromTrackData(radiosData, fieldsForTrack);
+    fillDataFromTrackData(radiosData);
 }
 
 #include "moc_trackmetadatamodel.cpp"

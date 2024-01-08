@@ -264,14 +264,13 @@ void EditableTrackMetadataModel::addData(const QString &name)
     updateExtraMetadata();
 }
 
-void EditableTrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
-                                                       const QList<DataTypes::ColumnsRoles> &fieldsForTrack)
+void EditableTrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData)
 {
     if (mIsNewRadio) {
         return;
     }
 
-    TrackMetadataModel::fillDataFromTrackData(trackData, fieldsForTrack);
+    TrackMetadataModel::fillDataFromTrackData(trackData);
 
     updateExtraMetadata();
 }

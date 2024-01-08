@@ -133,8 +133,7 @@ protected:
 
     void undoChanges();
 
-    virtual void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData,
-                                       const QList<DataTypes::ColumnsRoles> &fieldsForTrack);
+    virtual void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData);
 
     virtual void fillDataForNewRadio();
 
@@ -172,6 +171,8 @@ private Q_SLOTS:
 private:
 
     void fetchLyrics();
+
+    void resetDisplayData();
 
     TrackDataType mFullData;
 

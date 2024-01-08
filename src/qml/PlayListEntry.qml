@@ -227,6 +227,7 @@ BasePlayListDelegate {
                         //trackAndDiscNumberLabel
 
                         horizontalAlignment: Text.AlignRight
+                        verticalAlignment: Text.AlignVCenter
 
                         text: {
                             var trackNumberString;

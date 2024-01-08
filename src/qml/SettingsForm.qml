@@ -424,6 +424,7 @@ ColumnLayout {
                                               - delegate.rightPadding
                                               - (action.visible ? action.width : 0)
                         elide: Text.ElideMiddle
+                        verticalAlignment: Text.AlignVCenter
                     }
 
                     actions: Kirigami.Action {

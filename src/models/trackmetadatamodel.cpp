@@ -28,9 +28,10 @@ QList<DataTypes::ColumnsRoles> displayFields(const ElisaUtils::PlayListEntryType
             DataTypes::LyricistRole, DataTypes::ComposerRole,
             DataTypes::CommentRole, DataTypes::YearRole,
             DataTypes::ChannelsRole, DataTypes::BitRateRole,
-            DataTypes::SampleRateRole, DataTypes::LyricsRole,
-            DataTypes::LastPlayDate, DataTypes::PlayCounter,
-            DataTypes::DurationRole};
+            DataTypes::SampleRateRole, DataTypes::LastPlayDate,
+            DataTypes::PlayCounter, DataTypes::DurationRole,
+            DataTypes::LyricsRole
+        };
     case ElisaUtils::Radio:
         return {DataTypes::TitleRole, DataTypes::ResourceRole, DataTypes::CommentRole, DataTypes::ImageUrlRole};
     default:

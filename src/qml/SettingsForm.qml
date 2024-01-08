@@ -403,7 +403,9 @@ ColumnLayout {
 
             // Show the border
             Component.onCompleted: {
-                scrollview.background.visible = true;
+                if (scrollview.background) {
+                    scrollview.background.visible = true;
+                }
             }
 
             contentItem: ListView {

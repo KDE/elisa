@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the elisa package.
-# Sergiu Bivol <sergiu@cip.md>, 2022, 2023.
+# Sergiu Bivol <sergiu@cip.md>, 2022, 2023, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-05 01:34+0000\n"
-"PO-Revision-Date: 2023-06-18 19:44+0100\n"
+"PO-Revision-Date: 2024-01-07 16:55+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -865,7 +865,7 @@ msgstr "Curăță tot"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "Elimină acest marcaj"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -880,12 +880,10 @@ msgid "Data is not valid. %1"
 msgstr "Datele nu sunt valide. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Volume as a percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1%"
+msgstr "%1:"
 
 #: qml/MediaTrackMetadataForm.qml:146
 #, kde-format
@@ -1252,12 +1250,10 @@ msgid "Favorite/not favorite"
 msgstr "Favorită/nefavorită"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Schemă de culori"
+msgstr "Schemă de culori:"
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1266,12 +1262,10 @@ msgid "Scan for New Music"
 msgstr "Scanează pentru muzică nouă"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Se scanează muzica"
+msgstr "A început citirea muzicii"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1283,7 +1277,7 @@ msgstr "Reinițializează baza de date și recitește tot"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Baza de date a fost reinițializată"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1383,13 +1377,13 @@ msgstr "Stații radio"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
-msgstr ""
+msgstr "Amplasare inițială pentru vizualizarea de fișiere:"
 
 #: qml/SettingsForm.qml:323
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr ""
+msgstr "Alege…"
 
 #: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
 #, kde-format
@@ -1449,7 +1443,7 @@ msgstr "Adaugă loc nou"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "„%1” nu a putut fi redat"
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1485,9 +1479,7 @@ msgid "%1%"
 msgstr "%1%"
 
 #: viewmanager.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
 msgstr "Număr piesă"
@@ -1502,13 +1494,13 @@ msgstr "Titlu"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Ascending"
-msgstr ""
+msgstr "Crescător"
 
 #: viewmanager.cpp:43
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Descending"
-msgstr ""
+msgstr "Descrescător"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98

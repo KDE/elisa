@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-05 01:34+0000\n"
+"POT-Creation-Date: 2024-01-10 01:34+0000\n"
 "PO-Revision-Date: 2023-11-06 01:05+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -653,7 +653,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr ""
 
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:300
+#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:301
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -1371,7 +1371,7 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:455
+#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:458
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
@@ -1410,13 +1410,13 @@ msgctxt ""
 msgid "Music folders:"
 msgstr ""
 
-#: qml/SettingsForm.qml:432
+#: qml/SettingsForm.qml:435
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr ""
 
-#: qml/SettingsForm.qml:445
+#: qml/SettingsForm.qml:448
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"

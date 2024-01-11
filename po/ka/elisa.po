@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-10 01:34+0000\n"
+"POT-Creation-Date: 2024-01-11 00:37+0000\n"
 "PO-Revision-Date: 2024-01-05 04:47+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -143,13 +143,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "ონლაინ რადიოების მხარდაჭერა"
 
-#: models/editabletrackmetadatamodel.cpp:323
+#: models/editabletrackmetadatamodel.cpp:322
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "არასწორი URL."
 
-#: models/editabletrackmetadatamodel.cpp:333
+#: models/editabletrackmetadatamodel.cpp:332
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
@@ -203,133 +203,133 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
-#: models/trackmetadatamodel.cpp:460 models/trackmetadatamodel.cpp:506
+#: models/trackmetadatamodel.cpp:470 models/trackmetadatamodel.cpp:516
 #, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "სათაური"
 
-#: models/trackmetadatamodel.cpp:462 models/trackmetadatamodel.cpp:512
+#: models/trackmetadatamodel.cpp:472 models/trackmetadatamodel.cpp:522
 #, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "შემსრულებელი"
 
-#: models/trackmetadatamodel.cpp:464 models/trackmetadatamodel.cpp:515
+#: models/trackmetadatamodel.cpp:474 models/trackmetadatamodel.cpp:525
 #, kde-format
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "ალბომი"
 
-#: models/trackmetadatamodel.cpp:466 models/trackmetadatamodel.cpp:518
+#: models/trackmetadatamodel.cpp:476 models/trackmetadatamodel.cpp:528
 #, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
 msgstr "ალბომი შემსრულებელი"
 
-#: models/trackmetadatamodel.cpp:468 models/trackmetadatamodel.cpp:521
+#: models/trackmetadatamodel.cpp:478 models/trackmetadatamodel.cpp:531
 #, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
 msgstr "აუდიობილიკი ნომერი"
 
-#: models/trackmetadatamodel.cpp:470 models/trackmetadatamodel.cpp:524
+#: models/trackmetadatamodel.cpp:480 models/trackmetadatamodel.cpp:534
 #, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
 msgstr "დისკის ნომერი"
 
-#: models/trackmetadatamodel.cpp:472 models/trackmetadatamodel.cpp:527
+#: models/trackmetadatamodel.cpp:482 models/trackmetadatamodel.cpp:537
 #, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "შეფასება"
 
-#: models/trackmetadatamodel.cpp:474 models/trackmetadatamodel.cpp:530
+#: models/trackmetadatamodel.cpp:484 models/trackmetadatamodel.cpp:540
 #, kde-format
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "ჟანრი"
 
-#: models/trackmetadatamodel.cpp:476 models/trackmetadatamodel.cpp:533
+#: models/trackmetadatamodel.cpp:486 models/trackmetadatamodel.cpp:543
 #, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "ლირიკოსი"
 
-#: models/trackmetadatamodel.cpp:478 models/trackmetadatamodel.cpp:536
+#: models/trackmetadatamodel.cpp:488 models/trackmetadatamodel.cpp:546
 #, kde-format
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "კომპოზიტორი"
 
-#: models/trackmetadatamodel.cpp:480 models/trackmetadatamodel.cpp:539
+#: models/trackmetadatamodel.cpp:490 models/trackmetadatamodel.cpp:549
 #, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "კომენტარი"
 
-#: models/trackmetadatamodel.cpp:482 models/trackmetadatamodel.cpp:542
+#: models/trackmetadatamodel.cpp:492 models/trackmetadatamodel.cpp:552
 #, kde-format
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "წელი"
 
-#: models/trackmetadatamodel.cpp:484 models/trackmetadatamodel.cpp:545
+#: models/trackmetadatamodel.cpp:494 models/trackmetadatamodel.cpp:555
 #, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "არხები"
 
-#: models/trackmetadatamodel.cpp:486 models/trackmetadatamodel.cpp:548
+#: models/trackmetadatamodel.cpp:496 models/trackmetadatamodel.cpp:558
 #, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
 msgstr "სიჩქარე"
 
-#: models/trackmetadatamodel.cpp:488 models/trackmetadatamodel.cpp:551
+#: models/trackmetadatamodel.cpp:498 models/trackmetadatamodel.cpp:561
 #, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
 msgstr "სემპლების სიჩქარე"
 
-#: models/trackmetadatamodel.cpp:490 models/trackmetadatamodel.cpp:563
+#: models/trackmetadatamodel.cpp:500 models/trackmetadatamodel.cpp:573
 #, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "ლირიკა"
 
-#: models/trackmetadatamodel.cpp:492 models/trackmetadatamodel.cpp:509
+#: models/trackmetadatamodel.cpp:502 models/trackmetadatamodel.cpp:519
 #, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "ხანგრძლოვობა"
 
-#: models/trackmetadatamodel.cpp:554
+#: models/trackmetadatamodel.cpp:564
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "ბოლოს დაკვრის დრო"
 
-#: models/trackmetadatamodel.cpp:557
+#: models/trackmetadatamodel.cpp:567
 #, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "პირველად დაკვრის დრო"
 
-#: models/trackmetadatamodel.cpp:560
+#: models/trackmetadatamodel.cpp:570
 #, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "დაკვრების რაოდენობა"
 
-#: models/trackmetadatamodel.cpp:566
+#: models/trackmetadatamodel.cpp:576
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "ნაკადის HTTP მისამართი"
 
-#: models/trackmetadatamodel.cpp:569
+#: models/trackmetadatamodel.cpp:579
 #, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"

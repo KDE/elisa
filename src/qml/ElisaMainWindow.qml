@@ -36,10 +36,7 @@ Kirigami.ApplicationWindow {
         handleClosedIcon.source: "view-media-playlist"
         handleOpenIcon.source: "view-right-close"
 
-        handle.visible: !Kirigami.Settings.isMobile &&
-                        (playlistDrawer.drawerOpen || headerBarLoader.height > elisaTheme.mediaPlayerControlHeight * 2)
-
-        Component.onCompleted: close() // drawer is opened when the layout is narrow, we want it closed
+        handleVisible: !Kirigami.Settings.isMobile && (drawerOpen || mainWindow.spaceForPlayListIconInHeader)
 
         // Don't allow dragging it on non-mobile as the UX is not so great; see
         // https://bugs.kde.org/show_bug.cgi?id=468211 and
@@ -50,6 +47,22 @@ Kirigami.ApplicationWindow {
         enabled: true
         MediaPlayListView {
             anchors.fill: parent
+        }
+
+        StateGroup {
+            states: [
+                State {
+                    name: "inactive"
+                    when: mainWindow.isWideScreen && !mainWindow.inPartyMode
+                    PropertyChanges {
+                        target: playlistDrawer
+                        collapsed: true
+                        visible: false
+                        drawerOpen: false
+                        handleVisible: false
+                    }
+                }
+            ]
         }
     }
 
@@ -134,6 +147,10 @@ Kirigami.ApplicationWindow {
 
     readonly property var mediaPlayerControl: Kirigami.Settings.isMobile ? mobileFooterBarLoader.item : headerBarLoader.item
     readonly property alias fileDialog: fileDialog
+
+    readonly property bool inPartyMode: headerBarLoader.item?.isMaximized ?? false
+    readonly property bool isWideScreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+    readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > elisaTheme.mediaPlayerControlHeight * 2
 
     Action {
         shortcut: ElisaApplication.actionShortcut(goBackAction)
@@ -437,13 +454,6 @@ Kirigami.ApplicationWindow {
                                         Layout.minimumHeight: mainWindow.height
                                         Layout.maximumHeight: mainWindow.height
                                         Layout.preferredHeight: Layout.maximumHeight
-                                    },
-                                    PropertyChanges {
-                                        target: playlistDrawer
-                                        collapsed: true
-                                        visible: false
-                                        drawerOpen: false
-                                        handleVisible: false
                                     },
                                     StateChangeScript {
                                         script: headerBarLoader.normalHeight = headerBarLoader.height

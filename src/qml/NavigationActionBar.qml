@@ -141,13 +141,7 @@ Item {
             text: i18nc("@action:button", "Show Playlist")
             icon.name: "view-media-playlist"
             display: navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: {
-                if (navigationBar.isWidescreen) {
-                    contentView.showPlaylist = !contentView.showPlaylist;
-                } else {
-                    playlistDrawer.open();
-                }
-            }
+            onClicked: navigationBar.isWidescreen ? mainWindow.toggleDrawer() : playlistDrawer.open()
         }
     }
 

@@ -152,6 +152,10 @@ Kirigami.ApplicationWindow {
     readonly property bool isWideScreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
     readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > elisaTheme.mediaPlayerControlHeight * 2
 
+    function toggleDrawer() {
+        contentView.showPlaylist = !contentView.showPlaylist
+    }
+
     Action {
         shortcut: ElisaApplication.actionShortcut(goBackAction)
         onTriggered: contentView.goBack()

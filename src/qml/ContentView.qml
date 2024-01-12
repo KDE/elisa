@@ -264,52 +264,24 @@ RowLayout {
         Layout.preferredWidth: 0
         Layout.fillWidth: false
         Layout.fillHeight: true
-    }
 
-    states: [
-        State {
-            name: "smallScreen"
-            when: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
-            PropertyChanges {
-                target: playlistDrawer
-                modal: true
-                drawerOpen: true
-                handleVisible: true
+        states: [
+            State {
+                name: "playlistVisible"
+                when: mainWindow.isWideScreen && contentViewContainer.showPlaylist
+                PropertyChanges {
+                    target: playList
+                    Layout.preferredWidth: contentViewContainer.width * 0.28
+                }
             }
-        },
-        State {
-            name: "wideScreenNoPlaylist"
-            when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold && contentViewContainer.showPlaylist === false
-            PropertyChanges {
-                target: playlistDrawer
-                collapsed: true
-                visible: false
-                drawerOpen: false
-                handleVisible: false
-            }
-        },
-        State {
-            name: 'wideScreenPlaylist'
-            when: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold && contentViewContainer.showPlaylist === true
-            PropertyChanges {
-                target: playList
-                Layout.preferredWidth: contentViewContainer.width * 0.28
-            }
-            PropertyChanges {
-                target: playlistDrawer
-                collapsed: true
-                visible: false
-                drawerOpen: false
-                handleVisible: false
-            }
-        }
-    ]
+        ]
 
-    transitions: Transition {
-        NumberAnimation {
-            property: "Layout.preferredWidth"
-            easing.type: Easing.InOutQuad
-            duration: Kirigami.Units.longDuration
+        transitions: Transition {
+            NumberAnimation {
+                property: "Layout.preferredWidth"
+                easing.type: Easing.InOutQuad
+                duration: Kirigami.Units.longDuration
+            }
         }
     }
 

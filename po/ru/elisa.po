@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Alexander Potashev <aspotashev@gmail.com>, 2017, 2018, 2019, 2020.
-# Alexander Yavorsky <kekcuha@gmail.com>, 2020, 2021, 2022, 2023.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2020, 2021, 2022, 2023, 2024.
 # Мария Шикунова <translation-team@basealt.ru>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-11 00:37+0000\n"
-"PO-Revision-Date: 2023-07-22 14:48+0300\n"
+"PO-Revision-Date: 2024-01-11 10:21+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -874,7 +874,7 @@ msgstr "Очистить список"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "Удалить эту метку"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -889,12 +889,10 @@ msgid "Data is not valid. %1"
 msgstr "Неверные данные. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Volume as a percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1%"
+msgstr "%1:"
 
 #: qml/MediaTrackMetadataForm.qml:146
 #, kde-format
@@ -1260,12 +1258,10 @@ msgid "Favorite/not favorite"
 msgstr "Избранное / не избранное"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Цветовые схемы"
+msgstr "Цветовые схемы&"
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1274,9 +1270,7 @@ msgid "Scan for New Music"
 msgstr "Искать новые файлы"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "Выполняется поиск файлов"
@@ -1291,7 +1285,7 @@ msgstr "Очистить базу данных и начать поиск фай
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "База данных была очищена"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1392,13 +1386,13 @@ msgstr "Радиостанции"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
-msgstr ""
+msgstr "Начальное расположение для режима просмотра «Файлы»"
 
 #: qml/SettingsForm.qml:323
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr ""
+msgstr "Выбрать…"
 
 #: qml/SettingsForm.qml:331 qml/SettingsForm.qml:458
 #, kde-format
@@ -1459,7 +1453,7 @@ msgstr "Добавить новое расположение"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "Файл «%1» не может быть воспроизведён"
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1496,12 +1490,10 @@ msgid "%1%"
 msgstr "%1%"
 
 #: viewmanager.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
-msgstr "Номер дорожки:"
+msgstr "Номер дорожки"
 
 #: viewmanager.cpp:41 viewmanager.cpp:70
 #, kde-format
@@ -1513,13 +1505,13 @@ msgstr "Название"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Ascending"
-msgstr ""
+msgstr "По возрастанию"
 
 #: viewmanager.cpp:43
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Descending"
-msgstr ""
+msgstr "По убыванию"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98

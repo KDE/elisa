@@ -238,10 +238,7 @@ if (LIBVLC_FOUND)
 endif()
 
 if (ANDROID)
-    target_link_libraries(elisaLib
-        LINK_PUBLIC
-        Qt::AndroidExtras
-        )
+    target_link_libraries(elisaLib PRIVATE Qt6::CorePrivate)
 endif()
 
 generate_export_header(elisaLib BASE_NAME ElisaLib EXPORT_FILE_NAME elisaLib_export.h)
@@ -418,7 +415,7 @@ if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
     if (ANDROID)
         target_link_libraries(elisa
             PRIVATE
-            Qt::AndroidExtras Qt::Svg Qt::Sql Qt::Concurrent KF6::Kirigami
+            Qt::Svg Qt::Sql Qt::Concurrent KF6::Kirigami Qt6::CorePrivate
         )
     endif()
 
@@ -519,4 +516,5 @@ if (ANDROID)
         media-playback-paused
         settings-configure
     )
+    ecm_add_android_apk(elisa ANDROID_DIR ${CMAKE_SOURCE_DIR}/data)
 endif()

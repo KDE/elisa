@@ -37,18 +37,15 @@
 #include <QQmlFileSelector>
 #include <QQuickStyle>
 
-#if QtAndroidExtras_FOUND
-#include <QAndroidService>
-#endif
-
 #include <memory>
 
-#if QtAndroidExtras_FOUND
-#include <QAndroidJniObject>
-#include <QtAndroid>
+#ifdef Q_OS_ANDROID
+#include <QCoreApplication>
+#include <QJniObject>
+#include <QtCore/private/qandroidextras_p.h>
 #endif
 
-#if defined Q_OS_ANDROID
+#ifdef Q_OS_ANDROID
 int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #else
 int main(int argc, char *argv[])
@@ -58,7 +55,7 @@ int main(int argc, char *argv[])
     format.setOption(QSurfaceFormat::ResetNotification);
     QSurfaceFormat::setDefaultFormat(format);
 
-#if defined Q_OS_ANDROID
+#ifdef Q_OS_ANDROID
     if(argc > 1 && strcmp(argv[1], "-service") == 0){
         QAndroidService app(argc, argv);
         qInfo() << "Service starting...";
@@ -82,13 +79,10 @@ int main(int argc, char *argv[])
 
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("elisa"));
 
-#if QtAndroidExtras_FOUND
+#ifdef Q_OS_ANDROID
     qInfo() << QCoreApplication::arguments();
 
-    QAndroidJniObject::callStaticMethod<void>("org/kde/elisa/ElisaService",
-                                              "startMyService",
-                                              "(Landroid/content/Context;)V",
-                                              QtAndroid::androidContext().object());
+    QJniObject::callStaticMethod<void>("org/kde/elisa/ElisaService", "startMyService", "(Landroid/content/Context;)V", QNativeInterface::QAndroidApplication::context());
 #endif
 
 #if KFCrash_FOUND

@@ -4,7 +4,7 @@
 
 package org.kde.elisa;
 
-import org.qtproject.qt5.android.bindings.QtActivity;
+import org.qtproject.qt.android.bindings.QtActivity;
 import android.content.ContentResolver;
 import android.content.Context;
 import androidx.core.content.ContextCompat;

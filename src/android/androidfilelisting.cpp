@@ -21,8 +21,9 @@
 
 // C++ code
 #include <jni.h>
-#include <QAndroidJniObject>
-#include <QtAndroid>
+#include <QCoreApplication>
+#include <QJniObject>
+#include <QtCore/private/qandroidextras_p.h>
 
 #include <algorithm>
 
@@ -78,21 +79,19 @@ void AndroidFileListing::triggerRefreshOfContent()
     qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent";
     Q_EMIT indexingStarted();
 
-    if (QtAndroid::checkPermission(QStringLiteral("android.permission.READ_EXTERNAL_STORAGE")) == QtAndroid::PermissionResult::Denied) {
-        QtAndroid::requestPermissionsSync({QStringLiteral("android.permission.READ_EXTERNAL_STORAGE")});
-    }
-
-    if (QtAndroid::checkPermission(QStringLiteral("android.permission.READ_EXTERNAL_STORAGE")) == QtAndroid::PermissionResult::Denied) {
-        qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent" << "not scanning files due to missing permission";
-        return;
+    const auto storagePermissionCheck = QtAndroidPrivate::checkPermission(QStringLiteral("android.permission.READ_EXTERNAL_STORAGE"));
+    if (storagePermissionCheck.result() == QtAndroidPrivate::PermissionResult::Denied) {
+        const auto storagePermissionRequest = QtAndroidPrivate::requestPermission(QStringLiteral("android.permission.READ_EXTERNAL_STORAGE"));
+        if (storagePermissionRequest.result() == QtAndroidPrivate::PermissionResult::Denied) {
+            qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent" << "not scanning files due to missing permission";
+            return;
+        }
     }
 
     AbstractFileListing::triggerRefreshOfContent();
 
-    QAndroidJniObject musicList = QAndroidJniObject::callStaticObjectMethod("org/kde/elisa/ElisaActivity",
-                                              "listAudioFiles",
-                                              "(Landroid/content/Context;)Ljava/util/ArrayList;",
-                                              QtAndroid::androidContext().object());
+    QJniObject musicList = QJniObject::callStaticObjectMethod(
+        "org/kde/elisa/ElisaActivity", "listAudioFiles", "(Landroid/content/Context;)Ljava/util/ArrayList;", QNativeInterface::QAndroidApplication::context());
 
     auto nbTracks = musicList.callMethod<jint>("size");
 

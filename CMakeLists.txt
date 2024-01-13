@@ -28,6 +28,7 @@ include(ECMAddAppIcon)
 include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
 include(ECMGenerateQmlTypes)
+include(ECMAddAndroidApk)
 
 set(REQUIRED_QT_VERSION "6.5.0")
 find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent QuickControls2)
@@ -56,14 +57,6 @@ find_package(Qt6QuickControls2 ${REQUIRED_QT_VERSION} CONFIG QUIET)
 set_package_properties(Qt6QuickControls2 PROPERTIES
     DESCRIPTION "Qt6 Quick Controls version 2 is needed at runtime to provide the interface."
     TYPE RUNTIME)
-
-if (ANDROID)
-    find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS AndroidExtras)
-    set_package_properties(Qt5AndroidExtras PROPERTIES
-        DESCRIPTION "Qt5 AndroidExtras is needed to provide the Android integration."
-        TYPE REQUIRED)
-    set(QtAndroidExtras_FOUND 1)
-endif()
 
 find_package(KF6Kirigami ${REQUIRED_KF_VERSION} CONFIG QUIET)
 

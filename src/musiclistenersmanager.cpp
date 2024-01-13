@@ -14,7 +14,7 @@
 #include "upnp/upnplistener.h"
 #endif
 
-#if QtAndroidExtras_FOUND
+#ifdef Q_OS_ANDROID
 #include "android/androidmusiclistener.h"
 #endif
 
@@ -51,7 +51,7 @@ public:
 
     FileListener mFileListener;
 
-#if QtAndroidExtras_FOUND
+#ifdef Q_OS_ANDROID
     AndroidMusicListener mAndroidMusicListener;
 #endif
 
@@ -338,7 +338,7 @@ void MusicListenersManager::configChanged()
         qCInfo(orgKdeElisaIndexersManager()) << "trigger init of local file indexer";
         QMetaObject::invokeMethod(d->mFileListener.fileListing(), "init", Qt::QueuedConnection);
     } else if (d->mAndroidIndexerActive) {
-#if defined Q_OS_ANDROID
+#ifdef Q_OS_ANDROID
         QMetaObject::invokeMethod(d->mAndroidMusicListener.fileListing(), "init", Qt::QueuedConnection);
 #endif
     }
@@ -408,8 +408,8 @@ void MusicListenersManager::startLocalFileSystemIndexing()
 
 void MusicListenersManager::startAndroidIndexing()
 {
+#ifdef Q_OS_ANDROID
     qCInfo(orgKdeElisaIndexersManager) << "MusicListenersManager::startAndroidIndexing";
-#if defined Q_OS_ANDROID
     if (d->mAndroidIndexerActive) {
         return;
     }

@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.content.Intent;
 import android.provider.MediaStore;
 
-import org.qtproject.qt5.android.bindings.QtService;
+import org.qtproject.qt.android.bindings.QtService;
 
 class ElisaNatives {
 

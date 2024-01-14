@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-11 00:37+0000\n"
+"POT-Creation-Date: 2024-01-14 03:07+0000\n"
 "PO-Revision-Date: 2023-05-29 22:07+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -421,7 +421,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "İndi səslənir"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:178
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:172
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -504,7 +504,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "Yükləmək mümkün olmadı"
 
-#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:209
+#: qml/ElisaMainWindow.qml:26 qml/ElisaMainWindow.qml:230
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -522,7 +522,7 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "Geri qaytar"
 
-#: qml/ElisaMainWindow.qml:61 qml/ElisaMainWindow.qml:513
+#: qml/ElisaMainWindow.qml:74 qml/ElisaMainWindow.qml:527
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -531,19 +531,19 @@ msgstr ""
 "Bəzi fayllar yüklənə bilmədi. Elisa yalnız səs və mahnı siyahısı fayllarını "
 "aça bilər."
 
-#: qml/ElisaMainWindow.qml:122 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:135 qml/mobile/MobileSidebar.qml:20
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:122
+#: qml/ElisaMainWindow.qml:135
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:191
+#: qml/ElisaMainWindow.qml:212
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -551,7 +551,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u mahnı siyahısı faylı (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:191
+#: qml/ElisaMainWindow.qml:212
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -559,7 +559,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls mahnı siyahısı faylı (*.pls)"
 
-#: qml/ElisaMainWindow.qml:198
+#: qml/ElisaMainWindow.qml:219
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -567,7 +567,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "m3u8, m3u, pls mahnı siyahısı faylı (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:209
+#: qml/ElisaMainWindow.qml:230
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -1125,37 +1125,37 @@ msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "İfaçını göstər"
 
-#: qml/NavigationActionBar.qml:186
+#: qml/NavigationActionBar.qml:180
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Geriyə"
 
-#: qml/NavigationActionBar.qml:264
+#: qml/NavigationActionBar.qml:258
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Axtarış və Süzgəc"
 
-#: qml/NavigationActionBar.qml:264
+#: qml/NavigationActionBar.qml:258
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Axtarış və Süzgəc sahəsini gizlət"
 
-#: qml/NavigationActionBar.qml:365
+#: qml/NavigationActionBar.qml:359
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Albom adı, ifaçı və s. üzrə axtarış"
 
-#: qml/NavigationActionBar.qml:374
+#: qml/NavigationActionBar.qml:368
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Reytingə görə ayır: "
 
-#: qml/NavigationActionBar.qml:389
+#: qml/NavigationActionBar.qml:383
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

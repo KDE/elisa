@@ -38,6 +38,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="ka">Elisa</name>
   <name xml:lang="ko">Elisa</name>
   <name xml:lang="lt">Elisa</name>
+  <name xml:lang="lv">Elisa</name>
   <name xml:lang="nl">Elisa</name>
   <name xml:lang="nn">Elisa</name>
   <name xml:lang="pa">ਇਲੀਸਾ</name>
@@ -85,6 +86,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="ka">ლამაზი, არა უაზრო დამკვრელი ონლაინ რადიოს მხარდაჭერით</summary>
   <summary xml:lang="ko">온라인 라디오를 지원하는 아름다운 음악 재생기</summary>
   <summary xml:lang="lt">Gražus muzikos grotuvas be niekų ir su internetinio radijo palaikymu</summary>
+  <summary xml:lang="lv">Skaists un vienkāršs mūzikas atskaņotājs ar interneta radio atbalstu</summary>
   <summary xml:lang="nl">Mooie no-nonsense muziekspeler met online ondersteuning van radio</summary>
   <summary xml:lang="nn">Elegant og enkel musikkspelar med støtte for nettradio</summary>
   <summary xml:lang="pl">Piękny odtwarzacz muzyki, bez nonsensów i z obsługą radiowych rozgłośni sieciowych</summary>
@@ -119,6 +121,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="it">Il riproduttore multimediale Elisa è sviluppato dalla comunità KDE e cerca di essere semplice e piacevole da usare. È disponibile su Linux, Microsoft Windows e Android.</p>
     <p xml:lang="ka">მუსიკის დამკვრელი Elisa შეიქმნა KDE-ის საზოგადოების მიერ და მიიღწვის, რათა სასიამოვნო და მარტივი იყოს. ხელმისაწვდომია Linux-ზე, Microsoft Windows-ზე და Android-ზე.</p>
     <p xml:lang="ko">Elisa 음악 재생기는 KDE 커뮤니티에서 개발했으며 간단함과 사용의 편안함을 중점에 두었습니다. Linux, Microsoft Windows, Android 환경에서 사용할 수 있습니다.</p>
+    <p xml:lang="lv">„Elisa“ ir izstrādājusi KDE kopiena ar mērķi izveidot vienkāršu un ērtu mūzikas atskaņotāju. Šis atskaņotājs ir pieejams „Linux“, „Microsoft Windows“ un „Android“ operētājsistēmai.</p>
     <p xml:lang="nl">De Elisa muziekspeler is ontwikkeld door de KDE gemeenschap en streeft er naar om eenvoudig en plezierig in gebruik te zijn. Deze is beschikbaar op Linux, Microsoft Windows en Android.</p>
     <p xml:lang="nn">Musikkspelaren Elisa er utvikla av KDE-fellesskapet, som prøver å gjera han både enkel og kjekk å bruka. Han er tilgjengeleg på Linux, Microsoft Windows og Android.</p>
     <p xml:lang="pl">Odtwarzacz muzyki Elisa jest rozwijany przez Społeczność KDE i dąży do bycia prostym i przyjemnym w użyciu. Jest dostępny na Linuksa, Microsoft Windows oraz Androida.</p>
@@ -148,6 +151,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="it">Con Elisa puoi navigare la raccolta di musica locale per genere, artista, album o traccia, ascolta le radio in linea, crea e gestisci scalette, mostra testi, e altro.</p>
     <p xml:lang="ka">Elisa-სთან ერთად შეგიძლიათ ლოკალური მუსიკის კოლექცია ჟანრის, შემსრულებლის, ალბომის ან ტრეკების მიხედვით დაალაგოთ, მოუსმინოთ ონლაინ-რადიოს, შექმნათ და მართოთ დასაკრავი სიები, აჩვენოთ ლირიკა და სხვ.</p>
     <p xml:lang="ko">Elisa를 사용하여 로컬 음악 모음집을 장르, 아티스트, 앨범, 트랙 단위로 탐색하고, 온라인 라디오를 듣고, 재생 목록을 생성 및 관리하고, 가사를 표시할 수 있습니다.</p>
+    <p xml:lang="lv">Ar „Elisa“ varat pārlūkot savā datorā esošo mūzikas kolekciju pēc žanra, izpildītāja, albuma vai dziesmas, klausīties interneta radiostacijas un pārvaldīt atskaņošanas sarakstus, parādīt dziesmu vārdus un daudz ko citu.</p>
     <p xml:lang="nl">Met Elisa kunt u in uw lokale muziekverzameling bladeren op genre, artiest, album of track, luisteren naar online radio, afspeellijsten aanmaken en beheren, liedteksten tonen en meer.</p>
     <p xml:lang="nn">Med Elisa kan du blant anna finna fram i musikksamlinga di etter sjanger, artist, album og spor, lytta til nettradio, organisera spelelister og visa songtekstar.</p>
     <p xml:lang="pl">Dzięki Elisie, możesz przeglądać swój miejscowy zbiór muzyki po rodzaju, wykonawcy, albumie lub utworze, słuchać radia z sieci, tworzyć i zarządzać listami odtwarzania, wyświetlać napisy i więcej.</p>
@@ -174,6 +178,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="is">Elisa styður litastefið sem þú notar í KDE þegar það er notað í Plasma skjáborðinu, en annars hefðbundin ljós eða dökk litasnið.</p>
     <p xml:lang="it">Elisa supporta lo schema di colori completo di KDE quando usato nel desktop Plasma, e altrimenti le modalità chiara e scura standard.</p>
     <p xml:lang="ka">Elisa-ს აქვს KDE-ის ფერის თემების სრული მხარდაჭერა, როცა ის Plasma-ის სამუშაო გარემოშია გაშვებული ისევე, როგორც ღია და მუქი რეჟიმების.</p>
+    <p xml:lang="lv">„Elisa“ atbalsta pilnu KDE krāsu shēmu, ja to izmanto ar „Plasma“ darbvirsmu, vai citos gadījumos standarta gaišo un tumšo motīvu.</p>
     <p xml:lang="nl">Elisa ondersteunt uw volledige KDE kleurenschema bij gebruik op het Plasma bureaublad of anders de standaard lichte en donkere modi.</p>
     <p xml:lang="pl">Elisa obsłuży w pełni twój zestaw barw KDE, gdy zostanie uruchomiona na Pulpicie Plazmy lub obsłuży tylko tryb jasny i ciemny.</p>
     <p xml:lang="pt-BR">Elisa suporta todo o esquema de cores do KDE quando usado na área de trabalho do Plasma, ou então nos modos claro e escuro padrão.</p>
@@ -200,6 +205,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="it">Rilassati con la modalità party, che mette in evidenza la grafica degli album della tua musica.</p>
     <p xml:lang="ka">დაისვენეთ წვეულების რეჟიმში, რომელიც მუსიკის ალბომის ყდას ეკრანზე გაჩვენებთ.</p>
     <p xml:lang="ko">파티 모드를 사용하면 앨범 아트를 가운데에 표시합니다.</p>
+    <p xml:lang="lv">Relaksējieties ballītes režīmā, priekšplānā un centrā parādot atskaņoto albumu.</p>
     <p xml:lang="nl">Ontspan met Party modus, die de illustraties van uw muziekalbum voorop en gecentreerd plaatst.</p>
     <p xml:lang="nn">Slapp av med festmodusen, som framhevar omslagsbileta til albuma dine.</p>
     <p xml:lang="pl">Wyluzuj się w Trybie Imprezy, co umieszcza okładkę twojego albumu na środku.</p>
@@ -250,6 +256,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="ka">Elisa მუსიკალური დაკვრელი</caption>
       <caption xml:lang="ko">Elisa 음악 재생기</caption>
       <caption xml:lang="lt">Elisa muzikos grotuvas</caption>
+      <caption xml:lang="lv">„Elisa“ mūzikas atskaņotājs</caption>
       <caption xml:lang="nl">De muziekspeler Elisa</caption>
       <caption xml:lang="nn">Musikkspelaren Elisa</caption>
       <caption xml:lang="pa">ਇਲੀਸਾ ਸੰਗੀਤ ਪਲੇਅਰ</caption>
@@ -299,6 +306,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="ka">Elisa მობილურ Plasma-ზე</caption>
       <caption xml:lang="ko">Plasma 모바일의 Elisa</caption>
       <caption xml:lang="lt">Elisa Plasma mobiliuosiuose</caption>
+      <caption xml:lang="lv">„Elisa“ „Plasma Mobile“ sistēmā</caption>
       <caption xml:lang="nl">Elisa op Plasma Mobile</caption>
       <caption xml:lang="nn">Elisa på Plasma Mobile</caption>
       <caption xml:lang="pl">Elista na Plazma Mobile</caption>

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-13 00:37+0000\n"
-"PO-Revision-Date: 2023-02-05 01:16+0200\n"
+"PO-Revision-Date: 2024-01-17 01:50+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
 "Language: lt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -115,8 +115,7 @@ msgid "Author"
 msgstr "Autorius"
 
 #: main.cpp:110
-#, fuzzy, kde-format
-#| msgid "Concept and design work"
+#, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Koncepcijos ir dizaino darbas"
@@ -128,15 +127,13 @@ msgid "Localization support"
 msgstr "Lokalizavimo palaikymas"
 
 #: main.cpp:112
-#, fuzzy, kde-format
-#| msgid "Right to left support in interface"
+#, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
-msgstr "Palaikymas sąsajoje teksto iš dešinės į kairę"
+msgstr "Teksto iš dešinės į kairę palaikymas sąsajoje"
 
 #: main.cpp:113
-#, fuzzy, kde-format
-#| msgid "Various improvements to the interface"
+#, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Įvairūs sąsajos patobulinimai"
@@ -181,7 +178,7 @@ msgstr "Pavadinimas"
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
-msgstr ""
+msgstr "Trukmė"
 
 #: models/lyricsmodel.cpp:163
 #, kde-format
@@ -400,18 +397,17 @@ msgid "Enter Full Screen"
 msgstr "Visas ekranas"
 
 #: qml/ApplicationMenu.qml:35 qml/NativeTrayMenu.qml:25
-#, fuzzy, kde-format
-#| msgid "Start playing on startup"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
-msgstr "Pradėti atkūrimą paleidus programą"
+msgstr "Peržiūrėti, ar yra naujos muzikos"
 
 #: qml/ApplicationMenu.qml:44 qml/NativeGlobalMenu.qml:33
 #: qml/NativeTrayMenu.qml:31
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
-msgstr ""
+msgstr "Atstatyti duomenų bazė ir peržiūrėti viską iš naujo"
 
 #: qml/ApplicationMenu.qml:55
 #, kde-format
@@ -534,6 +530,8 @@ msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr ""
+"Nepavyko įkelti tam tikrų failų. Elisa gali atverti ti garso ir grojaraščio "
+"failus."
 
 #: qml/ElisaMainWindow.qml:135 qml/mobile/MobileSidebar.qml:20
 #, kde-format
@@ -548,28 +546,20 @@ msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
 #: qml/ElisaMainWindow.qml:212
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr "Grojaraštis (*.m3u*)"
+msgstr "m3u8, m3u Grojaraščio failas (*.m3u*)"
 
 #: qml/ElisaMainWindow.qml:212
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for m3u and m3u8 playlist file formats; do "
-#| "not translate *.m3u*"
-#| msgid "Playlist (*.m3u*)"
+#, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr "Grojaraštis (*.m3u*)"
+msgstr "pls Grojaraščio failas (*.pls)"
 
 #: qml/ElisaMainWindow.qml:219
 #, kde-format
@@ -577,7 +567,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
 "do not translate *.m3u8 *.m3u *.pls"
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr ""
+msgstr "m3u8, m3u, pls Grojaraščio failas (*.m3u8 *.m3u *.pls)"
 
 #: qml/ElisaMainWindow.qml:230
 #, kde-format
@@ -624,12 +614,10 @@ msgid "View details"
 msgstr "Rodyti išsamiau"
 
 #: qml/ListBrowserDelegate.qml:86
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "Atkurti dabar, pakeičiant dabartinį grojaraštį"
+msgstr "Atkurti nuo čia, pakeičiant dabartinį grojaraštį"
 
 #: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:109
 #, kde-format
@@ -754,15 +742,13 @@ msgid "Playlist"
 msgstr "Grojaraštis"
 
 #: qml/MediaPlayerControl.qml:193 qml/mobile/MobileTrackPlayer.qml:258
-#, fuzzy, kde-format
-#| msgid "One"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Vienas"
 
 #: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:262
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Nėra"
@@ -800,14 +786,14 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
+"Nepavyko įkelti tam tikrų takelių. Įsitikinkite, kad jie nebuvo pašalinti ar "
+"pervadinti."
 
 #: qml/MediaPlayListView.qml:105
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Pridėti į grojaraštį"
+msgstr "Taisyti grojaraščio failą"
 
 #: qml/MediaPlayListView.qml:275
 #, kde-format
@@ -881,7 +867,7 @@ msgstr "Išvalyti viską"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "Šalinti šią žymę"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -896,9 +882,7 @@ msgid "Data is not valid. %1"
 msgstr "Duomenys neteisingi. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
-#| msgid "%1:"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
 msgstr "%1:"
@@ -982,12 +966,10 @@ msgid "Show Info"
 msgstr "Rodyti informaciją"
 
 #: qml/mobile/MobileVolumeButton.qml:27
-#, fuzzy, kde-format
-#| msgctxt "change player volume"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@action:button"
 msgid "Change Volume"
-msgstr "Keisti garsį"
+msgstr "Keisti garsumą"
 
 #: qml/NativeGlobalMenu.qml:14
 #, kde-format
@@ -1092,15 +1074,13 @@ msgid "Repeat"
 msgstr "Kartoti"
 
 #: qml/NativeGlobalMenu.qml:137
-#, fuzzy, kde-format
-#| msgid "Playlist"
+#, kde-format
 msgctxt "@action:inmenu repeat all songs in this playlist"
 msgid "Playlist"
 msgstr "Grojaraštis"
 
 #: qml/NativeGlobalMenu.qml:141
-#, fuzzy, kde-format
-#| msgid "One"
+#, kde-format
 msgctxt "@action:inmenu repeat this one song"
 msgid "One"
 msgstr "Vienas"
@@ -1210,38 +1190,34 @@ msgid "General:"
 msgstr "Bendra:"
 
 #: qml/SettingsForm.qml:71
-#, fuzzy, kde-format
-#| msgid "Show background on Now Playing page"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "Rodyti foną „Dabar atkuriama“ puslapyje"
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on Task Manager entries"
 msgstr "Rodyti eigą ant užduočių tvarkytuvės įrašų"
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in System Tray when main window is closed"
 msgstr "Užvėrus pagrindinį langą, palikti programą veikiančią sistemos dėkle"
 
 #: qml/SettingsForm.qml:106
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "Pradėti atkūrimą paleidus programą"
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgid "Start playing on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for New Music on startup"
-msgstr "Pradėti atkūrimą paleidus programą"
+msgstr "Paleidus programą peržiūrėti, ar yra naujos muzikos"
 
 #: qml/SettingsForm.qml:136
 #, kde-kuit-format
@@ -1252,6 +1228,10 @@ msgid ""
 "do this with the <interface>Scan for new music</interface> item in Elisa's "
 "hamburger menu."
 msgstr ""
+"Naudodami šią nuostatą, kas kartą pridėję naujų failų į sukonfigūruotus "
+"muzikos aplankus, turėsite rankiniu būdu iš naujo įkelti muzikinę kolekciją. "
+"Galite tai atlikti Elisa programos trijų juostų meniu paspaudę ant punkto "
+"<interface>Peržiūrėti, ar yra naujos muzikos</interface>."
 
 #: qml/SettingsForm.qml:147
 #, kde-format
@@ -1272,78 +1252,64 @@ msgid "Favorite/not favorite"
 msgstr "Mėgstama/nemėgstama"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Spalvų rinkinys"
+msgstr "Spalvų rinkinys:"
 
 #: qml/SettingsForm.qml:212
-#, fuzzy, kde-format
-#| msgid "Start playing on startup"
+#, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
-msgstr "Pradėti atkūrimą paleidus programą"
+msgstr "Peržiūrėti, ar yra naujos muzikos"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Peržiūrima muzika"
+msgstr "Pradėta muzikos peržiūra"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
-msgstr ""
+msgstr "Atstatyti duomenų bazė ir peržiūrėti viską iš naujo"
 
 #: qml/SettingsForm.qml:226
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Duomenų bazė atstatyta"
 
 #: qml/SettingsForm.qml:241
-#, fuzzy, kde-format
-#| msgid "Embed category in sidebar:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Įterpti kategoriją į šoninę juostą:"
 
 #: qml/SettingsForm.qml:243
-#, fuzzy, kde-format
-#| msgctxt "Configure dialog, embed no category in views navigation list"
-#| msgid "Nothing"
+#, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "Nieko"
 
 #: qml/SettingsForm.qml:244
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all albums"
-#| msgid "Albums"
+#, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "Albumai"
 
 #: qml/SettingsForm.qml:245
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all artists"
-#| msgid "Artists"
+#, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "Atlikėjai"
 
 #: qml/SettingsForm.qml:246
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of all genres"
-#| msgid "Genres"
+#, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
@@ -1413,13 +1379,13 @@ msgstr "Radijo stotys"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
-msgstr ""
+msgstr "Pradinė failų rodinio vieta:"
 
 #: qml/SettingsForm.qml:323
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr ""
+msgstr "Pasirinkti…"
 
 #: qml/SettingsForm.qml:331 qml/SettingsForm.qml:458
 #, kde-format
@@ -1430,19 +1396,19 @@ msgstr "Pasirinkti aplanką"
 #: qml/SettingsForm.qml:354
 #, kde-format
 msgid "When saving playlist files:"
-msgstr ""
+msgstr "Įrašant grojaraščio failus:"
 
 #: qml/SettingsForm.qml:363
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
-msgstr ""
+msgstr "Teikti pirmenybę santykiniams keliams"
 
 #: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
-msgstr ""
+msgstr "Visada naudoti absoliučius kelius"
 
 #: qml/SettingsForm.qml:375
 #, kde-kuit-format
@@ -1452,6 +1418,9 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
+"Kai pasirinkta <interface>Teikti pirmenybę santykiniams keliams</interface>, "
+"failai, esantys tame pačiame aplanke kaip grojaraštis, bus nurodomi tik "
+"pagal failo pavadinimą. Absoliutūs keliai yra naudojami kitokiais atvejais."
 
 #: qml/SettingsForm.qml:390
 #, kde-format
@@ -1476,7 +1445,7 @@ msgstr "Pridėti naują vietą"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "Nepavyko atkurti „%1“"
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1507,23 +1476,19 @@ msgid "Disc %1"
 msgstr "Diskas %1"
 
 #: qml/VolumeSlider.qml:58
-#, fuzzy, kde-format
-#| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
-#| msgid "%1:"
+#, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr "%1:"
+msgstr "%1%"
 
 #: viewmanager.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
 msgstr "Takelio numeris"
 
 #: viewmanager.cpp:41 viewmanager.cpp:70
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Title"
 msgstr "Pavadinimas"
@@ -1532,13 +1497,13 @@ msgstr "Pavadinimas"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Ascending"
-msgstr ""
+msgstr "Didėjančiai"
 
 #: viewmanager.cpp:43
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Descending"
-msgstr ""
+msgstr "Mažėjančiai"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
@@ -1557,8 +1522,7 @@ msgid "Z-A"
 msgstr "Ž-A"
 
 #: viewmanager.cpp:56 viewmanager.cpp:84
-#, fuzzy, kde-format
-#| msgid "Name"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "Pavadinimas"
@@ -1596,59 +1560,49 @@ msgid "Now Playing"
 msgstr "Dabar atkuriama"
 
 #: viewslistdata.cpp:27
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of recently played tracks"
-#| msgid "Recently Played"
+#, kde-format
 msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Paskiausiai atkurta"
 
 #: viewslistdata.cpp:35
-#, fuzzy, kde-format
-#| msgid "Last Played Date"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Last Played Date"
 msgstr "Paskutinio atkūrimo data"
 
 #: viewslistdata.cpp:37
-#, fuzzy, kde-format
-#| msgid "Least Recently Played First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
 msgstr "Pirmiausia seniausiai atkurti"
 
 #: viewslistdata.cpp:37
-#, fuzzy, kde-format
-#| msgid "Most Recently Played First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "Pirmiausia paskiausiai atkurti"
 
 #: viewslistdata.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "Title of the view of frequently played tracks"
-#| msgid "Frequently Played"
+#, kde-format
 msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
-msgstr "Dažniausiai atkurta"
+msgstr "Dažniausiai atkurti"
 
 #: viewslistdata.cpp:49
-#, fuzzy, kde-format
-#| msgid "Play Frequency"
+#, kde-format
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "Atkūrimo dažnis"
 
 #: viewslistdata.cpp:51
-#, fuzzy, kde-format
-#| msgid "Least Frequently Played First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "Pirmiausia rečiausiai atkurti"
 
 #: viewslistdata.cpp:51
-#, fuzzy, kde-format
-#| msgid "Most Frequently Played First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Pirmiausia dažniausiai atkurti"
@@ -1717,18 +1671,16 @@ msgstr "Dainos žodžių autorius"
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
-msgstr ""
+msgstr "Paskutinis modifikavimas"
 
 #: viewslistdata.cpp:99
-#, fuzzy, kde-format
-#| msgid "Shortest First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "Pirmiausia trumpiausi"
 
 #: viewslistdata.cpp:99
-#, fuzzy, kde-format
-#| msgid "Longest First"
+#, kde-format
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "Pirmiausia ilgiausi"

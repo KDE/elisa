@@ -19,7 +19,8 @@ QQC2.Control {
     property double hoverBrightness: 0.5
     property double hoverContrast: 0.5
 
-    property int hoveredRating: 0
+    readonly property int hoveredStar: mouseArea.containsMouse ? Math.ceil(5 * mouseArea.mouseX / mouseArea.width) : 0
+    readonly property int hoveredRating: 2 * hoveredStar
 
     signal ratingEdited()
 
@@ -101,30 +102,27 @@ QQC2.Control {
                     opacity: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
                         ? 1 : 0.7
                 }
-
-                MouseArea {
-                    anchors.fill: parent
-
-                    enabled: !control.readOnly
-
-                    acceptedButtons: Qt.LeftButton
-                    hoverEnabled: true
-
-                    onClicked: {
-                        if (control.starRating !== delegate.ratingThreshold) {
-                            control.starRating = delegate.ratingThreshold
-                        } else {
-                            control.starRating = 0
-                        }
-                        control.ratingEdited()
-                    }
-
-                    onEntered: control.hoveredRating = delegate.ratingThreshold
-                    onExited: if (control.hoveredRating === delegate.ratingThreshold) {
-                        control.hoveredRating = 0;
-                    }
-                }
             }
+        }
+    }
+
+    MouseArea {
+        id: mouseArea
+
+        anchors.fill: parent
+
+        enabled: !control.readOnly
+
+        acceptedButtons: Qt.LeftButton
+        hoverEnabled: true
+
+        onClicked: {
+            if (control.starRating !== control.hoveredRating) {
+                control.starRating = control.hoveredRating
+            } else {
+                control.starRating = 0
+            }
+            control.ratingEdited()
         }
     }
 

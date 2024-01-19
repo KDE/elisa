@@ -123,7 +123,14 @@ void AudioWrapper::setVolume(qreal volume)
 void AudioWrapper::setSource(const QUrl &source)
 {
     qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::setSource" << source;
-    d->mPlayer.setSource({source});
+
+    // HACK workaround for https://bugreports.qt.io/browse/QTBUG-121355
+    // Playing the same source when at EndOfMedia causes the player to instantly jump the end
+    if (d->mPlayer.mediaStatus() == QMediaPlayer::EndOfMedia && d->mPlayer.source() == source) {
+        d->mPlayer.setPosition(0);
+    } else {
+        d->mPlayer.setSource(source);
+    }
 }
 
 void AudioWrapper::setPosition(qint64 position)

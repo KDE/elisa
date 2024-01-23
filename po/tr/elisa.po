@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-13 00:37+0000\n"
-"PO-Revision-Date: 2024-01-05 16:09+0300\n"
+"PO-Revision-Date: 2024-01-22 19:27+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.85\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -225,19 +225,19 @@ msgstr "Albüm"
 #, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
-msgstr "Albüm Sanatçısı"
+msgstr "Albüm sanatçısı"
 
 #: models/trackmetadatamodel.cpp:478 models/trackmetadatamodel.cpp:531
 #, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
-msgstr "Parça Numarası"
+msgstr "Parça numarası"
 
 #: models/trackmetadatamodel.cpp:480 models/trackmetadatamodel.cpp:534
 #, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
-msgstr "Disk Numarası"
+msgstr "Disk numarası"
 
 #: models/trackmetadatamodel.cpp:482 models/trackmetadatamodel.cpp:537
 #, kde-format
@@ -255,7 +255,7 @@ msgstr "Tür"
 #, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
-msgstr "Söz Yazarı"
+msgstr "Söz yazarı"
 
 #: models/trackmetadatamodel.cpp:488 models/trackmetadatamodel.cpp:546
 #, kde-format
@@ -285,19 +285,19 @@ msgstr "Kanallar"
 #, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
-msgstr "Bit Hızı"
+msgstr "Bit hızı"
 
 #: models/trackmetadatamodel.cpp:498 models/trackmetadatamodel.cpp:561
 #, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
-msgstr "Örnekleme Hızı"
+msgstr "Örnekleme hızı"
 
 #: models/trackmetadatamodel.cpp:500 models/trackmetadatamodel.cpp:573
 #, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
-msgstr "Şarkı Sözleri"
+msgstr "Şarkı sözleri"
 
 #: models/trackmetadatamodel.cpp:502 models/trackmetadatamodel.cpp:519
 #, kde-format
@@ -426,7 +426,7 @@ msgstr "Şimdi Çalınıyor"
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
-msgstr "Kenar çubuğunu aç"
+msgstr "Kenar Çubuğunu Aç"
 
 #: qml/ContextView.qml:108
 #, kde-format
@@ -578,20 +578,20 @@ msgstr "Kaydetme başarısız"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
-msgstr "Geçerli çalma listesini değiştirerek şimdi çal"
+msgstr "Geçerli Listeyi Değiştirip Şimdi Çal"
 
 #: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:81
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
-msgstr "Çalma listesine ekle"
+msgstr "Çalma Listesine Ekle"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
 #: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:88
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
-msgstr "Klasörde göster"
+msgstr "Klasörde Göster"
 
 #: qml/GridBrowserDelegate.qml:345
 #, kde-format
@@ -610,33 +610,33 @@ msgstr "Tam Ekran Kipinden Çık"
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
-msgstr "Ayrıntıları göster"
+msgstr "Ayrıntıları Göster"
 
 #: qml/ListBrowserDelegate.qml:86
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "Geçerli çalma listesini değiştirerek buradan çal"
+msgstr "Geçerli Listeyi Değiştirip Buradan Çal"
 
 #: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:109
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
-msgstr "Parça derecelendirmesini ayarla"
+msgstr "Parça Derecelendirmesini Ayarla"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:119
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
-msgstr "Bu şarkıyı beğenilenlerden çıkar"
+msgstr "Şarkıyı Beğenilenlerden Çıkar"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:119
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
-msgstr "Bu şarkıyı beğenilenlere ekle"
+msgstr "Şarkıyı Beğenilenlere Ekle"
 
 #: qml/ListBrowserDelegate.qml:216 qml/ListBrowserDelegate.qml:232
 #, kde-format
@@ -660,7 +660,7 @@ msgstr "%1 - %2"
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
-msgstr "Bu şarkıdaki derecelendirmeyi iptal et"
+msgstr "Şarkıyı Derecelendirme"
 
 #: qml/ListBrowserDelegate.qml:373
 #, kde-format
@@ -862,7 +862,7 @@ msgstr "Tümünü Temizle"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr "Bu etiketi kaldır"
+msgstr "Bu Etiketi Kaldır"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -900,7 +900,7 @@ msgstr "Bir Radyo Oluştur"
 #, kde-format
 msgctxt "@title:window"
 msgid "View details"
-msgstr "Ayrıntıları göster"
+msgstr "Ayrıntıları Göster"
 
 #: qml/MediaTrackMetadataView.qml:127
 #: qml/mobile/MobileMediaTrackMetadataView.qml:70
@@ -940,7 +940,7 @@ msgstr "Parça Seçenekleri"
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
-msgstr "Kuyruktan kaldır"
+msgstr "Kuyruktan Kaldır"
 
 #: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:37
 #, kde-format
@@ -1110,7 +1110,7 @@ msgstr "Sırala"
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
-msgstr "Bir radyo oluştur"
+msgstr "Radyo Oluştur"
 
 #: qml/NavigationActionBar.qml:105
 #, kde-format
@@ -1428,7 +1428,7 @@ msgstr "Müzik klasörleri:"
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
-msgstr "Burada müzik aramayı bırak"
+msgstr "Burada Müzik Aramayı Bırak"
 
 #: qml/SettingsForm.qml:448
 #, kde-format
@@ -1689,77 +1689,3 @@ msgstr "Dosyalar"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radyo İstasyonları"
-
-#~ msgctxt "@action:button"
-#~ msgid "Close"
-#~ msgstr "Kapat"
-
-#~ msgctxt "@label:listbox"
-#~ msgid "Music indexing:"
-#~ msgstr "Müzik indeksleme:"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Use fast native indexer"
-#~ msgstr "Hızlı yerel indeksleyiciyi kullan"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Scan the filesystem directly"
-#~ msgstr "Dosya sistemini doğrudan tarayın"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "This is slower than the fast indexer. Please activate it only if Elisa "
-#~ "cannot find your music and searching for one of the missing music files "
-#~ "using your file manager also does not work. Please report this as a bug."
-#~ msgstr ""
-#~ "Bu, hızlı dizinleyiciden daha yavaştır. Lütfen yalnızca Elisa müziğinizi "
-#~ "bulamıyorsa ve dosya yöneticinizi kullanarak eksik müzik dosyalarından "
-#~ "birini aramak da işe yaramazsa etkinleştirin. Lütfen bunu bir hata olarak "
-#~ "bildirin."
-
-#~ msgctxt "@action:button"
-#~ msgid "Report Bug"
-#~ msgstr "Hata Bildir"
-
-#~ msgctxt "@label"
-#~ msgid ""
-#~ "The fast native file indexer does not follow symbolic links. If any of "
-#~ "the locations in this list contain symbolic links to other locations, you "
-#~ "will need to add those other locations to the list as well."
-#~ msgstr ""
-#~ "Hızlı yerel dosya indeksleyicisi sembolik bağları izlemez. Bu listedeki "
-#~ "konumlardan herhangi biri başka konumlara sembolik bağlar içeriyorsa o "
-#~ "konumları da listeye eklemeniz gerekecektir."
-
-#~ msgctxt "@action:button"
-#~ msgid "Color Scheme"
-#~ msgstr "Renk Şeması"
-
-#~ msgctxt "@title:menu"
-#~ msgid "Color Scheme"
-#~ msgstr "Renk Şeması"
-
-#~ msgctxt ""
-#~ "@action:button Clear play list and add whole container to play list"
-#~ msgid "Play now, replacing current queue"
-#~ msgstr "Geçerli kuyruğun yerini alarak şimdi çal"
-
-#~ msgctxt "@action:button Add whole container to play list"
-#~ msgid "Add to queue"
-#~ msgstr "Kuyruğa ekle"
-
-#~ msgctxt "@action:button"
-#~ msgid "View details"
-#~ msgstr "Ayrıntıları göster"
-
-#~ msgctxt "@action:button"
-#~ msgid "Un-mark as favorite"
-#~ msgstr "Bu şarkıyı beğenilenlerden çıkar"
-
-#~ msgctxt "@action:button"
-#~ msgid "Mark as favorite"
-#~ msgstr "Bu şarkıyı beğenilenlere ekle"
-
-#~ msgctxt "@action:button Enqueue current track"
-#~ msgid "Add to queue"
-#~ msgstr "Kuyruğa ekle"

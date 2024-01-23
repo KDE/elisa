@@ -1824,7 +1824,3 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
-
-#~ msgctxt "@action:button"
-#~ msgid "Close"
-#~ msgstr "Lukk"

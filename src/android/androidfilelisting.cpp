@@ -131,6 +131,9 @@ void AndroidFileListing::triggerRefreshOfContent()
 
 DataTypes::TrackDataType AndroidFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo, FileSystemWatchingModes watchForFileSystemChanges)
 {
+    Q_UNUSED(scanFile)
+    Q_UNUSED(scanFileInfo)
+    Q_UNUSED(watchForFileSystemChanges)
     auto newTrack = DataTypes::TrackDataType{};
 
     return newTrack;

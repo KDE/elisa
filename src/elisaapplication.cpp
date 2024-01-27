@@ -226,6 +226,8 @@ void ElisaApplication::setupActions(const QString &actionName)
     }
 
     d->mCollection.readSettings();
+#else
+    Q_UNUSED(actionName)
 #endif
 }
 

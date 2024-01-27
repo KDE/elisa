@@ -118,14 +118,14 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         return newTrack;
     }
 
-    const auto &localFileName = scanFile.toLocalFile();
-
     newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
     newTrack[DataTypes::ResourceRole] = scanFile;
     newTrack[DataTypes::RatingRole] = 0;
     newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
 
 #if KFFileMetaData_FOUND
+    const auto &localFileName = scanFile.toLocalFile();
+
     const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
     if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
         return newTrack;

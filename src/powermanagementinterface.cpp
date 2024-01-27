@@ -109,6 +109,8 @@ void PowerManagementInterface::inhibitDBusCallFinishedPlasmaWorkspace(QDBusPendi
         Q_EMIT sleepInhibitedChanged();
     }
     aWatcher->deleteLater();
+#else
+    Q_UNUSED(aWatcher)
 #endif
 }
 
@@ -124,6 +126,8 @@ void PowerManagementInterface::uninhibitDBusCallFinishedPlasmaWorkspace(QDBusPen
         Q_EMIT sleepInhibitedChanged();
     }
     aWatcher->deleteLater();
+#else
+    Q_UNUSED(aWatcher)
 #endif
 }
 
@@ -140,6 +144,8 @@ void PowerManagementInterface::inhibitDBusCallFinishedGnomeWorkspace(QDBusPendin
         Q_EMIT sleepInhibitedChanged();
     }
     aWatcher->deleteLater();
+#else
+    Q_UNUSED(aWatcher)
 #endif
 }
 
@@ -155,6 +161,8 @@ void PowerManagementInterface::uninhibitDBusCallFinishedGnomeWorkspace(QDBusPend
         Q_EMIT sleepInhibitedChanged();
     }
     aWatcher->deleteLater();
+#else
+    Q_UNUSED(aWatcher)
 #endif
 }
 

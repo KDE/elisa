@@ -27,5 +27,7 @@ QPixmap ColorSchemePreviewImageProvider::requestPixmap(const QString &id, QSize 
     if (!index.isValid()) {
         index = mSchemes->indexForScheme(QStringLiteral(""));
     }
-    return mSchemes->model()->data(index, Qt::DecorationRole).value<QIcon>().pixmap(requestedSize);
+    const auto pixmap = mSchemes->model()->data(index, Qt::DecorationRole).value<QIcon>().pixmap(requestedSize);
+    *size = pixmap.size();
+    return pixmap;
 }

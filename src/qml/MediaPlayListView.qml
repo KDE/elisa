@@ -327,6 +327,7 @@ Kirigami.Page {
 
                     reuseItems: true
                     model: ElisaApplication.mediaPlayListProxyModel
+                    activeFocusOnTab: count > 0
 
                     moveDisplaced: Transition {
                         YAnimator {

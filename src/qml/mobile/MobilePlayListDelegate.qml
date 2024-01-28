@@ -145,6 +145,7 @@ BasePlayListDelegate {
                 text: i18nc("@action:button", "Track Options")
                 icon.name: "view-more-symbolic"
                 onClicked: openContextMenu()
+                activeFocusOnTab: playListEntry.isSelected
             }
         }
 

@@ -40,6 +40,8 @@ QQC2.ItemDelegate {
     property bool simpleMode: false
     property bool showDragHandle: true
 
+    activeFocusOnTab: isSelected
+
     signal startPlayback()
     signal pausePlayback()
     signal removeFromPlaylist(int trackIndex)

@@ -40,8 +40,6 @@ BasePlayListDelegate {
         playListEntry.startPlayback()
     }
 
-    activeFocusOnTab: isSelected
-
     KeyNavigation.right: (buttonRowLoader.item && buttonRowLoader.item.children[0]) || menuButtonLoader.item || null
     KeyNavigation.left:  (buttonRowLoader.item && buttonRowLoader.item.children[buttonRowLoader.item.children.length -1]) || menuButtonLoader.item || null
 
@@ -290,7 +288,7 @@ BasePlayListDelegate {
                         delegate: FlatButtonWithToolTip {
                             action: modelData
                             visible: action.visible
-                            activeFocusOnTab: isSelected
+                            activeFocusOnTab: playListEntry.isSelected
                         }
                     }
                 }
@@ -345,7 +343,7 @@ BasePlayListDelegate {
                     onPressed: menuLoader.item.open()
                     Keys.onReturnPressed: menuLoader.item.open()
                     Keys.onEnterPressed: menuLoader.item.open()
-                    activeFocusOnTab: isSelected
+                    activeFocusOnTab: playListEntry.isSelected
                 }
             }
             Loader {

@@ -387,12 +387,6 @@ void ElisaApplication::initialize()
     initializeModels();
     initializePlayer();
 
-#ifdef Q_OS_ANDROID
-    QIcon::setThemeName(QStringLiteral("Breeze"));
-    QIcon::setFallbackSearchPaths({QIcon::themeSearchPaths().first() + QStringLiteral("/icons")});
-    QIcon::setThemeSearchPaths({QIcon::themeSearchPaths().first()});
-#endif
-
     Q_EMIT initializationDone();
 }
 

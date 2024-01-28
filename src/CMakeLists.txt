@@ -515,6 +515,7 @@ if (ANDROID)
         media-playback-playing
         media-playback-paused
         settings-configure
+        view-sort
     )
     ecm_add_android_apk(elisa ANDROID_DIR ${CMAKE_SOURCE_DIR}/data)
 endif()

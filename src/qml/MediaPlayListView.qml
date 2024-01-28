@@ -187,7 +187,6 @@ Kirigami.Page {
                     delegate: ColumnLayout {
                         id: playListDelegate
 
-                        property alias entry: entry
                         property bool nextDelegateHasSection
 
                         width: playListView.width
@@ -355,6 +354,12 @@ Kirigami.Page {
                         width: entry.width
                         height: entry.height
 
+                        onFocusChanged: {
+                            if (focus) {
+                                entry.forceActiveFocus()
+                            }
+                        }
+
                         // ListItemDragHandle requires listItem
                         // to be a child of delegate
                         MobilePlayListDelegate {
@@ -462,7 +467,7 @@ Kirigami.Page {
                         onTriggered: {
                             playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
                             playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
-                            playListView.currentItem.entry.forceActiveFocus()
+                            playListView.currentItem.forceActiveFocus()
                         }
                     },
                     Kirigami.Action {

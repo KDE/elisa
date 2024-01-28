@@ -278,6 +278,7 @@ BasePlayerControl {
 
                 // this color works well over the blurred/darkened background
                 labelColor: "white"
+                labelsInline: false
             }
 
             // bottom play controls

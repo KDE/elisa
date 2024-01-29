@@ -87,6 +87,7 @@ Kirigami.Page {
             ToolButton {
                 icon.name: "edit-paste"
                 opacity: 0
+                focusPolicy: Qt.NoFocus
             }
 
             ButtonGroup {

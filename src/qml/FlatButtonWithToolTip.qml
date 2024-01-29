@@ -13,6 +13,8 @@ import org.kde.elisa 1.0
 ToolButton {
     property T.Popup menu
 
+    readonly property bool __exclusive: autoExclusive || (ButtonGroup.group?.exclusive ?? false)
+
     display: AbstractButton.IconOnly
 
     ToolTip.visible: hovered
@@ -22,7 +24,35 @@ ToolButton {
     ToolTip.delay: Kirigami.Units.toolTipDelay
     ToolTip.text: text
 
-    Keys.onReturnPressed: action ? action.trigger() : clicked()
-    Keys.onEnterPressed: action ? action.trigger() : clicked()
+    Keys.onReturnPressed: __emulateClick()
+    Keys.onEnterPressed: __emulateClick()
     Accessible.onPressAction: clicked()
+
+    function __toggleChecked() {
+        if (!checkable) {
+            return
+        }
+        if (!__exclusive) {
+            toggle()
+            toggled() // NOTE: toggle() does not emit this automatically
+            return
+        }
+        if (!checked) {
+            toggle()
+            toggled() // NOTE: toggle() does not emit this automatically
+        }
+    }
+
+    function __trigger() {
+        if (action) {
+            action.trigger()
+        } else {
+            clicked()
+        }
+    }
+
+    function __emulateClick() {
+        __toggleChecked()
+        __trigger()
+    }
 }

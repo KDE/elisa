@@ -485,6 +485,7 @@ Kirigami.ApplicationWindow {
                 showExpandedFilterView: persistentSettings.expandedFilterView
                 playlistDrawer: playlistDrawer
                 initialIndex: ElisaApplication.initialViewIndex
+                enabled: headerBarLoader.height !== mainWindow.height // Avoid taking keyboard focus when not visible
             }
 
             FooterBar {

@@ -264,6 +264,7 @@ RowLayout {
         Layout.preferredWidth: 0
         Layout.fillWidth: false
         Layout.fillHeight: true
+        enabled: Layout.preferredWidth !== 0 // Avoid taking keyboard focus when not visible
 
         states: [
             State {

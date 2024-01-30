@@ -66,7 +66,7 @@ RowLayout {
         }
     }
 
-    Slider {
+    AccessibleSlider {
         id: slider
         Layout.alignment: Qt.AlignVCenter
         Layout.fillHeight: true
@@ -78,24 +78,12 @@ RowLayout {
         from: 0
         to: root.duration / 1000
 
+        keyStepSize: 5
+        wheelStepSize: 10
+
         enabled: root.seekable && root.playEnabled
         live: true
-
-        onMoved: {
-            root.seek(value * 1000)
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.NoButton
-            onWheel: wheel => {
-                if (wheel.angleDelta.y > 0) {
-                    root.seek((slider.value + 10) * 1000)
-                } else {
-                    root.seek((slider.value - 10) * 1000)
-                }
-            }
-        }
+        onMoved: root.seek(value * 1000)
     }
 
     LabelWithToolTip {

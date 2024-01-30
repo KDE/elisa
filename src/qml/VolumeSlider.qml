@@ -11,12 +11,16 @@ import QtQuick.Controls 2.3
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa 1.0
 
-Slider {
+AccessibleSlider {
     id: volumeSlider
+
     property bool muted
 
     from: 0
     to: 100
+
+    keyStepSize: 1
+    wheelStepSize: 5
 
     enabled: !muted
 
@@ -31,20 +35,6 @@ Slider {
         anchors.fill: parent
         acceptedButtons: Qt.NoButton
         hoverEnabled: true
-        onWheel: wheel => {
-            // Can't use Slider's built-in increase() and decrease() functions here
-            // since they go in increments of 0.1 when the slider's stepSize is not
-            // defined, which is much too slow. And we don't define a stepSize for
-            // the slider because if we do, it gets gets tickmarks which look ugly.
-            if (wheel.angleDelta.y > 0) {
-                // Increase volume
-                volumeSlider.value = Math.min(volumeSlider.to, volumeSlider.value + wheelEffect);
-
-            } else {
-                // Decrease volume
-                volumeSlider.value = Math.max(volumeSlider.from, volumeSlider.value - wheelEffect);
-            }
-        }
     }
 
     ToolTip {

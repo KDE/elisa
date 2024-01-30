@@ -41,6 +41,7 @@
         <file>qml/ElisaConfigurationDialog.qml</file>
         <file>qml/SortMenu.qml</file>
         <file>qml/SettingsForm.qml</file>
+        <file>qml/AccessibleSlider.qml</file>
         <file>qml/DurationSlider.qml</file>
         <file>qml/VolumeSlider.qml</file>
         <file>qml/mobile/MobileFooterBar.qml</file>

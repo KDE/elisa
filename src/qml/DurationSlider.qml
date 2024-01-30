@@ -101,6 +101,8 @@ GridLayout {
         Layout.rightMargin: !root.labelsInline ? 0 : !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
         Layout.leftMargin: !root.labelsInline ? 0 : LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
 
+        Accessible.name: i18nc("@label", "Duration")
+
         // from, to and value of Slider are rescaled to seconds to avoid integer overflow issues
         from: 0
         to: root.duration / 1000

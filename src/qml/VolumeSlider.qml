@@ -20,6 +20,8 @@ Slider {
 
     enabled: !muted
 
+    Accessible.name: i18nc("@label", "Volume")
+
     readonly property int wheelEffect: 5
 
     onPressedChanged: {

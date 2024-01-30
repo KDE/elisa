@@ -339,6 +339,7 @@ BasePlayListDelegate {
                 visible: active
                 sourceComponent: FlatButtonWithToolTip {
                     icon.name: "overflow-menu"
+                    text: entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
                     down: pressed || menuLoader.menuVisible
                     onPressed: menuLoader.item.open()
                     Keys.onReturnPressed: menuLoader.item.open()

@@ -142,7 +142,7 @@ BasePlayListDelegate {
             FlatButtonWithToolTip {
                 id: contextMenuButton
                 scale: LayoutMirroring.enabled ? -1 : 1
-                text: i18nc("@action:button", "Track Options")
+                text: entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
                 icon.name: "view-more-symbolic"
                 onClicked: openContextMenu()
                 activeFocusOnTab: playListEntry.isSelected

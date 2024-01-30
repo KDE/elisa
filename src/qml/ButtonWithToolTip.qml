@@ -10,13 +10,11 @@ import QtQuick.Templates 2.15 as T
 import org.kde.kirigami 2.15 as Kirigami
 import org.kde.elisa 1.0
 
-// Keep in sync with ButtonWithToolTip
-ToolButton {
+// Keep in sync with FlatButtonWithToolTip
+Button {
     property T.Popup menu
 
     readonly property bool __exclusive: autoExclusive || (ButtonGroup.group?.exclusive ?? false)
-
-    display: AbstractButton.IconOnly
 
     ToolTip.visible: hovered
                      && text.length > 0
@@ -35,12 +33,10 @@ ToolButton {
         }
         if (!__exclusive) {
             toggle()
-            toggled() // NOTE: toggle() does not emit this automatically
             return
         }
         if (!checked) {
             toggle()
-            toggled() // NOTE: toggle() does not emit this automatically
         }
     }
 

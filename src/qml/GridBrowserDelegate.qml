@@ -247,24 +247,11 @@ FocusScope {
                     Repeater {
                         model: gridEntry.actions
 
-                        delegate: Button {
+                        delegate: ButtonWithToolTip {
                             action: modelData
                             visible: action.visible
                             hoverEnabled: true
-                            flat: false
-
                             display: AbstractButton.IconOnly
-
-                            ToolTip.visible: hovered
-                            ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-                            ToolTip.text: action.text
-
-                            Accessible.name: ToolTip.text
-                            Accessible.description: ToolTip.text
-                            Accessible.onPressAction: onClicked
-
-                            Keys.onReturnPressed: action.trigger()
-                            Keys.onEnterPressed: action.trigger()
                         }
                     }
                 }

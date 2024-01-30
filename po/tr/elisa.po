@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-29 00:37+0000\n"
+"POT-Creation-Date: 2024-01-30 00:37+0000\n"
 "PO-Revision-Date: 2024-01-22 19:27+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -441,7 +441,7 @@ msgid "Lyrics"
 msgstr "Şarkı Sözleri"
 
 #: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:357 qml/NavigationActionBar.qml:141
+#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -465,7 +465,7 @@ msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "Klasörde Göster"
 
-#: qml/DurationSlider.qml:45
+#: qml/DurationSlider.qml:67
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -676,7 +676,7 @@ msgstr "Parti Kipini Aç/Kapat"
 
 #: qml/MediaPlayerControl.qml:95
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
-#: qml/mobile/MobileTrackPlayer.qml:311
+#: qml/mobile/MobileTrackPlayer.qml:312
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
@@ -684,7 +684,7 @@ msgstr "Geri Atla"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:326
+#: qml/mobile/MobileTrackPlayer.qml:327
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
@@ -692,7 +692,7 @@ msgstr "Duraklat"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:326
+#: qml/mobile/MobileTrackPlayer.qml:327
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
@@ -924,7 +924,7 @@ msgid "Save"
 msgstr "Kaydet"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
-#: qml/mobile/MobileTrackPlayer.qml:341
+#: qml/mobile/MobileTrackPlayer.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"

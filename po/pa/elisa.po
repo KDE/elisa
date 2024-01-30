@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-29 00:37+0000\n"
+"POT-Creation-Date: 2024-01-30 00:37+0000\n"
 "PO-Revision-Date: 2024-01-03 14:00-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -516,7 +516,7 @@ msgid "Lyrics"
 msgstr "ਬੋਲ"
 
 #: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:357 qml/NavigationActionBar.qml:141
+#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -543,7 +543,7 @@ msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "ਫੋਲਡਰ ਵਿੱਚ ਵੇਖਾਓ"
 
-#: qml/DurationSlider.qml:45
+#: qml/DurationSlider.qml:67
 #, fuzzy, kde-format
 #| msgctxt "This is used to preserve a fixed width for the duration text."
 #| msgid "00:00:00"
@@ -792,7 +792,7 @@ msgstr "ਮੌਨ ਨੂੰ ਬਦਲੋ"
 
 #: qml/MediaPlayerControl.qml:95
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
-#: qml/mobile/MobileTrackPlayer.qml:311
+#: qml/mobile/MobileTrackPlayer.qml:312
 #, fuzzy, kde-format
 #| msgctxt "skip backward in playlists"
 #| msgid "Skip Backward"
@@ -802,7 +802,7 @@ msgstr "ਛੱਡ ਕੇ ਪਿੱਛੇ ਜਾਓ"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:326
+#: qml/mobile/MobileTrackPlayer.qml:327
 #, fuzzy, kde-format
 #| msgid "Pause"
 msgctxt "@action:button Pause any media that is playing"
@@ -811,7 +811,7 @@ msgstr "ਵਿਰਾਮ"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:326
+#: qml/mobile/MobileTrackPlayer.qml:327
 #, fuzzy, kde-format
 #| msgid "Play"
 msgctxt "@action:button Start playing media"
@@ -1082,7 +1082,7 @@ msgid "Save"
 msgstr "ਸੰਭਾਲੋ"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
-#: qml/mobile/MobileTrackPlayer.qml:341
+#: qml/mobile/MobileTrackPlayer.qml:342
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"
 #| msgid "Skip Forward"

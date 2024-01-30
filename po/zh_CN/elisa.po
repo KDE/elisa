@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-29 00:37+0000\n"
+"POT-Creation-Date: 2024-01-30 00:37+0000\n"
 "PO-Revision-Date: 2024-01-21 14:11\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -440,7 +440,7 @@ msgid "Lyrics"
 msgstr "歌词"
 
 #: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:357 qml/NavigationActionBar.qml:141
+#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -464,7 +464,7 @@ msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "在文件夹中显示"
 
-#: qml/DurationSlider.qml:45
+#: qml/DurationSlider.qml:67
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -673,7 +673,7 @@ msgstr "切换派对模式"
 
 #: qml/MediaPlayerControl.qml:95
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
-#: qml/mobile/MobileTrackPlayer.qml:311
+#: qml/mobile/MobileTrackPlayer.qml:312
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
@@ -681,7 +681,7 @@ msgstr "上一曲目"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:326
+#: qml/mobile/MobileTrackPlayer.qml:327
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
@@ -689,7 +689,7 @@ msgstr "暂停"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:326
+#: qml/mobile/MobileTrackPlayer.qml:327
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
@@ -915,7 +915,7 @@ msgid "Save"
 msgstr "保存"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
-#: qml/mobile/MobileTrackPlayer.qml:341
+#: qml/mobile/MobileTrackPlayer.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"

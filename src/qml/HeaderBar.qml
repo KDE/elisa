@@ -163,7 +163,7 @@ FocusScope {
     }
     // Not a flat button because we need a background to ensure adequate contrast
     // against the HeaderBar's album art background
-    Button {
+    ButtonWithToolTip {
         anchors.top: parent.top
         anchors.right: parent.right
 

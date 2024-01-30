@@ -377,8 +377,11 @@ Item {
 
                     readOnly: false
                 },
-                Button {
+                FlatButtonWithToolTip {
                     visible: showRating && ElisaApplication.useFavoriteStyleRatings
+
+                    flat: false
+                    display: AbstractButton.TextBesideIcon
 
                     text: i18nc("@action:button", "Only Show Favorites")
                     icon.name: "rating"

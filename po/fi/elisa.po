@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Tommi Nieminen <translator@legisign.org>, 2018, 2019, 2020, 2021, 2022, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Lasse Liehu <lasse.liehu@iki.fi>, 2022.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-30 00:37+0000\n"
-"PO-Revision-Date: 2023-09-29 09:47+0300\n"
+"PO-Revision-Date: 2024-01-18 17:54+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -864,7 +864,7 @@ msgstr "Tyhjennä kaikki"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "Poista tämä luokitus"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -879,12 +879,10 @@ msgid "Data is not valid. %1"
 msgstr "Tiedot eivät kelpaa. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Volume as a percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1 %"
+msgstr "%1:"
 
 #: qml/MediaTrackMetadataForm.qml:146
 #, kde-format
@@ -1251,12 +1249,10 @@ msgid "Favorite/not favorite"
 msgstr "Suosikki/ei-suosikki"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Väriteema"
+msgstr "Väriteema:"
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1265,12 +1261,10 @@ msgid "Scan for New Music"
 msgstr "Etsi uutta musiikkia"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Etsitään musiikkia"
+msgstr "Musiikkihaku käynnistyi"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1282,7 +1276,7 @@ msgstr "Tyhjennä tietokanta ja etsi kaikki uudestaan"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Tietokanta on palautettu alkutilaan"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1399,7 +1393,7 @@ msgstr "Valitse kansio"
 #: qml/SettingsForm.qml:354
 #, kde-format
 msgid "When saving playlist files:"
-msgstr "Soittolistan tallennus epäonnistui"
+msgstr "Soittolistatiedostoja tallennettaessa:"
 
 #: qml/SettingsForm.qml:363
 #, kde-format
@@ -1448,7 +1442,7 @@ msgstr "Lisää uusi sijainti"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "Ei voida toistaa: ”%1”"
 
 #: qml/SortMenu.qml:20
 #, kde-format

@@ -25,12 +25,12 @@ QQC2.Slider {
     id: root
 
     /**
-    /* The step size for arrow keys
+     * The step size for arrow keys
      */
     property real keyStepSize: stepSize
 
     /**
-    /* The step size for the mouse wheel
+     * The step size for the mouse wheel
      */
     property real wheelStepSize: stepSize
 
@@ -38,7 +38,7 @@ QQC2.Slider {
     readonly property real __wheelStepSize: wheelStepSize === null ? 0 : wheelStepSize
 
     function __move(step: real) {
-        value = Math.max(from, Math.min(value + step))
+        value = Math.max(from, Math.min(value + step, to))
         moved()
     }
 

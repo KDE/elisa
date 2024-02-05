@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-30 00:37+0000\n"
+"POT-Creation-Date: 2024-02-05 00:37+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -42,49 +42,49 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "ラジオ局"
 
-#: elisaapplication.cpp:184
+#: elisaapplication.cpp:183
 #, fuzzy, kde-format
 #| msgid "Toggle Playlist"
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "プレイリストを切り替え"
 
-#: elisaapplication.cpp:189
+#: elisaapplication.cpp:188
 #, fuzzy, kde-format
 #| msgid "Seek forward 10 seconds"
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10秒進む"
 
-#: elisaapplication.cpp:195
+#: elisaapplication.cpp:194
 #, fuzzy, kde-format
 #| msgid "Scrub backwards 10 seconds"
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "10秒戻す"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:200
 #, fuzzy, kde-format
 #| msgid "Go to next track"
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "次のトラックへ行く"
 
-#: elisaapplication.cpp:207
+#: elisaapplication.cpp:206
 #, fuzzy, kde-format
 #| msgid "Go to previous track"
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "前のトラックへ行く"
 
-#: elisaapplication.cpp:213
+#: elisaapplication.cpp:212
 #, fuzzy, kde-format
 #| msgid "Play/pause"
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "再生/一時停止"
 
-#: elisaapplication.cpp:224
+#: elisaapplication.cpp:223
 #, fuzzy, kde-format
 #| msgid "Toggle Party Mode"
 msgctxt "@action"
@@ -512,7 +512,7 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "サイドバーを開く"
 
-#: qml/ContextView.qml:108
+#: qml/ContextView.qml:109
 #, fuzzy, kde-format
 #| msgctxt "One of the 'now playing' views"
 #| msgid "Metadata"
@@ -520,7 +520,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "メタデータ"
 
-#: qml/ContextView.qml:119
+#: qml/ContextView.qml:120
 #, fuzzy, kde-format
 #| msgctxt "Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -528,7 +528,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
+#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
 #: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
@@ -536,21 +536,21 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "プレイリストを表示"
 
-#: qml/ContextView.qml:407
+#: qml/ContextView.qml:408
 #, fuzzy, kde-format
 #| msgid "No lyrics found"
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "歌詞が見つかりません"
 
-#: qml/ContextView.qml:424
+#: qml/ContextView.qml:425
 #, fuzzy, kde-format
 #| msgid "Nothing playing"
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "何も再生していません"
 
-#: qml/ContextView.qml:458
+#: qml/ContextView.qml:459
 #, fuzzy, kde-format
 #| msgid "Show In Folder"
 msgctxt "@action:button"
@@ -566,6 +566,13 @@ msgctxt ""
 "text."
 msgid "00:00:00"
 msgstr "00:00:00"
+
+#: qml/DurationSlider.qml:104
+#, fuzzy, kde-format
+#| msgid "Duration"
+msgctxt "@label"
+msgid "Duration"
+msgstr "長さ"
 
 #: qml/ElisaConfigurationDialog.qml:21
 #, fuzzy, kde-format
@@ -597,7 +604,7 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: qml/ElisaMainWindow.qml:27
+#: qml/ElisaMainWindow.qml:28
 #, fuzzy, kde-format
 #| msgctxt "Message when playlist load failed"
 #| msgid "Loading failed"
@@ -605,7 +612,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "読み込みに失敗しました"
 
-#: qml/ElisaMainWindow.qml:27 qml/ElisaMainWindow.qml:244
+#: qml/ElisaMainWindow.qml:28 qml/ElisaMainWindow.qml:256
 #, fuzzy, kde-format
 #| msgctxt "Retry"
 #| msgid "Retry"
@@ -613,7 +620,7 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "再試行"
 
-#: qml/ElisaMainWindow.qml:31 qml/MediaPlayListView.qml:412
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:418
 #, fuzzy, kde-format
 #| msgctxt "Playlist cleared"
 #| msgid "Playlist cleared"
@@ -621,34 +628,34 @@ msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "プレイリストを空にしました"
 
-#: qml/ElisaMainWindow.qml:31 qml/MediaPlayListView.qml:416
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:422
 #, fuzzy, kde-format
 #| msgid "Undo"
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "元に戻す"
 
-#: qml/ElisaMainWindow.qml:88 qml/ElisaMainWindow.qml:546
+#: qml/ElisaMainWindow.qml:100 qml/ElisaMainWindow.qml:554
 #, kde-format
 msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:149 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:161 qml/mobile/MobileSidebar.qml:20
 #, fuzzy, kde-format
 #| msgid "Elisa"
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:149
+#: qml/ElisaMainWindow.qml:161
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:226
+#: qml/ElisaMainWindow.qml:238
 #, fuzzy, kde-format
 #| msgctxt "file type (mime type) for m3u and m3u8 playlist file formats"
 #| msgid "Playlist (*.m3u*)"
@@ -658,7 +665,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "プレイリスト (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:226
+#: qml/ElisaMainWindow.qml:238
 #, fuzzy, kde-format
 #| msgctxt "file type (mime type) for m3u and m3u8 playlist file formats"
 #| msgid "Playlist (*.m3u*)"
@@ -668,7 +675,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "プレイリスト (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:233
+#: qml/ElisaMainWindow.qml:245
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -676,7 +683,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:244
+#: qml/ElisaMainWindow.qml:256
 #, fuzzy, kde-format
 #| msgctxt "Message when saving a playlist failed"
 #| msgid "Saving failed"
@@ -701,7 +708,7 @@ msgid "Add to playlist"
 msgstr "プレイリストに追加"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:88
+#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:86
 #, fuzzy, kde-format
 #| msgctxt "Show the file for this song in the file manager"
 #| msgid "Show in folder"
@@ -709,7 +716,7 @@ msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "ファイルマネージャーで表示"
 
-#: qml/GridBrowserDelegate.qml:345
+#: qml/GridBrowserDelegate.qml:332
 #, fuzzy, kde-format
 #| msgctxt "Options"
 #| msgid "Options"
@@ -725,8 +732,8 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "フルスクリーンにする"
 
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
-#: qml/PlayListEntry.qml:95
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
+#: qml/PlayListEntry.qml:93
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
 #| msgid "View details"
@@ -742,7 +749,7 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "現在のプレイリストを置き換えて再生"
 
-#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:109
+#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:107
 #, fuzzy, kde-format
 #| msgctxt "Show track rating"
 #| msgid "Set track rating"
@@ -751,7 +758,7 @@ msgid "Set track rating"
 msgstr "トラックに評価を付ける"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:119
+#: qml/PlayListEntry.qml:117
 #, fuzzy, kde-format
 #| msgid "Un-mark this song as a favorite"
 msgctxt "@action:button"
@@ -759,7 +766,7 @@ msgid "Un-mark this song as a favorite"
 msgstr "この曲をお気に入りから外す"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:119
+#: qml/PlayListEntry.qml:117
 #, fuzzy, kde-format
 #| msgid "Mark this song as a favorite"
 msgctxt "@action:button"
@@ -790,7 +797,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:301
+#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:299
 #, fuzzy, kde-format
 #| msgctxt "Cancel rating this track"
 #| msgid "Cancel rating this track"
@@ -953,14 +960,14 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "プレイリストに追加"
 
-#: qml/MediaPlayListView.qml:275
+#: qml/MediaPlayListView.qml:274
 #, fuzzy, kde-format
 #| msgid "Playlist is empty"
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "プレイリストは空です"
 
-#: qml/MediaPlayListView.qml:276
+#: qml/MediaPlayListView.qml:275
 #, fuzzy, kde-format
 #| msgid ""
 #| "Add some songs to get started. You can browse your music using the views "
@@ -980,7 +987,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "プレイリストは空です。"
 
-#: qml/MediaPlayListView.qml:437 qml/MediaPlayListView.qml:442
+#: qml/MediaPlayListView.qml:443 qml/MediaPlayListView.qml:448
 #, fuzzy, kde-format
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks (%2 remaining)"
@@ -989,7 +996,7 @@ msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1 個のトラック (残り %2)"
 
-#: qml/MediaPlayListView.qml:440
+#: qml/MediaPlayListView.qml:446
 #, fuzzy, kde-format
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks (%2 remaining)"
@@ -997,14 +1004,14 @@ msgctxt "@info:status"
 msgid "1 track"
 msgstr "%1 個のトラック"
 
-#: qml/MediaPlayListView.qml:443
+#: qml/MediaPlayListView.qml:449
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
 msgid_plural "%1 remaining"
 msgstr[0] ""
 
-#: qml/MediaPlayListView.qml:444
+#: qml/MediaPlayListView.qml:450
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -1012,7 +1019,7 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:458
+#: qml/MediaPlayListView.qml:464
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current"
@@ -1020,7 +1027,7 @@ msgctxt "@action:button"
 msgid "Show Current"
 msgstr "現在を表示"
 
-#: qml/MediaPlayListView.qml:469
+#: qml/MediaPlayListView.qml:475
 #, fuzzy, kde-format
 #| msgctxt "Remove all tracks from play list"
 #| msgid "Clear All"
@@ -1113,7 +1120,7 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "次へ"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145
+#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
 #, fuzzy, kde-format
 #| msgctxt "Track options"
 #| msgid "Track Options"
@@ -1121,7 +1128,14 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "トラックオプション"
 
-#: qml/mobile/MobilePlayListDelegate.qml:185
+#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#, fuzzy, kde-format
+#| msgid "Radio Stations"
+msgctxt "@action:button"
+msgid "Radio Options"
+msgstr "ラジオ局"
+
+#: qml/mobile/MobilePlayListDelegate.qml:186
 #, fuzzy, kde-format
 #| msgctxt "Remove current track from play list"
 #| msgid "Remove from queue"
@@ -1393,27 +1407,27 @@ msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "評価でフィルタ: "
 
-#: qml/NavigationActionBar.qml:383
+#: qml/NavigationActionBar.qml:386
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr ""
 
-#: qml/PlayListEntry.qml:132
+#: qml/PlayListEntry.qml:130
 #, fuzzy, kde-format
 #| msgid "Pause"
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "一時停止"
 
-#: qml/PlayListEntry.qml:132
+#: qml/PlayListEntry.qml:130
 #, fuzzy, kde-format
 #| msgid "Play"
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "再生"
 
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:145
 #, fuzzy, kde-format
 #| msgctxt "Remove current track from play list"
 #| msgid "Remove"
@@ -1718,7 +1732,7 @@ msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "新しい場所を追加"
 
-#: qml/shared/BasePlayListDelegate.qml:65
+#: qml/shared/BasePlayListDelegate.qml:67
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
@@ -1755,7 +1769,15 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "ディスク %1"
 
-#: qml/VolumeSlider.qml:58
+#: qml/VolumeSlider.qml:27
+#, fuzzy, kde-format
+#| msgctxt "change player volume"
+#| msgid "Change Volume"
+msgctxt "@label"
+msgid "Volume"
+msgstr "音量を変更"
+
+#: qml/VolumeSlider.qml:48
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-05 00:37+0000\n"
-"PO-Revision-Date: 2024-01-05 17:16+0100\n"
+"PO-Revision-Date: 2024-02-05 10:50+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -475,9 +475,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "Duration"
@@ -947,12 +945,10 @@ msgid "Track Options"
 msgstr "Optiones de Tracias"
 
 #: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Stationes Radio"
+msgstr "Optiones de Radio"
 
 #: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
@@ -1489,12 +1485,10 @@ msgid "Disc %1"
 msgstr "Disco %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Cambia volumine"
+msgstr "Volumine"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format

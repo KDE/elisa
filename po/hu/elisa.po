@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-05 00:37+0000\n"
-"PO-Revision-Date: 2024-01-05 21:39+0100\n"
+"PO-Revision-Date: 2024-02-05 22:58+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -474,12 +474,10 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
-msgstr "Hossz"
+msgstr "Időtartam"
 
 #: qml/ElisaConfigurationDialog.qml:21
 #, kde-format
@@ -945,12 +943,10 @@ msgid "Track Options"
 msgstr "Számbeállítások"
 
 #: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Rádióállomások"
+msgstr "Rádióbeállítások"
 
 #: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
@@ -1485,12 +1481,10 @@ msgid "Disc %1"
 msgstr "%1. lemez"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Hangerő változtatása"
+msgstr "Hangerő"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format

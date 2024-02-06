@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-05 00:37+0000\n"
-"PO-Revision-Date: 2024-01-07 19:44+0100\n"
+"PO-Revision-Date: 2024-02-05 22:05+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -474,9 +474,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "Daŭro"
@@ -605,7 +603,7 @@ msgstr "Montri en dosierujo"
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
-msgstr "Opcioj"
+msgstr "Elektebloj"
 
 #: qml/HeaderBar.qml:172
 #, kde-format
@@ -674,7 +672,7 @@ msgstr "Nuligi taksadon de ĉi tiu trako"
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
-msgstr "Kantaj Opcioj"
+msgstr "Kantaj Elektebloj"
 
 #: qml/MediaPlayerControl.qml:87
 #, kde-format
@@ -942,15 +940,13 @@ msgstr "Salti Antaŭen"
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
-msgstr "Trak-Opcioj"
+msgstr "Trak-Elektebloj"
 
 #: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Radiostacioj"
+msgstr "Elektebloj de Radio"
 
 #: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
@@ -1485,12 +1481,10 @@ msgid "Disc %1"
 msgstr "Disko %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Ŝanĝi Laŭtecon"
+msgstr "Laŭteco"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format

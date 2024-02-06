@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-05 00:37+0000\n"
-"PO-Revision-Date: 2024-01-05 09:37+0200\n"
+"PO-Revision-Date: 2024-02-05 08:55+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -476,9 +476,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "Тривалість"
@@ -951,12 +949,10 @@ msgid "Track Options"
 msgstr "Параметри композиції"
 
 #: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Радіостанції"
+msgstr "Параметри радіостанції"
 
 #: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
@@ -1493,12 +1489,10 @@ msgid "Disc %1"
 msgstr "Диск %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Змінити гучність"
+msgstr "Гучність"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format

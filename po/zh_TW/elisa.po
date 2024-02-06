@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-05 00:37+0000\n"
-"PO-Revision-Date: 2024-01-14 21:13+0900\n"
+"PO-Revision-Date: 2024-02-05 17:25+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: Traditional Chinese\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.01.90\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -475,9 +475,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "長度"
@@ -938,12 +936,10 @@ msgid "Track Options"
 msgstr "音軌選項"
 
 #: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "廣播電台"
+msgstr "廣播電台選項"
 
 #: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
@@ -1475,12 +1471,10 @@ msgid "Disc %1"
 msgstr "光碟 %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "調整音量"
+msgstr "音量"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format

@@ -1,14 +1,14 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 # Jung Hee Lee <daemul72@gmail.com>, 2019, 2020, 2021.
-# Shinjo Park <kde@peremen.name>, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-14 03:07+0000\n"
-"PO-Revision-Date: 2023-08-25 21:05+0200\n"
+"PO-Revision-Date: 2023-11-04 22:11+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1246,12 +1246,10 @@ msgid "Favorite/not favorite"
 msgstr "책갈피 추가/삭제"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "색 구성표"
+msgstr "색 구성표:"
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1260,12 +1258,10 @@ msgid "Scan for New Music"
 msgstr "새 음악 검색"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "음악 검색 중"
+msgstr "음악 검색 시작됨"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1277,7 +1273,7 @@ msgstr "데이터베이스를 초기화하고 모두 다시 검색"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "데이터베이스가 초기화됨"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1443,7 +1439,7 @@ msgstr "새 위치 추가"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "\"%1\"을(를) 재생할 수 없음"
 
 #: qml/SortMenu.qml:20
 #, kde-format

@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2023 Vít Pelčák <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2023, 2024 Vít Pelčák <vit@pelcak.org>
 # Vit Pelcak <vit@pelcak.org>, 2021, 2022, 2023.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-14 03:07+0000\n"
-"PO-Revision-Date: 2023-11-02 14:04+0100\n"
+"PO-Revision-Date: 2024-01-19 15:53+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -865,7 +865,7 @@ msgstr "Vyprázdnit vše"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "Odstranit tuto značku"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -880,12 +880,10 @@ msgid "Data is not valid. %1"
 msgstr "Data jsou neplatná. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Volume as a percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1%"
+msgstr "%1:"
 
 #: qml/MediaTrackMetadataForm.qml:146
 #, kde-format
@@ -1698,43 +1696,3 @@ msgstr "Soubory"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Rozhlasové stanice"
-
-#~ msgctxt "@action:button"
-#~ msgid "Close"
-#~ msgstr "Zavřít"
-
-#~ msgctxt "@label:listbox"
-#~ msgid "Music indexing:"
-#~ msgstr "Indexování hudby:"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Use fast native indexer"
-#~ msgstr "Použít vlastní rychlý indexer"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Scan the filesystem directly"
-#~ msgstr "Prohledat souborový systém přímo"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "This is slower than the fast indexer. Please activate it only if Elisa "
-#~ "cannot find your music and searching for one of the missing music files "
-#~ "using your file manager also does not work. Please report this as a bug."
-#~ msgstr ""
-#~ "Tohle je pomalejší než rychlé indexování. Prosím, aktivujte jej pouze "
-#~ "pokud Elisa nemůže najít vaši hudbu a ani hledání souboru pomocí správce "
-#~ "souborů nepomáhá. Prosím, nahlaste to jako chybu."
-
-#~ msgctxt "@action:button"
-#~ msgid "Report Bug"
-#~ msgstr "Nahlásit chybu"
-
-#~ msgctxt "@label"
-#~ msgid ""
-#~ "The fast native file indexer does not follow symbolic links. If any of "
-#~ "the locations in this list contain symbolic links to other locations, you "
-#~ "will need to add those other locations to the list as well."
-#~ msgstr ""
-#~ "Poslední vlastní indexovač nenásleduje symbolické odkazy. Pokud jakékoliv "
-#~ "z míst v tomto seznamu obsahuje symbolické odkazy na jiná místa, budete "
-#~ "muset tato místa rovněž přidat do seznamu."

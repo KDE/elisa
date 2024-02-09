@@ -129,6 +129,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="pl">Odtwarzacz muzyki Elisa jest rozwijany przez Społeczność KDE i dąży do bycia prostym i przyjemnym w użyciu. Jest dostępny na Linuksa, Microsoft Windows oraz Androida.</p>
     <p xml:lang="pt-BR">O reprodutor de música Elisa é desenvolvido pela comunidade KDE e se esforça para ser simples e agradável de usar. Está disponível no Linux, Microsoft Windows e Android.</p>
     <p xml:lang="ro">Lectorul de muzică Elisa e dezvoltat de către comunitatea KDE și tinde să fie simplu și plăcut de utilizat. Este disponibil pentru Linux, Microsoft Windows și Android.</p>
+    <p xml:lang="ru">Elisa — это музыкальный проигрыватель, созданный сообществом KDE, призванный быть простым и удобным в использовании. Приложение доступно для Linux, Microsoft Windows и Android.</p>
     <p xml:lang="sa">एलिसा संगीतवादकः KDE समुदायेन विकसितः अस्ति तथा च सरलः, उपयोगाय च सुखदः भवितुम् प्रयतते । इदं लिनक्स, माइक्रोसॉफ्ट विण्डोज, एण्ड्रॉयड् इत्यादिषु उपलभ्यते ।.</p>
     <p xml:lang="sl">Predvajalnik glasbe Elisa je razvila skupnost KDE in si prizadeva, da bi bil preprost in prijeten za uporabo. Na voljo je v sistemih Linux, Microsoft Windows in Android.</p>
     <p xml:lang="sv">Musikspelaren Elisa utvecklas av KDE-gemenskapen och strävar efter att vara enkel och trevlig att använda. Den är tillgänglig på Linux, Microsoft Windows och Android.</p>
@@ -160,6 +161,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="pl">Dzięki Elisie, możesz przeglądać swój miejscowy zbiór muzyki po rodzaju, wykonawcy, albumie lub utworze, słuchać radia z sieci, tworzyć i zarządzać listami odtwarzania, wyświetlać napisy i więcej.</p>
     <p xml:lang="pt-BR">Com Elisa, você pode navegar em sua coleção de música local por gênero, artista, álbum ou faixa, ouvir rádio online, criar e gerenciar listas de reprodução, exibir letras e muito mais.</p>
     <p xml:lang="ro">Cu Elisa, vă puteți răsfoi colecția locală de muzică după gen, interpret, album sau piesă, puteți asculta radio prin Internet, crea și gestiona liste de redare, afișa versuri, și altele.</p>
+    <p xml:lang="ru">Приложение позволяет просматривать коллекцию музыки, используя упорядочивание по жанру, исполнителю, альбомам или дорожкам. Проигрыватель позволяет прослушивать интернет-радиостанции, создавать списки воспроизведения и управлять ими, просматривать тексты песен и многое другое.</p>
     <p xml:lang="sa">एलिसा इत्यनेन सह, भवान् विधायाः, कलाकारस्य, सङ्गीतराशिस्य, अथवा संगीतपङ्क्तस्य आधारेण स्वस्य स्थानीयसङ्गीतसङ्ग्रहं गवेषय कर्तुं, साङ्गणिक आकाशवाणी श्रोतुं, वादनीयसूची निर्मातुं प्रबन्धयितुं च, गीतं प्रदर्शयितुं, इत्यादीनि च कर्तुं शक्नोति।.</p>
     <p xml:lang="sl">Z Eliso lahko brskate po lokalni glasbeni zbirki po zvrsti, izvajalcu, albumu ali skladbi, poslušate spletni radio, ustvarjate in upravljate sezname predvajanja, prikazujete besedila in drugo.</p>
     <p xml:lang="sv">Med Elisa kan du bläddra i din lokala musiksamling efter genre, artist, album eller spår, lyssna på nätradio, skapa och hantera spellistor,visa texter, med mera.</p>
@@ -188,6 +190,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="pl">Elisa obsłuży w pełni twój zestaw barw KDE, gdy zostanie uruchomiona na Pulpicie Plazmy lub obsłuży tylko tryb jasny i ciemny.</p>
     <p xml:lang="pt-BR">Elisa suporta todo o esquema de cores do KDE quando usado na área de trabalho do Plasma, ou então nos modos claro e escuro padrão.</p>
     <p xml:lang="ro">Elisa susține deplin schema de culori KDE când e folosită pe biroul Plasma, iar în caz contrar oferă regimul luminos și întunecat.</p>
+    <p xml:lang="ru">При работе в среде Plasma музыкальный проигрыватель Elisa полностью поддерживает цветовые схемы рабочего стола, а при работе в других окружениях — стандартные тёмное и светлое оформления.</p>
     <p xml:lang="sl">Elisa podpira vašo celotno barvno shemo KDE, ko jo uporabljate na namizju Plasma, oziroma standardna svetla in temna načina.</p>
     <p xml:lang="tr">Elisa, Plasma masaüstünde kullanıldığında tam KDE renk şemanızı veya standart açık ve koyu kipleri destekler.</p>
     <p xml:lang="uk">В Elisa передбачено підтримку усієї вашої схеми кольорів KDE, якщо програму запущено у стільниці Плазми. Інакше буде використано стандартні світлий або темний режими.</p>

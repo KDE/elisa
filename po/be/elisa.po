@@ -1,10 +1,10 @@
 # Zmicier <zmicerturok@gmail.com>, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: 86ff119b1606fcaa910d6b44fc14b611\n"
+"Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-05 00:37+0000\n"
-"PO-Revision-Date: 2023-02-09 05:31\n"
+"PO-Revision-Date: 2024-02-12 20:00\n"
 "Last-Translator: Zmicier <zmicerturok@gmail.com>\n"
 "Language-Team: Belarusian\n"
 "Language: be\n"
@@ -15,11 +15,11 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n"
 "%100>=11 && n%100<=14 ? 2 : 3);\n"
 "X-Generator: Lokalize 22.12.1\n"
-"X-Crowdin-Project: 86ff119b1606fcaa910d6b44fc14b611\n"
-"X-Crowdin-Project-ID: 127\n"
+"X-Crowdin-Project: fc57ad16a28d02dea100ceb1c60de14e\n"
+"X-Crowdin-Project-ID: 136\n"
 "X-Crowdin-Language: be\n"
-"X-Crowdin-File: /main/be/elisa/elisa.po\n"
-"X-Crowdin-File-ID: 9008\n"
+"X-Crowdin-File: /[antikruk.KDE] main/KDE6/be/messages/elisa/elisa.po\n"
+"X-Crowdin-File-ID: 9828\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -477,9 +477,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "Працягласць"
@@ -624,12 +622,10 @@ msgid "View details"
 msgstr "Падрабязнасці"
 
 #: qml/ListBrowserDelegate.qml:86
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
-msgstr "Прайграць зараз, замяніць бягучы спіс прайгравання"
+msgstr "Прайграць адсюль, замяніць бягучы спіс прайгравання"
 
 #: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:107
 #, kde-format
@@ -642,7 +638,7 @@ msgstr "Ацаніць"
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
-msgstr "Прыбраць з песні пазнаку ўлюбёнай"
+msgstr "Прыбраць з песні тэг улюбёнай"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
 #: qml/PlayListEntry.qml:117
@@ -878,7 +874,7 @@ msgstr "Ачысціць усё"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "Выдаліць гэты тэг"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -896,13 +892,13 @@ msgstr "Несапраўдная дата. %1"
 #, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr ""
+msgstr "%1:"
 
 #: qml/MediaTrackMetadataForm.qml:146
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Add new tag:"
-msgstr "Дадаць новую пазнаку:"
+msgstr "Дадаць новы тэг:"
 
 #: qml/MediaTrackMetadataView.qml:35
 #: qml/mobile/MobileMediaTrackMetadataView.qml:46
@@ -953,12 +949,10 @@ msgid "Track Options"
 msgstr "Параметры кампазіцыі"
 
 #: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Радыёстанцыі"
+msgstr "Параметры радыё"
 
 #: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
@@ -1272,12 +1266,10 @@ msgid "Favorite/not favorite"
 msgstr "Улюбёнае/Не ўлюбёнае"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Колеравая схема"
+msgstr "Колеравая схема:"
 
 #: qml/SettingsForm.qml:212
 #, kde-format
@@ -1286,12 +1278,10 @@ msgid "Scan for New Music"
 msgstr "Пошук новай музыкі"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Пошук музыкі"
+msgstr "Пошук музыкі запушчаны"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1303,7 +1293,7 @@ msgstr "Скінуць базу даных і перасканаваць усё"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "База даных была скінута"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1403,13 +1393,13 @@ msgstr "Радыёстанцыі"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
-msgstr ""
+msgstr "Пачатковае размяшчэнне для агляду файлаў:"
 
 #: qml/SettingsForm.qml:323
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr ""
+msgstr "Абраць…"
 
 #: qml/SettingsForm.qml:331 qml/SettingsForm.qml:458
 #, kde-format
@@ -1469,7 +1459,7 @@ msgstr "Дадаць новае размяшчэнне"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "Немагчыма прайграць \"%1\""
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1500,23 +1490,19 @@ msgid "Disc %1"
 msgstr "Дыск %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Змяніць гучнасць"
+msgstr "Гучнасць"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr ""
+msgstr "%1%"
 
 #: viewmanager.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
 msgstr "Нумар кампазіцыі"
@@ -1531,13 +1517,13 @@ msgstr "Назва"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Ascending"
-msgstr ""
+msgstr "Па ўзрастанні"
 
 #: viewmanager.cpp:43
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Descending"
-msgstr ""
+msgstr "Па памяншэнні"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98

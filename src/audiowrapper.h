@@ -165,6 +165,10 @@ private:
 
     void playerSeekableSignalChanges(bool isSeekable);
 
+    void queueStatusChanged();
+
+    void notifyStatusChanges();
+
     friend class AudioWrapperPrivate;
 
     std::unique_ptr<AudioWrapperPrivate> d;

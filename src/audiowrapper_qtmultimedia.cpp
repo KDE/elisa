@@ -32,6 +32,11 @@ public:
 
     bool mHasSavedPosition = false;
 
+    QMediaPlayer::PlaybackState mCurrentPlaybackState = mPlayer.playbackState();
+
+    QMediaPlayer::MediaStatus mCurrentMediaStatus = mPlayer.mediaStatus();
+
+    bool mQueuedStatusUpdate = false;
 };
 
 AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_unique<AudioWrapperPrivate>())
@@ -40,10 +45,9 @@ AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_uniqu
     connect(&d->mOutput, &QAudioOutput::mutedChanged, this, &AudioWrapper::playerMutedChanged);
     connect(&d->mOutput, &QAudioOutput::volumeChanged, this, &AudioWrapper::playerVolumeChanged);
     connect(&d->mPlayer, &QMediaPlayer::sourceChanged, this, &AudioWrapper::sourceChanged);
-    connect(&d->mPlayer, &QMediaPlayer::playbackStateChanged, this, &AudioWrapper::playbackStateChanged);
-    connect(&d->mPlayer, &QMediaPlayer::playbackStateChanged, this, &AudioWrapper::playerStateChanged);
+    connect(&d->mPlayer, &QMediaPlayer::playbackStateChanged, this, &AudioWrapper::queueStatusChanged);
     connect(&d->mPlayer, QOverload<QMediaPlayer::Error, const QString &>::of(&QMediaPlayer::errorOccurred), this, &AudioWrapper::errorChanged);
-    connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::statusChanged);
+    connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::queueStatusChanged);
     connect(&d->mPlayer, &QMediaPlayer::mediaStatusChanged, this, &AudioWrapper::mediaStatusChanged);
     connect(&d->mPlayer, &QMediaPlayer::durationChanged, this, &AudioWrapper::durationChanged);
     connect(&d->mPlayer, &QMediaPlayer::positionChanged, this, &AudioWrapper::positionChanged);
@@ -99,12 +103,12 @@ bool AudioWrapper::seekable() const
 
 QMediaPlayer::PlaybackState AudioWrapper::playbackState() const
 {
-    return d->mPlayer.playbackState();
+    return d->mCurrentPlaybackState;
 }
 
 QMediaPlayer::MediaStatus AudioWrapper::status() const
 {
-    return d->mPlayer.mediaStatus();
+    return d->mCurrentMediaStatus;
 }
 
 void AudioWrapper::setMuted(bool muted)
@@ -286,6 +290,29 @@ void AudioWrapper::savePosition(qint64 position)
         d->mHasSavedPosition = true;
         d->mSavedPosition = position;
         qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::savePosition" << "restore old position" << d->mSavedPosition;
+    }
+}
+
+void AudioWrapper::notifyStatusChanges()
+{
+    d->mQueuedStatusUpdate = false;
+
+    if (d->mPlayer.mediaStatus() != d->mCurrentMediaStatus) {
+        d->mCurrentMediaStatus = d->mPlayer.mediaStatus();
+        Q_EMIT statusChanged(d->mCurrentMediaStatus);
+    }
+    if (d->mPlayer.playbackState() != d->mCurrentPlaybackState) {
+        d->mCurrentPlaybackState = d->mPlayer.playbackState();
+        Q_EMIT playbackStateChanged(d->mCurrentPlaybackState);
+        playerStateChanged();
+    }
+}
+
+void AudioWrapper::queueStatusChanged()
+{
+    if (!d->mQueuedStatusUpdate) {
+        QTimer::singleShot(0, this, &AudioWrapper::notifyStatusChanges);
+        d->mQueuedStatusUpdate = true;
     }
 }
 

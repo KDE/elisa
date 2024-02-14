@@ -22,6 +22,7 @@ Window {
 
     visible: true
     modality: Qt.ApplicationModal
+    flags: Qt.Dialog
 
     minimumWidth: Kirigami.Units.gridUnit * 36
     minimumHeight: Kirigami.Units.gridUnit * 32

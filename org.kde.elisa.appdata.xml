@@ -106,6 +106,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="zh-TW">支援線上廣播、漂亮且簡潔明瞭的音樂播放器</summary>
   <description>
     <p>The Elisa music player is developed by the KDE community and strives to be simple and pleasant to use. It's available on Linux, Microsoft Windows, and Android.</p>
+    <p xml:lang="be">Музычны прайгравальнік Elisa распрацаваны супольнасцю KDE, каб быць простым і прыемным у выкарыстанні. Ён даступны ў Linux, Microsoft Windows і Android.</p>
     <p xml:lang="bg">Elisa е музикален плеър, разработен от Общността на  KDE и се стреми да бъде лесен и приятен за употреба. Наличен е за  Linux, Microsoft Windows и Android.</p>
     <p xml:lang="ca">El reproductor de música Elisa és desenvolupat per la comunitat KDE i s'esforça per ser senzill i agradable d'utilitzar. Està disponible al Linux, Microsoft Windows i Android.</p>
     <p xml:lang="ca-valencia">El reproductor de música Elisa és desenvolupat per la comunitat KDE i s'esforça per a ser senzill i agradable d'utilitzar. Està disponible a Linux, Microsoft Windows i Android.</p>
@@ -139,6 +140,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="zh-CN">Elisa 音乐播放器由 KDE 社区开发，力求简单易用。 它支持 Linux、Windows 和安卓平台。</p>
     <p xml:lang="zh-TW">Elisa 音樂播放器由 KDE 社群所開發，以簡潔好用為目標。它支援 Linux、Microsoft Windows 以及 Android。</p>
     <p>With Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.</p>
+    <p xml:lang="be">З дапамогай Elisa вы можаце праглядаць сваю лакальную музычную калекцыю па жанрах, выканаўцах, альбомах або кампазіцыях, слухаць сеціўнае радыё, ствараць спісы прайгравання і кіраваць імі, глядзець тэксты песень і многае іншае.</p>
     <p xml:lang="bg">С Elisa  можете да преглеждате местната си музикална колекция по жанр, изпълнител, албум или песен, да слушате онлайн радио, да създавате и управлявате списъци за изпълнение, да показвате текстове на песни и др.</p>
     <p xml:lang="ca">Amb l'Elisa, podeu navegar per la vostra col·lecció de música local per gènere, artista, àlbum o peça, escoltar ràdio en línia, crear i gestionar llistes de reproducció, mostrar les lletres i més.</p>
     <p xml:lang="ca-valencia">Amb Elisa, podeu navegar per la vostra col·lecció de música local per gènere, artista, àlbum o peça, escoltar ràdio en línia, crear i gestionar llistes de reproducció, mostrar les lletres i més.</p>
@@ -171,6 +173,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="zh-CN">您可以通过 Elisa 按照流派、艺人、专辑、曲目等条件浏览您的本地音乐。它还支持收听网络电台、创建并管理播放列表、显示歌词等功能。</p>
     <p xml:lang="zh-TW">利用 Elisa，您可以依曲風、藝人、專輯，或音軌來瀏覽您的本機音樂收藏、聆聽線上廣播電台、建立與管理播放清單、檢視歌詞，還有更多功能。</p>
     <p>Elisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.</p>
+    <p xml:lang="be">Elisa цалкам падтрымлівае вашу колеравую схему KDE пры выкарыстанні ў Plasma або стандартныя светлы і цёмны рэжымы.</p>
     <p xml:lang="bg">Elisa поддържа пълната цветова схема на KDE, когато се използва на работния плот Plasma или стандартните светли и тъмни режими.</p>
     <p xml:lang="ca">L'Elisa admet l'esquema de color KDE complet quan s'utilitza a l'escriptori Plasma, o els modes clars i foscos estàndard.</p>
     <p xml:lang="ca-valencia">Elisa admet l'esquema de color KDE complet quan s'utilitza en l'escriptori Plasma, o els modes clars i foscos estàndard.</p>
@@ -199,6 +202,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="zh-CN">Elisa 在 Plasma 桌面环境下支持完整的 KDE 配色方案，在其他环境下也能支持标准的浅色和深色模式。</p>
     <p xml:lang="zh-TW">Elisa 在 Plasma 桌面上使用時支援您的完整 KDE 配色方案，其他時候也支援標準的亮色與暗色模式。</p>
     <p>Chill out with Party Mode, which puts your music's album art front and center.</p>
+    <p xml:lang="be">Адпачніце з рэжымам гулянкі, у якім вокладка альбома вашай музыкі паказваецца на першым плане.</p>
     <p xml:lang="bg">Отпуснете се с режима Парти, който поставя обложката на албума ви на преден план и в центъра.</p>
     <p xml:lang="ca">Gaudiu amb el mode festa, que posa l'art dels àlbums de la música al davant de tot.</p>
     <p xml:lang="ca-valencia">Gaudiu amb el mode festa, el qual posa l'art dels àlbums de música al davant de tot.</p>

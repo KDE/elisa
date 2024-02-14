@@ -20,6 +20,8 @@ Kirigami.GlobalDrawer {
     title: i18nc("@title:window", "Elisa")
     titleIcon: "elisa"
 
+    // disable default handle as it covers content, also we implement our own handle for pages
+    handleVisible: false
     modal: true
     width: Kirigami.Units.gridUnit * 11
 
@@ -31,9 +33,6 @@ Kirigami.GlobalDrawer {
     }
 
     Component.onCompleted: {
-        // disable default handle as it covers content
-        handle.visible = false;
-
         let settings = action.createObject(drawer, {"icon.name": "settings-configure", text: i18nc("@title:window", "Settings")});
         settings.onTriggered.connect(() => {
             mainWindow.pageStack.layers.push("MobileSettingsPage.qml");

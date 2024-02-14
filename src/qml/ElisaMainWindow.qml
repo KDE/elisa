@@ -61,6 +61,10 @@ Kirigami.ApplicationWindow {
                 mainWindow.pageStack.layers.push("MobileSettingsPage.qml");
             } else {
                 const component = Qt.createComponent(Qt.resolvedUrl("./ElisaConfigurationDialog.qml"));
+                if (component.status === Component.Error) {
+                    console.error(component.errorString());
+                    return;
+                }
                 const window = component.createObject(mainWindow);
             }
         }

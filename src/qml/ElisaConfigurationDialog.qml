@@ -42,31 +42,20 @@ Window {
         }
 
         footer: QQC2.DialogButtonBox {
-            QQC2.Button {
-                text: i18nc("@action:button", "OK")
-                icon.name: 'dialog-ok-apply'
-                QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.AcceptRole
-                Accessible.onPressAction: onClicked
-            }
+            id: buttonBox
+            standardButtons: QQC2.DialogButtonBox.Ok | QQC2.DialogButtonBox.Apply | QQC2.DialogButtonBox.Cancel
+
+            // NOTE: docs say that standardButton returns an AbstractButton, but it
+            // actually returns a Button.
+            property QQC2.Button applyButton: standardButton(QQC2.DialogButtonBox.Apply)
+
             onAccepted: settingsForm.saveAndCloseForm()
-
-            QQC2.Button {
-                text: i18nc("@action:button", "Apply")
-                icon.name: 'dialog-ok-apply'
-                QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.ApplyRole
-                Accessible.onPressAction: onClicked
-
-                enabled: ElisaConfigurationDialog.isDirty
-            }
             onApplied: settingsForm.applyChanges()
-
-            QQC2.Button {
-                text: i18nc("@action:button", "Cancel")
-                icon.name: 'dialog-cancel'
-                QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.RejectRole
-                Accessible.onPressAction: onClicked
-            }
             onRejected: settingsForm.discardAndCloseForm()
+
+            Binding {
+                buttonBox.applyButton.enabled: ElisaConfigurationDialog.isDirty
+            }
         }
     }
 

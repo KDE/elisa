@@ -35,7 +35,6 @@ BasePlayListDelegate {
     }
 
     contentItem: Item {
-        implicitWidth: playListEntry.width
         implicitHeight: 4 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit * 2
 
         Loader {

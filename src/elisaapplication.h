@@ -187,6 +187,8 @@ Q_SIGNALS:
 
     void openAboutKDEPage();
 
+    void configureElisa();
+
 public Q_SLOTS:
 
     void appHelpActivated();
@@ -194,8 +196,6 @@ public Q_SLOTS:
     void reportBug();
 
     void configureShortcuts();
-
-    void configureElisa();
 
     bool openFiles(const QList<QUrl> &files);
     bool openFiles(const QList<QUrl> &files, const QString &workingDirectory);

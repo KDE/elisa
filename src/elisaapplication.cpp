@@ -310,19 +310,6 @@ void ElisaApplication::configureShortcuts()
 #endif
 }
 
-void ElisaApplication::configureElisa()
-{
-    if (!d->mEngine)
-    {
-        return;
-    }
-
-    QQmlComponent configurationDialogComponent(d->mEngine,
-                                               QUrl(QStringLiteral("qrc:/qml/ElisaConfigurationDialog.qml")));
-
-    configurationDialogComponent.create();
-}
-
 void ElisaApplication::goBack() {}
 
 void ElisaApplication::find() {}

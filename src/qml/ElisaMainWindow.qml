@@ -55,6 +55,15 @@ Kirigami.ApplicationWindow {
                 modality: Qt.NonModal
             });
         }
+
+        function onConfigureElisa() {
+            if (Kirigami.Settings.isMobile) {
+                mainWindow.pageStack.layers.push("MobileSettingsPage.qml");
+            } else {
+                const component = Qt.createComponent(Qt.resolvedUrl("./ElisaConfigurationDialog.qml"));
+                const window = component.createObject(mainWindow);
+            }
+        }
     }
 
     contextDrawer: Kirigami.ContextDrawer {

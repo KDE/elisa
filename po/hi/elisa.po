@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-05 00:37+0000\n"
+"POT-Creation-Date: 2024-02-15 00:37+0000\n"
 "PO-Revision-Date: 2023-02-12 20:05+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -487,19 +487,19 @@ msgctxt "@title:window"
 msgid "Configure"
 msgstr "विन्यस्त करें"
 
-#: qml/ElisaConfigurationDialog.qml:45
+#: qml/ElisaConfigurationDialog.qml:46
 #, kde-format
 msgctxt "@action:button"
 msgid "OK"
 msgstr "ठीक है"
 
-#: qml/ElisaConfigurationDialog.qml:53
+#: qml/ElisaConfigurationDialog.qml:54
 #, kde-format
 msgctxt "@action:button"
 msgid "Apply"
 msgstr "लागू करें"
 
-#: qml/ElisaConfigurationDialog.qml:63
+#: qml/ElisaConfigurationDialog.qml:64
 #: qml/mobile/MobileMediaTrackMetadataView.qml:64
 #: qml/mobile/MobileSettingsPage.qml:42
 #, kde-format
@@ -513,7 +513,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "लोड करने में असफल"
 
-#: qml/ElisaMainWindow.qml:28 qml/ElisaMainWindow.qml:256
+#: qml/ElisaMainWindow.qml:28 qml/ElisaMainWindow.qml:269
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -531,7 +531,7 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "पूर्ववत करें"
 
-#: qml/ElisaMainWindow.qml:100 qml/ElisaMainWindow.qml:554
+#: qml/ElisaMainWindow.qml:113 qml/ElisaMainWindow.qml:567
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -540,19 +540,19 @@ msgstr ""
 "कुछ फ़ाइलें लोड नहीं की जा सकीं। एलिसा में केवल ऑडियो और गीत-सूची की फ़ाइलें खोली जा सकतीं "
 "है।"
 
-#: qml/ElisaMainWindow.qml:161 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:174 qml/mobile/MobileSidebar.qml:20
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "एलिसा"
 
-#: qml/ElisaMainWindow.qml:161
+#: qml/ElisaMainWindow.qml:174
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — एलिसा"
 
-#: qml/ElisaMainWindow.qml:238
+#: qml/ElisaMainWindow.qml:251
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -560,7 +560,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u गीत-सूची फ़ाइल (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:238
+#: qml/ElisaMainWindow.qml:251
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -568,7 +568,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls गीत-सूची फ़ाइल (*.pls)"
 
-#: qml/ElisaMainWindow.qml:245
+#: qml/ElisaMainWindow.qml:258
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -576,7 +576,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "m3u8, m3u, pls गीत-सूची फ़ाइल (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:256
+#: qml/ElisaMainWindow.qml:269
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -960,7 +960,7 @@ msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr "पंक्ति से हटाएँ"
 
-#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:37
+#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:36
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"

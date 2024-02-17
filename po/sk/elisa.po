@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-15 00:37+0000\n"
+"POT-Creation-Date: 2024-02-17 00:37+0000\n"
 "PO-Revision-Date: 2023-03-02 18:26+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -354,13 +354,13 @@ msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
 msgstr "Interpreti"
 
-#: powermanagementinterface.cpp:171
+#: powermanagementinterface.cpp:179
 #, kde-format
 msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Prehráva sa hudba"
 
-#: powermanagementinterface.cpp:221
+#: powermanagementinterface.cpp:229
 #, kde-format
 msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
@@ -596,7 +596,7 @@ msgid "Add to playlist"
 msgstr "Pridať do zoznamu skladieb"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:86
+#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -614,7 +614,7 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Ukončiť režim celej obrazovky"
 
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
 #: qml/PlayListEntry.qml:93
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -945,13 +945,13 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Preskočiť dopredu"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Možnosti skladby"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, fuzzy, kde-format
 #| msgctxt "@item:intable"
 #| msgid "Radio Stations"
@@ -959,7 +959,7 @@ msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Rádiové stanice"
 
-#: qml/mobile/MobilePlayListDelegate.qml:186
+#: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"

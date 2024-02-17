@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-15 00:37+0000\n"
+"POT-Creation-Date: 2024-02-17 00:37+0000\n"
 "PO-Revision-Date: 2023-09-28 00:31+0530\n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -354,13 +354,13 @@ msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
 msgstr "कलाकाराः"
 
-#: powermanagementinterface.cpp:171
+#: powermanagementinterface.cpp:179
 #, kde-format
 msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "सङ्गीतं वादयति"
 
-#: powermanagementinterface.cpp:221
+#: powermanagementinterface.cpp:229
 #, kde-format
 msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
@@ -596,7 +596,7 @@ msgid "Add to playlist"
 msgstr "वादनीयसूची मध्ये योजयतु"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:86
+#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -614,7 +614,7 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "पूर्णपर्दे निर्गच्छन्तु"
 
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
 #: qml/PlayListEntry.qml:93
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -941,13 +941,13 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "अग्रतः लङ्घयन्तु"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "संगीतपङ्क्तिस्य विकल्पाः"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, fuzzy, kde-format
 #| msgctxt "@item:intable"
 #| msgid "Radio Stations"
@@ -955,7 +955,7 @@ msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "आकाशवाणीस्थानकानि"
 
-#: qml/mobile/MobilePlayListDelegate.qml:186
+#: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"

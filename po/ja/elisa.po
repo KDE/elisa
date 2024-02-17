@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-15 00:37+0000\n"
+"POT-Creation-Date: 2024-02-17 00:37+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -420,7 +420,7 @@ msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
 msgstr "アーティスト"
 
-#: powermanagementinterface.cpp:171
+#: powermanagementinterface.cpp:179
 #, fuzzy, kde-format
 #| msgctxt "explanation for sleep inhibit during play of music"
 #| msgid "Playing Music"
@@ -428,7 +428,7 @@ msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "再生中"
 
-#: powermanagementinterface.cpp:221
+#: powermanagementinterface.cpp:229
 #, fuzzy, kde-format
 #| msgctxt "explanation for sleep inhibit during play of music"
 #| msgid "Playing Music"
@@ -708,7 +708,7 @@ msgid "Add to playlist"
 msgstr "プレイリストに追加"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:86
+#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
 #, fuzzy, kde-format
 #| msgctxt "Show the file for this song in the file manager"
 #| msgid "Show in folder"
@@ -732,7 +732,7 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "フルスクリーンにする"
 
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
 #: qml/PlayListEntry.qml:93
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
@@ -1120,7 +1120,7 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "次へ"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, fuzzy, kde-format
 #| msgctxt "Track options"
 #| msgid "Track Options"
@@ -1128,14 +1128,14 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "トラックオプション"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, fuzzy, kde-format
 #| msgid "Radio Stations"
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "ラジオ局"
 
-#: qml/mobile/MobilePlayListDelegate.qml:186
+#: qml/mobile/MobilePlayListDelegate.qml:185
 #, fuzzy, kde-format
 #| msgctxt "Remove current track from play list"
 #| msgid "Remove from queue"

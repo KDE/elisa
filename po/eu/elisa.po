@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-15 00:37+0000\n"
+"POT-Creation-Date: 2024-02-17 00:37+0000\n"
 "PO-Revision-Date: 2024-02-05 18:34+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -355,13 +355,13 @@ msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
 msgstr "Artistak"
 
-#: powermanagementinterface.cpp:171
+#: powermanagementinterface.cpp:179
 #, kde-format
 msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Musika jotzen"
 
-#: powermanagementinterface.cpp:221
+#: powermanagementinterface.cpp:229
 #, kde-format
 msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
@@ -595,7 +595,7 @@ msgid "Add to playlist"
 msgstr "Gehitu jotze-zerrendara"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:86
+#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -613,7 +613,7 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Irten pantaila-betetik"
 
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
 #: qml/PlayListEntry.qml:93
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -938,19 +938,19 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Jauzi aurrerantz"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Pisten aukerak"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Irrati-aukerak"
 
-#: qml/mobile/MobilePlayListDelegate.qml:186
+#: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"

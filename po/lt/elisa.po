@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-15 00:37+0000\n"
+"POT-Creation-Date: 2024-02-17 00:37+0000\n"
 "PO-Revision-Date: 2024-02-13 23:18+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
@@ -354,13 +354,13 @@ msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
 msgstr "Atlikėjai"
 
-#: powermanagementinterface.cpp:171
+#: powermanagementinterface.cpp:179
 #, kde-format
 msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Atkuriama muzika"
 
-#: powermanagementinterface.cpp:221
+#: powermanagementinterface.cpp:229
 #, kde-format
 msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
@@ -594,7 +594,7 @@ msgid "Add to playlist"
 msgstr "Pridėti į grojaraštį"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:86
+#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -612,7 +612,7 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Išeiti iš viso ekrano"
 
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
 #: qml/PlayListEntry.qml:93
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -941,19 +941,19 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Peršokti pirmyn"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Takelio parinktys"
 
-#: qml/mobile/MobilePlayListDelegate.qml:145 qml/PlayListEntry.qml:342
+#: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Radijo parinktys"
 
-#: qml/mobile/MobilePlayListDelegate.qml:186
+#: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"

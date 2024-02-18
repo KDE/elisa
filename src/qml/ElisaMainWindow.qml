@@ -70,6 +70,25 @@ Kirigami.ApplicationWindow {
         }
     }
 
+    Loader {
+        id: mobileSidebar
+        active: Kirigami.Settings.isMobile
+
+        function updateSidebarIndex() {
+            if (status === Loader.Ready) {
+                item.viewIndex = item.model.mapRowFromSource(contentView.viewManager.viewIndex)
+            }
+        }
+
+        sourceComponent: MobileSidebar {
+            model: contentView.pageProxyModel
+            viewIndex: model.mapRowFromSource(contentView.viewManager.viewIndex)
+            onSwitchView: viewIndex => contentView.viewManager.openView(model.mapRowToSource(viewIndex))
+        }
+    }
+
+    globalDrawer: mobileSidebar.active ? mobileSidebar.item : null
+
     contextDrawer: Kirigami.ContextDrawer {
         id: playlistDrawer
         handleClosedIcon.source: "view-media-playlist"
@@ -528,6 +547,8 @@ Kirigami.ApplicationWindow {
                 playlistDrawer: playlistDrawer
                 initialIndex: ElisaApplication.initialViewIndex
                 enabled: headerBarLoader.height !== mainWindow.height // Avoid taking keyboard focus when not visible
+
+                onViewIndexChanged: mobileSidebar.updateSidebarIndex()
             }
 
             FooterBar {
@@ -568,11 +589,6 @@ Kirigami.ApplicationWindow {
 
         if (!ElisaApplication.openFiles(elisaStartupArguments)) {
             showPassiveNotification(i18nc("@info:status", "Could not load some files. Elisa can only open audio and playlist files."), 7000, "", function() {})
-        }
-
-        // use global drawer on mobile
-        if (Kirigami.Settings.isMobile) {
-            globalDrawer = contentView.sidebar;
         }
     }
 

@@ -21,9 +21,12 @@ RowLayout {
     property bool showExpandedFilterView
     property Kirigami.ContextDrawer playlistDrawer
     property alias initialIndex: viewManager.initialIndex
+    property alias pageProxyModel: pageProxyModel
+    property alias viewManager: viewManager
 
-    property alias sidebar: mobileSidebar.item
-    property Loader activeSidebarLoader: Kirigami.Settings.isMobile ? mobileSidebar : desktopSidebar
+    signal viewIndexChanged
+
+    onViewIndexChanged: desktopSidebar.updateSidebarIndex()
 
     function goBack() {
         viewManager.goBack()
@@ -47,16 +50,8 @@ RowLayout {
             // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-117720
             const operation = StackView.ReplaceTransition
             browseStackView.replace(null, viewDelegate, viewProperties, operation)
-            updateSidebarIndex()
         } else {
             browseStackView.push(viewDelegate, viewProperties)
-        }
-    }
-
-    function updateSidebarIndex() {
-        // Sometimes the sidebar loads after the page is pushed
-        if (activeSidebarLoader.status === Loader.Ready) {
-            activeSidebarLoader.item.viewIndex = pageProxyModel.mapRowFromSource(viewManager.viewIndex)
         }
     }
 
@@ -65,6 +60,8 @@ RowLayout {
 
         viewsData: viewsData
         initialFilesViewPath: ElisaApplication.initialFilesViewPath
+
+        onViewIndexChanged: contentViewContainer.viewIndexChanged()
 
         onOpenGridView: configurationData => {
             openViewCommon(dataGridView, {
@@ -139,7 +136,7 @@ RowLayout {
         sourceModel: pageModel
         embeddedCategory: Kirigami.Settings.isMobile ? ElisaUtils.Unknown : ElisaApplication.embeddedView
 
-        onEmbeddedCategoryChanged: updateSidebarIndex()
+        onEmbeddedCategoryChanged: contentViewContainer.viewIndexChanged()
     }
 
     ViewsListData {
@@ -156,19 +153,13 @@ RowLayout {
         active: !Kirigami.Settings.isMobile
         Layout.fillHeight: true
 
-        sourceComponent: ViewSelector {
-            model: pageProxyModel
-            viewIndex: model.mapRowFromSource(viewManager.viewIndex)
-            onSwitchView: viewIndex => viewManager.openView(model.mapRowToSource(viewIndex))
+        function updateSidebarIndex() {
+            if (status === Loader.Ready) {
+                item.viewIndex = pageProxyModel.mapRowFromSource(viewManager.viewIndex)
+            }
         }
-    }
 
-    // sidebar used on mobile
-    Loader {
-        id: mobileSidebar
-        active: Kirigami.Settings.isMobile
-
-        sourceComponent: MobileSidebar {
+        sourceComponent: ViewSelector {
             model: pageProxyModel
             viewIndex: model.mapRowFromSource(viewManager.viewIndex)
             onSwitchView: viewIndex => viewManager.openView(model.mapRowToSource(viewIndex))

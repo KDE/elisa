@@ -305,6 +305,9 @@ Kirigami.ApplicationWindow {
 
         property var audioPlayerState
 
+        property var contentViewState
+        property real playListPreferredWidth
+
         property double playControlItemVolume : 100.0
         property bool playControlItemMuted : false
 
@@ -328,6 +331,8 @@ Kirigami.ApplicationWindow {
 
             persistentSettings.playListState = ElisaApplication.mediaPlayListProxyModel.persistentState;
             persistentSettings.audioPlayerState = ElisaApplication.audioControl.persistentState
+            persistentSettings.contentViewState = contentView.saveState();
+            persistentSettings.playListPreferredWidth = contentView.playListPreferredWidth;
 
             persistentSettings.playControlItemVolume = mediaPlayerControl.playerControl.volume
             persistentSettings.playControlItemMuted = mediaPlayerControl.playerControl.muted
@@ -576,6 +581,11 @@ Kirigami.ApplicationWindow {
 
         if (persistentSettings.audioPlayerState) {
             ElisaApplication.audioControl.persistentState = persistentSettings.audioPlayerState
+        }
+
+        contentView.playListHiddenCachedWidth = persistentSettings.playListPreferredWidth;
+        if (persistentSettings.contentViewState) {
+            contentView.restoreState(persistentSettings.contentViewState);
         }
 
         // it seems the header/footer bars load before settings are loaded, so we need to set their settings here

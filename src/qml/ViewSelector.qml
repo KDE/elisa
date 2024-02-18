@@ -17,23 +17,18 @@ ScrollView {
 
     property alias viewIndex: viewModeView.currentIndex
     readonly property int wideWidth: Kirigami.Units.gridUnit * 12
-    readonly property int iconsOnlyWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing + (ScrollBar.vertical.visible ? ScrollBar.vertical.implicitWidth : 0)
+    readonly property real iconsOnlyMinWidth: viewModeView.iconsOnlyWidth + (ScrollBar.vertical.visible ? ScrollBar.vertical.implicitWidth : 0)
+    readonly property real iconsOnlyMaxWidth: viewModeView.iconsOnlyWidth + ScrollBar.vertical.implicitWidth
 
     signal switchView(int viewIndex)
-
-    implicitWidth: mainWindow.width > elisaTheme.viewSelectorSmallSizeThreshold ? wideWidth : iconsOnlyWidth
-    Behavior on implicitWidth {
-        NumberAnimation {
-            easing.type: Easing.InOutQuad
-            duration: Kirigami.Units.longDuration
-        }
-    }
 
     // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
     contentItem: ListView {
         id: viewModeView
+
+        readonly property int iconsOnlyWidth: Kirigami.Units.iconSizes.smallMedium + 2 * Kirigami.Units.largeSpacing
 
         reuseItems: true
         clip: true
@@ -72,7 +67,7 @@ ScrollView {
                 text: section
                 width: viewModeView.width
             }
-            opacity: scrollView.implicitWidth === wideWidth ? 1 : 0
+            opacity: scrollView.width > scrollView.iconsOnlyMaxWidth ? 1 : 0
             Behavior on opacity {
                 NumberAnimation {
                     easing.type: Easing.InOutQuad

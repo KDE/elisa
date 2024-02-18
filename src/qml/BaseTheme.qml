@@ -5,6 +5,7 @@
  */
 
 import QtQuick 2.7
+import QtQuick.Controls as QQC2
 import org.kde.kirigami 2.12 as Kirigami
 
 Item {
@@ -30,6 +31,8 @@ Item {
                                                             : 3 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit
     readonly property real listDelegateHeight: listDelegateSingleLineHeight + (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.gridUnit
 )
+
+    readonly property real contentViewMinimumSize: 2 * gridDelegateSize + scrollBar.width
     property int viewSelectorSmallSizeThreshold: Kirigami.Units.gridUnit * 44
 
     readonly property alias toolButtonHeight: button.height
@@ -52,5 +55,9 @@ Item {
         id: duration
         text: '0:00:00'
         font.bold: true
+    }
+    QQC2.ScrollBar {
+        id: scrollBar
+        visible: false
     }
 }

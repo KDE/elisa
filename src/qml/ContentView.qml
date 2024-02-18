@@ -5,7 +5,7 @@
  */
 
 import QtQuick 2.7
-import QtQuick.Controls 2.2
+import QtQuick.Controls
 import QtQuick.Layouts 1.2
 import QtQuick.Window 2.2
 import org.kde.elisa
@@ -13,9 +13,8 @@ import org.kde.kirigami 2.8 as Kirigami
 
 import "mobile"
 
-RowLayout {
+SplitView {
     id: contentViewContainer
-    spacing: 0
 
     property bool showPlaylist
     property bool showExpandedFilterView
@@ -23,6 +22,8 @@ RowLayout {
     property alias initialIndex: viewManager.initialIndex
     property alias pageProxyModel: pageProxyModel
     property alias viewManager: viewManager
+    property alias playListHiddenCachedWidth: playList.hiddenCachedWidth
+    readonly property alias playListPreferredWidth: playList.preferredWidth
 
     signal viewIndexChanged
 
@@ -151,7 +152,10 @@ RowLayout {
     Loader {
         id: desktopSidebar
         active: !Kirigami.Settings.isMobile
-        Layout.fillHeight: true
+        visible: active
+
+        SplitView.minimumWidth: active ? item.iconsOnlyMinWidth : 0
+        SplitView.preferredWidth: active ? item.wideWidth : 0
 
         function updateSidebarIndex() {
             if (status === Loader.Ready) {
@@ -163,13 +167,14 @@ RowLayout {
             model: pageProxyModel
             viewIndex: model.mapRowFromSource(viewManager.viewIndex)
             onSwitchView: viewIndex => viewManager.openView(model.mapRowToSource(viewIndex))
-        }
-    }
 
-    Kirigami.Separator {
-        id: viewSelectorSeparatorItem
-        visible: !Kirigami.Settings.isMobile
-        Layout.fillHeight: true
+            // Make sure the sidebar stays at minimum width if the scrollbar disappears
+            onIconsOnlyMinWidthChanged: {
+                if (desktopSidebar.SplitView.preferredWidth === iconsOnlyMaxWidth) {
+                    desktopSidebar.SplitView.preferredWidth = iconsOnlyMinWidth;
+                }
+            }
+        }
     }
 
     FocusScope {
@@ -177,8 +182,8 @@ RowLayout {
 
         focus: true
 
-        Layout.fillHeight: true
-        Layout.fillWidth: true
+        SplitView.fillWidth: true
+        SplitView.minimumWidth: Kirigami.Settings.isMobile ? mainWindow.minimumWidth : elisaTheme.contentViewMinimumSize
 
         MouseArea {
             anchors.fill: parent
@@ -243,34 +248,55 @@ RowLayout {
         }
     }
 
-    Kirigami.Separator {
-        id: playListSeparatorItem
-        visible: playList.width > 0
-        Layout.fillHeight: true
-    }
-
     // playlist right sidebar
     MediaPlayListView {
         id: playList
-        Layout.preferredWidth: 0
-        Layout.fillWidth: false
-        Layout.fillHeight: true
-        enabled: Layout.preferredWidth !== 0 // Avoid taking keyboard focus when not visible
 
+        /**
+        * Cached width of the playlist when the playlist is hidden
+        *
+        * This does not get updated when the playlist is resized whilst visible
+        */
+        property real hiddenCachedWidth: 0
+
+        /**
+         * The current preferred width of the playlist, whether the playlist is visible or not
+         */
+        property real preferredWidth: hiddenCachedWidth
+
+        // Default values for when the playlist is not visible
+        SplitView.minimumWidth: 0
+        SplitView.preferredWidth: 0
+
+        visible: SplitView.preferredWidth !== 0 // Only hide the playlist *after* the width transition
+        enabled: visible // Avoid taking keyboard focus when not visible
+
+        // We use a state here so that the width only animates during
+        // the transition, not when using the drag handle.
         states: [
             State {
                 name: "playlistVisible"
                 when: mainWindow.isWideScreen && contentViewContainer.showPlaylist
                 PropertyChanges {
                     target: playList
-                    Layout.preferredWidth: Math.round(contentViewContainer.width * 0.28)
+                    visible: true
+                    SplitView.minimumWidth: 10 * Kirigami.Units.gridUnit
+                    SplitView.preferredWidth: playList.hiddenCachedWidth
+                    preferredWidth: SplitView.preferredWidth
                 }
             }
         ]
 
         transitions: Transition {
+            ScriptAction {
+                script: {
+                    if (playList.state === "") {
+                        playList.hiddenCachedWidth = playList.SplitView.preferredWidth;
+                    }
+                }
+            }
             NumberAnimation {
-                property: "Layout.preferredWidth"
+                property: "SplitView.preferredWidth"
                 easing.type: Easing.InOutQuad
                 duration: Kirigami.Units.longDuration
             }

@@ -4,6 +4,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+import QtCore
 import QtQuick 2.15
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.1
@@ -12,7 +13,6 @@ import org.kde.kirigami 2.5 as Kirigami
 import org.kde.kirigamiaddons.formcard 1.0 as FormCard
 import org.kde.elisa 1.0
 import org.kde.elisa.about 1.0
-import Qt.labs.settings 1.0
 import Qt.labs.platform 1.1
 
 import "mobile"

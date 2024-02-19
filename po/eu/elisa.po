@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-17 00:37+0000\n"
+"POT-Creation-Date: 2024-02-19 00:37+0000\n"
 "PO-Revision-Date: 2024-02-05 18:34+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -487,26 +487,6 @@ msgctxt "@title:window"
 msgid "Configure"
 msgstr "Konfiguratu"
 
-#: qml/ElisaConfigurationDialog.qml:46
-#, kde-format
-msgctxt "@action:button"
-msgid "OK"
-msgstr "Ados"
-
-#: qml/ElisaConfigurationDialog.qml:54
-#, kde-format
-msgctxt "@action:button"
-msgid "Apply"
-msgstr "Ezarri"
-
-#: qml/ElisaConfigurationDialog.qml:64
-#: qml/mobile/MobileMediaTrackMetadataView.qml:64
-#: qml/mobile/MobileSettingsPage.qml:42
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel"
-msgstr "Utzi"
-
 #: qml/ElisaMainWindow.qml:28
 #, kde-format
 msgctxt "@label"
@@ -930,6 +910,13 @@ msgstr "Aldatu"
 msgctxt "@action:button"
 msgid "Save"
 msgstr "Gorde"
+
+#: qml/mobile/MobileMediaTrackMetadataView.qml:64
+#: qml/mobile/MobileSettingsPage.qml:42
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "Utzi"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:342
@@ -1710,6 +1697,14 @@ msgstr "Fitxategiak"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Irrati-kateak"
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "Ados"
+
+#~ msgctxt "@action:button"
+#~ msgid "Apply"
+#~ msgstr "Ezarri"
 
 #~ msgctxt "@action:button"
 #~ msgid "Close"

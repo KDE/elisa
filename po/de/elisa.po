@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-17 00:37+0000\n"
+"POT-Creation-Date: 2024-02-19 00:37+0000\n"
 "PO-Revision-Date: 2023-08-13 16:21+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -486,26 +486,6 @@ msgctxt "@title:window"
 msgid "Configure"
 msgstr "Einrichten"
 
-#: qml/ElisaConfigurationDialog.qml:46
-#, kde-format
-msgctxt "@action:button"
-msgid "OK"
-msgstr "OK"
-
-#: qml/ElisaConfigurationDialog.qml:54
-#, kde-format
-msgctxt "@action:button"
-msgid "Apply"
-msgstr "Anwenden"
-
-#: qml/ElisaConfigurationDialog.qml:64
-#: qml/mobile/MobileMediaTrackMetadataView.qml:64
-#: qml/mobile/MobileSettingsPage.qml:42
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel"
-msgstr "Abbrechen"
-
 #: qml/ElisaMainWindow.qml:28
 #, kde-format
 msgctxt "@label"
@@ -931,6 +911,13 @@ msgstr "Ändern"
 msgctxt "@action:button"
 msgid "Save"
 msgstr "Speichern"
+
+#: qml/mobile/MobileMediaTrackMetadataView.qml:64
+#: qml/mobile/MobileSettingsPage.qml:42
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:342
@@ -1720,6 +1707,14 @@ msgstr "Dateien"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiostation"
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgctxt "@action:button"
+#~ msgid "Apply"
+#~ msgstr "Anwenden"
 
 #~ msgctxt "@action:button"
 #~ msgid "Close"

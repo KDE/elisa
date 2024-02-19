@@ -1,13 +1,13 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2022, 2023 Kishore G <kishore96@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-17 00:37+0000\n"
-"PO-Revision-Date: 2023-12-07 21:35+0530\n"
+"POT-Creation-Date: 2024-02-19 00:37+0000\n"
+"PO-Revision-Date: 2024-02-18 16:19+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -473,9 +473,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "நீளம்"
@@ -485,26 +483,6 @@ msgstr "நீளம்"
 msgctxt "@title:window"
 msgid "Configure"
 msgstr "அமை"
-
-#: qml/ElisaConfigurationDialog.qml:46
-#, kde-format
-msgctxt "@action:button"
-msgid "OK"
-msgstr "சரி"
-
-#: qml/ElisaConfigurationDialog.qml:54
-#, kde-format
-msgctxt "@action:button"
-msgid "Apply"
-msgstr "செயல்படுத்து"
-
-#: qml/ElisaConfigurationDialog.qml:64
-#: qml/mobile/MobileMediaTrackMetadataView.qml:64
-#: qml/mobile/MobileSettingsPage.qml:42
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel"
-msgstr "ரத்து செய்"
 
 #: qml/ElisaMainWindow.qml:28
 #, kde-format
@@ -868,7 +846,7 @@ msgstr "அனைத்தையும் நீக்கு"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "இக்குறிச்சொல்லை நீக்கு"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -883,12 +861,10 @@ msgid "Data is not valid. %1"
 msgstr "தரவு செல்லுபடியாகாத‍து. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Volume as a percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1%"
+msgstr "%1:"
 
 #: qml/MediaTrackMetadataForm.qml:146
 #, kde-format
@@ -931,6 +907,13 @@ msgctxt "@action:button"
 msgid "Save"
 msgstr "சேமி"
 
+#: qml/mobile/MobileMediaTrackMetadataView.qml:64
+#: qml/mobile/MobileSettingsPage.qml:42
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "ரத்து செய்"
+
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:342
 #, kde-format
@@ -945,12 +928,10 @@ msgid "Track Options"
 msgstr "பாடலுக்கான விருப்பங்கள்"
 
 #: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "வானொலி நிலையங்கள்"
+msgstr "வானொலி விருப்பங்கள்"
 
 #: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
@@ -1485,12 +1466,10 @@ msgid "Disc %1"
 msgstr "வட்டு %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "ஒலியளவை மாற்று"
+msgstr "ஒலியளவு"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format
@@ -1713,6 +1692,14 @@ msgstr "கோப்புகள்"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "வானொலி நிலையங்கள்"
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "சரி"
+
+#~ msgctxt "@action:button"
+#~ msgid "Apply"
+#~ msgstr "செயல்படுத்து"
 
 #~ msgctxt "@action:button"
 #~ msgid "Close"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-17 00:37+0000\n"
-"PO-Revision-Date: 2024-01-07 16:55+0000\n"
+"POT-Creation-Date: 2024-02-19 00:37+0000\n"
+"PO-Revision-Date: 2024-02-18 14:49+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -475,9 +475,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "Durată"
@@ -487,26 +485,6 @@ msgstr "Durată"
 msgctxt "@title:window"
 msgid "Configure"
 msgstr "Configurează"
-
-#: qml/ElisaConfigurationDialog.qml:46
-#, kde-format
-msgctxt "@action:button"
-msgid "OK"
-msgstr "Bine"
-
-#: qml/ElisaConfigurationDialog.qml:54
-#, kde-format
-msgctxt "@action:button"
-msgid "Apply"
-msgstr "Aplică"
-
-#: qml/ElisaConfigurationDialog.qml:64
-#: qml/mobile/MobileMediaTrackMetadataView.qml:64
-#: qml/mobile/MobileSettingsPage.qml:42
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel"
-msgstr "Renunță"
 
 #: qml/ElisaMainWindow.qml:28
 #, kde-format
@@ -934,6 +912,13 @@ msgctxt "@action:button"
 msgid "Save"
 msgstr "Salvează"
 
+#: qml/mobile/MobileMediaTrackMetadataView.qml:64
+#: qml/mobile/MobileSettingsPage.qml:42
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "Renunță"
+
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:342
 #, kde-format
@@ -948,12 +933,10 @@ msgid "Track Options"
 msgstr "Opțiuni piesă"
 
 #: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Stații radio"
+msgstr "Opțiuni radio"
 
 #: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
@@ -1489,12 +1472,10 @@ msgid "Disc %1"
 msgstr "Disc %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Schimbă volumul"
+msgstr "Volum"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format
@@ -1717,6 +1698,14 @@ msgstr "Fișiere"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Stații radio"
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "Bine"
+
+#~ msgctxt "@action:button"
+#~ msgid "Apply"
+#~ msgstr "Aplică"
 
 #~ msgctxt "@action:button"
 #~ msgid "Close"

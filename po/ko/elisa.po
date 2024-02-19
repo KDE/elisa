@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-17 00:37+0000\n"
+"POT-Creation-Date: 2024-02-19 00:37+0000\n"
 "PO-Revision-Date: 2024-02-09 20:14+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -485,26 +485,6 @@ msgctxt "@title:window"
 msgid "Configure"
 msgstr "설정"
 
-#: qml/ElisaConfigurationDialog.qml:46
-#, kde-format
-msgctxt "@action:button"
-msgid "OK"
-msgstr "확인"
-
-#: qml/ElisaConfigurationDialog.qml:54
-#, kde-format
-msgctxt "@action:button"
-msgid "Apply"
-msgstr "적용"
-
-#: qml/ElisaConfigurationDialog.qml:64
-#: qml/mobile/MobileMediaTrackMetadataView.qml:64
-#: qml/mobile/MobileSettingsPage.qml:42
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel"
-msgstr "취소"
-
 #: qml/ElisaMainWindow.qml:28
 #, kde-format
 msgctxt "@label"
@@ -926,6 +906,13 @@ msgstr "수정"
 msgctxt "@action:button"
 msgid "Save"
 msgstr "저장"
+
+#: qml/mobile/MobileMediaTrackMetadataView.qml:64
+#: qml/mobile/MobileSettingsPage.qml:42
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "취소"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:342
@@ -1703,6 +1690,14 @@ msgstr "파일"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "라디오 방송국"
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "확인"
+
+#~ msgctxt "@action:button"
+#~ msgid "Apply"
+#~ msgstr "적용"
 
 #~ msgctxt "@action:button"
 #~ msgid "Close"

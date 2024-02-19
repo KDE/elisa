@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-17 00:37+0000\n"
+"POT-Creation-Date: 2024-02-19 00:37+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -588,29 +588,6 @@ msgctxt "@title:window"
 msgid "Configure"
 msgstr "Seadistamine"
 
-#: qml/ElisaConfigurationDialog.qml:46
-#, fuzzy, kde-format
-#| msgid "OK"
-msgctxt "@action:button"
-msgid "OK"
-msgstr "OK"
-
-#: qml/ElisaConfigurationDialog.qml:54
-#, fuzzy, kde-format
-#| msgid "Apply"
-msgctxt "@action:button"
-msgid "Apply"
-msgstr "Rakenda"
-
-#: qml/ElisaConfigurationDialog.qml:64
-#: qml/mobile/MobileMediaTrackMetadataView.qml:64
-#: qml/mobile/MobileSettingsPage.qml:42
-#, fuzzy, kde-format
-#| msgid "Cancel"
-msgctxt "@action:button"
-msgid "Cancel"
-msgstr "Loobu"
-
 #: qml/ElisaMainWindow.qml:28
 #, fuzzy, kde-format
 #| msgctxt "Message when playlist load failed"
@@ -1125,6 +1102,14 @@ msgstr ""
 msgctxt "@action:button"
 msgid "Save"
 msgstr "Esitusloendi salvestamine ..."
+
+#: qml/mobile/MobileMediaTrackMetadataView.qml:64
+#: qml/mobile/MobileSettingsPage.qml:42
+#, fuzzy, kde-format
+#| msgid "Cancel"
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "Loobu"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:342
@@ -2031,6 +2016,18 @@ msgstr "Failid"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Raadio"
+
+#, fuzzy
+#~| msgid "OK"
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#, fuzzy
+#~| msgid "Apply"
+#~ msgctxt "@action:button"
+#~ msgid "Apply"
+#~ msgstr "Rakenda"
 
 #, fuzzy
 #~| msgid "Close"

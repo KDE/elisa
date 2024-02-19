@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-17 00:37+0000\n"
+"POT-Creation-Date: 2024-02-19 00:37+0000\n"
 "PO-Revision-Date: 2024-02-05 05:41+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -485,26 +485,6 @@ msgctxt "@title:window"
 msgid "Configure"
 msgstr "მორგება"
 
-#: qml/ElisaConfigurationDialog.qml:46
-#, kde-format
-msgctxt "@action:button"
-msgid "OK"
-msgstr "დიახ"
-
-#: qml/ElisaConfigurationDialog.qml:54
-#, kde-format
-msgctxt "@action:button"
-msgid "Apply"
-msgstr "გამოყენება"
-
-#: qml/ElisaConfigurationDialog.qml:64
-#: qml/mobile/MobileMediaTrackMetadataView.qml:64
-#: qml/mobile/MobileSettingsPage.qml:42
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel"
-msgstr "გაუქმენა"
-
 #: qml/ElisaMainWindow.qml:28
 #, kde-format
 msgctxt "@label"
@@ -928,6 +908,13 @@ msgstr "ჩასწორება"
 msgctxt "@action:button"
 msgid "Save"
 msgstr "შენახვა"
+
+#: qml/mobile/MobileMediaTrackMetadataView.qml:64
+#: qml/mobile/MobileSettingsPage.qml:42
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "გაუქმენა"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:342
@@ -1706,6 +1693,14 @@ msgstr "ფაილები"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "რადიოსადგურები"
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "დიახ"
+
+#~ msgctxt "@action:button"
+#~ msgid "Apply"
+#~ msgstr "გამოყენება"
 
 #~ msgctxt "@action:button"
 #~ msgid "Close"

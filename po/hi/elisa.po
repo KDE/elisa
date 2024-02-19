@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-17 00:37+0000\n"
+"POT-Creation-Date: 2024-02-19 00:37+0000\n"
 "PO-Revision-Date: 2023-02-12 20:05+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -487,26 +487,6 @@ msgctxt "@title:window"
 msgid "Configure"
 msgstr "विन्यस्त करें"
 
-#: qml/ElisaConfigurationDialog.qml:46
-#, kde-format
-msgctxt "@action:button"
-msgid "OK"
-msgstr "ठीक है"
-
-#: qml/ElisaConfigurationDialog.qml:54
-#, kde-format
-msgctxt "@action:button"
-msgid "Apply"
-msgstr "लागू करें"
-
-#: qml/ElisaConfigurationDialog.qml:64
-#: qml/mobile/MobileMediaTrackMetadataView.qml:64
-#: qml/mobile/MobileSettingsPage.qml:42
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel"
-msgstr "रद्द करें"
-
 #: qml/ElisaMainWindow.qml:28
 #, kde-format
 msgctxt "@label"
@@ -932,6 +912,13 @@ msgstr "सुधारें"
 msgctxt "@action:button"
 msgid "Save"
 msgstr "सहेजें"
+
+#: qml/mobile/MobileMediaTrackMetadataView.qml:64
+#: qml/mobile/MobileSettingsPage.qml:42
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "रद्द करें"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:342
@@ -1720,6 +1707,14 @@ msgstr "फ़ाइलें"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "रेडियो स्टेशन"
+
+#~ msgctxt "@action:button"
+#~ msgid "OK"
+#~ msgstr "ठीक है"
+
+#~ msgctxt "@action:button"
+#~ msgid "Apply"
+#~ msgstr "लागू करें"
 
 #~ msgctxt "@action:button"
 #~ msgid "Close"

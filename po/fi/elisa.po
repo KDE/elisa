@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-19 00:37+0000\n"
-"PO-Revision-Date: 2024-01-18 17:54+0200\n"
+"PO-Revision-Date: 2024-02-23 19:40+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -475,9 +475,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "Kesto"
@@ -934,12 +932,10 @@ msgid "Track Options"
 msgstr "Kappalevalinnat"
 
 #: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Radioasemat"
+msgstr "Radioasetukset"
 
 #: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
@@ -1475,12 +1471,10 @@ msgid "Disc %1"
 msgstr "Levy %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Muuta äänenvoimakkuutta"
+msgstr "Äänenvoimakkuus"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format

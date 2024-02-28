@@ -43,8 +43,7 @@ public:
                              {i18nc("@item:inmenu", "Ascending"), i18nc("@item:inmenu", "Descending"),
                               i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
                              ViewManager::SingleAlbum,
-                             ViewManager::DiscHeaders,
-                             ViewManager::IsTrack}},
+                             ViewManager::DiscHeaders}},
         {ElisaUtils::Genre, {{},
                              QUrl{QStringLiteral("image://icon/view-media-artist")},
                              ViewManager::GridView,
@@ -297,7 +296,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                     << viewParamaters.mModelType << viewParamaters.mDataType
                                     << viewParamaters.mDataFilter << viewParamaters.mSortRole
                                     << viewParamaters.mSortOrder << viewParamaters.mAlbumCardinality
-                                    << viewParamaters.mAlbumViewStyle << viewParamaters.mRadioSpecificStyle;
+                                    << viewParamaters.mAlbumViewStyle;
 
         auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType, viewParamaters.mDepth,
                                                                          viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
@@ -307,8 +306,7 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
                                                                          viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
                                                                          computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortOrderNames,
-                                                                         viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle,
-                                                                         viewParamaters.mRadioSpecificStyle);
+                                                                         viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle);
 
         QQmlEngine::setObjectOwnership(configurationData.get(), QQmlEngine::JavaScriptOwnership);
 

@@ -105,7 +105,6 @@ RowLayout {
                 sortOrder: configurationData.sortOrder,
                 displaySingleAlbum: configurationData.displaySingleAlbum,
                 showSection: configurationData.showDiscHeaders,
-                radioCase: configurationData.radioCase,
                 sortRole: configurationData.sortRole,
                 sortRoles: configurationData.sortRoles,
                 sortRoleNames: configurationData.sortRoleNames,

@@ -112,8 +112,7 @@ public:
                    int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                    Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
-                   ViewManager::AlbumViewStyle albumViewStyle,
-                   ViewManager::RadioSpecificStyle radioSpecificStyle)
+                   ViewManager::AlbumViewStyle albumViewStyle)
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
@@ -127,7 +126,6 @@ public:
         , mSortOrderNames(std::move(sortOrderNames))
         , mAlbumCardinality(albumCardinality)
         , mAlbumViewStyle(albumViewStyle)
-        , mRadioSpecificStyle(radioSpecificStyle)
         , mIsValid(true)
     {
     }
@@ -169,8 +167,7 @@ public:
                    int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                    Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
-                   ViewManager::AlbumViewStyle albumViewStyle,
-                   ViewManager::RadioSpecificStyle radioSpecificStyle)
+                   ViewManager::AlbumViewStyle albumViewStyle)
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
@@ -185,7 +182,6 @@ public:
         , mSortOrderNames(std::move(sortOrderNames))
         , mAlbumCardinality(albumCardinality)
         , mAlbumViewStyle(albumViewStyle)
-        , mRadioSpecificStyle(radioSpecificStyle)
         , mIsValid(true)
     {
         mDataFilter = {{DataTypes::DatabaseIdRole, databaseId}};
@@ -200,7 +196,7 @@ public:
                 mSortRole == other.mSortRole && mSortRoles == other.mSortRoles && mSortRoleNames == other.mSortRoleNames &&
                 mSortOrder == other.mSortOrder && mSortOrderNames == other.mSortOrderNames &&
                 mAlbumCardinality == other.mAlbumCardinality && mAlbumViewStyle == other.mAlbumViewStyle &&
-                mRadioSpecificStyle == other.mRadioSpecificStyle && mDepth == other.mDepth &&
+                mDepth == other.mDepth &&
                 mDataFilter == other.mDataFilter;
     }
 
@@ -213,7 +209,7 @@ public:
                 mSortRole != other.mSortRole || mSortRoles != other.mSortRoles || mSortRoleNames != other.mSortRoleNames ||
                 mSortOrder != other.mSortOrder || mSortOrderNames != other.mSortOrderNames ||
                 mAlbumCardinality != other.mAlbumCardinality || mAlbumViewStyle != other.mAlbumViewStyle ||
-                mRadioSpecificStyle != other.mRadioSpecificStyle || mDepth != other.mDepth ||
+                mDepth != other.mDepth ||
                 mDataFilter != other.mDataFilter;
     }
 
@@ -252,8 +248,6 @@ public:
     ViewManager::AlbumCardinality mAlbumCardinality = ViewManager::MultipleAlbum;
 
     ViewManager::AlbumViewStyle mAlbumViewStyle = ViewManager::NoDiscHeaders;
-
-    ViewManager::RadioSpecificStyle mRadioSpecificStyle = ViewManager::IsTrack;
 
     int mDepth = 1;
 

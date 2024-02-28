@@ -15,7 +15,6 @@ AbstractDataView {
 
     property int databaseId
     property bool showSection: false
-    property bool radioCase: false
 
     // Otherwise tracks are sorted in the wrong order
     sortModel: !displaySingleAlbum

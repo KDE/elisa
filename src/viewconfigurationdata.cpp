@@ -49,8 +49,7 @@ public:
                                  int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                                  Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                  ViewManager::AlbumCardinality displaySingleAlbum,
-                                 ViewManager::AlbumViewStyle showDiscHeaders,
-                                 ViewManager::RadioSpecificStyle radioCase)
+                                 ViewManager::AlbumViewStyle showDiscHeaders)
         : mFilterType(filterType)
         , mExpectedDepth(expectedDepth)
         , mMainTitle(std::move(mainTitle))
@@ -67,7 +66,6 @@ public:
         , mSortOrderNames(std::move(sortOrderNames))
         , mDisplaySingleAlbum(displaySingleAlbum)
         , mShowDiscHeaders(showDiscHeaders)
-        , mRadioCase(radioCase)
     {
     }
 
@@ -108,8 +106,6 @@ public:
     ViewManager::AlbumCardinality mDisplaySingleAlbum;
 
     ViewManager::AlbumViewStyle mShowDiscHeaders;
-
-    ViewManager::RadioSpecificStyle mRadioCase;
 };
 
 ViewConfigurationData::ViewConfigurationData(QObject *parent)
@@ -148,15 +144,13 @@ ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, 
                                              Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                              ViewManager::AlbumCardinality displaySingleAlbum,
                                              ViewManager::AlbumViewStyle showDiscHeaders,
-                                             ViewManager::RadioSpecificStyle radioCase,
                                              QObject *parent)
     : QObject(parent)
     , d(std::make_unique<ViewConfigurationDataPrivate>(filterType, expectedDepth, std::move(mainTitle),
                                                        std::move(secondaryTitle), std::move(imageUrl),
                                                        dataType, model, associatedProxyModel, std::move(dataFilter),
                                                        sortRole, std::move(sortRoles), std::move(sortRoleNames),
-                                                       sortOrder, std::move(sortOrderNames), displaySingleAlbum, showDiscHeaders,
-                                                       radioCase))
+                                                       sortOrder, std::move(sortOrderNames), displaySingleAlbum, showDiscHeaders))
 {
 }
 
@@ -253,11 +247,6 @@ ViewManager::AlbumCardinality ViewConfigurationData::displaySingleAlbum() const
 ViewManager::AlbumViewStyle ViewConfigurationData::showDiscHeaders() const
 {
     return d->mShowDiscHeaders;
-}
-
-ViewManager::RadioSpecificStyle ViewConfigurationData::radioCase() const
-{
-    return d->mRadioCase;
 }
 
 ViewConfigurationData::~ViewConfigurationData() = default;

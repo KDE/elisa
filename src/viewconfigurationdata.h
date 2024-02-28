@@ -103,10 +103,6 @@ class ELISALIB_EXPORT ViewConfigurationData : public QObject
                READ showDiscHeaders
                CONSTANT)
 
-    Q_PROPERTY(ViewManager::RadioSpecificStyle radioCase
-               READ radioCase
-               CONSTANT)
-
 public:
     explicit ViewConfigurationData(QObject *parent = nullptr);
 
@@ -128,7 +124,7 @@ public:
                                    int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
                                    Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
                                    ViewManager::AlbumCardinality displaySingleAlbum,
-                                   ViewManager::AlbumViewStyle showDiscHeaders, ViewManager::RadioSpecificStyle radioCase,
+                                   ViewManager::AlbumViewStyle showDiscHeaders,
                                    QObject *parent = nullptr);
 
     ~ViewConfigurationData() override;
@@ -170,10 +166,6 @@ public:
     [[nodiscard]] ViewManager::AlbumCardinality displaySingleAlbum() const;
 
     [[nodiscard]] ViewManager::AlbumViewStyle showDiscHeaders() const;
-
-    [[nodiscard]] ViewManager::RadioSpecificStyle radioCase() const;
-
-Q_SIGNALS:
 
 private:
 

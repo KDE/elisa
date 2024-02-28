@@ -28,7 +28,6 @@ private Q_SLOTS:
 
     void initTestCase()
     {
-        qRegisterMetaType<ViewManager::RadioSpecificStyle>("ViewManager::RadioSpecificStyle");
         qRegisterMetaType<ViewManager::AlbumViewStyle>("ViewManager::AlbumViewStyle");
         qRegisterMetaType<ElisaUtils::PlayListEntryType>("ElisaUtils::PlayListEntryType");
         qRegisterMetaType<ElisaUtils::FilterType>("ElisaUtils::FilterType");

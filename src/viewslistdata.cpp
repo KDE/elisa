@@ -36,8 +36,7 @@ public:
                                                Qt::DescendingOrder,
                                                {i18nc("@item:inmenu", "Least Recently Played First"), i18nc("@item:inmenu", "Most Recently Played First")},
                                                ViewManager::MultipleAlbum,
-                                               ViewManager::NoDiscHeaders,
-                                               ViewManager::IsTrack},
+                                               ViewManager::NoDiscHeaders},
                                               {{i18nc("@title:window Title of the view of frequently played tracks", "Frequently Played")},
                                                QUrl{QStringLiteral("image://icon/view-media-playcount")},
                                                ViewManager::ListView,
@@ -50,8 +49,7 @@ public:
                                                Qt::DescendingOrder,
                                                {i18nc("@item:inmenu", "Least Frequently Played First"), i18nc("@item:inmenu", "Most Frequently Played First")},
                                                ViewManager::MultipleAlbum,
-                                               ViewManager::NoDiscHeaders,
-                                               ViewManager::IsTrack},
+                                               ViewManager::NoDiscHeaders},
                                               {{i18nc("@title:window Title of the view of all albums", "Albums")},
                                                QUrl{QStringLiteral("image://icon/view-media-album-cover")},
                                                ViewManager::GridView,
@@ -99,8 +97,7 @@ public:
                                                 i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First"), i18nc("@item:inmenu", "Shortest First"), i18nc("@item:inmenu", "Longest First"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"),
                                                 i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
                                                ViewManager::MultipleAlbum,
-                                               ViewManager::NoDiscHeaders,
-                                               ViewManager::IsTrack},
+                                               ViewManager::NoDiscHeaders},
                                               {{i18nc("@title:window Title of the view of all genres", "Genres")},
                                                QUrl{QStringLiteral("image://icon/view-media-genre")},
                                                ViewManager::GridView,
@@ -138,8 +135,7 @@ public:
                                                Qt::AscendingOrder,
                                                {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A")},
                                                ViewManager::MultipleAlbum,
-                                               ViewManager::NoDiscHeaders,
-                                               ViewManager::IsRadio}};
+                                               ViewManager::NoDiscHeaders}};
 
     const int mNumOfBaseViews = mViewsParameters.count();
 
@@ -335,8 +331,7 @@ void ViewsListData::albumsAdded(const DataTypes::ListAlbumDataType &newData)
                                        Qt::AscendingOrder,
                                        {QStringLiteral("A-Z"), QStringLiteral("Z-A")},
                                        ViewManager::SingleAlbum,
-                                       ViewManager::DiscHeaders,
-                                       ViewManager::IsTrack});
+                                       ViewManager::DiscHeaders});
     }
     Q_EMIT dataAdded();
 }

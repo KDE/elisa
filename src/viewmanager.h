@@ -61,13 +61,6 @@ public:
 
     Q_ENUM(AlbumViewStyle)
 
-    enum RadioSpecificStyle {
-        IsTrack,
-        IsRadio,
-    };
-
-    Q_ENUM(RadioSpecificStyle)
-
     enum DelegateUseSecondaryText {
         DelegateWithSecondaryText = true,
         DelegateWithoutSecondaryText = false,

@@ -34,7 +34,6 @@ public:
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
-        , mIsValid(true)
     {
     }
 
@@ -63,7 +62,6 @@ public:
         , mSortRoleNames(std::move(sortRoleNames))
         , mSortOrder(sortOrder)
         , mSortOrderNames(std::move(sortOrderNames))
-        , mIsValid(true)
     {
     }
 
@@ -87,7 +85,6 @@ public:
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
         , mDataFilter{{DataTypes::FilePathRole, std::move(pathFilter)}}
-        , mIsValid(true)
     {
     }
 
@@ -114,7 +111,6 @@ public:
         , mSortOrderNames(std::move(sortOrderNames))
         , mAlbumCardinality(albumCardinality)
         , mAlbumViewStyle(albumViewStyle)
-        , mIsValid(true)
     {
     }
 
@@ -139,7 +135,6 @@ public:
         , mFallbackItemIcon(std::move(fallbackItemIcon))
         , mShowSecondaryTextOnDelegates(showSecondaryTextOnDelegates)
         , mViewCanBeRated(viewCanBeRated)
-        , mIsValid(true)
     {
         mDataFilter = {{DataTypes::DatabaseIdRole, databaseId}};
     }
@@ -170,7 +165,6 @@ public:
         , mSortOrderNames(std::move(sortOrderNames))
         , mAlbumCardinality(albumCardinality)
         , mAlbumViewStyle(albumViewStyle)
-        , mIsValid(true)
     {
         mDataFilter = {{DataTypes::DatabaseIdRole, databaseId}};
     }
@@ -242,8 +236,6 @@ public:
     DataTypes::MusicDataType mDataFilter;
 
     bool mUseSecondTitle = false;
-
-    bool mIsValid = false;
 };
 
 class ELISALIB_EXPORT ViewsListData : public QObject

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-14 03:07+0000\n"
+"POT-Creation-Date: 2024-02-29 02:26+0000\n"
 "PO-Revision-Date: 2024-01-05 23:00+0100\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -428,38 +428,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Apri la barra laterale"
 
-#: qml/ContextView.qml:108
+#: qml/ContextView.qml:109
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadati"
 
-#: qml/ContextView.qml:119
+#: qml/ContextView.qml:120
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Testo"
 
-#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
+#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
 #: qml/mobile/MobileTrackPlayer.qml:357 qml/NavigationActionBar.qml:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Mostra scaletta"
 
-#: qml/ContextView.qml:407
+#: qml/ContextView.qml:408
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Nessun testo trovato"
 
-#: qml/ContextView.qml:424
+#: qml/ContextView.qml:425
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nulla in riproduzione"
 
-#: qml/ContextView.qml:458
+#: qml/ContextView.qml:459
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -511,19 +511,19 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Riprova"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:412
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:418
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Scaletta ripulita"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:416
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:422
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Annulla"
 
-#: qml/ElisaMainWindow.qml:74 qml/ElisaMainWindow.qml:527
+#: qml/ElisaMainWindow.qml:74 qml/ElisaMainWindow.qml:528
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -587,13 +587,13 @@ msgid "Add to playlist"
 msgstr "Aggiungi alla scaletta"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:88
+#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:86
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Mostra nella cartella"
 
-#: qml/GridBrowserDelegate.qml:345
+#: qml/GridBrowserDelegate.qml:332
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
@@ -605,8 +605,8 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Passa a schermo intero"
 
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
-#: qml/PlayListEntry.qml:95
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
+#: qml/PlayListEntry.qml:93
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -618,21 +618,21 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Riproduci da qui, sostituendo la scaletta attuale"
 
-#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:109
+#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:107
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Imposta valutazione della traccia"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:119
+#: qml/PlayListEntry.qml:117
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Rimuovi questa canzone dalle preferite"
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:119
+#: qml/PlayListEntry.qml:117
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
@@ -656,7 +656,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:301
+#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:299
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -794,13 +794,13 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Modifica file di scaletta"
 
-#: qml/MediaPlayListView.qml:275
+#: qml/MediaPlayListView.qml:274
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "La scaletta è vuota"
 
-#: qml/MediaPlayListView.qml:276
+#: qml/MediaPlayListView.qml:275
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -819,7 +819,7 @@ msgstr "La tua scaletta è vuota."
 # NOTA: Non togliere %1 dalla forma singola in questo caso,
 # perché la forma plurale richiede due segnaposto e la forma
 # singolare ne deve perciò avere almeno uno.
-#: qml/MediaPlayListView.qml:437 qml/MediaPlayListView.qml:442
+#: qml/MediaPlayListView.qml:443 qml/MediaPlayListView.qml:448
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -827,13 +827,13 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 traccia"
 msgstr[1] "%1 tracce"
 
-#: qml/MediaPlayListView.qml:440
+#: qml/MediaPlayListView.qml:446
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "Una traccia"
 
-#: qml/MediaPlayListView.qml:443
+#: qml/MediaPlayListView.qml:449
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -841,7 +841,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "%1 rimanente"
 msgstr[1] "%1 rimanenti"
 
-#: qml/MediaPlayListView.qml:444
+#: qml/MediaPlayListView.qml:450
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -849,13 +849,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:458
+#: qml/MediaPlayListView.qml:464
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Mostra attuale"
 
-#: qml/MediaPlayListView.qml:469
+#: qml/MediaPlayListView.qml:475
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -939,7 +939,7 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Opzioni traccia"
 
-#: qml/mobile/MobilePlayListDelegate.qml:185
+#: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
@@ -1157,25 +1157,25 @@ msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtra per voto: "
 
-#: qml/NavigationActionBar.qml:383
+#: qml/NavigationActionBar.qml:386
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Mostra solo i preferiti"
 
-#: qml/PlayListEntry.qml:132
+#: qml/PlayListEntry.qml:130
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "In pausa"
 
-#: qml/PlayListEntry.qml:132
+#: qml/PlayListEntry.qml:130
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Riproduci"
 
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:145
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
@@ -1442,7 +1442,7 @@ msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Aggiungi nuova posizione"
 
-#: qml/shared/BasePlayListDelegate.qml:65
+#: qml/shared/BasePlayListDelegate.qml:67
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
@@ -1474,7 +1474,7 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "Disco %1"
 
-#: qml/VolumeSlider.qml:58
+#: qml/VolumeSlider.qml:48
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"

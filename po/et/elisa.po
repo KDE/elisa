@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-14 03:07+0000\n"
+"POT-Creation-Date: 2024-02-29 02:26+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -520,13 +520,13 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr ""
 
-#: qml/ContextView.qml:108
+#: qml/ContextView.qml:109
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr ""
 
-#: qml/ContextView.qml:119
+#: qml/ContextView.qml:120
 #, fuzzy, kde-format
 #| msgctxt "Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -534,7 +534,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Sõnad"
 
-#: qml/ContextView.qml:126 qml/MediaPlayerControl.qml:236
+#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
 #: qml/mobile/MobileTrackPlayer.qml:357 qml/NavigationActionBar.qml:141
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
@@ -542,13 +542,13 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Esitusloendi näitamine"
 
-#: qml/ContextView.qml:407
+#: qml/ContextView.qml:408
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr ""
 
-#: qml/ContextView.qml:424
+#: qml/ContextView.qml:425
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -556,7 +556,7 @@ msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Praegu esitusel"
 
-#: qml/ContextView.qml:458
+#: qml/ContextView.qml:459
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@action:button"
@@ -619,7 +619,7 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Proovi uuesti"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:412
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:418
 #, fuzzy, kde-format
 #| msgctxt "Playlist cleared"
 #| msgid "Playlist cleared"
@@ -627,7 +627,7 @@ msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Esitusloend puhastatud"
 
-#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:416
+#: qml/ElisaMainWindow.qml:30 qml/MediaPlayListView.qml:422
 #, fuzzy, kde-format
 #| msgctxt "Undo"
 #| msgid "Undo"
@@ -635,7 +635,7 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "Võta tagasi"
 
-#: qml/ElisaMainWindow.qml:74 qml/ElisaMainWindow.qml:527
+#: qml/ElisaMainWindow.qml:74 qml/ElisaMainWindow.qml:528
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -708,14 +708,14 @@ msgid "Add to playlist"
 msgstr "Lisa esitusloendisse"
 
 #: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:88
+#: qml/mobile/MobilePlayListDelegate.qml:167 qml/PlayListEntry.qml:86
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Kataloogi valimine"
 
-#: qml/GridBrowserDelegate.qml:345
+#: qml/GridBrowserDelegate.qml:332
 #, fuzzy, kde-format
 #| msgctxt "Show filters in the navigation bar"
 #| msgid "Show Search Options"
@@ -729,8 +729,8 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr ""
 
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
-#: qml/PlayListEntry.qml:95
+#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:173
+#: qml/PlayListEntry.qml:93
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
 #| msgid "View Details"
@@ -746,21 +746,21 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Esitamine kohe senist esitusloendit asendades"
 
-#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:109
+#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:107
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr ""
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:119
+#: qml/PlayListEntry.qml:117
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr ""
 
 #: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:119
+#: qml/PlayListEntry.qml:117
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
@@ -790,7 +790,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:301
+#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:299
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -959,7 +959,7 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Lisa esitusloendisse"
 
-#: qml/MediaPlayListView.qml:275
+#: qml/MediaPlayListView.qml:274
 #, fuzzy, kde-format
 #| msgctxt "Your playlist is empty"
 #| msgid "Your playlist is empty"
@@ -967,7 +967,7 @@ msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Sinu esitusloend on tühi"
 
-#: qml/MediaPlayListView.qml:276
+#: qml/MediaPlayListView.qml:275
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid ""
@@ -989,7 +989,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Sinu esitusloend on tühi"
 
-#: qml/MediaPlayListView.qml:437 qml/MediaPlayListView.qml:442
+#: qml/MediaPlayListView.qml:443 qml/MediaPlayListView.qml:448
 #, fuzzy, kde-format
 #| msgid "1 track"
 #| msgid_plural "%1 tracks"
@@ -999,7 +999,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "1 rada"
 msgstr[1] "%1 rada"
 
-#: qml/MediaPlayListView.qml:440
+#: qml/MediaPlayListView.qml:446
 #, fuzzy, kde-format
 #| msgid "1 track"
 #| msgid_plural "%1 tracks"
@@ -1007,7 +1007,7 @@ msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 rada"
 
-#: qml/MediaPlayListView.qml:443
+#: qml/MediaPlayListView.qml:449
 #, fuzzy, kde-format
 #| msgid "1 track remaining"
 #| msgid_plural "%1 tracks remaining"
@@ -1017,7 +1017,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "1 rada jäänud"
 msgstr[1] "1 rada jäänud"
 
-#: qml/MediaPlayListView.qml:444
+#: qml/MediaPlayListView.qml:450
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -1025,7 +1025,7 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:458
+#: qml/MediaPlayListView.qml:464
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current Track"
@@ -1033,7 +1033,7 @@ msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Aktiivse raja näitamine"
 
-#: qml/MediaPlayListView.qml:469
+#: qml/MediaPlayListView.qml:475
 #, fuzzy, kde-format
 #| msgctxt "Remove all tracks from play list"
 #| msgid "Clear Playlist"
@@ -1135,7 +1135,7 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Rajad"
 
-#: qml/mobile/MobilePlayListDelegate.qml:185
+#: qml/mobile/MobilePlayListDelegate.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
@@ -1393,13 +1393,13 @@ msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtreerimine hinnangu alusel:"
 
-#: qml/NavigationActionBar.qml:383
+#: qml/NavigationActionBar.qml:386
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr ""
 
-#: qml/PlayListEntry.qml:132
+#: qml/PlayListEntry.qml:130
 #, fuzzy, kde-format
 #| msgctxt "Pause current track from play list"
 #| msgid "Pause"
@@ -1407,7 +1407,7 @@ msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "Paus"
 
-#: qml/PlayListEntry.qml:132
+#: qml/PlayListEntry.qml:130
 #, fuzzy, kde-format
 #| msgctxt "Play this track from play list"
 #| msgid "Play"
@@ -1415,7 +1415,7 @@ msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Esita"
 
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:145
 #, fuzzy, kde-format
 #| msgctxt "Remove current track from play list"
 #| msgid "Remove"
@@ -1706,7 +1706,7 @@ msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Lisa uus asukoht"
 
-#: qml/shared/BasePlayListDelegate.qml:65
+#: qml/shared/BasePlayListDelegate.qml:67
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
@@ -1742,7 +1742,7 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "Plaat %1"
 
-#: qml/VolumeSlider.qml:58
+#: qml/VolumeSlider.qml:48
 #, fuzzy, kde-format
 #| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
 #| msgid "%1:"

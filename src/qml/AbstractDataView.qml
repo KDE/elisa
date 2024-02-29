@@ -48,7 +48,6 @@ FocusScope {
     // Inner items exposed to subclasses for various purposes
     readonly property alias delegateModel: delegateModel
     readonly property alias navigationBar: navigationBar
-    readonly property int viewWidth: scrollView.width - scrollView.scrollBarWidth
 
     // Other properties
     property AbstractProxyModel contentModel
@@ -159,8 +158,6 @@ FocusScope {
 
         ScrollView {
             id: scrollView
-
-            readonly property int scrollBarWidth: ScrollBar.vertical.visible ? ScrollBar.vertical.width : 0
 
             Layout.fillHeight: true
             Layout.fillWidth: true

@@ -85,8 +85,8 @@ AbstractDataView {
         Accessible.name: mainTitle
 
         cellWidth: {
-            let columns = Math.max(Math.floor(gridView.viewWidth / elisaTheme.gridDelegateSize), 2);
-            return Math.floor(gridView.viewWidth / columns);
+            const columns = Math.max(Math.floor(width / elisaTheme.gridDelegateSize), 2);
+            return Math.floor(width / columns);
         }
         cellHeight: {
             if (Kirigami.Settings.isMobile) {

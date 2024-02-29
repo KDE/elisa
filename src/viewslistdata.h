@@ -41,18 +41,6 @@ public:
     ViewParameters(QString mainTitle,
                    QUrl mainImage,
                    ViewManager::ViewPresentationType viewPresentationType,
-                   ViewManager::ModelType modelType)
-        : mMainTitle(std::move(mainTitle))
-        , mMainImage(std::move(mainImage))
-        , mViewPresentationType(viewPresentationType)
-        , mModelType(modelType)
-        , mIsValid(true)
-    {
-    }
-
-    ViewParameters(QString mainTitle,
-                   QUrl mainImage,
-                   ViewManager::ViewPresentationType viewPresentationType,
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-19 00:37+0000\n"
-"PO-Revision-Date: 2024-02-05 11:37\n"
+"PO-Revision-Date: 2024-02-29 12:52\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -473,9 +473,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "时长"
@@ -923,12 +921,10 @@ msgid "Track Options"
 msgstr "跟踪选项"
 
 #: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "电台"
+msgstr "电台选项"
 
 #: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
@@ -1460,12 +1456,10 @@ msgid "Disc %1"
 msgstr "第 %1 张光盘"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "更改音量"
+msgstr "音量"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format
@@ -1688,11 +1682,3 @@ msgstr "文件"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "电台"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "确定"
-
-#~ msgctxt "@action:button"
-#~ msgid "Apply"
-#~ msgstr "应用"

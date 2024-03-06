@@ -71,6 +71,10 @@
 #include "mpris2/mediaplayer2player.h"
 #endif
 
+#ifdef Q_OS_ANDROID
+#include "android/androidcoverimageprovider.h"
+#endif
+
 
 #include <QAction>
 #include <QStandardPaths>
@@ -89,6 +93,9 @@ void ElisaQmlTestPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
     QQmlExtensionPlugin::initializeEngine(engine, uri);
 #if KFFileMetaData_FOUND
     engine->addImageProvider(QStringLiteral("cover"), new EmbeddedCoverageImageProvider);
+#endif
+#ifdef Q_OS_ANDROID
+    engine->addImageProvider(QStringLiteral("android"), new AndroidCoverImageProvider);
 #endif
 }
 

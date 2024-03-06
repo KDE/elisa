@@ -25,6 +25,10 @@
 #include <QElapsedTimer>
 #include <QDebug>
 
+#ifdef Q_OS_ANDROID
+#include <QOperatingSystemVersion>
+#endif
+
 #include <algorithm>
 
 class DatabaseInterfacePrivate

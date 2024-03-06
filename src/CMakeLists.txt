@@ -132,6 +132,7 @@ if (ANDROID)
 
     set(elisaLib_SOURCES
         ${elisaLib_SOURCES}
+        android/androidcoverimageprovider.cpp
         android/androidmusiclistener.cpp
         android/androidfilelisting.cpp
         )
@@ -238,7 +239,7 @@ if (LIBVLC_FOUND)
 endif()
 
 if (ANDROID)
-    target_link_libraries(elisaLib PRIVATE Qt6::CorePrivate)
+    target_link_libraries(elisaLib PRIVATE Qt6::CorePrivate Qt6::Quick jnigraphics)
 endif()
 
 generate_export_header(elisaLib BASE_NAME ElisaLib EXPORT_FILE_NAME elisaLib_export.h)

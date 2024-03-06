@@ -124,7 +124,14 @@ void AndroidFileListing::triggerRefreshOfContent()
         newTrack[DataTypes::DiscNumberRole] = track.callMethod<jint>("getDiscNumber");
         newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(track.callMethod<jlong>("getDuration"));
         newTrack[DataTypes::ResourceRole] = QUrl::fromLocalFile(track.callObjectMethod("getResourceURI", "()Ljava/lang/String;").toString());
-        newTrack[DataTypes::ImageUrlRole] = QUrl::fromLocalFile(track.callObjectMethod("getAlbumCover", "()Ljava/lang/String;").toString());
+
+        const auto albumCoverStr = track.callObjectMethod("getAlbumCover", "()Ljava/lang/String;").toString();
+        if (QOperatingSystemVersion::current() >= QOperatingSystemVersion(QOperatingSystemVersion::Android, 10)) {
+            newTrack[DataTypes::ImageUrlRole] = QUrl(QLatin1String("image://android/") + albumCoverStr);
+        } else {
+            newTrack[DataTypes::ImageUrlRole] = QUrl::fromLocalFile(albumCoverStr);
+        }
+
         newTrack[DataTypes::GenreRole] = track.callObjectMethod("getGenre", "()Ljava/lang/String;").toString();
         newTrack[DataTypes::ComposerRole] = track.callObjectMethod("getComposer", "()Ljava/lang/String;").toString();
 

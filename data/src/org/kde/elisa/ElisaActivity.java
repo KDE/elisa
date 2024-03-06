@@ -6,7 +6,12 @@ package org.kde.elisa;
 
 import org.qtproject.qt.android.bindings.QtActivity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.util.Log;
+import android.util.Size;
 import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
@@ -20,6 +25,8 @@ import java.util.HashMap;
 
 public class ElisaActivity extends QtActivity
 {
+    private static final String TAG = "org.kde.elisa.android.java ElisaActivity";
+
     private static String[] tracksRequestedColumns = {
         MediaStore.Audio.Media._ID,
         MediaStore.Audio.Media.TITLE,
@@ -45,7 +52,7 @@ public class ElisaActivity extends QtActivity
     {
         ArrayList<TrackDataType> allTracks = new ArrayList<TrackDataType>();
 
-        HashMap<Integer, AlbumDataType> allAlbums = new HashMap<Integer, AlbumDataType>();
+        HashMap<Long, AlbumDataType> allAlbums = new HashMap<Long, AlbumDataType>();
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_MEDIA_AUDIO)
@@ -72,7 +79,13 @@ public class ElisaActivity extends QtActivity
         }
 
         do {
-            allAlbums.put(albumsCursor.getInt(0), new AlbumDataType(albumsCursor.getString(1), albumsCursor.getString(2), albumsCursor.getString(3)));
+            String albumArtUri = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                albumArtUri = ContentUris.withAppendedId(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, albumsCursor.getLong(0)).toString();
+            } else {
+                albumArtUri = albumsCursor.getString(3);
+            }
+            allAlbums.put(albumsCursor.getLong(0), new AlbumDataType(albumsCursor.getString(1), albumsCursor.getString(2), albumArtUri));
         } while(albumsCursor.moveToNext());
 
         String tracksSelection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
@@ -89,7 +102,7 @@ public class ElisaActivity extends QtActivity
         }
 
         do {
-            AlbumDataType currentAlbum = allAlbums.get(tracksCursor.getInt(5));
+            AlbumDataType currentAlbum = allAlbums.get(tracksCursor.getLong(5));
 
             int trackAndDiscNumber = tracksCursor.getInt(7);
 
@@ -102,6 +115,19 @@ public class ElisaActivity extends QtActivity
         } while(tracksCursor.moveToNext());
 
         return allTracks;
+    }
+
+    public static Bitmap contentThumbnail(Context context, String contentUri, int width, int height)
+    {
+        try {
+            Size x = new Size(width > 0 ? width : 50, height > 0 ? height : 50);
+            Bitmap bitmap = context.getContentResolver().loadThumbnail(Uri.parse(contentUri), x, null);
+            return bitmap;
+        } catch (Exception e) {
+            Log.d(TAG, "contentThumbnail failed to load bitmap for " + contentUri, e);
+            Bitmap.Config config = Bitmap.Config.ARGB_8888;
+            return Bitmap.createBitmap(0, 0, config);
+        }
     }
 }
 

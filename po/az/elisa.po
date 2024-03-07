@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-19 00:37+0000\n"
+"POT-Creation-Date: 2024-03-07 00:37+0000\n"
 "PO-Revision-Date: 2023-05-29 22:07+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -364,13 +364,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Musiqinin səslənməsi"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:198
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Uyğun gələn yoxdur"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:198
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -561,26 +561,26 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Saxlamaq mümkün olmadı"
 
-#: qml/GridBrowserDelegate.qml:63 qml/NavigationActionBar.qml:117
+#: qml/GridBrowserDelegate.qml:59 qml/NavigationActionBar.qml:117
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "İndi səsləndir. Bu mövcud mahnı siyahısını əvəz edir"
 
-#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:81
+#: qml/GridBrowserDelegate.qml:66 qml/ListBrowserDelegate.qml:81
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Mahnı siyahısına əlavə et"
 
-#: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
+#: qml/GridBrowserDelegate.qml:75 qml/ListBrowserDelegate.qml:69
 #: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Qovluqda göstərmək"
 
-#: qml/GridBrowserDelegate.qml:332
+#: qml/GridBrowserDelegate.qml:310
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"

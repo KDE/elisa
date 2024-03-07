@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-19 00:37+0000\n"
+"POT-Creation-Date: 2024-03-07 00:37+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -438,13 +438,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Afspiller musik"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:198
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr ""
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:198
 #, fuzzy, kde-format
 #| msgid "Nothing to display"
 msgctxt "@info:placeholder"
@@ -669,7 +669,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Kunne ikke gemme"
 
-#: qml/GridBrowserDelegate.qml:63 qml/NavigationActionBar.qml:117
+#: qml/GridBrowserDelegate.qml:59 qml/NavigationActionBar.qml:117
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -677,7 +677,7 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Afspil nu og erstat aktuel afspilningsliste"
 
-#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:81
+#: qml/GridBrowserDelegate.qml:66 qml/ListBrowserDelegate.qml:81
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to playlist"
@@ -685,7 +685,7 @@ msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Føj til spilleliste"
 
-#: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
+#: qml/GridBrowserDelegate.qml:75 qml/ListBrowserDelegate.qml:69
 #: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
 #, fuzzy, kde-format
 #| msgctxt "Show the file for this song in the file manager"
@@ -694,7 +694,7 @@ msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Vis i mappe"
 
-#: qml/GridBrowserDelegate.qml:332
+#: qml/GridBrowserDelegate.qml:310
 #, fuzzy, kde-format
 #| msgctxt "Options"
 #| msgid "Options"

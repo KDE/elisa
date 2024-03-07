@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-19 00:37+0000\n"
+"POT-Creation-Date: 2024-03-07 00:37+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -451,13 +451,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Muusika esitamine"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:198
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr ""
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:198
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -676,7 +676,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Salvestamine nurjus"
 
-#: qml/GridBrowserDelegate.qml:63 qml/NavigationActionBar.qml:117
+#: qml/GridBrowserDelegate.qml:59 qml/NavigationActionBar.qml:117
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -684,7 +684,7 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Esitamine kohe senist esitusloendit asendades"
 
-#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:81
+#: qml/GridBrowserDelegate.qml:66 qml/ListBrowserDelegate.qml:81
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to playlist"
@@ -692,7 +692,7 @@ msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Lisa esitusloendisse"
 
-#: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
+#: qml/GridBrowserDelegate.qml:75 qml/ListBrowserDelegate.qml:69
 #: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
@@ -700,7 +700,7 @@ msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Kataloogi valimine"
 
-#: qml/GridBrowserDelegate.qml:332
+#: qml/GridBrowserDelegate.qml:310
 #, fuzzy, kde-format
 #| msgctxt "Show filters in the navigation bar"
 #| msgid "Show Search Options"

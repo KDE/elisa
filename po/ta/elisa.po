@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-19 00:37+0000\n"
+"POT-Creation-Date: 2024-03-07 00:37+0000\n"
 "PO-Revision-Date: 2024-02-18 16:19+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -364,13 +364,13 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "பாடல் இசைக்கப்படுகிறது"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:198
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "பொருத்தங்கள் இல்லை"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:198
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -559,26 +559,26 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "சேமிப்பது தோல்வியடைந்தது"
 
-#: qml/GridBrowserDelegate.qml:63 qml/NavigationActionBar.qml:117
+#: qml/GridBrowserDelegate.qml:59 qml/NavigationActionBar.qml:117
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
 
-#: qml/GridBrowserDelegate.qml:70 qml/ListBrowserDelegate.qml:81
+#: qml/GridBrowserDelegate.qml:66 qml/ListBrowserDelegate.qml:81
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "பாடல்வரிசையில் செர்"
 
-#: qml/GridBrowserDelegate.qml:79 qml/ListBrowserDelegate.qml:69
+#: qml/GridBrowserDelegate.qml:75 qml/ListBrowserDelegate.qml:69
 #: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "அடைவில் காட்டு"
 
-#: qml/GridBrowserDelegate.qml:332
+#: qml/GridBrowserDelegate.qml:310
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"

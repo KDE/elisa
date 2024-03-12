@@ -376,6 +376,47 @@ QStringList::iterator ViewManager::findViewPreference(QStringList &list, const Q
     return itViewPreference;
 }
 
+template<typename T>
+T ViewManager::computeViewPreference(const T initialValue, QStringList &preferences) const
+{
+    const auto viewId = buildViewId();
+    const auto itViewPreference = findViewPreference(preferences, viewId);
+
+    if (itViewPreference != preferences.end()) {
+        const auto result = QStringView(*itViewPreference).split(QStringLiteral("=="));
+        if (result.size() == 2) {
+            const auto &sortOrderMetaEnum = QMetaEnum::fromType<T>();
+            bool conversionOk;
+            auto newValue = static_cast<T>(sortOrderMetaEnum.keyToValue(result[1].toLatin1().data(), &conversionOk));
+            if (conversionOk) {
+                return newValue;
+            }
+        }
+    }
+
+    return initialValue;
+}
+
+template<typename T>
+void ViewManager::updateViewPreference(const T newValue, QStringList &preferences) const
+{
+    const auto viewId = buildViewId();
+    const auto itViewPreference = findViewPreference(preferences, viewId);
+
+    const auto &sortOrderMetaEnum = QMetaEnum::fromType<T>();
+    const auto enumStringValue = sortOrderMetaEnum.valueToKey(newValue);
+    if (!enumStringValue) {
+        return;
+    }
+    const QString newSortOrderPreference = viewId + QStringLiteral("==") + QString::fromLatin1(enumStringValue);
+
+    if (itViewPreference != preferences.end()) {
+        (*itViewPreference) = newSortOrderPreference;
+    } else {
+        preferences.push_back(newSortOrderPreference);
+    }
+}
+
 bool ViewManager::viewHasDefaultSortRole(const ElisaUtils::FilterType filterType) const
 {
     switch (filterType)
@@ -396,22 +437,7 @@ Qt::SortOrder ViewManager::computePreferredSortOrder(Qt::SortOrder initialValue,
     }
 
     auto currentSortOrderPreferences = Elisa::ElisaConfiguration::sortOrderPreferences();
-    auto viewId = buildViewId();
-    auto itViewPreference = findViewPreference(currentSortOrderPreferences, viewId);
-
-    if (itViewPreference != currentSortOrderPreferences.end()) {
-        auto result = QStringView(*itViewPreference).split(QStringLiteral("=="));
-        if (result.size() == 2) {
-            const auto &sortOrderMetaEnum = QMetaEnum::fromType<Qt::SortOrder>();
-            bool conversionOk;
-            auto newValue = static_cast<Qt::SortOrder>(sortOrderMetaEnum.keyToValue(result[1].toLatin1().data(), &conversionOk));
-            if (conversionOk) {
-                initialValue = newValue;
-            }
-        }
-    }
-
-    return initialValue;
+    return computeViewPreference(initialValue, currentSortOrderPreferences);
 }
 
 int ViewManager::computePreferredSortRole(int initialValue, ElisaUtils::FilterType filterType) const
@@ -421,22 +447,7 @@ int ViewManager::computePreferredSortRole(int initialValue, ElisaUtils::FilterTy
     }
 
     auto currentSortRolePreferences = Elisa::ElisaConfiguration::sortRolePreferences();
-    auto viewId = buildViewId();
-    auto itViewPreference = findViewPreference(currentSortRolePreferences, viewId);
-
-    if (itViewPreference != currentSortRolePreferences.end()) {
-        auto result = QStringView(*itViewPreference).split(QStringLiteral("=="));
-        if (result.size() == 2) {
-            const auto &sortRoleMetaEnum = QMetaEnum::fromType<DataTypes::ColumnsRoles>();
-            bool conversionOk;
-            auto newValue = static_cast<DataTypes::ColumnsRoles>(sortRoleMetaEnum.keyToValue(result[1].toLatin1().data(), &conversionOk));
-            if (conversionOk) {
-                initialValue = newValue;
-            }
-        }
-    }
-
-    return initialValue;
+    return computeViewPreference(static_cast<DataTypes::ColumnsRoles>(initialValue), currentSortRolePreferences);
 }
 
 void ViewManager::goBack()
@@ -515,22 +526,7 @@ void ViewManager::sortOrderChanged(Qt::SortOrder sortOrder)
     }
 
     auto currentSortOrderPreferences = Elisa::ElisaConfiguration::sortOrderPreferences();
-
-    auto viewId = buildViewId();
-    auto itViewPreference = findViewPreference(currentSortOrderPreferences, viewId);
-
-    const auto &sortOrderMetaEnum = QMetaEnum::fromType<Qt::SortOrder>();
-    auto enumStringValue = sortOrderMetaEnum.valueToKey(sortOrder);
-    if (!enumStringValue) {
-        return;
-    }
-    QString newSortOrderPreference = viewId + QStringLiteral("==") + QString::fromLatin1(enumStringValue);
-
-    if (itViewPreference != currentSortOrderPreferences.end()) {
-        (*itViewPreference) = newSortOrderPreference;
-    } else {
-        currentSortOrderPreferences.push_back(newSortOrderPreference);
-    }
+    updateViewPreference(sortOrder, currentSortOrderPreferences);
 
     Elisa::ElisaConfiguration::setSortOrderPreferences(currentSortOrderPreferences);
     Elisa::ElisaConfiguration::self()->save();
@@ -543,22 +539,7 @@ void ViewManager::sortRoleChanged(int sortRole)
     }
 
     auto currentSortRolePreferences = Elisa::ElisaConfiguration::sortRolePreferences();
-
-    auto viewId = buildViewId();
-    auto itViewPreference = findViewPreference(currentSortRolePreferences, viewId);
-
-    const auto &sortRoleMetaEnum = QMetaEnum::fromType<DataTypes::ColumnsRoles>();
-    auto enumStringValue = sortRoleMetaEnum.valueToKey(static_cast<DataTypes::ColumnsRoles>(sortRole));
-    if (!enumStringValue) {
-        return;
-    }
-    QString newSortRolePreference = viewId + QStringLiteral("==") + QString::fromLatin1(enumStringValue);
-
-    if (itViewPreference != currentSortRolePreferences.end()) {
-        (*itViewPreference) = newSortRolePreference;
-    } else {
-        currentSortRolePreferences.push_back(newSortRolePreference);
-    }
+    updateViewPreference(static_cast<DataTypes::ColumnsRoles>(sortRole), currentSortRolePreferences);
 
     Elisa::ElisaConfiguration::setSortRolePreferences(currentSortRolePreferences);
     Elisa::ElisaConfiguration::self()->save();

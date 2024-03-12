@@ -164,6 +164,12 @@ private:
 
     QStringList::iterator findViewPreference(QStringList &list, const QString &viewId) const;
 
+    template<typename T>
+    T computeViewPreference(const T initialValue, QStringList &preferences) const;
+
+    template<typename T>
+    void updateViewPreference(const T newValue, QStringList &preferences) const;
+
     bool viewHasDefaultSortRole(const ElisaUtils::FilterType filterType) const;
 
     [[nodiscard]] Qt::SortOrder computePreferredSortOrder(Qt::SortOrder initialValue, ElisaUtils::FilterType filterType) const;

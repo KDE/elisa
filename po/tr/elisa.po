@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-29 02:26+0000\n"
-"PO-Revision-Date: 2024-01-05 16:09+0300\n"
+"PO-Revision-Date: 2024-03-12 23:21+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -99,7 +99,7 @@ msgstr "KDE topluluğu tarafından sevgiyle yapılan yalın bir müzik çalar"
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
-msgstr "(c) 2015-2020, Elısa katkıcıları"
+msgstr "(c) 2015–2020, Elısa katkıcıları"
 
 #: main.cpp:107 models/lyricsmodel.cpp:161
 #, kde-format
@@ -642,19 +642,19 @@ msgstr "Şarkıyı Beğenilenlere Ekle"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
-msgstr "%1 - %2"
+msgstr "%1 — %2"
 
 #: qml/ListBrowserDelegate.qml:227
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
-msgstr "%1 - %2 - %3"
+msgstr "%1 — %2 — %3"
 
 #: qml/ListBrowserDelegate.qml:239
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
-msgstr "%1 - %2"
+msgstr "%1 — %2"
 
 #: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:299
 #, kde-format
@@ -976,13 +976,13 @@ msgstr "Dosya"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save Playlist…"
-msgstr "Çalma Listesini Kaydet..."
+msgstr "Çalma Listesini Kaydet…"
 
 #: qml/NativeGlobalMenu.qml:25
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Playlist…"
-msgstr "Çalma Listesini Aç ..."
+msgstr "Çalma Listesini Aç…"
 
 #: qml/NativeGlobalMenu.qml:53
 #, kde-format
@@ -1200,7 +1200,7 @@ msgstr "Görev Yöneticisi girdilerinde ilerlemeyi göster"
 #, kde-format
 msgctxt "@option:check"
 msgid "Keep running in System Tray when main window is closed"
-msgstr "Ana pencere kapatıldığında Sistem Tepsisinde çalışmayı sürdür"
+msgstr "Ana pencere kapatıldığında Sistem Tepsisi’nde çalışmayı sürdür"
 
 #: qml/SettingsForm.qml:106
 #, kde-format
@@ -1238,7 +1238,7 @@ msgstr "Parça derecelendirme biçemi:"
 #, kde-format
 msgctxt "@option:radio"
 msgid "0-5 stars"
-msgstr "0-5 yıldız"
+msgstr "0–5 yıldız"
 
 #: qml/SettingsForm.qml:163
 #, kde-format
@@ -1440,7 +1440,7 @@ msgstr "Yeni Konum Ekle"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr "\"%1\" çalınamadı"
+msgstr "“%1” çalınamadı"
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1504,7 +1504,7 @@ msgstr "Azalan"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
-msgstr "A-Z"
+msgstr "A–Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
 #: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
@@ -1512,7 +1512,7 @@ msgstr "A-Z"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
-msgstr "Z-A"
+msgstr "Z–A"
 
 #: viewmanager.cpp:56 viewmanager.cpp:84
 #, kde-format

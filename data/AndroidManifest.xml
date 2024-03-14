@@ -8,7 +8,7 @@
           android:versionName="${versionName}"
           android:versionCode="${versionCode}"
           android:installLocation="auto">
-<application android:name="org.qtproject.qt.android.bindings.QtApplication" android:label="Elisa" android:icon="@drawable/splash_logo">
+<application android:name="org.qtproject.qt.android.bindings.QtApplication" android:label="Elisa" android:icon="@mipmap/ic_launcher">
         <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation"
                   android:name="org.qtproject.qt.android.bindings.QtActivity"
                   android:label="Elisa"

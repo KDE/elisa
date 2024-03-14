@@ -3,14 +3,14 @@ Upstream-Name: Elisa Music Player
 Upstream-Contact: Matthieu Gallien <matthieu_gallien@yahoo.fr>
 Source: https://invent.kde.org/multimedia/elisa
 
-Files: data/res/drawable/vendor_logo.png
+Files: android/res/drawable/vendor_logo.png
 Copyright: 2014 Andrew Lake <jamboarder@gmail.com>
 License: LGPL-3.0-or-later
 
-Files: data/play_store_512.png data/res/mipmap*/*background.png data/res/mipmap*/*foreground.png data/res/mipmap*/ic_launcher.png
+Files: android/play_store_512.png android/res/mipmap*/*background.png android/res/mipmap*/*foreground.png android/res/mipmap*/ic_launcher.png
 Copyright: 2018 Paul Lesur <paul.lesur@free.fr>
 License: LGPL-3.0-or-later
 
-Files: data/res/mipmap*/*monochrome.png
+Files: android/res/mipmap*/*monochrome.png
 Copyright: Janet Blackquill <uhh.add@gmail.com>
 License: LGPL-3.0-or-later

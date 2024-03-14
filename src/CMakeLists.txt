@@ -518,5 +518,5 @@ if (ANDROID)
         settings-configure
         view-sort
     )
-    ecm_add_android_apk(elisa ANDROID_DIR ${CMAKE_SOURCE_DIR}/data)
+    ecm_add_android_apk(elisa ANDROID_DIR ${CMAKE_SOURCE_DIR}/android)
 endif()

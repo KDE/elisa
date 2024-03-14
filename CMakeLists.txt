@@ -220,9 +220,6 @@ endif()
 install(FILES elisa.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
 if (ANDROID)
-    file(COPY androidResources/icon.png androidResources/splash.xml androidResources/vendor_logo.png
-        DESTINATION ${CMAKE_SOURCE_DIR}/data/res/drawable)
-
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/data/version.gradle.in ${CMAKE_BINARY_DIR}/version.gradle)
 endif()
 

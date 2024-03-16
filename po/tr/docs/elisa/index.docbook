@@ -56,7 +56,7 @@ as Authors, publish date, the abstract, and Keywords -->
 >&CCBYSA4Notice;</legalnotice>
 
 <date
->2018-09-14</date>
+>2018–09–14</date>
 
 <releaseinfo
 >Elisa 0.3.80</releaseinfo>
@@ -118,10 +118,10 @@ as Authors, publish date, the abstract, and Keywords -->
 <para
 >Değişikliklerin bir listesini <ulink url="https://phabricator.kde.org/project/profile/193/"
 >Elisa Projesi</ulink
->'nde bulabilirsiniz. </para>
+>’nde bulabilirsiniz. </para>
 
 <para
->Şu anda &elisa;'yı kullanmadan önce herhangi bir yapılandırma gerekli değildir. Özelleştirme olanaklarını görmek için uygulamanın menüsünü keşfedebilirsiniz. Müzik için indekslenecek yolları seçmek olanaklıdır. Uygulama içindeki ortak eylemler için kısayolları değiştirmek de sunulan özellikler arasındadır. </para>
+>Şu anda &elisa;’yı kullanmadan önce herhangi bir yapılandırma gerekli değildir. Özelleştirme olanaklarını görmek için uygulamanın menüsünü keşfedebilirsiniz. Müzik için indekslenecek yolları seçmek olanaklıdır. Uygulama içindeki ortak eylemler için kısayolları değiştirmek de sunulan özellikler arasındadır. </para>
 
 <para
 >İçsel müzik indeksleyiciyi kullanıyorsanız aranacak yolları yapılandırabilirsiniz. </para>
@@ -206,7 +206,7 @@ distribution. -->
 <para
 >&elisa; </para>
 <para
->Program telif hakkı 2015-2018 Elisa Takımı </para>
+>Program telif hakkı 2015–2018 Elisa Takımı </para>
 <para
 >Katkıcılar: <itemizedlist>
 <listitem
@@ -249,7 +249,7 @@ distribution. -->
 </para>
 
 <para
->Belgelendirme telif hakkı&copy; 2017-2018 Matthieu Gallien <email
+>Belgelendirme telif hakkı&copy; 2017–2018 Matthieu Gallien <email
 >matthieu_gallien@yahoo.fr</email
 > </para>
 

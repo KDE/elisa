@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-07 00:37+0000\n"
+"POT-Creation-Date: 2024-03-19 00:37+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -396,7 +396,7 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "画像アドレス"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:55
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:53
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -404,7 +404,7 @@ msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "アルバム"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:104
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:101
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -412,7 +412,7 @@ msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "ジャンル"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:69
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:67
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1776,7 +1776,7 @@ msgctxt "@title:inmenu"
 msgid "Track Number"
 msgstr "トラック番号"
 
-#: viewmanager.cpp:41 viewmanager.cpp:70
+#: viewmanager.cpp:41 viewmanager.cpp:69
 #, fuzzy, kde-format
 #| msgid "Title"
 msgctxt "@title:inmenu"
@@ -1795,55 +1795,55 @@ msgctxt "@item:inmenu"
 msgid "Descending"
 msgstr ""
 
-#: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
-#: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
-#: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
+#: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
+#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
+#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
 #, fuzzy, kde-format
 #| msgid "A-Z"
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "A-Z"
 
-#: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
-#: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
-#: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
+#: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
+#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
+#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
 #, fuzzy, kde-format
 #| msgid "Z-A"
 msgctxt "@item:inmenu"
 msgid "Z-A"
 msgstr "Z-A"
 
-#: viewmanager.cpp:56 viewmanager.cpp:84
+#: viewmanager.cpp:55 viewmanager.cpp:83
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "名前"
 
-#: viewmanager.cpp:70
+#: viewmanager.cpp:69
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "ジャンル"
 
-#: viewmanager.cpp:70
+#: viewmanager.cpp:69
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "年"
 
-#: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100
+#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
+#: viewslistdata.cpp:98
 #, fuzzy, kde-format
 #| msgid "Oldest First"
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "古い順"
 
-#: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100
+#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
+#: viewslistdata.cpp:98
 #, fuzzy, kde-format
 #| msgid "Newest First"
 msgctxt "@item:inmenu"
@@ -1887,7 +1887,7 @@ msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "直近に再生した項目順"
 
-#: viewslistdata.cpp:41
+#: viewslistdata.cpp:40
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of frequently played tracks"
 #| msgid "Frequently Played"
@@ -1895,63 +1895,63 @@ msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "よく再生する項目"
 
-#: viewslistdata.cpp:49
+#: viewslistdata.cpp:48
 #, fuzzy, kde-format
 #| msgid "Play Frequency"
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "よく再生"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:50
 #, fuzzy, kde-format
 #| msgid "Least Frequently Played First"
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "よく再生する項目順"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:50
 #, fuzzy, kde-format
 #| msgid "Most Frequently Played First"
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "最も頻繁に再生する項目順"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94
+#: viewslistdata.cpp:61 viewslistdata.cpp:92
 #, fuzzy, kde-format
 #| msgid "Title"
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "タイトル"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94
+#: viewslistdata.cpp:61 viewslistdata.cpp:92
 #, fuzzy, kde-format
 #| msgid "Artist"
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "アーティスト"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:112
+#: viewslistdata.cpp:61 viewslistdata.cpp:92 viewslistdata.cpp:109
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "ジャンル"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:95
+#: viewslistdata.cpp:61 viewslistdata.cpp:93
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "年"
 
-#: viewslistdata.cpp:77 viewslistdata.cpp:137
+#: viewslistdata.cpp:75 viewslistdata.cpp:134
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "名前"
 
-#: viewslistdata.cpp:83
+#: viewslistdata.cpp:81
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1959,55 +1959,55 @@ msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "トラック"
 
-#: viewslistdata.cpp:94
+#: viewslistdata.cpp:92
 #, fuzzy, kde-format
 #| msgid "Album"
 msgctxt "@title:menu"
 msgid "Album"
 msgstr "アルバム"
 
-#: viewslistdata.cpp:95
+#: viewslistdata.cpp:93
 #, fuzzy, kde-format
 #| msgid "Duration"
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "長さ"
 
-#: viewslistdata.cpp:95
+#: viewslistdata.cpp:93
 #, fuzzy, kde-format
 #| msgid "Composer"
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "作曲者"
 
-#: viewslistdata.cpp:95
+#: viewslistdata.cpp:93
 #, fuzzy, kde-format
 #| msgid "Lyricist"
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "作詞者"
 
-#: viewslistdata.cpp:96
+#: viewslistdata.cpp:94
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr ""
 
-#: viewslistdata.cpp:99
+#: viewslistdata.cpp:97
 #, fuzzy, kde-format
 #| msgid "Shortest First"
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "短い順"
 
-#: viewslistdata.cpp:99
+#: viewslistdata.cpp:97
 #, fuzzy, kde-format
 #| msgid "Longest First"
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "長い順"
 
-#: viewslistdata.cpp:118
+#: viewslistdata.cpp:115
 #, fuzzy, kde-format
 #| msgctxt "Title of the file browser view"
 #| msgid "Files"
@@ -2015,7 +2015,7 @@ msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "ファイル"
 
-#: viewslistdata.cpp:129
+#: viewslistdata.cpp:126
 #, fuzzy, kde-format
 #| msgid "Radio Stations"
 msgctxt "@title:window Title of the file radios browser view"

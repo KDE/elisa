@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-07 00:37+0000\n"
+"POT-Creation-Date: 2024-03-19 00:37+0000\n"
 "PO-Revision-Date: 2024-02-29 11:08+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -335,19 +335,19 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Attēla adrese"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:55
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:53
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumi"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:104
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:101
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Žanri"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:69
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:67
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
@@ -1488,7 +1488,7 @@ msgctxt "@title:inmenu"
 msgid "Track Number"
 msgstr "Celiņa numurs"
 
-#: viewmanager.cpp:41 viewmanager.cpp:70
+#: viewmanager.cpp:41 viewmanager.cpp:69
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Title"
@@ -1506,49 +1506,49 @@ msgctxt "@item:inmenu"
 msgid "Descending"
 msgstr "Dilstoši"
 
-#: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
-#: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
-#: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
+#: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
+#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
+#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "A—Z"
 
-#: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:72 viewmanager.cpp:86
-#: viewslistdata.cpp:65 viewslistdata.cpp:79 viewslistdata.cpp:98
-#: viewslistdata.cpp:99 viewslistdata.cpp:114 viewslistdata.cpp:139
+#: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
+#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
+#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
 msgstr "Z—A"
 
-#: viewmanager.cpp:56 viewmanager.cpp:84
+#: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "Nosaukums"
 
-#: viewmanager.cpp:70
+#: viewmanager.cpp:69
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "Žanrs"
 
-#: viewmanager.cpp:70
+#: viewmanager.cpp:69
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "Gads"
 
-#: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100
+#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
+#: viewslistdata.cpp:98
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "Sākt ar vecāko"
 
-#: viewmanager.cpp:72 viewslistdata.cpp:65 viewslistdata.cpp:99
-#: viewslistdata.cpp:100
+#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
+#: viewslistdata.cpp:98
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
@@ -1584,115 +1584,115 @@ msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "Nesenāk atskaņotos atskaņot pirmos"
 
-#: viewslistdata.cpp:41
+#: viewslistdata.cpp:40
 #, kde-format
 msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Biežāk atskaņotie"
 
-#: viewslistdata.cpp:49
+#: viewslistdata.cpp:48
 #, kde-format
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "Atskaņošanas biežums"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:50
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "Retāk atskaņotos atskaņot pirmos"
 
-#: viewslistdata.cpp:51
+#: viewslistdata.cpp:50
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Biežāk atskaņotos atskaņot pirmos"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94
+#: viewslistdata.cpp:61 viewslistdata.cpp:92
 #, kde-format
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "Nosaukums"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94
+#: viewslistdata.cpp:61 viewslistdata.cpp:92
 #, kde-format
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "Izpildītājs"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:94 viewslistdata.cpp:112
+#: viewslistdata.cpp:61 viewslistdata.cpp:92 viewslistdata.cpp:109
 #, kde-format
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Žanrs"
 
-#: viewslistdata.cpp:63 viewslistdata.cpp:95
+#: viewslistdata.cpp:61 viewslistdata.cpp:93
 #, kde-format
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "Gads"
 
-#: viewslistdata.cpp:77 viewslistdata.cpp:137
+#: viewslistdata.cpp:75 viewslistdata.cpp:134
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "Nosaukums"
 
-#: viewslistdata.cpp:83
+#: viewslistdata.cpp:81
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Celiņi"
 
-#: viewslistdata.cpp:94
+#: viewslistdata.cpp:92
 #, kde-format
 msgctxt "@title:menu"
 msgid "Album"
 msgstr "Albums"
 
-#: viewslistdata.cpp:95
+#: viewslistdata.cpp:93
 #, kde-format
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "Ilgums"
 
-#: viewslistdata.cpp:95
+#: viewslistdata.cpp:93
 #, kde-format
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "Komponists"
 
-#: viewslistdata.cpp:95
+#: viewslistdata.cpp:93
 #, kde-format
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "Vārdu autors"
 
-#: viewslistdata.cpp:96
+#: viewslistdata.cpp:94
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr "Pēdējās izmaiņas"
 
-#: viewslistdata.cpp:99
+#: viewslistdata.cpp:97
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "Sākt ar īsāko"
 
-#: viewslistdata.cpp:99
+#: viewslistdata.cpp:97
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "Sākt ar ilgāko"
 
-#: viewslistdata.cpp:118
+#: viewslistdata.cpp:115
 #, kde-format
 msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "Datnes"
 
-#: viewslistdata.cpp:129
+#: viewslistdata.cpp:126
 #, kde-format
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"

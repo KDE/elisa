@@ -7,7 +7,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.2
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects as FX
 import org.kde.kirigami 2.5 as Kirigami
 
 QQC2.Control {
@@ -16,8 +16,8 @@ QQC2.Control {
     property int starRating
     property bool readOnly: true
 
-    property double hoverBrightness: 0.5
-    property double hoverContrast: 0.5
+    property double hoverBrightness: 0
+    property double hoverContrast: -0.3
 
     readonly property int hoveredStar: mouseArea.containsMouse ? Math.ceil(5 * mouseArea.mouseX / mouseArea.width) : 0
     readonly property int hoveredRating: 2 * hoveredStar
@@ -89,7 +89,7 @@ QQC2.Control {
 
                     layer.enabled: control.hoveredRating >= delegate.ratingThreshold
 
-                    layer.effect: BrightnessContrast {
+                    layer.effect: FX.MultiEffect {
                         brightness: control.hoverBrightness
                         contrast: control.hoverContrast
                     }

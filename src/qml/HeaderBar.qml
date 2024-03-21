@@ -9,7 +9,7 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.2
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects as FX
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa
 
@@ -115,18 +115,15 @@ FocusScope {
         }
 
         layer.enabled: true
-        layer.effect: HueSaturation {
-            cached: true
+        layer.effect: FX.MultiEffect {
+            autoPaddingEnabled: false
+            blurEnabled: true
+            blur: 1
+            blurMax: 64
+            blurMultiplier: 2
 
-            lightness: -0.5
-            saturation: 0.9
-
-            layer.enabled: true
-            layer.effect: FastBlur {
-                cached: true
-                radius: 64
-                transparentBorder: false
-            }
+            brightness: -0.2
+            saturation: -0.3
         }
 
         MouseArea {
@@ -145,15 +142,8 @@ FocusScope {
             fallback: Qt.resolvedUrl(elisaTheme.defaultBackgroundImage)
             asynchronous: true
 
-            // make the FastBlur effect more strong
-            sourceSize.height: 10
-            // Switch to Stretch if the effective height of the image to blur would be 0 with PreserveAspectCrop
-            // We need to know the aspect ratio, which we compute from oldMainIcon.painted*, because:
-            // - QML does not currently provide a direct way to get original source dimensions
-            // - painted* of this image won't get us the right value when fillMode is set to Stretch
-            // - oldMainIcon uses the same source and is set to preserve aspect ratio
-            fillMode: width / height < (images.currentItem ? images.currentItem.paintedWidth / images.currentItem.paintedHeight * sourceSize.height : 1)
-                      ? Image.PreserveAspectCrop : Image.Stretch
+            sourceSize.width: Screen.width
+            fillMode: Image.PreserveAspectCrop
 
             StackView.onRemoved: {
                 destroy();

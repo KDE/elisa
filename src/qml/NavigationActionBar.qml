@@ -9,7 +9,7 @@ import QtQml 2.2
 import QtQuick 2.15
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.15
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects as FX
 import org.kde.kirigami 2.8 as Kirigami
 import org.kde.elisa
 
@@ -493,24 +493,18 @@ Item {
                 fallback: elisaTheme.defaultBackgroundImage
                 asynchronous: true
 
+                sourceSize.width: Screen.width
                 fillMode: Image.PreserveAspectCrop
 
-                // make the FastBlur effect more strong
-                sourceSize.height: 10
-
                 layer.enabled: true
-                layer.effect: HueSaturation {
-                    cached: true
+                layer.effect: FX.MultiEffect {
+                    autoPaddingEnabled: false
+                    blurEnabled: true
+                    blur: 1
+                    blurMax: 64
+                    blurMultiplier: 2
 
-                    lightness: -0.5
-                    saturation: 0.9
-
-                    layer.enabled: true
-                    layer.effect: FastBlur {
-                        cached: true
-                        radius: 64
-                        transparentBorder: false
-                    }
+                    brightness: -0.3
                 }
             }
 

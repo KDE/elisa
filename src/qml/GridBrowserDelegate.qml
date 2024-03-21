@@ -10,7 +10,7 @@ import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
 import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects as FX
 import org.kde.kirigami 2.19 as Kirigami
 import org.kde.elisa
 
@@ -95,12 +95,12 @@ AbstractBrowserDelegate {
                 asynchronous: true
 
                 layer.enabled: !coverImage.usingFallback && !Kirigami.Settings.isMobile // don't use drop shadow on mobile
-                layer.effect: DropShadow {
+                layer.effect: FX.MultiEffect {
                     source: coverImage
-                    radius: 16
-                    samples: (radius * 2) + 1
-                    cached: true
-                    color: myPalette.shadow
+
+                    shadowBlur: 0.8
+                    shadowEnabled: true
+                    shadowColor: myPalette.shadow
                 }
             }
 

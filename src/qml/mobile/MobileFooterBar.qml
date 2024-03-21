@@ -9,7 +9,7 @@ import QtQuick 2.7
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects as FX
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.elisa
 import ".."
@@ -29,7 +29,6 @@ Flickable {
     property bool ratingVisible
     property alias trackControl: playControlItem
     property alias playerControl: mobileTrackPlayer
-    property int imageSourceSize: 512
 
     property bool portrait: (contentZone.height/contentZone.width) > 0.7
 
@@ -126,66 +125,38 @@ Flickable {
             anchors.fill: parent
         }
 
-        ImageWithFallback {
-            id: oldBackground
-
-            source: oldImage
+        component BlurredImage : ImageWithFallback {
             fallback: elisaTheme.defaultBackgroundImage
             asynchronous: true
 
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
 
-            sourceSize.width: imageSourceSize
-            sourceSize.height: imageSourceSize
+            sourceSize.width: Screen.width
 
             opacity: 1
 
             layer.enabled: true
-            layer.effect: HueSaturation {
-                cached: true
+            layer.effect: FX.MultiEffect {
+                autoPaddingEnabled: false
+                blurEnabled: true
+                blur: 1
+                blurMax: 64
+                blurMultiplier: 2
 
-                lightness: -0.4
-                saturation: 0.9
-
-                layer.enabled: true
-                layer.effect: FastBlur {
-                    cached: true
-                    radius: 100
-                }
+                brightness: -0.2
+                saturation: -0.3
             }
         }
 
-        ImageWithFallback {
+        BlurredImage {
+            id: oldBackground
+            source: oldImage
+        }
+
+        BlurredImage {
             id: newBackground
-
             source: newImage
-            fallback: Qt.resolvedUrl(elisaTheme.defaultBackgroundImage)
-
-            asynchronous: true
-
-            anchors.fill: parent
-            fillMode: Image.PreserveAspectCrop
-
-            sourceSize.width: imageSourceSize
-            sourceSize.height: imageSourceSize
-
-            visible: false
-            opacity: 0
-
-            layer.enabled: true
-            layer.effect: HueSaturation {
-                cached: true
-
-                lightness: -0.5
-                saturation: 0.9
-
-                layer.enabled: true
-                layer.effect: FastBlur {
-                    cached: true
-                    radius: 100
-                }
-            }
         }
     }
 

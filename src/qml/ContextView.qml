@@ -10,7 +10,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.15
 import QtQml.Models 2.2
 import QtQuick.Layouts 1.2
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects as FX
 import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa
 
@@ -149,8 +149,11 @@ Kirigami.Page {
 
             layer.enabled: true
             opacity: 0.2
-            layer.effect: FastBlur {
-                radius: 40
+            layer.effect: FX.MultiEffect {
+                autoPaddingEnabled: false
+                blurEnabled: true
+                blurMax: 40
+                blur: 1
             }
 
             replaceEnter: Transition {

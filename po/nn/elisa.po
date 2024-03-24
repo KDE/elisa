@@ -1,12 +1,11 @@
 # Translation of elisa to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-19 00:37+0000\n"
-"PO-Revision-Date: 2023-08-21 19:53+0200\n"
+"PO-Revision-Date: 2024-03-23 13:05+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -14,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -504,12 +503,10 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
-msgstr "Lengd"
+msgstr "Tid"
 
 #: qml/ElisaConfigurationDialog.qml:21
 #, kde-format
@@ -910,7 +907,7 @@ msgstr "Fjern alle"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "Fjern merkelappen"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -925,12 +922,10 @@ msgid "Data is not valid. %1"
 msgstr "Dataa er ikkje gyldige. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Volume as a percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1 %"
+msgstr "%1:"
 
 # unreviewed-context
 #: qml/MediaTrackMetadataForm.qml:146
@@ -998,12 +993,10 @@ msgid "Track Options"
 msgstr "Sporval"
 
 #: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Radiokanalar"
+msgstr "Radioval"
 
 #: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
@@ -1342,12 +1335,10 @@ msgid "Favorite/not favorite"
 msgstr "Favoritt/ikkje-favoritt"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
-msgstr "Fargeoppsett"
+msgstr "Fargeoppsett:"
 
 # unreviewed-context
 #: qml/SettingsForm.qml:212
@@ -1356,11 +1347,8 @@ msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "Søk etter ny musikk"
 
-# unreviewed-context
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "Søkjer gjennom musikk"
@@ -1376,7 +1364,7 @@ msgstr "Nullstill databasen og søk på nytt"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Databasen er nullstilt"
 
 # Den engelske terminologien er meir forvirrande enn oppklarande. Det er altså snakk om at alle sjangrane, alle albuma eller alle artistane skal visast som ei eiga liste i sidestolpen til venstre.
 # unreviewed-context
@@ -1551,7 +1539,7 @@ msgstr "Legg til ny mappe"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "Klarte ikkje spela av «%1»"
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1581,12 +1569,10 @@ msgid "Disc %1"
 msgstr "Plate %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Endra lydstyrke"
+msgstr "Lydstyrke"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format

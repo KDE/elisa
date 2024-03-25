@@ -309,6 +309,9 @@ void TrackMetadataModel::trackData(const TrackMetadataModel::TrackDataType &trac
 void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData)
 {
     mFullData = trackData;
+    if (!mFullData.hasElementType()) {
+        mFullData[DataTypes::ElementTypeRole] = ElisaUtils::Track;
+    }
     resetDisplayData();
 
     if (trackData.hasDatabaseId()) {

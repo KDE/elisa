@@ -377,7 +377,7 @@ DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const Da
     auto filesToOpen = DataTypes::EntryDataList{};
 
     for (const auto &oneFile : filesList) {
-        auto trackUrl = std::get<0>(oneFile)[DataTypes::ResourceRole].toUrl();
+        auto trackUrl = oneFile.musicData[DataTypes::ResourceRole].toUrl();
         if (trackUrl.scheme().isEmpty() || trackUrl.isLocalFile()) {
             auto newFile = QFileInfo(trackUrl.toLocalFile());
             if (trackUrl.scheme().isEmpty()) {
@@ -393,9 +393,9 @@ DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const Da
             }
 
             if (newFile.exists()) {
-                auto trackData = std::get<0>(oneFile);
+                auto trackData = oneFile.musicData;
                 trackData[DataTypes::ResourceRole] = QUrl::fromLocalFile(newFile.canonicalFilePath());
-                filesToOpen.push_back({trackData, std::get<1>(oneFile), {}});
+                filesToOpen.push_back({trackData, oneFile.title, {}});
             }
         } else {
             filesToOpen.push_back(oneFile);

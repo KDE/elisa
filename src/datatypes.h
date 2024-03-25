@@ -420,7 +420,11 @@ public:
 
     using ListGenreDataType = QList<GenreDataType>;
 
-    using EntryData = std::tuple<MusicDataType, QString, QUrl>;
+    struct EntryData {
+        MusicDataType musicData;
+        QString title;
+        QUrl url;
+    };
     using EntryDataList = QList<EntryData>;
 
 };

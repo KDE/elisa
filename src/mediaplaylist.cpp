@@ -370,7 +370,7 @@ void MediaPlayList::enqueueFilesList(const DataTypes::EntryDataList &newEntries)
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
     for (const auto &oneTrackUrl : newEntries) {
-        const auto &trackUrl = std::get<2>(oneTrackUrl);
+        const auto &trackUrl = oneTrackUrl.url;
         auto newEntry = MediaPlayListEntry(trackUrl);
         newEntry.mEntryType = ElisaUtils::FileName;
         d->mData.push_back(newEntry);
@@ -397,18 +397,18 @@ void MediaPlayList::enqueueFilesList(const DataTypes::EntryDataList &newEntries)
 
 void MediaPlayList::enqueueOneEntry(const DataTypes::EntryData &entryData)
 {
-    if (!std::get<0>(entryData).isEmpty() || !std::get<1>(entryData).isEmpty() || !std::get<2>(entryData).isEmpty()) {
+    if (!entryData.musicData.isEmpty() || !entryData.title.isEmpty() || !entryData.url.isEmpty()) {
         beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size());
-        if (!std::get<0>(entryData).databaseId() && std::get<2>(entryData).isValid()) {
-            auto newEntry = MediaPlayListEntry{std::get<2>(entryData)};
+        if (!entryData.musicData.databaseId() && entryData.url.isValid()) {
+            auto newEntry = MediaPlayListEntry{entryData.url};
             newEntry.mEntryType = ElisaUtils::FileName;
             d->mData.push_back(std::move(newEntry));
             d->mTrackData.push_back({});
         } else {
-            qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueOneEntry" << std::get<0>(entryData) << std::get<1>(entryData) << std::get<0>(entryData).elementType();
+            qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueOneEntry" << entryData.musicData << entryData.title << entryData.musicData.elementType();
 
-            d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType()});
-            const auto &data = std::get<0>(entryData);
+            d->mData.push_back(MediaPlayListEntry{entryData.musicData.databaseId(), entryData.title, entryData.musicData.elementType()});
+            const auto &data = entryData.musicData;
             switch (data.elementType())
             {
             case ElisaUtils::Track:
@@ -419,10 +419,10 @@ void MediaPlayList::enqueueOneEntry(const DataTypes::EntryData &entryData)
                 d->mTrackData.push_back({});
             }
         }
-        if (std::get<2>(entryData).isValid()) {
-            Q_EMIT newUrlInList(std::get<2>(entryData), std::get<0>(entryData).elementType());
+        if (entryData.url.isValid()) {
+            Q_EMIT newUrlInList(entryData.url, entryData.musicData.elementType());
         } else {
-            Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType());
+            Q_EMIT newEntryInList(entryData.musicData.databaseId(), entryData.title, entryData.musicData.elementType());
         }
         endInsertRows();
     }
@@ -434,16 +434,16 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
 
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
     for (const auto &entryData : entriesData) {
-        qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << std::get<0>(entryData);
-        auto trackUrl = std::get<0>(entryData)[DataTypes::ResourceRole].toUrl();
-        if (!std::get<0>(entryData).databaseId() && trackUrl.isValid()) {
+        qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << entryData.musicData;
+        auto trackUrl = entryData.musicData[DataTypes::ResourceRole].toUrl();
+        if (!entryData.musicData.databaseId() && trackUrl.isValid()) {
             auto newEntry = MediaPlayListEntry{trackUrl};
             newEntry.mEntryType = ElisaUtils::FileName;
             d->mData.push_back(std::move(newEntry));
             d->mTrackData.push_back({});
         } else {
-            d->mData.push_back(MediaPlayListEntry{std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType()});
-            const auto &data = std::get<0>(entryData);
+            d->mData.push_back(MediaPlayListEntry{entryData.musicData.databaseId(), entryData.title, entryData.musicData.elementType()});
+            const auto &data = entryData.musicData;
             switch (data.elementType())
             {
             case ElisaUtils::Track:
@@ -458,10 +458,10 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
 
         if (trackUrl.isValid()) {
             qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << "new url" << trackUrl
-                                           << std::get<0>(entryData).elementType();
-            Q_EMIT newUrlInList(trackUrl, std::get<0>(entryData).elementType());
+                                           << entryData.musicData.elementType();
+            Q_EMIT newUrlInList(trackUrl, entryData.musicData.elementType());
         } else {
-            Q_EMIT newEntryInList(std::get<0>(entryData).databaseId(), std::get<1>(entryData), std::get<0>(entryData).elementType());
+            Q_EMIT newEntryInList(entryData.musicData.databaseId(), entryData.title, entryData.musicData.elementType());
         }
     }
     endInsertRows();

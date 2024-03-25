@@ -144,8 +144,6 @@ public Q_SLOTS:
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
-    void enqueueFilesList(const DataTypes::EntryDataList &newEntries);
-
     void enqueueOneEntry(const DataTypes::EntryData &entryData);
 
     void enqueueMultipleEntries(const DataTypes::EntryDataList &entriesData);

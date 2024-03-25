@@ -436,7 +436,7 @@ void MediaPlayListTest::enqueueTrackByUrl()
 
     auto newTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
     auto trackData = myDatabaseContent.trackDataFromDatabaseId(newTrackID);
-    myPlayList.enqueueFilesList({{{}, {}, trackData.resourceURI()}});
+    myPlayList.enqueueMultipleEntries({{{}, {}, trackData.resourceURI()}});
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -529,7 +529,10 @@ void MediaPlayListTest::enqueueTracksByUrl()
     auto firstTrackData = myDatabaseContent.trackDataFromDatabaseId(firstNewTrackID);
     auto secondNewTrackID = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
     auto secondTrackData = myDatabaseContent.trackDataFromDatabaseId(secondNewTrackID);
-    myPlayList.enqueueFilesList({{{}, {}, firstTrackData.resourceURI()}, {{}, {}, secondTrackData.resourceURI()}});
+    myPlayList.enqueueMultipleEntries({
+        {{}, {}, firstTrackData.resourceURI()},
+        {{}, {}, secondTrackData.resourceURI()}
+    });
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -618,7 +621,10 @@ void MediaPlayListTest::enqueueFiles()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 0);
 
-    myPlayList.enqueueFilesList({{{}, {}, QUrl::fromLocalFile(QStringLiteral("/$1"))}, {{}, {}, QUrl::fromLocalFile(QStringLiteral("/$2"))}});
+    myPlayList.enqueueMultipleEntries({
+        {{}, {}, QUrl::fromLocalFile(QStringLiteral("/$1"))},
+        {{}, {}, QUrl::fromLocalFile(QStringLiteral("/$2"))}
+    });
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);
@@ -722,8 +728,10 @@ void MediaPlayListTest::enqueueSampleFiles()
     QCOMPARE(newEntryInListSpy.count(), 0);
     QCOMPARE(newUrlInListSpy.count(), 0);
 
-    myPlayList.enqueueFilesList({{{}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"))},
-                        {{}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}});
+    myPlayList.enqueueMultipleEntries({
+        {{}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test.ogg"))},
+        {{}, {}, QUrl::fromLocalFile(QStringLiteral(MEDIAPLAYLIST_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/test2.ogg"))}
+    });
 
     QCOMPARE(rowsAboutToBeRemovedSpy.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpy.count(), 0);

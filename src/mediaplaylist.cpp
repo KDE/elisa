@@ -364,37 +364,6 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
     endInsertRows();
 }
 
-void MediaPlayList::enqueueFilesList(const DataTypes::EntryDataList &newEntries)
-{
-    qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueFilesList";
-
-    beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + newEntries.size() - 1);
-    for (const auto &oneTrackUrl : newEntries) {
-        const auto &trackUrl = oneTrackUrl.url;
-        auto newEntry = MediaPlayListEntry(trackUrl);
-        newEntry.mEntryType = ElisaUtils::FileName;
-        d->mData.push_back(newEntry);
-        if (trackUrl.isValid()) {
-            if (trackUrl.isLocalFile()) {
-                d->mTrackData.push_back({{DataTypes::ColumnsRoles::ResourceRole, trackUrl}});
-                auto entryString =  trackUrl.toLocalFile();
-                QFileInfo newTrackFile(entryString);
-                if (newTrackFile.exists()) {
-                    d->mData.last().mIsValid = true;
-                }
-            } else {
-                d->mTrackData.push_back({{DataTypes::ColumnsRoles::ResourceRole, trackUrl},
-                                         {DataTypes::ColumnsRoles::TitleRole, trackUrl.fileName()}});
-                d->mData.last().mIsValid = true;
-            }
-            Q_EMIT newUrlInList(trackUrl, newEntry.mEntryType);
-        } else {
-            d->mTrackData.push_back({});
-        }
-    }
-    endInsertRows();
-}
-
 void MediaPlayList::enqueueOneEntry(const DataTypes::EntryData &entryData)
 {
     if (!entryData.musicData.isEmpty() || !entryData.title.isEmpty() || !entryData.url.isEmpty()) {
@@ -435,7 +404,7 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
     beginInsertRows(QModelIndex(), d->mData.size(), d->mData.size() + entriesData.size() - 1);
     for (const auto &entryData : entriesData) {
         qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << entryData.musicData;
-        auto trackUrl = entryData.musicData[DataTypes::ResourceRole].toUrl();
+        const auto trackUrl = entryData.url.isValid() ? entryData.url : entryData.musicData[DataTypes::ResourceRole].toUrl();
         if (!entryData.musicData.databaseId() && trackUrl.isValid()) {
             auto newEntry = MediaPlayListEntry{trackUrl};
             newEntry.mEntryType = ElisaUtils::FileName;
@@ -458,8 +427,8 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
 
         if (trackUrl.isValid()) {
             qCDebug(orgKdeElisaPlayList()) << "MediaPlayList::enqueueMultipleEntries" << "new url" << trackUrl
-                                           << entryData.musicData.elementType();
-            Q_EMIT newUrlInList(trackUrl, entryData.musicData.elementType());
+                                           << entryData.musicData.hasElementType() << entryData.musicData.elementType();
+            Q_EMIT newUrlInList(trackUrl, entryData.musicData.hasElementType() ? entryData.musicData.elementType() : ElisaUtils::FileName);
         } else {
             Q_EMIT newEntryInList(entryData.musicData.databaseId(), entryData.title, entryData.musicData.elementType());
         }

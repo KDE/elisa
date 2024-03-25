@@ -424,6 +424,11 @@ public:
         MusicDataType musicData;
         QString title;
         QUrl url;
+
+        bool isValid() const
+        {
+            return !musicData.isEmpty() || !title.isEmpty() || !url.isEmpty();
+        }
     };
     using EntryDataList = QList<EntryData>;
 

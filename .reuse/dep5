@@ -3,6 +3,14 @@ Upstream-Name: Elisa Music Player
 Upstream-Contact: Matthieu Gallien <matthieu_gallien@yahoo.fr>
 Source: https://invent.kde.org/multimedia/elisa
 
+Files: .flatpak-manifest.json
+Copyright: 2023 Tobias Fella <tobias.fella@kde.org>
+License: BSD-2-Clause
+
+Files: .gitlab/merge_request_templates/Default.md
+Copyright: 2023 Nate Graham <nate@kde.org>
+License: BSD-3-Clause
+
 Files: android/res/drawable/vendor_logo.png
 Copyright: 2014 Andrew Lake <jamboarder@gmail.com>
 License: LGPL-3.0-or-later

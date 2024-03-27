@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-19 00:37+0000\n"
+"POT-Creation-Date: 2024-03-27 00:37+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -27,15 +27,15 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "tomhioo@outlook.jp,21r.suga@gmail.com"
 
-#: databaseinterface.cpp:7135 databaseinterface.cpp:8158
-#: databaseinterface.cpp:8242
+#: databaseinterface.cpp:7139 databaseinterface.cpp:8162
+#: databaseinterface.cpp:8246
 #, fuzzy, kde-format
 #| msgid "Various Artists"
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "さまざまなアーティスト"
 
-#: databaseinterface.cpp:7203
+#: databaseinterface.cpp:7207
 #, fuzzy, kde-format
 #| msgid "Radio Stations"
 msgctxt "@item:intable"
@@ -91,70 +91,70 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "パーティーモードを切り替え"
 
-#: main.cpp:101
+#: main.cpp:95
 #, fuzzy, kde-format
 #| msgid "Elisa"
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:103
+#: main.cpp:97
 #, fuzzy, kde-format
 #| msgid "A Simple Music Player made with love by the KDE community"
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "KDE コミュニティによって作成されたシンプルな音楽プレーヤー"
 
-#: main.cpp:105
+#: main.cpp:99
 #, fuzzy, kde-format
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa の貢献者"
 
-#: main.cpp:107 models/lyricsmodel.cpp:161
+#: main.cpp:101 models/lyricsmodel.cpp:161
 #, fuzzy, kde-format
 #| msgid "Creator"
 msgctxt "@label"
 msgid "Creator"
 msgstr "作成者"
 
-#: main.cpp:108
+#: main.cpp:102
 #, fuzzy, kde-format
 #| msgid "Author"
 msgctxt "@label"
 msgid "Author"
 msgstr "作者"
 
-#: main.cpp:110
+#: main.cpp:104
 #, fuzzy, kde-format
 #| msgid "Concept and design work"
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "コンセプトおよびデザインの仕事"
 
-#: main.cpp:111
+#: main.cpp:105
 #, fuzzy, kde-format
 #| msgid "Localization support"
 msgctxt "@label"
 msgid "Localization support"
 msgstr "多言語サポート"
 
-#: main.cpp:112
+#: main.cpp:106
 #, fuzzy, kde-format
 #| msgid "Right to left support in interface"
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "インターフェースの Right to left (RTL) サポート"
 
-#: main.cpp:113
+#: main.cpp:107
 #, fuzzy, kde-format
 #| msgid "Various improvements to the interface"
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "インターフェースのさまざまな改善"
 
-#: main.cpp:114
+#: main.cpp:108
 #, fuzzy, kde-format
 #| msgid "Support for online radios"
 msgctxt "@label"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-19 00:37+0000\n"
+"POT-Creation-Date: 2024-03-27 00:37+0000\n"
 "PO-Revision-Date: 2024-02-05 10:45+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -27,14 +27,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "freekdekruijf@kde.nl"
 
-#: databaseinterface.cpp:7135 databaseinterface.cpp:8158
-#: databaseinterface.cpp:8242
+#: databaseinterface.cpp:7139 databaseinterface.cpp:8162
+#: databaseinterface.cpp:8246
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Diverse artiesten"
 
-#: databaseinterface.cpp:7203
+#: databaseinterface.cpp:7207
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -82,61 +82,61 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Modus party omschakelen"
 
-#: main.cpp:101
+#: main.cpp:95
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:103
+#: main.cpp:97
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Een eenvoudige muziekspeler met liefde gemaakt door de KDE gemeenschap"
 
-#: main.cpp:105
+#: main.cpp:99
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, medewerkers van Elisa"
 
-#: main.cpp:107 models/lyricsmodel.cpp:161
+#: main.cpp:101 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Maker"
 
-#: main.cpp:108
+#: main.cpp:102
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Auteur"
 
-#: main.cpp:110
+#: main.cpp:104
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Concept en ontwerpwerk"
 
-#: main.cpp:111
+#: main.cpp:105
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Ondersteuning voor aanpassen aan taalregio"
 
-#: main.cpp:112
+#: main.cpp:106
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Ondersteuning voor rechts-naar-links in interface"
 
-#: main.cpp:113
+#: main.cpp:107
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Verschillende verbeteringen aan het interface"
 
-#: main.cpp:114
+#: main.cpp:108
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

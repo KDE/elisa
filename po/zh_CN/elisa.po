@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-19 00:37+0000\n"
-"PO-Revision-Date: 2024-03-25 19:39\n"
+"POT-Creation-Date: 2024-03-27 00:37+0000\n"
+"PO-Revision-Date: 2024-03-26 19:25\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -27,14 +27,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-china@kde.org, EasternLi@kde.org, i@guoyunhe.me, tds00@qq.com"
 
-#: databaseinterface.cpp:7135 databaseinterface.cpp:8158
-#: databaseinterface.cpp:8242
+#: databaseinterface.cpp:7139 databaseinterface.cpp:8162
+#: databaseinterface.cpp:8246
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "多位艺术家"
 
-#: databaseinterface.cpp:7203
+#: databaseinterface.cpp:7207
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -82,61 +82,61 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "切换派对模式"
 
-#: main.cpp:101
+#: main.cpp:95
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:103
+#: main.cpp:97
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "KDE 社区精心打造的简易音乐播放器"
 
-#: main.cpp:105
+#: main.cpp:99
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa contributors"
 
-#: main.cpp:107 models/lyricsmodel.cpp:161
+#: main.cpp:101 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "创作者"
 
-#: main.cpp:108
+#: main.cpp:102
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "作者"
 
-#: main.cpp:110
+#: main.cpp:104
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "概念和设计"
 
-#: main.cpp:111
+#: main.cpp:105
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "本地化支持"
 
-#: main.cpp:112
+#: main.cpp:106
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "界面的从右到左排版支持"
 
-#: main.cpp:113
+#: main.cpp:107
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "对界面的各种改进"
 
-#: main.cpp:114
+#: main.cpp:108
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

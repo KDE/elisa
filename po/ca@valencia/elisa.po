@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-19 00:37+0000\n"
+"POT-Creation-Date: 2024-03-27 00:37+0000\n"
 "PO-Revision-Date: 2024-02-05 09:34+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -31,14 +31,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "txemaq@gmail.com"
 
-#: databaseinterface.cpp:7135 databaseinterface.cpp:8158
-#: databaseinterface.cpp:8242
+#: databaseinterface.cpp:7139 databaseinterface.cpp:8162
+#: databaseinterface.cpp:8246
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Artistes diversos"
 
-#: databaseinterface.cpp:7203
+#: databaseinterface.cpp:7207
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -86,61 +86,61 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Canvia al mode festa"
 
-#: main.cpp:101
+#: main.cpp:95
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:103
+#: main.cpp:97
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Un reproductor musical senzill fet amb amor per la comunitat KDE"
 
-#: main.cpp:105
+#: main.cpp:99
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, els col·laboradors d'Elisa"
 
-#: main.cpp:107 models/lyricsmodel.cpp:161
+#: main.cpp:101 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Creador"
 
-#: main.cpp:108
+#: main.cpp:102
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Autoria"
 
-#: main.cpp:110
+#: main.cpp:104
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Treball amb el concepte i el disseny"
 
-#: main.cpp:111
+#: main.cpp:105
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Implementació de la traducció"
 
-#: main.cpp:112
+#: main.cpp:106
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Implementació de dreta a esquerra en la interfície"
 
-#: main.cpp:113
+#: main.cpp:107
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Diverses millores en la interfície"
 
-#: main.cpp:114
+#: main.cpp:108
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

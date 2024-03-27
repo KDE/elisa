@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-19 00:37+0000\n"
+"POT-Creation-Date: 2024-03-27 00:37+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -29,15 +29,15 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "dansk@dansk-gruppen.dk"
 
-#: databaseinterface.cpp:7135 databaseinterface.cpp:8158
-#: databaseinterface.cpp:8242
+#: databaseinterface.cpp:7139 databaseinterface.cpp:8162
+#: databaseinterface.cpp:8246
 #, fuzzy, kde-format
 #| msgid "Various Artists"
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Diverse kunstnere"
 
-#: databaseinterface.cpp:7203
+#: databaseinterface.cpp:7207
 #, fuzzy, kde-format
 #| msgid "Radios"
 msgctxt "@item:intable"
@@ -93,70 +93,70 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Slå festtilstand til/fra"
 
-#: main.cpp:101
+#: main.cpp:95
 #, fuzzy, kde-format
 #| msgid "Elisa"
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:103
+#: main.cpp:97
 #, fuzzy, kde-format
 #| msgid "A Simple Music Player made with love by the KDE community"
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "En simpel musikafspiller skabt med kærlighed af KDE-fællesskabet"
 
-#: main.cpp:105
+#: main.cpp:99
 #, fuzzy, kde-format
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa-bidragsyderne"
 
-#: main.cpp:107 models/lyricsmodel.cpp:161
+#: main.cpp:101 models/lyricsmodel.cpp:161
 #, fuzzy, kde-format
 #| msgid "Creator"
 msgctxt "@label"
 msgid "Creator"
 msgstr "Skaber"
 
-#: main.cpp:108
+#: main.cpp:102
 #, fuzzy, kde-format
 #| msgid "Author"
 msgctxt "@label"
 msgid "Author"
 msgstr "Ophavsmand"
 
-#: main.cpp:110
+#: main.cpp:104
 #, fuzzy, kde-format
 #| msgid "Concept and design work"
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Koncept- og designarbejde"
 
-#: main.cpp:111
+#: main.cpp:105
 #, fuzzy, kde-format
 #| msgid "Localization support"
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Understøttelse af lokalisering"
 
-#: main.cpp:112
+#: main.cpp:106
 #, fuzzy, kde-format
 #| msgid "Right to left support in interface"
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Understøttelse af højre mod venstre-grænseflade"
 
-#: main.cpp:113
+#: main.cpp:107
 #, fuzzy, kde-format
 #| msgid "Various improvements to the interface"
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Diverse forbedringer til brugerfladen"
 
-#: main.cpp:114
+#: main.cpp:108
 #, fuzzy, kde-format
 #| msgid "Support for online radios"
 msgctxt "@label"

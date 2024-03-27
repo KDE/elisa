@@ -10,6 +10,7 @@
 #include "elisaLib_export.h"
 
 #include <QObject>
+#include <QQmlEngine>
 
 #include "viewmanager.h"
 #include "datatypes.h"
@@ -241,6 +242,8 @@ public:
 class ELISALIB_EXPORT ViewsListData : public QObject
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedCategory
                READ embeddedCategory

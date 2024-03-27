@@ -10,6 +10,7 @@
 #include "elisaLib_export.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QUrl>
 #include <QMediaPlayer>
 #include <QString>
@@ -21,6 +22,8 @@ class AudioWrapperPrivate;
 class ELISALIB_EXPORT AudioWrapper : public QObject
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(bool muted
                READ muted

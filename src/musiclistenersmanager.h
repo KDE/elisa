@@ -13,6 +13,7 @@
 #include "elisautils.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QMediaPlayer>
 
 #include <memory>
@@ -28,6 +29,8 @@ class ELISALIB_EXPORT MusicListenersManager : public QObject
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(DatabaseInterface* viewDatabase
                READ viewDatabase

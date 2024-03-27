@@ -10,11 +10,14 @@
 #include "elisaLib_export.h"
 
 #include <QObject>
+#include <QQmlEngine>
 
 class ELISALIB_EXPORT ProgressIndicator : public QObject
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(int position
                READ position

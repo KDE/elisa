@@ -16,6 +16,7 @@
 #include <QAbstractProxyModel>
 #include <QMediaPlayer>
 #include <QMimeType>
+#include <QQmlEngine>
 #include <QFileInfo>
 
 #include <memory>
@@ -51,6 +52,8 @@ class ELISALIB_EXPORT MediaPlayListProxyModel : public QAbstractProxyModel
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
 
 public:
     enum Repeat {

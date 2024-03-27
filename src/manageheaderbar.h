@@ -13,11 +13,14 @@
 
 #include <QObject>
 #include <QPersistentModelIndex>
+#include <QQmlEngine>
 #include <QUrl>
 
 class ELISALIB_EXPORT ManageHeaderBar : public QObject
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QPersistentModelIndex currentTrack
                READ currentTrack

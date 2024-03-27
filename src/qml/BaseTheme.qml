@@ -9,7 +9,7 @@ import org.kde.kirigami 2.12 as Kirigami
 
 Item {
     property string defaultAlbumImage: 'image://icon/media-default-album'
-    property string defaultBackgroundImage: 'qrc:///background.png'
+    property string defaultBackgroundImage: 'qrc:/qt/qml/org/kde/elisa/background.png'
     property string pausedIndicatorIcon: 'image://icon/media-playback-paused'
     property string playingIndicatorIcon: 'image://icon/media-playback-playing'
     property string ratingIcon: 'image://icon/rating'

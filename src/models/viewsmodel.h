@@ -13,6 +13,7 @@
 #include "datatypes.h"
 
 #include <QAbstractListModel>
+#include <QQmlEngine>
 
 #include <memory>
 
@@ -22,6 +23,8 @@ class ViewsListData;
 class ELISALIB_EXPORT ViewsModel : public QAbstractListModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(ViewsListData* viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
 

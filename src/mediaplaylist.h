@@ -14,6 +14,7 @@
 
 #include <QAbstractListModel>
 #include <QMediaPlayer>
+#include <QQmlEngine>
 
 #include <utility>
 #include <tuple>
@@ -26,6 +27,8 @@ class QDebug;
 class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
 public:
 

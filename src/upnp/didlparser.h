@@ -10,6 +10,7 @@
 #include "datatypes.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QHash>
 #include <QString>
 
@@ -24,6 +25,8 @@ class DidlParser : public QObject
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QString browseFlag
                READ browseFlag

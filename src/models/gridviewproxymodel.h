@@ -12,10 +12,14 @@
 
 #include "abstractmediaproxymodel.h"
 
+#include <QQmlEngine>
+
 class ELISALIB_EXPORT GridViewProxyModel : public AbstractMediaProxyModel
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
 
 public:
 

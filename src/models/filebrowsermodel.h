@@ -10,16 +10,19 @@
 #include "elisaLib_export.h"
 
 #include "elisautils.h"
+#include "databaseinterface.h"
 #include "datatypes.h"
+#include "musiclistenersmanager.h"
 
 #include <KDirModel>
 
-class MusicListenersManager;
-class DatabaseInterface;
+#include <QQmlEngine>
 
 class ELISALIB_EXPORT FileBrowserModel : public KDirModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(bool isBusy READ isBusy NOTIFY isBusyChanged)
 

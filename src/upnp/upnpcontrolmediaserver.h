@@ -9,6 +9,8 @@
 
 #include "upnpcontrolabstractdevice.h"
 
+#include <QQmlEngine>
+
 #include <memory>
 
 
@@ -18,6 +20,8 @@ class UpnpControlMediaServer : public UpnpControlAbstractDevice
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(bool hasAVTransport
                READ hasAVTransport

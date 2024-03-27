@@ -10,6 +10,8 @@
 #include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
 
+#include <QQmlEngine>
+
 #include <memory>
 
 class UpnpControlContentDirectoryPrivate;
@@ -18,6 +20,8 @@ class UpnpControlAbstractServiceReply;
 class UpnpControlContentDirectory : public UpnpControlAbstractService
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QString searchCapabilities
                READ searchCapabilities

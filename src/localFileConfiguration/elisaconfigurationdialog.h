@@ -13,11 +13,16 @@
 
 #include <QStringList>
 #include <QFileSystemWatcher>
+#include <QQmlEngine>
 
 class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
+
+    QML_SINGLETON
 
     Q_PROPERTY(QStringList rootPath
                READ rootPath
@@ -84,6 +89,13 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                NOTIFY useFavoriteStyleRatingsChanged)
 
 public:
+
+    static ElisaConfigurationDialog *create(QQmlEngine *engine, QJSEngine *scriptEngine)
+    {
+        Q_UNUSED(engine)
+        Q_UNUSED(scriptEngine)
+        return new ElisaConfigurationDialog;
+    }
 
     explicit ElisaConfigurationDialog(QObject *parent = nullptr);
 

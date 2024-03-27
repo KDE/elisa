@@ -19,6 +19,7 @@
 #include <KIO/UDSEntry>
 
 #include <QMimeDatabase>
+#include <QQmlEngine>
 #include <QRegularExpression>
 
 #include <queue>
@@ -29,6 +30,8 @@ class MediaPlayListProxyModel;
 class ELISALIB_EXPORT FileBrowserProxyModel : public KDirSortFilterProxyModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QString filterText
                READ filterText

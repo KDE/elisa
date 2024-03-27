@@ -14,6 +14,7 @@
 #include "viewmanager.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QString>
 #include <QUrl>
 #include <QAbstractProxyModel>
@@ -26,6 +27,8 @@ class QAbstractItemModel;
 class ELISALIB_EXPORT ViewConfigurationData : public QObject
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(ElisaUtils::FilterType filterType
                READ filterType

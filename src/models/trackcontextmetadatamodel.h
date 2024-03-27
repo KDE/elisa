@@ -11,10 +11,14 @@
 
 #include "trackmetadatamodel.h"
 
+#include <QQmlEngine>
+
 class ELISALIB_EXPORT TrackContextMetaDataModel : public TrackMetadataModel
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
 
 public:
 

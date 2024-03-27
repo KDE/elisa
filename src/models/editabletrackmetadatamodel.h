@@ -11,9 +11,13 @@
 
 #include "trackmetadatamodel.h"
 
+#include <QQmlEngine>
+
 class ELISALIB_EXPORT EditableTrackMetadataModel : public TrackMetadataModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(bool isDataValid
                READ isDataValid

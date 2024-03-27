@@ -10,12 +10,15 @@
 #include "elisaLib_export.h"
 #include <QPersistentModelIndex>
 #include <QObject>
+#include <QQmlEngine>
 
 
 class ELISALIB_EXPORT ManageMediaPlayerControl : public QObject
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(bool playControlEnabled
                READ playControlEnabled

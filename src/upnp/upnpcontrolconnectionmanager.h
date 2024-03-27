@@ -10,6 +10,8 @@
 #include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
 
+#include <QQmlEngine>
+
 #include <memory>
 
 class UpnpControlConnectionManagerPrivate;
@@ -17,6 +19,8 @@ class UpnpControlConnectionManagerPrivate;
 class UpnpControlConnectionManager : public UpnpControlAbstractService
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QString sourceProtocolInfo
                READ sourceProtocolInfo

@@ -14,6 +14,7 @@
 
 #include <QAbstractListModel>
 #include <QHash>
+#include <QQmlEngine>
 #include <QString>
 
 #include <memory>
@@ -25,6 +26,8 @@ class DatabaseInterface;
 class ELISALIB_EXPORT DataModel : public QAbstractListModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QString title
                READ title

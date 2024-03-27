@@ -11,6 +11,7 @@
 
 #include "elisautils.h"
 
+#include <QQmlEngine>
 #include <QSortFilterProxyModel>
 
 #include <memory>
@@ -20,6 +21,8 @@ class ViewsProxyModelPrivate;
 class ELISALIB_EXPORT ViewsProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedCategory
                READ embeddedCategory

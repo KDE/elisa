@@ -15,6 +15,7 @@
 #include "datatypes.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QUrl>
 #include <Qt>
 
@@ -28,6 +29,8 @@ class ViewConfigurationData;
 class ELISALIB_EXPORT ViewManager : public QObject
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(int viewIndex
                READ viewIndex

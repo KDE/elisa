@@ -6,12 +6,18 @@
 #ifndef LYRICSMODEL_H
 #define LYRICSMODEL_H
 #include "elisaLib_export.h"
+
 #include <QAbstractListModel>
+#include <QQmlEngine>
+
 #include <memory>
 #include <vector>
 class ELISALIB_EXPORT LyricsModel : public QAbstractListModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
+
     Q_PROPERTY(int highlightedIndex
                READ highlightedIndex
                NOTIFY highlightedIndexChanged)

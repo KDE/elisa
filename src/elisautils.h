@@ -14,10 +14,13 @@
 #include <QString>
 #include <QMetaType>
 #include <QMimeType>
+#include <QQmlEngine>
 
 namespace ElisaUtils {
 
 Q_NAMESPACE
+
+QML_NAMED_ELEMENT(ElisaUtils)
 
 enum PlayListEnqueueMode {
     AppendPlayList,

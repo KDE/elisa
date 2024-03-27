@@ -164,7 +164,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty(QStringLiteral("elisaStartupArguments"), QVariant::fromValue(urls));
 
-    engine.load(QUrl(QStringLiteral("qrc:/qml/ElisaMainWindow.qml")));
+    engine.loadFromModule("org.kde.elisa", "ElisaMainWindow");
 
     return app.exec();
 }

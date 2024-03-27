@@ -12,8 +12,11 @@
 #include "elisaLib_export.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QSharedPointer>
+
 #include <memory>
+
 #include "manageaudioplayer.h"
 #include "manageheaderbar.h"
 #include "managemediaplayercontrol.h"
@@ -26,6 +29,8 @@ class AudioWrapper;
 class ELISALIB_EXPORT Mpris2 : public QObject
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QString playerName
                READ playerName

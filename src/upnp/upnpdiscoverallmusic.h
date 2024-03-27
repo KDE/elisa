@@ -10,6 +10,7 @@
 #include "datatypes.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QSharedPointer>
 
 #include <memory>
@@ -23,6 +24,8 @@ class UpnpDiscoverAllMusic : public QObject
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
 
 public:
 

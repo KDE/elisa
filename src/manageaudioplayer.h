@@ -12,6 +12,7 @@
 
 #include <QObject>
 #include <QPersistentModelIndex>
+#include <QQmlEngine>
 #include <QAbstractItemModel>
 #include <QUrl>
 #include <QMediaPlayer>
@@ -21,6 +22,8 @@ class QDateTime;
 class ELISALIB_EXPORT ManageAudioPlayer : public QObject
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QPersistentModelIndex currentTrack
                READ currentTrack

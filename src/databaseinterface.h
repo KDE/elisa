@@ -13,6 +13,7 @@
 #include "datatypes.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QString>
 #include <QHash>
 #include <QList>
@@ -29,6 +30,10 @@ class QSqlQuery;
 class ELISALIB_EXPORT DatabaseInterface : public QObject
 {
     Q_OBJECT
+
+    QML_ELEMENT
+
+    QML_UNCREATABLE("")
 
 public:
 

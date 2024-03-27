@@ -13,6 +13,7 @@
 #include "elisautils.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QString>
 #include <QList>
 #include <QVariant>
@@ -23,6 +24,10 @@
 class ELISALIB_EXPORT DataTypes : public QObject
 {
     Q_OBJECT
+
+    QML_ELEMENT
+
+    QML_UNCREATABLE("")
 
 public:
 

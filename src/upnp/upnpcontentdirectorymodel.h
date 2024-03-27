@@ -11,6 +11,7 @@
 #include "datatypes.h"
 
 #include <QAbstractItemModel>
+#include <QQmlEngine>
 
 #include <memory>
 
@@ -22,6 +23,8 @@ class DatabaseInterface;
 class UpnpContentDirectoryModel : public QAbstractItemModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QString parentId
                READ parentId

@@ -15,6 +15,7 @@
 #include "modeldataloader.h"
 #include "filescanner.h"
 
+#include <QQmlEngine>
 #include <QUrl>
 #include <QAbstractListModel>
 #include <QFutureWatcher>
@@ -25,6 +26,8 @@ class MusicListenersManager;
 class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
 {
     Q_OBJECT
+
+    QML_ELEMENT
 
     Q_PROPERTY(QUrl coverUrl
                READ coverUrl

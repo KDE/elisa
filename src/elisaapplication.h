@@ -15,6 +15,7 @@
 #include "datatypes.h"
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QString>
 
 #include <memory>
@@ -28,9 +29,7 @@ class AudioWrapper;
 class ManageAudioPlayer;
 class ManageMediaPlayerControl;
 class ManageHeaderBar;
-class QQmlEngine;
 class ElisaApplicationPrivate;
-class QSessionManager;
 class KColorSchemeManager;
 class QAbstractItemModel;
 
@@ -38,6 +37,10 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
 {
 
     Q_OBJECT
+
+    QML_ELEMENT
+
+    QML_SINGLETON
 
     Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedView
                READ embeddedView
@@ -102,6 +105,9 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                NOTIFY initialFilesViewPathChanged)
 
 public:
+
+    static ElisaApplication *create(QQmlEngine *engine, QJSEngine *scriptEngine);
+
     explicit ElisaApplication(QObject *parent = nullptr);
 
     ~ElisaApplication() override;
@@ -175,7 +181,7 @@ Q_SIGNALS:
 
     void useFavoriteStyleRatingsChanged();
 
-    void commitDataRequest(QSessionManager &manager);
+    void commitDataRequest();
 
     void embeddedViewChanged();
 

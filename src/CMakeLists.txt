@@ -9,6 +9,7 @@ set(elisaLib_SOURCES
     mediaplaylist.cpp
     mediaplaylistproxymodel.cpp
     progressindicator.cpp
+    qmlforeigntypes.h
     databaseinterface.cpp
     datatypes.cpp
     musiclistenersmanager.cpp
@@ -39,6 +40,15 @@ set(elisaLib_SOURCES
     viewslistdata.cpp
     viewconfigurationdata.cpp
     localFileConfiguration/elisaconfigurationdialog.cpp
+)
+
+set(elisaLib_INCLUDEDIRS
+    ${CMAKE_BINARY_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/abstractfile
+    ${CMAKE_CURRENT_SOURCE_DIR}/file
+    ${CMAKE_CURRENT_SOURCE_DIR}/localFileConfiguration
+    ${CMAKE_CURRENT_SOURCE_DIR}/models
+    ${CMAKE_CURRENT_SOURCE_DIR}/mpris2
 )
 
 ecm_qt_declare_logging_category(elisaLib_SOURCES
@@ -137,6 +147,10 @@ if (ANDROID)
         android/androidmusiclistener.cpp
         android/androidfilelisting.cpp
         )
+    set(elisaLib_INCLUDEDIRS
+        ${elisaLib_INCLUDEDIRS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/android
+    )
 endif()
 
 if (KF6FileMetaData_FOUND)
@@ -174,6 +188,9 @@ if (UPNPQT_FOUND)
         upnp/upnplistener.cpp
         upnp/upnpdiscoverallmusic.cpp
         )
+    set(elisaLib_INCLUDEDIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/upnp
+    )
 endif()
 
 kconfig_add_kcfg_files(elisaLib_SOURCES ../src/elisa_settings.kcfgc GENERATE_MOC )
@@ -185,9 +202,9 @@ set(elisaLib_SOURCES
 add_library(elisaLib ${elisaLib_SOURCES})
 target_link_libraries(elisaLib
     LINK_PUBLIC
-    Qt::Multimedia
+    Qt::Multimedia Qt::Qml
     LINK_PRIVATE
-    Qt::Core Qt::Quick Qt::Sql Qt::Widgets Qt::Concurrent Qt::Qml
+    Qt::Core Qt::Quick Qt::Sql Qt::Widgets Qt::Concurrent
     KF6::I18n KF6::CoreAddons
     KF6::ConfigCore KF6::ConfigGui
     KF6::ColorScheme)
@@ -268,106 +285,76 @@ else()
     install(TARGETS elisaLib ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 endif()
 
-set(elisaqmlplugin_SOURCES
-    elisaqmlplugin.cpp
-    elisautils.cpp
+target_include_directories(elisaLib PRIVATE ${elisaLib_INCLUDEDIRS})
+
+set_source_files_properties(windows/WindowsTheme.qml PROPERTIES
+    QT_RESOURCE_ALIAS qml/+windows/WindowsTheme.qml
 )
 
-add_library(elisaqmlplugin SHARED ${elisaqmlplugin_SOURCES})
-target_link_libraries(elisaqmlplugin
-    LINK_PRIVATE
-    Qt::Quick Qt::Widgets
-    KF6::ConfigCore KF6::ConfigGui
-    elisaLib
-    )
+set_source_files_properties(windows/PlatformIntegration.qml PROPERTIES
+    QT_RESOURCE_ALIAS qml/+windows/PlatformIntegration.qml
+)
 
-set_target_properties(elisaqmlplugin PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa
-    )
+set_source_files_properties(android/PlatformIntegration.qml PROPERTIES
+    QT_RESOURCE_ALIAS qml/+android/PlatformIntegration.qml
+)
 
-if (NOT APPLE AND NOT WIN32)
-    set_target_properties(elisaqmlplugin PROPERTIES
-        INSTALL_RPATH "${KDE_INSTALL_FULL_LIBDIR}/elisa;${CMAKE_INSTALL_RPATH}"
-        )
-endif()
+set_source_files_properties(android/qtquickcontrols2.conf PROPERTIES
+    QT_RESOURCE_ALIAS qml/+android/qtquickcontrols2.conf
+)
 
-install(TARGETS elisaqmlplugin DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa/)
-
-install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa)
-
-add_custom_target(copy)
-add_custom_target(copy2)
-
-file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa)
-
-add_custom_command(TARGET copy PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E
-    copy ${CMAKE_CURRENT_SOURCE_DIR}/qmldir ${CMAKE_BINARY_DIR}/bin/org/kde/elisa
-    )
-
-add_custom_command(TARGET copy2 PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E
-    copy ${CMAKE_CURRENT_SOURCE_DIR}/plugins.qmltypes ${CMAKE_BINARY_DIR}/bin/org/kde/elisa/
-    )
-
-add_dependencies(elisaqmlplugin copy copy2)
-
-ecm_generate_qmltypes(org.kde.elisa 1.0
-                      DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/elisa)
-
-if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
-
-    set(elisa_SOURCES
-        main.cpp
-
-        windows/WindowsTheme.qml
-        windows/PlatformIntegration.qml
-
+qt_policy(SET QTP0001 NEW)
+qt_add_qml_module(elisaLib
+    URI org.kde.elisa
+    QML_FILES
         android/PlatformIntegration.qml
 
-        qml/ElisaMainWindow.qml
-        qml/ApplicationMenu.qml
-        qml/NativeGlobalMenu.qml
-        qml/NativeTrayMenu.qml
-        qml/NativeMenuItemFromAction.qml
-        qml/BaseTheme.qml
-        qml/Theme.qml
-        qml/PlatformIntegration.qml
-        qml/LabelWithToolTip.qml
+        windows/PlatformIntegration.qml
+        windows/WindowsTheme.qml
 
-        qml/RatingStar.qml
-        qml/TrackImportNotification.qml
-        qml/ImageWithFallback.qml
-
-        qml/HeaderBar.qml
-        qml/NavigationActionBar.qml
-        qml/SortMenu.qml
-        qml/MediaPlayerControl.qml
-        qml/ContextView.qml
-        qml/ContentView.qml
-        qml/ViewSelector.qml
         qml/AbstractDataView.qml
+        qml/AccessibleSlider.qml
+        qml/ApplicationMenu.qml
+        qml/BaseTheme.qml
+        qml/BasicPlayListAlbumHeader.qml
+        qml/ButtonWithToolTip.qml
+        qml/ConfigurationDialog.qml
+        qml/ContentView.qml
+        qml/ContextView.qml
         qml/DataGridView.qml
         qml/DataListView.qml
         qml/DurationSlider.qml
-        qml/VolumeSlider.qml
-
+        qml/ElisaMainWindow.qml
+        qml/FlatButtonWithToolTip.qml
+        qml/FooterBar.qml
+        qml/GridBrowserDelegate.qml
+        qml/HeaderBar.qml
+        qml/HeaderFooterToolbar.qml
+        qml/ImageWithFallback.qml
+        qml/LabelWithToolTip.qml
+        qml/ListBrowserDelegate.qml
+        qml/MediaPlayerControl.qml
         qml/MediaPlayListView.qml
-        qml/PlayListEntry.qml
-        qml/SimplePlayListView.qml
-        qml/BasicPlayListAlbumHeader.qml
-
         qml/MediaTrackMetadataDelegate.qml
         qml/MediaTrackMetadataForm.qml
-        qml/TracksDiscHeader.qml
         qml/MediaTrackMetadataView.qml
-        qml/GridBrowserDelegate.qml
-        qml/ListBrowserDelegate.qml
-        qml/FlatButtonWithToolTip.qml
-        qml/HeaderFooterToolbar.qml
-
+        qml/NativeGlobalMenu.qml
+        qml/NativeGlobalMenuPlaylistModeItem.qml
+        qml/NativeMenuItemFromAction.qml
+        qml/NativeTrayMenu.qml
+        qml/NavigationActionBar.qml
+        qml/PlatformIntegration.qml
+        qml/PlayListEntry.qml
+        qml/PlaylistModeItem.qml
+        qml/RatingStar.qml
         qml/SettingsForm.qml
-        qml/ConfigurationDialog.qml
+        qml/SimplePlayListView.qml
+        qml/SortMenu.qml
+        qml/Theme.qml
+        qml/TrackImportNotification.qml
+        qml/TracksDiscHeader.qml
+        qml/ViewSelector.qml
+        qml/VolumeSlider.qml
 
         qml/mobile/MobileFooterBar.qml
         qml/mobile/MobileMediaTrackMetadataView.qml
@@ -377,10 +364,19 @@ if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
         qml/mobile/MobileSidebar.qml
         qml/mobile/MobileTrackPlayer.qml
         qml/mobile/MobileVolumeButton.qml
+
+        qml/shared/BasePlayerControl.qml
+        qml/shared/BasePlayListDelegate.qml
+    RESOURCES
+        background.png
+        qtquickcontrols2.conf
     )
 
-    qt_add_resources(elisa_SOURCES resources.qrc)
-    set_property(SOURCE qrc_resources.cpp PROPERTY SKIP_AUTOMOC ON)
+if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
+
+    set(elisa_SOURCES
+        main.cpp
+    )
 
     set(elisa_ICONS_PNG
         ../icons/128-apps-elisa.png

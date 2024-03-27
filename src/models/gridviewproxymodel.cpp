@@ -27,6 +27,7 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
 
     const auto &mainValue = sourceModel()->data(currentIndex, Qt::DisplayRole).toString();
     const auto &artistValue = sourceModel()->data(currentIndex, DataTypes::ArtistRole).toString();
+    const auto &albumValue = sourceModel()->data(currentIndex, DataTypes::AlbumRole).toString();
     const auto &allArtistsValue = sourceModel()->data(currentIndex, DataTypes::AllArtistsRole).toStringList();
     bool collectionMaximumRatingValueIsValid = false;
     const auto collectionMaximumRatingValue = sourceModel()->data(currentIndex, DataTypes::HighestTrackRating).toInt(&collectionMaximumRatingValueIsValid);
@@ -48,6 +49,11 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
     }
 
     if (mFilterExpression.match(artistValue.normalized(QString::NormalizationForm_KC)).hasMatch()) {
+        result = true;
+        return result;
+    }
+
+    if (mFilterExpression.match(albumValue.normalized(QString::NormalizationForm_KC)).hasMatch()) {
         result = true;
         return result;
     }

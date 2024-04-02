@@ -4,7 +4,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import org.kde.elisa 1.0
+import org.kde.elisa
 import QtQuick.Controls 2.3
 
 MenuItem {

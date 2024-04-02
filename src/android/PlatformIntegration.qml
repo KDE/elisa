@@ -5,7 +5,7 @@
  */
 
 import QtQuick 2.7
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 Item {
     id: rootItem

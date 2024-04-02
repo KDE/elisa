@@ -9,7 +9,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
 import org.kde.kirigami 2.17 as Kirigami
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 import "shared"
 

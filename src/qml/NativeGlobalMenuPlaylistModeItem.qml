@@ -5,7 +5,7 @@
  */
 
 import Qt.labs.platform 1.1
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 MenuItem {
     property int mode: -1

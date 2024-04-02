@@ -15,7 +15,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Dialogs as Dialogs
 
 import org.kde.kirigami 2.13 as Kirigami
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 Kirigami.FormLayout {
     id: form

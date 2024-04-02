@@ -8,7 +8,7 @@ import QtQuick 2.10
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.4
 import org.kde.kirigami 2.5 as Kirigami
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 /*
  * This visually mimics the Kirigami.InlineMessage due to the

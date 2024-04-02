@@ -11,7 +11,7 @@ import QtQml.Models 2.1
 import QtQuick.Layouts 1.2
 
 import org.kde.kirigami 2.12 as Kirigami
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 FocusScope {
     id: abstractView

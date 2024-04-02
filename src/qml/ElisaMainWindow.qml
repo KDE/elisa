@@ -11,7 +11,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.kirigamiaddons.formcard 1.0 as FormCard
-import org.kde.elisa 1.0
+import org.kde.elisa
 import org.kde.elisa.about 1.0
 import Qt.labs.platform 1.1
 

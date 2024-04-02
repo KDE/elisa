@@ -5,7 +5,7 @@
  */
 
 import QtQuick 2.0
-import org.kde.elisa 1.0
+import org.kde.elisa
 import QtWinExtras 1.0
 
 Item {

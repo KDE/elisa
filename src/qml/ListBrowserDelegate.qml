@@ -12,7 +12,7 @@ import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
 import Qt5Compat.GraphicalEffects
 import org.kde.kirigami 2.19 as Kirigami
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 import "mobile"
 

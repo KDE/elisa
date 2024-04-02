@@ -8,7 +8,7 @@
 import QtQuick 2.15
 
 import org.kde.kirigami 2.12 as Kirigami
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 AbstractDataView {
     id: listView

@@ -10,7 +10,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import org.kde.kirigami 2.10 as Kirigami
 
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 import QtQuick 2.0
 

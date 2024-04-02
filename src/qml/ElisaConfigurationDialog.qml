@@ -13,7 +13,7 @@ import QtQuick.Dialogs as Dialogs
 
 import org.kde.kirigami 2.14 as Kirigami
 
-import org.kde.elisa 1.0
+import org.kde.elisa
 
 Window {
     id: dialog

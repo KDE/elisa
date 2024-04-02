@@ -367,7 +367,7 @@ if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
         qml/HeaderFooterToolbar.qml
 
         qml/SettingsForm.qml
-        qml/ElisaConfigurationDialog.qml
+        qml/ConfigurationDialog.qml
 
         qml/mobile/MobileFooterBar.qml
         qml/mobile/MobileMediaTrackMetadataView.qml

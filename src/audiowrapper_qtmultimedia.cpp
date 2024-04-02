@@ -66,8 +66,8 @@ bool AudioWrapper::muted() const
 
 qreal AudioWrapper::volume() const
 {
-    auto realVolume = static_cast<qreal>(d->mOutput.volume() / 100.0);
-    auto userVolume = static_cast<qreal>(QAudio::convertVolume(realVolume, QAudio::LinearVolumeScale, QAudio::LogarithmicVolumeScale));
+    const auto realVolume = d->mOutput.volume();
+    const auto userVolume = static_cast<qreal>(QAudio::convertVolume(realVolume, QAudio::LinearVolumeScale, QAudio::LogarithmicVolumeScale));
 
     return userVolume * 100.0;
 }
@@ -121,7 +121,7 @@ void AudioWrapper::setVolume(qreal volume)
     qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::setVolume" << volume;
 
     auto realVolume = static_cast<qreal>(QAudio::convertVolume(volume / 100.0, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale));
-    d->mOutput.setVolume(qRound(realVolume * 100));
+    d->mOutput.setVolume(realVolume);
 }
 
 void AudioWrapper::setSource(const QUrl &source)

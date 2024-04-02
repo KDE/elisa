@@ -11,23 +11,22 @@
 #include <QIcon>
 #include <QModelIndex>
 
-ColorSchemePreviewImageProvider::ColorSchemePreviewImageProvider(KColorSchemeManager *schemes)
-    : QQuickImageProvider(QQuickImageProvider::Pixmap), mSchemes(schemes)
+ColorSchemePreviewImageProvider::ColorSchemePreviewImageProvider()
+    : QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
 }
 
 QPixmap ColorSchemePreviewImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
-    if (!mSchemes) {
-        return QPixmap();
-    }
-    QModelIndex index = mSchemes->indexForScheme(id);
+    KColorSchemeManager schemes;
+
+    QModelIndex index = schemes.indexForScheme(id);
 
     // the id of the default entry must be set to an empty string
     if (!index.isValid()) {
-        index = mSchemes->indexForScheme(QStringLiteral(""));
+        index = schemes.indexForScheme(QStringLiteral(""));
     }
-    const auto pixmap = mSchemes->model()->data(index, Qt::DecorationRole).value<QIcon>().pixmap(requestedSize);
+    const auto pixmap = schemes.model()->data(index, Qt::DecorationRole).value<QIcon>().pixmap(requestedSize);
     *size = pixmap.size();
     return pixmap;
 }

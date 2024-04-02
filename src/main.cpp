@@ -7,10 +7,15 @@
 #include "config-upnp-qt.h"
 #include "elisa-version.h"
 
+#include "colorschemepreviewimageprovider.h"
 #include "elisaapplication.h"
 #include "elisa_settings.h"
 
 #include "localFileConfiguration/elisaconfigurationdialog.h"
+
+#if KFFileMetaData_FOUND
+#include "embeddedcoverageimageprovider.h"
+#endif
 
 //#define QT_QML_DEBUG
 
@@ -40,6 +45,8 @@
 #include <memory>
 
 #ifdef Q_OS_ANDROID
+#include "android/androidcoverimageprovider.h"
+
 #include <QCoreApplication>
 #include <QJniObject>
 #include <QtCore/private/qandroidextras_p.h>
@@ -137,6 +144,16 @@ int main(int argc, char *argv[])
 
     // Allow image:// icon URLs to be loaded as images im QML
     engine.addImageProvider(QStringLiteral("icon"), new KQuickIconProvider);
+
+#if KFFileMetaData_FOUND
+    engine.addImageProvider(QStringLiteral("cover"), new EmbeddedCoverageImageProvider);
+#endif
+
+#ifdef Q_OS_ANDROID
+    engine.addImageProvider(QStringLiteral("android"), new AndroidCoverImageProvider);
+#endif
+
+    engine.addImageProvider(QStringLiteral("colorScheme"), new ColorSchemePreviewImageProvider);
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
 

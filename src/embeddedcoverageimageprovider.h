@@ -7,10 +7,12 @@
 #ifndef EMBEDDEDCOVERAGEIMAGEPROVIDER_H
 #define EMBEDDEDCOVERAGEIMAGEPROVIDER_H
 
+#include "elisaLib_export.h"
+
 #include <QQuickAsyncImageProvider>
 #include <QThreadPool>
 
-class EmbeddedCoverageImageProvider : public QQuickAsyncImageProvider
+class ELISALIB_EXPORT EmbeddedCoverageImageProvider : public QQuickAsyncImageProvider
 {
 public:
 

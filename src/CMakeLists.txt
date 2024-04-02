@@ -5,6 +5,7 @@
 include_directories(${elisa_BINARY_DIR})
 
 set(elisaLib_SOURCES
+    colorschemepreviewimageprovider.cpp
     mediaplaylist.cpp
     mediaplaylistproxymodel.cpp
     progressindicator.cpp
@@ -138,6 +139,13 @@ if (ANDROID)
         )
 endif()
 
+if (KF6FileMetaData_FOUND)
+    set(elisaLib_SOURCES
+        ${elisaLib_SOURCES}
+        embeddedcoverageimageprovider.cpp
+    )
+endif()
+
 if (KF6KIO_FOUND)
     set(elisaLib_SOURCES
         ${elisaLib_SOURCES}
@@ -179,7 +187,7 @@ target_link_libraries(elisaLib
     LINK_PUBLIC
     Qt::Multimedia
     LINK_PRIVATE
-    Qt::Core Qt::Sql Qt::Widgets Qt::Concurrent Qt::Qml
+    Qt::Core Qt::Quick Qt::Sql Qt::Widgets Qt::Concurrent Qt::Qml
     KF6::I18n KF6::CoreAddons
     KF6::ConfigCore KF6::ConfigGui
     KF6::ColorScheme)
@@ -263,15 +271,7 @@ endif()
 set(elisaqmlplugin_SOURCES
     elisaqmlplugin.cpp
     elisautils.cpp
-    colorschemepreviewimageprovider.cpp
 )
-
-if (KF6FileMetaData_FOUND)
-    set(elisaqmlplugin_SOURCES
-        ${elisaqmlplugin_SOURCES}
-        embeddedcoverageimageprovider.cpp
-    )
-endif()
 
 add_library(elisaqmlplugin SHARED ${elisaqmlplugin_SOURCES})
 target_link_libraries(elisaqmlplugin
@@ -280,13 +280,6 @@ target_link_libraries(elisaqmlplugin
     KF6::ConfigCore KF6::ConfigGui
     elisaLib
     )
-
-if (KF6FileMetaData_FOUND)
-    target_link_libraries(elisaqmlplugin
-        LINK_PRIVATE
-        KF6::FileMetaData
-        )
-endif()
 
 set_target_properties(elisaqmlplugin PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/org/kde/elisa

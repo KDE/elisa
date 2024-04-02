@@ -7,20 +7,20 @@
 #ifndef COLORSCHEMEPREVIEWIMAGEPROVIDER_H
 #define COLORSCHEMEPREVIEWIMAGEPROVIDER_H
 
+#include "elisaLib_export.h"
+
 #include <QQuickImageProvider>
 
 class KColorSchemeManager;
 
-class ColorSchemePreviewImageProvider : public QQuickImageProvider
+class ELISALIB_EXPORT ColorSchemePreviewImageProvider : public QQuickImageProvider
 {
 public:
 
-    ColorSchemePreviewImageProvider(KColorSchemeManager *schemes);
+    ColorSchemePreviewImageProvider();
+
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) override;
 
-private:
-
-    KColorSchemeManager *mSchemes;
 };
 
 #endif // COLORSCHEMEPREVIEWIMAGEPROVIDER_H

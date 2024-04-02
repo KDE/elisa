@@ -88,17 +88,6 @@ ElisaQmlTestPlugin::ElisaQmlTestPlugin(QObject *aParent)
 {
 }
 
-void ElisaQmlTestPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
-{
-    QQmlExtensionPlugin::initializeEngine(engine, uri);
-#if KFFileMetaData_FOUND
-    engine->addImageProvider(QStringLiteral("cover"), new EmbeddedCoverageImageProvider);
-#endif
-#ifdef Q_OS_ANDROID
-    engine->addImageProvider(QStringLiteral("android"), new AndroidCoverImageProvider);
-#endif
-}
-
 void ElisaQmlTestPlugin::registerTypes(const char *uri)
 {
 #if UPNPQT_FOUND
@@ -219,7 +208,6 @@ void ElisaQmlTestPlugin::registerTypes(const char *uri)
 #endif
 
         newApplication->setQmlEngine(engine);
-        engine->addImageProvider(QStringLiteral("colorScheme"), new ColorSchemePreviewImageProvider(newApplication->getSchemes()));
 
         return newApplication.release();
     });

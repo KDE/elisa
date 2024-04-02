@@ -19,7 +19,6 @@ class ElisaQmlTestPlugin : public QQmlExtensionPlugin
 public:
     explicit ElisaQmlTestPlugin(QObject *aParent = nullptr);
 
-    void initializeEngine(QQmlEngine *engine, const char *uri) override;
     void registerTypes(const char *uri) override;
 };
 

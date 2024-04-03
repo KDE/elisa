@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-02 00:37+0000\n"
+"POT-Creation-Date: 2024-04-03 00:37+0000\n"
 "PO-Revision-Date: 2024-02-18 16:19+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -40,103 +40,103 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "வானொலி நிலையங்கள்"
 
-#: elisaapplication.cpp:183
+#: elisaapplication.cpp:206
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "பாடல்வரிசையை நிலைமாற்று"
 
-#: elisaapplication.cpp:188
+#: elisaapplication.cpp:211
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10 நொடிகள் முன்னே செல்"
 
-#: elisaapplication.cpp:194
+#: elisaapplication.cpp:217
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "10 நொடிகள் பின்னே செல்"
 
-#: elisaapplication.cpp:200
+#: elisaapplication.cpp:223
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "அடுத்த பாடலுக்கு செல்"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:229
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "முந்தைய பாடலுக்கு செல்"
 
-#: elisaapplication.cpp:212
+#: elisaapplication.cpp:235
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "இயக்கு/பொறு"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:246
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "கொண்டாட்ட பயன்முறையை இயக்கு/முடக்கு"
 
-#: main.cpp:95
+#: main.cpp:102
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "எலைசா"
 
-#: main.cpp:97
+#: main.cpp:104
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "கே.டீ.யீ. சமூகம் உருவாக்கிய எளிய பாடல் இசைப்பி"
 
-#: main.cpp:99
+#: main.cpp:106
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, எலைசா நிரலாளர்கள்"
 
-#: main.cpp:101 models/lyricsmodel.cpp:161
+#: main.cpp:108 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "உருவாக்கியவர்"
 
-#: main.cpp:102
+#: main.cpp:109
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "இயற்றியவர்"
 
-#: main.cpp:104
+#: main.cpp:111
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "யோசனையும் வடிவமைப்பும்"
 
-#: main.cpp:105
+#: main.cpp:112
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "மொழிப்பெயர்ப்புக்கான ஆதரவு"
 
-#: main.cpp:106
+#: main.cpp:113
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "வலதிலிருந்து இடதாக எழுதும் மொழிகளுக்கான ஆதரவு"
 
-#: main.cpp:107
+#: main.cpp:114
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "இடைமுகப்பை மேம்படுத்தியவர்"
 
-#: main.cpp:108
+#: main.cpp:115
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"
@@ -413,6 +413,12 @@ msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
 msgstr "நிறத் திட்டம்"
 
+#: qml/ConfigurationDialog.qml:21
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure"
+msgstr "அமை"
+
 #: qml/ContextView.qml:39
 #, kde-format
 msgctxt ""
@@ -477,12 +483,6 @@ msgstr "00:00:00"
 msgctxt "@label"
 msgid "Duration"
 msgstr "நீளம்"
-
-#: qml/ElisaConfigurationDialog.qml:21
-#, kde-format
-msgctxt "@title:window"
-msgid "Configure"
-msgstr "அமை"
 
 #: qml/ElisaMainWindow.qml:28
 #, kde-format

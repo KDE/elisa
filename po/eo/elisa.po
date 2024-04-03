@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-02 00:37+0000\n"
+"POT-Creation-Date: 2024-04-03 00:37+0000\n"
 "PO-Revision-Date: 2024-02-05 22:05+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -41,103 +41,103 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radiostacioj"
 
-#: elisaapplication.cpp:183
+#: elisaapplication.cpp:206
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Baskuligi Ludliston"
 
-#: elisaapplication.cpp:188
+#: elisaapplication.cpp:211
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Serĉi antaŭen 10 sekundojn"
 
-#: elisaapplication.cpp:194
+#: elisaapplication.cpp:217
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Froti malantaŭen 10 sekundojn"
 
-#: elisaapplication.cpp:200
+#: elisaapplication.cpp:223
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Iri al la sekva trako"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:229
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Iri al antaŭa trako"
 
-#: elisaapplication.cpp:212
+#: elisaapplication.cpp:235
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Ludi/paŭzi"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:246
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Baskuligi Festreĝimon"
 
-#: main.cpp:95
+#: main.cpp:102
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Eliza"
 
-#: main.cpp:97
+#: main.cpp:104
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Simpla Muzika Ludilo farita kun amo de la KDE-komunumo"
 
-#: main.cpp:99
+#: main.cpp:106
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa kontribuantoj"
 
-#: main.cpp:101 models/lyricsmodel.cpp:161
+#: main.cpp:108 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Kreinto"
 
-#: main.cpp:102
+#: main.cpp:109
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Aŭtoro"
 
-#: main.cpp:104
+#: main.cpp:111
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Koncepta kaj dezajno laboro"
 
-#: main.cpp:105
+#: main.cpp:112
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Subteno de lokalizo"
 
-#: main.cpp:106
+#: main.cpp:113
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Dekstre al maldekstre subteno en interfaco"
 
-#: main.cpp:107
+#: main.cpp:114
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Diversaj plibonigoj al la interfaco"
 
-#: main.cpp:108
+#: main.cpp:115
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"
@@ -414,6 +414,12 @@ msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
 msgstr "Kolorskemo"
 
+#: qml/ConfigurationDialog.qml:21
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure"
+msgstr "Agordi"
+
 #: qml/ContextView.qml:39
 #, kde-format
 msgctxt ""
@@ -478,12 +484,6 @@ msgstr "00:00:00"
 msgctxt "@label"
 msgid "Duration"
 msgstr "Daŭro"
-
-#: qml/ElisaConfigurationDialog.qml:21
-#, kde-format
-msgctxt "@title:window"
-msgid "Configure"
-msgstr "Agordi"
 
 #: qml/ElisaMainWindow.qml:28
 #, kde-format

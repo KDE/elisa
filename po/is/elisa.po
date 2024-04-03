@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-02 00:37+0000\n"
+"POT-Creation-Date: 2024-04-03 00:37+0000\n"
 "PO-Revision-Date: 2024-02-19 08:49+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
@@ -41,103 +41,103 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Útvarpsstöðvar"
 
-#: elisaapplication.cpp:183
+#: elisaapplication.cpp:206
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Sýna/fela spilunarlista"
 
-#: elisaapplication.cpp:188
+#: elisaapplication.cpp:211
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Spóla áfram um 10 sekúndur"
 
-#: elisaapplication.cpp:194
+#: elisaapplication.cpp:217
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Spóla til baka um 10 sekúndur"
 
-#: elisaapplication.cpp:200
+#: elisaapplication.cpp:223
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Fara í næsta lag"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:229
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Fara í lagið á undan"
 
-#: elisaapplication.cpp:212
+#: elisaapplication.cpp:235
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Spila/setja á pásu"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:246
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Sýna/fela Partísnið"
 
-#: main.cpp:95
+#: main.cpp:102
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:97
+#: main.cpp:104
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Einfaldur tónlistarspilari gerður af alúð af KDE samfélaginu"
 
-#: main.cpp:99
+#: main.cpp:106
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, þróunaraðilar Elisa"
 
-#: main.cpp:101 models/lyricsmodel.cpp:161
+#: main.cpp:108 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Skapari"
 
-#: main.cpp:102
+#: main.cpp:109
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Höfundur"
 
-#: main.cpp:104
+#: main.cpp:111
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Hugmynda- og hönnunarvinna"
 
-#: main.cpp:105
+#: main.cpp:112
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Stuðningur við staðfærslu"
 
-#: main.cpp:106
+#: main.cpp:113
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Stuðningur í viðmóti við hægri-til-vinstri letur"
 
-#: main.cpp:107
+#: main.cpp:114
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Ýmsar endurbætur í notandaviðmótinu"
 
-#: main.cpp:108
+#: main.cpp:115
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"
@@ -414,6 +414,12 @@ msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
 msgstr "Litastef"
 
+#: qml/ConfigurationDialog.qml:21
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure"
+msgstr "Grunnstilla"
+
 #: qml/ContextView.qml:39
 #, kde-format
 msgctxt ""
@@ -478,12 +484,6 @@ msgstr "00:00:00"
 msgctxt "@label"
 msgid "Duration"
 msgstr "Tímalengd"
-
-#: qml/ElisaConfigurationDialog.qml:21
-#, kde-format
-msgctxt "@title:window"
-msgid "Configure"
-msgstr "Grunnstilla"
 
 #: qml/ElisaMainWindow.qml:28
 #, kde-format

@@ -48,7 +48,7 @@ Item {
 
     property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
 
-    implicitHeight: layout.height
+    implicitHeight: toolbar.height
 
     onViewStyleChanged: {
         if (viewManager) {
@@ -180,27 +180,28 @@ Item {
         }
     }
 
-    // header layout
-    ColumnLayout {
-        id: layout
+    HeaderFooterToolbar {
+        id: toolbar
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        spacing: 0
 
-        HeaderFooterToolbar {
-            id: mainHeader
-            toolbarType: Kirigami.Settings.isMobile || filterRow.visible ? HeaderFooterToolbar.ToolbarType.Other
-                                                                         : HeaderFooterToolbar.ToolbarType.Header
-            Layout.fillWidth: true
+        toolbarType: Kirigami.Settings.isMobile ? HeaderFooterToolbar.Other : HeaderFooterToolbar.ToolbarType.Header
 
-            // on mobile, the header is translucent
-            color: Kirigami.Settings.isMobile ? Qt.rgba(myPalette.window.r, myPalette.window.g, myPalette.window.b, 0.3) : myPalette.window
-            Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
-            Kirigami.Theme.inherit: false
+        // on mobile, the header is translucent
+        color: Kirigami.Settings.isMobile ? Qt.rgba(myPalette.window.r, myPalette.window.g, myPalette.window.b, 0.3) : myPalette.window
+        Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
+        Kirigami.Theme.inherit: false
 
-            contentItem: RowLayout {
+        contentItem: Column {
+            spacing: 0
 
+            // header layout
+            RowLayout {
+                id: mainHeader
+
+                width: parent.width
+                height: 2 * Kirigami.Units.gridUnit
                 spacing: Kirigami.Units.smallSpacing
 
                 FlatButtonWithToolTip {
@@ -305,26 +306,17 @@ Item {
                     onClicked: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView;
                 }
             }
-        }
 
-        // on mobile, move header buttons into a second row (there's limited horizontal space for track names and etc.)
-        Loader {
-            active: Kirigami.Settings.isMobile
-            visible: active
+            // on mobile, move header buttons into a second row (there's limited horizontal space for track names and etc.)
+            Loader {
+                active: Kirigami.Settings.isMobile
+                visible: active
 
-            Layout.fillWidth: true
-            Layout.preferredHeight: Kirigami.Units.gridUnit * 2
+                width: parent.width
+                height: 2 * Kirigami.Units.gridUnit
 
-            sourceComponent: HeaderFooterToolbar {
-                id: mobileActions
-                toolbarType: Kirigami.Settings.isMobile || filterRow.visible ? HeaderFooterToolbar.ToolbarType.Other : HeaderFooterToolbar.ToolbarType.Header
-
-                // on mobile, the header is translucent
-                color: Kirigami.Settings.isMobile ? Qt.rgba(myPalette.window.r, myPalette.window.g, myPalette.window.b, 0.3) : myPalette.window
-                Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
-                Kirigami.Theme.inherit: false
-
-                contentItem: RowLayout {
+                sourceComponent: RowLayout {
+                    id: mobileActions
 
                     spacing: Kirigami.Units.smallSpacing
 
@@ -367,35 +359,27 @@ Item {
                     }
                 }
             }
-        }
 
-        // filter bar
-        HeaderFooterToolbar {
-            id: filterRow
-            toolbarType: Kirigami.Settings.isMobile ? HeaderFooterToolbar.ToolbarType.Other : HeaderFooterToolbar.ToolbarType.Header
+            // filter bar
+            RowLayout {
+                id: filterRow
 
-            color: Kirigami.Settings.isMobile ? Qt.rgba(myPalette.window.r, myPalette.window.g, myPalette.window.b, 0.3) : myPalette.window
-            Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
-            Kirigami.Theme.inherit: false
+                width: parent.width
+                height: 2 * Kirigami.Units.gridUnit
+                visible: opacity > 0.0
 
-            Layout.fillWidth: true
-
-            visible: opacity > 0.0
-
-            opacity: expandedFilterView ? 1 : 0
-            Behavior on opacity {
-                NumberAnimation {
-                    easing.type: Easing.Linear
-                    duration: Kirigami.Units.longDuration
+                opacity: expandedFilterView ? 1 : 0
+                Behavior on opacity {
+                    NumberAnimation {
+                        easing.type: Easing.Linear
+                        duration: Kirigami.Units.longDuration
+                    }
                 }
-            }
-            onVisibleChanged: {
-                if (visible) {
-                    filterTextInput.forceActiveFocus();
+                onVisibleChanged: {
+                    if (visible) {
+                        filterTextInput.forceActiveFocus();
+                    }
                 }
-            }
-
-            contentItem: RowLayout {
 
                 spacing: Kirigami.Units.smallSpacing
 
@@ -469,7 +453,7 @@ Item {
         active: Kirigami.Settings.isMobile
         visible: active
 
-        anchors.fill: layout
+        anchors.fill: toolbar
         z: -1
 
         sourceComponent: ImageWithFallback {

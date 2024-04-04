@@ -23,24 +23,9 @@ ToolBar {
     // The type of toolbar it is
     property int toolbarType: HeaderFooterToolbar.ToolbarType.Header
 
-    // A list of items to be shown within the header or footer
-    property alias contentItems: contentLayout.children
-
-    // Spacing of content items. Defaults to Kirigami.Units.smallSpacing
-    property alias contentLayoutSpacing: contentLayout.spacing
-
     property alias color: bg.color
 
     horizontalPadding: Kirigami.Units.smallSpacing
-
-    // Content layout
-    contentItem: RowLayout {
-        id: contentLayout
-
-        spacing: Kirigami.Units.smallSpacing
-
-        // Items provided by the contentItems property will go here
-    }
 
     background: Rectangle {
         id: bg

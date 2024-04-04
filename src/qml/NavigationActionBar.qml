@@ -199,7 +199,10 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
 
-            contentItems: [
+            contentItem: RowLayout {
+
+                spacing: Kirigami.Units.smallSpacing
+
                 FlatButtonWithToolTip {
                     id: showSidebarButton
                     objectName: "showSidebarButton"
@@ -207,7 +210,7 @@ Item {
                     text: i18nc("@action:button", "Open sidebar")
                     icon.name: "open-menu-symbolic"
                     onClicked: mainWindow.globalDrawer.open()
-                },
+                }
                 FlatButtonWithToolTip {
                     id: goPreviousButton
                     objectName: "goPreviousButton"
@@ -215,7 +218,7 @@ Item {
                     text: i18nc("@action:button navigate back in the view's stack", "Back")
                     icon.name: (Qt.application.layoutDirection === Qt.RightToLeft) ? "go-next" : "go-previous"
                     onClicked: goBack()
-                },
+                }
                 Kirigami.Icon {
                     id: mainIcon
                     visible: image.toString().length > 0
@@ -226,7 +229,7 @@ Item {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                     Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-                },
+                }
                 ColumnLayout {
                     id: authorAndAlbumLayout
                     Layout.fillWidth: true
@@ -264,32 +267,32 @@ Item {
                             cursorShape: Qt.PointingHandCursor
                         }
                     }
-                },
+                }
                 Loader {
                     sourceComponent: sortMenuComponent
                     active: !Kirigami.Settings.isMobile && enableSorting && !showCreateRadioButton
                     Layout.maximumHeight: parent.height
-                },
+                }
                 Loader {
                     sourceComponent: createRadioButton
                     active: !Kirigami.Settings.isMobile && showCreateRadioButton
                     Layout.maximumHeight: parent.height
-                },
+                }
                 Loader {
                     sourceComponent: enqueueButton
                     active: !Kirigami.Settings.isMobile && !showCreateRadioButton
                     Layout.maximumHeight: parent.height
-                },
+                }
                 Loader {
                     sourceComponent: replaceAndPlayButton
                     active: !Kirigami.Settings.isMobile && !showCreateRadioButton
                     Layout.maximumHeight: parent.height
-                },
+                }
                 Loader {
                     sourceComponent: toggleViewStyleButton
                     active: !Kirigami.Settings.isMobile && navigationBar.canToggleViewStyle
                     Layout.maximumHeight: parent.height
-                },
+                }
                 FlatButtonWithToolTip {
                     Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
                     Kirigami.Theme.inherit: false
@@ -301,7 +304,7 @@ Item {
                     checked: expandedFilterView
                     onClicked: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView;
                 }
-            ]
+            }
         }
 
         // on mobile, move header buttons into a second row (there's limited horizontal space for track names and etc.)
@@ -321,45 +324,48 @@ Item {
                 Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
                 Kirigami.Theme.inherit: false
 
-                contentItems: [
+                contentItem: RowLayout {
+
+                    spacing: Kirigami.Units.smallSpacing
+
                     Loader {
                         sourceComponent: sortMenuComponent
                         active: enableSorting && !showCreateRadioButton
                         Layout.maximumHeight: parent.height
-                    },
+                    }
                     Item {
                         Layout.fillWidth: true
-                    },
+                    }
                     Loader {
                         sourceComponent: createRadioButton
                         active: showCreateRadioButton
                         Layout.maximumHeight: parent.height
-                    },
+                    }
                     Loader {
                         sourceComponent: enqueueButton
                         active: !showCreateRadioButton
                         Layout.maximumHeight: parent.height
-                    },
+                    }
                     Loader {
                         sourceComponent: replaceAndPlayButton
                         active: !showCreateRadioButton
                         Layout.maximumHeight: parent.height
-                    },
+                    }
                     Loader {
                         sourceComponent: showArtistButton
                         active: allowArtistNavigation && !showCreateRadioButton
                         Layout.maximumHeight: parent.height
-                    },
+                    }
                     Loader {
                         sourceComponent: toggleViewStyleButton
                         active: navigationBar.canToggleViewStyle
                         Layout.maximumHeight: parent.height
-                    },
+                    }
                     Loader {
                         sourceComponent: showPlaylistButton
                         Layout.maximumHeight: parent.height
                     }
-                ]
+                }
             }
         }
 
@@ -389,7 +395,10 @@ Item {
                 }
             }
 
-            contentItems: [
+            contentItem: RowLayout {
+
+                spacing: Kirigami.Units.smallSpacing
+
                 Kirigami.SearchField {
                     id: filterTextInput
                     objectName: "filterTextInput"
@@ -404,16 +413,16 @@ Item {
                     placeholderText: i18nc("@info:placeholder", "Search for album name, artist, etc.")
 
                     Keys.onEscapePressed: persistentSettings.expandedFilterView = false;
-                },
+                }
                 Item {
                     width: Kirigami.Units.largeSpacing
                     visible: showRating && !ElisaApplication.useFavoriteStyleRatings
-                },
+                }
                 LabelWithToolTip {
                     text: i18nc("@label:chooser", "Filter by rating: ")
 
                     visible: showRating && !ElisaApplication.useFavoriteStyleRatings
-                },
+                }
                 RatingStar {
                     id: ratingFilter
                     objectName: "ratingFilter"
@@ -421,7 +430,7 @@ Item {
                     visible: showRating && !ElisaApplication.useFavoriteStyleRatings
 
                     readOnly: false
-                },
+                }
                 FlatButtonWithToolTip {
                     visible: showRating && ElisaApplication.useFavoriteStyleRatings
 
@@ -440,7 +449,7 @@ Item {
                         }
                     }
                 }
-            ]
+            }
         }
     }
 

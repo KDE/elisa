@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-03 00:37+0000\n"
+"POT-Creation-Date: 2024-04-05 00:37+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -451,13 +451,45 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Muusika esitamine"
 
-#: qml/AbstractDataView.qml:198
+#: qml/AbstractBrowserDelegate.qml:39 qml/NavigationActionBar.qml:125
+#, fuzzy, kde-format
+#| msgctxt "Clear play list and add whole container to play list"
+#| msgid "Play now, replacing current playlist"
+msgctxt "@action:button"
+msgid "Play now, replacing current playlist"
+msgstr "Esitamine kohe senist esitusloendit asendades"
+
+#: qml/AbstractBrowserDelegate.qml:46 qml/TrackBrowserDelegate.qml:74
+#, fuzzy, kde-format
+#| msgctxt "Add whole container to play list"
+#| msgid "Add to playlist"
+msgctxt "@action:button"
+msgid "Add to playlist"
+msgstr "Lisa esitusloendisse"
+
+#: qml/AbstractBrowserDelegate.qml:55 qml/mobile/MobilePlayListDelegate.qml:166
+#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:62
+#, fuzzy, kde-format
+#| msgid "Choose a Folder"
+msgctxt "@action:button Show the file for this song in the file manager"
+msgid "Show in folder"
+msgstr "Kataloogi valimine"
+
+#: qml/AbstractBrowserDelegate.qml:77
+#, fuzzy, kde-format
+#| msgctxt "Show filters in the navigation bar"
+#| msgid "Show Search Options"
+msgctxt "@action:button"
+msgid "Options"
+msgstr "Otsimisvalikute näitamine"
+
+#: qml/AbstractDataView.qml:200
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr ""
 
-#: qml/AbstractDataView.qml:198
+#: qml/AbstractDataView.qml:200
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -521,7 +553,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Praegu esitusel"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:172
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:207
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -542,7 +574,7 @@ msgid "Lyrics"
 msgstr "Sõnad"
 
 #: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
+#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:149
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -676,118 +708,11 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Salvestamine nurjus"
 
-#: qml/GridBrowserDelegate.qml:59 qml/NavigationActionBar.qml:117
-#, fuzzy, kde-format
-#| msgctxt "Clear play list and add whole container to play list"
-#| msgid "Play now, replacing current playlist"
-msgctxt "@action:button"
-msgid "Play now, replacing current playlist"
-msgstr "Esitamine kohe senist esitusloendit asendades"
-
-#: qml/GridBrowserDelegate.qml:66 qml/ListBrowserDelegate.qml:81
-#, fuzzy, kde-format
-#| msgctxt "Add whole container to play list"
-#| msgid "Add to playlist"
-msgctxt "@action:button"
-msgid "Add to playlist"
-msgstr "Lisa esitusloendisse"
-
-#: qml/GridBrowserDelegate.qml:75 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
-#, fuzzy, kde-format
-#| msgid "Choose a Folder"
-msgctxt "@action:button Show the file for this song in the file manager"
-msgid "Show in folder"
-msgstr "Kataloogi valimine"
-
-#: qml/GridBrowserDelegate.qml:310
-#, fuzzy, kde-format
-#| msgctxt "Show filters in the navigation bar"
-#| msgid "Show Search Options"
-msgctxt "@action:button"
-msgid "Options"
-msgstr "Otsimisvalikute näitamine"
-
 #: qml/HeaderBar.qml:172
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr ""
-
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
-#: qml/PlayListEntry.qml:93
-#, fuzzy, kde-format
-#| msgctxt "Show track metadata"
-#| msgid "View Details"
-msgctxt "@action:button Show track metadata"
-msgid "View details"
-msgstr "Näita üksikasju"
-
-#: qml/ListBrowserDelegate.qml:86
-#, fuzzy, kde-format
-#| msgctxt "Clear play list and add whole container to play list"
-#| msgid "Play now, replacing current playlist"
-msgctxt "@action:button"
-msgid "Play from here, replacing current playlist"
-msgstr "Esitamine kohe senist esitusloendit asendades"
-
-#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:107
-#, kde-format
-msgctxt "@action:button"
-msgid "Set track rating"
-msgstr ""
-
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Un-mark this song as a favorite"
-msgstr ""
-
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Mark this song as a favorite"
-msgstr ""
-
-#: qml/ListBrowserDelegate.qml:216 qml/ListBrowserDelegate.qml:232
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title"
-#| msgid "%1 - %2"
-msgctxt "@item:intable %1: track number. %2: track title."
-msgid "%1 - %2"
-msgstr "%1 - %2"
-
-#: qml/ListBrowserDelegate.qml:227
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title"
-#| msgid "%1 - %2"
-msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-msgid "%1 - %2 - %3"
-msgstr "%1 - %2"
-
-#: qml/ListBrowserDelegate.qml:239
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title"
-#| msgid "%1 - %2"
-msgctxt "@item:intable %1: track title. %2: artist name"
-msgid "%1 - %2"
-msgstr "%1 - %2"
-
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:299
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel rating this track"
-msgstr ""
-
-#: qml/ListBrowserDelegate.qml:373
-#, fuzzy, kde-format
-#| msgctxt "Show filters in the navigation bar"
-#| msgid "Show Search Options"
-msgctxt "@action:button"
-msgid "Song Options"
-msgstr "Otsimisvalikute näitamine"
 
 #: qml/MediaPlayerControl.qml:87
 #, fuzzy, kde-format
@@ -1026,6 +951,20 @@ msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Esitusloendi puhastamine"
 
+#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:93
+#, kde-format
+msgctxt "@action:button"
+msgid "Un-mark this song as a favorite"
+msgstr ""
+
+#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:93
+#, kde-format
+msgctxt "@action:button"
+msgid "Mark this song as a favorite"
+msgstr ""
+
 #: qml/MediaTrackMetadataDelegate.qml:185
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
@@ -1134,6 +1073,15 @@ msgstr "Rajad"
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Raadio"
+
+#: qml/mobile/MobilePlayListDelegate.qml:172 qml/PlayListEntry.qml:93
+#: qml/TrackBrowserDelegate.qml:69
+#, fuzzy, kde-format
+#| msgctxt "Show track metadata"
+#| msgid "View Details"
+msgctxt "@action:button Show track metadata"
+msgid "View details"
+msgstr "Näita üksikasju"
 
 #: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
@@ -1319,19 +1267,19 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:78
+#: qml/NavigationActionBar.qml:86
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:79
+#: qml/NavigationActionBar.qml:87
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:101
 #, fuzzy, kde-format
 #| msgctxt "Create a new radio"
 #| msgid "Create a radio"
@@ -1339,7 +1287,7 @@ msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Loo raadio"
 
-#: qml/NavigationActionBar.qml:105
+#: qml/NavigationActionBar.qml:113
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to playlist"
@@ -1347,7 +1295,7 @@ msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Lisa esitusloendisse"
 
-#: qml/NavigationActionBar.qml:129
+#: qml/NavigationActionBar.qml:137
 #, fuzzy, kde-format
 #| msgctxt "Button to navigate to the artist of the album"
 #| msgid "Display Artist"
@@ -1355,7 +1303,15 @@ msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Näita esitajat"
 
-#: qml/NavigationActionBar.qml:180
+#: qml/NavigationActionBar.qml:160
+#, fuzzy, kde-format
+#| msgctxt "toggle shuffle mode for playlist"
+#| msgid "Toggle Shuffle"
+msgctxt "@action:button"
+msgid "Toggle View Style"
+msgstr "Segamini järjekorras esitamise lülitamine"
+
+#: qml/NavigationActionBar.qml:215
 #, fuzzy, kde-format
 #| msgctxt "navigate back in the views stack"
 #| msgid "Back"
@@ -1363,7 +1319,7 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Tagasi"
 
-#: qml/NavigationActionBar.qml:258
+#: qml/NavigationActionBar.qml:298
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"
@@ -1371,7 +1327,7 @@ msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Otsimisvalikute peitmine"
 
-#: qml/NavigationActionBar.qml:258
+#: qml/NavigationActionBar.qml:298
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"
@@ -1379,24 +1335,30 @@ msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Otsimisvalikute peitmine"
 
-#: qml/NavigationActionBar.qml:359
+#: qml/NavigationActionBar.qml:404
 #, fuzzy, kde-format
 #| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Albumi nime, esitaja jms otsimine."
 
-#: qml/NavigationActionBar.qml:368
+#: qml/NavigationActionBar.qml:413
 #, fuzzy, kde-format
 #| msgid "Filter by rating: "
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtreerimine hinnangu alusel:"
 
-#: qml/NavigationActionBar.qml:386
+#: qml/NavigationActionBar.qml:431
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
+msgstr ""
+
+#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:85
+#, kde-format
+msgctxt "@action:button"
+msgid "Set track rating"
 msgstr ""
 
 #: qml/PlayListEntry.qml:130
@@ -1422,6 +1384,12 @@ msgstr "Esita"
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Eemalda"
+
+#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:314
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel rating this track"
+msgstr ""
 
 #: qml/SettingsForm.qml:67
 #, fuzzy, kde-format
@@ -1717,6 +1685,46 @@ msgstr ""
 msgctxt "@title:menu"
 msgid "Sort By"
 msgstr ""
+
+#: qml/TrackBrowserDelegate.qml:79
+#, fuzzy, kde-format
+#| msgctxt "Clear play list and add whole container to play list"
+#| msgid "Play now, replacing current playlist"
+msgctxt "@action:button"
+msgid "Play from here, replacing current playlist"
+msgstr "Esitamine kohe senist esitusloendit asendades"
+
+#: qml/TrackBrowserDelegate.qml:209 qml/TrackBrowserDelegate.qml:225
+#, fuzzy, kde-format
+#| msgctxt "%1: track number. %2: track title"
+#| msgid "%1 - %2"
+msgctxt "@item:intable %1: track number. %2: track title."
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/TrackBrowserDelegate.qml:220
+#, fuzzy, kde-format
+#| msgctxt "%1: track number. %2: track title"
+#| msgid "%1 - %2"
+msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
+msgid "%1 - %2 - %3"
+msgstr "%1 - %2"
+
+#: qml/TrackBrowserDelegate.qml:232
+#, fuzzy, kde-format
+#| msgctxt "%1: track number. %2: track title"
+#| msgid "%1 - %2"
+msgctxt "@item:intable %1: track title. %2: artist name"
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/TrackBrowserDelegate.qml:366
+#, fuzzy, kde-format
+#| msgctxt "Show filters in the navigation bar"
+#| msgid "Show Search Options"
+msgctxt "@action:button"
+msgid "Song Options"
+msgstr "Otsimisvalikute näitamine"
 
 #: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-03 00:37+0000\n"
+"POT-Creation-Date: 2024-04-05 00:37+0000\n"
 "PO-Revision-Date: 2024-02-29 11:08+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -365,13 +365,38 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Atskaņo mūziku"
 
-#: qml/AbstractDataView.qml:198
+#: qml/AbstractBrowserDelegate.qml:39 qml/NavigationActionBar.qml:125
+#, kde-format
+msgctxt "@action:button"
+msgid "Play now, replacing current playlist"
+msgstr "Atskaņot, aizvietojot pašreizējo repertuāru"
+
+#: qml/AbstractBrowserDelegate.qml:46 qml/TrackBrowserDelegate.qml:74
+#, kde-format
+msgctxt "@action:button"
+msgid "Add to playlist"
+msgstr "Pievienot repertuāram"
+
+#: qml/AbstractBrowserDelegate.qml:55 qml/mobile/MobilePlayListDelegate.qml:166
+#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:62
+#, kde-format
+msgctxt "@action:button Show the file for this song in the file manager"
+msgid "Show in folder"
+msgstr "Parādīt mapē"
+
+#: qml/AbstractBrowserDelegate.qml:77
+#, kde-format
+msgctxt "@action:button"
+msgid "Options"
+msgstr "Iespējas"
+
+#: qml/AbstractDataView.qml:200
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Nav atbilstību"
 
-#: qml/AbstractDataView.qml:198
+#: qml/AbstractDataView.qml:200
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -428,7 +453,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Šobrīd skan"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:172
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:207
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -447,7 +472,7 @@ msgid "Lyrics"
 msgstr "Dziesmu vārdi"
 
 #: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
+#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:149
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -560,99 +585,11 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Saglabāšana neizdevās"
 
-#: qml/GridBrowserDelegate.qml:59 qml/NavigationActionBar.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Play now, replacing current playlist"
-msgstr "Atskaņot, aizvietojot pašreizējo repertuāru"
-
-#: qml/GridBrowserDelegate.qml:66 qml/ListBrowserDelegate.qml:81
-#, kde-format
-msgctxt "@action:button"
-msgid "Add to playlist"
-msgstr "Pievienot repertuāram"
-
-#: qml/GridBrowserDelegate.qml:75 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
-#, kde-format
-msgctxt "@action:button Show the file for this song in the file manager"
-msgid "Show in folder"
-msgstr "Parādīt mapē"
-
-#: qml/GridBrowserDelegate.qml:310
-#, kde-format
-msgctxt "@action:button"
-msgid "Options"
-msgstr "Iespējas"
-
 #: qml/HeaderBar.qml:172
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Iziet no pilnekrāna režīma"
-
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
-#: qml/PlayListEntry.qml:93
-#, kde-format
-msgctxt "@action:button Show track metadata"
-msgid "View details"
-msgstr "Skatīt informāciju"
-
-#: qml/ListBrowserDelegate.qml:86
-#, kde-format
-msgctxt "@action:button"
-msgid "Play from here, replacing current playlist"
-msgstr "Atskaņot no šīs vietas, aizvietojot pašreizējo repertuāru"
-
-#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:107
-#, kde-format
-msgctxt "@action:button"
-msgid "Set track rating"
-msgstr "Novērtēt celiņu"
-
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Un-mark this song as a favorite"
-msgstr "Noņemt skaņdarbu no iecienītajiem"
-
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Mark this song as a favorite"
-msgstr "Pievienot skaņdarbu pie iecienītajiem"
-
-#: qml/ListBrowserDelegate.qml:216 qml/ListBrowserDelegate.qml:232
-#, kde-format
-msgctxt "@item:intable %1: track number. %2: track title."
-msgid "%1 - %2"
-msgstr "%1 — %2"
-
-#: qml/ListBrowserDelegate.qml:227
-#, kde-format
-msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-msgid "%1 - %2 - %3"
-msgstr "%1: %2 — %3"
-
-#: qml/ListBrowserDelegate.qml:239
-#, kde-format
-msgctxt "@item:intable %1: track title. %2: artist name"
-msgid "%1 - %2"
-msgstr "%1 — %2"
-
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:299
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel rating this track"
-msgstr "Noņemt celiņa vērtējumu"
-
-#: qml/ListBrowserDelegate.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Song Options"
-msgstr "Skaņdarba iespējas"
 
 #: qml/MediaPlayerControl.qml:87
 #, kde-format
@@ -846,6 +783,20 @@ msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Notīrīt visu"
 
+#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:93
+#, kde-format
+msgctxt "@action:button"
+msgid "Un-mark this song as a favorite"
+msgstr "Noņemt skaņdarbu no iecienītajiem"
+
+#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:93
+#, kde-format
+msgctxt "@action:button"
+msgid "Mark this song as a favorite"
+msgstr "Pievienot skaņdarbu pie iecienītajiem"
+
 #: qml/MediaTrackMetadataDelegate.qml:185
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
@@ -936,6 +887,13 @@ msgstr "Celiņa iespējas"
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Radio opcijas"
+
+#: qml/mobile/MobilePlayListDelegate.qml:172 qml/PlayListEntry.qml:93
+#: qml/TrackBrowserDelegate.qml:69
+#, kde-format
+msgctxt "@action:button Show track metadata"
+msgid "View details"
+msgstr "Skatīt informāciju"
 
 #: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
@@ -1095,71 +1053,85 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Palīdzība"
 
-#: qml/NavigationActionBar.qml:78
+#: qml/NavigationActionBar.qml:86
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Kārtot: %1"
 
-#: qml/NavigationActionBar.qml:79
+#: qml/NavigationActionBar.qml:87
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Kārtot"
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:101
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Pievienot radiostaciju"
 
-#: qml/NavigationActionBar.qml:105
+#: qml/NavigationActionBar.qml:113
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Pievienot repertuāram"
 
-#: qml/NavigationActionBar.qml:129
+#: qml/NavigationActionBar.qml:137
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Parādīt izpildītāju"
 
-#: qml/NavigationActionBar.qml:180
+#: qml/NavigationActionBar.qml:160
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Toggle Shuffle"
+msgctxt "@action:button"
+msgid "Toggle View Style"
+msgstr "Ieslēgt/izslēgt secības jaukšanu"
+
+#: qml/NavigationActionBar.qml:215
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Atpakaļ"
 
-#: qml/NavigationActionBar.qml:258
+#: qml/NavigationActionBar.qml:298
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Meklēt un filtrēt"
 
-#: qml/NavigationActionBar.qml:258
+#: qml/NavigationActionBar.qml:298
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Paslēpt meklēšanu un filtrēšanu"
 
-#: qml/NavigationActionBar.qml:359
+#: qml/NavigationActionBar.qml:404
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Meklēt pēc albuma nosaukuma, izpildītāja u.c."
 
-#: qml/NavigationActionBar.qml:368
+#: qml/NavigationActionBar.qml:413
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrēt pēc vērtējuma: "
 
-#: qml/NavigationActionBar.qml:386
+#: qml/NavigationActionBar.qml:431
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Rādīt tikai iecienītākās"
+
+#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:85
+#, kde-format
+msgctxt "@action:button"
+msgid "Set track rating"
+msgstr "Novērtēt celiņu"
 
 #: qml/PlayListEntry.qml:130
 #, kde-format
@@ -1178,6 +1150,12 @@ msgstr "Atskaņot"
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Noņemt"
+
+#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:314
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel rating this track"
+msgstr "Noņemt celiņa vērtējumu"
 
 #: qml/SettingsForm.qml:67
 #, kde-format
@@ -1448,6 +1426,36 @@ msgstr "„%1“ nevarēja atskaņot"
 msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "Kārtot pēc"
+
+#: qml/TrackBrowserDelegate.qml:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Play from here, replacing current playlist"
+msgstr "Atskaņot no šīs vietas, aizvietojot pašreizējo repertuāru"
+
+#: qml/TrackBrowserDelegate.qml:209 qml/TrackBrowserDelegate.qml:225
+#, kde-format
+msgctxt "@item:intable %1: track number. %2: track title."
+msgid "%1 - %2"
+msgstr "%1 — %2"
+
+#: qml/TrackBrowserDelegate.qml:220
+#, kde-format
+msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
+msgid "%1 - %2 - %3"
+msgstr "%1: %2 — %3"
+
+#: qml/TrackBrowserDelegate.qml:232
+#, kde-format
+msgctxt "@item:intable %1: track title. %2: artist name"
+msgid "%1 - %2"
+msgstr "%1 — %2"
+
+#: qml/TrackBrowserDelegate.qml:366
+#, kde-format
+msgctxt "@action:button"
+msgid "Song Options"
+msgstr "Skaņdarba iespējas"
 
 #: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format

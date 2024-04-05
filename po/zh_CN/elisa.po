@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-03 00:37+0000\n"
+"POT-Creation-Date: 2024-04-05 00:37+0000\n"
 "PO-Revision-Date: 2024-03-30 19:36\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -364,13 +364,38 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "正在播放音乐"
 
-#: qml/AbstractDataView.qml:198
+#: qml/AbstractBrowserDelegate.qml:39 qml/NavigationActionBar.qml:125
+#, kde-format
+msgctxt "@action:button"
+msgid "Play now, replacing current playlist"
+msgstr "立即播放，替换当前播放列表"
+
+#: qml/AbstractBrowserDelegate.qml:46 qml/TrackBrowserDelegate.qml:74
+#, kde-format
+msgctxt "@action:button"
+msgid "Add to playlist"
+msgstr "加入播放列表"
+
+#: qml/AbstractBrowserDelegate.qml:55 qml/mobile/MobilePlayListDelegate.qml:166
+#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:62
+#, kde-format
+msgctxt "@action:button Show the file for this song in the file manager"
+msgid "Show in folder"
+msgstr "在文件夹中显示"
+
+#: qml/AbstractBrowserDelegate.qml:77
+#, kde-format
+msgctxt "@action:button"
+msgid "Options"
+msgstr "选项"
+
+#: qml/AbstractDataView.qml:200
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "无匹配项"
 
-#: qml/AbstractDataView.qml:198
+#: qml/AbstractDataView.qml:200
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -427,7 +452,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "正在播放"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:172
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:207
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -446,7 +471,7 @@ msgid "Lyrics"
 msgstr "歌词"
 
 #: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
+#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:149
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -557,99 +582,11 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "保存失败"
 
-#: qml/GridBrowserDelegate.qml:59 qml/NavigationActionBar.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Play now, replacing current playlist"
-msgstr "立即播放，替换当前播放列表"
-
-#: qml/GridBrowserDelegate.qml:66 qml/ListBrowserDelegate.qml:81
-#, kde-format
-msgctxt "@action:button"
-msgid "Add to playlist"
-msgstr "加入播放列表"
-
-#: qml/GridBrowserDelegate.qml:75 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
-#, kde-format
-msgctxt "@action:button Show the file for this song in the file manager"
-msgid "Show in folder"
-msgstr "在文件夹中显示"
-
-#: qml/GridBrowserDelegate.qml:310
-#, kde-format
-msgctxt "@action:button"
-msgid "Options"
-msgstr "选项"
-
 #: qml/HeaderBar.qml:172
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "退出全屏模式"
-
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
-#: qml/PlayListEntry.qml:93
-#, kde-format
-msgctxt "@action:button Show track metadata"
-msgid "View details"
-msgstr "查看详情"
-
-#: qml/ListBrowserDelegate.qml:86
-#, kde-format
-msgctxt "@action:button"
-msgid "Play from here, replacing current playlist"
-msgstr "从此处开始播放，替换当前播放列表"
-
-#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:107
-#, kde-format
-msgctxt "@action:button"
-msgid "Set track rating"
-msgstr "设置曲目评分"
-
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Un-mark this song as a favorite"
-msgstr "取消收藏此曲目"
-
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Mark this song as a favorite"
-msgstr "收藏此曲目"
-
-#: qml/ListBrowserDelegate.qml:216 qml/ListBrowserDelegate.qml:232
-#, kde-format
-msgctxt "@item:intable %1: track number. %2: track title."
-msgid "%1 - %2"
-msgstr "%1 - %2"
-
-#: qml/ListBrowserDelegate.qml:227
-#, kde-format
-msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-msgid "%1 - %2 - %3"
-msgstr "%1 - %2 - %3"
-
-#: qml/ListBrowserDelegate.qml:239
-#, kde-format
-msgctxt "@item:intable %1: track title. %2: artist name"
-msgid "%1 - %2"
-msgstr "%1 - %2"
-
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:299
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel rating this track"
-msgstr "取消对此曲目的评分"
-
-#: qml/ListBrowserDelegate.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Song Options"
-msgstr "曲目选项"
 
 #: qml/MediaPlayerControl.qml:87
 #, kde-format
@@ -835,6 +772,20 @@ msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "全部清除"
 
+#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:93
+#, kde-format
+msgctxt "@action:button"
+msgid "Un-mark this song as a favorite"
+msgstr "取消收藏此曲目"
+
+#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:93
+#, kde-format
+msgctxt "@action:button"
+msgid "Mark this song as a favorite"
+msgstr "收藏此曲目"
+
 #: qml/MediaTrackMetadataDelegate.qml:185
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
@@ -925,6 +876,13 @@ msgstr "跟踪选项"
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "电台选项"
+
+#: qml/mobile/MobilePlayListDelegate.qml:172 qml/PlayListEntry.qml:93
+#: qml/TrackBrowserDelegate.qml:69
+#, kde-format
+msgctxt "@action:button Show track metadata"
+msgid "View details"
+msgstr "查看详情"
 
 #: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
@@ -1084,71 +1042,85 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "帮助"
 
-#: qml/NavigationActionBar.qml:78
+#: qml/NavigationActionBar.qml:86
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "排序: %1"
 
-#: qml/NavigationActionBar.qml:79
+#: qml/NavigationActionBar.qml:87
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "排序"
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:101
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "新建广播"
 
-#: qml/NavigationActionBar.qml:105
+#: qml/NavigationActionBar.qml:113
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "添加至播放列表"
 
-#: qml/NavigationActionBar.qml:129
+#: qml/NavigationActionBar.qml:137
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "显示艺人"
 
-#: qml/NavigationActionBar.qml:180
+#: qml/NavigationActionBar.qml:160
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Toggle Shuffle"
+msgctxt "@action:button"
+msgid "Toggle View Style"
+msgstr "随机播放开关"
+
+#: qml/NavigationActionBar.qml:215
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "返回"
 
-#: qml/NavigationActionBar.qml:258
+#: qml/NavigationActionBar.qml:298
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "搜索和过滤"
 
-#: qml/NavigationActionBar.qml:258
+#: qml/NavigationActionBar.qml:298
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "隐藏搜索和过滤"
 
-#: qml/NavigationActionBar.qml:359
+#: qml/NavigationActionBar.qml:404
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "搜索专辑名称、艺术家等。"
 
-#: qml/NavigationActionBar.qml:368
+#: qml/NavigationActionBar.qml:413
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "按评分过滤："
 
-#: qml/NavigationActionBar.qml:386
+#: qml/NavigationActionBar.qml:431
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "仅显示收藏曲目"
+
+#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:85
+#, kde-format
+msgctxt "@action:button"
+msgid "Set track rating"
+msgstr "设置曲目评分"
 
 #: qml/PlayListEntry.qml:130
 #, kde-format
@@ -1167,6 +1139,12 @@ msgstr "播放"
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "移除"
+
+#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:314
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel rating this track"
+msgstr "取消对此曲目的评分"
 
 #: qml/SettingsForm.qml:67
 #, kde-format
@@ -1435,6 +1413,36 @@ msgstr "“%1”无法播放"
 msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "排序方式"
+
+#: qml/TrackBrowserDelegate.qml:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Play from here, replacing current playlist"
+msgstr "从此处开始播放，替换当前播放列表"
+
+#: qml/TrackBrowserDelegate.qml:209 qml/TrackBrowserDelegate.qml:225
+#, kde-format
+msgctxt "@item:intable %1: track number. %2: track title."
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/TrackBrowserDelegate.qml:220
+#, kde-format
+msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
+msgid "%1 - %2 - %3"
+msgstr "%1 - %2 - %3"
+
+#: qml/TrackBrowserDelegate.qml:232
+#, kde-format
+msgctxt "@item:intable %1: track title. %2: artist name"
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/TrackBrowserDelegate.qml:366
+#, kde-format
+msgctxt "@action:button"
+msgid "Song Options"
+msgstr "曲目选项"
 
 #: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-03 00:37+0000\n"
+"POT-Creation-Date: 2024-04-05 00:37+0000\n"
 "PO-Revision-Date: 2024-02-12 20:00\n"
 "Last-Translator: Zmicier <zmicerturok@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -368,13 +368,38 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Прайграванне музыкі"
 
-#: qml/AbstractDataView.qml:198
+#: qml/AbstractBrowserDelegate.qml:39 qml/NavigationActionBar.qml:125
+#, kde-format
+msgctxt "@action:button"
+msgid "Play now, replacing current playlist"
+msgstr "Прайграць зараз, замяніць бягучы спіс прайгравання"
+
+#: qml/AbstractBrowserDelegate.qml:46 qml/TrackBrowserDelegate.qml:74
+#, kde-format
+msgctxt "@action:button"
+msgid "Add to playlist"
+msgstr "Дадаць у спіс прайгравання"
+
+#: qml/AbstractBrowserDelegate.qml:55 qml/mobile/MobilePlayListDelegate.qml:166
+#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:62
+#, kde-format
+msgctxt "@action:button Show the file for this song in the file manager"
+msgid "Show in folder"
+msgstr "Паказаць у каталозе"
+
+#: qml/AbstractBrowserDelegate.qml:77
+#, kde-format
+msgctxt "@action:button"
+msgid "Options"
+msgstr "Параметры"
+
+#: qml/AbstractDataView.qml:200
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Няма супадзенняў"
 
-#: qml/AbstractDataView.qml:198
+#: qml/AbstractDataView.qml:200
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -431,7 +456,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Зараз прайграецца"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:172
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:207
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -450,7 +475,7 @@ msgid "Lyrics"
 msgstr "Тэксты песень"
 
 #: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:141
+#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:149
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -563,99 +588,11 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Не ўдалося захаваць"
 
-#: qml/GridBrowserDelegate.qml:59 qml/NavigationActionBar.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Play now, replacing current playlist"
-msgstr "Прайграць зараз, замяніць бягучы спіс прайгравання"
-
-#: qml/GridBrowserDelegate.qml:66 qml/ListBrowserDelegate.qml:81
-#, kde-format
-msgctxt "@action:button"
-msgid "Add to playlist"
-msgstr "Дадаць у спіс прайгравання"
-
-#: qml/GridBrowserDelegate.qml:75 qml/ListBrowserDelegate.qml:69
-#: qml/mobile/MobilePlayListDelegate.qml:166 qml/PlayListEntry.qml:86
-#, kde-format
-msgctxt "@action:button Show the file for this song in the file manager"
-msgid "Show in folder"
-msgstr "Паказаць у каталозе"
-
-#: qml/GridBrowserDelegate.qml:310
-#, kde-format
-msgctxt "@action:button"
-msgid "Options"
-msgstr "Параметры"
-
 #: qml/HeaderBar.qml:172
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Выйсці з поўнаэкраннага рэжыму"
-
-#: qml/ListBrowserDelegate.qml:76 qml/mobile/MobilePlayListDelegate.qml:172
-#: qml/PlayListEntry.qml:93
-#, kde-format
-msgctxt "@action:button Show track metadata"
-msgid "View details"
-msgstr "Падрабязнасці"
-
-#: qml/ListBrowserDelegate.qml:86
-#, kde-format
-msgctxt "@action:button"
-msgid "Play from here, replacing current playlist"
-msgstr "Прайграць адсюль, замяніць бягучы спіс прайгравання"
-
-#: qml/ListBrowserDelegate.qml:92 qml/PlayListEntry.qml:107
-#, kde-format
-msgctxt "@action:button"
-msgid "Set track rating"
-msgstr "Ацаніць"
-
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Un-mark this song as a favorite"
-msgstr "Прыбраць з песні тэг улюбёнай"
-
-#: qml/ListBrowserDelegate.qml:100 qml/MediaTrackMetadataDelegate.qml:134
-#: qml/PlayListEntry.qml:117
-#, kde-format
-msgctxt "@action:button"
-msgid "Mark this song as a favorite"
-msgstr "Пазначыць песню як улюбёную"
-
-#: qml/ListBrowserDelegate.qml:216 qml/ListBrowserDelegate.qml:232
-#, kde-format
-msgctxt "@item:intable %1: track number. %2: track title."
-msgid "%1 - %2"
-msgstr "%1 - %2"
-
-#: qml/ListBrowserDelegate.qml:227
-#, kde-format
-msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-msgid "%1 - %2 - %3"
-msgstr "%1 - %2 - %3"
-
-#: qml/ListBrowserDelegate.qml:239
-#, kde-format
-msgctxt "@item:intable %1: track title. %2: artist name"
-msgid "%1 - %2"
-msgstr "%1 - %2"
-
-#: qml/ListBrowserDelegate.qml:321 qml/PlayListEntry.qml:299
-#, kde-format
-msgctxt "@action:button"
-msgid "Cancel rating this track"
-msgstr "Скасаваць ацэнку кампазіцыі"
-
-#: qml/ListBrowserDelegate.qml:373
-#, kde-format
-msgctxt "@action:button"
-msgid "Song Options"
-msgstr "Параметры песні"
 
 #: qml/MediaPlayerControl.qml:87
 #, kde-format
@@ -850,6 +787,20 @@ msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Ачысціць усё"
 
+#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:93
+#, kde-format
+msgctxt "@action:button"
+msgid "Un-mark this song as a favorite"
+msgstr "Прыбраць з песні тэг улюбёнай"
+
+#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:93
+#, kde-format
+msgctxt "@action:button"
+msgid "Mark this song as a favorite"
+msgstr "Пазначыць песню як улюбёную"
+
 #: qml/MediaTrackMetadataDelegate.qml:185
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
@@ -940,6 +891,13 @@ msgstr "Параметры кампазіцыі"
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Параметры радыё"
+
+#: qml/mobile/MobilePlayListDelegate.qml:172 qml/PlayListEntry.qml:93
+#: qml/TrackBrowserDelegate.qml:69
+#, kde-format
+msgctxt "@action:button Show track metadata"
+msgid "View details"
+msgstr "Падрабязнасці"
 
 #: qml/mobile/MobilePlayListDelegate.qml:185
 #, kde-format
@@ -1099,71 +1057,85 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Даведка"
 
-#: qml/NavigationActionBar.qml:78
+#: qml/NavigationActionBar.qml:86
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Сартаванне: %1"
 
-#: qml/NavigationActionBar.qml:79
+#: qml/NavigationActionBar.qml:87
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Сартаванне"
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:101
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Стварыць радыё"
 
-#: qml/NavigationActionBar.qml:105
+#: qml/NavigationActionBar.qml:113
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Дадаць у спіс прайгравання"
 
-#: qml/NavigationActionBar.qml:129
+#: qml/NavigationActionBar.qml:137
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Паказваць выканаўцаў"
 
-#: qml/NavigationActionBar.qml:180
+#: qml/NavigationActionBar.qml:160
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Toggle Shuffle"
+msgctxt "@action:button"
+msgid "Toggle View Style"
+msgstr "Уключыць/Адключыць змешванне"
+
+#: qml/NavigationActionBar.qml:215
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Назад"
 
-#: qml/NavigationActionBar.qml:258
+#: qml/NavigationActionBar.qml:298
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Пошук і фільтр"
 
-#: qml/NavigationActionBar.qml:258
+#: qml/NavigationActionBar.qml:298
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Схаваць пошук і фільтр"
 
-#: qml/NavigationActionBar.qml:359
+#: qml/NavigationActionBar.qml:404
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Пошук па назве альбома, выканаўцы і г. д."
 
-#: qml/NavigationActionBar.qml:368
+#: qml/NavigationActionBar.qml:413
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Фільтраванне па ацэнцы: "
 
-#: qml/NavigationActionBar.qml:386
+#: qml/NavigationActionBar.qml:431
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Паказваць толькі ўлюбёныя"
+
+#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:85
+#, kde-format
+msgctxt "@action:button"
+msgid "Set track rating"
+msgstr "Ацаніць"
 
 #: qml/PlayListEntry.qml:130
 #, kde-format
@@ -1182,6 +1154,12 @@ msgstr "Прайграць"
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Выдаліць"
+
+#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:314
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel rating this track"
+msgstr "Скасаваць ацэнку кампазіцыі"
 
 #: qml/SettingsForm.qml:67
 #, kde-format
@@ -1453,6 +1431,36 @@ msgstr "Немагчыма прайграць \"%1\""
 msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "Сартаванне"
+
+#: qml/TrackBrowserDelegate.qml:79
+#, kde-format
+msgctxt "@action:button"
+msgid "Play from here, replacing current playlist"
+msgstr "Прайграць адсюль, замяніць бягучы спіс прайгравання"
+
+#: qml/TrackBrowserDelegate.qml:209 qml/TrackBrowserDelegate.qml:225
+#, kde-format
+msgctxt "@item:intable %1: track number. %2: track title."
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/TrackBrowserDelegate.qml:220
+#, kde-format
+msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
+msgid "%1 - %2 - %3"
+msgstr "%1 - %2 - %3"
+
+#: qml/TrackBrowserDelegate.qml:232
+#, kde-format
+msgctxt "@item:intable %1: track title. %2: artist name"
+msgid "%1 - %2"
+msgstr "%1 - %2"
+
+#: qml/TrackBrowserDelegate.qml:366
+#, kde-format
+msgctxt "@action:button"
+msgid "Song Options"
+msgstr "Параметры песні"
 
 #: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
 #, kde-format

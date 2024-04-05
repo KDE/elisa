@@ -437,47 +437,49 @@ Item {
         }
     }
 
-    // darken background
-    Rectangle {
-        anchors.fill: background
-        visible: Kirigami.Settings.isMobile
-
-        z: -1
-        color: "black"
-        opacity: 0.8
-    }
-
     // mobile blurred background image
     Loader {
-        id: background
         active: Kirigami.Settings.isMobile
         visible: active
 
         anchors.fill: toolbar
         z: -1
 
-        sourceComponent: ImageWithFallback {
-            source: ElisaApplication.manageHeaderBar.image
-            fallback: elisaTheme.defaultBackgroundImage
-            asynchronous: true
+        sourceComponent: Item {
+            // darken background
+            Rectangle {
+                anchors.fill: parent
+                z: -1
 
-            fillMode: Image.PreserveAspectCrop
+                color: "black"
+                opacity: 0.8
+            }
 
-            // make the FastBlur effect more strong
-            sourceSize.height: 10
+            ImageWithFallback {
+                anchors.fill: parent
 
-            layer.enabled: true
-            layer.effect: HueSaturation {
-                cached: true
+                source: ElisaApplication.manageHeaderBar.image
+                fallback: elisaTheme.defaultBackgroundImage
+                asynchronous: true
 
-                lightness: -0.5
-                saturation: 0.9
+                fillMode: Image.PreserveAspectCrop
+
+                // make the FastBlur effect more strong
+                sourceSize.height: 10
 
                 layer.enabled: true
-                layer.effect: FastBlur {
+                layer.effect: HueSaturation {
                     cached: true
-                    radius: 64
-                    transparentBorder: false
+
+                    lightness: -0.5
+                    saturation: 0.9
+
+                    layer.enabled: true
+                    layer.effect: FastBlur {
+                        cached: true
+                        radius: 64
+                        transparentBorder: false
+                    }
                 }
             }
         }

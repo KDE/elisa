@@ -180,18 +180,25 @@ Item {
         }
     }
 
-    HeaderFooterToolbar {
+    ToolBar {
         id: toolbar
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
 
-        toolbarType: Kirigami.Settings.isMobile ? HeaderFooterToolbar.Other : HeaderFooterToolbar.ToolbarType.Header
-
         // on mobile, the header is translucent
-        color: Kirigami.Settings.isMobile ? Qt.rgba(myPalette.window.r, myPalette.window.g, myPalette.window.b, 0.3) : myPalette.window
         Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
         Kirigami.Theme.inherit: false
+
+        Binding {
+            toolbar.background.visible: false
+            when: Kirigami.Settings.isMobile
+        }
+
+        // Match the height of the playlist toolbar when the filter-bar is hidden
+        Binding {
+            toolbar.background.implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
+        }
 
         contentItem: Column {
             spacing: 0
@@ -481,6 +488,14 @@ Item {
                         transparentBorder: false
                     }
                 }
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                z: 1
+
+                color: myPalette.window
+                opacity: 0.3
             }
         }
     }

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-05 00:37+0000\n"
-"PO-Revision-Date: 2024-02-05 11:40+0100\n"
+"PO-Revision-Date: 2024-04-05 09:37+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1087,12 +1087,10 @@ msgid "Display Artist"
 msgstr "Prikaži avtorja"
 
 #: qml/NavigationActionBar.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "Preklopi slučajni vrstni red"
+msgstr "Preklopi slog pogleda"
 
 #: qml/NavigationActionBar.qml:215
 #, kde-format

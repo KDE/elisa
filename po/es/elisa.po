@@ -2,15 +2,15 @@
 # Copyright (C) 2016 This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Automatically generated, 2016.
 # SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# Automatically generated, 2016.
 # Víctor Rodrigo Córdoba <vrcordoba@gmail.com>, 2019, 2020, 2021, 2022, 2023, 2024, %Y.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-05 00:37+0000\n"
-"PO-Revision-Date: 2024-02-18 19:36+0100\n"
+"PO-Revision-Date: 2024-04-06 18:09+0200\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1084,12 +1084,10 @@ msgid "Display Artist"
 msgstr "Mostrar artista"
 
 #: qml/NavigationActionBar.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "Conmutar mezcla"
+msgstr "Conmutar estilo de vista"
 
 #: qml/NavigationActionBar.qml:215
 #, kde-format
@@ -1707,11 +1705,3 @@ msgstr "Archivos"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estaciones de radio"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgctxt "@action:button"
-#~ msgid "Apply"
-#~ msgstr "Aplicar"

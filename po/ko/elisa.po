@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-05 00:37+0000\n"
+"POT-Creation-Date: 2024-04-08 00:37+0000\n"
 "PO-Revision-Date: 2024-02-09 20:14+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -453,7 +453,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "지금 재생 중"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:207
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:218
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -1087,19 +1087,19 @@ msgctxt "@action:button"
 msgid "Toggle View Style"
 msgstr "무순서 재생 전환"
 
-#: qml/NavigationActionBar.qml:215
+#: qml/NavigationActionBar.qml:226
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "뒤로"
 
-#: qml/NavigationActionBar.qml:298
+#: qml/NavigationActionBar.qml:309
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "검색과 필터"
 
-#: qml/NavigationActionBar.qml:298
+#: qml/NavigationActionBar.qml:309
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"

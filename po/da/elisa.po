@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-05 00:37+0000\n"
+"POT-Creation-Date: 2024-04-08 00:37+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -545,7 +545,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Afspiller nu"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:207
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:218
 #, fuzzy, kde-format
 #| msgctxt "open the sidebar"
 #| msgid "Open sidebar"
@@ -1312,7 +1312,7 @@ msgctxt "@action:button"
 msgid "Toggle View Style"
 msgstr "Bland til/fra"
 
-#: qml/NavigationActionBar.qml:215
+#: qml/NavigationActionBar.qml:226
 #, fuzzy, kde-format
 #| msgctxt "navigate back in the views stack"
 #| msgid "Back"
@@ -1320,7 +1320,7 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Tilbage"
 
-#: qml/NavigationActionBar.qml:298
+#: qml/NavigationActionBar.qml:309
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"
@@ -1328,7 +1328,7 @@ msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Skjul søgeindstillinger"
 
-#: qml/NavigationActionBar.qml:298
+#: qml/NavigationActionBar.qml:309
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"

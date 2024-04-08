@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-05 00:37+0000\n"
+"POT-Creation-Date: 2024-04-08 00:37+0000\n"
 "PO-Revision-Date: 2024-04-05 11:01+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -456,7 +456,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Ara s'està reproduint"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:207
+#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:218
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -1090,19 +1090,19 @@ msgctxt "@action:button"
 msgid "Toggle View Style"
 msgstr "Canvia l'estil de la vista"
 
-#: qml/NavigationActionBar.qml:215
+#: qml/NavigationActionBar.qml:226
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Arrere"
 
-#: qml/NavigationActionBar.qml:298
+#: qml/NavigationActionBar.qml:309
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Busca i filtra"
 
-#: qml/NavigationActionBar.qml:298
+#: qml/NavigationActionBar.qml:309
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"

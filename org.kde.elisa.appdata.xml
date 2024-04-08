@@ -355,10 +355,10 @@ SPDX-License-Identifier: CC0-1.0
   <project_group>KDE</project_group>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="24.02.2" date="2024-04-11"/>
     <release version="24.02.1" date="2024-03-21"/>
     <release version="24.02.0" date="2024-02-28"/>
     <release version="23.08.5" date="2024-02-15"/>
-    <release version="23.08.4" date="2023-12-07"/>
   </releases>
   <custom>
     <value key="KDE::windows_store">https://www.microsoft.com/p/elisa/9pb5md7zh8tl</value>

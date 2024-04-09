@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-08 00:37+0000\n"
-"PO-Revision-Date: 2024-04-07 14:28\n"
+"PO-Revision-Date: 2024-04-08 19:11\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -1076,7 +1076,7 @@ msgstr "显示艺人"
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr ""
+msgstr "切换视图风格"
 
 #: qml/NavigationActionBar.qml:226
 #, kde-format

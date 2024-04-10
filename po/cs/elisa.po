@@ -1086,12 +1086,10 @@ msgid "Display Artist"
 msgstr "Zobrazit umělce"
 
 #: qml/NavigationActionBar.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "Zapnout míchání"
+msgstr ""
 
 #: qml/NavigationActionBar.qml:226
 #, kde-format

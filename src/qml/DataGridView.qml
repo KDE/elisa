@@ -54,7 +54,7 @@ AbstractDataView {
         required property string secondaryText
         required property url url
         required property url imageUrl
-        property bool multipleImageUrls
+        required property var multipleImageUrls
         required property bool hasChildren
         required property var fullData
 

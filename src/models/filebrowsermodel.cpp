@@ -55,6 +55,7 @@ QHash<int, QByteArray> FileBrowserModel::roleNames() const
     roles[static_cast<int>(DataTypes::ColumnsRoles::TitleRole)] = "title";
     roles[static_cast<int>(DataTypes::ColumnsRoles::SecondaryTextRole)] = "secondaryText";
     roles[static_cast<int>(DataTypes::ColumnsRoles::ImageUrlRole)] = "imageUrl";
+    roles[static_cast<int>(DataTypes::ColumnsRoles::MultipleImageUrlsRole)] = "multipleImageUrls";
     roles[static_cast<int>(DataTypes::ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(DataTypes::ColumnsRoles::ElementTypeRole)] = "dataType";
     roles[static_cast<int>(DataTypes::ColumnsRoles::ResourceRole)] = "url";

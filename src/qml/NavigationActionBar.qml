@@ -201,7 +201,7 @@ Item {
         }
 
         contentItem: Column {
-            spacing: 0
+            spacing: Kirigami.Units.smallSpacing
 
             // header layout
             RowLayout {

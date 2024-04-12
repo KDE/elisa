@@ -452,7 +452,7 @@ void ManageAudioPlayer::playListFinished()
     mPlayingState = false;
 }
 
-void ManageAudioPlayer::tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+void ManageAudioPlayer::tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles)
 {
     if (!mCurrentTrack.isValid()) {
         return;

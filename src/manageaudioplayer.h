@@ -246,7 +246,7 @@ public Q_SLOTS:
 
     void playListFinished();
 
-    void tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+    void tracksDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles);
 
     void setTitleRole(int titleRole);
 

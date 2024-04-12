@@ -546,7 +546,7 @@ void MediaPlayListProxyModel::sourceModelReset()
     endResetModel();
 }
 
-void MediaPlayListProxyModel::sourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+void MediaPlayListProxyModel::sourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles)
 {
     auto startSourceRow = topLeft.row();
     auto endSourceRow = bottomRight.row();

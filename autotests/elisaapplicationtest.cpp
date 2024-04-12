@@ -33,7 +33,7 @@ private Q_SLOTS:
     {
         qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
         qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-        qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
+        qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
         qRegisterMetaType<DataTypes::EntryDataList>("DataTypes::EntryDataList");

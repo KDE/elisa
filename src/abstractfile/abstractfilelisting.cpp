@@ -165,7 +165,7 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
         }
     }
 
-    auto removedTracks = QVector<QPair<QUrl, bool>>();
+    auto removedTracks = QList<QPair<QUrl, bool>>();
     for (const auto &removedFilePath : currentDirectoryListingFiles) {
         auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedFilePath.first);
 

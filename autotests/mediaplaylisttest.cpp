@@ -27,7 +27,7 @@ MediaPlayListTest::MediaPlayListTest(QObject *parent) : QObject(parent)
 void MediaPlayListTest::initTestCase()
 {
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-    qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
+    qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
     qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
     qRegisterMetaType<ElisaUtils::PlayListEntryType>("PlayListEntryType");
 }

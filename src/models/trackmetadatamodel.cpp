@@ -238,7 +238,7 @@ bool TrackMetadataModel::setData(const QModelIndex &index, const QVariant &value
 
         mDisplayData[dataType] = value;
 
-        Q_EMIT dataChanged(index, index, QVector<int>() << role);
+        Q_EMIT dataChanged(index, index, QList<int>() << role);
         return true;
     }
     return false;

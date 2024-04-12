@@ -285,7 +285,7 @@ private Q_SLOTS:
 
     void sourceRowsMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destParent, int destRow);
 
-    void sourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+    void sourceDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles);
 
     void sourceHeaderDataChanged(Qt::Orientation orientation, int first, int last);
 

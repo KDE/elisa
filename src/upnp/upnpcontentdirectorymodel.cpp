@@ -43,7 +43,7 @@ public:
 
     QHash<QString, quintptr> mUpnpIds;
 
-    QHash<quintptr, QVector<quintptr> > mChilds;
+    QHash<quintptr, QList<quintptr> > mChilds;
 
     QHash<quintptr, DataTypes::UpnpTrackDataType> mAllTrackData;
 
@@ -558,7 +558,7 @@ void UpnpContentDirectoryModel::setParentId(QString parentId)
 
     d->mUpnpIds[d->mParentId] = d->mLastInternalId;
 
-    d->mChilds[d->mLastInternalId] = QVector<quintptr>();
+    d->mChilds[d->mLastInternalId] = QList<quintptr>();
 
     d->mAllTrackData[d->mLastInternalId] = {{DataTypes::IdRole, d->mParentId},
                                             {DataTypes::ElementTypeRole, QVariant::fromValue(ElisaUtils::Container)},

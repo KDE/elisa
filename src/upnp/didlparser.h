@@ -93,7 +93,7 @@ public:
 
     [[nodiscard]] const QString& deviceUUID() const;
 
-    [[nodiscard]] const QVector<QString> &newMusicTrackIds() const;
+    [[nodiscard]] const QList<QString> &newMusicTrackIds() const;
 
     [[nodiscard]] const QHash<QString, DataTypes::UpnpTrackDataType> &newMusicTracks() const;
 
@@ -143,9 +143,9 @@ private Q_SLOTS:
 
 private:
 
-    void decodeContainerNode(const QDomNode &containerNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData, QVector<QString> &newDataIds);
+    void decodeContainerNode(const QDomNode &containerNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData, QList<QString> &newDataIds);
 
-    void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData, QVector<QString> &newDataIds);
+    void decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData, QList<QString> &newDataIds);
 
     void groupNewTracksByAlbums();
 

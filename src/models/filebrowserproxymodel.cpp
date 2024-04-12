@@ -63,7 +63,7 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
 
     DataTypes::EntryDataList newData;
 
-    auto vNewEntries = QVector<QString>{};
+    auto vNewEntries = QList<QString>{};
 
     vNewEntries.reserve(list.size());
 

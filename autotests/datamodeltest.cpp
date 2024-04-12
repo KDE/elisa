@@ -15,7 +15,7 @@
 #include <QUrl>
 #include <QString>
 #include <QHash>
-#include <QVector>
+#include <QList>
 #include <QThread>
 #include <QStandardPaths>
 #include <QAbstractItemModelTester>
@@ -41,7 +41,7 @@ private Q_SLOTS:
     {
         qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
         qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-        qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
+        qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
     }
 

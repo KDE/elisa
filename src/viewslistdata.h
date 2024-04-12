@@ -44,8 +44,8 @@ public:
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
-                   int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
-                   Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
+                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                    QUrl fallbackItemIcon,
                    ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
                    ViewManager::ViewCanBeRated viewCanBeRated)
@@ -95,8 +95,8 @@ public:
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
-                   int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
-                   Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
+                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle)
         : mMainTitle(std::move(mainTitle))
@@ -148,8 +148,8 @@ public:
                    qulonglong databaseId,
                    ElisaUtils::PlayListEntryType dataType,
                    ElisaUtils::PlayListEntryType entryType,
-                   int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
-                   Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
+                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle)
         : mMainTitle(std::move(mainTitle))
@@ -220,13 +220,13 @@ public:
 
     int mSortRole = Qt::DisplayRole;
 
-    QVector<int> mSortRoles = {Qt::DisplayRole};
+    QList<int> mSortRoles = {Qt::DisplayRole};
 
-    QVector<QString> mSortRoleNames = {QString{}};
+    QList<QString> mSortRoleNames = {QString{}};
 
     Qt::SortOrder mSortOrder = Qt::AscendingOrder;
 
-    QVector<QString> mSortOrderNames = {QStringLiteral("A-Z"), QStringLiteral("Z-A")};
+    QList<QString> mSortOrderNames = {QStringLiteral("A-Z"), QStringLiteral("Z-A")};
 
     ViewManager::AlbumCardinality mAlbumCardinality = ViewManager::MultipleAlbum;
 

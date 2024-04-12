@@ -14,7 +14,7 @@
 
 #include "upnpLogging.h"
 
-#include <QVector>
+#include <QList>
 #include <QString>
 
 #include <QDomDocument>
@@ -38,11 +38,11 @@ public:
 
     UpnpControlContentDirectory *mContentDirectory = nullptr;
 
-    QVector<QString> mNewMusicTrackIds;
+    QList<QString> mNewMusicTrackIds;
 
     QHash<QString, DataTypes::UpnpTrackDataType> mNewMusicTracks;
 
-    QHash<QString, QVector<DataTypes::UpnpTrackDataType>> mNewTracksByAlbums;
+    QHash<QString, QList<DataTypes::UpnpTrackDataType>> mNewTracksByAlbums;
 
     QHash<QString, QUrl> mCovers;
 
@@ -206,7 +206,7 @@ const QString &DidlParser::deviceUUID() const
     return d->mDeviceUUID;
 }
 
-const QVector<QString> &DidlParser::newMusicTrackIds() const
+const QList<QString> &DidlParser::newMusicTrackIds() const
 {
     return d->mNewMusicTrackIds;
 }
@@ -374,7 +374,7 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
 }
 
 void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData,
-                                     QVector<QString> &newDataIds)
+                                     QList<QString> &newDataIds)
 {
     qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode";
 
@@ -432,7 +432,7 @@ void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QStrin
 }
 
 void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData,
-                                      QVector<QString> &newDataIds)
+                                      QList<QString> &newDataIds)
 {
     qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeAudioTrackNode";
 

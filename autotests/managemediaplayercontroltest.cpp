@@ -13,7 +13,7 @@
 
 #include <QString>
 #include <QUrl>
-#include <QVector>
+#include <QList>
 
 #include <QStringListModel>
 
@@ -28,7 +28,7 @@ ManageMediaPlayerControlTest::ManageMediaPlayerControlTest(QObject *parent) : QO
 void ManageMediaPlayerControlTest::initTestCase()
 {
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-    qRegisterMetaType<QVector<qlonglong>>("QVector<qlonglong>");
+    qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
     qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
 }
 

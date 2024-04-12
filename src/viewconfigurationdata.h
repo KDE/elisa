@@ -82,11 +82,11 @@ class ELISALIB_EXPORT ViewConfigurationData : public QObject
                READ sortRole
                CONSTANT)
 
-    Q_PROPERTY(QVector<int> sortRoles
+    Q_PROPERTY(QList<int> sortRoles
                READ sortRoles
                CONSTANT)
 
-    Q_PROPERTY(QVector<QString> sortRoleNames
+    Q_PROPERTY(QList<QString> sortRoleNames
                READ sortRoleNames
                CONSTANT)
 
@@ -94,7 +94,7 @@ class ELISALIB_EXPORT ViewConfigurationData : public QObject
                READ sortOrder
                CONSTANT)
 
-    Q_PROPERTY(QVector<QString> sortOrderNames
+    Q_PROPERTY(QList<QString> sortOrderNames
                READ sortOrderNames
                CONSTANT)
 
@@ -119,8 +119,8 @@ public:
                                    ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
                                    QAbstractProxyModel *associatedProxyModel, QUrl viewDefaultIcon,
                                    DataTypes::DataType dataFilter,
-                                   int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
-                                   Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
+                                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
+                                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                                    ViewManager::ViewCanBeRated viewShowRating,
                                    ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
                                    ViewManager::ViewStyle viewStyle,
@@ -131,8 +131,8 @@ public:
                                    QString mainTitle, QString secondaryTitle,
                                    QUrl imageUrl, ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
                                    QAbstractProxyModel *associatedProxyModel, DataTypes::DataType dataFilter,
-                                   int sortRole, QVector<int> sortRoles, QVector<QString> sortRoleNames,
-                                   Qt::SortOrder sortOrder, QVector<QString> sortOrderNames,
+                                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
+                                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
                                    ViewManager::AlbumCardinality displaySingleAlbum,
                                    ViewManager::AlbumViewStyle showDiscHeaders,
                                    QObject *parent = nullptr);
@@ -165,13 +165,13 @@ public:
 
     [[nodiscard]] int sortRole() const;
 
-    [[nodiscard]] QVector<int> sortRoles() const;
+    [[nodiscard]] QList<int> sortRoles() const;
 
-    [[nodiscard]] QVector<QString> sortRoleNames() const;
+    [[nodiscard]] QList<QString> sortRoleNames() const;
 
     [[nodiscard]] Qt::SortOrder sortOrder() const;
 
-    [[nodiscard]] QVector<QString> sortOrderNames() const;
+    [[nodiscard]] QList<QString> sortOrderNames() const;
 
     [[nodiscard]] ViewManager::AlbumCardinality displaySingleAlbum() const;
 

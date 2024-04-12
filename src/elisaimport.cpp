@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
 
     qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
-    qRegisterMetaType<QVector<qulonglong>>("QVector<qulonglong>");
+    qRegisterMetaType<QList<qulonglong>>("QList<qulonglong>");
     qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
     qRegisterMetaType<QMap<QString, int>>();
     qRegisterMetaType<QMap<QString,int>>("QMap<QString,int>");

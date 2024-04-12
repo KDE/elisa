@@ -55,7 +55,7 @@ FocusScope {
     ListView.onPooled: delegateLoaded = false
     ListView.onReused: delegateLoaded = true
 
-    height: elisaTheme.listDelegateHeight
+    height: detailedView ? elisaTheme.listDelegateHeight : elisaTheme.listDelegateSingleLineHeight
 
     property list<Kirigami.Action> actions: [
         Kirigami.Action {

@@ -2,7 +2,7 @@
 # Copyright (C) 2017-2020 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2023 Geraldo Simiao <geraldosimiao@fedoraproject.org>
+# SPDX-FileCopyrightText: 2023, 2024 Geraldo Simiao <geraldosimiao@fedoraproject.org>
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2018, 2019, 2020.
 # Thiago Masato Costa Sueto <herzenschein@gmail.com>, 2020, 2021.
@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-08 00:37+0000\n"
-"PO-Revision-Date: 2024-01-11 20:46-0300\n"
-"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
+"PO-Revision-Date: 2024-04-13 01:10-0300\n"
+"Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -509,9 +509,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "Duração"
@@ -887,12 +885,10 @@ msgid "Track Options"
 msgstr "Opções da faixa"
 
 #: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Estações de rádio"
+msgstr "Opções de rádio"
 
 #: qml/mobile/MobilePlayListDelegate.qml:172 qml/PlayListEntry.qml:93
 #: qml/TrackBrowserDelegate.qml:69
@@ -1090,12 +1086,10 @@ msgid "Display Artist"
 msgstr "Mostrar artista"
 
 #: qml/NavigationActionBar.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "Alternar embaralhar"
+msgstr "Alternar estilo de visualização"
 
 #: qml/NavigationActionBar.qml:226
 #, kde-format
@@ -1485,12 +1479,10 @@ msgid "Disc %1"
 msgstr "Disco %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Alterar volume"
+msgstr "Volume"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format

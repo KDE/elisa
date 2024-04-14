@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-08 00:37+0000\n"
-"PO-Revision-Date: 2024-02-11 11:14+0100\n"
+"PO-Revision-Date: 2024-04-13 19:11+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1084,12 +1084,10 @@ msgid "Display Artist"
 msgstr "Wyświetl wykonawcę"
 
 #: qml/NavigationActionBar.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "Przełącz losową kolejność"
+msgstr "Przełącz wygląd widoku"
 
 #: qml/NavigationActionBar.qml:226
 #, kde-format

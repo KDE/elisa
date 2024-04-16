@@ -1,22 +1,22 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2023 Guðmundur Erlingsson <gudmundure@gmail.com>
+# SPDX-FileCopyrightText: 2023, 2024 Guðmundur Erlingsson <gudmundure@gmail.com>
 # Sveinn í Felli <sv1@fellsnet.is>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-08 00:37+0000\n"
-"PO-Revision-Date: 2024-02-19 08:49+0000\n"
-"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic\n"
+"PO-Revision-Date: 2024-04-06 20:31+0000\n"
+"Last-Translator: Gummi <gudmundure@gmail.com>\n"
+"Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1082,12 +1082,10 @@ msgid "Display Artist"
 msgstr "Sýna flytjanda"
 
 #: qml/NavigationActionBar.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "Stokkun af/á"
+msgstr "Víxla útlitssniði"
 
 #: qml/NavigationActionBar.qml:226
 #, kde-format

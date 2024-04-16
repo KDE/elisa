@@ -905,7 +905,7 @@ void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName,
     resetPartiallyLoaded();
 
     QFile inputFile(fileName.toLocalFile());
-    bool open = inputFile.open(QFile::ReadOnly);
+    bool open = inputFile.open(QFile::ReadOnly | QIODevice::Text);
     if (!open) {
         Q_EMIT playListLoadFailed();
     }

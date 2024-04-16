@@ -42,7 +42,11 @@ private Q_SLOTS:
 
     void m3uPlaylistParser_CommentCase();
 
+    void m3uPlaylistParser_WindowsLineTerminator();
+
     void plsPlaylistParserCase();
+
+    void plsPlaylistParser_WindowsLineTerminator();
 
     void m3uPlaylistParser_ToPlaylist();
 

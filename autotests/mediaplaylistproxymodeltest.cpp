@@ -205,6 +205,20 @@ https://d10rltuy0iweup.cloudfront.net/ATNNAT/myStream/playlist.m3u8
     QCOMPARE(listOfUrls.count(), 2);
 }
 
+void MediaPlayListProxyModelTest::m3uPlaylistParser_WindowsLineTerminator()
+{
+    const char * asString = R"--(#EXTM3U\r
+#EXTINF:-1 tvg-id="ArianaAfghanistanInternationalTV.us" status="online",Ariana Afghanistan International TV (720p) [Not 24/7]\r
+http://iptv.arianaafgtv.com/ariana/playlist.m3u8\r
+#EXTINF:-1 tvg-id="ArianaTVNational.af" status="online",Ariana TV National (720p) [Not 24/7]\r
+https://d10rltuy0iweup.cloudfront.net/ATNNAT/myStream/playlist.m3u8\r
+)--";
+    PlaylistParser playlistParser;
+    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(QUrl(QStringLiteral("file:///home/n/a.m3u")), QString::fromUtf8(asString).toUtf8());
+
+    QCOMPARE(listOfUrls.count(), 2);
+}
+
 void MediaPlayListProxyModelTest::plsPlaylistParserCase()
 {
     const char * asString = R"--([playlist]
@@ -221,6 +235,29 @@ Title3=Absolute path
 
 NumberOfEntries=3
 Version=2
+)--";
+    PlaylistParser playlistParser;
+    QList<QUrl> listOfUrls = playlistParser.fromPlaylist(QUrl(QStringLiteral("file:///home/n/a.pls")), QString::fromUtf8(asString).toUtf8());
+
+    QCOMPARE(listOfUrls.count(), 3);
+}
+
+void MediaPlayListProxyModelTest::plsPlaylistParser_WindowsLineTerminator()
+{
+    const char * asString = R"--([playlist]\r
+\r
+File1=https://test.test-dom:8068\r
+Length1=-1\r
+
+File2=example2.mp3\r
+Title2=Relative path\r
+Length2=120\r
+\r
+File3=/home/n/Music/1.mp3\r
+Title3=Absolute path\r
+\r
+NumberOfEntries=3\r
+Version=2\r
 )--";
     PlaylistParser playlistParser;
     QList<QUrl> listOfUrls = playlistParser.fromPlaylist(QUrl(QStringLiteral("file:///home/n/a.pls")), QString::fromUtf8(asString).toUtf8());

@@ -390,7 +390,7 @@ msgstr "Ajouter à la liste de lecture"
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
-msgstr "Afficher dans un dossier"
+msgstr "Afficher dans son dossier"
 
 #: qml/AbstractBrowserDelegate.qml:77
 #, kde-format

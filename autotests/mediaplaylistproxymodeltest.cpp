@@ -1383,6 +1383,7 @@ void MediaPlayListProxyModelTest::testTrackShuffleMode()
     QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 4);
 
     mPlayListProxyModel->switchTo(3);
 
@@ -1442,21 +1443,31 @@ void MediaPlayListProxyModelTest::testTrackShuffleMode()
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
+    QCOMPARE(mRowsInsertedSpy->count(), 4);
     QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(1, 0)));
 
     mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
                                     {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist7"), QStringLiteral("album3"), 1, 1)}},
                                    QStringLiteral("track1"), {}}}, {}, {});
+
+    QCOMPARE(mRowsInsertedSpy->count(), 5);
+    QVERIFY(mRowsInsertedSpy->constLast().at(1).toInt() > 1);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(1, 0)));
+
     mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
                                     {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album3"), 1, 1)}},
                                    QStringLiteral("track1"), {}}}, {}, {});
 
-    QVERIFY(mCurrentTrackChangedSpy->count() >= oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mRowsInsertedSpy->count(), 6);
+    QVERIFY(mRowsInsertedSpy->constLast().at(1).toInt() > 1);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(1, 0)));
+
     QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
-    QVERIFY(mPlayListProxyModel->currentTrackRow() >= 1);
-    QVERIFY(mPlayListProxyModel->currentTrackRow() <= 3);
+    QCOMPARE(mPlayListProxyModel->currentTrackRow(), 1);
 }
 
 void MediaPlayListProxyModelTest::testAlbumShuffleMode()
@@ -1480,6 +1491,7 @@ void MediaPlayListProxyModelTest::testAlbumShuffleMode()
     QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 4);
 
     mPlayListProxyModel->switchTo(2);
 
@@ -1541,12 +1553,21 @@ void MediaPlayListProxyModelTest::testAlbumShuffleMode()
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
+    QCOMPARE(mRowsInsertedSpy->count(), 4);
     QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(2, 0)));
 
     mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
                                     {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist7"), QStringLiteral("album3"), 1, 1)},
                                     {DataTypes::AlbumIdRole, 6}},
                                    QStringLiteral("track1"), {}}}, {}, {});
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mRowsInsertedSpy->count(), 5);
+    QVERIFY(mRowsInsertedSpy->constLast().at(1).toInt() > 2);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(2, 0)));
+
     mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
                                     {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album3"), 1, 1)},
                                     {DataTypes::AlbumIdRole, 6}},
@@ -1554,12 +1575,16 @@ void MediaPlayListProxyModelTest::testAlbumShuffleMode()
 
     QCOMPARE(mDataChangedSpy->wait(), true);
 
+    QCOMPARE(mRowsInsertedSpy->count(), 6);
+    QVERIFY(mRowsInsertedSpy->constLast().at(1).toInt() > 2);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(2, 0)));
+
     QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
     QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
-    QVERIFY(mPlayListProxyModel->currentTrackRow() >= 2);
-    QVERIFY(mPlayListProxyModel->currentTrackRow() <= 4);
+    QCOMPARE(mPlayListProxyModel->currentTrackRow(), 2);
 }
 
 void MediaPlayListProxyModelTest::testEnqueueShuffleMode()

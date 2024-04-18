@@ -12,6 +12,13 @@
 
 #include <QObject>
 
+class DatabaseInterface;
+class MediaPlayList;
+class MediaPlayListProxyModel;
+class QAbstractItemModelTester;
+class QSignalSpy;
+class TracksListener;
+
 class MediaPlayListProxyModelTest : public QObject, public DatabaseTestData
 {
 
@@ -26,6 +33,10 @@ Q_SIGNALS:
 private Q_SLOTS:
 
     void initTestCase();
+
+    void init();
+
+    void cleanup();
 
     void m3uPlaylistParser_SimpleCase();
 
@@ -146,6 +157,41 @@ private Q_SLOTS:
     void testMoveAndShuffle();
 
     void testMoveCurrentTrack();
+
+private:
+
+    MediaPlayList *mPlayList = nullptr;
+    MediaPlayListProxyModel *mPlayListProxyModel = nullptr;
+    QAbstractItemModelTester *mModelTester = nullptr;
+    QAbstractItemModelTester *mProxyModelTester = nullptr;
+    DatabaseInterface *mDatabaseContent = nullptr;
+    TracksListener *mListener = nullptr;
+
+    QSignalSpy *mRowsAboutToBeMovedSpy = nullptr;
+    QSignalSpy *mRowsAboutToBeRemovedSpy = nullptr;
+    QSignalSpy *mRowsAboutToBeInsertedSpy = nullptr;
+    QSignalSpy *mRowsMovedSpy = nullptr;
+    QSignalSpy *mRowsRemovedSpy = nullptr;
+    QSignalSpy *mRowsInsertedSpy = nullptr;
+    QSignalSpy *mDataChangedSpy = nullptr;
+
+    QSignalSpy *mCurrentTrackChangedSpy = nullptr;
+    QSignalSpy *mDisplayUndoNotificationSpy = nullptr;
+    QSignalSpy *mNextTrackChangedSpy = nullptr;
+    QSignalSpy *mPersistentStateChangedSpy = nullptr;
+    QSignalSpy *mPlayListFinishedSpy = nullptr;
+    QSignalSpy *mPlayListLoadedSpy = nullptr;
+    QSignalSpy *mPlayListLoadFailedSpy = nullptr;
+    QSignalSpy *mPreviousTrackChangedSpy = nullptr;
+    QSignalSpy *mRemainingTracksChangedSpy = nullptr;
+    QSignalSpy *mRepeatModeChangedSpy = nullptr;
+    QSignalSpy *mShufflePlayListChangedSpy = nullptr;
+    QSignalSpy *mTracksCountChangedSpy = nullptr;
+    QSignalSpy *mTrackSeekedSpy = nullptr;
+
+    QSignalSpy *mNewTrackByNameInListSpy = nullptr;
+    QSignalSpy *mNewEntryInListSpy = nullptr;
+    QSignalSpy *mNewUrlInListSpy = nullptr;
 };
 
 #endif // MEDIAPLAYLISTPROXYMODELTEST_H

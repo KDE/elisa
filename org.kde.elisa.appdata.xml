@@ -354,6 +354,10 @@ SPDX-License-Identifier: CC0-1.0
   <launchable type="desktop-id">org.kde.elisa.desktop</launchable>
   <project_group>KDE</project_group>
   <content_rating type="oars-1.0"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#5ebfa2</color>
+    <color type="primary" scheme_preference="dark">#619d8b</color>
+  </branding>
   <releases>
     <release version="24.02.2" date="2024-04-11"/>
     <release version="24.02.1" date="2024-03-21"/>

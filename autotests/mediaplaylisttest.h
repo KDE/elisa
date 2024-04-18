@@ -11,6 +11,12 @@
 
 #include <QObject>
 
+class DatabaseInterface;
+class MediaPlayList;
+class QAbstractItemModelTester;
+class QSignalSpy;
+class TracksListener;
+
 class MediaPlayListTest : public QObject, public DatabaseTestData
 {
 
@@ -25,6 +31,10 @@ Q_SIGNALS:
 private Q_SLOTS:
 
     void initTestCase();
+
+    void init();
+
+    void cleanup();
 
     void simpleInitialCase();
 
@@ -74,9 +84,26 @@ private Q_SLOTS:
 
     void crashOnEnqueue();
 
-};
+private:
 
-class MediaPlayList;
+    MediaPlayList *mPlayList = nullptr;
+    QAbstractItemModelTester *mModelTester = nullptr;
+    DatabaseInterface *mDatabaseContent = nullptr;
+    TracksListener *mListener = nullptr;
+
+    QSignalSpy *mRowsAboutToBeMovedSpy = nullptr;
+    QSignalSpy *mRowsAboutToBeRemovedSpy = nullptr;
+    QSignalSpy *mRowsAboutToBeInsertedSpy = nullptr;
+    QSignalSpy *mRowsMovedSpy = nullptr;
+    QSignalSpy *mRowsRemovedSpy = nullptr;
+    QSignalSpy *mRowsInsertedSpy = nullptr;
+    QSignalSpy *mDataChangedSpy = nullptr;
+
+    QSignalSpy *mNewEntryInListSpy = nullptr;
+    QSignalSpy *mNewTrackByNameInListSpy = nullptr;
+    QSignalSpy *mNewUrlInListSpy = nullptr;
+
+};
 
 class CrashEnqueuePlayList : public QObject
 {

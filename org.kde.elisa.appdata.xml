@@ -62,8 +62,22 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="zh-CN">Elisa 音乐播放器</name>
   <name xml:lang="zh-TW">Elisa</name>
   <summary>Play music and listen to online radio stations</summary>
+  <summary xml:lang="ca">Reproduïu música i escolteu estacions de ràdio en línia</summary>
+  <summary xml:lang="eu">Musika jotzea eta lerroko irrati-kateak entzutea</summary>
+  <summary xml:lang="nl">Speel muziek en luister naar online radiostations</summary>
+  <summary xml:lang="sl">Predvajajte glasbo in poslušajte spletne radio postaje</summary>
+  <summary xml:lang="tr">Müzik çalın ve radyo istasyonlarını dinleyin</summary>
+  <summary xml:lang="uk">Відтворення музичних творів та прослуховування інтернет-радіостанцій</summary>
+  <summary xml:lang="x-test">xxPlay music and listen to online radio stationsxx</summary>
   <description>
     <p>The Elisa music player is developed by the KDE community and strives to be simple and pleasant to use.</p>
+    <p xml:lang="ca">El reproductor de música Elisa és desenvolupat per la comunitat KDE i s'esforça per ser senzill i agradable d'utilitzar.</p>
+    <p xml:lang="eu">Elisa musika-jotzailea KDE Komunitateak garatzen du eta erabiltzeko erraza eta atsegina izaten saiatzen da.</p>
+    <p xml:lang="nl">De Elisa muziekspeler is ontwikkeld door de KDE gemeenschap en streeft er naar om eenvoudig en plezierig in gebruik te zijn.</p>
+    <p xml:lang="sl">Predvajalnik glasbe Elisa je razvila skupnost KDE in si prizadeva, da bi bil preprost in prijeten za uporabo.</p>
+    <p xml:lang="tr">Elisa müzik çaları, KDE topluluğu tarafından geliştirilir ve yalın ve kullanımı kolay bir deneyim sunmaya çalışır.</p>
+    <p xml:lang="uk">Elisa — музичний програвач, який розроблено спільнотою KDE. Автори програми прагнуть зробити її простою та приємною у користуванні.</p>
+    <p xml:lang="x-test">xxThe Elisa music player is developed by the KDE community and strives to be simple and pleasant to use.xx</p>
     <p>With Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.</p>
     <p xml:lang="ar">مع برنامج أليسا يمكنك تصفح مجموعتك الصوتية المحلية حسب النوع أو الفنان أو الألبوم أو المسار، والاستماع إلى الراديو عبر الإنترنت، وإنشاء قوائم التشغيل وإدارتها، وعرض كلمات الأغاني، والمزيد.</p>
     <p xml:lang="be">З дапамогай Elisa вы можаце праглядаць сваю лакальную музычную калекцыю па жанрах, выканаўцах, альбомах або кампазіцыях, слухаць сеціўнае радыё, ствараць спісы прайгравання і кіраваць імі, глядзець тэксты песень і многае іншае.</p>

@@ -182,7 +182,7 @@ public:
     explicit MediaPlayListEntry(qulonglong id,
                                 const QString &entryTitle,
                                 ElisaUtils::PlayListEntryType type)
-        : mTitle(entryTitle), mId(id), mIsValid(type == ElisaUtils::Track), mEntryType(type) {
+        : mTitle(entryTitle), mId(id), mIsValid(true), mEntryType(type) {
     }
 
     QVariant mTitle;

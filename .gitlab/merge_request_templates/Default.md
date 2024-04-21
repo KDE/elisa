@@ -11,7 +11,9 @@ If the merge request adds a new feature or UI change, explain the benefits if th
 ### Test plan
 
 <!--
-Describe how you tested it, and how someone reviewing this merge request can test it themselves. No need to mention obvious things like "Apply the changes".
+Strongly consider adding an autotest that validates these changes.
+
+If not, at least describe how you tested it, and how someone reviewing this merge request can test it themselves. No need to mention obvious things like "Apply the changes".
 -->
 
 ### Screenshots or screen recordings

@@ -68,6 +68,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="eu">Musika jotzea eta lerroko irrati-kateak entzutea</summary>
   <summary xml:lang="fr">Lire de la musique et écouter des stations de radios en ligne</summary>
   <summary xml:lang="it">Riproduci musica e ascolta stazioni radio online</summary>
+  <summary xml:lang="ka">დაუკარით მუსიკა მოუსმინეთ რადიოსადგურებს ინტერნეტში</summary>
   <summary xml:lang="nl">Speel muziek en luister naar online radiostations</summary>
   <summary xml:lang="sl">Predvajajte glasbo in poslušajte spletne radio postaje</summary>
   <summary xml:lang="ta">பாடல்களையும் இணைய வானொலி நிலையங்களையும் கேட்கலாம்</summary>
@@ -84,6 +85,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="eu">Elisa musika-jotzailea KDE Komunitateak garatzen du eta erabiltzeko erraza eta atsegina izaten saiatzen da.</p>
     <p xml:lang="fr">Le lecteur de musique Elisa est développé par la communauté de KDE. Il s'efforce d'être simple et agréable à utiliser.</p>
     <p xml:lang="it">Il riproduttore multimediale Elisa è sviluppato dalla comunità KDE e cerca di essere semplice e piacevole da usare.</p>
+    <p xml:lang="ka">მუსიკის დამკვრელი Elisa შეიქმნა KDE-ის საზოგადოების მიერ და მიიღწვის, რათა სასიამოვნო და მარტივი იყოს.</p>
     <p xml:lang="nl">De Elisa muziekspeler is ontwikkeld door de KDE gemeenschap en streeft er naar om eenvoudig en plezierig in gebruik te zijn.</p>
     <p xml:lang="sl">Predvajalnik glasbe Elisa je razvila skupnost KDE in si prizadeva, da bi bil preprost in prijeten za uporabo.</p>
     <p xml:lang="ta">எலைசா என்பது, கே.டீ.யீ.யால் உருவாக்கப்பட்டுள்ள ஓர் எளிய பாடல் இசைப்பி</p>

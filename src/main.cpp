@@ -89,7 +89,11 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_ANDROID
     qInfo() << QCoreApplication::arguments();
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     QJniObject::callStaticMethod<void>("org/kde/elisa/ElisaService", "startMyService", "(Landroid/content/Context;)V", QNativeInterface::QAndroidApplication::context());
+#else
+    QJniObject::callStaticMethod<void>("org/kde/elisa/ElisaService", "startMyService", QNativeInterface::QAndroidApplication::context());
+#endif
 #endif
 
 #if KFCrash_FOUND

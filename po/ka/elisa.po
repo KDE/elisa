@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-08 00:37+0000\n"
+"POT-Creation-Date: 2024-05-01 00:37+0000\n"
 "PO-Revision-Date: 2024-04-05 05:15+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -83,61 +83,61 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "წვეულების რეჟიმის გადართვა"
 
-#: main.cpp:102
+#: main.cpp:106
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:104
+#: main.cpp:108
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "მარტივი მუსიკის დამკვრელი, თქვენთვის. სიყვარულით, KDE-ის საზოგადოება"
 
-#: main.cpp:106
+#: main.cpp:110
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa -ის შემომწირავები, ყველა უფლება დაცულია"
 
-#: main.cpp:108 models/lyricsmodel.cpp:161
+#: main.cpp:112 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "შემქმნელი"
 
-#: main.cpp:109
+#: main.cpp:113
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "ავტორი"
 
-#: main.cpp:111
+#: main.cpp:115
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "იდეა და დიზაინი"
 
-#: main.cpp:112
+#: main.cpp:116
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "ლოკალიზაციის მხარდაჭერა"
 
-#: main.cpp:113
+#: main.cpp:117
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "ინტერფეისში მარჯვნიდან მარცხნივ წერის მხარდაჭერა"
 
-#: main.cpp:114
+#: main.cpp:118
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "ინტერფეისის სხვადასხვა ნაწილის გაუმჯობესება"
 
-#: main.cpp:115
+#: main.cpp:119
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

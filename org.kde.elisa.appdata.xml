@@ -32,6 +32,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="fi">Elisa</name>
   <name xml:lang="fr">Elisa</name>
   <name xml:lang="gl">Elisa</name>
+  <name xml:lang="he">אליסה</name>
   <name xml:lang="hi">एलिसा</name>
   <name xml:lang="hu">Elisa</name>
   <name xml:lang="ia">Elisa</name>
@@ -70,6 +71,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="es">Reproduzca música y escuche radios en línea</summary>
   <summary xml:lang="eu">Musika jotzea eta lerroko irrati-kateak entzutea</summary>
   <summary xml:lang="fr">Lire de la musique et écouter des stations de radios en ligne</summary>
+  <summary xml:lang="he">נגינת מוזיקה והאזנה לתחנות רדיו מקוונות</summary>
   <summary xml:lang="ia">Reproduce musica e ascolta stationes radio in linea</summary>
   <summary xml:lang="it">Riproduci musica e ascolta stazioni radio online</summary>
   <summary xml:lang="ka">დაუკარით მუსიკა მოუსმინეთ რადიოსადგურებს ინტერნეტში</summary>
@@ -92,6 +94,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="es">El reproductor musical Elisa es desarrollado por la comunidad KDE y pretende ser simple y placentero de usar.</p>
     <p xml:lang="eu">Elisa musika-jotzailea KDE Komunitateak garatzen du eta erabiltzeko erraza eta atsegina izaten saiatzen da.</p>
     <p xml:lang="fr">Le lecteur de musique Elisa est développé par la communauté de KDE. Il s'efforce d'être simple et agréable à utiliser.</p>
+    <p xml:lang="he">נגן המוזיקה אליסה מפותח על ידי קהילת KDE ושואף להיות פשוט ונעים לשימוש.</p>
     <p xml:lang="ia">Le reproductor de musica Elisa es disveloppate per le communitate de KDE e lucta pro esser simple e agradabile a usar. </p>
     <p xml:lang="it">Il riproduttore multimediale Elisa è sviluppato dalla comunità KDE e cerca di essere semplice e piacevole da usare.</p>
     <p xml:lang="ka">მუსიკის დამკვრელი Elisa შეიქმნა KDE-ის საზოგადოების მიერ და მიიღწვის, რათა სასიამოვნო და მარტივი იყოს.</p>
@@ -116,6 +119,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="eu">Elisarekin lokalean duzun musika, generoaren, artistaren, albumaren, edo pistaren arabera araka dezakezu, lerroko irratiak entzun, jotze-zerrendak sortu eta kudeatu, letrak azaldu, eta gehiago.</p>
     <p xml:lang="fi">Elisalla voi selata musiikkikokoelmaa tyylilajeittain, artisteittain, albumeittain tai raidoittain, kuunnella verkkoradiota, luoda ja hallita soittolistoja, näyttää sanoitukset ja paljon muuta.</p>
     <p xml:lang="fr">Avec Elisa, vous pouvez parcourir votre collection locale de musique par genre, par artiste, par album ou par piste, écouter la radio en ligne, créer et gérer des listes de lecture, afficher les paroles et plus encore.</p>
+    <p xml:lang="he">עם אליסה, אפשר לעיין באוסף המוזיקה המקומי שלך לפי סוגה, אומנים, אלבומים, או רצועות, האזנה לרדיו מקוון, יצירה וניהול של רשימות נגינה, הצגת מילות שירים ועוד.</p>
     <p xml:lang="hu">Az Elisa segítségével böngészheti zenei gyűjteményét műfajok, előadók, album vagy zeneszám alapján, hallgathat online rádiót, lejátszási listákat hozhat létre és kezelhet, dalszövegek jeleníthet meg, és még sok mást is megtehet.</p>
     <p xml:lang="ia">Con Elisa, tu pote navigar in tu collection local de musica per genere, artista, album, o tracia, ascolatr radio in linea, crear e gerer listas de reproduction, monstrar lyricas, e plus.</p>
     <p xml:lang="is">Þú getur flett í tónlistarsafninu þínu í Elisa eftir tónlistartegund, flytjanda, plötu eða lagi, hlustað á netútvarp, búið til og unnið með spilunarlista, birt lagatexta og fleira.</p>
@@ -149,6 +153,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="eu">«Elisa»k, Plasma mahaigainean erabiltzean, KDEren kolore-antolaera osoa  onartzen du, bestelakoan modu argi eta ilun estandarrak.</p>
     <p xml:lang="fi">Plasma-työpöydällä Elisa tukee KDE-värimallejasi täysin, muuten vaaleaa ja tummaa tilaa.</p>
     <p xml:lang="fr">Elisa prend en charge la totalité du thème de couleurs de KDE, lors de son utilisation avec le bureau Plasma, ou sinon les modes classiques clair et sombre.</p>
+    <p xml:lang="he">באליסה יש תמיכה בערכת הצבעים המלאה של KDE בעת שימוש בשולחן העבודה פלזמה, ובמקרה שלא אז המצבים הכהה והבהיר הרגילים.</p>
     <p xml:lang="hu">Az Elisa támogatja a teljes KDE színsémát, ha a Plasma asztali környezetben használja, vagy a standard világos és sötét üzemmódot.</p>
     <p xml:lang="ia">Elisa supporta tu schema de color  complete de KDE quando usate sur le scriptorio Plasma, o alteremente le modos standard ligier e obscur.</p>
     <p xml:lang="is">Elisa styður litastefið sem þú notar í KDE þegar það er notað í Plasma skjáborðinu, en annars hefðbundin ljós eða dökk litasnið.</p>
@@ -181,6 +186,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="eu">Erlaxatu gure festa-moduarekin, zeinek zure musika-albumaren artea aurrealdean eta erdian ipintzen duen.</p>
     <p xml:lang="fi">Rentoutuminen onnistuu juhlatilassa, jossa etusijalle asettuu albumin kansitaide.</p>
     <p xml:lang="fr">Détendez-vous avec le mode « Fête » mettant la pochette d'album de votre musique au premier plan et au centre.</p>
+    <p xml:lang="he">לחגוג עם מצב מסיבה שמציב את עטיפת האלבומים של המוזיקה שלך במרכז הבמה.</p>
     <p xml:lang="hu">Lazítson a Parti móddal, amely a zenei albumok borítóit helyezi előre és a középpontba.</p>
     <p xml:lang="ia">Quieta con Party Mode (modo de Festa) que pone tu illustration de album Fronte e Central.</p>
     <p xml:lang="is">Skemmtu þér í Partísniði þar sem plötuumslögin eru í fyrirrúmi.</p>
@@ -230,6 +236,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="fi">Elisa-musiikkisoitin</caption>
       <caption xml:lang="fr">Le lecteur de musique Elisa</caption>
       <caption xml:lang="gl">O reprodutor de música Elisa.</caption>
+      <caption xml:lang="he">נגן המוזיקה אליסה</caption>
       <caption xml:lang="hi">एलिसा संगीत वादक</caption>
       <caption xml:lang="hu">Az Elisa zenelejátszó</caption>
       <caption xml:lang="ia">Le reproductor de music Elisa</caption>
@@ -280,6 +287,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="fi">Elisa Plasma Mobilessa</caption>
       <caption xml:lang="fr">Elisa sur Plasma Mobile</caption>
       <caption xml:lang="gl">Elisa en Plasma Mobile.</caption>
+      <caption xml:lang="he">אליסה על פלזמה לניידים</caption>
       <caption xml:lang="hi">एलिसा प्लास्मा मोबाइल पर</caption>
       <caption xml:lang="hu">Elisa a Plasma Mobile-on</caption>
       <caption xml:lang="ia">Elisa sur Plasma Mobile</caption>

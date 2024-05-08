@@ -78,7 +78,7 @@ msgstr "Ves fins a la peça anterior"
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
-msgstr "Reproducció/pausa"
+msgstr "Reproduïu o pausa"
 
 #: elisaapplication.cpp:246
 #, kde-format
@@ -360,13 +360,13 @@ msgstr "Artistes"
 #, kde-format
 msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
-msgstr "Reproducció de música"
+msgstr "Reproduïu la música"
 
 #: powermanagementinterface.cpp:229
 #, kde-format
 msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
-msgstr "Reproducció de música"
+msgstr "Reproduïu la música"
 
 #: qml/AbstractBrowserDelegate.qml:39 qml/NavigationActionBar.qml:125
 #, kde-format

@@ -1706,11 +1706,3 @@ msgstr "Fitxers"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "D'acord"
-
-#~ msgctxt "@action:button"
-#~ msgid "Apply"
-#~ msgstr "Aplica"

@@ -165,7 +165,7 @@ public:
 
     MediaPlayListProxyModel::Repeat mRepeatMode = MediaPlayListProxyModel::Repeat::None;
 
-    bool mShufflePlayList = false;
+    MediaPlayListProxyModel::Shuffle mShuffleMode = MediaPlayListProxyModel::Shuffle::NoShuffle;
 
     bool mPartiallyLoaded = false;
 
@@ -231,7 +231,7 @@ QModelIndex MediaPlayListProxyModel::mapToSource(const QModelIndex &proxyIndex) 
 
 int MediaPlayListProxyModel::mapRowToSource(const int proxyRow) const
 {
-    if (d->mShufflePlayList) {
+    if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
         return d->mRandomMapping.at(proxyRow);
     } else {
         return proxyRow;
@@ -240,7 +240,7 @@ int MediaPlayListProxyModel::mapRowToSource(const int proxyRow) const
 
 int MediaPlayListProxyModel::mapRowFromSource(const int sourceRow) const
 {
-    if (d->mShufflePlayList) {
+    if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
         return d->mRandomMapping.indexOf(sourceRow);
     } else {
         return sourceRow;
@@ -249,7 +249,7 @@ int MediaPlayListProxyModel::mapRowFromSource(const int sourceRow) const
 
 int MediaPlayListProxyModel::rowCount(const QModelIndex &parent) const
 {
-    if (d->mShufflePlayList) {
+    if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
         if (parent.isValid()) {
             return 0;
         }
@@ -349,42 +349,17 @@ MediaPlayListProxyModel::Repeat MediaPlayListProxyModel::repeatMode() const
     return d->mRepeatMode;
 }
 
-void MediaPlayListProxyModel::setShufflePlayList(const bool value)
+void MediaPlayListProxyModel::setShuffleMode(const MediaPlayListProxyModel::Shuffle value)
 {
-    if (d->mShufflePlayList != value) {
+    if (d->mShuffleMode != value) {
         auto playListSize = d->mPlayListModel->rowCount();
 
         if (playListSize != 0) {
             Q_EMIT layoutAboutToBeChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
-            if (value) {
-                d->mRandomMapping.clear();
-                d->mRandomMapping.reserve(playListSize);
 
-                QModelIndexList to;
-                to.reserve(playListSize);
-                for (int i = 0; i < playListSize; ++i) {
-                    to.append(index(i,0));
-                    d->mRandomMapping.append(i);
-                }
-
-                QModelIndexList from;
-                from.reserve(playListSize);
-                // Adding the current track first if it is not the only one
-                if (playListSize > 1) {
-                    if (currentTrackRow() != 0) {
-                        std::swap(d->mRandomMapping[0], d->mRandomMapping[currentTrackRow()]);
-                    }
-                    from.append(index(d->mRandomMapping.at(0), 0));
-                }
-                // Fisher-Yates algorithm
-                for (int i = 1;  i < playListSize - 1; ++i) {
-                    const int swapIndex = d->mRandomGenerator.bounded(i, playListSize);
-                    std::swap(d->mRandomMapping[i], d->mRandomMapping[swapIndex]);
-                    from.append(index(d->mRandomMapping.at(i), 0));
-                }
-                from.append(index(d->mRandomMapping.at(playListSize - 1), 0));
-                changePersistentIndexList(from, to);
-            } else {
+            // first, reset playlist to non-random one if it's currently shuffled
+            if (!d->mRandomMapping.isEmpty()) {
+                Q_ASSERT(d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle);
                 QModelIndexList from;
                 from.reserve(playListSize);
                 QModelIndexList to;
@@ -394,25 +369,98 @@ void MediaPlayListProxyModel::setShufflePlayList(const bool value)
                     from.append(index(i, 0));
                 }
                 changePersistentIndexList(from, to);
+
                 d->mRandomMapping.clear();
             }
 
+            if (value != MediaPlayListProxyModel::Shuffle::NoShuffle) {
+                QModelIndexList from, to;
+                from.reserve(playListSize);
+                to.reserve(playListSize);
+
+                d->mRandomMapping.clear();
+                d->mRandomMapping.reserve(playListSize);
+
+                for (int i = 0; i < playListSize; ++i) {
+                    d->mRandomMapping.append(i);
+                    to.append(index(i,0));
+                }
+
+                if (value == MediaPlayListProxyModel::Shuffle::Track) { // shuffle tracks
+                    // Adding the current track first if it is not the only one
+                    if (playListSize > 1) {
+                        if (currentTrackRow() != 0) {
+                            std::swap(d->mRandomMapping[0], d->mRandomMapping[currentTrackRow()]);
+                        }
+                        from.append(index(d->mRandomMapping.at(0), 0));
+                    }
+                    // Fisher-Yates algorithm
+                    for (int i = 1;  i < playListSize - 1; ++i) {
+                        const int swapIndex = d->mRandomGenerator.bounded(i, playListSize);
+                        std::swap(d->mRandomMapping[i], d->mRandomMapping[swapIndex]);
+                        from.append(index(d->mRandomMapping.at(i), 0));
+                    }
+                    from.append(index(d->mRandomMapping.at(playListSize - 1), 0));
+                } else if (value == MediaPlayListProxyModel::Shuffle::Album) { // album shuffle
+                    QHash<int, QList<int>> indexPerAlbumId;
+                    int currentAlbumId = data(d->mCurrentTrack,  MediaPlayList::AlbumIdRole).toInt();
+
+                    // Adding the album of the current track first
+                    QList<int> albumIds = {currentAlbumId};
+                    indexPerAlbumId[currentAlbumId] = {};
+
+                    // This is used to generate fictive (negative) albumIds for
+                    // tracks that don't belong to an album; this will allow to
+                    // spread the loose tracks in between full albums rather
+                    // than have them artificially grouped together
+                    int fictiveAlbumId = -1;
+
+                    for (int i = 0; i < playListSize; ++i) {
+                        int albumId = data(index(i, 0), MediaPlayList::AlbumIdRole).toInt();
+                        if (albumId == 0) {
+                            albumId = fictiveAlbumId;
+                            --fictiveAlbumId;
+                        }
+                        if (indexPerAlbumId.contains(albumId)) {
+                            indexPerAlbumId[albumId].append(i);
+                        } else {
+                            albumIds.append(albumId);
+                            QList<int> tracks = { i };
+                            indexPerAlbumId[albumId] = tracks;
+                        }
+                    }
+
+                    std::shuffle(++albumIds.begin(), albumIds.end(), d->mRandomGenerator);
+
+                    QList<int> newRandomMapping;
+                    newRandomMapping.reserve(playListSize);
+                    for (int albumId : albumIds) {
+                        const auto &sourceRows = indexPerAlbumId[albumId];
+                        for (int sourceRow : sourceRows) {
+                            from.append(index(sourceRow, 0));
+                            newRandomMapping.append(sourceRow);
+                        }
+                    }
+                    d->mRandomMapping = newRandomMapping;
+                }
+                changePersistentIndexList(from, to);
+            }
             d->mCurrentPlayListPosition = d->mCurrentTrack.row();
-            d->mShufflePlayList = value;
+            d->mShuffleMode = value;
             Q_EMIT layoutChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
             determineAndNotifyPreviousAndNextTracks();
         } else {
-            d->mShufflePlayList = value;
+            d->mShuffleMode = value;
         }
-        Q_EMIT shufflePlayListChanged();
+        Q_EMIT shuffleModeChanged();
         Q_EMIT remainingTracksChanged();
         Q_EMIT persistentStateChanged();
     }
 }
 
-bool MediaPlayListProxyModel::shufflePlayList() const
+MediaPlayListProxyModel::Shuffle MediaPlayListProxyModel::shuffleMode() const
 {
-    return d->mShufflePlayList;
+    return d->mShuffleMode;
 }
 
 void MediaPlayListProxyModel::sourceRowsAboutToBeInserted(const QModelIndex &parent, int start, int end)
@@ -423,14 +471,14 @@ void MediaPlayListProxyModel::sourceRowsAboutToBeInserted(const QModelIndex &par
      * new items can be added at arbitrarily positions,
      * which requires a split of beginInsertRows
      */
-    if (!d->mShufflePlayList) {
+    if (d->mShuffleMode == MediaPlayListProxyModel::Shuffle::NoShuffle) {
         beginInsertRows(parent, start, end);
     }
 }
 
 void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int start, int end)
 {
-    if (d->mShufflePlayList) {
+    if (d->mShuffleMode == MediaPlayListProxyModel::Shuffle::Track) { // track shuffle
         const auto newItemsCount = end - start + 1;
         d->mRandomMapping.reserve(rowCount() + newItemsCount);
         if (rowCount() == 0) {
@@ -450,10 +498,92 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
                 endInsertRows();
             }
         }
-    } else {
+    } else if (d->mShuffleMode == MediaPlayListProxyModel::Shuffle::Album) { // album shuffle
+        const auto newItemsCount = end - start + 1;
+        d->mRandomMapping.reserve(rowCount() + newItemsCount);
+
+        // This is used to generate fictive (negative) albumIds for
+        // tracks that don't belong to an album; this will allow to
+        // spread the loose tracks in between full albums rather
+        // than have them artificially grouped together
+        int fictiveAlbumId = -1;
+
+        // Sort new rows per album
+        QHash<int, QList<int>> newIndexPerAlbumId;
+        QList<int> newAlbumIds;
+        for (int i = start; i <= end; ++i) {
+            int albumId = d->mPlayListModel->data(d->mPlayListModel->index(i, 0), MediaPlayList::AlbumIdRole).toInt();
+            if (albumId == 0) {
+                albumId = fictiveAlbumId;
+                --fictiveAlbumId;
+            }
+            if (newIndexPerAlbumId.contains(albumId)) {
+                newIndexPerAlbumId[albumId].append(i);
+            } else {
+                newAlbumIds.append(albumId);
+                QList<int> tracks = { i };
+                newIndexPerAlbumId[albumId] = tracks;
+            }
+        }
+
+        if (rowCount() == 0) {
+            std::shuffle(newAlbumIds.begin(), newAlbumIds.end(), d->mRandomGenerator);
+            beginInsertRows(parent, start, end);
+            for (int albumId : newAlbumIds) {
+                d->mRandomMapping += newIndexPerAlbumId.take(albumId);
+            }
+            endInsertRows();
+        } else {
+            // Find all spots in the current shuffled playlist where the album
+            // changes, then insert the new album tracks randomly in these spots
+            QList<int> insertIndexes;
+            int previousAlbumId = -1;
+            for (int i = 0; i < rowCount(); ++i) {
+                int albumId = data(index(i, 0), MediaPlayList::AlbumIdRole).toInt();
+                if (previousAlbumId != albumId) {
+                    insertIndexes.append(i);
+                    previousAlbumId = albumId;
+                }
+            }
+            // Also add last index value as possible insertion point
+            insertIndexes.append(rowCount());
+
+            for (int newAlbumId : newAlbumIds) {
+                const QList<int> &newAlbumTrackIds = newIndexPerAlbumId[newAlbumId];
+
+                // pick a random spot to insert the new album
+                const auto random = insertIndexes[d->mRandomGenerator.bounded(insertIndexes.count())];
+
+                beginInsertRows(parent, random, random + newAlbumTrackIds.count() - 1);
+                for (int j = 0; j < newAlbumTrackIds.count(); ++j) {
+                    d->mRandomMapping.insert(random + j, newAlbumTrackIds[j]);
+                }
+                endInsertRows();
+
+                // now update insertIndexes because by inserting an album
+                // all insertion points after the current one will also have
+                //shifted
+                for (int j = 0; j < insertIndexes.count(); ++j) {
+                    if (insertIndexes[j] >= random) {
+                        insertIndexes[j] += newAlbumTrackIds.count();
+                    }
+                }
+                // finally, also add the current injection point (the
+                // original was shifted)
+                insertIndexes.append(random);
+            }
+        }
+    } else { // no shuffle
         endInsertRows();
     }
-    determineTracks();
+
+    if (d->mCurrentTrack.isValid()) {
+        d->mCurrentPlayListPosition = d->mCurrentTrack.row();
+        determineAndNotifyPreviousAndNextTracks();
+    } else {
+        determineTracks();
+    }
+
     Q_EMIT tracksCountChanged();
     Q_EMIT remainingTracksChanged();
     Q_EMIT persistentStateChanged();
@@ -461,7 +591,7 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
 
 void MediaPlayListProxyModel::sourceRowsAboutToBeRemoved(const QModelIndex &parent, int start, int end)
 {
-    if (d->mShufflePlayList) {
+    if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
         if (end - start + 1 == rowCount()) {
             beginRemoveRows(parent, start, end);
             d->mRandomMapping.clear();
@@ -493,7 +623,7 @@ void MediaPlayListProxyModel::sourceRowsRemoved(const QModelIndex &parent, int s
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
-    if (!d->mShufflePlayList) {
+    if (d->mShuffleMode == MediaPlayListProxyModel::Shuffle::NoShuffle) {
         endRemoveRows();
     }
     if (!d->mCurrentTrack.isValid()) {
@@ -520,13 +650,13 @@ void MediaPlayListProxyModel::sourceRowsRemoved(const QModelIndex &parent, int s
 
 void MediaPlayListProxyModel::sourceRowsAboutToBeMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destParent, int destRow)
 {
-    Q_ASSERT(!d->mShufflePlayList);
+    Q_ASSERT(d->mShuffleMode == MediaPlayListProxyModel::Shuffle::NoShuffle);
     beginMoveRows(parent, start, end, destParent, destRow);
 }
 
 void MediaPlayListProxyModel::sourceRowsMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destParent, int destRow)
 {
-    Q_ASSERT(!d->mShufflePlayList);
+    Q_ASSERT(d->mShuffleMode == MediaPlayListProxyModel::Shuffle::NoShuffle);
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
@@ -716,7 +846,7 @@ void MediaPlayListProxyModel::moveRow(int from, int to)
     const bool currentTrackIndexChanged = from < to ? (from <= d->mCurrentTrack.row() && d->mCurrentTrack.row() <= to)
                                                     : (to <= d->mCurrentTrack.row() && d->mCurrentTrack.row() <= from);
 
-    if (d->mShufflePlayList) {
+    if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
         beginMoveRows({}, from, from, {}, from < to ? to + 1 : to);
         d->mRandomMapping.move(from, to);
         endMoveRows();
@@ -935,8 +1065,9 @@ QVariantMap MediaPlayListProxyModel::persistentState() const
     QVariantMap currentState;
 
     currentState[QStringLiteral("playList")] = d->mPlayListModel->getEntriesForRestore();
+    currentState[QStringLiteral("shuffleMode")] = d->mShuffleMode;
+    currentState[QStringLiteral("randomMapping")] = getRandomMappingForRestore();
     currentState[QStringLiteral("currentTrack")] = d->mCurrentPlayListPosition;
-    currentState[QStringLiteral("shufflePlayList")] = d->mShufflePlayList;
     currentState[QStringLiteral("repeatMode")] = d->mRepeatMode;
 
     return currentState;
@@ -951,6 +1082,12 @@ void MediaPlayListProxyModel::setPersistentState(const QVariantMap &persistentSt
         d->mPlayListModel->enqueueRestoredEntries(playListIt.value().toList());
     }
 
+    auto shuffleModeStoredValue = persistentStateValue.find(QStringLiteral("shuffleMode"));
+    auto shuffleRandomMappingIt = persistentStateValue.find(QStringLiteral("randomMapping"));
+    if (shuffleModeStoredValue != persistentStateValue.end() && shuffleRandomMappingIt != persistentStateValue.end()) {
+        restoreShuffleMode(shuffleModeStoredValue->value<Shuffle>(), shuffleRandomMappingIt.value().toList());
+    }
+
     auto playerCurrentTrack = persistentStateValue.find(QStringLiteral("currentTrack"));
     if (playerCurrentTrack != persistentStateValue.end()) {
         auto newIndex = index(playerCurrentTrack->toInt(), 0);
@@ -958,11 +1095,6 @@ void MediaPlayListProxyModel::setPersistentState(const QVariantMap &persistentSt
             d->mCurrentTrack = newIndex;
             notifyCurrentTrackChanged();
         }
-    }
-
-    auto shufflePlayListStoredValue = persistentStateValue.find(QStringLiteral("shufflePlayList"));
-    if (shufflePlayListStoredValue != persistentStateValue.end()) {
-        setShufflePlayList(shufflePlayListStoredValue->toBool());
     }
 
     auto repeatPlayStoredValue = persistentStateValue.find(QStringLiteral("repeatPlay"));
@@ -976,6 +1108,49 @@ void MediaPlayListProxyModel::setPersistentState(const QVariantMap &persistentSt
     }
 
     Q_EMIT persistentStateChanged();
+}
+
+QVariantList MediaPlayListProxyModel::getRandomMappingForRestore() const
+{
+    QVariantList randomMapping;
+
+    if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
+        randomMapping.reserve(d->mRandomMapping.count());
+        for (int i = 0; i < d->mRandomMapping.count(); ++i) {
+            randomMapping.append(QVariant(d->mRandomMapping[i]));
+        }
+    }
+
+    return randomMapping;
+}
+
+void MediaPlayListProxyModel::restoreShuffleMode(MediaPlayListProxyModel::Shuffle mode, QVariantList mapping)
+{
+    auto playListSize = rowCount();
+
+    if (mode != MediaPlayListProxyModel::Shuffle::NoShuffle && mapping.count() == playListSize && d->mRandomMapping.isEmpty()) {
+        Q_EMIT layoutAboutToBeChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
+
+        QModelIndexList from, to;
+        from.reserve(playListSize);
+        to.reserve(playListSize);
+        d->mRandomMapping.clear();
+        d->mRandomMapping.reserve(playListSize);
+
+        for (int i = 0; i < playListSize; ++i) {
+            d->mRandomMapping.append(mapping[i].toInt());
+            from.append(index(mapping[i].toInt(), 0));
+            to.append(index(i, 0));
+        }
+        changePersistentIndexList(from, to);
+
+        d->mShuffleMode = mode;
+
+        Q_EMIT layoutChanged(QList<QPersistentModelIndex>(), QAbstractItemModel::VerticalSortHint);
+
+        Q_EMIT shuffleModeChanged();
+        Q_EMIT remainingTracksChanged();
+    }
 }
 
 bool MediaPlayListProxyModel::partiallyLoaded() const

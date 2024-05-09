@@ -131,7 +131,7 @@ private Q_SLOTS:
 
     void playerVolumeChanged();
 
-    void shufflePlayListChanged();
+    void shuffleModeChanged();
 
     void repeatModeChanged();
 

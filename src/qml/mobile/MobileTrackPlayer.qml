@@ -205,11 +205,52 @@ BasePlayerControl {
                     Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
-                    text: i18nc("@action:button", "Toggle Shuffle")
-                    icon.name: "media-playlist-shuffle"
+
+                    text: {
+                        const map = {
+                            [MediaPlayListProxyModel.NoShuffle]: i18nc("@info:tooltip", "Current: No shuffle"),
+                            [MediaPlayListProxyModel.Track]: i18nc("@info:tooltip", "Current: Shuffle tracks"),
+                            [MediaPlayListProxyModel.Album]: i18nc("@info:tooltip", "Current: Shuffle albums"),
+                        }
+                        return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
+                    }
+                    icon.name: {
+                        const map = {
+                            [MediaPlayListProxyModel.NoShuffle]: "media-playlist-no-shuffle-symbolic",
+                            [MediaPlayListProxyModel.Track]: "media-playlist-shuffle",
+                            [MediaPlayListProxyModel.Album]: "media-random-albums-amarok",
+                        }
+                        return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
+                    }
                     icon.color: "white"
-                    checked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
-                    onClicked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList = !ElisaApplication.mediaPlayListProxyModel.shufflePlayList
+
+                    down: pressed || menu.visible
+                    Accessible.role: Accessible.ButtonMenu
+
+                    checkable: true
+                    checked: ElisaApplication.mediaPlayListProxyModel.shuffleMode !== 0
+
+                    onClicked: {
+                        ElisaApplication.mediaPlayListProxyModel.shuffleMode = (ElisaApplication.mediaPlayListProxyModel.shuffleMode + 1) % 3
+                    }
+                    onPressAndHold: {
+                        menu.popup()
+                    }
+
+                    menu: Menu {
+                        ShuffleModeItem {
+                            text: i18nc("@action:inmenu", "Track")
+                            mode: MediaPlayListProxyModel.Track
+                        }
+                        ShuffleModeItem {
+                            text: i18nc("@action:inmenu", "Album")
+                            mode: MediaPlayListProxyModel.Album
+                        }
+                        ShuffleModeItem {
+                            text: i18nc("@action:inmenu", "None")
+                            mode: MediaPlayListProxyModel.NoShuffle
+                        }
+                    }
                 }
 
                 FlatButtonWithToolTip {

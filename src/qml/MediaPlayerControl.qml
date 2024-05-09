@@ -146,11 +146,61 @@ BasePlayerControl {
 
         FlatButtonWithToolTip {
             id: shuffleButton
-            text: i18nc("@action:button", "Toggle Shuffle")
-            icon.name: "media-playlist-shuffle"
+            text: {
+                const map = {
+                    [MediaPlayListProxyModel.NoShuffle]: i18nc("@info:tooltip", "Current: No shuffle"),
+                    [MediaPlayListProxyModel.Track]: i18nc("@info:tooltip", "Current: Shuffle tracks"),
+                    [MediaPlayListProxyModel.Album]: i18nc("@info:tooltip", "Current: Shuffle albums"),
+                }
+                return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
+            }
+            icon.name: {
+                const map = {
+                    [MediaPlayListProxyModel.NoShuffle]: "media-playlist-no-shuffle-symbolic",
+                    [MediaPlayListProxyModel.Track]: "media-playlist-shuffle",
+                    [MediaPlayListProxyModel.Album]: "media-random-albums-amarok",
+                }
+                return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
+            }
+
+            down: pressed || menu.visible
+            Accessible.role: Accessible.ButtonMenu
+
             checkable: true
-            checked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
-            onClicked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList = !ElisaApplication.mediaPlayListProxyModel.shufflePlayList
+            checked: ElisaApplication.mediaPlayListProxyModel.shuffleMode !== 0
+
+            onClicked: {
+                ElisaApplication.mediaPlayListProxyModel.shuffleMode = (ElisaApplication.mediaPlayListProxyModel.shuffleMode + 1) % 3
+            }
+            onPressAndHold: {
+                menu.popup()
+            }
+
+            menu: Menu {
+                ShuffleModeItem {
+                    text: i18nc("@action:inmenu", "Track")
+                    mode: MediaPlayListProxyModel.Track
+                }
+                ShuffleModeItem {
+                    text: i18nc("@action:inmenu", "Album")
+                    mode: MediaPlayListProxyModel.Album
+                }
+                ShuffleModeItem {
+                    text: i18nc("@action:inmenu", "None")
+                    mode: MediaPlayListProxyModel.NoShuffle
+                }
+            }
+
+            Kirigami.Icon {
+                anchors {
+                    right: parent.right
+                    bottom: parent.bottom
+                    margins: Kirigami.Units.smallSpacing
+                }
+                width: Math.round(Kirigami.Units.iconSizes.small / 2)
+                height: Math.round(Kirigami.Units.iconSizes.small / 2)
+                source: "arrow-down"
+            }
         }
 
         FlatButtonWithToolTip {

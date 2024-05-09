@@ -65,7 +65,7 @@ void MediaPlayListProxyModelTest::init()
     mPreviousTrackChangedSpy = new QSignalSpy(mPlayListProxyModel, &MediaPlayListProxyModel::previousTrackChanged);
     mRemainingTracksChangedSpy = new QSignalSpy(mPlayListProxyModel, &MediaPlayListProxyModel::remainingTracksChanged);
     mRepeatModeChangedSpy = new QSignalSpy(mPlayListProxyModel, &MediaPlayListProxyModel::repeatModeChanged);
-    mShufflePlayListChangedSpy = new QSignalSpy(mPlayListProxyModel, &MediaPlayListProxyModel::shufflePlayListChanged);
+    mShuffleModeChangedSpy = new QSignalSpy(mPlayListProxyModel, &MediaPlayListProxyModel::shuffleModeChanged);
     mTracksCountChangedSpy = new QSignalSpy(mPlayListProxyModel, &MediaPlayListProxyModel::tracksCountChanged);
     mTrackSeekedSpy = new QSignalSpy(mPlayListProxyModel, &MediaPlayListProxyModel::seek);
 
@@ -91,7 +91,7 @@ void MediaPlayListProxyModelTest::init()
     QCOMPARE(mPreviousTrackChangedSpy->count(), 0);
     QCOMPARE(mRemainingTracksChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mTracksCountChangedSpy->count(), 0);
     QCOMPARE(mTrackSeekedSpy->count(), 0);
 
@@ -139,7 +139,7 @@ void MediaPlayListProxyModelTest::init()
     QCOMPARE(mPreviousTrackChangedSpy->count(), 0);
     QCOMPARE(mRemainingTracksChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mTracksCountChangedSpy->count(), 0);
     QCOMPARE(mTrackSeekedSpy->count(), 0);
 
@@ -174,7 +174,7 @@ void MediaPlayListProxyModelTest::cleanup()
     delete mPreviousTrackChangedSpy;
     delete mRemainingTracksChangedSpy;
     delete mRepeatModeChangedSpy;
-    delete mShufflePlayListChangedSpy;
+    delete mShuffleModeChangedSpy;
     delete mTracksCountChangedSpy;
     delete mTrackSeekedSpy;
 
@@ -772,7 +772,7 @@ void MediaPlayListProxyModelTest::testSaveLoadPlayList()
     TracksListener myListenerRestore(mDatabaseContent);
 
     QSignalSpy currentTrackChangedRestoreSpy(&myPlayListProxyModelRestore, &MediaPlayListProxyModel::currentTrackChanged);
-    QSignalSpy shufflePlayListChangedRestoreSpy(&myPlayListProxyModelRestore, &MediaPlayListProxyModel::shufflePlayListChanged);
+    QSignalSpy shuffleModeChangedRestoreSpy(&myPlayListProxyModelRestore, &MediaPlayListProxyModel::shuffleModeChanged);
     QSignalSpy repeatModeChangedRestoreSpy(&myPlayListProxyModelRestore, &MediaPlayListProxyModel::repeatModeChanged);
     QSignalSpy playListFinishedRestoreSpy(&myPlayListProxyModelRestore, &MediaPlayListProxyModel::playListFinished);
     QSignalSpy playListLoadedRestoreSpy(&myPlayListProxyModelRestore, &MediaPlayListProxyModel::playListLoaded);
@@ -797,7 +797,7 @@ void MediaPlayListProxyModelTest::testSaveLoadPlayList()
             &myListenerRestore, &TracksListener::tracksAdded);
 
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadedRestoreSpy.count(), 0);
@@ -818,13 +818,13 @@ void MediaPlayListProxyModelTest::testSaveLoadPlayList()
     QVERIFY(mDataChangedSpy->wait());
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
     QCOMPARE(mPlayListLoadedSpy->count(), 0);
     QCOMPARE(mPlayListLoadFailedSpy->count(), 0);
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadedRestoreSpy.count(), 0);
@@ -838,13 +838,13 @@ void MediaPlayListProxyModelTest::testSaveLoadPlayList()
     QCOMPARE(mPlayListProxyModel->savePlayList(QUrl::fromLocalFile(playlistFile.fileName())), true);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
     QCOMPARE(mPlayListLoadedSpy->count(), 0);
     QCOMPARE(mPlayListLoadFailedSpy->count(), 0);
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadedRestoreSpy.count(), 0);
@@ -853,13 +853,13 @@ void MediaPlayListProxyModelTest::testSaveLoadPlayList()
     myPlayListProxyModelRestore.loadPlayList(QUrl::fromLocalFile(playlistFile.fileName()));
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
     QCOMPARE(mPlayListLoadedSpy->count(), 0);
     QCOMPARE(mPlayListLoadFailedSpy->count(), 0);
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadedRestoreSpy.count(), 1);
@@ -868,13 +868,13 @@ void MediaPlayListProxyModelTest::testSaveLoadPlayList()
     QCOMPARE(currentTrackChangedRestoreSpy.wait(), true);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
     QCOMPARE(mPlayListLoadedSpy->count(), 0);
     QCOMPARE(mPlayListLoadFailedSpy->count(), 0);
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 1);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
     QCOMPARE(playListLoadedRestoreSpy.count(), 1);
@@ -1173,19 +1173,20 @@ void MediaPlayListProxyModelTest::testRestoreSettings()
     QVERIFY(mDataChangedSpy->wait());
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     QVariantMap settings;
     settings[QStringLiteral("currentTrack")] = 2;
-    settings[QStringLiteral("shufflePlayList")] = true;
+    settings[QStringLiteral("shuffleMode")] = MediaPlayListProxyModel::Shuffle::Track;
+    settings[QStringLiteral("randomMapping")] = QVariantList({QVariant(2), QVariant(0), QVariant(3), QVariant(1)});
     settings[QStringLiteral("repeatMode")] = true;
 
     mPlayListProxyModel->setPersistentState(settings);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 }
@@ -1200,7 +1201,7 @@ void MediaPlayListProxyModelTest::testSaveAndRestoreSettings()
     TracksListener myListenerRestore(mDatabaseContent);
 
     QSignalSpy currentTrackChangedRestoreSpy(&myPlayListRestoreProxyModel, &MediaPlayListProxyModel::currentTrackChanged);
-    QSignalSpy shufflePlayListChangedRestoreSpy(&myPlayListRestoreProxyModel, &MediaPlayListProxyModel::shufflePlayListChanged);
+    QSignalSpy shuffleModeChangedRestoreSpy(&myPlayListRestoreProxyModel, &MediaPlayListProxyModel::shuffleModeChanged);
     QSignalSpy repeatModeChangedRestoreSpy(&myPlayListRestoreProxyModel, &MediaPlayListProxyModel::repeatModeChanged);
     QSignalSpy playListFinishedRestoreSpy(&myPlayListRestoreProxyModel, &MediaPlayListProxyModel::playListFinished);
 
@@ -1220,29 +1221,18 @@ void MediaPlayListProxyModelTest::testSaveAndRestoreSettings()
             &myListenerRestore, &TracksListener::tracksAdded);
 
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
     mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 0);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
-    QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
-    QCOMPARE(playListFinishedRestoreSpy.count(), 0);
-
-    mPlayListProxyModel->setShufflePlayList(true);
-
-    QCOMPARE(mCurrentTrackChangedSpy->count(), 0);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
-    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
-    QCOMPARE(mPlayListFinishedSpy->count(), 0);
-    QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
@@ -1261,12 +1251,14 @@ void MediaPlayListProxyModelTest::testSaveAndRestoreSettings()
 
     QVERIFY(mDataChangedSpy->wait());
 
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+
     QVERIFY(mCurrentTrackChangedSpy->count() >= 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
@@ -1277,38 +1269,38 @@ void MediaPlayListProxyModelTest::testSaveAndRestoreSettings()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 0);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 0);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 0);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 0);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
     myPlayListRestoreProxyModel.setPersistentState(mPlayListProxyModel->persistentState());
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
     QCOMPARE(currentTrackChangedRestoreSpy.count(), 1);
-    QCOMPARE(shufflePlayListChangedRestoreSpy.count(), 1);
+    QCOMPARE(shuffleModeChangedRestoreSpy.count(), 1);
     QCOMPARE(repeatModeChangedRestoreSpy.count(), 1);
     QCOMPARE(playListFinishedRestoreSpy.count(), 0);
 
     QCOMPARE(myPlayListRestoreProxyModel.repeatMode(), MediaPlayListProxyModel::Repeat::Playlist);
-    QCOMPARE(myPlayListRestoreProxyModel.shufflePlayList(), true);
+    QCOMPARE(myPlayListRestoreProxyModel.shuffleMode(), MediaPlayListProxyModel::Shuffle::Track);
 }
 
 void MediaPlayListProxyModelTest::shufflePlayList()
@@ -1327,64 +1319,53 @@ void MediaPlayListProxyModelTest::shufflePlayList()
                                    QStringLiteral("track1"), {}}}, {}, {});
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
 
     mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
-    mPlayListProxyModel->setShufflePlayList(true);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
-    QCOMPARE(mPlayListProxyModel->shufflePlayList(), true);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::Track);
 
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 3);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 4);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 5);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 }
 
-void MediaPlayListProxyModelTest::testShuffleMode()
+void MediaPlayListProxyModelTest::testTrackShuffleMode()
 {
-    mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
-    mPlayListProxyModel->setShufflePlayList(true);
-
-    QCOMPARE(mCurrentTrackChangedSpy->count(), 0);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
-    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
-    QCOMPARE(mPlayListFinishedSpy->count(), 0);
-
-    QCOMPARE(mPlayListProxyModel->shufflePlayList(), true);
-    QCOMPARE(mPlayListProxyModel->repeatMode(), MediaPlayListProxyModel::Repeat::Playlist);
-
     mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
                                     {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
                                    QStringLiteral("track1"), {}}}, {}, {});
@@ -1398,11 +1379,30 @@ void MediaPlayListProxyModelTest::testShuffleMode()
                                     {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
                                    QStringLiteral("track1"), {}}}, {}, {});
 
-    QVERIFY(mCurrentTrackChangedSpy->count() >= 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 0);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->switchTo(3);
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 0);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+
+    QVERIFY(mCurrentTrackChangedSpy->count() >= 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::Track);
+    QCOMPARE(mPlayListProxyModel->repeatMode(), MediaPlayListProxyModel::Repeat::Playlist);
+
+    // The current track should now be the first in the randomized list
     QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
 
     const auto oldCurrentTrackChangedCount = mCurrentTrackChangedSpy->count();
@@ -1410,32 +1410,337 @@ void MediaPlayListProxyModelTest::testShuffleMode()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 3);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     mPlayListProxyModel->skipPreviousTrack(0);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     mPlayListProxyModel->removeRow(1);
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(1, 0)));
+
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist7"), QStringLiteral("album3"), 1, 1)}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album3"), 1, 1)}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+
+    QVERIFY(mCurrentTrackChangedSpy->count() >= oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QVERIFY(mPlayListProxyModel->currentTrackRow() >= 1);
+    QVERIFY(mPlayListProxyModel->currentTrackRow() <= 3);
+}
+
+void MediaPlayListProxyModelTest::testAlbumShuffleMode()
+{
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                   QStringLiteral("track3"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                                   QStringLiteral("track5"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 0);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->switchTo(2);
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 0);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Album);
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::Album);
+    QCOMPARE(mPlayListProxyModel->repeatMode(), MediaPlayListProxyModel::Repeat::Playlist);
+
+    // The current track should now be the second in the playlist (i.e. the
+    // second track of the currently playing album, which should be the first
+    // album in the randomized list)
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(1, 0)));
+
+    const auto oldCurrentTrackChangedCount = mCurrentTrackChangedSpy->count();
+
+    mPlayListProxyModel->skipNextTrack();
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->skipNextTrack();
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->skipNextTrack();
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 3);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->skipPreviousTrack(0);
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->removeRow(1);
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(2, 0)));
+
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist7"), QStringLiteral("album3"), 1, 1)},
+                                    {DataTypes::AlbumIdRole, 6}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album3"), 1, 1)},
+                                    {DataTypes::AlbumIdRole, 6}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), oldCurrentTrackChangedCount + 4);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QVERIFY(mPlayListProxyModel->currentTrackRow() >= 2);
+    QVERIFY(mPlayListProxyModel->currentTrackRow() <= 4);
+}
+
+void MediaPlayListProxyModelTest::testEnqueueShuffleMode()
+{
+    mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album3"), 1, 1)},
+                                    {DataTypes::AlbumIdRole, 4}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)},
+                                    {DataTypes::AlbumIdRole, 3}},
+                                   QStringLiteral("track5"), {}},
+                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)},
+                                    {DataTypes::AlbumIdRole, 3}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+
+    mPlayListProxyModel->removeRow(0);
+    mPlayListProxyModel->removeRow(0);
+    mPlayListProxyModel->removeRow(0);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
+    QCOMPARE(mPlayListProxyModel->tracksCount(), 0);
+    QVERIFY(mCurrentTrackChangedSpy->count() >= 1);
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Album);
+
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)},
+                                    {DataTypes::AlbumIdRole, 3}},
+                                   QStringLiteral("track5"), {}},
+                                  {{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)},
+                                    {DataTypes::AlbumIdRole, 3}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
+    QVERIFY(mCurrentTrackChangedSpy->count() >= 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 2);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QVERIFY(mPlayListFinishedSpy->count() >= 1);
+
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)},
+                                    {DataTypes::AlbumIdRole, 2}},
+                                   QStringLiteral("track3"), {}}}, {}, {});
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QVERIFY(mPlayListProxyModel->currentTrackRow() <= 1);
+    QVERIFY(mCurrentTrackChangedSpy->count() >= 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 2);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QVERIFY(mPlayListFinishedSpy->count() >= 1);
+
+    mPlayListProxyModel->skipNextTrack();
+
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->currentTrack(), MediaPlayList::AlbumRole), QStringLiteral("album2"));
+    QVERIFY(mPlayListProxyModel->currentTrackRow() >= 1);
+    QVERIFY(mPlayListProxyModel->currentTrackRow() <= 2);
+}
+
+void MediaPlayListProxyModelTest::testSwitchShuffleMode()
+{
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"), QStringLiteral("album1"), 3, 3)}},
+                                   QStringLiteral("track3"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track5"), QStringLiteral("artist1"), QStringLiteral("album2"), 5, 1)}},
+                                   QStringLiteral("track5"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1)}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album3"), 1, 1)}},
+                                   QStringLiteral("track1"), {}}}, {}, {});
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+                                    {DataTypes::DatabaseIdRole, mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album3"), 1, 1)}},
+                                   QStringLiteral("track2"), {}}}, {}, {});
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::Track);
+    QCOMPARE(mPlayListProxyModel->repeatMode(), MediaPlayListProxyModel::Repeat::Playlist);
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::NoShuffle);
+    mPlayListProxyModel->switchTo(5);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(5, 0)));
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 2);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::NoShuffle);
+
+    mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 3);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::Track);
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Album);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(1, 0)));
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 4);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::Album);
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 5);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::Track);
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::NoShuffle);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(5, 0)));
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 6);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::NoShuffle);
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Album);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(1, 0)));
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 7);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::Album);
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::NoShuffle);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(5, 0)));
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 8);
+    QCOMPARE(mRepeatModeChangedSpy->count(), 1);
+    QCOMPARE(mPlayListFinishedSpy->count(), 0);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::NoShuffle);
 }
 
 void MediaPlayListProxyModelTest::randomAndContinuePlayList()
@@ -1454,25 +1759,25 @@ void MediaPlayListProxyModelTest::randomAndContinuePlayList()
                                    QStringLiteral("track1"), {}}}, {}, {});
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
 
-    mPlayListProxyModel->setShufflePlayList(true);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
-    QCOMPARE(mPlayListProxyModel->shufflePlayList(), true);
+    QCOMPARE(mPlayListProxyModel->shuffleMode(), MediaPlayListProxyModel::Shuffle::Track);
 
     mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1481,7 +1786,7 @@ void MediaPlayListProxyModelTest::randomAndContinuePlayList()
     mPlayListProxyModel->switchTo(3);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1490,21 +1795,21 @@ void MediaPlayListProxyModelTest::randomAndContinuePlayList()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 3);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 4);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 5);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 }
@@ -1525,7 +1830,7 @@ void MediaPlayListProxyModelTest::continuePlayList()
                                    QStringLiteral("track1"), {}}}, {}, {});
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1534,7 +1839,7 @@ void MediaPlayListProxyModelTest::continuePlayList()
     mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1543,7 +1848,7 @@ void MediaPlayListProxyModelTest::continuePlayList()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1552,7 +1857,7 @@ void MediaPlayListProxyModelTest::continuePlayList()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 3);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1561,7 +1866,7 @@ void MediaPlayListProxyModelTest::continuePlayList()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 4);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1570,7 +1875,7 @@ void MediaPlayListProxyModelTest::continuePlayList()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 5);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1598,7 +1903,7 @@ void MediaPlayListProxyModelTest::previousAndNextTracksTest()
     QCOMPARE(mPreviousTrackChangedSpy->count(), 0);
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
     QCOMPARE(mNextTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1611,7 +1916,7 @@ void MediaPlayListProxyModelTest::previousAndNextTracksTest()
     QCOMPARE(mPreviousTrackChangedSpy->count(), 1);
     QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
     QCOMPARE(mNextTrackChangedSpy->count(), 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -1649,7 +1954,7 @@ void MediaPlayListProxyModelTest::previousAndNextTracksTest()
     QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(0, 0)));
     QCOMPARE(mPlayListProxyModel->nextTrack(), QPersistentModelIndex(mPlayListProxyModel->index(1, 0)));
 
-    mPlayListProxyModel->setShufflePlayList(true);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
 
     QVERIFY(mPlayListProxyModel->previousTrack() != QPersistentModelIndex());
     QVERIFY(mPlayListProxyModel->currentTrack() != QPersistentModelIndex());
@@ -1675,7 +1980,7 @@ void MediaPlayListProxyModelTest::remainingTracksTest()
                                    QStringLiteral("track1"), {}}}, {}, {});
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mRemainingTracksChangedSpy->count(), 6);
 
@@ -1689,18 +1994,18 @@ void MediaPlayListProxyModelTest::remainingTracksTest()
     QCOMPARE(mPlayListProxyModel->currentTrack(), QPersistentModelIndex(mPlayListProxyModel->index(1, 0)));
     QCOMPARE(mPlayListProxyModel->remainingTracks(), 3);
 
-    mPlayListProxyModel->setShufflePlayList(true);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 1);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 1);
     QCOMPARE(mRepeatModeChangedSpy->count(), 0);
     QCOMPARE(mRemainingTracksChangedSpy->count(), 8);
 
-    mPlayListProxyModel->setShufflePlayList(false);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::NoShuffle);
     mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 2);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 2);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mRemainingTracksChangedSpy->count(), 10);
 
@@ -2103,7 +2408,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::Playlist);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 0);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2127,7 +2432,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
                                    QStringLiteral("track2"), {}}}, {}, {});
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2136,7 +2441,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2145,7 +2450,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 3);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2154,7 +2459,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 4);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2163,7 +2468,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 5);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2172,7 +2477,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipNextTrack();
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 6);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2181,7 +2486,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipPreviousTrack(0);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 7);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2190,7 +2495,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipPreviousTrack(0);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 8);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2199,7 +2504,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipPreviousTrack(0);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 9);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2208,7 +2513,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipPreviousTrack(0);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 10);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2217,7 +2522,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipPreviousTrack(0);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 11);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2226,7 +2531,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->skipPreviousTrack(0);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 12);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 1);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -2235,7 +2540,7 @@ void MediaPlayListProxyModelTest::testBringUpAndSkipPreviousAndContinueCase()
     mPlayListProxyModel->setRepeatMode(MediaPlayListProxyModel::Repeat::One);
 
     QCOMPARE(mCurrentTrackChangedSpy->count(), 12);
-    QCOMPARE(mShufflePlayListChangedSpy->count(), 0);
+    QCOMPARE(mShuffleModeChangedSpy->count(), 0);
     QCOMPARE(mRepeatModeChangedSpy->count(), 2);
     QCOMPARE(mPlayListFinishedSpy->count(), 0);
 
@@ -4648,7 +4953,7 @@ void MediaPlayListProxyModelTest::testMoveAndShuffle()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 3);
 
-    mPlayListProxyModel->setShufflePlayList(true);
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);

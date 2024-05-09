@@ -118,7 +118,13 @@ private Q_SLOTS:
 
     void shufflePlayList();
 
-    void testShuffleMode();
+    void testTrackShuffleMode();
+
+    void testAlbumShuffleMode();
+
+    void testEnqueueShuffleMode();
+
+    void testSwitchShuffleMode();
 
     void randomAndContinuePlayList();
 
@@ -189,7 +195,7 @@ private:
     QSignalSpy *mPreviousTrackChangedSpy = nullptr;
     QSignalSpy *mRemainingTracksChangedSpy = nullptr;
     QSignalSpy *mRepeatModeChangedSpy = nullptr;
-    QSignalSpy *mShufflePlayListChangedSpy = nullptr;
+    QSignalSpy *mShuffleModeChangedSpy = nullptr;
     QSignalSpy *mTracksCountChangedSpy = nullptr;
     QSignalSpy *mTrackSeekedSpy = nullptr;
 

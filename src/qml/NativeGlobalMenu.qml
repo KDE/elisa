@@ -111,17 +111,17 @@ MenuBar {
                 items: shuffleMenu.items
             }
 
-            MenuItem {
-                text: i18nc("@action:inmenu shuffle mode is turned on", "On")
-                checkable: true
-                checked: ElisaApplication.mediaPlayListProxyModel.shufflePlayList
-                onTriggered: ElisaApplication.mediaPlayListProxyModel.shufflePlayList = true
+            NativeGlobalMenuShuffleModeItem {
+                text: i18nc("@action:inmenu shuffle all tracks in playlist", "Track")
+                mode: MediaPlayListProxyModel.Track
             }
-            MenuItem {
-                text: i18nc("@action:inmenu shuffle mode is turned off", "Off")
-                checkable: true
-                checked: !ElisaApplication.mediaPlayListProxyModel.shufflePlayList
-                onTriggered: ElisaApplication.mediaPlayListProxyModel.shufflePlayList = false
+            NativeGlobalMenuShuffleModeItem {
+                text: i18nc("@action:inmenu shuffle albums in playlist", "Album")
+                mode: MediaPlayListProxyModel.Album
+            }
+            NativeGlobalMenuShuffleModeItem {
+                text: i18nc("@action:inmenu disable shuffle mode", "Off")
+                mode: MediaPlayListProxyModel.NoShuffle
             }
         }
 

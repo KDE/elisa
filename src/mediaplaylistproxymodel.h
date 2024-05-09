@@ -63,6 +63,13 @@ public:
     };
     Q_ENUM(Repeat)
 
+    enum Shuffle {
+        NoShuffle,
+        Track,
+        Album
+    };
+    Q_ENUM(Shuffle)
+
 private:
 
     Q_PROPERTY(QVariantMap persistentState
@@ -87,10 +94,10 @@ private:
                WRITE setRepeatMode
                NOTIFY repeatModeChanged)
 
-    Q_PROPERTY(bool shufflePlayList
-               READ shufflePlayList
-               WRITE setShufflePlayList
-               NOTIFY shufflePlayListChanged)
+    Q_PROPERTY(Shuffle shuffleMode
+               READ shuffleMode
+               WRITE setShuffleMode
+               NOTIFY shuffleModeChanged)
 
     Q_PROPERTY(int remainingTracks
                READ remainingTracks
@@ -151,7 +158,7 @@ public:
 
     [[nodiscard]] Repeat repeatMode() const;
 
-    [[nodiscard]] bool shufflePlayList() const;
+    [[nodiscard]] Shuffle shuffleMode() const;
 
     [[nodiscard]] int remainingTracks() const;
 
@@ -185,7 +192,7 @@ public Q_SLOTS:
 
     void setRepeatMode(Repeat value);
 
-    void setShufflePlayList(bool value);
+    void setShuffleMode(Shuffle value);
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
@@ -237,7 +244,7 @@ Q_SIGNALS:
 
     void repeatModeChanged();
 
-    void shufflePlayListChanged();
+    void shuffleModeChanged();
 
     void remainingTracksChanged();
 
@@ -308,6 +315,10 @@ private:
     void notifyCurrentTrackChanged();
 
     void determineAndNotifyPreviousAndNextTracks();
+
+    QVariantList getRandomMappingForRestore() const;
+
+    void restoreShuffleMode(Shuffle mode, QVariantList mapping);
 
     void loadLocalFile(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QFileInfo &fileInfo);
 

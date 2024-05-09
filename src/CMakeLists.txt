@@ -340,6 +340,7 @@ qt_add_qml_module(elisaLib
         qml/MediaTrackMetadataView.qml
         qml/NativeGlobalMenu.qml
         qml/NativeGlobalMenuPlaylistModeItem.qml
+        qml/NativeGlobalMenuShuffleModeItem.qml
         qml/NativeMenuItemFromAction.qml
         qml/NativeTrayMenu.qml
         qml/NavigationActionBar.qml
@@ -348,6 +349,7 @@ qt_add_qml_module(elisaLib
         qml/PlaylistModeItem.qml
         qml/RatingStar.qml
         qml/SettingsForm.qml
+        qml/ShuffleModeItem.qml
         qml/SimplePlayListView.qml
         qml/SortMenu.qml
         qml/Theme.qml
@@ -487,7 +489,8 @@ if (ANDROID)
         media-skip-forward
         media-skip-backward
         media-playlist-shuffle
-        media-playlist-normal
+        media-playlist-no-shuffle-symbolic
+        media-random-albums-amarok
         media-playlist-play
         media-repeat-none
         media-repeat-single

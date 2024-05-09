@@ -68,8 +68,8 @@ MediaPlayer2Player::MediaPlayer2Player(MediaPlayListProxyModel *playListControle
             this, &MediaPlayer2Player::audioDurationChanged);
     connect(m_audioPlayer, &AudioWrapper::volumeChanged,
             this, &MediaPlayer2Player::playerVolumeChanged);
-    connect(m_playListControler, &MediaPlayListProxyModel::shufflePlayListChanged,
-            this, &MediaPlayer2Player::shufflePlayListChanged);
+    connect(m_playListControler, &MediaPlayListProxyModel::shuffleModeChanged,
+            this, &MediaPlayer2Player::shuffleModeChanged);
     connect(m_playListControler, &MediaPlayListProxyModel::repeatModeChanged,
             this, &MediaPlayer2Player::repeatModeChanged);
 
@@ -500,7 +500,8 @@ void MediaPlayer2Player::setMediaPlayerPresent(int status)
 void MediaPlayer2Player::setShuffle(bool shuffle)
 {
     if (m_playListControler) {
-        m_playListControler->setShufflePlayList(shuffle);
+        MediaPlayListProxyModel::Shuffle shuffleMode = shuffle ? MediaPlayListProxyModel::Shuffle::Track : MediaPlayListProxyModel::Shuffle::NoShuffle;
+        m_playListControler->setShuffleMode(shuffleMode);
         signalPropertiesChange(QStringLiteral("Shuffle"), Shuffle());
     }
 }
@@ -508,13 +509,13 @@ void MediaPlayer2Player::setShuffle(bool shuffle)
 bool MediaPlayer2Player::Shuffle() const
 {
     if (m_playListControler) {
-        return m_playListControler->shufflePlayList();
+        return (m_playListControler->shuffleMode() != MediaPlayListProxyModel::Shuffle::NoShuffle);
     }
 
     return false;
 }
 
-void MediaPlayer2Player::shufflePlayListChanged()
+void MediaPlayer2Player::shuffleModeChanged()
 {
     signalPropertiesChange(QStringLiteral("Shuffle"), Shuffle());
 }

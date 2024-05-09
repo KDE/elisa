@@ -303,25 +303,21 @@ FocusScope {
             }
 
             ColumnLayout {
-                // fillHeight needs to adapt to playlist height when isMaximized && !portrait
-                Layout.fillHeight: trackInfoGrid.height + playLoader.implicitHeight > images.height
+                Layout.fillHeight: true
                 Layout.alignment: Qt.AlignTop
-                Grid {
+                GridLayout {
                     // Part of HeaderBar that shows track information. Depending on it's size, that information is
                     // shown in a Column, Row or completely hidden (visibility handled in parent).
                     id: trackInfoGrid
                     flow: Grid.TopToBottom
                     rows: 4
                     columns: 1
-                    verticalItemAlignment: Grid.AlignVCenter
-                    horizontalItemAlignment: portrait && isMaximized ? Grid.AlignHCenter : Grid.AlignLeft
 
                     rowSpacing: Kirigami.Units.largeSpacing
                     columnSpacing: Kirigami.Units.largeSpacing * 6
                     Layout.alignment:  (portrait && isMaximized ? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
-
-                    Layout.fillWidth: !(portrait && isMaximized)
-                    Layout.fillHeight: isMaximized
+                    Layout.fillWidth: true
+                    Layout.fillHeight: false
                     Layout.maximumHeight: {
                         var h = headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing
                         if (h < gridLayoutContent.height)
@@ -340,34 +336,49 @@ FocusScope {
                             Layout.maximumHeight: gridLayoutContent.height
                             rows: 1
                             columns: 4
+                            isLeftToRight: true
                         }
                     }
 
-                    move: Transition {
-                        NumberAnimation {
-                            // if Maximized, this would happen after change from and to portrait-layout, which we don't want
-                            properties: isMaximized ? "" : "x,y"
-                            easing.type: Easing.InOutCubic
-                            duration: Kirigami.Units.longDuration
-                        }
-                    }
+                    property bool isLeftToRight: false
+                    property double colWidth: width * (1/visibleChildren.length) * 0.8
 
                     LabelWithToolTip {
                         id: mainLabel
                         text: title
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignVCenter
                         Layout.fillWidth: true
                         horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
                         level: 1
                         font.bold: true
 
+                        states: State {
+                            name: "mainLabelLeftToRight"
+                            when: trackInfoGrid.isLeftToRight
+                            PropertyChanges {
+                                target: mainLabel
+                                Layout.minimumWidth: Math.min(implicitWidth, trackInfoGrid.colWidth)
+                                Layout.maximumWidth: implicitWidth * 1.2
+                            }
+                        }
+
                         MouseArea {
                             id: titleMouseArea
+                            anchors.left: parent.left
                             width: Math.min(parent.implicitWidth, parent.width)
                             height: parent.height
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 openNowPlaying()
+                            }
+
+                            states: State {
+                                name: "titleMouseAreaAnchor"
+                                when: portrait && isMaximized
+                                AnchorChanges {
+                                    target: titleMouseArea
+                                    anchors.left: undefined
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
                             }
                         }
                     }
@@ -375,19 +386,39 @@ FocusScope {
                     LabelWithToolTip {
                         id: authorLabel
                         text: artist
-                        Layout.alignment: portrait? Qt.AlignHCenter: Qt.AlignLeft | Qt.AlignVCenter
-                        Layout.fillWidth: false
+                        visible: artist
+                        Layout.fillWidth: true
                         horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-
                         level: 3
+
+                        states: State {
+                            name: "authorLabelLeftToRight"
+                            when: trackInfoGrid.isLeftToRight
+                            PropertyChanges {
+                                target: authorLabel
+                                Layout.minimumWidth: Math.min(implicitWidth, trackInfoGrid.colWidth)
+                                Layout.maximumWidth: implicitWidth * 1.2
+                            }
+                        }
 
                         MouseArea {
                             id: authorMouseArea
+                            anchors.left: parent.left
                             width: Math.min(parent.implicitWidth, parent.width)
                             height: parent.height
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 openArtist()
+                            }
+
+                            states: State {
+                                name: "authorMouseAreaAnchor"
+                                when: portrait && isMaximized
+                                AnchorChanges {
+                                    target: authorMouseArea
+                                    anchors.left: undefined
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
                             }
                         }
                     }
@@ -395,19 +426,39 @@ FocusScope {
                     LabelWithToolTip {
                         id: albumLabel
                         text: album
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignVCenter
+                        visible: album
                         Layout.fillWidth: true
                         horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
-
                         level: 3
+
+                        states: State {
+                            name: "albumLabelLeftToRight"
+                            when: trackInfoGrid.isLeftToRight
+                            PropertyChanges {
+                                target: albumLabel
+                                Layout.minimumWidth: Math.min(implicitWidth, trackInfoGrid.colWidth)
+                                Layout.maximumWidth: implicitWidth * 1.2
+                            }
+                        }
 
                         MouseArea {
                             id: albumMouseArea
+                            anchors.left: parent.left
                             width: Math.min(parent.implicitWidth, parent.width)
                             height: parent.height
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 openAlbum()
+                            }
+
+                            states: State {
+                                name: "albumMouseAreaAnchor"
+                                when: portrait && isMaximized
+                                AnchorChanges {
+                                    target: albumMouseArea
+                                    anchors.left: undefined
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
                             }
                         }
                     }
@@ -416,8 +467,6 @@ FocusScope {
                         id: mainRating
                         visible: ratingVisible
                         starRating: trackRating
-                        Layout.fillWidth: true
-                        Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignVCenter
                     }
                 }
                 Loader {

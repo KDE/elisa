@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:37+0000\n"
+"POT-Creation-Date: 2024-05-10 00:37+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -568,8 +568,8 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:149
+#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:286
+#: qml/mobile/MobileTrackPlayer.qml:399 qml/NavigationActionBar.qml:149
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -718,7 +718,7 @@ msgstr "パーティーモードを切り替え"
 
 #: qml/MediaPlayerControl.qml:95
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
-#: qml/mobile/MobileTrackPlayer.qml:312
+#: qml/mobile/MobileTrackPlayer.qml:353
 #, fuzzy, kde-format
 #| msgctxt "skip backward in playlists"
 #| msgid "Skip Backward"
@@ -728,7 +728,7 @@ msgstr "前へ"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:327
+#: qml/mobile/MobileTrackPlayer.qml:368
 #, fuzzy, kde-format
 #| msgid "Pause"
 msgctxt "@action:button Pause any media that is playing"
@@ -737,7 +737,7 @@ msgstr "一時停止"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:327
+#: qml/mobile/MobileTrackPlayer.qml:368
 #, fuzzy, kde-format
 #| msgid "Play"
 msgctxt "@action:button Start playing media"
@@ -760,57 +760,84 @@ msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "ミュートを切り替え"
 
-#: qml/MediaPlayerControl.qml:149 qml/mobile/MobileTrackPlayer.qml:208
-#, fuzzy, kde-format
-#| msgctxt "toggle shuffle mode for playlist"
-#| msgid "Toggle Shuffle"
-msgctxt "@action:button"
-msgid "Toggle Shuffle"
-msgstr "シャッフルを切り替え"
+#: qml/MediaPlayerControl.qml:151 qml/mobile/MobileTrackPlayer.qml:211
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: No shuffle"
+msgstr ""
 
-#: qml/MediaPlayerControl.qml:160 qml/mobile/MobileTrackPlayer.qml:223
+#: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
 #, fuzzy, kde-format
 #| msgid "Current: Don't repeat tracks"
 msgctxt "@info:tooltip"
-msgid "Current: Don't repeat tracks"
+msgid "Current: Shuffle tracks"
 msgstr "現在: トラックをリピートしない"
 
-#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:224
-#, fuzzy, kde-format
-#| msgid "Current: Repeat current track"
+#: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
+#, kde-format
 msgctxt "@info:tooltip"
-msgid "Current: Repeat current track"
-msgstr "現在: 再生中のトラックをリピート"
+msgid "Current: Shuffle albums"
+msgstr ""
 
-#: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:225
+#: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
 #, fuzzy, kde-format
-#| msgid "Current: Repeat all tracks in playlist"
-msgctxt "@info:tooltip"
-msgid "Current: Repeat all tracks in playlist"
-msgstr "現在: プレイリスト内の全トラックをリピート"
-
-#: qml/MediaPlayerControl.qml:189 qml/mobile/MobileTrackPlayer.qml:254
-#, fuzzy, kde-format
-#| msgid "Playlist"
+#| msgctxt "Title of the view of all tracks"
+#| msgid "Tracks"
 msgctxt "@action:inmenu"
-msgid "Playlist"
-msgstr "プレイリスト"
+msgid "Track"
+msgstr "トラック"
 
-#: qml/MediaPlayerControl.qml:193 qml/mobile/MobileTrackPlayer.qml:258
+#: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:246
 #, fuzzy, kde-format
-#| msgid "One"
+#| msgid "Album"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "One"
+msgid "Album"
+msgstr "アルバム"
 
-#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:262
+#: qml/MediaPlayerControl.qml:189 qml/MediaPlayerControl.qml:247
+#: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, fuzzy, kde-format
 #| msgid "None"
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "なし"
 
-#: qml/MediaPlayerControl.qml:253
+#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:264
+#, fuzzy, kde-format
+#| msgid "Current: Don't repeat tracks"
+msgctxt "@info:tooltip"
+msgid "Current: Don't repeat tracks"
+msgstr "現在: トラックをリピートしない"
+
+#: qml/MediaPlayerControl.qml:211 qml/mobile/MobileTrackPlayer.qml:265
+#, fuzzy, kde-format
+#| msgid "Current: Repeat current track"
+msgctxt "@info:tooltip"
+msgid "Current: Repeat current track"
+msgstr "現在: 再生中のトラックをリピート"
+
+#: qml/MediaPlayerControl.qml:212 qml/mobile/MobileTrackPlayer.qml:266
+#, fuzzy, kde-format
+#| msgid "Current: Repeat all tracks in playlist"
+msgctxt "@info:tooltip"
+msgid "Current: Repeat all tracks in playlist"
+msgstr "現在: プレイリスト内の全トラックをリピート"
+
+#: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:295
+#, fuzzy, kde-format
+#| msgid "Playlist"
+msgctxt "@action:inmenu"
+msgid "Playlist"
+msgstr "プレイリスト"
+
+#: qml/MediaPlayerControl.qml:243 qml/mobile/MobileTrackPlayer.qml:299
+#, fuzzy, kde-format
+#| msgid "One"
+msgctxt "@action:inmenu"
+msgid "One"
+msgstr "One"
+
+#: qml/MediaPlayerControl.qml:303
 #, fuzzy, kde-format
 #| msgctxt "open application menu"
 #| msgid "Application Menu"
@@ -1032,7 +1059,7 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
-#: qml/mobile/MobileTrackPlayer.qml:342
+#: qml/mobile/MobileTrackPlayer.qml:383
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"
 #| msgid "Skip Forward"
@@ -1208,15 +1235,23 @@ msgstr "シャッフル"
 
 #: qml/NativeGlobalMenu.qml:115
 #, fuzzy, kde-format
-#| msgid "On"
-msgctxt "@action:inmenu shuffle mode is turned on"
-msgid "On"
-msgstr "オン"
+#| msgctxt "Title of the view of all tracks"
+#| msgid "Tracks"
+msgctxt "@action:inmenu shuffle all tracks in playlist"
+msgid "Track"
+msgstr "トラック"
 
-#: qml/NativeGlobalMenu.qml:121
+#: qml/NativeGlobalMenu.qml:119
+#, fuzzy, kde-format
+#| msgid "Album"
+msgctxt "@action:inmenu shuffle albums in playlist"
+msgid "Album"
+msgstr "アルバム"
+
+#: qml/NativeGlobalMenu.qml:123
 #, fuzzy, kde-format
 #| msgid "Off"
-msgctxt "@action:inmenu shuffle mode is turned off"
+msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "オフ"
 
@@ -2029,6 +2064,19 @@ msgstr "ファイル"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "ラジオ局"
+
+#, fuzzy
+#~| msgctxt "toggle shuffle mode for playlist"
+#~| msgid "Toggle Shuffle"
+#~ msgctxt "@action:button"
+#~ msgid "Toggle Shuffle"
+#~ msgstr "シャッフルを切り替え"
+
+#, fuzzy
+#~| msgid "On"
+#~ msgctxt "@action:inmenu shuffle mode is turned on"
+#~ msgid "On"
+#~ msgstr "オン"
 
 #, fuzzy
 #~| msgid "OK"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:37+0000\n"
+"POT-Creation-Date: 2024-05-10 00:37+0000\n"
 "PO-Revision-Date: 2024-04-07 16:58+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -470,8 +470,8 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "பாடல்வரிகள்"
 
-#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:149
+#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:286
+#: qml/mobile/MobileTrackPlayer.qml:399 qml/NavigationActionBar.qml:149
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -598,7 +598,7 @@ msgstr "கொண்டாட்ட பயன்முறையை இயக்�
 
 #: qml/MediaPlayerControl.qml:95
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
-#: qml/mobile/MobileTrackPlayer.qml:312
+#: qml/mobile/MobileTrackPlayer.qml:353
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
@@ -606,7 +606,7 @@ msgstr "முந்தைய பாடலுக்கு செல்"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:327
+#: qml/mobile/MobileTrackPlayer.qml:368
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
@@ -614,7 +614,7 @@ msgstr "பொறு"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:327
+#: qml/mobile/MobileTrackPlayer.qml:368
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
@@ -632,49 +632,80 @@ msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "ஒலியடக்கத்தின் நிலையை மாற்று"
 
-#: qml/MediaPlayerControl.qml:149 qml/mobile/MobileTrackPlayer.qml:208
-#, kde-format
-msgctxt "@action:button"
-msgid "Toggle Shuffle"
-msgstr "கலக்குவதன் நிலையை மாற்று"
-
-#: qml/MediaPlayerControl.qml:160 qml/mobile/MobileTrackPlayer.qml:223
+#: qml/MediaPlayerControl.qml:151 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
-msgid "Current: Don't repeat tracks"
+msgid "Current: No shuffle"
+msgstr ""
+
+#: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Current: Don't repeat tracks"
+msgctxt "@info:tooltip"
+msgid "Current: Shuffle tracks"
 msgstr "தற்போது: பாடல்களை திரும்ப இசைக்காதே"
 
-#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:224
+#: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
-msgid "Current: Repeat current track"
-msgstr "தற்போது: தற்போதைய பாடலை திரும்ப இசை"
+msgid "Current: Shuffle albums"
+msgstr ""
 
-#: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:225
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Current: Repeat all tracks in playlist"
-msgstr "தற்போது: பாடல்வரிசையை திரும்ப இசை"
-
-#: qml/MediaPlayerControl.qml:189 qml/mobile/MobileTrackPlayer.qml:254
-#, kde-format
+#: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
+#, fuzzy, kde-format
+#| msgctxt "@item:inlistbox Title of the view of all tracks"
+#| msgid "Tracks"
 msgctxt "@action:inmenu"
-msgid "Playlist"
-msgstr "பாடல்வரிசை"
+msgid "Track"
+msgstr "பாடல்கள்"
 
-#: qml/MediaPlayerControl.qml:193 qml/mobile/MobileTrackPlayer.qml:258
-#, kde-format
+#: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:246
+#, fuzzy, kde-format
+#| msgctxt "@label musical album"
+#| msgid "Album"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "ஒன்றுமட்டும்"
+msgid "Album"
+msgstr "ஆல்பம்"
 
-#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:262
+#: qml/MediaPlayerControl.qml:189 qml/MediaPlayerControl.qml:247
+#: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "ஏதுமில்லை"
 
-#: qml/MediaPlayerControl.qml:253
+#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:264
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: Don't repeat tracks"
+msgstr "தற்போது: பாடல்களை திரும்ப இசைக்காதே"
+
+#: qml/MediaPlayerControl.qml:211 qml/mobile/MobileTrackPlayer.qml:265
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: Repeat current track"
+msgstr "தற்போது: தற்போதைய பாடலை திரும்ப இசை"
+
+#: qml/MediaPlayerControl.qml:212 qml/mobile/MobileTrackPlayer.qml:266
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: Repeat all tracks in playlist"
+msgstr "தற்போது: பாடல்வரிசையை திரும்ப இசை"
+
+#: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:295
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Playlist"
+msgstr "பாடல்வரிசை"
+
+#: qml/MediaPlayerControl.qml:243 qml/mobile/MobileTrackPlayer.qml:299
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "One"
+msgstr "ஒன்றுமட்டும்"
+
+#: qml/MediaPlayerControl.qml:303
 #, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"
@@ -866,7 +897,7 @@ msgid "Cancel"
 msgstr "ரத்து செய்"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
-#: qml/mobile/MobileTrackPlayer.qml:342
+#: qml/mobile/MobileTrackPlayer.qml:383
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
@@ -1006,14 +1037,26 @@ msgid "Shuffle"
 msgstr "கலக்குவது"
 
 #: qml/NativeGlobalMenu.qml:115
-#, kde-format
-msgctxt "@action:inmenu shuffle mode is turned on"
-msgid "On"
-msgstr "இயக்கு"
+#, fuzzy, kde-format
+#| msgctxt "@item:inlistbox Title of the view of all tracks"
+#| msgid "Tracks"
+msgctxt "@action:inmenu shuffle all tracks in playlist"
+msgid "Track"
+msgstr "பாடல்கள்"
 
-#: qml/NativeGlobalMenu.qml:121
-#, kde-format
-msgctxt "@action:inmenu shuffle mode is turned off"
+#: qml/NativeGlobalMenu.qml:119
+#, fuzzy, kde-format
+#| msgctxt "@label musical album"
+#| msgid "Album"
+msgctxt "@action:inmenu shuffle albums in playlist"
+msgid "Album"
+msgstr "ஆல்பம்"
+
+#: qml/NativeGlobalMenu.qml:123
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu shuffle mode is turned off"
+#| msgid "Off"
+msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "முடக்கு"
 
@@ -1698,6 +1741,14 @@ msgstr "கோப்புகள்"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "வானொலி நிலையங்கள்"
+
+#~ msgctxt "@action:button"
+#~ msgid "Toggle Shuffle"
+#~ msgstr "கலக்குவதன் நிலையை மாற்று"
+
+#~ msgctxt "@action:inmenu shuffle mode is turned on"
+#~ msgid "On"
+#~ msgstr "இயக்கு"
 
 #~ msgctxt "@action:button"
 #~ msgid "OK"

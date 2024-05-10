@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-01 00:37+0000\n"
+"POT-Creation-Date: 2024-05-10 00:37+0000\n"
 "PO-Revision-Date: 2024-05-04 14:49+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -471,8 +471,8 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "מילות־שיר"
 
-#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:236
-#: qml/mobile/MobileTrackPlayer.qml:358 qml/NavigationActionBar.qml:149
+#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:286
+#: qml/mobile/MobileTrackPlayer.qml:399 qml/NavigationActionBar.qml:149
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -598,7 +598,7 @@ msgstr "החלפת מצב מסיבה"
 
 #: qml/MediaPlayerControl.qml:95
 #: qml/mobile/MobileMinimizedPlayerControl.qml:226
-#: qml/mobile/MobileTrackPlayer.qml:312
+#: qml/mobile/MobileTrackPlayer.qml:353
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
@@ -606,7 +606,7 @@ msgstr "דילוג אחורה"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:327
+#: qml/mobile/MobileTrackPlayer.qml:368
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
@@ -614,7 +614,7 @@ msgstr "השהיה"
 
 #: qml/MediaPlayerControl.qml:103
 #: qml/mobile/MobileMinimizedPlayerControl.qml:242
-#: qml/mobile/MobileTrackPlayer.qml:327
+#: qml/mobile/MobileTrackPlayer.qml:368
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
@@ -632,49 +632,80 @@ msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "השתקה/השמעה"
 
-#: qml/MediaPlayerControl.qml:149 qml/mobile/MobileTrackPlayer.qml:208
-#, kde-format
-msgctxt "@action:button"
-msgid "Toggle Shuffle"
-msgstr "החלפת מצב ערבוב"
-
-#: qml/MediaPlayerControl.qml:160 qml/mobile/MobileTrackPlayer.qml:223
+#: qml/MediaPlayerControl.qml:151 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
-msgid "Current: Don't repeat tracks"
+msgid "Current: No shuffle"
+msgstr ""
+
+#: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Current: Don't repeat tracks"
+msgctxt "@info:tooltip"
+msgid "Current: Shuffle tracks"
 msgstr "נוכחי: לא לחזור על רצועות"
 
-#: qml/MediaPlayerControl.qml:161 qml/mobile/MobileTrackPlayer.qml:224
+#: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
-msgid "Current: Repeat current track"
-msgstr "נוכחי: לחזור על הרצועה הנוכחית"
+msgid "Current: Shuffle albums"
+msgstr ""
 
-#: qml/MediaPlayerControl.qml:162 qml/mobile/MobileTrackPlayer.qml:225
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Current: Repeat all tracks in playlist"
-msgstr "נוכחי: לחזור על כל הרצועות ברשימת הנגינה"
-
-#: qml/MediaPlayerControl.qml:189 qml/mobile/MobileTrackPlayer.qml:254
-#, kde-format
+#: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
+#, fuzzy, kde-format
+#| msgctxt "@item:inlistbox Title of the view of all tracks"
+#| msgid "Tracks"
 msgctxt "@action:inmenu"
-msgid "Playlist"
-msgstr "רשימת נגינה"
+msgid "Track"
+msgstr "רצועות"
 
-#: qml/MediaPlayerControl.qml:193 qml/mobile/MobileTrackPlayer.qml:258
-#, kde-format
+#: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:246
+#, fuzzy, kde-format
+#| msgctxt "@label musical album"
+#| msgid "Album"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "אחד"
+msgid "Album"
+msgstr "אלבום"
 
-#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:262
+#: qml/MediaPlayerControl.qml:189 qml/MediaPlayerControl.qml:247
+#: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "ללא"
 
-#: qml/MediaPlayerControl.qml:253
+#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:264
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: Don't repeat tracks"
+msgstr "נוכחי: לא לחזור על רצועות"
+
+#: qml/MediaPlayerControl.qml:211 qml/mobile/MobileTrackPlayer.qml:265
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: Repeat current track"
+msgstr "נוכחי: לחזור על הרצועה הנוכחית"
+
+#: qml/MediaPlayerControl.qml:212 qml/mobile/MobileTrackPlayer.qml:266
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Current: Repeat all tracks in playlist"
+msgstr "נוכחי: לחזור על כל הרצועות ברשימת הנגינה"
+
+#: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:295
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Playlist"
+msgstr "רשימת נגינה"
+
+#: qml/MediaPlayerControl.qml:243 qml/mobile/MobileTrackPlayer.qml:299
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "One"
+msgstr "אחד"
+
+#: qml/MediaPlayerControl.qml:303
 #, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"
@@ -868,7 +899,7 @@ msgid "Cancel"
 msgstr "ביטול"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
-#: qml/mobile/MobileTrackPlayer.qml:342
+#: qml/mobile/MobileTrackPlayer.qml:383
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
@@ -1008,14 +1039,26 @@ msgid "Shuffle"
 msgstr "ערבוב"
 
 #: qml/NativeGlobalMenu.qml:115
-#, kde-format
-msgctxt "@action:inmenu shuffle mode is turned on"
-msgid "On"
-msgstr "פעיל"
+#, fuzzy, kde-format
+#| msgctxt "@item:inlistbox Title of the view of all tracks"
+#| msgid "Tracks"
+msgctxt "@action:inmenu shuffle all tracks in playlist"
+msgid "Track"
+msgstr "רצועות"
 
-#: qml/NativeGlobalMenu.qml:121
-#, kde-format
-msgctxt "@action:inmenu shuffle mode is turned off"
+#: qml/NativeGlobalMenu.qml:119
+#, fuzzy, kde-format
+#| msgctxt "@label musical album"
+#| msgid "Album"
+msgctxt "@action:inmenu shuffle albums in playlist"
+msgid "Album"
+msgstr "אלבום"
+
+#: qml/NativeGlobalMenu.qml:123
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu shuffle mode is turned off"
+#| msgid "Off"
+msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "כבוי"
 
@@ -1701,3 +1744,11 @@ msgstr "קבצים"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "תחנות רדיו"
+
+#~ msgctxt "@action:button"
+#~ msgid "Toggle Shuffle"
+#~ msgstr "החלפת מצב ערבוב"
+
+#~ msgctxt "@action:inmenu shuffle mode is turned on"
+#~ msgid "On"
+#~ msgstr "פעיל"

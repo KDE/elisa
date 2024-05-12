@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-10 00:37+0000\n"
-"PO-Revision-Date: 2024-04-05 10:28+0200\n"
+"PO-Revision-Date: 2024-05-10 11:15+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -636,34 +636,28 @@ msgstr "Dempen aan/uit"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "Nu: geen willekeurige volgorde"
 
 #: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "Nu: tracks niet herhalen"
+msgstr "Nu: tracks in Willekeurige volgorde"
 
 #: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "Nu: albums in willekeurige volgorde"
 
 #: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "Tracks"
+msgstr "Track"
 
 #: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:246
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
@@ -1038,25 +1032,19 @@ msgid "Shuffle"
 msgstr "Willekeurig afspelen"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
-msgstr "Tracks"
+msgstr "Track"
 
 #: qml/NativeGlobalMenu.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "Album"
 
 #: qml/NativeGlobalMenu.qml:123
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu shuffle mode is turned off"
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "Uit"

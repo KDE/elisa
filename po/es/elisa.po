@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-10 00:37+0000\n"
-"PO-Revision-Date: 2024-04-06 18:09+0200\n"
+"PO-Revision-Date: 2024-05-11 17:42+0200\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -639,34 +639,28 @@ msgstr "Conmutar silencio"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "Actual: Sin mezclar"
 
 #: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "Actual: No repetir pistas"
+msgstr "Actual: Mezclar pistas"
 
 #: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "Actual: Mezclar álbumes"
 
 #: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "Pistas"
+msgstr "Pista"
 
 #: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:246
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Álbum"
@@ -1041,25 +1035,19 @@ msgid "Shuffle"
 msgstr "Mezclar"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
-msgstr "Pistas"
+msgstr "Pista"
 
 #: qml/NativeGlobalMenu.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "Álbum"
 
 #: qml/NativeGlobalMenu.qml:123
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu shuffle mode is turned off"
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "Apagado"
@@ -1748,11 +1736,3 @@ msgstr "Archivos"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estaciones de radio"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Shuffle"
-#~ msgstr "Conmutar mezcla"
-
-#~ msgctxt "@action:inmenu shuffle mode is turned on"
-#~ msgid "On"
-#~ msgstr "Encendido"

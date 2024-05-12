@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-10 00:37+0000\n"
-"PO-Revision-Date: 2024-04-16 18:55+0900\n"
+"PO-Revision-Date: 2024-05-10 16:20+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: Traditional Chinese\n"
@@ -64,13 +64,13 @@ msgstr "後退 10 秒"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
-msgstr "下一個音軌"
+msgstr "下一首歌曲"
 
 #: elisaapplication.cpp:229
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
-msgstr "上一個音軌"
+msgstr "上一首歌曲"
 
 #: elisaapplication.cpp:235
 #, kde-format
@@ -232,7 +232,7 @@ msgstr "專輯藝人"
 #, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
-msgstr "音軌號碼"
+msgstr "曲目編號"
 
 #: models/trackmetadatamodel.cpp:483 models/trackmetadatamodel.cpp:537
 #, kde-format
@@ -636,34 +636,28 @@ msgstr "切換靜音"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "目前：不隨機播放"
 
 #: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "目前：不重複播放音軌"
+msgstr "目前：隨機播放曲目"
 
 #: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "目前：隨機播放專輯"
 
 #: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "音軌"
+msgstr "曲目"
 
 #: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:246
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "專輯"
@@ -679,19 +673,19 @@ msgstr "無"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
-msgstr "目前：不重複播放音軌"
+msgstr "目前：不重複播放曲目"
 
 #: qml/MediaPlayerControl.qml:211 qml/mobile/MobileTrackPlayer.qml:265
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
-msgstr "目前：重複播放目前音軌"
+msgstr "目前：重複播放目前曲目"
 
 #: qml/MediaPlayerControl.qml:212 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
-msgstr "目前：重複播放播放清單中的所有音軌"
+msgstr "目前：重複播放播放清單中的所有曲目"
 
 #: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:295
 #, kde-format
@@ -737,7 +731,7 @@ msgctxt "@info"
 msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
-msgstr "無法載入某些音軌。請確認它們沒有被移除或重新命名。"
+msgstr "無法載入某些曲目。請確認它們沒有被移除或重新命名。"
 
 #: qml/MediaPlayListView.qml:105
 #, kde-format
@@ -770,20 +764,20 @@ msgstr "您的播放清單是空白的。"
 msgctxt "@info:status"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] "%1 個音軌"
+msgstr[0] "%1 首歌曲"
 
 #: qml/MediaPlayListView.qml:446
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
-msgstr "1 個音軌"
+msgstr "1 首歌曲"
 
 #: qml/MediaPlayListView.qml:449
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
 msgid_plural "%1 remaining"
-msgstr[0] "剩餘 %1 個音軌"
+msgstr[0] "剩餘 %1 首"
 
 #: qml/MediaPlayListView.qml:450
 #, kde-format
@@ -902,7 +896,7 @@ msgstr "往前跳過"
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
-msgstr "音軌選項"
+msgstr "曲目選項"
 
 #: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
 #, kde-format
@@ -1032,25 +1026,19 @@ msgid "Shuffle"
 msgstr "隨機播放"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
-msgstr "音軌"
+msgstr "曲目"
 
 #: qml/NativeGlobalMenu.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "專輯"
 
 #: qml/NativeGlobalMenu.qml:123
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu shuffle mode is turned off"
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "關閉"
@@ -1163,7 +1151,7 @@ msgstr "只顯示最愛"
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
-msgstr "設定音軌評分"
+msgstr "設定曲目評分"
 
 #: qml/PlayListEntry.qml:130
 #, kde-format
@@ -1187,7 +1175,7 @@ msgstr "移除"
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
-msgstr "取消音軌評分"
+msgstr "取消曲目評分"
 
 #: qml/SettingsForm.qml:67
 #, kde-format
@@ -1360,7 +1348,7 @@ msgstr "藝人"
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
-msgstr "音軌"
+msgstr "曲目"
 
 #: qml/SettingsForm.qml:287
 #, kde-format
@@ -1492,7 +1480,7 @@ msgstr "歌曲選項"
 msgctxt "number of imported tracks"
 msgid "Imported one track"
 msgid_plural "Imported %1 tracks"
-msgstr[0] "已匯入 %1 個音軌"
+msgstr[0] "已匯入 %1 首歌曲"
 
 #: qml/TrackImportNotification.qml:58
 #, kde-format
@@ -1522,7 +1510,7 @@ msgstr "%1%"
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
-msgstr "音軌號碼"
+msgstr "曲目編號"
 
 #: viewmanager.cpp:41 viewmanager.cpp:69
 #, kde-format
@@ -1678,7 +1666,7 @@ msgstr "名稱"
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
-msgstr "音軌"
+msgstr "曲目"
 
 #: viewslistdata.cpp:92
 #, kde-format

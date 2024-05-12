@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-10 00:37+0000\n"
-"PO-Revision-Date: 2024-05-04 23:30+0100\n"
+"PO-Revision-Date: 2024-05-10 09:14+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -637,34 +637,28 @@ msgstr "Baskuligi Muton"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "Aktuala: Neniu hazardordo"
 
 #: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "Aktuale: Ne ripeti trakojn"
+msgstr "Aktuala: Hazardordigi trakojn"
 
 #: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "Aktuala: Hazardordigi albumojn"
 
 #: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "Trakoj"
+msgstr "Trako"
 
 #: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:246
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Albumo"
@@ -1036,28 +1030,22 @@ msgstr "Malpliigi Laŭtecon"
 #, kde-format
 msgctxt "@title:menu"
 msgid "Shuffle"
-msgstr "Miksi"
+msgstr "Hazardordigi"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
 msgstr "Trakoj"
 
 #: qml/NativeGlobalMenu.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "Albumo"
 
 #: qml/NativeGlobalMenu.qml:123
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu shuffle mode is turned off"
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "Malŝaltita"
@@ -1743,11 +1731,3 @@ msgstr "Dosieroj"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiostacioj"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Shuffle"
-#~ msgstr "Baskuligi Mikson"
-
-#~ msgctxt "@action:inmenu shuffle mode is turned on"
-#~ msgid "On"
-#~ msgstr "On"

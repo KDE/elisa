@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-10 00:37+0000\n"
-"PO-Revision-Date: 2024-04-05 11:01+0200\n"
+"PO-Revision-Date: 2024-05-10 11:55+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -78,7 +78,7 @@ msgstr "Ves fins a la peça anterior"
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
-msgstr "Reproducció/pausa"
+msgstr "Reproduïu o pausa"
 
 #: elisaapplication.cpp:246
 #, kde-format
@@ -360,13 +360,13 @@ msgstr "Artistes"
 #, kde-format
 msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
-msgstr "Reproducció de música"
+msgstr "Reproduïu la música"
 
 #: powermanagementinterface.cpp:229
 #, kde-format
 msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
-msgstr "Reproducció de música"
+msgstr "Reproduïu la música"
 
 #: qml/AbstractBrowserDelegate.qml:39 qml/NavigationActionBar.qml:125
 #, kde-format
@@ -640,34 +640,28 @@ msgstr "Canvia el silenci"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "Actual: Sense barreja"
 
 #: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "Actual: No repetisques les peces"
+msgstr "Actual: Barreja les peces"
 
 #: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "Actual: Barreja els àlbums"
 
 #: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "Peces"
+msgstr "Peça"
 
 #: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:246
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Àlbum"
@@ -1042,28 +1036,22 @@ msgid "Shuffle"
 msgstr "Barreja"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
-msgstr "Peces"
+msgstr "Peça"
 
 #: qml/NativeGlobalMenu.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "Àlbum"
 
 #: qml/NativeGlobalMenu.qml:123
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu shuffle mode is turned off"
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
-msgstr "Inactiu"
+msgstr "Inactiva"
 
 #: qml/NativeGlobalMenu.qml:130
 #, kde-format
@@ -1749,11 +1737,3 @@ msgstr "Fitxers"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Shuffle"
-#~ msgstr "Canvia la barreja"
-
-#~ msgctxt "@action:inmenu shuffle mode is turned on"
-#~ msgid "On"
-#~ msgstr "Actiu"

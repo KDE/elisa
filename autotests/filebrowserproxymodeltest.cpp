@@ -51,7 +51,7 @@ private Q_SLOTS:
         QCOMPARE(mFileProxyModel->rowCount(), 0);
         QVERIFY(mEntriesToEnqueueSpy->isEmpty());
 
-        mFileProxyModel->enqueueToPlayList(QModelIndex());
+        mFileProxyModel->enqueueAll(ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
 
         QCOMPARE(mEntriesToEnqueueSpy->count(), 1);
         QVariantList arguments = mEntriesToEnqueueSpy->takeFirst();
@@ -60,7 +60,7 @@ private Q_SLOTS:
         QCOMPARE(arguments.at(1).toInt(), static_cast<int>(ElisaUtils::AppendPlayList));
         QCOMPARE(arguments.at(2).toInt(), static_cast<int>(ElisaUtils::DoNotTriggerPlay));
 
-        mFileProxyModel->replaceAndPlayOfPlayList(QModelIndex());
+        mFileProxyModel->enqueueAll(ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
 
         QCOMPARE(mEntriesToEnqueueSpy->count(), 1);
         arguments = mEntriesToEnqueueSpy->takeFirst();

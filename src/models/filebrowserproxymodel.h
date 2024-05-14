@@ -67,9 +67,7 @@ public:
 
 public Q_SLOTS:
 
-    void enqueueToPlayList(const QModelIndex &rootIndex);
-
-    void replaceAndPlayOfPlayList(const QModelIndex &rootIndex);
+    void enqueueAll(ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void enqueue(const DataTypes::MusicDataType &newEntry,
                  const QString &newEntryTitle,

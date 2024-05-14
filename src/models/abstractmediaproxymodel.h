@@ -67,9 +67,7 @@ public Q_SLOTS:
 
     void setPlayList(MediaPlayListProxyModel* playList);
 
-    void enqueueToPlayList(const QModelIndex &rootIndex);
-
-    void replaceAndPlayOfPlayList(const QModelIndex &rootIndex);
+    void enqueueAll(ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void replaceAndPlayOfPlayListFromTrackUrl(const QModelIndex &rootIndex, const QUrl &switchTrackUrl);
 

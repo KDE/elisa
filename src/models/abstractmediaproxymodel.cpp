@@ -137,14 +137,9 @@ QFuture<void> AbstractMediaProxyModel::genericEnqueueToPlayList(const QModelInde
     });
 }
 
-void AbstractMediaProxyModel::enqueueToPlayList(const QModelIndex &rootIndex)
+void AbstractMediaProxyModel::enqueueAll(ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    genericEnqueueToPlayList(rootIndex, ElisaUtils::AppendPlayList, ElisaUtils::DoNotTriggerPlay);
-}
-
-void AbstractMediaProxyModel::replaceAndPlayOfPlayList(const QModelIndex &rootIndex)
-{
-    genericEnqueueToPlayList(rootIndex, ElisaUtils::ReplacePlayList, ElisaUtils::TriggerPlay);
+    genericEnqueueToPlayList(QModelIndex(), enqueueMode, triggerPlay);
 }
 
 void AbstractMediaProxyModel::replaceAndPlayOfPlayListFromTrackUrl(const QModelIndex &rootIndex, const QUrl &switchTrackUrl)

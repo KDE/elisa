@@ -141,9 +141,9 @@ FocusScope {
                 value: navigationBar.sortRole
             }
 
-            onEnqueue: contentModel.enqueueToPlayList(delegateModel.rootIndex)
+            onEnqueue: contentModel.enqueueAll(ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: contentModel.replaceAndPlayOfPlayList(delegateModel.rootIndex)
+            onReplaceAndPlay: contentModel.enqueueAll(ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
 
             onGoBack: abstractView.viewManager.goBack()
 

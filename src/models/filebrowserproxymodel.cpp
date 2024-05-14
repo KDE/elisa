@@ -212,6 +212,12 @@ void FileBrowserProxyModel::connectPlayList()
 
 void FileBrowserProxyModel::recursiveEnqueue()
 {
+    if (mPendingEntries.empty()) {
+        mEnqueueInProgress = false;
+        Q_EMIT entriesToEnqueue(mAllData, mEnqueueMode, mTriggerPlay);
+        return;
+    }
+
     auto [rootUrl, isDirectory] = mPendingEntries.front();
 
     if (rootUrl.isEmpty()) {
@@ -232,13 +238,6 @@ void FileBrowserProxyModel::recursiveEnqueue()
             if (!ElisaUtils::isPlayList(mMimeDatabase.mimeTypeForUrl(rootUrl))) {
                 mAllData.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, rootUrl}}, rootUrl.toString(), rootUrl});
             }
-
-            if (mPendingEntries.empty()) {
-                mEnqueueInProgress = false;
-                Q_EMIT entriesToEnqueue(mAllData, mEnqueueMode, mTriggerPlay);
-                return;
-            }
-
             recursiveEnqueue();
         }
     }

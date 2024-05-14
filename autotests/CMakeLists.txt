@@ -193,3 +193,14 @@ ecm_add_test(${filewriterTest_SOURCES}
     TEST_NAME "filewriterTest"
     LINK_LIBRARIES Qt::Test elisaLib
 )
+
+if (KF6KIO_FOUND)
+    set(filebrowserproxymodelTest_SOURCES
+        filebrowserproxymodeltest.cpp
+    )
+
+    ecm_add_test(${filebrowserproxymodelTest_SOURCES}
+        TEST_NAME "filebrowserproxymodelTest"
+        LINK_LIBRARIES Qt::Test elisaLib
+    )
+endif()

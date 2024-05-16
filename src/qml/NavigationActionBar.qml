@@ -31,6 +31,7 @@ Item {
     property alias filterRating: ratingFilter.starRating
     property bool enableGoBack: true
     property bool expandedFilterView
+    property bool canEnqueueView: false
     property bool enableSorting: true
     property alias sortRole: sortMenu.sortRole
     property alias sortRoles: sortMenu.sortRoles
@@ -112,6 +113,7 @@ Item {
             objectName: "enqueueButton"
             text: i18nc("@action:button", "Add to Playlist")
             icon.name: "list-add"
+            enabled: navigationBar.canEnqueueView
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: enqueue()
         }
@@ -124,6 +126,7 @@ Item {
             objectName: "replaceAndPlayButton"
             text: i18nc("@action:button", "Play now, replacing current playlist")
             icon.name: "media-playback-start"
+            enabled: navigationBar.canEnqueueView
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: replaceAndPlay()
         }

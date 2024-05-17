@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-08 00:37+0000\n"
-"PO-Revision-Date: 2024-04-07 11:47+0400\n"
+"PO-Revision-Date: 2024-05-16 12:12+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -632,7 +632,7 @@ msgstr "تخطى للأمام"
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Mute"
-msgstr "بدّل الكتم"
+msgstr "بدّل حالة الكتم"
 
 #: qml/MediaPlayerControl.qml:149 qml/mobile/MobileTrackPlayer.qml:208
 #, kde-format

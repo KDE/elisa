@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-10 00:37+0000\n"
-"PO-Revision-Date: 2024-05-12 20:00\n"
+"PO-Revision-Date: 2024-05-16 21:10\n"
 "Last-Translator: Zmicier <zmicerturok@gmail.com>\n"
 "Language-Team: Belarusian\n"
 "Language: be\n"
@@ -640,19 +640,19 @@ msgstr "Адключыць/Уключыць гук"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "Бягучае прайграванне: без перамешвання"
 
 #: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr ""
+msgstr "Бягучае прайграванне: перамешванне кампазіцый"
 
 #: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "Бягучае прайграванне: перамешванне альбомаў"
 
 #: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
 #, kde-format
@@ -1122,7 +1122,7 @@ msgstr "Паказваць выканаўцаў"
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr ""
+msgstr "Пераключыць стыль выгляду"
 
 #: qml/NavigationActionBar.qml:226
 #, kde-format

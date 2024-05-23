@@ -55,7 +55,7 @@ AbstractBrowserDelegate {
             anchors.bottomMargin: Kirigami.Settings.isMobile ? -Kirigami.Units.smallSpacing : 0
             color: stateIndicatorColor
             opacity: stateIndicatorOpacity
-            radius: Kirigami.Settings.isMobile ? Kirigami.Units.smallSpacing : 3
+            radius: Kirigami.Units.cornerRadius
         }
 
         // click handler

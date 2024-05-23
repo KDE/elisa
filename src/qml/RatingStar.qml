@@ -130,7 +130,7 @@ QQC2.Control {
         color: "transparent"
         border.color: control.palette.highlight
         border.width: 1
-        radius: Kirigami.Units.smallSpacing
+        radius: Kirigami.Units.cornerRadius
 
         opacity: control.activeFocus && [Qt.TabFocusReason, Qt.BacktabFocusReason].includes(control.focusReason)
             ? 1 : 0

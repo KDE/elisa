@@ -27,7 +27,7 @@ Rectangle {
     implicitWidth: layout.implicitWidth + (margins * 2)
     implicitHeight: layout.implicitHeight + (margins * 2)
 
-    radius: Kirigami.Units.smallSpacing / 2
+    radius: Kirigami.Units.cornerRadius
 
     color: Qt.alpha(Kirigami.Theme.activeTextColor, 0.2)
     border.color: Kirigami.Theme.activeTextColor

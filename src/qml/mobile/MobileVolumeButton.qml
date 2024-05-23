@@ -48,7 +48,7 @@ FlatButtonWithToolTip {
         focus: true
 
         background: Rectangle {
-            radius: Kirigami.Units.smallSpacing
+            radius: Kirigami.Units.cornerRadius
             color: "#616161" // hardcode colour, since background is darkened blur (theming doesn't make sense)
         }
 

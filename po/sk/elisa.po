@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-22 02:31+0000\n"
-"PO-Revision-Date: 2024-05-22 09:09+0200\n"
+"PO-Revision-Date: 2024-05-24 08:59+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
 "Language: sk\n"
@@ -1087,12 +1087,10 @@ msgid "Display Artist"
 msgstr "Zobraziť interpreta"
 
 #: qml/NavigationActionBar.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "Prepnúť náhodné poradie"
+msgstr "Prepnúť štýl zobrazenia"
 
 #: qml/NavigationActionBar.qml:226
 #, kde-format
@@ -1256,7 +1254,7 @@ msgstr "Obnoviť databázu a znovu všetko prehľadať"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Databáza bola resetovaná"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1356,7 +1354,7 @@ msgstr "Rádiové stanice"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
-msgstr ""
+msgstr "Počiatočné umiestnenie zobrazenia súborov:"
 
 #: qml/SettingsForm.qml:323
 #, kde-format

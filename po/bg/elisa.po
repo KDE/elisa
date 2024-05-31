@@ -1732,19 +1732,3 @@ msgstr "Файлове"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Радиостанции"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Shuffle"
-#~ msgstr "Разбъркано изпълнение"
-
-#~ msgctxt "@action:inmenu shuffle mode is turned on"
-#~ msgid "On"
-#~ msgstr "Включено"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "Добре"
-
-#~ msgctxt "@action:button"
-#~ msgid "Apply"
-#~ msgstr "Прилагане"

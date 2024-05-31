@@ -1701,11 +1701,3 @@ msgstr "Файлове"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Радиостанции"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "Добре"
-
-#~ msgctxt "@action:button"
-#~ msgid "Apply"
-#~ msgstr "Прилагане"

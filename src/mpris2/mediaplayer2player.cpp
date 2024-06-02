@@ -428,7 +428,7 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
 
             const auto &mimeType = QMimeDatabase().mimeTypeForFile(m_manageHeaderBar->image().toString().mid(14)).name();
             KFileMetaData::ExtractorCollection extractorCollection;
-            auto extractors = extractorCollection.fetchExtractors(mimeType);
+            const auto extractors = extractorCollection.fetchExtractors(mimeType);
 
             QMap<KFileMetaData::EmbeddedImageData::ImageType, QByteArray> imageData;
             for (const auto &extractor : extractors) {

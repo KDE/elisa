@@ -79,7 +79,7 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
         return (sortOrder() == Qt::AscendingOrder) ? (first < second) : (first > second);
     });
 
-    for (const auto &oneEntry : vNewEntries) {
+    for (const auto &oneEntry : std::as_const(vNewEntries)) {
         auto fullPath = QString{};
         auto fullPathUrl = QUrl{};
 

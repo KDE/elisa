@@ -30,7 +30,8 @@ QList<QUrl> M3uPlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArr
     Q_UNUSED(fileName);
     QList<QUrl> result;
 
-    for (const QByteArray &l : fileContent.split('\n')) {
+    const auto lines = fileContent.split('\n');
+    for (const QByteArray &l : lines) {
         const QString &line = QString::fromUtf8(l);
         if (!line.isEmpty() && !line.startsWith(QStringLiteral("#"))) {
             const QUrl &url = line.contains(QStringLiteral("://")) ? QUrl(line) : QUrl::fromLocalFile(line);
@@ -57,7 +58,9 @@ QString M3uPlaylistParser::toPlaylist(const QUrl &fileName, const QList<QString>
 QList<QUrl> PlsPlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray &fileContent) {
     Q_UNUSED(fileName);
     QList<QUrl> result;
-    for (const QByteArray &l : fileContent.split('\n')) {
+
+    const auto lines = fileContent.split('\n');
+    for (const QByteArray &l : lines) {
         const QString &line = QString::fromUtf8(l);
         if (!line.isEmpty() && line.startsWith(QStringLiteral("File")) && line.contains(QStringLiteral("="))) {
             int indexOfEquals = line.indexOf(QStringLiteral("="));
@@ -1240,7 +1243,7 @@ void MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTra
 void MediaPlayListProxyModel::loadLocalDirectory(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &dirName)
 {
     QDir dirInfo(dirName.toLocalFile());
-    auto fileInfoList = dirInfo.entryInfoList(QDir::NoDotAndDotDot | QDir::Readable | QDir::Files | QDir::Dirs, QDir::Name);
+    const auto fileInfoList = dirInfo.entryInfoList(QDir::NoDotAndDotDot | QDir::Readable | QDir::Files | QDir::Dirs, QDir::Name);
 
     for (const auto &fileInfo : fileInfoList) {
         loadLocalFile(newTracks, processedFiles, fileInfo);

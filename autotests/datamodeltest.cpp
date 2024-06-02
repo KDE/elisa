@@ -246,21 +246,14 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track6"),
+        const DataTypes::TrackDataType newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track6"),
                 QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 6, 1,
                 QTime::fromMSecsSinceStartOfDay(23), {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
-        auto newTracks = DataTypes::ListTrackDataType();
-        newTracks.push_back(newTrack);
 
-        auto newFiles2 = QList<QUrl>();
-        for (const auto &oneTrack : newTracks) {
-            newFiles2.push_back(oneTrack.resourceURI());
-        }
-
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList({newTrack}, mNewCovers);
 
         QCOMPARE(albumsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 2);
@@ -274,21 +267,14 @@ private Q_SLOTS:
 
         QCOMPARE(albumsModel.data(albumsModel.index(4, 0), DataTypes::ColumnsRoles::TitleRole).toString(), QStringLiteral("track6"));
 
-        auto secondNewTrack = DataTypes::TrackDataType{true, QStringLiteral("$24"), QStringLiteral("0"), QStringLiteral("track5"),
+        const DataTypes::TrackDataType secondNewTrack = {true, QStringLiteral("$24"), QStringLiteral("0"), QStringLiteral("track5"),
                 QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 5, 1,
                 QTime::fromMSecsSinceStartOfDay(24), {QUrl::fromLocalFile(QStringLiteral("/$24"))},
                 QDateTime::fromMSecsSinceEpoch(24),
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
-        auto secondNewTracks = DataTypes::ListTrackDataType();
-        secondNewTracks.push_back(secondNewTrack);
 
-        auto newFiles3 = QList<QUrl>();
-        for (const auto &oneTrack : secondNewTracks) {
-            newFiles3.push_back(oneTrack.resourceURI());
-        }
-
-        musicDb.insertTracksList(secondNewTracks, mNewCovers);
+        musicDb.insertTracksList({secondNewTrack}, mNewCovers);
 
         QCOMPARE(albumsModel.rowCount(), 6);
         QCOMPARE(beginInsertRowsSpy.count(), 3);
@@ -631,25 +617,18 @@ private Q_SLOTS:
 
         QCOMPARE(tracksModel.rowCount(), 23);
 
-        auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
+        const DataTypes::TrackDataType newTrack = {true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
                 QStringLiteral("artist2"), QStringLiteral("album4"), QStringLiteral("artist2"), 23, 1, QTime::fromMSecsSinceStartOfDay(23),
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
-        auto newTracks = DataTypes::ListTrackDataType();
-        newTracks.push_back(newTrack);
 
         auto newCover = QUrl::fromLocalFile(QStringLiteral("album5"));
         auto newCovers = QHash<QString, QUrl>();
         newCovers[QStringLiteral("album5")] = newCover;
 
-        auto newFiles2 = QList<QUrl>();
-        for (const auto &oneTrack : newTracks) {
-            newFiles2.push_back(oneTrack.resourceURI());
-        }
-
-        musicDb.insertTracksList(newTracks, newCovers);
+        musicDb.insertTracksList({newTrack}, newCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
@@ -1199,21 +1178,14 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
+        const DataTypes::TrackDataType newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track23"),
                 QStringLiteral("artist6"), QStringLiteral("album4"), QStringLiteral("Various Artists"), 23, 1, QTime::fromMSecsSinceStartOfDay(23),
         {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
         {QUrl::fromLocalFile(QStringLiteral("file://image$23"))}, 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
-        auto newTracks = DataTypes::ListTrackDataType();
-        newTracks.push_back(newTrack);
 
-        auto newFiles2 = QList<QUrl>();
-        for (const auto &oneTrack : newTracks) {
-            newFiles2.push_back(oneTrack.resourceURI());
-        }
-
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList({newTrack}, mNewCovers);
 
         beginInsertRowsSpy.wait();
 
@@ -1563,21 +1535,14 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        auto newTrack = DataTypes::TrackDataType{true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track6"),
+        const DataTypes::TrackDataType newTrack = {true, QStringLiteral("$23"), QStringLiteral("0"), QStringLiteral("track6"),
                 QStringLiteral("artist2"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 2, 1,
                 QTime::fromMSecsSinceStartOfDay(23), {QUrl::fromLocalFile(QStringLiteral("/$23"))},
                 QDateTime::fromMSecsSinceEpoch(23),
                 QUrl::fromLocalFile(QStringLiteral("album1")), 5, true,
         {}, QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
-        auto newTracks = DataTypes::ListTrackDataType();
-        newTracks.push_back(newTrack);
 
-        auto newFiles2 = QList<QUrl>();
-        for (const auto &oneTrack : newTracks) {
-            newFiles2.push_back(oneTrack.resourceURI());
-        }
-
-        musicDb.insertTracksList(newTracks, mNewCovers);
+        musicDb.insertTracksList({newTrack}, mNewCovers);
 
         QCOMPARE(albumsModel.rowCount(), 5);
         QCOMPARE(beginInsertRowsSpy.count(), 2);

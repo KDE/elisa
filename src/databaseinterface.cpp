@@ -1354,7 +1354,7 @@ bool DatabaseInterface::initDatabase()
         qCDebug(orgKdeElisaDatabase()) << "Old database schema unsupported: delete and start from scratch";
         qCDebug(orgKdeElisaDatabase()) << "list of old tables" << d->mTracksDatabase.tables();
 
-        auto oldTables = QStringList{
+        const QStringList oldTables = {
                 QStringLiteral("DatabaseVersionV2"),
                 QStringLiteral("DatabaseVersionV3"),
                 QStringLiteral("DatabaseVersionV4"),
@@ -3216,7 +3216,7 @@ void DatabaseInterface::upgradeDatabaseV16()
     {
         QSqlQuery sqlQuery(d->mTracksDatabase);
 
-        QStringList sqlUpdates = QStringLiteral(
+        const QStringList sqlUpdates = QStringLiteral(
             "UPDATE Radios SET HttpAddress='https://ouifm.ice.infomaniak.ch/ouifm-high.mp3' WHERE HttpAddress='http://classicrock.stream.ouifm.fr/ouifm3.mp3'; "
             "UPDATE Radios SET HttpAddress='https://ouifmrock70s.ice.infomaniak.ch/ouifmseventies.mp3' WHERE HttpAddress='http://rock70s.stream.ouifm.fr/ouifmseventies.mp3'; "
             "UPDATE Radios SET HttpAddress='https://jazzradio.ice.infomaniak.ch/jazzradio-high.mp3' WHERE HttpAddress='http://jazzradio.ice.infomaniak.ch/jazzradio-high.mp3'; "
@@ -7101,7 +7101,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
     if (albumId != 0) {
         if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, trackPath)) {
-            auto modifiedTracks = fetchTrackIds(albumId);
+            const auto modifiedTracks = fetchTrackIds(albumId);
             for (auto oneModifiedTrack : modifiedTracks) {
                 if (oneModifiedTrack != resultId) {
                     recordModifiedTrack(oneModifiedTrack);
@@ -7274,7 +7274,7 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
         auto tracksCount = fetchTrackIds(modifiedAlbumId).count();
 
         if (!modifiedAlbumData.isEmpty() && tracksCount) {
-            auto modifiedAlbum = internalOneAlbumData(modifiedAlbumId);
+            const auto modifiedAlbum = internalOneAlbumData(modifiedAlbumId);
             if (updateAlbumFromId(modifiedAlbumId, modifiedAlbum.at(0).albumCover(), modifiedAlbum.at(0), modifiedAlbum.at(0).resourceURI().toString(currentOptions))) {
                 for (const auto &oneTrack : modifiedAlbum) {
                     recordModifiedTrack(oneTrack.databaseId());

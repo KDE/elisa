@@ -162,7 +162,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
 
     QList<QUrl> urls;
-    for (const auto &oneArgument : parser.positionalArguments()) {
+    const auto positionalArguments = parser.positionalArguments();
+    for (const auto &oneArgument : positionalArguments) {
         urls.push_back(QUrl::fromUserInput(oneArgument, QDir::currentPath()));
     }
 

@@ -177,15 +177,13 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
     }
 
     auto allRemovedTracks = QList<QUrl>();
-    for (const auto &oneRemovedTrack : removedTracks) {
+    for (const auto &oneRemovedTrack : std::as_const(removedTracks)) {
         if (oneRemovedTrack.second) {
             allRemovedTracks.push_back(oneRemovedTrack.first);
         } else {
             removeFile(oneRemovedTrack.first, allRemovedTracks);
         }
-    }
-    for (const auto &oneRemovedTrack : removedTracks) {
-        currentDirectoryListingFiles.remove(oneRemovedTrack);
+
         currentDirectoryListingFiles.remove(oneRemovedTrack);
     }
 
@@ -197,7 +195,7 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
         return;
     }
 
-    for (const auto &newFilePath : currentFilesList) {
+    for (const auto &newFilePath : std::as_const(currentFilesList)) {
         QFileInfo oneEntry(newFilePath.toLocalFile());
 
         if (oneEntry.isDir()) {

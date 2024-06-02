@@ -304,7 +304,7 @@ bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
 {
 #if KFFileMetaData_FOUND
     const auto &mimeType = QMimeDatabase().mimeTypeForFile(localFileName).name();
-    auto extractors = d->mAllExtractors.fetchExtractors(mimeType);
+    const auto extractors = d->mAllExtractors.fetchExtractors(mimeType);
 
     for (const auto &extractor : extractors) {
         KFileMetaData::SimpleExtractionResult result(localFileName, mimeType, KFileMetaData::ExtractionResult::ExtractImageData);

@@ -46,7 +46,7 @@ public:
 
         mErrorMessage = QLatin1String{""};
 
-        auto extractors = ec.fetchExtractors(fileMimeType);
+        const auto extractors = ec.fetchExtractors(fileMimeType);
         for (const auto& ex : extractors) {
             ex->extract(&result);
         }

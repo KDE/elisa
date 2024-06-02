@@ -283,7 +283,7 @@ void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntr
 
 void TracksListener::newArtistInList(qulonglong newDatabaseId, const QString &artist)
 {
-    auto newTracks = d->mDatabase->tracksDataFromAuthor(artist);
+    const auto newTracks = d->mDatabase->tracksDataFromAuthor(artist);
     if (newTracks.isEmpty()) {
         return;
     }
@@ -297,7 +297,7 @@ void TracksListener::newArtistInList(qulonglong newDatabaseId, const QString &ar
 
 void TracksListener::newGenreInList(qulonglong newDatabaseId, const QString &entryTitle)
 {
-    auto newTracks = d->mDatabase->tracksDataFromGenre(entryTitle);
+    const auto newTracks = d->mDatabase->tracksDataFromGenre(entryTitle);
 
     if (newTracks.isEmpty()) {
         return;

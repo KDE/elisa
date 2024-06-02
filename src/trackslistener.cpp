@@ -54,7 +54,7 @@ void TracksListener::tracksAdded(const ListTrackDataType &allTracks)
             return;
         }
 
-        for (auto itTrack = d->mTracksByNameSet.cbegin(); itTrack != d->mTracksByNameSet.cend(); ) {
+        for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end(); ) {
             if (!std::get<0>(*itTrack).isEmpty() && std::get<0>(*itTrack) != oneTrack.title()) {
                 ++itTrack;
                 continue;

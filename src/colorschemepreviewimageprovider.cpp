@@ -24,7 +24,7 @@ QPixmap ColorSchemePreviewImageProvider::requestPixmap(const QString &id, QSize 
 
     // the id of the default entry must be set to an empty string
     if (!index.isValid()) {
-        index = schemes.indexForScheme(QStringLiteral(""));
+        index = schemes.indexForScheme(QLatin1String(""));
     }
     const auto pixmap = schemes.model()->data(index, Qt::DecorationRole).value<QIcon>().pixmap(requestedSize);
     *size = pixmap.size();

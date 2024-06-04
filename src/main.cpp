@@ -80,6 +80,9 @@ int main(int argc, char *argv[])
 
     qputenv("QT_LOGGING_RULES", "org.kde.elisa*=true");
 #endif
+#ifdef Q_OS_WIN
+    qputenv("QT_LOGGING_RULES", "org.kde.elisa*=true");
+#endif
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 
     QApplication app(argc, argv);

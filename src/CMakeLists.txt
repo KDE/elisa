@@ -48,7 +48,6 @@ set(elisaLib_INCLUDEDIRS
     ${CMAKE_CURRENT_SOURCE_DIR}/file
     ${CMAKE_CURRENT_SOURCE_DIR}/localFileConfiguration
     ${CMAKE_CURRENT_SOURCE_DIR}/models
-    ${CMAKE_CURRENT_SOURCE_DIR}/mpris2
 )
 
 ecm_qt_declare_logging_category(elisaLib_SOURCES
@@ -133,6 +132,24 @@ else()
         )
 endif()
 
+if (WIN32)
+    ecm_qt_declare_logging_category(elisaLib_SOURCES
+        HEADER "windowsLogging.h"
+        IDENTIFIER "orgKdeElisaWindows"
+        CATEGORY_NAME "org.kde.elisa.windows"
+        DEFAULT_SEVERITY Info
+        )
+
+    set(elisaLib_SOURCES
+        ${elisaLib_SOURCES}
+        windows/taskbarmanager.cpp
+    )
+    set(elisaLib_INCLUDEDIRS
+        ${elisaLib_INCLUDEDIRS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/windows
+    )
+endif()
+
 if (ANDROID)
     ecm_qt_declare_logging_category(elisaLib_SOURCES
         HEADER "android/androidcommon.h"
@@ -175,6 +192,10 @@ if (Qt6DBus_FOUND)
         mpris2/mediaplayer2.cpp
         mpris2/mediaplayer2player.cpp
         )
+    set(elisaLib_INCLUDEDIRS
+        ${elisaLib_INCLUDEDIRS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/mpris2
+    )
 endif()
 
 if (UPNPQT_FOUND)

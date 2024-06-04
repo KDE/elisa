@@ -6,7 +6,7 @@
 
 import QtQuick 2.0
 import org.kde.elisa
-import QtWinExtras 1.0
+import QtMultimedia as Multimedia
 
 Item {
     id: rootItem
@@ -16,56 +16,26 @@ Item {
     property var player
     property var headerBarManager
     property var manageMediaPlayerControl
-    property alias showProgressOnTaskBar: progressBar.active
+    property bool showProgressOnTaskBar
     property var elisaMainWindow
     property bool showSystemTrayIcon
     property bool forceCloseWindow: false
 
     signal raisePlayer()
 
-    Theme {
-        id: elisaTheme
-    }
+    TaskBarManager {
+        playbackState: rootItem.player.playbackState
 
-    Loader {
-        id: progressBar
+        showProgress: rootItem.showProgressOnTaskBar
+        progressMaximum: rootItem.player.duration
+        progressValue: rootItem.player.position
 
-        sourceComponent: taskBarComponent
-    }
+        canSkipBackward: rootItem.manageMediaPlayerControl.skipBackwardControlEnabled
+        canSkipForward: rootItem.manageMediaPlayerControl.skipForwardControlEnabled
+        canTogglePlayback: true
 
-    Component {
-        id:taskBarComponent
-
-        TaskbarButton {
-            progress.minimum: 0
-            progress.maximum: player.duration
-            progress.value: player.position
-            progress.visible: manageMediaPlayerControl.musicPlaying
-
-            overlay.iconSource: (manageMediaPlayerControl.musicPlaying ?
-                                     Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
-        }
-    }
-
-    ThumbnailToolBar {
-        iconicThumbnailSource: (headerBarManager.image.toString() !== '' ? headerBarManager.image : Qt.resolvedUrl(elisaTheme.albumCover))
-
-        ThumbnailToolButton {
-            iconSource: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipForwardIcon : elisaTheme.skipBackwardIcon)
-            onClicked: playListModel.skipPreviousTrack(player.position)
-            enabled: manageMediaPlayerControl.skipBackwardControlEnabled
-        }
-
-        ThumbnailToolButton {
-            iconSource: (manageMediaPlayerControl.musicPlaying ? Qt.resolvedUrl(elisaTheme.pauseIcon) : Qt.resolvedUrl(elisaTheme.playIcon))
-            onClicked: audioPlayerManager.playPause()
-            enabled: manageMediaPlayerControl.playControlEnabled
-        }
-
-        ThumbnailToolButton {
-            iconSource: Qt.resolvedUrl(LayoutMirroring.enabled ? elisaTheme.skipBackwardIcon : elisaTheme.skipForwardIcon)
-            onClicked: playListModel.skipNextTrack(ElisaUtils.Manual)
-            enabled: manageMediaPlayerControl.skipForwardControlEnabled
-        }
+        onSkipBackward: rootItem.playListModel.skipPreviousTrack(rootItem.player.position)
+        onSkipForward: rootItem.playListModel.skipNextTrack(ElisaUtils.Manual)
+        onTogglePlayback: rootItem.audioPlayerManager.playPause()
     }
 }

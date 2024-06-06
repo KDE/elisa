@@ -37,8 +37,6 @@ Kirigami.Page {
     // Header with title and actions
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
-        implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
-
         leftPadding: mirrored ? undefined : Kirigami.Units.largeSpacing
         rightPadding: mirrored ? Kirigami.Units.largeSpacing : undefined
 

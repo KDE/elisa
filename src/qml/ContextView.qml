@@ -54,8 +54,6 @@ Kirigami.Page {
     // Header with title and actions
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
-        implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
-
         // Override color to use standard window colors, not header colors
         // TODO: remove this if the HeaderBar component is ever removed or moved
         // to the bottom of the window such that this toolbar touches the window

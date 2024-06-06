@@ -195,11 +195,6 @@ Item {
             when: Kirigami.Settings.isMobile
         }
 
-        // Match the height of the playlist toolbar when the filter-bar is hidden
-        Binding {
-            toolbar.background.implicitHeight: Math.round(Kirigami.Units.gridUnit * 2.5)
-        }
-
         contentItem: Column {
             spacing: Kirigami.Units.smallSpacing
 
@@ -208,7 +203,6 @@ Item {
                 id: mainHeader
 
                 width: parent.width
-                height: 2 * Kirigami.Units.gridUnit
                 spacing: Kirigami.Units.smallSpacing
 
                 FlatButtonWithToolTip {
@@ -279,27 +273,22 @@ Item {
                 Loader {
                     sourceComponent: sortMenuComponent
                     active: !Kirigami.Settings.isMobile && enableSorting && !showCreateRadioButton
-                    Layout.maximumHeight: parent.height
                 }
                 Loader {
                     sourceComponent: createRadioButton
                     active: !Kirigami.Settings.isMobile && showCreateRadioButton
-                    Layout.maximumHeight: parent.height
                 }
                 Loader {
                     sourceComponent: enqueueButton
                     active: !Kirigami.Settings.isMobile && !showCreateRadioButton
-                    Layout.maximumHeight: parent.height
                 }
                 Loader {
                     sourceComponent: replaceAndPlayButton
                     active: !Kirigami.Settings.isMobile && !showCreateRadioButton
-                    Layout.maximumHeight: parent.height
                 }
                 Loader {
                     sourceComponent: toggleViewStyleButton
                     active: !Kirigami.Settings.isMobile && navigationBar.canToggleViewStyle
-                    Layout.maximumHeight: parent.height
                 }
                 FlatButtonWithToolTip {
                     Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
@@ -320,7 +309,6 @@ Item {
                 visible: active
 
                 width: parent.width
-                height: 2 * Kirigami.Units.gridUnit
 
                 sourceComponent: RowLayout {
                     id: mobileActions
@@ -338,31 +326,25 @@ Item {
                     Loader {
                         sourceComponent: createRadioButton
                         active: showCreateRadioButton
-                        Layout.maximumHeight: parent.height
                     }
                     Loader {
                         sourceComponent: enqueueButton
                         active: !showCreateRadioButton
-                        Layout.maximumHeight: parent.height
                     }
                     Loader {
                         sourceComponent: replaceAndPlayButton
                         active: !showCreateRadioButton
-                        Layout.maximumHeight: parent.height
                     }
                     Loader {
                         sourceComponent: showArtistButton
                         active: allowArtistNavigation && !showCreateRadioButton
-                        Layout.maximumHeight: parent.height
                     }
                     Loader {
                         sourceComponent: toggleViewStyleButton
                         active: navigationBar.canToggleViewStyle
-                        Layout.maximumHeight: parent.height
                     }
                     Loader {
                         sourceComponent: showPlaylistButton
-                        Layout.maximumHeight: parent.height
                     }
                 }
             }
@@ -372,7 +354,6 @@ Item {
                 id: filterRow
 
                 width: parent.width
-                height: 2 * Kirigami.Units.gridUnit
                 visible: opacity > 0.0
 
                 opacity: expandedFilterView ? 1 : 0

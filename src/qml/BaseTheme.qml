@@ -21,7 +21,6 @@ Item {
     property int metaDataDialogHeight: Kirigami.Units.gridUnit * 27
     property int metaDataDialogWidth: Kirigami.Units.gridUnit * 33
 
-    property int mediaPlayerControlHeight: Kirigami.Settings.isMobile? Math.round(Kirigami.Units.gridUnit * 3.5) : Math.round(Kirigami.Units.gridUnit * 2.5)
     property real mediaPlayerControlOpacity: 0.6
     property int volumeSliderWidth: Kirigami.Units.gridUnit * 5
 

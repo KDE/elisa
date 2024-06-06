@@ -195,14 +195,14 @@ Flickable {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: mainWindow.height + elisaTheme.mediaPlayerControlHeight
+        height: mainWindow.height + playControlItem.height
         spacing: 0
 
         MobileMinimizedPlayerControl {
             id: playControlItem
 
             Layout.fillWidth: true
-            Layout.minimumHeight: elisaTheme.mediaPlayerControlHeight
+            Layout.minimumHeight: implicitHeight
             Layout.alignment: Qt.AlignTop
             focus: true
 

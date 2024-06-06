@@ -21,6 +21,8 @@ BasePlayerControl {
     property bool isTranslucent
     property bool isNearCollapse
 
+    implicitHeight: Math.max(toolBarLayout.implicitHeight, Math.round(Kirigami.Units.gridUnit * 2.5))
+
     signal maximize()
     signal minimize()
     /*
@@ -77,6 +79,8 @@ BasePlayerControl {
     }
 
     RowLayout {
+        id: toolBarLayout
+
         anchors.fill: parent
         spacing: 0
 

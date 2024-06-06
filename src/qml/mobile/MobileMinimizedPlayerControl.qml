@@ -20,6 +20,8 @@ import "../shared"
 BasePlayerControl {
     id: musicWidget
 
+    implicitHeight: Math.max(toolBarLayout.implicitHeight, Math.round(Kirigami.Units.gridUnit * 3.5))
+
     property alias volume: volumeButton.sliderValue
     property alias volumeSlider: volumeButton.slider
 
@@ -93,6 +95,8 @@ BasePlayerControl {
 
     // actual player bar
     RowLayout {
+        id: toolBarLayout
+
         anchors.fill: parent
         spacing: 0
 

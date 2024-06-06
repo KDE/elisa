@@ -185,9 +185,8 @@ FocusScope {
         anchors.right: background.right
         anchors.bottom: background.bottom
 
-        height: elisaTheme.mediaPlayerControlHeight
-        isTranslucent: headerBar.height > elisaTheme.mediaPlayerControlHeight
-        isNearCollapse: headerBar.height < elisaTheme.mediaPlayerControlHeight * 2
+        isTranslucent: headerBar.height > height
+        isNearCollapse: headerBar.height < height * 2
 
         onHandlePositionChanged: (y, offset) => {
             const newHeight = headerBar.height - offset + y

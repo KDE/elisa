@@ -189,7 +189,7 @@ Kirigami.ApplicationWindow {
 
     readonly property bool inPartyMode: headerBarLoader.item?.isMaximized ?? false
     readonly property bool isWideScreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
-    readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > elisaTheme.mediaPlayerControlHeight * 2
+    readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > headerBarLoader.toolBarHeight * 2
 
     function toggleDrawer() {
         contentView.showPlaylist = !contentView.showPlaylist
@@ -373,6 +373,8 @@ Kirigami.ApplicationWindow {
         // otherwise, it captures all mouse/touch events on the main view
         z: (!item || item.contentY === 0) ? (mainWindow.layerOnTop ? -1 : 0) : 999
 
+        readonly property real toolBarHeight: active ? item.trackControl.height : 0
+
         sourceComponent: MobileFooterBar {
             id: mobileFooterBar
             contentHeight: mainWindow.height * 2
@@ -410,7 +412,7 @@ Kirigami.ApplicationWindow {
 
         color: myPalette.base
         anchors.fill: parent
-        anchors.bottomMargin: Kirigami.Settings.isMobile ? elisaTheme.mediaPlayerControlHeight : 0
+        anchors.bottomMargin: Kirigami.Settings.isMobile ? mobileFooterBarLoader.toolBarHeight : 0
 
 
         ColumnLayout {
@@ -423,13 +425,14 @@ Kirigami.ApplicationWindow {
                 active: !Kirigami.Settings.isMobile
                 visible: active
 
-                Layout.minimumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : elisaTheme.mediaPlayerControlHeight
-                Layout.maximumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : Math.round(mainWindow.height * 0.2 + elisaTheme.mediaPlayerControlHeight)
+                Layout.minimumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : toolBarHeight
+                Layout.maximumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : Math.round(mainWindow.height * 0.2 + toolBarHeight)
                 Layout.fillWidth: true
                 Layout.preferredHeight: status === Loader.Ready ? item.handlePosition : normalHeight
 
                 // height when HeaderBar is not maximized
                 property int normalHeight : persistentSettings.headerBarHeight
+                readonly property real toolBarHeight: active ? item.playerControl.height : 0
 
                 Component.onDestruction: {
                     // saving height in onAboutToQuit() leads to invalid values, so we do it here

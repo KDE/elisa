@@ -272,7 +272,7 @@ RowLayout {
                 when: mainWindow.isWideScreen && contentViewContainer.showPlaylist
                 PropertyChanges {
                     target: playList
-                    Layout.preferredWidth: contentViewContainer.width * 0.28
+                    Layout.preferredWidth: Math.round(contentViewContainer.width * 0.28)
                 }
             }
         ]

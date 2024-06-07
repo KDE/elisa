@@ -106,8 +106,6 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
 
 public:
 
-    static ElisaApplication *create(QQmlEngine *engine, QJSEngine *scriptEngine);
-
     explicit ElisaApplication(QObject *parent = nullptr);
 
     ~ElisaApplication() override;

@@ -13,6 +13,10 @@
 
 #include "localFileConfiguration/elisaconfigurationdialog.h"
 
+#if KFDBusAddons_FOUND
+#include <KDBusService>
+#endif
+
 #if KFFileMetaData_FOUND
 #include "embeddedcoverageimageprovider.h"
 #endif
@@ -145,6 +149,16 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));
     QQmlFileSelector selector(&engine);
+    constexpr auto qmlUri = "org.kde.elisa";
+
+#if KFDBusAddons_FOUND
+    const auto *elisaApplication = engine.singletonInstance<ElisaApplication *>(qmlUri, "ElisaApplication");
+
+    KDBusService service(KDBusService::Unique);
+    service.connect(&service, &KDBusService::activateActionRequested, elisaApplication, &ElisaApplication::activateActionRequested);
+    service.connect(&service, &KDBusService::activateRequested, elisaApplication, &ElisaApplication::activateRequested);
+    service.connect(&service, &KDBusService::openRequested, elisaApplication, &ElisaApplication::openRequested);
+#endif
 
     // Allow image:// icon URLs to be loaded as images im QML
     engine.addImageProvider(QStringLiteral("icon"), new KQuickIconProvider);
@@ -168,7 +182,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty(QStringLiteral("elisaStartupArguments"), QVariant::fromValue(urls));
 
-    engine.loadFromModule("org.kde.elisa", "ElisaMainWindow");
+    engine.loadFromModule(qmlUri, "ElisaMainWindow");
 
     return app.exec();
 }

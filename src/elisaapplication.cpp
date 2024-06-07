@@ -25,10 +25,6 @@
 #include <KStandardAction>
 #endif
 
-#if KFDBusAddons_FOUND
-#include <KDBusService>
-#endif
-
 #if defined KFXmlGui_FOUND
 #include <KActionCollection>
 #include <KHelpMenu>
@@ -94,25 +90,6 @@ public:
 
     KColorSchemeManager *mSchemes = nullptr;
 };
-
-ElisaApplication *ElisaApplication::create(QQmlEngine *engine, QJSEngine *scriptEngine)
-{
-    Q_UNUSED(engine)
-    Q_UNUSED(scriptEngine)
-    auto newApplication = std::make_unique<ElisaApplication>();
-
-#if KFDBusAddons_FOUND
-    auto *elisaService = new KDBusService(KDBusService::Unique, newApplication.get());
-#endif
-
-#if KFDBusAddons_FOUND
-    QObject::connect(elisaService, &KDBusService::activateActionRequested, newApplication.get(), &ElisaApplication::activateActionRequested);
-    QObject::connect(elisaService, &KDBusService::activateRequested, newApplication.get(), &ElisaApplication::activateRequested);
-    QObject::connect(elisaService, &KDBusService::openRequested, newApplication.get(), &ElisaApplication::openRequested);
-#endif
-
-    return newApplication.release();
-}
 
 ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::make_unique<ElisaApplicationPrivate>(this))
 {

@@ -90,8 +90,6 @@ public:
 
     std::unique_ptr<ManageHeaderBar> mManageHeaderBar;
 
-    QQmlEngine *mEngine = nullptr;
-
     QFileSystemWatcher mConfigFileWatcher;
 
     KColorSchemeManager *mSchemes = nullptr;
@@ -99,6 +97,7 @@ public:
 
 ElisaApplication *ElisaApplication::create(QQmlEngine *engine, QJSEngine *scriptEngine)
 {
+    Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
     auto newApplication = std::make_unique<ElisaApplication>();
 
@@ -111,8 +110,6 @@ ElisaApplication *ElisaApplication::create(QQmlEngine *engine, QJSEngine *script
     QObject::connect(elisaService, &KDBusService::activateRequested, newApplication.get(), &ElisaApplication::activateRequested);
     QObject::connect(elisaService, &KDBusService::openRequested, newApplication.get(), &ElisaApplication::openRequested);
 #endif
-
-    newApplication->setQmlEngine(engine);
 
     return newApplication.release();
 }
@@ -411,11 +408,6 @@ void ElisaApplication::initialize()
     initializePlayer();
 
     Q_EMIT initializationDone();
-}
-
-void ElisaApplication::setQmlEngine(QQmlEngine *engine)
-{
-    d->mEngine = engine;
 }
 
 void ElisaApplication::initializeModels()

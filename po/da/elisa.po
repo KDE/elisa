@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-10 00:37+0000\n"
+"POT-Creation-Date: 2024-06-08 00:38+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -44,119 +44,119 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radioer"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:180
 #, fuzzy, kde-format
 #| msgid "Toggle Playlist"
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Slå afspilningsliste til/fra"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:185
 #, fuzzy, kde-format
 #| msgid "Seek forward 10 seconds"
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Søg 10 sekunder frem"
 
-#: elisaapplication.cpp:217
+#: elisaapplication.cpp:191
 #, fuzzy, kde-format
 #| msgid "Scrub backwards 10 seconds"
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Spol 10 sekunder tilbage"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:197
 #, fuzzy, kde-format
 #| msgid "Go to next track"
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Gå til næste spor"
 
-#: elisaapplication.cpp:229
+#: elisaapplication.cpp:203
 #, fuzzy, kde-format
 #| msgid "Go to previous track"
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Gå til forrige spor"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:209
 #, fuzzy, kde-format
 #| msgid "Play/pause"
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Afspil/pause"
 
-#: elisaapplication.cpp:246
+#: elisaapplication.cpp:220
 #, fuzzy, kde-format
 #| msgid "Toggle Party Mode"
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Slå festtilstand til/fra"
 
-#: main.cpp:106
+#: main.cpp:113
 #, fuzzy, kde-format
 #| msgid "Elisa"
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:108
+#: main.cpp:115
 #, fuzzy, kde-format
 #| msgid "A Simple Music Player made with love by the KDE community"
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "En simpel musikafspiller skabt med kærlighed af KDE-fællesskabet"
 
-#: main.cpp:110
+#: main.cpp:117
 #, fuzzy, kde-format
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa-bidragsyderne"
 
-#: main.cpp:112 models/lyricsmodel.cpp:161
+#: main.cpp:119 models/lyricsmodel.cpp:161
 #, fuzzy, kde-format
 #| msgid "Creator"
 msgctxt "@label"
 msgid "Creator"
 msgstr "Skaber"
 
-#: main.cpp:113
+#: main.cpp:120
 #, fuzzy, kde-format
 #| msgid "Author"
 msgctxt "@label"
 msgid "Author"
 msgstr "Ophavsmand"
 
-#: main.cpp:115
+#: main.cpp:122
 #, fuzzy, kde-format
 #| msgid "Concept and design work"
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Koncept- og designarbejde"
 
-#: main.cpp:116
+#: main.cpp:123
 #, fuzzy, kde-format
 #| msgid "Localization support"
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Understøttelse af lokalisering"
 
-#: main.cpp:117
+#: main.cpp:124
 #, fuzzy, kde-format
 #| msgid "Right to left support in interface"
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Understøttelse af højre mod venstre-grænseflade"
 
-#: main.cpp:118
+#: main.cpp:125
 #, fuzzy, kde-format
 #| msgid "Various improvements to the interface"
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Diverse forbedringer til brugerfladen"
 
-#: main.cpp:119
+#: main.cpp:126
 #, fuzzy, kde-format
 #| msgid "Support for online radios"
 msgctxt "@label"
@@ -545,7 +545,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Afspiller nu"
 
-#: qml/ContextView.qml:73 qml/NavigationActionBar.qml:218
+#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:212
 #, fuzzy, kde-format
 #| msgctxt "open the sidebar"
 #| msgid "Open sidebar"
@@ -553,7 +553,7 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Åbn sidepanelet"
 
-#: qml/ContextView.qml:109
+#: qml/ContextView.qml:107
 #, fuzzy, kde-format
 #| msgctxt "One of the 'now playing' views"
 #| msgid "Metadata"
@@ -561,7 +561,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadata"
 
-#: qml/ContextView.qml:120
+#: qml/ContextView.qml:118
 #, fuzzy, kde-format
 #| msgctxt "Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -569,7 +569,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Sangtekst"
 
-#: qml/ContextView.qml:127 qml/MediaPlayerControl.qml:286
+#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:290
 #: qml/mobile/MobileTrackPlayer.qml:399 qml/NavigationActionBar.qml:149
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
@@ -577,21 +577,21 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Vis afspilningsliste"
 
-#: qml/ContextView.qml:408
+#: qml/ContextView.qml:406
 #, fuzzy, kde-format
 #| msgid "No lyrics found"
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Ingen sangtekst fundet"
 
-#: qml/ContextView.qml:425
+#: qml/ContextView.qml:423
 #, fuzzy, kde-format
 #| msgid "Nothing playing"
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Intet afspilles"
 
-#: qml/ContextView.qml:459
+#: qml/ContextView.qml:457
 #, fuzzy, kde-format
 #| msgid "Show In Folder"
 msgctxt "@action:button"
@@ -631,7 +631,7 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Prøv igen"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:418
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:416
 #, fuzzy, kde-format
 #| msgctxt "Playlist cleared"
 #| msgid "Playlist cleared"
@@ -639,14 +639,14 @@ msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Afspilningsliste ryddet"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:422
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:420
 #, fuzzy, kde-format
 #| msgid "Undo"
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Fortryd"
 
-#: qml/ElisaMainWindow.qml:113 qml/ElisaMainWindow.qml:567
+#: qml/ElisaMainWindow.qml:113 qml/ElisaMainWindow.qml:570
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -710,15 +710,15 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Gå til fuldskærm"
 
-#: qml/MediaPlayerControl.qml:87
+#: qml/MediaPlayerControl.qml:91
 #, fuzzy, kde-format
 #| msgid "Toggle Party Mode"
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "Slå festtilstand til/fra"
 
-#: qml/MediaPlayerControl.qml:95
-#: qml/mobile/MobileMinimizedPlayerControl.qml:226
+#: qml/MediaPlayerControl.qml:99
+#: qml/mobile/MobileMinimizedPlayerControl.qml:230
 #: qml/mobile/MobileTrackPlayer.qml:353
 #, fuzzy, kde-format
 #| msgctxt "skip backward in playlists"
@@ -727,8 +727,8 @@ msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Spring tilbage"
 
-#: qml/MediaPlayerControl.qml:103
-#: qml/mobile/MobileMinimizedPlayerControl.qml:242
+#: qml/MediaPlayerControl.qml:107
+#: qml/mobile/MobileMinimizedPlayerControl.qml:246
 #: qml/mobile/MobileTrackPlayer.qml:368
 #, fuzzy, kde-format
 #| msgid "Pause"
@@ -736,8 +736,8 @@ msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Pause"
 
-#: qml/MediaPlayerControl.qml:103
-#: qml/mobile/MobileMinimizedPlayerControl.qml:242
+#: qml/MediaPlayerControl.qml:107
+#: qml/mobile/MobileMinimizedPlayerControl.qml:246
 #: qml/mobile/MobileTrackPlayer.qml:368
 #, fuzzy, kde-format
 #| msgid "Play"
@@ -745,7 +745,7 @@ msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Afspil"
 
-#: qml/MediaPlayerControl.qml:111
+#: qml/MediaPlayerControl.qml:115
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"
 #| msgid "Skip Forward"
@@ -753,7 +753,7 @@ msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "Spring fremad"
 
-#: qml/MediaPlayerControl.qml:130
+#: qml/MediaPlayerControl.qml:134
 #, fuzzy, kde-format
 #| msgctxt "toggle mute mode for player"
 #| msgid "Toggle Mute"
@@ -761,26 +761,26 @@ msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "Mute til/fra"
 
-#: qml/MediaPlayerControl.qml:151 qml/mobile/MobileTrackPlayer.qml:211
+#: qml/MediaPlayerControl.qml:155 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:152 qml/mobile/MobileTrackPlayer.qml:212
+#: qml/MediaPlayerControl.qml:156 qml/mobile/MobileTrackPlayer.qml:212
 #, fuzzy, kde-format
 #| msgid "Current: Don't repeat tracks"
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Nuværende: Gentag ikke spor"
 
-#: qml/MediaPlayerControl.qml:153 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:157 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:181 qml/mobile/MobileTrackPlayer.qml:242
+#: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:242
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -788,14 +788,14 @@ msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Spor"
 
-#: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:246
+#: qml/MediaPlayerControl.qml:189 qml/mobile/MobileTrackPlayer.qml:246
 #, fuzzy, kde-format
 #| msgid "Album"
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
-#: qml/MediaPlayerControl.qml:189 qml/MediaPlayerControl.qml:247
+#: qml/MediaPlayerControl.qml:193 qml/MediaPlayerControl.qml:251
 #: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, fuzzy, kde-format
 #| msgid "None"
@@ -803,42 +803,42 @@ msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Ingen"
 
-#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:264
+#: qml/MediaPlayerControl.qml:214 qml/mobile/MobileTrackPlayer.qml:264
 #, fuzzy, kde-format
 #| msgid "Current: Don't repeat tracks"
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Nuværende: Gentag ikke spor"
 
-#: qml/MediaPlayerControl.qml:211 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:215 qml/mobile/MobileTrackPlayer.qml:265
 #, fuzzy, kde-format
 #| msgid "Current: Repeat current track"
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Nuværende: Gentag nuværende spor"
 
-#: qml/MediaPlayerControl.qml:212 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:216 qml/mobile/MobileTrackPlayer.qml:266
 #, fuzzy, kde-format
 #| msgid "Current: Repeat current track"
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Nuværende: Gentag nuværende spor"
 
-#: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:295
+#: qml/MediaPlayerControl.qml:243 qml/mobile/MobileTrackPlayer.qml:295
 #, fuzzy, kde-format
 #| msgid "Playlist"
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Afspilningsliste"
 
-#: qml/MediaPlayerControl.qml:243 qml/mobile/MobileTrackPlayer.qml:299
+#: qml/MediaPlayerControl.qml:247 qml/mobile/MobileTrackPlayer.qml:299
 #, fuzzy, kde-format
 #| msgid "One"
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Én"
 
-#: qml/MediaPlayerControl.qml:303
+#: qml/MediaPlayerControl.qml:307
 #, fuzzy, kde-format
 #| msgctxt "open application menu"
 #| msgid "Application Menu"
@@ -855,20 +855,20 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Afspilningsliste"
 
-#: qml/MediaPlayListView.qml:65
+#: qml/MediaPlayListView.qml:63
 #, fuzzy, kde-format
 #| msgid "Save"
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Gem"
 
-#: qml/MediaPlayListView.qml:75
+#: qml/MediaPlayListView.qml:73
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:99
+#: qml/MediaPlayListView.qml:97
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -876,7 +876,7 @@ msgid ""
 "renamed."
 msgstr ""
 
-#: qml/MediaPlayListView.qml:105
+#: qml/MediaPlayListView.qml:103
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to playlist"
@@ -884,14 +884,14 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Føj til spilleliste"
 
-#: qml/MediaPlayListView.qml:274
+#: qml/MediaPlayListView.qml:272
 #, fuzzy, kde-format
 #| msgid "Playlist is empty"
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Afspilningslisten er tom"
 
-#: qml/MediaPlayListView.qml:275
+#: qml/MediaPlayListView.qml:273
 #, fuzzy, kde-format
 #| msgid ""
 #| "Add some songs to get started. You can browse your music using the views "
@@ -904,7 +904,7 @@ msgstr ""
 "Tilføj nogen sange for at komme i gang. Du kan gennemgå din musik med "
 "visningerne til venstre."
 
-#: qml/MediaPlayListView.qml:350
+#: qml/MediaPlayListView.qml:348
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid "Your playlist is empty."
@@ -912,7 +912,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Din afspilningsliste er tom."
 
-#: qml/MediaPlayListView.qml:443 qml/MediaPlayListView.qml:448
+#: qml/MediaPlayListView.qml:441 qml/MediaPlayListView.qml:446
 #, fuzzy, kde-format
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks (%2 remaining)"
@@ -922,7 +922,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 spor"
 msgstr[1] "%1 spor (%2 tilbage)"
 
-#: qml/MediaPlayListView.qml:446
+#: qml/MediaPlayListView.qml:444
 #, fuzzy, kde-format
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks (%2 remaining)"
@@ -930,7 +930,7 @@ msgctxt "@info:status"
 msgid "1 track"
 msgstr "%1 spor"
 
-#: qml/MediaPlayListView.qml:449
+#: qml/MediaPlayListView.qml:447
 #, fuzzy, kde-format
 #| msgid "1 track remaining"
 #| msgid_plural "%1 tracks remaining"
@@ -940,7 +940,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "1 spor tilbage"
 msgstr[1] "1 spor tilbage"
 
-#: qml/MediaPlayListView.qml:450
+#: qml/MediaPlayListView.qml:448
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -948,7 +948,7 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:464
+#: qml/MediaPlayListView.qml:462
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current Track"
@@ -956,7 +956,7 @@ msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Vis nuværende spor"
 
-#: qml/MediaPlayListView.qml:475
+#: qml/MediaPlayListView.qml:473
 #, fuzzy, kde-format
 #| msgctxt "Remove all tracks from play list"
 #| msgid "Clear Playlist"
@@ -1064,7 +1064,7 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Annullér"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:258
+#: qml/mobile/MobileMinimizedPlayerControl.qml:262
 #: qml/mobile/MobileTrackPlayer.qml:383
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"
@@ -1347,7 +1347,7 @@ msgctxt "@action:button"
 msgid "Toggle View Style"
 msgstr "Bland til/fra"
 
-#: qml/NavigationActionBar.qml:226
+#: qml/NavigationActionBar.qml:220
 #, fuzzy, kde-format
 #| msgctxt "navigate back in the views stack"
 #| msgid "Back"
@@ -1355,7 +1355,7 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Tilbage"
 
-#: qml/NavigationActionBar.qml:309
+#: qml/NavigationActionBar.qml:298
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"
@@ -1363,7 +1363,7 @@ msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Skjul søgeindstillinger"
 
-#: qml/NavigationActionBar.qml:309
+#: qml/NavigationActionBar.qml:298
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"
@@ -1371,21 +1371,21 @@ msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Skjul søgeindstillinger"
 
-#: qml/NavigationActionBar.qml:404
+#: qml/NavigationActionBar.qml:385
 #, fuzzy, kde-format
 #| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Søg efter albumnavn, kunster, osv."
 
-#: qml/NavigationActionBar.qml:413
+#: qml/NavigationActionBar.qml:394
 #, fuzzy, kde-format
 #| msgid "Filter by rating: "
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrér efter vurdering: "
 
-#: qml/NavigationActionBar.qml:431
+#: qml/NavigationActionBar.qml:412
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

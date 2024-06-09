@@ -22,8 +22,8 @@ SplitView {
     property alias initialIndex: viewManager.initialIndex
     property alias pageProxyModel: pageProxyModel
     property alias viewManager: viewManager
-    property alias playListHiddenCachedWidth: playList.hiddenCachedWidth
-    readonly property alias playListPreferredWidth: playList.preferredWidth
+    property alias playListHiddenCachedWidth: playListContainer.hiddenCachedWidth
+    readonly property alias playListPreferredWidth: playListContainer.preferredWidth
 
     signal viewIndexChanged
 
@@ -249,8 +249,12 @@ SplitView {
     }
 
     // playlist right sidebar
-    MediaPlayListView {
-        id: playList
+    // Changing the playlist's width causes many Loaders to activate/deactivate, which results in
+    // a choppy animation when hiding the playlist. When hiding the playlist, we fix the PlayList
+    // width and change the parent Item's width instead. This gives the appearance of the PlayList
+    // sliding off the screen without the performance issues caused by Loaders.
+    Item {
+        id: playListContainer
 
         /**
         * Cached width of the playlist when the playlist is hidden
@@ -271,6 +275,12 @@ SplitView {
         visible: SplitView.preferredWidth !== 0 // Only hide the playlist *after* the width transition
         enabled: visible // Avoid taking keyboard focus when not visible
 
+        MediaPlayListView {
+            id: playList
+            width: playListContainer.hiddenCachedWidth
+            height: playListContainer.height
+        }
+
         // We use a state here so that the width only animates during
         // the transition, not when using the drag handle.
         states: [
@@ -278,11 +288,15 @@ SplitView {
                 name: "playlistVisible"
                 when: mainWindow.isWideScreen && contentViewContainer.showPlaylist
                 PropertyChanges {
-                    target: playList
+                    target: playListContainer
                     visible: true
                     SplitView.minimumWidth: 10 * Kirigami.Units.gridUnit
-                    SplitView.preferredWidth: playList.hiddenCachedWidth
+                    SplitView.preferredWidth: hiddenCachedWidth
                     preferredWidth: SplitView.preferredWidth
+                }
+                PropertyChanges {
+                    target: playList
+                    width: playListContainer.width
                 }
             }
         ]
@@ -290,8 +304,8 @@ SplitView {
         transitions: Transition {
             ScriptAction {
                 script: {
-                    if (playList.state === "") {
-                        playList.hiddenCachedWidth = playList.SplitView.preferredWidth;
+                    if (playListContainer.state === "") {
+                        playListContainer.hiddenCachedWidth = playListContainer.SplitView.preferredWidth;
                     }
                 }
             }

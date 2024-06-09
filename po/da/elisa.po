@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:31+0000\n"
+"POT-Creation-Date: 2024-06-09 02:27+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -44,119 +44,119 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radioer"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:180
 #, fuzzy, kde-format
 #| msgid "Toggle Playlist"
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Slå afspilningsliste til/fra"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:185
 #, fuzzy, kde-format
 #| msgid "Seek forward 10 seconds"
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Søg 10 sekunder frem"
 
-#: elisaapplication.cpp:217
+#: elisaapplication.cpp:191
 #, fuzzy, kde-format
 #| msgid "Scrub backwards 10 seconds"
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Spol 10 sekunder tilbage"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:197
 #, fuzzy, kde-format
 #| msgid "Go to next track"
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Gå til næste spor"
 
-#: elisaapplication.cpp:229
+#: elisaapplication.cpp:203
 #, fuzzy, kde-format
 #| msgid "Go to previous track"
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Gå til forrige spor"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:209
 #, fuzzy, kde-format
 #| msgid "Play/pause"
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Afspil/pause"
 
-#: elisaapplication.cpp:246
+#: elisaapplication.cpp:220
 #, fuzzy, kde-format
 #| msgid "Toggle Party Mode"
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Slå festtilstand til/fra"
 
-#: main.cpp:106
+#: main.cpp:113
 #, fuzzy, kde-format
 #| msgid "Elisa"
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:108
+#: main.cpp:115
 #, fuzzy, kde-format
 #| msgid "A Simple Music Player made with love by the KDE community"
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "En simpel musikafspiller skabt med kærlighed af KDE-fællesskabet"
 
-#: main.cpp:110
+#: main.cpp:117
 #, fuzzy, kde-format
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa-bidragsyderne"
 
-#: main.cpp:112 models/lyricsmodel.cpp:161
+#: main.cpp:119 models/lyricsmodel.cpp:161
 #, fuzzy, kde-format
 #| msgid "Creator"
 msgctxt "@label"
 msgid "Creator"
 msgstr "Skaber"
 
-#: main.cpp:113
+#: main.cpp:120
 #, fuzzy, kde-format
 #| msgid "Author"
 msgctxt "@label"
 msgid "Author"
 msgstr "Ophavsmand"
 
-#: main.cpp:115
+#: main.cpp:122
 #, fuzzy, kde-format
 #| msgid "Concept and design work"
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Koncept- og designarbejde"
 
-#: main.cpp:116
+#: main.cpp:123
 #, fuzzy, kde-format
 #| msgid "Localization support"
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Understøttelse af lokalisering"
 
-#: main.cpp:117
+#: main.cpp:124
 #, fuzzy, kde-format
 #| msgid "Right to left support in interface"
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Understøttelse af højre mod venstre-grænseflade"
 
-#: main.cpp:118
+#: main.cpp:125
 #, fuzzy, kde-format
 #| msgid "Various improvements to the interface"
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Diverse forbedringer til brugerfladen"
 
-#: main.cpp:119
+#: main.cpp:126
 #, fuzzy, kde-format
 #| msgid "Support for online radios"
 msgctxt "@label"

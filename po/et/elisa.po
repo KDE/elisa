@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:31+0000\n"
+"POT-Creation-Date: 2024-06-09 02:27+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -43,7 +43,7 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Raadio"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:180
 #, fuzzy, kde-format
 #| msgctxt "Remove all tracks from play list"
 #| msgid "Clear Playlist"
@@ -51,19 +51,19 @@ msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Esitusloendi puhastamine"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:185
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr ""
 
-#: elisaapplication.cpp:217
+#: elisaapplication.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr ""
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:197
 #, fuzzy, kde-format
 #| msgctxt "number of imported tracks"
 #| msgid "Imported one track"
@@ -72,7 +72,7 @@ msgctxt "@action"
 msgid "Go to next track"
 msgstr "Imporditi üks rada"
 
-#: elisaapplication.cpp:229
+#: elisaapplication.cpp:203
 #, fuzzy, kde-format
 #| msgctxt "number of imported tracks"
 #| msgid "Imported one track"
@@ -81,7 +81,7 @@ msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Imporditi üks rada"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:209
 #, fuzzy, kde-format
 #| msgctxt "Pause current track from play list"
 #| msgid "Pause"
@@ -89,7 +89,7 @@ msgctxt "@action"
 msgid "Play/pause"
 msgstr "Paus"
 
-#: elisaapplication.cpp:246
+#: elisaapplication.cpp:220
 #, fuzzy, kde-format
 #| msgctxt "Toggle between ascending and descending order"
 #| msgid "Toggle sort order"
@@ -97,70 +97,70 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Sortimisjärjekorra lülitamine"
 
-#: main.cpp:106
+#: main.cpp:113
 #, fuzzy, kde-format
 #| msgid "Elisa"
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:108
+#: main.cpp:115
 #, fuzzy, kde-format
 #| msgid "A Simple Music Player made with love by the KDE community"
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Lihtne muusikamängija, loodud armastusega KDE kogukonna poolt"
 
-#: main.cpp:110
+#: main.cpp:117
 #, fuzzy, kde-format
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020: Elisa autorid"
 
-#: main.cpp:112 models/lyricsmodel.cpp:161
+#: main.cpp:119 models/lyricsmodel.cpp:161
 #, fuzzy, kde-format
 #| msgid "Creator"
 msgctxt "@label"
 msgid "Creator"
 msgstr "Looja"
 
-#: main.cpp:113
+#: main.cpp:120
 #, fuzzy, kde-format
 #| msgid "Author"
 msgctxt "@label"
 msgid "Author"
 msgstr "Autor"
 
-#: main.cpp:115
+#: main.cpp:122
 #, fuzzy, kde-format
 #| msgid "Concept and design work"
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Algmõte ja kujundus"
 
-#: main.cpp:116
+#: main.cpp:123
 #, fuzzy, kde-format
 #| msgid "Localization support"
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Lokaliseerimise toetus"
 
-#: main.cpp:117
+#: main.cpp:124
 #, fuzzy, kde-format
 #| msgid "Right to left support in interface"
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Liideses paremalt vasakule toetus"
 
-#: main.cpp:118
+#: main.cpp:125
 #, fuzzy, kde-format
 #| msgid "Various improvements to the interface"
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Liidese mitmesugused parandused"
 
-#: main.cpp:119
+#: main.cpp:126
 #, fuzzy, kde-format
 #| msgid "Support for online radios"
 msgctxt "@label"

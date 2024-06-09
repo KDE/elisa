@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: d 664cf4f-342c-46fd-8dc1-63f78e432d04\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:31+0000\n"
+"POT-Creation-Date: 2024-06-09 02:27+0000\n"
 "PO-Revision-Date: 2017-04-08 03:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -42,103 +42,103 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr ""
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr ""
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:185
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr ""
 
-#: elisaapplication.cpp:217
+#: elisaapplication.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr ""
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr ""
 
-#: elisaapplication.cpp:229
+#: elisaapplication.cpp:203
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr ""
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr ""
 
-#: elisaapplication.cpp:246
+#: elisaapplication.cpp:220
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr ""
 
-#: main.cpp:106
+#: main.cpp:113
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr ""
 
-#: main.cpp:108
+#: main.cpp:115
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr ""
 
-#: main.cpp:110
+#: main.cpp:117
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr ""
 
-#: main.cpp:112 models/lyricsmodel.cpp:161
+#: main.cpp:119 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr ""
 
-#: main.cpp:113
+#: main.cpp:120
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr ""
 
-#: main.cpp:115
+#: main.cpp:122
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr ""
 
-#: main.cpp:116
+#: main.cpp:123
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr ""
 
-#: main.cpp:117
+#: main.cpp:124
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr ""
 
-#: main.cpp:118
+#: main.cpp:125
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr ""
 
-#: main.cpp:119
+#: main.cpp:126
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

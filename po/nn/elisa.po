@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:31+0000\n"
+"POT-Creation-Date: 2024-06-09 02:27+0000\n"
 "PO-Revision-Date: 2024-05-08 19:40+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -41,107 +41,107 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Vis/gøym speleliste"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:185
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Spol framover 10 sekund"
 
-#: elisaapplication.cpp:217
+#: elisaapplication.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Spol bakover 10 sekund"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Gå til neste spor"
 
-#: elisaapplication.cpp:229
+#: elisaapplication.cpp:203
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Gå til førre spor"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Spel/pause"
 
-#: elisaapplication.cpp:246
+#: elisaapplication.cpp:220
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Festmodus på/av"
 
-#: main.cpp:106
+#: main.cpp:113
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:108
+#: main.cpp:115
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Enkel musikkspelar, laga med omsorg av KDE-fellesskapet"
 
-#: main.cpp:110
+#: main.cpp:117
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "© 2015–2020 Elisa-bidragsytarane"
 
-#: main.cpp:112 models/lyricsmodel.cpp:161
+#: main.cpp:119 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Opphavsprogram"
 
-#: main.cpp:113
+#: main.cpp:120
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Forfattar"
 
-#: main.cpp:115
+#: main.cpp:122
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Konsept og design"
 
 # unreviewed-context
-#: main.cpp:116
+#: main.cpp:123
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Støtte for omsetjing"
 
 # unreviewed-context
-#: main.cpp:117
+#: main.cpp:124
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Støtte for høgre-til-venstre-tekst"
 
 # unreviewed-context
-#: main.cpp:118
+#: main.cpp:125
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Ymse forbetringar i brukargrensesnittet"
 
 # unreviewed-context
-#: main.cpp:119
+#: main.cpp:126
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

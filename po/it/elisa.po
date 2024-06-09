@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:31+0000\n"
+"POT-Creation-Date: 2024-06-09 02:27+0000\n"
 "PO-Revision-Date: 2024-04-06 17:40+0200\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -41,103 +41,103 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Stazioni radio"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Mostra/nascondi scaletta"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:185
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Posizionati in avanti di 10 secondi"
 
-#: elisaapplication.cpp:217
+#: elisaapplication.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Torna indietro di 10 secondi"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Vai alla traccia successiva"
 
-#: elisaapplication.cpp:229
+#: elisaapplication.cpp:203
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Vai alla traccia precedente"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Riproduci/Pausa"
 
-#: elisaapplication.cpp:246
+#: elisaapplication.cpp:220
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Attiva/disattiva modalità party"
 
-#: main.cpp:106
+#: main.cpp:113
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:108
+#: main.cpp:115
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Un semplice lettore musicale creato con amore dalla comunità KDE"
 
-#: main.cpp:110
+#: main.cpp:117
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, i collaboratori di Elisa"
 
-#: main.cpp:112 models/lyricsmodel.cpp:161
+#: main.cpp:119 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Creatore"
 
-#: main.cpp:113
+#: main.cpp:120
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Autore"
 
-#: main.cpp:115
+#: main.cpp:122
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Concetto e design"
 
-#: main.cpp:116
+#: main.cpp:123
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Supporto per la localizzazione"
 
-#: main.cpp:117
+#: main.cpp:124
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Supporto per il formato da destra a sinistra nell'interfaccia"
 
-#: main.cpp:118
+#: main.cpp:125
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Miglioramenti vari all'interfaccia"
 
-#: main.cpp:119
+#: main.cpp:126
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

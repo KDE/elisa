@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Stefan Asserhäll <stefan.asserhall@bredband.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:31+0000\n"
-"PO-Revision-Date: 2023-08-17 08:42+0200\n"
+"POT-Creation-Date: 2024-06-09 02:27+0000\n"
+"PO-Revision-Date: 2024-06-08 20:10+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -40,103 +40,103 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radiostationer"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Ändra spellista"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:185
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Sök framåt 10 sekunder"
 
-#: elisaapplication.cpp:217
+#: elisaapplication.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Spola bakåt 10 sekunder"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Gå till nästa spår"
 
-#: elisaapplication.cpp:229
+#: elisaapplication.cpp:203
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Gå till föregående spår"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Spela/paus"
 
-#: elisaapplication.cpp:246
+#: elisaapplication.cpp:220
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Ändra festläge"
 
-#: main.cpp:106
+#: main.cpp:113
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:108
+#: main.cpp:115
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "En enkel musikspelare gjord med kärlek av KDE-gemenskapen"
 
-#: main.cpp:110
+#: main.cpp:117
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "© 2015-2020, Bidragsgivare till Elisa"
 
-#: main.cpp:112 models/lyricsmodel.cpp:161
+#: main.cpp:119 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Skapare"
 
-#: main.cpp:113
+#: main.cpp:120
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Upphovsman"
 
-#: main.cpp:115
+#: main.cpp:122
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Koncept och konstruktionsarbete"
 
-#: main.cpp:116
+#: main.cpp:123
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Stöd för landsanpassning"
 
-#: main.cpp:117
+#: main.cpp:124
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Stöd för höger till vänster i gränssnittet"
 
-#: main.cpp:118
+#: main.cpp:125
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Diverse förbättringar av gränssnittet"
 
-#: main.cpp:119
+#: main.cpp:126
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"
@@ -504,9 +504,7 @@ msgid "00:00:00"
 msgstr "00:00:00"
 
 #: qml/DurationSlider.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Duration label for track metadata view"
-#| msgid "Duration"
+#, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "Längd"
@@ -800,7 +798,7 @@ msgstr "Markera sången som favorit"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "Ta bort taggen"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -815,12 +813,10 @@ msgid "Data is not valid. %1"
 msgstr "Data är inte giltig. %1"
 
 #: qml/MediaTrackMetadataForm.qml:122
-#, fuzzy, kde-format
-#| msgctxt "Volume as a percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1 %"
+msgstr "%1:"
 
 #: qml/MediaTrackMetadataForm.qml:146
 #, kde-format
@@ -884,12 +880,10 @@ msgid "Track Options"
 msgstr "Spåralternativ"
 
 #: qml/mobile/MobilePlayListDelegate.qml:144 qml/PlayListEntry.qml:342
-#, fuzzy, kde-format
-#| msgctxt "@item:intable"
-#| msgid "Radio Stations"
+#, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Radiostationer"
+msgstr "Radioalternativ"
 
 #: qml/mobile/MobilePlayListDelegate.qml:172 qml/PlayListEntry.qml:93
 #: qml/TrackBrowserDelegate.qml:69
@@ -1087,12 +1081,10 @@ msgid "Display Artist"
 msgstr "Visa artist"
 
 #: qml/NavigationActionBar.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "Ändra blanda"
+msgstr "Ändra visningsstil"
 
 #: qml/NavigationActionBar.qml:226
 #, kde-format
@@ -1229,9 +1221,7 @@ msgid "Favorite/not favorite"
 msgstr "Favorit eller ej"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu this has child menu items"
-#| msgid "Color Scheme"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color Scheme:"
 msgstr "Färgschema"
@@ -1243,12 +1233,10 @@ msgid "Scan for New Music"
 msgstr "Sök efter ny musik"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "Scanning music"
+#, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Söker igenom musik"
+msgstr "Började söka efter musik"
 
 #: qml/SettingsForm.qml:222
 #, kde-format
@@ -1260,7 +1248,7 @@ msgstr "Nollställ databas och sök igenom allt igen"
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "Databasen har nollställts"
 
 #: qml/SettingsForm.qml:241
 #, kde-format
@@ -1426,7 +1414,7 @@ msgstr "Lägg till ny plats"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "\"%1\" kunde inte spelas upp"
 
 #: qml/SortMenu.qml:20
 #, kde-format
@@ -1485,12 +1473,10 @@ msgid "Disc %1"
 msgstr "Skiva %1"
 
 #: qml/VolumeSlider.qml:27
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Change Volume"
+#, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Ändra volym"
+msgstr "Volym"
 
 #: qml/VolumeSlider.qml:48
 #, kde-format

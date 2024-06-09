@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-22 02:31+0000\n"
+"POT-Creation-Date: 2024-06-09 02:27+0000\n"
 "PO-Revision-Date: 2023-11-01 09:34+0200\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -43,55 +43,55 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Ραδιοφωνικοί σταθμοί"
 
-#: elisaapplication.cpp:206
+#: elisaapplication.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Εναλλαγή λίστας αναπαραγωγής"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:185
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Αναζήτηση προς τα εμπρός 10 δευτερόλεπτα"
 
-#: elisaapplication.cpp:217
+#: elisaapplication.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Αναζήτηση προς τα πίσω 10 δευτερόλεπτα"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Μετάβαση στο επόμενο κομμάτι"
 
-#: elisaapplication.cpp:229
+#: elisaapplication.cpp:203
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Μετάβαση στο προηγούμενο κομμάτι"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Αναπαραγωγή/Παύση"
 
-#: elisaapplication.cpp:246
+#: elisaapplication.cpp:220
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Εναλλαγή λειτουργίας πάρτι"
 
-#: main.cpp:106
+#: main.cpp:113
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:108
+#: main.cpp:115
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
@@ -99,49 +99,49 @@ msgstr ""
 "Μία απλή εφαρμογή αναπαραγωγής μουσικής που γράφτηκε με αγάπη από την "
 "κοινότητα του KDE"
 
-#: main.cpp:110
+#: main.cpp:117
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, οι συνεισφέροντες στην Elisa"
 
-#: main.cpp:112 models/lyricsmodel.cpp:161
+#: main.cpp:119 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Δημιουργός"
 
-#: main.cpp:113
+#: main.cpp:120
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Συγγραφέας"
 
-#: main.cpp:115
+#: main.cpp:122
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Σύλληψη και σχεδιασμός"
 
-#: main.cpp:116
+#: main.cpp:123
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Υποστήριξη τοπικότητας"
 
-#: main.cpp:117
+#: main.cpp:124
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Υποστήριξη δεξιά προς αριστερά στο περιβάλλον χρήστη"
 
-#: main.cpp:118
+#: main.cpp:125
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Διάφορες βελτιώσεις στο περιβάλλον χρήστη"
 
-#: main.cpp:119
+#: main.cpp:126
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

@@ -69,7 +69,7 @@ ScrollView {
             active: section !== "default" && opacity > 0
             height: item ? item.implicitHeight : 0
             sourceComponent: Kirigami.ListSectionHeader {
-                label: section
+                text: section
                 width: viewModeView.width
             }
             opacity: scrollView.implicitWidth === wideWidth ? 1 : 0

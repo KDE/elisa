@@ -43,11 +43,20 @@ ScrollView {
         interactive: true
 
         delegate: ItemDelegate {
+            id: delegate
+
             width: viewModeView.width
 
             icon.source: model.image
             text: model.display
             highlighted: ListView.isCurrentItem
+
+            // Prevent icon recoloring for styles that don't set `icon.color: "transparent"` by default
+            // otherwise it applies a single-color mask above the entire album cover image
+            Binding {
+                when: !model.image.toString().startsWith("image://icon/")
+                delegate.icon.color: "transparent"
+            }
 
             onClicked: {
                 switchView(index)

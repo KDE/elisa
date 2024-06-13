@@ -315,8 +315,10 @@ Kirigami.Page {
             }
 
             // Lyrics
-            ScrollView {
-                id: lyricScroll
+            Item {
+                id: lyricItem
+                Layout.fillHeight: true
+
                 implicitWidth: {
                     if (contentLayout.wideMode) {
                         return contentLayout.width * 0.5
@@ -324,37 +326,31 @@ Kirigami.Page {
                         return showLyricButton.checked ? contentLayout.width : 0
                     }
                 }
-                implicitHeight: Math.min(lyricItem.height, parent.height)
 
-                contentWidth: availableWidth
-                contentHeight: lyricItem.height
+                ScrollView {
+                    id: lyricScroll
+                    anchors.centerIn: parent
+                    height: Math.min(lyricItem.height, implicitHeight)
+                    width: lyricItem.width
 
-                // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
-                ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-                PropertyAnimation {
-                    id: lyricScrollAnimation
+                    // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
+                    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                    PropertyAnimation {
+                        id: lyricScrollAnimation
 
-                    // the target is a flickable
-                    target: lyricScroll.contentItem
-                    property: "contentY"
-                    onToChanged: restart()
-                }
+                        // the target is a flickable
+                        target: lyricScroll.contentItem
+                        property: "contentY"
+                        onToChanged: restart()
+                    }
 
-                Item {
-                    id: lyricItem
-                    property real margins: Kirigami.Units.largeSpacing + lyricScroll.ScrollBar.vertical.width
-                    width: lyricScroll.width - margins
-                    height: lyricsView.count === 0 ? lyricPlaceholder.height : lyricsView.height
-                    x: Kirigami.Units.largeSpacing
-
-                    ListView {
+                    contentItem: ListView {
                         id: lyricsView
-                        height: contentHeight
-                        width: parent.width
+
                         model: lyricsModel
                         delegate: Label {
                             text: lyric
-                            width: lyricItem.width
+                            width: lyricsView.width
                             wrapMode: Text.WordWrap
                             font.bold: ListView.isCurrentItem
                             horizontalAlignment: contentLayout.wideMode? Text.AlignLeft : Text.AlignHCenter
@@ -385,29 +381,29 @@ Kirigami.Page {
 
                         }
                     }
+                }
 
-                    LyricsModel {
-                        id: lyricsModel
+                LyricsModel {
+                    id: lyricsModel
+                }
+                Connections {
+                    target: ElisaApplication.audioPlayer
+                    function onPositionChanged(position) {
+                        lyricsModel.setPosition(position)
                     }
-                    Connections {
-                        target: ElisaApplication.audioPlayer
-                        function onPositionChanged(position) {
-                            lyricsModel.setPosition(position)
-                        }
-                    }
+                }
 
-                    Loader {
-                        id: lyricPlaceholder
-                        anchors.centerIn: parent
-                        width: parent.width
+                Loader {
+                    id: lyricPlaceholder
+                    anchors.centerIn: parent
+                    width: parent.width
 
-                        active: lyricsView.count === 0
-                        visible: active && status === Loader.Ready
+                    active: lyricsView.count === 0
+                    visible: active && status === Loader.Ready
 
-                        sourceComponent: Kirigami.PlaceholderMessage {
-                            text: i18nc("@info:placeholder", "No lyrics found")
-                            icon.name: "view-media-lyrics"
-                        }
+                    sourceComponent: Kirigami.PlaceholderMessage {
+                        text: i18nc("@info:placeholder", "No lyrics found")
+                        icon.name: "view-media-lyrics"
                     }
                 }
             }

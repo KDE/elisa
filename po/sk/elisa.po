@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-08 00:38+0000\n"
+"POT-Creation-Date: 2024-06-14 00:38+0000\n"
 "PO-Revision-Date: 2023-03-02 18:26+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -479,19 +479,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Zobraziť zoznam skladieb"
 
-#: qml/ContextView.qml:406
+#: qml/ContextView.qml:403
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Nenašli sa žiadne texty piesní"
 
-#: qml/ContextView.qml:423
+#: qml/ContextView.qml:419
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nič sa neprehráva"
 
-#: qml/ContextView.qml:457
+#: qml/ContextView.qml:453
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

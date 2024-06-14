@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-08 00:38+0000\n"
+"POT-Creation-Date: 2024-06-14 00:38+0000\n"
 "PO-Revision-Date: 2024-06-01 17:50\n"
 "Last-Translator: Zmicier <zmicerturok@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -481,19 +481,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Паказаць спіс прайгравання"
 
-#: qml/ContextView.qml:406
+#: qml/ContextView.qml:403
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Не знойдзена тэкстаў песень"
 
-#: qml/ContextView.qml:423
+#: qml/ContextView.qml:419
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Нічога не прайграецца"
 
-#: qml/ContextView.qml:457
+#: qml/ContextView.qml:453
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

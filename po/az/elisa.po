@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-08 00:38+0000\n"
+"POT-Creation-Date: 2024-06-14 00:38+0000\n"
 "PO-Revision-Date: 2023-05-29 22:07+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -477,19 +477,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Mahnı siyahısını göstərmək"
 
-#: qml/ContextView.qml:406
+#: qml/ContextView.qml:403
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Mahnının sözləri tapılmadı"
 
-#: qml/ContextView.qml:423
+#: qml/ContextView.qml:419
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Heç nə səslənmir"
 
-#: qml/ContextView.qml:457
+#: qml/ContextView.qml:453
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

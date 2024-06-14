@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 02:27+0000\n"
+"POT-Creation-Date: 2024-06-14 02:24+0000\n"
 "PO-Revision-Date: 2024-05-08 19:40+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -506,21 +506,21 @@ msgid "Show Playlist"
 msgstr "Vis speleliste"
 
 # unreviewed-context
-#: qml/ContextView.qml:408
+#: qml/ContextView.qml:405
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Fann ikkje songtekst"
 
 # unreviewed-context
-#: qml/ContextView.qml:425
+#: qml/ContextView.qml:421
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Spelar ikkje noko"
 
 # unreviewed-context
-#: qml/ContextView.qml:459
+#: qml/ContextView.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

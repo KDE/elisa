@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 02:27+0000\n"
+"POT-Creation-Date: 2024-06-14 02:24+0000\n"
 "PO-Revision-Date: 2023-11-06 01:05+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -477,19 +477,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr ""
 
-#: qml/ContextView.qml:408
+#: qml/ContextView.qml:405
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr ""
 
-#: qml/ContextView.qml:425
+#: qml/ContextView.qml:421
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr ""
 
-#: qml/ContextView.qml:459
+#: qml/ContextView.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

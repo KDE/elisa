@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 02:27+0000\n"
+"POT-Creation-Date: 2024-06-14 02:24+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -576,21 +576,21 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "プレイリストを表示"
 
-#: qml/ContextView.qml:408
+#: qml/ContextView.qml:405
 #, fuzzy, kde-format
 #| msgid "No lyrics found"
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "歌詞が見つかりません"
 
-#: qml/ContextView.qml:425
+#: qml/ContextView.qml:421
 #, fuzzy, kde-format
 #| msgid "Nothing playing"
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "何も再生していません"
 
-#: qml/ContextView.qml:459
+#: qml/ContextView.qml:455
 #, fuzzy, kde-format
 #| msgid "Show In Folder"
 msgctxt "@action:button"

@@ -45,16 +45,15 @@ Window {
             id: buttonBox
             standardButtons: QQC2.DialogButtonBox.Ok | QQC2.DialogButtonBox.Apply | QQC2.DialogButtonBox.Cancel
 
-            // NOTE: docs say that standardButton returns an AbstractButton, but it
-            // actually returns a Button.
-            property QQC2.Button applyButton: standardButton(QQC2.DialogButtonBox.Apply)
-
             onAccepted: settingsForm.saveAndCloseForm()
             onApplied: settingsForm.applyChanges()
             onRejected: settingsForm.discardAndCloseForm()
 
-            Binding {
-                buttonBox.applyButton.enabled: ElisaConfigurationDialog.isDirty
+            Component.onCompleted: {
+                const applyButton = standardButton(QQC2.DialogButtonBox.Apply);
+                if (applyButton) {
+                    applyButton.enabled = Qt.binding(() => ElisaConfigurationDialog.isDirty);
+                }
             }
         }
     }

@@ -86,6 +86,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="pl">Odtwarzaj muzykę i słuchaj radia z sieci</summary>
   <summary xml:lang="ro">Redă muzică și ascultă stații radio prin Internet</summary>
   <summary xml:lang="sl">Predvajajte glasbo in poslušajte spletne radio postaje</summary>
+  <summary xml:lang="sv">Spela musik och lyssna på nätradiostationer</summary>
   <summary xml:lang="ta">பாடல்களையும் இணைய வானொலி நிலையங்களையும் கேட்கலாம்</summary>
   <summary xml:lang="tr">Müzik çalın ve radyo istasyonlarını dinleyin</summary>
   <summary xml:lang="uk">Відтворення музичних творів та прослуховування інтернет-радіостанцій</summary>
@@ -117,6 +118,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="pl">Odtwarzacz muzyki Elisa jest rozwijany przez Społeczność KDE i dąży do bycia prostym i przyjemnym w użyciu.</p>
     <p xml:lang="ro">Lectorul de muzică Elisa e dezvoltat de către comunitatea KDE și tinde să fie simplu și plăcut de utilizat.</p>
     <p xml:lang="sl">Predvajalnik glasbe Elisa je razvila skupnost KDE in si prizadeva, da bi bil preprost in prijeten za uporabo.</p>
+    <p xml:lang="sv">Musikspelaren Elisa utvecklas av KDE-gemenskapen och strävar efter att vara enkel och trevlig att använda.</p>
     <p xml:lang="ta">எலைசா என்பது, கே.டீ.யீ.யால் உருவாக்கப்பட்டுள்ள ஓர் எளிய பாடல் இசைப்பி</p>
     <p xml:lang="tr">Elisa müzik çaları, KDE topluluğu tarafından geliştirilir ve yalın ve kullanımı kolay bir deneyim sunmaya çalışır.</p>
     <p xml:lang="uk">Elisa — музичний програвач, який розроблено спільнотою KDE. Автори програми прагнуть зробити її простою та приємною у користуванні.</p>
@@ -187,6 +189,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ro">Elisa susține deplin schema de culori KDE când e folosită pe biroul Plasma, iar în caz contrar oferă regimul luminos și întunecat.</p>
     <p xml:lang="ru">При работе в среде Plasma музыкальный проигрыватель Elisa полностью поддерживает цветовые схемы рабочего стола, а при работе в других окружениях — стандартные тёмное и светлое оформления.</p>
     <p xml:lang="sl">Elisa podpira vašo celotno barvno shemo KDE, ko jo uporabljate na namizju Plasma, oziroma standardna svetla in temna načina.</p>
+    <p xml:lang="sv">Elisa stöder KDE:s fullständiga färgschema när det används på Plasma-skrivbordet, eller annars standardmässiga ljusa och mörka lägen.</p>
     <p xml:lang="tr">Elisa, Plasma masaüstünde kullanıldığında tam KDE renk şemanızı veya standart açık ve koyu kipleri destekler.</p>
     <p xml:lang="uk">В Elisa передбачено підтримку усієї вашої схеми кольорів KDE, якщо програму запущено у стільниці Плазми. Інакше буде використано стандартні світлий або темний режими.</p>
     <p xml:lang="x-test">xxElisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.xx</p>

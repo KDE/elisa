@@ -7140,7 +7140,7 @@ DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(con
         }
     }
 
-    result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(DatabaseInterfacePrivate::TrackFileName);
+    result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(DatabaseInterfacePrivate::TrackFileName).toUrl();
     if (!trackRecord.value(DatabaseInterfacePrivate::TrackNumber).isNull()) {
         result[DataTypes::TrackDataType::key_type::TrackNumberRole] = trackRecord.value(DatabaseInterfacePrivate::TrackNumber);
     }

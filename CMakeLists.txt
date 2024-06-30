@@ -14,7 +14,7 @@ project(elisa
     VERSION ${RELEASE_SERVICE_VERSION}
     LANGUAGES CXX)
 
-set(REQUIRED_KF_VERSION "6.2")
+set(REQUIRED_KF_VERSION "6.3")
 set(REQUIRED_KA_VERSION "0.11.76") # KirigamiAddons Version
 find_package(ECM ${REQUIRED_KF_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH})
@@ -110,11 +110,6 @@ set_package_properties(KF6ColorScheme PROPERTIES
     DESCRIPTION "Allows changing the app's color scheme."
     TYPE REQUIRED)
 
-find_package(KF6ConfigWidgets ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF6ConfigWidgets PROPERTIES
-    DESCRIPTION "Widgets for configuration dialogs."
-    TYPE RECOMMENDED)
-
 find_package(KF6Crash ${REQUIRED_KF_VERSION} CONFIG QUIET)
 set_package_properties(KF6Crash PROPERTIES
     DESCRIPTION "Graceful handling of application crashes."
@@ -165,7 +160,6 @@ include(ECMDeprecationSettings)
 set(KFXmlGui_FOUND ${KF6XmlGui_FOUND})
 set(KFCrash_FOUND ${KF6Crash_FOUND})
 set(KFDBusAddons_FOUND ${KF6DBusAddons_FOUND})
-set(KFConfigWidgets_FOUND ${KF6ConfigWidgets_FOUND})
 set(KFKIO_FOUND ${KF6KIO_FOUND})
 set(KFFileMetaData_FOUND ${KF6FileMetaData_FOUND})
 

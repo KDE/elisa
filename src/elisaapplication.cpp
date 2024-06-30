@@ -20,10 +20,7 @@
 #include "elisa_settings.h"
 #include <KAuthorized>
 #include <KLocalizedString>
-
-#if KFConfigWidgets_FOUND
-#include <KStandardAction>
-#endif
+#include <KStandardActions>
 
 #if defined KFXmlGui_FOUND
 #include <KActionCollection>
@@ -135,42 +132,42 @@ void ElisaApplication::setupActions(const QString &actionName)
 {
 #if KFXmlGui_FOUND
     if (actionName == QLatin1String("file_quit")) {
-        auto quitAction = KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, &d->mCollection);
+        auto quitAction = KStandardActions::quit(QCoreApplication::instance(), &QCoreApplication::quit, &d->mCollection);
         d->mCollection.addAction(actionName, quitAction);
     }
 
     if (actionName == QLatin1String("help_contents") && KAuthorized::authorizeAction(actionName)) {
-        auto handBookAction = KStandardAction::helpContents(this, &ElisaApplication::appHelpActivated, &d->mCollection);
+        auto handBookAction = KStandardActions::helpContents(this, &ElisaApplication::appHelpActivated, &d->mCollection);
         d->mCollection.addAction(handBookAction->objectName(), handBookAction);
     }
 
     if (actionName == QLatin1String("help_report_bug") && KAuthorized::authorizeAction(actionName) && !KAboutData::applicationData().bugAddress().isEmpty()) {
-        auto reportBugAction = KStandardAction::reportBug(this, &ElisaApplication::reportBug, &d->mCollection);
+        auto reportBugAction = KStandardActions::reportBug(this, &ElisaApplication::reportBug, &d->mCollection);
         d->mCollection.addAction(reportBugAction->objectName(), reportBugAction);
     }
 
     if (actionName == QLatin1String("help_about_app") && KAuthorized::authorizeAction(actionName)) {
-        auto aboutAppAction = KStandardAction::aboutApp(this, &ElisaApplication::openAboutAppPage, this);
+        auto aboutAppAction = KStandardActions::aboutApp(this, &ElisaApplication::openAboutAppPage, this);
         d->mCollection.addAction(aboutAppAction->objectName(), aboutAppAction);
     }
 
     if (actionName == QLatin1String("help_about_kde") && KAuthorized::authorizeAction(actionName)) {
-        auto aboutKDEAction = KStandardAction::aboutKDE(this, &ElisaApplication::openAboutKDEPage, this);
+        auto aboutKDEAction = KStandardActions::aboutKDE(this, &ElisaApplication::openAboutKDEPage, this);
         d->mCollection.addAction(aboutKDEAction->objectName(), aboutKDEAction);
     }
 
     if (actionName == QLatin1String("options_configure") && KAuthorized::authorizeAction(actionName)) {
-        auto preferencesAction = KStandardAction::preferences(this, &ElisaApplication::configureElisa, this);
+        auto preferencesAction = KStandardActions::preferences(this, &ElisaApplication::configureElisa, this);
         d->mCollection.addAction(preferencesAction->objectName(), preferencesAction);
     }
 
     if (actionName == QLatin1String("options_configure_keybinding") && KAuthorized::authorizeAction(actionName)) {
-        auto keyBindingsAction = KStandardAction::keyBindings(this, &ElisaApplication::configureShortcuts, this);
+        auto keyBindingsAction = KStandardActions::keyBindings(this, &ElisaApplication::configureShortcuts, this);
         d->mCollection.addAction(keyBindingsAction->objectName(), keyBindingsAction);
     }
 
     if (actionName == QLatin1String("go_back") && KAuthorized::authorizeAction(actionName)) {
-        auto goBackAction = KStandardAction::back(this, &ElisaApplication::goBack, this);
+        auto goBackAction = KStandardActions::back(this, &ElisaApplication::goBack, this);
         d->mCollection.addAction(goBackAction->objectName(), goBackAction);
     }
 
@@ -211,7 +208,7 @@ void ElisaApplication::setupActions(const QString &actionName)
     }
 
     if (actionName == QLatin1String("edit_find") && KAuthorized::authorizeAction(actionName)) {
-        auto findAction = KStandardAction::find(this, &ElisaApplication::find, this);
+        auto findAction = KStandardActions::find(this, &ElisaApplication::find, this);
         d->mCollection.addAction(findAction->objectName(), findAction);
     }
 

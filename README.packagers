@@ -35,7 +35,6 @@ Elisa has the following dependencies:
 
  * KFileMetaData (required version >= 5.70.0), Provides a simple library for extracting metadata.
  * KXmlGui (required version >= 5.70.0), Framework for managing menu and toolbar actions.
- * KConfigWidgets (required version >= 5.70.0), Widgets for configuration dialogs.
  * KPackage (required version >= 5.70.0), Package management library needed to get the configuration dialogs.
  * LIBVLC, libvlc allows to play music in Elisa, <https://www.videolan.org/vlc/libvlc.html>
 

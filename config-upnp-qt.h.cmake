@@ -14,8 +14,6 @@
 
 #cmakedefine01 KFDBusAddons_FOUND
 
-#cmakedefine01 KFConfigWidgets_FOUND
-
 #cmakedefine01 KFKIO_FOUND
 
 #cmakedefine01 KFFileMetaData_FOUND

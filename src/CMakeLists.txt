@@ -223,11 +223,11 @@ set(elisaLib_SOURCES
 add_library(elisaLib ${elisaLib_SOURCES})
 target_link_libraries(elisaLib
     LINK_PUBLIC
-    Qt::Multimedia Qt::Qml
+    Qt::Multimedia Qt::Qml KF6::ConfigGui
     LINK_PRIVATE
     Qt::Core Qt::Quick Qt::Sql Qt::Widgets Qt::Concurrent
     KF6::I18n KF6::CoreAddons
-    KF6::ConfigCore KF6::ConfigGui
+    KF6::ConfigCore
     KF6::ColorScheme)
 
 if (KF6FileMetaData_FOUND)
@@ -248,13 +248,6 @@ if (KF6XmlGui_FOUND)
     target_link_libraries(elisaLib
         LINK_PUBLIC
         KF6::XmlGui
-        )
-endif()
-
-if (KF6ConfigWidgets_FOUND)
-    target_link_libraries(elisaLib
-        LINK_PUBLIC
-        KF6::ConfigWidgets
         )
 endif()
 

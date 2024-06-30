@@ -963,6 +963,7 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(mRowsMovedSpy->count(), 0);
     QCOMPARE(mRowsInsertedSpy->count(), 1);
     QCOMPARE(mPersistentStateChangedSpy->count(), 1);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
     QCOMPARE(mDataChangedSpy->count(), 0);
     QCOMPARE(rowsAboutToBeRemovedSpyRead.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpyRead.count(), 0);
@@ -972,6 +973,8 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(rowsInsertedSpyRead.count(), 0);
     QCOMPARE(persistentStateChangedSpyRead.count(), 0);
     QCOMPARE(mDataChangedSpyRead.count(), 0);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(0, 0));
+    QVERIFY(!myPlayListReadProxyModel.currentTrack().isValid());
 
     QCOMPARE(mDataChangedSpy->wait(), true);
 
@@ -982,6 +985,7 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(mRowsMovedSpy->count(), 0);
     QCOMPARE(mRowsInsertedSpy->count(), 1);
     QCOMPARE(mPersistentStateChangedSpy->count(), 1);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
     QCOMPARE(mDataChangedSpy->count(), 1);
     QCOMPARE(rowsAboutToBeRemovedSpyRead.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpyRead.count(), 0);
@@ -991,6 +995,8 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(rowsInsertedSpyRead.count(), 0);
     QCOMPARE(persistentStateChangedSpyRead.count(), 0);
     QCOMPARE(mDataChangedSpyRead.count(), 0);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(0, 0));
+    QVERIFY(!myPlayListReadProxyModel.currentTrack().isValid());
 
     auto secondTrackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
                                                                                 QStringLiteral("album1"), 1, 1);
@@ -1004,6 +1010,7 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(mRowsMovedSpy->count(), 0);
     QCOMPARE(mRowsInsertedSpy->count(), 2);
     QCOMPARE(mPersistentStateChangedSpy->count(), 2);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
     QCOMPARE(mDataChangedSpy->count(), 1);
     QCOMPARE(rowsAboutToBeRemovedSpyRead.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpyRead.count(), 0);
@@ -1013,6 +1020,8 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(rowsInsertedSpyRead.count(), 0);
     QCOMPARE(persistentStateChangedSpyRead.count(), 0);
     QCOMPARE(mDataChangedSpyRead.count(), 0);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(0, 0));
+    QVERIFY(!myPlayListReadProxyModel.currentTrack().isValid());
 
     QCOMPARE(mDataChangedSpy->wait(), true);
 
@@ -1023,6 +1032,7 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(mRowsMovedSpy->count(), 0);
     QCOMPARE(mRowsInsertedSpy->count(), 2);
     QCOMPARE(mPersistentStateChangedSpy->count(), 2);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
     QCOMPARE(mDataChangedSpy->count(), 2);
     QCOMPARE(rowsAboutToBeRemovedSpyRead.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpyRead.count(), 0);
@@ -1032,6 +1042,8 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(rowsInsertedSpyRead.count(), 0);
     QCOMPARE(persistentStateChangedSpyRead.count(), 0);
     QCOMPARE(mDataChangedSpyRead.count(), 0);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(0, 0));
+    QVERIFY(!myPlayListReadProxyModel.currentTrack().isValid());
 
     auto thirdTrackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"),
                                                                                QStringLiteral("album3"), 2, 1);
@@ -1045,6 +1057,7 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(mRowsMovedSpy->count(), 0);
     QCOMPARE(mRowsInsertedSpy->count(), 3);
     QCOMPARE(mPersistentStateChangedSpy->count(), 3);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
     QCOMPARE(mDataChangedSpy->count(), 2);
     QCOMPARE(rowsAboutToBeRemovedSpyRead.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpyRead.count(), 0);
@@ -1054,6 +1067,8 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(rowsInsertedSpyRead.count(), 0);
     QCOMPARE(persistentStateChangedSpyRead.count(), 0);
     QCOMPARE(mDataChangedSpyRead.count(), 0);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(0, 0));
+    QVERIFY(!myPlayListReadProxyModel.currentTrack().isValid());
 
     QCOMPARE(mDataChangedSpy->wait(), true);
 
@@ -1064,6 +1079,7 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(mRowsMovedSpy->count(), 0);
     QCOMPARE(mRowsInsertedSpy->count(), 3);
     QCOMPARE(mPersistentStateChangedSpy->count(), 3);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 1);
     QCOMPARE(mDataChangedSpy->count(), 3);
     QCOMPARE(rowsAboutToBeRemovedSpyRead.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpyRead.count(), 0);
@@ -1073,22 +1089,42 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(rowsInsertedSpyRead.count(), 0);
     QCOMPARE(persistentStateChangedSpyRead.count(), 0);
     QCOMPARE(mDataChangedSpyRead.count(), 0);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(0, 0));
+    QVERIFY(!myPlayListReadProxyModel.currentTrack().isValid());
+
+    mPlayListProxyModel->switchTo(1);
+
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 3);
+    QCOMPARE(mPersistentStateChangedSpy->count(), 3);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mDataChangedSpy->count(), 3);
+    QCOMPARE(rowsRemovedSpyRead.count(), 0);
+    QCOMPARE(rowsMovedSpyRead.count(), 0);
+    QCOMPARE(rowsInsertedSpyRead.count(), 0);
+    QCOMPARE(persistentStateChangedSpyRead.count(), 0);
+    QCOMPARE(mDataChangedSpyRead.count(), 0);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(1, 0));
+    QVERIFY(!myPlayListReadProxyModel.currentTrack().isValid());
+
+    mPlayListProxyModel->removeRow(0);
+
+    QCOMPARE(mRowsRemovedSpy->count(), 1);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 3);
+    QCOMPARE(mPersistentStateChangedSpy->count(), 4);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
+    QCOMPARE(mDataChangedSpy->count(), 3);
+    QCOMPARE(rowsRemovedSpyRead.count(), 0);
+    QCOMPARE(rowsMovedSpyRead.count(), 0);
+    QCOMPARE(rowsInsertedSpyRead.count(), 0);
+    QCOMPARE(persistentStateChangedSpyRead.count(), 0);
+    QCOMPARE(mDataChangedSpyRead.count(), 0);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(0, 0));
+    QVERIFY(!myPlayListReadProxyModel.currentTrack().isValid());
 
     validateTracks(mPlayListProxyModel, {
-        {
-            {MediaPlayList::ColumnsRoles::IsValidRole, true},
-            {MediaPlayList::ColumnsRoles::TitleRole, u"track1"_s},
-            {MediaPlayList::ColumnsRoles::DurationRole, QTime::fromMSecsSinceStartOfDay(11)},
-            {MediaPlayList::ColumnsRoles::ArtistRole, u"artist2"_s},
-            {MediaPlayList::ColumnsRoles::AlbumArtistRole, u"artist2"_s},
-            {MediaPlayList::ColumnsRoles::AlbumRole, u"album3"_s},
-            {MediaPlayList::ColumnsRoles::TrackNumberRole, 1},
-            {MediaPlayList::ColumnsRoles::DiscNumberRole, 1},
-            {MediaPlayList::ColumnsRoles::ImageUrlRole, QUrl::fromLocalFile(u"album3"_s)},
-            {MediaPlayList::ColumnsRoles::ResourceRole, QUrl::fromUserInput(u"/$11"_s)},
-            {MediaPlayList::ColumnsRoles::IsPlayingRole, false},
-            {MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole, true},
-        },
         {
             {MediaPlayList::ColumnsRoles::IsValidRole, true},
             {MediaPlayList::ColumnsRoles::TitleRole, u"track1"_s},
@@ -1123,13 +1159,14 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
 
     QCOMPARE(mDataChangedSpyRead.wait(), true);
 
-    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 1);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeInsertedSpy->count(), 3);
-    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsRemovedSpy->count(), 1);
     QCOMPARE(mRowsMovedSpy->count(), 0);
     QCOMPARE(mRowsInsertedSpy->count(), 3);
-    QCOMPARE(mPersistentStateChangedSpy->count(), 3);
+    QCOMPARE(mPersistentStateChangedSpy->count(), 4);
+    QCOMPARE(mCurrentTrackChangedSpy->count(), 2);
     QCOMPARE(mDataChangedSpy->count(), 3);
     QCOMPARE(rowsAboutToBeRemovedSpyRead.count(), 0);
     QCOMPARE(rowsAboutToBeMovedSpyRead.count(), 0);
@@ -1138,23 +1175,11 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
     QCOMPARE(rowsMovedSpyRead.count(), 0);
     QCOMPARE(rowsInsertedSpyRead.count(), 1);
     QCOMPARE(persistentStateChangedSpyRead.count(), 2);
-    QCOMPARE(mDataChangedSpyRead.count(), 3);
+    QCOMPARE(mDataChangedSpyRead.count(), 2);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(0, 0));
+    QCOMPARE(myPlayListReadProxyModel.currentTrack(), myPlayListReadProxyModel.index(0, 0));
 
     validateTracks(&myPlayListReadProxyModel, {
-        {
-            {MediaPlayList::ColumnsRoles::IsValidRole, true},
-            {MediaPlayList::ColumnsRoles::TitleRole, u"track1"_s},
-            {MediaPlayList::ColumnsRoles::DurationRole, QTime::fromMSecsSinceStartOfDay(11)},
-            {MediaPlayList::ColumnsRoles::ArtistRole, u"artist2"_s},
-            {MediaPlayList::ColumnsRoles::AlbumArtistRole, u"artist2"_s},
-            {MediaPlayList::ColumnsRoles::AlbumRole, u"album3"_s},
-            {MediaPlayList::ColumnsRoles::TrackNumberRole, 1},
-            {MediaPlayList::ColumnsRoles::DiscNumberRole, 1},
-            {MediaPlayList::ColumnsRoles::ImageUrlRole, QUrl::fromLocalFile(u"album3"_s)},
-            {MediaPlayList::ColumnsRoles::ResourceRole, QUrl::fromUserInput(u"/$11"_s)},
-            {MediaPlayList::ColumnsRoles::IsPlayingRole, false},
-            {MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole, true},
-        },
         {
             {MediaPlayList::ColumnsRoles::IsValidRole, true},
             {MediaPlayList::ColumnsRoles::TitleRole, u"track1"_s},

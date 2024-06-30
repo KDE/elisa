@@ -641,7 +641,9 @@ void MediaPlayListProxyModel::sourceRowsRemoved(const QModelIndex &parent, int s
     if (d->mShuffleMode == MediaPlayListProxyModel::Shuffle::NoShuffle) {
         endRemoveRows();
     }
-    if (!d->mCurrentTrack.isValid()) {
+    if (d->mCurrentTrack.isValid()) {
+        d->mCurrentPlayListPosition = d->mCurrentTrack.row();
+    } else {
         d->mCurrentTrack = index(d->mCurrentPlayListPosition, 0);
         if (d->mCurrentTrack.isValid() && d->mCurrentTrackWasValid) {
             notifyCurrentTrackChanged();

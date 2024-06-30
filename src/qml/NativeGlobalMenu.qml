@@ -151,13 +151,6 @@ MenuBar {
         title: i18nc("@title:menu", "Help")
 
         NativeMenuItemFromAction {
-            elisaAction: "help_contents"
-        }
-
-        MenuSeparator {
-        }
-
-        NativeMenuItemFromAction {
             elisaAction: "help_about_app"
         }
 

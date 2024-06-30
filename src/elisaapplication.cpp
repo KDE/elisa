@@ -136,11 +136,6 @@ void ElisaApplication::setupActions(const QString &actionName)
         d->mCollection.addAction(actionName, quitAction);
     }
 
-    if (actionName == QLatin1String("help_contents") && KAuthorized::authorizeAction(actionName)) {
-        auto handBookAction = KStandardActions::helpContents(this, &ElisaApplication::appHelpActivated, &d->mCollection);
-        d->mCollection.addAction(handBookAction->objectName(), handBookAction);
-    }
-
     if (actionName == QLatin1String("help_report_bug") && KAuthorized::authorizeAction(actionName) && !KAboutData::applicationData().bugAddress().isEmpty()) {
         auto reportBugAction = KStandardActions::reportBug(this, &ElisaApplication::reportBug, &d->mCollection);
         d->mCollection.addAction(reportBugAction->objectName(), reportBugAction);
@@ -277,11 +272,6 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
 void ElisaApplication::openRequested(const QList<QUrl> &uris)
 {
     openFiles(uris);
-}
-
-void ElisaApplication::appHelpActivated()
-{
-    QDesktopServices::openUrl(QUrl(QStringLiteral("help:/")));
 }
 
 void ElisaApplication::reportBug()

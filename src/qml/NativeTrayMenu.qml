@@ -13,7 +13,6 @@ Menu {
     id: applicationMenu
     title: i18nc("@title:menu", "Application Menu")
 
-    property var helpAction: ElisaApplication.action("help_contents")
     property var quitApplication: ElisaApplication.action("file_quit")
     property var reportBugAction: ElisaApplication.action("help_report_bug")
     property var aboutAppAction: ElisaApplication.action("help_about_app")
@@ -73,18 +72,6 @@ Menu {
         icon.name: ElisaApplication.iconName(reportBugAction.icon)
         onTriggered: reportBugAction.trigger()
         visible: reportBugAction.text !== ""
-    }
-
-    MenuSeparator {
-        visible: helpAction.text !== ""
-    }
-
-    MenuItem {
-        text: helpAction.text
-        shortcut: ElisaApplication.actionShortcut(helpAction)
-        icon.name: ElisaApplication.iconName(helpAction.icon)
-        onTriggered: helpAction.trigger()
-        visible: helpAction.text !== ""
     }
 
     MenuItem {

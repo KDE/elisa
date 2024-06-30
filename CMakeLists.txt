@@ -88,11 +88,6 @@ set_package_properties(KF6FileMetaData PROPERTIES
     DESCRIPTION "Provides a simple library for extracting metadata."
     TYPE RECOMMENDED)
 
-find_package(KF6DocTools ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF6DocTools PROPERTIES
-    DESCRIPTION "Create documentation from DocBook library."
-    TYPE OPTIONAL)
-
 find_package(KF6XmlGui ${REQUIRED_KF_VERSION} CONFIG QUIET)
 set_package_properties(KF6XmlGui PROPERTIES
     DESCRIPTION "Framework for managing menu and toolbar actions."
@@ -180,7 +175,6 @@ add_subdirectory(icons)
 if (BUILD_TESTING)
     add_subdirectory(autotests)
 endif()
-add_subdirectory(doc)
 
 if (KF6DBusAddons_FOUND)
     ecm_generate_dbus_service_file(
@@ -205,9 +199,6 @@ install(
 )
 
 ki18n_install(po)
-if (KF6DocTools_FOUND)
-    kdoctools_install(po)
-endif()
 
 install(FILES elisa.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 

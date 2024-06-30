@@ -195,8 +195,6 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void appHelpActivated();
-
     void reportBug();
 
     void configureShortcuts();

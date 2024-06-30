@@ -16,7 +16,6 @@ Menu {
     id: applicationMenu
     title: i18nc("@title:menu", "Application Menu")
 
-    property var helpAction: ElisaApplication.action("help_contents")
     property var reportBugAction: ElisaApplication.action("help_report_bug")
     property var aboutAppAction: ElisaApplication.action("help_about_app")
     property var aboutKdeAction: ElisaApplication.action("help_about_kde")
@@ -93,16 +92,6 @@ Menu {
     }
 
     MenuSeparator {}
-
-    Action {
-        text: helpAction.text
-        shortcut: ElisaApplication.actionShortcut(helpAction)
-        icon.name: ElisaApplication.iconName(helpAction.icon)
-        onTriggered: {
-            applicationMenu.close()
-            helpAction.trigger()
-        }
-    }
 
     Action {
         text: aboutAppAction.text

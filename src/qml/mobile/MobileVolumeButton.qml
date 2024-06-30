@@ -20,7 +20,7 @@ FlatButtonWithToolTip {
     property bool muted
 
     Layout.maximumHeight: parent.height
-    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
     Layout.maximumWidth: height
     Layout.preferredWidth: height
 

@@ -190,7 +190,7 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: infoButton
                     Layout.maximumHeight: parent.height
-                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     text: i18nc("@action:button show track information", "Show Info")
@@ -202,7 +202,7 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: shuffleButton
                     Layout.maximumHeight: parent.height
-                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
 
@@ -256,7 +256,7 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: repeatButton
                     Layout.maximumHeight: parent.height
-                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     text: {
@@ -310,7 +310,7 @@ BasePlayerControl {
             // duration slider
             DurationSlider {
                 Layout.fillWidth: true
-                Layout.maximumHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                Layout.maximumHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                 position: trackPlayer.position
                 duration: trackPlayer.duration
                 seekable: trackPlayer.seekable
@@ -325,7 +325,7 @@ BasePlayerControl {
             // bottom play controls
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
 
                 // ensure white icons
                 Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
@@ -336,7 +336,7 @@ BasePlayerControl {
                     id: volumeButton
                     muted: trackPlayer.muted
                     Layout.maximumHeight: parent.height
-                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                 }
@@ -346,7 +346,7 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: skipBackwardButton
                     Layout.maximumHeight: parent.height
-                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     enabled: skipBackwardEnabled
@@ -359,7 +359,7 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: playPauseButton
                     Layout.maximumHeight: parent.height
-                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     enabled: trackPlayer.playEnabled
@@ -372,7 +372,7 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: skipForwardButton
                     Layout.maximumHeight: parent.height
-                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     enabled: skipForwardEnabled
@@ -387,7 +387,7 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: showPlaylistButton
                     Layout.maximumHeight: parent.height
-                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                    Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
                     text: i18nc("@action:button", "Show Playlist")

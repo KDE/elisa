@@ -197,7 +197,7 @@ BasePlayerControl {
             DurationSlider {
                 anchors.fill: parent
                 Layout.fillWidth: true
-                Layout.maximumHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+                Layout.maximumHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                 visible: musicWidget.isWidescreen
                 position: musicWidget.position
                 duration: musicWidget.duration
@@ -216,7 +216,7 @@ BasePlayerControl {
             visible: musicWidget.isWidescreen
             muted: musicWidget.muted
             Layout.maximumHeight: parent.height
-            Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 2.5)
+            Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
             Layout.maximumWidth: height
             Layout.preferredWidth: height
         }

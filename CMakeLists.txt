@@ -59,13 +59,11 @@ set_package_properties(Qt6QuickControls2 PROPERTIES
     TYPE RUNTIME)
 
 find_package(KF6Kirigami ${REQUIRED_KF_VERSION} CONFIG QUIET)
-
 set_package_properties(KF6Kirigami PROPERTIES
     DESCRIPTION "KF Kirigami is needed to provide the mobile UI components."
     TYPE REQUIRED)
 
 find_package(KF6KirigamiAddons ${REQUIRED_KA_VERSION} CONFIG QUIET)
-
 set_package_properties(KF6KirigamiAddons PROPERTIES
     DESCRIPTION "KF KirigamiAddons is needed to provide the about KDE dialogue."
     TYPE REQUIRED)

@@ -353,8 +353,6 @@ BasePlayerControl {
                     text: i18nc("@action:button", "Skip Backward")
                     onClicked: trackPlayer.playPrevious()
                     icon.name: trackPlayer.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
-                    icon.width: Kirigami.Units.gridUnit
-                    icon.height: Kirigami.Units.gridUnit
                     icon.color: "white"
                 }
 
@@ -368,8 +366,6 @@ BasePlayerControl {
                     text: trackPlayer.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
                     onClicked: trackPlayer.isPlaying ? trackPlayer.pause() : trackPlayer.play()
                     icon.name: trackPlayer.isPlaying ? "media-playback-pause" : "media-playback-start"
-                    icon.width: Kirigami.Units.gridUnit
-                    icon.height: Kirigami.Units.gridUnit
                     icon.color: "white"
                 }
 
@@ -383,8 +379,6 @@ BasePlayerControl {
                     text: i18nc("@action:button", "Skip Forward")
                     onClicked: trackPlayer.playNext()
                     icon.name: trackPlayer.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
-                    icon.width: Kirigami.Units.gridUnit
-                    icon.height: Kirigami.Units.gridUnit
                     icon.color: "white"
                 }
 
@@ -399,8 +393,6 @@ BasePlayerControl {
                     text: i18nc("@action:button", "Show Playlist")
                     onClicked: playlistDrawer.open()
                     icon.name: "view-media-playlist"
-                    icon.width: Kirigami.Units.gridUnit
-                    icon.height: Kirigami.Units.gridUnit
                     icon.color: "white"
                 }
             }

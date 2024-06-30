@@ -230,8 +230,6 @@ BasePlayerControl {
             text: i18nc("@action:button", "Skip Backward")
             onClicked: musicWidget.playPrevious()
             icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
-            icon.width: Kirigami.Units.gridUnit
-            icon.height: Kirigami.Units.gridUnit
             icon.color: "white"
             Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
             Kirigami.Theme.inherit: false
@@ -246,8 +244,6 @@ BasePlayerControl {
             text: musicWidget.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
             onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
             icon.name: musicWidget.isPlaying ? "media-playback-pause" : "media-playback-start"
-            icon.width: Kirigami.Units.gridUnit
-            icon.height: Kirigami.Units.gridUnit
             icon.color: "white"
             Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
             Kirigami.Theme.inherit: false
@@ -262,8 +258,6 @@ BasePlayerControl {
             text: i18nc("@action:button", "Skip Forward")
             onClicked: musicWidget.playNext()
             icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
-            icon.width: Kirigami.Units.gridUnit
-            icon.height: Kirigami.Units.gridUnit
             icon.color: "white"
             Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
             Kirigami.Theme.inherit: false

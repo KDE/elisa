@@ -84,6 +84,11 @@ BasePlayerControl {
         anchors.fill: parent
         spacing: 0
 
+        // media controls mirror IRL media playback devices,
+        // which are not mirrored in countries that use RtL languages
+        LayoutMirroring.enabled: false
+        LayoutMirroring.childrenInherit: true
+
         Item { implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2) }
 
         FlatButtonWithToolTip {
@@ -97,7 +102,7 @@ BasePlayerControl {
             id: skipBackwardButton
             enabled: skipBackwardEnabled
             text: i18nc("@action:button", "Skip Backward")
-            icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
+            icon.name: "media-skip-backward"
             onClicked: musicWidget.playPrevious()
         }
 
@@ -113,7 +118,7 @@ BasePlayerControl {
             id: skipForwardButton
             enabled: skipForwardEnabled
             text: i18nc("@action:button skip forward in playlists", "Skip Forward")
-            icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
+            icon.name: "media-skip-forward"
             onClicked: musicWidget.playNext()
         }
 
@@ -129,21 +134,28 @@ BasePlayerControl {
             labelColor: myPalette.text
         }
 
-        FlatButtonWithToolTip {
-            id: muteButton
-            text: i18nc("@action:button", "Toggle Mute")
-            icon.name: musicWidget.muted ? "player-volume-muted" : "player-volume"
-            onClicked: musicWidget.muted = !musicWidget.muted
-        }
+        RowLayout {
+            spacing: 0
 
-        VolumeSlider {
-            id: volumeSlider
-            Layout.preferredWidth: elisaTheme.volumeSliderWidth
-            Layout.maximumWidth: elisaTheme.volumeSliderWidth
-            Layout.minimumWidth: elisaTheme.volumeSliderWidth
-            Layout.fillHeight: true
+            LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
+            LayoutMirroring.childrenInherit: true
 
-            muted: musicWidget.muted
+            FlatButtonWithToolTip {
+                id: muteButton
+                text: i18nc("@action:button", "Toggle Mute")
+                icon.name: musicWidget.muted ? "player-volume-muted" : "player-volume"
+                onClicked: musicWidget.muted = !musicWidget.muted
+            }
+
+            VolumeSlider {
+                id: volumeSlider
+                Layout.preferredWidth: elisaTheme.volumeSliderWidth
+                Layout.maximumWidth: elisaTheme.volumeSliderWidth
+                Layout.minimumWidth: elisaTheme.volumeSliderWidth
+                Layout.fillHeight: true
+
+                muted: musicWidget.muted
+            }
         }
 
         Item { implicitWidth: Kirigami.Units.largeSpacing }

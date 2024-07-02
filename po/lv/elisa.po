@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-01 00:38+0000\n"
+"POT-Creation-Date: 2024-07-02 00:38+0000\n"
 "PO-Revision-Date: 2024-05-29 12:39+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -471,7 +471,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Dziesmu vārdi"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:290
+#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:152
 #, kde-format
 msgctxt "@action:button"
@@ -591,13 +591,13 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Iziet no pilnekrāna režīma"
 
-#: qml/MediaPlayerControl.qml:91
+#: qml/MediaPlayerControl.qml:96
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "Ieslēgt/izslēgt ballītes režīmu"
 
-#: qml/MediaPlayerControl.qml:99
+#: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:230
 #: qml/mobile/MobileTrackPlayer.qml:353
 #, kde-format
@@ -605,7 +605,7 @@ msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Iet atpakaļ"
 
-#: qml/MediaPlayerControl.qml:107
+#: qml/MediaPlayerControl.qml:112
 #: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
@@ -613,7 +613,7 @@ msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Pauzēt"
 
-#: qml/MediaPlayerControl.qml:107
+#: qml/MediaPlayerControl.qml:112
 #: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
@@ -621,86 +621,86 @@ msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Atskaņot"
 
-#: qml/MediaPlayerControl.qml:115
+#: qml/MediaPlayerControl.qml:120
 #, kde-format
 msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "Iet uz priekšu"
 
-#: qml/MediaPlayerControl.qml:134
+#: qml/MediaPlayerControl.qml:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "Ieslēgt/izslēgt klusumu"
 
-#: qml/MediaPlayerControl.qml:155 qml/mobile/MobileTrackPlayer.qml:211
+#: qml/MediaPlayerControl.qml:167 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "Šobrīd: bez jaukšanas"
 
-#: qml/MediaPlayerControl.qml:156 qml/mobile/MobileTrackPlayer.qml:212
+#: qml/MediaPlayerControl.qml:168 qml/mobile/MobileTrackPlayer.qml:212
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Šobrīd: jauc celiņus"
 
-#: qml/MediaPlayerControl.qml:157 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:169 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Šobrīd: jauc albumus"
 
-#: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:242
+#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:242
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Celiņu"
 
-#: qml/MediaPlayerControl.qml:189 qml/mobile/MobileTrackPlayer.qml:246
+#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:246
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Albumu"
 
-#: qml/MediaPlayerControl.qml:193 qml/MediaPlayerControl.qml:251
+#: qml/MediaPlayerControl.qml:205 qml/MediaPlayerControl.qml:263
 #: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Nevienu"
 
-#: qml/MediaPlayerControl.qml:214 qml/mobile/MobileTrackPlayer.qml:264
+#: qml/MediaPlayerControl.qml:226 qml/mobile/MobileTrackPlayer.qml:264
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Šobrīd: neatkārto celiņus"
 
-#: qml/MediaPlayerControl.qml:215 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:227 qml/mobile/MobileTrackPlayer.qml:265
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Šobrīd: atkārto šo celiņu"
 
-#: qml/MediaPlayerControl.qml:216 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:228 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Šobrīd: atkārto visus celiņus repertuārā"
 
-#: qml/MediaPlayerControl.qml:243 qml/mobile/MobileTrackPlayer.qml:295
+#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Repertuārs"
 
-#: qml/MediaPlayerControl.qml:247 qml/mobile/MobileTrackPlayer.qml:299
+#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Vienu"
 
-#: qml/MediaPlayerControl.qml:307
+#: qml/MediaPlayerControl.qml:319
 #, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"

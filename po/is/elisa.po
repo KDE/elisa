@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-01 00:38+0000\n"
+"POT-Creation-Date: 2024-07-02 00:38+0000\n"
 "PO-Revision-Date: 2024-04-06 20:31+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -471,7 +471,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Lagatextar"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:290
+#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:152
 #, kde-format
 msgctxt "@action:button"
@@ -591,13 +591,13 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Hætta að fylla skjá"
 
-#: qml/MediaPlayerControl.qml:91
+#: qml/MediaPlayerControl.qml:96
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "Sýna/fela Partísnið"
 
-#: qml/MediaPlayerControl.qml:99
+#: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:230
 #: qml/mobile/MobileTrackPlayer.qml:353
 #, kde-format
@@ -605,7 +605,7 @@ msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Hoppa til baka"
 
-#: qml/MediaPlayerControl.qml:107
+#: qml/MediaPlayerControl.qml:112
 #: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
@@ -613,7 +613,7 @@ msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Á pásu"
 
-#: qml/MediaPlayerControl.qml:107
+#: qml/MediaPlayerControl.qml:112
 #: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
@@ -621,25 +621,25 @@ msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Spila"
 
-#: qml/MediaPlayerControl.qml:115
+#: qml/MediaPlayerControl.qml:120
 #, kde-format
 msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "Hoppa áfram"
 
-#: qml/MediaPlayerControl.qml:134
+#: qml/MediaPlayerControl.qml:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "Þagga/afþagga"
 
-#: qml/MediaPlayerControl.qml:155 qml/mobile/MobileTrackPlayer.qml:211
+#: qml/MediaPlayerControl.qml:167 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:156 qml/mobile/MobileTrackPlayer.qml:212
+#: qml/MediaPlayerControl.qml:168 qml/mobile/MobileTrackPlayer.qml:212
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "Current: Don't repeat tracks"
@@ -647,13 +647,13 @@ msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Valið núna: Ekki endurtaka lög"
 
-#: qml/MediaPlayerControl.qml:157 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:169 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:242
+#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:242
 #, fuzzy, kde-format
 #| msgctxt "@item:inlistbox Title of the view of all tracks"
 #| msgid "Tracks"
@@ -661,7 +661,7 @@ msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Lög"
 
-#: qml/MediaPlayerControl.qml:189 qml/mobile/MobileTrackPlayer.qml:246
+#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:246
 #, fuzzy, kde-format
 #| msgctxt "@label musical album"
 #| msgid "Album"
@@ -669,44 +669,44 @@ msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Plata"
 
-#: qml/MediaPlayerControl.qml:193 qml/MediaPlayerControl.qml:251
+#: qml/MediaPlayerControl.qml:205 qml/MediaPlayerControl.qml:263
 #: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Ekkert"
 
-#: qml/MediaPlayerControl.qml:214 qml/mobile/MobileTrackPlayer.qml:264
+#: qml/MediaPlayerControl.qml:226 qml/mobile/MobileTrackPlayer.qml:264
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Valið núna: Ekki endurtaka lög"
 
-#: qml/MediaPlayerControl.qml:215 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:227 qml/mobile/MobileTrackPlayer.qml:265
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Valið núna: Endurtaka lag í spilun"
 
-#: qml/MediaPlayerControl.qml:216 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:228 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Valið núna: Endurtaka öll lög í spilunarlista"
 
-#: qml/MediaPlayerControl.qml:243 qml/mobile/MobileTrackPlayer.qml:295
+#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Spilunarlista"
 
-#: qml/MediaPlayerControl.qml:247 qml/mobile/MobileTrackPlayer.qml:299
+#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Eitt"
 
-#: qml/MediaPlayerControl.qml:307
+#: qml/MediaPlayerControl.qml:319
 #, kde-format
 msgctxt "@action:button"
 msgid "Application Menu"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-01 00:38+0000\n"
+"POT-Creation-Date: 2024-07-02 00:38+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -573,7 +573,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Sõnad"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:290
+#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:152
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
@@ -714,7 +714,7 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:91
+#: qml/MediaPlayerControl.qml:96
 #, fuzzy, kde-format
 #| msgctxt "Toggle between ascending and descending order"
 #| msgid "Toggle sort order"
@@ -722,7 +722,7 @@ msgctxt "@action:button"
 msgid "Toggle Party Mode"
 msgstr "Sortimisjärjekorra lülitamine"
 
-#: qml/MediaPlayerControl.qml:99
+#: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:230
 #: qml/mobile/MobileTrackPlayer.qml:353
 #, fuzzy, kde-format
@@ -732,7 +732,7 @@ msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Hüpe tagasi"
 
-#: qml/MediaPlayerControl.qml:107
+#: qml/MediaPlayerControl.qml:112
 #: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, fuzzy, kde-format
@@ -742,7 +742,7 @@ msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Paus"
 
-#: qml/MediaPlayerControl.qml:107
+#: qml/MediaPlayerControl.qml:112
 #: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, fuzzy, kde-format
@@ -752,7 +752,7 @@ msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Esita"
 
-#: qml/MediaPlayerControl.qml:115
+#: qml/MediaPlayerControl.qml:120
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"
 #| msgid "Skip Forward"
@@ -760,7 +760,7 @@ msgctxt "@action:button skip forward in playlists"
 msgid "Skip Forward"
 msgstr "Hüpe edasi"
 
-#: qml/MediaPlayerControl.qml:134
+#: qml/MediaPlayerControl.qml:145
 #, fuzzy, kde-format
 #| msgctxt "toggle mute mode for player"
 #| msgid "Toggle Mute"
@@ -768,26 +768,26 @@ msgctxt "@action:button"
 msgid "Toggle Mute"
 msgstr "Kuuldavuse lülitamine"
 
-#: qml/MediaPlayerControl.qml:155 qml/mobile/MobileTrackPlayer.qml:211
+#: qml/MediaPlayerControl.qml:167 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:156 qml/mobile/MobileTrackPlayer.qml:212
+#: qml/MediaPlayerControl.qml:168 qml/mobile/MobileTrackPlayer.qml:212
 #, fuzzy, kde-format
 #| msgid "No remaining tracks"
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Radu enam pole"
 
-#: qml/MediaPlayerControl.qml:157 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:169 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:185 qml/mobile/MobileTrackPlayer.qml:242
+#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:242
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -795,7 +795,7 @@ msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Rajad"
 
-#: qml/MediaPlayerControl.qml:189 qml/mobile/MobileTrackPlayer.qml:246
+#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:246
 #, fuzzy, kde-format
 #| msgctxt "Album name for track metadata view"
 #| msgid "Album"
@@ -803,21 +803,21 @@ msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
-#: qml/MediaPlayerControl.qml:193 qml/MediaPlayerControl.qml:251
+#: qml/MediaPlayerControl.qml:205 qml/MediaPlayerControl.qml:263
 #: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:214 qml/mobile/MobileTrackPlayer.qml:264
+#: qml/MediaPlayerControl.qml:226 qml/mobile/MobileTrackPlayer.qml:264
 #, fuzzy, kde-format
 #| msgid "No remaining tracks"
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Radu enam pole"
 
-#: qml/MediaPlayerControl.qml:215 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:227 qml/mobile/MobileTrackPlayer.qml:265
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current Track"
@@ -825,7 +825,7 @@ msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Aktiivse raja näitamine"
 
-#: qml/MediaPlayerControl.qml:216 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:228 qml/mobile/MobileTrackPlayer.qml:266
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current Track"
@@ -833,7 +833,7 @@ msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Aktiivse raja näitamine"
 
-#: qml/MediaPlayerControl.qml:243 qml/mobile/MobileTrackPlayer.qml:295
+#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:295
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of the playlist"
 #| msgid "Playlist"
@@ -841,7 +841,7 @@ msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Esitusloend"
 
-#: qml/MediaPlayerControl.qml:247 qml/mobile/MobileTrackPlayer.qml:299
+#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:299
 #, fuzzy, kde-format
 #| msgctxt "Open view of the container"
 #| msgid "Open"
@@ -849,7 +849,7 @@ msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Ava"
 
-#: qml/MediaPlayerControl.qml:307
+#: qml/MediaPlayerControl.qml:319
 #, fuzzy, kde-format
 #| msgctxt "open application menu"
 #| msgid "Application Menu"

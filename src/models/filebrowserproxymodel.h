@@ -124,7 +124,7 @@ private:
 
     MediaPlayListProxyModel* mPlayList = nullptr;
 
-    bool mFilterRating = false;
+    int mFilterRating = 0;
 
     QMimeDatabase mMimeDatabase;
 

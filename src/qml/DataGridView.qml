@@ -44,6 +44,15 @@ AbstractDataView {
         );
     }
 
+    function playNext(fullData: var, name: string) {
+        proxyModel.enqueue(
+            fullData,
+            name,
+            ElisaUtils.AfterCurrentTrack,
+            ElisaUtils.TriggerPlay
+        );
+    }
+
     onOpen: fullData => viewManager.openChildView(fullData)
 
     delegate: Package {
@@ -79,6 +88,7 @@ AbstractDataView {
 
             onEnqueue: gridView.enqueue(delegatePackage.fullData, delegatePackage.display)
             onReplaceAndPlay: gridView.replaceAndPlay(delegatePackage.fullData, delegatePackage.display)
+            onPlayNext: gridView.playNext(delegatePackage.fullData, delegatePackage.display)
             onOpen: gridView.open(delegatePackage.fullData)
 
             onActiveFocusChanged: {
@@ -109,6 +119,7 @@ AbstractDataView {
 
             onEnqueue: gridView.enqueue(delegatePackage.fullData, delegatePackage.display)
             onReplaceAndPlay: gridView.replaceAndPlay(delegatePackage.fullData, delegatePackage.display)
+            onPlayNext: gridView.playNext(delegatePackage.fullData, delegatePackage.display)
             onOpen: gridView.open(delegatePackage.fullData)
 
             onActiveFocusChanged: {

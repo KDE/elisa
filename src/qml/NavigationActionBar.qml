@@ -43,6 +43,7 @@ Item {
 
     signal enqueue();
     signal replaceAndPlay();
+    signal playNext();
     signal createRadio();
     signal goBack();
     signal showArtist(string name)
@@ -129,6 +130,17 @@ Item {
             enabled: navigationBar.canEnqueueView
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: replaceAndPlay()
+        }
+    }
+    Component {
+        id: playNextButton
+        FlatButtonWithToolTip {
+            Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
+            Kirigami.Theme.inherit: false
+            text: i18nc("@action:button", "Play Next")
+            icon.name: "media-playlist-append-next"
+            display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
+            onClicked: navigationBar.playNext()
         }
     }
     Component {
@@ -290,6 +302,11 @@ Item {
                     active: !Kirigami.Settings.isMobile && !showCreateRadioButton
                 }
                 Loader {
+                    sourceComponent: playNextButton
+                    active: !Kirigami.Settings.isMobile && !showCreateRadioButton
+                    Layout.maximumHeight: parent.height
+                }
+                Loader {
                     sourceComponent: toggleViewStyleButton
                     active: !Kirigami.Settings.isMobile && navigationBar.canToggleViewStyle
                 }
@@ -337,6 +354,11 @@ Item {
                     Loader {
                         sourceComponent: replaceAndPlayButton
                         active: !showCreateRadioButton
+                    }
+                    Loader {
+                        sourceComponent: playNextButton
+                        active: !showCreateRadioButton
+                        Layout.maximumHeight: parent.height
                     }
                     Loader {
                         sourceComponent: showArtistButton

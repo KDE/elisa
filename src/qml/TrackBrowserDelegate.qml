@@ -39,6 +39,7 @@ FocusScope {
 
     signal clicked()
     signal enqueue()
+    signal playNext()
     signal replaceAndPlay(var url)
     signal callOpenMetaDataView(var url, var entryType)
     signal trackRatingChanged(var url, var rating)
@@ -74,6 +75,11 @@ FocusScope {
             text: i18nc("@action:button", "Add to playlist")
             icon.name: "list-add"
             onTriggered: mediaTrack.enqueue()
+        },
+        Kirigami.Action {
+            text: i18nc("@action:button", "Play next")
+            icon.name: "media-playlist-append-next-symbolic"
+            onTriggered: mediaTrack.playNext()
         },
         Kirigami.Action {
             text: i18nc("@action:button", "Play from here, replacing current playlist")

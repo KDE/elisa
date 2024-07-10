@@ -145,6 +145,8 @@ FocusScope {
 
             onReplaceAndPlay: contentModel.enqueueAll(ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
 
+            onPlayNext: contentModel.enqueueAll(ElisaUtils.AfterCurrentTrack, ElisaUtils.DoNotTriggerPlay)
+
             onGoBack: abstractView.viewManager.goBack()
 
             onSortOrderChanged: {

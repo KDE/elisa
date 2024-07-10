@@ -92,6 +92,10 @@ AbstractDataView {
                                                             ElisaUtils.AppendPlayList,
                                                             ElisaUtils.DoNotTriggerPlay)
 
+        onPlayNext: ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
+                                                                     ElisaUtils.AfterCurrentTrack,
+                                                                     ElisaUtils.DoNotTriggerPlay)
+
         onClicked: {
             forceActiveFocus()
             contentDirectoryView.currentIndex = model.index

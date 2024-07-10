@@ -31,6 +31,7 @@ FocusScope {
 
     signal enqueue()
     signal replaceAndPlay()
+    signal playNext()
     signal open()
     signal selected()
 
@@ -41,6 +42,11 @@ FocusScope {
                                                                          : "media-playback-start-symbolic-rtl"
             visible: dataEntry.showPlayButton
             onTriggered: dataEntry.replaceAndPlay()
+        },
+        Kirigami.Action {
+            text: i18nc("@action:button", "Play next")
+            icon.name: "media-playlist-append-next-symbolic"
+            onTriggered: dataEntry.playNext()
         },
         Kirigami.Action {
             text: i18nc("@action:button", "Add to playlist")

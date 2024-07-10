@@ -52,6 +52,8 @@ private Q_SLOTS:
 
     void enqueueEmpty();
 
+    void enqueueAtIndex();
+
     void removeFirstTrackOfAlbum();
 
     void testTrackBeenRemoved();

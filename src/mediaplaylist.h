@@ -144,9 +144,15 @@ public Q_SLOTS:
 
     void trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
-    void enqueueOneEntry(const DataTypes::EntryData &entryData);
+    void enqueueOneEntry(const DataTypes::EntryData &entryData, int insertAt = -1);
 
-    void enqueueMultipleEntries(const DataTypes::EntryDataList &entriesData);
+    /**
+     * Insert `entriesData` into the playlist at index `insertAt`.
+     *
+     * If `insertAt` is negative or larger than the playlist size then the entries
+     * will be enqueued at the end of the playlist.
+     */
+    void enqueueMultipleEntries(const DataTypes::EntryDataList &entriesData, int insertAt = -1);
 
 private:
 

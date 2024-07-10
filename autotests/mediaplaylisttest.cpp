@@ -20,6 +20,24 @@
 #include <QTemporaryFile>
 #include <QAbstractItemModelTester>
 
+using namespace Qt::Literals::StringLiterals;
+
+using TestTrackData = QMap<MediaPlayList::ColumnsRoles, QVariant>;
+using ListTestTrackData = QList<TestTrackData>;
+
+static void validateTracks(const QAbstractItemModel *const playListModel, const ListTestTrackData &expectedTrackData)
+{
+    QVERIFY(playListModel);
+    QCOMPARE(playListModel->rowCount(), expectedTrackData.size());
+    for (auto i = 0; i < expectedTrackData.size(); ++ i) {
+        const auto index = playListModel->index(i, 0);
+        const auto &oneTrack = expectedTrackData.at(i);
+        for (const auto &[columnRole, expectedData] : oneTrack.asKeyValueRange()) {
+            QCOMPARE(playListModel->data(index, columnRole), expectedData);
+        }
+    }
+};
+
 MediaPlayListTest::MediaPlayListTest(QObject *parent) : QObject(parent)
 {
 }
@@ -523,6 +541,130 @@ void MediaPlayListTest::enqueueEmpty()
     QCOMPARE(mDataChangedSpy->count(), 0);
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 0);
+}
+
+void MediaPlayListTest::enqueueAtIndex()
+{
+    const QList<DataTypes::EntryData> trackEntries = {
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$1"_s)}}, {}, {}},
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$2"_s)}}, {}, {}},
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$3"_s)}}, {}, {}},
+    };
+    mPlayList->enqueueMultipleEntries(trackEntries);
+
+    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeInsertedSpy->count(), 1);
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 1);
+    QCOMPARE(mDataChangedSpy->count(), 0);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 3);
+    QCOMPARE(mPlayList->rowCount(), 3);
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeInsertedSpy->count(), 1);
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 1);
+    QCOMPARE(mDataChangedSpy->count(), 3);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 3);
+    QCOMPARE(mPlayList->rowCount(), 3);
+
+    validateTracks(mPlayList, {
+        {{MediaPlayList::TitleRole, u"track1"_s}},
+        {{MediaPlayList::TitleRole, u"track2"_s}},
+        {{MediaPlayList::TitleRole, u"track3"_s}},
+    });
+
+    const QList<DataTypes::EntryData> trackEntries2 = {
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$4"_s)}}, {}, {}},
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$9"_s)}}, {}, {}},
+    };
+    mPlayList->enqueueMultipleEntries(trackEntries2, 2);
+
+    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeInsertedSpy->count(), 2);
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 2);
+    QCOMPARE(mDataChangedSpy->count(), 3);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 5);
+    QCOMPARE(mPlayList->rowCount(), 5);
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeInsertedSpy->count(), 2);
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 2);
+    QCOMPARE(mDataChangedSpy->count(), 5);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 5);
+    QCOMPARE(mPlayList->rowCount(), 5);
+
+    validateTracks(mPlayList, {
+        {{MediaPlayList::TitleRole, u"track1"_s}},
+        {{MediaPlayList::TitleRole, u"track2"_s}},
+        {{MediaPlayList::TitleRole, u"track4"_s}},
+        {{MediaPlayList::TitleRole, u"track5"_s}},
+        {{MediaPlayList::TitleRole, u"track3"_s}},
+    });
+
+    const QList<DataTypes::EntryData> trackEntries3 = {
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$10"_s)}}, {}, {}},
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$22"_s)}}, {}, {}},
+    };
+    mPlayList->enqueueMultipleEntries(trackEntries3, mPlayList->rowCount() + 100);
+
+    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeInsertedSpy->count(), 3);
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 3);
+    QCOMPARE(mDataChangedSpy->count(), 5);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 7);
+    QCOMPARE(mPlayList->rowCount(), 7);
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeInsertedSpy->count(), 3);
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 3);
+    QCOMPARE(mDataChangedSpy->count(), 7);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 7);
+    QCOMPARE(mPlayList->rowCount(), 7);
+
+    validateTracks(mPlayList, {
+        {{MediaPlayList::TitleRole, u"track1"_s}},
+        {{MediaPlayList::TitleRole, u"track2"_s}},
+        {{MediaPlayList::TitleRole, u"track4"_s}},
+        {{MediaPlayList::TitleRole, u"track5"_s}},
+        {{MediaPlayList::TitleRole, u"track3"_s}},
+        {{MediaPlayList::TitleRole, u"track6"_s}},
+        {{MediaPlayList::TitleRole, u"track9"_s}},
+    });
 }
 
 void MediaPlayListTest::removeFirstTrackOfAlbum()

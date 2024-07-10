@@ -484,6 +484,7 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
     if (d->mShuffleMode == MediaPlayListProxyModel::Shuffle::Track) { // track shuffle
         const auto newItemsCount = end - start + 1;
         d->mRandomMapping.reserve(rowCount() + newItemsCount);
+
         if (rowCount() == 0) {
             beginInsertRows(parent, start, end);
             for (int i = 0; i < newItemsCount; ++i) {
@@ -493,13 +494,35 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
             }
             endInsertRows();
         } else {
-            const int lowerBound = d->mCurrentTrack.row() + 1;
-            for (int i = 0; i < newItemsCount; ++i) {
-                //QRandomGenerator.bounded(int) is exclusive, thus + 1
-                const auto random = d->mRandomGenerator.bounded(lowerBound, d->mRandomMapping.count() + 1);
-                beginInsertRows(parent, random, random);
-                d->mRandomMapping.insert(random, start + i);
+            if (start <= rowCount()) {
+                // First increment old track indices
+                std::transform(d->mRandomMapping.begin(), d->mRandomMapping.end(), d->mRandomMapping.begin(), [=](const int sourceRow) {
+                    return sourceRow < start ? sourceRow : sourceRow + newItemsCount;
+                });
+            }
+
+            const bool enqueueAfterCurrentTrack = mapRowFromSource(start - 1) == d->mCurrentTrack.row();
+
+            if (enqueueAfterCurrentTrack) {
+                // Internally shuffle the new tracks then enqueue them all immediately after the current track
+                QList<int> shuffledSourceRows(newItemsCount);
+                std::iota(shuffledSourceRows.begin(), shuffledSourceRows.end(), start);
+                std::shuffle(shuffledSourceRows.begin(), shuffledSourceRows.end(), d->mRandomGenerator);
+                const int proxyStart = d->mCurrentTrack.row() + 1;
+                beginInsertRows(parent, proxyStart, proxyStart + newItemsCount - 1);
+                for (int sourceRow : shuffledSourceRows) {
+                    d->mRandomMapping.insert(proxyStart, sourceRow);
+                }
                 endInsertRows();
+            } else {
+                const int lowerBound = d->mCurrentTrack.row() + 1;
+                for (int i = 0; i < newItemsCount; ++i) {
+                    //QRandomGenerator.bounded(int) is exclusive, thus + 1
+                    const auto random = d->mRandomGenerator.bounded(lowerBound, rowCount() + 1);
+                    beginInsertRows(parent, random, random);
+                    d->mRandomMapping.insert(random, start + i);
+                    endInsertRows();
+                }
             }
         }
     } else if (d->mShuffleMode == MediaPlayListProxyModel::Shuffle::Album) { // album shuffle
@@ -538,54 +561,77 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
             }
             endInsertRows();
         } else {
-            // Find all spots in the current shuffled playlist where the album
-            // changes, then insert the new album tracks randomly in these spots
-
-            // Only insert after the current album
-            const int currentAlbumId = data(d->mCurrentTrack, MediaPlayList::AlbumIdRole).toInt();
-            int lowerBound = d->mCurrentTrack.row() + 1;
-            // 0 album ID means there is no associated album, therefore we can insert directly after the current track
-            if (currentAlbumId != 0) {
-                while (lowerBound < rowCount() && data(index(lowerBound, 0), MediaPlayList::AlbumIdRole).toInt() == currentAlbumId) {
-                    ++lowerBound;
-                }
+            if (start <= rowCount()) {
+                // First increment old track indices
+                std::transform(d->mRandomMapping.begin(), d->mRandomMapping.end(), d->mRandomMapping.begin(), [=](const int sourceRow) {
+                    return sourceRow < start ? sourceRow : sourceRow + newItemsCount;
+                });
             }
 
-            QList<int> insertIndexes;
-            int previousAlbumId = -1;
-            for (int i = lowerBound; i < rowCount(); ++i) {
-                int albumId = data(index(i, 0), MediaPlayList::AlbumIdRole).toInt();
-                if (previousAlbumId != albumId) {
-                    insertIndexes.append(i);
-                    previousAlbumId = albumId;
-                }
-            }
-            // Also add last index value as possible insertion point
-            insertIndexes.append(rowCount());
+            const bool enqueueAfterCurrentTrack = mapRowFromSource(start - 1) == d->mCurrentTrack.row();
 
-            for (int newAlbumId : newAlbumIds) {
-                const QList<int> &newAlbumTrackIds = newIndexPerAlbumId[newAlbumId];
-
-                // pick a random spot to insert the new album
-                const auto random = insertIndexes[d->mRandomGenerator.bounded(insertIndexes.count())];
-
-                beginInsertRows(parent, random, random + newAlbumTrackIds.count() - 1);
-                for (int j = 0; j < newAlbumTrackIds.count(); ++j) {
-                    d->mRandomMapping.insert(random + j, newAlbumTrackIds[j]);
-                }
-                endInsertRows();
-
-                // now update insertIndexes because by inserting an album
-                // all insertion points after the current one will also have
-                //shifted
-                for (int j = 0; j < insertIndexes.count(); ++j) {
-                    if (insertIndexes[j] >= random) {
-                        insertIndexes[j] += newAlbumTrackIds.count();
+            if (enqueueAfterCurrentTrack) {
+                // Internally shuffle the new albums then enqueue them all immediately after the current track
+                std::shuffle(newAlbumIds.begin(), newAlbumIds.end(), d->mRandomGenerator);
+                int proxyRow = d->mCurrentTrack.row() + 1;
+                beginInsertRows(parent, proxyRow, proxyRow + newItemsCount - 1);
+                for (int albumId : newAlbumIds) {
+                    const auto &sourceRows = newIndexPerAlbumId[albumId];
+                    for (int sourceRow : sourceRows) {
+                        d->mRandomMapping.insert(proxyRow++, sourceRow);
                     }
                 }
-                // finally, also add the current injection point (the
-                // original was shifted)
-                insertIndexes.append(random);
+                endInsertRows();
+            } else {
+                // Find all spots in the current shuffled playlist where the album
+                // changes, then insert the new album tracks randomly in these spots
+
+                // Only insert after the current album
+                const int currentAlbumId = data(d->mCurrentTrack, MediaPlayList::AlbumIdRole).toInt();
+                int lowerBound = d->mCurrentTrack.row() + 1;
+                // 0 album ID means there is no associated album, therefore we can insert directly after the current track
+                if (currentAlbumId != 0) {
+                    while (lowerBound < rowCount() && data(index(lowerBound, 0), MediaPlayList::AlbumIdRole).toInt() == currentAlbumId) {
+                        ++lowerBound;
+                    }
+                }
+
+                QList<int> insertIndexes;
+                int previousAlbumId = -1;
+                for (int i = lowerBound; i < rowCount(); ++i) {
+                    int albumId = data(index(i, 0), MediaPlayList::AlbumIdRole).toInt();
+                    if (previousAlbumId != albumId) {
+                        insertIndexes.append(i);
+                        previousAlbumId = albumId;
+                    }
+                }
+                // Also add last index value as possible insertion point
+                insertIndexes.append(rowCount());
+
+                for (int newAlbumId : newAlbumIds) {
+                    const QList<int> &newAlbumTrackIds = newIndexPerAlbumId[newAlbumId];
+
+                    // pick a random spot to insert the new album
+                    const auto random = insertIndexes[d->mRandomGenerator.bounded(insertIndexes.count())];
+
+                    beginInsertRows(parent, random, random + newAlbumTrackIds.count() - 1);
+                    for (int j = 0; j < newAlbumTrackIds.count(); ++j) {
+                        d->mRandomMapping.insert(random + j, newAlbumTrackIds[j]);
+                    }
+                    endInsertRows();
+
+                    // now update insertIndexes because by inserting an album
+                    // all insertion points after the current one will also have
+                    // shifted
+                    for (int j = 0; j < insertIndexes.count(); ++j) {
+                        if (insertIndexes[j] >= random) {
+                            insertIndexes[j] += newAlbumTrackIds.count();
+                        }
+                    }
+                    // finally, also add the current injection point (the
+                    // original was shifted)
+                    insertIndexes.append(random);
+                }
             }
         }
     } else { // no shuffle
@@ -773,7 +819,9 @@ void MediaPlayListProxyModel::enqueue(const DataTypes::EntryDataList &newEntries
         }
     }
 
-    d->mPlayListModel->enqueueMultipleEntries(newEntries);
+    const int enqueueIndex = enqueueMode == ElisaUtils::AfterCurrentTrack ? mapRowToSource(d->mCurrentTrack.row()) + 1 : -1;
+
+    d->mPlayListModel->enqueueMultipleEntries(newEntries, enqueueIndex);
 }
 
 void MediaPlayListProxyModel::trackInError(const QUrl &sourceInError, QMediaPlayer::Error playerError)

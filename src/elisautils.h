@@ -25,6 +25,7 @@ QML_NAMED_ELEMENT(ElisaUtils)
 enum PlayListEnqueueMode {
     AppendPlayList,
     ReplacePlayList,
+    AfterCurrentTrack,
 };
 
 Q_ENUM_NS(PlayListEnqueueMode)

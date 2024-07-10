@@ -25,18 +25,19 @@
 #include <QAbstractItemModelTester>
 
 using namespace Qt::Literals::StringLiterals;
+
 using TestTrackData = QMap<MediaPlayList::ColumnsRoles, QVariant>;
 using ListTestTrackData = QList<TestTrackData>;
 
-static void validateTracks(const MediaPlayListProxyModel *const playListProxyModel, const ListTestTrackData &expectedTrackData)
+static void validateTracks(const QAbstractItemModel *const playListModel, const ListTestTrackData &expectedTrackData)
 {
-    QCOMPARE(playListProxyModel->rowCount(), expectedTrackData.size());
-    QCOMPARE(playListProxyModel->tracksCount(), expectedTrackData.size());
+    QVERIFY(playListModel);
+    QCOMPARE(playListModel->rowCount(), expectedTrackData.size());
     for (auto i = 0; i < expectedTrackData.size(); ++ i) {
-        const auto index = playListProxyModel->index(i, 0);
+        const auto index = playListModel->index(i, 0);
         const auto &oneTrack = expectedTrackData.at(i);
         for (const auto &[columnRole, expectedData] : oneTrack.asKeyValueRange()) {
-            QCOMPARE(playListProxyModel->data(index, columnRole), expectedData);
+            QCOMPARE(playListModel->data(index, columnRole), expectedData);
         }
     }
 };
@@ -4946,6 +4947,130 @@ void MediaPlayListProxyModelTest::enqueueEmpty()
     QCOMPARE(mDataChangedSpy->count(), 0);
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 0);
+}
+
+void MediaPlayListProxyModelTest::enqueueNext_data()
+{
+    QTest::addColumn<MediaPlayListProxyModel::Shuffle>("shuffleMode");
+
+    QTest::addRow("no-shuffle") << MediaPlayListProxyModel::NoShuffle;
+    QTest::addRow("shuffle-tracks") << MediaPlayListProxyModel::Track;
+    QTest::addRow("shuffle-albums") << MediaPlayListProxyModel::Album;
+}
+
+void MediaPlayListProxyModelTest::enqueueNext()
+{
+    QFETCH(MediaPlayListProxyModel::Shuffle, shuffleMode);
+
+    const QList<DataTypes::EntryData> trackEntries = {
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$1"_s)}}, {}, {}},
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$2"_s)}}, {}, {}},
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$3"_s)}}, {}, {}},
+    };
+    mPlayListProxyModel->enqueue(trackEntries, ElisaUtils::AfterCurrentTrack, {});
+
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 1);
+    QCOMPARE(mDataChangedSpy->count(), 0);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 3);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 3);
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 1);
+    QCOMPARE(mDataChangedSpy->count(), 3);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 3);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 3);
+
+    ListTestTrackData expectedSourceModelTracks = {
+        {{MediaPlayList::TitleRole, u"track1"_s}},
+        {{MediaPlayList::TitleRole, u"track2"_s}},
+        {{MediaPlayList::TitleRole, u"track3"_s}},
+    };
+
+    validateTracks(mPlayList, expectedSourceModelTracks);
+
+    mPlayListProxyModel->setShuffleMode(shuffleMode);
+
+    const QList<DataTypes::EntryData> trackEntries2 = {
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$4"_s)}}, {}, {}},
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$9"_s)}}, {}, {}},
+    };
+
+    mPlayListProxyModel->switchTo(1);
+    int currentSourceRow = mPlayListProxyModel->mapToSource(mPlayListProxyModel->currentTrack()).row();
+    mPlayListProxyModel->enqueue(trackEntries2, ElisaUtils::AfterCurrentTrack, {});
+    expectedSourceModelTracks.insert(currentSourceRow + 1, {{MediaPlayList::TitleRole, u"track4"_s}});
+    expectedSourceModelTracks.insert(currentSourceRow + 2, {{MediaPlayList::TitleRole, u"track5"_s}});
+
+
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 2);
+    QCOMPARE(mDataChangedSpy->count(), 3);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 5);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 5);
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 2);
+    QCOMPARE(mDataChangedSpy->count(), 5);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 5);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 5);
+
+    validateTracks(mPlayList, expectedSourceModelTracks);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(1, 0));
+    QCOMPARE(mRowsInsertedSpy->constLast().at(1).toInt(), 2);
+    QCOMPARE(mRowsInsertedSpy->constLast().at(2).toInt(), 3);
+
+    const QList<DataTypes::EntryData> trackEntries3 = {
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$10"_s)}}, {}, {}},
+            {{{DataTypes::ResourceRole, QUrl::fromLocalFile(u"/$22"_s)}}, {}, {}},
+    };
+
+    mPlayListProxyModel->switchTo(0);
+    currentSourceRow = mPlayListProxyModel->mapToSource(mPlayListProxyModel->currentTrack()).row();
+    mPlayListProxyModel->enqueue(trackEntries3, ElisaUtils::AfterCurrentTrack, {});
+    expectedSourceModelTracks.insert(currentSourceRow + 1, {{MediaPlayList::TitleRole, u"track6"_s}});
+    expectedSourceModelTracks.insert(currentSourceRow + 2, {{MediaPlayList::TitleRole, u"track9"_s}});
+
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 3);
+    QCOMPARE(mDataChangedSpy->count(), 5);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 7);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 7);
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 3);
+    QCOMPARE(mDataChangedSpy->count(), 7);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 7);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 7);
+
+    validateTracks(mPlayList, expectedSourceModelTracks);
+    QCOMPARE(mPlayListProxyModel->currentTrack(), mPlayListProxyModel->index(0, 0));
+    QCOMPARE(mRowsInsertedSpy->constLast().at(1).toInt(), 1);
+    QCOMPARE(mRowsInsertedSpy->constLast().at(2).toInt(), 2);
 }
 
 void MediaPlayListProxyModelTest::testMoveAndShuffle()

@@ -72,6 +72,10 @@ private Q_SLOTS:
 
     void enqueueEmpty();
 
+    void enqueueNext_data();
+
+    void enqueueNext();
+
     void removeFirstTrackOfAlbum();
 
     void testSaveLoadPlayList();

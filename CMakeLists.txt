@@ -165,8 +165,8 @@ ecm_setup_version(${RELEASE_SERVICE_VERSION}
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/bin CACHE STRING "" FORCE)
 
 ecm_set_disabled_deprecation_versions(
-    QT 5.15.2
-    KF 5.101
+    QT 6.1.0
+    KF 6.4
 )
 
 

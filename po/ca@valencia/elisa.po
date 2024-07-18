@@ -4,13 +4,13 @@
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2016, 2017, 2018, 2019, 2020, 2021.
-# Josep M. Ferrer <txemaq@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-02 00:38+0000\n"
-"PO-Revision-Date: 2024-05-10 11:55+0200\n"
+"POT-Creation-Date: 2024-07-18 00:38+0000\n"
+"PO-Revision-Date: 2024-07-16 08:12+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -368,38 +368,46 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Reproduïu la música"
 
-#: qml/AbstractBrowserDelegate.qml:39 qml/NavigationActionBar.qml:127
+#: qml/AbstractBrowserDelegate.qml:40 qml/NavigationActionBar.qml:128
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Reproduïx ara, substituint la llista de reproducció actual"
 
-#: qml/AbstractBrowserDelegate.qml:46 qml/TrackBrowserDelegate.qml:74
+#: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Play counter label for track metadata view"
+#| msgid "Play count"
+msgctxt "@action:button"
+msgid "Play next"
+msgstr "Nombre de reproduccions"
+
+#: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Afig a la llista de reproducció"
 
-#: qml/AbstractBrowserDelegate.qml:55 qml/mobile/MobilePlayListDelegate.qml:166
-#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:62
+#: qml/AbstractBrowserDelegate.qml:61 qml/mobile/MobilePlayListDelegate.qml:166
+#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:63
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Mostra en la carpeta"
 
-#: qml/AbstractBrowserDelegate.qml:77
+#: qml/AbstractBrowserDelegate.qml:83
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
 msgstr "Opcions"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:203
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Sense coincidències"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:203
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -456,7 +464,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Ara s'està reproduint"
 
-#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:215
+#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:227
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -475,7 +483,7 @@ msgid "Lyrics"
 msgstr "Lletra"
 
 #: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
-#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:152
+#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:164
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -810,14 +818,14 @@ msgid "Clear All"
 msgstr "Neteja-ho tot"
 
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
-#: qml/TrackBrowserDelegate.qml:93
+#: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Desmarca esta cançó com a preferida"
 
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
-#: qml/TrackBrowserDelegate.qml:93
+#: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
@@ -915,7 +923,7 @@ msgid "Radio Options"
 msgstr "Opcions de ràdio"
 
 #: qml/mobile/MobilePlayListDelegate.qml:172 qml/PlayListEntry.qml:93
-#: qml/TrackBrowserDelegate.qml:69
+#: qml/TrackBrowserDelegate.qml:70
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -1085,79 +1093,87 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Ajuda"
 
-#: qml/NavigationActionBar.qml:87
+#: qml/NavigationActionBar.qml:88
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Ordenació: %1"
 
-#: qml/NavigationActionBar.qml:88
+#: qml/NavigationActionBar.qml:89
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Ordena"
 
-#: qml/NavigationActionBar.qml:102
+#: qml/NavigationActionBar.qml:103
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "Crea una ràdio"
 
-#: qml/NavigationActionBar.qml:114
+#: qml/NavigationActionBar.qml:115
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Afig a la llista de reproducció"
 
 #: qml/NavigationActionBar.qml:140
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Play counter label for track metadata view"
+#| msgid "Play count"
+msgctxt "@action:button"
+msgid "Play Next"
+msgstr "Nombre de reproduccions"
+
+#: qml/NavigationActionBar.qml:152
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Mostra l'artista"
 
-#: qml/NavigationActionBar.qml:163
+#: qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
 msgstr "Canvia l'estil de la vista"
 
-#: qml/NavigationActionBar.qml:223
+#: qml/NavigationActionBar.qml:235
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Arrere"
 
-#: qml/NavigationActionBar.qml:301
+#: qml/NavigationActionBar.qml:318
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Busca i filtra"
 
-#: qml/NavigationActionBar.qml:301
+#: qml/NavigationActionBar.qml:318
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Oculta el Busca i filtra"
 
-#: qml/NavigationActionBar.qml:388
+#: qml/NavigationActionBar.qml:410
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Busca el nom de l'àlbum, l'artista, etc."
 
-#: qml/NavigationActionBar.qml:397
+#: qml/NavigationActionBar.qml:419
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtra per puntuació: "
 
-#: qml/NavigationActionBar.qml:415
+#: qml/NavigationActionBar.qml:437
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Mostra només les preferides"
 
-#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:85
+#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:91
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
@@ -1181,7 +1197,7 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Elimina"
 
-#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:314
+#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:320
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -1397,7 +1413,7 @@ msgstr "Seleccioneu…"
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
-msgstr "Selecciona una carpeta"
+msgstr "Seleccioneu una carpeta"
 
 #: qml/SettingsForm.qml:354
 #, kde-format
@@ -1460,31 +1476,31 @@ msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "Ordena per"
 
-#: qml/TrackBrowserDelegate.qml:79
+#: qml/TrackBrowserDelegate.qml:85
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Reproduïx des d'ací, substituint la llista de reproducció actual"
 
-#: qml/TrackBrowserDelegate.qml:209 qml/TrackBrowserDelegate.qml:225
+#: qml/TrackBrowserDelegate.qml:215 qml/TrackBrowserDelegate.qml:231
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/TrackBrowserDelegate.qml:220
+#: qml/TrackBrowserDelegate.qml:226
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/TrackBrowserDelegate.qml:232
+#: qml/TrackBrowserDelegate.qml:238
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/TrackBrowserDelegate.qml:366
+#: qml/TrackBrowserDelegate.qml:372
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"

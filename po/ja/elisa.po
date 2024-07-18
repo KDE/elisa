@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-02 00:38+0000\n"
+"POT-Creation-Date: 2024-07-18 00:38+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -436,7 +436,7 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "再生中"
 
-#: qml/AbstractBrowserDelegate.qml:39 qml/NavigationActionBar.qml:127
+#: qml/AbstractBrowserDelegate.qml:40 qml/NavigationActionBar.qml:128
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -444,7 +444,15 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "現在のプレイリストを置き換えて再生"
 
-#: qml/AbstractBrowserDelegate.qml:46 qml/TrackBrowserDelegate.qml:74
+#: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
+#, fuzzy, kde-format
+#| msgctxt "Play counter label for track metadata view"
+#| msgid "Play count"
+msgctxt "@action:button"
+msgid "Play next"
+msgstr "再生回数"
+
+#: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to Playlist"
@@ -452,8 +460,8 @@ msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "プレイリストに追加"
 
-#: qml/AbstractBrowserDelegate.qml:55 qml/mobile/MobilePlayListDelegate.qml:166
-#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:62
+#: qml/AbstractBrowserDelegate.qml:61 qml/mobile/MobilePlayListDelegate.qml:166
+#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:63
 #, fuzzy, kde-format
 #| msgctxt "Show the file for this song in the file manager"
 #| msgid "Show in folder"
@@ -461,7 +469,7 @@ msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "ファイルマネージャーで表示"
 
-#: qml/AbstractBrowserDelegate.qml:77
+#: qml/AbstractBrowserDelegate.qml:83
 #, fuzzy, kde-format
 #| msgctxt "Options"
 #| msgid "Options"
@@ -469,13 +477,13 @@ msgctxt "@action:button"
 msgid "Options"
 msgstr "オプション"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:203
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr ""
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:203
 #, fuzzy, kde-format
 #| msgid "Nothing to display"
 msgctxt "@info:placeholder"
@@ -544,7 +552,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "再生中"
 
-#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:215
+#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:227
 #, fuzzy, kde-format
 #| msgctxt "open the sidebar"
 #| msgid "Open sidebar"
@@ -569,7 +577,7 @@ msgid "Lyrics"
 msgstr "歌詞"
 
 #: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
-#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:152
+#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:164
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -959,7 +967,7 @@ msgid "Clear All"
 msgstr "すべてクリア"
 
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
-#: qml/TrackBrowserDelegate.qml:93
+#: qml/TrackBrowserDelegate.qml:99
 #, fuzzy, kde-format
 #| msgid "Un-mark this song as a favorite"
 msgctxt "@action:button"
@@ -967,7 +975,7 @@ msgid "Un-mark this song as a favorite"
 msgstr "この曲をお気に入りから外す"
 
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
-#: qml/TrackBrowserDelegate.qml:93
+#: qml/TrackBrowserDelegate.qml:99
 #, fuzzy, kde-format
 #| msgid "Mark this song as a favorite"
 msgctxt "@action:button"
@@ -1083,7 +1091,7 @@ msgid "Radio Options"
 msgstr "ラジオ局"
 
 #: qml/mobile/MobilePlayListDelegate.qml:172 qml/PlayListEntry.qml:93
-#: qml/TrackBrowserDelegate.qml:69
+#: qml/TrackBrowserDelegate.qml:70
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
 #| msgid "View details"
@@ -1293,7 +1301,7 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "ヘルプ"
 
-#: qml/NavigationActionBar.qml:87
+#: qml/NavigationActionBar.qml:88
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort: %1"
@@ -1301,7 +1309,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "並び替え: %1"
 
-#: qml/NavigationActionBar.qml:88
+#: qml/NavigationActionBar.qml:89
 #, fuzzy, kde-format
 #| msgctxt "Sort By Menu Title with no sort selected"
 #| msgid "Sort"
@@ -1309,7 +1317,7 @@ msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "並び替え"
 
-#: qml/NavigationActionBar.qml:102
+#: qml/NavigationActionBar.qml:103
 #, fuzzy, kde-format
 #| msgctxt "Create a new radio"
 #| msgid "Create a radio"
@@ -1317,7 +1325,7 @@ msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "ラジオを作成"
 
-#: qml/NavigationActionBar.qml:114
+#: qml/NavigationActionBar.qml:115
 #, fuzzy, kde-format
 #| msgctxt "Add current list to playlist"
 #| msgid "Add to Playlist"
@@ -1327,13 +1335,21 @@ msgstr "プレイリストに追加"
 
 #: qml/NavigationActionBar.qml:140
 #, fuzzy, kde-format
+#| msgctxt "Play counter label for track metadata view"
+#| msgid "Play count"
+msgctxt "@action:button"
+msgid "Play Next"
+msgstr "再生回数"
+
+#: qml/NavigationActionBar.qml:152
+#, fuzzy, kde-format
 #| msgctxt "Button to navigate to the artist of the album"
 #| msgid "Display Artist"
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "アーティストを表示"
 
-#: qml/NavigationActionBar.qml:163
+#: qml/NavigationActionBar.qml:175
 #, fuzzy, kde-format
 #| msgctxt "toggle shuffle mode for playlist"
 #| msgid "Toggle Shuffle"
@@ -1341,7 +1357,7 @@ msgctxt "@action:button"
 msgid "Toggle View Style"
 msgstr "シャッフルを切り替え"
 
-#: qml/NavigationActionBar.qml:223
+#: qml/NavigationActionBar.qml:235
 #, fuzzy, kde-format
 #| msgctxt "navigate back in the views stack"
 #| msgid "Back"
@@ -1349,7 +1365,7 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "戻る"
 
-#: qml/NavigationActionBar.qml:301
+#: qml/NavigationActionBar.qml:318
 #, fuzzy, kde-format
 #| msgctxt "Show filters in the navigation bar"
 #| msgid "Search and Filter"
@@ -1357,7 +1373,7 @@ msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "検索とフィルタ"
 
-#: qml/NavigationActionBar.qml:301
+#: qml/NavigationActionBar.qml:318
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search and Filter"
@@ -1365,27 +1381,27 @@ msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "検索とフィルタオプションを隠す"
 
-#: qml/NavigationActionBar.qml:388
+#: qml/NavigationActionBar.qml:410
 #, fuzzy, kde-format
 #| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "アルバム名、アーティストなどを検索"
 
-#: qml/NavigationActionBar.qml:397
+#: qml/NavigationActionBar.qml:419
 #, fuzzy, kde-format
 #| msgid "Filter by rating: "
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "評価でフィルタ: "
 
-#: qml/NavigationActionBar.qml:415
+#: qml/NavigationActionBar.qml:437
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr ""
 
-#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:85
+#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:91
 #, fuzzy, kde-format
 #| msgctxt "Show track rating"
 #| msgid "Set track rating"
@@ -1415,7 +1431,7 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "削除"
 
-#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:314
+#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:320
 #, fuzzy, kde-format
 #| msgctxt "Cancel rating this track"
 #| msgid "Cancel rating this track"
@@ -1734,7 +1750,7 @@ msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "次で並び替え"
 
-#: qml/TrackBrowserDelegate.qml:79
+#: qml/TrackBrowserDelegate.qml:85
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -1742,7 +1758,7 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "現在のプレイリストを置き換えて再生"
 
-#: qml/TrackBrowserDelegate.qml:209 qml/TrackBrowserDelegate.qml:225
+#: qml/TrackBrowserDelegate.qml:215 qml/TrackBrowserDelegate.qml:231
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title."
 #| msgid "%1 - %2"
@@ -1750,7 +1766,7 @@ msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/TrackBrowserDelegate.qml:220
+#: qml/TrackBrowserDelegate.qml:226
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title. %3: artist name"
 #| msgid "%1 - %2 - %3"
@@ -1758,7 +1774,7 @@ msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/TrackBrowserDelegate.qml:232
+#: qml/TrackBrowserDelegate.qml:238
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title."
 #| msgid "%1 - %2"
@@ -1766,7 +1782,7 @@ msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/TrackBrowserDelegate.qml:366
+#: qml/TrackBrowserDelegate.qml:372
 #, fuzzy, kde-format
 #| msgctxt "Song options"
 #| msgid "Song Options"

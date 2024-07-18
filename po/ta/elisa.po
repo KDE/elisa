@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-02 00:38+0000\n"
+"POT-Creation-Date: 2024-07-18 00:38+0000\n"
 "PO-Revision-Date: 2024-05-12 14:51+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -364,38 +364,46 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "பாடல் இசைக்கப்படுகிறது"
 
-#: qml/AbstractBrowserDelegate.qml:39 qml/NavigationActionBar.qml:127
+#: qml/AbstractBrowserDelegate.qml:40 qml/NavigationActionBar.qml:128
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
 
-#: qml/AbstractBrowserDelegate.qml:46 qml/TrackBrowserDelegate.qml:74
+#: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Play counter label for track metadata view"
+#| msgid "Play count"
+msgctxt "@action:button"
+msgid "Play next"
+msgstr "எத்தனைமுறை இசைத்தது"
+
+#: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "பாடல்வரிசையில் செர்"
 
-#: qml/AbstractBrowserDelegate.qml:55 qml/mobile/MobilePlayListDelegate.qml:166
-#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:62
+#: qml/AbstractBrowserDelegate.qml:61 qml/mobile/MobilePlayListDelegate.qml:166
+#: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:63
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "அடைவில் காட்டு"
 
-#: qml/AbstractBrowserDelegate.qml:77
+#: qml/AbstractBrowserDelegate.qml:83
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
 msgstr "விருப்பங்கள்"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:203
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "பொருத்தங்கள் இல்லை"
 
-#: qml/AbstractDataView.qml:201
+#: qml/AbstractDataView.qml:203
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -452,7 +460,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "இப்போது இசைக்கப்படுவது"
 
-#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:215
+#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:227
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -471,7 +479,7 @@ msgid "Lyrics"
 msgstr "பாடல்வரிகள்"
 
 #: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
-#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:152
+#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:164
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -805,14 +813,14 @@ msgid "Clear All"
 msgstr "அனைத்தையும் நீக்கு"
 
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
-#: qml/TrackBrowserDelegate.qml:93
+#: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "இப்பாடலிலுள்ள பிடித்த‍தென்ற குறியை நீக்கு"
 
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
-#: qml/TrackBrowserDelegate.qml:93
+#: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
@@ -910,7 +918,7 @@ msgid "Radio Options"
 msgstr "வானொலி விருப்பங்கள்"
 
 #: qml/mobile/MobilePlayListDelegate.qml:172 qml/PlayListEntry.qml:93
-#: qml/TrackBrowserDelegate.qml:69
+#: qml/TrackBrowserDelegate.qml:70
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -1080,79 +1088,87 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "உதவி"
 
-#: qml/NavigationActionBar.qml:87
+#: qml/NavigationActionBar.qml:88
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "வரிசை: %1"
 
-#: qml/NavigationActionBar.qml:88
+#: qml/NavigationActionBar.qml:89
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "வரிசைப்படுத்து"
 
-#: qml/NavigationActionBar.qml:102
+#: qml/NavigationActionBar.qml:103
 #, kde-format
 msgctxt "@action:button"
 msgid "Create a radio"
 msgstr "வானொலி மையத்தை உருவாக்கு"
 
-#: qml/NavigationActionBar.qml:114
+#: qml/NavigationActionBar.qml:115
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "பாடல்வரிசையில் செர்"
 
 #: qml/NavigationActionBar.qml:140
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Play counter label for track metadata view"
+#| msgid "Play count"
+msgctxt "@action:button"
+msgid "Play Next"
+msgstr "எத்தனைமுறை இசைத்தது"
+
+#: qml/NavigationActionBar.qml:152
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "கலைஞரைக் காட்டு"
 
-#: qml/NavigationActionBar.qml:163
+#: qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
 msgstr "பார்வைமுறையின் நிலையை மாற்று"
 
-#: qml/NavigationActionBar.qml:223
+#: qml/NavigationActionBar.qml:235
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "பின்னே"
 
-#: qml/NavigationActionBar.qml:301
+#: qml/NavigationActionBar.qml:318
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "தேடி வடிகட்டு"
 
-#: qml/NavigationActionBar.qml:301
+#: qml/NavigationActionBar.qml:318
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "வடிகட்டிகளை மறை"
 
-#: qml/NavigationActionBar.qml:388
+#: qml/NavigationActionBar.qml:410
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "ஆல்ப‍ப்பெயர், கலைஞர் போன்றவற்றை தேடுங்கள்"
 
-#: qml/NavigationActionBar.qml:397
+#: qml/NavigationActionBar.qml:419
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "மதிப்பீட்டின் படி வடிகட்டு: "
 
-#: qml/NavigationActionBar.qml:415
+#: qml/NavigationActionBar.qml:437
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "பிடித்தவற்றை மட்டும் காட்டு"
 
-#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:85
+#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:91
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
@@ -1176,7 +1192,7 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "நீக்கு"
 
-#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:314
+#: qml/PlayListEntry.qml:299 qml/TrackBrowserDelegate.qml:320
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -1452,31 +1468,31 @@ msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "வரிசைப்படுத்தும் முறை"
 
-#: qml/TrackBrowserDelegate.qml:79
+#: qml/TrackBrowserDelegate.qml:85
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இங்கிருந்து இதை இசை"
 
-#: qml/TrackBrowserDelegate.qml:209 qml/TrackBrowserDelegate.qml:225
+#: qml/TrackBrowserDelegate.qml:215 qml/TrackBrowserDelegate.qml:231
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/TrackBrowserDelegate.qml:220
+#: qml/TrackBrowserDelegate.qml:226
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/TrackBrowserDelegate.qml:232
+#: qml/TrackBrowserDelegate.qml:238
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/TrackBrowserDelegate.qml:366
+#: qml/TrackBrowserDelegate.qml:372
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"

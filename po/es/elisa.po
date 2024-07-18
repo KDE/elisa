@@ -5,13 +5,14 @@
 # SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2024 Eloy Cuadra <ecuadra@eloihr.net>
 # Automatically generated, 2016.
 # Víctor Rodrigo Córdoba <vrcordoba@gmail.com>, 2019, 2020, 2021, 2022, 2023, 2024, %Y.
+# Eloy Cuadra <ecuadra@eloihr.net>, %Y.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-14 02:24+0000\n"
-"PO-Revision-Date: 2024-04-06 18:09+0200\n"
-"Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
+"PO-Revision-Date: 2024-07-17 14:09+0100\n"
+"Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1235,7 +1236,7 @@ msgstr "Esquema de color:"
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
-msgstr "Escanear por nueva música"
+msgstr "Escanear nueva música"
 
 #: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
 #, kde-format

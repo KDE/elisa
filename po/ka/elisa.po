@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-18 00:38+0000\n"
-"PO-Revision-Date: 2024-05-10 07:27+0200\n"
+"PO-Revision-Date: 2024-07-18 05:41+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -372,12 +372,10 @@ msgid "Play now, replacing current playlist"
 msgstr "ახლავე დაკვრა, მიმდინარე რიგის ჩანაცვლებით"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "დაკვრების რაოდენობა"
+msgstr "შემდეგის დაკვრა"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -1115,12 +1113,10 @@ msgid "Add to Playlist"
 msgstr "დასაკრავი სიაში დამატება"
 
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "დაკვრების რაოდენობა"
+msgstr "შემდეგის დაკვრა"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format

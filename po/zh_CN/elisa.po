@@ -371,12 +371,10 @@ msgid "Play now, replacing current playlist"
 msgstr "立即播放，替换当前播放列表"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "播放次数"
+msgstr ""
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -1106,12 +1104,10 @@ msgid "Add to Playlist"
 msgstr "添加至播放列表"
 
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "播放次数"
+msgstr ""
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format

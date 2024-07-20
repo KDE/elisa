@@ -374,7 +374,7 @@ msgstr "立即播放，替换当前播放列表"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr ""
+msgstr "播放下一首"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -1107,7 +1107,7 @@ msgstr "添加至播放列表"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr ""
+msgstr "播放下一首"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format

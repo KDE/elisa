@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-18 00:38+0000\n"
-"PO-Revision-Date: 2024-06-29 23:44+0200\n"
+"PO-Revision-Date: 2024-07-19 08:23+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -374,12 +374,10 @@ msgid "Play now, replacing current playlist"
 msgstr "Jo orain, uneko jotze-zerrenda ordezkatuz"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Jotze kopurua"
+msgstr "Jo hurrengoa"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -1117,12 +1115,10 @@ msgid "Add to Playlist"
 msgstr "Gehitu jotze-zerrendara"
 
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "Play now current track from play list"
-#| msgid "Play Now"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "Jo orain"
+msgstr "Jo hurrengoa"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format

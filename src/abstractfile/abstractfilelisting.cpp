@@ -19,12 +19,26 @@
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QSet>
-#include <QPair>
 #include <QAtomicInt>
 
 
 #include <algorithm>
 #include <utility>
+
+struct FileSystemPath {
+    QUrl path;
+    bool isFile;
+};
+
+inline bool operator==(const FileSystemPath &path1, const FileSystemPath &path2)
+{
+    return path1.path == path2.path && path1.isFile == path2.isFile;
+}
+
+inline size_t qHash(const FileSystemPath &fileSystemPath, size_t seed = 0)
+{
+    return qHash(fileSystemPath.path, seed);
+}
 
 class AbstractFileListingPrivate
 {
@@ -36,7 +50,7 @@ public:
 
     QHash<QString, QUrl> mAllAlbumCover;
 
-    QHash<QUrl, QSet<QPair<QUrl, bool>>> mDiscoveredFiles;
+    QHash<QUrl, QSet<FileSystemPath>> mDiscoveredFiles;
 
     FileScanner mFileScanner;
 
@@ -167,14 +181,14 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
 
     auto allRemovedTracks = QList<QUrl>();
     for (const auto &removedFilePath : currentDirectoryListingFiles) {
-        if (currentFilesList.contains(removedFilePath.first)) {
+        if (currentFilesList.contains(removedFilePath.path)) {
             continue;
         }
 
-        if (removedFilePath.second) {
-            allRemovedTracks.push_back(removedFilePath.first);
+        if (removedFilePath.isFile) {
+            allRemovedTracks.push_back(removedFilePath.path);
         } else {
-            removeFile(removedFilePath.first, allRemovedTracks);
+            removeFile(removedFilePath.path, allRemovedTracks);
         }
 
         currentDirectoryListingFiles.remove(removedFilePath);
@@ -403,10 +417,10 @@ void AbstractFileListing::removeDirectory(const QUrl &removedDirectory, QList<QU
 
     const auto &currentRemovedDirectory = *itRemovedDirectory;
     for (const auto &itFile : currentRemovedDirectory) {
-        if (itFile.first.isValid() && !itFile.first.isEmpty()) {
-            removeFile(itFile.first, allRemovedFiles);
-            if (itFile.second) {
-                allRemovedFiles.push_back(itFile.first);
+        if (itFile.path.isValid() && !itFile.path.isEmpty()) {
+            removeFile(itFile.path, allRemovedFiles);
+            if (itFile.isFile) {
+                allRemovedFiles.push_back(itFile.path);
             }
         }
     }

@@ -165,24 +165,19 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
         }
     }
 
-    auto removedTracks = QList<QPair<QUrl, bool>>();
+    auto allRemovedTracks = QList<QUrl>();
     for (const auto &removedFilePath : currentDirectoryListingFiles) {
         if (currentFilesList.contains(removedFilePath.first)) {
             continue;
         }
 
-        removedTracks.push_back(removedFilePath);
-    }
-
-    auto allRemovedTracks = QList<QUrl>();
-    for (const auto &oneRemovedTrack : std::as_const(removedTracks)) {
-        if (oneRemovedTrack.second) {
-            allRemovedTracks.push_back(oneRemovedTrack.first);
+        if (removedFilePath.second) {
+            allRemovedTracks.push_back(removedFilePath.first);
         } else {
-            removeFile(oneRemovedTrack.first, allRemovedTracks);
+            removeFile(removedFilePath.first, allRemovedTracks);
         }
 
-        currentDirectoryListingFiles.remove(oneRemovedTrack);
+        currentDirectoryListingFiles.remove(removedFilePath);
     }
 
     if (!allRemovedTracks.isEmpty()) {

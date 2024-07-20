@@ -440,17 +440,11 @@ QHash<QUrl, QDateTime> &AbstractFileListing::allFiles()
 
 void AbstractFileListing::checkFilesToRemove()
 {
-    QList<QUrl> allRemovedFiles;
+    qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::checkFilesToRemove" << d->mAllFiles.size();
 
-    for (auto itFile = d->mAllFiles.begin(); itFile != d->mAllFiles.end(); ++itFile) {
-        allRemovedFiles.push_back(itFile.key());
-    }
-
-    qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::checkFilesToRemove" << allRemovedFiles.size();
-
-    if (!allRemovedFiles.isEmpty()) {
+    if (!d->mAllFiles.isEmpty()) {
         setWaitEndTrackRemoval(true);
-        Q_EMIT removedTracksList(allRemovedFiles);
+        Q_EMIT removedTracksList(d->mAllFiles.keys());
     }
 }
 

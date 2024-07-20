@@ -167,9 +167,7 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
 
     auto removedTracks = QList<QPair<QUrl, bool>>();
     for (const auto &removedFilePath : currentDirectoryListingFiles) {
-        auto itFilePath = std::find(currentFilesList.begin(), currentFilesList.end(), removedFilePath.first);
-
-        if (itFilePath != currentFilesList.end()) {
+        if (currentFilesList.contains(removedFilePath.first)) {
             continue;
         }
 
@@ -248,8 +246,7 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
 
 void AbstractFileListing::directoryChanged(const QString &path)
 {
-    const auto directoryEntry = d->mDiscoveredFiles.find(QUrl::fromLocalFile(path));
-    if (directoryEntry == d->mDiscoveredFiles.end()) {
+    if (!d->mDiscoveredFiles.contains(QUrl::fromLocalFile(path))) {
         return;
     }
 
@@ -340,8 +337,7 @@ void AbstractFileListing::watchPath(const QString &pathName)
 
 void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &directoryName, FileSystemWatchingModes watchForFileSystemChanges)
 {
-    const auto directoryEntry = d->mDiscoveredFiles.find(directoryName);
-    if (directoryEntry == d->mDiscoveredFiles.end()) {
+    if (!d->mDiscoveredFiles.contains(directoryName)) {
         if (watchForFileSystemChanges & WatchChangedDirectories) {
             watchPath(directoryName.toLocalFile());
         }
@@ -350,8 +346,7 @@ void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &di
         if (currentDirectory.cdUp()) {
             const auto parentDirectoryName = currentDirectory.absolutePath();
             const auto parentDirectory = QUrl::fromLocalFile(parentDirectoryName);
-            const auto parentDirectoryEntry = d->mDiscoveredFiles.find(parentDirectory);
-            if (parentDirectoryEntry == d->mDiscoveredFiles.end()) {
+            if (!d->mDiscoveredFiles.contains(parentDirectory)) {
                 if (watchForFileSystemChanges & WatchChangedDirectories) {
                     watchPath(parentDirectoryName);
                 }
@@ -393,8 +388,7 @@ void AbstractFileListing::emitNewFiles(const DataTypes::ListTrackDataType &track
 
 void AbstractFileListing::addCover(const DataTypes::TrackDataType &newTrack)
 {
-    auto itCover = d->mAllAlbumCover.find(newTrack.album());
-    if (itCover != d->mAllAlbumCover.end()) {
+    if (d->mAllAlbumCover.contains(newTrack.album())) {
         return;
     }
 
@@ -427,8 +421,7 @@ void AbstractFileListing::removeDirectory(const QUrl &removedDirectory, QList<QU
 
 void AbstractFileListing::removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles)
 {
-    auto itRemovedDirectory = d->mDiscoveredFiles.find(oneRemovedTrack);
-    if (itRemovedDirectory != d->mDiscoveredFiles.end()) {
+    if (d->mDiscoveredFiles.contains(oneRemovedTrack)) {
         removeDirectory(oneRemovedTrack, allRemovedFiles);
     }
 }

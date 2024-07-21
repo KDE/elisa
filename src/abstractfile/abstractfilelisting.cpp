@@ -50,7 +50,7 @@ public:
 
     QHash<QString, QUrl> mAllAlbumCover;
 
-    QHash<QUrl, QSet<FileSystemPath>> mDiscoveredFiles;
+    QHash<QUrl, QSet<FileSystemPath>> mDiscoveredDirectories;
 
     FileScanner mFileScanner;
 
@@ -165,7 +165,7 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
         }
     }
 
-    auto currentDirectoryListingFiles = d->mDiscoveredFiles[path];
+    auto currentDirectoryListingFiles = d->mDiscoveredDirectories[path];
 
     auto currentFilesList = QSet<QUrl>();
 
@@ -255,7 +255,7 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
 
 void AbstractFileListing::directoryChanged(const QString &path)
 {
-    if (!d->mDiscoveredFiles.contains(QUrl::fromLocalFile(path))) {
+    if (!d->mDiscoveredDirectories.contains(QUrl::fromLocalFile(path))) {
         return;
     }
 
@@ -346,7 +346,7 @@ void AbstractFileListing::watchPath(const QString &pathName)
 
 void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &directoryName, FileSystemWatchingModes watchForFileSystemChanges)
 {
-    if (!d->mDiscoveredFiles.contains(directoryName)) {
+    if (!d->mDiscoveredDirectories.contains(directoryName)) {
         if (watchForFileSystemChanges & WatchChangedDirectories) {
             watchPath(directoryName.toLocalFile());
         }
@@ -355,18 +355,18 @@ void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &di
         if (currentDirectory.cdUp()) {
             const auto parentDirectoryName = currentDirectory.absolutePath();
             const auto parentDirectory = QUrl::fromLocalFile(parentDirectoryName);
-            if (!d->mDiscoveredFiles.contains(parentDirectory)) {
+            if (!d->mDiscoveredDirectories.contains(parentDirectory)) {
                 if (watchForFileSystemChanges & WatchChangedDirectories) {
                     watchPath(parentDirectoryName);
                 }
             }
 
-            auto &parentCurrentDirectoryListingFiles = d->mDiscoveredFiles[parentDirectory];
+            auto &parentCurrentDirectoryListingFiles = d->mDiscoveredDirectories[parentDirectory];
 
             parentCurrentDirectoryListingFiles.insert({directoryName, false});
         }
     }
-    auto &currentDirectoryListingFiles = d->mDiscoveredFiles[directoryName];
+    auto &currentDirectoryListingFiles = d->mDiscoveredDirectories[directoryName];
 
     QFileInfo isAFile(newFile.toLocalFile());
     currentDirectoryListingFiles.insert({newFile, isAFile.isFile()});
@@ -409,9 +409,9 @@ void AbstractFileListing::addCover(const DataTypes::TrackDataType &newTrack)
 
 void AbstractFileListing::removeDirectory(const QUrl &removedDirectory, QList<QUrl> &allRemovedFiles)
 {
-    const auto itRemovedDirectory = d->mDiscoveredFiles.constFind(removedDirectory);
+    const auto itRemovedDirectory = d->mDiscoveredDirectories.constFind(removedDirectory);
 
-    if (itRemovedDirectory == d->mDiscoveredFiles.cend()) {
+    if (itRemovedDirectory == d->mDiscoveredDirectories.cend()) {
         return;
     }
 
@@ -425,12 +425,12 @@ void AbstractFileListing::removeDirectory(const QUrl &removedDirectory, QList<QU
         }
     }
 
-    d->mDiscoveredFiles.erase(itRemovedDirectory);
+    d->mDiscoveredDirectories.erase(itRemovedDirectory);
 }
 
 void AbstractFileListing::removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles)
 {
-    if (d->mDiscoveredFiles.contains(oneRemovedTrack)) {
+    if (d->mDiscoveredDirectories.contains(oneRemovedTrack)) {
         removeDirectory(oneRemovedTrack, allRemovedFiles);
     }
 }

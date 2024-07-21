@@ -375,7 +375,7 @@ msgstr "Geçerli Listeyi Değiştirip Şimdi Çal"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Sırada Çal"
+msgstr "Sıradaki Yap"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format

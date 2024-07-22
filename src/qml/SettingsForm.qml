@@ -190,7 +190,8 @@ ColumnLayout {
 
                 required property var model
 
-                icon.name: "image://colorScheme/" + model.display
+                icon.source: "image://colorScheme/" + model.display
+                icon.color: "transparent"
                 text: model.display
                 checked: model.display === ElisaConfigurationDialog.colorScheme
                 onClicked: {

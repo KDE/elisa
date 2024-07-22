@@ -56,7 +56,10 @@ Menu {
         Repeater {
             model: ElisaApplication.colorSchemesModel
             delegate: MenuItem {
-                icon.name: "image://colorScheme/" + model.display
+                required property var model
+
+                icon.source: "image://colorScheme/" + model.display
+                icon.color: "transparent"
                 text: model.display
                 checkable: true
                 checked: model.display === ElisaConfigurationDialog.colorScheme

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-18 00:38+0000\n"
-"PO-Revision-Date: 2024-07-14 12:20+0200\n"
+"PO-Revision-Date: 2024-07-21 11:44+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.07.70\n"
+"X-Generator: Lokalize 24.05.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -391,14 +391,11 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Spel no og byt ut spelelista"
 
-# unreviewed-context
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Avspelingsteljar"
+msgstr "Spel som neste"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -1188,14 +1185,11 @@ msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Legg til i speleliste"
 
-# unreviewed-context
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "Avspelingsteljar"
+msgstr "Spel som neste"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format

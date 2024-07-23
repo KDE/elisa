@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-18 00:38+0000\n"
-"PO-Revision-Date: 2024-05-10 20:58+0200\n"
+"PO-Revision-Date: 2024-07-20 13:38+0200\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -372,12 +372,10 @@ msgid "Play now, replacing current playlist"
 msgstr "Riproduci adesso, sostituendo la scaletta attuale"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Tot. riproduzioni"
+msgstr "Riproduci successivo"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -1118,12 +1116,10 @@ msgid "Add to Playlist"
 msgstr "Aggiungi alla scaletta"
 
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "Play now current track from play list"
-#| msgid "Play Now"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "Riproduci"
+msgstr "Riproduci successivo"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format

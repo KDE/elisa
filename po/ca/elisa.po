@@ -1749,19 +1749,3 @@ msgstr "Fitxers"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Shuffle"
-#~ msgstr "Commuta la barreja"
-
-#~ msgctxt "@action:inmenu shuffle mode is turned on"
-#~ msgid "On"
-#~ msgstr "Actiu"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "D'acord"
-
-#~ msgctxt "@action:button"
-#~ msgid "Apply"
-#~ msgstr "Aplica"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-18 00:38+0000\n"
+"POT-Creation-Date: 2024-07-23 00:38+0000\n"
 "PO-Revision-Date: 2024-07-19 08:23+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1272,160 +1272,160 @@ msgctxt "@label:listbox"
 msgid "Color Scheme:"
 msgstr "Kolore-antolaera:"
 
-#: qml/SettingsForm.qml:212
+#: qml/SettingsForm.qml:213
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "Aztertu musika berri bila"
 
-#: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
+#: qml/SettingsForm.qml:217 qml/SettingsForm.qml:228
 #, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "Musika bila miatzen hasi da"
 
-#: qml/SettingsForm.qml:222
+#: qml/SettingsForm.qml:223
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Berrezarri datu-basea eta dena berraztertu"
 
-#: qml/SettingsForm.qml:226
+#: qml/SettingsForm.qml:227
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
 msgstr "Datu-basea berrezarri egin da"
 
-#: qml/SettingsForm.qml:241
+#: qml/SettingsForm.qml:242
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Txertatu kategoria alboko-barran:"
 
-#: qml/SettingsForm.qml:243
+#: qml/SettingsForm.qml:244
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "Ezer ez"
 
-#: qml/SettingsForm.qml:244
+#: qml/SettingsForm.qml:245
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "Albumak"
 
-#: qml/SettingsForm.qml:245
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "Artistak"
 
-#: qml/SettingsForm.qml:246
+#: qml/SettingsForm.qml:247
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "Generoak"
 
-#: qml/SettingsForm.qml:279
+#: qml/SettingsForm.qml:280
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "Hasierako ikuspegia abiatzean:"
 
-#: qml/SettingsForm.qml:281
+#: qml/SettingsForm.qml:282
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Orain jotzen"
 
-#: qml/SettingsForm.qml:282
+#: qml/SettingsForm.qml:283
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Duela gutxi jo da"
 
-#: qml/SettingsForm.qml:283
+#: qml/SettingsForm.qml:284
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Maiz jotzen da"
 
-#: qml/SettingsForm.qml:284
+#: qml/SettingsForm.qml:285
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumak"
 
-#: qml/SettingsForm.qml:285
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Artistak"
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:287
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Pistak"
 
-#: qml/SettingsForm.qml:287
+#: qml/SettingsForm.qml:288
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Generoak"
 
-#: qml/SettingsForm.qml:288
+#: qml/SettingsForm.qml:289
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "Fitxategiak"
 
-#: qml/SettingsForm.qml:289
+#: qml/SettingsForm.qml:290
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Irrati-kateak"
 
-#: qml/SettingsForm.qml:309
+#: qml/SettingsForm.qml:310
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr "Fitxategi ikuspegiaren hasierako kokalekua:"
 
-#: qml/SettingsForm.qml:323
+#: qml/SettingsForm.qml:324
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "Aukeratu…"
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:458
+#: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "Hautatu karpeta bat"
 
-#: qml/SettingsForm.qml:354
+#: qml/SettingsForm.qml:355
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "Jotze-zerrendak gordetzean:"
 
-#: qml/SettingsForm.qml:363
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "Hobetsi bide-izen erlatiboak"
 
-#: qml/SettingsForm.qml:364
+#: qml/SettingsForm.qml:365
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "Beti erabili bide-izen absolutuak"
 
-#: qml/SettingsForm.qml:375
+#: qml/SettingsForm.qml:376
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1438,20 +1438,20 @@ msgstr ""
 "bakarrik aipatuko dira. Bide-izen erlatiboak beste kasu batzuetan erabiltzen "
 "dira."
 
-#: qml/SettingsForm.qml:390
+#: qml/SettingsForm.qml:391
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "Musika karpetak:"
 
-#: qml/SettingsForm.qml:435
+#: qml/SettingsForm.qml:436
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Utzi hemen musika bilatzeari"
 
-#: qml/SettingsForm.qml:448
+#: qml/SettingsForm.qml:449
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"

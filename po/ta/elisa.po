@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-18 00:38+0000\n"
+"POT-Creation-Date: 2024-07-23 00:38+0000\n"
 "PO-Revision-Date: 2024-05-12 14:51+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1271,160 +1271,160 @@ msgctxt "@label:listbox"
 msgid "Color Scheme:"
 msgstr "நிறத் திட்டம்:"
 
-#: qml/SettingsForm.qml:212
+#: qml/SettingsForm.qml:213
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "புதிய பாடல்களுள்ளனவா என தேடு"
 
-#: qml/SettingsForm.qml:216 qml/SettingsForm.qml:227
+#: qml/SettingsForm.qml:217 qml/SettingsForm.qml:228
 #, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "பாடல்களை கண்டறிவது துவங்கியது"
 
-#: qml/SettingsForm.qml:222
+#: qml/SettingsForm.qml:223
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "தரவுதளத்தை நீக்கி மீண்டும் பாடல்களை கண்டறி"
 
-#: qml/SettingsForm.qml:226
+#: qml/SettingsForm.qml:227
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
 msgstr "தரவுதளம் மீட்டமைக்கப்பட்டுள்ளது"
 
-#: qml/SettingsForm.qml:241
+#: qml/SettingsForm.qml:242
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "ஓரப்பட்டையில் இவற்றை காட்டு:"
 
-#: qml/SettingsForm.qml:243
+#: qml/SettingsForm.qml:244
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "ஏதும் வேண்டாம்"
 
-#: qml/SettingsForm.qml:244
+#: qml/SettingsForm.qml:245
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "ஆல்பங்கள்"
 
-#: qml/SettingsForm.qml:245
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "கலைஞர்கள்"
 
-#: qml/SettingsForm.qml:246
+#: qml/SettingsForm.qml:247
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "பாடல்வகைகள்"
 
-#: qml/SettingsForm.qml:279
+#: qml/SettingsForm.qml:280
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "துவத்தில் பயன்படுத்தும் காட்சிமுறை:"
 
-#: qml/SettingsForm.qml:281
+#: qml/SettingsForm.qml:282
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "இப்போது இசைக்கப்படுவது"
 
-#: qml/SettingsForm.qml:282
+#: qml/SettingsForm.qml:283
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "சமீபத்தில் இசைத்தவை"
 
-#: qml/SettingsForm.qml:283
+#: qml/SettingsForm.qml:284
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "அடிக்கடி இசைப்பவை"
 
-#: qml/SettingsForm.qml:284
+#: qml/SettingsForm.qml:285
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "ஆல்பங்கள்"
 
-#: qml/SettingsForm.qml:285
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "கலைஞர்கள்"
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:287
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "பாடல்கள்"
 
-#: qml/SettingsForm.qml:287
+#: qml/SettingsForm.qml:288
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "பாடல்வகைகள்"
 
-#: qml/SettingsForm.qml:288
+#: qml/SettingsForm.qml:289
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "கோப்புகள்"
 
-#: qml/SettingsForm.qml:289
+#: qml/SettingsForm.qml:290
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "வானொலி நிலையங்கள்"
 
-#: qml/SettingsForm.qml:309
+#: qml/SettingsForm.qml:310
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr "கோப்புகள் காட்சிமுறைக்கான தொடக்க இடம்:"
 
-#: qml/SettingsForm.qml:323
+#: qml/SettingsForm.qml:324
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "தேர்ந்தெடு…"
 
-#: qml/SettingsForm.qml:331 qml/SettingsForm.qml:458
+#: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose a Folder"
 msgstr "அடைவைத் தேர்வு செய்தல்"
 
-#: qml/SettingsForm.qml:354
+#: qml/SettingsForm.qml:355
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "பாடல்வரிசைக் கோப்புகளை சேமிக்கும்போது:"
 
-#: qml/SettingsForm.qml:363
+#: qml/SettingsForm.qml:364
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "சார்புடைய பாதைகளை பயன்படுத்து"
 
-#: qml/SettingsForm.qml:364
+#: qml/SettingsForm.qml:365
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "முழுமையான பாதைகளை எப்போதும் பயன்படுத்து"
 
-#: qml/SettingsForm.qml:375
+#: qml/SettingsForm.qml:376
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1437,20 +1437,20 @@ msgstr ""
 "முழுமையான பாதை பயன்படுத்தப்படாது. மற்ற சூழல்களில் முழுமையான பாதைகளே எப்போதும் "
 "பயன்படுத்தப்படும்."
 
-#: qml/SettingsForm.qml:390
+#: qml/SettingsForm.qml:391
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "பாடல் அடைவுகள்:"
 
-#: qml/SettingsForm.qml:435
+#: qml/SettingsForm.qml:436
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "இங்குள்ள பாடல்களை கண்டறியாதே"
 
-#: qml/SettingsForm.qml:448
+#: qml/SettingsForm.qml:449
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"

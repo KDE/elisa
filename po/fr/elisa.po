@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-18 00:38+0000\n"
-"PO-Revision-Date: 2024-05-13 09:07+0200\n"
+"PO-Revision-Date: 2024-07-19 07:31+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -380,12 +380,10 @@ msgid "Play now, replacing current playlist"
 msgstr "Lire maintenant, remplacement de la liste de lecture courante"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Nombre d'écoutes"
+msgstr "Lire le suivant"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -1123,12 +1121,10 @@ msgid "Add to Playlist"
 msgstr "Ajouter à la liste de lecture"
 
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "Play now current track from play list"
-#| msgid "Play Now"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "Lire maintenant"
+msgstr "Lire le suivant"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format

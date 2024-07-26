@@ -25,9 +25,15 @@
 #include <algorithm>
 #include <utility>
 
+static QUrl getParentDirectory(const QUrl &filePath)
+{
+    return QUrl::fromLocalFile(QFileInfo{filePath.toLocalFile()}.absolutePath());
+}
+
 struct FileSystemPath {
     QUrl path;
     bool isFile;
+    QDateTime lastModified;
 };
 
 inline bool operator==(const FileSystemPath &path1, const FileSystemPath &path2)
@@ -53,8 +59,6 @@ public:
     QHash<QUrl, QSet<FileSystemPath>> mDiscoveredDirectories;
 
     FileScanner mFileScanner;
-
-    QHash<QUrl, QDateTime> mAllFiles;
 
     QAtomicInt mStopRequest = 0;
 
@@ -111,10 +115,9 @@ void AbstractFileListing::newTrackFile(const DataTypes::TrackDataType &partialTr
     }
 }
 
-void AbstractFileListing::restoredTracks(QHash<QUrl, QDateTime> allFiles)
+void AbstractFileListing::setIndexedTracks(const QHash<QUrl, QDateTime> &allTracks)
 {
-    executeInit(std::move(allFiles));
-
+    executeInit(allTracks);
     refreshContent();
 }
 
@@ -165,8 +168,6 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
         }
     }
 
-    auto currentDirectoryListingFiles = d->mDiscoveredDirectories[path];
-
     auto currentFilesList = QSet<QUrl>();
 
     rootDirectory.refresh();
@@ -179,7 +180,9 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
         }
     }
 
+    auto &currentDirectoryListingFiles = d->mDiscoveredDirectories[path];
     auto allRemovedTracks = QList<QUrl>();
+
     for (const auto &removedFilePath : currentDirectoryListingFiles) {
         if (currentFilesList.contains(removedFilePath.path)) {
             continue;
@@ -219,13 +222,9 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
             continue;
         }
 
-        auto itExistingFile = allFiles().constFind(newFilePath);
-        if (itExistingFile != allFiles().cend()) {
-            if (*itExistingFile >= oneEntry.metadataChangeTime()) {
-                allFiles().erase(itExistingFile);
-                qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectory" << newFilePath << "file not modified since last scan";
-                continue;
-            }
+        if (!fileModifiedSinceLastScan(newFilePath, path, oneEntry.metadataChangeTime())) {
+            qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectory" << newFilePath << "file not modified since last scan";
+            continue;
         }
 
         auto newTrack = scanOneFile(newFilePath, oneEntry, WatchChangedDirectories | WatchChangedFiles);
@@ -278,9 +277,31 @@ void AbstractFileListing::fileChanged(const QString &modifiedFileName)
     }
 }
 
-void AbstractFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
+void AbstractFileListing::executeInit(const QHash<QUrl, QDateTime> &allFiles)
 {
-    d->mAllFiles = std::move(allFiles);
+    d->mDiscoveredDirectories.clear();
+
+    QList<QUrl> removedPaths;
+
+    for (const auto &pathInfo : allFiles.asKeyValueRange()) {
+        const auto &pathToBeIndexed = pathInfo.first;
+        const auto &lastModified = pathInfo.second;
+        bool indexThisPath = std::any_of(d->mAllRootPaths.cbegin(), d->mAllRootPaths.cend(),
+                                         [&](const auto &rootPath) {
+            return QUrl::fromLocalFile(rootPath).isParentOf(pathToBeIndexed);
+        });
+
+        if (indexThisPath) {
+            const auto parentPath = getParentDirectory(pathToBeIndexed);
+            d->mDiscoveredDirectories[parentPath].insert({pathToBeIndexed, true, lastModified});
+        } else {
+            removedPaths.push_back(pathToBeIndexed);
+        }
+    }
+
+    if (!removedPaths.isEmpty()) {
+        Q_EMIT removedTracksList(removedPaths);
+    }
 }
 
 void AbstractFileListing::triggerStop()
@@ -290,6 +311,12 @@ void AbstractFileListing::triggerStop()
 void AbstractFileListing::triggerRefreshOfContent()
 {
     d->mImportedTracksCount = 0;
+}
+
+void AbstractFileListing::resetAndRefreshContent()
+{
+    executeInit({});
+    refreshContent();
 }
 
 void AbstractFileListing::refreshContent()
@@ -308,17 +335,6 @@ DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, 
     if (!d->mFileScanner.shouldScanFile(localFileName)) {
         qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::scanOneFile" << "invalid mime type";
         return newTrack;
-    }
-
-    if (scanFileInfo.exists()) {
-        auto itExistingFile = d->mAllFiles.constFind(scanFile);
-        if (itExistingFile != d->mAllFiles.cend()) {
-            if (*itExistingFile >= scanFileInfo.metadataChangeTime()) {
-                d->mAllFiles.erase(itExistingFile);
-                qCDebug(orgKdeElisaIndexer) << "AbstractFileListing::scanOneFile" << "not changed file";
-                return newTrack;
-            }
-        }
     }
 
     newTrack = d->mFileScanner.scanOneFile(scanFile, scanFileInfo);
@@ -368,8 +384,8 @@ void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &di
     }
     auto &currentDirectoryListingFiles = d->mDiscoveredDirectories[directoryName];
 
-    QFileInfo isAFile(newFile.toLocalFile());
-    currentDirectoryListingFiles.insert({newFile, isAFile.isFile()});
+    QFileInfo newFileInfo(newFile.toLocalFile());
+    currentDirectoryListingFiles.insert({newFile, newFileInfo.isFile(), newFileInfo.metadataChangeTime()});
 }
 
 void AbstractFileListing::scanDirectoryTree(const QString &path)
@@ -435,21 +451,6 @@ void AbstractFileListing::removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &a
     }
 }
 
-QHash<QUrl, QDateTime> &AbstractFileListing::allFiles()
-{
-    return d->mAllFiles;
-}
-
-void AbstractFileListing::checkFilesToRemove()
-{
-    qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::checkFilesToRemove" << d->mAllFiles.size();
-
-    if (!d->mAllFiles.isEmpty()) {
-        setWaitEndTrackRemoval(true);
-        Q_EMIT removedTracksList(d->mAllFiles.keys());
-    }
-}
-
 FileScanner &AbstractFileListing::fileScanner()
 {
     return d->mFileScanner;
@@ -468,6 +469,22 @@ void AbstractFileListing::setWaitEndTrackRemoval(bool wait)
 bool AbstractFileListing::isActive() const
 {
     return d->mIsActive;
+}
+
+bool AbstractFileListing::fileModifiedSinceLastScan(const QUrl &path, const QUrl &parentPath, const QDateTime &lastModified) const
+{
+    const auto parentDir = d->mDiscoveredDirectories.constFind(parentPath);
+    if (parentDir == d->mDiscoveredDirectories.cend()) {
+        return true;
+    }
+
+    const auto itPath = std::find_if(parentDir->cbegin(), parentDir->cend(),
+                                     [&](const auto &onePath) { return onePath.path == path; });
+    if (itPath == parentDir->cend()) {
+        return true;
+    }
+
+    return itPath->lastModified < lastModified;
 }
 
 

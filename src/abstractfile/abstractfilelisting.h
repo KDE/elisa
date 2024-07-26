@@ -65,6 +65,19 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
+    /**
+     * Re-scan all root directories after setting the indexed tracks
+     */
+    void setIndexedTracks(const QHash<QUrl, QDateTime> &allTracks);
+
+    /**
+     * Re-scan all root directories after clearing the indexed tracks
+     */
+    void resetAndRefreshContent();
+
+    /**
+     * Re-scan all root directories without clearing the index
+     */
     void refreshContent();
 
     void init();
@@ -72,8 +85,6 @@ public Q_SLOTS:
     void stop();
 
     void newTrackFile(const DataTypes::TrackDataType &partialTrack);
-
-    void restoredTracks(QHash<QUrl, QDateTime> allFiles);
 
     void setAllRootPaths(const QStringList &allRootPaths);
 
@@ -89,7 +100,7 @@ protected Q_SLOTS:
 
 protected:
 
-    virtual void executeInit(QHash<QUrl, QDateTime> allFiles);
+    virtual void executeInit(const QHash<QUrl, QDateTime> &allFiles);
 
     virtual void triggerRefreshOfContent();
 
@@ -115,10 +126,6 @@ protected:
 
     void removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles);
 
-    QHash<QUrl, QDateTime>& allFiles();
-
-    void checkFilesToRemove();
-
     FileScanner& fileScanner();
 
     [[nodiscard]] bool waitEndTrackRemoval() const;
@@ -126,6 +133,8 @@ protected:
     void setWaitEndTrackRemoval(bool wait);
 
     [[nodiscard]] bool isActive() const;
+
+    [[nodiscard]] bool fileModifiedSinceLastScan(const QUrl &path, const QUrl &parentPath, const QDateTime &lastModified) const;
 
 private:
 

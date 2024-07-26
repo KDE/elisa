@@ -69,7 +69,7 @@ void AndroidFileListing::registerNativeMethods()
 {
 }
 
-void AndroidFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
+void AndroidFileListing::executeInit(const QHash<QUrl, QDateTime> &allFiles)
 {
     qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::executeInit";
     AbstractFileListing::executeInit(std::move(allFiles));

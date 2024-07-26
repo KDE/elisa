@@ -47,9 +47,9 @@ void AbstractFileListener::setDatabaseInterface(DatabaseInterface *model)
         connect(d->mFileListing, &AbstractFileListing::askRestoredTracks,
                 model, &DatabaseInterface::askRestoredTracks);
         connect(model, &DatabaseInterface::restoredTracks,
-                d->mFileListing, &AbstractFileListing::restoredTracks);
+                d->mFileListing, &AbstractFileListing::setIndexedTracks);
         connect(model, &DatabaseInterface::cleanedDatabase,
-                d->mFileListing, &AbstractFileListing::refreshContent);
+                d->mFileListing, &AbstractFileListing::resetAndRefreshContent);
         connect(model, &DatabaseInterface::finishRemovingTracksList,
                 d->mFileListing, &AbstractFileListing::databaseFinishedRemovingTracksList);
         connect(model, &DatabaseInterface::finishInsertingTracksList,

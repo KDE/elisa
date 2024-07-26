@@ -29,7 +29,7 @@ LocalFileListing::LocalFileListing(QObject *parent) : AbstractFileListing(parent
 LocalFileListing::~LocalFileListing()
 = default;
 
-void LocalFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
+void LocalFileListing::executeInit(const QHash<QUrl, QDateTime> &allFiles)
 {
     if (!isActive()) {
         qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::executeInit is inactive";
@@ -37,7 +37,7 @@ void LocalFileListing::executeInit(QHash<QUrl, QDateTime> allFiles)
     }
 
     qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::executeInit" << "with" << allFiles.size() << "files";
-    AbstractFileListing::executeInit(std::move(allFiles));
+    AbstractFileListing::executeInit(allFiles);
 }
 
 void LocalFileListing::triggerRefreshOfContent()
@@ -61,8 +61,6 @@ void LocalFileListing::triggerRefreshOfContent()
     }
 
     setWaitEndTrackRemoval(false);
-
-    checkFilesToRemove();
 
     if (!waitEndTrackRemoval()) {
         Q_EMIT indexingFinished();

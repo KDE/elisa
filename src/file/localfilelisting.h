@@ -29,7 +29,7 @@ public:
 
 private:
 
-    void executeInit(QHash<QUrl, QDateTime> allFiles) override;
+    void executeInit(const QHash<QUrl, QDateTime> &allFiles) override;
 
     void triggerRefreshOfContent() override;
 

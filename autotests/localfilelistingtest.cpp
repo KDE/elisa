@@ -153,6 +153,28 @@ private Q_SLOTS:
 
         QCOMPARE(firstNewTracks.count() + secondNewTracks.count(), 5);
         QCOMPARE(newCovers.count(), 5);
+
+        tracksListSpy.clear();
+        removedTracksListSpy.clear();
+
+        myListing.resetAndRefreshContent();
+
+        QCOMPARE(tracksListSpy.count(), 1);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+
+        auto newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
+        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
+
+        QCOMPARE(newTracks.count(), 5);
+        QCOMPARE(newCovers.count(), 5);
+
+        tracksListSpy.clear();
+        removedTracksListSpy.clear();
+
+        myListing.refreshContent();
+
+        QVERIFY(tracksListSpy.isEmpty());
+        QVERIFY(removedTracksListSpy.isEmpty());
     }
 
     void addAndRemoveTracks()
@@ -485,14 +507,16 @@ private Q_SLOTS:
         QCOMPARE(indexingFinishedSpy.count(), 0);
         QCOMPARE(askRestoredTracksSpy.count(), 1);
 
-        myListing.restoredTracks({{QUrl::fromLocalFile(QStringLiteral("/removed/files1")), QDateTime::fromMSecsSinceEpoch(1)},
-                                  {QUrl::fromLocalFile(QStringLiteral("/removed/files2")), QDateTime::fromMSecsSinceEpoch(2)}});
+        myListing.setIndexedTracks({
+            {QUrl::fromLocalFile(QStringLiteral("/removed/files1")), QDateTime::fromMSecsSinceEpoch(1)},
+            {QUrl::fromLocalFile(QStringLiteral("/removed/files2")), QDateTime::fromMSecsSinceEpoch(2)},
+        });
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 1);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
         QCOMPARE(indexingStartedSpy.count(), 1);
-        QCOMPARE(indexingFinishedSpy.count(), 0);
+        QCOMPARE(indexingFinishedSpy.count(), 1);
         QCOMPARE(askRestoredTracksSpy.count(), 1);
 
         auto removedTracksSignal = removedTracksListSpy.at(0);
@@ -508,7 +532,6 @@ private Q_SLOTS:
         QCOMPARE(removedTracks[0], QUrl::fromLocalFile(QStringLiteral("/removed/files1")));
         QCOMPARE(removedTracks[1], QUrl::fromLocalFile(QStringLiteral("/removed/files2")));
     }
-
 
     void refreshIndex()
     {
@@ -589,19 +612,13 @@ private Q_SLOTS:
 
         tracksListSpy.clear();
 
-        // Set the file modified time to some point in the future to ensure
-        // the file does not get re-indexed
-        myListing.restoredTracks({
-            {QUrl::fromLocalFile(trackM4aPath), QDateTime::currentDateTime().addYears(1)},
-            {QUrl::fromLocalFile(trackMp3Path), QDateTime::currentDateTime().addYears(1)},
-            {QUrl::fromLocalFile(trackOggPath), QDateTime::currentDateTime().addYears(1)},
-        });
+        myListing.refreshContent();
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
 
-        myListing.refreshContent();
+        myListing.resetAndRefreshContent();
 
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 0);
@@ -615,7 +632,9 @@ private Q_SLOTS:
 
         tracksListSpy.clear();
 
-        myListing.restoredTracks({
+        // Set the file modified time to some point in the future to ensure
+        // the file does not get re-indexed
+        myListing.setIndexedTracks({
             {QUrl::fromLocalFile(trackOggPath), QDateTime::currentDateTime().addYears(1)}
         });
 
@@ -633,17 +652,13 @@ private Q_SLOTS:
 
         myListing.setAllRootPaths({musicParentPath + u"/"_s});
 
-        myListing.restoredTracks({
-            {QUrl::fromLocalFile(trackM4aPath), QDateTime::currentDateTime().addYears(1)},
-            {QUrl::fromLocalFile(trackMp3Path), QDateTime::currentDateTime().addYears(1)},
-            {QUrl::fromLocalFile(trackOggPath), QDateTime::currentDateTime().addYears(1)},
-        });
+        myListing.refreshContent();
 
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
         QCOMPARE(modifiedTracksListSpy.count(), 0);
 
-        myListing.refreshContent();
+        myListing.resetAndRefreshContent();
 
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 0);
@@ -657,7 +672,7 @@ private Q_SLOTS:
 
         tracksListSpy.clear();
 
-        myListing.restoredTracks({
+        myListing.setIndexedTracks({
             {QUrl::fromLocalFile(trackM4aPath), QDateTime::currentDateTime().addYears(1)},
             {QUrl::fromLocalFile(trackMp3Path), QDateTime::fromMSecsSinceEpoch(1)},
             {QUrl::fromLocalFile(u"/does/not/exist.mp3"_s), QDateTime::currentDateTime()},
@@ -673,7 +688,7 @@ private Q_SLOTS:
 
         QCOMPARE(newTracks.count(), 2);
         QCOMPARE(newCovers.count(), 3);
-        QCOMPARE(removedTracks.count(), 2);
+        QCOMPARE(removedTracks.count(), 1);
     }
 };
 

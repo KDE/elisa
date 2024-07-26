@@ -27,6 +27,8 @@
 
 #include <algorithm>
 
+using namespace Qt::Literals::StringLiterals;
+
 class LocalFileListingTests: public QObject, public DatabaseTestData
 {
     Q_OBJECT
@@ -505,6 +507,173 @@ private Q_SLOTS:
 
         QCOMPARE(removedTracks[0], QUrl::fromLocalFile(QStringLiteral("/removed/files1")));
         QCOMPARE(removedTracks[1], QUrl::fromLocalFile(QStringLiteral("/removed/files2")));
+    }
+
+
+    void refreshIndex()
+    {
+        LocalFileListing myListing;
+
+        const QString musicOriginPath = QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + u"/music"_s;
+
+        const QString musicParentPath = QStringLiteral(LOCAL_FILE_TESTS_WORKING_PATH) + u"/music2"_s;
+
+        const QString musicPath = musicParentPath + u"/data/innerData"_s;
+
+        const QString trackOggPath = musicPath + u"/test.ogg"_s;
+
+        const QString trackM4aPath = musicPath + u"/test.m4a"_s;
+
+        const QString trackMp3Path = musicPath + u"/test.mp3"_s;
+
+        QDir musicParentDirectory(musicParentPath);
+        QDir musicDirectory(musicPath);
+        QFile trackOgg(musicOriginPath + u"/test.ogg"_s);
+        QFile trackMp3(musicOriginPath + u"/test.mp3"_s);
+        QFile trackM4a(musicOriginPath + u"/test.m4a"_s);
+
+        QVERIFY(musicParentDirectory.removeRecursively());
+
+        QVERIFY(!musicDirectory.exists());
+        QVERIFY(musicDirectory.mkpath(musicPath));
+        QVERIFY(musicDirectory.exists());
+        QVERIFY(musicDirectory.isEmpty());
+        QVERIFY(trackOgg.copy(trackOggPath));
+        QVERIFY(trackMp3.copy(trackMp3Path));
+        QVERIFY(trackM4a.copy(trackM4aPath));
+
+        QSignalSpy tracksListSpy(&myListing, &LocalFileListing::tracksList);
+        QSignalSpy removedTracksListSpy(&myListing, &LocalFileListing::removedTracksList);
+        QSignalSpy modifiedTracksListSpy(&myListing, &LocalFileListing::modifyTracksList);
+        QSignalSpy errorWatchingFileSystemChangesSpy(&myListing, &LocalFileListing::errorWatchingFileSystemChanges);
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        myListing.init();
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        myListing.setAllRootPaths({musicParentPath});
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        QCOMPARE(myListing.allRootPaths(), QStringList{musicParentPath});
+
+        myListing.refreshContent();
+
+        QCOMPARE(tracksListSpy.count(), 2);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        auto newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
+        auto newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
+
+        QCOMPARE(newTracks.count(), 2);
+        // The file scanner thinks there are covers due to the static cover file cache
+        // carrying over between tests. We could watch each cover file to remove it from
+        // the cache when it gets deleted. Not sure if it is worth the resources, given
+        // the amount of files we already watch in AbstractFileListing.
+        QCOMPARE(newCovers.count(), 2);
+
+        newTracks = tracksListSpy.at(1).at(0).value<DataTypes::ListTrackDataType>();
+        newCovers = tracksListSpy.at(1).at(1).value<QHash<QString, QUrl>>();
+
+        QCOMPARE(newTracks.count(), 1);
+        QCOMPARE(newCovers.count(), 3);
+
+        tracksListSpy.clear();
+
+        // Set the file modified time to some point in the future to ensure
+        // the file does not get re-indexed
+        myListing.restoredTracks({
+            {QUrl::fromLocalFile(trackM4aPath), QDateTime::currentDateTime().addYears(1)},
+            {QUrl::fromLocalFile(trackMp3Path), QDateTime::currentDateTime().addYears(1)},
+            {QUrl::fromLocalFile(trackOggPath), QDateTime::currentDateTime().addYears(1)},
+        });
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        myListing.refreshContent();
+
+        QCOMPARE(tracksListSpy.count(), 1);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
+        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
+
+        QCOMPARE(newTracks.count(), 3);
+        QCOMPARE(newCovers.count(), 3);
+
+        tracksListSpy.clear();
+
+        myListing.restoredTracks({
+            {QUrl::fromLocalFile(trackOggPath), QDateTime::currentDateTime().addYears(1)}
+        });
+
+        QCOMPARE(tracksListSpy.count(), 1);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
+        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
+
+        QCOMPARE(newTracks.count(), 2);
+        QCOMPARE(newCovers.count(), 3);
+
+        tracksListSpy.clear();
+
+        myListing.setAllRootPaths({musicParentPath + u"/"_s});
+
+        myListing.restoredTracks({
+            {QUrl::fromLocalFile(trackM4aPath), QDateTime::currentDateTime().addYears(1)},
+            {QUrl::fromLocalFile(trackMp3Path), QDateTime::currentDateTime().addYears(1)},
+            {QUrl::fromLocalFile(trackOggPath), QDateTime::currentDateTime().addYears(1)},
+        });
+
+        QCOMPARE(tracksListSpy.count(), 0);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        myListing.refreshContent();
+
+        QCOMPARE(tracksListSpy.count(), 1);
+        QCOMPARE(removedTracksListSpy.count(), 0);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
+        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
+
+        QCOMPARE(newTracks.count(), 3);
+        QCOMPARE(newCovers.count(), 3);
+
+        tracksListSpy.clear();
+
+        myListing.restoredTracks({
+            {QUrl::fromLocalFile(trackM4aPath), QDateTime::currentDateTime().addYears(1)},
+            {QUrl::fromLocalFile(trackMp3Path), QDateTime::fromMSecsSinceEpoch(1)},
+            {QUrl::fromLocalFile(u"/does/not/exist.mp3"_s), QDateTime::currentDateTime()},
+        });
+
+        QCOMPARE(tracksListSpy.count(), 1);
+        QCOMPARE(removedTracksListSpy.count(), 1);
+        QCOMPARE(modifiedTracksListSpy.count(), 0);
+
+        newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
+        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
+        auto removedTracks = removedTracksListSpy.at(0).at(0).value<QList<QUrl>>();
+
+        QCOMPARE(newTracks.count(), 2);
+        QCOMPARE(newCovers.count(), 3);
+        QCOMPARE(removedTracks.count(), 2);
     }
 };
 

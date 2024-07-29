@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-23 00:38+0000\n"
-"PO-Revision-Date: 2024-05-16 21:20+0300\n"
+"PO-Revision-Date: 2024-07-28 23:04+0300\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
 "Language: lt\n"
@@ -373,12 +373,10 @@ msgid "Play now, replacing current playlist"
 msgstr "Atkurti dabar, pakeičiant dabartinį grojaraštį"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Atkūrimų skaičius"
+msgstr "Atkurti kitą"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -1120,12 +1118,10 @@ msgid "Add to Playlist"
 msgstr "Pridėti į grojaraštį"
 
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "Atkūrimų skaičius"
+msgstr "Atkurti kitą"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format

@@ -547,8 +547,8 @@ msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr ""
-"Nonpote cargar alcun files. Elisa pote solmente aperir file audio e de lista "
-"de sonar (playlist)."
+"Non pote cargar alcun files. Elisa pote solmente aperir file audio e de "
+"lista de sonar (playlist)."
 
 #: qml/ElisaMainWindow.qml:193 qml/mobile/MobileSidebar.qml:20
 #, kde-format

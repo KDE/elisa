@@ -296,6 +296,7 @@ Kirigami.ApplicationWindow {
     Settings {
         id: persistentSettings
 
+        property bool maximized
         property int x
         property int y
         property int width: Kirigami.Units.gridUnit * 50
@@ -324,11 +325,6 @@ Kirigami.ApplicationWindow {
     Connections {
         target: Qt.application
         function onAboutToQuit() {
-            persistentSettings.x = mainWindow.x;
-            persistentSettings.y = mainWindow.y;
-            persistentSettings.width = mainWindow.width;
-            persistentSettings.height = mainWindow.height;
-
             persistentSettings.playListState = ElisaApplication.mediaPlayListProxyModel.persistentState;
             persistentSettings.audioPlayerState = ElisaApplication.audioControl.persistentState
             persistentSettings.contentViewState = contentView.saveState();
@@ -344,6 +340,21 @@ Kirigami.ApplicationWindow {
             } else {
                 persistentSettings.headerBarIsMaximized = headerBarLoader.item.isMaximized
             }
+        }
+    }
+
+    // We need to handle maximization in a signal handler for "closing" because
+    // the window state state has already changed by the time
+    // Qt.application.onAboutToQuit() is called!
+    onClosing: {
+        if (mainWindow.visibility === Window.Maximized) {
+            persistentSettings.maximized = true;
+        } else {
+            persistentSettings.maximized = false;
+            persistentSettings.x = mainWindow.x;
+            persistentSettings.y = mainWindow.y;
+            persistentSettings.width = mainWindow.width;
+            persistentSettings.height = mainWindow.height;
         }
     }
 
@@ -574,6 +585,10 @@ Kirigami.ApplicationWindow {
     {
         ElisaApplication.initialize()
         ElisaApplication.activateColorScheme(ElisaConfigurationDialog.colorScheme)
+
+        if (persistentSettings.maximized) {
+            showMaximized();
+        }
 
         if (persistentSettings.playListState) {
             ElisaApplication.mediaPlayListProxyModel.persistentState = persistentSettings.playListState

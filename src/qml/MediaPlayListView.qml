@@ -59,6 +59,26 @@ Kirigami.Page {
 
                 actions: [
                     Kirigami.Action {
+                        text: i18nc("@action:button", "Show Current")
+                        icon.name: 'media-track-show-active'
+                        displayHint: Kirigami.DisplayHint.KeepVisible
+                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
+                        onTriggered: {
+                            playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
+                            playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
+                            playListView.currentItem.forceActiveFocus()
+                        }
+                    },
+                    Kirigami.Action {
+                        text: i18nc("@action:button Remove all tracks from play list", "Clear All")
+                        // TODO uncomment once we can depend on Qt 6.8
+                        // Accessible.name: i18nc("@action:button Remove all tracks from playlist", "Clear playlist")
+                        icon.name: 'edit-clear-all'
+                        displayHint: Kirigami.DisplayHint.KeepVisible
+                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
+                        onTriggered: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
+                    },
+                    Kirigami.Action {
                         id: savePlaylistButton
                         text: i18nc("@action:button Save a playlist file", "Save…")
                         icon.name: 'document-save'
@@ -431,56 +451,74 @@ Kirigami.Page {
         leftPadding: mirrored ? undefined : Kirigami.Units.largeSpacing
         rightPadding: mirrored ? Kirigami.Units.largeSpacing : undefined
 
-        RowLayout {
-            anchors.fill: parent
-            spacing: Kirigami.Units.smallSpacing
+        LabelWithToolTip {
+            id: durationLabel
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
 
-            LabelWithToolTip {
+            readonly property int currentSongPosition: ElisaApplication.audioControl.playerPosition
+            readonly property int remainingTracksDuration: ElisaApplication.mediaPlayListProxyModel.remainingTracksDuration
+            readonly property int remainingDuration: remainingTracksDuration - currentSongPosition
+            readonly property int totalDuration: ElisaApplication.mediaPlayListProxyModel.totalTracksDuration
+
+            ProgressIndicator {
+                id: durationLeftIndicator
+                position: durationLabel.remainingDuration
+            }
+            ProgressIndicator {
+                id: totalDurationIndicator
+                position: durationLabel.totalDuration
+            }
+
+            TextMetrics {
+                id: longText
+                font.family: durationLabel.font.family
                 text: {
-                    if (ElisaApplication.mediaPlayListProxyModel.remainingTracks === -1) {
-                        return i18ncp("@info:status", "%1 track", "%1 tracks", ElisaApplication.mediaPlayListProxyModel.tracksCount);
-                    } else {
-                        if (ElisaApplication.mediaPlayListProxyModel.tracksCount == 1) {
-                            return i18nc("@info:status", "1 track");
-                        } else {
-                            var nTracks = i18ncp("@info:status", "%1 track", "%1 tracks", ElisaApplication.mediaPlayListProxyModel.tracksCount);
-                            var nRemaining = i18ncp("@info:status number of tracks remaining", "%1 remaining", "%1 remaining", ElisaApplication.mediaPlayListProxyModel.remainingTracks);
-                            return i18nc("@info:status %1 is the translation of track[s], %2 is the translation of remaining", "%1 (%2)", nTracks, nRemaining);
-                        }
-                    }
+                    const nTracks = i18ncp("@info:status %2 is always bigger than 1", "%1/%2 tracks remaining", "%1/%2 tracks remaining", ElisaApplication.mediaPlayListProxyModel.remainingTracks, ElisaApplication.mediaPlayListProxyModel.tracksCount)
+                    const nDuration = i18nc("@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss", "%1 remaining, %2 total", durationLeftIndicator.progressDuration, totalDurationIndicator.progressDuration);
+                    return i18nc("@info:status %1 is total tracks and tracks remaining. %2 is total time and time remaining", "%1, %2", nTracks, nDuration);
                 }
-                elide: Text.ElideLeft
+            }
+            TextMetrics {
+                id: middleText
+                font.family: durationLabel.font.family
+                text: {
+                    const nTracks = i18ncp("@info:status %2 is always bigger than 1", "%1/%2 tracks remaining", "%1/%2 tracks remaining", ElisaApplication.mediaPlayListProxyModel.remainingTracks, ElisaApplication.mediaPlayListProxyModel.tracksCount)
+                    const nDuration = i18nc("@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss", "%1/%2 remaining", durationLeftIndicator.progressDuration, totalDurationIndicator.progressDuration);
+                    return i18nc("@info:status %1 is total tracks and tracks remaining. %2 is total time and time remaining", "%1, %2", nTracks, nDuration);
+                }
+            }
+            TextMetrics {
+                id: shortText
+                font.family: durationLabel.font.family
+                text: {
+                    const nTracks = i18ncp("@info:status %2 is always bigger than 1", "%1/%2 tracks", "%1/%2 tracks", ElisaApplication.mediaPlayListProxyModel.remainingTracks, ElisaApplication.mediaPlayListProxyModel.tracksCount)
+                    const nDuration = i18nc("@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss", "%1/%2 remaining", durationLeftIndicator.progressDuration, totalDurationIndicator.progressDuration);
+                    return i18nc("@info:status %1 is total tracks and tracks remaining. %2 is total time and time remaining", "%1, %2", nTracks, nDuration);
+                }
             }
 
-            Kirigami.ActionToolBar {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                alignment: Qt.AlignRight
-
-                actions: [
-                    Kirigami.Action {
-                        text: i18nc("@action:button", "Show Current")
-                        icon.name: 'media-track-show-active'
-                        displayHint: Kirigami.DisplayHint.KeepVisible
-                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
-                        onTriggered: {
-                            playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
-                            playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
-                            playListView.currentItem.forceActiveFocus()
-                        }
-                    },
-                    Kirigami.Action {
-                        text: i18nc("@action:button Remove all tracks from playlist", "Clear")
-                        // TODO uncomment once we can depend on Qt 6.8
-                        // Accessible.name: i18nc("@action:button Remove all tracks from playlist", "Clear playlist")
-                        icon.name: 'edit-clear-all'
-                        displayHint: Kirigami.DisplayHint.KeepVisible
-                        enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
-                        onTriggered: ElisaApplication.mediaPlayListProxyModel.clearPlayList()
-                    }
-                ]
+            text: {
+                if (ElisaApplication.mediaPlayListProxyModel.radioCount !== 0) {
+                    // the current track is a radio -> duration remaining is therefore infinite -> it isn't displayed
+                    const nTracks = i18ncp("@info:status %1 is the total number of tracks of the playlist", "%1 track", "%1 tracks", ElisaApplication.mediaPlayListProxyModel.tracksCount)
+                    const nRadios = i18ncp("@info:status %1 is the total number of radios of the playlist", "%1 radio", "%1 radios", ElisaApplication.mediaPlayListProxyModel.radioCount)
+                    return i18nc("@info:status %1 is the translation of tracks, %2 is the translation of total radios", "%1, %2 total", nTracks, nRadios);
+                } else if (ElisaApplication.mediaPlayListProxyModel.remainingTracks === -1) {
+                    // track or playlist is on repeat: only show total tracks and duration, since remaining is infinite
+                    return i18ncp("@info:status %1 is the total tracks of the playlist. %2 is the total duration formatted like hh:mm:ss or mm:ss", "%1 track, %2 total","%1 tracks, %2 total", ElisaApplication.mediaPlayListProxyModel.tracksCount, totalDurationIndicator.progressDuration);
+                } else if (ElisaApplication.mediaPlayListProxyModel.tracksCount === 1) {
+                    return i18nc("@info:status %1 is the remaining duration of the playlist. It is formatted like hh:mm:ss or mm:ss", "1 track, %1min remaining", durationLeftIndicator.progressDuration);
+                } else if (durationLabel.width >= longText.boundingRect.width) {
+                    return longText.text;
+                } else if (durationLabel.width >= middleText.boundingRect.width) {
+                    return middleText.text;
+                } else {
+                    return shortText.text;
+                }
             }
+            elide: Text.ElideRight
         }
     }
 }
-

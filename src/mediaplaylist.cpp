@@ -50,7 +50,8 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::IsValidRole)] = "isValid";
     roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(ColumnsRoles::StringDurationRole)] = "duration";
+    roles[static_cast<int>(ColumnsRoles::StringDurationRole)] = "durationString";
+    roles[static_cast<int>(ColumnsRoles::DurationRole)] = "durationInt";
     roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
     roles[static_cast<int>(ColumnsRoles::AlbumArtistRole)] = "albumArtist";
     roles[static_cast<int>(ColumnsRoles::AlbumRole)] = "album";
@@ -100,6 +101,9 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             break;
         case ColumnsRoles::ElementTypeRole:
             result = QVariant::fromValue(d->mData[index.row()].mEntryType);
+            break;
+        case ColumnsRoles::DurationRole:
+            result = d->mTrackData[index.row()].duration();
             break;
         case ColumnsRoles::StringDurationRole:
         {

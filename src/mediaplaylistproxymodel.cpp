@@ -342,6 +342,7 @@ void MediaPlayListProxyModel::setRepeatMode(Repeat value)
         d->mRepeatMode = value;
         Q_EMIT repeatModeChanged();
         Q_EMIT remainingTracksChanged();
+        Q_EMIT remainingTracksDurationChanged();
         Q_EMIT persistentStateChanged();
         determineAndNotifyPreviousAndNextTracks();
     }
@@ -457,6 +458,7 @@ void MediaPlayListProxyModel::setShuffleMode(const MediaPlayListProxyModel::Shuf
         }
         Q_EMIT shuffleModeChanged();
         Q_EMIT remainingTracksChanged();
+        Q_EMIT remainingTracksDurationChanged();
         Q_EMIT persistentStateChanged();
     }
 }
@@ -646,7 +648,9 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
     }
 
     Q_EMIT tracksCountChanged();
+    Q_EMIT totalTracksDurationChanged();
     Q_EMIT remainingTracksChanged();
+    Q_EMIT remainingTracksDurationChanged();
     Q_EMIT persistentStateChanged();
 }
 
@@ -707,7 +711,9 @@ void MediaPlayListProxyModel::sourceRowsRemoved(const QModelIndex &parent, int s
         determineAndNotifyPreviousAndNextTracks();
     }
     Q_EMIT tracksCountChanged();
+    Q_EMIT totalTracksDurationChanged();
     Q_EMIT remainingTracksChanged();
+    Q_EMIT remainingTracksDurationChanged();
     Q_EMIT persistentStateChanged();
 }
 
@@ -727,6 +733,7 @@ void MediaPlayListProxyModel::sourceRowsMoved(const QModelIndex &parent, int sta
     Q_UNUSED(destRow);
     endMoveRows();
     Q_EMIT remainingTracksChanged();
+    Q_EMIT remainingTracksDurationChanged();
     Q_EMIT persistentStateChanged();
 }
 
@@ -745,6 +752,8 @@ void MediaPlayListProxyModel::sourceDataChanged(const QModelIndex &topLeft, cons
     auto endSourceRow = bottomRight.row();
     for (int i = startSourceRow; i <= endSourceRow; i++) {
         Q_EMIT dataChanged(index(mapRowFromSource(i), 0), index(mapRowFromSource(i), 0), roles);
+        Q_EMIT remainingTracksDurationChanged();
+        Q_EMIT totalTracksDurationChanged();
         if (i == d->mCurrentTrack.row()) {
             Q_EMIT currentTrackDataChanged();
         } else if (i == d->mNextTrack.row()) {
@@ -771,6 +780,24 @@ void MediaPlayListProxyModel::sourceHeaderDataChanged(Qt::Orientation orientatio
     Q_EMIT headerDataChanged(orientation, first, last);
 }
 
+int MediaPlayListProxyModel::totalTracksDuration() const
+{
+    int time = 0;
+    for (int i = 0; i < rowCount(); i++) {
+        time += d->mPlayListModel->data(index(i, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay();
+    }
+    return time;
+}
+
+int MediaPlayListProxyModel::remainingTracksDuration() const
+{
+    int time = 0;
+    for (int i = d->mCurrentTrack.row(); i < rowCount(); i++) {
+        time += d->mPlayListModel->data(index(i, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay();
+    }
+    return time;
+}
+
 int MediaPlayListProxyModel::remainingTracks() const
 {
     if (!d->mCurrentTrack.isValid() || (d->mRepeatMode == Repeat::One) || (d->mRepeatMode == Repeat::Playlist)) {
@@ -778,6 +805,18 @@ int MediaPlayListProxyModel::remainingTracks() const
     } else {
         return rowCount() - d->mCurrentTrack.row() - 1;
     }
+}
+
+int MediaPlayListProxyModel::radioCount() const
+{
+    int count = 0;
+    for (int i = 0; i < rowCount(); i++) {
+        const bool albumSuggestsRadio = d->mPlayListModel->data(index(i, 0), MediaPlayList::AlbumRole).toString().toStdString() == "Radio Stations";
+        if (albumSuggestsRadio) {
+            count++;
+        }
+    }
+    return count;
 }
 
 int MediaPlayListProxyModel::tracksCount() const
@@ -934,6 +973,7 @@ void MediaPlayListProxyModel::notifyCurrentTrackRowChanged()
     determineAndNotifyPreviousAndNextTracks();
     Q_EMIT currentTrackRowChanged();
     Q_EMIT remainingTracksChanged();
+    Q_EMIT remainingTracksDurationChanged();
 }
 
 void MediaPlayListProxyModel::notifyCurrentTrackChanged()
@@ -1215,6 +1255,7 @@ void MediaPlayListProxyModel::restoreShuffleMode(MediaPlayListProxyModel::Shuffl
 
         Q_EMIT shuffleModeChanged();
         Q_EMIT remainingTracksChanged();
+        Q_EMIT remainingTracksDurationChanged();
     }
 }
 

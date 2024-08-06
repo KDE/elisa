@@ -99,6 +99,16 @@ private:
                WRITE setShuffleMode
                NOTIFY shuffleModeChanged)
 
+    // in milliseconds
+    Q_PROPERTY(int totalTracksDuration
+               READ totalTracksDuration
+               NOTIFY totalTracksDurationChanged)
+
+    // in milliseconds
+    Q_PROPERTY(int remainingTracksDuration
+               READ remainingTracksDuration
+               NOTIFY remainingTracksDurationChanged)
+
     Q_PROPERTY(int remainingTracks
                READ remainingTracks
                NOTIFY remainingTracksChanged)
@@ -107,6 +117,11 @@ private:
                READ currentTrackRow
                NOTIFY currentTrackRowChanged)
 
+    Q_PROPERTY(int radioCount
+               READ radioCount
+               NOTIFY radioCountChanged)
+
+    //radios are also tracks
     Q_PROPERTY(int tracksCount
                READ tracksCount
                NOTIFY tracksCountChanged)
@@ -160,9 +175,15 @@ public:
 
     [[nodiscard]] Shuffle shuffleMode() const;
 
+    [[nodiscard]] int totalTracksDuration() const;
+
+    [[nodiscard]] int remainingTracksDuration() const;
+
     [[nodiscard]] int remainingTracks() const;
 
     [[nodiscard]] int currentTrackRow() const;
+
+    [[nodiscard]] int radioCount() const;
 
     [[nodiscard]] int tracksCount() const;
 
@@ -246,6 +267,10 @@ Q_SIGNALS:
 
     void shuffleModeChanged();
 
+    void totalTracksDurationChanged();
+
+    void remainingTracksDurationChanged();
+
     void remainingTracksChanged();
 
     void ensurePlay();
@@ -253,6 +278,8 @@ Q_SIGNALS:
     void requestPlay();
 
     void currentTrackRowChanged();
+
+    void radioCountChanged();
 
     void tracksCountChanged();
 

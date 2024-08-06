@@ -470,7 +470,9 @@ Kirigami.Page {
                         }
                     },
                     Kirigami.Action {
-                        text: i18nc("@action:button Remove all tracks from play list", "Clear All")
+                        text: i18nc("@action:button Remove all tracks from playlist", "Clear")
+                        // TODO uncomment once we can depend on Qt 6.8
+                        // Accessible.name: i18nc("@action:button Remove all tracks from playlist", "Clear playlist")
                         icon.name: 'edit-clear-all'
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false

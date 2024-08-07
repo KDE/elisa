@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-23 00:38+0000\n"
+"POT-Creation-Date: 2024-08-07 00:39+0000\n"
 "PO-Revision-Date: 2024-07-21 11:44+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -560,20 +560,20 @@ msgid "Retry"
 msgstr "Prøv på nytt"
 
 # unreviewed-context
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:416
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:436
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Spelelista vart tømd"
 
 # unreviewed-context
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:420
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:440
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Angra"
 
-#: qml/ElisaMainWindow.qml:132 qml/ElisaMainWindow.qml:601
+#: qml/ElisaMainWindow.qml:132 qml/ElisaMainWindow.qml:616
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -765,21 +765,34 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Speleliste"
 
+#: qml/MediaPlayListView.qml:62
+#, kde-format
+msgctxt "@action:button"
+msgid "Show Current"
+msgstr "Vis gjeldande spor"
+
 # unreviewed-context
-#: qml/MediaPlayListView.qml:63
+#: qml/MediaPlayListView.qml:73
+#, kde-format
+msgctxt "@action:button Remove all tracks from play list"
+msgid "Clear All"
+msgstr "Fjern alle"
+
+# unreviewed-context
+#: qml/MediaPlayListView.qml:83
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Lagra …"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:93
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Opna …"
 
-#: qml/MediaPlayListView.qml:97
+#: qml/MediaPlayListView.qml:117
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -789,21 +802,21 @@ msgstr ""
 "Klarte ikkje lasta alle spora. Sjå om nokon spor har blitt sletta eller fått "
 "nye namn."
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:123
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Rediger spelelistefil"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:272
+#: qml/MediaPlayListView.qml:292
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Spelelista er tom"
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:273
+#: qml/MediaPlayListView.qml:293
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -814,56 +827,114 @@ msgstr ""
 "venstre."
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:348
+#: qml/MediaPlayListView.qml:368
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Spelelista er tom."
 
-# unreviewed-context
-#: qml/MediaPlayListView.qml:441 qml/MediaPlayListView.qml:446
+#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
+#, fuzzy, kde-format
+#| msgctxt "@info:status number of tracks remaining"
+#| msgid "%1 remaining"
+#| msgid_plural "%1 remaining"
+msgctxt "@info:status %2 is always bigger than 1"
+msgid "%1/%2 tracks remaining"
+msgid_plural "%1/%2 tracks remaining"
+msgstr[0] "%1 att"
+msgstr[1] "%1 att"
+
+#: qml/MediaPlayListView.qml:479
+#, fuzzy, kde-format
+#| msgctxt "@info:status number of tracks remaining"
+#| msgid "%1 remaining"
+#| msgid_plural "%1 remaining"
+msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
+msgid "%1 remaining, %2 total"
+msgstr "%1 att"
+
+#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
+#: qml/MediaPlayListView.qml:498
 #, kde-format
-msgctxt "@info:status"
+msgctxt ""
+"@info:status %1 is total tracks and tracks remaining. %2 is total time and "
+"time remaining"
+msgid "%1, %2"
+msgstr ""
+
+#: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
+#, fuzzy, kde-format
+#| msgctxt "@info:status number of tracks remaining"
+#| msgid "%1 remaining"
+#| msgid_plural "%1 remaining"
+msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
+msgid "%1/%2 remaining"
+msgstr "%1 att"
+
+# unreviewed-context
+#: qml/MediaPlayListView.qml:496
+#, fuzzy, kde-format
+#| msgctxt "@info:status"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
+msgctxt "@info:status %2 is always bigger than 1"
+msgid "%1/%2 tracks"
+msgid_plural "%1/%2 tracks"
+msgstr[0] "%1 spor"
+msgstr[1] "%1 spor"
+
+# unreviewed-context
+#: qml/MediaPlayListView.qml:505
+#, fuzzy, kde-format
+#| msgctxt "@info:status"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
+msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1 spor"
 msgstr[1] "%1 spor"
 
-# unreviewed-context
-#: qml/MediaPlayListView.qml:444
+#: qml/MediaPlayListView.qml:506
 #, kde-format
-msgctxt "@info:status"
-msgid "1 track"
-msgstr "1 spor"
+msgctxt "@info:status %1 is the total number of radios of the playlist"
+msgid "%1 radio"
+msgid_plural "%1 radios"
+msgstr[0] ""
+msgstr[1] ""
 
-#: qml/MediaPlayListView.qml:447
-#, kde-format
-msgctxt "@info:status number of tracks remaining"
-msgid "%1 remaining"
-msgid_plural "%1 remaining"
-msgstr[0] "%1 att"
-msgstr[1] "%1 att"
-
-#: qml/MediaPlayListView.qml:448
+#: qml/MediaPlayListView.qml:507
 #, kde-format
 msgctxt ""
-"@info:status %1 is the translation of track[s], %2 is the translation of "
-"remaining"
-msgid "%1 (%2)"
-msgstr "%1 (%2)"
-
-#: qml/MediaPlayListView.qml:462
-#, kde-format
-msgctxt "@action:button"
-msgid "Show Current"
-msgstr "Vis gjeldande spor"
+"@info:status %1 is the translation of tracks, %2 is the translation of total "
+"radios"
+msgid "%1, %2 total"
+msgstr ""
 
 # unreviewed-context
-#: qml/MediaPlayListView.qml:473
-#, kde-format
-msgctxt "@action:button Remove all tracks from play list"
-msgid "Clear All"
-msgstr "Fjern alle"
+#: qml/MediaPlayListView.qml:510
+#, fuzzy, kde-format
+#| msgctxt "@info:status"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
+msgctxt ""
+"@info:status %1 is the total tracks of the playlist. %2 is the total "
+"duration formatted like hh:mm:ss or mm:ss"
+msgid "%1 track, %2 total"
+msgid_plural "%1 tracks, %2 total"
+msgstr[0] "%1 spor"
+msgstr[1] "%1 spor"
+
+#: qml/MediaPlayListView.qml:512
+#, fuzzy, kde-format
+#| msgctxt "@info:status number of tracks remaining"
+#| msgid "%1 remaining"
+#| msgid_plural "%1 remaining"
+msgctxt ""
+"@info:status %1 is the remaining duration of the playlist. It is formatted "
+"like hh:mm:ss or mm:ss"
+msgid "1 track, %1min remaining"
+msgstr "%1 att"
 
 # unreviewed-context
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
@@ -1870,3 +1941,14 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
+
+# unreviewed-context
+#~ msgctxt "@info:status"
+#~ msgid "1 track"
+#~ msgstr "1 spor"
+
+#~ msgctxt ""
+#~ "@info:status %1 is the translation of track[s], %2 is the translation of "
+#~ "remaining"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"

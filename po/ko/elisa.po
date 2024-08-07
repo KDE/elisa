@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-18 00:38+0000\n"
+"POT-Creation-Date: 2024-08-07 02:29+0000\n"
 "PO-Revision-Date: 2024-02-09 20:14+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -542,7 +542,7 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "실행 취소"
 
-#: qml/ElisaMainWindow.qml:132 qml/ElisaMainWindow.qml:601
+#: qml/ElisaMainWindow.qml:132 qml/ElisaMainWindow.qml:616
 #, kde-format
 msgctxt "@info:status"
 msgid ""

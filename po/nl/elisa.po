@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-18 00:38+0000\n"
+"POT-Creation-Date: 2024-08-07 02:29+0000\n"
 "PO-Revision-Date: 2024-07-18 10:15+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -539,7 +539,7 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: qml/ElisaMainWindow.qml:132 qml/ElisaMainWindow.qml:601
+#: qml/ElisaMainWindow.qml:132 qml/ElisaMainWindow.qml:616
 #, kde-format
 msgctxt "@info:status"
 msgid ""

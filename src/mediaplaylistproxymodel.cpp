@@ -811,8 +811,7 @@ int MediaPlayListProxyModel::radioCount() const
 {
     int count = 0;
     for (int i = 0; i < rowCount(); i++) {
-        const bool albumSuggestsRadio = d->mPlayListModel->data(index(i, 0), MediaPlayList::AlbumRole).toString().toStdString() == "Radio Stations";
-        if (albumSuggestsRadio) {
+        if (d->mPlayListModel->data(index(i, 0), MediaPlayList::ElementTypeRole) == ElisaUtils::Radio) {
             count++;
         }
     }

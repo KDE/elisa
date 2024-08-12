@@ -103,10 +103,6 @@ int main(int argc, char *argv[])
 #endif
 #endif
 
-#if KFCrash_FOUND
-    KCrash::initialize();
-#endif
-
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("elisa")));
 
     KAboutData aboutData( QStringLiteral("elisa"),
@@ -126,7 +122,9 @@ int main(int argc, char *argv[])
     aboutData.addCredit(QStringLiteral("Jérôme Guidon"), i18nc("@label", "Support for online radios"), QStringLiteral("guidon@live.fr"));
 
     KAboutData::setApplicationData(aboutData);
-
+#if KFCrash_FOUND
+    KCrash::initialize();
+#endif
     qmlRegisterSingletonType("org.kde.elisa.about", 1, 0, "About", [](QQmlEngine *engine, QJSEngine *) -> QJSValue {
         return engine->toScriptValue(KAboutData::applicationData());
     });

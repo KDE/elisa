@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-07 00:39+0000\n"
+"POT-Creation-Date: 2024-08-13 00:38+0000\n"
 "PO-Revision-Date: 2024-02-07 12:43+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -89,61 +89,61 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Режим вечеринки"
 
-#: main.cpp:113
+#: main.cpp:109
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:115
+#: main.cpp:111
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Простой музыкальный проигрыватель Elisa, созданный сообществом KDE"
 
-#: main.cpp:117
+#: main.cpp:113
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "© Разработчики Elisa, 2015–2020"
 
-#: main.cpp:119 models/lyricsmodel.cpp:161
+#: main.cpp:115 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Создатель"
 
-#: main.cpp:120
+#: main.cpp:116
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Автор"
 
-#: main.cpp:122
+#: main.cpp:118
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Идея и проектирование интерфейса"
 
-#: main.cpp:123
+#: main.cpp:119
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Поддержка локализации"
 
-#: main.cpp:124
+#: main.cpp:120
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Поддержка интерфейсом текста, написанного справа налево"
 
-#: main.cpp:125
+#: main.cpp:121
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Различные улучшения интерфейса"
 
-#: main.cpp:126
+#: main.cpp:122
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

@@ -50,7 +50,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::IsValidRole)] = "isValid";
     roles[static_cast<int>(ColumnsRoles::DatabaseIdRole)] = "databaseId";
     roles[static_cast<int>(ColumnsRoles::TitleRole)] = "title";
-    roles[static_cast<int>(ColumnsRoles::StringDurationRole)] = "durationString";
+    roles[static_cast<int>(ColumnsRoles::StringDurationRole)] = "duration";
     roles[static_cast<int>(ColumnsRoles::DurationRole)] = "durationInt";
     roles[static_cast<int>(ColumnsRoles::ArtistRole)] = "artist";
     roles[static_cast<int>(ColumnsRoles::AlbumArtistRole)] = "albumArtist";

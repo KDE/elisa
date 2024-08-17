@@ -91,8 +91,8 @@ Kirigami.ApplicationWindow {
 
     contextDrawer: Kirigami.ContextDrawer {
         id: playlistDrawer
-        handleClosedIcon.source: "view-media-playlist"
-        handleOpenIcon.source: "view-right-close"
+        handleClosedIcon.name: "view-media-playlist"
+        handleOpenIcon.name: "view-right-close"
 
         handleVisible: !Kirigami.Settings.isMobile && (drawerOpen || mainWindow.spaceForPlayListIconInHeader)
 

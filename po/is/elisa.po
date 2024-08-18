@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-07 02:29+0000\n"
-"PO-Revision-Date: 2024-06-28 11:59+0000\n"
+"PO-Revision-Date: 2024-08-17 15:10+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
@@ -372,12 +372,10 @@ msgid "Play now, replacing current playlist"
 msgstr "Spila núna, skipta út núverandi spilunarlista"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Fjöldi spilana"
+msgstr "Spila næsta"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -1115,12 +1113,10 @@ msgid "Add to Playlist"
 msgstr "Bæta við spilunarlista"
 
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "Fjöldi spilana"
+msgstr "Spila næsta"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format

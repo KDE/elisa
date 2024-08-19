@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-13 00:38+0000\n"
-"PO-Revision-Date: 2024-08-04 17:10+0530\n"
+"PO-Revision-Date: 2024-08-18 17:20+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -278,7 +278,7 @@ msgstr "ஆண்டு"
 #, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
-msgstr ""
+msgstr "ஒலித்தடங்கள்"
 
 #: models/trackmetadatamodel.cpp:499 models/trackmetadatamodel.cpp:561
 #, kde-format
@@ -781,24 +781,18 @@ msgid "Your playlist is empty."
 msgstr "இப்பாடல்வரிசையில் ஏதுமில்லை"
 
 #: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] "இன்னும் %1"
-msgstr[1] "இன்னும் %1"
+msgstr[0] "%2-இல் %1 பாடல் மீதமுள்ளது"
+msgstr[1] "%2-இல் %1 பாடல்கள் மீதமுள்ளன"
 
 #: qml/MediaPlayListView.qml:479
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
-msgstr "இன்னும் %1"
+msgstr "இன்னும் %1, மொத்தம் %2"
 
 #: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
 #: qml/MediaPlayListView.qml:498
@@ -807,33 +801,24 @@ msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
 "time remaining"
 msgid "%1, %2"
-msgstr ""
+msgstr "%1; %2"
 
 #: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
-msgstr "இன்னும் %1"
+msgstr "இன்னும் %1/%2"
 
 #: qml/MediaPlayListView.qml:496
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
-msgstr[0] "%1 பாடல்"
-msgstr[1] "%1 பாடல்கள்"
+msgstr[0] "%2-இல் %1 பாடல்"
+msgstr[1] "%2-இல் %1 பாடல்கள்"
 
 #: qml/MediaPlayListView.qml:505
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -845,8 +830,8 @@ msgstr[1] "%1 பாடல்கள்"
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 வானொலி நிலையம்"
+msgstr[1] "%1 வானொலி நிலையங்கள்"
 
 #: qml/MediaPlayListView.qml:507
 #, kde-format
@@ -854,31 +839,25 @@ msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
 "radios"
 msgid "%1, %2 total"
-msgstr ""
+msgstr "%1, மொத்தம் %2"
 
 #: qml/MediaPlayListView.qml:510
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
 "duration formatted like hh:mm:ss or mm:ss"
 msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
-msgstr[0] "%1 பாடல்"
-msgstr[1] "%1 பாடல்கள்"
+msgstr[0] "%1 பாடல், மொத்தம் %2"
+msgstr[1] "%1 பாடல்கள், மொத்தம் %2"
 
 #: qml/MediaPlayListView.qml:512
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
 msgid "1 track, %1min remaining"
-msgstr "இன்னும் %1"
+msgstr "1 பாடல், %1நிமி மீதம்"
 
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99

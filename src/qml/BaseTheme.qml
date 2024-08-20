@@ -50,11 +50,13 @@ Item {
         id: trackNumber
         text: '99/9'
         font.bold: true
+        font.features: { "tnum": 1 }
     }
     TextMetrics {
         id: duration
         text: '0:00:00'
         font.bold: true
+        font.features: { "tnum": 1 }
     }
     QQC2.ScrollBar {
         id: scrollBar

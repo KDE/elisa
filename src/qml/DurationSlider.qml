@@ -72,6 +72,7 @@ GridLayout {
 
         text: timeIndicator.progressDuration
         color: root.labelColor
+        font.features: { "tnum": 1 }
 
         Layout.row: root.labelsInline ? 0 : 1
         Layout.column: root.labelsInline ? 0 : 1
@@ -121,6 +122,7 @@ GridLayout {
         text: durationIndicator.progressDuration
 
         color: root.labelColor
+        font.features: { "tnum": 1 }
 
         Layout.row: root.labelsInline ? 0 : 1
         Layout.column: root.labelsInline ? 4 : 3

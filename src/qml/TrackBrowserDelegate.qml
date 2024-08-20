@@ -357,6 +357,8 @@ FocusScope {
                 horizontalAlignment: Text.AlignRight
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+
+                font.features: { "tnum": 1 }
             }
 
             // mobile context actions menu button

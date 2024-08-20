@@ -242,6 +242,7 @@ BasePlayListDelegate {
                         }
                         textFormat: Text.PlainText
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
+                        font.features: { "tnum": 1 }
                     }
                 }
             }
@@ -331,6 +332,7 @@ BasePlayListDelegate {
                 id: durationLabel
                 text: duration
                 font.weight: isPlaying ? Font.Bold : Font.Normal
+                font.features: { "tnum": 1 }
             }
 
             Loader {

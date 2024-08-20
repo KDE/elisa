@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-07 02:29+0000\n"
-"PO-Revision-Date: 2024-02-09 20:14+0100\n"
+"PO-Revision-Date: 2024-08-19 23:11+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -372,12 +372,10 @@ msgid "Play now, replacing current playlist"
 msgstr "바로 재생 및 재생 목록 바꾸기"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "재생 횟수"
+msgstr "다음 재생"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -645,34 +643,28 @@ msgstr "음소거 전환"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "현재: 무순서 재생 없음"
 
 #: qml/MediaPlayerControl.qml:168 qml/mobile/MobileTrackPlayer.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "현재: 곡 반복 안 함"
+msgstr "현재: 무순서 재생"
 
 #: qml/MediaPlayerControl.qml:169 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "현재: 앨범 무순서 재생"
 
 #: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:242
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "곡"
+msgstr "트랙"
 
 #: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:246
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "앨범"
@@ -1045,25 +1037,19 @@ msgid "Shuffle"
 msgstr "무순서 재생"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
-msgstr "곡"
+msgstr "트랙"
 
 #: qml/NativeGlobalMenu.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "앨범"
 
 #: qml/NativeGlobalMenu.qml:123
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu shuffle mode is turned off"
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "끔"
@@ -1125,12 +1111,10 @@ msgid "Add to Playlist"
 msgstr "재생 목록에 추가"
 
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "Play now current track from play list"
-#| msgid "Play Now"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "지금 재생하기"
+msgstr "다음 재생"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format
@@ -1139,12 +1123,10 @@ msgid "Display Artist"
 msgstr "아티스트 표시"
 
 #: qml/NavigationActionBar.qml:175
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "무순서 재생 전환"
+msgstr "보기 스타일 전환"
 
 #: qml/NavigationActionBar.qml:235
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-13 00:38+0000\n"
-"PO-Revision-Date: 2024-02-09 20:14+0100\n"
+"PO-Revision-Date: 2024-08-19 23:11+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -372,12 +372,10 @@ msgid "Play now, replacing current playlist"
 msgstr "바로 재생 및 재생 목록 바꾸기"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "재생 횟수"
+msgstr "다음 재생"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -645,34 +643,28 @@ msgstr "음소거 전환"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "현재: 무순서 재생 없음"
 
 #: qml/MediaPlayerControl.qml:168 qml/mobile/MobileTrackPlayer.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "현재: 곡 반복 안 함"
+msgstr "현재: 무순서 재생"
 
 #: qml/MediaPlayerControl.qml:169 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "현재: 앨범 무순서 재생"
 
 #: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:242
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "곡"
+msgstr "트랙"
 
 #: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:246
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "앨범"
@@ -791,23 +783,17 @@ msgid "Your playlist is empty."
 msgstr "재생 목록이 비어 있습니다."
 
 #: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] "%1 남음"
+msgstr[0] "%1/%2곡 남음"
 
 #: qml/MediaPlayListView.qml:479
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
-msgstr "%1 남음"
+msgstr "%1 남음, 합계: %2"
 
 #: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
 #: qml/MediaPlayListView.qml:498
@@ -816,32 +802,23 @@ msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
 "time remaining"
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
-msgstr "%1 남음"
+msgstr "%1/%2 남음"
 
 #: qml/MediaPlayListView.qml:496
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
-msgstr[0] "%1곡"
+msgstr[0] "%1/%2곡"
 
 #: qml/MediaPlayListView.qml:505
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -852,7 +829,7 @@ msgstr[0] "%1곡"
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
-msgstr[0] ""
+msgstr[0] "라디오 %1개"
 
 #: qml/MediaPlayListView.qml:507
 #, kde-format
@@ -860,30 +837,24 @@ msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
 "radios"
 msgid "%1, %2 total"
-msgstr ""
+msgstr "%1, 총 %2개"
 
 #: qml/MediaPlayListView.qml:510
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
 "duration formatted like hh:mm:ss or mm:ss"
 msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
-msgstr[0] "%1곡"
+msgstr[0] "%1곡, 총 %2"
 
 #: qml/MediaPlayListView.qml:512
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
 msgid "1 track, %1min remaining"
-msgstr "%1 남음"
+msgstr "1곡, %1분 남음"
 
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99
@@ -1112,25 +1083,19 @@ msgid "Shuffle"
 msgstr "무순서 재생"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
-msgstr "곡"
+msgstr "트랙"
 
 #: qml/NativeGlobalMenu.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "앨범"
 
 #: qml/NativeGlobalMenu.qml:123
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu shuffle mode is turned off"
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "끔"
@@ -1192,12 +1157,10 @@ msgid "Add to Playlist"
 msgstr "재생 목록에 추가"
 
 #: qml/NavigationActionBar.qml:140
-#, fuzzy, kde-format
-#| msgctxt "Play now current track from play list"
-#| msgid "Play Now"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "지금 재생하기"
+msgstr "다음 재생"
 
 #: qml/NavigationActionBar.qml:152
 #, kde-format
@@ -1206,12 +1169,10 @@ msgid "Display Artist"
 msgstr "아티스트 표시"
 
 #: qml/NavigationActionBar.qml:175
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Toggle Shuffle"
+#, kde-format
 msgctxt "@action:button"
 msgid "Toggle View Style"
-msgstr "무순서 재생 전환"
+msgstr "보기 스타일 전환"
 
 #: qml/NavigationActionBar.qml:235
 #, kde-format

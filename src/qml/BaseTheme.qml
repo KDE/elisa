@@ -40,6 +40,11 @@ Item {
     readonly property int playListEntryMinWidth: button.width * 6 + duration.width + trackNumber.width * 2
     readonly property int coverArtSize: Kirigami.Units.gridUnit * 2
 
+    // Color to use for elements in the HeaderBar. As the nackground image
+    // is always dark-ish, light theme colors might be hard to see.
+    // This is the text color of Breeze Dark
+    property string headerForegroundColor: "#eff0f1"
+
     // get height of buttons inside loaders
     FlatButtonWithToolTip {
         id: button

@@ -92,6 +92,8 @@ Kirigami.ApplicationWindow {
     contextDrawer: Kirigami.ContextDrawer {
         id: playlistDrawer
         handleClosedIcon.name: "view-media-playlist"
+        // force same color as header text; always has dark background
+        handleClosedIcon.color: elisaTheme.headerForegroundColor
         handleOpenIcon.name: "view-right-close"
 
         handleVisible: !Kirigami.Settings.isMobile && (drawerOpen || mainWindow.spaceForPlayListIconInHeader)

@@ -206,8 +206,8 @@ FocusScope {
 
         // Hardcoded because the headerbar blur always makes a dark-ish
         // background, so we don't want to use a color scheme color that
-        // might also be dark. This is the text color of Breeze
-        Kirigami.Theme.textColor: "#eff0f1"
+        // might also be dark.
+        Kirigami.Theme.textColor: elisaTheme.headerForegroundColor
 
 
         GridLayout {

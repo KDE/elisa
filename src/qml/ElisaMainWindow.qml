@@ -95,6 +95,8 @@ Kirigami.ApplicationWindow {
         // force same color as header text; always has dark background
         handleClosedIcon.color: elisaTheme.headerForegroundColor
         handleOpenIcon.name: "view-right-close"
+        handleClosedToolTip: i18nc("@action:button", "Show playlist drawer")
+        handleOpenToolTip: i18nc("@action:button", "Hide playlist drawer")
 
         handleVisible: !Kirigami.Settings.isMobile && (drawerOpen || mainWindow.spaceForPlayListIconInHeader)
 

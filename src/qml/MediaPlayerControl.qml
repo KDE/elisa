@@ -93,7 +93,9 @@ BasePlayerControl {
 
         FlatButtonWithToolTip {
             id: minimizeMaximizeButton
-            text: i18nc("@action:button", "Toggle Party Mode")
+            text: musicWidget.isMaximized
+                ? i18nc("@action:button displayed as @info:tooltip", "Exit party mode")
+                : i18nc("@action:button displayed as @info:tooltip", "Enter party mode")
             icon.name: musicWidget.isMaximized ? "draw-arrow-up" : "draw-arrow-down"
             onClicked: musicWidget.isMaximized = !musicWidget.isMaximized
         }
@@ -101,7 +103,7 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: skipBackwardButton
             enabled: skipBackwardEnabled
-            text: i18nc("@action:button", "Skip Backward")
+            text: i18nc("@action:button displayed as @info:tooltip", "Skip backward")
             icon.name: "media-skip-backward"
             onClicked: musicWidget.playPrevious()
         }
@@ -109,7 +111,9 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: playPauseButton
             enabled: musicWidget.playEnabled
-            text: musicWidget.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
+            text: musicWidget.isPlaying
+                ? i18nc("@action:button displayed as @info:tooltip Pause any media that is playing", "Pause")
+                : i18nc("@action:button displayed as @info:tooltip Start playing media", "Play")
             icon.name: musicWidget.isPlaying ? "media-playback-pause" : "media-playback-start"
             onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
         }
@@ -117,7 +121,7 @@ BasePlayerControl {
         FlatButtonWithToolTip {
             id: skipForwardButton
             enabled: skipForwardEnabled
-            text: i18nc("@action:button skip forward in playlists", "Skip Forward")
+            text: i18nc("@action:button displayed as @info:tooltip skip forward in playlists", "Skip forward")
             icon.name: "media-skip-forward"
             onClicked: musicWidget.playNext()
         }
@@ -142,7 +146,9 @@ BasePlayerControl {
 
             FlatButtonWithToolTip {
                 id: muteButton
-                text: i18nc("@action:button", "Toggle Mute")
+                text: musicWidget.muted
+                    ? i18nc("@action:button displayed as @info:tooltip", "Unmute")
+                    : i18nc("@action:button displayed as @info:tooltip", "Mute")
                 icon.name: musicWidget.muted ? "player-volume-muted" : "player-volume"
                 onClicked: musicWidget.muted = !musicWidget.muted
             }
@@ -316,7 +322,7 @@ BasePlayerControl {
                 }
             }
 
-            text: i18nc("@action:button", "Application Menu")
+            text: i18nc("@action:button displayed as @info:tooltip", "Application menu")
             icon.name: "open-menu-symbolic"
 
             down: pressed || menu.visible

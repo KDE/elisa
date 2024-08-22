@@ -100,7 +100,8 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: "createRadioButton"
-            text: i18nc("@action:button", "Create a radio")
+            text: i18nc("@action:button", "Add Radio")
+            ToolTip.text: i18nc("@info:tooltip", "Add radio")
             icon.name: "list-add"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: createRadio()
@@ -113,6 +114,7 @@ Item {
             Kirigami.Theme.inherit: false
             objectName: "enqueueButton"
             text: i18nc("@action:button", "Add to Playlist")
+            ToolTip.text: i18nc("@info:tooltip", "Add to playlist")
             icon.name: "list-add"
             enabled: navigationBar.canEnqueueView
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
@@ -125,7 +127,8 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: "replaceAndPlayButton"
-            text: i18nc("@action:button", "Play now, replacing current playlist")
+            text: i18nc("@action:button", "Play Now, Replacing Current Playlist")
+            ToolTip.text: i18nc("@info:tooltip", "Play now, replacing current playlist")
             icon.name: "media-playback-start"
             enabled: navigationBar.canEnqueueView
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
@@ -138,6 +141,7 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             text: i18nc("@action:button", "Play Next")
+            ToolTip.text: i18nc("@info:tooltip", "Play next")
             icon.name: "media-playlist-append-next"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: navigationBar.playNext()
@@ -150,6 +154,7 @@ Item {
             Kirigami.Theme.inherit: false
             objectName: "showArtistButton"
             text: i18nc("@action:button navigate to the view for artist of this album", "Display Artist")
+            ToolTip.text: i18nc("@info:tooltip navigate to the view for artist of this album", "Display Artist")
             icon.name: "view-media-artist"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: if (secondaryTitle) { navigationBar.showArtist(secondaryTitle) }
@@ -162,6 +167,7 @@ Item {
             Kirigami.Theme.inherit: false
             id: showPlaylistButton
             text: i18nc("@action:button", "Show Playlist")
+            ToolTip.text: i18nc("@info:tooltip", "Show playlist")
             icon.name: "view-media-playlist"
             display: navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: navigationBar.isWidescreen ? mainWindow.toggleDrawer() : playlistDrawer.open()
@@ -172,13 +178,18 @@ Item {
         FlatButtonWithToolTip {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
-            text: i18nc("@action:button", "Toggle View Style")
+            text: navigationBar.viewStyle === ViewManager.ListStyle
+                ? i18nc("@action:button", "View as Icon Grid")
+                : i18nc("@action:button", "View as List")
+            ToolTip.text: navigationBar.viewStyle === ViewManager.ListStyle
+                ? i18nc("@info:tooltip", "View as icon grid")
+                : i18nc("@info:tooltip", "View as list")
             icon.name: {
                 switch (navigationBar.viewStyle) {
                 case ViewManager.ListStyle:
-                    return "view-list-details-symbolic";
-                case ViewManager.GridStyle:
                     return "view-list-icons-symbolic";
+                case ViewManager.GridStyle:
+                    return "view-list-details-symbolic";
                 }
             }
 
@@ -315,7 +326,9 @@ Item {
                     Kirigami.Theme.inherit: false
                     objectName: "showFilterButton"
                     visible: !showCreateRadioButton
-                    text: !navigationBar.expandedFilterView ? i18nc("@action:button Show filters in the navigation bar", "Search and Filter") : i18nc("@action:button Hide filters in the navigation bar", "Hide Search and Filter")
+                    text: !navigationBar.expandedFilterView
+                    ? i18nc("@action:button displayed as @info:tooltip Show filters in the navigation bar", "Show search and filter toolbar")
+                    : i18nc("@action:button displayed as @info:tooltip Hide filters in the navigation bar", "Hide search and filter toolbar")
                     icon.name: "search"
                     checkable: true
                     checked: expandedFilterView

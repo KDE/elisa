@@ -81,7 +81,7 @@ ColumnLayout {
 
             Layout.fillWidth: true
 
-            text: i18nc("@option:check", "Show progress on Task Manager entries")
+            text: i18nc("@option:check", "Show progress on task manager entries")
 
             checked: ElisaConfigurationDialog.showProgressInTaskBar
             onToggled: ElisaConfigurationDialog.showProgressInTaskBar = checked
@@ -92,7 +92,7 @@ ColumnLayout {
         QQC2.CheckBox {
             Layout.fillWidth: true
 
-            text: i18nc("@option:check", "Keep running in System Tray when main window is closed")
+            text: i18nc("@option:check", "Keep running in system tray when main window is closed")
 
             checked: ElisaConfigurationDialog.showSystemTrayIcon
             onToggled: ElisaConfigurationDialog.showSystemTrayIcon = checked
@@ -114,7 +114,7 @@ ColumnLayout {
         QQC2.CheckBox {
             Layout.fillWidth: true
 
-            text: i18nc("@option:check", "Scan for New Music on startup")
+            text: i18nc("@option:check", "Scan for new music on startup")
 
             checked: ElisaConfigurationDialog.scanAtStartup
             onToggled: {
@@ -178,7 +178,7 @@ ColumnLayout {
 
         // select colour scheme (mobile only, since desktop has it in the application menu)
         QQC2.ComboBox {
-            Kirigami.FormData.label: i18nc("@label:listbox", "Color Scheme:")
+            Kirigami.FormData.label: i18nc("@label:listbox", "Color scheme:")
 
             visible: Kirigami.Settings.isMobile
 
@@ -329,7 +329,7 @@ ColumnLayout {
                 Dialogs.FolderDialog {
                     id: filesViewPathChooserDialog
 
-                    title: i18nc("@title:window", "Choose a Folder")
+                    title: i18nc("@title:window", "Choose Folder")
                     currentFolder: ElisaConfigurationDialog.initialFilesViewPath
 
                     onAccepted: {
@@ -456,7 +456,7 @@ ColumnLayout {
 
                 Dialogs.FolderDialog {
                     id: fileDialog
-                    title: i18nc("@title:window", "Choose a Folder")
+                    title: i18nc("@title:window", "Choose Folder")
 
                     currentFolder: StandardPaths.standardLocations(StandardPaths.HomeLocation)[0]
 

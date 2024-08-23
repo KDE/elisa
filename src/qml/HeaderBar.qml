@@ -175,16 +175,21 @@ FocusScope {
             }
         }
     }
-    // Not a flat button because we need a background to ensure adequate contrast
-    // against the HeaderBar's album art background
-    ButtonWithToolTip {
+
+    FlatButtonWithToolTip {
         anchors.top: parent.top
         anchors.right: parent.right
+        // leave space for contextDrawer handle if it is visible (party mode), and match the top padding of the handle
+        anchors.rightMargin: mainWindow.contextDrawer.handleVisible ? mainWindow.contextDrawer.handle.width : 0
+        anchors.topMargin: mainWindow.contextDrawer.handleVisible ? 0.75 * Kirigami.Units.smallSpacing : 0
 
         visible: mainWindow.visibility == Window.FullScreen
 
         text: i18nc("@action:button", "Exit Full Screen")
         icon.name: "view-restore"
+        display: AbstractButton.IconAndText
+        icon.color: elisaTheme.headerForegroundColor
+        Kirigami.Theme.textColor: elisaTheme.headerForegroundColor
 
         onClicked: mainWindow.restorePreviousStateBeforeFullScreen();
     }

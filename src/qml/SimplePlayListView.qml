@@ -108,7 +108,8 @@ ScrollView {
                 metadataModifiableRole: model.metadataModifiableRole ? model.metadataModifiableRole : false
             }
         }
-
+        /* Disable animations until https://bugreports.qt.io/browse/QTBUG-49868 is fixed
+         * See also https://invent.kde.org/multimedia/elisa/-/merge_requests/68 and MediaPlayListView.qml
         add: Transition {
             NumberAnimation {
                 property: "opacity";
@@ -138,6 +139,6 @@ ScrollView {
                 properties: "x,y";
                 duration: Kirigami.Units.shortDuration
                 easing.type: Easing.InOutQuad}
-        }
+        }*/
     }
 }

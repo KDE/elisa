@@ -75,7 +75,6 @@ ScrollView {
                     headerData: JSON.parse(playListDelegate.ListView.section)
                     width: playListView.width
                     simpleMode: true
-                    Kirigami.Theme.textColor: "#eff0f1"
                 }
             }
 

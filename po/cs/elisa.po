@@ -541,20 +541,16 @@ msgid "Undo"
 msgstr "Zpět"
 
 #: qml/ElisaMainWindow.qml:98
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr "Zobrazit seznam skladeb"
+msgstr ""
 
 #: qml/ElisaMainWindow.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr "Skrýt seznam skladeb"
+msgstr ""
 
 #: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:620
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-22 00:39+0000\n"
-"PO-Revision-Date: 2024-08-07 09:14+0300\n"
+"PO-Revision-Date: 2024-08-23 07:06+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -541,20 +541,16 @@ msgid "Undo"
 msgstr "הסגה"
 
 #: qml/ElisaMainWindow.qml:98
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr "הצגת רשימת נגינה"
+msgstr "הצגת מגירת רשימת נגינה"
 
 #: qml/ElisaMainWindow.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr "הסתרת רשימת נגינה"
+msgstr "הסתרת מגירת רשימת נגינה"
 
 #: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:620
 #, kde-format

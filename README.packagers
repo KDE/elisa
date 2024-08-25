@@ -8,52 +8,59 @@ Elisa has the following dependencies:
 
 -- REQUIRED:
 
- * QtCore
- * QtNetwork
- * QtQml
- * QtQuick
- * QtTest
- * QtSql
- * QtMultimedia
- * QtSvg
- * QtGui
- * QtWidgets
- * QtQuickTest
- * QtConcurrent
- * Qt (required version >= 5.12.0)
- * QtQuickControls2 (required version >= 5.12.0), Qt5 Quick Controls version 2 is needed at runtime to provide the interface.
- * Kirigami (required version >= 5.70.0), Kirigami is needed to provide the mobile UI components.
+ * ECM (required version >= 6.3)
+ * Python3
+ * Qt6 (required version >= 6.5.0)
+ * KF6Kirigami (required version >= 6.3), KF Kirigami is needed to provide the mobile UI components.
+ * Qt6CoreTools (required version >= 6.6.2)
+ * Qt6Core
+ * KF6KirigamiAddons (required version >= 0.11.76), KF KirigamiAddons is needed to provide the about KDE dialogue.
  * Gettext
- * KI18n (required version >= 5.70.0), Text internationalization library.
- * KCoreAddons (required version >= 5.70.0), Qt addon library with a collection of non-GUI utilities.
- * KConfig (required version >= 5.70.0), Persistent platform-independent application settings.
- * KIconThemes (required version >= 5.70.0), Support for icon themes.
- * KIO (required version >= 5.70.0), File management libraries used for file browsing. Optional on Android.
- * ECM (required version >= 1.6.0)
+ * KF6I18n (required version >= 6.3), KF text internationalization library.
+ * KF6IconThemes (required version >= 6.3), Support for icon themes.
+ * KF6Config (required version >= 6.3), Persistent platform-independent application settings.
+ * KF6ColorScheme (required version >= 6.3), Allows changing the app's color scheme.
+ * KF6CoreAddons (required version >= 6.5.0), Qt addon library with a collection of non-GUI utilities.
+ * KF6KIO (required version >= 6.3), File management libraries used for file browsing.
+ * KF6QQC2DesktopStyle (required version >= 6.3), KDE QtQuick style for desktop
 
 -- RECOMMENDED:
 
- * KFileMetaData (required version >= 5.70.0), Provides a simple library for extracting metadata.
- * KXmlGui (required version >= 5.70.0), Framework for managing menu and toolbar actions.
- * KPackage (required version >= 5.70.0), Package management library needed to get the configuration dialogs.
- * LIBVLC, libvlc allows to play music in Elisa, <https://www.videolan.org/vlc/libvlc.html>
+ * KF6FileMetaData (required version >= 6.3), Provides a simple library for extracting metadata.
+ * KF6XmlGui (required version >= 6.3), Framework for managing menu and toolbar actions.
+ * LIBVLC, libvlc allows to play music in Elisa (otherwise it will use QtMultimedia), <https://www.videolan.org/vlc/libvlc.html>
 
 -- OPTIONAL:
 
- * QtDBus (required version >= 5.12.0), Qt5 DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace.
- * KCrash (required version >= 5.70.0), Graceful handling of application crashes.
- * KDBusAddons (required version >= 5.70.0), Convenience classes for D-Bus.
+ * OpenGL
+ * Vulkan
+ * Qt6Test (required version >= 6.5.0)
+ * Qt6Sql (required version >= 6.5.0)
+ * Qt6Multimedia (required version >= 6.5.0)
+ * Qt6Svg (required version >= 6.5.0)
+ * Qt6QuickTest (required version >= 6.5.0)
+ * Qt6QmlTools (required version >= 6.6.2)
+ * Qt6Qml (required version >= 6.5.0)
+ * Qt6Quick (required version >= 6.5.0)
+ * Qt6Concurrent (required version >= 6.5.0)
+ * Qt6WidgetsTools (required version >= 6.6.2)
+ * Qt6Widgets (required version >= 6.5.0)
+ * Qt6DBusTools (required version >= 6.6.2)
+ * Qt6DBus (required version >= 6.5.0), Qt6 DBus is needed to provide MPris2 interface to allow remote control by the desktop workspace.
+ * KF6Crash (required version >= 6.3), Graceful handling of application crashes.
+ * KF6DBusAddons (required version >= 6.3), Convenience classes for D-Bus.
+ * XKB (required version >= 0.5.0), XKB API common to servers and clients., <http://xkbcommon.org>
+ * WrapVulkanHeaders
+ * Qt6GuiTools (required version >= 6.6.2)
+ * Freetype
+ * Fontconfig
+ * Qt6Network (required version >= 6.5.0)
  * PkgConfig
 
 -- RUNTIME:
 
- * QtQuickWidgets (required version >= 5.12.0), Qt Quick Widgets is needed at runtime to provide the interface.
- * Qt.labs.platform, Qt.labs module with some qml components wrapping platform APIs
- * qml-module-qtqml-models2 (required version >= 5.12.0), qml Qt module
- * qml-module-qtquick-controls (required version >= 5.12.0), qml Qt module
- * qml-module-qtquick-dialogs (required version >= 5.12.0), qml Qt module
- * qml-module-qtquick-layouts (required version >= 5.12.0), qml Qt module
- * qml-module-qtquick2 (required version >= 5.12.0), qml Qt module
+ * Qt6QuickWidgets (required version >= 6.5.0), Qt6 Quick Widgets is needed at runtime to provide the interface.
+ * Qt6QuickControls2 (required version >= 6.5.0), Qt6 Quick Controls version 2 is needed at runtime to provide the interface.
 
 Please consider packaging Elisa with all its recommended dependencies. Even if they are not required, a nice fallback is not always implemented and user experience may suffer a lot.
 UPnP/DLNA via unreleased UPNPQT library is currently broken. Please consider not building it.

@@ -160,6 +160,12 @@ FocusScope {
                 destroy();
             }
 
+            Rectangle {
+                anchors.fill: parent
+                color: Kirigami.Theme.backgroundColor
+                z: -1
+            }
+
             Component.onCompleted: {
                 if (status === Image.Loading) {
                     statusChanged.connect(headerBar.replaceWhenLoaded);

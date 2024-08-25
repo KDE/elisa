@@ -129,6 +129,14 @@ FocusScope {
                 transparentBorder: false
             }
         }
+
+        MouseArea {
+            id: backgroundMouseArea
+            anchors.fill: parent
+            onDoubleClicked: {
+                mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized
+            }
+        }
     }
 
     Component {

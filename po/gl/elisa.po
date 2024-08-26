@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-22 00:39+0000\n"
+"POT-Creation-Date: 2024-08-26 00:38+0000\n"
 "PO-Revision-Date: 2024-08-22 19:04+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -604,7 +604,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "A garda fallou"
 
-#: qml/HeaderBar.qml:172
+#: qml/HeaderBar.qml:180
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"

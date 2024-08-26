@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-22 00:39+0000\n"
+"POT-Creation-Date: 2024-08-26 00:38+0000\n"
 "PO-Revision-Date: 2024-08-19 23:11+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -607,7 +607,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "저장 실패"
 
-#: qml/HeaderBar.qml:172
+#: qml/HeaderBar.qml:180
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"

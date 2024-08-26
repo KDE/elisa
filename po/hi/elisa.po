@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-22 00:39+0000\n"
+"POT-Creation-Date: 2024-08-26 00:38+0000\n"
 "PO-Revision-Date: 2023-02-12 20:05+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -611,7 +611,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "सहेजने में असफल"
 
-#: qml/HeaderBar.qml:172
+#: qml/HeaderBar.qml:180
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"

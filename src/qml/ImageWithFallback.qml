@@ -5,6 +5,7 @@
  */
 
 import QtQuick 2.7
+import org.kde.kirigami as Kirigami
 
 Item {
     id: imageWithFallback

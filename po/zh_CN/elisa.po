@@ -543,13 +543,13 @@ msgstr "撤销"
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr ""
+msgstr "显示播放列表抽屉栏"
 
 #: qml/ElisaMainWindow.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr ""
+msgstr "隐藏播放列表抽屉栏"
 
 #: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:620
 #, kde-format

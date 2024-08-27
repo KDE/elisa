@@ -329,8 +329,8 @@ BasePlayerControl {
             Accessible.role: Accessible.ButtonMenu
 
             onPressed: openMenu()
-            // Need this too because the base control sends onClicked for return/enter
-            onClicked: openMenu()
+            Keys.onReturnPressed: openMenu()
+            Keys.onEnterPressed: openMenu()
 
             menu: ApplicationMenu {
                 y: menuButton.height

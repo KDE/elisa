@@ -89,8 +89,8 @@ Item {
                 : i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort")
 
             onPressed: openMenu()
-            // Need this too because the base control sends onClicked for return/enter
-            onClicked: openMenu()
+            Keys.onReturnPressed: openMenu()
+            Keys.onEnterPressed: openMenu()
         }
     }
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-07 02:29+0000\n"
+"POT-Creation-Date: 2024-08-28 02:46+0000\n"
 "PO-Revision-Date: 2021-09-27 21:21+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -710,7 +710,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Kunne ikke gemme"
 
-#: qml/HeaderBar.qml:172
+#: qml/HeaderBar.qml:178
 #, fuzzy, kde-format
 #| msgctxt "menu entry"
 #| msgid "Enter Fullscreen"

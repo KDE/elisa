@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-07 02:29+0000\n"
+"POT-Creation-Date: 2024-08-28 02:46+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -709,7 +709,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "保存に失敗しました"
 
-#: qml/HeaderBar.qml:172
+#: qml/HeaderBar.qml:178
 #, fuzzy, kde-format
 #| msgctxt "menu entry"
 #| msgid "Enter Fullscreen"

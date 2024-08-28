@@ -187,7 +187,7 @@ FocusScope {
 
         text: i18nc("@action:button", "Exit Full Screen")
         icon.name: "view-restore"
-        display: AbstractButton.IconAndText
+        display: AbstractButton.TextBesideIcon
         icon.color: elisaTheme.headerForegroundColor
         Kirigami.Theme.textColor: elisaTheme.headerForegroundColor
 

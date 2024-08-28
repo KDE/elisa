@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-26 00:38+0000\n"
+"POT-Creation-Date: 2024-08-28 00:38+0000\n"
 "PO-Revision-Date: 2024-06-08 16:50+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -366,7 +366,7 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "se redă muzică"
 
-#: qml/AbstractBrowserDelegate.qml:40 qml/NavigationActionBar.qml:128
+#: qml/AbstractBrowserDelegate.qml:40
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
@@ -462,7 +462,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "În redare"
 
-#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:227
+#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:238
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -480,8 +480,8 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Versuri"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
-#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:164
+#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:308
+#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:169
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -610,125 +610,144 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Salvarea a eșuat"
 
-#: qml/HeaderBar.qml:180
+#: qml/HeaderBar.qml:188
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Ieși din ecranul complet"
 
-#: qml/MediaPlayerControl.qml:96
+#: qml/MediaPlayerControl.qml:97
 #, kde-format
-msgctxt "@action:button"
-msgid "Toggle Party Mode"
+msgctxt "@action:button displayed as @info:tooltip"
+msgid "Exit party mode"
+msgstr ""
+
+#: qml/MediaPlayerControl.qml:98
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Toggle Party Mode"
+msgctxt "@action:button displayed as @info:tooltip"
+msgid "Enter party mode"
 msgstr "Comută regimul de petrecere"
 
-#: qml/MediaPlayerControl.qml:104
-#: qml/mobile/MobileMinimizedPlayerControl.qml:230
-#: qml/mobile/MobileTrackPlayer.qml:353
-#, kde-format
-msgctxt "@action:button"
-msgid "Skip Backward"
+#: qml/MediaPlayerControl.qml:106
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Skip Backward"
+msgctxt "@action:button displayed as @info:tooltip"
+msgid "Skip backward"
 msgstr "Derulează înapoi"
 
-#: qml/MediaPlayerControl.qml:112
-#: qml/mobile/MobileMinimizedPlayerControl.qml:244
-#: qml/mobile/MobileTrackPlayer.qml:366
-#, kde-format
-msgctxt "@action:button Pause any media that is playing"
+#: qml/MediaPlayerControl.qml:115
+#, fuzzy, kde-format
+#| msgctxt "@action:button Pause any media that is playing"
+#| msgid "Pause"
+msgctxt ""
+"@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Întrerupe"
 
-#: qml/MediaPlayerControl.qml:112
-#: qml/mobile/MobileMinimizedPlayerControl.qml:244
-#: qml/mobile/MobileTrackPlayer.qml:366
-#, kde-format
-msgctxt "@action:button Start playing media"
+#: qml/MediaPlayerControl.qml:116
+#, fuzzy, kde-format
+#| msgctxt "@action:button Start playing media"
+#| msgid "Play"
+msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Redă"
 
-#: qml/MediaPlayerControl.qml:120
-#, kde-format
-msgctxt "@action:button skip forward in playlists"
-msgid "Skip Forward"
+#: qml/MediaPlayerControl.qml:124
+#, fuzzy, kde-format
+#| msgctxt "@action:button skip forward in playlists"
+#| msgid "Skip Forward"
+msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
+msgid "Skip forward"
 msgstr "Derulează înainte"
 
-#: qml/MediaPlayerControl.qml:145
+#: qml/MediaPlayerControl.qml:150
 #, kde-format
-msgctxt "@action:button"
-msgid "Toggle Mute"
-msgstr "Comută tăcerea"
+msgctxt "@action:button displayed as @info:tooltip"
+msgid "Unmute"
+msgstr ""
 
-#: qml/MediaPlayerControl.qml:167 qml/mobile/MobileTrackPlayer.qml:211
+#: qml/MediaPlayerControl.qml:151
+#, kde-format
+msgctxt "@action:button displayed as @info:tooltip"
+msgid "Mute"
+msgstr ""
+
+#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "Actual: fără amestecare"
 
-#: qml/MediaPlayerControl.qml:168 qml/mobile/MobileTrackPlayer.qml:212
+#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:212
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Actual: amestecă piese"
 
-#: qml/MediaPlayerControl.qml:169 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Actual: amestecă albume"
 
-#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:242
+#: qml/MediaPlayerControl.qml:203 qml/mobile/MobileTrackPlayer.qml:242
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Piesă"
 
-#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:246
+#: qml/MediaPlayerControl.qml:207 qml/mobile/MobileTrackPlayer.qml:246
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
-#: qml/MediaPlayerControl.qml:205 qml/MediaPlayerControl.qml:263
+#: qml/MediaPlayerControl.qml:211 qml/MediaPlayerControl.qml:269
 #: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Niciuna"
 
-#: qml/MediaPlayerControl.qml:226 qml/mobile/MobileTrackPlayer.qml:264
+#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:264
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Actual: nu repeta piese"
 
-#: qml/MediaPlayerControl.qml:227 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:265
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Actual: repetă piesa actuală"
 
-#: qml/MediaPlayerControl.qml:228 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:234 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Actual: repetă toate piesele din listă"
 
-#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:295
+#: qml/MediaPlayerControl.qml:261 qml/mobile/MobileTrackPlayer.qml:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Listă de redare"
 
-#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:299
+#: qml/MediaPlayerControl.qml:265 qml/mobile/MobileTrackPlayer.qml:299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Una"
 
-#: qml/MediaPlayerControl.qml:319
-#, kde-format
-msgctxt "@action:button"
-msgid "Application Menu"
+#: qml/MediaPlayerControl.qml:325
+#, fuzzy, kde-format
+#| msgctxt "@title:menu"
+#| msgid "Application Menu"
+msgctxt "@action:button displayed as @info:tooltip"
+msgid "Application menu"
 msgstr "Meniul aplicației"
 
 #: qml/MediaPlayListView.qml:27
@@ -992,6 +1011,27 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Renunță"
 
+#: qml/mobile/MobileMinimizedPlayerControl.qml:230
+#: qml/mobile/MobileTrackPlayer.qml:353
+#, kde-format
+msgctxt "@action:button"
+msgid "Skip Backward"
+msgstr "Derulează înapoi"
+
+#: qml/mobile/MobileMinimizedPlayerControl.qml:244
+#: qml/mobile/MobileTrackPlayer.qml:366
+#, kde-format
+msgctxt "@action:button Pause any media that is playing"
+msgid "Pause"
+msgstr "Întrerupe"
+
+#: qml/mobile/MobileMinimizedPlayerControl.qml:244
+#: qml/mobile/MobileTrackPlayer.qml:366
+#, kde-format
+msgctxt "@action:button Start playing media"
+msgid "Play"
+msgstr "Redă"
+
 #: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:379
 #, kde-format
@@ -1197,16 +1237,46 @@ msgstr "Sortează"
 #: qml/NavigationActionBar.qml:103
 #, kde-format
 msgctxt "@action:button"
-msgid "Create a radio"
-msgstr "Creează un radiou"
+msgid "Add Radio"
+msgstr ""
 
-#: qml/NavigationActionBar.qml:115
+#: qml/NavigationActionBar.qml:104
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Add radio"
+msgstr ""
+
+#: qml/NavigationActionBar.qml:116
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Adaugă la lista de redare"
 
-#: qml/NavigationActionBar.qml:140
+#: qml/NavigationActionBar.qml:117
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Add to playlist"
+msgctxt "@info:tooltip"
+msgid "Add to playlist"
+msgstr "Adaugă la lista de redare"
+
+#: qml/NavigationActionBar.qml:130
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play now, replacing current playlist"
+msgctxt "@action:button"
+msgid "Play Now, Replacing Current Playlist"
+msgstr "Redă acum, înlocuind lista actuală"
+
+#: qml/NavigationActionBar.qml:131
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play now, replacing current playlist"
+msgctxt "@info:tooltip"
+msgid "Play now, replacing current playlist"
+msgstr "Redă acum, înlocuind lista actuală"
+
+#: qml/NavigationActionBar.qml:143
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Play counter label for track metadata view"
 #| msgid "Play count"
@@ -1214,49 +1284,101 @@ msgctxt "@action:button"
 msgid "Play Next"
 msgstr "Contor redări"
 
-#: qml/NavigationActionBar.qml:152
+#: qml/NavigationActionBar.qml:144
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Play counter label for track metadata view"
+#| msgid "Play count"
+msgctxt "@info:tooltip"
+msgid "Play next"
+msgstr "Contor redări"
+
+#: qml/NavigationActionBar.qml:156
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Arată interpretul"
 
-#: qml/NavigationActionBar.qml:175
+#: qml/NavigationActionBar.qml:157
+#, fuzzy, kde-format
+#| msgctxt "@action:button navigate to the view for artist of this album"
+#| msgid "Display Artist"
+msgctxt "@info:tooltip navigate to the view for artist of this album"
+msgid "Display Artist"
+msgstr "Arată interpretul"
+
+#: qml/NavigationActionBar.qml:170
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Playlist"
+msgctxt "@info:tooltip"
+msgid "Show playlist"
+msgstr "Arată lista de redare"
+
+#: qml/NavigationActionBar.qml:182
 #, kde-format
 msgctxt "@action:button"
-msgid "Toggle View Style"
-msgstr "Comută stilul vizualizării"
+msgid "View as Icon Grid"
+msgstr ""
 
-#: qml/NavigationActionBar.qml:235
+#: qml/NavigationActionBar.qml:183
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "View details"
+msgctxt "@action:button"
+msgid "View as List"
+msgstr "Vezi detalii"
+
+#: qml/NavigationActionBar.qml:185
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "View as icon grid"
+msgstr ""
+
+#: qml/NavigationActionBar.qml:186
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "View details"
+msgctxt "@info:tooltip"
+msgid "View as list"
+msgstr "Vezi detalii"
+
+#: qml/NavigationActionBar.qml:246
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Înapoi"
 
-#: qml/NavigationActionBar.qml:318
-#, kde-format
-msgctxt "@action:button Show filters in the navigation bar"
-msgid "Search and Filter"
+#: qml/NavigationActionBar.qml:330
+#, fuzzy, kde-format
+#| msgctxt "@action:button Show filters in the navigation bar"
+#| msgid "Search and Filter"
+msgctxt ""
+"@action:button displayed as @info:tooltip Show filters in the navigation bar"
+msgid "Show search and filter toolbar"
 msgstr "Căutare și filtrare"
 
-#: qml/NavigationActionBar.qml:318
-#, kde-format
-msgctxt "@action:button Hide filters in the navigation bar"
-msgid "Hide Search and Filter"
+#: qml/NavigationActionBar.qml:331
+#, fuzzy, kde-format
+#| msgctxt "@action:button Hide filters in the navigation bar"
+#| msgid "Hide Search and Filter"
+msgctxt ""
+"@action:button displayed as @info:tooltip Hide filters in the navigation bar"
+msgid "Hide search and filter toolbar"
 msgstr "Ascunde căutarea și filtrarea"
 
-#: qml/NavigationActionBar.qml:410
+#: qml/NavigationActionBar.qml:423
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Caută denumire de album, interpret, etc."
 
-#: qml/NavigationActionBar.qml:419
+#: qml/NavigationActionBar.qml:432
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrează după evaluare: "
 
-#: qml/NavigationActionBar.qml:437
+#: qml/NavigationActionBar.qml:450
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
@@ -1305,15 +1427,19 @@ msgid "Show background on Now Playing page"
 msgstr "Arată fundal pe pagina „În redare”"
 
 #: qml/SettingsForm.qml:84
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@option:check"
+#| msgid "Show progress on Task Manager entries"
 msgctxt "@option:check"
-msgid "Show progress on Task Manager entries"
+msgid "Show progress on task manager entries"
 msgstr "Arată progresul pe înregistrările gestionarului de sarcini"
 
 #: qml/SettingsForm.qml:95
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@option:check"
+#| msgid "Keep running in System Tray when main window is closed"
 msgctxt "@option:check"
-msgid "Keep running in System Tray when main window is closed"
+msgid "Keep running in system tray when main window is closed"
 msgstr "Continuă rularea în tava de sistem când fereastra principală e închisă"
 
 #: qml/SettingsForm.qml:106
@@ -1323,9 +1449,11 @@ msgid "Start playing on startup"
 msgstr "Începe redarea la pornire"
 
 #: qml/SettingsForm.qml:117
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@option:check"
+#| msgid "Scan for New Music on startup"
 msgctxt "@option:check"
-msgid "Scan for New Music on startup"
+msgid "Scan for new music on startup"
 msgstr "Scanează pentru muzică nouă la pornire"
 
 #: qml/SettingsForm.qml:136
@@ -1361,9 +1489,11 @@ msgid "Favorite/not favorite"
 msgstr "Favorită/nefavorită"
 
 #: qml/SettingsForm.qml:181
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@label:listbox"
+#| msgid "Color Scheme:"
 msgctxt "@label:listbox"
-msgid "Color Scheme:"
+msgid "Color scheme:"
 msgstr "Schemă de culori:"
 
 #: qml/SettingsForm.qml:213
@@ -1497,9 +1627,11 @@ msgid "Choose…"
 msgstr "Alege…"
 
 #: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Choose a Folder"
 msgctxt "@title:window"
-msgid "Choose a Folder"
+msgid "Choose Folder"
 msgstr "Alege un dosar"
 
 #: qml/SettingsForm.qml:355
@@ -1841,6 +1973,26 @@ msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Stații radio"
 
+#~ msgctxt "@action:button"
+#~ msgid "Toggle Party Mode"
+#~ msgstr "Comută regimul de petrecere"
+
+#~ msgctxt "@action:button"
+#~ msgid "Toggle Mute"
+#~ msgstr "Comută tăcerea"
+
+#~ msgctxt "@action:button"
+#~ msgid "Application Menu"
+#~ msgstr "Meniul aplicației"
+
+#~ msgctxt "@action:button"
+#~ msgid "Create a radio"
+#~ msgstr "Creează un radiou"
+
+#~ msgctxt "@action:button"
+#~ msgid "Toggle View Style"
+#~ msgstr "Comută stilul vizualizării"
+
 #~ msgctxt "@info:status"
 #~ msgid "1 track"
 #~ msgstr "1 piesă"
@@ -1925,10 +2077,6 @@ msgstr "Stații radio"
 #~ msgctxt "@action:button Add whole container to play list"
 #~ msgid "Add to queue"
 #~ msgstr "Adaugă la coadă"
-
-#~ msgctxt "@action:button"
-#~ msgid "View details"
-#~ msgstr "Vezi detalii"
 
 #~ msgctxt "@action:button"
 #~ msgid "Un-mark as favorite"

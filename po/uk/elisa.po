@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-28 00:38+0000\n"
-"PO-Revision-Date: 2024-08-23 09:16+0300\n"
+"PO-Revision-Date: 2024-08-28 09:02+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -615,45 +615,35 @@ msgstr "Вийти з повноекранного режиму"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "Вийти з режиму вечірки"
 
 #: qml/MediaPlayerControl.qml:98
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr "Перемкнути режим вечірки"
+msgstr "Увійти у режим вечірки"
 
 #: qml/MediaPlayerControl.qml:106
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Гортати назад"
 
 #: qml/MediaPlayerControl.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@action:button Pause any media that is playing"
-#| msgid "Pause"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Пауза"
 
 #: qml/MediaPlayerControl.qml:116
-#, fuzzy, kde-format
-#| msgctxt "@action:button Start playing media"
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Відтворити"
 
 #: qml/MediaPlayerControl.qml:124
-#, fuzzy, kde-format
-#| msgctxt "@action:button skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Гортати вперед"
@@ -662,13 +652,13 @@ msgstr "Гортати вперед"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "Увімкнути звук"
 
 #: qml/MediaPlayerControl.qml:151
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "Вимкнути звук"
 
 #: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
@@ -738,9 +728,7 @@ msgid "One"
 msgstr "Одна"
 
 #: qml/MediaPlayerControl.qml:325
-#, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "Меню програм"
@@ -1214,21 +1202,16 @@ msgid "Sort"
 msgstr "Упорядкування"
 
 #: qml/NavigationActionBar.qml:103
-#, fuzzy, kde-format
-#| msgctxt "Title of the file radios browser view"
-#| msgid "Radios"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr "Радіо"
+msgstr "Додати радіо"
 
 #: qml/NavigationActionBar.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of radios of the playlist"
-#| msgid "%1 radio"
-#| msgid_plural "%1 radios"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr "%1 радіо"
+msgstr "Додати радіо"
 
 #: qml/NavigationActionBar.qml:116
 #, kde-format
@@ -1237,25 +1220,19 @@ msgid "Add to Playlist"
 msgstr "Додати до списку відтворення"
 
 #: qml/NavigationActionBar.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Додати до списку відтворення"
 
 #: qml/NavigationActionBar.qml:130
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Відтворити зараз, замінити список відтворення"
 
 #: qml/NavigationActionBar.qml:131
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Відтворити зараз, замінити список відтворення"
@@ -1267,9 +1244,7 @@ msgid "Play Next"
 msgstr "Відтворити наступну"
 
 #: qml/NavigationActionBar.qml:144
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play next"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
 msgstr "Відтворити наступну"
@@ -1281,17 +1256,13 @@ msgid "Display Artist"
 msgstr "Показати виконавця"
 
 #: qml/NavigationActionBar.qml:157
-#, fuzzy, kde-format
-#| msgctxt "@action:button navigate to the view for artist of this album"
-#| msgid "Display Artist"
+#, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Показати виконавця"
 
 #: qml/NavigationActionBar.qml:170
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Показати список відтворення"
@@ -1300,29 +1271,25 @@ msgstr "Показати список відтворення"
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "Перегляд таблицею"
 
 #: qml/NavigationActionBar.qml:183
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "View details"
+#, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr "Переглянути подробиці"
+msgstr "Перегляд списком"
 
 #: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "Перегляд таблицею"
 
 #: qml/NavigationActionBar.qml:186
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr "Переглянути подробиці"
+msgstr "Перегляд списком"
 
 #: qml/NavigationActionBar.qml:246
 #, kde-format
@@ -1331,22 +1298,18 @@ msgid "Back"
 msgstr "Назад"
 
 #: qml/NavigationActionBar.qml:330
-#, fuzzy, kde-format
-#| msgctxt "@action:button Show filters in the navigation bar"
-#| msgid "Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
-msgstr "Пошук і фільтрування"
+msgstr "Показати панель пошуку і фільтрування"
 
 #: qml/NavigationActionBar.qml:331
-#, fuzzy, kde-format
-#| msgctxt "@action:button Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
-msgstr "Приховати пошук і фільтрування"
+msgstr "Приховати панель пошуку і фільтрування"
 
 #: qml/NavigationActionBar.qml:423
 #, kde-format
@@ -1409,17 +1372,13 @@ msgid "Show background on Now Playing page"
 msgstr "Показувати тло на сторінці «Зараз відтворюється»"
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "Показувати поступ на пунктах панелі задач"
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr "Працювати у лотку, якщо закрито головне вікно"
@@ -1431,9 +1390,7 @@ msgid "Start playing on startup"
 msgstr "Починати відтворення після запуску"
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Scan for New Music on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "Шукати нові композиції після запуску"
@@ -1471,9 +1428,7 @@ msgid "Favorite/not favorite"
 msgstr "Улюблена/Не улюблена"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Color Scheme:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Схема кольорів:"
@@ -1609,9 +1564,7 @@ msgid "Choose…"
 msgstr "Вибрати…"
 
 #: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Виберіть теку"

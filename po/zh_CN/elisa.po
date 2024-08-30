@@ -80,7 +80,7 @@ msgstr "播放/暂停"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
-msgstr "切换派对模式"
+msgstr "切换聚会模式"
 
 #: main.cpp:113
 #, kde-format
@@ -598,7 +598,7 @@ msgstr "退出全屏模式"
 #, kde-format
 msgctxt "@action:button"
 msgid "Toggle Party Mode"
-msgstr "切换派对模式"
+msgstr "切换聚会模式"
 
 #: qml/MediaPlayerControl.qml:104
 #: qml/mobile/MobileMinimizedPlayerControl.qml:230
@@ -973,7 +973,7 @@ msgstr "视图"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
-msgstr "切换派对模式"
+msgstr "切换聚会模式"
 
 #: qml/NativeGlobalMenu.qml:68
 #, kde-format

@@ -80,7 +80,7 @@ msgstr "播放/暂停"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
-msgstr "切换派对模式"
+msgstr "切换聚会模式"
 
 #: main.cpp:109
 #, kde-format
@@ -610,19 +610,19 @@ msgstr "退出全屏模式"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "退出聚会模式"
 
 #: qml/MediaPlayerControl.qml:98
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr ""
+msgstr "进入聚会模式"
 
 #: qml/MediaPlayerControl.qml:106
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
-msgstr ""
+msgstr "快退"
 
 #: qml/MediaPlayerControl.qml:115
 #, kde-format
@@ -641,19 +641,19 @@ msgstr "播放"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
-msgstr ""
+msgstr "快进"
 
 #: qml/MediaPlayerControl.qml:150
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "取消静音"
 
 #: qml/MediaPlayerControl.qml:151
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "静音"
 
 #: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
@@ -726,7 +726,7 @@ msgstr "重复一首"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
-msgstr ""
+msgstr "应用程序菜单"
 
 #: qml/MediaPlayListView.qml:27
 #, kde-format
@@ -1059,7 +1059,7 @@ msgstr "视图"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
-msgstr "切换派对模式"
+msgstr "切换聚会模式"
 
 #: qml/NativeGlobalMenu.qml:68
 #, kde-format
@@ -1181,13 +1181,13 @@ msgstr "排序"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr ""
+msgstr "添加电台"
 
 #: qml/NavigationActionBar.qml:104
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr ""
+msgstr "添加电台"
 
 #: qml/NavigationActionBar.qml:116
 #, kde-format
@@ -1205,7 +1205,7 @@ msgstr "加入播放列表"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
-msgstr ""
+msgstr "立即播放，替换当前播放列表"
 
 #: qml/NavigationActionBar.qml:131
 #, kde-format
@@ -1223,7 +1223,7 @@ msgstr "播放下一首"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
-msgstr ""
+msgstr "播放下一首"
 
 #: qml/NavigationActionBar.qml:156
 #, kde-format
@@ -1241,31 +1241,31 @@ msgstr "显示艺人"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
-msgstr ""
+msgstr "显示播放列表"
 
 #: qml/NavigationActionBar.qml:182
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "显示为图标网格"
 
 #: qml/NavigationActionBar.qml:183
 #, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr ""
+msgstr "显示为列表"
 
 #: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "显示为图标网格"
 
 #: qml/NavigationActionBar.qml:186
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr ""
+msgstr "显示为列表"
 
 #: qml/NavigationActionBar.qml:246
 #, kde-format
@@ -1278,14 +1278,14 @@ msgstr "返回"
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
-msgstr ""
+msgstr "显示搜索和过滤工具栏"
 
 #: qml/NavigationActionBar.qml:331
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
-msgstr ""
+msgstr "隐藏搜索和过滤工具栏"
 
 #: qml/NavigationActionBar.qml:423
 #, kde-format
@@ -1351,13 +1351,13 @@ msgstr "在正在播放页面显示背景"
 #, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
-msgstr ""
+msgstr "在任务管理器项目中显示进度"
 
 #: qml/SettingsForm.qml:95
 #, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
-msgstr ""
+msgstr "关闭主窗口后继续在系统托盘中运行"
 
 #: qml/SettingsForm.qml:106
 #, kde-format
@@ -1369,7 +1369,7 @@ msgstr "启动后立即播放音乐"
 #, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
-msgstr ""
+msgstr "启动时扫描新音乐"
 
 #: qml/SettingsForm.qml:136
 #, kde-kuit-format
@@ -1406,7 +1406,7 @@ msgstr "收藏/非收藏"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
-msgstr ""
+msgstr "配色方案："
 
 #: qml/SettingsForm.qml:213
 #, kde-format
@@ -1542,7 +1542,7 @@ msgstr "选择…"
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
-msgstr ""
+msgstr "选择文件夹"
 
 #: qml/SettingsForm.qml:355
 #, kde-format

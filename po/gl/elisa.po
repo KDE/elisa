@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-28 00:38+0000\n"
-"PO-Revision-Date: 2024-08-22 19:04+0200\n"
+"PO-Revision-Date: 2024-08-29 18:37+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -614,45 +614,35 @@ msgstr "Saír da pantalla completa"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "Desactivar o modo festa"
 
 #: qml/MediaPlayerControl.qml:98
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr "Conmutar o modo festa"
+msgstr "Activar o modo festa"
 
 #: qml/MediaPlayerControl.qml:106
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Saltar cara atrás"
 
 #: qml/MediaPlayerControl.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@action:button Pause any media that is playing"
-#| msgid "Pause"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Pausar"
 
 #: qml/MediaPlayerControl.qml:116
-#, fuzzy, kde-format
-#| msgctxt "@action:button Start playing media"
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Reproducir"
 
 #: qml/MediaPlayerControl.qml:124
-#, fuzzy, kde-format
-#| msgctxt "@action:button skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Saltar cara adiante"
@@ -661,13 +651,13 @@ msgstr "Saltar cara adiante"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "Activar o son"
 
 #: qml/MediaPlayerControl.qml:151
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "Silenciar"
 
 #: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
@@ -737,12 +727,10 @@ msgid "One"
 msgstr "Unha"
 
 #: qml/MediaPlayerControl.qml:325
-#, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
-msgstr "Menú de aplicacións"
+msgstr "Menú da aplicación"
 
 #: qml/MediaPlayListView.qml:27
 #, kde-format
@@ -1203,21 +1191,16 @@ msgid "Sort"
 msgstr "Ordenar"
 
 #: qml/NavigationActionBar.qml:103
-#, fuzzy, kde-format
-#| msgctxt "Title of the file radios browser view"
-#| msgid "Radios"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr "Radios"
+msgstr "Engadir unha radio"
 
 #: qml/NavigationActionBar.qml:104
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of radios of the playlist"
-#| msgid "%1 radio"
-#| msgid_plural "%1 radios"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr "%1 radio"
+msgstr "Engadir unha radio"
 
 #: qml/NavigationActionBar.qml:116
 #, kde-format
@@ -1226,25 +1209,19 @@ msgid "Add to Playlist"
 msgstr "Engadir á lista de reprodución"
 
 #: qml/NavigationActionBar.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Engadir á lista de reprodución"
 
 #: qml/NavigationActionBar.qml:130
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Reproducir agora, substituíndo a lista de reprodución actual"
 
 #: qml/NavigationActionBar.qml:131
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Reproducir agora, substituíndo a lista de reprodución actual"
@@ -1256,9 +1233,7 @@ msgid "Play Next"
 msgstr "Reproducir a seguinte"
 
 #: qml/NavigationActionBar.qml:144
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play next"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
 msgstr "Reproducir a seguinte"
@@ -1270,48 +1245,40 @@ msgid "Display Artist"
 msgstr "Amosar quen interpreta"
 
 #: qml/NavigationActionBar.qml:157
-#, fuzzy, kde-format
-#| msgctxt "@action:button navigate to the view for artist of this album"
-#| msgid "Display Artist"
+#, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
-msgstr "Amosar quen interpreta"
+msgstr "Amosar quen interpreta."
 
 #: qml/NavigationActionBar.qml:170
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
-msgstr "Amosar a lista de reprodución"
+msgstr "Amosar a lista de reprodución."
 
 #: qml/NavigationActionBar.qml:182
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "Ver como grade de iconas"
 
 #: qml/NavigationActionBar.qml:183
-#, fuzzy, kde-format
-#| msgctxt "Show track metadata"
-#| msgid "View Details"
+#, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr "Ver os detalles"
+msgstr "Ver como lista"
 
 #: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "Ver como grade de iconas"
 
 #: qml/NavigationActionBar.qml:186
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr "Ver os detalles"
+msgstr "Ver como lista"
 
 #: qml/NavigationActionBar.qml:246
 #, kde-format
@@ -1320,22 +1287,18 @@ msgid "Back"
 msgstr "Atrás"
 
 #: qml/NavigationActionBar.qml:330
-#, fuzzy, kde-format
-#| msgctxt "@action:button Show filters in the navigation bar"
-#| msgid "Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
-msgstr "Busca e filtro"
+msgstr "Amosar as barras de busca e de filtro"
 
 #: qml/NavigationActionBar.qml:331
-#, fuzzy, kde-format
-#| msgctxt "@action:button Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
-msgstr "Agochar a busca e filtro"
+msgstr "Agochar as barras de busca e de filtro"
 
 #: qml/NavigationActionBar.qml:423
 #, kde-format
@@ -1398,17 +1361,13 @@ msgid "Show background on Now Playing page"
 msgstr "Amosar o fondo na páxina da reprodución actual."
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "Amosar o progreso nas entradas do xestor de tarefas."
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr ""
@@ -1422,9 +1381,7 @@ msgid "Start playing on startup"
 msgstr "Iniciar a reprodución no inicio."
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Scan for New Music on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "Examinar en busca de nova música no inicio."
@@ -1462,9 +1419,7 @@ msgid "Favorite/not favorite"
 msgstr "Favorito on non"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Color Scheme:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Esquema de cores:"
@@ -1600,9 +1555,7 @@ msgid "Choose…"
 msgstr "Escoller…"
 
 #: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Seleccionar un cartafol"

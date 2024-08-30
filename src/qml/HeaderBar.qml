@@ -93,7 +93,6 @@ FocusScope {
         id: background
 
         anchors.fill: parent
-        visible: headerBar.height > playControlItem.height
 
         property var pendingImageIncubator
         property bool doesSkipAnimation: true

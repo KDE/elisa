@@ -58,7 +58,7 @@ BasePlayerControl {
         Kirigami.Theme.inherit: false
 
         Binding {
-            toolBar.background.visible: !musicWidget.isTranslucent
+            toolBar.background.opacity: musicWidget.isTranslucent ? 0 : 1
         }
 
         contentItem: Item {
@@ -340,6 +340,20 @@ BasePlayerControl {
                         dim: false
                     }
                 }
+            }
+        }
+
+        states: State {
+            when: musicWidget.isTranslucent
+            PropertyChanges {
+                target: toolBar.background
+                opacity: 0
+            }
+        }
+        transitions: Transition {
+            OpacityAnimator {
+                target: toolBar.background
+                duration: Kirigami.Units.longDuration
             }
         }
     }

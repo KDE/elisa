@@ -53,6 +53,13 @@ Kirigami.Page {
             Kirigami.Heading {
                 text: topItem.title
             }
+
+            // Invisible; this exists purely to make the toolbar height match that
+            // of the adjacent one
+            Item {
+                implicitHeight: elisaTheme.toolBarHeaderMinimumHeight
+            }
+
             Kirigami.ActionToolBar {
                 Layout.fillWidth: true
                 alignment: Qt.AlignRight

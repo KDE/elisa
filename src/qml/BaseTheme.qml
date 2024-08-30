@@ -6,6 +6,7 @@
 
 import QtQuick 2.7
 import QtQuick.Controls as QQC2
+import QtQuick.Layouts
 import org.kde.kirigami 2.12 as Kirigami
 
 Item {
@@ -36,6 +37,7 @@ Item {
     property int viewSelectorSmallSizeThreshold: Kirigami.Units.gridUnit * 44
 
     readonly property alias toolButtonHeight: button.height
+    readonly property alias toolBarHeaderMinimumHeight: stackedHeaderToolBarLabels.implicitHeight
     readonly property alias trackNumberWidth: trackNumber.width
     readonly property int playListEntryMinWidth: button.width * 6 + duration.width + trackNumber.width * 2
     readonly property int coverArtSize: Kirigami.Units.gridUnit * 2
@@ -66,5 +68,18 @@ Item {
     QQC2.ScrollBar {
         id: scrollBar
         visible: false
+    }
+
+    ColumnLayout {
+        id: stackedHeaderToolBarLabels
+        visible: false
+        spacing: 0
+        LabelWithToolTip {
+            id: mainTitle
+            level: 4
+        }
+        LabelWithToolTip {
+            id: subTitle
+        }
     }
 }

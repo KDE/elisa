@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-28 00:38+0000\n"
-"PO-Revision-Date: 2024-08-14 11:33+0200\n"
+"PO-Revision-Date: 2024-08-29 13:35+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -613,50 +613,50 @@ msgstr "Ukončit celoobrazovkový režim"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "Spustit režim párty"
 
 #: qml/MediaPlayerControl.qml:98
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr ""
+msgstr "Ukončit režim párty"
 
 #: qml/MediaPlayerControl.qml:106
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
-msgstr ""
+msgstr "Přeskočit zpět"
 
 #: qml/MediaPlayerControl.qml:115
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
-msgstr ""
+msgstr "Pozastavit"
 
 #: qml/MediaPlayerControl.qml:116
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
-msgstr ""
+msgstr "Přehrát"
 
 #: qml/MediaPlayerControl.qml:124
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
-msgstr ""
+msgstr "Přeskočit vpřed"
 
 #: qml/MediaPlayerControl.qml:150
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "Povolit zvuk"
 
 #: qml/MediaPlayerControl.qml:151
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "Ztlumit"
 
 #: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
@@ -730,7 +730,7 @@ msgstr "Jedna"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
-msgstr ""
+msgstr "Nabídka aplikací"
 
 #: qml/MediaPlayListView.qml:27
 #, kde-format
@@ -846,18 +846,18 @@ msgstr[2] ""
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1 skladba"
+msgstr[1] "%1 skladby"
+msgstr[2] "%1 skladeb"
 
 #: qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1 rádio"
+msgstr[1] "%1 rádia"
+msgstr[2] "%1 rádií"
 
 #: qml/MediaPlayListView.qml:507
 #, kde-format
@@ -1200,13 +1200,13 @@ msgstr "Seřadit"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr ""
+msgstr "Přidat audio"
 
 #: qml/NavigationActionBar.qml:104
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr ""
+msgstr "Přidat audio"
 
 #: qml/NavigationActionBar.qml:116
 #, kde-format
@@ -1218,19 +1218,19 @@ msgstr "Přidat do seznamu skladeb"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
-msgstr ""
+msgstr "Přidat do seznamu skladeb"
 
 #: qml/NavigationActionBar.qml:130
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
-msgstr ""
+msgstr "Přehrát nyní a nahradit současný seznam skladeb"
 
 #: qml/NavigationActionBar.qml:131
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
-msgstr ""
+msgstr "Přehrát nyní a nahradit současný seznam skladeb"
 
 #: qml/NavigationActionBar.qml:143
 #, kde-format
@@ -1242,7 +1242,7 @@ msgstr "Přehrát následující"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
-msgstr ""
+msgstr "Přehrát následující"
 
 #: qml/NavigationActionBar.qml:156
 #, kde-format
@@ -1254,37 +1254,37 @@ msgstr "Zobrazit umělce"
 #, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
-msgstr ""
+msgstr "Zobrazit umělce"
 
 #: qml/NavigationActionBar.qml:170
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
-msgstr ""
+msgstr "Zobrazit seznam skladeb"
 
 #: qml/NavigationActionBar.qml:182
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "Zobrazit jako mřížku ikon"
 
 #: qml/NavigationActionBar.qml:183
 #, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr ""
+msgstr "Zobrazit jako seznam"
 
 #: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "Zobrazit jako mřížku ikon"
 
 #: qml/NavigationActionBar.qml:186
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr ""
+msgstr "Zobrazit jako seznam"
 
 #: qml/NavigationActionBar.qml:246
 #, kde-format
@@ -1297,14 +1297,14 @@ msgstr "Zpět"
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
-msgstr ""
+msgstr "Zobrazit lištu pro hledání a filtrování"
 
 #: qml/NavigationActionBar.qml:331
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
-msgstr ""
+msgstr "Skrýt lištu pro hledání a filtrování"
 
 #: qml/NavigationActionBar.qml:423
 #, kde-format
@@ -1370,13 +1370,13 @@ msgstr "Ukázat pozadí na stránce \"Nyní přehrávám\""
 #, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
-msgstr ""
+msgstr "Zobrazit průběh v položkách Správce úloh"
 
 #: qml/SettingsForm.qml:95
 #, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
-msgstr ""
+msgstr "Nechat běžet v systémovém panelu i po zavření hlavního okna"
 
 #: qml/SettingsForm.qml:106
 #, kde-format
@@ -1388,7 +1388,7 @@ msgstr "Spustit přehrávání při spuštění"
 #, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
-msgstr ""
+msgstr "Vyhledat novou hudbu při spuštění"
 
 #: qml/SettingsForm.qml:136
 #, kde-kuit-format
@@ -1426,7 +1426,7 @@ msgstr "Oblíbené/neoblíbené"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
-msgstr ""
+msgstr "Barevné schéma:"
 
 #: qml/SettingsForm.qml:213
 #, kde-format
@@ -1562,7 +1562,7 @@ msgstr "Vybrat…"
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
-msgstr ""
+msgstr "Vyberte složku"
 
 #: qml/SettingsForm.qml:355
 #, kde-format

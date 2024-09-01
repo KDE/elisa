@@ -9,6 +9,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
+import org.kde.config as KConfig
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.kirigamiaddons.formcard 1.0 as FormCard
 import org.kde.elisa
@@ -189,10 +190,8 @@ Kirigami.ApplicationWindow {
     LayoutMirroring.enabled: Application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    x: persistentSettings.x
-    y: persistentSettings.y
-    width: persistentSettings.width
-    height: persistentSettings.height
+    width: Kirigami.Units.gridUnit * 50
+    height: Kirigami.Units.gridUnit * 36
 
     title: ElisaApplication.manageHeaderBar.title ? i18nc("@title:window", "%1 — Elisa", ElisaApplication.manageHeaderBar.title) : i18nc("@title:window", "Elisa")
 
@@ -297,14 +296,12 @@ Kirigami.ApplicationWindow {
         }
     }
 
+    KConfig.WindowStateSaver {
+        configGroupName: "MainWindow"
+    }
+
     Settings {
         id: persistentSettings
-
-        property bool maximized
-        property int x
-        property int y
-        property int width: Kirigami.Units.gridUnit * 50
-        property int height: Kirigami.Units.gridUnit * 36
 
         property var playListState
 
@@ -344,21 +341,6 @@ Kirigami.ApplicationWindow {
             } else {
                 persistentSettings.headerBarIsMaximized = headerBarLoader.item.isMaximized
             }
-        }
-    }
-
-    // We need to handle maximization in a signal handler for "closing" because
-    // the window state state has already changed by the time
-    // Application.onAboutToQuit() is called!
-    onClosing: {
-        if (mainWindow.visibility === Window.Maximized) {
-            persistentSettings.maximized = true;
-        } else {
-            persistentSettings.maximized = false;
-            persistentSettings.x = mainWindow.x;
-            persistentSettings.y = mainWindow.y;
-            persistentSettings.width = mainWindow.width;
-            persistentSettings.height = mainWindow.height;
         }
     }
 

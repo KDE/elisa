@@ -95,8 +95,11 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
     Elisa::ElisaConfiguration::instance(configurationFileName);
     Elisa::ElisaConfiguration::self()->load();
     Elisa::ElisaConfiguration::self()->save();
-
+#if KCOLORSCHEME_VERSION < QT_VERSION_CHECK(6, 6, 0)
     d->mSchemes = new KColorSchemeManager(this);
+#else
+    d->mSchemes = KColorSchemeManager::instance();
+#endif
 
     d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 

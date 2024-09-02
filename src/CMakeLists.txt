@@ -502,6 +502,7 @@ if (ANDROID)
         edit-clear
         media-skip-forward
         media-skip-backward
+        media-playlist-append-next
         media-playlist-shuffle
         media-playlist-no-shuffle-symbolic
         media-random-albums-amarok

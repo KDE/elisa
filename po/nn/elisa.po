@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-28 00:38+0000\n"
+"POT-Creation-Date: 2024-09-02 00:38+0000\n"
 "PO-Revision-Date: 2024-08-25 12:17+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -41,43 +41,43 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
 
-#: elisaapplication.cpp:172
+#: elisaapplication.cpp:175
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Vis/gøym speleliste"
 
-#: elisaapplication.cpp:177
+#: elisaapplication.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Spol framover 10 sekund"
 
-#: elisaapplication.cpp:183
+#: elisaapplication.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Spol bakover 10 sekund"
 
-#: elisaapplication.cpp:189
+#: elisaapplication.cpp:192
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Gå til neste spor"
 
-#: elisaapplication.cpp:195
+#: elisaapplication.cpp:198
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Gå til førre spor"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:204
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Spel/pause"
 
-#: elisaapplication.cpp:212
+#: elisaapplication.cpp:215
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"

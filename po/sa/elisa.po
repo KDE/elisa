@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-28 00:38+0000\n"
+"POT-Creation-Date: 2024-09-02 00:38+0000\n"
 "PO-Revision-Date: 2023-09-28 00:31+0530\n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -42,43 +42,43 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "आकाशवाणीस्थानकानि"
 
-#: elisaapplication.cpp:172
+#: elisaapplication.cpp:175
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "वादनीयसूचीं विभाषयतु"
 
-#: elisaapplication.cpp:177
+#: elisaapplication.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "१० सेकेण्ड् अग्रे अन्वेष्टुम्"
 
-#: elisaapplication.cpp:183
+#: elisaapplication.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "१० सेकेण्ड् पृष्ठतः अवघर्षं कुर्वन्तु"
 
-#: elisaapplication.cpp:189
+#: elisaapplication.cpp:192
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "अग्रिमसंगीतपङ्क्तिं गच्छन्तु"
 
-#: elisaapplication.cpp:195
+#: elisaapplication.cpp:198
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "पूर्वसंगीतपङ्क्तिं गच्छन्तु"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:204
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "वादयतु/विरामयतु"
 
-#: elisaapplication.cpp:212
+#: elisaapplication.cpp:215
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"

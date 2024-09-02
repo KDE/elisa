@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-28 00:38+0000\n"
+"POT-Creation-Date: 2024-09-02 00:38+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -40,43 +40,43 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "电台"
 
-#: elisaapplication.cpp:172
+#: elisaapplication.cpp:175
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "播放列表开关"
 
-#: elisaapplication.cpp:177
+#: elisaapplication.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "前进 10 秒"
 
-#: elisaapplication.cpp:183
+#: elisaapplication.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "后退 10 秒"
 
-#: elisaapplication.cpp:189
+#: elisaapplication.cpp:192
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "转到下一曲目"
 
-#: elisaapplication.cpp:195
+#: elisaapplication.cpp:198
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "转到上一曲目"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:204
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "播放/暂停"
 
-#: elisaapplication.cpp:212
+#: elisaapplication.cpp:215
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"

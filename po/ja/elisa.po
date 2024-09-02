@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-28 00:38+0000\n"
+"POT-Creation-Date: 2024-09-02 00:38+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -42,49 +42,49 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "ラジオ局"
 
-#: elisaapplication.cpp:172
+#: elisaapplication.cpp:175
 #, fuzzy, kde-format
 #| msgid "Toggle Playlist"
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "プレイリストを切り替え"
 
-#: elisaapplication.cpp:177
+#: elisaapplication.cpp:180
 #, fuzzy, kde-format
 #| msgid "Seek forward 10 seconds"
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10秒進む"
 
-#: elisaapplication.cpp:183
+#: elisaapplication.cpp:186
 #, fuzzy, kde-format
 #| msgid "Scrub backwards 10 seconds"
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "10秒戻す"
 
-#: elisaapplication.cpp:189
+#: elisaapplication.cpp:192
 #, fuzzy, kde-format
 #| msgid "Go to next track"
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "次のトラックへ行く"
 
-#: elisaapplication.cpp:195
+#: elisaapplication.cpp:198
 #, fuzzy, kde-format
 #| msgid "Go to previous track"
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "前のトラックへ行く"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:204
 #, fuzzy, kde-format
 #| msgid "Play/pause"
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "再生/一時停止"
 
-#: elisaapplication.cpp:212
+#: elisaapplication.cpp:215
 #, fuzzy, kde-format
 #| msgid "Toggle Party Mode"
 msgctxt "@action"

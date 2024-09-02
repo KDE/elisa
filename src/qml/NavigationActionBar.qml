@@ -252,6 +252,7 @@ Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.leftMargin: mainIcon.visible ? Kirigami.Units.smallSpacing : Kirigami.Units.largeSpacing
+                    Layout.minimumHeight: elisaTheme.toolBarHeaderMinimumHeight
 
                     spacing: 0
 

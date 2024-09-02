@@ -80,12 +80,11 @@ Kirigami.Page {
 
                 text: topItem.title
             }
+
             // Invisible; this exists purely to make the toolbar height match that
             // of the adjacent one
-            ToolButton {
-                icon.name: "edit-paste"
-                opacity: 0
-                focusPolicy: Qt.NoFocus
+            Item {
+                implicitHeight: elisaTheme.toolBarHeaderMinimumHeight
             }
 
             ButtonGroup {

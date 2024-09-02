@@ -117,6 +117,7 @@ FocusScope {
             allowArtistNavigation: abstractView.isSubPage
             showCreateRadioButton: abstractView.modelType === ElisaUtils.Radio
             showEnqueueButton: abstractView.modelType !== ElisaUtils.Radio
+            displaySingleAlbum: abstractView.displaySingleAlbum
 
             Layout.fillWidth: true
 

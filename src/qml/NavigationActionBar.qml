@@ -50,6 +50,8 @@ Item {
 
     property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
 
+    required property bool displaySingleAlbum
+
     implicitHeight: toolbar.height
 
     onViewStyleChanged: {
@@ -420,7 +422,9 @@ Item {
 
                     Accessible.role: Accessible.EditableText
 
-                    placeholderText: i18nc("@info:placeholder", "Search for album name, artist, etc.")
+                    placeholderText: navigationBar.displaySingleAlbum
+                        ? i18nc("@info:placeholder track view filter single album", "Search for track name, artist, etc.")
+                        : i18nc("@info:placeholder track view filter general", "Search for album name, artist, etc.")
 
                     Keys.onEscapePressed: persistentSettings.expandedFilterView = false;
                 }

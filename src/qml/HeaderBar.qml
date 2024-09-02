@@ -374,6 +374,7 @@ FocusScope {
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 openNowPlaying()
+                                playControlItem.isMaximized = false
                             }
 
                             states: State {
@@ -414,6 +415,7 @@ FocusScope {
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 openArtist()
+                                playControlItem.isMaximized = false
                             }
 
                             states: State {
@@ -454,6 +456,7 @@ FocusScope {
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 openAlbum()
+                                playControlItem.isMaximized = false
                             }
 
                             states: State {

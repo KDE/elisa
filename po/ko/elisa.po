@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-28 02:46+0000\n"
+"POT-Creation-Date: 2024-09-03 02:28+0000\n"
 "PO-Revision-Date: 2024-08-19 23:11+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -465,38 +465,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "사이드바 열기"
 
-#: qml/ContextView.qml:107
+#: qml/ContextView.qml:106
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "메타데이터"
 
-#: qml/ContextView.qml:118
+#: qml/ContextView.qml:117
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "가사"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
+#: qml/ContextView.qml:124 qml/MediaPlayerControl.qml:302
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:164
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "재생 목록 표시"
 
-#: qml/ContextView.qml:403
+#: qml/ContextView.qml:402
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "가사를 찾을 수 없음"
 
-#: qml/ContextView.qml:419
+#: qml/ContextView.qml:418
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "재생 중인 곡 없음"
 
-#: qml/ContextView.qml:453
+#: qml/ContextView.qml:452
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -528,13 +528,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "다시 시도"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:416
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:423
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "재생 목록 지워짐"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:420
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:427
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -720,19 +720,19 @@ msgctxt ""
 msgid "Playlist"
 msgstr "재생 목록"
 
-#: qml/MediaPlayListView.qml:63
+#: qml/MediaPlayListView.qml:70
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "저장"
 
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:80
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "불러오기..."
 
-#: qml/MediaPlayListView.qml:97
+#: qml/MediaPlayListView.qml:104
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -742,19 +742,19 @@ msgstr ""
 "일부 곡을 불러올 수 없습니다. 삭제되거나 이름이 변경되지 않았는지 확인하십시"
 "오."
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:110
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "재생 목록 파일 편집"
 
-#: qml/MediaPlayListView.qml:272
+#: qml/MediaPlayListView.qml:279
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "재생 목록이 비어 있음"
 
-#: qml/MediaPlayListView.qml:273
+#: qml/MediaPlayListView.qml:280
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -764,33 +764,33 @@ msgstr ""
 "시작하려면 노래를 추가하십시오. 왼쪽에 있는 보기에서 음악을 탐색할 수 있습니"
 "다."
 
-#: qml/MediaPlayListView.qml:348
+#: qml/MediaPlayListView.qml:355
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "재생 목록이 비어 있습니다."
 
-#: qml/MediaPlayListView.qml:441 qml/MediaPlayListView.qml:446
+#: qml/MediaPlayListView.qml:448 qml/MediaPlayListView.qml:453
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1곡"
 
-#: qml/MediaPlayListView.qml:444
+#: qml/MediaPlayListView.qml:451
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1곡"
 
-#: qml/MediaPlayListView.qml:447
+#: qml/MediaPlayListView.qml:454
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
 msgid_plural "%1 remaining"
 msgstr[0] "%1 남음"
 
-#: qml/MediaPlayListView.qml:448
+#: qml/MediaPlayListView.qml:455
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -798,13 +798,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1(%2)"
 
-#: qml/MediaPlayListView.qml:462
+#: qml/MediaPlayListView.qml:469
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "현재 곡 표시"
 
-#: qml/MediaPlayListView.qml:473
+#: qml/MediaPlayListView.qml:480
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -1134,31 +1134,31 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "뒤로"
 
-#: qml/NavigationActionBar.qml:318
+#: qml/NavigationActionBar.qml:319
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "검색과 필터"
 
-#: qml/NavigationActionBar.qml:318
+#: qml/NavigationActionBar.qml:319
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "검색과 필터 숨기기"
 
-#: qml/NavigationActionBar.qml:410
+#: qml/NavigationActionBar.qml:411
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "앨범 이름, 아티스트 등에서 검색합니다."
 
-#: qml/NavigationActionBar.qml:419
+#: qml/NavigationActionBar.qml:420
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "별점으로 필터하기: "
 
-#: qml/NavigationActionBar.qml:437
+#: qml/NavigationActionBar.qml:438
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

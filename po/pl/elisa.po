@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-28 02:46+0000\n"
+"POT-Creation-Date: 2024-09-03 02:28+0000\n"
 "PO-Revision-Date: 2024-07-20 10:35+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -465,38 +465,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Otwórz pasek boczny"
 
-#: qml/ContextView.qml:107
+#: qml/ContextView.qml:106
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadane"
 
-#: qml/ContextView.qml:118
+#: qml/ContextView.qml:117
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Słowa"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
+#: qml/ContextView.qml:124 qml/MediaPlayerControl.qml:302
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:164
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Pokaż listę odtwarzania"
 
-#: qml/ContextView.qml:403
+#: qml/ContextView.qml:402
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Nie znaleziono żadnych słów"
 
-#: qml/ContextView.qml:419
+#: qml/ContextView.qml:418
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nic nie jest odtwarzane"
 
-#: qml/ContextView.qml:453
+#: qml/ContextView.qml:452
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -528,13 +528,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Ponów"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:416
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:423
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Wyczyszczono listę odtwarzania"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:420
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:427
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -720,19 +720,19 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Lista odtwarzania"
 
-#: qml/MediaPlayListView.qml:63
+#: qml/MediaPlayListView.qml:70
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Zapisz…"
 
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:80
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Wczytaj..."
 
-#: qml/MediaPlayListView.qml:97
+#: qml/MediaPlayListView.qml:104
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -742,19 +742,19 @@ msgstr ""
 "Nie udało się wczytać niektórych utworów. Upewnij się, że nie zostały "
 "usunięte lub ich nazwa nie została zmieniona."
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:110
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Edytuj plik listy odtwarzania"
 
-#: qml/MediaPlayListView.qml:272
+#: qml/MediaPlayListView.qml:279
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Lista odtwarzania jest pusta"
 
-#: qml/MediaPlayListView.qml:273
+#: qml/MediaPlayListView.qml:280
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -764,13 +764,13 @@ msgstr ""
 "Dodaj do niej jakieś utwory, aby rozpocząć. Swoją muzykę możesz przeglądać w "
 "widokach po lewej."
 
-#: qml/MediaPlayListView.qml:348
+#: qml/MediaPlayListView.qml:355
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Twoja lista odtwarzania jest pusta."
 
-#: qml/MediaPlayListView.qml:441 qml/MediaPlayListView.qml:446
+#: qml/MediaPlayListView.qml:448 qml/MediaPlayListView.qml:453
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -779,13 +779,13 @@ msgstr[0] "%1 utwór"
 msgstr[1] "%1 utwory"
 msgstr[2] "%1 utworów"
 
-#: qml/MediaPlayListView.qml:444
+#: qml/MediaPlayListView.qml:451
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 utwór"
 
-#: qml/MediaPlayListView.qml:447
+#: qml/MediaPlayListView.qml:454
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -794,7 +794,7 @@ msgstr[0] "%1 pozostało"
 msgstr[1] "%1 pozostały"
 msgstr[2] "%1 pozostało"
 
-#: qml/MediaPlayListView.qml:448
+#: qml/MediaPlayListView.qml:455
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -802,13 +802,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:462
+#: qml/MediaPlayListView.qml:469
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Pokaż bieżący"
 
-#: qml/MediaPlayListView.qml:473
+#: qml/MediaPlayListView.qml:480
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -1138,31 +1138,31 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Wstecz"
 
-#: qml/NavigationActionBar.qml:318
+#: qml/NavigationActionBar.qml:319
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Szukaj i odfiltruj"
 
-#: qml/NavigationActionBar.qml:318
+#: qml/NavigationActionBar.qml:319
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Ukryj Szukaj i Odfiltruj"
 
-#: qml/NavigationActionBar.qml:410
+#: qml/NavigationActionBar.qml:411
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Szukaj po nazwie albumu, artyście, itp."
 
-#: qml/NavigationActionBar.qml:419
+#: qml/NavigationActionBar.qml:420
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Odfiltruj wg oceny: "
 
-#: qml/NavigationActionBar.qml:437
+#: qml/NavigationActionBar.qml:438
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

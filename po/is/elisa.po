@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-28 02:46+0000\n"
+"POT-Creation-Date: 2024-09-03 02:28+0000\n"
 "PO-Revision-Date: 2024-08-17 15:10+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -465,38 +465,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Opna hliðarstiku"
 
-#: qml/ContextView.qml:107
+#: qml/ContextView.qml:106
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Lýsigögn"
 
-#: qml/ContextView.qml:118
+#: qml/ContextView.qml:117
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Lagatextar"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
+#: qml/ContextView.qml:124 qml/MediaPlayerControl.qml:302
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:164
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Sýna spilunarlista"
 
-#: qml/ContextView.qml:403
+#: qml/ContextView.qml:402
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Engir lagatextar fundust"
 
-#: qml/ContextView.qml:419
+#: qml/ContextView.qml:418
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Ekkert í spilun"
 
-#: qml/ContextView.qml:453
+#: qml/ContextView.qml:452
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -528,13 +528,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Reyna aftur"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:416
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:423
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Spilunarlisti hreinsaður"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:420
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:427
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -720,19 +720,19 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Spilunarlisti"
 
-#: qml/MediaPlayListView.qml:63
+#: qml/MediaPlayListView.qml:70
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Vista…"
 
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:80
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Hlaða…"
 
-#: qml/MediaPlayListView.qml:97
+#: qml/MediaPlayListView.qml:104
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -742,19 +742,19 @@ msgstr ""
 "Ekki tókst að hlaða sum lög. Gakktu úr skugga um að þau hafi ekki verið "
 "fjarlægð eða nafni þeirra breytt."
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:110
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Breyta spilunarlista"
 
-#: qml/MediaPlayListView.qml:272
+#: qml/MediaPlayListView.qml:279
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Spilunarlisti er tómur"
 
-#: qml/MediaPlayListView.qml:273
+#: qml/MediaPlayListView.qml:280
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -764,13 +764,13 @@ msgstr ""
 "Byrjaðu á því að bæta við lögum. Þú getur flett í tónlistinni þinni í "
 "yfirlitinu til vinstri."
 
-#: qml/MediaPlayListView.qml:348
+#: qml/MediaPlayListView.qml:355
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Spilunarlistinn þinn er tómur."
 
-#: qml/MediaPlayListView.qml:441 qml/MediaPlayListView.qml:446
+#: qml/MediaPlayListView.qml:448 qml/MediaPlayListView.qml:453
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -778,13 +778,13 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 lag"
 msgstr[1] "%1 lög"
 
-#: qml/MediaPlayListView.qml:444
+#: qml/MediaPlayListView.qml:451
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 lag"
 
-#: qml/MediaPlayListView.qml:447
+#: qml/MediaPlayListView.qml:454
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -792,7 +792,7 @@ msgid_plural "%1 remaining"
 msgstr[0] "%1 eftir"
 msgstr[1] "%1 eftir"
 
-#: qml/MediaPlayListView.qml:448
+#: qml/MediaPlayListView.qml:455
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -800,13 +800,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:462
+#: qml/MediaPlayListView.qml:469
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Sýna lag í spilun"
 
-#: qml/MediaPlayListView.qml:473
+#: qml/MediaPlayListView.qml:480
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -1136,31 +1136,31 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Til baka"
 
-#: qml/NavigationActionBar.qml:318
+#: qml/NavigationActionBar.qml:319
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Leit og síur"
 
-#: qml/NavigationActionBar.qml:318
+#: qml/NavigationActionBar.qml:319
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Fela leit og síur"
 
-#: qml/NavigationActionBar.qml:410
+#: qml/NavigationActionBar.qml:411
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Leita að nafni á plötu, flytjanda o.s.frv."
 
-#: qml/NavigationActionBar.qml:419
+#: qml/NavigationActionBar.qml:420
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Sía eftir einkunn: "
 
-#: qml/NavigationActionBar.qml:437
+#: qml/NavigationActionBar.qml:438
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

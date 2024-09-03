@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-28 02:46+0000\n"
+"POT-Creation-Date: 2024-09-03 02:28+0000\n"
 "PO-Revision-Date: 2024-07-18 10:42+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -465,38 +465,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Otevřít postranní panel"
 
-#: qml/ContextView.qml:107
+#: qml/ContextView.qml:106
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadata"
 
-#: qml/ContextView.qml:118
+#: qml/ContextView.qml:117
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Text písně"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:302
+#: qml/ContextView.qml:124 qml/MediaPlayerControl.qml:302
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:164
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Zobrazit seznam skladeb"
 
-#: qml/ContextView.qml:403
+#: qml/ContextView.qml:402
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Text písně nebyl nalezen"
 
-#: qml/ContextView.qml:419
+#: qml/ContextView.qml:418
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nic nehraje."
 
-#: qml/ContextView.qml:453
+#: qml/ContextView.qml:452
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -528,13 +528,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Zkusit znovu"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:416
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:423
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Seznam skladeb byl vymazán"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:420
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:427
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -721,19 +721,19 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Seznam skladeb"
 
-#: qml/MediaPlayListView.qml:63
+#: qml/MediaPlayListView.qml:70
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Uložit…"
 
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:80
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Načíst…"
 
-#: qml/MediaPlayListView.qml:97
+#: qml/MediaPlayListView.qml:104
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -743,19 +743,19 @@ msgstr ""
 "Načtení některých skladeb selhalo. Prosím, ujistěte se, že nebyly smazány "
 "nebo přejmenovány."
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:110
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Upravit seznam skladeb"
 
-#: qml/MediaPlayListView.qml:272
+#: qml/MediaPlayListView.qml:279
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Seznam skladeb je prázdný"
 
-#: qml/MediaPlayListView.qml:273
+#: qml/MediaPlayListView.qml:280
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -765,13 +765,13 @@ msgstr ""
 "Pro začátek můžete přidat nějakou skladbu. Hudbu můžete prohlížet pohledy "
 "nalevo."
 
-#: qml/MediaPlayListView.qml:348
+#: qml/MediaPlayListView.qml:355
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Seznam skladeb je prázdný."
 
-#: qml/MediaPlayListView.qml:441 qml/MediaPlayListView.qml:446
+#: qml/MediaPlayListView.qml:448 qml/MediaPlayListView.qml:453
 #, kde-format
 msgctxt "@info:status"
 msgid "%1 track"
@@ -780,13 +780,13 @@ msgstr[0] "%1 skladba"
 msgstr[1] "%1 skladby"
 msgstr[2] "%1 skladeb"
 
-#: qml/MediaPlayListView.qml:444
+#: qml/MediaPlayListView.qml:451
 #, kde-format
 msgctxt "@info:status"
 msgid "1 track"
 msgstr "1 skladba"
 
-#: qml/MediaPlayListView.qml:447
+#: qml/MediaPlayListView.qml:454
 #, kde-format
 msgctxt "@info:status number of tracks remaining"
 msgid "%1 remaining"
@@ -795,7 +795,7 @@ msgstr[0] "Zbývá %1"
 msgstr[1] "Zbývá %1"
 msgstr[2] "Zbývá %1"
 
-#: qml/MediaPlayListView.qml:448
+#: qml/MediaPlayListView.qml:455
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of track[s], %2 is the translation of "
@@ -803,13 +803,13 @@ msgctxt ""
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: qml/MediaPlayListView.qml:462
+#: qml/MediaPlayListView.qml:469
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Zobrazit současný"
 
-#: qml/MediaPlayListView.qml:473
+#: qml/MediaPlayListView.qml:480
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
@@ -1140,31 +1140,31 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Zpět"
 
-#: qml/NavigationActionBar.qml:318
+#: qml/NavigationActionBar.qml:319
 #, kde-format
 msgctxt "@action:button Show filters in the navigation bar"
 msgid "Search and Filter"
 msgstr "Hledat a filtrovat"
 
-#: qml/NavigationActionBar.qml:318
+#: qml/NavigationActionBar.qml:319
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
 msgstr "Skrýt hledání a filtrování"
 
-#: qml/NavigationActionBar.qml:410
+#: qml/NavigationActionBar.qml:411
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Search for album name, artist, etc."
 msgstr "Hledat název alba, umělce apod."
 
-#: qml/NavigationActionBar.qml:419
+#: qml/NavigationActionBar.qml:420
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrovat podle hodnocení: "
 
-#: qml/NavigationActionBar.qml:437
+#: qml/NavigationActionBar.qml:438
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

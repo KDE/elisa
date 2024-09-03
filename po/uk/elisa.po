@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-02 00:38+0000\n"
+"POT-Creation-Date: 2024-09-03 00:38+0000\n"
 "PO-Revision-Date: 2024-08-28 09:02+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -398,13 +398,13 @@ msgctxt "@action:button"
 msgid "Options"
 msgstr "Параметри"
 
-#: qml/AbstractDataView.qml:203
+#: qml/AbstractDataView.qml:204
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Немає відповідників"
 
-#: qml/AbstractDataView.qml:203
+#: qml/AbstractDataView.qml:204
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -461,44 +461,44 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Зараз відтворюється"
 
-#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:238
+#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:240
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Відкрити бічну панель"
 
-#: qml/ContextView.qml:107
+#: qml/ContextView.qml:106
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Метадані"
 
-#: qml/ContextView.qml:118
+#: qml/ContextView.qml:117
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Текст"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:308
-#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:169
+#: qml/ContextView.qml:124 qml/MediaPlayerControl.qml:309
+#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:171
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Показати список відтворення"
 
-#: qml/ContextView.qml:403
+#: qml/ContextView.qml:402
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Тексту не знайдено"
 
-#: qml/ContextView.qml:419
+#: qml/ContextView.qml:418
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Нічого відтворювати"
 
-#: qml/ContextView.qml:453
+#: qml/ContextView.qml:452
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -530,13 +530,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Повторити"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:436
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:443
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Список відтворення спорожнено"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:440
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:447
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -605,129 +605,129 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Не вдалося зберегти"
 
-#: qml/HeaderBar.qml:188
+#: qml/HeaderBar.qml:187
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Вийти з повноекранного режиму"
 
-#: qml/MediaPlayerControl.qml:97
+#: qml/MediaPlayerControl.qml:98
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
 msgstr "Вийти з режиму вечірки"
 
-#: qml/MediaPlayerControl.qml:98
+#: qml/MediaPlayerControl.qml:99
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "Увійти у режим вечірки"
 
-#: qml/MediaPlayerControl.qml:106
+#: qml/MediaPlayerControl.qml:107
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Гортати назад"
 
-#: qml/MediaPlayerControl.qml:115
+#: qml/MediaPlayerControl.qml:116
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Пауза"
 
-#: qml/MediaPlayerControl.qml:116
+#: qml/MediaPlayerControl.qml:117
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Відтворити"
 
-#: qml/MediaPlayerControl.qml:124
+#: qml/MediaPlayerControl.qml:125
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Гортати вперед"
 
-#: qml/MediaPlayerControl.qml:150
+#: qml/MediaPlayerControl.qml:151
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "Увімкнути звук"
 
-#: qml/MediaPlayerControl.qml:151
+#: qml/MediaPlayerControl.qml:152
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "Вимкнути звук"
 
-#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:211
+#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "Поточний: без перемішування"
 
-#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:212
+#: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:212
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Поточний: перемішування композицій"
 
-#: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Поточний: перемішування альбомів"
 
-#: qml/MediaPlayerControl.qml:203 qml/mobile/MobileTrackPlayer.qml:242
+#: qml/MediaPlayerControl.qml:204 qml/mobile/MobileTrackPlayer.qml:242
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Композиція"
 
-#: qml/MediaPlayerControl.qml:207 qml/mobile/MobileTrackPlayer.qml:246
+#: qml/MediaPlayerControl.qml:208 qml/mobile/MobileTrackPlayer.qml:246
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Альбом"
 
-#: qml/MediaPlayerControl.qml:211 qml/MediaPlayerControl.qml:269
+#: qml/MediaPlayerControl.qml:212 qml/MediaPlayerControl.qml:270
 #: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Немає"
 
-#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:264
+#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:264
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Зараз: не повторювати композиції"
 
-#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:234 qml/mobile/MobileTrackPlayer.qml:265
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Зараз: повторити поточну композицію"
 
-#: qml/MediaPlayerControl.qml:234 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Зараз: повторити усі композиції зі списку відтворення"
 
-#: qml/MediaPlayerControl.qml:261 qml/mobile/MobileTrackPlayer.qml:295
+#: qml/MediaPlayerControl.qml:262 qml/mobile/MobileTrackPlayer.qml:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Список відтворення"
 
-#: qml/MediaPlayerControl.qml:265 qml/mobile/MobileTrackPlayer.qml:299
+#: qml/MediaPlayerControl.qml:266 qml/mobile/MobileTrackPlayer.qml:299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Одна"
 
-#: qml/MediaPlayerControl.qml:325
+#: qml/MediaPlayerControl.qml:326
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -741,31 +741,31 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Список відтворення"
 
-#: qml/MediaPlayListView.qml:62
+#: qml/MediaPlayListView.qml:69
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Показувати поточну"
 
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:80
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Спорожнити усе"
 
-#: qml/MediaPlayListView.qml:83
+#: qml/MediaPlayListView.qml:90
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Зберегти…"
 
-#: qml/MediaPlayListView.qml:93
+#: qml/MediaPlayListView.qml:100
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Завантажити…"
 
-#: qml/MediaPlayListView.qml:117
+#: qml/MediaPlayListView.qml:124
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -775,19 +775,19 @@ msgstr ""
 "Не вдалося завантажити деякі композиції. Переконайтеся, що відповідні файли "
 "не було вилучено або перейменовано."
 
-#: qml/MediaPlayListView.qml:123
+#: qml/MediaPlayListView.qml:130
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Змінити файл списку відтворення"
 
-#: qml/MediaPlayListView.qml:292
+#: qml/MediaPlayListView.qml:299
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Список відтворення порожній"
 
-#: qml/MediaPlayListView.qml:293
+#: qml/MediaPlayListView.qml:300
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -797,13 +797,13 @@ msgstr ""
 "Спочатку додайте якісь композиції. Знайти потрібну вам теку можна за "
 "допомогою панелей, розташованих ліворуч."
 
-#: qml/MediaPlayListView.qml:368
+#: qml/MediaPlayListView.qml:375
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Ваш список відтворення порожній."
 
-#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
+#: qml/MediaPlayListView.qml:485 qml/MediaPlayListView.qml:494
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -813,14 +813,14 @@ msgstr[1] "Лишилося %1 з %2 композицій"
 msgstr[2] "Лишилося %1 з %2 композицій"
 msgstr[3] "Лишилося %1 з %2 композиції"
 
-#: qml/MediaPlayListView.qml:479
+#: qml/MediaPlayListView.qml:486
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "лишилася %1, загалом %2"
 
-#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
-#: qml/MediaPlayListView.qml:498
+#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -828,13 +828,13 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
+#: qml/MediaPlayListView.qml:495 qml/MediaPlayListView.qml:504
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "Лишилося %1 з %2"
 
-#: qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:503
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -844,7 +844,7 @@ msgstr[1] "%1 з %2 композицій"
 msgstr[2] "%1 з %2 композицій"
 msgstr[3] "%1 з %2 композиції"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:512
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -854,7 +854,7 @@ msgstr[1] "%1 композиції"
 msgstr[2] "%1 композицій"
 msgstr[3] "1 композиція"
 
-#: qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:513
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -864,7 +864,7 @@ msgstr[1] "%1 радіо"
 msgstr[2] "%1 радіо"
 msgstr[3] "%1 радіо"
 
-#: qml/MediaPlayListView.qml:507
+#: qml/MediaPlayListView.qml:514
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -872,7 +872,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, загалом %2"
 
-#: qml/MediaPlayListView.qml:510
+#: qml/MediaPlayListView.qml:517
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -884,7 +884,7 @@ msgstr[1] "%1 композиції, %2 загалом"
 msgstr[2] "%1 композицій, %2 загалом"
 msgstr[3] "%1 композиція, %2 загалом"
 
-#: qml/MediaPlayListView.qml:512
+#: qml/MediaPlayListView.qml:519
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
@@ -1189,141 +1189,151 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Довідка"
 
-#: qml/NavigationActionBar.qml:88
+#: qml/NavigationActionBar.qml:90
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Упорядковування: %1"
 
-#: qml/NavigationActionBar.qml:89
+#: qml/NavigationActionBar.qml:91
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Упорядкування"
 
-#: qml/NavigationActionBar.qml:103
+#: qml/NavigationActionBar.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
 msgstr "Додати радіо"
 
-#: qml/NavigationActionBar.qml:104
+#: qml/NavigationActionBar.qml:106
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
 msgstr "Додати радіо"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:118
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Додати до списку відтворення"
 
-#: qml/NavigationActionBar.qml:117
+#: qml/NavigationActionBar.qml:119
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Додати до списку відтворення"
 
-#: qml/NavigationActionBar.qml:130
+#: qml/NavigationActionBar.qml:132
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Відтворити зараз, замінити список відтворення"
 
-#: qml/NavigationActionBar.qml:131
+#: qml/NavigationActionBar.qml:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Відтворити зараз, замінити список відтворення"
 
-#: qml/NavigationActionBar.qml:143
+#: qml/NavigationActionBar.qml:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
 msgstr "Відтворити наступну"
 
-#: qml/NavigationActionBar.qml:144
+#: qml/NavigationActionBar.qml:146
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
 msgstr "Відтворити наступну"
 
-#: qml/NavigationActionBar.qml:156
+#: qml/NavigationActionBar.qml:158
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Показати виконавця"
 
-#: qml/NavigationActionBar.qml:157
+#: qml/NavigationActionBar.qml:159
 #, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Показати виконавця"
 
-#: qml/NavigationActionBar.qml:170
+#: qml/NavigationActionBar.qml:172
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Показати список відтворення"
 
-#: qml/NavigationActionBar.qml:182
+#: qml/NavigationActionBar.qml:184
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr "Перегляд таблицею"
 
-#: qml/NavigationActionBar.qml:183
+#: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "View as List"
 msgstr "Перегляд списком"
 
-#: qml/NavigationActionBar.qml:185
+#: qml/NavigationActionBar.qml:187
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr "Перегляд таблицею"
 
-#: qml/NavigationActionBar.qml:186
+#: qml/NavigationActionBar.qml:188
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Перегляд списком"
 
-#: qml/NavigationActionBar.qml:246
+#: qml/NavigationActionBar.qml:248
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Назад"
 
-#: qml/NavigationActionBar.qml:330
+#: qml/NavigationActionBar.qml:333
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Показати панель пошуку і фільтрування"
 
-#: qml/NavigationActionBar.qml:331
+#: qml/NavigationActionBar.qml:334
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Приховати панель пошуку і фільтрування"
 
-#: qml/NavigationActionBar.qml:423
-#, kde-format
-msgctxt "@info:placeholder"
+#: qml/NavigationActionBar.qml:427
+#, fuzzy, kde-format
+#| msgctxt "@info:placeholder"
+#| msgid "Search for album name, artist, etc."
+msgctxt "@info:placeholder track view filter single album"
+msgid "Search for track name, artist, etc."
+msgstr "Шукати за назвою альбому, виконавцем тощо"
+
+#: qml/NavigationActionBar.qml:428
+#, fuzzy, kde-format
+#| msgctxt "@info:placeholder"
+#| msgid "Search for album name, artist, etc."
+msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Шукати за назвою альбому, виконавцем тощо"
 
-#: qml/NavigationActionBar.qml:432
+#: qml/NavigationActionBar.qml:437
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Фільтр за оцінкою: "
 
-#: qml/NavigationActionBar.qml:450
+#: qml/NavigationActionBar.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-02 00:38+0000\n"
+"POT-Creation-Date: 2024-09-03 00:38+0000\n"
 "PO-Revision-Date: 2024-08-30 12:19+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -398,13 +398,13 @@ msgctxt "@action:button"
 msgid "Options"
 msgstr "Aukerak"
 
-#: qml/AbstractDataView.qml:203
+#: qml/AbstractDataView.qml:204
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Ez dago emaitzarik"
 
-#: qml/AbstractDataView.qml:203
+#: qml/AbstractDataView.qml:204
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -461,44 +461,44 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Orain jotzen"
 
-#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:238
+#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:240
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Ireki alboko-barra"
 
-#: qml/ContextView.qml:107
+#: qml/ContextView.qml:106
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadatuak"
 
-#: qml/ContextView.qml:118
+#: qml/ContextView.qml:117
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Hitzak"
 
-#: qml/ContextView.qml:125 qml/MediaPlayerControl.qml:308
-#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:169
+#: qml/ContextView.qml:124 qml/MediaPlayerControl.qml:309
+#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:171
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Erakutsi jotze-zerrenda"
 
-#: qml/ContextView.qml:403
+#: qml/ContextView.qml:402
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Ez da hitzik aurkitu"
 
-#: qml/ContextView.qml:419
+#: qml/ContextView.qml:418
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Ez da ezer Jotzen ari"
 
-#: qml/ContextView.qml:453
+#: qml/ContextView.qml:452
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -530,13 +530,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Berriz saiatu"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:436
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:443
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Jotze-zerrenda garbitu da"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:440
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:447
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -605,129 +605,129 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Gordetzea huts egin du"
 
-#: qml/HeaderBar.qml:188
+#: qml/HeaderBar.qml:187
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Irten pantaila-betetik"
 
-#: qml/MediaPlayerControl.qml:97
+#: qml/MediaPlayerControl.qml:98
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
 msgstr "Irten festa modutik"
 
-#: qml/MediaPlayerControl.qml:98
+#: qml/MediaPlayerControl.qml:99
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "Sartu festa moduan"
 
-#: qml/MediaPlayerControl.qml:106
+#: qml/MediaPlayerControl.qml:107
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Jauzi atzerantz"
 
-#: qml/MediaPlayerControl.qml:115
+#: qml/MediaPlayerControl.qml:116
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Etenaldia"
 
-#: qml/MediaPlayerControl.qml:116
+#: qml/MediaPlayerControl.qml:117
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Jo"
 
-#: qml/MediaPlayerControl.qml:124
+#: qml/MediaPlayerControl.qml:125
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Jauzi aurrerantz"
 
-#: qml/MediaPlayerControl.qml:150
+#: qml/MediaPlayerControl.qml:151
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "Ozendu"
 
-#: qml/MediaPlayerControl.qml:151
+#: qml/MediaPlayerControl.qml:152
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "Isilarazi"
 
-#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:211
+#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "Unekoa: Nahastu gabe"
 
-#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:212
+#: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:212
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Unekoa: Pistak nahastu"
 
-#: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Unekoa: Albumak nahastu"
 
-#: qml/MediaPlayerControl.qml:203 qml/mobile/MobileTrackPlayer.qml:242
+#: qml/MediaPlayerControl.qml:204 qml/mobile/MobileTrackPlayer.qml:242
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Pista"
 
-#: qml/MediaPlayerControl.qml:207 qml/mobile/MobileTrackPlayer.qml:246
+#: qml/MediaPlayerControl.qml:208 qml/mobile/MobileTrackPlayer.qml:246
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Albuma"
 
-#: qml/MediaPlayerControl.qml:211 qml/MediaPlayerControl.qml:269
+#: qml/MediaPlayerControl.qml:212 qml/MediaPlayerControl.qml:270
 #: qml/mobile/MobileTrackPlayer.qml:250 qml/mobile/MobileTrackPlayer.qml:303
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Bat ere ez"
 
-#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:264
+#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:264
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Unekoa: Pistarik ez errepikatu"
 
-#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:265
+#: qml/MediaPlayerControl.qml:234 qml/mobile/MobileTrackPlayer.qml:265
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Unekoa: Errepikatu uneko pista"
 
-#: qml/MediaPlayerControl.qml:234 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Unekoa: Errepikatu jotze-zerrendako pista guztiak"
 
-#: qml/MediaPlayerControl.qml:261 qml/mobile/MobileTrackPlayer.qml:295
+#: qml/MediaPlayerControl.qml:262 qml/mobile/MobileTrackPlayer.qml:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Jotze-zerrenda"
 
-#: qml/MediaPlayerControl.qml:265 qml/mobile/MobileTrackPlayer.qml:299
+#: qml/MediaPlayerControl.qml:266 qml/mobile/MobileTrackPlayer.qml:299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One"
 msgstr "Bat"
 
-#: qml/MediaPlayerControl.qml:325
+#: qml/MediaPlayerControl.qml:326
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -741,31 +741,31 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Jotze-zerrenda"
 
-#: qml/MediaPlayListView.qml:62
+#: qml/MediaPlayListView.qml:69
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Current"
 msgstr "Erakutsi unekoa"
 
-#: qml/MediaPlayListView.qml:73
+#: qml/MediaPlayListView.qml:80
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Garbitu dena"
 
-#: qml/MediaPlayListView.qml:83
+#: qml/MediaPlayListView.qml:90
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Gorde..."
 
-#: qml/MediaPlayListView.qml:93
+#: qml/MediaPlayListView.qml:100
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "Zamatu…"
 
-#: qml/MediaPlayListView.qml:117
+#: qml/MediaPlayListView.qml:124
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -775,19 +775,19 @@ msgstr ""
 "Pista batzuk zamatzea huts egin du. Egiaztatu ez direla ez ezabatu ez "
 "berrizendatu."
 
-#: qml/MediaPlayListView.qml:123
+#: qml/MediaPlayListView.qml:130
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Editatu jotze-zerrenda fitxategia"
 
-#: qml/MediaPlayListView.qml:292
+#: qml/MediaPlayListView.qml:299
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Jotze-zerrenda hutsik dago"
 
-#: qml/MediaPlayListView.qml:293
+#: qml/MediaPlayListView.qml:300
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -797,13 +797,13 @@ msgstr ""
 "Hasteko, gehitu abesti batzuk. Zure musika arakatzeko ezkerreko ikuspegiak "
 "erabil ditzakezu."
 
-#: qml/MediaPlayListView.qml:368
+#: qml/MediaPlayListView.qml:375
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Zure jotze-zerrenda hutsik dago."
 
-#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
+#: qml/MediaPlayListView.qml:485 qml/MediaPlayListView.qml:494
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -811,14 +811,14 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "%1/%2 pista geratzen da"
 msgstr[1] "%1/%2 pista geratzen dira"
 
-#: qml/MediaPlayListView.qml:479
+#: qml/MediaPlayListView.qml:486
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 geratzen d(ir)a, %2 guztira"
 
-#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
-#: qml/MediaPlayListView.qml:498
+#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -826,13 +826,13 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
+#: qml/MediaPlayListView.qml:495 qml/MediaPlayListView.qml:504
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1/%2 geratzen d(ir)a"
 
-#: qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:503
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -840,7 +840,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "%1/%2 pista"
 msgstr[1] "%1/%2 pista"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:512
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -848,7 +848,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "Pista %1"
 msgstr[1] "%1 pista"
 
-#: qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:513
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -856,7 +856,7 @@ msgid_plural "%1 radios"
 msgstr[0] "irrati %1"
 msgstr[1] "%1 irrati"
 
-#: qml/MediaPlayListView.qml:507
+#: qml/MediaPlayListView.qml:514
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -864,7 +864,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, %2 guztira"
 
-#: qml/MediaPlayListView.qml:510
+#: qml/MediaPlayListView.qml:517
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -874,7 +874,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "Pista %1, %2 guztira"
 msgstr[1] "%1 pista, %2 guztira"
 
-#: qml/MediaPlayListView.qml:512
+#: qml/MediaPlayListView.qml:519
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
@@ -1179,141 +1179,151 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Laguntza"
 
-#: qml/NavigationActionBar.qml:88
+#: qml/NavigationActionBar.qml:90
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Sailkatu: %1"
 
-#: qml/NavigationActionBar.qml:89
+#: qml/NavigationActionBar.qml:91
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Sailkatu"
 
-#: qml/NavigationActionBar.qml:103
+#: qml/NavigationActionBar.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
 msgstr "Gehitu irratia"
 
-#: qml/NavigationActionBar.qml:104
+#: qml/NavigationActionBar.qml:106
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
 msgstr "Gehitu irratia"
 
-#: qml/NavigationActionBar.qml:116
+#: qml/NavigationActionBar.qml:118
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Gehitu jotze-zerrendara"
 
-#: qml/NavigationActionBar.qml:117
+#: qml/NavigationActionBar.qml:119
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Gehitu jotze-zerrendara"
 
-#: qml/NavigationActionBar.qml:130
+#: qml/NavigationActionBar.qml:132
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Jo orain, uneko jotze-zerrenda ordezkatuz"
 
-#: qml/NavigationActionBar.qml:131
+#: qml/NavigationActionBar.qml:133
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Jo orain, uneko jotze-zerrenda ordezkatuz"
 
-#: qml/NavigationActionBar.qml:143
+#: qml/NavigationActionBar.qml:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
 msgstr "Jo hurrengoa"
 
-#: qml/NavigationActionBar.qml:144
+#: qml/NavigationActionBar.qml:146
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
 msgstr "Jo hurrengoa"
 
-#: qml/NavigationActionBar.qml:156
+#: qml/NavigationActionBar.qml:158
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Azaldu artista"
 
-#: qml/NavigationActionBar.qml:157
+#: qml/NavigationActionBar.qml:159
 #, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Azaldu artista"
 
-#: qml/NavigationActionBar.qml:170
+#: qml/NavigationActionBar.qml:172
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Erakutsi jotze-zerrenda"
 
-#: qml/NavigationActionBar.qml:182
+#: qml/NavigationActionBar.qml:184
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr "Ikusi ikono-sareta gisa"
 
-#: qml/NavigationActionBar.qml:183
+#: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "View as List"
 msgstr "Ikusi zerrenda gisa"
 
-#: qml/NavigationActionBar.qml:185
+#: qml/NavigationActionBar.qml:187
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr "Ikusi ikono-sareta gisa"
 
-#: qml/NavigationActionBar.qml:186
+#: qml/NavigationActionBar.qml:188
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Ikusi zerrenda gisa"
 
-#: qml/NavigationActionBar.qml:246
+#: qml/NavigationActionBar.qml:248
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Atzera"
 
-#: qml/NavigationActionBar.qml:330
+#: qml/NavigationActionBar.qml:333
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Erakutsi bilatu eta iragazi tresna-barra"
 
-#: qml/NavigationActionBar.qml:331
+#: qml/NavigationActionBar.qml:334
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Ezkutatu Bilatu eta iragazi tresna-barra"
 
-#: qml/NavigationActionBar.qml:423
-#, kde-format
-msgctxt "@info:placeholder"
+#: qml/NavigationActionBar.qml:427
+#, fuzzy, kde-format
+#| msgctxt "@info:placeholder"
+#| msgid "Search for album name, artist, etc."
+msgctxt "@info:placeholder track view filter single album"
+msgid "Search for track name, artist, etc."
+msgstr "Bilatu albumaren izena, artista, etab."
+
+#: qml/NavigationActionBar.qml:428
+#, fuzzy, kde-format
+#| msgctxt "@info:placeholder"
+#| msgid "Search for album name, artist, etc."
+msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Bilatu albumaren izena, artista, etab."
 
-#: qml/NavigationActionBar.qml:432
+#: qml/NavigationActionBar.qml:437
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Iragazi balorazioen arabera:"
 
-#: qml/NavigationActionBar.qml:450
+#: qml/NavigationActionBar.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

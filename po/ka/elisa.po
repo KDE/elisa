@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 00:38+0000\n"
-"PO-Revision-Date: 2024-08-28 04:34+0200\n"
+"PO-Revision-Date: 2024-09-03 04:46+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1300,17 +1300,13 @@ msgid "Hide search and filter toolbar"
 msgstr "ძებნისა და ფილტრის პანელის დამალვა"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "მოძებნეთ ალბომის სახელით, შემსრულებლით და სხვ."
+msgstr "მოძებნეთ ტრეკის სახელით, შემსრულებლით და სხვ."
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "მოძებნეთ ალბომის სახელით, შემსრულებლით და სხვ."

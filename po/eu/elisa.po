@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 00:38+0000\n"
-"PO-Revision-Date: 2024-08-30 12:19+0200\n"
+"PO-Revision-Date: 2024-09-03 21:05+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -1302,17 +1302,13 @@ msgid "Hide search and filter toolbar"
 msgstr "Ezkutatu Bilatu eta iragazi tresna-barra"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "Bilatu albumaren izena, artista, etab."
+msgstr "Bilatu pistaren izena, artista, etab."
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Bilatu albumaren izena, artista, etab."

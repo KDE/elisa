@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 00:38+0000\n"
-"PO-Revision-Date: 2024-08-29 18:37+0200\n"
+"PO-Revision-Date: 2024-09-03 16:53+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -1301,17 +1301,13 @@ msgid "Hide search and filter toolbar"
 msgstr "Agochar as barras de busca e de filtro"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "Buscar un nome de álbum, intérprete, etc."
+msgstr "Buscar un nome de pista, intérprete, etc."
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Buscar un nome de álbum, intérprete, etc."

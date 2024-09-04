@@ -1288,17 +1288,13 @@ msgid "Hide search and filter toolbar"
 msgstr "隐藏搜索和过滤工具栏"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "搜索专辑名称、艺术家等。"
+msgstr ""
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "搜索专辑名称、艺术家等。"

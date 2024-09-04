@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 00:38+0000\n"
-"PO-Revision-Date: 2024-08-28 09:02+0300\n"
+"PO-Revision-Date: 2024-09-03 08:45+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1312,17 +1312,13 @@ msgid "Hide search and filter toolbar"
 msgstr "Приховати панель пошуку і фільтрування"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "Шукати за назвою альбому, виконавцем тощо"
+msgstr "Шукати за назвою композиції, виконавцем тощо"
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Шукати за назвою альбому, виконавцем тощо"

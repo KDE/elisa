@@ -12,9 +12,6 @@ TrackContextMetaDataModel::TrackContextMetaDataModel(QObject *parent) : TrackMet
 
 void TrackContextMetaDataModel::filterDataFromTrackData()
 {
-    removeMetaData(DataTypes::TitleRole);
-    removeMetaData(DataTypes::ArtistRole);
-    removeMetaData(DataTypes::AlbumRole);
     removeMetaData(DataTypes::AlbumArtistRole);
     removeMetaData(DataTypes::LyricsRole);
 

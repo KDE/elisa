@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 00:38+0000\n"
-"PO-Revision-Date: 2024-08-28 11:25+0300\n"
+"PO-Revision-Date: 2024-09-03 12:14+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1306,20 +1306,16 @@ msgid "Hide search and filter toolbar"
 msgstr "הסתרת סרגל חיפוש וסינון"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "חיפוש לפי שם אלבום, אומנים וכו׳."
+msgstr "חיפוש לפי שם רצועה, אומנים וכו׳"
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
-msgstr "חיפוש לפי שם אלבום, אומנים וכו׳."
+msgstr "חיפוש לפי שם אלבום, אומנים וכו׳"
 
 #: qml/NavigationActionBar.qml:437
 #, kde-format

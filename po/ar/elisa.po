@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 00:38+0000\n"
-"PO-Revision-Date: 2024-07-28 12:24+0400\n"
+"PO-Revision-Date: 2024-09-05 14:13+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -542,20 +542,16 @@ msgid "Undo"
 msgstr "تراجع"
 
 #: qml/ElisaMainWindow.qml:98
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr "اعرض قائمة تشغيل"
+msgstr "اعرض درج قائمة تشغيل"
 
 #: qml/ElisaMainWindow.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr "أخف قائمة تشغيل"
+msgstr "أخف درج قائمة تشغيل"
 
 #: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:620
 #, kde-format
@@ -618,45 +614,35 @@ msgstr "أنهِ ملء الشاشة"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "اخرج من وضع الحفلة"
 
 #: qml/MediaPlayerControl.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr "بدل نمط الحفلة"
+msgstr "أدخل في نمط الحفلة"
 
 #: qml/MediaPlayerControl.qml:107
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "تخطى للخلف"
 
 #: qml/MediaPlayerControl.qml:116
-#, fuzzy, kde-format
-#| msgctxt "@action:button Pause any media that is playing"
-#| msgid "Pause"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "ألبث"
 
 #: qml/MediaPlayerControl.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@action:button Start playing media"
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "شغّل"
 
 #: qml/MediaPlayerControl.qml:125
-#, fuzzy, kde-format
-#| msgctxt "@action:button skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "تخطى للأمام"
@@ -665,13 +651,13 @@ msgstr "تخطى للأمام"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "لا تكتم"
 
 #: qml/MediaPlayerControl.qml:152
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "اكتم"
 
 #: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
@@ -741,9 +727,7 @@ msgid "One"
 msgstr "واحد"
 
 #: qml/MediaPlayerControl.qml:326
-#, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "قائمة التّطبيق"
@@ -817,28 +801,22 @@ msgid "Your playlist is empty."
 msgstr "قائمة تشغيلك فارغة"
 
 #: qml/MediaPlayListView.qml:485 qml/MediaPlayListView.qml:494
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] "بقي %1"
-msgstr[1] "بقي واحدة"
-msgstr[2] "بقي اثنتان"
-msgstr[3] "بقي %1"
-msgstr[4] "بقي %1"
-msgstr[5] "بقي %1"
+msgstr[0] "بقي %1/%2"
+msgstr[1] "بقي مقطوعة واحدة من %2"
+msgstr[2] "بقي مقطوعتين من %2"
+msgstr[3] "بقي %1 مقطوعات من %2"
+msgstr[4] "بقي %1 مقطوعة من %2"
+msgstr[5] "بقي %1 مقطوعة من %2"
 
 #: qml/MediaPlayListView.qml:486
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
-msgstr "بقي %1"
+msgstr "بقي %1، من مجموع %2"
 
 #: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
 #: qml/MediaPlayListView.qml:505
@@ -847,37 +825,28 @@ msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
 "time remaining"
 msgid "%1, %2"
-msgstr ""
+msgstr "%1، %2"
 
 #: qml/MediaPlayListView.qml:495 qml/MediaPlayListView.qml:504
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
-msgstr "بقي %1"
+msgstr "بقي %1/%2"
 
 #: qml/MediaPlayListView.qml:503
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
-msgstr[0] "مقطوعة"
-msgstr[1] "مقطوعة واحدة"
-msgstr[2] "مقطوعتان"
-msgstr[3] "%1 مقطوعات"
-msgstr[4] "%1 مقطوعة"
-msgstr[5] "%1 مقطوعة"
+msgstr[0] "%1/%2 مقطوعة"
+msgstr[1] "%1/%2 مقطوعة"
+msgstr[2] "%1/%2 مقطوعة"
+msgstr[3] "%1/%2 مقطوعات"
+msgstr[4] "%1/%2 مقطوعة"
+msgstr[5] "%1/%2 مقطوعة"
 
 #: qml/MediaPlayListView.qml:512
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -893,12 +862,12 @@ msgstr[5] "%1 مقطوعة"
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "راديو"
+msgstr[1] "راديو"
+msgstr[2] "راديوان"
+msgstr[3] "%1 رديوات"
+msgstr[4] "%1 راديو"
+msgstr[5] "%1 راديو"
 
 #: qml/MediaPlayListView.qml:514
 #, kde-format
@@ -906,35 +875,29 @@ msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
 "radios"
 msgid "%1, %2 total"
-msgstr ""
+msgstr "%1، المجموع %2"
 
 #: qml/MediaPlayListView.qml:517
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
 "duration formatted like hh:mm:ss or mm:ss"
 msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
-msgstr[0] "مقطوعة"
-msgstr[1] "مقطوعة واحدة"
-msgstr[2] "مقطوعتان"
-msgstr[3] "%1 مقطوعات"
-msgstr[4] "%1 مقطوعة"
-msgstr[5] "%1 مقطوعة"
+msgstr[0] "%1 مقطوعة، المجموع %2 "
+msgstr[1] "مقطوعة واحدة، المجموع %2 "
+msgstr[2] "مقطوعتان، المجموع %2 "
+msgstr[3] "%1 مقطوعات، المجموع %2 "
+msgstr[4] "%1 مقطوعة، المجموع %2 "
+msgstr[5] "%1 مقطوعة، المجموع %2 "
 
 #: qml/MediaPlayListView.qml:519
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
 msgid "1 track, %1min remaining"
-msgstr "بقي %1"
+msgstr "مقطوعة واحدة، بقي %1دقيقة"
 
 #: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99
@@ -1246,18 +1209,16 @@ msgid "Sort"
 msgstr "افرز"
 
 #: qml/NavigationActionBar.qml:105
-#, fuzzy, kde-format
-#| msgctxt "Title of the file radios browser view"
-#| msgid "Radios"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr "الإذاعات"
+msgstr "أضف راديو"
 
 #: qml/NavigationActionBar.qml:106
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr ""
+msgstr "أضف راديو"
 
 #: qml/NavigationActionBar.qml:118
 #, kde-format
@@ -1266,25 +1227,19 @@ msgid "Add to Playlist"
 msgstr "أضف إلى قائمة التّشغيل"
 
 #: qml/NavigationActionBar.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "أضف إلى قائمة التّشغيل"
 
 #: qml/NavigationActionBar.qml:132
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "شغّل الآن واستبدل قائمة الحالية"
 
 #: qml/NavigationActionBar.qml:133
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "شغّل الآن واستبدل قائمة الحالية"
@@ -1296,9 +1251,7 @@ msgid "Play Next"
 msgstr "شغل التالي"
 
 #: qml/NavigationActionBar.qml:146
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play next"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
 msgstr "شغل التالي"
@@ -1310,17 +1263,13 @@ msgid "Display Artist"
 msgstr "اعرض الفنّان"
 
 #: qml/NavigationActionBar.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@action:button navigate to the view for artist of this album"
-#| msgid "Display Artist"
+#, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "اعرض الفنّان"
 
 #: qml/NavigationActionBar.qml:172
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "اعرض قائمة تشغيل"
@@ -1329,29 +1278,25 @@ msgstr "اعرض قائمة تشغيل"
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "اعرض كشبكة صور"
 
 #: qml/NavigationActionBar.qml:185
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "View details"
+#, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr "تفاصيل العرض"
+msgstr "اعرض كقائمة"
 
 #: qml/NavigationActionBar.qml:187
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "اعرض كشبكة صور"
 
 #: qml/NavigationActionBar.qml:188
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr "تفاصيل العرض"
+msgstr "اعرض كقائمة"
 
 #: qml/NavigationActionBar.qml:248
 #, kde-format
@@ -1360,35 +1305,27 @@ msgid "Back"
 msgstr "عُد"
 
 #: qml/NavigationActionBar.qml:333
-#, fuzzy, kde-format
-#| msgctxt "@action:button Show filters in the navigation bar"
-#| msgid "Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
-msgstr "البحث والفرز"
+msgstr "أظهر شريط البحث والفرز"
 
 #: qml/NavigationActionBar.qml:334
-#, fuzzy, kde-format
-#| msgctxt "@action:button Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
-msgstr "أخفِ البحث والفرز"
+msgstr "أخفِ شريط البحث والفرز"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "ابحث عن اسم الألبوم، أو الفنّان أو غيره"
+msgstr "ابحث عن اسم المقطوعة أو الفنّان أو غيره"
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "ابحث عن اسم الألبوم، أو الفنّان أو غيره"
@@ -1448,17 +1385,13 @@ msgid "Show background on Now Playing page"
 msgstr "أظهر خلفية في صفحة التشغيل الآن"
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "أظهر التقدم عناصر مدير المهام"
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr "استمر في العمل في صينية النظام عند إغلاق النافذة الرئيسية"
@@ -1470,9 +1403,7 @@ msgid "Start playing on startup"
 msgstr "ابدأ العزف عند البدء"
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Scan for New Music on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "افحص الموسيقى الجديدة عند البدء"
@@ -1510,9 +1441,7 @@ msgid "Favorite/not favorite"
 msgstr "مفضلة/غير مفضلة"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Color Scheme:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "مخطّط الألوان:"
@@ -1648,9 +1577,7 @@ msgid "Choose…"
 msgstr "اختر..."
 
 #: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "اختر مجلّدًا"

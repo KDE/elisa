@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 00:38+0000\n"
-"PO-Revision-Date: 2024-08-29 09:21+0200\n"
+"PO-Revision-Date: 2024-09-04 08:14+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -1308,20 +1308,16 @@ msgid "Hide search and filter toolbar"
 msgstr "Masquer la barre d'outils de recherche et de filtrage"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "Chercher un nom d'album, un artiste, etc."
+msgstr "Rechercher un nom de piste, d'artiste, etc."
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
-msgstr "Chercher un nom d'album, un artiste, etc."
+msgstr "Chercher un nom d'album, d'artiste, etc."
 
 #: qml/NavigationActionBar.qml:437
 #, kde-format

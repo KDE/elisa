@@ -1291,7 +1291,7 @@ msgstr "隐藏搜索和过滤工具栏"
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr ""
+msgstr "搜索曲名、艺人等。"
 
 #: qml/NavigationActionBar.qml:428
 #, kde-format

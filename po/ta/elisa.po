@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 00:38+0000\n"
-"PO-Revision-Date: 2024-08-18 17:20+0530\n"
+"PO-Revision-Date: 2024-09-07 19:38+0200\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -540,20 +540,16 @@ msgid "Undo"
 msgstr "செயல்நீக்கு"
 
 #: qml/ElisaMainWindow.qml:98
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr "பாடல்வரிசையைக் காட்டு"
+msgstr "பாடல்வரிசை ஓரப்பட்டையை காட்டு"
 
 #: qml/ElisaMainWindow.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr "பாடல்வரிசையை மறை"
+msgstr "பாடல்வரிசை ஓரப்பட்டையை மறை"
 
 #: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:620
 #, kde-format
@@ -616,45 +612,35 @@ msgstr "முழுத்திரை பயன்முறையில் ந�
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "கொண்டாட்ட பயன்முறையிலிருந்து வெளியேறு"
 
 #: qml/MediaPlayerControl.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr "கொண்டாட்ட பயன்முறையை இயக்கு/முடக்கு"
+msgstr "கொண்டாட்ட பயன்முறையை இயக்கு"
 
 #: qml/MediaPlayerControl.qml:107
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "முந்தைய பாடலுக்கு செல்"
 
 #: qml/MediaPlayerControl.qml:116
-#, fuzzy, kde-format
-#| msgctxt "@action:button Pause any media that is playing"
-#| msgid "Pause"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "பொறு"
 
 #: qml/MediaPlayerControl.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@action:button Start playing media"
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "இயக்கு"
 
 #: qml/MediaPlayerControl.qml:125
-#, fuzzy, kde-format
-#| msgctxt "@action:button skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "அடுத்த பாடலுக்கு செல்"
@@ -663,13 +649,13 @@ msgstr "அடுத்த பாடலுக்கு செல்"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "ஒலிமுடக்கத்தை நீக்கு"
 
 #: qml/MediaPlayerControl.qml:152
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "ஒலியை அடக்கு"
 
 #: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
@@ -739,9 +725,7 @@ msgid "One"
 msgstr "ஒன்றுமட்டும்"
 
 #: qml/MediaPlayerControl.qml:326
-#, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "செயலியின் பட்டி"
@@ -1207,16 +1191,13 @@ msgstr "வரிசைப்படுத்து"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr ""
+msgstr "வானொலியை சேர்"
 
 #: qml/NavigationActionBar.qml:106
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of radios of the playlist"
-#| msgid "%1 radio"
-#| msgid_plural "%1 radios"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr "%1 வானொலி நிலையம்"
+msgstr "வானொலியை சேர்"
 
 #: qml/NavigationActionBar.qml:118
 #, kde-format
@@ -1225,25 +1206,19 @@ msgid "Add to Playlist"
 msgstr "பாடல்வரிசையில் செர்"
 
 #: qml/NavigationActionBar.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "பாடல்வரிசையில் செர்"
 
 #: qml/NavigationActionBar.qml:132
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
 
 #: qml/NavigationActionBar.qml:133
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
@@ -1255,12 +1230,10 @@ msgid "Play Next"
 msgstr "அடுத்த‍தை இசை"
 
 #: qml/NavigationActionBar.qml:146
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play next"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
-msgstr "அடுத்தது இசை"
+msgstr "அடுத்ததை இசை"
 
 #: qml/NavigationActionBar.qml:158
 #, kde-format
@@ -1269,17 +1242,13 @@ msgid "Display Artist"
 msgstr "கலைஞரைக் காட்டு"
 
 #: qml/NavigationActionBar.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@action:button navigate to the view for artist of this album"
-#| msgid "Display Artist"
+#, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "கலைஞரைக் காட்டு"
 
 #: qml/NavigationActionBar.qml:172
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "பாடல்வரிசையைக் காட்டு"
@@ -1288,29 +1257,25 @@ msgstr "பாடல்வரிசையைக் காட்டு"
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "சின்னங்களைக் கொண்ட கிரிடாக காட்டு"
 
 #: qml/NavigationActionBar.qml:185
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "View details"
+#, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr "விவரங்களைக் காட்டு"
+msgstr "பட்டியலாக காட்டு"
 
 #: qml/NavigationActionBar.qml:187
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "சின்னங்களைக் கொண்ட கிரிடாக காட்டு"
 
 #: qml/NavigationActionBar.qml:188
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr "காட்டப்படும் விவரங்கள்"
+msgstr "பட்டியலாக காட்டு"
 
 #: qml/NavigationActionBar.qml:248
 #, kde-format
@@ -1319,38 +1284,30 @@ msgid "Back"
 msgstr "பின்னே"
 
 #: qml/NavigationActionBar.qml:333
-#, fuzzy, kde-format
-#| msgctxt "@action:button Show filters in the navigation bar"
-#| msgid "Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
-msgstr "தேடி வடிகட்டு"
+msgstr "தேடி வடிகட்ட உதவும் பட்டையை காட்டு"
 
 #: qml/NavigationActionBar.qml:334
-#, fuzzy, kde-format
-#| msgctxt "@action:button Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
-msgstr "வடிகட்டிகளை மறை"
+msgstr "தேடி வடிகட்ட உதவும் பட்டையை மறை"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "ஆல்ப‍ப்பெயர், கலைஞர் போன்றவற்றை தேடுங்கள்"
+msgstr "பாடல்ப்பெயர், கலைஞர் போன்றவற்றால் வடிகட்டலாம்"
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
-msgstr "ஆல்ப‍ப்பெயர், கலைஞர் போன்றவற்றை தேடுங்கள்"
+msgstr "ஆல்ப‍ப்பெயர், கலைஞர் போன்றவற்றால் வடிகட்டலாம்"
 
 #: qml/NavigationActionBar.qml:437
 #, kde-format
@@ -1407,17 +1364,13 @@ msgid "Show background on Now Playing page"
 msgstr "'இப்போது இசைக்கப்படுவது' எனும் பக்கத்தில் பின்புலத்தை காட்டு"
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "பணி மேலாளி பதிவுகளில் முன்னேற்றத்தை காட்டு"
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr "சாளரத்தை மூடியபின்னும் கணினித்தட்டில் இயங்கு"
@@ -1429,9 +1382,7 @@ msgid "Start playing on startup"
 msgstr "துவக்கும்போதே பாடலை இசைக்கச்செய்"
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Scan for New Music on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "துவக்கும்போது புதிய பாடல்களை கண்டறி"
@@ -1468,9 +1419,7 @@ msgid "Favorite/not favorite"
 msgstr "பிடித்த‍து/பிடிக்காத‍து"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Color Scheme:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "நிறத் திட்டம்:"
@@ -1606,12 +1555,10 @@ msgid "Choose…"
 msgstr "தேர்ந்தெடு…"
 
 #: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
-msgstr "அடைவைத் தேர்வு செய்தல்"
+msgstr "அடைவைத் தேர்வு செய்வது"
 
 #: qml/SettingsForm.qml:355
 #, kde-format

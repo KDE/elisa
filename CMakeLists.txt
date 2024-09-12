@@ -15,7 +15,6 @@ project(elisa
     LANGUAGES CXX)
 
 set(REQUIRED_KF_VERSION "6.9")
-set(REQUIRED_KA_VERSION "1.6.0") # KirigamiAddons Version
 find_package(ECM ${REQUIRED_KF_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH})
 
@@ -31,9 +30,24 @@ include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
 include(ECMGenerateQmlTypes)
 include(ECMAddAndroidApk)
+include(ECMFindQmlModule)
 
 set(REQUIRED_QT_VERSION "6.5.0")
-find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Network Qml Quick Test Sql Multimedia Svg Gui Widgets QuickTest Concurrent QuickControls2)
+find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS
+    Concurrent
+    Core
+    Gui
+    Multimedia
+    Network
+    Qml
+    Quick
+    QuickControls2
+    QuickTest
+    Sql
+    Svg
+    Test
+    Widgets
+)
 
 find_package(Qt6Core ${REQUIRED_QT_VERSION} CONFIG REQUIRED Private)
 
@@ -49,26 +63,6 @@ endif()
 if (Qt6DBus_FOUND)
 set(QtDBus_FOUND 1)
 endif()
-
-find_package(Qt6QuickWidgets ${REQUIRED_QT_VERSION} CONFIG QUIET)
-set_package_properties(Qt6QuickWidgets PROPERTIES
-    DESCRIPTION "Qt6 Quick Widgets is needed at runtime to provide the interface."
-    TYPE RUNTIME)
-
-find_package(Qt6QuickControls2 ${REQUIRED_QT_VERSION} CONFIG QUIET)
-set_package_properties(Qt6QuickControls2 PROPERTIES
-    DESCRIPTION "Qt6 Quick Controls version 2 is needed at runtime to provide the interface."
-    TYPE RUNTIME)
-
-find_package(KF6Kirigami ${REQUIRED_KF_VERSION} CONFIG QUIET)
-set_package_properties(KF6Kirigami PROPERTIES
-    DESCRIPTION "KF Kirigami is needed to provide the mobile UI components."
-    TYPE REQUIRED)
-
-find_package(KF6KirigamiAddons ${REQUIRED_KA_VERSION} CONFIG QUIET)
-set_package_properties(KF6KirigamiAddons PROPERTIES
-    DESCRIPTION "KF KirigamiAddons is needed to provide the about KDE dialogue."
-    TYPE REQUIRED)
 
 find_package(KF6I18n ${REQUIRED_KF_VERSION} CONFIG QUIET)
 set_package_properties(KF6I18n PROPERTIES
@@ -122,7 +116,12 @@ if (NOT WIN32 AND NOT ANDROID)
         TYPE OPTIONAL)
 endif()
 
-if (NOT ANDROID)
+if (ANDROID)
+    find_package(KF6Kirigami ${REQUIRED_KF_VERSION} CONFIG QUIET)
+    set_package_properties(KF6Kirigami PROPERTIES
+        DESCRIPTION "Used to package icons on Android."
+        TYPE REQUIRED)
+else()
     find_package(KF6KIO ${REQUIRED_KF_VERSION} CONFIG QUIET)
     set_package_properties(KF6KIO PROPERTIES
         DESCRIPTION "File management libraries used for file browsing."
@@ -130,7 +129,7 @@ if (NOT ANDROID)
     find_package(KF6QQC2DesktopStyle ${REQUIRED_KF_VERSION} CONFIG QUIET)
     set_package_properties(KF6QQC2DesktopStyle PROPERTIES
         DESCRIPTION "KDE QtQuick style for desktop"
-        TYPE REQUIRED)
+        TYPE RUNTIME)
 endif()
 
 find_package(UPNPQT CONFIG QUIET)
@@ -148,6 +147,9 @@ set_package_properties(LIBVLC PROPERTIES
     DESCRIPTION "libvlc allows to play music in Elisa (otherwise it will use QtMultimedia)"
     URL "https://www.videolan.org/vlc/libvlc.html"
     TYPE RECOMMENDED)
+
+ecm_find_qmlmodule(org.kde.kirigami 2.20)
+ecm_find_qmlmodule(org.kde.kirigamiaddons.formcard 1.0)
 
 include(FeatureSummary)
 include(GenerateExportHeader)

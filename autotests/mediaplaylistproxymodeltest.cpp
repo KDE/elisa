@@ -426,7 +426,7 @@ void MediaPlayListProxyModelTest::enqueueArtistCase()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 1);
 
-    QCOMPARE(mPlayListProxyModel->rowCount(), 6);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 7);
 
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album1"));
@@ -470,6 +470,13 @@ void MediaPlayListProxyModelTest::enqueueArtistCase()
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay(), 9);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::AlbumIdRole).toULongLong(), 2);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track6"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ArtistRole).toString(), QStringLiteral("artist1 and artist2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::TrackNumberRole).toInt(), 6);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::DiscNumberRole).toInt(), 1);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay(), 10);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::AlbumIdRole).toULongLong(), 2);
 }
 
 void MediaPlayListProxyModelTest::enqueueMultipleAlbumsCase()
@@ -2842,7 +2849,7 @@ void MediaPlayListProxyModelTest::testRemoveSelection()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 1);
 
-    QCOMPARE(mPlayListProxyModel->tracksCount(), 6);
+    QCOMPARE(mPlayListProxyModel->tracksCount(), 7);
 
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track1"));
@@ -2886,6 +2893,13 @@ void MediaPlayListProxyModelTest::testRemoveSelection()
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 5);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track6"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::ArtistRole).toString(), QStringLiteral("artist1 and artist2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::AlbumArtistRole).toString(), QStringLiteral("artist1"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 6);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
 
     mPlayListProxyModel->removeSelection({2, 4, 5});
 
@@ -2900,7 +2914,7 @@ void MediaPlayListProxyModelTest::testRemoveSelection()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 1);
 
-    QCOMPARE(mPlayListProxyModel->tracksCount(), 3);
+    QCOMPARE(mPlayListProxyModel->tracksCount(), 4);
 
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track1"));
@@ -2923,6 +2937,13 @@ void MediaPlayListProxyModelTest::testRemoveSelection()
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(2, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(2, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 3);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(2, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(3, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(3, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track6"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(3, 0), MediaPlayList::ColumnsRoles::ArtistRole).toString(), QStringLiteral("artist1 and artist2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(3, 0), MediaPlayList::ColumnsRoles::AlbumArtistRole).toString(), QStringLiteral("artist1"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(3, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(3, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 6);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(3, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
 }
 
 void MediaPlayListProxyModelTest::testReplaceAndPlayArtist()
@@ -3138,7 +3159,7 @@ void MediaPlayListProxyModelTest::testTrackBeenRemoved()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 1);
 
-    QCOMPARE(mPlayListProxyModel->tracksCount(), 6);
+    QCOMPARE(mPlayListProxyModel->tracksCount(), 7);
 
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track1"));
@@ -3182,6 +3203,13 @@ void MediaPlayListProxyModelTest::testTrackBeenRemoved()
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 5);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track6"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::ArtistRole).toString(), QStringLiteral("artist1 and artist2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::AlbumArtistRole).toString(), QStringLiteral("artist1"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 6);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
 
     auto removedTrackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist1"),
                                                                                  QStringLiteral("album2"), 2, 1);
@@ -3205,7 +3233,7 @@ void MediaPlayListProxyModelTest::testTrackBeenRemoved()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 1);
 
-    QCOMPARE(mPlayListProxyModel->tracksCount(), 6);
+    QCOMPARE(mPlayListProxyModel->tracksCount(), 7);
 
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track1"));
@@ -3249,6 +3277,13 @@ void MediaPlayListProxyModelTest::testTrackBeenRemoved()
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 5);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(5, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track6"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::ArtistRole).toString(), QStringLiteral("artist1 and artist2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::AlbumArtistRole).toString(), QStringLiteral("artist1"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 6);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(6, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
 }
 
 void MediaPlayListProxyModelTest::finishPlayList()

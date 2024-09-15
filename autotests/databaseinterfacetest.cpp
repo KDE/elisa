@@ -2052,13 +2052,14 @@ private Q_SLOTS:
 
         auto allTracks = musicDb.tracksDataFromAuthor(QStringLiteral("artist1"));
 
-        QCOMPARE(allTracks.size(), 6);
+        QCOMPARE(allTracks.size(), 7);
         QCOMPARE(allTracks[0].albumArtist(), QStringLiteral("Various Artists"));
         QCOMPARE(allTracks[1].albumArtist(), QStringLiteral("artist1"));
         QCOMPARE(allTracks[2].albumArtist(), QStringLiteral("artist1"));
         QCOMPARE(allTracks[3].albumArtist(), QStringLiteral("artist1"));
         QCOMPARE(allTracks[4].albumArtist(), QStringLiteral("artist1"));
         QCOMPARE(allTracks[5].albumArtist(), QStringLiteral("artist1"));
+        QCOMPARE(allTracks[6].albumArtist(), QStringLiteral("artist1"));
     }
 
     void removeOneTrack()

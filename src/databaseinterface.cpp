@@ -6158,7 +6158,7 @@ void DatabaseInterface::initDataQueries()
                                                               "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
                                                               "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
                                                               "WHERE "
-                                                              "tracks.`ArtistName` = :artistName AND "
+                                                              "(tracks.`ArtistName` = :artistName OR tracks.`AlbumArtistName` = :artistName) AND "
                                                               "tracksMapping.`FileName` = tracks.`FileName` AND "
                                                               "tracks.`Priority` = ("
                                                               "     SELECT "

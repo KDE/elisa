@@ -93,7 +93,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 1);
 
-        QCOMPARE(myPlayList.rowCount(), 6);
+        QCOMPARE(myPlayList.rowCount(), 7);
 
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track1"));
@@ -131,6 +131,12 @@ private Q_SLOTS:
         QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
         QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 5);
         QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track6"));
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::ArtistRole).toString(), QStringLiteral("artist1 and artist2"));
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 6);
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
 
         myDatabaseContent.removeTracksList({QUrl::fromLocalFile(QStringLiteral("/$1"))});
 
@@ -138,7 +144,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 1);
         QCOMPARE(tracksListAddedSpy.count(), 1);
 
-        QCOMPARE(myPlayList.rowCount(), 6);
+        QCOMPARE(myPlayList.rowCount(), 7);
 
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), false);
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track1"));
@@ -176,6 +182,12 @@ private Q_SLOTS:
         QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
         QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 5);
         QCOMPARE(myPlayList.data(myPlayList.index(5, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("track6"));
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::ArtistRole).toString(), QStringLiteral("artist1 and artist2"));
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album2"));
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 6);
+        QCOMPARE(myPlayList.data(myPlayList.index(6, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
     }
 
     void testInsertTrackIdAndRemoval()

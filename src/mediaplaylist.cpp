@@ -204,6 +204,9 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
                     d->mData[index.row()].mArtist.toString(),
                     QUrl(QStringLiteral("image://icon/error")).toString()}}.toJson();
             break;
+        case ColumnsRoles::ResourceRole:
+            result = d->mData[index.row()].mTrackUrl;
+            break;
 
         default:
             result = {};

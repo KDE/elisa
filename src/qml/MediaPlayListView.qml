@@ -111,16 +111,17 @@ Kirigami.Page {
 
     ColumnLayout {
         anchors.fill: parent
+        spacing: 0
 
         Kirigami.InlineMessage {
             id: partiallyLoadedMessage
             Layout.fillWidth: true
-            Layout.margins: Kirigami.Units.smallSpacing
 
             visible: false
             showCloseButton: true
 
             type: Kirigami.MessageType.Warning
+            position: Kirigami.InlineMessage.Header
             text: i18nc("@info", "Failed to load some tracks. Make sure that they have not been removed or renamed.")
 
             actions: [
@@ -438,6 +439,7 @@ Kirigami.Page {
         Kirigami.InlineMessage {
             id: mobileClearedMessage
             Layout.fillWidth: true
+            position: Kirigami.InlineMessage.Footer
             visible: false
             showCloseButton: true
             text: i18nc("@label", "Playlist cleared")

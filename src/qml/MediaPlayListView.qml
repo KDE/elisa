@@ -435,23 +435,6 @@ Kirigami.Page {
             sourceComponent: Kirigami.Settings.isMobile ? mobileListView : desktopListView
             onLoaded: playListView = item.list
         }
-
-        Kirigami.InlineMessage {
-            id: mobileClearedMessage
-            Layout.fillWidth: true
-            position: Kirigami.InlineMessage.Footer
-            visible: false
-            showCloseButton: true
-            text: i18nc("@label", "Playlist cleared")
-
-            actions: [
-                Kirigami.Action {
-                    text: i18nc("@action:button", "Undo")
-                    icon.name: "edit-undo-symbolic"
-                    onTriggered: ElisaApplication.mediaPlayListProxyModel.undoClearPlayList()
-                }
-            ]
-        }
     }
 
     footer: ToolBar {

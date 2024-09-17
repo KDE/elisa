@@ -1307,20 +1307,16 @@ msgid "Hide search and filter toolbar"
 msgstr "Skrýt lištu pro hledání a filtrování"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "Hledat název alba, umělce apod."
+msgstr ""
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
-msgstr "Hledat název alba, umělce apod."
+msgstr ""
 
 #: qml/NavigationActionBar.qml:437
 #, kde-format

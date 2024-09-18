@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-03 00:38+0000\n"
+"POT-Creation-Date: 2024-09-18 00:39+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -644,7 +644,7 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Proovi uuesti"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:443
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:445
 #, fuzzy, kde-format
 #| msgctxt "Playlist cleared"
 #| msgid "Playlist cleared"
@@ -652,7 +652,7 @@ msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Esitusloend puhastatud"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:447
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:449
 #, fuzzy, kde-format
 #| msgctxt "Undo"
 #| msgid "Undo"
@@ -925,7 +925,7 @@ msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:124
+#: qml/MediaPlayListView.qml:125
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -933,7 +933,7 @@ msgid ""
 "renamed."
 msgstr ""
 
-#: qml/MediaPlayListView.qml:130
+#: qml/MediaPlayListView.qml:131
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to playlist"
@@ -941,7 +941,7 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Lisa esitusloendisse"
 
-#: qml/MediaPlayListView.qml:299
+#: qml/MediaPlayListView.qml:300
 #, fuzzy, kde-format
 #| msgctxt "Your playlist is empty"
 #| msgid "Your playlist is empty"
@@ -949,7 +949,7 @@ msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Sinu esitusloend on tühi"
 
-#: qml/MediaPlayListView.qml:300
+#: qml/MediaPlayListView.qml:301
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid ""
@@ -963,7 +963,7 @@ msgstr ""
 "Sinu esitusloend on tühi.<nl/><nl/>Alustamiseks lisa mõned lood. Oma "
 "muusikat saad sirvida vasakul asuvate vaadete abil."
 
-#: qml/MediaPlayListView.qml:375
+#: qml/MediaPlayListView.qml:376
 #, fuzzy, kde-format
 #| msgctxt "Your playlist is empty"
 #| msgid "Your playlist is empty"
@@ -971,7 +971,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Sinu esitusloend on tühi"
 
-#: qml/MediaPlayListView.qml:485 qml/MediaPlayListView.qml:494
+#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
 #, fuzzy, kde-format
 #| msgid "1 track remaining"
 #| msgid_plural "%1 tracks remaining"
@@ -981,7 +981,7 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "1 rada jäänud"
 msgstr[1] "1 rada jäänud"
 
-#: qml/MediaPlayListView.qml:486
+#: qml/MediaPlayListView.qml:488
 #, fuzzy, kde-format
 #| msgid "1 track remaining"
 #| msgid_plural "%1 tracks remaining"
@@ -989,8 +989,8 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "1 rada jäänud"
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:489 qml/MediaPlayListView.qml:498
+#: qml/MediaPlayListView.qml:507
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -998,7 +998,7 @@ msgctxt ""
 msgid "%1, %2"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:495 qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:497 qml/MediaPlayListView.qml:506
 #, fuzzy, kde-format
 #| msgid "1 track remaining"
 #| msgid_plural "%1 tracks remaining"
@@ -1006,7 +1006,7 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "1 rada jäänud"
 
-#: qml/MediaPlayListView.qml:503
+#: qml/MediaPlayListView.qml:505
 #, fuzzy, kde-format
 #| msgid "1 track"
 #| msgid_plural "%1 tracks"
@@ -1016,7 +1016,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "1 rada"
 msgstr[1] "%1 rada"
 
-#: qml/MediaPlayListView.qml:512
+#: qml/MediaPlayListView.qml:514
 #, fuzzy, kde-format
 #| msgid "1 track"
 #| msgid_plural "%1 tracks"
@@ -1026,7 +1026,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "1 rada"
 msgstr[1] "%1 rada"
 
-#: qml/MediaPlayListView.qml:513
+#: qml/MediaPlayListView.qml:515
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -1034,7 +1034,7 @@ msgid_plural "%1 radios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: qml/MediaPlayListView.qml:514
+#: qml/MediaPlayListView.qml:516
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -1042,7 +1042,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:517
+#: qml/MediaPlayListView.qml:519
 #, fuzzy, kde-format
 #| msgid "1 track"
 #| msgid_plural "%1 tracks"
@@ -1054,7 +1054,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "1 rada"
 msgstr[1] "%1 rada"
 
-#: qml/MediaPlayListView.qml:519
+#: qml/MediaPlayListView.qml:521
 #, fuzzy, kde-format
 #| msgid "1 track remaining"
 #| msgid_plural "%1 tracks remaining"

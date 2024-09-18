@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-03 00:38+0000\n"
+"POT-Creation-Date: 2024-09-18 00:39+0000\n"
 "PO-Revision-Date: 2024-09-07 19:38+0200\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -527,13 +527,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "மீண்டும் முயற்சி"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:443
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:445
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "பாடல்வரிசை காலியாக்கப்பட்டுள்ளது"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:447
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:449
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -762,7 +762,7 @@ msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "ஏற்று…"
 
-#: qml/MediaPlayListView.qml:124
+#: qml/MediaPlayListView.qml:125
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -772,19 +772,19 @@ msgstr ""
 "சில பாடல்களை ஏற்ற முடியவில்லை. அவை நீக்கப்படவில்லையெனும், அவற்றின் பெயர்கள் "
 "மாற்றப்படவில்லையெனும் சரிபாருங்கள்."
 
-#: qml/MediaPlayListView.qml:130
+#: qml/MediaPlayListView.qml:131
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "பாடல்வரிசை கோப்பை திருத்து"
 
-#: qml/MediaPlayListView.qml:299
+#: qml/MediaPlayListView.qml:300
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "பாடல்வரிசை காலியாக உள்ளது"
 
-#: qml/MediaPlayListView.qml:300
+#: qml/MediaPlayListView.qml:301
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -793,13 +793,13 @@ msgid ""
 msgstr ""
 "தொடங்க, சில பாடல்களை சேறுங்கள். இடதிலுள்ள காட்சிமுறைகளில் உங்கள் பாடல்களை நீங்கள் காணலாம்."
 
-#: qml/MediaPlayListView.qml:375
+#: qml/MediaPlayListView.qml:376
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "இப்பாடல்வரிசையில் ஏதுமில்லை"
 
-#: qml/MediaPlayListView.qml:485 qml/MediaPlayListView.qml:494
+#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -807,14 +807,14 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "%2-இல் %1 பாடல் மீதமுள்ளது"
 msgstr[1] "%2-இல் %1 பாடல்கள் மீதமுள்ளன"
 
-#: qml/MediaPlayListView.qml:486
+#: qml/MediaPlayListView.qml:488
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "இன்னும் %1, மொத்தம் %2"
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:489 qml/MediaPlayListView.qml:498
+#: qml/MediaPlayListView.qml:507
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -822,13 +822,13 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1; %2"
 
-#: qml/MediaPlayListView.qml:495 qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:497 qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "இன்னும் %1/%2"
 
-#: qml/MediaPlayListView.qml:503
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -836,7 +836,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "%2-இல் %1 பாடல்"
 msgstr[1] "%2-இல் %1 பாடல்கள்"
 
-#: qml/MediaPlayListView.qml:512
+#: qml/MediaPlayListView.qml:514
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -844,7 +844,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 பாடல்"
 msgstr[1] "%1 பாடல்கள்"
 
-#: qml/MediaPlayListView.qml:513
+#: qml/MediaPlayListView.qml:515
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -852,7 +852,7 @@ msgid_plural "%1 radios"
 msgstr[0] "%1 வானொலி நிலையம்"
 msgstr[1] "%1 வானொலி நிலையங்கள்"
 
-#: qml/MediaPlayListView.qml:514
+#: qml/MediaPlayListView.qml:516
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -860,7 +860,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, மொத்தம் %2"
 
-#: qml/MediaPlayListView.qml:517
+#: qml/MediaPlayListView.qml:519
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -870,7 +870,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 பாடல், மொத்தம் %2"
 msgstr[1] "%1 பாடல்கள், மொத்தம் %2"
 
-#: qml/MediaPlayListView.qml:519
+#: qml/MediaPlayListView.qml:521
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "

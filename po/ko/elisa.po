@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-03 00:38+0000\n"
+"POT-Creation-Date: 2024-09-18 00:39+0000\n"
 "PO-Revision-Date: 2024-08-19 23:11+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -528,13 +528,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "다시 시도"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:443
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:445
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "재생 목록 지워짐"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:447
+#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:449
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -779,7 +779,7 @@ msgctxt "@action:button Load a playlist file"
 msgid "Load…"
 msgstr "불러오기..."
 
-#: qml/MediaPlayListView.qml:124
+#: qml/MediaPlayListView.qml:125
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -789,19 +789,19 @@ msgstr ""
 "일부 곡을 불러올 수 없습니다. 삭제되거나 이름이 변경되지 않았는지 확인하십시"
 "오."
 
-#: qml/MediaPlayListView.qml:130
+#: qml/MediaPlayListView.qml:131
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "재생 목록 파일 편집"
 
-#: qml/MediaPlayListView.qml:299
+#: qml/MediaPlayListView.qml:300
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "재생 목록이 비어 있음"
 
-#: qml/MediaPlayListView.qml:300
+#: qml/MediaPlayListView.qml:301
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -811,27 +811,27 @@ msgstr ""
 "시작하려면 노래를 추가하십시오. 왼쪽에 있는 보기에서 음악을 탐색할 수 있습니"
 "다."
 
-#: qml/MediaPlayListView.qml:375
+#: qml/MediaPlayListView.qml:376
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "재생 목록이 비어 있습니다."
 
-#: qml/MediaPlayListView.qml:485 qml/MediaPlayListView.qml:494
+#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "%1/%2곡 남음"
 
-#: qml/MediaPlayListView.qml:486
+#: qml/MediaPlayListView.qml:488
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 남음, 합계: %2"
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:489 qml/MediaPlayListView.qml:498
+#: qml/MediaPlayListView.qml:507
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -839,34 +839,34 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:495 qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:497 qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1/%2 남음"
 
-#: qml/MediaPlayListView.qml:503
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
 msgstr[0] "%1/%2곡"
 
-#: qml/MediaPlayListView.qml:512
+#: qml/MediaPlayListView.qml:514
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1곡"
 
-#: qml/MediaPlayListView.qml:513
+#: qml/MediaPlayListView.qml:515
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
 msgstr[0] "라디오 %1개"
 
-#: qml/MediaPlayListView.qml:514
+#: qml/MediaPlayListView.qml:516
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -874,7 +874,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, 총 %2개"
 
-#: qml/MediaPlayListView.qml:517
+#: qml/MediaPlayListView.qml:519
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -883,7 +883,7 @@ msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1곡, 총 %2"
 
-#: qml/MediaPlayListView.qml:519
+#: qml/MediaPlayListView.qml:521
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "

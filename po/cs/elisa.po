@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-18 00:39+0000\n"
-"PO-Revision-Date: 2024-08-29 13:35+0200\n"
+"PO-Revision-Date: 2024-09-17 15:10+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1310,13 +1310,13 @@ msgstr "Skrýt lištu pro hledání a filtrování"
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr ""
+msgstr "Hledat název skladby, umělce apod."
 
 #: qml/NavigationActionBar.qml:428
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
-msgstr ""
+msgstr "Hledat název alba, umělce apod."
 
 #: qml/NavigationActionBar.qml:437
 #, kde-format

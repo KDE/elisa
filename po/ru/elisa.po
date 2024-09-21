@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-18 00:39+0000\n"
+"POT-Creation-Date: 2024-09-21 00:39+0000\n"
 "PO-Revision-Date: 2024-02-07 12:43+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -537,13 +537,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Повторить"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:445
+#: qml/ElisaMainWindow.qml:32
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Список воспроизведения очищен"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:449
+#: qml/ElisaMainWindow.qml:32
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -832,7 +832,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "В списке воспроизведения ничего нет."
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:470 qml/MediaPlayListView.qml:479
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -845,7 +845,7 @@ msgstr[1] "Осталась %1 дорожки"
 msgstr[2] "Осталась %1 дорожек"
 msgstr[3] "Осталась %1 дорожка"
 
-#: qml/MediaPlayListView.qml:488
+#: qml/MediaPlayListView.qml:471
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -854,8 +854,8 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "Осталась %1 дорожка"
 
-#: qml/MediaPlayListView.qml:489 qml/MediaPlayListView.qml:498
-#: qml/MediaPlayListView.qml:507
+#: qml/MediaPlayListView.qml:472 qml/MediaPlayListView.qml:481
+#: qml/MediaPlayListView.qml:490
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -863,7 +863,7 @@ msgctxt ""
 msgid "%1, %2"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:497 qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -872,7 +872,7 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "Осталась %1 дорожка"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:488
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -885,7 +885,7 @@ msgstr[1] "%1 дорожки"
 msgstr[2] "%1 дорожек"
 msgstr[3] "%1 дорожка"
 
-#: qml/MediaPlayListView.qml:514
+#: qml/MediaPlayListView.qml:497
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -898,7 +898,7 @@ msgstr[1] "%1 дорожки"
 msgstr[2] "%1 дорожек"
 msgstr[3] "%1 дорожка"
 
-#: qml/MediaPlayListView.qml:515
+#: qml/MediaPlayListView.qml:498
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -908,7 +908,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: qml/MediaPlayListView.qml:516
+#: qml/MediaPlayListView.qml:499
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -916,7 +916,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:519
+#: qml/MediaPlayListView.qml:502
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -931,7 +931,7 @@ msgstr[1] "%1 дорожки"
 msgstr[2] "%1 дорожек"
 msgstr[3] "%1 дорожка"
 
-#: qml/MediaPlayListView.qml:521
+#: qml/MediaPlayListView.qml:504
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-18 00:39+0000\n"
+"POT-Creation-Date: 2024-09-21 00:39+0000\n"
 "PO-Revision-Date: 2024-09-07 18:35+0200\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -528,13 +528,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Reintentar"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:445
+#: qml/ElisaMainWindow.qml:32
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Lista de reproducción borrada"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:449
+#: qml/ElisaMainWindow.qml:32
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -801,7 +801,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Su lista de reproducción está vacía."
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:470 qml/MediaPlayListView.qml:479
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -809,14 +809,14 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "%1 pista pendiente"
 msgstr[1] "%1/%2 pistas pendientes"
 
-#: qml/MediaPlayListView.qml:488
+#: qml/MediaPlayListView.qml:471
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1  pendiente, %2 total"
 
-#: qml/MediaPlayListView.qml:489 qml/MediaPlayListView.qml:498
-#: qml/MediaPlayListView.qml:507
+#: qml/MediaPlayListView.qml:472 qml/MediaPlayListView.qml:481
+#: qml/MediaPlayListView.qml:490
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -824,13 +824,13 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:497 qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1/%2  pendiente"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:488
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -838,7 +838,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "%1/%2 pistas"
 msgstr[1] "%1/%2 pistas"
 
-#: qml/MediaPlayListView.qml:514
+#: qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -846,7 +846,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 pista"
 msgstr[1] "%1 pistas"
 
-#: qml/MediaPlayListView.qml:515
+#: qml/MediaPlayListView.qml:498
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -854,7 +854,7 @@ msgid_plural "%1 radios"
 msgstr[0] "%1 radio"
 msgstr[1] "%1 radios"
 
-#: qml/MediaPlayListView.qml:516
+#: qml/MediaPlayListView.qml:499
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -862,7 +862,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, %2 total"
 
-#: qml/MediaPlayListView.qml:519
+#: qml/MediaPlayListView.qml:502
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -872,7 +872,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 pista, %2 total"
 msgstr[1] "%1 pistas, %2 total"
 
-#: qml/MediaPlayListView.qml:521
+#: qml/MediaPlayListView.qml:504
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "

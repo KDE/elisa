@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-18 00:39+0000\n"
+"POT-Creation-Date: 2024-09-21 00:39+0000\n"
 "PO-Revision-Date: 2024-09-03 07:27+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -529,13 +529,13 @@ msgctxt "@action:button"
 msgid "Retry"
 msgstr "Ponovno poskusi"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:445
+#: qml/ElisaMainWindow.qml:32
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Seznam predvajanja počiščen"
 
-#: qml/ElisaMainWindow.qml:32 qml/MediaPlayListView.qml:449
+#: qml/ElisaMainWindow.qml:32
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
@@ -802,7 +802,7 @@ msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Vaš seznam predvajanja je prazen."
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:470 qml/MediaPlayListView.qml:479
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -812,14 +812,14 @@ msgstr[1] "%1/%2 sled ostaja"
 msgstr[2] "%1%2 sledi ostaja"
 msgstr[3] "%1/%2 sledi ostaja"
 
-#: qml/MediaPlayListView.qml:488
+#: qml/MediaPlayListView.qml:471
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 ostaja, %2 vseh"
 
-#: qml/MediaPlayListView.qml:489 qml/MediaPlayListView.qml:498
-#: qml/MediaPlayListView.qml:507
+#: qml/MediaPlayListView.qml:472 qml/MediaPlayListView.qml:481
+#: qml/MediaPlayListView.qml:490
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -827,13 +827,13 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:497 qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1/%2 ostaja"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:488
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -843,7 +843,7 @@ msgstr[1] "%1/%2 sledi"
 msgstr[2] "%1/%2 sledi"
 msgstr[3] "%1/%2 sledi"
 
-#: qml/MediaPlayListView.qml:514
+#: qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -853,7 +853,7 @@ msgstr[1] "%1 sledi"
 msgstr[2] "%1 sledi"
 msgstr[3] "%1 sledi"
 
-#: qml/MediaPlayListView.qml:515
+#: qml/MediaPlayListView.qml:498
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -863,7 +863,7 @@ msgstr[1] "%1 radio"
 msgstr[2] "%1 radia"
 msgstr[3] "%1 radiev"
 
-#: qml/MediaPlayListView.qml:516
+#: qml/MediaPlayListView.qml:499
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -871,7 +871,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, %2 vseh"
 
-#: qml/MediaPlayListView.qml:519
+#: qml/MediaPlayListView.qml:502
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -883,7 +883,7 @@ msgstr[1] "%1 sledi, %2 vseh"
 msgstr[2] "%1 sledi, %2 vseh"
 msgstr[3] "%1 sledi, %2 vseh"
 
-#: qml/MediaPlayListView.qml:521
+#: qml/MediaPlayListView.qml:504
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "

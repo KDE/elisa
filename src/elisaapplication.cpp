@@ -22,7 +22,7 @@
 #include <KLocalizedString>
 #include <KStandardActions>
 
-#if defined KFXmlGui_FOUND
+#if KFXmlGui_FOUND
 #include <KActionCollection>
 #include <KHelpMenu>
 #include <KBugReport>

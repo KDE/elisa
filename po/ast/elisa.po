@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-21 00:39+0000\n"
+"POT-Creation-Date: 2024-09-23 00:38+0000\n"
 "PO-Revision-Date: 2023-11-06 01:05+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -483,19 +483,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr ""
 
-#: qml/ContextView.qml:402
+#: qml/ContextView.qml:405
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr ""
 
-#: qml/ContextView.qml:418
+#: qml/ContextView.qml:421
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr ""
 
-#: qml/ContextView.qml:452
+#: qml/ContextView.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -600,7 +600,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr ""
 
-#: qml/HeaderBar.qml:187
+#: qml/HeaderBar.qml:177
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
@@ -959,28 +959,28 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr ""
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:230
+#: qml/mobile/MobileMinimizedPlayerControl.qml:223
 #: qml/mobile/MobileTrackPlayer.qml:353
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr ""
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:244
+#: qml/mobile/MobileMinimizedPlayerControl.qml:237
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr ""
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:244
+#: qml/mobile/MobileMinimizedPlayerControl.qml:237
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr ""
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:258
+#: qml/mobile/MobileMinimizedPlayerControl.qml:251
 #: qml/mobile/MobileTrackPlayer.qml:379
 #, kde-format
 msgctxt "@action:button"

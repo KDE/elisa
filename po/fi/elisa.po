@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-21 00:39+0000\n"
+"POT-Creation-Date: 2024-09-23 00:38+0000\n"
 "PO-Revision-Date: 2024-02-23 19:40+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -487,19 +487,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Näytä soittolista"
 
-#: qml/ContextView.qml:402
+#: qml/ContextView.qml:405
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Sanoja ei löytynyt"
 
-#: qml/ContextView.qml:418
+#: qml/ContextView.qml:421
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Mikään ei soi"
 
-#: qml/ContextView.qml:452
+#: qml/ContextView.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -610,7 +610,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Tallennus epäonnistui"
 
-#: qml/HeaderBar.qml:187
+#: qml/HeaderBar.qml:177
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
@@ -1013,28 +1013,28 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Peru"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:230
+#: qml/mobile/MobileMinimizedPlayerControl.qml:223
 #: qml/mobile/MobileTrackPlayer.qml:353
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Hyppää taaksepäin"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:244
+#: qml/mobile/MobileMinimizedPlayerControl.qml:237
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Tauko"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:244
+#: qml/mobile/MobileMinimizedPlayerControl.qml:237
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Soita"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:258
+#: qml/mobile/MobileMinimizedPlayerControl.qml:251
 #: qml/mobile/MobileTrackPlayer.qml:379
 #, kde-format
 msgctxt "@action:button"

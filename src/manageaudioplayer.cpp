@@ -412,11 +412,11 @@ void ManageAudioPlayer::setPlayerPosition(qint64 playerPosition)
     QTimer::singleShot(0, this, [this]() {Q_EMIT playControlPositionChanged();});
 }
 
-void ManageAudioPlayer::setCurrentPlayingForRadios(const QString &title, const QString &nowPlaying)
+void ManageAudioPlayer::setCurrentPlayingForRadios(const QString &title, const QString &artistOrStation)
 {
     if (mPlayListModel && mCurrentTrack.isValid()) {
         Q_EMIT updateData(mCurrentTrack, title, MediaPlayList::TitleRole);
-        Q_EMIT updateData(mCurrentTrack, nowPlaying, MediaPlayList::ArtistRole);
+        Q_EMIT updateData(mCurrentTrack, artistOrStation, MediaPlayList::ArtistRole);
     }
 }
 

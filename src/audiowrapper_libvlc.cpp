@@ -596,10 +596,24 @@ void AudioWrapperPrivate::signalPositionChange(float newPosition)
     }
 
     if (this->mMedia) {
-        QString title = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_Title));
-        QString nowPlaying = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_NowPlaying));
+        QString metaNowPlaying = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_NowPlaying));    // Usually set in mp3 and aac streams. Contains both song artist AND song title in this single string.
+        QString metaTitle = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_Title));              // Can be the song title (sometimes for ogg vorbis streams) or the radio station title (usually for mp3 and aac streams)
+        QString metaArtist = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_Artist));            // Can be the artist of the song (seldom, for ogg vorbis stream)
 
-        Q_EMIT mParent->currentPlayingForRadiosChanged(title, nowPlaying);
+        // Common case for mp3 and aac streams:
+        QString *title = &metaNowPlaying;                                   // Usually song artist AND song title
+        QString *artistOrStation = &metaTitle;                              // Usually radio station title
+
+        // Special cases, found for some ogg stream stations:
+        if (!metaArtist.isEmpty()) {                                        // Hint: artist is empty for mp3 and aac streams. Only found in ogg stream.
+            artistOrStation = &metaArtist;                                  // Song artist
+            title = !metaTitle.isEmpty()? &metaTitle : &metaNowPlaying;     // Pick the title if given; else pick nowPlayingMeta (might be empty, too...)
+        } else if (metaNowPlaying.isEmpty()) {
+            title = &metaTitle;                                             // Title metadata, probably song artist AND song title
+            artistOrStation = &metaArtist;                                  // Empty string
+        }
+
+        Q_EMIT mParent->currentPlayingForRadiosChanged(*title, *artistOrStation);
     }
 }
 

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-03 02:28+0000\n"
-"PO-Revision-Date: 2024-07-21 11:44+0200\n"
+"PO-Revision-Date: 2024-09-22 16:28+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -1183,7 +1183,7 @@ msgstr "Legg til radiokanal"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
-msgstr "Legg til i speleliste"
+msgstr "Legg til i spelelista"
 
 #: qml/NavigationActionBar.qml:140
 #, kde-format
@@ -1221,7 +1221,7 @@ msgstr "Søk og filtrering"
 #, kde-format
 msgctxt "@action:button Hide filters in the navigation bar"
 msgid "Hide Search and Filter"
-msgstr "Gøyme søkje- og filterlinja"
+msgstr "Gøym søkje- og filterlinja"
 
 # unreviewed-context
 #: qml/NavigationActionBar.qml:411

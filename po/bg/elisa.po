@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-23 00:38+0000\n"
-"PO-Revision-Date: 2024-08-07 11:37+0200\n"
+"PO-Revision-Date: 2024-09-23 15:35+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -540,20 +540,16 @@ msgid "Undo"
 msgstr "Отмяна"
 
 #: qml/ElisaMainWindow.qml:98
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr "Списък с песни"
+msgstr "Показване на чекмеджето със списъка за възпроизвеждане"
 
 #: qml/ElisaMainWindow.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr "Скриване на списъка с песни"
+msgstr "Скриване на чекмеджето със списъка за възпроизвеждане"
 
 #: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:620
 #, kde-format
@@ -616,45 +612,35 @@ msgstr "Напускане на цял екран"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "Излизане от режим парти"
 
 #: qml/MediaPlayerControl.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr "Превключване на режим парти"
+msgstr "Преминаване в режим парти"
 
 #: qml/MediaPlayerControl.qml:107
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Пропускане назад"
 
 #: qml/MediaPlayerControl.qml:116
-#, fuzzy, kde-format
-#| msgctxt "@action:button Pause any media that is playing"
-#| msgid "Pause"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Пауза"
 
 #: qml/MediaPlayerControl.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@action:button Start playing media"
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Изпълнение"
 
 #: qml/MediaPlayerControl.qml:125
-#, fuzzy, kde-format
-#| msgctxt "@action:button skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Пропускане напред"
@@ -663,13 +649,13 @@ msgstr "Пропускане напред"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "Включване на звука"
 
 #: qml/MediaPlayerControl.qml:152
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "Изключване на звука"
 
 #: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
@@ -739,9 +725,7 @@ msgid "One"
 msgstr "Един"
 
 #: qml/MediaPlayerControl.qml:326
-#, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "Основно меню"
@@ -1208,16 +1192,13 @@ msgstr "Сортиране"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr ""
+msgstr "Добавяне на радио"
 
 #: qml/NavigationActionBar.qml:106
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of radios of the playlist"
-#| msgid "%1 radio"
-#| msgid_plural "%1 radios"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr "%1 радио"
+msgstr "Добавяне на радио"
 
 #: qml/NavigationActionBar.qml:118
 #, kde-format
@@ -1226,25 +1207,19 @@ msgid "Add to Playlist"
 msgstr "Добавяне към списъка с песни"
 
 #: qml/NavigationActionBar.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Добавяне към списъка с песни"
 
 #: qml/NavigationActionBar.qml:132
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Изпълняване сега, измествайки текущия списък с песни"
 
 #: qml/NavigationActionBar.qml:133
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Изпълняване сега, измествайки текущия списък с песни"
@@ -1256,9 +1231,7 @@ msgid "Play Next"
 msgstr "Изпълняване на следващия запис"
 
 #: qml/NavigationActionBar.qml:146
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play next"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
 msgstr "Изпълняване на следващия запис"
@@ -1270,17 +1243,13 @@ msgid "Display Artist"
 msgstr "Показване на изпълнителя"
 
 #: qml/NavigationActionBar.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@action:button navigate to the view for artist of this album"
-#| msgid "Display Artist"
+#, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Показване на изпълнителя"
 
 #: qml/NavigationActionBar.qml:172
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Списък с песни"
@@ -1289,29 +1258,25 @@ msgstr "Списък с песни"
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "Показване като икони"
 
 #: qml/NavigationActionBar.qml:185
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
+#, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr "Подробности"
+msgstr "Показване като списък"
 
 #: qml/NavigationActionBar.qml:187
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "Показване като икони"
 
 #: qml/NavigationActionBar.qml:188
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr "Подробности"
+msgstr "Показване като списък"
 
 #: qml/NavigationActionBar.qml:248
 #, kde-format
@@ -1320,35 +1285,27 @@ msgid "Back"
 msgstr "Назад"
 
 #: qml/NavigationActionBar.qml:333
-#, fuzzy, kde-format
-#| msgctxt "@action:button Show filters in the navigation bar"
-#| msgid "Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Търсене и филтриране"
 
 #: qml/NavigationActionBar.qml:334
-#, fuzzy, kde-format
-#| msgctxt "@action:button Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Скриване на Търсене и филтриране"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Търсене по албум, изпълнител и т.н."
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Търсене по албум, изпълнител и т.н."
@@ -1408,17 +1365,13 @@ msgid "Show background on Now Playing page"
 msgstr "Показване на фона на страницата \"В момента се изпълнява\""
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "Показване на напредъка в диспечера на задачите"
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr ""
@@ -1432,9 +1385,7 @@ msgid "Start playing on startup"
 msgstr "Изпълнение на музика след стартиране"
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Scan for New Music on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "Претърсване за нова музика при стартиране"
@@ -1472,9 +1423,7 @@ msgid "Favorite/not favorite"
 msgstr "Любими/Нелюбими"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Color Scheme:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Цветова схема:"
@@ -1610,9 +1559,7 @@ msgid "Choose…"
 msgstr "Избор…"
 
 #: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Избиране на папка"

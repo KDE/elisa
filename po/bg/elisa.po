@@ -1901,33 +1901,3 @@ msgstr "Файлове"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Радиостанции"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Party Mode"
-#~ msgstr "Превключване на режим парти"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Mute"
-#~ msgstr "Вкл./Изкл. на звука"
-
-#~ msgctxt "@action:button"
-#~ msgid "Application Menu"
-#~ msgstr "Основно меню"
-
-#~ msgctxt "@action:button"
-#~ msgid "Create a radio"
-#~ msgstr "Създаване на радио"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle View Style"
-#~ msgstr "Превключване на стила на изгледа"
-
-#~ msgctxt "@info:status"
-#~ msgid "1 track"
-#~ msgstr "1 запис"
-
-#~ msgctxt ""
-#~ "@info:status %1 is the translation of track[s], %2 is the translation of "
-#~ "remaining"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (%2)"

@@ -253,7 +253,7 @@ void ElisaConfigurationDialog::setUseFavoriteStyleRatings(bool useFavoriteStyleR
     setDirty();
 }
 
-void ElisaConfigurationDialog::removeMusicLocation(QString location)
+void ElisaConfigurationDialog::removeMusicLocation(const QString &location)
 {
     mRootPath.removeAll(location);
     Q_EMIT rootPathChanged(mRootPath);

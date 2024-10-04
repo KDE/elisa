@@ -117,7 +117,7 @@ public:
 
     Q_INVOKABLE void installKeyEventFilter(QObject *object);
 
-    Q_INVOKABLE void showInFolder(QUrl filePath);
+    Q_INVOKABLE void showInFolder(const QUrl &filePath);
 
     bool eventFilter(QObject *object, QEvent *event) override;
 

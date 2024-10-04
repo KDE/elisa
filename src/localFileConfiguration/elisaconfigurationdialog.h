@@ -164,7 +164,7 @@ public:
         return mUseFavoriteStyleRatings;
     }
 
-    Q_INVOKABLE void removeMusicLocation(QString location);
+    Q_INVOKABLE void removeMusicLocation(const QString &location);
 
 
 Q_SIGNALS:

@@ -526,7 +526,7 @@ bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
     return false;
 }
 
-void ElisaApplication::showInFolder(QUrl filePath)
+void ElisaApplication::showInFolder(const QUrl &filePath)
 {
 #if KFKIO_FOUND
     KIO::highlightInFileManager({filePath});

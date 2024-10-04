@@ -26,6 +26,8 @@
 
 #include <algorithm>
 
+using namespace Qt::Literals::StringLiterals;
+
 QList<QUrl> M3uPlaylistParser::fromPlaylist(const QUrl &fileName, const QByteArray &fileContent) {
     Q_UNUSED(fileName);
     QList<QUrl> result;
@@ -1274,7 +1276,7 @@ bool MediaPlayListProxyModel::canOpenLoadedPlaylist() const
 void MediaPlayListProxyModel::openLoadedPlayList()
 {
 #if KFKIO_FOUND
-    auto job = new KIO::OpenUrlJob(d->mLoadedPlayListUrl, QLatin1String("text/plain"));
+    auto job = new KIO::OpenUrlJob(d->mLoadedPlayListUrl, u"text/plain"_s);
     job->start();
 #endif
 }

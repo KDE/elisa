@@ -249,7 +249,7 @@ bool LyricsModel::LyricsModelPrivate::parse(const QString &lyric)
       std::transform(lyrics.begin(), lyrics.end(),
                      lyrics.begin(),
                      [this](std::pair<QString, qint64> &element) {
-                       element.second = std::max(element.second + offset, 0ll);
+                       element.second = std::max(element.second - offset, 0ll);
                        return element;
                      });
     }

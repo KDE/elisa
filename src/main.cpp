@@ -27,6 +27,7 @@
 #include <KLocalizedContext>
 
 #include <KAboutData>
+#include <KIconTheme>
 
 #if KFCrash_FOUND
 #include <KCrash>
@@ -62,6 +63,7 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 int main(int argc, char *argv[])
 #endif
 {
+    KIconTheme::initTheme();
     auto format = QSurfaceFormat::defaultFormat();
     format.setOption(QSurfaceFormat::ResetNotification);
     QSurfaceFormat::setDefaultFormat(format);

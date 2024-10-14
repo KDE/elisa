@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-23 00:38+0000\n"
+"POT-Creation-Date: 2024-10-14 00:38+0000\n"
 "PO-Revision-Date: 2024-09-19 21:59+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -83,61 +83,61 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Baskuligi Festreĝimon"
 
-#: main.cpp:109
+#: main.cpp:111
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Eliza"
 
-#: main.cpp:111
+#: main.cpp:113
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Simpla Muzika Ludilo farita kun amo de la KDE-komunumo"
 
-#: main.cpp:113
+#: main.cpp:115
 #, kde-format
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa kontribuantoj"
 
-#: main.cpp:115 models/lyricsmodel.cpp:161
+#: main.cpp:117 models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Kreinto"
 
-#: main.cpp:116
+#: main.cpp:118
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Aŭtoro"
 
-#: main.cpp:118
+#: main.cpp:120
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Koncepta kaj dezajno laboro"
 
-#: main.cpp:119
+#: main.cpp:121
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Subteno de lokalizo"
 
-#: main.cpp:120
+#: main.cpp:122
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Dekstre al maldekstre subteno en interfaco"
 
-#: main.cpp:121
+#: main.cpp:123
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Diversaj plibonigoj al la interfaco"
 
-#: main.cpp:122
+#: main.cpp:124
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

@@ -415,8 +415,13 @@ void ManageAudioPlayer::setPlayerPosition(qint64 playerPosition)
 void ManageAudioPlayer::setCurrentPlayingForRadios(const QString &title, const QString &artistOrStation)
 {
     if (mPlayListModel && mCurrentTrack.isValid()) {
-        Q_EMIT updateData(mCurrentTrack, title, MediaPlayList::TitleRole);
-        Q_EMIT updateData(mCurrentTrack, artistOrStation, MediaPlayList::ArtistRole);
+        // WORKAROUND: Don't update metadata if the title is the last subpath of the stream URL. This is an unresolved issue with libVLC,
+        // see issue 21057 here: https://code.videolan.org/videolan/vlc/-/issues/21057
+        bool suppressMetadataUpdate = !title.isEmpty() && mCurrentTrack.data(mUrlRole).toString().endsWith(title);
+        if (!suppressMetadataUpdate) {
+            Q_EMIT updateData(mCurrentTrack, title, MediaPlayList::TitleRole);
+            Q_EMIT updateData(mCurrentTrack, artistOrStation, MediaPlayList::ArtistRole);
+        }
     }
 }
 

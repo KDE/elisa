@@ -279,6 +279,7 @@ Kirigami.Page {
                                 Kirigami.FormData.label: "<b>" + model.name + ":</b>"
                                 implicitWidth: childrenRect.width
                                 implicitHeight: childrenRect.height
+                                visible: model.hasData
 
                                 MediaTrackMetadataDelegate {
                                     maximumWidth: contentLayout.width - allMetaData.margins
@@ -288,6 +289,7 @@ Kirigami.Page {
                                     type: model.type
                                     readOnly: true
                                     url: topItem.fileUrl
+                                    hasData: model.hasData
                                 }
                             }
                         }

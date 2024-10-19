@@ -119,10 +119,16 @@ Kirigami.FormLayout {
         model: metadataModel
 
         delegate: RowLayout {
+            id: delegateRoot
+
             readonly property string formLabelText: i18nc("Track metadata form label, e.g. 'Artist:'", "%1:", model.name)
             // Make labels bold on mobile read-only mode to help differentiate label from metadata
             readonly property bool singleColumnPlainText: !form.wideMode && !form.isCreating && !form.isModifying
             Kirigami.FormData.label: singleColumnPlainText ? "<b>" + formLabelText + "</b>" : formLabelText
+
+            readonly property bool readOnly: (!isModifying && !isCreating) || (metadataModel.isReadOnly || model.isReadOnly)
+
+            visible: model.hasData || !readOnly
 
             MediaTrackMetadataDelegate {
                 index: model.index
@@ -130,28 +136,15 @@ Kirigami.FormLayout {
                 display: model.display
                 type: model.type
                 isRemovable: model.isRemovable
+                hasData: model.hasData
 
                 onEdited: model.display = display
-                readOnly: (!isModifying && !isCreating) || (metadataModel.isReadOnly || model.isReadOnly)
+                readOnly: delegateRoot.readOnly
 
+                onAddField: metadataModel.addData(index)
                 onDeleteField: metadataModel.removeData(model.index)
                 Layout.minimumHeight: Kirigami.Units.gridUnit * 1.5
             }
         }
-    }
-
-    // add tag row
-    ComboBox {
-        id: selectedField
-        Kirigami.FormData.label: i18nc("@label:listbox", "Add new tag:")
-        visible: isModifying && !metadataModel.isReadOnly && canAddMoreMetadata
-
-        textRole: "modelData"
-        valueRole: "modelData"
-
-        model: metadataModel.extraMetadata
-        enabled: metadataModel.extraMetadata.length
-
-        onActivated: metadataModel.addData(selectedField.currentValue)
     }
 }

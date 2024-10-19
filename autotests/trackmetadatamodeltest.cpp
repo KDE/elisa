@@ -15,6 +15,19 @@
 #include <QSignalSpy>
 #include <QTest>
 
+constexpr auto trackRowCount = 19;
+
+static int rowsWithDataCount(const TrackMetadataModel &model)
+{
+    int rowsWithData = 0;
+    for (int i = 0; i < model.rowCount(); ++i) {
+        if (model.data(model.index(i), TrackMetadataModel::HasDataRole) == true) {
+            ++rowsWithData;
+        }
+    }
+    return rowsWithData;
+}
+
 class TrackMetadataModelTests: public QObject, public DatabaseTestData
 {
     Q_OBJECT
@@ -65,7 +78,8 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 2);
+        QCOMPARE(myModel.rowCount(), trackRowCount);
+        QCOMPARE(rowsWithDataCount(myModel), 2);
     }
 
     void modifyTrackInDatabase()
@@ -114,7 +128,8 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 12);
+        QCOMPARE(myModel.rowCount(), trackRowCount);
+        QCOMPARE(rowsWithDataCount(myModel), 12);
 
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::currentDateTime());
 
@@ -125,7 +140,8 @@ private Q_SLOTS:
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
-        QCOMPARE(myModel.rowCount(), 12);
+        QCOMPARE(myModel.rowCount(), trackRowCount);
+        QCOMPARE(rowsWithDataCount(myModel), 12);
     }
 };
 

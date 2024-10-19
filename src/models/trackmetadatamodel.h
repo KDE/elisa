@@ -55,6 +55,7 @@ public:
     {
         ItemNameRole = Qt::UserRole + 1,
         ItemTypeRole,
+        HasDataRole,
     };
 
     Q_ENUM(ColumnRoles)
@@ -161,7 +162,7 @@ protected:
 
     void removeDataByIndex(int index);
 
-    void addDataByName(const QString &name);
+    void addDataByIndex(int index);
 
     static QString nameFromRole(DataTypes::ColumnsRoles role);
 

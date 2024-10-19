@@ -22,10 +22,12 @@ RowLayout {
     property bool isRemovable
     property bool readOnly
     property string url
+    required property bool hasData
 
     spacing: 0
 
     signal edited()
+    signal addField()
     signal deleteField()
 
     Loader {
@@ -76,7 +78,10 @@ RowLayout {
 
         focus: index === 0
 
-        active: !readOnly && (type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.UrlEntry || type === EditableTrackMetadataModel.IntegerEntry)
+        active: !delegateRow.readOnly && delegateRow.hasData &&
+                (delegateRow.type === EditableTrackMetadataModel.TextEntry ||
+                 delegateRow.type === EditableTrackMetadataModel.UrlEntry ||
+                 delegateRow.type === EditableTrackMetadataModel.IntegerEntry)
         visible: active
 
         sourceComponent: TextField {
@@ -148,7 +153,7 @@ RowLayout {
     Loader {
         id: editLongTextDisplayLoader
 
-        active: !readOnly && (type === EditableTrackMetadataModel.LongTextEntry)
+        active: !delegateRow.readOnly && delegateRow.hasData && (delegateRow.type === EditableTrackMetadataModel.LongTextEntry)
         visible: active
         Layout.maximumHeight: Kirigami.Units.gridUnit * 10
         Layout.minimumWidth: Kirigami.Units.gridUnit * 8
@@ -184,8 +189,16 @@ RowLayout {
         icon.name: 'delete'
         text: i18nc("@action:button remove a metadata tag", "Remove this tag")
 
-        visible: !readOnly && isRemovable
+        visible: !delegateRow.readOnly && delegateRow.hasData && delegateRow.isRemovable
         onClicked: deleteField()
+    }
+
+    Button {
+        icon.name: 'list-add'
+        text: i18nc("@action:button", "Add tag")
+        visible: !delegateRow.readOnly && !delegateRow.hasData
+
+        onClicked: addField()
     }
 }
 

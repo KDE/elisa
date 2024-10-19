@@ -243,27 +243,19 @@ void EditableTrackMetadataModel::deleteRadio()
 
 void EditableTrackMetadataModel::removeData(int index)
 {
-    beginRemoveRows({}, index, index);
     removeDataByIndex(index);
-    endRemoveRows();
 
     modelHasBeenModified();
 
     validData();
-
-    updateExtraMetadata();
 }
 
-void EditableTrackMetadataModel::addData(const QString &name)
+void EditableTrackMetadataModel::addData(int index)
 {
-    beginInsertRows({}, rowCount(), rowCount());
-    addDataByName(name);
-    endInsertRows();
+    addDataByIndex(index);
 
     modelHasBeenModified();
     validData();
-
-    updateExtraMetadata();
 }
 
 void EditableTrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData)
@@ -273,8 +265,6 @@ void EditableTrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel:
     }
 
     TrackMetadataModel::fillDataFromTrackData(trackData);
-
-    updateExtraMetadata();
 }
 
 void EditableTrackMetadataModel::filterDataFromTrackData()
@@ -287,8 +277,6 @@ void EditableTrackMetadataModel::fillLyricsDataFromTrack()
 {
     TrackMetadataModel::fillLyricsDataFromTrack();
     validData();
-
-    updateExtraMetadata();
 }
 
 void EditableTrackMetadataModel::fillDataForNewRadio()
@@ -341,23 +329,6 @@ void EditableTrackMetadataModel::validData()
 
         Q_EMIT isDataValidChanged();
     }
-}
-
-void EditableTrackMetadataModel::updateExtraMetadata()
-{
-    mExtraMetadata.clear();
-    for(auto metadataRole : {DataTypes::TitleRole, DataTypes::ArtistRole,
-                             DataTypes::AlbumRole, DataTypes::AlbumArtistRole, DataTypes::TrackNumberRole,
-                             DataTypes::DiscNumberRole, DataTypes::RatingRole, DataTypes::GenreRole,
-                             DataTypes::LyricistRole, DataTypes::ComposerRole, DataTypes::CommentRole,
-                             DataTypes::YearRole, DataTypes::ChannelsRole, DataTypes::BitRateRole,
-                             DataTypes::SampleRateRole, DataTypes::LyricsRole}) {
-        if (!metadataExists(metadataRole)) {
-            mExtraMetadata.push_back(nameFromRole(metadataRole));
-        }
-    }
-
-    Q_EMIT extraMetadataChanged();
 }
 
 void EditableTrackMetadataModel::modelHasBeenModified()

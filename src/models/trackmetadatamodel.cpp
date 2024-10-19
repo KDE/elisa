@@ -221,6 +221,9 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
+    case HasDataRole:
+        result = mDisplayData.contains(currentKey);
+        break;
     }
 
     return result;
@@ -241,7 +244,13 @@ bool TrackMetadataModel::setData(const QModelIndex &index, const QVariant &value
 
 void TrackMetadataModel::saveChanges()
 {
-    mFullData.insert(mDisplayData);
+    for (const auto role : mDisplayKeys) {
+        if (mDisplayData.contains(role)) {
+            mFullData[role] = mDisplayData[role];
+        } else {
+            mFullData.remove(role);
+        }
+    }
 }
 
 void TrackMetadataModel::undoChanges()
@@ -255,6 +264,7 @@ QHash<int, QByteArray> TrackMetadataModel::roleNames() const
 
     names[ItemNameRole] = "name";
     names[ItemTypeRole] = "type";
+    names[HasDataRole] = "hasData";
 
     return names;
 }
@@ -334,14 +344,12 @@ void TrackMetadataModel::fillDataFromTrackData(const TrackMetadataModel::TrackDa
 
 void TrackMetadataModel::resetDisplayData()
 {
-    const auto fieldsForTrack = displayFields(mFullData.elementType());
     beginResetModel();
     mDisplayData.clear();
-    mDisplayKeys.clear();
+    mDisplayKeys = displayFields(mFullData.elementType());
 
-    for (DataTypes::ColumnsRoles role : fieldsForTrack) {
+    for (DataTypes::ColumnsRoles role : mDisplayKeys) {
         if (mFullData.constFind(role) != mFullData.constEnd()) {
-            mDisplayKeys.push_back(role);
             mDisplayData[role] = mFullData[role];
         }
     }
@@ -371,12 +379,12 @@ TrackMetadataModel::TrackDataType::mapped_type TrackMetadataModel::dataFromType(
 
 void TrackMetadataModel::fillLyricsDataFromTrack()
 {
-    beginInsertRows({}, mDisplayData.size(), mDisplayData.size());
-    mDisplayKeys.push_back(DataTypes::LyricsRole);
-    auto result = mLyricsValueWatcher.result();
+    const auto result = mLyricsValueWatcher.result();
     mDisplayData[DataTypes::LyricsRole] = result.first;
     mDisplayData[DataTypes::LyricsLocationRole] = result.second;
-    endInsertRows();
+    // This is safe as long as we keep the lyrics as the final tag
+    const auto lyricsIndex = index(mDisplayKeys.size() - 1);
+    Q_EMIT dataChanged(lyricsIndex, lyricsIndex);
 }
 
 const TrackMetadataModel::TrackDataType &TrackMetadataModel::allTrackData() const
@@ -464,54 +472,30 @@ DataTypes::ColumnsRoles TrackMetadataModel::trackKey(int index) const
 
 void TrackMetadataModel::removeDataByIndex(int index)
 {
-    auto dataKey = mDisplayKeys[index];
-
-    mDisplayData[dataKey] = {};
-    mDisplayKeys.removeAt(index);
-}
-
-void TrackMetadataModel::addDataByName(const QString &name)
-{
-    DataTypes::ColumnsRoles newRole = DataTypes::TitleRole;
-
-    if (name == i18nc("@label:textbox Track title for track metadata view", "Title")) {
-        newRole = DataTypes::TitleRole;
-    } else if (name == i18nc("@label:textbox Track artist for track metadata view", "Artist")) {
-        newRole = DataTypes::ArtistRole;
-    } else if (name == i18nc("@label:textbox Album name for track metadata view", "Album")) {
-        newRole = DataTypes::AlbumRole;
-    } else if (name == i18nc("@label:textbox Album artist for track metadata view", "Album Artist")) {
-        newRole = DataTypes::AlbumArtistRole;
-    } else if (name == i18nc("@label:textbox Track number for track metadata view", "Track Number")) {
-        newRole = DataTypes::TrackNumberRole;
-    } else if (name == i18nc("@label:textbox Disc number for track metadata view", "Disc Number")) {
-        newRole = DataTypes::DiscNumberRole;
-    } else if (name == i18nc("@label:textbox Rating label for information panel", "Rating")) {
-        newRole = DataTypes::RatingRole;
-    } else if (name == i18nc("@label:textbox Genre label for track metadata view", "Genre")) {
-        newRole = DataTypes::GenreRole;
-    } else if (name == i18nc("@label:textbox Lyricist label for track metadata view", "Lyricist")) {
-        newRole = DataTypes::LyricistRole;
-    } else if (name == i18nc("@label:textbox Composer name for track metadata view", "Composer")) {
-        newRole = DataTypes::ComposerRole;
-    } else if (name == i18nc("@label:textbox Comment label for track metadata view", "Comment")) {
-        newRole = DataTypes::CommentRole;
-    } else if (name == i18nc("@label:textbox Year label for track metadata view", "Year")) {
-        newRole = DataTypes::YearRole;
-    } else if (name == i18nc("@label:textbox Channels label for track metadata view", "Channels")) {
-        newRole = DataTypes::ChannelsRole;
-    } else if (name == i18nc("@label:textbox Bit rate label for track metadata view", "Bit Rate")) {
-        newRole = DataTypes::BitRateRole;
-    } else if (name == i18nc("@label:textbox Sample Rate label for track metadata view", "Sample Rate")) {
-        newRole = DataTypes::SampleRateRole;
-    } else if (name == i18nc("@label:textbox Lyrics label for track metadata view", "Lyrics")) {
-        newRole = DataTypes::LyricsRole;
-    } else if (name == i18nc("@label:textbox Duration label for track metadata view", "Duration")) {
-        newRole = DataTypes::DurationRole;
+    const auto modelIndex = this->index(index);
+    if (!modelIndex.isValid()) {
+        return;
     }
 
-    mDisplayData[newRole] = {};
-    mDisplayKeys.push_back(newRole);
+    const auto dataKey = mDisplayKeys[index];
+    if (mDisplayData.contains(dataKey)) {
+        mDisplayData.remove(dataKey);
+        Q_EMIT dataChanged(modelIndex, modelIndex);
+    }
+}
+
+void TrackMetadataModel::addDataByIndex(int index)
+{
+    const auto modelIndex = this->index(index);
+    if (!modelIndex.isValid()) {
+        return;
+    }
+
+    const auto newRole = mDisplayKeys[index];
+    if (!mDisplayData.contains(newRole)) {
+        mDisplayData.insert(newRole, QString());
+        Q_EMIT dataChanged(modelIndex, modelIndex);
+    }
 }
 
 QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)

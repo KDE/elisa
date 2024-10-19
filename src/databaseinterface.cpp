@@ -7591,7 +7591,7 @@ void DatabaseInterface::updateTrackInDatabase(const DataTypes::TrackDataType &on
     }
 
     if (oneTrack.hasLyricist()) {
-        const auto oneLyricist = insertComposer(oneTrack.lyricist()) != 0 ? oneTrack.lyricist() : QVariant{};
+        const auto oneLyricist = insertLyricist(oneTrack.lyricist()) != 0 ? oneTrack.lyricist() : QVariant{};
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricist"), oneLyricist);
     } else {
         d->mUpdateTrackQuery.bindValue(QStringLiteral(":lyricist"), {});

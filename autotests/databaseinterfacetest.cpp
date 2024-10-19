@@ -32,6 +32,8 @@
 
 #include <algorithm>
 
+using namespace Qt::Literals::StringLiterals;
+
 class DatabaseInterfaceTests: public QObject, public DatabaseTestData
 {
     Q_OBJECT
@@ -3358,12 +3360,25 @@ private Q_SLOTS:
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        auto modifiedTrack = DataTypes::TrackDataType{true, QStringLiteral("$3"), QStringLiteral("0"), QStringLiteral("track3"),
-                QStringLiteral("artist3"), QStringLiteral("album1"), QStringLiteral("Various Artists"), 5, 3,
-                QTime::fromMSecsSinceStartOfDay(3), {QUrl::fromLocalFile(QStringLiteral("/$3"))},
-                QDateTime::fromMSecsSinceEpoch(23),
-        {QUrl::fromLocalFile(QStringLiteral("file://image$3"))}, 5, true,
-                QStringLiteral("genre1"), QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
+        auto modifiedTrack = DataTypes::TrackDataType{true,
+                                                      QStringLiteral("$3"),
+                                                      QStringLiteral("0"),
+                                                      QStringLiteral("track3"),
+                                                      QStringLiteral("artist3"),
+                                                      QStringLiteral("album1"),
+                                                      QStringLiteral("Various Artists"),
+                                                      5,
+                                                      3,
+                                                      QTime::fromMSecsSinceStartOfDay(3),
+                                                      {QUrl::fromLocalFile(QStringLiteral("/$3"))},
+                                                      QDateTime::fromMSecsSinceEpoch(23),
+                                                      {QUrl::fromLocalFile(QStringLiteral("file://image$3"))},
+                                                      5,
+                                                      true,
+                                                      QStringLiteral("genre1"),
+                                                      QStringLiteral("composer1"),
+                                                      QStringLiteral("lyricist2"),
+                                                      false};
 
         musicDb.insertTracksList({modifiedTrack}, mNewCovers);
 
@@ -3389,6 +3404,7 @@ private Q_SLOTS:
 
         QCOMPARE(track.isValid(), true);
         QCOMPARE(track.trackNumber(), 5);
+        QCOMPARE(track.lyricist(), u"lyricist2"_s);
     }
 
     void addOneAlbum()

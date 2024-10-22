@@ -5,6 +5,7 @@
  */
 
 #include "models/trackmetadatamodel.h"
+#include "models/trackmetadataproxymodel.h"
 
 #include "databasetestdata.h"
 
@@ -16,17 +17,6 @@
 #include <QTest>
 
 constexpr auto trackRowCount = 19;
-
-static int rowsWithDataCount(const TrackMetadataModel &model)
-{
-    int rowsWithData = 0;
-    for (int i = 0; i < model.rowCount(); ++i) {
-        if (model.data(model.index(i), TrackMetadataModel::HasDataRole) == true) {
-            ++rowsWithData;
-        }
-    }
-    return rowsWithData;
-}
 
 class TrackMetadataModelTests: public QObject, public DatabaseTestData
 {
@@ -47,7 +37,10 @@ private Q_SLOTS:
     void loadOneTrackData()
     {
         TrackMetadataModel myModel;
+        TrackMetadataProxyModel proxyModel;
+        proxyModel.setSourceModel(&myModel);
         QAbstractItemModelTester testModel(&myModel);
+        QAbstractItemModelTester testProxyModel(&proxyModel);
 
         QSignalSpy beginResetSpy(&myModel, &TrackMetadataModel::modelAboutToBeReset);
         QSignalSpy endResetSpy(&myModel, &TrackMetadataModel::modelReset);
@@ -65,6 +58,7 @@ private Q_SLOTS:
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
         QCOMPARE(myModel.rowCount(), 0);
+        QCOMPARE(proxyModel.rowCount(), 0);
 
         auto trackData = TrackMetadataModel::TrackDataType{{DataTypes::DatabaseIdRole, 1},
                                                            {DataTypes::TitleRole, QStringLiteral("title")},
@@ -79,7 +73,10 @@ private Q_SLOTS:
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
         QCOMPARE(myModel.rowCount(), trackRowCount);
-        QCOMPARE(rowsWithDataCount(myModel), 2);
+        QCOMPARE(proxyModel.rowCount(), 2);
+
+        proxyModel.setShowTagsWithNoData(true);
+        QCOMPARE(proxyModel.rowCount(), trackRowCount);
     }
 
     void modifyTrackInDatabase()
@@ -96,7 +93,10 @@ private Q_SLOTS:
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         TrackMetadataModel myModel;
+        TrackMetadataProxyModel proxyModel;
+        proxyModel.setSourceModel(&myModel);
         QAbstractItemModelTester testModel(&myModel);
+        QAbstractItemModelTester testProxyModel(&proxyModel);
 
         QSignalSpy beginResetSpy(&myModel, &TrackMetadataModel::modelAboutToBeReset);
         QSignalSpy endResetSpy(&myModel, &TrackMetadataModel::modelReset);
@@ -114,6 +114,7 @@ private Q_SLOTS:
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
         QCOMPARE(myModel.rowCount(), 0);
+        QCOMPARE(proxyModel.rowCount(), 0);
 
         myModel.setDatabase(&musicDb);
 
@@ -129,7 +130,11 @@ private Q_SLOTS:
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
         QCOMPARE(myModel.rowCount(), trackRowCount);
-        QCOMPARE(rowsWithDataCount(myModel), 12);
+        QCOMPARE(proxyModel.rowCount(), 12);
+
+        proxyModel.setShowTagsWithNoData(true);
+        QCOMPARE(proxyModel.rowCount(), trackRowCount);
+        proxyModel.setShowTagsWithNoData(false);
 
         musicDb.trackHasStartedPlaying(QUrl::fromLocalFile(QStringLiteral("/$2")), QDateTime::currentDateTime());
 
@@ -141,7 +146,10 @@ private Q_SLOTS:
         QCOMPARE(beginRemovedRowsSpy.count(), 0);
         QCOMPARE(endRemovedRowsSpy.count(), 0);
         QCOMPARE(myModel.rowCount(), trackRowCount);
-        QCOMPARE(rowsWithDataCount(myModel), 12);
+        QCOMPARE(proxyModel.rowCount(), 12);
+
+        proxyModel.setShowTagsWithNoData(true);
+        QCOMPARE(proxyModel.rowCount(), trackRowCount);
     }
 };
 

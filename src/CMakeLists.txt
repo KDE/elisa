@@ -32,6 +32,7 @@ set(elisaLib_SOURCES
     models/abstractmediaproxymodel.cpp
     models/gridviewproxymodel.cpp
     models/trackmetadatamodel.cpp
+    models/trackmetadataproxymodel.cpp
     models/editabletrackmetadatamodel.cpp
     models/trackcontextmetadatamodel.cpp
     models/viewsmodel.cpp

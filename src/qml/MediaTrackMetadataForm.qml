@@ -28,6 +28,7 @@ Kirigami.FormLayout {
     property bool canAddMoreMetadata
     property alias imageItem: imageParent
     property alias showImage: imageParent.visible
+    readonly property bool readOnly: metadataModel.isReadOnly || (!isModifying && !isCreating)
 
     signal close()
 
@@ -81,6 +82,13 @@ Kirigami.FormLayout {
         }
     }
 
+    TrackMetadataProxyModel {
+        id: proxyModel
+
+        sourceModel: form.metadataModel
+        showTagsWithNoData: !form.readOnly
+    }
+
     Kirigami.InlineMessage {
         id: formInvalidNotification
 
@@ -116,7 +124,7 @@ Kirigami.FormLayout {
 
     // metadata rows
     Repeater {
-        model: metadataModel
+        model: proxyModel
 
         delegate: RowLayout {
             id: delegateRoot
@@ -125,10 +133,6 @@ Kirigami.FormLayout {
             // Make labels bold on mobile read-only mode to help differentiate label from metadata
             readonly property bool singleColumnPlainText: !form.wideMode && !form.isCreating && !form.isModifying
             Kirigami.FormData.label: singleColumnPlainText ? "<b>" + formLabelText + "</b>" : formLabelText
-
-            readonly property bool readOnly: (!isModifying && !isCreating) || (metadataModel.isReadOnly || model.isReadOnly)
-
-            visible: model.hasData || !readOnly
 
             MediaTrackMetadataDelegate {
                 index: model.index
@@ -139,10 +143,10 @@ Kirigami.FormLayout {
                 hasData: model.hasData
 
                 onEdited: model.display = display
-                readOnly: delegateRoot.readOnly
+                readOnly: form.readOnly || model.isReadOnly
 
-                onAddField: metadataModel.addData(index)
-                onDeleteField: metadataModel.removeData(model.index)
+                onAddField: metadataModel.addData(proxyModel.mapRowToSource(index))
+                onDeleteField: metadataModel.removeData(proxyModel.mapRowToSource(index))
                 Layout.minimumHeight: Kirigami.Units.gridUnit * 1.5
             }
         }

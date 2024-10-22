@@ -51,6 +51,11 @@ Kirigami.Page {
         manager: ElisaApplication.musicManager
     }
 
+    TrackMetadataProxyModel {
+        id: metadataProxyModel
+        sourceModel: metaDataModel
+    }
+
     // Header with title and actions
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
@@ -273,7 +278,7 @@ Kirigami.Page {
 
                         Repeater {
                             id: trackData
-                            model: metaDataModel
+                            model: metadataProxyModel
 
                             delegate: Item {
                                 Kirigami.FormData.label: "<b>" + model.name + ":</b>"

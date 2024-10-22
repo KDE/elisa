@@ -7,6 +7,8 @@
 
 #include "filewriter.h"
 
+#include "trackmetadatamodel.h"
+
 #include "config-upnp-qt.h"
 #include <QMimeDatabase>
 
@@ -132,9 +134,20 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
     auto rangeBegin = data.constKeyValueBegin();
     while (rangeBegin != data.constKeyValueEnd()) {
         auto key = (*rangeBegin).first;
+        auto value = (*rangeBegin).second;
+        if (key == DataTypes::ColumnsRoles::LyricsLocationRole) {
+            rangeBegin++;
+            continue;
+        }
+        if (key == DataTypes::ColumnsRoles::LyricsRole) {
+            if (!data.value(DataTypes::ColumnsRoles::LyricsLocationRole).toString().isEmpty()) {
+                rangeBegin++;
+                continue;
+            }
+        }
         auto translatedKey = d->mPropertyTranslation.find(key);
         if (translatedKey != d->mPropertyTranslation.end()) {
-            writeData.add(translatedKey.value(), (*rangeBegin).second);
+            writeData.add(translatedKey.value(), value);
         }
         rangeBegin++;
     }

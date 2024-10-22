@@ -30,7 +30,6 @@ class ELISALIB_EXPORT DataTypes : public QObject
     QML_UNCREATABLE("")
 
 public:
-
     enum ColumnsRoles {
         TitleRole = Qt::UserRole + 1,
         SecondaryTextRole,
@@ -77,6 +76,7 @@ public:
         FilePathRole,
         HasChildrenRole,
         MultipleImageUrlsRole,
+        LyricsLocationRole,
     };
 
     Q_ENUM(ColumnsRoles)

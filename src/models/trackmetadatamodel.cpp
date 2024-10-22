@@ -15,22 +15,18 @@
 #include <algorithm>
 
 #include <KFormat>
+#include <QDir>
+#include <QFileInfo>
 
 QList<DataTypes::ColumnsRoles> displayFields(const ElisaUtils::PlayListEntryType dataType)
 {
     switch (dataType) {
     case ElisaUtils::Track:
         return {
-            DataTypes::TitleRole, DataTypes::ArtistRole,
-            DataTypes::AlbumRole, DataTypes::AlbumArtistRole,
-            DataTypes::TrackNumberRole, DataTypes::DiscNumberRole,
-            DataTypes::RatingRole, DataTypes::GenreRole,
-            DataTypes::LyricistRole, DataTypes::ComposerRole,
-            DataTypes::CommentRole, DataTypes::YearRole,
-            DataTypes::ChannelsRole, DataTypes::BitRateRole,
-            DataTypes::SampleRateRole, DataTypes::LastPlayDate,
-            DataTypes::PlayCounter, DataTypes::DurationRole,
-            DataTypes::LyricsRole
+            DataTypes::TitleRole,      DataTypes::ArtistRole,  DataTypes::AlbumRole,    DataTypes::AlbumArtistRole, DataTypes::TrackNumberRole,
+            DataTypes::DiscNumberRole, DataTypes::RatingRole,  DataTypes::GenreRole,    DataTypes::LyricistRole,    DataTypes::ComposerRole,
+            DataTypes::CommentRole,    DataTypes::YearRole,    DataTypes::ChannelsRole, DataTypes::BitRateRole,     DataTypes::SampleRateRole,
+            DataTypes::LastPlayDate,   DataTypes::PlayCounter, DataTypes::DurationRole, DataTypes::LyricsRole,
         };
     case ElisaUtils::Radio:
         return {DataTypes::TitleRole, DataTypes::ResourceRole, DataTypes::CommentRole, DataTypes::ImageUrlRole};
@@ -42,8 +38,7 @@ QList<DataTypes::ColumnsRoles> displayFields(const ElisaUtils::PlayListEntryType
 TrackMetadataModel::TrackMetadataModel(QObject *parent)
     : QAbstractListModel(parent)
 {
-    connect(&mLyricsValueWatcher, &QFutureWatcher<QString>::finished,
-            this, &TrackMetadataModel::lyricsValueIsReady);
+    connect(&mLyricsValueWatcher, &QFutureWatcher<std::pair<QString, QString>>::finished, this, &TrackMetadataModel::lyricsValueIsReady);
 }
 
 TrackMetadataModel::~TrackMetadataModel()
@@ -292,6 +287,11 @@ QString TrackMetadataModel::lyrics() const
     return mFullData[TrackDataType::key_type::LyricsRole].toString();
 }
 
+QString TrackMetadataModel::lyricsLocation() const
+{
+    return mFullData[TrackDataType::key_type::LyricsLocationRole].toString();
+}
+
 qulonglong TrackMetadataModel::databaseId() const
 {
     return mDatabaseId;
@@ -373,7 +373,9 @@ void TrackMetadataModel::fillLyricsDataFromTrack()
 {
     beginInsertRows({}, mDisplayData.size(), mDisplayData.size());
     mDisplayKeys.push_back(DataTypes::LyricsRole);
-    mDisplayData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
+    auto result = mLyricsValueWatcher.result();
+    mDisplayData[DataTypes::LyricsRole] = result.first;
+    mDisplayData[DataTypes::LyricsLocationRole] = result.second;
     endInsertRows();
 }
 
@@ -384,10 +386,12 @@ const TrackMetadataModel::TrackDataType &TrackMetadataModel::allTrackData() cons
 
 void TrackMetadataModel::lyricsValueIsReady()
 {
-    if (!mLyricsValueWatcher.result().isEmpty()) {
+    auto result = mLyricsValueWatcher.result();
+    if (!result.first.isEmpty()) {
         fillLyricsDataFromTrack();
 
-        mFullData[DataTypes::LyricsRole] = mLyricsValueWatcher.result();
+        mFullData[DataTypes::LyricsRole] = result.first;
+        mFullData[DataTypes::LyricsLocationRole] = result.second;
 
         Q_EMIT lyricsChanged();
     }
@@ -621,9 +625,27 @@ void TrackMetadataModel::fetchLyrics()
         auto locker = QMutexLocker(&mFileScannerMutex);
         auto trackData = mFileScanner.scanOneFile(fileUrl);
         if (!trackData.lyrics().isEmpty()) {
-            return trackData.lyrics();
+            return std::make_pair(trackData.lyrics(), QString{});
         }
-        return QString{};
+        if (fileUrl.isLocalFile()) {
+            QFileInfo fileInfo(fileUrl.toLocalFile());
+            QDir lrcDir(fileInfo.dir());
+            QString lrcFileName(fileInfo.completeBaseName() + QLatin1String(".lrc"));
+            if (!lrcDir.exists(lrcFileName)) {
+                lrcFileName = fileInfo.completeBaseName() + QLatin1String(".LRC");
+                if (!lrcDir.exists(lrcFileName)) {
+                    return std::make_pair(QString{}, QString{});
+                }
+            }
+
+            QFile file(lrcDir.filePath(lrcFileName));
+            if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                return std::make_pair(QString{}, QString{});
+            }
+
+            return std::make_pair(QString::fromLocal8Bit(file.readAll()), file.fileName());
+        }
+        return std::make_pair(QString{}, QString{});
     });
 
     mLyricsValueWatcher.setFuture(lyricicsValue);

@@ -51,7 +51,6 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
                NOTIFY lyricsChanged)
 
 public:
-
     enum ColumnRoles
     {
         ItemNameRole = Qt::UserRole + 1,
@@ -95,6 +94,7 @@ public:
     MusicListenersManager* manager() const;
 
     QString lyrics() const;
+    QString lyricsLocation() const;
 
     qulonglong databaseId() const;
 
@@ -197,7 +197,8 @@ private:
 
     QMutex mFileScannerMutex;
 
-    QFutureWatcher<QString> mLyricsValueWatcher;
+    // std::pair<LyricsContent, LyricsLocation>, LyricsLocation should be empty if lyrics is embedded
+    QFutureWatcher<std::pair<QString, QString>> mLyricsValueWatcher;
 };
 
 #endif // TRACKMETADATAMODEL_H

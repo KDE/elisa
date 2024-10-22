@@ -52,6 +52,9 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
                 break;
             }
             break;
+        case DataTypes::LyricsRole:
+            result = !lyricsLocation().isEmpty();
+            break;
         case DataTypes::ImageUrlRole:
         case DataTypes::ArtistRole:
         case DataTypes::AlbumRole:
@@ -64,7 +67,6 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
         case DataTypes::ComposerRole:
         case DataTypes::CommentRole:
         case DataTypes::YearRole:
-        case DataTypes::LyricsRole:
             result = false;
             break;
         case DataTypes::LastPlayDate:

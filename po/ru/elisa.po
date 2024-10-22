@@ -4,21 +4,22 @@
 # Alexander Potashev <aspotashev@gmail.com>, 2017, 2018, 2019, 2020.
 # SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Alexander Yavorsky <kekcuha@gmail.com>
 # Мария Шикунова <translation-team@basealt.ru>, 2022.
+# SPDX-FileCopyrightText: 2024 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-14 00:38+0000\n"
-"PO-Revision-Date: 2024-02-07 12:43+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2024-10-21 11:35+0300\n"
+"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -379,12 +380,10 @@ msgid "Play now, replacing current playlist"
 msgstr "Воспроизвести и заменить список воспроизведения"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Кол-во воспроизведений:"
+msgstr "Воспроизвести далее"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -551,16 +550,12 @@ msgstr "Отменить"
 
 #: qml/ElisaMainWindow.qml:98
 #, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "Показать список воспроизведения"
 
 #: qml/ElisaMainWindow.qml:99
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide Playlist"
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Скрыть список воспроизведения"
@@ -630,24 +625,18 @@ msgstr ""
 
 #: qml/MediaPlayerControl.qml:99
 #, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Party Mode"
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "Режим вечеринки"
 
 #: qml/MediaPlayerControl.qml:107
 #, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Skip Backward"
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Предыдущий трек"
 
 #: qml/MediaPlayerControl.qml:116
 #, fuzzy, kde-format
-#| msgctxt "@action:button Pause any media that is playing"
-#| msgid "Pause"
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
@@ -655,16 +644,12 @@ msgstr "Приостановить"
 
 #: qml/MediaPlayerControl.qml:117
 #, fuzzy, kde-format
-#| msgctxt "@action:button Start playing media"
-#| msgid "Play"
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Воспроизвести"
 
 #: qml/MediaPlayerControl.qml:125
 #, fuzzy, kde-format
-#| msgctxt "@action:button skip forward in playlists"
-#| msgid "Skip Forward"
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Следующий трек"
@@ -685,34 +670,28 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "Текущая настройка: не использовать воспроизведение в случайном порядке"
 
 #: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "Не воспроизводить дорожки повторно"
+msgstr "Текущая настройка: воспроизводить дорожки в случайном порядке"
 
 #: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "Текущая настройка: воспроизводить альбомы в случайном порядке"
 
 #: qml/MediaPlayerControl.qml:204 qml/mobile/MobileTrackPlayer.qml:242
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "Дорожки"
+msgstr "Дорожка"
 
 #: qml/MediaPlayerControl.qml:208 qml/mobile/MobileTrackPlayer.qml:246
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Альбом"
@@ -756,8 +735,6 @@ msgstr "Один трек"
 
 #: qml/MediaPlayerControl.qml:326
 #, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "Application Menu"
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "Меню приложения"
@@ -834,9 +811,6 @@ msgstr "В списке воспроизведения ничего нет."
 
 #: qml/MediaPlayListView.qml:470 qml/MediaPlayListView.qml:479
 #, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
@@ -847,9 +821,6 @@ msgstr[3] "Осталась %1 дорожка"
 
 #: qml/MediaPlayListView.qml:471
 #, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "Осталась %1 дорожка"
@@ -865,18 +836,12 @@ msgstr ""
 
 #: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
 #, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "Осталась %1 дорожка"
 
 #: qml/MediaPlayListView.qml:488
 #, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
@@ -887,9 +852,6 @@ msgstr[3] "%1 дорожка"
 
 #: qml/MediaPlayListView.qml:497
 #, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -918,9 +880,6 @@ msgstr ""
 
 #: qml/MediaPlayListView.qml:502
 #, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
 "duration formatted like hh:mm:ss or mm:ss"
@@ -933,9 +892,6 @@ msgstr[3] "%1 дорожка"
 
 #: qml/MediaPlayListView.qml:504
 #, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
@@ -1190,28 +1146,22 @@ msgid "Shuffle"
 msgstr "В случайном порядке"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
-msgstr "Дорожки"
+msgstr "Дорожка"
 
 #: qml/NativeGlobalMenu.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "Альбом"
 
 #: qml/NativeGlobalMenu.qml:123
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu shuffle mode is turned off"
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
-msgstr "отключено"
+msgstr "Отключить"
 
 #: qml/NativeGlobalMenu.qml:130
 #, kde-format
@@ -1259,8 +1209,6 @@ msgstr "Сортировка"
 
 #: qml/NavigationActionBar.qml:105
 #, fuzzy, kde-format
-#| msgctxt "Title of the file radios browser view"
-#| msgid "Radios"
 msgctxt "@action:button"
 msgid "Add Radio"
 msgstr "Радиостанции"
@@ -1279,8 +1227,6 @@ msgstr "Добавить в список воспроизведения"
 
 #: qml/NavigationActionBar.qml:119
 #, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to playlist"
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Добавить в список воспроизведения"
@@ -1288,8 +1234,6 @@ msgstr "Добавить в список воспроизведения"
 # "Воспроизвести и заменить список воспроизведения" --aspotashev
 #: qml/NavigationActionBar.qml:132
 #, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Воспроизвести и заменить список воспроизведения"
@@ -1297,27 +1241,21 @@ msgstr "Воспроизвести и заменить список воспро
 # "Воспроизвести и заменить список воспроизведения" --aspotashev
 #: qml/NavigationActionBar.qml:133
 #, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Воспроизвести и заменить список воспроизведения"
 
 #: qml/NavigationActionBar.qml:145
-#, fuzzy, kde-format
-#| msgctxt "Play now current track from play list"
-#| msgid "Play Now"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "Воспроизвести"
+msgstr "Воспроизвести далее"
 
 #: qml/NavigationActionBar.qml:146
 #, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
 msgctxt "@info:tooltip"
 msgid "Play next"
-msgstr "Кол-во воспроизведений:"
+msgstr "Воспроизвести далее"
 
 #: qml/NavigationActionBar.qml:158
 #, kde-format
@@ -1327,16 +1265,12 @@ msgstr "Показать исполнителя"
 
 #: qml/NavigationActionBar.qml:159
 #, fuzzy, kde-format
-#| msgctxt "@action:button navigate to the view for artist of this album"
-#| msgid "Display Artist"
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Показать исполнителя"
 
 #: qml/NavigationActionBar.qml:172
 #, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Показать список воспроизведения"
@@ -1349,8 +1283,6 @@ msgstr ""
 
 #: qml/NavigationActionBar.qml:185
 #, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "View details"
 msgctxt "@action:button"
 msgid "View as List"
 msgstr "Просмотр подробных сведений"
@@ -1363,8 +1295,6 @@ msgstr ""
 
 #: qml/NavigationActionBar.qml:188
 #, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
 msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Просмотр подробных сведений"
@@ -1377,8 +1307,6 @@ msgstr "Назад"
 
 #: qml/NavigationActionBar.qml:333
 #, fuzzy, kde-format
-#| msgctxt "@action:button Show filters in the navigation bar"
-#| msgid "Search and Filter"
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
@@ -1386,8 +1314,6 @@ msgstr "Поиск и фильтр"
 
 #: qml/NavigationActionBar.qml:334
 #, fuzzy, kde-format
-#| msgctxt "@action:button Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
@@ -1395,16 +1321,12 @@ msgstr "Скрыть область поиска и фильтра"
 
 #: qml/NavigationActionBar.qml:427
 #, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Поиск по названию альбома, имени исполнителя…"
 
 #: qml/NavigationActionBar.qml:428
 #, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Поиск по названию альбома, имени исполнителя…"
@@ -1465,16 +1387,12 @@ msgstr "Показывать фон на странице «Сейчас про�
 
 #: qml/SettingsForm.qml:84
 #, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Show progress on Task Manager entries"
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "Показывать ход выполнения в панели задач"
 
 #: qml/SettingsForm.qml:95
 #, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Keep running in System Tray when main window is closed"
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr "Сворачивать в системный лоток при закрытии главного окна"
@@ -1487,8 +1405,6 @@ msgstr "Начинать воспроизведение при запуске"
 
 #: qml/SettingsForm.qml:117
 #, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Scan for New Music on startup"
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "Искать новые файлы при запуске"
@@ -1526,8 +1442,6 @@ msgstr "Избранное / не избранное"
 
 #: qml/SettingsForm.qml:181
 #, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Color Scheme:"
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Цветовые схемы&"
@@ -1665,8 +1579,6 @@ msgstr "Выбрать…"
 
 #: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
 #, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Выбор папки"
@@ -2019,7 +1931,7 @@ msgstr "Радиостанции"
 
 #~ msgctxt "@action:button"
 #~ msgid "Toggle Mute"
-#~ msgstr "Включить или выключить звук"
+#~ msgstr "Включить или отключить звук"
 
 #~ msgctxt "@action:button"
 #~ msgid "Application Menu"
@@ -2029,12 +1941,9 @@ msgstr "Радиостанции"
 #~ msgid "Create a radio"
 #~ msgstr "Добавить радиостанцию…"
 
-#, fuzzy
-#~| msgctxt "@action:button"
-#~| msgid "Toggle Shuffle"
 #~ msgctxt "@action:button"
 #~ msgid "Toggle View Style"
-#~ msgstr "В случайном порядке"
+#~ msgstr "Переключить режим просмотра"
 
 #~ msgctxt "@info:status"
 #~ msgid "1 track"

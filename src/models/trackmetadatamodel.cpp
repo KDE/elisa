@@ -374,7 +374,7 @@ void TrackMetadataModel::removeMetaData(DataTypes::ColumnsRoles metaData)
 
 TrackMetadataModel::TrackDataType::mapped_type TrackMetadataModel::dataFromType(TrackDataType::key_type metaData) const
 {
-    return mFullData[metaData];
+    return mDisplayData[metaData];
 }
 
 void TrackMetadataModel::fillLyricsDataFromTrack()

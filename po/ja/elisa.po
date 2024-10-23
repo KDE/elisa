@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-14 00:38+0000\n"
+"POT-Creation-Date: 2024-10-23 00:39+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -161,7 +161,7 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "オンラインラジオをサポート"
 
-#: models/editabletrackmetadatamodel.cpp:322
+#: models/editabletrackmetadatamodel.cpp:324
 #, fuzzy, kde-format
 #| msgctxt "Error message when track URL is invalid"
 #| msgid "Invalid URL."
@@ -169,7 +169,7 @@ msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "無効な URL です。"
 
-#: models/editabletrackmetadatamodel.cpp:332
+#: models/editabletrackmetadatamodel.cpp:334
 #, fuzzy, kde-format
 #| msgctxt "Error message when track title is empty"
 #| msgid "Empty title."
@@ -228,28 +228,28 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr ""
 
-#: models/trackmetadatamodel.cpp:473 models/trackmetadatamodel.cpp:519
+#: models/trackmetadatamodel.cpp:477 models/trackmetadatamodel.cpp:523
 #, fuzzy, kde-format
 #| msgid "Title"
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "タイトル"
 
-#: models/trackmetadatamodel.cpp:475 models/trackmetadatamodel.cpp:525
+#: models/trackmetadatamodel.cpp:479 models/trackmetadatamodel.cpp:529
 #, fuzzy, kde-format
 #| msgid "Artist"
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "アーティスト"
 
-#: models/trackmetadatamodel.cpp:477 models/trackmetadatamodel.cpp:528
+#: models/trackmetadatamodel.cpp:481 models/trackmetadatamodel.cpp:532
 #, fuzzy, kde-format
 #| msgid "Album"
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "アルバム"
 
-#: models/trackmetadatamodel.cpp:479 models/trackmetadatamodel.cpp:531
+#: models/trackmetadatamodel.cpp:483 models/trackmetadatamodel.cpp:535
 #, fuzzy, kde-format
 #| msgctxt "Album artist for track metadata view"
 #| msgid "Album Artist"
@@ -257,7 +257,7 @@ msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
 msgstr "アルバムのアーティスト"
 
-#: models/trackmetadatamodel.cpp:481 models/trackmetadatamodel.cpp:534
+#: models/trackmetadatamodel.cpp:485 models/trackmetadatamodel.cpp:538
 #, fuzzy, kde-format
 #| msgctxt "Track number for track metadata view"
 #| msgid "Track Number"
@@ -265,7 +265,7 @@ msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
 msgstr "トラック番号"
 
-#: models/trackmetadatamodel.cpp:483 models/trackmetadatamodel.cpp:537
+#: models/trackmetadatamodel.cpp:487 models/trackmetadatamodel.cpp:541
 #, fuzzy, kde-format
 #| msgctxt "Disc number for track metadata view"
 #| msgid "Disc Number"
@@ -273,7 +273,7 @@ msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
 msgstr "ディスク番号"
 
-#: models/trackmetadatamodel.cpp:485 models/trackmetadatamodel.cpp:540
+#: models/trackmetadatamodel.cpp:489 models/trackmetadatamodel.cpp:544
 #, fuzzy, kde-format
 #| msgctxt "Rating label for information panel"
 #| msgid "Rating"
@@ -281,28 +281,28 @@ msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "評価"
 
-#: models/trackmetadatamodel.cpp:487 models/trackmetadatamodel.cpp:543
+#: models/trackmetadatamodel.cpp:491 models/trackmetadatamodel.cpp:547
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "ジャンル"
 
-#: models/trackmetadatamodel.cpp:489 models/trackmetadatamodel.cpp:546
+#: models/trackmetadatamodel.cpp:493 models/trackmetadatamodel.cpp:550
 #, fuzzy, kde-format
 #| msgid "Lyricist"
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "作詞者"
 
-#: models/trackmetadatamodel.cpp:491 models/trackmetadatamodel.cpp:549
+#: models/trackmetadatamodel.cpp:495 models/trackmetadatamodel.cpp:553
 #, fuzzy, kde-format
 #| msgid "Composer"
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "作曲者"
 
-#: models/trackmetadatamodel.cpp:493 models/trackmetadatamodel.cpp:552
+#: models/trackmetadatamodel.cpp:497 models/trackmetadatamodel.cpp:556
 #, fuzzy, kde-format
 #| msgctxt "Comment label for track metadata view"
 #| msgid "Comment"
@@ -310,14 +310,14 @@ msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "コメント"
 
-#: models/trackmetadatamodel.cpp:495 models/trackmetadatamodel.cpp:555
+#: models/trackmetadatamodel.cpp:499 models/trackmetadatamodel.cpp:559
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "年"
 
-#: models/trackmetadatamodel.cpp:497 models/trackmetadatamodel.cpp:558
+#: models/trackmetadatamodel.cpp:501 models/trackmetadatamodel.cpp:562
 #, fuzzy, kde-format
 #| msgctxt "Channels label for track metadata view"
 #| msgid "Channels"
@@ -325,7 +325,7 @@ msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "チャンネル"
 
-#: models/trackmetadatamodel.cpp:499 models/trackmetadatamodel.cpp:561
+#: models/trackmetadatamodel.cpp:503 models/trackmetadatamodel.cpp:565
 #, fuzzy, kde-format
 #| msgctxt "Bit rate label for track metadata view"
 #| msgid "Bit Rate"
@@ -333,7 +333,7 @@ msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
 msgstr "ビットレート"
 
-#: models/trackmetadatamodel.cpp:501 models/trackmetadatamodel.cpp:564
+#: models/trackmetadatamodel.cpp:505 models/trackmetadatamodel.cpp:568
 #, fuzzy, kde-format
 #| msgctxt "Sample Rate label for track metadata view"
 #| msgid "Sample Rate"
@@ -341,7 +341,7 @@ msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
 msgstr "サンプリングレート"
 
-#: models/trackmetadatamodel.cpp:503 models/trackmetadatamodel.cpp:576
+#: models/trackmetadatamodel.cpp:507 models/trackmetadatamodel.cpp:580
 #, fuzzy, kde-format
 #| msgctxt "Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -349,14 +349,14 @@ msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: models/trackmetadatamodel.cpp:505 models/trackmetadatamodel.cpp:522
+#: models/trackmetadatamodel.cpp:509 models/trackmetadatamodel.cpp:526
 #, fuzzy, kde-format
 #| msgid "Duration"
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "長さ"
 
-#: models/trackmetadatamodel.cpp:567
+#: models/trackmetadatamodel.cpp:571
 #, fuzzy, kde-format
 #| msgctxt "Last play date label for track metadata view"
 #| msgid "Last played"
@@ -364,7 +364,7 @@ msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "前回再生した日"
 
-#: models/trackmetadatamodel.cpp:570
+#: models/trackmetadatamodel.cpp:574
 #, fuzzy, kde-format
 #| msgctxt "First play date label for track metadata view"
 #| msgid "First played"
@@ -372,7 +372,7 @@ msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "最初に再生した日"
 
-#: models/trackmetadatamodel.cpp:573
+#: models/trackmetadatamodel.cpp:577
 #, fuzzy, kde-format
 #| msgctxt "Play counter label for track metadata view"
 #| msgid "Play count"
@@ -380,7 +380,7 @@ msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "再生回数"
 
-#: models/trackmetadatamodel.cpp:579
+#: models/trackmetadatamodel.cpp:583
 #, fuzzy, kde-format
 #| msgctxt "Radio HTTP address for radio metadata view"
 #| msgid "Stream Http Address"
@@ -388,7 +388,7 @@ msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "ストリーム HTTP アドレス"
 
-#: models/trackmetadatamodel.cpp:582
+#: models/trackmetadatamodel.cpp:586
 #, fuzzy, kde-format
 #| msgctxt "Image address for radio metadata view"
 #| msgid "Image Address"

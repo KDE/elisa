@@ -18,6 +18,8 @@
 #include <QDir>
 #include <QFileInfo>
 
+using namespace Qt::Literals::StringLiterals;
+
 QList<DataTypes::ColumnsRoles> displayFields(const ElisaUtils::PlayListEntryType dataType)
 {
     switch (dataType) {
@@ -613,21 +615,19 @@ void TrackMetadataModel::fetchLyrics()
         }
         if (fileUrl.isLocalFile()) {
             QFileInfo fileInfo(fileUrl.toLocalFile());
-            QDir lrcDir(fileInfo.dir());
-            QString lrcFileName(fileInfo.completeBaseName() + QLatin1String(".lrc"));
-            if (!lrcDir.exists(lrcFileName)) {
-                lrcFileName = fileInfo.completeBaseName() + QLatin1String(".LRC");
-                if (!lrcDir.exists(lrcFileName)) {
-                    return std::make_pair(QString{}, QString{});
+            QDir lyricsDir(fileInfo.dir());
+            const QStringList lyricsFileExtensions = {u".lrc"_s, u".LRC"_s, u".txt"_s, u".TXT"_s};
+            QString lyricsFileName;
+
+            for (const QString &ext : lyricsFileExtensions) {
+                lyricsFileName = fileInfo.completeBaseName() + ext;
+                if (lyricsDir.exists(lyricsFileName)) {
+                    QFile file(lyricsDir.filePath(lyricsFileName));
+                    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                        return std::make_pair(QString::fromLocal8Bit(file.readAll()), file.fileName());
+                    }
                 }
             }
-
-            QFile file(lrcDir.filePath(lrcFileName));
-            if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                return std::make_pair(QString{}, QString{});
-            }
-
-            return std::make_pair(QString::fromLocal8Bit(file.readAll()), file.fileName());
         }
         return std::make_pair(QString{}, QString{});
     });

@@ -3309,102 +3309,144 @@ private Q_SLOTS:
         QCOMPARE(secondTrack.albumCover(), QUrl::fromLocalFile(QStringLiteral("album7")));
     }
 
+    void modifyOneTrack_data()
+    {
+        QTest::addColumn<DataTypes::TrackDataType>("originalTrack");
+        QTest::addColumn<DataTypes::TrackDataType>("modifiedData");
+
+        DataTypes::TrackDataType originalTrack{true,
+                                               u"$1"_s,
+                                               u"0"_s,
+                                               u"Title"_s,
+                                               u"Artist"_s,
+                                               u"Album"_s,
+                                               u"Album Artist"_s,
+                                               1,
+                                               2,
+                                               QTime::fromMSecsSinceStartOfDay(3),
+                                               {QUrl::fromLocalFile(u"/$1"_s)},
+                                               QDateTime::fromMSecsSinceEpoch(4),
+                                               {QUrl::fromLocalFile(u"file://image$1"_s)},
+                                               5,
+                                               true,
+                                               u"Genre"_s,
+                                               u"Composer"_s,
+                                               u"Lyricst"_s,
+                                               false};
+
+        // Remove roles not stored in the database. Makes it easier to compare tracks.
+        originalTrack.remove(DataTypes::ColumnsRoles::IdRole);
+        originalTrack.remove(DataTypes::ColumnsRoles::ParentIdRole);
+
+        DataTypes::TrackDataType modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::TitleRole, u"Modified title"_s}};
+        QTest::addRow("Title") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::ArtistRole, u"Modified artist"_s}};
+        QTest::addRow("Artist") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::AlbumRole, u"Modified album"_s}};
+        QTest::addRow("Album") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::AlbumArtistRole, u"Modified album artist"_s}};
+        QTest::addRow("Album artist") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::TrackNumberRole, 13}};
+        QTest::addRow("Track number") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::DiscNumberRole, 13}};
+        QTest::addRow("Disc number") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::DurationRole, QTime::fromMSecsSinceStartOfDay(1000)}};
+        QTest::addRow("Duration") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::RatingRole, 10}};
+        QTest::addRow("Rating") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::GenreRole, u"Modified genre"_s}};
+        QTest::addRow("Genre") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::ComposerRole, u"Modified composer"_s}};
+        QTest::addRow("Composer") << originalTrack << modifiedData;
+
+        modifiedData = {{DataTypes::ColumnsRoles::LyricistRole, u"Modified lyricist"_s}};
+        QTest::addRow("Lyricist") << originalTrack << modifiedData;
+    }
+
     void modifyOneTrack()
     {
+        QFETCH(DataTypes::TrackDataType, originalTrack);
+        QFETCH(DataTypes::TrackDataType, modifiedData);
+        auto modifiedTrack = originalTrack;
+        for (const auto &[key, value] : modifiedData.asKeyValueRange()) {
+            QCOMPARE_NE(modifiedData[key], originalTrack[key]);
+            modifiedTrack[key] = modifiedData[key];
+        }
+        DataTypes::TrackDataType databaseTrack;
+
         QTemporaryFile databaseFile;
         databaseFile.open();
 
-        qDebug() << "modifyOneTrack" << databaseFile.fileName();
-
         DatabaseInterface musicDb;
-
         musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
 
-        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
-        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
-        QSignalSpy musicDbArtistRemovedSpy(&musicDb, &DatabaseInterface::artistRemoved);
-        QSignalSpy musicDbAlbumRemovedSpy(&musicDb, &DatabaseInterface::albumRemoved);
         QSignalSpy musicDbTrackRemovedSpy(&musicDb, &DatabaseInterface::trackRemoved);
-        QSignalSpy musicDbAlbumModifiedSpy(&musicDb, &DatabaseInterface::albumModified);
         QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
         QSignalSpy musicDbDatabaseErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
         QCOMPARE(musicDb.allAlbumsData().count(), 0);
         QCOMPARE(musicDb.allArtistsData().count(), 0);
         QCOMPARE(musicDb.allTracksData().count(), 0);
-        QCOMPARE(musicDbArtistAddedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumAddedSpy.count(), 0);
         QCOMPARE(musicDbTrackAddedSpy.count(), 0);
-        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
-
+        musicDb.insertTracksList({originalTrack}, {});
         musicDbTrackAddedSpy.wait(300);
 
-        QCOMPARE(musicDb.allAlbumsData().count(), 5);
-        QCOMPARE(musicDb.allArtistsData().count(), 7);
-        QCOMPARE(musicDb.allTracksData().count(), 22);
-        QCOMPARE(musicDbArtistAddedSpy.count(), 1);
-        QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
+        QCOMPARE(musicDb.allTracksData().count(), 1);
         QCOMPARE(musicDbTrackAddedSpy.count(), 1);
-        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 0);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 0);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        auto modifiedTrack = DataTypes::TrackDataType{true,
-                                                      QStringLiteral("$3"),
-                                                      QStringLiteral("0"),
-                                                      QStringLiteral("track3"),
-                                                      QStringLiteral("artist3"),
-                                                      QStringLiteral("album1"),
-                                                      QStringLiteral("Various Artists"),
-                                                      5,
-                                                      3,
-                                                      QTime::fromMSecsSinceStartOfDay(3),
-                                                      {QUrl::fromLocalFile(QStringLiteral("/$3"))},
-                                                      QDateTime::fromMSecsSinceEpoch(23),
-                                                      {QUrl::fromLocalFile(QStringLiteral("file://image$3"))},
-                                                      5,
-                                                      true,
-                                                      QStringLiteral("genre1"),
-                                                      QStringLiteral("composer1"),
-                                                      QStringLiteral("lyricist2"),
-                                                      false};
+        const auto originalTrackId = musicDb.trackIdFromFileName(originalTrack.resourceURI());
+        QCOMPARE_GT(originalTrackId, 0);
+
+        databaseTrack = musicDb.trackDataFromDatabaseId(originalTrackId);
+
+        for (const auto &[key, originalValue] : originalTrack.asKeyValueRange()) {
+            QCOMPARE_EQ(databaseTrack[key], originalValue);
+        }
+
+        for (const auto &[key, modifiedValue] : modifiedData.asKeyValueRange()) {
+            QCOMPARE_NE(databaseTrack[key], modifiedValue);
+        }
 
         musicDb.insertTracksList({modifiedTrack}, mNewCovers);
-
         musicDbTrackAddedSpy.wait(300);
 
-        QCOMPARE(musicDb.allAlbumsData().count(), 5);
-        QCOMPARE(musicDb.allArtistsData().count(), 7);
-        QCOMPARE(musicDb.allTracksData().count(), 22);
-        QCOMPARE(musicDbArtistAddedSpy.count(), 1);
-        QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
+        QCOMPARE(musicDb.allTracksData().count(), 1);
         QCOMPARE(musicDbTrackAddedSpy.count(), 1);
-        QCOMPARE(musicDbArtistRemovedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumRemovedSpy.count(), 0);
         QCOMPARE(musicDbTrackRemovedSpy.count(), 0);
-        QCOMPARE(musicDbAlbumModifiedSpy.count(), 1);
         QCOMPARE(musicDbTrackModifiedSpy.count(), 1);
         QCOMPARE(musicDbDatabaseErrorSpy.count(), 0);
 
-        auto trackId = musicDb.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist3"),
-                                                                    QStringLiteral("album1"), 5, 3);
-        QCOMPARE(trackId != 0, true);
-        auto track = musicDb.trackDataFromDatabaseId(trackId);
+        const auto modifiedTrackId = musicDb.trackIdFromFileName(modifiedTrack.resourceURI());
+        QCOMPARE_EQ(modifiedTrackId, originalTrackId);
 
-        QCOMPARE(track.isValid(), true);
-        QCOMPARE(track.trackNumber(), 5);
-        QCOMPARE(track.lyricist(), u"lyricist2"_s);
+        databaseTrack = musicDb.trackDataFromDatabaseId(modifiedTrackId);
+
+        for (const auto &[key, modifiedValue] : modifiedTrack.asKeyValueRange()) {
+            QCOMPARE_EQ(databaseTrack[key], modifiedValue);
+        }
+
+        for (const auto &[key, modifiedValue] : modifiedData.asKeyValueRange()) {
+            QCOMPARE_NE(databaseTrack[key], originalTrack[key]);
+        }
     }
 
     void addOneAlbum()

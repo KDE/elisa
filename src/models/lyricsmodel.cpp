@@ -326,7 +326,10 @@ void LyricsModel::setPosition(qint64 position)
                          [](const std::pair<QString, qint64> &lhs, qint64 value) {
                              return lhs.second < value;
                          });
-    if (result != d->lyrics.begin()) {
+
+    if (result != d->lyrics.end() && result->second == position) {
+        d->highlightedIndex = std::distance(d->lyrics.begin(), result);
+    } else if (result != d->lyrics.begin()) {
         d->highlightedIndex = std::distance(d->lyrics.begin(), --result);
     } else {
         d->highlightedIndex = -1;

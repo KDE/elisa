@@ -327,14 +327,18 @@ void LyricsModel::setPosition(qint64 position)
                              return lhs.second < value;
                          });
 
+    int highlightedIndex = -1;
+
     if (result != d->lyrics.end() && result->second == position) {
-        d->highlightedIndex = std::distance(d->lyrics.begin(), result);
+        highlightedIndex = std::distance(d->lyrics.begin(), result);
     } else if (result != d->lyrics.begin()) {
-        d->highlightedIndex = std::distance(d->lyrics.begin(), --result);
-    } else {
-        d->highlightedIndex = -1;
+        highlightedIndex = std::distance(d->lyrics.begin(), --result);
     }
-    Q_EMIT highlightedIndexChanged();
+
+    if (highlightedIndex != d->highlightedIndex) {
+        d->highlightedIndex = highlightedIndex;
+        Q_EMIT highlightedIndexChanged();
+    }
 }
 
 int LyricsModel::highlightedIndex() const

@@ -6,6 +6,7 @@
 
 #include "models/lyricsmodel.h"
 
+#include <QSignalSpy>
 #include <QTest>
 
 #include <chrono>
@@ -103,13 +104,24 @@ private Q_SLOTS:
         QFETCH(QList<ExpectedHighlightedIndex>, expectedHighlightedIndexes);
 
         LyricsModel lyricsModel;
+        QSignalSpy highlightedIndexChangedSpy{&lyricsModel, &LyricsModel::highlightedIndexChanged};
+
         lyricsModel.setLyric(lyrics);
 
         QCOMPARE(lyricsModel.highlightedIndex(), -1);
+        QCOMPARE(highlightedIndexChangedSpy.count(), 1);
+        highlightedIndexChangedSpy.clear();
 
+        int previousIndex = -1;
         for (const auto positionIndex : expectedHighlightedIndexes) {
             lyricsModel.setPosition(positionIndex.timeStamp.count());
             QCOMPARE(lyricsModel.highlightedIndex(), positionIndex.index);
+
+            if (positionIndex.index != previousIndex) {
+                QCOMPARE(highlightedIndexChangedSpy.size(), 1);
+                previousIndex = positionIndex.index;
+                highlightedIndexChangedSpy.clear();
+            }
         }
     }
 };

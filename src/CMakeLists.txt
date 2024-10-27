@@ -80,6 +80,13 @@ ecm_qt_declare_logging_category(elisaLib_SOURCES
     )
 
 ecm_qt_declare_logging_category(elisaLib_SOURCES
+    HEADER "lyricsLogging.h"
+    IDENTIFIER "orgKdeElisaLyrics"
+    CATEGORY_NAME "org.kde.elisa.lyrics"
+    DEFAULT_SEVERITY Info
+    )
+
+ecm_qt_declare_logging_category(elisaLib_SOURCES
     HEADER "playListLogging.h"
     IDENTIFIER "orgKdeElisaPlayList"
     CATEGORY_NAME "org.kde.elisa.playlist"
@@ -229,7 +236,8 @@ target_link_libraries(elisaLib
     Qt::Core Qt::Quick Qt::Sql Qt::Widgets Qt::Concurrent
     KF6::I18n KF6::CoreAddons
     KF6::ConfigCore
-    KF6::ColorScheme)
+    KF6::ColorScheme
+    KF6::Codecs)
 
 if (KF6FileMetaData_FOUND)
     target_link_libraries(elisaLib

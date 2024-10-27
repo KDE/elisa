@@ -105,6 +105,11 @@ set_package_properties(KF6ColorScheme PROPERTIES
     DESCRIPTION "Allows changing the app's color scheme."
     TYPE REQUIRED)
 
+find_package(KF6Codecs ${REQUIRED_KF_VERSION} CONFIG QUIET)
+set_package_properties(KF6Codecs PROPERTIES
+    DESCRIPTION "Allows probing lyrics text codec."
+    TYPE REQUIRED)
+
 find_package(KF6Crash ${REQUIRED_KF_VERSION} CONFIG QUIET)
 set_package_properties(KF6Crash PROPERTIES
     DESCRIPTION "Graceful handling of application crashes."

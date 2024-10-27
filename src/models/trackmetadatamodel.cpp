@@ -1,5 +1,6 @@
 /*
    SPDX-FileCopyrightText: 2018 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2024 (c) Gary Wang <opensource@blumia.net>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -8,15 +9,19 @@
 
 #include "musiclistenersmanager.h"
 
+#include "lyricsLogging.h"
+
 #include <KLocalizedString>
 
 #include <QtConcurrentRun>
 
 #include <algorithm>
 
+#include <KEncodingProber>
 #include <KFormat>
 #include <QDir>
 #include <QFileInfo>
+#include <QStringDecoder>
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -619,15 +624,42 @@ void TrackMetadataModel::fetchLyrics()
             const QStringList lyricsFileExtensions = {u".lrc"_s, u".LRC"_s, u".txt"_s, u".TXT"_s};
             QString lyricsFileName;
 
+            QByteArray fileContent;
             for (const QString &ext : lyricsFileExtensions) {
                 lyricsFileName = fileInfo.completeBaseName() + ext;
                 if (lyricsDir.exists(lyricsFileName)) {
                     QFile file(lyricsDir.filePath(lyricsFileName));
                     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                        return std::make_pair(QString::fromLocal8Bit(file.readAll()), file.fileName());
+                        fileContent = file.readAll();
+                        break;
                     }
                 }
             }
+            if (fileContent.isEmpty()) {
+                return std::make_pair(QString{}, QString{});
+            }
+
+            KEncodingProber prober(KEncodingProber::Universal);
+            prober.feed(fileContent);
+            const QByteArray encoding(prober.encoding());
+            QString decodedContent;
+#if QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
+            auto toUtf16 = QStringDecoder(encoding.constData());
+#else
+            auto toUtf16 = QStringDecoder(encoding);
+#endif // QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
+            // Don't use `QStringConverter::availableCodecs().contains(QString(encoding))` here, since the charset
+            // encoding name might not match, e.g. GB18030 (from availableCodecs) != gb18030 (from KEncodingProber)
+            if (toUtf16.isValid()) {
+                decodedContent = toUtf16(fileContent);
+            } else {
+                // Developers who attempted to build Elisa against Qt without ICU feature enabled might facing this issue.
+                // Qt's official binary release didn't have ICU enabled, while KDE Craft do.
+                qCDebug(orgKdeElisaLyrics) << "No codec for the detected encoding:" << encoding
+                                           << ", Available codecs are:" << QStringConverter::availableCodecs();
+                decodedContent = QString::fromLocal8Bit(fileContent);
+            }
+            return std::make_pair(decodedContent, lyricsFileName);
         }
         return std::make_pair(QString{}, QString{});
     });

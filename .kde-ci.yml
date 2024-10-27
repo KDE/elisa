@@ -15,6 +15,7 @@ Dependencies:
     'frameworks/kxmlgui': '@latest-kf6'
     'frameworks/kcolorscheme': '@latest-kf6'
     'frameworks/kconfigwidgets': '@latest-kf6'
+    'frameworks/kcodecs' : '@latest-kf6'
 
 - 'on': ['Linux/Qt6', 'FreeBSD/Qt6', 'Windows/Qt6']
   'require':

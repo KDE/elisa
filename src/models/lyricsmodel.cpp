@@ -7,6 +7,9 @@
 #include <algorithm>
 #include <unordered_map>
 #include <KLocalizedString>
+
+using namespace Qt::Literals::StringLiterals;
+
 class LyricsModel::LyricsModelPrivate
 {
 public:
@@ -109,7 +112,6 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
                         break;
                 }
             } else {
-                begin++;
                 return -1;
             }
             break;
@@ -128,17 +130,20 @@ LyricsModel::LyricsModelPrivate::parseOneLine(QString::const_iterator &begin,
     auto size{0};
     auto it = begin;
     while (begin != end) {
-        if (begin->toLatin1() != '[') {
-            size++;
-        } else
+        if (*begin == '\n'_L1) {
+            ++begin;
             break;
-        begin++;
+        }
+
+        ++begin;
+        ++size;
     }
-    if (size) {
-        return QString(--it, size); // FIXME: really weird workaround for QChar,
-                                    // otherwise first char is lost
-    } else
+
+    if (size > 0) {
+        return QString(it, size);
+    } else {
         return {};
+    }
 }
 
 /*

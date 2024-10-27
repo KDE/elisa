@@ -57,6 +57,11 @@ private Q_SLOTS:
                                  << QList<LyricsData>{{u"一如最初的模样"_s, 1min + 33s + 820ms},
                                                       {u"烟花的瞬间"_s, 2min + 6s + 810ms},
                                                       {u"一如最初的模样"_s, 3min + 30s + 460ms}};
+
+        QTest::addRow("No linebreak at the end") << u"[01:33.82]Lyric 1\n[02:06.81]Lyric 2\n[03:30.46]Lyric 3"_s
+                                                 << QList<LyricsData>{{u"Lyric 1"_s, 1min + 33s + 820ms},
+                                                                      {u"Lyric 2"_s, 2min + 6s + 810ms},
+                                                                      {u"Lyric 3"_s, 3min + 30s + 460ms}};
     }
 
     void testParse()

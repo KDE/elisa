@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-23 00:39+0000\n"
-"PO-Revision-Date: 2024-07-09 12:59+0200\n"
+"POT-Creation-Date: 2024-10-29 00:39+0000\n"
+"PO-Revision-Date: 2024-10-28 12:41+0100\n"
 "Last-Translator: rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
 "Language: da\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Project-Style: kde\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -145,13 +145,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Understøttelse af netradio"
 
-#: models/editabletrackmetadatamodel.cpp:324
+#: models/editabletrackmetadatamodel.cpp:312
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Ugyldig URL."
 
-#: models/editabletrackmetadatamodel.cpp:334
+#: models/editabletrackmetadatamodel.cpp:322
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
@@ -205,133 +205,133 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
-#: models/trackmetadatamodel.cpp:477 models/trackmetadatamodel.cpp:523
+#: models/trackmetadatamodel.cpp:509
 #, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "Titel"
 
-#: models/trackmetadatamodel.cpp:479 models/trackmetadatamodel.cpp:529
-#, kde-format
-msgctxt "@label:textbox Track artist for track metadata view"
-msgid "Artist"
-msgstr "Kunstner"
-
-#: models/trackmetadatamodel.cpp:481 models/trackmetadatamodel.cpp:532
-#, kde-format
-msgctxt "@label:textbox Album name for track metadata view"
-msgid "Album"
-msgstr "Album"
-
-#: models/trackmetadatamodel.cpp:483 models/trackmetadatamodel.cpp:535
-#, kde-format
-msgctxt "@label:textbox Album artist for track metadata view"
-msgid "Album Artist"
-msgstr "Albummets kunstner"
-
-#: models/trackmetadatamodel.cpp:485 models/trackmetadatamodel.cpp:538
-#, kde-format
-msgctxt "@label:textbox Track number for track metadata view"
-msgid "Track Number"
-msgstr "Spornummer"
-
-#: models/trackmetadatamodel.cpp:487 models/trackmetadatamodel.cpp:541
-#, kde-format
-msgctxt "@label:textbox Disc number for track metadata view"
-msgid "Disc Number"
-msgstr "Disknummer"
-
-#: models/trackmetadatamodel.cpp:489 models/trackmetadatamodel.cpp:544
-#, kde-format
-msgctxt "@label:textbox Rating label for information panel"
-msgid "Rating"
-msgstr "Bedømmelse"
-
-#: models/trackmetadatamodel.cpp:491 models/trackmetadatamodel.cpp:547
-#, kde-format
-msgctxt "@label:textbox Genre label for track metadata view"
-msgid "Genre"
-msgstr "Genre"
-
-#: models/trackmetadatamodel.cpp:493 models/trackmetadatamodel.cpp:550
-#, kde-format
-msgctxt "@label:textbox Lyricist label for track metadata view"
-msgid "Lyricist"
-msgstr "Tekstforfatter"
-
-#: models/trackmetadatamodel.cpp:495 models/trackmetadatamodel.cpp:553
-#, kde-format
-msgctxt "@label:textbox Composer name for track metadata view"
-msgid "Composer"
-msgstr "Komponist"
-
-#: models/trackmetadatamodel.cpp:497 models/trackmetadatamodel.cpp:556
-#, kde-format
-msgctxt "@label:textbox Comment label for track metadata view"
-msgid "Comment"
-msgstr "Kommentar"
-
-#: models/trackmetadatamodel.cpp:499 models/trackmetadatamodel.cpp:559
-#, kde-format
-msgctxt "@label:textbox Year label for track metadata view"
-msgid "Year"
-msgstr "År"
-
-#: models/trackmetadatamodel.cpp:501 models/trackmetadatamodel.cpp:562
-#, kde-format
-msgctxt "@label:textbox Channels label for track metadata view"
-msgid "Channels"
-msgstr "Kanaler"
-
-#: models/trackmetadatamodel.cpp:503 models/trackmetadatamodel.cpp:565
-#, kde-format
-msgctxt "@label:textbox Bit rate label for track metadata view"
-msgid "Bit Rate"
-msgstr "Bitrate"
-
-#: models/trackmetadatamodel.cpp:505 models/trackmetadatamodel.cpp:568
-#, kde-format
-msgctxt "@label:textbox Sample Rate label for track metadata view"
-msgid "Sample Rate"
-msgstr "Sample-rate"
-
-#: models/trackmetadatamodel.cpp:507 models/trackmetadatamodel.cpp:580
-#, kde-format
-msgctxt "@label:textbox Lyrics label for track metadata view"
-msgid "Lyrics"
-msgstr "Sangtekst"
-
-#: models/trackmetadatamodel.cpp:509 models/trackmetadatamodel.cpp:526
+#: models/trackmetadatamodel.cpp:512
 #, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "Varighed"
 
-#: models/trackmetadatamodel.cpp:571
+#: models/trackmetadatamodel.cpp:515
+#, kde-format
+msgctxt "@label:textbox Track artist for track metadata view"
+msgid "Artist"
+msgstr "Kunstner"
+
+#: models/trackmetadatamodel.cpp:518
+#, kde-format
+msgctxt "@label:textbox Album name for track metadata view"
+msgid "Album"
+msgstr "Album"
+
+#: models/trackmetadatamodel.cpp:521
+#, kde-format
+msgctxt "@label:textbox Album artist for track metadata view"
+msgid "Album Artist"
+msgstr "Albummets kunstner"
+
+#: models/trackmetadatamodel.cpp:524
+#, kde-format
+msgctxt "@label:textbox Track number for track metadata view"
+msgid "Track Number"
+msgstr "Spornummer"
+
+#: models/trackmetadatamodel.cpp:527
+#, kde-format
+msgctxt "@label:textbox Disc number for track metadata view"
+msgid "Disc Number"
+msgstr "Disknummer"
+
+#: models/trackmetadatamodel.cpp:530
+#, kde-format
+msgctxt "@label:textbox Rating label for information panel"
+msgid "Rating"
+msgstr "Bedømmelse"
+
+#: models/trackmetadatamodel.cpp:533
+#, kde-format
+msgctxt "@label:textbox Genre label for track metadata view"
+msgid "Genre"
+msgstr "Genre"
+
+#: models/trackmetadatamodel.cpp:536
+#, kde-format
+msgctxt "@label:textbox Lyricist label for track metadata view"
+msgid "Lyricist"
+msgstr "Tekstforfatter"
+
+#: models/trackmetadatamodel.cpp:539
+#, kde-format
+msgctxt "@label:textbox Composer name for track metadata view"
+msgid "Composer"
+msgstr "Komponist"
+
+#: models/trackmetadatamodel.cpp:542
+#, kde-format
+msgctxt "@label:textbox Comment label for track metadata view"
+msgid "Comment"
+msgstr "Kommentar"
+
+#: models/trackmetadatamodel.cpp:545
+#, kde-format
+msgctxt "@label:textbox Year label for track metadata view"
+msgid "Year"
+msgstr "År"
+
+#: models/trackmetadatamodel.cpp:548
+#, kde-format
+msgctxt "@label:textbox Channels label for track metadata view"
+msgid "Channels"
+msgstr "Kanaler"
+
+#: models/trackmetadatamodel.cpp:551
+#, kde-format
+msgctxt "@label:textbox Bit rate label for track metadata view"
+msgid "Bit Rate"
+msgstr "Bitrate"
+
+#: models/trackmetadatamodel.cpp:554
+#, kde-format
+msgctxt "@label:textbox Sample Rate label for track metadata view"
+msgid "Sample Rate"
+msgstr "Sample-rate"
+
+#: models/trackmetadatamodel.cpp:557
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "Senest afspillet"
 
-#: models/trackmetadatamodel.cpp:574
+#: models/trackmetadatamodel.cpp:560
 #, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "Første gang afspillet"
 
-#: models/trackmetadatamodel.cpp:577
+#: models/trackmetadatamodel.cpp:563
 #, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "Afspilningstæller"
 
-#: models/trackmetadatamodel.cpp:583
+#: models/trackmetadatamodel.cpp:566
+#, kde-format
+msgctxt "@label:textbox Lyrics label for track metadata view"
+msgid "Lyrics"
+msgstr "Sangtekst"
+
+#: models/trackmetadatamodel.cpp:569
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "Streamens http-adresse"
 
-#: models/trackmetadatamodel.cpp:586
+#: models/trackmetadatamodel.cpp:572
 #, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
@@ -374,12 +374,10 @@ msgid "Play now, replacing current playlist"
 msgstr "Afspil nu og erstat aktuel spilleliste"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Afspilningstæller"
+msgstr "Afspil som næste"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -463,44 +461,44 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Afspiller nu"
 
-#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:240
+#: qml/ContextView.qml:76 qml/NavigationActionBar.qml:240
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Åbn sidepanelet"
 
-#: qml/ContextView.qml:106
+#: qml/ContextView.qml:111
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadata"
 
-#: qml/ContextView.qml:117
+#: qml/ContextView.qml:122
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Sangtekster"
 
-#: qml/ContextView.qml:124 qml/MediaPlayerControl.qml:309
+#: qml/ContextView.qml:129 qml/MediaPlayerControl.qml:309
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:171
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Vis afspilningsliste"
 
-#: qml/ContextView.qml:405
+#: qml/ContextView.qml:412
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Ingen sangtekster fundet"
 
-#: qml/ContextView.qml:421
+#: qml/ContextView.qml:428
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Intet afspilles"
 
-#: qml/ContextView.qml:455
+#: qml/ContextView.qml:462
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -545,20 +543,16 @@ msgid "Undo"
 msgstr "Fortryd"
 
 #: qml/ElisaMainWindow.qml:98
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr "Vis afspilningsliste"
+msgstr "Vis afspilningsskuffe"
 
 #: qml/ElisaMainWindow.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr "Skjul afspilningsliste"
+msgstr "Skjul afspilningsskuffe"
 
 #: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:620
 #, kde-format
@@ -620,45 +614,35 @@ msgstr "Afslut fuld skærm"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "Afslut festtilstand"
 
 #: qml/MediaPlayerControl.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr "Slå festtilstand til/fra"
+msgstr "Slå festtilstand til"
 
 #: qml/MediaPlayerControl.qml:107
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Spring tilbage"
 
 #: qml/MediaPlayerControl.qml:116
-#, fuzzy, kde-format
-#| msgctxt "@action:button Pause any media that is playing"
-#| msgid "Pause"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Pause"
 
 #: qml/MediaPlayerControl.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@action:button Start playing media"
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Afspil"
 
 #: qml/MediaPlayerControl.qml:125
-#, fuzzy, kde-format
-#| msgctxt "@action:button skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Spring fremad"
@@ -667,13 +651,13 @@ msgstr "Spring fremad"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "Slå lyden til"
 
 #: qml/MediaPlayerControl.qml:152
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "Slå lyden fra"
 
 #: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
@@ -743,9 +727,7 @@ msgid "One"
 msgstr "Én"
 
 #: qml/MediaPlayerControl.qml:326
-#, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "Programmenu"
@@ -821,24 +803,18 @@ msgid "Your playlist is empty."
 msgstr "Din afspilningsliste er tom."
 
 #: qml/MediaPlayListView.qml:470 qml/MediaPlayListView.qml:479
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] "%1 nummer tilbage"
-msgstr[1] "%1 numre tilbage"
+msgstr[0] "%1/%2 nummer tilbage"
+msgstr[1] "%1/%2 numre tilbage"
 
 #: qml/MediaPlayListView.qml:471
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
-msgstr "%1 nummer tilbage"
+msgstr "%1 nummer tilbage, %2 i alt"
 
 #: qml/MediaPlayListView.qml:472 qml/MediaPlayListView.qml:481
 #: qml/MediaPlayListView.qml:490
@@ -847,33 +823,24 @@ msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
 "time remaining"
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
-msgstr "%1 nummer tilbage"
+msgstr "%1/%2 nummer tilbage"
 
 #: qml/MediaPlayListView.qml:488
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
-msgstr[0] "%1 nummer"
-msgstr[1] "%1 numre"
+msgstr[0] "%1/%2 nummer"
+msgstr[1] "%1/%2 numre"
 
 #: qml/MediaPlayListView.qml:497
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -885,8 +852,8 @@ msgstr[1] "%1 numre"
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 radio"
+msgstr[1] "%1 radioer"
 
 #: qml/MediaPlayListView.qml:499
 #, kde-format
@@ -894,75 +861,71 @@ msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
 "radios"
 msgid "%1, %2 total"
-msgstr ""
+msgstr "%1, %2 total"
 
 #: qml/MediaPlayListView.qml:502
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
 "duration formatted like hh:mm:ss or mm:ss"
 msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
-msgstr[0] "%1 nummer"
-msgstr[1] "%1 numre"
+msgstr[0] "%1 nummer, %2 i alt"
+msgstr[1] "%1 numre, %2 i alt"
 
 #: qml/MediaPlayListView.qml:504
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
 msgid "1 track, %1min remaining"
-msgstr "%1 nummer tilbage"
+msgstr "1 nummer, %1 min tilbage"
 
-#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/MediaTrackMetadataDelegate.qml:139 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Fjern favoritmarkeringen for denne sang"
 
-#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/MediaTrackMetadataDelegate.qml:139 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Favoritmarkér denne sang"
 
-#: qml/MediaTrackMetadataDelegate.qml:185
+#: qml/MediaTrackMetadataDelegate.qml:190
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
 msgstr "Fjern dette etiket"
 
-#: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
+#: qml/MediaTrackMetadataDelegate.qml:198
+#, fuzzy, kde-format
+#| msgctxt "@label:listbox"
+#| msgid "Add new tag:"
+msgctxt "@action:button"
+msgid "Add tag"
+msgstr "Tilføj nyt mærke:"
+
+#: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Advarsel"
 
-#: qml/MediaTrackMetadataForm.qml:87
+#: qml/MediaTrackMetadataForm.qml:95
 #, kde-format
 msgctxt "@label"
 msgid "Data is not valid. %1"
 msgstr "Data er ikke gyldige. %1"
 
-#: qml/MediaTrackMetadataForm.qml:122
+#: qml/MediaTrackMetadataForm.qml:132
 #, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
 msgstr "%1:"
-
-#: qml/MediaTrackMetadataForm.qml:146
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Add new tag:"
-msgstr "Tilføj nyt mærke:"
 
 #: qml/MediaTrackMetadataView.qml:35
 #: qml/mobile/MobileMediaTrackMetadataView.qml:46
@@ -1230,18 +1193,16 @@ msgid "Sort"
 msgstr "Sortér"
 
 #: qml/NavigationActionBar.qml:105
-#, fuzzy, kde-format
-#| msgctxt "Title of the file radios browser view"
-#| msgid "Radios"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr "Radioer"
+msgstr "Tilføj radio"
 
 #: qml/NavigationActionBar.qml:106
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr ""
+msgstr "Tilføj radio"
 
 #: qml/NavigationActionBar.qml:118
 #, kde-format
@@ -1250,44 +1211,34 @@ msgid "Add to Playlist"
 msgstr "Føj til spilleliste"
 
 #: qml/NavigationActionBar.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Føj til spilleliste"
 
 #: qml/NavigationActionBar.qml:132
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Afspil nu og erstat aktuel spilleliste"
 
 #: qml/NavigationActionBar.qml:133
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Afspil nu og erstat aktuel spilleliste"
 
 #: qml/NavigationActionBar.qml:145
-#, fuzzy, kde-format
-#| msgctxt "Play now current track from play list"
-#| msgid "Play Now"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "Afspil nu"
+msgstr "Afspil som næste"
 
 #: qml/NavigationActionBar.qml:146
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
-msgstr "Afspilningstæller"
+msgstr "Afspil næste"
 
 #: qml/NavigationActionBar.qml:158
 #, kde-format
@@ -1296,17 +1247,13 @@ msgid "Display Artist"
 msgstr "Vis kunstner"
 
 #: qml/NavigationActionBar.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@action:button navigate to the view for artist of this album"
-#| msgid "Display Artist"
+#, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Vis kunstner"
 
 #: qml/NavigationActionBar.qml:172
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Vis afspilningsliste"
@@ -1315,29 +1262,25 @@ msgstr "Vis afspilningsliste"
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "Vis som ikongitter"
 
 #: qml/NavigationActionBar.qml:185
-#, fuzzy, kde-format
-#| msgctxt "Show track metadata"
-#| msgid "View details"
+#, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr "Vis detaljer"
+msgstr "Vis som liste"
 
 #: qml/NavigationActionBar.qml:187
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "Vis som ikongitter"
 
 #: qml/NavigationActionBar.qml:188
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr "Vis detaljer"
+msgstr "Vis som liste"
 
 #: qml/NavigationActionBar.qml:248
 #, kde-format
@@ -1346,38 +1289,30 @@ msgid "Back"
 msgstr "Tilbage"
 
 #: qml/NavigationActionBar.qml:333
-#, fuzzy, kde-format
-#| msgctxt "@action:button Show filters in the navigation bar"
-#| msgid "Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
-msgstr "Søg og filtrér"
+msgstr "Vis søg og filtrér-værktøjslinjen"
 
 #: qml/NavigationActionBar.qml:334
-#, fuzzy, kde-format
-#| msgctxt "@action:button Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
-msgstr "Skjul søg og filtrér"
+msgstr "Skjul søg og filtrér-værktøjslinjen"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "Søg efter albumnavn, kunster, osv."
+msgstr "Søg efter nummerets navn, kunster, osv."
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
-msgstr "Søg efter albumnavn, kunster, osv."
+msgstr "Søg efter albummets navn, kunster, osv."
 
 #: qml/NavigationActionBar.qml:437
 #, kde-format
@@ -1434,17 +1369,13 @@ msgid "Show background on Now Playing page"
 msgstr "Vis baggrunden på Afspiller nu-siden"
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "Vis fremgang i opgavelinje-indgange"
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr "Hold kørende i statusområdet når hovedvinduet lukkes"
@@ -1456,9 +1387,7 @@ msgid "Start playing on startup"
 msgstr "Start afspilning ved opstart"
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Scan for New Music on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "Scan for nyt musik ved opstart"
@@ -1496,9 +1425,7 @@ msgid "Favorite/not favorite"
 msgstr "Favorit/ikke favorit"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Color Scheme:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Farvetema"
@@ -1634,9 +1561,7 @@ msgid "Choose…"
 msgstr "Vælg..."
 
 #: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Vælg en mappe"

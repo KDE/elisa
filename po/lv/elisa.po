@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-23 00:39+0000\n"
+"POT-Creation-Date: 2024-10-29 00:39+0000\n"
 "PO-Revision-Date: 2024-09-12 15:34+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -143,13 +143,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Interneta radio atbalsts"
 
-#: models/editabletrackmetadatamodel.cpp:324
+#: models/editabletrackmetadatamodel.cpp:312
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Nederīgs URL."
 
-#: models/editabletrackmetadatamodel.cpp:334
+#: models/editabletrackmetadatamodel.cpp:322
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
@@ -203,133 +203,133 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
-#: models/trackmetadatamodel.cpp:477 models/trackmetadatamodel.cpp:523
+#: models/trackmetadatamodel.cpp:509
 #, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "Nosaukums"
 
-#: models/trackmetadatamodel.cpp:479 models/trackmetadatamodel.cpp:529
-#, kde-format
-msgctxt "@label:textbox Track artist for track metadata view"
-msgid "Artist"
-msgstr "Izpildītājs"
-
-#: models/trackmetadatamodel.cpp:481 models/trackmetadatamodel.cpp:532
-#, kde-format
-msgctxt "@label:textbox Album name for track metadata view"
-msgid "Album"
-msgstr "Albums"
-
-#: models/trackmetadatamodel.cpp:483 models/trackmetadatamodel.cpp:535
-#, kde-format
-msgctxt "@label:textbox Album artist for track metadata view"
-msgid "Album Artist"
-msgstr "Albuma izpildītājs"
-
-#: models/trackmetadatamodel.cpp:485 models/trackmetadatamodel.cpp:538
-#, kde-format
-msgctxt "@label:textbox Track number for track metadata view"
-msgid "Track Number"
-msgstr "Celiņa numurs"
-
-#: models/trackmetadatamodel.cpp:487 models/trackmetadatamodel.cpp:541
-#, kde-format
-msgctxt "@label:textbox Disc number for track metadata view"
-msgid "Disc Number"
-msgstr "Diska numurs"
-
-#: models/trackmetadatamodel.cpp:489 models/trackmetadatamodel.cpp:544
-#, kde-format
-msgctxt "@label:textbox Rating label for information panel"
-msgid "Rating"
-msgstr "Vērtējums"
-
-#: models/trackmetadatamodel.cpp:491 models/trackmetadatamodel.cpp:547
-#, kde-format
-msgctxt "@label:textbox Genre label for track metadata view"
-msgid "Genre"
-msgstr "Žanrs"
-
-#: models/trackmetadatamodel.cpp:493 models/trackmetadatamodel.cpp:550
-#, kde-format
-msgctxt "@label:textbox Lyricist label for track metadata view"
-msgid "Lyricist"
-msgstr "Vārdu autors"
-
-#: models/trackmetadatamodel.cpp:495 models/trackmetadatamodel.cpp:553
-#, kde-format
-msgctxt "@label:textbox Composer name for track metadata view"
-msgid "Composer"
-msgstr "Komponists"
-
-#: models/trackmetadatamodel.cpp:497 models/trackmetadatamodel.cpp:556
-#, kde-format
-msgctxt "@label:textbox Comment label for track metadata view"
-msgid "Comment"
-msgstr "Komentārs"
-
-#: models/trackmetadatamodel.cpp:499 models/trackmetadatamodel.cpp:559
-#, kde-format
-msgctxt "@label:textbox Year label for track metadata view"
-msgid "Year"
-msgstr "Gads"
-
-#: models/trackmetadatamodel.cpp:501 models/trackmetadatamodel.cpp:562
-#, kde-format
-msgctxt "@label:textbox Channels label for track metadata view"
-msgid "Channels"
-msgstr "Kanāli"
-
-#: models/trackmetadatamodel.cpp:503 models/trackmetadatamodel.cpp:565
-#, kde-format
-msgctxt "@label:textbox Bit rate label for track metadata view"
-msgid "Bit Rate"
-msgstr "Bitu ātrums"
-
-#: models/trackmetadatamodel.cpp:505 models/trackmetadatamodel.cpp:568
-#, kde-format
-msgctxt "@label:textbox Sample Rate label for track metadata view"
-msgid "Sample Rate"
-msgstr "Diskretizācijas ātrums"
-
-#: models/trackmetadatamodel.cpp:507 models/trackmetadatamodel.cpp:580
-#, kde-format
-msgctxt "@label:textbox Lyrics label for track metadata view"
-msgid "Lyrics"
-msgstr "Dziesmas vārdi"
-
-#: models/trackmetadatamodel.cpp:509 models/trackmetadatamodel.cpp:526
+#: models/trackmetadatamodel.cpp:512
 #, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "Ilgums"
 
-#: models/trackmetadatamodel.cpp:571
+#: models/trackmetadatamodel.cpp:515
+#, kde-format
+msgctxt "@label:textbox Track artist for track metadata view"
+msgid "Artist"
+msgstr "Izpildītājs"
+
+#: models/trackmetadatamodel.cpp:518
+#, kde-format
+msgctxt "@label:textbox Album name for track metadata view"
+msgid "Album"
+msgstr "Albums"
+
+#: models/trackmetadatamodel.cpp:521
+#, kde-format
+msgctxt "@label:textbox Album artist for track metadata view"
+msgid "Album Artist"
+msgstr "Albuma izpildītājs"
+
+#: models/trackmetadatamodel.cpp:524
+#, kde-format
+msgctxt "@label:textbox Track number for track metadata view"
+msgid "Track Number"
+msgstr "Celiņa numurs"
+
+#: models/trackmetadatamodel.cpp:527
+#, kde-format
+msgctxt "@label:textbox Disc number for track metadata view"
+msgid "Disc Number"
+msgstr "Diska numurs"
+
+#: models/trackmetadatamodel.cpp:530
+#, kde-format
+msgctxt "@label:textbox Rating label for information panel"
+msgid "Rating"
+msgstr "Vērtējums"
+
+#: models/trackmetadatamodel.cpp:533
+#, kde-format
+msgctxt "@label:textbox Genre label for track metadata view"
+msgid "Genre"
+msgstr "Žanrs"
+
+#: models/trackmetadatamodel.cpp:536
+#, kde-format
+msgctxt "@label:textbox Lyricist label for track metadata view"
+msgid "Lyricist"
+msgstr "Vārdu autors"
+
+#: models/trackmetadatamodel.cpp:539
+#, kde-format
+msgctxt "@label:textbox Composer name for track metadata view"
+msgid "Composer"
+msgstr "Komponists"
+
+#: models/trackmetadatamodel.cpp:542
+#, kde-format
+msgctxt "@label:textbox Comment label for track metadata view"
+msgid "Comment"
+msgstr "Komentārs"
+
+#: models/trackmetadatamodel.cpp:545
+#, kde-format
+msgctxt "@label:textbox Year label for track metadata view"
+msgid "Year"
+msgstr "Gads"
+
+#: models/trackmetadatamodel.cpp:548
+#, kde-format
+msgctxt "@label:textbox Channels label for track metadata view"
+msgid "Channels"
+msgstr "Kanāli"
+
+#: models/trackmetadatamodel.cpp:551
+#, kde-format
+msgctxt "@label:textbox Bit rate label for track metadata view"
+msgid "Bit Rate"
+msgstr "Bitu ātrums"
+
+#: models/trackmetadatamodel.cpp:554
+#, kde-format
+msgctxt "@label:textbox Sample Rate label for track metadata view"
+msgid "Sample Rate"
+msgstr "Diskretizācijas ātrums"
+
+#: models/trackmetadatamodel.cpp:557
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "Pēdējais atskaņojums"
 
-#: models/trackmetadatamodel.cpp:574
+#: models/trackmetadatamodel.cpp:560
 #, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "Pirmais atskaņojums"
 
-#: models/trackmetadatamodel.cpp:577
+#: models/trackmetadatamodel.cpp:563
 #, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "Atskaņojumu skaits"
 
-#: models/trackmetadatamodel.cpp:583
+#: models/trackmetadatamodel.cpp:566
+#, kde-format
+msgctxt "@label:textbox Lyrics label for track metadata view"
+msgid "Lyrics"
+msgstr "Dziesmas vārdi"
+
+#: models/trackmetadatamodel.cpp:569
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "Straumē HTTP adresi"
 
-#: models/trackmetadatamodel.cpp:586
+#: models/trackmetadatamodel.cpp:572
 #, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
@@ -459,44 +459,44 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Šobrīd skan"
 
-#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:240
+#: qml/ContextView.qml:76 qml/NavigationActionBar.qml:240
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Atvērt sānu joslu"
 
-#: qml/ContextView.qml:106
+#: qml/ContextView.qml:111
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadati"
 
-#: qml/ContextView.qml:117
+#: qml/ContextView.qml:122
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Dziesmu vārdi"
 
-#: qml/ContextView.qml:124 qml/MediaPlayerControl.qml:309
+#: qml/ContextView.qml:129 qml/MediaPlayerControl.qml:309
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:171
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Parādīt repertuāru"
 
-#: qml/ContextView.qml:405
+#: qml/ContextView.qml:412
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Dziesmas vārdi nav atrasti"
 
-#: qml/ContextView.qml:421
+#: qml/ContextView.qml:428
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Neko neatskaņo"
 
-#: qml/ContextView.qml:455
+#: qml/ContextView.qml:462
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -885,49 +885,51 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "1 celiņš, %1 min atlicis"
 
-#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/MediaTrackMetadataDelegate.qml:139 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Noņemt skaņdarbu no iecienītajiem"
 
-#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/MediaTrackMetadataDelegate.qml:139 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Pievienot skaņdarbu pie iecienītajiem"
 
-#: qml/MediaTrackMetadataDelegate.qml:185
+#: qml/MediaTrackMetadataDelegate.qml:190
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
 msgstr "Noņemt šo birku"
 
-#: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
+#: qml/MediaTrackMetadataDelegate.qml:198
+#, fuzzy, kde-format
+#| msgctxt "@label:listbox"
+#| msgid "Add new tag:"
+msgctxt "@action:button"
+msgid "Add tag"
+msgstr "Pievienot jaunu birku:"
+
+#: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Uzmanību"
 
-#: qml/MediaTrackMetadataForm.qml:87
+#: qml/MediaTrackMetadataForm.qml:95
 #, kde-format
 msgctxt "@label"
 msgid "Data is not valid. %1"
 msgstr "Dati nav derīgi. %1"
 
-#: qml/MediaTrackMetadataForm.qml:122
+#: qml/MediaTrackMetadataForm.qml:132
 #, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
 msgstr "%1:"
-
-#: qml/MediaTrackMetadataForm.qml:146
-#, kde-format
-msgctxt "@label:listbox"
-msgid "Add new tag:"
-msgstr "Pievienot jaunu birku:"
 
 #: qml/MediaTrackMetadataView.qml:35
 #: qml/mobile/MobileMediaTrackMetadataView.qml:46

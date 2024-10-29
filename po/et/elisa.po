@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-23 00:39+0000\n"
+"POT-Creation-Date: 2024-10-29 00:39+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -167,7 +167,7 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Internetiraadiote toetus"
 
-#: models/editabletrackmetadatamodel.cpp:324
+#: models/editabletrackmetadatamodel.cpp:312
 #, fuzzy, kde-format
 #| msgctxt "Error message when track URL is invalid"
 #| msgid "Invalid URL."
@@ -175,7 +175,7 @@ msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Vigane URL."
 
-#: models/editabletrackmetadatamodel.cpp:334
+#: models/editabletrackmetadatamodel.cpp:322
 #, fuzzy, kde-format
 #| msgctxt "Error message when track title is empty"
 #| msgid "Empty title."
@@ -237,7 +237,7 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr ""
 
-#: models/trackmetadatamodel.cpp:477 models/trackmetadatamodel.cpp:523
+#: models/trackmetadatamodel.cpp:509
 #, fuzzy, kde-format
 #| msgctxt "Track title for track metadata view"
 #| msgid "Title"
@@ -245,125 +245,7 @@ msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "Pealkiri"
 
-#: models/trackmetadatamodel.cpp:479 models/trackmetadatamodel.cpp:529
-#, fuzzy, kde-format
-#| msgctxt "Track artist for track metadata view"
-#| msgid "Artist"
-msgctxt "@label:textbox Track artist for track metadata view"
-msgid "Artist"
-msgstr "Esitaja"
-
-#: models/trackmetadatamodel.cpp:481 models/trackmetadatamodel.cpp:532
-#, fuzzy, kde-format
-#| msgctxt "Album name for track metadata view"
-#| msgid "Album"
-msgctxt "@label:textbox Album name for track metadata view"
-msgid "Album"
-msgstr "Album"
-
-#: models/trackmetadatamodel.cpp:483 models/trackmetadatamodel.cpp:535
-#, fuzzy, kde-format
-#| msgctxt "Album artist for track metadata view"
-#| msgid "Album Artist"
-msgctxt "@label:textbox Album artist for track metadata view"
-msgid "Album Artist"
-msgstr "Albumi esitaja"
-
-#: models/trackmetadatamodel.cpp:485 models/trackmetadatamodel.cpp:538
-#, fuzzy, kde-format
-#| msgctxt "Track number for track metadata view"
-#| msgid "Track Number"
-msgctxt "@label:textbox Track number for track metadata view"
-msgid "Track Number"
-msgstr "Raja number"
-
-#: models/trackmetadatamodel.cpp:487 models/trackmetadatamodel.cpp:541
-#, fuzzy, kde-format
-#| msgctxt "Disc number for track metadata view"
-#| msgid "Disc Number"
-msgctxt "@label:textbox Disc number for track metadata view"
-msgid "Disc Number"
-msgstr "Plaadi number"
-
-#: models/trackmetadatamodel.cpp:489 models/trackmetadatamodel.cpp:544
-#, fuzzy, kde-format
-#| msgctxt "Rating label for information panel"
-#| msgid "Rating"
-msgctxt "@label:textbox Rating label for information panel"
-msgid "Rating"
-msgstr "Hinnang"
-
-#: models/trackmetadatamodel.cpp:491 models/trackmetadatamodel.cpp:547
-#, fuzzy, kde-format
-#| msgid "Genre"
-msgctxt "@label:textbox Genre label for track metadata view"
-msgid "Genre"
-msgstr "Žanr"
-
-#: models/trackmetadatamodel.cpp:493 models/trackmetadatamodel.cpp:550
-#, fuzzy, kde-format
-#| msgctxt "Lyricist label for track metadata view"
-#| msgid "Lyricist"
-msgctxt "@label:textbox Lyricist label for track metadata view"
-msgid "Lyricist"
-msgstr "Sõnade autor"
-
-#: models/trackmetadatamodel.cpp:495 models/trackmetadatamodel.cpp:553
-#, fuzzy, kde-format
-#| msgctxt "Composer name for track metadata view"
-#| msgid "Composer"
-msgctxt "@label:textbox Composer name for track metadata view"
-msgid "Composer"
-msgstr "Helilooja"
-
-#: models/trackmetadatamodel.cpp:497 models/trackmetadatamodel.cpp:556
-#, fuzzy, kde-format
-#| msgctxt "Comment label for track metadata view"
-#| msgid "Comment"
-msgctxt "@label:textbox Comment label for track metadata view"
-msgid "Comment"
-msgstr "Kommentaar"
-
-#: models/trackmetadatamodel.cpp:499 models/trackmetadatamodel.cpp:559
-#, fuzzy, kde-format
-#| msgid "Year"
-msgctxt "@label:textbox Year label for track metadata view"
-msgid "Year"
-msgstr "Aasta"
-
-#: models/trackmetadatamodel.cpp:501 models/trackmetadatamodel.cpp:562
-#, fuzzy, kde-format
-#| msgctxt "Channels label for track metadata view"
-#| msgid "Channels"
-msgctxt "@label:textbox Channels label for track metadata view"
-msgid "Channels"
-msgstr "Kanalid"
-
-#: models/trackmetadatamodel.cpp:503 models/trackmetadatamodel.cpp:565
-#, fuzzy, kde-format
-#| msgctxt "Bit rate label for track metadata view"
-#| msgid "Bit Rate"
-msgctxt "@label:textbox Bit rate label for track metadata view"
-msgid "Bit Rate"
-msgstr "Bitikiirus"
-
-#: models/trackmetadatamodel.cpp:505 models/trackmetadatamodel.cpp:568
-#, fuzzy, kde-format
-#| msgctxt "Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
-msgctxt "@label:textbox Sample Rate label for track metadata view"
-msgid "Sample Rate"
-msgstr "Diskreetimissagedus"
-
-#: models/trackmetadatamodel.cpp:507 models/trackmetadatamodel.cpp:580
-#, fuzzy, kde-format
-#| msgctxt "Lyrics label for track metadata view"
-#| msgid "Lyrics"
-msgctxt "@label:textbox Lyrics label for track metadata view"
-msgid "Lyrics"
-msgstr "Sõnad"
-
-#: models/trackmetadatamodel.cpp:509 models/trackmetadatamodel.cpp:526
+#: models/trackmetadatamodel.cpp:512
 #, fuzzy, kde-format
 #| msgctxt "Duration label for track metadata view"
 #| msgid "Duration"
@@ -371,7 +253,117 @@ msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "Kestus"
 
-#: models/trackmetadatamodel.cpp:571
+#: models/trackmetadatamodel.cpp:515
+#, fuzzy, kde-format
+#| msgctxt "Track artist for track metadata view"
+#| msgid "Artist"
+msgctxt "@label:textbox Track artist for track metadata view"
+msgid "Artist"
+msgstr "Esitaja"
+
+#: models/trackmetadatamodel.cpp:518
+#, fuzzy, kde-format
+#| msgctxt "Album name for track metadata view"
+#| msgid "Album"
+msgctxt "@label:textbox Album name for track metadata view"
+msgid "Album"
+msgstr "Album"
+
+#: models/trackmetadatamodel.cpp:521
+#, fuzzy, kde-format
+#| msgctxt "Album artist for track metadata view"
+#| msgid "Album Artist"
+msgctxt "@label:textbox Album artist for track metadata view"
+msgid "Album Artist"
+msgstr "Albumi esitaja"
+
+#: models/trackmetadatamodel.cpp:524
+#, fuzzy, kde-format
+#| msgctxt "Track number for track metadata view"
+#| msgid "Track Number"
+msgctxt "@label:textbox Track number for track metadata view"
+msgid "Track Number"
+msgstr "Raja number"
+
+#: models/trackmetadatamodel.cpp:527
+#, fuzzy, kde-format
+#| msgctxt "Disc number for track metadata view"
+#| msgid "Disc Number"
+msgctxt "@label:textbox Disc number for track metadata view"
+msgid "Disc Number"
+msgstr "Plaadi number"
+
+#: models/trackmetadatamodel.cpp:530
+#, fuzzy, kde-format
+#| msgctxt "Rating label for information panel"
+#| msgid "Rating"
+msgctxt "@label:textbox Rating label for information panel"
+msgid "Rating"
+msgstr "Hinnang"
+
+#: models/trackmetadatamodel.cpp:533
+#, fuzzy, kde-format
+#| msgid "Genre"
+msgctxt "@label:textbox Genre label for track metadata view"
+msgid "Genre"
+msgstr "Žanr"
+
+#: models/trackmetadatamodel.cpp:536
+#, fuzzy, kde-format
+#| msgctxt "Lyricist label for track metadata view"
+#| msgid "Lyricist"
+msgctxt "@label:textbox Lyricist label for track metadata view"
+msgid "Lyricist"
+msgstr "Sõnade autor"
+
+#: models/trackmetadatamodel.cpp:539
+#, fuzzy, kde-format
+#| msgctxt "Composer name for track metadata view"
+#| msgid "Composer"
+msgctxt "@label:textbox Composer name for track metadata view"
+msgid "Composer"
+msgstr "Helilooja"
+
+#: models/trackmetadatamodel.cpp:542
+#, fuzzy, kde-format
+#| msgctxt "Comment label for track metadata view"
+#| msgid "Comment"
+msgctxt "@label:textbox Comment label for track metadata view"
+msgid "Comment"
+msgstr "Kommentaar"
+
+#: models/trackmetadatamodel.cpp:545
+#, fuzzy, kde-format
+#| msgid "Year"
+msgctxt "@label:textbox Year label for track metadata view"
+msgid "Year"
+msgstr "Aasta"
+
+#: models/trackmetadatamodel.cpp:548
+#, fuzzy, kde-format
+#| msgctxt "Channels label for track metadata view"
+#| msgid "Channels"
+msgctxt "@label:textbox Channels label for track metadata view"
+msgid "Channels"
+msgstr "Kanalid"
+
+#: models/trackmetadatamodel.cpp:551
+#, fuzzy, kde-format
+#| msgctxt "Bit rate label for track metadata view"
+#| msgid "Bit Rate"
+msgctxt "@label:textbox Bit rate label for track metadata view"
+msgid "Bit Rate"
+msgstr "Bitikiirus"
+
+#: models/trackmetadatamodel.cpp:554
+#, fuzzy, kde-format
+#| msgctxt "Sample Rate label for track metadata view"
+#| msgid "Sample Rate"
+msgctxt "@label:textbox Sample Rate label for track metadata view"
+msgid "Sample Rate"
+msgstr "Diskreetimissagedus"
+
+#: models/trackmetadatamodel.cpp:557
 #, fuzzy, kde-format
 #| msgctxt "Last play date label for track metadata view"
 #| msgid "Last played"
@@ -379,7 +371,7 @@ msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "Viimati esitatud"
 
-#: models/trackmetadatamodel.cpp:574
+#: models/trackmetadatamodel.cpp:560
 #, fuzzy, kde-format
 #| msgctxt "Last play date label for track metadata view"
 #| msgid "Last played"
@@ -387,7 +379,7 @@ msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "Viimati esitatud"
 
-#: models/trackmetadatamodel.cpp:577
+#: models/trackmetadatamodel.cpp:563
 #, fuzzy, kde-format
 #| msgctxt "Play counter label for track metadata view"
 #| msgid "Play count"
@@ -395,7 +387,15 @@ msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "Esituste arv"
 
-#: models/trackmetadatamodel.cpp:583
+#: models/trackmetadatamodel.cpp:566
+#, fuzzy, kde-format
+#| msgctxt "Lyrics label for track metadata view"
+#| msgid "Lyrics"
+msgctxt "@label:textbox Lyrics label for track metadata view"
+msgid "Lyrics"
+msgstr "Sõnad"
+
+#: models/trackmetadatamodel.cpp:569
 #, fuzzy, kde-format
 #| msgctxt "Radio HTTP address for radio metadata view"
 #| msgid "Stream Http Address"
@@ -403,7 +403,7 @@ msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "Voo HTTP-aadress"
 
-#: models/trackmetadatamodel.cpp:586
+#: models/trackmetadatamodel.cpp:572
 #, fuzzy, kde-format
 #| msgctxt "Image address for radio metadata view"
 #| msgid "Image Address"
@@ -561,19 +561,19 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Praegu esitusel"
 
-#: qml/ContextView.qml:71 qml/NavigationActionBar.qml:240
+#: qml/ContextView.qml:76 qml/NavigationActionBar.qml:240
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr ""
 
-#: qml/ContextView.qml:106
+#: qml/ContextView.qml:111
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr ""
 
-#: qml/ContextView.qml:117
+#: qml/ContextView.qml:122
 #, fuzzy, kde-format
 #| msgctxt "Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -581,7 +581,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Sõnad"
 
-#: qml/ContextView.qml:124 qml/MediaPlayerControl.qml:309
+#: qml/ContextView.qml:129 qml/MediaPlayerControl.qml:309
 #: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:171
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
@@ -589,13 +589,13 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Esitusloendi näitamine"
 
-#: qml/ContextView.qml:405
+#: qml/ContextView.qml:412
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr ""
 
-#: qml/ContextView.qml:421
+#: qml/ContextView.qml:428
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -603,7 +603,7 @@ msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Praegu esitusel"
 
-#: qml/ContextView.qml:455
+#: qml/ContextView.qml:462
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@action:button"
@@ -1064,33 +1064,40 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "1 rada jäänud"
 
-#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/MediaTrackMetadataDelegate.qml:139 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr ""
 
-#: qml/MediaTrackMetadataDelegate.qml:134 qml/PlayListEntry.qml:117
+#: qml/MediaTrackMetadataDelegate.qml:139 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr ""
 
-#: qml/MediaTrackMetadataDelegate.qml:185
+#: qml/MediaTrackMetadataDelegate.qml:190
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
 msgstr ""
 
-#: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
+#: qml/MediaTrackMetadataDelegate.qml:198
+#, fuzzy, kde-format
+#| msgid "Add new path"
+msgctxt "@action:button"
+msgid "Add tag"
+msgstr "Lisa uus asukoht"
+
+#: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr ""
 
-#: qml/MediaTrackMetadataForm.qml:87
+#: qml/MediaTrackMetadataForm.qml:95
 #, fuzzy, kde-format
 #| msgctxt "Form validation error message for track data"
 #| msgid "Data are not valid. %1"
@@ -1098,20 +1105,13 @@ msgctxt "@label"
 msgid "Data is not valid. %1"
 msgstr "Andmed ei ole korrektsed. %1"
 
-#: qml/MediaTrackMetadataForm.qml:122
+#: qml/MediaTrackMetadataForm.qml:132
 #, fuzzy, kde-format
 #| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
 #| msgid "%1:"
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
 msgstr "%1:"
-
-#: qml/MediaTrackMetadataForm.qml:146
-#, fuzzy, kde-format
-#| msgid "Add new path"
-msgctxt "@label:listbox"
-msgid "Add new tag:"
-msgstr "Lisa uus asukoht"
 
 #: qml/MediaTrackMetadataView.qml:35
 #: qml/mobile/MobileMediaTrackMetadataView.qml:46

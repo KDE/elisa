@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-14 02:26+0000\n"
-"PO-Revision-Date: 2024-08-20 09:32+0300\n"
+"PO-Revision-Date: 2024-10-29 15:39+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -830,7 +830,7 @@ msgstr "Şarkıyı Beğenilenlere Ekle"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr "Bu Etiketi Kaldır"
+msgstr "Bu Künyeyi Kaldır"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format

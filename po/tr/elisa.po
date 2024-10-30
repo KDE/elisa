@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-29 00:39+0000\n"
-"PO-Revision-Date: 2024-09-03 08:59+0300\n"
+"POT-Creation-Date: 2024-10-30 00:39+0000\n"
+"PO-Revision-Date: 2024-10-29 15:39+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -101,7 +101,7 @@ msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "© 2015–2020, Elisa katkıcıları"
 
-#: main.cpp:117 models/lyricsmodel.cpp:161
+#: main.cpp:117 models/lyricsmodel.cpp:166
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
@@ -155,49 +155,49 @@ msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "Boş başlık"
 
-#: models/lyricsmodel.cpp:158
+#: models/lyricsmodel.cpp:163
 #, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "Sanatçı"
 
-#: models/lyricsmodel.cpp:159
+#: models/lyricsmodel.cpp:164
 #, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "Albüm"
 
-#: models/lyricsmodel.cpp:160
+#: models/lyricsmodel.cpp:165
 #, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "Başlık"
 
-#: models/lyricsmodel.cpp:162
+#: models/lyricsmodel.cpp:167
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "Uzunluk"
 
-#: models/lyricsmodel.cpp:163
+#: models/lyricsmodel.cpp:168
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr "Oluşturan"
 
-#: models/lyricsmodel.cpp:164
+#: models/lyricsmodel.cpp:169
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "Düzenleyici"
 
-#: models/lyricsmodel.cpp:165
+#: models/lyricsmodel.cpp:170
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "Sürüm"
 
-#: models/lyricsmodel.cpp:188
+#: models/lyricsmodel.cpp:193
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
@@ -898,15 +898,13 @@ msgstr "Şarkıyı Beğenilenlere Ekle"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr "Bu Etiketi Kaldır"
+msgstr "Bu Künyeyi Kaldır"
 
 #: qml/MediaTrackMetadataDelegate.qml:198
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "Yeni etiket ekle:"
+msgstr "Künye Ekle"
 
 #: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format

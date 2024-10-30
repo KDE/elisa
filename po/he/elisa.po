@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-29 00:39+0000\n"
-"PO-Revision-Date: 2024-09-03 12:14+0300\n"
+"POT-Creation-Date: 2024-10-30 00:39+0000\n"
+"PO-Revision-Date: 2024-10-29 07:47+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -101,7 +101,7 @@ msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015‏-2020, מתנדבי אליסה"
 
-#: main.cpp:117 models/lyricsmodel.cpp:161
+#: main.cpp:117 models/lyricsmodel.cpp:166
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
@@ -155,49 +155,49 @@ msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "כותרת ריקה."
 
-#: models/lyricsmodel.cpp:158
+#: models/lyricsmodel.cpp:163
 #, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "אומן/נית"
 
-#: models/lyricsmodel.cpp:159
+#: models/lyricsmodel.cpp:164
 #, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "אלבום"
 
-#: models/lyricsmodel.cpp:160
+#: models/lyricsmodel.cpp:165
 #, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "כותרת"
 
-#: models/lyricsmodel.cpp:162
+#: models/lyricsmodel.cpp:167
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "משך"
 
-#: models/lyricsmodel.cpp:163
+#: models/lyricsmodel.cpp:168
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr "נוצר על ידי"
 
-#: models/lyricsmodel.cpp:164
+#: models/lyricsmodel.cpp:169
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "עורך"
 
-#: models/lyricsmodel.cpp:165
+#: models/lyricsmodel.cpp:170
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "גרסה"
 
-#: models/lyricsmodel.cpp:188
+#: models/lyricsmodel.cpp:193
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
@@ -907,12 +907,10 @@ msgid "Remove this tag"
 msgstr "הסרת התגית הזאת"
 
 #: qml/MediaTrackMetadataDelegate.qml:198
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "הוספת תגית חדשה:"
+msgstr "הוספת תגית"
 
 #: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format

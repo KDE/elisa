@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-29 00:39+0000\n"
+"POT-Creation-Date: 2024-10-30 00:39+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -100,7 +100,7 @@ msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa contributors"
 
-#: main.cpp:117 models/lyricsmodel.cpp:161
+#: main.cpp:117 models/lyricsmodel.cpp:166
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
@@ -154,49 +154,49 @@ msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "空白标题。"
 
-#: models/lyricsmodel.cpp:158
+#: models/lyricsmodel.cpp:163
 #, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "艺术家"
 
-#: models/lyricsmodel.cpp:159
+#: models/lyricsmodel.cpp:164
 #, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "专辑"
 
-#: models/lyricsmodel.cpp:160
+#: models/lyricsmodel.cpp:165
 #, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "标题"
 
-#: models/lyricsmodel.cpp:162
+#: models/lyricsmodel.cpp:167
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "长度"
 
-#: models/lyricsmodel.cpp:163
+#: models/lyricsmodel.cpp:168
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr "作者："
 
-#: models/lyricsmodel.cpp:164
+#: models/lyricsmodel.cpp:169
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "编辑"
 
-#: models/lyricsmodel.cpp:165
+#: models/lyricsmodel.cpp:170
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "版本"
 
-#: models/lyricsmodel.cpp:188
+#: models/lyricsmodel.cpp:193
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
@@ -890,8 +890,6 @@ msgstr "移除此标签"
 
 #: qml/MediaTrackMetadataDelegate.qml:198
 #, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
 msgctxt "@action:button"
 msgid "Add tag"
 msgstr "新增标签:"

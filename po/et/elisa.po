@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-29 00:39+0000\n"
+"POT-Creation-Date: 2024-10-30 00:39+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -118,7 +118,7 @@ msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020: Elisa autorid"
 
-#: main.cpp:117 models/lyricsmodel.cpp:161
+#: main.cpp:117 models/lyricsmodel.cpp:166
 #, fuzzy, kde-format
 #| msgid "Creator"
 msgctxt "@label"
@@ -183,7 +183,7 @@ msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "Tühi pealkiri."
 
-#: models/lyricsmodel.cpp:158
+#: models/lyricsmodel.cpp:163
 #, fuzzy, kde-format
 #| msgctxt "Track artist for track metadata view"
 #| msgid "Artist"
@@ -191,7 +191,7 @@ msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "Esitaja"
 
-#: models/lyricsmodel.cpp:159
+#: models/lyricsmodel.cpp:164
 #, fuzzy, kde-format
 #| msgctxt "Album name for track metadata view"
 #| msgid "Album"
@@ -199,7 +199,7 @@ msgctxt "@label musical album"
 msgid "Album"
 msgstr "Album"
 
-#: models/lyricsmodel.cpp:160
+#: models/lyricsmodel.cpp:165
 #, fuzzy, kde-format
 #| msgctxt "Track title for track metadata view"
 #| msgid "Title"
@@ -207,31 +207,31 @@ msgctxt "@label song title"
 msgid "Title"
 msgstr "Pealkiri"
 
-#: models/lyricsmodel.cpp:162
+#: models/lyricsmodel.cpp:167
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr ""
 
-#: models/lyricsmodel.cpp:163
+#: models/lyricsmodel.cpp:168
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr ""
 
-#: models/lyricsmodel.cpp:164
+#: models/lyricsmodel.cpp:169
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr ""
 
-#: models/lyricsmodel.cpp:165
+#: models/lyricsmodel.cpp:170
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr ""
 
-#: models/lyricsmodel.cpp:188
+#: models/lyricsmodel.cpp:193
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"

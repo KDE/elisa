@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-29 00:39+0000\n"
+"POT-Creation-Date: 2024-10-30 00:39+0000\n"
 "PO-Revision-Date: 2024-09-07 19:38+0200\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -100,7 +100,7 @@ msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, எலைசா நிரலாளர்கள்"
 
-#: main.cpp:117 models/lyricsmodel.cpp:161
+#: main.cpp:117 models/lyricsmodel.cpp:166
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
@@ -154,49 +154,49 @@ msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "காலியான தலைப்பு."
 
-#: models/lyricsmodel.cpp:158
+#: models/lyricsmodel.cpp:163
 #, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "கலைஞர்"
 
-#: models/lyricsmodel.cpp:159
+#: models/lyricsmodel.cpp:164
 #, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "ஆல்பம்"
 
-#: models/lyricsmodel.cpp:160
+#: models/lyricsmodel.cpp:165
 #, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "தலைப்பு"
 
-#: models/lyricsmodel.cpp:162
+#: models/lyricsmodel.cpp:167
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "நீளம்"
 
-#: models/lyricsmodel.cpp:163
+#: models/lyricsmodel.cpp:168
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr "உருவாக்கியவர்"
 
-#: models/lyricsmodel.cpp:164
+#: models/lyricsmodel.cpp:169
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "தொகுப்பாளர்"
 
-#: models/lyricsmodel.cpp:165
+#: models/lyricsmodel.cpp:170
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "பதிப்பு"
 
-#: models/lyricsmodel.cpp:188
+#: models/lyricsmodel.cpp:193
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"

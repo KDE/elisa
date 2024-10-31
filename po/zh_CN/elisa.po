@@ -889,10 +889,10 @@ msgid "Remove this tag"
 msgstr "移除此标签"
 
 #: qml/MediaTrackMetadataDelegate.qml:198
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "新增标签:"
+msgstr "添加标签"
 
 #: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format

@@ -596,9 +596,12 @@ void AudioWrapperPrivate::signalPositionChange(float newPosition)
     }
 
     if (this->mMedia) {
-        QString metaNowPlaying = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_NowPlaying));    // Usually set in mp3 and aac streams. Contains both song artist AND song title in this single string.
-        QString metaTitle = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_Title));              // Can be the song title (sometimes for ogg vorbis streams) or the radio station title (usually for mp3 and aac streams)
-        QString metaArtist = QLatin1String(libvlc_media_get_meta(this->mMedia, libvlc_meta_Artist));            // Can be the artist of the song (seldom, for ogg vorbis stream)
+        QString metaNowPlaying = QString::fromUtf8(libvlc_media_get_meta(this->mMedia, libvlc_meta_NowPlaying));
+        // Usually set in mp3 and aac streams. Contains both song artist AND song title in this single string.
+        QString metaTitle = QString::fromUtf8(libvlc_media_get_meta(this->mMedia, libvlc_meta_Title));
+        // Can be the song title (sometimes for ogg vorbis streams) or the radio station title (usually for mp3 and aac streams)
+        QString metaArtist = QString::fromUtf8(libvlc_media_get_meta(this->mMedia, libvlc_meta_Artist));
+        // Can be the artist of the song (seldom, for ogg vorbis stream)
 
         // Common case for mp3 and aac streams:
         QString *title = &metaNowPlaying;                                   // Usually song artist AND song title

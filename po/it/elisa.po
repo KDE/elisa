@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:39+0000\n"
-"PO-Revision-Date: 2024-09-04 14:20+0200\n"
+"PO-Revision-Date: 2024-11-04 23:10+0100\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -910,12 +910,10 @@ msgid "Remove this tag"
 msgstr "Rimuovi questo tag"
 
 #: qml/MediaTrackMetadataDelegate.qml:198
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "Aggiungi nuovo tag:"
+msgstr "Aggiungi tag"
 
 #: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format

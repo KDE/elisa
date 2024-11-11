@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:39+0000\n"
-"PO-Revision-Date: 2024-09-07 18:35+0200\n"
+"PO-Revision-Date: 2024-11-11 00:36+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -901,12 +901,10 @@ msgid "Remove this tag"
 msgstr "Eliminar esta etiqueta"
 
 #: qml/MediaTrackMetadataDelegate.qml:198
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "Añadir nueva etiqueta:"
+msgstr "Añadir etiqueta"
 
 #: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format

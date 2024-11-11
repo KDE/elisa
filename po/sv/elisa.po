@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-30 00:39+0000\n"
+"POT-Creation-Date: 2024-11-11 00:39+0000\n"
 "PO-Revision-Date: 2024-09-03 16:05+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -202,133 +202,133 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
-#: models/trackmetadatamodel.cpp:509
+#: models/trackmetadatamodel.cpp:514
 #, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "Titel"
 
-#: models/trackmetadatamodel.cpp:512
+#: models/trackmetadatamodel.cpp:517
 #, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "Längd"
 
-#: models/trackmetadatamodel.cpp:515
+#: models/trackmetadatamodel.cpp:520
 #, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "Artist"
 
-#: models/trackmetadatamodel.cpp:518
+#: models/trackmetadatamodel.cpp:523
 #, kde-format
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "Album"
 
-#: models/trackmetadatamodel.cpp:521
+#: models/trackmetadatamodel.cpp:526
 #, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
 msgstr "Albumartist"
 
-#: models/trackmetadatamodel.cpp:524
+#: models/trackmetadatamodel.cpp:529
 #, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
 msgstr "Spårnummer"
 
-#: models/trackmetadatamodel.cpp:527
+#: models/trackmetadatamodel.cpp:532
 #, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
 msgstr "Skivnummer"
 
-#: models/trackmetadatamodel.cpp:530
+#: models/trackmetadatamodel.cpp:535
 #, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "Betyg"
 
-#: models/trackmetadatamodel.cpp:533
+#: models/trackmetadatamodel.cpp:538
 #, kde-format
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "Genre"
 
-#: models/trackmetadatamodel.cpp:536
+#: models/trackmetadatamodel.cpp:541
 #, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "Textförfattare"
 
-#: models/trackmetadatamodel.cpp:539
+#: models/trackmetadatamodel.cpp:544
 #, kde-format
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "Tonsättare"
 
-#: models/trackmetadatamodel.cpp:542
+#: models/trackmetadatamodel.cpp:547
 #, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: models/trackmetadatamodel.cpp:545
+#: models/trackmetadatamodel.cpp:550
 #, kde-format
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "År"
 
-#: models/trackmetadatamodel.cpp:548
+#: models/trackmetadatamodel.cpp:553
 #, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "Kanaler"
 
-#: models/trackmetadatamodel.cpp:551
+#: models/trackmetadatamodel.cpp:556
 #, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
 msgstr "Bithastighet"
 
-#: models/trackmetadatamodel.cpp:554
+#: models/trackmetadatamodel.cpp:559
 #, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
 msgstr "Samplingsfrekvens"
 
-#: models/trackmetadatamodel.cpp:557
+#: models/trackmetadatamodel.cpp:562
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "Senast spelad"
 
-#: models/trackmetadatamodel.cpp:560
+#: models/trackmetadatamodel.cpp:565
 #, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "Först spelad"
 
-#: models/trackmetadatamodel.cpp:563
+#: models/trackmetadatamodel.cpp:568
 #, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "Antal spelade"
 
-#: models/trackmetadatamodel.cpp:566
+#: models/trackmetadatamodel.cpp:571
 #, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "Sångtext"
 
-#: models/trackmetadatamodel.cpp:569
+#: models/trackmetadatamodel.cpp:574
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "HTTP-adress för ström"
 
-#: models/trackmetadatamodel.cpp:572
+#: models/trackmetadatamodel.cpp:577
 #, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"

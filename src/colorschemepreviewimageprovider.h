@@ -11,8 +11,6 @@
 
 #include <QQuickImageProvider>
 
-class KColorSchemeManager;
-
 class ELISALIB_EXPORT ColorSchemePreviewImageProvider : public QQuickImageProvider
 {
 public:

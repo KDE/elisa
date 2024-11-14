@@ -11,6 +11,10 @@
 #include <QIcon>
 #include <QModelIndex>
 
+#if KCOLORSCHEME_VERSION < QT_VERSION_CHECK(6, 6, 0)
+#include <memory>
+#endif
+
 ColorSchemePreviewImageProvider::ColorSchemePreviewImageProvider()
     : QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
@@ -18,15 +22,19 @@ ColorSchemePreviewImageProvider::ColorSchemePreviewImageProvider()
 
 QPixmap ColorSchemePreviewImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
-    KColorSchemeManager schemes;
+#if KCOLORSCHEME_VERSION < QT_VERSION_CHECK(6, 6, 0)
+    auto schemes = std::make_unique<KColorSchemeManager>();
+#else
+    auto *schemes = KColorSchemeManager::instance();
+#endif
 
-    QModelIndex index = schemes.indexForScheme(id);
+    QModelIndex index = schemes->indexForScheme(id);
 
     // the id of the default entry must be set to an empty string
     if (!index.isValid()) {
-        index = schemes.indexForScheme(QLatin1String(""));
+        index = schemes->indexForScheme(QLatin1String(""));
     }
-    const auto pixmap = schemes.model()->data(index, Qt::DecorationRole).value<QIcon>().pixmap(requestedSize);
+    const auto pixmap = schemes->model()->data(index, Qt::DecorationRole).value<QIcon>().pixmap(requestedSize);
     *size = pixmap.size();
     return pixmap;
 }

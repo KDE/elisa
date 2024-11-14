@@ -379,7 +379,7 @@ void AbstractFileListing::addFileInDirectory(const QUrl &newFile, const QUrl &di
 
             auto &parentCurrentDirectoryListingFiles = d->mDiscoveredDirectories[parentDirectory];
 
-            parentCurrentDirectoryListingFiles.insert({directoryName, false});
+            parentCurrentDirectoryListingFiles.insert({directoryName, false, QDateTime()});
         }
     }
     auto &currentDirectoryListingFiles = d->mDiscoveredDirectories[directoryName];

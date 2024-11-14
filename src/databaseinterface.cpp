@@ -31,6 +31,8 @@
 
 #include <algorithm>
 
+using namespace Qt::Literals::StringLiterals;
+
 class DatabaseInterfacePrivate
 {
 public:
@@ -1334,7 +1336,7 @@ void DatabaseInterface::initConnection(const QString &connectionName, const QStr
     }
     qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::init" << (tracksDatabase.driver()->hasFeature(QSqlDriver::Transactions) ? "yes" : "no");
 
-    tracksDatabase.exec(QStringLiteral("PRAGMA foreign_keys = ON;"));
+    QSqlQuery{u"PRAGMA foreign_keys = ON;"_s, tracksDatabase}.exec();
 
     d = std::make_unique<DatabaseInterfacePrivate>(tracksDatabase, connectionName, databaseFileName);
 }
@@ -6570,11 +6572,7 @@ void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &o
 
 void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &oneTrack)
 {
-    QSqlQuery query = d->mUpdateRadioQuery;
-
-    if (!oneTrack.hasDatabaseId()) {
-        query = d->mInsertRadioQuery;
-    }
+    QSqlQuery &query = oneTrack.hasDatabaseId() ? d->mUpdateRadioQuery : d->mInsertRadioQuery;
 
     query.bindValue(QStringLiteral(":httpAddress"), oneTrack.resourceURI());
     query.bindValue(QStringLiteral(":radioId"), oneTrack.databaseId());
@@ -6588,9 +6586,9 @@ void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &o
     if (!result || !query.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << query.lastError();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.lastError();
     } else {
         if (!oneTrack.hasDatabaseId()) {
             auto radio = internalOneRadioPartialData(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
@@ -7612,23 +7610,21 @@ void DatabaseInterface::updateTrackInDatabase(const DataTypes::TrackDataType &on
 
 void DatabaseInterface::removeRadio(qulonglong radioId)
 {
-    QSqlQuery query = d->mDeleteRadioQuery;
+    d->mDeleteRadioQuery.bindValue(QStringLiteral(":radioId"), radioId);
 
-    query.bindValue(QStringLiteral(":radioId"), radioId);
+    auto result = execQuery(d->mDeleteRadioQuery);
 
-    auto result = execQuery(query);
-
-    if (!result || !query.isActive()) {
+    if (!result || !d->mDeleteRadioQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << query.lastError();
-    }else{
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.lastError();
+    } else {
         Q_EMIT radioRemoved(radioId);
     }
 
-    query.finish();
+    d->mDeleteRadioQuery.finish();
 }
 
 void DatabaseInterface::removeAlbumInDatabase(qulonglong albumId)

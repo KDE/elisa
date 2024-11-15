@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-11 00:39+0000\n"
+"POT-Creation-Date: 2024-11-15 00:39+0000\n"
 "PO-Revision-Date: 2023-02-12 20:05+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "lumarzeli30@gmail.com, raghu@raghukamath.com"
 
-#: databaseinterface.cpp:7139 databaseinterface.cpp:8162
-#: databaseinterface.cpp:8246
+#: databaseinterface.cpp:7137 databaseinterface.cpp:8158
+#: databaseinterface.cpp:8242
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "विभिन्न कलाकार"
 
-#: databaseinterface.cpp:7207
+#: databaseinterface.cpp:7205
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -143,13 +143,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "ऑनलाइन रेडियो का समर्थन"
 
-#: models/editabletrackmetadatamodel.cpp:312
+#: models/editabletrackmetadatamodel.cpp:314
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "अवैध यूआरएल।"
 
-#: models/editabletrackmetadatamodel.cpp:322
+#: models/editabletrackmetadatamodel.cpp:324
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
@@ -203,133 +203,133 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
-#: models/trackmetadatamodel.cpp:514
+#: models/trackmetadatamodel.cpp:515
 #, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "शीर्षक"
 
-#: models/trackmetadatamodel.cpp:517
+#: models/trackmetadatamodel.cpp:518
 #, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "अवधि"
 
-#: models/trackmetadatamodel.cpp:520
+#: models/trackmetadatamodel.cpp:521
 #, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "कलाकार"
 
-#: models/trackmetadatamodel.cpp:523
+#: models/trackmetadatamodel.cpp:524
 #, kde-format
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "एल्बम"
 
-#: models/trackmetadatamodel.cpp:526
+#: models/trackmetadatamodel.cpp:527
 #, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
 msgstr "एलबम कलाकार"
 
-#: models/trackmetadatamodel.cpp:529
+#: models/trackmetadatamodel.cpp:530
 #, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
 msgstr "गीत संख्या"
 
-#: models/trackmetadatamodel.cpp:532
+#: models/trackmetadatamodel.cpp:533
 #, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
 msgstr "डिस्क संख्या"
 
-#: models/trackmetadatamodel.cpp:535
+#: models/trackmetadatamodel.cpp:536
 #, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "मूल्यांकन"
 
-#: models/trackmetadatamodel.cpp:538
+#: models/trackmetadatamodel.cpp:539
 #, kde-format
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "घराना"
 
-#: models/trackmetadatamodel.cpp:541
+#: models/trackmetadatamodel.cpp:542
 #, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "गीतकार"
 
-#: models/trackmetadatamodel.cpp:544
+#: models/trackmetadatamodel.cpp:545
 #, kde-format
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "संगीतकार"
 
-#: models/trackmetadatamodel.cpp:547
+#: models/trackmetadatamodel.cpp:548
 #, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "टिप्पणी"
 
-#: models/trackmetadatamodel.cpp:550
+#: models/trackmetadatamodel.cpp:551
 #, kde-format
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "वर्ष"
 
-#: models/trackmetadatamodel.cpp:553
+#: models/trackmetadatamodel.cpp:554
 #, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "चैनल्स"
 
-#: models/trackmetadatamodel.cpp:556
+#: models/trackmetadatamodel.cpp:557
 #, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
 msgstr "बिट दर"
 
-#: models/trackmetadatamodel.cpp:559
+#: models/trackmetadatamodel.cpp:560
 #, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
 msgstr "सेंपल दर"
 
-#: models/trackmetadatamodel.cpp:562
+#: models/trackmetadatamodel.cpp:563
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "पिछली बार बजाया गया"
 
-#: models/trackmetadatamodel.cpp:565
+#: models/trackmetadatamodel.cpp:566
 #, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "पहली बार बजाया गया"
 
-#: models/trackmetadatamodel.cpp:568
+#: models/trackmetadatamodel.cpp:569
 #, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "बजने की संख्या"
 
-#: models/trackmetadatamodel.cpp:571
+#: models/trackmetadatamodel.cpp:572
 #, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "बोल"
 
-#: models/trackmetadatamodel.cpp:574
+#: models/trackmetadatamodel.cpp:575
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "स्ट्रीम का एचटीटीपी पता"
 
-#: models/trackmetadatamodel.cpp:577
+#: models/trackmetadatamodel.cpp:578
 #, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"

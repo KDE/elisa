@@ -63,41 +63,6 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="zh-CN">Elisa 音乐播放器</name>
   <name xml:lang="zh-TW">Elisa</name>
   <summary>Play local music and listen to online radio</summary>
-  <summary xml:lang="ar">شغل الصوتيات واستمع لمحطات الإذاعة على الإنترنت</summary>
-  <summary xml:lang="be">Прайграванне музыкі і праслухоўванне сеціўных радыёстанцый</summary>
-  <summary xml:lang="bg">Възпроизвеждане на музика и слушане на онлайн радиостанции</summary>
-  <summary xml:lang="ca">Reproduïu música i escolteu estacions de ràdio en línia</summary>
-  <summary xml:lang="ca-valencia">Reproduïu música i escolteu estacions de ràdio en línia</summary>
-  <summary xml:lang="da">Afspil musik og lyt til online radiostationer</summary>
-  <summary xml:lang="en-GB">Play music and listen to online radio stations</summary>
-  <summary xml:lang="eo">Ludi muzikon kaj aŭskulti enretajn radiostaciojn</summary>
-  <summary xml:lang="es">Reproduzca música y escuche radios en línea</summary>
-  <summary xml:lang="eu">Musika jotzea eta lerroko irrati-kateak entzutea</summary>
-  <summary xml:lang="fr">Lire de la musique et écouter des stations de radios en ligne</summary>
-  <summary xml:lang="gl">Reproduza música e escoite cadeas de radio por Internet.</summary>
-  <summary xml:lang="he">נגינת מוזיקה והאזנה לתחנות רדיו מקוונות</summary>
-  <summary xml:lang="hu">Zenelejátszás és online rádióállomások hallgatása</summary>
-  <summary xml:lang="ia">Reproduce musica e ascolta stationes radio in linea</summary>
-  <summary xml:lang="id">Untuk memutar musik dan mendengarkan stasiun radio online</summary>
-  <summary xml:lang="is">Spilaðu tónlist og hlustaðu á netútvarp</summary>
-  <summary xml:lang="it">Riproduci musica e ascolta stazioni radio online</summary>
-  <summary xml:lang="ka">დაუკარით მუსიკა მოუსმინეთ რადიოსადგურებს ინტერნეტში</summary>
-  <summary xml:lang="ko">음악 및 온라인 라디오 재생</summary>
-  <summary xml:lang="lt">Atkurti muziką ir klausytis internetinių radijo stočių</summary>
-  <summary xml:lang="lv">Atskaņojiet mūziku un klausieties tiešsaistes radiostacijas</summary>
-  <summary xml:lang="nl">Speel muziek en luister naar online radiostations</summary>
-  <summary xml:lang="nn">Spel musikk og lytt på nettradio</summary>
-  <summary xml:lang="pl">Odtwarzaj muzykę i słuchaj radia z sieci</summary>
-  <summary xml:lang="ro">Redă muzică și ascultă stații radio prin Internet</summary>
-  <summary xml:lang="ru">Воспроизведение музыки и прослушивание интернет-радиостанций</summary>
-  <summary xml:lang="sl">Predvajajte glasbo in poslušajte spletne radio postaje</summary>
-  <summary xml:lang="sv">Spela musik och lyssna på nätradiostationer</summary>
-  <summary xml:lang="ta">பாடல்களையும் இணைய வானொலி நிலையங்களையும் கேட்கலாம்</summary>
-  <summary xml:lang="tr">Müzik çalın ve radyo istasyonlarını dinleyin</summary>
-  <summary xml:lang="uk">Відтворення музичних творів та прослуховування інтернет-радіостанцій</summary>
-  <summary xml:lang="x-test">xxPlay music and listen to online radio stationsxx</summary>
-  <summary xml:lang="zh-CN">播放音乐和收听网络电台</summary>
-  <summary xml:lang="zh-TW">播放音樂或聆聽線上廣播電台</summary>
   <description>
     <p>The Elisa music player is developed by the KDE community and strives to be simple and pleasant to use.</p>
     <p xml:lang="ar">طور مشغل الصوتيات إليسا بواسطة مجتمع كيدي ويسعى جاهداً ليكون سهل الاستخدام وممتعًا.</p>

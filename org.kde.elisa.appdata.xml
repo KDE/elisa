@@ -63,6 +63,15 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="zh-CN">Elisa 音乐播放器</name>
   <name xml:lang="zh-TW">Elisa</name>
   <summary>Play local music and listen to online radio</summary>
+  <summary xml:lang="ca">Reproduïu música local i escolteu ràdio en línia</summary>
+  <summary xml:lang="ca-valencia">Reproduïu música local i escolteu ràdio en línia</summary>
+  <summary xml:lang="eu">Musika lokala jotzea eta lerroko irrati-kateak entzutea</summary>
+  <summary xml:lang="ka">დაუკარით მუსიკა და მოუსმინეთ რადიოსადგურებს ინტერნეტში</summary>
+  <summary xml:lang="nl">Speel lokaal muziek en luister naar online radio</summary>
+  <summary xml:lang="sl">Predvajajte glasbo in poslušajte spletni radio</summary>
+  <summary xml:lang="tr">Kendi müziğinizi çalın ve çevrimiçi radyo dinleyin</summary>
+  <summary xml:lang="uk">Відтворення музичних творів з комп'ютера та прослуховування інтернет-радіостанцій</summary>
+  <summary xml:lang="x-test">xxPlay local music and listen to online radioxx</summary>
   <description>
     <p>The Elisa music player is developed by the KDE community and strives to be simple and pleasant to use.</p>
     <p xml:lang="ar">طور مشغل الصوتيات إليسا بواسطة مجتمع كيدي ويسعى جاهداً ليكون سهل الاستخدام وممتعًا.</p>

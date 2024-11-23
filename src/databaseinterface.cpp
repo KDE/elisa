@@ -140,6 +140,7 @@ public:
         , mRemoveTrackQuery(mTracksDatabase)
         , mRemoveAlbumQuery(mTracksDatabase)
         , mRemoveArtistQuery(mTracksDatabase)
+        , mRemoveGenreQuery(mTracksDatabase)
         , mSelectAllTracksQuery(mTracksDatabase)
         , mSelectAllRadiosQuery(mTracksDatabase)
         , mInsertTrackMapping(mTracksDatabase)
@@ -211,6 +212,7 @@ public:
         , mUpdateDatabaseVersionQuery(mTracksDatabase)
         , mSelectDatabaseVersionQuery(mTracksDatabase)
         , mArtistHasTracksQuery(mTracksDatabase)
+        , mGenreHasTracksQuery(mTracksDatabase)
     {
     }
 
@@ -263,6 +265,8 @@ public:
     QSqlQuery mRemoveAlbumQuery;
 
     QSqlQuery mRemoveArtistQuery;
+
+    QSqlQuery mRemoveGenreQuery;
 
     QSqlQuery mSelectAllTracksQuery;
 
@@ -406,6 +410,8 @@ public:
 
     QSqlQuery mArtistHasTracksQuery;
 
+    QSqlQuery mGenreHasTracksQuery;
+
     QSet<qulonglong> mModifiedTrackIds;
 
     QSet<qulonglong> mModifiedAlbumIds;
@@ -421,6 +427,10 @@ public:
     QSet<qulonglong> mPossiblyRemovedArtistIds;
 
     QSet<qulonglong> mRemovedArtistIds;
+
+    QSet<qulonglong> mPossiblyRemovedGenreIds;
+
+    QSet<qulonglong> mRemovedGenreIds;
 
     qulonglong mAlbumId = 1;
 
@@ -1138,7 +1148,7 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
         }
     }
 
-    pruneArtists();
+    pruneCollections();
 
     if (!d->mInsertedArtists.isEmpty()) {
         DataTypes::ListArtistDataType newArtists;
@@ -1205,7 +1215,7 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
 
     internalRemoveTracksList(removedTracks);
 
-    pruneArtists();
+    pruneCollections();
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
@@ -6554,6 +6564,22 @@ void DatabaseInterface::initDataQueries()
     }
 
     {
+        auto removeGenreQueryText = QStringLiteral(
+            "DELETE FROM `Genre` "
+            "WHERE "
+            "`ID` = :genreId");
+
+        auto result = prepareQuery(d->mRemoveGenreQuery, removeGenreQueryText);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveGenreQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveGenreQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
         const auto artistHasTracks = QStringLiteral(
             "SELECT EXISTS(SELECT 1 "
             "FROM `Tracks` "
@@ -6567,6 +6593,24 @@ void DatabaseInterface::initDataQueries()
         if (!result) {
             qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastQuery();
             qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
+        const auto genreHasTracks = QStringLiteral(
+            "SELECT EXISTS(SELECT 1 "
+            "FROM `Tracks` "
+            "INNER JOIN `Genre` genres on "
+            "`Genre` = genres.`Name` "
+            "WHERE genres.`ID` = :genreId)");
+
+        const auto result = prepareQuery(d->mGenreHasTracksQuery, genreHasTracks);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mGenreHasTracksQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mGenreHasTracksQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6588,6 +6632,8 @@ void DatabaseInterface::initChangesTrackers()
     d->mInsertedArtists.clear();
     d->mPossiblyRemovedArtistIds.clear();
     d->mRemovedArtistIds.clear();
+    d->mPossiblyRemovedGenreIds.clear();
+    d->mRemovedGenreIds.clear();
 }
 
 void DatabaseInterface::emitTrackerChanges()
@@ -6595,6 +6641,12 @@ void DatabaseInterface::emitTrackerChanges()
     if (!d->mRemovedArtistIds.isEmpty()) {
         for (const auto removedArtistId : std::as_const(d->mRemovedArtistIds)) {
             Q_EMIT artistRemoved(removedArtistId);
+        }
+    }
+
+    if (!d->mRemovedGenreIds.isEmpty()) {
+        for (const auto removedGenreId : std::as_const(d->mRemovedGenreIds)) {
+            Q_EMIT genreRemoved(removedGenreId);
         }
     }
 }
@@ -6893,36 +6945,16 @@ qulonglong DatabaseInterface::insertGenre(const QString &name)
         return result;
     }
 
-    d->mSelectGenreByNameQuery.bindValue(QStringLiteral(":name"), name);
+    result = internalGenreIdFromName(name);
 
-    auto queryResult = execQuery(d->mSelectGenreByNameQuery);
-
-    if (!queryResult || !d->mSelectGenreByNameQuery.isSelect() || !d->mSelectGenreByNameQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertGenre" << d->mSelectGenreByNameQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertGenre" << d->mSelectGenreByNameQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertGenre" << d->mSelectGenreByNameQuery.lastError();
-
-        d->mSelectGenreByNameQuery.finish();
-
+    if (result != 0) {
         return result;
     }
-
-    if (d->mSelectGenreByNameQuery.next()) {
-        result = d->mSelectGenreByNameQuery.record().value(0).toULongLong();
-
-        d->mSelectGenreByNameQuery.finish();
-
-        return result;
-    }
-
-    d->mSelectGenreByNameQuery.finish();
 
     d->mInsertGenreQuery.bindValue(QStringLiteral(":genreId"), d->mGenreId);
     d->mInsertGenreQuery.bindValue(QStringLiteral(":name"), name);
 
-    queryResult = execQuery(d->mInsertGenreQuery);
+    const auto queryResult = execQuery(d->mInsertGenreQuery);
 
     if (!queryResult || !d->mInsertGenreQuery.isActive()) {
         Q_EMIT databaseError();
@@ -7074,6 +7106,9 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         }
         if (oldTrack.albumArtist() != oldTrack.artist() && oldTrack.albumArtist() != newTrack.artist() && oldTrack.artist() != newTrack.albumArtist()) {
             d->mPossiblyRemovedArtistIds.insert(internalArtistIdFromName(oldTrack.albumArtist()));
+        }
+        if (oldTrack.genre() != newTrack.genre()) {
+            d->mPossiblyRemovedGenreIds.insert(internalGenreIdFromName(oldTrack.genre()));
         }
 
         isInserted = false;
@@ -7311,6 +7346,7 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
         if (oneRemovedTrack.albumArtist() != oneRemovedTrack.artist()) {
             d->mPossiblyRemovedArtistIds.insert(internalArtistIdFromName(oneRemovedTrack.albumArtist()));
         }
+        d->mPossiblyRemovedGenreIds.insert(internalGenreIdFromName(oneRemovedTrack.genre()));
 
         d->mRemoveTracksMapping.bindValue(QStringLiteral(":fileName"), removedTrackFileName.toString());
 
@@ -7569,6 +7605,39 @@ qulonglong DatabaseInterface::internalArtistIdFromName(const QString &name)
     return result;
 }
 
+qulonglong DatabaseInterface::internalGenreIdFromName(const QString &name)
+{
+    qulonglong result = 0;
+
+    if (name.isEmpty()) {
+        return result;
+    }
+
+    d->mSelectGenreByNameQuery.bindValue(QStringLiteral(":name"), name);
+
+    auto queryResult = execQuery(d->mSelectGenreByNameQuery);
+
+    if (!queryResult || !d->mSelectGenreByNameQuery.isSelect() || !d->mSelectGenreByNameQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenreIdFromName" << d->mSelectGenreByNameQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenreIdFromName" << d->mSelectGenreByNameQuery.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenreIdFromName" << d->mSelectGenreByNameQuery.lastError();
+
+        d->mSelectGenreByNameQuery.finish();
+
+        return result;
+    }
+
+    if (d->mSelectGenreByNameQuery.next()) {
+        result = d->mSelectGenreByNameQuery.record().value(0).toULongLong();
+    }
+
+    d->mSelectGenreByNameQuery.finish();
+
+    return result;
+}
+
 void DatabaseInterface::removeTrackInDatabase(qulonglong trackId)
 {
     d->mRemoveTrackQuery.bindValue(QStringLiteral(":trackId"), trackId);
@@ -7709,6 +7778,23 @@ void DatabaseInterface::removeArtistInDatabase(qulonglong artistId)
     }
 
     d->mRemoveArtistQuery.finish();
+}
+
+void DatabaseInterface::removeGenreInDatabase(qulonglong genreId)
+{
+    d->mRemoveGenreQuery.bindValue(QStringLiteral(":genreId"), genreId);
+
+    auto result = execQuery(d->mRemoveGenreQuery);
+
+    if (!result || !d->mRemoveGenreQuery.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeGenreInDatabase" << d->mRemoveGenreQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeGenreInDatabase" << d->mRemoveGenreQuery.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeGenreInDatabase" << d->mRemoveGenreQuery.lastError();
+    }
+
+    d->mRemoveGenreQuery.finish();
 }
 
 void DatabaseInterface::reloadExistingDatabase()
@@ -8763,6 +8849,18 @@ bool DatabaseInterface::artistHasTracks(qulonglong artistId)
     return execHasRowQuery(d->mArtistHasTracksQuery);
 }
 
+bool DatabaseInterface::genreHasTracks(qulonglong genreId)
+{
+    d->mGenreHasTracksQuery.bindValue(u":genreId"_s, genreId);
+    return execHasRowQuery(d->mGenreHasTracksQuery);
+}
+
+void DatabaseInterface::pruneCollections()
+{
+    pruneArtists();
+    pruneGenres();
+}
+
 void DatabaseInterface::pruneArtists()
 {
     // Remove invalid ID
@@ -8775,6 +8873,20 @@ void DatabaseInterface::pruneArtists()
         }
     }
     d->mPossiblyRemovedArtistIds.clear();
+}
+
+void DatabaseInterface::pruneGenres()
+{
+    // Remove invalid ID
+    d->mPossiblyRemovedGenreIds.remove(0);
+
+    for (const auto genreId : d->mPossiblyRemovedGenreIds) {
+        if (!genreHasTracks(genreId)) {
+            removeGenreInDatabase(genreId);
+            d->mRemovedGenreIds.insert(genreId);
+        }
+    }
+    d->mPossiblyRemovedGenreIds.clear();
 }
 
 #include "moc_databaseinterface.cpp"

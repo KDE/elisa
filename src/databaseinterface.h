@@ -122,6 +122,8 @@ Q_SIGNALS:
 
     void albumRemoved(qulonglong removedAlbumId);
 
+    void genreRemoved(qulonglong removedGenreId);
+
     void trackRemoved(qulonglong id);
 
     void albumModified(const DataTypes::AlbumDataType &modifiedAlbum, qulonglong modifiedAlbumId);
@@ -266,9 +268,11 @@ private:
 
     qulonglong insertArtist(const QString &name);
 
+    qulonglong insertGenre(const QString &name);
+
     qulonglong internalArtistIdFromName(const QString &name);
 
-    qulonglong insertGenre(const QString &name);
+    qulonglong internalGenreIdFromName(const QString &name);
 
     void removeTrackInDatabase(qulonglong trackId);
 
@@ -277,6 +281,8 @@ private:
     void removeAlbumInDatabase(qulonglong albumId);
 
     void removeArtistInDatabase(qulonglong artistId);
+
+    void removeGenreInDatabase(qulonglong genreId);
 
     void reloadExistingDatabase();
 
@@ -361,7 +367,13 @@ private:
 
     bool artistHasTracks(qulonglong artistId);
 
+    bool genreHasTracks(qulonglong artistId);
+
+    void pruneCollections();
+
     void pruneArtists();
+
+    void pruneGenres();
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

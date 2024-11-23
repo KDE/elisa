@@ -6787,36 +6787,16 @@ qulonglong DatabaseInterface::insertArtist(const QString &name)
         return result;
     }
 
-    d->mSelectArtistByNameQuery.bindValue(QStringLiteral(":name"), name);
+    result = internalArtistIdFromName(name);
 
-    auto queryResult = execQuery(d->mSelectArtistByNameQuery);
-
-    if (!queryResult || !d->mSelectArtistByNameQuery.isSelect() || !d->mSelectArtistByNameQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectArtistByNameQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectArtistByNameQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectArtistByNameQuery.lastError();
-
-        d->mSelectArtistByNameQuery.finish();
-
+    if (result != 0) {
         return result;
     }
-
-    if (d->mSelectArtistByNameQuery.next()) {
-        result = d->mSelectArtistByNameQuery.record().value(0).toULongLong();
-
-        d->mSelectArtistByNameQuery.finish();
-
-        return result;
-    }
-
-    d->mSelectArtistByNameQuery.finish();
 
     d->mInsertArtistsQuery.bindValue(QStringLiteral(":artistId"), d->mArtistId);
     d->mInsertArtistsQuery.bindValue(QStringLiteral(":name"), name);
 
-    queryResult = execQuery(d->mInsertArtistsQuery);
+    const auto queryResult = execQuery(d->mInsertArtistsQuery);
 
     if (!queryResult || !d->mInsertArtistsQuery.isActive()) {
         Q_EMIT databaseError();
@@ -7570,22 +7550,18 @@ qulonglong DatabaseInterface::internalArtistIdFromName(const QString &name)
     if (!queryResult || !d->mSelectArtistByNameQuery.isSelect() || !d->mSelectArtistByNameQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectArtistByNameQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectArtistByNameQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectArtistByNameQuery.lastError();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalArtistIdFromName" << d->mSelectArtistByNameQuery.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalArtistIdFromName" << d->mSelectArtistByNameQuery.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalArtistIdFromName" << d->mSelectArtistByNameQuery.lastError();
 
         d->mSelectArtistByNameQuery.finish();
 
         return result;
     }
 
-    if (!d->mSelectArtistByNameQuery.next()) {
-        d->mSelectArtistByNameQuery.finish();
-
-        return result;
+    if (d->mSelectArtistByNameQuery.next()) {
+        result = d->mSelectArtistByNameQuery.record().value(0).toULongLong();
     }
-
-    result = d->mSelectArtistByNameQuery.record().value(0).toULongLong();
 
     d->mSelectArtistByNameQuery.finish();
 

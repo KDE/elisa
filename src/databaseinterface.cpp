@@ -6538,11 +6538,12 @@ void DatabaseInterface::initDataQueries()
     }
 
     {
-        auto removeAlbumQueryText = QStringLiteral("DELETE FROM `Artists` "
-                                                   "WHERE "
-                                                   "`ID` = :artistId");
+        const auto removeArtistQueryText = QStringLiteral(
+            "DELETE FROM `Artists` "
+            "WHERE "
+            "`ID` = :artistId");
 
-        auto result = prepareQuery(d->mRemoveArtistQuery, removeAlbumQueryText);
+        auto result = prepareQuery(d->mRemoveArtistQuery, removeArtistQueryText);
 
         if (!result) {
             qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveArtistQuery.lastQuery();

@@ -115,59 +115,102 @@ public:
     };
 
     DatabaseInterfacePrivate(const QSqlDatabase &tracksDatabase, const QString &connectionName, const QString &databaseFileName)
-        : mTracksDatabase(tracksDatabase), mConnectionName(connectionName),
-          mDatabaseFileName(databaseFileName), mSelectAlbumQuery(mTracksDatabase),
-          mSelectTrackQuery(mTracksDatabase), mSelectAlbumIdFromTitleQuery(mTracksDatabase),
-          mInsertAlbumQuery(mTracksDatabase), mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase),
-          mInsertTrackQuery(mTracksDatabase), mSelectTracksFromArtist(mTracksDatabase),
-          mSelectTracksFromGenre(mTracksDatabase),
-          mSelectTrackFromIdQuery(mTracksDatabase), mSelectRadioFromIdQuery(mTracksDatabase),
-          mSelectCountAlbumsForArtistQuery(mTracksDatabase),
-          mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery(mTracksDatabase),
-          mSelectAllAlbumsFromArtistQuery(mTracksDatabase), mSelectAllArtistsQuery(mTracksDatabase),
-          mInsertArtistsQuery(mTracksDatabase), mSelectArtistByNameQuery(mTracksDatabase),
-          mSelectArtistQuery(mTracksDatabase),
-          mUpdateTrackStartedStatistics(mTracksDatabase), mUpdateTrackFinishedStatistics(mTracksDatabase),
-          mRemoveTrackQuery(mTracksDatabase), mRemoveAlbumQuery(mTracksDatabase),
-          mRemoveArtistQuery(mTracksDatabase), mSelectAllTracksQuery(mTracksDatabase),
-          mSelectAllRadiosQuery(mTracksDatabase),
-          mInsertTrackMapping(mTracksDatabase), mUpdateTrackFirstPlayStatistics(mTracksDatabase),
-          mInsertMusicSource(mTracksDatabase), mSelectMusicSource(mTracksDatabase),
-          mUpdateTrackPriority(mTracksDatabase), mUpdateTrackFileModifiedTime(mTracksDatabase),
-          mSelectTracksMapping(mTracksDatabase), mSelectTracksMappingPriority(mTracksDatabase),
-          mSelectRadioIdFromHttpAddress(mTracksDatabase),
-          mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase),
-          mSelectUpToFourLatestCoversFromArtistNameQuery(mTracksDatabase),
-          mSelectTracksMappingPriorityByTrackId(mTracksDatabase),
-          mSelectAlbumIdsFromArtist(mTracksDatabase), mSelectAllTrackFilesQuery(mTracksDatabase),
-          mRemoveTracksMappingFromSource(mTracksDatabase), mRemoveTracksMapping(mTracksDatabase),
-          mSelectTracksWithoutMappingQuery(mTracksDatabase), mSelectAlbumIdFromTitleAndArtistQuery(mTracksDatabase),
-          mSelectAlbumIdFromTitleWithoutArtistQuery(mTracksDatabase),
-          mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery(mTracksDatabase), mSelectAlbumArtUriFromAlbumIdQuery(mTracksDatabase),
-          mInsertComposerQuery(mTracksDatabase), mSelectComposerByNameQuery(mTracksDatabase),
-          mSelectComposerQuery(mTracksDatabase), mInsertLyricistQuery(mTracksDatabase),
-          mSelectLyricistByNameQuery(mTracksDatabase), mSelectLyricistQuery(mTracksDatabase),
-          mInsertGenreQuery(mTracksDatabase), mSelectGenreByNameQuery(mTracksDatabase),
-          mSelectGenreQuery(mTracksDatabase), mSelectAllTracksShortQuery(mTracksDatabase),
-          mSelectAllAlbumsShortQuery(mTracksDatabase), mSelectAllComposersQuery(mTracksDatabase),
-          mSelectAllLyricistsQuery(mTracksDatabase), mSelectCountAlbumsForComposerQuery(mTracksDatabase),
-          mSelectCountAlbumsForLyricistQuery(mTracksDatabase), mSelectAllGenresQuery(mTracksDatabase),
-          mSelectGenreForArtistQuery(mTracksDatabase), mSelectGenreForAlbumQuery(mTracksDatabase),
-          mUpdateTrackQuery(mTracksDatabase), mUpdateAlbumArtistQuery(mTracksDatabase),
-          mUpdateRadioQuery(mTracksDatabase),
-          mUpdateAlbumArtistInTracksQuery(mTracksDatabase), mQueryMaximumTrackIdQuery(mTracksDatabase),
-          mQueryMaximumAlbumIdQuery(mTracksDatabase), mQueryMaximumArtistIdQuery(mTracksDatabase),
-          mQueryMaximumLyricistIdQuery(mTracksDatabase), mQueryMaximumComposerIdQuery(mTracksDatabase),
-          mQueryMaximumGenreIdQuery(mTracksDatabase), mSelectAllArtistsWithGenreFilterQuery(mTracksDatabase),
-          mSelectAllAlbumsShortWithGenreArtistFilterQuery(mTracksDatabase), mSelectAllAlbumsShortWithArtistFilterQuery(mTracksDatabase),
-          mSelectAllRecentlyPlayedTracksQuery(mTracksDatabase), mSelectAllFrequentlyPlayedTracksQuery(mTracksDatabase),
-          mClearTracksDataTable(mTracksDatabase), mClearTracksTable(mTracksDatabase),
-          mClearAlbumsTable(mTracksDatabase), mClearArtistsTable(mTracksDatabase),
-          mClearComposerTable(mTracksDatabase), mClearGenreTable(mTracksDatabase), mClearLyricistTable(mTracksDatabase),
-          mArtistMatchGenreQuery(mTracksDatabase), mSelectTrackIdQuery(mTracksDatabase),
-          mInsertRadioQuery(mTracksDatabase), mDeleteRadioQuery(mTracksDatabase),
-          mSelectTrackFromIdAndUrlQuery(mTracksDatabase),
-          mUpdateDatabaseVersionQuery(mTracksDatabase), mSelectDatabaseVersionQuery(mTracksDatabase)
+        : mTracksDatabase(tracksDatabase)
+        , mConnectionName(connectionName)
+        , mDatabaseFileName(databaseFileName)
+        , mSelectAlbumQuery(mTracksDatabase)
+        , mSelectTrackQuery(mTracksDatabase)
+        , mSelectAlbumIdFromTitleQuery(mTracksDatabase)
+        , mInsertAlbumQuery(mTracksDatabase)
+        , mSelectTrackIdFromTitleAlbumIdArtistQuery(mTracksDatabase)
+        , mInsertTrackQuery(mTracksDatabase)
+        , mSelectTracksFromArtist(mTracksDatabase)
+        , mSelectTracksFromGenre(mTracksDatabase)
+        , mSelectTrackFromIdQuery(mTracksDatabase)
+        , mSelectRadioFromIdQuery(mTracksDatabase)
+        , mSelectCountAlbumsForArtistQuery(mTracksDatabase)
+        , mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery(mTracksDatabase)
+        , mSelectAllAlbumsFromArtistQuery(mTracksDatabase)
+        , mSelectAllArtistsQuery(mTracksDatabase)
+        , mInsertArtistsQuery(mTracksDatabase)
+        , mSelectArtistByNameQuery(mTracksDatabase)
+        , mSelectArtistQuery(mTracksDatabase)
+        , mUpdateTrackStartedStatistics(mTracksDatabase)
+        , mUpdateTrackFinishedStatistics(mTracksDatabase)
+        , mRemoveTrackQuery(mTracksDatabase)
+        , mRemoveAlbumQuery(mTracksDatabase)
+        , mRemoveArtistQuery(mTracksDatabase)
+        , mSelectAllTracksQuery(mTracksDatabase)
+        , mSelectAllRadiosQuery(mTracksDatabase)
+        , mInsertTrackMapping(mTracksDatabase)
+        , mUpdateTrackFirstPlayStatistics(mTracksDatabase)
+        , mInsertMusicSource(mTracksDatabase)
+        , mSelectMusicSource(mTracksDatabase)
+        , mUpdateTrackPriority(mTracksDatabase)
+        , mUpdateTrackFileModifiedTime(mTracksDatabase)
+        , mSelectTracksMapping(mTracksDatabase)
+        , mSelectTracksMappingPriority(mTracksDatabase)
+        , mSelectRadioIdFromHttpAddress(mTracksDatabase)
+        , mUpdateAlbumArtUriFromAlbumIdQuery(mTracksDatabase)
+        , mSelectUpToFourLatestCoversFromArtistNameQuery(mTracksDatabase)
+        , mSelectTracksMappingPriorityByTrackId(mTracksDatabase)
+        , mSelectAlbumIdsFromArtist(mTracksDatabase)
+        , mSelectAllTrackFilesQuery(mTracksDatabase)
+        , mRemoveTracksMappingFromSource(mTracksDatabase)
+        , mRemoveTracksMapping(mTracksDatabase)
+        , mSelectTracksWithoutMappingQuery(mTracksDatabase)
+        , mSelectAlbumIdFromTitleAndArtistQuery(mTracksDatabase)
+        , mSelectAlbumIdFromTitleWithoutArtistQuery(mTracksDatabase)
+        , mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery(mTracksDatabase)
+        , mSelectAlbumArtUriFromAlbumIdQuery(mTracksDatabase)
+        , mInsertComposerQuery(mTracksDatabase)
+        , mSelectComposerByNameQuery(mTracksDatabase)
+        , mSelectComposerQuery(mTracksDatabase)
+        , mInsertLyricistQuery(mTracksDatabase)
+        , mSelectLyricistByNameQuery(mTracksDatabase)
+        , mSelectLyricistQuery(mTracksDatabase)
+        , mInsertGenreQuery(mTracksDatabase)
+        , mSelectGenreByNameQuery(mTracksDatabase)
+        , mSelectGenreQuery(mTracksDatabase)
+        , mSelectAllTracksShortQuery(mTracksDatabase)
+        , mSelectAllAlbumsShortQuery(mTracksDatabase)
+        , mSelectAllComposersQuery(mTracksDatabase)
+        , mSelectAllLyricistsQuery(mTracksDatabase)
+        , mSelectCountAlbumsForComposerQuery(mTracksDatabase)
+        , mSelectCountAlbumsForLyricistQuery(mTracksDatabase)
+        , mSelectAllGenresQuery(mTracksDatabase)
+        , mSelectGenreForArtistQuery(mTracksDatabase)
+        , mSelectGenreForAlbumQuery(mTracksDatabase)
+        , mUpdateTrackQuery(mTracksDatabase)
+        , mUpdateAlbumArtistQuery(mTracksDatabase)
+        , mUpdateRadioQuery(mTracksDatabase)
+        , mUpdateAlbumArtistInTracksQuery(mTracksDatabase)
+        , mQueryMaximumTrackIdQuery(mTracksDatabase)
+        , mQueryMaximumAlbumIdQuery(mTracksDatabase)
+        , mQueryMaximumArtistIdQuery(mTracksDatabase)
+        , mQueryMaximumLyricistIdQuery(mTracksDatabase)
+        , mQueryMaximumComposerIdQuery(mTracksDatabase)
+        , mQueryMaximumGenreIdQuery(mTracksDatabase)
+        , mSelectAllArtistsWithGenreFilterQuery(mTracksDatabase)
+        , mSelectAllAlbumsShortWithGenreArtistFilterQuery(mTracksDatabase)
+        , mSelectAllAlbumsShortWithArtistFilterQuery(mTracksDatabase)
+        , mSelectAllRecentlyPlayedTracksQuery(mTracksDatabase)
+        , mSelectAllFrequentlyPlayedTracksQuery(mTracksDatabase)
+        , mClearTracksDataTable(mTracksDatabase)
+        , mClearTracksTable(mTracksDatabase)
+        , mClearAlbumsTable(mTracksDatabase)
+        , mClearArtistsTable(mTracksDatabase)
+        , mClearComposerTable(mTracksDatabase)
+        , mClearGenreTable(mTracksDatabase)
+        , mClearLyricistTable(mTracksDatabase)
+        , mArtistMatchGenreQuery(mTracksDatabase)
+        , mSelectTrackIdQuery(mTracksDatabase)
+        , mInsertRadioQuery(mTracksDatabase)
+        , mDeleteRadioQuery(mTracksDatabase)
+        , mSelectTrackFromIdAndUrlQuery(mTracksDatabase)
+        , mUpdateDatabaseVersionQuery(mTracksDatabase)
+        , mSelectDatabaseVersionQuery(mTracksDatabase)
+        , mArtistHasTracksQuery(mTracksDatabase)
     {
     }
 
@@ -361,6 +404,8 @@ public:
 
     QSqlQuery mSelectDatabaseVersionQuery;
 
+    QSqlQuery mArtistHasTracksQuery;
+
     QSet<qulonglong> mModifiedTrackIds;
 
     QSet<qulonglong> mModifiedAlbumIds;
@@ -372,6 +417,10 @@ public:
     QSet<qulonglong> mInsertedAlbums;
 
     QSet<qulonglong> mInsertedArtists;
+
+    QSet<qulonglong> mPossiblyRemovedArtistIds;
+
+    QSet<qulonglong> mRemovedArtistIds;
 
     qulonglong mAlbumId = 1;
 
@@ -1089,6 +1138,8 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
         }
     }
 
+    pruneArtists();
+
     if (!d->mInsertedArtists.isEmpty()) {
         DataTypes::ListArtistDataType newArtists;
 
@@ -1137,6 +1188,8 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
         Q_EMIT finishInsertingTracksList();
         return;
     }
+
+    emitTrackerChanges();
     Q_EMIT finishInsertingTracksList();
 }
 
@@ -1152,20 +1205,15 @@ void DatabaseInterface::removeTracksList(const QList<QUrl> &removedTracks)
 
     internalRemoveTracksList(removedTracks);
 
+    pruneArtists();
+
     transactionResult = finishTransaction();
     if (!transactionResult) {
         Q_EMIT finishRemovingTracksList();
         return;
     }
 
-    if (!d->mInsertedArtists.isEmpty()) {
-        DataTypes::ListArtistDataType newArtists;
-        for (auto newArtistId : std::as_const(d->mInsertedArtists)) {
-            newArtists.push_back(internalOneArtistPartialData(newArtistId));
-        }
-        Q_EMIT artistsAdded(newArtists);
-    }
-
+    emitTrackerChanges();
     Q_EMIT finishRemovingTracksList();
 }
 
@@ -6504,6 +6552,25 @@ void DatabaseInterface::initDataQueries()
         }
     }
 
+    {
+        const auto artistHasTracks = QStringLiteral(
+            "SELECT EXISTS(SELECT 1 "
+            "FROM `Tracks` "
+            "INNER JOIN `Artists` artists on "
+            "(`ArtistName` = artists.`Name` "
+            "OR `AlbumArtistName` = artists.`Name`) "
+            "WHERE artists.`ID` = :artistId)");
+
+        const auto result = prepareQuery(d->mArtistHasTracksQuery, artistHasTracks);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
     finishTransaction();
 
     d->mInitFinished = true;
@@ -6518,6 +6585,17 @@ void DatabaseInterface::initChangesTrackers()
     d->mInsertedTracks.clear();
     d->mInsertedAlbums.clear();
     d->mInsertedArtists.clear();
+    d->mPossiblyRemovedArtistIds.clear();
+    d->mRemovedArtistIds.clear();
+}
+
+void DatabaseInterface::emitTrackerChanges()
+{
+    if (!d->mRemovedArtistIds.isEmpty()) {
+        for (const auto removedArtistId : std::as_const(d->mRemovedArtistIds)) {
+            Q_EMIT artistRemoved(removedArtistId);
+        }
+    }
 }
 
 void DatabaseInterface::recordModifiedTrack(qulonglong trackId)
@@ -7010,6 +7088,13 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
             }
         }
 
+        if (oldTrack.artist() != newTrack.artist() && oldTrack.artist() != newTrack.albumArtist()) {
+            d->mPossiblyRemovedArtistIds.insert(internalArtistIdFromName(oldTrack.artist()));
+        }
+        if (oldTrack.albumArtist() != oldTrack.artist() && oldTrack.albumArtist() != newTrack.artist() && oldTrack.artist() != newTrack.albumArtist()) {
+            d->mPossiblyRemovedArtistIds.insert(internalArtistIdFromName(oldTrack.albumArtist()));
+        }
+
         isInserted = false;
 
         return resultId;
@@ -7235,18 +7320,15 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
 
         const auto &trackPath = oneRemovedTrack.resourceURI().toString(currentOptions);
         const auto &modifiedAlbumId = internalAlbumIdFromTitleAndArtist(oneRemovedTrack.album(), oneRemovedTrack.albumArtist(), trackPath);
-        const auto &allTracksFromArtist = internalTracksFromAuthor(oneRemovedTrack.artist());
-        const auto &allAlbumsFromArtist = internalAlbumIdsFromAuthor(oneRemovedTrack.artist());
-        const auto &removedArtistId = internalArtistIdFromName(oneRemovedTrack.artist());
 
         if (modifiedAlbumId) {
             recordModifiedAlbum(modifiedAlbumId);
             modifiedAlbums.insert(modifiedAlbumId);
         }
 
-        if (removedArtistId != 0 && allTracksFromArtist.isEmpty() && allAlbumsFromArtist.isEmpty()) {
-            removeArtistInDatabase(removedArtistId);
-            Q_EMIT artistRemoved(removedArtistId);
+        d->mPossiblyRemovedArtistIds.insert(internalArtistIdFromName(oneRemovedTrack.artist()));
+        if (oneRemovedTrack.albumArtist() != oneRemovedTrack.artist()) {
+            d->mPossiblyRemovedArtistIds.insert(internalArtistIdFromName(oneRemovedTrack.albumArtist()));
         }
 
         d->mRemoveTracksMapping.bindValue(QStringLiteral(":fileName"), removedTrackFileName.toString());
@@ -7283,15 +7365,6 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
         } else {
             removeAlbumInDatabase(modifiedAlbumId);
             Q_EMIT albumRemoved(modifiedAlbumId);
-
-            const auto &allTracksFromArtist = internalTracksFromAuthor(modifiedAlbumData[DataTypes::AlbumDataType::key_type::ArtistRole].toString());
-            const auto &allAlbumsFromArtist = internalAlbumIdsFromAuthor(modifiedAlbumData[DataTypes::AlbumDataType::key_type::ArtistRole].toString());
-            const auto &removedArtistId = internalArtistIdFromName(modifiedAlbumData[DataTypes::AlbumDataType::key_type::ArtistRole].toString());
-
-            if (removedArtistId != 0 && allTracksFromArtist.isEmpty() && allAlbumsFromArtist.isEmpty()) {
-                removeArtistInDatabase(removedArtistId);
-                Q_EMIT artistRemoved(removedArtistId);
-            }
         }
     }
 }
@@ -8683,6 +8756,48 @@ void DatabaseInterface::updateTrackFinishedStatistics(const QUrl &fileName, cons
     }
 
     d->mUpdateTrackFirstPlayStatistics.finish();
+}
+
+bool DatabaseInterface::execHasRowQuery(QSqlQuery &query)
+{
+    if (!execQuery(query) || !query.isActive()) {
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::execHasRowQuery" << query.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::execHasRowQuery" << query.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::execHasRowQuery" << query.lastError();
+
+        Q_EMIT databaseError();
+
+        query.finish();
+
+        return false;
+    }
+
+    bool result = false;
+    if (query.next()) {
+        result = query.value(0).toBool();
+    }
+    query.finish();
+    return result;
+}
+
+bool DatabaseInterface::artistHasTracks(qulonglong artistId)
+{
+    d->mArtistHasTracksQuery.bindValue(u":artistId"_s, artistId);
+    return execHasRowQuery(d->mArtistHasTracksQuery);
+}
+
+void DatabaseInterface::pruneArtists()
+{
+    // Remove invalid ID
+    d->mPossiblyRemovedArtistIds.remove(0);
+
+    for (const auto artistId : d->mPossiblyRemovedArtistIds) {
+        if (!artistHasTracks(artistId)) {
+            removeArtistInDatabase(artistId);
+            d->mRemovedArtistIds.insert(artistId);
+        }
+    }
+    d->mPossiblyRemovedArtistIds.clear();
 }
 
 #include "moc_databaseinterface.cpp"

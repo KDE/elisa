@@ -229,6 +229,8 @@ private:
 
     void initChangesTrackers();
 
+    void emitTrackerChanges();
+
     void recordModifiedTrack(qulonglong trackId);
 
     void recordModifiedAlbum(qulonglong albumId);
@@ -351,6 +353,15 @@ private:
     void internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack, const QHash<QString, QUrl> &covers);
 
     void internalInsertOneRadio(const DataTypes::TrackDataType &oneTrack);
+
+    /**
+     * Execute a query that checks whether there is at least 1 matching row
+     */
+    bool execHasRowQuery(QSqlQuery &query);
+
+    bool artistHasTracks(qulonglong artistId);
+
+    void pruneArtists();
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

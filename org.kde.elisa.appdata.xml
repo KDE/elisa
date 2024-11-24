@@ -66,15 +66,20 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="bg">Възпроизвеждане на локални музикални файлове и слушане на онлайн радиостанции</summary>
   <summary xml:lang="ca">Reproduïu música local i escolteu ràdio en línia</summary>
   <summary xml:lang="ca-valencia">Reproduïu música local i escolteu ràdio en línia</summary>
+  <summary xml:lang="en-GB">Play local music and listen to online radio</summary>
+  <summary xml:lang="es">Reproduzca música en local y escuche radios en línea</summary>
   <summary xml:lang="eu">Musika lokala jotzea eta lerroko irrati-kateak entzutea</summary>
+  <summary xml:lang="fr">Lire de la musique en local et écouter des stations de radios en ligne</summary>
   <summary xml:lang="he">לנגן מוזיקה מקומית ולהאזין לרדיו מקוון</summary>
   <summary xml:lang="ia">Reproduce musica local e ascolta stationes radio in linea</summary>
   <summary xml:lang="ka">დაუკარით მუსიკა და მოუსმინეთ რადიოსადგურებს ინტერნეტში</summary>
   <summary xml:lang="nl">Speel lokaal muziek en luister naar online radio</summary>
+  <summary xml:lang="pl">Odtwarzaj muzykę lokalnie i słuchaj radia z sieci</summary>
   <summary xml:lang="sl">Predvajajte glasbo in poslušajte spletni radio</summary>
   <summary xml:lang="tr">Kendi müziğinizi çalın ve çevrimiçi radyo dinleyin</summary>
   <summary xml:lang="uk">Відтворення музичних творів з комп'ютера та прослуховування інтернет-радіостанцій</summary>
   <summary xml:lang="x-test">xxPlay local music and listen to online radioxx</summary>
+  <summary xml:lang="zh-CN">播放本地音乐并收听在线广播</summary>
   <description>
     <p>The Elisa music player is developed by the KDE community and strives to be simple and pleasant to use.</p>
     <p xml:lang="ar">طور مشغل الصوتيات إليسا بواسطة مجتمع كيدي ويسعى جاهداً ليكون سهل الاستخدام وممتعًا.</p>

@@ -325,17 +325,13 @@ public Q_SLOTS:
 
     void genresAdded(const DataTypes::ListGenreDataType &newData);
 
-    void genreRemoved(qulonglong removedDatabaseId);
-
     void artistsAdded(const DataTypes::ListArtistDataType &newData);
-
-    void artistRemoved(qulonglong removedDatabaseId);
 
     void albumsAdded(const DataTypes::ListAlbumDataType &newData);
 
-    void albumRemoved(qulonglong removedDatabaseId);
-
     void albumModified(const DataTypes::AlbumDataType &modifiedAlbum);
+
+    void databaseEntryRemoved(qulonglong removedDatabaseId, ElisaUtils::PlayListEntryType entryType);
 
     void cleanedDatabase();
 

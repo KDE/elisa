@@ -325,6 +325,8 @@ public Q_SLOTS:
 
     void genresAdded(const DataTypes::ListGenreDataType &newData);
 
+    void genreRemoved(qulonglong removedDatabaseId);
+
     void artistsAdded(const DataTypes::ListArtistDataType &newData);
 
     void artistRemoved(qulonglong removedDatabaseId);

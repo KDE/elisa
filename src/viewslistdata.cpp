@@ -255,6 +255,24 @@ void ViewsListData::genresAdded(const DataTypes::ListGenreDataType &newData)
     Q_EMIT dataAdded();
 }
 
+void ViewsListData::genreRemoved(qulonglong removedDatabaseId)
+{
+    if (d->mEmbeddedCategory != ElisaUtils::Genre) {
+        return;
+    }
+
+    for (int i = 0; i < d->mViewsParameters.count(); ++i) {
+        const auto &data = d->mViewsParameters[i];
+
+        if (data.mDataFilter.databaseId() == removedDatabaseId) {
+            Q_EMIT dataAboutToBeRemoved(i, i);
+            d->mViewsParameters.removeAt(i);
+            Q_EMIT dataRemoved();
+            break;
+        }
+    }
+}
+
 void ViewsListData::artistsAdded(const DataTypes::ListArtistDataType &newData)
 {
     if (d->mEmbeddedCategory != ElisaUtils::Artist) {
@@ -454,6 +472,7 @@ void ViewsListData::setDatabase(DatabaseInterface *aDatabase)
                 this, &ViewsListData::genresAdded);
         connect(d->mDatabase, &DatabaseInterface::genresAdded,
                 this, &ViewsListData::genresAdded);
+        connect(d->mDatabase, &DatabaseInterface::genreRemoved, this, &ViewsListData::genreRemoved);
         connect(d->mDatabase, &DatabaseInterface::artistsAdded,
                 this, &ViewsListData::artistsAdded);
         connect(d->mDatabase, &DatabaseInterface::artistRemoved,

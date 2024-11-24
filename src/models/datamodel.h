@@ -120,6 +120,8 @@ public Q_SLOTS:
 
     void genresAdded(DataModel::ListGenreDataType newData);
 
+    void genreRemoved(qulonglong removedDatabaseId);
+
     void artistsAdded(DataModel::ListArtistDataType newData);
 
     void artistRemoved(qulonglong removedDatabaseId);

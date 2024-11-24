@@ -71,6 +71,8 @@ Q_SIGNALS:
 
     void genresAdded(const ModelDataLoader::ListGenreDataType &newData);
 
+    void genreRemoved(qulonglong removedDatabaseId);
+
     void artistsAdded(const ModelDataLoader::ListArtistDataType &newData);
 
     void artistRemoved(qulonglong removedDatabaseId);

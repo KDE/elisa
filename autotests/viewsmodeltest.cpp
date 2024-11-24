@@ -203,11 +203,11 @@ private Q_SLOTS:
 
         QCOMPARE(beginInsertRowsSpy.count(), 8);
         QCOMPARE(endInsertRowsSpy.count(), 8);
-        QCOMPARE(beginRemoveRowsSpy.count(), 0);
-        QCOMPARE(endRemoveRowsSpy.count(), 0);
+        QCOMPARE(beginRemoveRowsSpy.count(), 1);
+        QCOMPARE(endRemoveRowsSpy.count(), 1);
         QCOMPARE(dataChangedSpy.count(), 0);
-        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 8);
-        QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 8);
+        QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews + 7);
+        QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1 + 7);
 
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(0, 0), Qt::DisplayRole), QStringLiteral("Now Playing"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(1, 0), Qt::DisplayRole), QStringLiteral("Recently Played"));
@@ -224,15 +224,14 @@ private Q_SLOTS:
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(12, 0), Qt::DisplayRole), QStringLiteral("genre4"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(13, 0), Qt::DisplayRole), QStringLiteral("genre5"));
         QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(14, 0), Qt::DisplayRole), QStringLiteral("genre6"));
-        QCOMPARE(viewsProxyModel.data(viewsProxyModel.index(15, 0), Qt::DisplayRole), QStringLiteral("genre7"));
 
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Unknown);
         viewsProxyModel.setEmbeddedCategory(ElisaUtils::Unknown);
 
         QCOMPARE(beginInsertRowsSpy.count(), 8);
         QCOMPARE(endInsertRowsSpy.count(), 8);
-        QCOMPARE(beginRemoveRowsSpy.count(),1);
-        QCOMPARE(endRemoveRowsSpy.count(), 1);
+        QCOMPARE(beginRemoveRowsSpy.count(), 2);
+        QCOMPARE(endRemoveRowsSpy.count(), 2);
         QCOMPARE(dataChangedSpy.count(), 0);
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);

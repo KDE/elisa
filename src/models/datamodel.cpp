@@ -536,6 +536,7 @@ void DataModel::connectModel(DatabaseInterface *database)
             this, &DataModel::genresAdded);
     connect(d->mDataLoader, &ModelDataLoader::genresAdded,
             this, &DataModel::genresAdded);
+    connect(d->mDataLoader, &ModelDataLoader::genreRemoved, this, &DataModel::genreRemoved);
     connect(d->mDataLoader, &ModelDataLoader::albumsAdded,
             this, &DataModel::albumsAdded);
     connect(d->mDataLoader, &ModelDataLoader::albumModified,
@@ -833,6 +834,29 @@ void DataModel::genresAdded(DataModel::ListGenreDataType newData)
         d->mAllGenreData.append(newData);
         endInsertRows();
     }
+}
+
+void DataModel::genreRemoved(qulonglong removedDatabaseId)
+{
+    if (d->mModelType != ElisaUtils::Genre) {
+        return;
+    }
+
+    const auto removedDataIterator = std::find_if(d->mAllGenreData.cbegin(), d->mAllGenreData.cend(), [removedDatabaseId](const auto &genre) {
+        return genre.databaseId() == removedDatabaseId;
+    });
+
+    if (removedDataIterator == d->mAllGenreData.cend()) {
+        return;
+    }
+
+    int dataIndex = removedDataIterator - d->mAllGenreData.cbegin();
+
+    beginRemoveRows({}, dataIndex, dataIndex);
+
+    d->mAllGenreData.erase(removedDataIterator);
+
+    endRemoveRows();
 }
 
 void DataModel::artistsAdded(DataModel::ListArtistDataType newData)

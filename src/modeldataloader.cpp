@@ -48,6 +48,7 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
 
     connect(database, &DatabaseInterface::genresAdded,
             this, &ModelDataLoader::genresAdded);
+    connect(database, &DatabaseInterface::genreRemoved, this, &ModelDataLoader::genreRemoved);
     connect(database, &DatabaseInterface::albumsAdded,
             this, &ModelDataLoader::databaseAlbumsAdded);
     connect(database, &DatabaseInterface::albumModified,

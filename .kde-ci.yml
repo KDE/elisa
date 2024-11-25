@@ -3,7 +3,7 @@
 
 Dependencies:
 
-- 'on': ['Linux/Qt6', 'FreeBSD/Qt6', 'Windows/Qt6', 'Android/Qt6']
+- 'on': ['Linux', 'FreeBSD', 'Windows', 'Android']
   'require':
     'frameworks/extra-cmake-modules': '@latest-kf6'
     'frameworks/kcoreaddons': '@latest-kf6'
@@ -17,14 +17,14 @@ Dependencies:
     'frameworks/kconfigwidgets': '@latest-kf6'
     'frameworks/kcodecs' : '@latest-kf6'
 
-- 'on': ['Linux/Qt6', 'FreeBSD/Qt6', 'Windows/Qt6']
+- 'on': ['Linux', 'FreeBSD', 'Windows']
   'require':
     'frameworks/kdoctools': '@latest-kf6'
     'frameworks/kio': '@latest-kf6'
     'frameworks/kfilemetadata': '@latest-kf6'
     'frameworks/qqc2-desktop-style': '@latest-kf6'
 
-- 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
+- 'on': ['Linux', 'FreeBSD']
   'require':
     'frameworks/kdbusaddons': '@latest-kf6'
 

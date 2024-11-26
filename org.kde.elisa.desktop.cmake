@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=Qt;KDE;Audio;AudioVideo
-Comment=
+Comment=Play local music and listen to online radio
 Exec=elisa %U
 GenericName=Music Player
 GenericName[ar]=مشغّل صوتي إليسّا

@@ -84,6 +84,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="uk">Відтворення музичних творів з комп'ютера та прослуховування інтернет-радіостанцій</summary>
   <summary xml:lang="x-test">xxPlay local music and listen to online radioxx</summary>
   <summary xml:lang="zh-CN">播放本地音乐并收听在线广播</summary>
+  <summary xml:lang="zh-TW">播放本機音樂或聆聽線上廣播</summary>
   <description>
     <p>The Elisa music player is developed by the KDE community and strives to be simple and pleasant to use.</p>
     <p xml:lang="ar">طور مشغل الصوتيات إليسا بواسطة مجتمع كيدي ويسعى جاهداً ليكون سهل الاستخدام وممتعًا.</p>

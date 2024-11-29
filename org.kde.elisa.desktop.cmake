@@ -1,15 +1,20 @@
 [Desktop Entry]
 Categories=Qt;KDE;Audio;AudioVideo
 Comment=Play local music and listen to online radio
+Comment[ar]=شغل الصوتيات المحلية واستمع لمحطات الإذاعة على الإنترنت
+Comment[bg]=Възпроизвеждане на локални музикални файлове и слушане на онлайн радиостанции
 Comment[ca]=Reproduïu música local i escolteu ràdio en línia
 Comment[ca@valencia]=Reproduïu música local i escolteu ràdio en línia
+Comment[eu]=Musika lokala jotzea eta irratiari lerroan entzutea
 Comment[ka]=დაუკარით ადგილობრივი მუსიკა და მოუსმინეთ ონლაინრადიოს
+Comment[ko]=로컬 음악 재생 및 온라인 라디오 듣기
 Comment[nl]=Speel lokaal muziek en luister naar online radio
 Comment[sl]=Predvaja lokalno glasbo in posluša spletni radio
 Comment[sv]=Spela lokal musik och lyssna på nätradiostationer
 Comment[tr]=Yerel müziğinizi çalın ve çevrimiçi radyo dinleyin
 Comment[uk]=Відтворення музики з диска і прослуховування інтернет-радіо
 Comment[x-test]=xxPlay local music and listen to online radioxx
+Comment[zh_CN]=播放本地音乐并收听在线广播
 Exec=elisa %U
 GenericName=Music Player
 GenericName[ar]=مشغّل صوتي إليسّا

@@ -63,6 +63,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="zh-CN">Elisa 音乐播放器</name>
   <name xml:lang="zh-TW">Elisa</name>
   <summary>Play local music and listen to online radio</summary>
+  <summary xml:lang="ar">شغل الصوتيات المحلية واستمع لمحطات الإذاعة على الإنترنت</summary>
   <summary xml:lang="bg">Възпроизвеждане на локални музикални файлове и слушане на онлайн радиостанции</summary>
   <summary xml:lang="ca">Reproduïu música local i escolteu ràdio en línia</summary>
   <summary xml:lang="ca-valencia">Reproduïu música local i escolteu ràdio en línia</summary>
@@ -74,6 +75,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="ia">Reproduce musica local e ascolta stationes radio in linea</summary>
   <summary xml:lang="it">Riproduci musica locale e ascolta stazioni radio online</summary>
   <summary xml:lang="ka">დაუკარით მუსიკა და მოუსმინეთ რადიოსადგურებს ინტერნეტში</summary>
+  <summary xml:lang="ko">로컬 음악 재생 및 온라인 라디오 듣기</summary>
   <summary xml:lang="lt">Atkurti vietinę muziką ir klausytis internetinio radijo</summary>
   <summary xml:lang="nl">Speel lokaal muziek en luister naar online radio</summary>
   <summary xml:lang="pl">Odtwarzaj muzykę lokalnie i słuchaj radia z sieci</summary>

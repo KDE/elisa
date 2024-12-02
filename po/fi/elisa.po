@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Tommi Nieminen <translator@legisign.org>, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# SPDX-FileCopyrightText: 2018, 2019, 2020, 2021, 2022, 2023, 2024 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@iki.fi>, 2022.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-27 00:39+0000\n"
-"PO-Revision-Date: 2024-02-23 19:40+0200\n"
+"PO-Revision-Date: 2024-10-19 10:07+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -372,13 +372,12 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Soita nyt ja korvaa soittolista"
 
+# *** TARKISTA: Epäselvä. Voi tarkoittaa myös ”soita seuraava” (eli keskeytä nykyinen, siirry seuraavaan)
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Soittokertoja"
+msgstr "Soita seuraavaksi"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
 #, kde-format
@@ -544,17 +543,13 @@ msgid "Undo"
 msgstr "Kumoa"
 
 #: qml/ElisaMainWindow.qml:98
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "Näytä soittolista"
 
 #: qml/ElisaMainWindow.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Piilota soittolista"
@@ -620,45 +615,35 @@ msgstr "Siirry koko näytölle"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "Poistu biletilasta"
 
 #: qml/MediaPlayerControl.qml:99
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr "Vaihda biletilaa"
+msgstr "Vaihda biletilaan"
 
 #: qml/MediaPlayerControl.qml:107
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Hyppää taaksepäin"
 
 #: qml/MediaPlayerControl.qml:116
-#, fuzzy, kde-format
-#| msgctxt "@action:button Pause any media that is playing"
-#| msgid "Pause"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Tauko"
 
 #: qml/MediaPlayerControl.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@action:button Start playing media"
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Soita"
 
 #: qml/MediaPlayerControl.qml:125
-#, fuzzy, kde-format
-#| msgctxt "@action:button skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Hyppää eteenpäin"
@@ -667,46 +652,40 @@ msgstr "Hyppää eteenpäin"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "Poista vaimennus"
 
 #: qml/MediaPlayerControl.qml:152
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "Vaimenna"
 
 #: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "Nyt: ei sekoitusta"
 
 #: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Current: Don't repeat tracks"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "Nykyinen: Älä toista kappaleita"
+msgstr "Nyt: sekoita kappaleet"
 
 #: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "Nyt: sekoita albumit"
 
 #: qml/MediaPlayerControl.qml:204 qml/mobile/MobileTrackPlayer.qml:242
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "Kappaleet"
+msgstr "Kappale"
 
 #: qml/MediaPlayerControl.qml:208 qml/mobile/MobileTrackPlayer.qml:246
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Albumi"
@@ -749,9 +728,7 @@ msgid "One"
 msgstr "Yksi"
 
 #: qml/MediaPlayerControl.qml:326
-#, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "Sovellusvalikko"
@@ -828,24 +805,18 @@ msgid "Your playlist is empty."
 msgstr "Soittolista on tyhjä."
 
 #: qml/MediaPlayListView.qml:470 qml/MediaPlayListView.qml:479
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] "%1 jäljellä"
-msgstr[1] "%1 jäljellä"
+msgstr[0] "%1 jäljellä %2 kappaleesta"
+msgstr[1] "%1 jäljellä %2 kappaleesta"
 
 #: qml/MediaPlayListView.qml:471
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
-msgstr "%1 jäljellä"
+msgstr "%1 jäljellä, yhteensä %2"
 
 #: qml/MediaPlayListView.qml:472 qml/MediaPlayListView.qml:481
 #: qml/MediaPlayListView.qml:490
@@ -854,33 +825,24 @@ msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
 "time remaining"
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
-msgstr "%1 jäljellä"
+msgstr "%1/%2 jäljellä"
 
 #: qml/MediaPlayListView.qml:488
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
-msgstr[0] "%1 kappale"
-msgstr[1] "%1 kappaletta"
+msgstr[0] "%1/%2 kappaletta"
+msgstr[1] "%1/%2 kappaletta"
 
 #: qml/MediaPlayListView.qml:497
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -892,8 +854,8 @@ msgstr[1] "%1 kappaletta"
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 radioasema"
+msgstr[1] "%1 radioasemaa"
 
 #: qml/MediaPlayListView.qml:499
 #, kde-format
@@ -901,31 +863,25 @@ msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
 "radios"
 msgid "%1, %2 total"
-msgstr ""
+msgstr "%1, kaikkiaan %2"
 
 #: qml/MediaPlayListView.qml:502
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
 "duration formatted like hh:mm:ss or mm:ss"
 msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
-msgstr[0] "%1 kappale"
-msgstr[1] "%1 kappaletta"
+msgstr[0] "%1 kappale, kesto %2"
+msgstr[1] "%1 kappaletta, kesto %2"
 
 #: qml/MediaPlayListView.qml:504
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
 msgid "1 track, %1min remaining"
-msgstr "%1 jäljellä"
+msgstr "%1 kappale, %1 min jäljellä"
 
 #: qml/MediaTrackMetadataDelegate.qml:139 qml/PlayListEntry.qml:117
 #: qml/TrackBrowserDelegate.qml:99
@@ -1177,25 +1133,19 @@ msgid "Shuffle"
 msgstr "Sekoita"
 
 #: qml/NativeGlobalMenu.qml:115
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox Title of the view of all tracks"
-#| msgid "Tracks"
+#, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
-msgstr "Kappaleet"
+msgstr "Kappale"
 
 #: qml/NativeGlobalMenu.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@label musical album"
-#| msgid "Album"
+#, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "Albumi"
 
 #: qml/NativeGlobalMenu.qml:123
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu shuffle mode is turned off"
-#| msgid "Off"
+#, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "Ei käytössä"
@@ -1245,18 +1195,16 @@ msgid "Sort"
 msgstr "Lajittele"
 
 #: qml/NavigationActionBar.qml:105
-#, fuzzy, kde-format
-#| msgctxt "Title of the file radios browser view"
-#| msgid "Radios"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr "Radiot"
+msgstr "Lisää radioasema"
 
 #: qml/NavigationActionBar.qml:106
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr ""
+msgstr "Lisää radioasema"
 
 #: qml/NavigationActionBar.qml:118
 #, kde-format
@@ -1265,44 +1213,36 @@ msgid "Add to Playlist"
 msgstr "Lisää soittolistaan"
 
 #: qml/NavigationActionBar.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Lisää soittolistaan"
 
 #: qml/NavigationActionBar.qml:132
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Soita nyt ja korvaa soittolista"
 
 #: qml/NavigationActionBar.qml:133
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Soita nyt ja korvaa soittolista"
 
+# *** TARKISTA: Epäselvä. Voi tarkoittaa myös ”soita seuraava” (eli keskeytä nykyinen, siirry seuraavaan)
 #: qml/NavigationActionBar.qml:145
-#, fuzzy, kde-format
-#| msgctxt "Play now current track from play list"
-#| msgid "Play Now"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "Soita nyt"
+msgstr "Soita seuraavaksi"
 
+# *** TARKISTA: Epäselvä. Voi tarkoittaa myös ”soita seuraava” (eli keskeytä nykyinen, siirry seuraavaan)
 #: qml/NavigationActionBar.qml:146
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
-msgstr "Soittokertoja"
+msgstr "Soita seuraavaksi"
 
 #: qml/NavigationActionBar.qml:158
 #, kde-format
@@ -1311,17 +1251,13 @@ msgid "Display Artist"
 msgstr "Näytä artisti"
 
 #: qml/NavigationActionBar.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@action:button navigate to the view for artist of this album"
-#| msgid "Display Artist"
+#, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Näytä artisti"
 
 #: qml/NavigationActionBar.qml:172
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Näytä soittolista"
@@ -1330,29 +1266,25 @@ msgstr "Näytä soittolista"
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "Näytä kuvakeruudukkona"
 
 #: qml/NavigationActionBar.qml:185
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "View details"
+#, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr "Näytä tiedot"
+msgstr "Näytä luettelona"
 
 #: qml/NavigationActionBar.qml:187
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "Näytä kuvakeruudukkona"
 
 #: qml/NavigationActionBar.qml:188
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr "Näytä tiedot"
+msgstr "Näytä luettelona"
 
 #: qml/NavigationActionBar.qml:248
 #, kde-format
@@ -1361,35 +1293,27 @@ msgid "Back"
 msgstr "Takaisin"
 
 #: qml/NavigationActionBar.qml:333
-#, fuzzy, kde-format
-#| msgctxt "@action:button Show filters in the navigation bar"
-#| msgid "Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
-msgstr "Etsi ja suodata"
+msgstr "Näytä haku- ja suodatusrivi"
 
 #: qml/NavigationActionBar.qml:334
-#, fuzzy, kde-format
-#| msgctxt "@action:button Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
-msgstr "Piilota haku ja suodatus"
+msgstr "Piilota haku- ja suodatusrivi"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Etsi albumin nimeä, artistia jne."
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Etsi albumin nimeä, artistia jne."
@@ -1449,20 +1373,16 @@ msgid "Show background on Now Playing page"
 msgstr "Näytä Nyt soi -sivulla tausta"
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
-msgstr "Näytä edistyminen tehtävänhallinnassa"
+msgstr "Näytä tehtävänhallinnassa edistyminen"
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
-msgstr "Pysy käynnissä ilmoitusalueella, kun pääikkuna suljetaan"
+msgstr "Pidä käynnissä ilmoitusalueella, kun pääikkuna suljetaan"
 
 #: qml/SettingsForm.qml:106
 #, kde-format
@@ -1471,12 +1391,10 @@ msgid "Start playing on startup"
 msgstr "Aloita toisto käynnistettäessä"
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Scan for New Music on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
-msgstr "Etsi uutta musiikkia käynnistettäessä"
+msgstr "Etsi käynnistettäessä uutta musiikkia"
 
 #: qml/SettingsForm.qml:136
 #, kde-kuit-format
@@ -1511,9 +1429,7 @@ msgid "Favorite/not favorite"
 msgstr "Suosikki/ei-suosikki"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Color Scheme:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Väriteema:"
@@ -1649,9 +1565,7 @@ msgid "Choose…"
 msgstr "Valitse…"
 
 #: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Valitse kansio"

@@ -16,6 +16,7 @@ Comment[nl]=Speel lokaal muziek en luister naar online radio
 Comment[pl]=Odtwarzaj muzykę lokalnie i słucha radia z sieci
 Comment[sl]=Predvaja lokalno glasbo in posluša spletni radio
 Comment[sv]=Spela lokal musik och lyssna på nätradiostationer
+Comment[ta]=கணினியிலுள்ள பாடல்கள் மட்டுமின்றி இணைய வானொலி நிலையங்களையும் கேட்கலாம்.
 Comment[tr]=Yerel müziğinizi çalın ve çevrimiçi radyo dinleyin
 Comment[uk]=Відтворення музики з диска і прослуховування інтернет-радіо
 Comment[x-test]=xxPlay local music and listen to online radioxx

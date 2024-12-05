@@ -8,6 +8,7 @@ Comment[ca@valencia]=Reproduïu música local i escolteu ràdio en línia
 Comment[es]=Reproduzca música local y escuche radios en línea
 Comment[eu]=Musika lokala jotzea eta irratiari lerroan entzutea
 Comment[fr]=Jouer de la musique locale et écouter la radio en ligne
+Comment[gl]=Reproduza música local e escoite a radio por Internet.
 Comment[he]=השמעת מוזיקה מקומית ולהאזין לרדיו מקוון
 Comment[ia]=Reproduce musica local e ascolta stationes radio in linea
 Comment[it]=Riproduci musica locale e ascolta stazioni radio online

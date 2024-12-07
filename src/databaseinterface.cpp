@@ -412,25 +412,30 @@ public:
 
     QSqlQuery mGenreHasTracksQuery;
 
-    QSet<qulonglong> mModifiedTrackIds;
+    QSet<qulonglong> mInsertedTracks;
+    QSet<qulonglong> mInsertedRadios;
+    QSet<qulonglong> mInsertedAlbums;
+    QSet<qulonglong> mInsertedArtists;
+    QSet<qulonglong> mInsertedGenres;
+    QSet<qulonglong> mInsertedComposers;
+    QSet<qulonglong> mInsertedLyricists;
 
+    QSet<qulonglong> mModifiedTrackIds;
+    QSet<qulonglong> mModifiedRadioIds;
     QSet<qulonglong> mModifiedAlbumIds;
 
-    QSet<qulonglong> mModifiedArtistIds;
-
-    QSet<qulonglong> mInsertedTracks;
-
-    QSet<qulonglong> mInsertedAlbums;
-
-    QSet<qulonglong> mInsertedArtists;
-
     QSet<qulonglong> mPossiblyRemovedArtistIds;
-
-    QSet<qulonglong> mRemovedArtistIds;
-
     QSet<qulonglong> mPossiblyRemovedGenreIds;
+    QSet<qulonglong> mPossiblyRemovedComposerIds;
+    QSet<qulonglong> mPossiblyRemovedLyricistsIds;
 
+    QSet<qulonglong> mRemovedTrackIds;
+    QSet<qulonglong> mRemovedRadioIds;
+    QSet<qulonglong> mRemovedAlbumIds;
+    QSet<qulonglong> mRemovedArtistIds;
     QSet<qulonglong> mRemovedGenreIds;
+    QSet<qulonglong> mRemovedComposerIds;
+    QSet<qulonglong> mRemovedLyricistIds;
 
     qulonglong mAlbumId = 1;
 
@@ -1150,53 +1155,100 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
 
     pruneCollections();
 
-    if (!d->mInsertedArtists.isEmpty()) {
-        DataTypes::ListArtistDataType newArtists;
-
-        for (auto newArtistId : std::as_const(d->mInsertedArtists)) {
-            newArtists.push_back(internalOneArtistPartialData(newArtistId));
-        }
-
-        qCInfo(orgKdeElisaDatabase) << "artistsAdded" << newArtists.size();
-        Q_EMIT artistsAdded(newArtists);
+    DataTypes::ListTrackDataType newTracks;
+    for (auto trackId : std::as_const(d->mInsertedTracks)) {
+        newTracks.push_back(internalOneTrackPartialData(trackId));
+        d->mModifiedTrackIds.remove(trackId);
     }
 
-    if (!d->mInsertedAlbums.isEmpty()) {
-        DataTypes::ListAlbumDataType newAlbums;
-
-        for (auto albumId : std::as_const(d->mInsertedAlbums)) {
-            d->mModifiedAlbumIds.remove(albumId);
-            newAlbums.push_back(internalOneAlbumPartialData(albumId));
-        }
-
-        qCInfo(orgKdeElisaDatabase) << "albumsAdded" << newAlbums.size();
-        Q_EMIT albumsAdded(newAlbums);
+    DataTypes::ListRadioDataType newRadios;
+    for (auto radioId : std::as_const(d->mInsertedRadios)) {
+        newRadios.push_back(internalOneRadioPartialData(radioId));
+        d->mModifiedRadioIds.remove(radioId);
     }
 
-    for (auto albumId : std::as_const(d->mModifiedAlbumIds)) {
-        Q_EMIT albumModified({{DataTypes::DatabaseIdRole, albumId}}, albumId);
+    DataTypes::ListAlbumDataType newAlbums;
+    for (auto albumId : std::as_const(d->mInsertedAlbums)) {
+        newAlbums.push_back(internalOneAlbumPartialData(albumId));
+        d->mModifiedAlbumIds.remove(albumId);
     }
 
-    if (!d->mInsertedTracks.isEmpty()) {
-        DataTypes::ListTrackDataType newTracks;
-
-        for (auto trackId : std::as_const(d->mInsertedTracks)) {
-            newTracks.push_back(internalOneTrackPartialData(trackId));
-            d->mModifiedTrackIds.remove(trackId);
-        }
-
-        qCInfo(orgKdeElisaDatabase) << "tracksAdded" << newTracks.size();
-        Q_EMIT tracksAdded(newTracks);
+    DataTypes::ListArtistDataType newArtists;
+    for (auto newArtistId : std::as_const(d->mInsertedArtists)) {
+        newArtists.push_back(internalOneArtistPartialData(newArtistId));
     }
 
+    DataTypes::ListGenreDataType newGenres;
+    for (auto newGenreId : std::as_const(d->mInsertedGenres)) {
+        newGenres.push_back(internalOneGenrePartialData(newGenreId));
+    }
+
+    DataTypes::ListArtistDataType newComposers;
+    for (auto newComposerId : std::as_const(d->mInsertedComposers)) {
+        newComposers.push_back(internalOneComposerPartialData(newComposerId));
+    }
+
+    DataTypes::ListArtistDataType newLyricists;
+    for (auto newComposerId : std::as_const(d->mInsertedLyricists)) {
+        newLyricists.push_back(internalOneLyricistPartialData(newComposerId));
+    }
+
+    DataTypes::ListTrackDataType modifiedTracks;
     for (auto trackId : std::as_const(d->mModifiedTrackIds)) {
-        Q_EMIT trackModified(internalOneTrackPartialData(trackId));
+        modifiedTracks.push_back(internalOneTrackPartialData(trackId));
+    }
+
+    DataTypes::ListRadioDataType modifiedRadios;
+    for (auto radioId : std::as_const(d->mModifiedRadioIds)) {
+        modifiedRadios.push_back(internalOneRadioPartialData(radioId));
     }
 
     transactionResult = finishTransaction();
     if (!transactionResult) {
         Q_EMIT finishInsertingTracksList();
         return;
+    }
+
+    if (!newArtists.isEmpty()) {
+        qCInfo(orgKdeElisaDatabase) << "artistsAdded" << newArtists.size();
+        Q_EMIT artistsAdded(newArtists);
+    }
+
+    if (!newGenres.isEmpty()) {
+        qCInfo(orgKdeElisaDatabase) << "genresAdded" << newGenres.size();
+        Q_EMIT genresAdded(newGenres);
+    }
+
+    if (!newComposers.isEmpty()) {
+        qCInfo(orgKdeElisaDatabase) << "composersAdded" << newComposers.size();
+        Q_EMIT composersAdded(newComposers);
+    }
+
+    if (!newLyricists.isEmpty()) {
+        qCInfo(orgKdeElisaDatabase) << "lyricistsAdded" << newLyricists.size();
+        Q_EMIT lyricistsAdded(newLyricists);
+    }
+
+    if (!newAlbums.isEmpty()) {
+        qCInfo(orgKdeElisaDatabase) << "albumsAdded" << newAlbums.size();
+        Q_EMIT albumsAdded(newAlbums);
+    }
+
+    if (!newTracks.isEmpty()) {
+        qCInfo(orgKdeElisaDatabase) << "tracksAdded" << newTracks.size();
+        Q_EMIT tracksAdded(newTracks);
+    }
+
+    for (const auto &radio : newRadios) {
+        Q_EMIT radioAdded(radio);
+    }
+
+    for (const auto &track : modifiedTracks) {
+        Q_EMIT trackModified(track);
+    }
+
+    for (const auto &radio : modifiedRadios) {
+        Q_EMIT radioModified(radio);
     }
 
     emitTrackerChanges();
@@ -1236,12 +1288,12 @@ void DatabaseInterface::askRestoredTracks()
 
     auto result = internalAllFileName();
 
-    Q_EMIT restoredTracks(result);
-
     transactionResult = finishTransaction();
     if (!transactionResult) {
         return;
     }
+
+    Q_EMIT restoredTracks(result);
 }
 
 void DatabaseInterface::trackHasStartedPlaying(const QUrl &fileName, const QDateTime &time)
@@ -6624,30 +6676,59 @@ void DatabaseInterface::initDataQueries()
 
 void DatabaseInterface::initChangesTrackers()
 {
-    d->mModifiedTrackIds.clear();
-    d->mModifiedAlbumIds.clear();
-    d->mModifiedArtistIds.clear();
     d->mInsertedTracks.clear();
+    d->mInsertedRadios.clear();
     d->mInsertedAlbums.clear();
     d->mInsertedArtists.clear();
+    d->mInsertedGenres.clear();
+    d->mInsertedComposers.clear();
+    d->mInsertedLyricists.clear();
+
+    d->mModifiedTrackIds.clear();
+    d->mModifiedRadioIds.clear();
+    d->mModifiedAlbumIds.clear();
+
     d->mPossiblyRemovedArtistIds.clear();
-    d->mRemovedArtistIds.clear();
     d->mPossiblyRemovedGenreIds.clear();
+    d->mPossiblyRemovedComposerIds.clear();
+    d->mPossiblyRemovedLyricistsIds.clear();
+
+    d->mRemovedTrackIds.clear();
+    d->mRemovedRadioIds.clear();
+    d->mRemovedAlbumIds.clear();
+    d->mRemovedArtistIds.clear();
     d->mRemovedGenreIds.clear();
+    d->mRemovedComposerIds.clear();
+    d->mRemovedLyricistIds.clear();
 }
 
 void DatabaseInterface::emitTrackerChanges()
 {
-    if (!d->mRemovedArtistIds.isEmpty()) {
-        for (const auto removedArtistId : std::as_const(d->mRemovedArtistIds)) {
-            Q_EMIT artistRemoved(removedArtistId);
-        }
+    d->mModifiedAlbumIds.subtract(d->mRemovedAlbumIds);
+    for (const auto modifiedAlbumId : std::as_const(d->mModifiedAlbumIds)) {
+        Q_EMIT albumModified({{DataTypes::DatabaseIdRole, modifiedAlbumId}}, modifiedAlbumId);
     }
 
-    if (!d->mRemovedGenreIds.isEmpty()) {
-        for (const auto removedGenreId : std::as_const(d->mRemovedGenreIds)) {
-            Q_EMIT genreRemoved(removedGenreId);
-        }
+    for (const auto removedTrackId : std::as_const(d->mRemovedTrackIds)) {
+        Q_EMIT trackRemoved(removedTrackId);
+    }
+    for (const auto removedRadioId : std::as_const(d->mRemovedRadioIds)) {
+        Q_EMIT radioRemoved(removedRadioId);
+    }
+    for (const auto removedAlbumId : std::as_const(d->mRemovedAlbumIds)) {
+        Q_EMIT albumRemoved(removedAlbumId);
+    }
+    for (const auto removedArtistId : std::as_const(d->mRemovedArtistIds)) {
+        Q_EMIT artistRemoved(removedArtistId);
+    }
+    for (const auto removedGenreId : std::as_const(d->mRemovedGenreIds)) {
+        Q_EMIT genreRemoved(removedGenreId);
+    }
+    for (const auto removedComposerId : std::as_const(d->mRemovedComposerIds)) {
+        Q_EMIT composerRemoved(removedComposerId);
+    }
+    for (const auto removedLyricistId : std::as_const(d->mRemovedLyricistIds)) {
+        Q_EMIT lyricistRemoved(removedLyricistId);
     }
 }
 
@@ -6722,13 +6803,9 @@ void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &o
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.lastError();
     } else {
         if (!oneTrack.hasDatabaseId()) {
-            auto radio = internalOneRadioPartialData(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
-
-            Q_EMIT radioAdded(radio);
+            d->mInsertedRadios.insert(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
         } else {
-            auto radio = internalOneRadioPartialData(oneTrack.databaseId());
-
-            Q_EMIT radioModified(radio);
+            d->mModifiedRadioIds.insert(oneTrack.databaseId());
         }
     }
 
@@ -6932,7 +7009,7 @@ qulonglong DatabaseInterface::insertComposer(const QString &name)
 
     d->mInsertComposerQuery.finish();
 
-    Q_EMIT composersAdded(internalAllComposersPartialData());
+    d->mInsertedComposers.insert(result);
 
     return result;
 }
@@ -6974,9 +7051,7 @@ qulonglong DatabaseInterface::insertGenre(const QString &name)
 
     d->mInsertGenreQuery.finish();
 
-    Q_EMIT genresAdded({{{DataTypes::DatabaseIdRole, result},
-                         {DataTypes::TitleRole, name},
-                         {DataTypes::ElementTypeRole, ElisaUtils::Genre}}});
+    d->mInsertedGenres.insert(result);
 
     return result;
 }
@@ -7097,7 +7172,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
                 }
             } else {
                 removeAlbumInDatabase(oldAlbumId);
-                Q_EMIT albumRemoved(oldAlbumId);
+                d->mRemovedAlbumIds.insert(oldAlbumId);
             }
         }
 
@@ -7328,7 +7403,7 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
     for (const auto &removedTrackFileName : removedTracks) {
         auto removedTrackId = internalTrackIdFromFileName(removedTrackFileName);
 
-        Q_EMIT trackRemoved(removedTrackId);
+        d->mRemovedTrackIds.insert(removedTrackId);
 
         auto oneRemovedTrack = internalTrackFromDatabaseId(removedTrackId);
 
@@ -7378,10 +7453,10 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
                 }
             }
 
-            Q_EMIT albumModified({{DataTypes::DatabaseIdRole, modifiedAlbumId}}, modifiedAlbumId);
+            d->mModifiedAlbumIds.insert(modifiedAlbumId);
         } else {
             removeAlbumInDatabase(modifiedAlbumId);
-            Q_EMIT albumRemoved(modifiedAlbumId);
+            d->mRemovedAlbumIds.insert(modifiedAlbumId);
         }
     }
 }
@@ -7537,7 +7612,7 @@ qulonglong DatabaseInterface::insertLyricist(const QString &name)
 
     d->mInsertLyricistQuery.finish();
 
-    Q_EMIT lyricistsAdded(internalAllLyricistsPartialData());
+    d->mInsertedLyricists.insert(result);
 
     return result;
 }
@@ -7572,70 +7647,55 @@ QHash<QUrl, QDateTime> DatabaseInterface::internalAllFileName()
     return allFileNames;
 }
 
-qulonglong DatabaseInterface::internalArtistIdFromName(const QString &name)
+qulonglong DatabaseInterface::internalGenericIdFromName(QSqlQuery &query)
 {
-    auto result = qulonglong(0);
+    qulonglong result = 0;
 
-    if (name.isEmpty()) {
-        return result;
-    }
+    const bool queryResult = execQuery(query);
 
-    d->mSelectArtistByNameQuery.bindValue(QStringLiteral(":name"), name);
-
-    auto queryResult = execQuery(d->mSelectArtistByNameQuery);
-
-    if (!queryResult || !d->mSelectArtistByNameQuery.isSelect() || !d->mSelectArtistByNameQuery.isActive()) {
+    if (!queryResult || !query.isSelect() || !query.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalArtistIdFromName" << d->mSelectArtistByNameQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalArtistIdFromName" << d->mSelectArtistByNameQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalArtistIdFromName" << d->mSelectArtistByNameQuery.lastError();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenericIdFromName" << query.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenericIdFromName" << query.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenericIdFromName" << query.lastError();
 
-        d->mSelectArtistByNameQuery.finish();
+        query.finish();
 
         return result;
     }
 
-    if (d->mSelectArtistByNameQuery.next()) {
-        result = d->mSelectArtistByNameQuery.record().value(0).toULongLong();
+    if (query.next()) {
+        result = query.record().value(0).toULongLong();
     }
 
-    d->mSelectArtistByNameQuery.finish();
+    query.finish();
 
     return result;
 }
 
+qulonglong DatabaseInterface::internalArtistIdFromName(const QString &name)
+{
+    d->mSelectArtistByNameQuery.bindValue(u":name"_s, name);
+    return internalGenericIdFromName(d->mSelectArtistByNameQuery);
+}
+
 qulonglong DatabaseInterface::internalGenreIdFromName(const QString &name)
 {
-    qulonglong result = 0;
+    d->mSelectGenreByNameQuery.bindValue(u":name"_s, name);
+    return internalGenericIdFromName(d->mSelectGenreByNameQuery);
+}
 
-    if (name.isEmpty()) {
-        return result;
-    }
+qulonglong DatabaseInterface::internalComposerIdFromName(const QString &name)
+{
+    d->mSelectComposerByNameQuery.bindValue(u":name"_s, name);
+    return internalGenericIdFromName(d->mSelectComposerByNameQuery);
+}
 
-    d->mSelectGenreByNameQuery.bindValue(QStringLiteral(":name"), name);
-
-    auto queryResult = execQuery(d->mSelectGenreByNameQuery);
-
-    if (!queryResult || !d->mSelectGenreByNameQuery.isSelect() || !d->mSelectGenreByNameQuery.isActive()) {
-        Q_EMIT databaseError();
-
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenreIdFromName" << d->mSelectGenreByNameQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenreIdFromName" << d->mSelectGenreByNameQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenreIdFromName" << d->mSelectGenreByNameQuery.lastError();
-
-        d->mSelectGenreByNameQuery.finish();
-
-        return result;
-    }
-
-    if (d->mSelectGenreByNameQuery.next()) {
-        result = d->mSelectGenreByNameQuery.record().value(0).toULongLong();
-    }
-
-    d->mSelectGenreByNameQuery.finish();
-
-    return result;
+qulonglong DatabaseInterface::internalLyricistIdFromName(const QString &name)
+{
+    d->mSelectLyricistByNameQuery.bindValue(u":name"_s, name);
+    return internalGenericIdFromName(d->mSelectLyricistByNameQuery);
 }
 
 void DatabaseInterface::removeTrackInDatabase(qulonglong trackId)
@@ -7740,7 +7800,7 @@ void DatabaseInterface::removeRadio(qulonglong radioId)
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.boundValues();
         qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.lastError();
     } else {
-        Q_EMIT radioRemoved(radioId);
+        d->mRemovedRadioIds.insert(radioId);
     }
 
     d->mDeleteRadioQuery.finish();
@@ -8416,6 +8476,75 @@ DataTypes::ArtistDataType DatabaseInterface::internalOneArtistPartialData(qulong
     }
 
     d->mSelectArtistQuery.finish();
+
+    return result;
+}
+
+DataTypes::GenreDataType DatabaseInterface::internalOneGenrePartialData(qulonglong databaseId)
+{
+    DataTypes::GenreDataType result;
+
+    d->mSelectGenreQuery.bindValue(u":genreId"_s, databaseId);
+
+    if (!internalGenericPartialData(d->mSelectGenreQuery)) {
+        return result;
+    }
+
+    if (d->mSelectGenreQuery.next()) {
+        const auto &currentRecord = d->mSelectGenreQuery.record();
+
+        result[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        result[DataTypes::TitleRole] = currentRecord.value(1);
+        result[DataTypes::ElementTypeRole] = ElisaUtils::Genre;
+    }
+
+    d->mSelectGenreQuery.finish();
+
+    return result;
+}
+
+DataTypes::ArtistDataType DatabaseInterface::internalOneComposerPartialData(qulonglong databaseId)
+{
+    DataTypes::ArtistDataType result;
+
+    d->mSelectComposerQuery.bindValue(u":composerId"_s, databaseId);
+
+    if (!internalGenericPartialData(d->mSelectComposerQuery)) {
+        return result;
+    }
+
+    if (d->mSelectComposerQuery.next()) {
+        const auto &currentRecord = d->mSelectComposerQuery.record();
+
+        result[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        result[DataTypes::TitleRole] = currentRecord.value(1);
+        result[DataTypes::ElementTypeRole] = ElisaUtils::Composer;
+    }
+
+    d->mSelectComposerQuery.finish();
+
+    return result;
+}
+
+DataTypes::ArtistDataType DatabaseInterface::internalOneLyricistPartialData(qulonglong databaseId)
+{
+    DataTypes::ArtistDataType result;
+
+    d->mSelectLyricistQuery.bindValue(u":lyricistId"_s, databaseId);
+
+    if (!internalGenericPartialData(d->mSelectComposerQuery)) {
+        return result;
+    }
+
+    if (d->mSelectLyricistQuery.next()) {
+        const auto &currentRecord = d->mSelectLyricistQuery.record();
+
+        result[DataTypes::DatabaseIdRole] = currentRecord.value(0);
+        result[DataTypes::TitleRole] = currentRecord.value(1);
+        result[DataTypes::ElementTypeRole] = ElisaUtils::Lyricist;
+    }
+
+    d->mSelectLyricistQuery.finish();
 
     return result;
 }

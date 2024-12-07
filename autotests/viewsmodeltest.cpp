@@ -146,8 +146,8 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
-        QCOMPARE(beginInsertRowsSpy.count(), 4);
-        QCOMPARE(endInsertRowsSpy.count(), 4);
+        QCOMPARE(beginInsertRowsSpy.count(), 1);
+        QCOMPARE(endInsertRowsSpy.count(), 1);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -181,8 +181,8 @@ private Q_SLOTS:
 
         musicDb.insertTracksList(newTracks, newCovers);
 
-        QCOMPARE(beginInsertRowsSpy.count(), 7);
-        QCOMPARE(endInsertRowsSpy.count(), 7);
+        QCOMPARE(beginInsertRowsSpy.count(), 2);
+        QCOMPARE(endInsertRowsSpy.count(), 2);
         QCOMPARE(beginRemoveRowsSpy.count(), 0);
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -201,8 +201,8 @@ private Q_SLOTS:
 
         musicDb.insertTracksList({newTrack}, newCover);
 
-        QCOMPARE(beginInsertRowsSpy.count(), 8);
-        QCOMPARE(endInsertRowsSpy.count(), 8);
+        QCOMPARE(beginInsertRowsSpy.count(), 3);
+        QCOMPARE(endInsertRowsSpy.count(), 3);
         QCOMPARE(beginRemoveRowsSpy.count(), 1);
         QCOMPARE(endRemoveRowsSpy.count(), 1);
         QCOMPARE(dataChangedSpy.count(), 0);
@@ -228,8 +228,8 @@ private Q_SLOTS:
         viewsModel.viewsData()->setEmbeddedCategory(ElisaUtils::Unknown);
         viewsProxyModel.setEmbeddedCategory(ElisaUtils::Unknown);
 
-        QCOMPARE(beginInsertRowsSpy.count(), 8);
-        QCOMPARE(endInsertRowsSpy.count(), 8);
+        QCOMPARE(beginInsertRowsSpy.count(), 3);
+        QCOMPARE(endInsertRowsSpy.count(), 3);
         QCOMPARE(beginRemoveRowsSpy.count(), 2);
         QCOMPARE(endRemoveRowsSpy.count(), 2);
         QCOMPARE(dataChangedSpy.count(), 0);

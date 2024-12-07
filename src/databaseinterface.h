@@ -106,29 +106,25 @@ public:
 
 Q_SIGNALS:
 
+    void tracksAdded(const DataTypes::ListTrackDataType &allTracks);
+    void radioAdded(const DataTypes::TrackDataType &radio);
+    void albumsAdded(const DataTypes::ListAlbumDataType &newAlbums);
     void artistsAdded(const DataTypes::ListArtistDataType &newArtists);
-
+    void genresAdded(const DataTypes::ListGenreDataType &NewGenres);
     void composersAdded(const DataTypes::ListArtistDataType &newComposers);
-
     void lyricistsAdded(const DataTypes::ListArtistDataType &newLyricists);
 
-    void albumsAdded(const DataTypes::ListAlbumDataType &newAlbums);
-
-    void tracksAdded(const DataTypes::ListTrackDataType &allTracks);
-
-    void genresAdded(const DataTypes::ListGenreDataType &allGenres);
-
-    void artistRemoved(qulonglong removedArtistId);
-
+    void trackRemoved(qulonglong removedTrackId);
+    void radioRemoved(qulonglong radioId);
     void albumRemoved(qulonglong removedAlbumId);
-
+    void artistRemoved(qulonglong removedArtistId);
     void genreRemoved(qulonglong removedGenreId);
-
-    void trackRemoved(qulonglong id);
-
-    void albumModified(const DataTypes::AlbumDataType &modifiedAlbum, qulonglong modifiedAlbumId);
+    void composerRemoved(qulonglong removedArtistId);
+    void lyricistRemoved(qulonglong removedLyricistId);
 
     void trackModified(const DataTypes::TrackDataType &modifiedTrack);
+    void radioModified(const DataTypes::TrackDataType &radio);
+    void albumModified(const DataTypes::AlbumDataType &modifiedAlbum, qulonglong modifiedAlbumId);
 
     void requestsInitDone();
 
@@ -141,12 +137,6 @@ Q_SIGNALS:
     void finishInsertingTracksList();
 
     void finishRemovingTracksList();
-
-    void radioAdded(const DataTypes::TrackDataType &radio);
-
-    void radioModified(const DataTypes::TrackDataType &radio);
-
-    void radioRemoved(qulonglong radioId);
 
 public Q_SLOTS:
 
@@ -267,12 +257,18 @@ private:
                            const DataTypes::TrackDataType &currentTrack, const QString &albumPath);
 
     qulonglong insertArtist(const QString &name);
-
     qulonglong insertGenre(const QString &name);
+    qulonglong insertComposer(const QString &name);
+    qulonglong insertLyricist(const QString &name);
 
+    /**
+     * @returns the database ID, or 0 if the item could not be found
+     */
+    qulonglong internalGenericIdFromName(QSqlQuery &query);
     qulonglong internalArtistIdFromName(const QString &name);
-
     qulonglong internalGenreIdFromName(const QString &name);
+    qulonglong internalComposerIdFromName(const QString &name);
+    qulonglong internalLyricistIdFromName(const QString &name);
 
     void removeTrackInDatabase(qulonglong trackId);
 
@@ -307,10 +303,6 @@ private:
 
     bool isValidArtist(qulonglong albumId);
 
-    qulonglong insertComposer(const QString &name);
-
-    qulonglong insertLyricist(const QString &name);
-
     QHash<QUrl, QDateTime> internalAllFileName();
 
     bool internalGenericPartialData(QSqlQuery &query);
@@ -322,8 +314,10 @@ private:
     DataTypes::ListTrackDataType internalOneAlbumData(qulonglong databaseId);
 
     DataTypes::AlbumDataType internalOneAlbumPartialData(qulonglong databaseId);
-
     DataTypes::ArtistDataType internalOneArtistPartialData(qulonglong databaseId);
+    DataTypes::GenreDataType internalOneGenrePartialData(qulonglong databaseId);
+    DataTypes::ArtistDataType internalOneLyricistPartialData(qulonglong databaseId);
+    DataTypes::ArtistDataType internalOneComposerPartialData(qulonglong databaseId);
 
     DataTypes::ListTrackDataType internalAllTracksPartialData();
 

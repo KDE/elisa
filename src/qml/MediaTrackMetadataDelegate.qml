@@ -5,6 +5,8 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.10
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.2
@@ -32,12 +34,26 @@ RowLayout {
 
     Loader {
         id: textDisplayLoader
-        active: readOnly && (type === EditableTrackMetadataModel.TextEntry || type === EditableTrackMetadataModel.IntegerEntry || type === EditableTrackMetadataModel.UrlEntry || type === EditableTrackMetadataModel.DurationEntry) && typeof display !== "undefined"
+        active: {
+            if (!delegateRow.readOnly || typeof delegateRow.display === "undefined") {
+                return false;
+            }
+
+            switch (delegateRow.type) {
+            case EditableTrackMetadataModel.TextEntry:
+            case EditableTrackMetadataModel.IntegerEntry:
+            case EditableTrackMetadataModel.UrlEntry:
+            case EditableTrackMetadataModel.DurationEntry:
+                return true;
+            default:
+                return false;
+            }
+        }
         visible: active
         Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, delegateRow.maximumWidth)
 
         sourceComponent: LabelWithToolTip {
-            text: display
+            text: delegateRow.display
             horizontalAlignment: Text.AlignLeft
             elide: Text.ElideRight
             wrapMode: Text.WordWrap
@@ -46,12 +62,12 @@ RowLayout {
 
     Loader {
         id: longTextDisplayLoader
-        active: readOnly && (type === EditableTrackMetadataModel.LongTextEntry) && typeof display !== "undefined"
+        active: delegateRow.readOnly && (delegateRow.type === EditableTrackMetadataModel.LongTextEntry) && typeof delegateRow.display !== "undefined"
         visible: active
         Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, delegateRow.maximumWidth)
 
         sourceComponent: Label {
-            text: display
+            text: delegateRow.display
             textFormat: Text.PlainText
             horizontalAlignment: Text.AlignLeft
             elide: Text.ElideRight
@@ -60,7 +76,7 @@ RowLayout {
     }
 
     Loader {
-        active: readOnly && (type === EditableTrackMetadataModel.DateEntry) && typeof display !== "undefined"
+        active: delegateRow.readOnly && (delegateRow.type === EditableTrackMetadataModel.DateEntry) && typeof delegateRow.display !== "undefined"
         visible: active
         Layout.maximumWidth: Math.min(Kirigami.Units.gridUnit * 20, delegateRow.maximumWidth)
 
@@ -69,14 +85,14 @@ RowLayout {
 
             horizontalAlignment: Text.AlignLeft
             elide: Text.ElideRight
-            property date rawDate: new Date(display)
+            property date rawDate: new Date(delegateRow.display)
         }
     }
 
     Loader {
         id: editTextDisplayLoader
 
-        focus: index === 0
+        focus: delegateRow.index === 0
 
         active: !delegateRow.readOnly && delegateRow.hasData &&
                 (delegateRow.type === EditableTrackMetadataModel.TextEntry ||
@@ -86,26 +102,26 @@ RowLayout {
 
         sourceComponent: TextField {
             enabled: !delegateRow.readOnly
-            text: display
+            text: delegateRow.display
 
-            focus: index === 0
+            focus: delegateRow.index === 0
 
             horizontalAlignment: Text.AlignLeft
 
             onTextEdited: {
-                if (display !== text) {
-                    display = text
+                if (delegateRow.display !== text) {
+                    delegateRow.display = text
 
-                    edited()
+                    delegateRow.edited()
                 }
             }
         }
     }
 
     Loader {
-        focus: index === 0
+        focus: delegateRow.index === 0
 
-        active: type === EditableTrackMetadataModel.RatingEntry && typeof display !== "undefined"
+        active: delegateRow.type === EditableTrackMetadataModel.RatingEntry && typeof delegateRow.display !== "undefined"
         visible: active
 
         sourceComponent: ElisaApplication.useFavoriteStyleRatings ? favoriteButton : ratingStars
@@ -121,10 +137,10 @@ RowLayout {
                 anchors.verticalCenter: parent.verticalCenter
 
                 onRatingEdited: {
-                    if (display !== starRating) {
-                        display = starRating
-                        ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, starRating)
-                        edited()
+                    if (delegateRow.display !== starRating) {
+                        delegateRow.display = starRating
+                        ElisaApplication.musicManager.updateSingleFileMetaData(delegateRow.url, DataTypes.RatingRole, starRating)
+                        delegateRow.edited()
                     }
                 }
             }
@@ -143,8 +159,8 @@ RowLayout {
                     const newRating = isFavorite ? 0 : 10;
                     // Change icon immediately in case backend is slow
                     icon.name = isFavorite ? "rating-unrated" : "rating";
-                    ElisaApplication.musicManager.updateSingleFileMetaData(url, DataTypes.RatingRole, newRating)
-                    edited()
+                    ElisaApplication.musicManager.updateSingleFileMetaData(delegateRow.url, DataTypes.RatingRole, newRating)
+                    delegateRow.edited()
                 }
             }
         }
@@ -161,9 +177,9 @@ RowLayout {
         sourceComponent: ScrollView {
             TextArea {
                 enabled: !delegateRow.readOnly
-                text: display
+                text: delegateRow.display
 
-                focus: index === 0
+                focus: delegateRow.index === 0
 
                 horizontalAlignment: TextEdit.AlignLeft
 
@@ -172,10 +188,10 @@ RowLayout {
                 wrapMode: TextEdit.Wrap
 
                 onEditingFinished: {
-                    if (display !== text) {
-                        display = text
+                    if (delegateRow.display !== text) {
+                        delegateRow.display = text
 
-                        edited()
+                        delegateRow.edited()
                     }
                 }
             }
@@ -190,7 +206,7 @@ RowLayout {
         text: i18nc("@action:button remove a metadata tag", "Remove this tag")
 
         visible: !delegateRow.readOnly && delegateRow.hasData && delegateRow.isRemovable
-        onClicked: deleteField()
+        onClicked: delegateRow.deleteField()
     }
 
     Button {
@@ -198,7 +214,7 @@ RowLayout {
         text: i18nc("@action:button", "Add tag")
         visible: !delegateRow.readOnly && !delegateRow.hasData
 
-        onClicked: addField()
+        onClicked: delegateRow.addField()
     }
 }
 

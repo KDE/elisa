@@ -4,11 +4,12 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.10
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.4
 import org.kde.kirigami 2.5 as Kirigami
-import org.kde.elisa
 
 /*
  * This visually mimics the Kirigami.InlineMessage due to the
@@ -50,12 +51,16 @@ Rectangle {
 
         Label {
             id: importedTracksCountLabel
-            text: (importedTracksCount ?
-                       i18ncp("number of imported tracks",
-                              "Imported one track",
-                              "Imported %1 tracks",
-                              importedTracksCount) :
-                       i18nc("@info:status", "Scanning music"))
+            text: {
+                if (rootComponent.importedTracksCount > 1) {
+                    return i18ncp("number of imported tracks",
+                                  "Imported one track",
+                                  "Imported %1 tracks",
+                                  rootComponent.importedTracksCount);
+                } else {
+                    return i18nc("@info:status", "Scanning music");
+                }
+            }
             color: Kirigami.Theme.textColor
 
             Layout.fillWidth: true

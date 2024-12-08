@@ -48,7 +48,7 @@ Kirigami.GlobalDrawer {
                 // HACK: the images provided by the model are in the form "image://icon/view-media-genre"
                 // remove the "image://icon/" in order to use icons
                 let icon = String(model.image).substring(13);
-                let object = action.createObject(drawer, {"icon.name": icon, text: model.display});
+                let object = action.createObject(drawer, {"icon.name": icon, text: model.title});
                 object.onTriggered.connect(() => {
                     viewIndex = model.index;
                     switchView(model.index);

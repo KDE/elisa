@@ -35,6 +35,7 @@ QHash<int, QByteArray> ViewsModel::roleNames() const
 {
     auto result = QAbstractListModel::roleNames();
 
+    result[Qt::DisplayRole] = "title";
     result[ImageNameRole] = "image";
     result[DatabaseIdRole] = "databaseId";
     result[UseSecondTitleRole] = "useSecondTitle";

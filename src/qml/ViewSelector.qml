@@ -4,11 +4,11 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Controls 2.4
-import QtQml.Models 2.2
 import org.kde.kirigami 2.10 as Kirigami
-import org.kde.elisa
 
 ScrollView {
     id: scrollView
@@ -40,31 +40,39 @@ ScrollView {
         delegate: ItemDelegate {
             id: delegate
 
+            required property int index
+            required property string title
+            required property url image
+
             width: viewModeView.width
 
-            icon.source: model.image
-            text: model.display
+            icon.source: image
+            text: title
             highlighted: ListView.isCurrentItem
 
             // Prevent icon recoloring for styles that don't set `icon.color: "transparent"` by default
             // otherwise it applies a single-color mask above the entire album cover image
             Binding {
-                when: !model.image.toString().startsWith("image://icon/")
+                when: !delegate.image.toString().startsWith("image://icon/")
                 delegate.icon.color: "transparent"
             }
 
             onClicked: {
-                switchView(index)
+                scrollView.switchView(index)
                 forceActiveFocus()
             }
         }
 
         section.property: 'entryCategory'
         section.delegate: Loader {
+            id: sectionDelegateLoader
+
+            required property string section
+
             active: section !== "default" && opacity > 0
-            height: item ? item.implicitHeight : 0
+            height: (item as Item)?.implicitHeight ?? 0
             sourceComponent: Kirigami.ListSectionHeader {
-                text: section
+                text: sectionDelegateLoader.section
                 width: viewModeView.width
             }
             opacity: scrollView.width > scrollView.iconsOnlyMaxWidth ? 1 : 0

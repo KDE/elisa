@@ -270,15 +270,14 @@ private:
     qulonglong internalComposerIdFromName(const QString &name);
     qulonglong internalLyricistIdFromName(const QString &name);
 
-    void removeTrackInDatabase(qulonglong trackId);
-
     void updateTrackInDatabase(const DataTypes::TrackDataType &oneTrack, const QString &albumPath);
 
+    void removeTrackInDatabase(qulonglong trackId);
     void removeAlbumInDatabase(qulonglong albumId);
-
     void removeArtistInDatabase(qulonglong artistId);
-
     void removeGenreInDatabase(qulonglong genreId);
+    void removeComposerInDatabase(qulonglong composerId);
+    void removeLyricistInDatabase(qulonglong lyricistId);
 
     void reloadExistingDatabase();
 
@@ -360,14 +359,15 @@ private:
     bool execHasRowQuery(QSqlQuery &query);
 
     bool artistHasTracks(qulonglong artistId);
-
-    bool genreHasTracks(qulonglong artistId);
+    bool genreHasTracks(qulonglong genreId);
+    bool composerHasTracks(qulonglong composerId);
+    bool lyricistHasTracks(qulonglong lyricistId);
 
     void pruneCollections();
-
     void pruneArtists();
-
     void pruneGenres();
+    void pruneComposers();
+    void pruneLyricists();
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
 

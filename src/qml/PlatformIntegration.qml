@@ -4,12 +4,14 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.7
 import Qt.labs.platform 1.1 as NativeMenu
 import org.kde.elisa
 
 Item {
-    id: rootItem
+    id: root
 
     property alias playListModel: mpris2Interface.playListModel
     property alias audioPlayerManager: mpris2Interface.audioPlayerManager
@@ -24,10 +26,10 @@ Item {
     signal raisePlayer()
 
     Connections {
-        target: elisaMainWindow
+        target: root.elisaMainWindow
 
         function onClosing(close) {
-            if (systemTrayIcon.available && showSystemTrayIcon && !forceCloseWindow) {
+            if (systemTrayIcon.available && root.showSystemTrayIcon && !root.forceCloseWindow) {
                 close.accepted = false
                 elisaMainWindow.hide()
             }
@@ -38,7 +40,7 @@ Item {
         target: ElisaApplication
 
         function onCommitDataRequest() {
-            forceCloseWindow = true
+            root.forceCloseWindow = true;
         }
     }
 
@@ -51,18 +53,15 @@ Item {
 
         playerName: 'elisa'
 
-        onRaisePlayer:
-        {
-            rootItem.raisePlayer()
-        }
+        onRaisePlayer: root.raisePlayer()
     }
 
     NativeMenu.SystemTrayIcon {
         id: systemTrayIcon
 
         icon.name: "elisa-symbolic"
-        tooltip: mainWindow.title
-        visible: available && showSystemTrayIcon && !mainWindow.visible
+        tooltip: root.elisaMainWindow.title
+        visible: available && root.showSystemTrayIcon && !root.elisaMainWindow.visible
 
         menu: NativeTrayMenu {
             id: exportedMenu
@@ -70,7 +69,7 @@ Item {
 
         onActivated: reason => {
             if (reason === NativeMenu.SystemTrayIcon.Trigger) {
-                raisePlayer();
+                root.raisePlayer();
             }
         }
 

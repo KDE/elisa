@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
-import QtQuick.Controls 2.2
+pragma ComponentBehavior: Bound
 
 BaseTheme {
 }

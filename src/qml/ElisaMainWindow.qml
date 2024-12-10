@@ -186,7 +186,7 @@ Kirigami.ApplicationWindow {
         showFullScreen()
     }
 
-    LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
+    LayoutMirroring.enabled: Application.layoutDirection === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
     x: persistentSettings.x
@@ -327,7 +327,7 @@ Kirigami.ApplicationWindow {
     }
 
     Connections {
-        target: Qt.application
+        target: Application
         function onAboutToQuit() {
             persistentSettings.playListState = ElisaApplication.mediaPlayListProxyModel.persistentState;
             persistentSettings.audioPlayerState = ElisaApplication.audioControl.persistentState
@@ -349,7 +349,7 @@ Kirigami.ApplicationWindow {
 
     // We need to handle maximization in a signal handler for "closing" because
     // the window state state has already changed by the time
-    // Qt.application.onAboutToQuit() is called!
+    // Application.onAboutToQuit() is called!
     onClosing: {
         if (mainWindow.visibility === Window.Maximized) {
             persistentSettings.maximized = true;

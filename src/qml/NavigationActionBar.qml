@@ -246,7 +246,7 @@ Item {
                     objectName: "goPreviousButton"
                     visible: enableGoBack
                     text: i18nc("@action:button navigate back in the view's stack", "Back")
-                    icon.name: (Qt.application.layoutDirection === Qt.RightToLeft) ? "go-next" : "go-previous"
+                    icon.name: (Application.layoutDirection === Qt.RightToLeft) ? "go-next" : "go-previous"
                     onClicked: goBack()
                 }
                 Kirigami.Icon {

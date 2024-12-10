@@ -21,6 +21,6 @@ Kirigami.Heading {
         enabled: theLabel.truncated
     }
     ToolTip.visible: hoverHandler.enabled ? hoverHandler.hovered : false
-    ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
+    ToolTip.delay: Application.styleHints.mousePressAndHoldInterval
     ToolTip.text: theLabel.text
 }

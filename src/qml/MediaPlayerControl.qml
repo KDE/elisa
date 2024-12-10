@@ -142,7 +142,7 @@ BasePlayerControl {
                 RowLayout {
                     spacing: 0
 
-                    LayoutMirroring.enabled: Qt.application.layoutDirection === Qt.RightToLeft
+                    LayoutMirroring.enabled: Application.layoutDirection === Qt.RightToLeft
                     LayoutMirroring.childrenInherit: true
 
                     FlatButtonWithToolTip {

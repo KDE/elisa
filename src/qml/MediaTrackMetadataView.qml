@@ -29,7 +29,7 @@ Window {
 
     signal rejected()
 
-    LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
+    LayoutMirroring.enabled: Application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
     title: isCreating ? i18nc("@title:window", "Create a Radio") :

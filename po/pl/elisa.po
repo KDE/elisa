@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-27 00:39+0000\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
 "PO-Revision-Date: 2024-11-16 10:51+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "lukasz.wojnilowicz@gmail.com"
 
-#: databaseinterface.cpp:7238 databaseinterface.cpp:8294
-#: databaseinterface.cpp:8378
+#: databaseinterface.cpp:7391 databaseinterface.cpp:8468
+#: databaseinterface.cpp:8552
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Różni wykonawcy"
 
-#: databaseinterface.cpp:7306
+#: databaseinterface.cpp:7459
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -335,19 +335,19 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
 msgstr "Adres obrazu"
 
-#: models/viewsmodel.cpp:105 viewslistdata.cpp:53
+#: models/viewsmodel.cpp:106 viewslistdata.cpp:53
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumy"
 
-#: models/viewsmodel.cpp:108 viewslistdata.cpp:101
+#: models/viewsmodel.cpp:109 viewslistdata.cpp:101
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Gatunki"
 
-#: models/viewsmodel.cpp:111 viewslistdata.cpp:67
+#: models/viewsmodel.cpp:112 viewslistdata.cpp:67
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
@@ -371,26 +371,26 @@ msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Odtwórz teraz, zastępując listę odtwarzania"
 
-#: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:80
+#: qml/AbstractBrowserDelegate.qml:46 qml/TrackBrowserDelegate.qml:80
 #, kde-format
 msgctxt "@action:button"
 msgid "Play next"
 msgstr "Odtwórz następny"
 
-#: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:75
+#: qml/AbstractBrowserDelegate.qml:51 qml/TrackBrowserDelegate.qml:75
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Dodaj do listy odtwarzania"
 
-#: qml/AbstractBrowserDelegate.qml:61 qml/mobile/MobilePlayListDelegate.qml:166
+#: qml/AbstractBrowserDelegate.qml:60 qml/mobile/MobilePlayListDelegate.qml:166
 #: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:63
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Pokaż w katalogu"
 
-#: qml/AbstractBrowserDelegate.qml:83
+#: qml/AbstractBrowserDelegate.qml:82
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
@@ -885,27 +885,27 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "1 utwór, pozostało %1 min"
 
-#: qml/MediaTrackMetadataDelegate.qml:139 qml/PlayListEntry.qml:117
-#: qml/TrackBrowserDelegate.qml:99
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:98
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Usuń oznaczenie ulubiony z tego utworu"
 
-#: qml/MediaTrackMetadataDelegate.qml:139 qml/PlayListEntry.qml:117
-#: qml/TrackBrowserDelegate.qml:99
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:117
+#: qml/TrackBrowserDelegate.qml:98
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Oznacz ten utwór jako ulubiony"
 
-#: qml/MediaTrackMetadataDelegate.qml:190
+#: qml/MediaTrackMetadataDelegate.qml:206
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
 msgstr "Usuń ten znacznik"
 
-#: qml/MediaTrackMetadataDelegate.qml:198
+#: qml/MediaTrackMetadataDelegate.qml:214
 #, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
@@ -1328,7 +1328,7 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Pokaż tylko ulubione"
 
-#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:91
+#: qml/PlayListEntry.qml:107 qml/TrackBrowserDelegate.qml:90
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
@@ -1352,7 +1352,7 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Usuń"
 
-#: qml/PlayListEntry.qml:300 qml/TrackBrowserDelegate.qml:320
+#: qml/PlayListEntry.qml:300 qml/TrackBrowserDelegate.qml:319
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -1621,7 +1621,7 @@ msgctxt "@info:status"
 msgid "\"%1\" could not be played"
 msgstr "Nie można odtworzyć \"%1\""
 
-#: qml/SortMenu.qml:20
+#: qml/SortMenu.qml:22
 #, kde-format
 msgctxt "@title:menu"
 msgid "Sort By"
@@ -1633,31 +1633,31 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Odtwórz stąd, zastępując bieżącą listę odtwarzania"
 
-#: qml/TrackBrowserDelegate.qml:215 qml/TrackBrowserDelegate.qml:231
+#: qml/TrackBrowserDelegate.qml:214 qml/TrackBrowserDelegate.qml:230
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/TrackBrowserDelegate.qml:226
+#: qml/TrackBrowserDelegate.qml:225
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 - %2 - %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/TrackBrowserDelegate.qml:238
+#: qml/TrackBrowserDelegate.qml:237
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: qml/TrackBrowserDelegate.qml:374
+#: qml/TrackBrowserDelegate.qml:373
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Ustawienia piosenki"
 
-#: qml/TrackImportNotification.qml:55 qml/TrackImportNotification.qml:70
+#: qml/TrackImportNotification.qml:57 qml/TrackImportNotification.qml:75
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
@@ -1666,7 +1666,7 @@ msgstr[0] "Zaimportowano jeden utwór"
 msgstr[1] "Zaimportowano %1 utwory"
 msgstr[2] "Zaimportowano %1 utworów"
 
-#: qml/TrackImportNotification.qml:58
+#: qml/TrackImportNotification.qml:61
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"

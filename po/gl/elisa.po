@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-11 00:39+0000\n"
-"PO-Revision-Date: 2024-11-09 15:57+0100\n"
+"PO-Revision-Date: 2024-12-12 20:17+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -425,7 +425,7 @@ msgstr "Saír da pantalla completa"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
-msgstr "Ir a pantalla completa"
+msgstr "Poñer a pantalla completa"
 
 #: qml/ApplicationMenu.qml:35 qml/NativeTrayMenu.qml:25
 #, kde-format

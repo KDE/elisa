@@ -15,7 +15,7 @@ project(elisa
     LANGUAGES CXX)
 
 set(REQUIRED_KF_VERSION "6.9")
-set(REQUIRED_KA_VERSION "0.11.76") # KirigamiAddons Version
+set(REQUIRED_KA_VERSION "1.6.0") # KirigamiAddons Version
 find_package(ECM ${REQUIRED_KF_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH})
 

@@ -605,7 +605,7 @@ Kirigami.ApplicationWindow {
 
     Component {
         id: aboutKDEPage
-        FormCard.AboutKDE {}
+        FormCard.AboutKDEPage {}
     }
 
     Component {

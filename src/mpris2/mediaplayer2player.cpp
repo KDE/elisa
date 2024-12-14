@@ -16,7 +16,6 @@
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
 #include "audiowrapper.h"
-#include <kfilemetadata/extractorcollection.h>
 
 #if KFFileMetaData_FOUND
 #include <KFileMetaData/ExtractorCollection>

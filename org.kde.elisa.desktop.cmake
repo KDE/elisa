@@ -18,6 +18,7 @@ Comment[ko]=로컬 음악 재생 및 온라인 라디오 듣기
 Comment[lv]=Atskaņojiet ierīcē esošo mūziku un klausieties tiešsaistes radiostacijas
 Comment[nl]=Speel lokaal muziek en luister naar online radio
 Comment[pl]=Odtwarzaj muzykę lokalnie i słucha radia z sieci
+Comment[sa]=स्थानीयसङ्गीतं वादयन्तु, ऑनलाइन रेडियो शृणुत च
 Comment[sl]=Predvaja lokalno glasbo in posluša spletni radio
 Comment[sv]=Spela lokal musik och lyssna på nätradiostationer
 Comment[ta]=கணினியிலுள்ள பாடல்கள் மட்டுமின்றி இணைய வானொலி நிலையங்களையும் கேட்கலாம்.

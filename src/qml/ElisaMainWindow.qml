@@ -13,7 +13,6 @@ import org.kde.config as KConfig
 import org.kde.kirigami 2.5 as Kirigami
 import org.kde.kirigamiaddons.formcard 1.0 as FormCard
 import org.kde.elisa
-import org.kde.elisa.about 1.0
 import Qt.labs.platform 1.1
 
 import "mobile"
@@ -610,8 +609,6 @@ Kirigami.ApplicationWindow {
 
     Component {
         id: aboutAppPage
-        FormCard.AboutPage {
-            aboutData: About
-        }
+        FormCard.AboutPage {}
     }
 }

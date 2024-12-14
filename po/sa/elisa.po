@@ -1,22 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the elisa package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# SPDX-FileCopyrightText: 2024 kali <skkalwar999@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-11 00:39+0000\n"
-"PO-Revision-Date: 2023-09-28 00:31+0530\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-12-14 00:47+0000\n"
+"PO-Revision-Date: 2024-12-14 01:10+0530\n"
+"Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #, kde-format
@@ -521,31 +520,31 @@ msgctxt "@label"
 msgid "Duration"
 msgstr "अवधिः"
 
-#: qml/ElisaMainWindow.qml:28
+#: qml/ElisaMainWindow.qml:29
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "आरोपयताम् विफलम् अभवत्"
 
-#: qml/ElisaMainWindow.qml:28 qml/ElisaMainWindow.qml:292
+#: qml/ElisaMainWindow.qml:29 qml/ElisaMainWindow.qml:291
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "पुनः प्रयतस्व"
 
-#: qml/ElisaMainWindow.qml:32
+#: qml/ElisaMainWindow.qml:33
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "वादनीयसूची स्वच्छा अभवत्"
 
-#: qml/ElisaMainWindow.qml:32
+#: qml/ElisaMainWindow.qml:33
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "अपाकरोतु"
 
-#: qml/ElisaMainWindow.qml:98
+#: qml/ElisaMainWindow.qml:99
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Playlist"
@@ -553,7 +552,7 @@ msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "वादनीयसूची दर्शयतु"
 
-#: qml/ElisaMainWindow.qml:99
+#: qml/ElisaMainWindow.qml:100
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Hide Playlist"
@@ -561,7 +560,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "वादनीयसूची गोपयन्तु"
 
-#: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:620
+#: qml/ElisaMainWindow.qml:137 qml/ElisaMainWindow.qml:602
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -570,19 +569,19 @@ msgstr ""
 "काश्चन सञ्चिकाः आरोपय कर्तुं न शक्तवान् । एलिसा केवलं श्रव्य-वादनीयसूची-सञ्चिकाः एव "
 "उद्घाटयितुं शक्नोति ।."
 
-#: qml/ElisaMainWindow.qml:197 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:196 qml/mobile/MobileSidebar.qml:20
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "एलिसा"
 
-#: qml/ElisaMainWindow.qml:197
+#: qml/ElisaMainWindow.qml:196
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — एलिसा"
 
-#: qml/ElisaMainWindow.qml:274
+#: qml/ElisaMainWindow.qml:273
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -590,7 +589,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u वादनीयसूची सञ्चिका (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:274
+#: qml/ElisaMainWindow.qml:273
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -598,7 +597,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls वादनीयसूची सञ्चिका (*.pls)"
 
-#: qml/ElisaMainWindow.qml:281
+#: qml/ElisaMainWindow.qml:280
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -606,7 +605,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "m3u8, m3u, pls वादनीयसूची सञ्चिका (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:292
+#: qml/ElisaMainWindow.qml:291
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -622,7 +621,7 @@ msgstr "पूर्णपर्दे निर्गच्छन्तु"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "पार्टी मोडतः निर्गच्छन्तु"
 
 #: qml/MediaPlayerControl.qml:99
 #, fuzzy, kde-format
@@ -669,19 +668,19 @@ msgstr "अग्रतः लङ्घयन्तु"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "अप्रसन्नता"
 
 #: qml/MediaPlayerControl.qml:152
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "मूक"
 
 #: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "वर्तमानः : कोऽपि घुमावः नास्ति"
 
 #: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:212
 #, fuzzy, kde-format
@@ -695,7 +694,7 @@ msgstr "वर्तमानः : पङ्क्तयः पुनः न व
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "वर्तमानः : Shuffle albums"
 
 #: qml/MediaPlayerControl.qml:204 qml/mobile/MobileTrackPlayer.qml:242
 #, fuzzy, kde-format
@@ -855,7 +854,7 @@ msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
 "time remaining"
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
 #, fuzzy, kde-format
@@ -893,8 +892,8 @@ msgstr[1] "%1 संगीतपङ्क्तिः"
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 रेडियो"
+msgstr[1] "%1 रेडियो"
 
 #: qml/MediaPlayListView.qml:499
 #, kde-format
@@ -902,7 +901,7 @@ msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
 "radios"
 msgid "%1, %2 total"
-msgstr ""
+msgstr "%1, %2 कुलम्"
 
 #: qml/MediaPlayListView.qml:502
 #, fuzzy, kde-format
@@ -946,7 +945,7 @@ msgstr "इदं गीतं प्रियं इति चिह्नि�
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr ""
+msgstr "एतत् टैग् निष्कासयन्तु"
 
 #: qml/MediaTrackMetadataDelegate.qml:214
 #, fuzzy, kde-format
@@ -1253,13 +1252,13 @@ msgstr "क्रमयन्तु"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr ""
+msgstr "रेडियो योजयतु"
 
 #: qml/NavigationActionBar.qml:106
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr ""
+msgstr "रेडियो योजयन्तु"
 
 #: qml/NavigationActionBar.qml:118
 #, kde-format
@@ -1333,7 +1332,7 @@ msgstr "वादनीयसूची दर्शयतु"
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "Icon Grid इति रूपेण पश्यन्तु"
 
 #: qml/NavigationActionBar.qml:185
 #, fuzzy, kde-format
@@ -1347,7 +1346,7 @@ msgstr "विवरणं पश्यन्तु"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "चिह्नजालरूपेण पश्यन्तु"
 
 #: qml/NavigationActionBar.qml:188
 #, fuzzy, kde-format
@@ -1545,7 +1544,7 @@ msgstr "Database पुनः निरुपयत् कृत्वा सर
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr ""
+msgstr "दत्तांशकोशः पुनः सेट् कृतः अस्ति"
 
 #: qml/SettingsForm.qml:242
 #, kde-format
@@ -1713,7 +1712,7 @@ msgstr "नवीनं स्थानं योजयतु"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "\"%1\" वादयितुं न शक्यते स्म"
 
 #: qml/SortMenu.qml:22
 #, kde-format
@@ -2000,100 +1999,3 @@ msgstr "सञ्चिकाः"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "आकाशवाणीस्थानकानि"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Party Mode"
-#~ msgstr "उत्सव पद्धति विभाषयति"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Mute"
-#~ msgstr "मूक विभाषयति"
-
-#~ msgctxt "@action:button"
-#~ msgid "Application Menu"
-#~ msgstr "अनुप्रयोग सूचि"
-
-#~ msgctxt "@action:button"
-#~ msgid "Create a radio"
-#~ msgstr "आकाशवाणी रचयन्तु"
-
-#, fuzzy
-#~| msgctxt "@action:button"
-#~| msgid "Toggle Shuffle"
-#~ msgctxt "@action:button"
-#~ msgid "Toggle View Style"
-#~ msgstr "मिश्रणम् विभाषयति"
-
-#~ msgctxt "@info:status"
-#~ msgid "1 track"
-#~ msgstr "1 संगीतपङ्क्ति"
-
-#~ msgctxt ""
-#~ "@info:status %1 is the translation of track[s], %2 is the translation of "
-#~ "remaining"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (%2)"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Shuffle"
-#~ msgstr "मिश्रणम् विभाषयति"
-
-#~ msgctxt "@action:inmenu shuffle mode is turned on"
-#~ msgid "On"
-#~ msgstr "सक्रियः"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "ठीकम्"
-
-#~ msgctxt "@action:button"
-#~ msgid "Apply"
-#~ msgstr "आचरतु"
-
-#~ msgctxt "@action:button"
-#~ msgid "Close"
-#~ msgstr "निमील्यताम्"
-
-#~ msgctxt "@label:listbox"
-#~ msgid "Music indexing:"
-#~ msgstr "सङ्गीत अनुक्रमणिकाकरणम् :"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Use fast native indexer"
-#~ msgstr "द्रुतदेशीयसूचकाङ्ककस्य उपयोगं कुर्वन्तु"
-
-#~ msgctxt "@item:inlistbox Configure dialog, indexing type"
-#~ msgid "Scan the filesystem directly"
-#~ msgstr "सञ्चिकातन्त्रस्य प्रत्यक्षं विश्लेषणं कुर्वन्तु"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "This is slower than the fast indexer. Please activate it only if Elisa "
-#~ "cannot find your music and searching for one of the missing music files "
-#~ "using your file manager also does not work. Please report this as a bug."
-#~ msgstr ""
-#~ "एतत् द्रुतसूचकाङ्ककर्तुः अपेक्षया मन्दतरम् अस्ति । कृपया केवलं तदा एव तत् सक्रियं कुर्वन्तु यदा "
-#~ "एलिसा भवतः सङ्गीतं न प्राप्नोति तथा च भवतः सञ्चिकाप्रबन्धकस्य उपयोगेन "
-#~ "लुप्तसङ्गीतसञ्चिकासु एकां अन्वेषणमपि कार्यं न करोति। कृपया एतत् दोषरूपेण निवेदयन्तु ।."
-
-#~ msgctxt "@action:button"
-#~ msgid "Report Bug"
-#~ msgstr "त्रुटिं प्रतिवेदयतु"
-
-#~ msgctxt "@label"
-#~ msgid ""
-#~ "The fast native file indexer does not follow symbolic links. If any of "
-#~ "the locations in this list contain symbolic links to other locations, you "
-#~ "will need to add those other locations to the list as well."
-#~ msgstr ""
-#~ "द्रुतदेशीयसञ्चिकासूचकाङ्ककः प्रतीकात्मकसम्बन्धानां अनुसरणं न करोति । यदि अस्मिन् सूचौ "
-#~ "कस्मिन् अपि स्थाने अन्यस्थानानां प्रतीकात्मकसम्बन्धानि सन्ति तर्हि भवद्भिः तानि "
-#~ "अन्यस्थानानि अपि सूचीयां योजयितव्यानि भविष्यन्ति ।."
-
-#~ msgctxt "@action:button"
-#~ msgid "Color Scheme"
-#~ msgstr "रङ्ग योजना"
-
-#~ msgctxt "@title:menu"
-#~ msgid "Color Scheme"
-#~ msgstr "रङ्ग योजना"

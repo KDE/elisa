@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-11 00:39+0000\n"
+"POT-Creation-Date: 2024-12-14 00:47+0000\n"
 "PO-Revision-Date: 2024-10-30 09:51+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -524,43 +524,43 @@ msgctxt "@label"
 msgid "Duration"
 msgstr "Durée"
 
-#: qml/ElisaMainWindow.qml:28
+#: qml/ElisaMainWindow.qml:29
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "Échec du chargement"
 
-#: qml/ElisaMainWindow.qml:28 qml/ElisaMainWindow.qml:292
+#: qml/ElisaMainWindow.qml:29 qml/ElisaMainWindow.qml:291
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "Réessayer"
 
-#: qml/ElisaMainWindow.qml:32
+#: qml/ElisaMainWindow.qml:33
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Liste de lecture effacée"
 
-#: qml/ElisaMainWindow.qml:32
+#: qml/ElisaMainWindow.qml:33
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Annuler"
 
-#: qml/ElisaMainWindow.qml:98
+#: qml/ElisaMainWindow.qml:99
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "Afficher le panneau de liste de lectures"
 
-#: qml/ElisaMainWindow.qml:99
+#: qml/ElisaMainWindow.qml:100
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Masquer le panneau de liste de lectures"
 
-#: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:620
+#: qml/ElisaMainWindow.qml:137 qml/ElisaMainWindow.qml:602
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -569,19 +569,19 @@ msgstr ""
 "Impossible de charger certains fichiers. Elisa ne peut ouvrir que des "
 "fichiers audio et des listes de lecture."
 
-#: qml/ElisaMainWindow.qml:197 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:196 qml/mobile/MobileSidebar.qml:20
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:197
+#: qml/ElisaMainWindow.qml:196
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:274
+#: qml/ElisaMainWindow.qml:273
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -589,7 +589,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "Fichier de liste de lecture m3u8, m3u (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:274
+#: qml/ElisaMainWindow.qml:273
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -597,7 +597,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "Fichier de liste de lecture pls (*.pls)"
 
-#: qml/ElisaMainWindow.qml:281
+#: qml/ElisaMainWindow.qml:280
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -605,7 +605,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "Fichiers de liste de lecture m3u8, m3u, pls (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:292
+#: qml/ElisaMainWindow.qml:291
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"

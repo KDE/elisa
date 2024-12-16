@@ -1,22 +1,23 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
 # Sameer Singh <lumarzeli30@gmail.com>, 2021.
 # Raghavendra Kamath <raghu@raghukamath.com>, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2024 kali <skkalwar999@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-15 00:40+0000\n"
-"PO-Revision-Date: 2023-02-12 20:05+0530\n"
-"Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
-"Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
+"PO-Revision-Date: 2024-12-15 19:32+0530\n"
+"Last-Translator: kali <skkalwar999@gmail.com>\n"
+"Language-Team: Hindi <kde-i18n-doc@kde.org>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -781,13 +782,13 @@ msgstr "सभी साफ करें"
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
-msgstr "सहेजें..."
+msgstr "सहेजें…"
 
 #: qml/MediaPlayListView.qml:100
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
-msgstr "लोड करें..."
+msgstr "लोड करें…"
 
 #: qml/MediaPlayListView.qml:125
 #, kde-format
@@ -1104,13 +1105,13 @@ msgstr "फ़ाइल"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save Playlist…"
-msgstr "गीत-सूची सहेजें..."
+msgstr "गीत-सूची सहेजें…"
 
 #: qml/NativeGlobalMenu.qml:25
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Playlist…"
-msgstr "गीत-सूची खोलें..."
+msgstr "गीत-सूची खोलें…"
 
 #: qml/NativeGlobalMenu.qml:53
 #, kde-format

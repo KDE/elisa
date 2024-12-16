@@ -4,12 +4,12 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.7
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.3
 import org.kde.elisa
 import org.kde.kirigami 2.5 as Kirigami
-import ".."
 
 /**
  * Aligned into a 5x2 grid

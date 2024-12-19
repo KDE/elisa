@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-15 00:40+0000\n"
+"POT-Creation-Date: 2024-12-19 00:40+0000\n"
 "PO-Revision-Date: 2024-11-26 21:52+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1027,7 +1027,7 @@ msgctxt "@action:button show track information"
 msgid "Show Info"
 msgstr "顯示資訊"
 
-#: qml/mobile/MobileVolumeButton.qml:27
+#: qml/mobile/MobileVolumeButton.qml:29
 #, kde-format
 msgctxt "@action:button"
 msgid "Change Volume"
@@ -1660,13 +1660,13 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "光碟 %1"
 
-#: qml/VolumeSlider.qml:27
+#: qml/VolumeSlider.qml:28
 #, kde-format
 msgctxt "@label"
 msgid "Volume"
 msgstr "音量"
 
-#: qml/VolumeSlider.qml:48
+#: qml/VolumeSlider.qml:49
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"

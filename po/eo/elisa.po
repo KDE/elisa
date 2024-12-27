@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-19 00:40+0000\n"
-"PO-Revision-Date: 2024-09-19 21:59+0200\n"
+"PO-Revision-Date: 2024-12-26 21:43+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -901,12 +901,10 @@ msgid "Remove this tag"
 msgstr "Forigi ĉi tiun etikedon"
 
 #: qml/MediaTrackMetadataDelegate.qml:214
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "Aldoni novan etikedon:"
+msgstr "Aldoni etikedon"
 
 #: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format

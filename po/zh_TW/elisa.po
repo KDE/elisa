@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:39+0000\n"
-"PO-Revision-Date: 2024-11-26 21:52+0900\n"
+"PO-Revision-Date: 2024-12-29 01:46+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: Traditional Chinese\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -382,7 +382,7 @@ msgstr "接著播放"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
-msgstr "新增至播放清單"
+msgstr "加入播放清單"
 
 #: qml/AbstractBrowserDelegate.qml:61 qml/mobile/MobilePlayListDelegate.qml:166
 #: qml/PlayListEntry.qml:86 qml/TrackBrowserDelegate.qml:63
@@ -1195,7 +1195,7 @@ msgstr "新增廣播電台"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
-msgstr "新增至播放清單"
+msgstr "加入播放清單"
 
 #: qml/NavigationActionBar.qml:119
 #, kde-format

@@ -25,7 +25,7 @@ SPDX-FileCopyrightText = "2014 Andrew Lake <jamboarder@gmail.com>"
 SPDX-License-Identifier = "LGPL-3.0-or-later"
 
 [[annotations]]
-path = ["android/play_store_512.png", "android/res/mipmap**/**background.png", "android/res/mipmap**/**foreground.png", "android/res/mipmap**/ic_launcher.png"]
+path = ["android/ic_launcher-playstore.png", "android/res/mipmap**/**background.png", "android/res/mipmap**/**foreground.png", "android/res/mipmap**/ic_launcher.png"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2018 Paul Lesur <paul.lesur@free.fr>"
 SPDX-License-Identifier = "LGPL-3.0-or-later"

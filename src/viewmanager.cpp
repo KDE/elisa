@@ -86,6 +86,26 @@ public:
                                  QUrl{QStringLiteral("image://icon/folder")},
                                  ViewManager::DelegateWithoutSecondaryText,
                                  ViewManager::ViewHideRating}},
+        {ElisaUtils::Track, {{},
+                             QUrl{QStringLiteral("image://icon/view-media-track")},
+                             ViewManager::TrackView,
+                             ViewManager::GenericDataModel,
+                             ElisaUtils::FilterByArtist,
+                             ElisaUtils::Track,
+                             DataTypes::TitleRole,
+                             {DataTypes::TitleRole, DataTypes::AlbumRole, DataTypes::ArtistRole,
+                             DataTypes::GenreRole, DataTypes::YearRole, DataTypes::DurationRole,
+                             DataTypes::ComposerRole, DataTypes::LyricistRole,
+                             DataTypes::FileModificationTime},
+                             {i18nc("@title:menu", "Title"), i18nc("@title:menu", "Album"), i18nc("@title:menu", "Artist"), i18nc("@title:menu", "Genre"),
+                             i18nc("@title:menu", "Year"), i18nc("@title:menu", "Duration"), i18nc("@title:menu", "Composer"), i18nc("@title:menu", "Lyricist"),
+                             i18nc("@title:menu", "Last Modified")},
+                             Qt::AscendingOrder,
+                             {i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"),
+                             i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First"), i18nc("@item:inmenu", "Shortest First"), i18nc("@item:inmenu", "Longest First"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"), i18nc("@item:inmenu", "A-Z"), i18nc("@item:inmenu", "Z-A"),
+                             i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
+                             ViewManager::MultipleAlbum,
+                             ViewManager::NoDiscHeaders}},
     };
 
     int mViewIndex = -1;
@@ -187,8 +207,17 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
     nextViewParameters.mDepth = d->mViewParametersStack.size() + 1;
     nextViewParameters.mDataFilter = fullData;
 
-    if (lastView.mFilterType == ElisaUtils::FilterByGenre) {
-        nextViewParameters.mFilterType = ElisaUtils::FilterByGenreAndArtist;
+    if (lastView.mFilterType == ElisaUtils::FilterByGenre || (lastView.mFilterType == ElisaUtils::FilterByGenreAndArtist && dataType != ElisaUtils::Album)) {
+        nextViewParameters.mFilterType =
+            dataType == ElisaUtils::Track && lastView.mDataType == ElisaUtils::Artist ? ElisaUtils::FilterByGenre : ElisaUtils::FilterByGenreAndArtist;
+    }
+
+    if (dataType == ElisaUtils::Artist) {
+        nextViewParameters.mSecondaryTitle = i18nc("@item:inlistbox Title of the view of all albums", "Albums");
+    } else if (dataType == ElisaUtils::Track) {
+        nextViewParameters.mSecondaryTitle = i18nc("@item:inlistbox Title of the view of all tracks", "Tracks");
+    } else if (dataType == ElisaUtils::Genre) {
+        nextViewParameters.mSecondaryTitle = i18nc("@item:inlistbox Title of the view of all artists", "Artists");
     }
 
     applyFilter(nextViewParameters, title, lastView);
@@ -228,6 +257,17 @@ void ViewManager::openArtistView(const QString &artist)
 {
     openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Artist},
                    {DataTypes::TitleRole, artist},});
+}
+
+void ViewManager::openTracksView(const QString &title)
+{
+    const auto &lastView = d->mViewParametersStack.back();
+
+    openChildView({
+        {DataTypes::ElementTypeRole, ElisaUtils::Track},
+        {DataTypes::TitleRole, title},
+        {DataTypes::ImageUrlRole, lastView.mDataFilter[DataTypes::ImageUrlRole]},
+    });
 }
 
 void ViewManager::openNowPlaying()

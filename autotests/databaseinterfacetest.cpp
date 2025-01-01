@@ -2113,8 +2113,11 @@ private Q_SLOTS:
 
         QCOMPARE(allTracks.size(), 3);
         QCOMPARE(allTracks[0].genre(), QStringLiteral("genre1"));
+        QCOMPARE(allTracks[0].artist(), QStringLiteral("artist1"));
         QCOMPARE(allTracks[1].genre(), QStringLiteral("genre1"));
+        QCOMPARE(allTracks[1].artist(), QStringLiteral("artist1"));
         QCOMPARE(allTracks[2].genre(), QStringLiteral("genre1"));
+        QCOMPARE(allTracks[2].artist(), QStringLiteral("artist1"));
     }
 
     void removeOneTrack()

@@ -163,9 +163,11 @@ void ModelDataLoader::loadDataByGenre(ElisaUtils::PlayListEntryType dataType, co
     case ElisaUtils::Artist:
         Q_EMIT allArtistsData(d->mDatabase->allArtistsDataByGenre(genre));
         break;
+    case ElisaUtils::Track:
+        Q_EMIT allTracksData(d->mDatabase->tracksDataFromGenre(genre));
+        break;
     case ElisaUtils::Album:
     case ElisaUtils::Composer:
-    case ElisaUtils::Track:
     case ElisaUtils::Genre:
     case ElisaUtils::Lyricist:
     case ElisaUtils::FileName:
@@ -191,9 +193,11 @@ void ModelDataLoader::loadDataByArtist(ElisaUtils::PlayListEntryType dataType, c
     case ElisaUtils::Album:
         Q_EMIT allAlbumsData(d->mDatabase->allAlbumsDataByArtist(artist));
         break;
+    case ElisaUtils::Track:
+        Q_EMIT allTracksData(d->mDatabase->tracksDataFromAuthor(artist));
+        break;
     case ElisaUtils::Artist:
     case ElisaUtils::Composer:
-    case ElisaUtils::Track:
     case ElisaUtils::Genre:
     case ElisaUtils::Lyricist:
     case ElisaUtils::FileName:
@@ -220,11 +224,13 @@ void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dat
     case ElisaUtils::Album:
         Q_EMIT allAlbumsData(d->mDatabase->allAlbumsDataByGenreAndArtist(genre, artist));
         break;
+    case ElisaUtils::Track:
+        Q_EMIT allTracksData(d->mDatabase->tracksDataFromGenreAndAuthor(genre, artist));
+        break;
     case ElisaUtils::Artist:
     case ElisaUtils::Composer:
     case ElisaUtils::Genre:
     case ElisaUtils::Lyricist:
-    case ElisaUtils::Track:
     case ElisaUtils::FileName:
     case ElisaUtils::Unknown:
     case ElisaUtils::Radio:

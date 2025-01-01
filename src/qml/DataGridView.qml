@@ -146,6 +146,17 @@ AbstractDataView {
         Accessible.role: Accessible.List
         Accessible.name: mainTitle
 
+        header: ListBrowserDelegate {
+            visible: isSubPage && (abstractView.modelType === ElisaUtils.Artist || abstractView.modelType === ElisaUtils.Genre)
+            height: visible ? elisaTheme.listDelegateHeight : 0
+            width: contentDirectoryView.width
+            hideActions: true
+            hasChildren: true
+            mainText: i18nc("@item:intable View all tracks", "All tracks")
+            imageFallbackUrl: elisaTheme.trackIcon
+            onOpen: viewManager.openTracksView(mainTitle)
+        }
+
         cellWidth: {
             if (!gridView.showingGridViewStyle) {
                 return width;

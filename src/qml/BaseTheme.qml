@@ -19,6 +19,7 @@ Item {
     property string ratingIcon: 'image://icon/rating'
     property string ratingUnratedIcon: 'image://icon/rating-unrated'
     property string folderIcon: 'image://icon/document-open-folder'
+    readonly property string trackIcon: 'image://icon/view-media-track'
 
     property int coverImageSize: Kirigami.Units.gridUnit * 10
 

@@ -114,7 +114,9 @@ FocusScope {
             enableSorting: abstractView.sortModel
             enableGoBack: abstractView.isSubPage || abstractView.depth > 1
             canEnqueueView: delegateModel.count > 0
-            allowArtistNavigation: abstractView.isSubPage
+            allowArtistNavigation: abstractView.isSubPage 
+                && abstractView.modelType === ElisaUtils.Track
+                && abstractView.displaySingleAlbum
             showCreateRadioButton: abstractView.modelType === ElisaUtils.Radio
             showEnqueueButton: abstractView.modelType !== ElisaUtils.Radio
             displaySingleAlbum: abstractView.displaySingleAlbum

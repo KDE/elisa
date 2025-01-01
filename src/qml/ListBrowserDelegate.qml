@@ -20,6 +20,8 @@ AbstractBrowserDelegate {
     required property int index
     readonly property bool isAlternateColor: index % 2 === 1
 
+    property bool hideActions: false
+
     height: elisaTheme.listDelegateHeight
 
     Rectangle {
@@ -125,7 +127,7 @@ AbstractBrowserDelegate {
 
             // hover actions (for desktop)
             Loader {
-                active: !Kirigami.Settings.isMobile && (hoverArea.containsMouse || listEntry.activeFocus) && !listEntry.editingRating
+                active: !listEntry.hideActions && !Kirigami.Settings.isMobile && (hoverArea.containsMouse || listEntry.activeFocus) && !listEntry.editingRating
                 visible: active
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
@@ -151,7 +153,7 @@ AbstractBrowserDelegate {
             // mobile context menu button
             FlatButtonWithToolTip {
                 action: listEntry.mobileContextMenuAction
-                visible: listEntry.mobileContextMenuAction.visible
+                visible: !listEntry.hideActions && listEntry.mobileContextMenuAction.visible
                 scale: LayoutMirroring.enabled ? -1 : 1
                 Layout.alignment: Qt.AlignVCenter
                 Layout.maximumHeight: parent.height

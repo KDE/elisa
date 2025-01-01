@@ -142,6 +142,8 @@ public Q_SLOTS:
 
     void openArtistView(const QString &artist);
 
+    void openTracksView(const QString &title);
+
     void openNowPlaying();
 
     void goBack();

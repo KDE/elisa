@@ -90,6 +90,8 @@ public:
 
     DataTypes::ListTrackDataType tracksDataFromGenre(const QString &genre);
 
+    DataTypes::ListTrackDataType tracksDataFromGenreAndAuthor(const QString &genre, const QString &artistName);
+
     DataTypes::TrackDataType trackDataFromDatabaseId(qulonglong id);
 
     DataTypes::TrackDataType trackDataFromDatabaseIdAndUrl(qulonglong id, const QUrl &trackUrl);
@@ -247,6 +249,8 @@ private:
     DataTypes::ListTrackDataType internalTracksFromAuthor(const QString &artistName);
 
     DataTypes::ListTrackDataType internalTracksFromGenre(const QString &genre);
+
+    DataTypes::ListTrackDataType internalTracksFromAuthorAndGenre(const QString &artistName, const QString &genre);
 
     QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName);
 

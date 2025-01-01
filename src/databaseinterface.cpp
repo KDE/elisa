@@ -126,6 +126,7 @@ public:
         , mInsertTrackQuery(mTracksDatabase)
         , mSelectTracksFromArtist(mTracksDatabase)
         , mSelectTracksFromGenre(mTracksDatabase)
+        , mSelectTracksFromArtistAndGenre(mTracksDatabase)
         , mSelectTrackFromIdQuery(mTracksDatabase)
         , mSelectRadioFromIdQuery(mTracksDatabase)
         , mSelectCountAlbumsForArtistQuery(mTracksDatabase)
@@ -241,6 +242,8 @@ public:
     QSqlQuery mSelectTracksFromArtist;
 
     QSqlQuery mSelectTracksFromGenre;
+
+    QSqlQuery mSelectTracksFromArtistAndGenre;
 
     QSqlQuery mSelectTrackFromIdQuery;
 
@@ -958,6 +961,26 @@ DataTypes::ListTrackDataType DatabaseInterface::tracksDataFromGenre(const QStrin
 
     return allTracks;
 }
+
+DataTypes::ListTrackDataType DatabaseInterface::tracksDataFromGenreAndAuthor(const QString &genre, const QString &artistName)
+{
+    auto allTracks = DataTypes::ListTrackDataType{};
+
+    auto transactionResult = startTransaction();
+    if (!transactionResult) {
+        return allTracks;
+    }
+
+    allTracks = internalTracksFromAuthorAndGenre(artistName, genre);
+
+    transactionResult = finishTransaction();
+    if (!transactionResult) {
+        return allTracks;
+    }
+
+    return allTracks;
+}
+
 DataTypes::TrackDataType DatabaseInterface::trackDataFromDatabaseId(qulonglong id)
 {
     auto result = DataTypes::TrackDataType();
@@ -6440,6 +6463,142 @@ void DatabaseInterface::initDataQueries()
     }
 
     {
+        auto selectTracksFromArtistAndGenreQueryText = QStringLiteral(
+            "SELECT "
+            "tracks.`ID`, "
+            "tracks.`Title`, "
+            "album.`ID`, "
+            "tracks.`ArtistName`, "
+            "( "
+            "SELECT "
+            "COUNT(DISTINCT tracksFromAlbum1.`ArtistName`) "
+            "FROM "
+            "`Tracks` tracksFromAlbum1 "
+            "WHERE "
+            "tracksFromAlbum1.`AlbumTitle` = album.`Title` AND "
+            "(tracksFromAlbum1.`AlbumArtistName` = album.`ArtistName` OR "
+            "(tracksFromAlbum1.`AlbumArtistName` IS NULL AND "
+            "album.`ArtistName` IS NULL "
+            ") "
+            ") AND "
+            "tracksFromAlbum1.`AlbumPath` = album.`AlbumPath` "
+            ") AS ArtistsCount, "
+            "( "
+            "SELECT "
+            "GROUP_CONCAT(tracksFromAlbum2.`ArtistName`) "
+            "FROM "
+            "`Tracks` tracksFromAlbum2 "
+            "WHERE "
+            "tracksFromAlbum2.`AlbumTitle` = album.`Title` AND "
+            "(tracksFromAlbum2.`AlbumArtistName` = album.`ArtistName` OR "
+            "(tracksFromAlbum2.`AlbumArtistName` IS NULL AND "
+            "album.`ArtistName` IS NULL "
+            ") "
+            ") AND "
+            "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
+            ") AS AllArtists, "
+            "tracks.`AlbumArtistName`, "
+            "tracksMapping.`FileName`, "
+            "tracksMapping.`FileModifiedTime`, "
+            "tracks.`TrackNumber`, "
+            "tracks.`DiscNumber`, "
+            "tracks.`Duration`, "
+            "tracks.`AlbumTitle`, "
+            "tracks.`Rating`, "
+            "album.`CoverFileName`, "
+            "("
+            "SELECT "
+            "COUNT(DISTINCT tracks2.DiscNumber) <= 1 "
+            "FROM "
+            "`Tracks` tracks2 "
+            "WHERE "
+            "tracks2.`AlbumTitle` = album.`Title` AND "
+            "(tracks2.`AlbumArtistName` = album.`ArtistName` OR "
+            "(tracks2.`AlbumArtistName` IS NULL AND "
+            "album.`ArtistName` IS NULL"
+            ")"
+            ") AND "
+            "tracks2.`AlbumPath` = album.`AlbumPath` "
+            ") as `IsSingleDiscAlbum`, "
+            "trackGenre.`Name`, "
+            "trackComposer.`Name`, "
+            "trackLyricist.`Name`, "
+            "tracks.`Comment`, "
+            "tracks.`Year`, "
+            "tracks.`Channels`, "
+            "tracks.`BitRate`, "
+            "tracks.`SampleRate`, "
+            "tracks.`HasEmbeddedCover`, "
+            "tracksMapping.`ImportDate`, "
+            "tracksMapping.`FirstPlayDate`, "
+            "tracksMapping.`LastPlayDate`, "
+            "tracksMapping.`PlayCounter`, "
+            "( "
+            "SELECT tracksCover.`FileName` "
+            "FROM "
+            "`Tracks` tracksCover "
+            "WHERE "
+            "tracksCover.`HasEmbeddedCover` = 1 AND "
+            "( "
+            "(tracksCover.`AlbumTitle` IS NULL AND "
+            "tracksCover.`FileName` = tracks.`FileName` ) OR "
+            "( "
+            "tracksCover.`AlbumTitle` = album.`Title` AND "
+            "(tracksCover.`AlbumArtistName` = album.`ArtistName` OR "
+            "(tracksCover.`AlbumArtistName` IS NULL AND "
+            "album.`ArtistName` IS NULL "
+            ") "
+            ") AND "
+            "tracksCover.`AlbumPath` = album.`AlbumPath` "
+            ") "
+            ") "
+            ") as EmbeddedCover "
+            "FROM "
+            "`Tracks` tracks, "
+            "`TracksData` tracksMapping "
+            "LEFT JOIN "
+            "`Albums` album "
+            "ON "
+            "tracks.`AlbumTitle` = album.`Title` AND "
+            "(tracks.`AlbumArtistName` = album.`ArtistName` OR tracks.`AlbumArtistName` IS NULL ) AND "
+            "tracks.`AlbumPath` = album.`AlbumPath` "
+            "LEFT JOIN `Composer` trackComposer ON trackComposer.`Name` = tracks.`Composer` "
+            "LEFT JOIN `Lyricist` trackLyricist ON trackLyricist.`Name` = tracks.`Lyricist` "
+            "LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = tracks.`Genre` "
+            "WHERE "
+            "tracks.`Genre` = :genre AND "
+            "(tracks.`ArtistName` = :artistName OR tracks.`AlbumArtistName` = :artistName) AND "
+            "tracksMapping.`FileName` = tracks.`FileName` AND "
+            "tracks.`Priority` = ("
+            "     SELECT "
+            "     MIN(`Priority`) "
+            "     FROM "
+            "     `Tracks` tracks2 "
+            "     WHERE "
+            "     tracks.`Title` = tracks2.`Title` AND "
+            "     (tracks.`ArtistName` IS NULL OR tracks.`ArtistName` = tracks2.`ArtistName`) AND "
+            "     (tracks.`AlbumTitle` IS NULL OR tracks.`AlbumTitle` = tracks2.`AlbumTitle`) AND "
+            "     (tracks.`AlbumArtistName` IS NULL OR tracks.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+            "     (tracks.`AlbumPath` IS NULL OR tracks.`AlbumPath` = tracks2.`AlbumPath`)"
+            ")"
+            "ORDER BY "
+            "album.`Title` ASC, "
+            "tracks.`DiscNumber` ASC, "
+            "tracks.`TrackNumber` ASC, "
+            "tracks.`Title` ASC"
+            "");
+
+        auto result = prepareQuery(d->mSelectTracksFromArtistAndGenre, selectTracksFromArtistAndGenreQueryText);
+
+        if (!result) {
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtistAndGenre.lastQuery();
+            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtistAndGenre.lastError();
+
+            Q_EMIT databaseError();
+        }
+    }
+
+    {
         auto selectAlbumIdsFromArtistQueryText = QStringLiteral("SELECT "
                                                                 "album.`ID` "
                                                                 "FROM "
@@ -8373,6 +8532,35 @@ DataTypes::ListTrackDataType DatabaseInterface::internalTracksFromGenre(const QS
     return allTracks;
 }
 
+DataTypes::ListTrackDataType DatabaseInterface::internalTracksFromAuthorAndGenre(const QString &artistName, const QString &genre)
+{
+    auto allTracks = DataTypes::ListTrackDataType{};
+
+    d->mSelectTracksFromArtistAndGenre.bindValue(QStringLiteral(":artistName"), artistName);
+    d->mSelectTracksFromArtistAndGenre.bindValue(QStringLiteral(":genre"), genre);
+
+    auto result = execQuery(d->mSelectTracksFromArtistAndGenre);
+
+    if (!result || !d->mSelectTracksFromArtistAndGenre.isSelect() || !d->mSelectTracksFromArtistAndGenre.isActive()) {
+        Q_EMIT databaseError();
+
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthorAndGenre" << d->mSelectTracksFromArtistAndGenre.lastQuery();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthorAndGenre" << d->mSelectTracksFromArtistAndGenre.boundValues();
+        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthorAndGenre" << d->mSelectTracksFromArtistAndGenre.lastError();
+
+        return allTracks;
+    }
+
+    while (d->mSelectTracksFromArtistAndGenre.next()) {
+        const auto &currentRecord = d->mSelectTracksFromArtistAndGenre.record();
+
+        allTracks.push_back(buildTrackDataFromDatabaseRecord(currentRecord));
+    }
+
+    d->mSelectTracksFromArtistAndGenre.finish();
+
+    return allTracks;
+}
 
 QList<qulonglong> DatabaseInterface::internalAlbumIdsFromAuthor(const QString &ArtistName)
 {

@@ -2088,6 +2088,35 @@ private Q_SLOTS:
         QCOMPARE(allTracks[6].albumArtist(), QStringLiteral("artist1"));
     }
 
+    void testTracksFromGenreAndAuthor()
+    {
+        DatabaseInterface musicDb;
+
+        musicDb.init(QStringLiteral("testDbVariousArtistAlbum"));
+
+        QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
+        QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
+        QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
+
+        musicDb.insertTracksList(mNewTracks, mNewCovers);
+
+        musicDbTrackAddedSpy.wait(300);
+
+        QCOMPARE(musicDb.allAlbumsData().count(), 5);
+        QCOMPARE(musicDb.allArtistsData().count(), 7);
+        QCOMPARE(musicDb.allTracksData().count(), 22);
+        QCOMPARE(musicDbArtistAddedSpy.count(), 1);
+        QCOMPARE(musicDbAlbumAddedSpy.count(), 1);
+        QCOMPARE(musicDbTrackAddedSpy.count(), 1);
+
+        auto allTracks = musicDb.tracksDataFromGenreAndAuthor(QStringLiteral("genre1"), QStringLiteral("artist1"));
+
+        QCOMPARE(allTracks.size(), 3);
+        QCOMPARE(allTracks[0].genre(), QStringLiteral("genre1"));
+        QCOMPARE(allTracks[1].genre(), QStringLiteral("genre1"));
+        QCOMPARE(allTracks[2].genre(), QStringLiteral("genre1"));
+    }
+
     void removeOneTrack()
     {
         QTemporaryFile databaseFile;

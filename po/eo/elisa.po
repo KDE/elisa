@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:39+0000\n"
-"PO-Revision-Date: 2024-09-19 21:59+0200\n"
+"PO-Revision-Date: 2024-12-26 21:43+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -430,7 +430,7 @@ msgstr "Eniri Plenan Ekranon"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
-msgstr "Skani por Nova Muziko"
+msgstr "Skani pri Nova Muziko"
 
 #: qml/ApplicationMenu.qml:44 qml/NativeGlobalMenu.qml:33
 #: qml/NativeTrayMenu.qml:31
@@ -901,12 +901,10 @@ msgid "Remove this tag"
 msgstr "Forigi ĉi tiun etikedon"
 
 #: qml/MediaTrackMetadataDelegate.qml:198
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "Aldoni novan etikedon:"
+msgstr "Aldoni etikedon"
 
 #: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format
@@ -980,7 +978,7 @@ msgstr "Salti Malantaŭen"
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
-msgstr "Paŭzo"
+msgstr "Paŭzi"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:237
 #: qml/mobile/MobileTrackPlayer.qml:366
@@ -1097,7 +1095,7 @@ msgstr "Regiloj"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pause"
-msgstr "Paŭzo"
+msgstr "Paŭzi"
 
 #: qml/NativeGlobalMenu.qml:77
 #, kde-format

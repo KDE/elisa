@@ -236,7 +236,7 @@ QModelIndex MediaPlayListProxyModel::mapToSource(const QModelIndex &proxyIndex) 
 
 int MediaPlayListProxyModel::mapRowToSource(const int proxyRow) const
 {
-    if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
+    if (d->mRandomMapping.size() && d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
         return d->mRandomMapping.at(proxyRow);
     } else {
         return proxyRow;

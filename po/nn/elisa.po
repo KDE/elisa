@@ -954,8 +954,6 @@ msgstr "Fjern merkelappen"
 # unreviewed-context
 #: qml/MediaTrackMetadataDelegate.qml:214
 #, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
 msgctxt "@action:button"
 msgid "Add tag"
 msgstr "Legg til ny merkelapp:"

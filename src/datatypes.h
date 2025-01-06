@@ -77,6 +77,7 @@ public:
         HasChildrenRole,
         MultipleImageUrlsRole,
         LyricsLocationRole,
+        TracksCountRole,
     };
 
     Q_ENUM(ColumnsRoles)

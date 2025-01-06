@@ -19,7 +19,9 @@ class ELISALIB_EXPORT GridViewProxyModel : public AbstractMediaProxyModel
 
     Q_OBJECT
 
-    QML_ELEMENT
+    Q_PROPERTY(int tracksCount
+               READ tracksCount
+               NOTIFY tracksCountChanged)
 
 public:
 
@@ -27,7 +29,11 @@ public:
 
     ~GridViewProxyModel() override;
 
+    [[nodiscard]] int tracksCount() const;
+
 Q_SIGNALS:
+
+    void tracksCountChanged();
 
 public Q_SLOTS:
 

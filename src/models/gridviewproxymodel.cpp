@@ -68,5 +68,16 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
     return result;
 }
 
+int GridViewProxyModel::tracksCount() const
+{
+    int count = 0;
+
+    for (int rowIndex = 0, maxRowCount = sourceModel()->rowCount(); rowIndex < maxRowCount; ++rowIndex) {
+        auto currentIndex = sourceModel()->index(rowIndex, 0);
+        count += sourceModel()->data(currentIndex, DataTypes::TracksCountRole).toInt();
+    }
+
+    return count;
+}
 
 #include "moc_gridviewproxymodel.cpp"

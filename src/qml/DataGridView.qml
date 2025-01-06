@@ -146,15 +146,21 @@ AbstractDataView {
         Accessible.role: Accessible.List
         Accessible.name: mainTitle
 
-        header: ListBrowserDelegate {
-            visible: isSubPage && (abstractView.modelType === ElisaUtils.Artist || abstractView.modelType === ElisaUtils.Genre)
-            height: visible ? elisaTheme.listDelegateHeight : 0
-            width: contentDirectoryView.width
-            hideActions: true
-            hasChildren: true
-            mainText: i18nc("@item:intable View all tracks", "All tracks")
-            imageFallbackUrl: elisaTheme.trackIcon
-            onOpen: viewManager.openTracksView(mainTitle)
+        header: Loader {
+            active: (gridView.realModel ? !gridView.realModel.isBusy : false) &&
+                gridView.isSubPage && (gridView.modelType === ElisaUtils.Artist || gridView.modelType === ElisaUtils.Album)
+
+            sourceComponent: ListBrowserDelegate {
+                index: 0
+                height: elisaTheme.listDelegateHeight
+                width: contentDirectoryView.width
+                hideActions: true
+                hasChildren: true
+                mainText: i18nc("@item:intable View all tracks", "All tracks")
+                secondaryText: i18nc("@item:intable %1 tracks", "%1 tracks", gridView.contentModel.tracksCount)
+                imageFallbackUrl: elisaTheme.trackIcon
+                onOpen: gridView.viewManager.openTracksView(gridView.mainTitle)
+            }
         }
 
         cellWidth: {

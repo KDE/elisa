@@ -96,6 +96,7 @@ public:
         AlbumsAllGenres,
         AlbumsIsSingleDiscAlbum,
         AlbumsEmbeddedCover,
+        AlbumsTracksCount,
     };
 
     enum SingleAlbumRecordColumns
@@ -3900,7 +3901,30 @@ void DatabaseInterface::initDataQueries()
                                                   ") "
                                                   ") AND "
                                                   "tracksCover.`AlbumPath` = album.`AlbumPath` "
-                                                  ") as EmbeddedCover "
+                                                  ") as EmbeddedCover, "
+                                                  "( "
+                                                  "SELECT COUNT(tracksCount.`ID`) "
+                                                  "FROM "
+                                                  "`Tracks` tracksCount "
+                                                  "WHERE "
+                                                  "tracksCount.`Genre` = genres.`Name` AND "
+                                                  "tracksCount.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksCount.`AlbumArtistName` = :artistFilter OR "
+                                                  "(tracksCount.`ArtistName` = :artistFilter "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksCount.`Priority` = ( "
+                                                  "SELECT "
+                                                  "MIN(`Priority`) "
+                                                  "FROM "
+                                                  "`Tracks` tracks2 "
+                                                  "WHERE "
+                                                  "tracksCount.`Title` = tracks2.`Title` AND "
+                                                  "(tracksCount.`ArtistName` IS NULL OR tracksCount.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                  "(tracksCount.`AlbumArtistName` IS NULL OR tracksCount.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                  "(tracksCount.`AlbumPath` IS NULL OR tracksCount.`AlbumPath` = tracks2.`AlbumPath`) "
+                                                  ") "
+                                                  ") as TracksCount "
                                                   "FROM "
                                                   "`Albums` album, "
                                                   "`Tracks` tracks LEFT JOIN "
@@ -3981,7 +4005,29 @@ void DatabaseInterface::initDataQueries()
                                                   ") "
                                                   ") AND "
                                                   "tracksCover.`AlbumPath` = album.`AlbumPath` "
-                                                  ") as EmbeddedCover "
+                                                  ") as EmbeddedCover, "
+                                                  "( "
+                                                  "SELECT COUNT(tracksCount.`ID`) "
+                                                  "FROM "
+                                                  "`Tracks` tracksCount "
+                                                  "WHERE "
+                                                  "tracksCount.`AlbumTitle` = album.`Title` AND "
+                                                  "(tracksCount.`AlbumArtistName` = :artistFilter OR "
+                                                  "(tracksCount.`ArtistName` = :artistFilter "
+                                                  ") "
+                                                  ") AND "
+                                                  "tracksCount.`Priority` = ( "
+                                                  "SELECT "
+                                                  "MIN(`Priority`) "
+                                                  "FROM "
+                                                  "`Tracks` tracks2 "
+                                                  "WHERE "
+                                                  "tracksCount.`Title` = tracks2.`Title` AND "
+                                                  "(tracksCount.`ArtistName` IS NULL OR tracksCount.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                  "(tracksCount.`AlbumArtistName` IS NULL OR tracksCount.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                  "(tracksCount.`AlbumPath` IS NULL OR tracksCount.`AlbumPath` = tracks2.`AlbumPath`) "
+                                                  ") "
+                                                  ") as TracksCount "
                                                   "FROM "
                                                   "`Albums` album, "
                                                   "`Tracks` tracks LEFT JOIN "
@@ -4045,9 +4091,28 @@ void DatabaseInterface::initDataQueries()
     {
         auto selectAllArtistsWithGenreFilterText = QStringLiteral("SELECT artists.`ID`, "
                                                                   "artists.`Name`, "
-                                                                  "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres "
+                                                                  "GROUP_CONCAT(genres.`Name`, ', ') as AllGenres, "
+                                                                  "( "
+                                                                  "SELECT COUNT(tracksCount.`ID`) "
+                                                                  "FROM "
+                                                                  "`Tracks` tracksCount "
+                                                                  "WHERE "
+                                                                  "(tracksCount.`ArtistName` IS NULL OR tracksCount.`ArtistName` = artists.`Name`) AND "
+                                                                  "tracksCount.`Genre` = :genreFilter  AND "
+                                                                  "tracksCount.`Priority` = ( "
+                                                                  "SELECT "
+                                                                  "MIN(`Priority`) "
+                                                                  "FROM "
+                                                                  "`Tracks` tracks2 "
+                                                                  "WHERE "
+                                                                  "tracksCount.`Title` = tracks2.`Title` AND "
+                                                                  "(tracksCount.`ArtistName` IS NULL OR tracksCount.`ArtistName` = tracks2.`ArtistName`) AND "
+                                                                  "(tracksCount.`AlbumArtistName` IS NULL OR tracksCount.`AlbumArtistName` = tracks2.`AlbumArtistName`) AND "
+                                                                  "(tracksCount.`AlbumPath` IS NULL OR tracksCount.`AlbumPath` = tracks2.`AlbumPath`) "
+                                                                  ") "
+                                                                  ") as TracksCount "
                                                                   "FROM `Artists` artists  LEFT JOIN "
-                                                                  "`Tracks` tracks ON (tracks.`ArtistName` = artists.`Name` OR tracks.`AlbumArtistName` = artists.`Name`) LEFT JOIN "
+                                                                  "`Tracks` tracks ON tracks.`Genre` IS NOT NULL AND (tracks.`ArtistName` = artists.`Name` OR tracks.`AlbumArtistName` = artists.`Name`) LEFT JOIN "
                                                                   "`Genre` genres ON tracks.`Genre` = genres.`Name` "
                                                                   "WHERE "
                                                                   "EXISTS ("
@@ -8607,6 +8672,7 @@ DataTypes::ListArtistDataType DatabaseInterface::internalAllArtistsPartialData(Q
         newData[DataTypes::DatabaseIdRole] = currentRecord.value(0);
         newData[DataTypes::TitleRole] = currentRecord.value(1);
         newData[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(2).toString().split(QStringLiteral(", ")));
+        newData[DataTypes::TracksCountRole] = currentRecord.value(3);
 
         const auto covers = internalGetLatestFourCoversForArtist(currentRecord.value(1).toString());
         newData[DataTypes::MultipleImageUrlsRole] = covers;
@@ -8667,6 +8733,7 @@ DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSq
         } else {
             newData[DataTypes::YearRole] = 0;
         }
+        newData[DataTypes::TracksCountRole] = currentRecord.value(DatabaseInterfacePrivate::AlbumsTracksCount);
         newData[DataTypes::ElementTypeRole] = ElisaUtils::Album;
 
         result.push_back(newData);

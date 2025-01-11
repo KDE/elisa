@@ -153,12 +153,6 @@ LyricsModel::LyricsModelPrivate::parseOneLine(QString::const_iterator &begin,
  */
 QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begin, QString::const_iterator end)
 {
-    static auto skipTillChar = [](QString::const_iterator begin, QString::const_iterator end, char endChar) {
-        while (begin != end && begin->toLatin1() != endChar) {
-            ++begin;
-        }
-        return begin;
-    };
     static std::unordered_map<QString, QString> map = {
         {QStringLiteral("ar"), i18nc("@label musical artist", "Artist")},
         {QStringLiteral("al"), i18nc("@label musical album", "Album")},
@@ -172,7 +166,7 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
 
     while (begin != end) {
         // skip till tags
-        begin = skipTillChar(begin, end, '[');
+        begin = std::find(begin, end, '['_L1);
         if (begin != end) {
             ++begin;
         }
@@ -180,13 +174,13 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
             break;
         }
 
-        auto tagIdEnd = skipTillChar(begin, end, ':');
+        auto tagIdEnd = std::find(begin, end, ':'_L1);
         auto tagId = QString(begin, std::distance(begin, tagIdEnd));
         if (tagIdEnd != end &&
             (map.count(tagId) || tagId == QStringLiteral("offset"))) {
             ++tagIdEnd;
 
-            auto tagContentEnd = skipTillChar(tagIdEnd, end, ']');
+            auto tagContentEnd = std::find(tagIdEnd, end, ']'_L1);
             bool ok = true;
             if (map.count(tagId)) {
                 tags += i18nc("@label this is a key => value map", "%1: %2\n", map[tagId], QString(tagIdEnd, std::distance(tagIdEnd, tagContentEnd)));

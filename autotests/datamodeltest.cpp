@@ -1525,12 +1525,6 @@ private Q_SLOTS:
         QCOMPARE(endRemoveRowsSpy.count(), 0);
         QCOMPARE(dataChangedSpy.count(), 0);
 
-        auto newFiles = QList<QUrl>();
-        const auto &constNewTracks = mNewTracks;
-        for (const auto &oneTrack : constNewTracks) {
-            newFiles.push_back(oneTrack.resourceURI());
-        }
-
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);

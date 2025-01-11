@@ -252,7 +252,7 @@ bool TrackMetadataModel::setData(const QModelIndex &index, const QVariant &value
 
 void TrackMetadataModel::saveChanges()
 {
-    for (const auto role : mDisplayKeys) {
+    for (const auto role : std::as_const(mDisplayKeys)) {
         if (mDisplayData.contains(role)) {
             mFullData[role] = mDisplayData[role];
         } else {
@@ -356,7 +356,7 @@ void TrackMetadataModel::resetDisplayData()
     mDisplayData.clear();
     mDisplayKeys = displayFields(mFullData.elementType());
 
-    for (DataTypes::ColumnsRoles role : mDisplayKeys) {
+    for (DataTypes::ColumnsRoles role : std::as_const(mDisplayKeys)) {
         if (mFullData.constFind(role) != mFullData.constEnd()) {
             mDisplayData[role] = mFullData[role];
         }

@@ -9123,7 +9123,7 @@ void DatabaseInterface::pruneArtists()
     // Remove invalid ID
     d->mPossiblyRemovedArtistIds.remove(0);
 
-    for (const auto artistId : d->mPossiblyRemovedArtistIds) {
+    for (const auto artistId : std::as_const(d->mPossiblyRemovedArtistIds)) {
         if (!artistHasTracks(artistId)) {
             removeArtistInDatabase(artistId);
             d->mRemovedArtistIds.insert(artistId);
@@ -9137,7 +9137,7 @@ void DatabaseInterface::pruneGenres()
     // Remove invalid ID
     d->mPossiblyRemovedGenreIds.remove(0);
 
-    for (const auto genreId : d->mPossiblyRemovedGenreIds) {
+    for (const auto genreId : std::as_const(d->mPossiblyRemovedGenreIds)) {
         if (!genreHasTracks(genreId)) {
             removeGenreInDatabase(genreId);
             d->mRemovedGenreIds.insert(genreId);
@@ -9151,7 +9151,7 @@ void DatabaseInterface::pruneComposers()
     // Remove invalid ID
     d->mPossiblyRemovedComposerIds.remove(0);
 
-    for (const auto composerId : d->mPossiblyRemovedComposerIds) {
+    for (const auto composerId : std::as_const(d->mPossiblyRemovedComposerIds)) {
         if (!composerHasTracks(composerId)) {
             removeComposerInDatabase(composerId);
             d->mRemovedComposerIds.insert(composerId);
@@ -9165,7 +9165,7 @@ void DatabaseInterface::pruneLyricists()
     // Remove invalid ID
     d->mPossiblyRemovedLyricistsIds.remove(0);
 
-    for (const auto lyricistId : d->mPossiblyRemovedLyricistsIds) {
+    for (const auto lyricistId : std::as_const(d->mPossiblyRemovedLyricistsIds)) {
         if (!lyricistHasTracks(lyricistId)) {
             removeLyricistInDatabase(lyricistId);
             d->mRemovedLyricistIds.insert(lyricistId);

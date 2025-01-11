@@ -67,7 +67,7 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
                 states = LeftBracket;
             break;
         case ']':
-            begin++;
+            ++begin;
             if (states == Hundredths) {
                 return minute * 60 * 1000 + second * 1000 +
                     hundred * 10; // we return milliseconds
@@ -116,7 +116,7 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
             }
             break;
         }
-        begin++;
+        ++begin;
     }
 
     // end of lyric and no correct value found
@@ -155,7 +155,7 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
 {
     static auto skipTillChar = [](QString::const_iterator begin, QString::const_iterator end, char endChar) {
         while (begin != end && begin->toLatin1() != endChar) {
-            begin++;
+            ++begin;
         }
         return begin;
     };
@@ -174,7 +174,7 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
         // skip till tags
         begin = skipTillChar(begin, end, '[');
         if (begin != end) {
-            begin++;
+            ++begin;
         }
         else {
             break;
@@ -184,31 +184,28 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
         auto tagId = QString(begin, std::distance(begin, tagIdEnd));
         if (tagIdEnd != end &&
             (map.count(tagId) || tagId == QStringLiteral("offset"))) {
-          tagIdEnd++;
+            ++tagIdEnd;
 
-          auto tagContentEnd = skipTillChar(tagIdEnd, end, ']');
-          bool ok = true;
-          if (map.count(tagId)) {
-            tags += i18nc(
-                "@label this is a key => value map", "%1: %2\n", map[tagId],
-                QString(tagIdEnd, std::distance(tagIdEnd, tagContentEnd)));
-          } else {
-            // offset tag
-            offset = QString(tagIdEnd, std::distance(tagIdEnd, tagContentEnd))
-                         .toLongLong(&ok);
-          }
+            auto tagContentEnd = skipTillChar(tagIdEnd, end, ']');
+            bool ok = true;
+            if (map.count(tagId)) {
+                tags += i18nc("@label this is a key => value map", "%1: %2\n", map[tagId], QString(tagIdEnd, std::distance(tagIdEnd, tagContentEnd)));
+            } else {
+                // offset tag
+                offset = QString(tagIdEnd, std::distance(tagIdEnd, tagContentEnd)).toLongLong(&ok);
+            }
 
-          if (ok) {
-            begin = tagContentEnd;
-          } else {
-            // Invalid offset tag, we step back one to compensate the '[' we
-            // step over
-            begin--;
-            break;
-          }
+            if (ok) {
+                begin = tagContentEnd;
+            } else {
+                // Invalid offset tag, we step back one to compensate the '[' we
+                // step over
+                --begin;
+                break;
+            }
         } else {
           // No tag, we step back one to compensate the '[' we step over
-          begin--;
+          --begin;
           break;
         }
     }

@@ -18,16 +18,7 @@ using namespace Qt::Literals::StringLiterals;
 
 class FileBrowserProxyModelTest : public QObject
 {
-
     Q_OBJECT
-
-public:
-
-
-    FileBrowserProxyModelTest(QObject *parent = nullptr)
-        : QObject(parent)
-    {
-    }
 
 private Q_SLOTS:
 
@@ -78,7 +69,6 @@ private:
     std::unique_ptr<QAbstractItemModelTester> mFileProxyModelTester;
 
     std::unique_ptr<QSignalSpy> mEntriesToEnqueueSpy;
-
 };
 
 QTEST_GUILESS_MAIN(FileBrowserProxyModelTest)

@@ -27,7 +27,7 @@ class AndroidFileListing : public AbstractFileListing
     Q_OBJECT
 
 public:
-    AndroidFileListing(QObject *parent = nullptr);
+    explicit AndroidFileListing(QObject *parent = nullptr);
 
     ~AndroidFileListing() override;
 

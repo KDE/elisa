@@ -33,12 +33,6 @@ class LocalFileListingTests: public QObject, public DatabaseTestData
 {
     Q_OBJECT
 
-public:
-
-    LocalFileListingTests(QObject *parent = nullptr) : QObject(parent)
-    {
-    }
-
 private Q_SLOTS:
 
     void initTestCase()

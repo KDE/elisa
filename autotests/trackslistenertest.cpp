@@ -28,12 +28,6 @@ class TracksListenerTests: public QObject, public DatabaseTestData
 {
     Q_OBJECT
 
-public:
-
-    TracksListenerTests(QObject *parent = nullptr) : QObject(parent)
-    {
-    }
-
 private Q_SLOTS:
 
     void initTestCase()

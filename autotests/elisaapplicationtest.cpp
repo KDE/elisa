@@ -19,14 +19,6 @@ class ElisaApplicationTests: public QObject
 {
     Q_OBJECT
 
-public:
-
-    ElisaApplicationTests(QObject *parent = nullptr) : QObject(parent)
-    {
-    }
-
-private:
-
 private Q_SLOTS:
 
     void initTestCase()

@@ -63,8 +63,6 @@ public:
 
     [[nodiscard]] MediaPlayListProxyModel* playList() const;
 
-    void setSourceModel(QAbstractItemModel *sourceModel) override;
-
 public Q_SLOTS:
 
     void enqueueAll(ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
@@ -95,8 +93,6 @@ Q_SIGNALS:
     void sortedAscendingChanged();
 
     void playListChanged();
-
-protected:
 
 private Q_SLOTS:
 

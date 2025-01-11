@@ -234,17 +234,6 @@ void FileBrowserProxyModel::recursiveEnqueue()
     }
 }
 
-void FileBrowserProxyModel::setSourceModel(QAbstractItemModel *sourceModel)
-{
-    KDirSortFilterProxyModel::setSourceModel(sourceModel);
-
-    auto fileBrowserModel = dynamic_cast<FileBrowserModel *>(sourceModel);
-
-    if (!fileBrowserModel) {
-        return;
-    }
-}
-
 MediaPlayListProxyModel *FileBrowserProxyModel::playList() const
 {
     return mPlayList;

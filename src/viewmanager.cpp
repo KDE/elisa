@@ -198,6 +198,15 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
         return;
     }
 
+    // Don't recreate a view if we can go back to it
+    if (d->mViewParametersStack.size() >= 2) {
+        const auto &possiblyArtistView = d->mViewParametersStack.at(d->mViewParametersStack.size() - 2);
+        if (this->isSameView(nextViewParameters, possiblyArtistView)) {
+            goBack();
+            return;
+        }
+    }
+
     if (dataType == ElisaUtils::Album && nextViewParameters.mDataFilter[DataTypes::IsSingleDiscAlbumRole].toBool())
     {
         nextViewParameters.mAlbumViewStyle = NoDiscHeaders;

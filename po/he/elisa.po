@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-12 00:41+0000\n"
+"POT-Creation-Date: 2025-01-13 00:40+0000\n"
 "PO-Revision-Date: 2024-10-29 07:47+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-l10n-he@kde.org"
 
-#: databaseinterface.cpp:7391 databaseinterface.cpp:8468
-#: databaseinterface.cpp:8552
+#: databaseinterface.cpp:7615 databaseinterface.cpp:8722
+#: databaseinterface.cpp:8807
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "מגוון אומנים"
 
-#: databaseinterface.cpp:7459
+#: databaseinterface.cpp:7683
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -143,13 +143,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "תמיכה בתחנות רדיו מקוונות"
 
-#: models/editabletrackmetadatamodel.cpp:314
+#: models/editabletrackmetadatamodel.cpp:316
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "כתובת שגויה."
 
-#: models/editabletrackmetadatamodel.cpp:324
+#: models/editabletrackmetadatamodel.cpp:326
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
@@ -203,133 +203,133 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
-#: models/trackmetadatamodel.cpp:515
+#: models/trackmetadatamodel.cpp:516
 #, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "כותרת"
 
-#: models/trackmetadatamodel.cpp:518
+#: models/trackmetadatamodel.cpp:519
 #, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "משך"
 
-#: models/trackmetadatamodel.cpp:521
+#: models/trackmetadatamodel.cpp:522
 #, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "אומן/נית"
 
-#: models/trackmetadatamodel.cpp:524
+#: models/trackmetadatamodel.cpp:525
 #, kde-format
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "אלבום"
 
-#: models/trackmetadatamodel.cpp:527
+#: models/trackmetadatamodel.cpp:528
 #, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
 msgstr "יוצר האלבום"
 
-#: models/trackmetadatamodel.cpp:530
+#: models/trackmetadatamodel.cpp:531
 #, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
 msgstr "מספר הרצועה"
 
-#: models/trackmetadatamodel.cpp:533
+#: models/trackmetadatamodel.cpp:534
 #, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
 msgstr "מספר דיסק"
 
-#: models/trackmetadatamodel.cpp:536
+#: models/trackmetadatamodel.cpp:537
 #, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "דרוג"
 
-#: models/trackmetadatamodel.cpp:539
+#: models/trackmetadatamodel.cpp:540
 #, kde-format
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "סוגה"
 
-#: models/trackmetadatamodel.cpp:542
+#: models/trackmetadatamodel.cpp:543
 #, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "פזמונאי/ת"
 
-#: models/trackmetadatamodel.cpp:545
+#: models/trackmetadatamodel.cpp:546
 #, kde-format
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "מלחין/נה"
 
-#: models/trackmetadatamodel.cpp:548
+#: models/trackmetadatamodel.cpp:549
 #, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "הערה"
 
-#: models/trackmetadatamodel.cpp:551
+#: models/trackmetadatamodel.cpp:552
 #, kde-format
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "שנה"
 
-#: models/trackmetadatamodel.cpp:554
+#: models/trackmetadatamodel.cpp:555
 #, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "ערוצים"
 
-#: models/trackmetadatamodel.cpp:557
+#: models/trackmetadatamodel.cpp:558
 #, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
 msgstr "קצב סיביות"
 
-#: models/trackmetadatamodel.cpp:560
+#: models/trackmetadatamodel.cpp:561
 #, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
 msgstr "קצב דגימה"
 
-#: models/trackmetadatamodel.cpp:563
+#: models/trackmetadatamodel.cpp:564
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "נגינה אחרונה"
 
-#: models/trackmetadatamodel.cpp:566
+#: models/trackmetadatamodel.cpp:567
 #, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "נגינה ראשונה"
 
-#: models/trackmetadatamodel.cpp:569
+#: models/trackmetadatamodel.cpp:570
 #, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "כמות נגינות"
 
-#: models/trackmetadatamodel.cpp:572
+#: models/trackmetadatamodel.cpp:573
 #, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "מילות־שיר"
 
-#: models/trackmetadatamodel.cpp:575
+#: models/trackmetadatamodel.cpp:576
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "כתובת הזרמת HTTP"
 
-#: models/trackmetadatamodel.cpp:578
+#: models/trackmetadatamodel.cpp:579
 #, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
@@ -396,13 +396,13 @@ msgctxt "@action:button"
 msgid "Options"
 msgstr "אפשרויות"
 
-#: qml/AbstractDataView.qml:204
+#: qml/AbstractDataView.qml:206
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "אין תוצאות"
 
-#: qml/AbstractDataView.qml:204
+#: qml/AbstractDataView.qml:206
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -501,6 +501,23 @@ msgstr "שום דבר לא מתנגן"
 msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "הצגה בתיקייה"
+
+#: qml/DataGridView.qml:159
+#, fuzzy, kde-format
+#| msgctxt "@info:status"
+#| msgid "1 track"
+msgctxt "@item:intable View all tracks"
+msgid "All tracks"
+msgstr "רצועה"
+
+#: qml/DataGridView.qml:160
+#, fuzzy, kde-format
+#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
+msgctxt "@item:intable %1 tracks"
+msgid "%1 tracks"
+msgstr "רצועה"
 
 #: qml/DurationSlider.qml:67
 #, kde-format
@@ -1514,19 +1531,19 @@ msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "התנגנו לאחרונה"
 
-#: qml/SettingsForm.qml:285
+#: qml/SettingsForm.qml:285 viewmanager.cpp:216
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "אלבומים"
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:286 viewmanager.cpp:220
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "אומנים"
 
-#: qml/SettingsForm.qml:287
+#: qml/SettingsForm.qml:287 viewmanager.cpp:218
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
@@ -1717,16 +1734,18 @@ msgid "Descending"
 msgstr "יורד"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
-#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
+#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
+#: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
+#: viewslistdata.cpp:111 viewslistdata.cpp:136
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "א-ת"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
-#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
+#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
+#: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
+#: viewslistdata.cpp:111 viewslistdata.cpp:136
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
@@ -1750,19 +1769,86 @@ msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "שנה"
 
-#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
-#: viewslistdata.cpp:98
+#: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
+#: viewslistdata.cpp:63 viewslistdata.cpp:97 viewslistdata.cpp:98
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "ישנים בהתחלה"
 
-#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
-#: viewslistdata.cpp:98
+#: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
+#: viewslistdata.cpp:63 viewslistdata.cpp:97 viewslistdata.cpp:98
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "חדשים בהתחלה"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#, kde-format
+msgctxt "@title:menu"
+msgid "Title"
+msgstr "כותרת"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:92
+#, kde-format
+msgctxt "@title:menu"
+msgid "Album"
+msgstr "אלבום"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#, kde-format
+msgctxt "@title:menu"
+msgid "Artist"
+msgstr "אומן/נית"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#: viewslistdata.cpp:109
+#, kde-format
+msgctxt "@title:menu"
+msgid "Genre"
+msgstr "סוגה"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:61 viewslistdata.cpp:93
+#, kde-format
+msgctxt "@title:menu"
+msgid "Year"
+msgstr "שנה"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:93
+#, kde-format
+msgctxt "@title:menu"
+msgid "Duration"
+msgstr "משך"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:93
+#, kde-format
+msgctxt "@title:menu"
+msgid "Composer"
+msgstr "מלחין/נה"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:93
+#, kde-format
+msgctxt "@title:menu"
+msgid "Lyricist"
+msgstr "פזמונאי/ת"
+
+#: viewmanager.cpp:102 viewslistdata.cpp:94
+#, kde-format
+msgctxt "@title:menu"
+msgid "Last Modified"
+msgstr "שינוי אחרון"
+
+#: viewmanager.cpp:105 viewslistdata.cpp:97
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Shortest First"
+msgstr "הקצרים בהתחלה"
+
+#: viewmanager.cpp:105 viewslistdata.cpp:97
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Longest First"
+msgstr "הארוכים בהתחלה"
 
 #: viewslistdata.cpp:24
 #, kde-format
@@ -1818,30 +1904,6 @@ msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "אלו שהתנגנו בתדירות הגבוהה ביותר בהתחלה"
 
-#: viewslistdata.cpp:61 viewslistdata.cpp:92
-#, kde-format
-msgctxt "@title:menu"
-msgid "Title"
-msgstr "כותרת"
-
-#: viewslistdata.cpp:61 viewslistdata.cpp:92
-#, kde-format
-msgctxt "@title:menu"
-msgid "Artist"
-msgstr "אומן/נית"
-
-#: viewslistdata.cpp:61 viewslistdata.cpp:92 viewslistdata.cpp:109
-#, kde-format
-msgctxt "@title:menu"
-msgid "Genre"
-msgstr "סוגה"
-
-#: viewslistdata.cpp:61 viewslistdata.cpp:93
-#, kde-format
-msgctxt "@title:menu"
-msgid "Year"
-msgstr "שנה"
-
 #: viewslistdata.cpp:75 viewslistdata.cpp:134
 #, kde-format
 msgctxt "@title:menu"
@@ -1853,48 +1915,6 @@ msgstr "שם"
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "רצועות"
-
-#: viewslistdata.cpp:92
-#, kde-format
-msgctxt "@title:menu"
-msgid "Album"
-msgstr "אלבום"
-
-#: viewslistdata.cpp:93
-#, kde-format
-msgctxt "@title:menu"
-msgid "Duration"
-msgstr "משך"
-
-#: viewslistdata.cpp:93
-#, kde-format
-msgctxt "@title:menu"
-msgid "Composer"
-msgstr "מלחין/נה"
-
-#: viewslistdata.cpp:93
-#, kde-format
-msgctxt "@title:menu"
-msgid "Lyricist"
-msgstr "פזמונאי/ת"
-
-#: viewslistdata.cpp:94
-#, kde-format
-msgctxt "@title:menu"
-msgid "Last Modified"
-msgstr "שינוי אחרון"
-
-#: viewslistdata.cpp:97
-#, kde-format
-msgctxt "@item:inmenu"
-msgid "Shortest First"
-msgstr "הקצרים בהתחלה"
-
-#: viewslistdata.cpp:97
-#, kde-format
-msgctxt "@item:inmenu"
-msgid "Longest First"
-msgstr "הארוכים בהתחלה"
 
 #: viewslistdata.cpp:115
 #, kde-format
@@ -1927,10 +1947,6 @@ msgstr "תחנות רדיו"
 #~ msgctxt "@action:button"
 #~ msgid "Toggle View Style"
 #~ msgstr "החלפת סגנון תצוגה"
-
-#~ msgctxt "@info:status"
-#~ msgid "1 track"
-#~ msgstr "רצועה"
 
 #~ msgctxt ""
 #~ "@info:status %1 is the translation of track[s], %2 is the translation of "

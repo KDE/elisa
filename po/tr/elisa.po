@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-12 00:41+0000\n"
+"POT-Creation-Date: 2025-01-13 00:40+0000\n"
 "PO-Revision-Date: 2024-10-29 15:39+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sunder67@hotmail.com, emir_sari@icloud.com"
 
-#: databaseinterface.cpp:7391 databaseinterface.cpp:8468
-#: databaseinterface.cpp:8552
+#: databaseinterface.cpp:7615 databaseinterface.cpp:8722
+#: databaseinterface.cpp:8807
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Çeşitli Sanatçılar"
 
-#: databaseinterface.cpp:7459
+#: databaseinterface.cpp:7683
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -143,13 +143,13 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Çevrimiçi radyolar için destek"
 
-#: models/editabletrackmetadatamodel.cpp:314
+#: models/editabletrackmetadatamodel.cpp:316
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Geçersiz URL"
 
-#: models/editabletrackmetadatamodel.cpp:324
+#: models/editabletrackmetadatamodel.cpp:326
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
@@ -203,133 +203,133 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
-#: models/trackmetadatamodel.cpp:515
+#: models/trackmetadatamodel.cpp:516
 #, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "Başlık"
 
-#: models/trackmetadatamodel.cpp:518
+#: models/trackmetadatamodel.cpp:519
 #, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "Süre"
 
-#: models/trackmetadatamodel.cpp:521
+#: models/trackmetadatamodel.cpp:522
 #, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "Sanatçı"
 
-#: models/trackmetadatamodel.cpp:524
+#: models/trackmetadatamodel.cpp:525
 #, kde-format
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "Albüm"
 
-#: models/trackmetadatamodel.cpp:527
+#: models/trackmetadatamodel.cpp:528
 #, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
 msgstr "Albüm sanatçısı"
 
-#: models/trackmetadatamodel.cpp:530
+#: models/trackmetadatamodel.cpp:531
 #, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
 msgstr "Parça numarası"
 
-#: models/trackmetadatamodel.cpp:533
+#: models/trackmetadatamodel.cpp:534
 #, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
 msgstr "Disk numarası"
 
-#: models/trackmetadatamodel.cpp:536
+#: models/trackmetadatamodel.cpp:537
 #, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "Derecelendirme"
 
-#: models/trackmetadatamodel.cpp:539
+#: models/trackmetadatamodel.cpp:540
 #, kde-format
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "Tür"
 
-#: models/trackmetadatamodel.cpp:542
+#: models/trackmetadatamodel.cpp:543
 #, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "Söz yazarı"
 
-#: models/trackmetadatamodel.cpp:545
+#: models/trackmetadatamodel.cpp:546
 #, kde-format
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "Besteci"
 
-#: models/trackmetadatamodel.cpp:548
+#: models/trackmetadatamodel.cpp:549
 #, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "Açıklama"
 
-#: models/trackmetadatamodel.cpp:551
+#: models/trackmetadatamodel.cpp:552
 #, kde-format
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "Yıl"
 
-#: models/trackmetadatamodel.cpp:554
+#: models/trackmetadatamodel.cpp:555
 #, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "Kanallar"
 
-#: models/trackmetadatamodel.cpp:557
+#: models/trackmetadatamodel.cpp:558
 #, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
 msgstr "Bit hızı"
 
-#: models/trackmetadatamodel.cpp:560
+#: models/trackmetadatamodel.cpp:561
 #, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
 msgstr "Örnekleme hızı"
 
-#: models/trackmetadatamodel.cpp:563
+#: models/trackmetadatamodel.cpp:564
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "Son çalma"
 
-#: models/trackmetadatamodel.cpp:566
+#: models/trackmetadatamodel.cpp:567
 #, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "İlk çalınan"
 
-#: models/trackmetadatamodel.cpp:569
+#: models/trackmetadatamodel.cpp:570
 #, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "Çalma sayısı"
 
-#: models/trackmetadatamodel.cpp:572
+#: models/trackmetadatamodel.cpp:573
 #, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "Şarkı sözleri"
 
-#: models/trackmetadatamodel.cpp:575
+#: models/trackmetadatamodel.cpp:576
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "Akış HTTP adresi"
 
-#: models/trackmetadatamodel.cpp:578
+#: models/trackmetadatamodel.cpp:579
 #, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image Address"
@@ -396,13 +396,13 @@ msgctxt "@action:button"
 msgid "Options"
 msgstr "Seçenekler"
 
-#: qml/AbstractDataView.qml:204
+#: qml/AbstractDataView.qml:206
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Eşleşme yok"
 
-#: qml/AbstractDataView.qml:204
+#: qml/AbstractDataView.qml:206
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
@@ -501,6 +501,23 @@ msgstr "Çalınan müzik yok"
 msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "Klasörde Göster"
+
+#: qml/DataGridView.qml:159
+#, fuzzy, kde-format
+#| msgctxt "@info:status"
+#| msgid "1 track"
+msgctxt "@item:intable View all tracks"
+msgid "All tracks"
+msgstr "1 parça"
+
+#: qml/DataGridView.qml:160
+#, fuzzy, kde-format
+#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
+msgctxt "@item:intable %1 tracks"
+msgid "%1 tracks"
+msgstr "%1 parça"
 
 #: qml/DurationSlider.qml:67
 #, kde-format
@@ -1509,19 +1526,19 @@ msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Sık Çalınanlar"
 
-#: qml/SettingsForm.qml:285
+#: qml/SettingsForm.qml:285 viewmanager.cpp:216
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Albümler"
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:286 viewmanager.cpp:220
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Sanatçılar"
 
-#: qml/SettingsForm.qml:287
+#: qml/SettingsForm.qml:287 viewmanager.cpp:218
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
@@ -1710,16 +1727,18 @@ msgid "Descending"
 msgstr "Azalan"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
-#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
+#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
+#: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
+#: viewslistdata.cpp:111 viewslistdata.cpp:136
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A-Z"
 msgstr "A–Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
-#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
+#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
+#: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
+#: viewslistdata.cpp:111 viewslistdata.cpp:136
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z-A"
@@ -1743,19 +1762,86 @@ msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "Yıl"
 
-#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
-#: viewslistdata.cpp:98
+#: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
+#: viewslistdata.cpp:63 viewslistdata.cpp:97 viewslistdata.cpp:98
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "En eski önce"
 
-#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
-#: viewslistdata.cpp:98
+#: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
+#: viewslistdata.cpp:63 viewslistdata.cpp:97 viewslistdata.cpp:98
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "En yeni önce"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#, kde-format
+msgctxt "@title:menu"
+msgid "Title"
+msgstr "Başlık"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:92
+#, kde-format
+msgctxt "@title:menu"
+msgid "Album"
+msgstr "Albüm"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#, kde-format
+msgctxt "@title:menu"
+msgid "Artist"
+msgstr "Sanatçı"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#: viewslistdata.cpp:109
+#, kde-format
+msgctxt "@title:menu"
+msgid "Genre"
+msgstr "Tür"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:61 viewslistdata.cpp:93
+#, kde-format
+msgctxt "@title:menu"
+msgid "Year"
+msgstr "Yıl"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:93
+#, kde-format
+msgctxt "@title:menu"
+msgid "Duration"
+msgstr "Süre"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:93
+#, kde-format
+msgctxt "@title:menu"
+msgid "Composer"
+msgstr "Besteci"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:93
+#, kde-format
+msgctxt "@title:menu"
+msgid "Lyricist"
+msgstr "Söz Yazarı"
+
+#: viewmanager.cpp:102 viewslistdata.cpp:94
+#, kde-format
+msgctxt "@title:menu"
+msgid "Last Modified"
+msgstr "Son Değiştirilme"
+
+#: viewmanager.cpp:105 viewslistdata.cpp:97
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Shortest First"
+msgstr "En kısa ilk"
+
+#: viewmanager.cpp:105 viewslistdata.cpp:97
+#, kde-format
+msgctxt "@item:inmenu"
+msgid "Longest First"
+msgstr "En uzun ilk"
 
 #: viewslistdata.cpp:24
 #, kde-format
@@ -1811,30 +1897,6 @@ msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "En sık çalınanlar önce"
 
-#: viewslistdata.cpp:61 viewslistdata.cpp:92
-#, kde-format
-msgctxt "@title:menu"
-msgid "Title"
-msgstr "Başlık"
-
-#: viewslistdata.cpp:61 viewslistdata.cpp:92
-#, kde-format
-msgctxt "@title:menu"
-msgid "Artist"
-msgstr "Sanatçı"
-
-#: viewslistdata.cpp:61 viewslistdata.cpp:92 viewslistdata.cpp:109
-#, kde-format
-msgctxt "@title:menu"
-msgid "Genre"
-msgstr "Tür"
-
-#: viewslistdata.cpp:61 viewslistdata.cpp:93
-#, kde-format
-msgctxt "@title:menu"
-msgid "Year"
-msgstr "Yıl"
-
 #: viewslistdata.cpp:75 viewslistdata.cpp:134
 #, kde-format
 msgctxt "@title:menu"
@@ -1846,48 +1908,6 @@ msgstr "Ad"
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Parçalar"
-
-#: viewslistdata.cpp:92
-#, kde-format
-msgctxt "@title:menu"
-msgid "Album"
-msgstr "Albüm"
-
-#: viewslistdata.cpp:93
-#, kde-format
-msgctxt "@title:menu"
-msgid "Duration"
-msgstr "Süre"
-
-#: viewslistdata.cpp:93
-#, kde-format
-msgctxt "@title:menu"
-msgid "Composer"
-msgstr "Besteci"
-
-#: viewslistdata.cpp:93
-#, kde-format
-msgctxt "@title:menu"
-msgid "Lyricist"
-msgstr "Söz Yazarı"
-
-#: viewslistdata.cpp:94
-#, kde-format
-msgctxt "@title:menu"
-msgid "Last Modified"
-msgstr "Son Değiştirilme"
-
-#: viewslistdata.cpp:97
-#, kde-format
-msgctxt "@item:inmenu"
-msgid "Shortest First"
-msgstr "En kısa ilk"
-
-#: viewslistdata.cpp:97
-#, kde-format
-msgctxt "@item:inmenu"
-msgid "Longest First"
-msgstr "En uzun ilk"
 
 #: viewslistdata.cpp:115
 #, kde-format
@@ -1920,10 +1940,6 @@ msgstr "Radyo İstasyonları"
 #~ msgctxt "@action:button"
 #~ msgid "Toggle View Style"
 #~ msgstr "Görünüm Biçemini Değiştir"
-
-#~ msgctxt "@info:status"
-#~ msgid "1 track"
-#~ msgstr "1 parça"
 
 #~ msgctxt ""
 #~ "@info:status %1 is the translation of track[s], %2 is the translation of "

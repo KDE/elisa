@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-12 00:41+0000\n"
+"POT-Creation-Date: 2025-01-13 00:40+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -27,15 +27,15 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "tomhioo@outlook.jp,21r.suga@gmail.com"
 
-#: databaseinterface.cpp:7391 databaseinterface.cpp:8468
-#: databaseinterface.cpp:8552
+#: databaseinterface.cpp:7615 databaseinterface.cpp:8722
+#: databaseinterface.cpp:8807
 #, fuzzy, kde-format
 #| msgid "Various Artists"
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "さまざまなアーティスト"
 
-#: databaseinterface.cpp:7459
+#: databaseinterface.cpp:7683
 #, fuzzy, kde-format
 #| msgid "Radio Stations"
 msgctxt "@item:intable"
@@ -161,7 +161,7 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "オンラインラジオをサポート"
 
-#: models/editabletrackmetadatamodel.cpp:314
+#: models/editabletrackmetadatamodel.cpp:316
 #, fuzzy, kde-format
 #| msgctxt "Error message when track URL is invalid"
 #| msgid "Invalid URL."
@@ -169,7 +169,7 @@ msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "無効な URL です。"
 
-#: models/editabletrackmetadatamodel.cpp:324
+#: models/editabletrackmetadatamodel.cpp:326
 #, fuzzy, kde-format
 #| msgctxt "Error message when track title is empty"
 #| msgid "Empty title."
@@ -228,35 +228,35 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr ""
 
-#: models/trackmetadatamodel.cpp:515
+#: models/trackmetadatamodel.cpp:516
 #, fuzzy, kde-format
 #| msgid "Title"
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "タイトル"
 
-#: models/trackmetadatamodel.cpp:518
+#: models/trackmetadatamodel.cpp:519
 #, fuzzy, kde-format
 #| msgid "Duration"
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "長さ"
 
-#: models/trackmetadatamodel.cpp:521
+#: models/trackmetadatamodel.cpp:522
 #, fuzzy, kde-format
 #| msgid "Artist"
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "アーティスト"
 
-#: models/trackmetadatamodel.cpp:524
+#: models/trackmetadatamodel.cpp:525
 #, fuzzy, kde-format
 #| msgid "Album"
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "アルバム"
 
-#: models/trackmetadatamodel.cpp:527
+#: models/trackmetadatamodel.cpp:528
 #, fuzzy, kde-format
 #| msgctxt "Album artist for track metadata view"
 #| msgid "Album Artist"
@@ -264,7 +264,7 @@ msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album Artist"
 msgstr "アルバムのアーティスト"
 
-#: models/trackmetadatamodel.cpp:530
+#: models/trackmetadatamodel.cpp:531
 #, fuzzy, kde-format
 #| msgctxt "Track number for track metadata view"
 #| msgid "Track Number"
@@ -272,7 +272,7 @@ msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
 msgstr "トラック番号"
 
-#: models/trackmetadatamodel.cpp:533
+#: models/trackmetadatamodel.cpp:534
 #, fuzzy, kde-format
 #| msgctxt "Disc number for track metadata view"
 #| msgid "Disc Number"
@@ -280,7 +280,7 @@ msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc Number"
 msgstr "ディスク番号"
 
-#: models/trackmetadatamodel.cpp:536
+#: models/trackmetadatamodel.cpp:537
 #, fuzzy, kde-format
 #| msgctxt "Rating label for information panel"
 #| msgid "Rating"
@@ -288,28 +288,28 @@ msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "評価"
 
-#: models/trackmetadatamodel.cpp:539
+#: models/trackmetadatamodel.cpp:540
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "ジャンル"
 
-#: models/trackmetadatamodel.cpp:542
+#: models/trackmetadatamodel.cpp:543
 #, fuzzy, kde-format
 #| msgid "Lyricist"
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "作詞者"
 
-#: models/trackmetadatamodel.cpp:545
+#: models/trackmetadatamodel.cpp:546
 #, fuzzy, kde-format
 #| msgid "Composer"
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "作曲者"
 
-#: models/trackmetadatamodel.cpp:548
+#: models/trackmetadatamodel.cpp:549
 #, fuzzy, kde-format
 #| msgctxt "Comment label for track metadata view"
 #| msgid "Comment"
@@ -317,14 +317,14 @@ msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "コメント"
 
-#: models/trackmetadatamodel.cpp:551
+#: models/trackmetadatamodel.cpp:552
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "年"
 
-#: models/trackmetadatamodel.cpp:554
+#: models/trackmetadatamodel.cpp:555
 #, fuzzy, kde-format
 #| msgctxt "Channels label for track metadata view"
 #| msgid "Channels"
@@ -332,7 +332,7 @@ msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "チャンネル"
 
-#: models/trackmetadatamodel.cpp:557
+#: models/trackmetadatamodel.cpp:558
 #, fuzzy, kde-format
 #| msgctxt "Bit rate label for track metadata view"
 #| msgid "Bit Rate"
@@ -340,7 +340,7 @@ msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit Rate"
 msgstr "ビットレート"
 
-#: models/trackmetadatamodel.cpp:560
+#: models/trackmetadatamodel.cpp:561
 #, fuzzy, kde-format
 #| msgctxt "Sample Rate label for track metadata view"
 #| msgid "Sample Rate"
@@ -348,7 +348,7 @@ msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample Rate"
 msgstr "サンプリングレート"
 
-#: models/trackmetadatamodel.cpp:563
+#: models/trackmetadatamodel.cpp:564
 #, fuzzy, kde-format
 #| msgctxt "Last play date label for track metadata view"
 #| msgid "Last played"
@@ -356,7 +356,7 @@ msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "前回再生した日"
 
-#: models/trackmetadatamodel.cpp:566
+#: models/trackmetadatamodel.cpp:567
 #, fuzzy, kde-format
 #| msgctxt "First play date label for track metadata view"
 #| msgid "First played"
@@ -364,7 +364,7 @@ msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "最初に再生した日"
 
-#: models/trackmetadatamodel.cpp:569
+#: models/trackmetadatamodel.cpp:570
 #, fuzzy, kde-format
 #| msgctxt "Play counter label for track metadata view"
 #| msgid "Play count"
@@ -372,7 +372,7 @@ msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "再生回数"
 
-#: models/trackmetadatamodel.cpp:572
+#: models/trackmetadatamodel.cpp:573
 #, fuzzy, kde-format
 #| msgctxt "Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -380,7 +380,7 @@ msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: models/trackmetadatamodel.cpp:575
+#: models/trackmetadatamodel.cpp:576
 #, fuzzy, kde-format
 #| msgctxt "Radio HTTP address for radio metadata view"
 #| msgid "Stream Http Address"
@@ -388,7 +388,7 @@ msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream Http Address"
 msgstr "ストリーム HTTP アドレス"
 
-#: models/trackmetadatamodel.cpp:578
+#: models/trackmetadatamodel.cpp:579
 #, fuzzy, kde-format
 #| msgctxt "Image address for radio metadata view"
 #| msgid "Image Address"
@@ -477,13 +477,13 @@ msgctxt "@action:button"
 msgid "Options"
 msgstr "オプション"
 
-#: qml/AbstractDataView.qml:204
+#: qml/AbstractDataView.qml:206
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr ""
 
-#: qml/AbstractDataView.qml:204
+#: qml/AbstractDataView.qml:206
 #, fuzzy, kde-format
 #| msgid "Nothing to display"
 msgctxt "@info:placeholder"
@@ -604,6 +604,22 @@ msgstr "何も再生していません"
 msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "フォルダで表示"
+
+#: qml/DataGridView.qml:159
+#, fuzzy, kde-format
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks (%2 remaining)"
+msgctxt "@item:intable View all tracks"
+msgid "All tracks"
+msgstr "%1 個のトラック"
+
+#: qml/DataGridView.qml:160
+#, fuzzy, kde-format
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks (%2 remaining)"
+msgctxt "@item:intable %1 tracks"
+msgid "%1 tracks"
+msgstr "%1 個のトラック (残り %2)"
 
 #: qml/DurationSlider.qml:67
 #, fuzzy, kde-format
@@ -1794,7 +1810,7 @@ msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "よく再生する項目"
 
-#: qml/SettingsForm.qml:285
+#: qml/SettingsForm.qml:285 viewmanager.cpp:216
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1802,7 +1818,7 @@ msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "アルバム"
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:286 viewmanager.cpp:220
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1810,7 +1826,7 @@ msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "アーティスト"
 
-#: qml/SettingsForm.qml:287
+#: qml/SettingsForm.qml:287 viewmanager.cpp:218
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -2029,8 +2045,9 @@ msgid "Descending"
 msgstr ""
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
-#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
+#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
+#: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
+#: viewslistdata.cpp:111 viewslistdata.cpp:136
 #, fuzzy, kde-format
 #| msgid "A-Z"
 msgctxt "@item:inmenu"
@@ -2038,8 +2055,9 @@ msgid "A-Z"
 msgstr "A-Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewslistdata.cpp:63 viewslistdata.cpp:77 viewslistdata.cpp:96
-#: viewslistdata.cpp:97 viewslistdata.cpp:111 viewslistdata.cpp:136
+#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
+#: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
+#: viewslistdata.cpp:111 viewslistdata.cpp:136
 #, fuzzy, kde-format
 #| msgid "Z-A"
 msgctxt "@item:inmenu"
@@ -2067,21 +2085,98 @@ msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "年"
 
-#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
-#: viewslistdata.cpp:98
+#: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
+#: viewslistdata.cpp:63 viewslistdata.cpp:97 viewslistdata.cpp:98
 #, fuzzy, kde-format
 #| msgid "Oldest First"
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "古い順"
 
-#: viewmanager.cpp:71 viewslistdata.cpp:63 viewslistdata.cpp:97
-#: viewslistdata.cpp:98
+#: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
+#: viewslistdata.cpp:63 viewslistdata.cpp:97 viewslistdata.cpp:98
 #, fuzzy, kde-format
 #| msgid "Newest First"
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "新しい順"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#, fuzzy, kde-format
+#| msgid "Title"
+msgctxt "@title:menu"
+msgid "Title"
+msgstr "タイトル"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:92
+#, fuzzy, kde-format
+#| msgid "Album"
+msgctxt "@title:menu"
+msgid "Album"
+msgstr "アルバム"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#, fuzzy, kde-format
+#| msgid "Artist"
+msgctxt "@title:menu"
+msgid "Artist"
+msgstr "アーティスト"
+
+#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#: viewslistdata.cpp:109
+#, fuzzy, kde-format
+#| msgid "Genre"
+msgctxt "@title:menu"
+msgid "Genre"
+msgstr "ジャンル"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:61 viewslistdata.cpp:93
+#, fuzzy, kde-format
+#| msgid "Year"
+msgctxt "@title:menu"
+msgid "Year"
+msgstr "年"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:93
+#, fuzzy, kde-format
+#| msgid "Duration"
+msgctxt "@title:menu"
+msgid "Duration"
+msgstr "長さ"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:93
+#, fuzzy, kde-format
+#| msgid "Composer"
+msgctxt "@title:menu"
+msgid "Composer"
+msgstr "作曲者"
+
+#: viewmanager.cpp:101 viewslistdata.cpp:93
+#, fuzzy, kde-format
+#| msgid "Lyricist"
+msgctxt "@title:menu"
+msgid "Lyricist"
+msgstr "作詞者"
+
+#: viewmanager.cpp:102 viewslistdata.cpp:94
+#, kde-format
+msgctxt "@title:menu"
+msgid "Last Modified"
+msgstr ""
+
+#: viewmanager.cpp:105 viewslistdata.cpp:97
+#, fuzzy, kde-format
+#| msgid "Shortest First"
+msgctxt "@item:inmenu"
+msgid "Shortest First"
+msgstr "短い順"
+
+#: viewmanager.cpp:105 viewslistdata.cpp:97
+#, fuzzy, kde-format
+#| msgid "Longest First"
+msgctxt "@item:inmenu"
+msgid "Longest First"
+msgstr "長い順"
 
 #: viewslistdata.cpp:24
 #, fuzzy, kde-format
@@ -2149,34 +2244,6 @@ msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "最も頻繁に再生する項目順"
 
-#: viewslistdata.cpp:61 viewslistdata.cpp:92
-#, fuzzy, kde-format
-#| msgid "Title"
-msgctxt "@title:menu"
-msgid "Title"
-msgstr "タイトル"
-
-#: viewslistdata.cpp:61 viewslistdata.cpp:92
-#, fuzzy, kde-format
-#| msgid "Artist"
-msgctxt "@title:menu"
-msgid "Artist"
-msgstr "アーティスト"
-
-#: viewslistdata.cpp:61 viewslistdata.cpp:92 viewslistdata.cpp:109
-#, fuzzy, kde-format
-#| msgid "Genre"
-msgctxt "@title:menu"
-msgid "Genre"
-msgstr "ジャンル"
-
-#: viewslistdata.cpp:61 viewslistdata.cpp:93
-#, fuzzy, kde-format
-#| msgid "Year"
-msgctxt "@title:menu"
-msgid "Year"
-msgstr "年"
-
 #: viewslistdata.cpp:75 viewslistdata.cpp:134
 #, fuzzy, kde-format
 #| msgid "Name"
@@ -2191,54 +2258,6 @@ msgstr "名前"
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "トラック"
-
-#: viewslistdata.cpp:92
-#, fuzzy, kde-format
-#| msgid "Album"
-msgctxt "@title:menu"
-msgid "Album"
-msgstr "アルバム"
-
-#: viewslistdata.cpp:93
-#, fuzzy, kde-format
-#| msgid "Duration"
-msgctxt "@title:menu"
-msgid "Duration"
-msgstr "長さ"
-
-#: viewslistdata.cpp:93
-#, fuzzy, kde-format
-#| msgid "Composer"
-msgctxt "@title:menu"
-msgid "Composer"
-msgstr "作曲者"
-
-#: viewslistdata.cpp:93
-#, fuzzy, kde-format
-#| msgid "Lyricist"
-msgctxt "@title:menu"
-msgid "Lyricist"
-msgstr "作詞者"
-
-#: viewslistdata.cpp:94
-#, kde-format
-msgctxt "@title:menu"
-msgid "Last Modified"
-msgstr ""
-
-#: viewslistdata.cpp:97
-#, fuzzy, kde-format
-#| msgid "Shortest First"
-msgctxt "@item:inmenu"
-msgid "Shortest First"
-msgstr "短い順"
-
-#: viewslistdata.cpp:97
-#, fuzzy, kde-format
-#| msgid "Longest First"
-msgctxt "@item:inmenu"
-msgid "Longest First"
-msgstr "長い順"
 
 #: viewslistdata.cpp:115
 #, fuzzy, kde-format
@@ -2288,13 +2307,6 @@ msgstr "ラジオ局"
 #~ msgctxt "@action:button"
 #~ msgid "Toggle View Style"
 #~ msgstr "シャッフルを切り替え"
-
-#, fuzzy
-#~| msgid "%1 track"
-#~| msgid_plural "%1 tracks (%2 remaining)"
-#~ msgctxt "@info:status"
-#~ msgid "1 track"
-#~ msgstr "%1 個のトラック"
 
 #, fuzzy
 #~| msgctxt "toggle shuffle mode for playlist"

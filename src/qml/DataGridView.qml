@@ -157,7 +157,7 @@ AbstractDataView {
                 hideActions: true
                 hasChildren: true
                 mainText: i18nc("@item:intable View all tracks", "All tracks")
-                secondaryText: i18nc("@item:intable %1 tracks", "%1 tracks", gridView.contentModel.tracksCount)
+                secondaryText: i18ncp("@item:intable number of tracks/songs in all albums", "%1 track", "%1 tracks", gridView.contentModel.tracksCount)
                 imageFallbackUrl: elisaTheme.trackIcon
                 onOpen: gridView.viewManager.openTracksView(gridView.mainTitle)
             }

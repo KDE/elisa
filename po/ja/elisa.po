@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-13 00:40+0000\n"
+"POT-Creation-Date: 2025-01-14 00:40+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -617,9 +617,10 @@ msgstr "%1 個のトラック"
 #, fuzzy, kde-format
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks (%2 remaining)"
-msgctxt "@item:intable %1 tracks"
-msgid "%1 tracks"
-msgstr "%1 個のトラック (残り %2)"
+msgctxt "@item:intable number of tracks/songs in all albums"
+msgid "%1 track"
+msgid_plural "%1 tracks"
+msgstr[0] "%1 個のトラック (残り %2)"
 
 #: qml/DurationSlider.qml:67
 #, fuzzy, kde-format
@@ -2273,6 +2274,13 @@ msgstr "ファイル"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "ラジオ局"
+
+#, fuzzy
+#~| msgid "%1 track"
+#~| msgid_plural "%1 tracks (%2 remaining)"
+#~ msgctxt "@item:intable %1 tracks"
+#~ msgid "%1 tracks"
+#~ msgstr "%1 個のトラック (残り %2)"
 
 #, fuzzy
 #~| msgid "Toggle Party Mode"

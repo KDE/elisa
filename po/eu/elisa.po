@@ -1,16 +1,16 @@
 # Translation for elisa.po to Euskara/Basque (eu).
-# Copyright (C) 2019-2024 This file is copyright:
+# Copyright (C) 2019-2025 This file is copyright:
 # This file is distributed under the same license as the elisa package.
-# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2019, 2020, 2021, 2022, 2023, 2024.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-13 00:40+0000\n"
-"PO-Revision-Date: 2024-11-06 18:34+0100\n"
+"POT-Creation-Date: 2025-01-14 00:40+0000\n"
+"PO-Revision-Date: 2025-01-13 16:00+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -505,21 +505,21 @@ msgid "Show In Folder"
 msgstr "Erakutsi karpetan"
 
 #: qml/DataGridView.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "1 track"
+#, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "Pista 1"
+msgstr "Pista guztiak"
 
 #: qml/DataGridView.qml:160
 #, fuzzy, kde-format
 #| msgctxt "@info:status %1 is the total number of tracks of the playlist"
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks"
-msgctxt "@item:intable %1 tracks"
-msgid "%1 tracks"
-msgstr "Pista %1"
+msgctxt "@item:intable number of tracks/songs in all albums"
+msgid "%1 track"
+msgid_plural "%1 tracks"
+msgstr[0] "Pista %1"
+msgstr[1] "%1 pista"
 
 #: qml/DurationSlider.qml:67
 #, kde-format
@@ -1923,6 +1923,13 @@ msgstr "Fitxategiak"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Irrati-kateak"
+
+#~| msgctxt "@info:status %1 is the total number of tracks of the playlist"
+#~| msgid "%1 track"
+#~| msgid_plural "%1 tracks"
+#~ msgctxt "@item:intable %1 tracks"
+#~ msgid "%1 tracks"
+#~ msgstr "%1 pista"
 
 #~ msgctxt "@action:button"
 #~ msgid "Toggle Party Mode"

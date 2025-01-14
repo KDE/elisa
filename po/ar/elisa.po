@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2017, 2018.
-# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-13 00:40+0000\n"
-"PO-Revision-Date: 2024-11-28 12:10+0400\n"
+"POT-Creation-Date: 2025-01-14 00:40+0000\n"
+"PO-Revision-Date: 2025-01-13 19:05+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -504,21 +504,25 @@ msgid "Show In Folder"
 msgstr "أعرض في مجلد"
 
 #: qml/DataGridView.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "1 track"
+#, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "مقطوعة واحدة"
+msgstr "كلّ المقطوعات"
 
 #: qml/DataGridView.qml:160
 #, fuzzy, kde-format
 #| msgctxt "@info:status %1 is the total number of tracks of the playlist"
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks"
-msgctxt "@item:intable %1 tracks"
-msgid "%1 tracks"
-msgstr "مقطوعة"
+msgctxt "@item:intable number of tracks/songs in all albums"
+msgid "%1 track"
+msgid_plural "%1 tracks"
+msgstr[0] "مقطوعة"
+msgstr[1] "مقطوعة واحدة"
+msgstr[2] "مقطوعتان"
+msgstr[3] "%1 مقطوعات"
+msgstr[4] "%1 مقطوعة"
+msgstr[5] "%1 مقطوعة"
 
 #: qml/DurationSlider.qml:67
 #, kde-format
@@ -1944,6 +1948,10 @@ msgstr "الملفات"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "محطات الإذاعة"
+
+#~ msgctxt "@item:intable %1 tracks"
+#~ msgid "%1 tracks"
+#~ msgstr "%1 مقطوعة"
 
 #~ msgctxt "@action:button"
 #~ msgid "Toggle Party Mode"

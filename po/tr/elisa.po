@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the elisa package.
 #
 # Volkan Gezer <volkangezer@gmail.com>, 2021.
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-13 00:40+0000\n"
-"PO-Revision-Date: 2024-10-29 15:39+0300\n"
+"POT-Creation-Date: 2025-01-14 00:40+0000\n"
+"PO-Revision-Date: 2025-01-13 16:22+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -503,21 +503,21 @@ msgid "Show In Folder"
 msgstr "Klasörde Göster"
 
 #: qml/DataGridView.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "1 track"
+#, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "1 parça"
+msgstr "Tüm parçalar"
 
 #: qml/DataGridView.qml:160
 #, fuzzy, kde-format
 #| msgctxt "@info:status %1 is the total number of tracks of the playlist"
 #| msgid "%1 track"
 #| msgid_plural "%1 tracks"
-msgctxt "@item:intable %1 tracks"
-msgid "%1 tracks"
-msgstr "%1 parça"
+msgctxt "@item:intable number of tracks/songs in all albums"
+msgid "%1 track"
+msgid_plural "%1 tracks"
+msgstr[0] "%1 parça"
+msgstr[1] "%1 parça"
 
 #: qml/DurationSlider.qml:67
 #, kde-format
@@ -1920,6 +1920,13 @@ msgstr "Dosyalar"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radyo İstasyonları"
+
+#~| msgctxt "@info:status %1 is the total number of tracks of the playlist"
+#~| msgid "%1 track"
+#~| msgid_plural "%1 tracks"
+#~ msgctxt "@item:intable %1 tracks"
+#~ msgid "%1 tracks"
+#~ msgstr "%1 parça"
 
 #~ msgctxt "@action:button"
 #~ msgid "Toggle Party Mode"

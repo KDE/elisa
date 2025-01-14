@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: d 664cf4f-342c-46fd-8dc1-63f78e432d04\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-13 00:40+0000\n"
+"POT-Creation-Date: 2025-01-14 00:40+0000\n"
 "PO-Revision-Date: 2017-04-08 03:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -511,9 +511,12 @@ msgstr ""
 
 #: qml/DataGridView.qml:160
 #, kde-format
-msgctxt "@item:intable %1 tracks"
-msgid "%1 tracks"
-msgstr ""
+msgctxt "@item:intable number of tracks/songs in all albums"
+msgid "%1 track"
+msgid_plural "%1 tracks"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: qml/DurationSlider.qml:67
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-14 00:40+0000\n"
-"PO-Revision-Date: 2025-01-13 05:41+0100\n"
+"PO-Revision-Date: 2025-01-14 06:48+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -510,15 +510,12 @@ msgid "All tracks"
 msgstr "Vse sledi"
 
 #: qml/DataGridView.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] "%1 sled"
-msgstr[1] "%1 sledi"
+msgstr[0] "%1 sledi"
+msgstr[1] "%1 sled"
 msgstr[2] "%1 sledi"
 msgstr[3] "%1 sledi"
 

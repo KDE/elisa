@@ -505,13 +505,10 @@ msgstr "在文件夹中显示"
 #, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr ""
+msgstr "所有曲目"
 
 #: qml/DataGridView.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"

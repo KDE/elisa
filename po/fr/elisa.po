@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-14 00:40+0000\n"
-"PO-Revision-Date: 2025-01-14 09:25+0100\n"
+"PO-Revision-Date: 2025-01-15 08:58+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -517,10 +517,7 @@ msgid "All tracks"
 msgstr "Toutes les pistes"
 
 #: qml/DataGridView.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"

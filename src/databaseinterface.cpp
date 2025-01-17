@@ -5616,7 +5616,7 @@ void DatabaseInterface::initDataQueries()
                                                                   "tracksFromAlbum2.`AlbumPath` = album.`AlbumPath` "
                                                                   ") AS AllArtists, "
                                                                   "tracks.`AlbumArtistName`, "
-                                                                  "\"\" as FileName, "
+                                                                  "'' as FileName, "
                                                                   "NULL as FileModifiedTime, "
                                                                   "tracks.`TrackNumber`, "
                                                                   "tracks.`DiscNumber`, "

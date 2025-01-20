@@ -49,7 +49,7 @@ AbstractDataView {
             fullData,
             name,
             ElisaUtils.AfterCurrentTrack,
-            ElisaUtils.TriggerPlay
+            ElisaUtils.DoNotTriggerPlay
         );
     }
 

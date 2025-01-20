@@ -642,6 +642,13 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
         endInsertRows();
     }
 
+    const auto url = index(mapRowFromSource(start), 0).data(MediaPlayList::ResourceRole).toUrl();
+    if (d->mTriggerPlay == ElisaUtils::TriggerPlay && url.isValid()) {
+        switchTo(mapRowFromSource(start));
+        d->mTriggerPlay = ElisaUtils::DoNotTriggerPlay;
+        Q_EMIT requestPlay();
+    }
+
     if (d->mCurrentTrack.isValid()) {
         d->mCurrentPlayListPosition = d->mCurrentTrack.row();
         determineAndNotifyPreviousAndNextTracks();

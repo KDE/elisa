@@ -78,7 +78,6 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setAlwaysUseAbsolutePlaylistPaths(mAlwaysUseAbsolutePlaylistPaths);
     Elisa::ElisaConfiguration::setPlayAtStartup(mPlayAtStartup);
     Elisa::ElisaConfiguration::setScanAtStartup(mScanAtStartup);
-    Elisa::ElisaConfiguration::setColorScheme(mColorScheme);
     Elisa::ElisaConfiguration::setUseFavoriteStyleRatings(mUseFavoriteStyleRatings);
 
     Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::NoView);
@@ -231,17 +230,6 @@ void ElisaConfigurationDialog::setScanAtStartup(bool scanAtStartup)
     setDirty();
 }
 
-void ElisaConfigurationDialog::setColorScheme(const QString &scheme)
-{
-    if (mColorScheme == scheme) {
-        return;
-    }
-    mColorScheme = scheme;
-    Q_EMIT colorSchemeChanged();
-
-    setDirty();
-}
-
 void ElisaConfigurationDialog::setUseFavoriteStyleRatings(bool useFavoriteStyleRatings)
 {
     if (mUseFavoriteStyleRatings == useFavoriteStyleRatings) {
@@ -278,9 +266,6 @@ void ElisaConfigurationDialog::configChanged()
 
     mScanAtStartup = Elisa::ElisaConfiguration::scanAtStartup();
     Q_EMIT scanAtStartupChanged();
-
-    mColorScheme = Elisa::ElisaConfiguration::colorScheme();
-    Q_EMIT colorSchemeChanged();
 
     mUseFavoriteStyleRatings = Elisa::ElisaConfiguration::useFavoriteStyleRatings();
     Q_EMIT useFavoriteStyleRatingsChanged();

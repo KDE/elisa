@@ -569,7 +569,6 @@ Kirigami.ApplicationWindow {
     Component.onCompleted:
     {
         ElisaApplication.initialize()
-        ElisaApplication.activateColorScheme(ElisaConfigurationDialog.colorScheme)
 
         if (persistentSettings.maximized) {
             showMaximized();

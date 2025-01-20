@@ -84,8 +84,6 @@
           QDir::rootPath()
     </default>
   </entry>
-  <entry key="ColorScheme" type="String">
-  </entry>
   <entry key="SortRolePreferences" type="StringList">
   </entry>
   <entry key="SortOrderPreferences" type="StringList">

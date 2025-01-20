@@ -96,6 +96,11 @@ class ELISALIB_EXPORT ElisaApplication : public QObject
                READ colorSchemesModel
                CONSTANT)
 
+    Q_PROPERTY(QString activeColorSchemeName
+               READ activeColorSchemeName
+               WRITE setActiveColorSchemeName
+               NOTIFY activeColorSchemeNameChanged)
+
     Q_PROPERTY(int initialViewIndex
                READ initialViewIndex
                NOTIFY initialViewIndexChanged)
@@ -149,6 +154,9 @@ public:
 
     [[nodiscard]] QString initialFilesViewPath() const;
 
+    QString activeColorSchemeName() const;
+    void setActiveColorSchemeName(const QString &name);
+
 Q_SIGNALS:
 
     void musicManagerChanged();
@@ -193,6 +201,8 @@ Q_SIGNALS:
 
     void configureElisa();
 
+    void activeColorSchemeNameChanged();
+
 public Q_SLOTS:
 
     void reportBug();
@@ -209,12 +219,6 @@ public Q_SLOTS:
     void openRequested(const QList<QUrl> &uris);
 
     void initialize();
-
-    void activateColorScheme(const QString &name);
-
-public:
-
-    KColorSchemeManager *getSchemes();
 
 private Q_SLOTS:
 

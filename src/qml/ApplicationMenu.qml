@@ -62,12 +62,16 @@ Menu {
                 icon.color: "transparent"
                 text: model.display
                 checkable: true
-                checked: model.display === ElisaConfigurationDialog.colorScheme
+                checked: {
+                    if (model.index === 0) {
+                        return ElisaApplication.activeColorSchemeName === "";
+                    }
+
+                    return model.display === ElisaApplication.activeColorSchemeName;
+                }
                 autoExclusive: true
                 onTriggered: {
-                    ElisaApplication.activateColorScheme(model.display)
-                    ElisaConfigurationDialog.setColorScheme(model.display)
-                    ElisaConfigurationDialog.save()
+                    ElisaApplication.activeColorSchemeName = model.display
                     applicationMenu.close()
                 }
             }

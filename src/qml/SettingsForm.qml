@@ -193,11 +193,15 @@ ColumnLayout {
                 icon.source: "image://colorScheme/" + model.display
                 icon.color: "transparent"
                 text: model.display
-                checked: model.display === ElisaConfigurationDialog.colorScheme
+                checked: {
+                    if (model.index === 0) {
+                        return ElisaApplication.activeColorSchemeName === "";
+                    }
+
+                    return model.display === ElisaApplication.activeColorSchemeName;
+                }
                 onClicked: {
-                    ElisaApplication.activateColorScheme(model.display)
-                    ElisaConfigurationDialog.setColorScheme(model.display)
-                    ElisaConfigurationDialog.save()
+                    ElisaApplication.activeColorSchemeName = model.display
                 }
             }
         }

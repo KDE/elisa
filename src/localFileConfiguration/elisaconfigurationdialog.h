@@ -78,11 +78,6 @@ class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
                WRITE setScanAtStartup
                NOTIFY scanAtStartupChanged)
 
-    Q_PROPERTY(QString colorScheme
-               READ colorScheme
-               WRITE setColorScheme
-               NOTIFY colorSchemeChanged)
-
     Q_PROPERTY(bool useFavoriteStyleRatings
                READ useFavoriteStyleRatings
                WRITE setUseFavoriteStyleRatings
@@ -154,11 +149,6 @@ public:
         return mScanAtStartup;
     }
 
-    [[nodiscard]] QString colorScheme() const
-    {
-        return mColorScheme;
-    }
-
     [[nodiscard]] bool useFavoriteStyleRatings() const
     {
         return mUseFavoriteStyleRatings;
@@ -191,8 +181,6 @@ Q_SIGNALS:
 
     void scanAtStartupChanged();
 
-    void colorSchemeChanged();
-
     void useFavoriteStyleRatingsChanged();
 
 public Q_SLOTS:
@@ -220,8 +208,6 @@ public Q_SLOTS:
     void setPlayAtStartup(bool playAtStartup);
 
     void setScanAtStartup(bool scanAtStartup);
-
-    void setColorScheme(const QString &scheme);
 
     void setUseFavoriteStyleRatings(bool useFavoriteStyleRatings);
 
@@ -252,8 +238,6 @@ private:
     bool mScanAtStartup = true;
 
     bool mUseFavoriteStyleRatings = false;
-
-    QString mColorScheme;
 
     ElisaUtils::PlayListEntryType mEmbeddedView = ElisaUtils::Unknown;
 

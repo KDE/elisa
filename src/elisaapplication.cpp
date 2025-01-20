@@ -116,19 +116,20 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
 ElisaApplication::~ElisaApplication()
 = default;
 
-KColorSchemeManager *ElisaApplication::getSchemes()
-{
-    return d->mSchemes;
-}
-
 QAbstractItemModel *ElisaApplication::colorSchemesModel()
 {
     return d->mSchemes->model();
 }
 
-void ElisaApplication::activateColorScheme(const QString &name)
+QString ElisaApplication::activeColorSchemeName() const
+{
+    return d->mSchemes->activeSchemeName();
+}
+
+void ElisaApplication::setActiveColorSchemeName(const QString &name)
 {
     d->mSchemes->activateScheme(d->mSchemes->indexForScheme(name));
+    Q_EMIT activeColorSchemeNameChanged();
 }
 
 void ElisaApplication::setupActions(const QString &actionName)

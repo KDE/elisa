@@ -753,14 +753,16 @@ void MediaPlayListProxyModel::sourceDataChanged(const QModelIndex &topLeft, cons
     auto startSourceRow = topLeft.row();
     auto endSourceRow = bottomRight.row();
     for (int i = startSourceRow; i <= endSourceRow; i++) {
-        Q_EMIT dataChanged(index(mapRowFromSource(i), 0), index(mapRowFromSource(i), 0), roles);
+        const auto proxyRow = mapRowFromSource(i);
+
+        Q_EMIT dataChanged(index(proxyRow, 0), index(proxyRow, 0), roles);
         Q_EMIT remainingTracksDurationChanged();
         Q_EMIT totalTracksDurationChanged();
-        if (i == d->mCurrentTrack.row()) {
+        if (proxyRow == d->mCurrentTrack.row()) {
             Q_EMIT currentTrackDataChanged();
-        } else if (i == d->mNextTrack.row()) {
+        } else if (proxyRow == d->mNextTrack.row()) {
             Q_EMIT nextTrackDataChanged();
-        } else if (i == d->mPreviousTrack.row()) {
+        } else if (proxyRow == d->mPreviousTrack.row()) {
             Q_EMIT previousTrackDataChanged();
         }
         determineTracks();

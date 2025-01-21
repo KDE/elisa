@@ -57,6 +57,10 @@
 #include <QtCore/private/qandroidextras_p.h>
 #endif
 
+#ifdef Q_OS_WIN
+#include <Windows.h>
+#endif
+
 #ifdef Q_OS_ANDROID
 int __attribute__((visibility("default"))) main(int argc, char *argv[])
 #else
@@ -82,9 +86,14 @@ int main(int argc, char *argv[])
 
     qputenv("QT_LOGGING_RULES", "org.kde.elisa*=true");
 #endif
+
 #ifdef Q_OS_WIN
-    qputenv("QT_LOGGING_RULES", "org.kde.elisa*=true");
+    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+        freopen("CONOUT$", "w", stdout);
+        freopen("CONOUT$", "w", stderr);
+    }
 #endif
+
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 
     QApplication app(argc, argv);

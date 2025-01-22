@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-14 00:40+0000\n"
+"POT-Creation-Date: 2025-01-22 00:40+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -91,70 +91,70 @@ msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "パーティーモードを切り替え"
 
-#: main.cpp:111
+#: main.cpp:120
 #, fuzzy, kde-format
 #| msgid "Elisa"
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:113
+#: main.cpp:122
 #, fuzzy, kde-format
 #| msgid "A Simple Music Player made with love by the KDE community"
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "KDE コミュニティによって作成されたシンプルな音楽プレーヤー"
 
-#: main.cpp:115
+#: main.cpp:124
 #, fuzzy, kde-format
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa の貢献者"
 
-#: main.cpp:117 models/lyricsmodel.cpp:160
+#: main.cpp:126 models/lyricsmodel.cpp:160
 #, fuzzy, kde-format
 #| msgid "Creator"
 msgctxt "@label"
 msgid "Creator"
 msgstr "作成者"
 
-#: main.cpp:118
+#: main.cpp:127
 #, fuzzy, kde-format
 #| msgid "Author"
 msgctxt "@label"
 msgid "Author"
 msgstr "作者"
 
-#: main.cpp:120
+#: main.cpp:129
 #, fuzzy, kde-format
 #| msgid "Concept and design work"
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "コンセプトおよびデザインの仕事"
 
-#: main.cpp:121
+#: main.cpp:130
 #, fuzzy, kde-format
 #| msgid "Localization support"
 msgctxt "@label"
 msgid "Localization support"
 msgstr "多言語サポート"
 
-#: main.cpp:122
+#: main.cpp:131
 #, fuzzy, kde-format
 #| msgid "Right to left support in interface"
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "インターフェースの Right to left (RTL) サポート"
 
-#: main.cpp:123
+#: main.cpp:132
 #, fuzzy, kde-format
 #| msgid "Various improvements to the interface"
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "インターフェースのさまざまな改善"
 
-#: main.cpp:124
+#: main.cpp:133
 #, fuzzy, kde-format
 #| msgid "Support for online radios"
 msgctxt "@label"

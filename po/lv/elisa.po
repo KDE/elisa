@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
+# SPDX-FileCopyrightText: 2024, 2025 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-22 00:40+0000\n"
-"PO-Revision-Date: 2024-09-12 15:34+0300\n"
+"PO-Revision-Date: 2025-01-27 18:09+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -503,18 +503,13 @@ msgid "Show In Folder"
 msgstr "Parādīt mapē"
 
 #: qml/DataGridView.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "1 track"
+#, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "1 celiņš"
+msgstr "Visi celiņi"
 
 #: qml/DataGridView.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -926,12 +921,10 @@ msgid "Remove this tag"
 msgstr "Noņemt šo birku"
 
 #: qml/MediaTrackMetadataDelegate.qml:214
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "Pievienot jaunu birku:"
+msgstr "Pievienot birku"
 
 #: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format

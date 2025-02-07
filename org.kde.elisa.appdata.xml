@@ -89,6 +89,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="nl">Speel muziek en luister naar online radiostations</summary>
   <summary xml:lang="nn">Spel musikk og lytt på nettradio</summary>
   <summary xml:lang="pl">Odtwarzaj muzykę i słuchaj radia z sieci</summary>
+  <summary xml:lang="pt-BR">Reproduza música e ouça rádios online</summary>
   <summary xml:lang="ro">Redă muzică și ascultă stații radio prin Internet</summary>
   <summary xml:lang="ru">Воспроизведение музыки и прослушивание интернет-радиостанций</summary>
   <summary xml:lang="sl">Predvajajte glasbo in poslušajte spletne radio postaje</summary>
@@ -127,6 +128,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="nl">De Elisa muziekspeler is ontwikkeld door de KDE gemeenschap en streeft er naar om eenvoudig en plezierig in gebruik te zijn.</p>
     <p xml:lang="nn">Musikkspelaren Elisa er utvikla av KDE-fellesskapet, som prøver å gjera han både enkel og kjekk å bruka.</p>
     <p xml:lang="pl">Odtwarzacz muzyki Elisa jest rozwijany przez Społeczność KDE i dąży do bycia prostym i przyjemnym w użyciu.</p>
+    <p xml:lang="pt-BR">O reprodutor de música Elisa é desenvolvido pela comunidade KDE e se esforça para ser simples e agradável de usar.</p>
     <p xml:lang="ro">Lectorul de muzică Elisa e dezvoltat de către comunitatea KDE și tinde să fie simplu și plăcut de utilizat.</p>
     <p xml:lang="ru">Elisa — это музыкальный проигрыватель, созданный сообществом KDE, призванный быть простым и удобным в использовании.</p>
     <p xml:lang="sl">Predvajalnik glasbe Elisa je razvila skupnost KDE in si prizadeva, da bi bil preprost in prijeten za uporabo.</p>

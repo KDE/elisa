@@ -20,6 +20,7 @@ Comment[lt]=Atkurti vietinę muziką ir klausytis internetinio radijo
 Comment[lv]=Atskaņojiet ierīcē esošo mūziku un klausieties tiešsaistes radiostacijas
 Comment[nl]=Speel lokaal muziek en luister naar online radio
 Comment[pl]=Odtwarzaj muzykę lokalnie i słucha radia z sieci
+Comment[pt_BR]=Reproduza músicas locais e ouça rádios online
 Comment[sa]=स्थानीयसङ्गीतं वादयन्तु, ऑनलाइन रेडियो शृणुत च
 Comment[sl]=Predvaja lokalno glasbo in posluša spletni radio
 Comment[sv]=Spela lokal musik och lyssna på nätradiostationer

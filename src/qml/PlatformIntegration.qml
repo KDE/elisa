@@ -42,6 +42,10 @@ Item {
         function onCommitDataRequest() {
             root.forceCloseWindow = true;
         }
+
+        function onRaisePlayer() {
+            root.raisePlayer();
+        }
     }
 
     NativeGlobalMenu {

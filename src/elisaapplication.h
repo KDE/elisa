@@ -203,6 +203,8 @@ Q_SIGNALS:
 
     void activeColorSchemeNameChanged();
 
+    void raisePlayer();
+
 public Q_SLOTS:
 
     void reportBug();

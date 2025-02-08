@@ -259,6 +259,7 @@ void ElisaApplication::activateActionRequested(const QString &actionName, const 
 
 void ElisaApplication::activateRequested(const QStringList &arguments, const QString &workingDirectory)
 {
+    Q_EMIT raisePlayer();
     if (arguments.size() > 1) {
         QList<QUrl> urls;
         bool isFirst = true;

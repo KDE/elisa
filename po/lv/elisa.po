@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:40+0000\n"
+"POT-Creation-Date: 2025-02-09 00:40+0000\n"
 "PO-Revision-Date: 2025-01-27 18:09+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -41,43 +41,43 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radiostacijas"
 
-#: elisaapplication.cpp:175
+#: elisaapplication.cpp:176
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Ieslēgt/izslēgt repertuāru"
 
-#: elisaapplication.cpp:180
+#: elisaapplication.cpp:181
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Iet 10 sekundes uz priekšu"
 
-#: elisaapplication.cpp:186
+#: elisaapplication.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Iet 10 sekundes atpakaļ"
 
-#: elisaapplication.cpp:192
+#: elisaapplication.cpp:193
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Iet uz nākamo celiņu"
 
-#: elisaapplication.cpp:198
+#: elisaapplication.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Iet uz iepriekšējo celiņu"
 
-#: elisaapplication.cpp:204
+#: elisaapplication.cpp:205
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Atskaņot/pauzēt"
 
-#: elisaapplication.cpp:215
+#: elisaapplication.cpp:216
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
@@ -567,7 +567,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Paslēpt repertuāra atvilktni"
 
-#: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:601
+#: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:600
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1447,160 +1447,160 @@ msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Krāsu shēma:"
 
-#: qml/SettingsForm.qml:213
+#: qml/SettingsForm.qml:217
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "Skenēt mūzikas mapes"
 
-#: qml/SettingsForm.qml:217 qml/SettingsForm.qml:228
+#: qml/SettingsForm.qml:221 qml/SettingsForm.qml:232
 #, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "Sāka skenēt mūzikas mapes"
 
-#: qml/SettingsForm.qml:223
+#: qml/SettingsForm.qml:227
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Atiestatīt datubāzi un visu skenēt no jauna"
 
-#: qml/SettingsForm.qml:227
+#: qml/SettingsForm.qml:231
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
 msgstr "Datubāze ir atiestatīta"
 
-#: qml/SettingsForm.qml:242
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Iegult kategoriju sānu joslā:"
 
-#: qml/SettingsForm.qml:244
+#: qml/SettingsForm.qml:248
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "Neko"
 
-#: qml/SettingsForm.qml:245
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "Albumi"
 
-#: qml/SettingsForm.qml:246
+#: qml/SettingsForm.qml:250
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "Izpildītāji"
 
-#: qml/SettingsForm.qml:247
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "Žanri"
 
-#: qml/SettingsForm.qml:280
+#: qml/SettingsForm.qml:284
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "Sākuma skats ieslēdzoties:"
 
-#: qml/SettingsForm.qml:282
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Šobrīd atskaņo"
 
-#: qml/SettingsForm.qml:283
+#: qml/SettingsForm.qml:287
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Pēdējie atskaņotie"
 
-#: qml/SettingsForm.qml:284
+#: qml/SettingsForm.qml:288
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Bieži atskaņotie"
 
-#: qml/SettingsForm.qml:285 viewmanager.cpp:216
+#: qml/SettingsForm.qml:289 viewmanager.cpp:216
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumi"
 
-#: qml/SettingsForm.qml:286 viewmanager.cpp:220
+#: qml/SettingsForm.qml:290 viewmanager.cpp:220
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Izpildītāji"
 
-#: qml/SettingsForm.qml:287 viewmanager.cpp:218
+#: qml/SettingsForm.qml:291 viewmanager.cpp:218
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Celiņi"
 
-#: qml/SettingsForm.qml:288
+#: qml/SettingsForm.qml:292
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Žanri"
 
-#: qml/SettingsForm.qml:289
+#: qml/SettingsForm.qml:293
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "Datnes"
 
-#: qml/SettingsForm.qml:290
+#: qml/SettingsForm.qml:294
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiostacijas"
 
-#: qml/SettingsForm.qml:310
+#: qml/SettingsForm.qml:314
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr "Sākotnējā mape datņu skatā:"
 
-#: qml/SettingsForm.qml:324
+#: qml/SettingsForm.qml:328
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "Izvēlēties…"
 
-#: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
+#: qml/SettingsForm.qml:336 qml/SettingsForm.qml:463
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Izvēlēties mapi"
 
-#: qml/SettingsForm.qml:355
+#: qml/SettingsForm.qml:359
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "Saglabājot repertuāra datnes:"
 
-#: qml/SettingsForm.qml:364
+#: qml/SettingsForm.qml:368
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "Priekšroka relatīviem ceļiem"
 
-#: qml/SettingsForm.qml:365
+#: qml/SettingsForm.qml:369
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "Vienmēr lietot absolūtus ceļus"
 
-#: qml/SettingsForm.qml:376
+#: qml/SettingsForm.qml:380
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1612,20 +1612,20 @@ msgstr ""
 "tajā pašā mapē, kur atrodas repertuāri, tiks parādītas tikai ar datnes "
 "nosaukumu. Citos gadījumos parādīsies absolūts ceļš."
 
-#: qml/SettingsForm.qml:391
+#: qml/SettingsForm.qml:395
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "Mūzikas mapes:"
 
-#: qml/SettingsForm.qml:436
+#: qml/SettingsForm.qml:440
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Beigt šeit meklēt mūziku"
 
-#: qml/SettingsForm.qml:449
+#: qml/SettingsForm.qml:453
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"

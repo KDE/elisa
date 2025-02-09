@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:40+0000\n"
+"POT-Creation-Date: 2025-02-09 00:40+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -43,7 +43,7 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Raadio"
 
-#: elisaapplication.cpp:175
+#: elisaapplication.cpp:176
 #, fuzzy, kde-format
 #| msgctxt "Remove all tracks from play list"
 #| msgid "Clear Playlist"
@@ -51,19 +51,19 @@ msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Esitusloendi puhastamine"
 
-#: elisaapplication.cpp:180
+#: elisaapplication.cpp:181
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr ""
 
-#: elisaapplication.cpp:186
+#: elisaapplication.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr ""
 
-#: elisaapplication.cpp:192
+#: elisaapplication.cpp:193
 #, fuzzy, kde-format
 #| msgctxt "number of imported tracks"
 #| msgid "Imported one track"
@@ -72,7 +72,7 @@ msgctxt "@action"
 msgid "Go to next track"
 msgstr "Imporditi üks rada"
 
-#: elisaapplication.cpp:198
+#: elisaapplication.cpp:199
 #, fuzzy, kde-format
 #| msgctxt "number of imported tracks"
 #| msgid "Imported one track"
@@ -81,7 +81,7 @@ msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Imporditi üks rada"
 
-#: elisaapplication.cpp:204
+#: elisaapplication.cpp:205
 #, fuzzy, kde-format
 #| msgctxt "Pause current track from play list"
 #| msgid "Pause"
@@ -89,7 +89,7 @@ msgctxt "@action"
 msgid "Play/pause"
 msgstr "Paus"
 
-#: elisaapplication.cpp:215
+#: elisaapplication.cpp:216
 #, fuzzy, kde-format
 #| msgctxt "Toggle between ascending and descending order"
 #| msgid "Toggle sort order"
@@ -693,7 +693,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Esitusloendi peitmine"
 
-#: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:601
+#: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:600
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1720,13 +1720,13 @@ msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr ""
 
-#: qml/SettingsForm.qml:213
+#: qml/SettingsForm.qml:217
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr ""
 
-#: qml/SettingsForm.qml:217 qml/SettingsForm.qml:228
+#: qml/SettingsForm.qml:221 qml/SettingsForm.qml:232
 #, fuzzy, kde-format
 #| msgctxt "message to show when Elisa is scanning music files"
 #| msgid "Scanning music"
@@ -1734,25 +1734,25 @@ msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "Muusika otsimine"
 
-#: qml/SettingsForm.qml:223
+#: qml/SettingsForm.qml:227
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr ""
 
-#: qml/SettingsForm.qml:227
+#: qml/SettingsForm.qml:231
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
 msgstr ""
 
-#: qml/SettingsForm.qml:242
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr ""
 
-#: qml/SettingsForm.qml:244
+#: qml/SettingsForm.qml:248
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -1761,7 +1761,7 @@ msgctxt ""
 msgid "Nothing"
 msgstr "Praegu esitusel"
 
-#: qml/SettingsForm.qml:245
+#: qml/SettingsForm.qml:249
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1770,7 +1770,7 @@ msgctxt ""
 msgid "Albums"
 msgstr "Albumid"
 
-#: qml/SettingsForm.qml:246
+#: qml/SettingsForm.qml:250
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1779,7 +1779,7 @@ msgctxt ""
 msgid "Artists"
 msgstr "Esitajad"
 
-#: qml/SettingsForm.qml:247
+#: qml/SettingsForm.qml:251
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -1788,13 +1788,13 @@ msgctxt ""
 msgid "Genres"
 msgstr "Žanrid"
 
-#: qml/SettingsForm.qml:280
+#: qml/SettingsForm.qml:284
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr ""
 
-#: qml/SettingsForm.qml:282
+#: qml/SettingsForm.qml:286
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -1802,7 +1802,7 @@ msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Praegu esitusel"
 
-#: qml/SettingsForm.qml:283
+#: qml/SettingsForm.qml:287
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of recently played tracks"
 #| msgid "Recently Played"
@@ -1810,7 +1810,7 @@ msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Viimati esitatud"
 
-#: qml/SettingsForm.qml:284
+#: qml/SettingsForm.qml:288
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of frequently played tracks"
 #| msgid "Frequently Played"
@@ -1818,7 +1818,7 @@ msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Sageli esitatud"
 
-#: qml/SettingsForm.qml:285 viewmanager.cpp:216
+#: qml/SettingsForm.qml:289 viewmanager.cpp:216
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -1826,7 +1826,7 @@ msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumid"
 
-#: qml/SettingsForm.qml:286 viewmanager.cpp:220
+#: qml/SettingsForm.qml:290 viewmanager.cpp:220
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -1834,7 +1834,7 @@ msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Esitajad"
 
-#: qml/SettingsForm.qml:287 viewmanager.cpp:218
+#: qml/SettingsForm.qml:291 viewmanager.cpp:218
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1842,7 +1842,7 @@ msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Rajad"
 
-#: qml/SettingsForm.qml:288
+#: qml/SettingsForm.qml:292
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -1850,7 +1850,7 @@ msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Žanrid"
 
-#: qml/SettingsForm.qml:289
+#: qml/SettingsForm.qml:293
 #, fuzzy, kde-format
 #| msgctxt "Title of the file browser view"
 #| msgid "Files"
@@ -1858,50 +1858,50 @@ msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "Failid"
 
-#: qml/SettingsForm.qml:290
+#: qml/SettingsForm.qml:294
 #, fuzzy, kde-format
 #| msgid "Radios"
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Raadio"
 
-#: qml/SettingsForm.qml:310
+#: qml/SettingsForm.qml:314
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr ""
 
-#: qml/SettingsForm.qml:324
+#: qml/SettingsForm.qml:328
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
+#: qml/SettingsForm.qml:336 qml/SettingsForm.qml:463
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Kataloogi valimine"
 
-#: qml/SettingsForm.qml:355
+#: qml/SettingsForm.qml:359
 #, kde-format
 msgid "When saving playlist files:"
 msgstr ""
 
-#: qml/SettingsForm.qml:364
+#: qml/SettingsForm.qml:368
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:365
+#: qml/SettingsForm.qml:369
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr ""
 
-#: qml/SettingsForm.qml:376
+#: qml/SettingsForm.qml:380
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1910,20 +1910,20 @@ msgid ""
 "Absolute paths are used in other cases."
 msgstr ""
 
-#: qml/SettingsForm.qml:391
+#: qml/SettingsForm.qml:395
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr ""
 
-#: qml/SettingsForm.qml:436
+#: qml/SettingsForm.qml:440
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr ""
 
-#: qml/SettingsForm.qml:449
+#: qml/SettingsForm.qml:453
 #, fuzzy, kde-format
 #| msgid "Add new path"
 msgctxt "@action:button"

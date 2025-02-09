@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:40+0000\n"
+"POT-Creation-Date: 2025-02-09 00:40+0000\n"
 "PO-Revision-Date: 2025-01-14 05:21+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -41,43 +41,43 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "რადიოსადგურები"
 
-#: elisaapplication.cpp:175
+#: elisaapplication.cpp:176
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "დასაკრავი სიის გადართვა"
 
-#: elisaapplication.cpp:180
+#: elisaapplication.cpp:181
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10 წამით წინ გადახვევა"
 
-#: elisaapplication.cpp:186
+#: elisaapplication.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "10 წამით უკან გადახვევა"
 
-#: elisaapplication.cpp:192
+#: elisaapplication.cpp:193
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "შემდეგ აუდიობილიკზე გადასვლა"
 
-#: elisaapplication.cpp:198
+#: elisaapplication.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "წინა აუდიობილიკზე გადასვლა"
 
-#: elisaapplication.cpp:204
+#: elisaapplication.cpp:205
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "დაკვრა/პაუზა"
 
-#: elisaapplication.cpp:215
+#: elisaapplication.cpp:216
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
@@ -566,7 +566,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "დასაკრავი სიის უჯრის დამალვა"
 
-#: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:601
+#: qml/ElisaMainWindow.qml:136 qml/ElisaMainWindow.qml:600
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1440,160 +1440,160 @@ msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "ფერების სქემა:"
 
-#: qml/SettingsForm.qml:213
+#: qml/SettingsForm.qml:217
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "ახალი მუსიკისთვის სკანირება"
 
-#: qml/SettingsForm.qml:217 qml/SettingsForm.qml:228
+#: qml/SettingsForm.qml:221 qml/SettingsForm.qml:232
 #, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "მუსიკის ძებნა გაეშვა"
 
-#: qml/SettingsForm.qml:223
+#: qml/SettingsForm.qml:227
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "ბაზის გასუფთავება და სკანირების თავიდან დაწყება"
 
-#: qml/SettingsForm.qml:227
+#: qml/SettingsForm.qml:231
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
 msgstr "ბაზა ჩამოიყარა"
 
-#: qml/SettingsForm.qml:242
+#: qml/SettingsForm.qml:246
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "კატეგორიის გვერდით ზოლში ჩადგმა:"
 
-#: qml/SettingsForm.qml:244
+#: qml/SettingsForm.qml:248
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "არაფერი"
 
-#: qml/SettingsForm.qml:245
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "ალბომები"
 
-#: qml/SettingsForm.qml:246
+#: qml/SettingsForm.qml:250
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "შემსრულებლები"
 
-#: qml/SettingsForm.qml:247
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "ჟანრები"
 
-#: qml/SettingsForm.qml:280
+#: qml/SettingsForm.qml:284
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "გაშვებისას საწყისი ხედი:"
 
-#: qml/SettingsForm.qml:282
+#: qml/SettingsForm.qml:286
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "მიმდინარეობს დაკვრა"
 
-#: qml/SettingsForm.qml:283
+#: qml/SettingsForm.qml:287
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "ახლახანს დაკრული"
 
-#: qml/SettingsForm.qml:284
+#: qml/SettingsForm.qml:288
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "ხშირად დაკრული"
 
-#: qml/SettingsForm.qml:285 viewmanager.cpp:216
+#: qml/SettingsForm.qml:289 viewmanager.cpp:216
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "ალბომები"
 
-#: qml/SettingsForm.qml:286 viewmanager.cpp:220
+#: qml/SettingsForm.qml:290 viewmanager.cpp:220
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "შემსრულებლები"
 
-#: qml/SettingsForm.qml:287 viewmanager.cpp:218
+#: qml/SettingsForm.qml:291 viewmanager.cpp:218
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "აუდიობილიკები"
 
-#: qml/SettingsForm.qml:288
+#: qml/SettingsForm.qml:292
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "ჟანრები"
 
-#: qml/SettingsForm.qml:289
+#: qml/SettingsForm.qml:293
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "ფაილები"
 
-#: qml/SettingsForm.qml:290
+#: qml/SettingsForm.qml:294
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "რადიოსადგურები"
 
-#: qml/SettingsForm.qml:310
+#: qml/SettingsForm.qml:314
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr "ფაილების ხედის საწყისი მდებარეობა:"
 
-#: qml/SettingsForm.qml:324
+#: qml/SettingsForm.qml:328
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "აირჩიეთ…"
 
-#: qml/SettingsForm.qml:332 qml/SettingsForm.qml:459
+#: qml/SettingsForm.qml:336 qml/SettingsForm.qml:463
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "აირჩიეთ საქაღალდე"
 
-#: qml/SettingsForm.qml:355
+#: qml/SettingsForm.qml:359
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "დასაკრავი სიის ფაილის შენახვისას:"
 
-#: qml/SettingsForm.qml:364
+#: qml/SettingsForm.qml:368
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "დამოკიდებული ბილიკების არჩევანი"
 
-#: qml/SettingsForm.qml:365
+#: qml/SettingsForm.qml:369
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "ყოველთვის აბსოლუტური ბილიკების გამოყენება"
 
-#: qml/SettingsForm.qml:376
+#: qml/SettingsForm.qml:380
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1605,20 +1605,20 @@ msgstr ""
 "ფაილის სახელად მხოლოდ ის ფაილები ჩაითვლება, რომლებიც დასაკრავი სიის შემცველ "
 "საქაღალდეებშია. აბსოლუტური ბილიკები სხვა შემთხვევებში გამოიყენება."
 
-#: qml/SettingsForm.qml:391
+#: qml/SettingsForm.qml:395
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "მუსიკის საქაღალდეები:"
 
-#: qml/SettingsForm.qml:436
+#: qml/SettingsForm.qml:440
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "აქ მუსიკა არ მოძებნო"
 
-#: qml/SettingsForm.qml:449
+#: qml/SettingsForm.qml:453
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"

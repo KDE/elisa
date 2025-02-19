@@ -82,7 +82,7 @@ AbstractBrowserDelegate {
 
                     asynchronous: true
 
-                    layer.enabled: !usingFallback && !Kirigami.Settings.isMobile // disable drop shadow for mobile
+                    layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software && !usingFallback && !Kirigami.Settings.isMobile // disable drop shadow for mobile
 
                     layer.effect: FX.MultiEffect {
                         source: coverImageElement

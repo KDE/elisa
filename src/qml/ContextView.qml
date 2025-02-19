@@ -152,8 +152,8 @@ Kirigami.Page {
             property Item pendingImage
             property bool doesSkipAnimation: true
 
-            layer.enabled: true
-            opacity: 0.2
+            layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software
+            opacity: GraphicsInfo.api === GraphicsInfo.Software ? 0.1 : 0.2
             layer.effect: FX.MultiEffect {
                 autoPaddingEnabled: false
                 blurEnabled: true

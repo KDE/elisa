@@ -496,7 +496,7 @@ Item {
                 sourceSize.width: Screen.width
                 fillMode: Image.PreserveAspectCrop
 
-                layer.enabled: true
+                layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software
                 layer.effect: FX.MultiEffect {
                     autoPaddingEnabled: false
                     blurEnabled: true
@@ -506,6 +506,13 @@ Item {
 
                     brightness: -0.3
                 }
+            }
+
+            Rectangle {
+                visible: GraphicsInfo.api === GraphicsInfo.Software
+                anchors.fill: parent
+                color: "black"
+                opacity: 0.8
             }
 
             Rectangle {

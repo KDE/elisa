@@ -5,7 +5,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
+import QtQuick
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.2
@@ -114,7 +114,7 @@ FocusScope {
             }
         }
 
-        layer.enabled: true
+        layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software
         layer.effect: FX.MultiEffect {
             autoPaddingEnabled: false
             blurEnabled: true
@@ -161,6 +161,13 @@ FocusScope {
                 } else {
                     headerBar.replaceWhenLoaded();
                 }
+            }
+
+            Rectangle {
+                visible: GraphicsInfo.api === GraphicsInfo.Software
+                anchors.fill: parent
+                color: "black"
+                opacity: 0.8
             }
         }
     }

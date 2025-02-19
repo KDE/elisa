@@ -4,7 +4,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
+import QtQuick
 import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.2
 import QtQuick.Effects as FX
@@ -87,7 +87,7 @@ QQC2.Control {
                     height: Kirigami.Units.iconSizes.small
                     anchors.centerIn: parent
 
-                    layer.enabled: control.hoveredRating >= delegate.ratingThreshold
+                    layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software && control.hoveredRating >= delegate.ratingThreshold
 
                     layer.effect: FX.MultiEffect {
                         brightness: control.hoverBrightness

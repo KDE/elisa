@@ -5,7 +5,7 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-import QtQuick 2.7
+import QtQuick
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
@@ -136,7 +136,7 @@ Flickable {
 
             opacity: 1
 
-            layer.enabled: true
+            layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software
             layer.effect: FX.MultiEffect {
                 autoPaddingEnabled: false
                 blurEnabled: true
@@ -146,6 +146,13 @@ Flickable {
 
                 brightness: -0.2
                 saturation: -0.3
+            }
+
+            Rectangle {
+                visible: GraphicsInfo.api === GraphicsInfo.Software
+                anchors.fill: parent
+                color: "black"
+                opacity: 0.8
             }
         }
 

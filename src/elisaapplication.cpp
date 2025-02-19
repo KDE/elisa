@@ -294,6 +294,7 @@ void ElisaApplication::activateRequested(const QStringList &arguments, const QSt
 
 void ElisaApplication::openRequested(const QList<QUrl> &uris)
 {
+    Q_EMIT raisePlayer();
     openFiles(uris);
 }
 

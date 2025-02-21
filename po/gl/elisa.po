@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-09 00:40+0000\n"
+"POT-Creation-Date: 2025-02-21 00:40+0000\n"
 "PO-Revision-Date: 2025-01-15 00:02+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -618,7 +618,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "A garda fallou"
 
-#: qml/HeaderBar.qml:177
+#: qml/HeaderBar.qml:184
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
@@ -981,28 +981,28 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:223
+#: qml/mobile/MobileMinimizedPlayerControl.qml:230
 #: qml/mobile/MobileTrackPlayer.qml:353
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Saltar cara atrás"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
+#: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Pausar"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
+#: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Reproducir"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:251
+#: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:379
 #, kde-format
 msgctxt "@action:button"

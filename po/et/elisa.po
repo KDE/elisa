@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-09 00:40+0000\n"
+"POT-Creation-Date: 2025-02-21 00:40+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -749,7 +749,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Salvestamine nurjus"
 
-#: qml/HeaderBar.qml:177
+#: qml/HeaderBar.qml:184
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
@@ -1181,7 +1181,7 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Loobu"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:223
+#: qml/mobile/MobileMinimizedPlayerControl.qml:230
 #: qml/mobile/MobileTrackPlayer.qml:353
 #, fuzzy, kde-format
 #| msgctxt "skip backward in playlists"
@@ -1190,7 +1190,7 @@ msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Hüpe tagasi"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
+#: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, fuzzy, kde-format
 #| msgctxt "Pause current track from play list"
@@ -1199,7 +1199,7 @@ msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Paus"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
+#: qml/mobile/MobileMinimizedPlayerControl.qml:244
 #: qml/mobile/MobileTrackPlayer.qml:366
 #, fuzzy, kde-format
 #| msgctxt "Play this track from play list"
@@ -1208,7 +1208,7 @@ msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Esita"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:251
+#: qml/mobile/MobileMinimizedPlayerControl.qml:258
 #: qml/mobile/MobileTrackPlayer.qml:379
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"

@@ -133,6 +133,15 @@ Kirigami.FormLayout {
             // Make labels bold on mobile read-only mode to help differentiate label from metadata
             readonly property bool singleColumnPlainText: !form.wideMode && !form.isCreating && !form.isModifying
             Kirigami.FormData.label: singleColumnPlainText ? "<b>" + formLabelText + "</b>" : formLabelText
+            Kirigami.FormData.labelAlignment: {
+                if (singleColumnPlainText) {
+                    return Text.AlignBottom;
+                } else if (model.type === EditableTrackMetadataModel.LongTextEntry) {
+                    return Text.AlignTop;
+                } else {
+                    return Text.AlignVCenter;
+                }
+            }
 
             MediaTrackMetadataDelegate {
                 index: model.index

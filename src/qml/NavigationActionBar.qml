@@ -62,8 +62,8 @@ Item {
 
     SortMenu {
         id: sortMenu
-        onSortOrderChanged: if (viewManager) viewManager.sortOrderChanged(sortOrder)
-        onSortRoleChanged: if (viewManager) viewManager.sortRoleChanged(sortRole)
+        onSortOrderChanged: if (navigationBar.viewManager) navigationBar.viewManager.sortOrderChanged(sortOrder)
+        onSortRoleChanged: if (navigationBar.viewManager) navigationBar.viewManager.sortRoleChanged(sortRole)
     }
 
     // shared actions between mobile and desktop
@@ -106,7 +106,7 @@ Item {
             ToolTip.text: i18nc("@info:tooltip", "Add radio")
             icon.name: "list-add"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: createRadio()
+            onClicked: navigationBar.createRadio()
         }
     }
     Component {
@@ -120,7 +120,7 @@ Item {
             icon.name: "list-add"
             enabled: navigationBar.canEnqueueView
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: enqueue()
+            onClicked: navigationBar.enqueue()
         }
     }
     Component {
@@ -134,7 +134,7 @@ Item {
             icon.name: "media-playback-start"
             enabled: navigationBar.canEnqueueView
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: replaceAndPlay()
+            onClicked: navigationBar.replaceAndPlay()
         }
     }
     Component {
@@ -159,7 +159,7 @@ Item {
             ToolTip.text: i18nc("@info:tooltip navigate to the view for artist of this album", "Display Artist")
             icon.name: "view-media-artist"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: if (secondaryTitle) { navigationBar.showArtist(secondaryTitle) }
+            onClicked: if (navigationBar.secondaryTitle) { navigationBar.showArtist(navigationBar.secondaryTitle) }
         }
     }
     Component {
@@ -244,17 +244,17 @@ Item {
                 FlatButtonWithToolTip {
                     id: goPreviousButton
                     objectName: "goPreviousButton"
-                    visible: enableGoBack
+                    visible: navigationBar.enableGoBack
                     text: i18nc("@action:button navigate back in the view's stack", "Back")
                     icon.name: (Application.layoutDirection === Qt.RightToLeft) ? "go-next" : "go-previous"
-                    onClicked: goBack()
+                    onClicked: navigationBar.goBack()
                 }
                 Kirigami.Icon {
                     id: mainIcon
-                    visible: image.toString().length > 0
+                    visible: navigationBar.image.toString().length > 0
                              && !Kirigami.Settings.isMobile // On mobile, we want more header space
                              && navigationBar.enableGoBack // For top-level pages, the icon is redundant
-                    source: image
+                    source: navigationBar.image
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                     Layout.preferredWidth: Kirigami.Units.iconSizes.medium
@@ -274,7 +274,7 @@ Item {
                         Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                         Layout.fillWidth: true
 
-                        text: mainTitle
+                        text: navigationBar.mainTitle
                         level: authorLabel.visible ? 4 : 1
                     }
                     LabelWithToolTip {
@@ -301,23 +301,23 @@ Item {
                 }
                 Loader {
                     sourceComponent: sortMenuComponent
-                    active: !Kirigami.Settings.isMobile && enableSorting && !showCreateRadioButton
+                    active: !Kirigami.Settings.isMobile && navigationBar.enableSorting && !navigationBar.showCreateRadioButton
                 }
                 Loader {
                     sourceComponent: createRadioButton
-                    active: !Kirigami.Settings.isMobile && showCreateRadioButton
+                    active: !Kirigami.Settings.isMobile && navigationBar.showCreateRadioButton
                 }
                 Loader {
                     sourceComponent: enqueueButton
-                    active: !Kirigami.Settings.isMobile && !showCreateRadioButton
+                    active: !Kirigami.Settings.isMobile && !navigationBar.showCreateRadioButton
                 }
                 Loader {
                     sourceComponent: replaceAndPlayButton
-                    active: !Kirigami.Settings.isMobile && !showCreateRadioButton
+                    active: !Kirigami.Settings.isMobile && !navigationBar.showCreateRadioButton
                 }
                 Loader {
                     sourceComponent: playNextButton
-                    active: !Kirigami.Settings.isMobile && !showCreateRadioButton
+                    active: !Kirigami.Settings.isMobile && !navigationBar.showCreateRadioButton
                     Layout.maximumHeight: parent.height
                 }
                 Loader {
@@ -328,13 +328,13 @@ Item {
                     Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
                     Kirigami.Theme.inherit: false
                     objectName: "showFilterButton"
-                    visible: !showCreateRadioButton
+                    visible: !navigationBar.showCreateRadioButton
                     text: !navigationBar.expandedFilterView
                     ? i18nc("@action:button displayed as @info:tooltip Show filters in the navigation bar", "Show search and filter toolbar")
                     : i18nc("@action:button displayed as @info:tooltip Hide filters in the navigation bar", "Hide search and filter toolbar")
                     icon.name: "search"
                     checkable: true
-                    checked: expandedFilterView
+                    checked: navigationBar.expandedFilterView
                     onClicked: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView;
                 }
             }
@@ -353,7 +353,7 @@ Item {
 
                     Loader {
                         sourceComponent: sortMenuComponent
-                        active: enableSorting && !showCreateRadioButton
+                        active: navigationBar.enableSorting && !navigationBar.showCreateRadioButton
                         Layout.maximumHeight: parent.height
                     }
                     Item {
@@ -361,24 +361,24 @@ Item {
                     }
                     Loader {
                         sourceComponent: createRadioButton
-                        active: showCreateRadioButton
+                        active: navigationBar.showCreateRadioButton
                     }
                     Loader {
                         sourceComponent: enqueueButton
-                        active: !showCreateRadioButton
+                        active: !navigationBar.showCreateRadioButton
                     }
                     Loader {
                         sourceComponent: replaceAndPlayButton
-                        active: !showCreateRadioButton
+                        active: !navigationBar.showCreateRadioButton
                     }
                     Loader {
                         sourceComponent: playNextButton
-                        active: !showCreateRadioButton
+                        active: !navigationBar.showCreateRadioButton
                         Layout.maximumHeight: parent.height
                     }
                     Loader {
                         sourceComponent: showArtistButton
-                        active: allowArtistNavigation && !showCreateRadioButton
+                        active: navigationBar.allowArtistNavigation && !navigationBar.showCreateRadioButton
                     }
                     Loader {
                         sourceComponent: toggleViewStyleButton
@@ -397,7 +397,7 @@ Item {
                 width: parent.width
                 visible: opacity > 0.0
 
-                opacity: expandedFilterView ? 1 : 0
+                opacity: navigationBar.expandedFilterView ? 1 : 0
                 Behavior on opacity {
                     NumberAnimation {
                         easing.type: Easing.Linear
@@ -431,23 +431,23 @@ Item {
                 }
                 Item {
                     width: Kirigami.Units.largeSpacing
-                    visible: showRating && !ElisaApplication.useFavoriteStyleRatings
+                    visible: navigationBar.showRating && !ElisaApplication.useFavoriteStyleRatings
                 }
                 LabelWithToolTip {
                     text: i18nc("@label:chooser", "Filter by rating: ")
 
-                    visible: showRating && !ElisaApplication.useFavoriteStyleRatings
+                    visible: navigationBar.showRating && !ElisaApplication.useFavoriteStyleRatings
                 }
                 RatingStar {
                     id: ratingFilter
                     objectName: "ratingFilter"
 
-                    visible: showRating && !ElisaApplication.useFavoriteStyleRatings
+                    visible: navigationBar.showRating && !ElisaApplication.useFavoriteStyleRatings
 
                     readOnly: false
                 }
                 FlatButtonWithToolTip {
-                    visible: showRating && ElisaApplication.useFavoriteStyleRatings
+                    visible: navigationBar.showRating && ElisaApplication.useFavoriteStyleRatings
 
                     flat: false
                     display: AbstractButton.TextBesideIcon

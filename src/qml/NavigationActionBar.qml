@@ -5,6 +5,8 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQml 2.2
 import QtQuick 2.15
 import QtQuick.Layouts 1.3
@@ -167,7 +169,6 @@ Item {
         FlatButtonWithToolTip {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
-            id: showPlaylistButton
             text: i18nc("@action:button", "Show Playlist")
             ToolTip.text: i18nc("@info:tooltip", "Show playlist")
             icon.name: "view-media-playlist"

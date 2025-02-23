@@ -430,7 +430,7 @@ Item {
                     Keys.onEscapePressed: persistentSettings.expandedFilterView = false;
                 }
                 Item {
-                    width: Kirigami.Units.largeSpacing
+                    implicitWidth: Kirigami.Units.largeSpacing
                     visible: navigationBar.showRating && !ElisaApplication.useFavoriteStyleRatings
                 }
                 LabelWithToolTip {

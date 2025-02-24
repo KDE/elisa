@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-21 00:40+0000\n"
+"POT-Creation-Date: 2025-02-24 00:40+0000\n"
 "PO-Revision-Date: 2025-01-26 18:07+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -458,7 +458,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "இப்போது இசைக்கப்படுவது"
 
-#: qml/ContextView.qml:76 qml/NavigationActionBar.qml:240
+#: qml/ContextView.qml:76 qml/NavigationActionBar.qml:241
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -477,7 +477,7 @@ msgid "Lyrics"
 msgstr "பாடல்வரிகள்"
 
 #: qml/ContextView.qml:129 qml/MediaPlayerControl.qml:309
-#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:171
+#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:172
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -1189,147 +1189,147 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "உதவி"
 
-#: qml/NavigationActionBar.qml:90
+#: qml/NavigationActionBar.qml:92
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "வரிசை: %1"
 
-#: qml/NavigationActionBar.qml:91
+#: qml/NavigationActionBar.qml:93
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "வரிசைப்படுத்து"
 
-#: qml/NavigationActionBar.qml:105
+#: qml/NavigationActionBar.qml:107
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
 msgstr "வானொலியை சேர்"
 
-#: qml/NavigationActionBar.qml:106
+#: qml/NavigationActionBar.qml:108
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
 msgstr "வானொலியை சேர்"
 
-#: qml/NavigationActionBar.qml:118
+#: qml/NavigationActionBar.qml:120
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "பாடல்வரிசையில் செர்"
 
-#: qml/NavigationActionBar.qml:119
+#: qml/NavigationActionBar.qml:121
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "பாடல்வரிசையில் செர்"
 
-#: qml/NavigationActionBar.qml:132
+#: qml/NavigationActionBar.qml:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
 
-#: qml/NavigationActionBar.qml:133
+#: qml/NavigationActionBar.qml:135
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
 
-#: qml/NavigationActionBar.qml:145
+#: qml/NavigationActionBar.qml:147
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
 msgstr "அடுத்த‍தை இசை"
 
-#: qml/NavigationActionBar.qml:146
+#: qml/NavigationActionBar.qml:148
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
 msgstr "அடுத்ததை இசை"
 
-#: qml/NavigationActionBar.qml:158
+#: qml/NavigationActionBar.qml:160
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "கலைஞரைக் காட்டு"
 
-#: qml/NavigationActionBar.qml:159
+#: qml/NavigationActionBar.qml:161
 #, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "கலைஞரைக் காட்டு"
 
-#: qml/NavigationActionBar.qml:172
+#: qml/NavigationActionBar.qml:173
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "பாடல்வரிசையைக் காட்டு"
 
-#: qml/NavigationActionBar.qml:184
+#: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr "சின்னங்களைக் கொண்ட கிரிடாக காட்டு"
 
-#: qml/NavigationActionBar.qml:185
+#: qml/NavigationActionBar.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "View as List"
 msgstr "பட்டியலாக காட்டு"
 
-#: qml/NavigationActionBar.qml:187
+#: qml/NavigationActionBar.qml:188
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr "சின்னங்களைக் கொண்ட கிரிடாக காட்டு"
 
-#: qml/NavigationActionBar.qml:188
+#: qml/NavigationActionBar.qml:189
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "பட்டியலாக காட்டு"
 
-#: qml/NavigationActionBar.qml:248
+#: qml/NavigationActionBar.qml:249
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "பின்னே"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:334
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "தேடி வடிகட்ட உதவும் பட்டையை காட்டு"
 
-#: qml/NavigationActionBar.qml:334
+#: qml/NavigationActionBar.qml:335
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "தேடி வடிகட்ட உதவும் பட்டையை மறை"
 
-#: qml/NavigationActionBar.qml:427
+#: qml/NavigationActionBar.qml:428
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "பாடல்ப்பெயர், கலைஞர் போன்றவற்றால் வடிகட்டலாம்"
 
-#: qml/NavigationActionBar.qml:428
+#: qml/NavigationActionBar.qml:429
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "ஆல்ப‍ப்பெயர், கலைஞர் போன்றவற்றால் வடிகட்டலாம்"
 
-#: qml/NavigationActionBar.qml:437
+#: qml/NavigationActionBar.qml:438
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "மதிப்பீட்டின் படி வடிகட்டு: "
 
-#: qml/NavigationActionBar.qml:455
+#: qml/NavigationActionBar.qml:456
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

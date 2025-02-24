@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-21 00:40+0000\n"
+"POT-Creation-Date: 2025-02-24 00:40+0000\n"
 "PO-Revision-Date: 2025-01-14 10:49+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -462,7 +462,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Ara s'està reproduint"
 
-#: qml/ContextView.qml:76 qml/NavigationActionBar.qml:240
+#: qml/ContextView.qml:76 qml/NavigationActionBar.qml:241
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -481,7 +481,7 @@ msgid "Lyrics"
 msgstr "Lletra"
 
 #: qml/ContextView.qml:129 qml/MediaPlayerControl.qml:309
-#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:171
+#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:172
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -1194,147 +1194,147 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr "Ajuda"
 
-#: qml/NavigationActionBar.qml:90
+#: qml/NavigationActionBar.qml:92
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Ordenació: %1"
 
-#: qml/NavigationActionBar.qml:91
+#: qml/NavigationActionBar.qml:93
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Ordena"
 
-#: qml/NavigationActionBar.qml:105
+#: qml/NavigationActionBar.qml:107
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
 msgstr "Afig una ràdio"
 
-#: qml/NavigationActionBar.qml:106
+#: qml/NavigationActionBar.qml:108
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
 msgstr "Afig una ràdio"
 
-#: qml/NavigationActionBar.qml:118
+#: qml/NavigationActionBar.qml:120
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Afig a la llista de reproducció"
 
-#: qml/NavigationActionBar.qml:119
+#: qml/NavigationActionBar.qml:121
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Afig a la llista de reproducció"
 
-#: qml/NavigationActionBar.qml:132
+#: qml/NavigationActionBar.qml:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Reproduïx ara, substituint la llista de reproducció actual"
 
-#: qml/NavigationActionBar.qml:133
+#: qml/NavigationActionBar.qml:135
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Reproduïx ara, substituint la llista de reproducció actual"
 
-#: qml/NavigationActionBar.qml:145
+#: qml/NavigationActionBar.qml:147
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
 msgstr "Reproduïx la següent"
 
-#: qml/NavigationActionBar.qml:146
+#: qml/NavigationActionBar.qml:148
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next"
 msgstr "Reproduïx la següent"
 
-#: qml/NavigationActionBar.qml:158
+#: qml/NavigationActionBar.qml:160
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Mostra l'artista"
 
-#: qml/NavigationActionBar.qml:159
+#: qml/NavigationActionBar.qml:161
 #, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Mostra l'artista"
 
-#: qml/NavigationActionBar.qml:172
+#: qml/NavigationActionBar.qml:173
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Mostra la llista de reproducció"
 
-#: qml/NavigationActionBar.qml:184
+#: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr "Visualitza com a quadrícula d'icones"
 
-#: qml/NavigationActionBar.qml:185
+#: qml/NavigationActionBar.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "View as List"
 msgstr "Visualitza com a llista"
 
-#: qml/NavigationActionBar.qml:187
+#: qml/NavigationActionBar.qml:188
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr "Visualitza com a quadrícula d'icones"
 
-#: qml/NavigationActionBar.qml:188
+#: qml/NavigationActionBar.qml:189
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Visualitza com a llista"
 
-#: qml/NavigationActionBar.qml:248
+#: qml/NavigationActionBar.qml:249
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Arrere"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:334
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Mostra la barra d'eines de busca i filtratge"
 
-#: qml/NavigationActionBar.qml:334
+#: qml/NavigationActionBar.qml:335
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Oculta la barra d'eines de busca i filtratge"
 
-#: qml/NavigationActionBar.qml:427
+#: qml/NavigationActionBar.qml:428
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Busca el nom de pista, artista, etc."
 
-#: qml/NavigationActionBar.qml:428
+#: qml/NavigationActionBar.qml:429
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Busca el nom d'àlbum, artista, etc."
 
-#: qml/NavigationActionBar.qml:437
+#: qml/NavigationActionBar.qml:438
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtra per puntuació: "
 
-#: qml/NavigationActionBar.qml:455
+#: qml/NavigationActionBar.qml:456
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

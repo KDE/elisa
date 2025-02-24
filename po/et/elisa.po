@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-21 00:40+0000\n"
+"POT-Creation-Date: 2025-02-24 00:40+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -561,7 +561,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Praegu esitusel"
 
-#: qml/ContextView.qml:76 qml/NavigationActionBar.qml:240
+#: qml/ContextView.qml:76 qml/NavigationActionBar.qml:241
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -582,7 +582,7 @@ msgid "Lyrics"
 msgstr "Sõnad"
 
 #: qml/ContextView.qml:129 qml/MediaPlayerControl.qml:309
-#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:171
+#: qml/mobile/MobileTrackPlayer.qml:393 qml/NavigationActionBar.qml:172
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@action:button"
@@ -1433,19 +1433,19 @@ msgctxt "@title:menu"
 msgid "Help"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:90
+#: qml/NavigationActionBar.qml:92
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:91
+#: qml/NavigationActionBar.qml:93
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:105
+#: qml/NavigationActionBar.qml:107
 #, fuzzy, kde-format
 #| msgctxt "Title of the file radios browser view"
 #| msgid "Radios"
@@ -1453,13 +1453,13 @@ msgctxt "@action:button"
 msgid "Add Radio"
 msgstr "Raadio"
 
-#: qml/NavigationActionBar.qml:106
+#: qml/NavigationActionBar.qml:108
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:118
+#: qml/NavigationActionBar.qml:120
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to playlist"
@@ -1467,7 +1467,7 @@ msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Lisa esitusloendisse"
 
-#: qml/NavigationActionBar.qml:119
+#: qml/NavigationActionBar.qml:121
 #, fuzzy, kde-format
 #| msgctxt "Add whole container to play list"
 #| msgid "Add to playlist"
@@ -1475,7 +1475,7 @@ msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Lisa esitusloendisse"
 
-#: qml/NavigationActionBar.qml:132
+#: qml/NavigationActionBar.qml:134
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -1483,7 +1483,7 @@ msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Esitamine kohe senist esitusloendit asendades"
 
-#: qml/NavigationActionBar.qml:133
+#: qml/NavigationActionBar.qml:135
 #, fuzzy, kde-format
 #| msgctxt "Clear play list and add whole container to play list"
 #| msgid "Play now, replacing current playlist"
@@ -1491,7 +1491,7 @@ msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Esitamine kohe senist esitusloendit asendades"
 
-#: qml/NavigationActionBar.qml:145
+#: qml/NavigationActionBar.qml:147
 #, fuzzy, kde-format
 #| msgctxt "Play now current track from play list"
 #| msgid "Play Now"
@@ -1499,7 +1499,7 @@ msgctxt "@action:button"
 msgid "Play Next"
 msgstr "Esita kohe"
 
-#: qml/NavigationActionBar.qml:146
+#: qml/NavigationActionBar.qml:148
 #, fuzzy, kde-format
 #| msgctxt "Play counter label for track metadata view"
 #| msgid "Play count"
@@ -1507,7 +1507,7 @@ msgctxt "@info:tooltip"
 msgid "Play next"
 msgstr "Esituste arv"
 
-#: qml/NavigationActionBar.qml:158
+#: qml/NavigationActionBar.qml:160
 #, fuzzy, kde-format
 #| msgctxt "Button to navigate to the artist of the album"
 #| msgid "Display Artist"
@@ -1515,7 +1515,7 @@ msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Näita esitajat"
 
-#: qml/NavigationActionBar.qml:159
+#: qml/NavigationActionBar.qml:161
 #, fuzzy, kde-format
 #| msgctxt "Button to navigate to the artist of the album"
 #| msgid "Display Artist"
@@ -1523,20 +1523,20 @@ msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Näita esitajat"
 
-#: qml/NavigationActionBar.qml:172
+#: qml/NavigationActionBar.qml:173
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Esitusloendi näitamine"
 
-#: qml/NavigationActionBar.qml:184
+#: qml/NavigationActionBar.qml:185
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:185
+#: qml/NavigationActionBar.qml:186
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
 #| msgid "View Details"
@@ -1544,13 +1544,13 @@ msgctxt "@action:button"
 msgid "View as List"
 msgstr "Näita üksikasju"
 
-#: qml/NavigationActionBar.qml:187
+#: qml/NavigationActionBar.qml:188
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:188
+#: qml/NavigationActionBar.qml:189
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
 #| msgid "View Details"
@@ -1558,7 +1558,7 @@ msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Näita üksikasju"
 
-#: qml/NavigationActionBar.qml:248
+#: qml/NavigationActionBar.qml:249
 #, fuzzy, kde-format
 #| msgctxt "navigate back in the views stack"
 #| msgid "Back"
@@ -1566,7 +1566,7 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Tagasi"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:334
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"
@@ -1575,7 +1575,7 @@ msgctxt ""
 msgid "Show search and filter toolbar"
 msgstr "Otsimisvalikute peitmine"
 
-#: qml/NavigationActionBar.qml:334
+#: qml/NavigationActionBar.qml:335
 #, fuzzy, kde-format
 #| msgctxt "Hide filters in the navigation bar"
 #| msgid "Hide Search Options"
@@ -1584,28 +1584,28 @@ msgctxt ""
 msgid "Hide search and filter toolbar"
 msgstr "Otsimisvalikute peitmine"
 
-#: qml/NavigationActionBar.qml:427
+#: qml/NavigationActionBar.qml:428
 #, fuzzy, kde-format
 #| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Albumi nime, esitaja jms otsimine."
 
-#: qml/NavigationActionBar.qml:428
+#: qml/NavigationActionBar.qml:429
 #, fuzzy, kde-format
 #| msgid "Search for album name, artist, etc."
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Albumi nime, esitaja jms otsimine."
 
-#: qml/NavigationActionBar.qml:437
+#: qml/NavigationActionBar.qml:438
 #, fuzzy, kde-format
 #| msgid "Filter by rating: "
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtreerimine hinnangu alusel:"
 
-#: qml/NavigationActionBar.qml:455
+#: qml/NavigationActionBar.qml:456
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

@@ -195,15 +195,35 @@ Q_SIGNALS:
 
     void initialFilesViewPathChanged();
 
+    void activeColorSchemeNameChanged();
+
+    void raisePlayer();
+
+    // Actions
+
     void openAboutAppPage();
 
     void openAboutKDEPage();
 
     void configureElisa();
 
-    void activeColorSchemeNameChanged();
+    void goBack();
 
-    void raisePlayer();
+    void togglePlaylist();
+
+    void seek();
+
+    void scrub();
+
+    void nextTrack();
+
+    void previousTrack();
+
+    void playPause();
+
+    void find();
+
+    void togglePartyMode();
 
 public Q_SLOTS:
 
@@ -224,25 +244,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
 
-    void goBack();
-
-    void find();
-
-    void togglePartyMode();
-
-    void togglePlaylist();
-
-    void seek();
-
-    void scrub();
-
-    void playPause();
-
     void configChanged();
-
-    void nextTrack();
-
-    void previousTrack();
 
 private:
 

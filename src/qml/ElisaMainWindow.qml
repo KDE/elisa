@@ -68,6 +68,43 @@ Kirigami.ApplicationWindow {
                 const window = component.createObject(mainWindow);
             }
         }
+
+        function onGoBack() {
+            contentView.goBack();
+        }
+
+        function onTogglePlaylist() {
+            mainWindow.toggleDrawer();
+        }
+
+        function onSeek() {
+            console.log("onSeek");
+            ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position + 10000);
+        }
+
+        function onScrub() {
+            ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position - 10000);
+        }
+
+        function onNextTrack() {
+            ElisaApplication.mediaPlayListProxyModel.skipNextTrack(ElisaApplication.audioPlayer.position);
+        }
+
+        function onPreviousTrack() {
+            ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position);
+        }
+
+        function onPlayPause() {
+            ElisaApplication.audioControl.playPause();
+        }
+
+        function onFind() {
+            persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView;
+        }
+
+        function onTogglePartyMode() {
+            mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized;
+        }
     }
 
     Loader {
@@ -216,44 +253,45 @@ Kirigami.ApplicationWindow {
         contentView.showPlaylist = !contentView.showPlaylist
     }
 
+    // Setup keyboard shortcuts for actions that aren't used in the GUI
     Action {
         shortcut: ElisaApplication.actionShortcut(goBackAction)
-        onTriggered: contentView.goBack()
+        onTriggered: mainWindow.goBackAction.trigger()
     }
 
     Action {
         shortcut: ElisaApplication.actionShortcut(seekAction)
-        onTriggered: ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position + 10000)
+        onTriggered: mainWindow.seekAction.trigger()
     }
 
     Action {
         shortcut: ElisaApplication.actionShortcut(scrubAction)
-        onTriggered: ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position - 10000)
+        onTriggered: mainWindow.scrubAction.trigger()
     }
 
     Action {
         shortcut: ElisaApplication.actionShortcut(nextTrackAction)
-        onTriggered: ElisaApplication.mediaPlayListProxyModel.skipNextTrack(ElisaApplication.audioPlayer.position)
+        onTriggered: mainWindow.nextTrackAction.trigger()
     }
 
     Action {
         shortcut: ElisaApplication.actionShortcut(previousTrackAction)
-        onTriggered: ElisaApplication.mediaPlayListProxyModel.skipPreviousTrack(ElisaApplication.audioPlayer.position)
+        onTriggered: mainWindow.previousTrackAction.trigger()
     }
 
     Action {
         shortcut: ElisaApplication.actionShortcut(playPauseAction)
-        onTriggered: ElisaApplication.audioControl.playPause()
+        onTriggered: mainWindow.playPauseAction.trigger()
     }
 
     Action {
         shortcut: ElisaApplication.actionShortcut(findAction)
-        onTriggered: persistentSettings.expandedFilterView = !persistentSettings.expandedFilterView
+        onTriggered: mainWindow.findAction.trigger()
     }
 
     Action {
         shortcut: ElisaApplication.actionShortcut(togglePartyModeAction)
-        onTriggered: mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized
+        onTriggered: mainWindow.togglePartyModeAction.trigger()
     }
 
     SystemPalette {

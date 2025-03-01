@@ -319,24 +319,6 @@ void ElisaApplication::configureShortcuts()
 #endif
 }
 
-void ElisaApplication::goBack() {}
-
-void ElisaApplication::find() {}
-
-void ElisaApplication::togglePlaylist() {}
-
-void ElisaApplication::seek() {}
-
-void ElisaApplication::scrub() {}
-
-void ElisaApplication::nextTrack() {}
-
-void ElisaApplication::previousTrack() {}
-
-void ElisaApplication::playPause() {}
-
-void ElisaApplication::togglePartyMode() {}
-
 void ElisaApplication::configChanged()
 {
     auto currentConfiguration = Elisa::ElisaConfiguration::self();

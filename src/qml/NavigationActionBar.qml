@@ -173,7 +173,7 @@ Item {
             ToolTip.text: i18nc("@info:tooltip", "Show playlist")
             icon.name: "view-media-playlist"
             display: navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: navigationBar.isWidescreen ? mainWindow.toggleDrawer() : playlistDrawer.open()
+            onClicked: ElisaApplication.action("toggle_playlist").trigger()
         }
     }
     Component {

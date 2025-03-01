@@ -74,7 +74,11 @@ Kirigami.ApplicationWindow {
         }
 
         function onTogglePlaylist() {
-            mainWindow.toggleDrawer();
+            if (mainWindow.isWideScreen) {
+                contentView.showPlaylist = !contentView.showPlaylist;
+            } else {
+                mainWindow.contextDrawer.open();
+            }
         }
 
         function onSeek() {
@@ -248,10 +252,6 @@ Kirigami.ApplicationWindow {
     readonly property bool inPartyMode: headerBarLoader.item?.isMaximized ?? false
     readonly property bool isWideScreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
     readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > headerBarLoader.toolBarHeight * 2
-
-    function toggleDrawer() {
-        contentView.showPlaylist = !contentView.showPlaylist
-    }
 
     // Setup keyboard shortcuts for actions that aren't used in the GUI
     Action {

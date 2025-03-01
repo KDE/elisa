@@ -67,7 +67,7 @@ MenuBar {
         MenuItem {
             text: contentView.showPlaylist ? i18nc("@action:inmenu", "Hide Playlist") : i18nc("@action:inmenu", "Show Playlist")
             icon.name: contentView.showPlaylist ? "show-menu" : "view-media-playlist"
-            onTriggered: contentView.showPlaylist = !contentView.showPlaylist
+            onTriggered: ElisaApplication.action("toggle_playlist").trigger()
         }
     }
     Menu {

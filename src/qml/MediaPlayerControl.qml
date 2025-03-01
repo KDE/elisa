@@ -294,13 +294,7 @@ BasePlayerControl {
                     action: Action {
                         checkable: true
                         shortcut: ElisaApplication.actionShortcut(ElisaApplication.action("toggle_playlist"))
-                        onTriggered: {
-                            if (showHidePlaylistAction._togglesDrawer) {
-                                playlistDrawer.visible = !playlistDrawer.visible
-                            } else {
-                                contentView.showPlaylist = !contentView.showPlaylist
-                            }
-                        }
+                        onTriggered: ElisaApplication.action("toggle_playlist").trigger()
                     }
 
                     visible: !musicWidget.isMaximized && (!_togglesDrawer || musicWidget.isNearCollapse)

@@ -488,30 +488,6 @@ QAction * ElisaApplication::action(const QString& name)
 #endif
 }
 
-void ElisaApplication::installKeyEventFilter(QObject *object)
-{
-    if(!object) {
-        return;
-    }
-
-    object->installEventFilter(this);
-}
-
-bool ElisaApplication::eventFilter(QObject *object, QEvent *event)
-{
-    Q_UNUSED(object)
-#if KFXmlGui_FOUND
-    auto *keyEvent = static_cast<QKeyEvent*>(event);
-    auto playPauseAction = d->mCollection.action(QStringLiteral("Play-Pause"));
-    if (keyEvent->key() == Qt::Key_Space && playPauseAction->shortcut()[0].key() == Qt::Key_Space) {
-        return true;
-    }
-#else
-    Q_UNUSED(event)
-#endif
-    return false;
-}
-
 void ElisaApplication::showInFolder(const QUrl &filePath)
 {
 #if KFKIO_FOUND

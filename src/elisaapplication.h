@@ -117,11 +117,7 @@ public:
 
     Q_INVOKABLE QAction* action(const QString& name);
 
-    Q_INVOKABLE void installKeyEventFilter(QObject *object);
-
     Q_INVOKABLE void showInFolder(const QUrl &filePath);
-
-    bool eventFilter(QObject *object, QEvent *event) override;
 
     [[nodiscard]] MusicListenersManager *musicManager() const;
 

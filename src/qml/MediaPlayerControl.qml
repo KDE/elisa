@@ -361,19 +361,4 @@ BasePlayerControl {
         }
         visible: !musicWidget.isTranslucent
     }
-
-    Component.onCompleted: {
-        for (const element of [
-                menuButton,
-                repeatButton,
-                shuffleButton,
-                muteButton,
-                skipForwardButton,
-                skipBackwardButton,
-                playPauseButton,
-                minimizeMaximizeButton,
-        ]) {
-            ElisaApplication.installKeyEventFilter(element)
-        }
-    }
 }

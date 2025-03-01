@@ -52,16 +52,6 @@ Menu {
         visible: configureShortcutsAction.text !== ""
     }
 
-    MenuItem {
-        shortcut: ElisaApplication.actionShortcut(togglePlaylistAction)
-        text: i18nc("@action:inmenu", "Show Playlist")
-        icon.name: "view-media-playlist"
-        checkable: true
-        checked: contentView.showPlaylist
-        onTriggered: contentView.showPlaylist = !contentView.showPlaylist
-        enabled: contentView.currentViewIndex != 0
-    }
-
     MenuSeparator {
         visible: reportBugAction.text !== ""
     }

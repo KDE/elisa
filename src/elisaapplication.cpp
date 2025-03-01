@@ -53,6 +53,8 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 
+using namespace Qt::Literals::StringLiterals;
+
 class ElisaApplicationPrivate
 {
 public:
@@ -111,6 +113,8 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
 
     connect(static_cast<QGuiApplication*>(QCoreApplication::instance()), &QGuiApplication::commitDataRequest,
             this, &ElisaApplication::commitDataRequest);
+
+    setupActions();
 }
 
 ElisaApplication::~ElisaApplication()
@@ -132,86 +136,101 @@ void ElisaApplication::setActiveColorSchemeName(const QString &name)
     Q_EMIT activeColorSchemeNameChanged();
 }
 
-void ElisaApplication::setupActions(const QString &actionName)
+void ElisaApplication::setupActions()
 {
 #if KFXmlGui_FOUND
-    if (actionName == QLatin1String("file_quit")) {
-        auto quitAction = KStandardActions::quit(QCoreApplication::instance(), &QCoreApplication::quit, &d->mCollection);
-        d->mCollection.addAction(actionName, quitAction);
-    }
+    QString actionName;
 
-    if (actionName == QLatin1String("help_report_bug") && KAuthorized::authorizeAction(actionName) && !KAboutData::applicationData().bugAddress().isEmpty()) {
+    actionName = u"file_quit"_s;
+    auto quitAction = KStandardActions::quit(QCoreApplication::instance(), &QCoreApplication::quit, &d->mCollection);
+    d->mCollection.addAction(actionName, quitAction);
+
+    actionName = u"help_report_bug"_s;
+    if (KAuthorized::authorizeAction(actionName) && !KAboutData::applicationData().bugAddress().isEmpty()) {
         auto reportBugAction = KStandardActions::reportBug(this, &ElisaApplication::reportBug, &d->mCollection);
         d->mCollection.addAction(reportBugAction->objectName(), reportBugAction);
     }
 
-    if (actionName == QLatin1String("help_about_app") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"help_about_app"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
         auto aboutAppAction = KStandardActions::aboutApp(this, &ElisaApplication::openAboutAppPage, this);
         d->mCollection.addAction(aboutAppAction->objectName(), aboutAppAction);
     }
 
-    if (actionName == QLatin1String("help_about_kde") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"help_about_kde"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
         auto aboutKDEAction = KStandardActions::aboutKDE(this, &ElisaApplication::openAboutKDEPage, this);
         d->mCollection.addAction(aboutKDEAction->objectName(), aboutKDEAction);
     }
 
-    if (actionName == QLatin1String("options_configure") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"options_configure"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
         auto preferencesAction = KStandardActions::preferences(this, &ElisaApplication::configureElisa, this);
         d->mCollection.addAction(preferencesAction->objectName(), preferencesAction);
     }
 
-    if (actionName == QLatin1String("options_configure_keybinding") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"options_configure_keybinding"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
         auto keyBindingsAction = KStandardActions::keyBindings(this, &ElisaApplication::configureShortcuts, this);
         d->mCollection.addAction(keyBindingsAction->objectName(), keyBindingsAction);
     }
 
-    if (actionName == QLatin1String("go_back") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"go_back"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
         auto goBackAction = KStandardActions::back(this, &ElisaApplication::goBack, this);
         d->mCollection.addAction(goBackAction->objectName(), goBackAction);
     }
 
-    if (actionName == QLatin1String("toggle_playlist") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"toggle_playlist"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
         auto togglePlaylistAction = d->mCollection.addAction(actionName, this, &ElisaApplication::togglePlaylist);
         togglePlaylistAction->setShortcut(QKeySequence(Qt::Key_F9));
         togglePlaylistAction->setText(i18nc("@action", "Toggle Playlist"));
     }
 
-    if (actionName == QLatin1String("Seek") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"Seek"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
             auto seekAction = d->mCollection.addAction(actionName, this, &ElisaApplication::seek);
             seekAction->setText(i18nc("@action", "Seek forward 10 seconds"));
             d->mCollection.setDefaultShortcut(seekAction, QKeySequence(Qt::SHIFT | Qt::Key_Right));
     }
 
-    if (actionName == QLatin1String("Scrub") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"Scrub"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
             auto scrubAction = d->mCollection.addAction(actionName, this, &ElisaApplication::scrub);
             scrubAction->setText(i18nc("@action", "Scrub backwards 10 seconds"));
             d->mCollection.setDefaultShortcut(scrubAction, QKeySequence(Qt::SHIFT | Qt::Key_Left));
     }
 
-    if (actionName == QLatin1String("NextTrack") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"NextTrack"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
             auto nextTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::nextTrack);
             nextTrackAction->setText(i18nc("@action", "Go to next track"));
             d->mCollection.setDefaultShortcut(nextTrackAction, QKeySequence(Qt::CTRL | Qt::Key_Right));
     }
 
-    if (actionName == QLatin1String("PreviousTrack") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"PreviousTrack"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
             auto previousTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::previousTrack);
             previousTrackAction->setText(i18nc("@action", "Go to previous track"));
             d->mCollection.setDefaultShortcut(previousTrackAction, QKeySequence(Qt::CTRL | Qt::Key_Left));
     }
 
-    if (actionName == QLatin1String("Play-Pause") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"Play-Pause"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
             auto playPauseAction = d->mCollection.addAction(actionName, this, &ElisaApplication::playPause);
             playPauseAction->setText(i18nc("@action", "Play/pause"));
             d->mCollection.setDefaultShortcut(playPauseAction, QKeySequence(Qt::Key_Space));
     }
 
-    if (actionName == QLatin1String("edit_find") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"edit_find"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
         auto findAction = KStandardActions::find(this, &ElisaApplication::find, this);
         d->mCollection.addAction(findAction->objectName(), findAction);
     }
 
-    if (actionName == QLatin1String("togglePartyMode") && KAuthorized::authorizeAction(actionName)) {
+    actionName = u"togglePartyMode"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
         auto togglePartyModeAction = d->mCollection.addAction(actionName, this, &ElisaApplication::togglePartyMode);
         togglePartyModeAction->setText(i18nc("@action", "Toggle Party Mode"));
         d->mCollection.setDefaultShortcut(togglePartyModeAction, QKeySequence(Qt::Key_F11));
@@ -220,7 +239,6 @@ void ElisaApplication::setupActions(const QString &actionName)
 
     d->mCollection.readSettings();
 #else
-    Q_UNUSED(actionName)
 #endif
 }
 
@@ -479,11 +497,6 @@ QAction * ElisaApplication::action(const QString& name)
 {
 #if KFXmlGui_FOUND
     auto resultAction = d->mCollection.action(name);
-
-    if (!resultAction) {
-        setupActions(name);
-        resultAction = d->mCollection.action(name);
-    }
 
     return resultAction;
 #else

@@ -250,7 +250,7 @@ private:
 
     void initializePlayer();
 
-    void setupActions(const QString &actionName);
+    void setupActions();
 
     [[nodiscard]] DataTypes::EntryDataList checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
                                                               const QString &workingDirectory) const;

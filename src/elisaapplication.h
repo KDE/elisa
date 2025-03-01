@@ -116,9 +116,6 @@ public:
     ~ElisaApplication() override;
 
     Q_INVOKABLE QAction* action(const QString& name);
-    Q_INVOKABLE const QString actionShortcut(QAction *action) const;
-
-    Q_INVOKABLE QString iconName(const QIcon& icon);
 
     Q_INVOKABLE void installKeyEventFilter(QObject *object);
 

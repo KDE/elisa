@@ -291,10 +291,9 @@ BasePlayerControl {
                     id: showHidePlaylistAction
                     property bool _togglesDrawer: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
 
-                    action: Action {
+                    action: Kirigami.Action {
+                        fromQAction: ElisaApplication.action("toggle_playlist")
                         checkable: true
-                        shortcut: ElisaApplication.actionShortcut(ElisaApplication.action("toggle_playlist"))
-                        onTriggered: ElisaApplication.action("toggle_playlist").trigger()
                     }
 
                     visible: !musicWidget.isMaximized && (!_togglesDrawer || musicWidget.isNearCollapse)

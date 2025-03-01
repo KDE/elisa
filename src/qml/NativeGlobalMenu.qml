@@ -8,6 +8,7 @@ import QtQuick 2.7
 import QtQuick.Window 2.7
 import Qt.labs.platform 1.1
 import org.kde.elisa
+import org.kde.kirigami as Kirigami
 
 MenuBar {
     Menu {
@@ -39,14 +40,18 @@ MenuBar {
         }
 
         NativeMenuItemFromAction {
-            elisaAction: "options_configure"
+            action: Kirigami.Action {
+                fromQAction: ElisaApplication.action("options_configure")
+            }
         }
 
         MenuSeparator {
         }
 
         NativeMenuItemFromAction {
-            elisaAction: "file_quit"
+            action: Kirigami.Action {
+                fromQAction: ElisaApplication.action("file_quit")
+            }
         }
     }
     Menu {
@@ -64,10 +69,10 @@ MenuBar {
             onTriggered: mainWindow.visibility === Window.FullScreen ? mainWindow.restorePreviousStateBeforeFullScreen() : mainWindow.goFullScreen()
         }
 
-        MenuItem {
+        Kirigami.Action {
+            fromQAction: ElisaApplication.action("toggle_playlist")
             text: contentView.showPlaylist ? i18nc("@action:inmenu", "Hide Playlist") : i18nc("@action:inmenu", "Show Playlist")
             icon.name: contentView.showPlaylist ? "show-menu" : "view-media-playlist"
-            onTriggered: ElisaApplication.action("toggle_playlist").trigger()
         }
     }
     Menu {
@@ -151,15 +156,21 @@ MenuBar {
         title: i18nc("@title:menu", "Help")
 
         NativeMenuItemFromAction {
-            elisaAction: "help_about_app"
+            action: Kirigami.Action {
+                fromQAction: ElisaApplication.action("help_about_app")
+            }
         }
 
         NativeMenuItemFromAction {
-            elisaAction: "help_about_kde"
+            action: Kirigami.Action {
+                fromQAction: ElisaApplication.action("help_about_kde")
+            }
         }
 
         NativeMenuItemFromAction {
-            elisaAction: "help_report_bug"
+            action: Kirigami.Action {
+                fromQAction: ElisaApplication.action("help_report_bug")
+            }
         }
     }
 }

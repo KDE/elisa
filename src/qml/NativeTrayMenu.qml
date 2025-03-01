@@ -8,18 +8,11 @@
 import QtQuick 2.7
 import Qt.labs.platform 1.1
 import org.kde.elisa
+import org.kde.kirigami as Kirigami
 
 Menu {
     id: applicationMenu
     title: i18nc("@title:menu", "Application Menu")
-
-    property var quitApplication: ElisaApplication.action("file_quit")
-    property var reportBugAction: ElisaApplication.action("help_report_bug")
-    property var aboutAppAction: ElisaApplication.action("help_about_app")
-    property var aboutKdeAction: ElisaApplication.action("help_about_kde")
-    property var configureShortcutsAction: ElisaApplication.action("options_configure_keybinding")
-    property var configureAction: ElisaApplication.action("options_configure")
-    property var togglePlaylistAction: ElisaApplication.action("toggle_playlist")
 
     MenuItem  {
         text: i18nc("@action:inmenu", "Scan for New Music")
@@ -36,59 +29,42 @@ Menu {
     MenuSeparator {
     }
 
-    MenuItem {
-        text: configureAction.text
-        shortcut: ElisaApplication.actionShortcut(configureAction)
-        icon.name: ElisaApplication.iconName(configureAction.icon)
-        onTriggered: configureAction.trigger()
-        visible: configureAction.text !== ""
+    NativeMenuItemFromAction {
+        action: Kirigami.Action {
+            fromQAction: ElisaApplication.action("options_configure")
+        }
     }
 
-    MenuItem {
-        text: configureShortcutsAction.text
-        shortcut: ElisaApplication.actionShortcut(configureShortcutsAction)
-        icon.name: ElisaApplication.iconName(configureShortcutsAction.icon)
-        onTriggered: configureShortcutsAction.trigger()
-        visible: configureShortcutsAction.text !== ""
+    NativeMenuItemFromAction {
+        action: Kirigami.Action {
+            fromQAction: ElisaApplication.action("options_configure_keybinding")
+        }
     }
 
-    MenuSeparator {
-        visible: reportBugAction.text !== ""
+    NativeMenuItemFromAction {
+        action: Kirigami.Action {
+            fromQAction: ElisaApplication.action("help_report_bug")
+        }
     }
 
-    MenuItem {
-        text: reportBugAction.text
-        shortcut: ElisaApplication.actionShortcut(reportBugAction)
-        icon.name: ElisaApplication.iconName(reportBugAction.icon)
-        onTriggered: reportBugAction.trigger()
-        visible: reportBugAction.text !== ""
+    NativeMenuItemFromAction {
+        action: Kirigami.Action {
+            fromQAction: ElisaApplication.action("help_about_app")
+        }
     }
 
-    MenuItem {
-        text: aboutAppAction.text
-        shortcut: ElisaApplication.actionShortcut(aboutAppAction)
-        icon.name: ElisaApplication.iconName(aboutAppAction.icon)
-        onTriggered: aboutAppAction.trigger()
-        visible: aboutAppAction.text !== ""
-    }
-
-    MenuItem {
-        text: aboutKdeAction.text
-        shortcut: ElisaApplication.actionShortcut(aboutKdeAction)
-        icon.name: ElisaApplication.iconName(aboutKdeAction.icon)
-        onTriggered: aboutKdeAction.trigger()
-        visible: aboutKdeAction.text !== ""
+    NativeMenuItemFromAction {
+        action: Kirigami.Action {
+            fromQAction: ElisaApplication.action("help_about_kde")
+        }
     }
 
     MenuSeparator {
-        visible: quitApplication.text !== ""
     }
 
-    MenuItem {
-        text: quitApplication.text
-        shortcut: ElisaApplication.actionShortcut(quitApplication)
-        icon.name: ElisaApplication.iconName(quitApplication.icon)
-        onTriggered: quitApplication.trigger()
-        visible: quitApplication.text !== ""
+    NativeMenuItemFromAction {
+        action: Kirigami.Action {
+            fromQAction: ElisaApplication.action("file_quit")
+        }
     }
 }

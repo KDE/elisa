@@ -237,15 +237,6 @@ Kirigami.ApplicationWindow {
 
     readonly property int initialViewIndex: 3
 
-    readonly property var goBackAction: ElisaApplication.action("go_back")
-    readonly property var seekAction: ElisaApplication.action("Seek")
-    readonly property var scrubAction: ElisaApplication.action("Scrub")
-    readonly property var nextTrackAction : ElisaApplication.action("NextTrack")
-    readonly property var previousTrackAction: ElisaApplication.action("PreviousTrack")
-    readonly property var playPauseAction: ElisaApplication.action("Play-Pause")
-    readonly property var findAction: ElisaApplication.action("edit_find")
-    readonly property var togglePartyModeAction: ElisaApplication.action("togglePartyMode")
-
     readonly property var mediaPlayerControl: Kirigami.Settings.isMobile ? mobileFooterBarLoader.item : headerBarLoader.item
     readonly property alias fileDialog: fileDialog
 
@@ -254,44 +245,36 @@ Kirigami.ApplicationWindow {
     readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > headerBarLoader.toolBarHeight * 2
 
     // Setup keyboard shortcuts for actions that aren't used in the GUI
-    Action {
-        shortcut: ElisaApplication.actionShortcut(goBackAction)
-        onTriggered: mainWindow.goBackAction.trigger()
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("go_back")
     }
 
-    Action {
-        shortcut: ElisaApplication.actionShortcut(seekAction)
-        onTriggered: mainWindow.seekAction.trigger()
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("Seek")
     }
 
-    Action {
-        shortcut: ElisaApplication.actionShortcut(scrubAction)
-        onTriggered: mainWindow.scrubAction.trigger()
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("Scrub")
     }
 
-    Action {
-        shortcut: ElisaApplication.actionShortcut(nextTrackAction)
-        onTriggered: mainWindow.nextTrackAction.trigger()
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("NextTrack")
     }
 
-    Action {
-        shortcut: ElisaApplication.actionShortcut(previousTrackAction)
-        onTriggered: mainWindow.previousTrackAction.trigger()
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("PreviousTrack")
     }
 
-    Action {
-        shortcut: ElisaApplication.actionShortcut(playPauseAction)
-        onTriggered: mainWindow.playPauseAction.trigger()
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("Play-Pause")
     }
 
-    Action {
-        shortcut: ElisaApplication.actionShortcut(findAction)
-        onTriggered: mainWindow.findAction.trigger()
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("edit_find")
     }
 
-    Action {
-        shortcut: ElisaApplication.actionShortcut(togglePartyModeAction)
-        onTriggered: mainWindow.togglePartyModeAction.trigger()
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("togglePartyMode")
     }
 
     SystemPalette {

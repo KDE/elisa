@@ -7,14 +7,14 @@
 import QtQuick 2.7
 import Qt.labs.platform 1.1
 import org.kde.elisa
+import org.kde.kirigami as Kirigami
 
 MenuItem {
-    property string elisaAction: ""
-    property var __action: ElisaApplication.action(elisaAction)
+    property Kirigami.Action action
 
-    text: __action.text
-    shortcut: ElisaApplication.actionShortcut(__action)
-    icon.name: ElisaApplication.iconName(__action.icon)
-    onTriggered: __action.trigger()
-    visible: __action.text !== ""
+    text: action.text
+    shortcut: action.shortcut
+    icon.name: action.icon.name
+    onTriggered: action.trigger()
+    visible: action.visible
 }

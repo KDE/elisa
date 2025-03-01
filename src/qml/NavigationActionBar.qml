@@ -169,11 +169,13 @@ Item {
         FlatButtonWithToolTip {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
+            action: Kirigami.Action {
+                fromQAction: ElisaApplication.action("toggle_playlist")
+            }
             text: i18nc("@action:button", "Show Playlist")
             ToolTip.text: i18nc("@info:tooltip", "Show playlist")
             icon.name: "view-media-playlist"
             display: navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
-            onClicked: ElisaApplication.action("toggle_playlist").trigger()
         }
     }
     Component {

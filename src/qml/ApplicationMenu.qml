@@ -10,18 +10,11 @@ import QtQuick.Window 2.7
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.0
 import org.kde.elisa
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami as Kirigami
 
 Menu {
     id: applicationMenu
     title: i18nc("@title:menu", "Application Menu")
-
-    property var reportBugAction: ElisaApplication.action("help_report_bug")
-    property var aboutAppAction: ElisaApplication.action("help_about_app")
-    property var aboutKdeAction: ElisaApplication.action("help_about_kde")
-    property var configureShortcutsAction: ElisaApplication.action("options_configure_keybinding")
-    property var configureAction: ElisaApplication.action("options_configure")
-    property var quitAction: ElisaApplication.action("file_quit")
 
     Action {
         text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Exit Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
@@ -78,56 +71,26 @@ Menu {
         }
     }
 
-    Action {
-        text: configureAction.text
-        shortcut: ElisaApplication.actionShortcut(configureAction)
-        icon.name: ElisaApplication.iconName(configureAction.icon)
-        onTriggered: {
-            applicationMenu.close()
-            configureAction.trigger()
-        }
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("options_configure")
     }
 
-    Action {
-        text: configureShortcutsAction.text
-        shortcut: ElisaApplication.actionShortcut(configureShortcutsAction)
-        icon.name: ElisaApplication.iconName(configureShortcutsAction.icon)
-        onTriggered: {
-            applicationMenu.close()
-            configureShortcutsAction.trigger()
-        }
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("options_configure_keybinding")
     }
 
     MenuSeparator {}
 
-    Action {
-        text: aboutAppAction.text
-        shortcut: ElisaApplication.actionShortcut(aboutAppAction)
-        icon.name: ElisaApplication.iconName(aboutAppAction.icon)
-        onTriggered: {
-            applicationMenu.close()
-            aboutAppAction.trigger()
-        }
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("help_about_app")
     }
 
-    Action {
-        text: aboutKdeAction.text
-        shortcut: ElisaApplication.actionShortcut(aboutKdeAction)
-        icon.name: ElisaApplication.iconName(aboutKdeAction.icon)
-        onTriggered: {
-            applicationMenu.close()
-            aboutKdeAction.trigger()
-        }
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("help_about_kde")
     }
 
-    Action {
-        text: reportBugAction.text
-        shortcut: ElisaApplication.actionShortcut(reportBugAction)
-        icon.name: ElisaApplication.iconName(reportBugAction.icon)
-        onTriggered: {
-            applicationMenu.close()
-            reportBugAction.trigger()
-        }
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("help_report_bug")
     }
 
     MenuSeparator {
@@ -135,14 +98,8 @@ Menu {
     }
 
     MenuItem {
-        action: Action {
-            text: quitAction.text
-            shortcut: ElisaApplication.actionShortcut(quitAction)
-            icon.name: ElisaApplication.iconName(quitAction.icon)
-            onTriggered: {
-                applicationMenu.close()
-                quitAction.trigger()
-            }
+        action: Kirigami.Action {
+            fromQAction: ElisaApplication.action("file_quit")
         }
         visible: ElisaApplication.showSystemTrayIcon
     }

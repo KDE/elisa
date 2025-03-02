@@ -265,14 +265,4 @@ BasePlayerControl {
 
         Item { implicitWidth: Math.floor(Kirigami.Units.smallSpacing / 2) }
     }
-
-    Component.onCompleted: {
-        for (const element of [
-            skipForwardButton,
-            skipBackwardButton,
-            playPauseButton,
-        ]) {
-            ElisaApplication.installKeyEventFilter(element)
-        }
-    }
 }

@@ -57,6 +57,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="sl">Elisa</name>
   <name xml:lang="sv">Elisa</name>
   <name xml:lang="ta">எலைசா</name>
+  <name xml:lang="th">Elisa</name>
   <name xml:lang="tr">Elisa</name>
   <name xml:lang="uk">Elisa</name>
   <name xml:lang="x-test">xxElisaxx</name>
@@ -95,6 +96,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="sl">Predvajajte glasbo in poslušajte spletne radio postaje</summary>
   <summary xml:lang="sv">Spela musik och lyssna på nätradiostationer</summary>
   <summary xml:lang="ta">பாடல்களையும் இணைய வானொலி நிலையங்களையும் கேட்கலாம்</summary>
+  <summary xml:lang="th">เล่นเพลงบนเครื่องและฟังวิทยุออนไลน์</summary>
   <summary xml:lang="tr">Müzik çalın ve radyo istasyonlarını dinleyin</summary>
   <summary xml:lang="uk">Відтворення музичних творів та прослуховування інтернет-радіостанцій</summary>
   <summary xml:lang="x-test">xxPlay music and listen to online radio stationsxx</summary>
@@ -134,6 +136,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="sl">Predvajalnik glasbe Elisa je razvila skupnost KDE in si prizadeva, da bi bil preprost in prijeten za uporabo.</p>
     <p xml:lang="sv">Musikspelaren Elisa utvecklas av KDE-gemenskapen och strävar efter att vara enkel och trevlig att använda.</p>
     <p xml:lang="ta">எலைசா என்பது, கே.டீ.யீ.யால் உருவாக்கப்பட்டுள்ள ஓர் எளிய பாடல் இசைப்பி</p>
+    <p xml:lang="th">เครื่องเล่นเพลง Elisa ได้รับการพัฒนาโดยชาว KDE และมุ่งมั่นที่จะให้ใช้งานง่ายและน่าพึงพอใจ</p>
     <p xml:lang="tr">Elisa müzik çaları, KDE topluluğu tarafından geliştirilir ve yalın ve kullanımı kolay bir deneyim sunmaya çalışır.</p>
     <p xml:lang="uk">Elisa — музичний програвач, який розроблено спільнотою KDE. Автори програми прагнуть зробити її простою та приємною у користуванні.</p>
     <p xml:lang="x-test">xxThe Elisa music player is developed by the KDE community and strives to be simple and pleasant to use.xx</p>
@@ -173,6 +176,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="sa">एलिसा इत्यनेन सह, भवान् विधायाः, कलाकारस्य, सङ्गीतराशिस्य, अथवा संगीतपङ्क्तस्य आधारेण स्वस्य स्थानीयसङ्गीतसङ्ग्रहं गवेषय कर्तुं, साङ्गणिक आकाशवाणी श्रोतुं, वादनीयसूची निर्मातुं प्रबन्धयितुं च, गीतं प्रदर्शयितुं, इत्यादीनि च कर्तुं शक्नोति।.</p>
     <p xml:lang="sl">Z Eliso lahko brskate po lokalni glasbeni zbirki po zvrsti, izvajalcu, albumu ali skladbi, poslušate spletni radio, ustvarjate in upravljate sezname predvajanja, prikazujete besedila in drugo.</p>
     <p xml:lang="sv">Med Elisa kan du bläddra i din lokala musiksamling efter genre, artist, album eller spår, lyssna på nätradio, skapa och hantera spellistor,visa texter, med mera.</p>
+    <p xml:lang="th">ด้วย Elisa คุณสามารถค้นหาคอลเลกชันเพลงบนเครื่องของคุณตามประเภท ศิลปิน อัลบั้ม หรือเพลง ฟังวิทยุออนไลน์ สร้างและจัดการรายการเพลง แสดงเนื้อเพลง และอื่นๆ อีกมากมาย</p>
     <p xml:lang="tr">Elisa ile yerel müzik koleksiyonunuza türe, sanatçıya, albüme veya parçaya göre göz atabilir, çevrimiçi radyo dinleyebilir, çalma listeleri oluşturabilir ve yönetebilir, şarkı sözlerini görüntüleyebilir ve daha fazlasını yapabilirsiniz.</p>
     <p xml:lang="uk">За допомогою Elisa ви можете здійснювати навігацію вашою музичною збіркою за жанром, виконавцем, альбомом або композицією, прослуховувати інтернет-радіо, створювати списки відтворення та керувати ними, переглядати тексти пісень тощо.</p>
     <p xml:lang="x-test">xxWith Elisa, you can browse your local music collection by genre, artist, album, or track, listen to online radio, create and manage playlists, display lyrics, and more.xx</p>
@@ -210,6 +214,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ru">При работе в среде Plasma музыкальный проигрыватель Elisa полностью поддерживает цветовые схемы рабочего стола, а при работе в других окружениях — стандартные тёмное и светлое оформления.</p>
     <p xml:lang="sl">Elisa podpira vašo celotno barvno shemo KDE, ko jo uporabljate na namizju Plasma, oziroma standardna svetla in temna načina.</p>
     <p xml:lang="sv">Elisa stöder KDE:s fullständiga färgschema när det används på Plasma-skrivbordet, eller annars standardmässiga ljusa och mörka lägen.</p>
+    <p xml:lang="th">Elisa รองรับชุดสีของ KDE เต็มรูปแบบเมื่อใช้บนเดสก์ท็อป Plasma หรือโหมดสว่างและมืดมาตรฐาน</p>
     <p xml:lang="tr">Elisa, Plasma masaüstünde kullanıldığında tam KDE renk şemanızı veya standart açık ve koyu kipleri destekler.</p>
     <p xml:lang="uk">В Elisa передбачено підтримку усієї вашої схеми кольорів KDE, якщо програму запущено у стільниці Плазми. Інакше буде використано стандартні світлий або темний режими.</p>
     <p xml:lang="x-test">xxElisa supports your full KDE color scheme when used on the Plasma desktop, or else the standard light and dark modes.xx</p>
@@ -249,6 +254,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="sa">उत्सवस्य पद्धति इत्यनेन सह अभिशीतम्‌ कुर्वन्तु, यत् भवतः सङ्गीतराशि चित्र अग्रे केन्द्रे च स्थापयति।.</p>
     <p xml:lang="sl">Sprostite se s party načinom, ki postavi sliko albuma vaše glasbe v ospredje in v center.</p>
     <p xml:lang="sv">Slappna av med party-läge, som placerar musikens skivomslag i fokus.</p>
+    <p xml:lang="th">ผ่อนคลายไปกับโหมดปาร์ตี้ที่จะแสดงภาพปกอัลบั้มเพลงของคุณไว้ตรงจุดสนใจ</p>
     <p xml:lang="tr">Müziğinizin albüm kapağını öne ve merkeze koyan Parti Kipi ile kendinize bir mola verin.</p>
     <p xml:lang="uk">Розслабтеся у режимі вечірки, коли супровідні зображення вашого музичного альбому буде розташовано спереду і у центрі.</p>
     <p xml:lang="x-test">xxChill out with Party Mode, which puts your music's album art front and center.xx</p>
@@ -305,6 +311,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sl">Glasbeni predvajalnik Elisa</caption>
       <caption xml:lang="sv">Elisa musikspelare</caption>
       <caption xml:lang="ta">எலைசா பாடல் இசைப்பி</caption>
+      <caption xml:lang="th">เครื่องเล่นเพลง Elisa</caption>
       <caption xml:lang="tr">Elisa Müzik Çalar</caption>
       <caption xml:lang="uk">Музичний програвач Elisa</caption>
       <caption xml:lang="x-test">xxThe Elisa music playerxx</caption>
@@ -356,6 +363,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sl">Elisa na Plasma Mobile</caption>
       <caption xml:lang="sv">Elisa på Plasma Mobil</caption>
       <caption xml:lang="ta">பிளாஸ்மா மொபைலில் எலைசா</caption>
+      <caption xml:lang="th">Elisa บน Plasma Mobile</caption>
       <caption xml:lang="tr">Plasma Cep Üzerinde Elisa</caption>
       <caption xml:lang="uk">Elisa на мобільній Плазмі</caption>
       <caption xml:lang="x-test">xxElisa on Plasma Mobilexx</caption>

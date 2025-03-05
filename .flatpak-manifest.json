@@ -2,23 +2,50 @@
     "id": "org.kde.elisa",
     "branch": "master",
     "runtime": "org.kde.Platform",
-    "runtime-version": "6.7",
+    "runtime-version": "6.8",
     "sdk": "org.kde.Sdk",
     "command": "elisa",
-    "tags": ["nightly"],
+    "tags": [
+        "nightly"
+    ],
     "desktop-file-name-suffix": " (Nightly)",
-    "finish-args": ["--share=ipc", "--socket=fallback-x11", "--socket=wayland", "--filesystem=home", "--socket=pulseaudio", "--device=dri", "--socket=session-bus"],
-
+    "finish-args": [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--filesystem=home",
+        "--socket=pulseaudio",
+        "--device=dri",
+        "--socket=session-bus"
+    ],
     "modules": [
         {
-            "config-opts": [ "-DBUILD_SHARED_LIBS=ON" ],
+            "name": "utfcpp",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/nemtrif/utfcpp/archive/refs/tags/v4.0.6.tar.gz",
+                    "sha256": "6920a6a5d6a04b9a89b2a89af7132f8acefd46e0c2a7b190350539e9213816c0",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 20545,
+                        "url-template": "https://github.com/nemtrif/utfcpp/archive/refs/tags/v$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "config-opts": [
+                "-DBUILD_SHARED_LIBS=ON"
+            ],
             "name": "taglib",
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://taglib.github.io/releases/taglib-1.12.tar.gz",
-                    "sha256": "7fccd07669a523b07a15bd24c8da1bbb92206cb19e9366c3692af3d79253b703",
+                    "url": "https://taglib.github.io/releases/taglib-2.0.2.tar.gz",
+                    "sha256": "0de288d7fe34ba133199fd8512f19cc1100196826eafcb67a33b224ec3a59737",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1982,
@@ -29,13 +56,26 @@
             ]
         },
         {
-            "config-opts": [ "BUILDCC=gcc", "--disable-lua", "--disable-a52", "--disable-qt", "--disable-ncurses", "--disable-udev" ],
+            "config-opts": [
+                "BUILDCC=gcc",
+                "--disable-lua",
+                "--disable-a52",
+                "--disable-qt",
+                "--disable-ncurses",
+                "--disable-udev"
+            ],
             "name": "libvlc",
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://get.videolan.org/vlc/3.0.18/vlc-3.0.18.tar.xz",
-                    "sha256": "57094439c365d8aa8b9b41fa3080cc0eef2befe6025bb5cef722accc625aedec"
+                    "url": "https://get.videolan.org/vlc/3.0.21/vlc-3.0.21.tar.xz",
+                    "sha256": "24dbbe1d7dfaeea0994d5def0bbde200177347136dbfe573f5b6a4cee25afbb0",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 6504,
+                        "stable-only": true,
+                        "url-template": "https://get.videolan.org/vlc/$version/vlc-$version.tar.xz"
+                    }
                 }
             ]
         },
@@ -45,52 +85,58 @@
                 {
                     "type": "git",
                     "url": "https://git.openldap.org/openldap/openldap.git",
-                    "tag": "LMDB_0.9.29",
+                    "tag": "LMDB_0.9.33",
                     "x-checker-data": {
                         "type": "git",
                         "tag-pattern": "^LMDB_([\\d.]+)$"
                     },
-                    "commit": "8ad7be2510414b9506ec9f9e24f24d04d9b04a1a"
+                    "commit": "3a29a24777c82a0165de813ae696a5068b5add30"
                 }
             ],
             "no-autogen": true,
-            "make-install-args": ["prefix=/app"],
-            "subdir" : "libraries/liblmdb"
+            "make-install-args": [
+                "prefix=/app"
+            ],
+            "subdir": "libraries/liblmdb"
         },
         {
-            "config-opts": ["-DENABLE_TESTING=OFF"],
+            "config-opts": [
+                "-DENABLE_TESTING=OFF"
+            ],
             "name": "kfilemetadata",
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://invent.kde.org/frameworks/kfilemetadata.git",
-                    "tag": "v5.247.0",
-                    "x-checker-data": {
-                        "type": "git",
-                        "tag-pattern": "^v([\\d.]+)$"
-                    },
-                    "commit": "2fb8561b76a0a47933f69872ac004330d9c21b2d"
+                    "url": "https://invent.kde.org/frameworks/kfilemetadata.git"
                 }
             ]
         },
-          {
+        {
             "name": "kirigamiaddons",
-            "config-opts": [ "-DBUILD_TESTING=OFF" ],
+            "config-opts": [
+                "-DBUILD_TESTING=OFF"
+            ],
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
                     "type": "git",
                     "url": "https://invent.kde.org/libraries/kirigami-addons.git"
-                } 
+                }
             ]
         },
         {
             "name": "elisa",
             "buildsystem": "cmake-ninja",
             "builddir": true,
+            "config-opts": [
+                "-DBUILD_TESTING=OFF"
+            ],
             "sources": [
-                { "type": "dir", "path": "." }
+                {
+                    "type": "dir",
+                    "path": "."
+                }
             ]
         }
     ]

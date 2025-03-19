@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:40+0000\n"
-"PO-Revision-Date: 2025-03-06 15:29+0300\n"
+"PO-Revision-Date: 2025-03-18 10:48+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -511,13 +511,13 @@ msgid "Show In Folder"
 msgstr "Показать в папке"
 
 #: qml/DataGridView.qml:159
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "одна дорожка"
+msgstr "Все дорожки"
 
 #: qml/DataGridView.qml:160
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"

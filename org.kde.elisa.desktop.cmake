@@ -23,6 +23,7 @@ Comment[pl]=Odtwarzaj muzykę lokalnie i słucha radia z sieci
 Comment[pt_BR]=Reproduza músicas locais e ouça rádios online
 Comment[ru]=Воспроизведение хранящейся локально музыки и прослушивание интернет-радиостанций
 Comment[sa]=स्थानीयसङ्गीतं वादयन्तु, ऑनलाइन रेडियो शृणुत च
+Comment[sk]=Prehrávanie miestnej hudby a počúvanie online rádia
 Comment[sl]=Predvaja lokalno glasbo in posluša spletni radio
 Comment[sv]=Spela lokal musik och lyssna på nätradiostationer
 Comment[ta]=கணினியிலுள்ள பாடல்கள் மட்டுமின்றி இணைய வானொலி நிலையங்களையும் கேட்கலாம்.

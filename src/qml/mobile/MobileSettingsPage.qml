@@ -23,6 +23,8 @@ Kirigami.ScrollablePage {
 
     title: i18nc("@title:window", "Settings")
 
+    globalToolBarStyle: Kirigami.ApplicationHeaderStyle.Titles
+
     onBackRequested: event => {
         if (ElisaConfigurationDialog.isDirty) {
             settingsForm.dirtyClosingDialog.open()

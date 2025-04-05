@@ -31,6 +31,8 @@ Kirigami.ScrollablePage {
     property alias showImage: metadataForm.showImage
     property alias showDeleteButton: metadataForm.showDeleteButton
 
+    globalToolBarStyle: Kirigami.ApplicationHeaderStyle.Titles
+
     signal rejected()
 
     onBackRequested: event => {

@@ -534,18 +534,12 @@ msgstr "Vis i mappe"
 
 #: qml/DataGridView.qml:159
 #, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
 msgstr "%1 spor"
 
 #: qml/DataGridView.qml:160
 #, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"

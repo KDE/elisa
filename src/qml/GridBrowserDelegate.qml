@@ -169,8 +169,10 @@ AbstractBrowserDelegate {
                         model: gridEntry.actions
 
                         delegate: ButtonWithToolTip {
+                            required property Kirigami.Action modelData
+
                             action: modelData
-                            visible: action.visible
+                            visible: modelData.visible
                             hoverEnabled: true
                             display: AbstractButton.IconOnly
                         }

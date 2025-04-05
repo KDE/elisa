@@ -213,6 +213,7 @@ Kirigami.Page {
                     delegate: ColumnLayout {
                         id: playListDelegate
 
+                        required property var model
                         property bool nextDelegateHasSection
 
                         width: playListView.width
@@ -246,7 +247,7 @@ Kirigami.Page {
                             // will change this activeFocus
                             onActiveFocusChanged: {
                                 if (activeFocus) {
-                                    playListView.currentIndex = model.index
+                                    playListView.currentIndex = playListDelegate.model.index
                                     entry.forceActiveFocus()
                                 }
                             }
@@ -258,25 +259,25 @@ Kirigami.Page {
 
                                 width: playListView.width
 
-                                index: model.index
+                                index: playListDelegate.model.index
                                 isSelected: playListView.currentIndex === index
 
-                                databaseId: model.databaseId ? model.databaseId : 0
-                                entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
-                                title: model.title ? model.title : ''
-                                artist: model.artist ? model.artist : ''
-                                album: model.album ? model.album : ''
-                                albumArtist: model.albumArtist ? model.albumArtist : ''
-                                duration: model.duration ? model.duration : ''
-                                fileName: model.trackResource ? model.trackResource : ''
-                                imageUrl: model.imageUrl ? model.imageUrl : ''
-                                trackNumber: model.trackNumber ? model.trackNumber : -1
-                                discNumber: model.discNumber ? model.discNumber : -1
-                                rating: model.rating ? model.rating : 0
-                                isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
-                                isValid: model.isValid
-                                isPlaying: model.isPlaying
-                                metadataModifiableRole: model && model.metadataModifiableRole ? model.metadataModifiableRole : false
+                                databaseId: playListDelegate.model.databaseId ? playListDelegate.model.databaseId : 0
+                                entryType: playListDelegate.model.entryType ? playListDelegate.model.entryType : ElisaUtils.Unknown
+                                title: playListDelegate.model.title ? playListDelegate.model.title : ''
+                                artist: playListDelegate.model.artist ? playListDelegate.model.artist : ''
+                                album: playListDelegate.model.album ? playListDelegate.model.album : ''
+                                albumArtist: playListDelegate.model.albumArtist ? playListDelegate.model.albumArtist : ''
+                                duration: playListDelegate.model.duration ? playListDelegate.model.duration : ''
+                                fileName: playListDelegate.model.trackResource ? playListDelegate.model.trackResource : ''
+                                imageUrl: playListDelegate.model.imageUrl ? playListDelegate.model.imageUrl : ''
+                                trackNumber: playListDelegate.model.trackNumber ? playListDelegate.model.trackNumber : -1
+                                discNumber: playListDelegate.model.discNumber ? playListDelegate.model.discNumber : -1
+                                rating: playListDelegate.model.rating ? playListDelegate.model.rating : 0
+                                isSingleDiscAlbum: playListDelegate.model.isSingleDiscAlbum !== undefined ? playListDelegate.model.isSingleDiscAlbum : true
+                                isValid: playListDelegate.model.isValid
+                                isPlaying: playListDelegate.model.isPlaying
+                                metadataModifiableRole: playListDelegate.model.metadataModifiableRole ? playListDelegate.model.metadataModifiableRole : false
                                 listView: playListView
                                 listDelegate: playListDelegate
                                 showDragHandle: playListView.count > 1
@@ -378,6 +379,9 @@ Kirigami.Page {
                     }
 
                     delegate: Item {
+                        id: mobileDelegate
+                        required property var model
+
                         width: entry.width
                         height: entry.height
 
@@ -393,26 +397,26 @@ Kirigami.Page {
                             id: entry
                             width: playListView.width
 
-                            index: model ? model.index : 0
+                            index: mobileDelegate.model.index
                             isSelected: playListView.currentIndex === index
 
-                            databaseId: model && model.databaseId ? model.databaseId : 0
-                            entryType: model && model.entryType ? model.entryType : ElisaUtils.Unknown
-                            title: model ? model.title || '' : ''
-                            artist: model ? model.artist || '' : ''
-                            album: model ? model.album || '' : ''
-                            albumArtist: model ? model.albumArtist || '' : ''
-                            duration: model ? model.duration || '' : ''
-                            fileName: model ? model.trackResource || '' : ''
-                            imageUrl: model ? model.imageUrl || '' : ''
-                            trackNumber: model ? model.trackNumber || -1 : -1
-                            discNumber: model ? model.discNumber || -1 : -1
-                            rating: model ? model.rating || 0 : 0
-                            isSingleDiscAlbum: model && model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
-                            isValid: model && model.isValid
-                            isPlaying: model ? model.isPlaying : false
-                            metadataModifiableRole: model && model.metadataModifiableRole ? model.metadataModifiableRole : false
-                            hideDiscNumber: model && model.isSingleDiscAlbum
+                            databaseId: mobileDelegate.model.databaseId ?? 0
+                            entryType: mobileDelegate.model.entryType ?? ElisaUtils.Unknown
+                            title: mobileDelegate.model.title ?? ''
+                            artist: mobileDelegate.model.artist ?? ''
+                            album: mobileDelegate.model.album ?? ''
+                            albumArtist: mobileDelegate.model.albumArtist ?? ''
+                            duration: mobileDelegate.model.duration ?? ''
+                            fileName: mobileDelegate.model.trackResource ?? ''
+                            imageUrl: mobileDelegate.model.imageUrl ?? ''
+                            trackNumber: mobileDelegate.model.trackNumber ?? -1
+                            discNumber: mobileDelegate.model.discNumber ?? -1
+                            rating: mobileDelegate.model.rating ?? 0
+                            isSingleDiscAlbum: mobileDelegate.model.isSingleDiscAlbum ?? true
+                            isValid: mobileDelegate.model.isValid
+                            isPlaying: mobileDelegate.model.isPlaying ?? false
+                            metadataModifiableRole: mobileDelegate.model.metadataModifiableRole ?? false
+                            hideDiscNumber: isSingleDiscAlbum
                             showDragHandle: playListView.count > 1
 
                             listView: playListView

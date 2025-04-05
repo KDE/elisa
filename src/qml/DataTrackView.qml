@@ -64,6 +64,9 @@ AbstractDataView {
     delegate: TrackBrowserDelegate {
         id: entry
 
+        required property int index
+        required property var model
+
         width: contentDirectoryView.width
 
         focus: true
@@ -149,6 +152,7 @@ AbstractDataView {
         section.criteria: ViewSection.FullString
         section.labelPositioning: ViewSection.InlineLabels
         section.delegate: TracksDiscHeader {
+            required property string section
             discNumber: section
             width: contentDirectoryView.width
         }

@@ -141,10 +141,12 @@ AbstractBrowserDelegate {
                         model: listEntry.actions
 
                         delegate: FlatButtonWithToolTip {
+                            required property Kirigami.Action modelData
+
                             width: elisaTheme.listDelegateSingleLineHeight
                             height: elisaTheme.listDelegateSingleLineHeight
                             action: modelData
-                            visible: action.visible
+                            visible: modelData.visible
                         }
                     }
                 }

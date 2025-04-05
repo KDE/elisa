@@ -287,8 +287,10 @@ BasePlayListDelegate {
                             actionList.favoriteAction
                         ]
                         delegate: FlatButtonWithToolTip {
+                            required property Kirigami.Action modelData
+
                             action: modelData
-                            visible: action.visible
+                            visible: modelData.visible
                             activeFocusOnTab: playListEntry.isSelected
                         }
                     }

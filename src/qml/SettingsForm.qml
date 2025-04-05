@@ -422,11 +422,14 @@ ColumnLayout {
 
                 delegate: Kirigami.SwipeListItem {
                     id: delegate
+
+                    required property string modelData
+
                     // Don't need a highlight effect on hover
                     hoverEnabled: false
 
                     contentItem: QQC2.Label {
-                        text: modelData
+                        text: delegate.modelData
                         width: delegate.width - delegate.leftPadding
                                               - delegate.rightPadding
                                               - (action.visible ? action.width : 0)

@@ -44,14 +44,18 @@ Kirigami.GlobalDrawer {
     Repeater {
         id: repeater
         Item {
+            required property int index
+            required property string title
+            required property url image
+
             Component.onCompleted: {
                 // HACK: the images provided by the model are in the form "image://icon/view-media-genre"
                 // remove the "image://icon/" in order to use icons
-                let icon = String(model.image).substring(13);
-                let object = action.createObject(drawer, {"icon.name": icon, text: model.title});
+                let icon = String(image).substring(13);
+                let object = action.createObject(drawer, {"icon.name": icon, text: title});
                 object.onTriggered.connect(() => {
-                    viewIndex = model.index;
-                    switchView(model.index);
+                    viewIndex = index;
+                    switchView(index);
                 });
                 drawer.actions.push(object);
             }

@@ -281,20 +281,28 @@ Kirigami.Page {
                             model: metadataProxyModel
 
                             delegate: Item {
-                                Kirigami.FormData.label: "<b>" + model.name + ":</b>"
+                                id: metadataDelegate
+
+                                required property int index
+                                required property var display
+                                required property string name
+                                required property int type
+                                required property bool hasData
+
+                                Kirigami.FormData.label: "<b>" + name + ":</b>"
                                 implicitWidth: childrenRect.width
                                 implicitHeight: childrenRect.height
-                                visible: model.hasData
+                                visible: hasData
 
                                 MediaTrackMetadataDelegate {
                                     maximumWidth: contentLayout.width - allMetaData.margins
-                                    index: model.index
-                                    name: model.name
-                                    display: model.display
-                                    type: model.type
+                                    index: metadataDelegate.index
+                                    name: metadataDelegate.name
+                                    display: metadataDelegate.display
+                                    type: metadataDelegate.type
                                     readOnly: true
                                     url: topItem.fileUrl
-                                    hasData: model.hasData
+                                    hasData: metadataDelegate.hasData
                                 }
                             }
                         }
@@ -356,6 +364,9 @@ Kirigami.Page {
 
                         model: lyricsModel
                         delegate: Label {
+                            required property string lyric
+                            required property int timestamp
+
                             text: lyric
                             width: lyricsView.width
                             wrapMode: Text.WordWrap

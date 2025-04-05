@@ -58,6 +58,9 @@ ScrollView {
 
         delegate: Column {
             id: playListDelegate
+
+            required property var model
+
             width: playListView.width
 
             // album seperator
@@ -84,27 +87,27 @@ ScrollView {
                 focus: true
                 width: playListView.width
 
-                index: model.index
+                index: playListDelegate.model.index
                 simpleMode: true
                 listView: playListView
                 listDelegate: playListDelegate
 
-                databaseId: model.databaseId ? model.databaseId : 0
-                entryType: model.entryType ? model.entryType : ElisaUtils.Unknown
-                title: model.title ? model.title : ''
-                artist: model.artist ? model.artist : ''
-                album: model.album ? model.album : ''
-                albumArtist: model.albumArtist ? model.albumArtist : ''
-                duration: model.duration ? model.duration : ''
-                fileName: model.trackResource ? model.trackResource : ''
-                imageUrl: model.imageUrl ? model.imageUrl : ''
-                trackNumber: model.trackNumber ? model.trackNumber : -1
-                discNumber: model.discNumber ? model.discNumber : -1
-                rating: model.rating ? model.rating : 0
-                isSingleDiscAlbum: model.isSingleDiscAlbum !== undefined ? model.isSingleDiscAlbum : true
-                isValid: model.isValid
-                isPlaying: model.isPlaying
-                metadataModifiableRole: model.metadataModifiableRole ? model.metadataModifiableRole : false
+                databaseId: playListDelegate.model.databaseId ? playListDelegate.model.databaseId : 0
+                entryType: playListDelegate.model.entryType ? playListDelegate.model.entryType : ElisaUtils.Unknown
+                title: playListDelegate.model.title ? playListDelegate.model.title : ''
+                artist: playListDelegate.model.artist ? playListDelegate.model.artist : ''
+                album: playListDelegate.model.album ? playListDelegate.model.album : ''
+                albumArtist: playListDelegate.model.albumArtist ? playListDelegate.model.albumArtist : ''
+                duration: playListDelegate.model.duration ? playListDelegate.model.duration : ''
+                fileName: playListDelegate.model.trackResource ? playListDelegate.model.trackResource : ''
+                imageUrl: playListDelegate.model.imageUrl ? playListDelegate.model.imageUrl : ''
+                trackNumber: playListDelegate.model.trackNumber ? playListDelegate.model.trackNumber : -1
+                discNumber: playListDelegate.model.discNumber ? playListDelegate.model.discNumber : -1
+                rating: playListDelegate.model.rating ? playListDelegate.model.rating : 0
+                isSingleDiscAlbum: playListDelegate.model.isSingleDiscAlbum !== undefined ? playListDelegate.model.isSingleDiscAlbum : true
+                isValid: playListDelegate.model.isValid
+                isPlaying: playListDelegate.model.isPlaying
+                metadataModifiableRole: playListDelegate.model.metadataModifiableRole ? playListDelegate.model.metadataModifiableRole : false
             }
         }
         /* Disable animations until https://bugreports.qt.io/browse/QTBUG-49868 is fixed

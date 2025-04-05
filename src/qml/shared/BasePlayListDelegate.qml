@@ -56,7 +56,7 @@ QQC2.ItemDelegate {
         listView.currentIndex = index
         forceActiveFocus()
 
-        if (model.isValid) {
+        if (isValid) {
             switchToTrack(index)
             startPlayback()
         }

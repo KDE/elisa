@@ -129,14 +129,29 @@ Kirigami.FormLayout {
         delegate: RowLayout {
             id: delegateRoot
 
-            readonly property string formLabelText: i18nc("Track metadata form label, e.g. 'Artist:'", "%1:", model.name)
+            // NOTE: Modifying a required property does not call setData on the
+            // model itself and instead breaks the property binding. Modifying
+            // subproperties of the `model` role will result in setData being
+            // called. Hence why we use `model.display` instead of `display` here.
+            // TODO: remove workaround when we can depend on Qt 6.10 (QTBUG-132420)
+            required property var model
+
+            required property int index
+            // required property var display
+            required property string name
+            required property int type
+            required property bool hasData
+            required property bool isReadOnly
+            required property bool isRemovable
+
+            readonly property string formLabelText: i18nc("Track metadata form label, e.g. 'Artist:'", "%1:", name)
             // Make labels bold on mobile read-only mode to help differentiate label from metadata
             readonly property bool singleColumnPlainText: !form.wideMode && !form.isCreating && !form.isModifying
             Kirigami.FormData.label: singleColumnPlainText ? "<b>" + formLabelText + "</b>" : formLabelText
             Kirigami.FormData.labelAlignment: {
                 if (singleColumnPlainText) {
                     return Text.AlignBottom;
-                } else if (model.type === EditableTrackMetadataModel.LongTextEntry) {
+                } else if (type === EditableTrackMetadataModel.LongTextEntry) {
                     return Text.AlignTop;
                 } else {
                     return Text.AlignVCenter;
@@ -144,15 +159,15 @@ Kirigami.FormLayout {
             }
 
             MediaTrackMetadataDelegate {
-                index: model.index
-                name: model.name
-                display: model.display
-                type: model.type
-                isRemovable: model.isRemovable
-                hasData: model.hasData
+                index: delegateRoot.index
+                name: delegateRoot.name
+                display: delegateRoot.model.display
+                type: delegateRoot.type
+                isRemovable: delegateRoot.isRemovable
+                hasData: delegateRoot.hasData
 
-                onEdited: model.display = display
-                readOnly: form.readOnly || model.isReadOnly
+                onEdited: delegateRoot.model.display = display
+                readOnly: form.readOnly || delegateRoot.isReadOnly
 
                 onAddField: metadataModel.addData(proxyModel.mapRowToSource(index))
                 onDeleteField: metadataModel.removeData(proxyModel.mapRowToSource(index))

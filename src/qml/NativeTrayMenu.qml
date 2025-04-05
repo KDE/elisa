@@ -5,6 +5,8 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.7
 import Qt.labs.platform 1.1
 import org.kde.elisa

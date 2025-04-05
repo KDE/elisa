@@ -4,6 +4,8 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Controls 2.2
 import QtQml.Models 2.1

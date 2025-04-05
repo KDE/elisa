@@ -5,6 +5,8 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.11
 import QtQuick.Layouts 1.12
 import QtQuick.Window 2.12

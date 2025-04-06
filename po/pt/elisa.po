@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:40+0000\n"
+"POT-Creation-Date: 2025-04-06 00:41+0000\n"
 "PO-Revision-Date: 2023-05-06 11:47+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -991,42 +991,42 @@ msgid "%1:"
 msgstr "%1%"
 
 #: qml/MediaTrackMetadataView.qml:35
-#: qml/mobile/MobileMediaTrackMetadataView.qml:46
+#: qml/mobile/MobileMediaTrackMetadataView.qml:48
 #, kde-format
 msgctxt "@title:window"
 msgid "Create a Radio"
 msgstr "Criar uma Rádio"
 
 #: qml/MediaTrackMetadataView.qml:36
-#: qml/mobile/MobileMediaTrackMetadataView.qml:47
+#: qml/mobile/MobileMediaTrackMetadataView.qml:49
 #, kde-format
 msgctxt "@title:window"
 msgid "View details"
 msgstr "Ver os detalhes"
 
 #: qml/MediaTrackMetadataView.qml:127
-#: qml/mobile/MobileMediaTrackMetadataView.qml:70
+#: qml/mobile/MobileMediaTrackMetadataView.qml:72
 #, kde-format
 msgctxt "@action:button"
 msgid "Delete"
 msgstr "Apagar"
 
 #: qml/MediaTrackMetadataView.qml:145
-#: qml/mobile/MobileMediaTrackMetadataView.qml:52
+#: qml/mobile/MobileMediaTrackMetadataView.qml:54
 #, kde-format
 msgctxt "@action:button"
 msgid "Modify"
 msgstr "Modificar"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:58
-#: qml/mobile/MobileSettingsPage.qml:36
+#: qml/mobile/MobileMediaTrackMetadataView.qml:60
+#: qml/mobile/MobileSettingsPage.qml:38
 #, kde-format
 msgctxt "@action:button"
 msgid "Save"
 msgstr "Gravar"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:64
-#: qml/mobile/MobileSettingsPage.qml:42
+#: qml/mobile/MobileMediaTrackMetadataView.qml:66
+#: qml/mobile/MobileSettingsPage.qml:44
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel"

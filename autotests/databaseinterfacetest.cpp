@@ -90,20 +90,16 @@ private Q_SLOTS:
 
     void verifyNumberOfRadioStations()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
         DatabaseInterface musicDb;
-        musicDb.init(QStringLiteral("testDb"),databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
         QSignalSpy musicDbRadioAddedSpy(&musicDb,&DatabaseInterface::radioAdded);
         QCOMPARE(musicDb.allRadiosData().count(), 18);
     }
 
     void addOneRadio()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
         DatabaseInterface musicDb;
-        musicDb.init(QStringLiteral("testDb"),databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
         QSignalSpy musicDbRadioAddedSpy(&musicDb,&DatabaseInterface::radioAdded);
         int initialCount = musicDb.allRadiosData().count();
 
@@ -123,14 +119,11 @@ private Q_SLOTS:
 
         QCOMPARE(musicDb.allRadiosData().count(),initialCount + 1);
         QCOMPARE(musicDbRadioAddedSpy.count(),1);
-        databaseFile.close();
     }
 
     void modifyOneRadio(){
-        QTemporaryFile databaseFile;
-        databaseFile.open();
         DatabaseInterface musicDb;
-        musicDb.init(QStringLiteral("testDb"),databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
         QSignalSpy musicDbRadioAddedSpy(&musicDb,&DatabaseInterface::radioAdded);
         QSignalSpy musicDbRadioModifiedSpy(&musicDb,&DatabaseInterface::radioModified);
         int initialCount = musicDb.allRadiosData().count();
@@ -163,17 +156,13 @@ private Q_SLOTS:
         QCOMPARE(musicDb.allRadiosData().count(),initialCount + 1);
         QCOMPARE(musicDbRadioAddedSpy.count(),1);
         QCOMPARE(musicDbRadioModifiedSpy.count(),1);
-        databaseFile.close();
     }
 
     void addOneTrackWithoutAlbumArtist()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -262,12 +251,9 @@ private Q_SLOTS:
 
     void addAndRemoveOneTrackWithoutAlbum()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -642,12 +628,9 @@ private Q_SLOTS:
 
     void addTwoTracksWithoutAlbumArtist()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -902,12 +885,9 @@ private Q_SLOTS:
 
     void addTwoTracksWithPartialAlbumArtist()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -1047,15 +1027,12 @@ private Q_SLOTS:
 
     void addMultipleTimeSameTracks()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
         QSignalSpy musicDbErrorSpy(&musicDb, &DatabaseInterface::databaseError);
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
@@ -2105,12 +2082,9 @@ private Q_SLOTS:
 
     void removeOneTrack()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -2219,12 +2193,9 @@ private Q_SLOTS:
 
     void removeOneTrackAndModifyIt()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -2373,12 +2344,9 @@ private Q_SLOTS:
 
     void removeOneAlbum()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -2998,12 +2966,9 @@ private Q_SLOTS:
 
     void addTwoTracksSameAlbumSameTitle()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -3187,12 +3152,9 @@ private Q_SLOTS:
 
     void addTwoTracksSameFileWithAlbumSameName()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -3402,12 +3364,9 @@ private Q_SLOTS:
 
     void addTwoTracksWithAlbumSameName()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -3800,11 +3759,8 @@ private Q_SLOTS:
         }
         DataTypes::TrackDataType databaseTrack;
 
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
         QSignalSpy musicDbTrackRemovedSpy(&musicDb, &DatabaseInterface::trackRemoved);
@@ -4101,12 +4057,9 @@ private Q_SLOTS:
 
     void testAddAlbumsSameName()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -4198,12 +4151,9 @@ private Q_SLOTS:
 
     void addTwoIdenticalTracksWithPartialAlbumArtist()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -4334,12 +4284,9 @@ private Q_SLOTS:
 
     void addTwoTracksWithPartialAlbumArtist2()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -4484,12 +4431,9 @@ private Q_SLOTS:
 
     void addTowAlbumsWithDifferentPathsAndSameName()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -4579,12 +4523,9 @@ private Q_SLOTS:
 
     void addTwoAlbumsWithDifferentPathsAndSameTracks()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -4762,12 +4703,9 @@ private Q_SLOTS:
 
     void addTwoTracksFromSameAlbumButDifferentDiscs()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -5484,12 +5422,9 @@ private Q_SLOTS:
 
     void addMultipleDifferentTracksWithSameTitle()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -5559,12 +5494,9 @@ private Q_SLOTS:
 
     void enqueueTracksWithMissingMetadata()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("enqueueTracksWithMissingMetadata"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("enqueueTracksWithMissingMetadata"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -5707,12 +5639,9 @@ private Q_SLOTS:
 
     void testCompilationWithoutAlbumArtist()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -5796,12 +5725,9 @@ private Q_SLOTS:
 
     void testAlbumFromGenreAndArtistWithoutAlbumArtist()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -5863,12 +5789,9 @@ private Q_SLOTS:
 
     void testTracksWithoutMetadata()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);
@@ -5931,16 +5854,13 @@ private Q_SLOTS:
 
     void removeTrackNumber()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
         QSignalSpy musicDbErrorSpy(&musicDb, &DatabaseInterface::databaseError);
         QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
@@ -5996,16 +5916,13 @@ private Q_SLOTS:
 
     void removeDiscNumber()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
         QSignalSpy musicDbErrorSpy(&musicDb, &DatabaseInterface::databaseError);
         QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
@@ -6061,16 +5978,13 @@ private Q_SLOTS:
 
     void removeYear()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
         QSignalSpy musicDbTrackAddedSpy(&musicDb, &DatabaseInterface::tracksAdded);
         QSignalSpy musicDbErrorSpy(&musicDb, &DatabaseInterface::databaseError);
         QSignalSpy musicDbTrackModifiedSpy(&musicDb, &DatabaseInterface::trackModified);
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         musicDb.insertTracksList(mNewTracks, mNewCovers);
 
@@ -6128,12 +6042,9 @@ private Q_SLOTS:
 
     void modifyOneTrackWithEmbeddedCover()
     {
-        QTemporaryFile databaseFile;
-        databaseFile.open();
-
         DatabaseInterface musicDb;
 
-        musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
+        musicDb.init(QStringLiteral("testDb"));
 
         QSignalSpy musicDbArtistAddedSpy(&musicDb, &DatabaseInterface::artistsAdded);
         QSignalSpy musicDbAlbumAddedSpy(&musicDb, &DatabaseInterface::albumsAdded);

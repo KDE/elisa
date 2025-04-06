@@ -521,7 +521,7 @@ if (ANDROID)
         media-repeat-all
         media-default-album
         audio-volume-muted
-        player-volume
+        audio-volume-high
         delete
         go-next
         go-previous

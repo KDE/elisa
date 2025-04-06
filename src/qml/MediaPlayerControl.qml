@@ -150,7 +150,7 @@ BasePlayerControl {
                         text: musicWidget.muted
                             ? i18nc("@action:button displayed as @info:tooltip", "Unmute")
                             : i18nc("@action:button displayed as @info:tooltip", "Mute")
-                        icon.name: musicWidget.muted ? "audio-volume-muted" : "player-volume"
+                        icon.name: musicWidget.muted ? "audio-volume-muted" : "audio-volume-high"
                         onClicked: musicWidget.muted = !musicWidget.muted
                     }
 

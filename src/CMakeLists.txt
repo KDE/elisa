@@ -520,7 +520,7 @@ if (ANDROID)
         media-repeat-single
         media-repeat-all
         media-default-album
-        player-volume-muted
+        audio-volume-muted
         player-volume
         delete
         go-next

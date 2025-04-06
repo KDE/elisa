@@ -28,7 +28,7 @@ FlatButtonWithToolTip {
 
     text: i18nc("@action:button", "Change Volume")
     icon.name: volumeButton.muted || volumeButton.slider.value == 0
-        ? "player-volume-muted" : "player-volume"
+        ? "audio-volume-muted" : "player-volume"
     icon.color: "white"
     Kirigami.Theme.colorSet: Kirigami.Theme.Complementary
     Kirigami.Theme.inherit: false

@@ -13,6 +13,7 @@ Comment[fr]=Jouer de la musique locale et écouter la radio en ligne
 Comment[gl]=Reproduza música local e escoite a radio por Internet.
 Comment[he]=השמעת מוזיקה מקומית ולהאזין לרדיו מקוון
 Comment[ia]=Reproduce musica local e ascolta stationes radio in linea
+Comment[is]=Spilaðu tónlist af tölvunni og hlustaðu á útvarpsstreymi af netinu
 Comment[it]=Riproduci musica locale e ascolta stazioni radio online
 Comment[ka]=დაუკარით ადგილობრივი მუსიკა და მოუსმინეთ ონლაინრადიოს
 Comment[ko]=로컬 음악 재생 및 온라인 라디오 듣기

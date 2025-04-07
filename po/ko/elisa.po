@@ -1,14 +1,14 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 # Jung Hee Lee <daemul72@gmail.com>, 2019, 2020, 2021.
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-06 02:34+0000\n"
-"PO-Revision-Date: 2024-12-09 23:13+0100\n"
+"PO-Revision-Date: 2025-04-06 22:07+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -503,22 +503,17 @@ msgid "Show In Folder"
 msgstr "포함하는 폴더 열기"
 
 #: qml/DataGridView.qml:159
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "1 track"
+#, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "1곡"
+msgstr "모든 트랙"
 
 #: qml/DataGridView.qml:160
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] "%1곡"
+msgstr[0] "트랙 %1개"
 
 #: qml/DurationSlider.qml:67
 #, kde-format

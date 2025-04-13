@@ -108,10 +108,10 @@ void AndroidFileListing::triggerRefreshOfContent()
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     QJniObject musicList = QJniObject::callStaticObjectMethod(
-        "org/kde/elisa/ElisaActivity", "listAudioFiles", "(Landroid/content/Context;)Ljava/util/ArrayList;", QNativeInterface::QAndroidApplication::context());
+        "org/kde/elisa/FileListing", "listAudioFiles", "(Landroid/content/Context;)Ljava/util/ArrayList;", QNativeInterface::QAndroidApplication::context());
 #else
     QJniObject musicList = QJniObject::callStaticObjectMethod(
-        "org/kde/elisa/ElisaActivity", "listAudioFiles", "(Landroid/content/Context;)Ljava/util/ArrayList;", QNativeInterface::QAndroidApplication::context().object<jobject>());
+        "org/kde/elisa/FileListing", "listAudioFiles", "(Landroid/content/Context;)Ljava/util/ArrayList;", QNativeInterface::QAndroidApplication::context().object<jobject>());
 #endif
 
     auto nbTracks = musicList.callMethod<jint>("size");

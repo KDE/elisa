@@ -4,10 +4,20 @@
 
 package org.kde.elisa;
 
-import org.qtproject.qt.android.bindings.QtActivity;
+import android.os.Bundle;
 import android.util.Log;
+
+import org.qtproject.qt.android.bindings.QtActivity;
 
 public class ElisaActivity extends QtActivity
 {
-    private static final String TAG = "org.kde.elisa.android.java ElisaActivity";
+    private static final String TAG = "org.kde.elisa.ElisaActivity";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: "+savedInstanceState);
+
+        // TODO: Implement MediaSession
+    }
 }

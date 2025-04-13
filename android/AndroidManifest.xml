@@ -10,7 +10,7 @@
           android:installLocation="auto">
 <application android:name="org.qtproject.qt.android.bindings.QtApplication" android:label="Elisa" android:icon="@mipmap/ic_launcher">
         <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation"
-                  android:name="org.qtproject.qt.android.bindings.QtActivity"
+                  android:name="org.kde.elisa.ElisaActivity"
                   android:label="Elisa"
                   android:windowSoftInputMode="adjustResize"
                   android:launchMode="singleTop"

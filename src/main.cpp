@@ -104,16 +104,6 @@ int main(int argc, char *argv[])
 
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("elisa"));
 
-#ifdef Q_OS_ANDROID
-    qInfo() << QCoreApplication::arguments();
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    QJniObject::callStaticMethod<void>("org/kde/elisa/ElisaService", "startMyService", "(Landroid/content/Context;)V", QNativeInterface::QAndroidApplication::context());
-#else
-    QJniObject::callStaticMethod<void>("org/kde/elisa/ElisaService", "startMyService", QNativeInterface::QAndroidApplication::context());
-#endif
-#endif
-
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("elisa")));
 
     KAboutData aboutData( QStringLiteral("elisa"),

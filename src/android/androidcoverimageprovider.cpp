@@ -99,12 +99,12 @@ public:
         mErrorMessage = QLatin1String{""};
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-        QJniObject bitmap = QJniObject::callStaticObjectMethod("org/kde/elisa/ElisaActivity", "contentThumbnail",
+        QJniObject bitmap = QJniObject::callStaticObjectMethod("org/kde/elisa/CoverImageProvider", "contentThumbnail",
                                                                "(Landroid/content/Context;Ljava/lang/String;II)Landroid/graphics/Bitmap;",
                                                                QNativeInterface::QAndroidApplication::context(), QJniObject::fromString(mId).object<jstring>(),
                                                                mRequestedSize.width(), mRequestedSize.height());
 #else
-        QJniObject bitmap = QJniObject::callStaticObjectMethod("org/kde/elisa/ElisaActivity", "contentThumbnail",
+        QJniObject bitmap = QJniObject::callStaticObjectMethod("org/kde/elisa/CoverImageProvider", "contentThumbnail",
                                                                "(Landroid/content/Context;Ljava/lang/String;II)Landroid/graphics/Bitmap;",
                                                                QNativeInterface::QAndroidApplication::context().object<jobject>(), QJniObject::fromString(mId).object<jstring>(),
                                                                mRequestedSize.width(), mRequestedSize.height());

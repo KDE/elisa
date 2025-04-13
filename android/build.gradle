@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 buildscript {
+    ext.kotlin_version = '2.0.21'
+
     repositories {
         google()
         jcenter()
@@ -10,6 +12,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:8.6.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -19,12 +22,15 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply from: '../version.gradle'
+
 def timestamp = (int)(new Date().getTime()/1000)
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.7.0'
 }
 
 android {
@@ -63,8 +69,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     lintOptions {

@@ -2,7 +2,7 @@
     "id": "org.kde.elisa",
     "branch": "master",
     "runtime": "org.kde.Platform",
-    "runtime-version": "6.7",
+    "runtime-version": "6.9",
     "sdk": "org.kde.Sdk",
     "command": "elisa",
     "tags": ["nightly"],
@@ -34,8 +34,31 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://get.videolan.org/vlc/3.0.18/vlc-3.0.18.tar.xz",
-                    "sha256": "57094439c365d8aa8b9b41fa3080cc0eef2befe6025bb5cef722accc625aedec"
+                    "url": "https://get.videolan.org/vlc/3.0.21/vlc-3.0.21.tar.xz",
+                    "sha256": "24dbbe1d7dfaeea0994d5def0bbde200177347136dbfe573f5b6a4cee25afbb0"
+                }
+            ],
+            "modules": [
+                {
+                    "name": "ffmpeg",
+                    "config-opts": [
+                        "--enable-pic",
+                        "--enable-shared",
+                        "--disable-doc",
+                        "--disable-static",
+                        "--enable-gpl",
+                        "--enable-libvpx",
+                        "--enable-libmp3lame",
+                        "--enable-libvorbis",
+                        "--enable-libopus"
+                    ],
+                    "sources": [
+                        {
+                            "type": "archive",
+                            "url": "https://ffmpeg.org/releases/ffmpeg-4.4.5.tar.xz",
+                            "sha256": "f9514e0d3515aee5a271283df71636e1d1ff7274b15853bcd84e144be416ab07"
+                        }
+                    ]
                 }
             ]
         },

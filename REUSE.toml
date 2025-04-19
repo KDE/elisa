@@ -31,7 +31,7 @@ SPDX-FileCopyrightText = "2018 Paul Lesur <paul.lesur@free.fr>"
 SPDX-License-Identifier = "LGPL-3.0-or-later"
 
 [[annotations]]
-path = "android/res/mipmap**/**monochrome.png"
+path = ["android/res/mipmap**/**monochrome.png", "android/res/mipmap**/ic_notification_elisa.png"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Janet Blackquill <uhh.add@gmail.com>"
 SPDX-License-Identifier = "LGPL-3.0-or-later"

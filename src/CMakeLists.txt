@@ -171,6 +171,8 @@ if (ANDROID)
         android/androidcoverimageprovider.cpp
         android/androidmusiclistener.cpp
         android/androidfilelisting.cpp
+        android/androidplayer.cpp
+        android/androidplayerjni.cpp
         )
     set(elisaLib_INCLUDEDIRS
         ${elisaLib_INCLUDEDIRS}

@@ -51,6 +51,7 @@
 
 #ifdef Q_OS_ANDROID
 #include "android/androidcoverimageprovider.h"
+#include "android/androidplayerjni.h"
 
 #include <QCoreApplication>
 #include <QJniObject>
@@ -85,6 +86,8 @@ int main(int argc, char *argv[])
     qInfo() << "Application starting...";
 
     qputenv("QT_LOGGING_RULES", "org.kde.elisa*=true");
+
+    AndroidPlayerJni::registerNativeMethods();
 #endif
 
 #ifdef Q_OS_WIN

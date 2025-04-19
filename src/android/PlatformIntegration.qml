@@ -12,8 +12,8 @@ import org.kde.elisa
 Item {
     id: rootItem
 
+    property alias audioPlayerManager: androidPlayerInterface.audioPlayerManager
     property var playListModel
-    property var audioPlayerManager
     property var player
     property var headerBarManager
     property var manageMediaPlayerControl
@@ -38,6 +38,14 @@ Item {
 
         function onCommitDataRequest() {
             forceCloseWindow = true
+        }
+    }
+
+    AndroidPlayer {
+        id: androidPlayerInterface
+
+        Component.onCompleted: {
+            initialize()
         }
     }
 }

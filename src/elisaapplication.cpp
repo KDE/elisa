@@ -427,6 +427,7 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::restoreUndoPositionInAudioWrapper, d->mAudioWrapper.get(), &AudioWrapper::restoreUndoPosition);
 
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::skipNextTrack, d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::skipNextTrack);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::skipPreviousTrack, d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::skipPreviousTrack);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::sourceInError, d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::trackInError);
 
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::sourceInError, d->mMusicManager.get(), &MusicListenersManager::playBackError);

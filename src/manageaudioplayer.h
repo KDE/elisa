@@ -168,6 +168,8 @@ Q_SIGNALS:
 
     void skipNextTrack(ElisaUtils::SkipReason reason = ElisaUtils::SkipReason::Automatic);
 
+    void skipPreviousTrack(qint64 position);
+
     void audioDurationChanged();
 
     void playerIsSeekableChanged();

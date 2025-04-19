@@ -78,7 +78,7 @@ set(mediaplaylistTest_SOURCES
 ecm_add_test(${mediaplaylistTest_SOURCES}
     TEST_NAME "mediaplaylistTest"
     LINK_LIBRARIES
-        Qt::Test elisaLib Qt::CorePrivate
+        Qt::Test elisaLib
 )
 
 target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -93,7 +93,7 @@ set(mediaplaylistproxymodelTest_SOURCES
 ecm_add_test(${mediaplaylistproxymodelTest_SOURCES}
     TEST_NAME "mediaplaylistproxymodelTest"
     LINK_LIBRARIES
-        Qt::Test elisaLib Qt::CorePrivate
+        Qt::Test elisaLib
 )
 
 target_include_directories(mediaplaylistproxymodelTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -118,7 +118,7 @@ set(datamodeltest_SOURCES
 ecm_add_test(${datamodeltest_SOURCES}
     TEST_NAME "datamodeltest"
     LINK_LIBRARIES
-        Qt::Test elisaLib Qt::CorePrivate
+        Qt::Test elisaLib
 )
 
 target_include_directories(datamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -130,7 +130,7 @@ set(viewsmodeltest_SOURCES
 ecm_add_test(${viewsmodeltest_SOURCES}
     TEST_NAME "viewsmodeltest"
     LINK_LIBRARIES
-        Qt::Test elisaLib Qt::CorePrivate
+        Qt::Test elisaLib
 )
 
 target_include_directories(viewsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
@@ -142,7 +142,7 @@ set(trackmetadatamodeltest_SOURCES
 ecm_add_test(${trackmetadatamodeltest_SOURCES}
     TEST_NAME "trackmetadatamodeltest"
     LINK_LIBRARIES
-        Qt::Test elisaLib Qt::CorePrivate
+        Qt::Test elisaLib
 )
 
 target_include_directories(trackmetadatamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)

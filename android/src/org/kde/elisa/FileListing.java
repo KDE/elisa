@@ -4,6 +4,7 @@
 
 package org.kde.elisa;
 
+import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -14,8 +15,8 @@ import android.util.Log;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+@SuppressLint("LongLogTag")
 public final class FileListing
 {
     private static final String TAG = "org.kde.elisa.FileListing";
@@ -34,20 +35,11 @@ public final class FileListing
             MediaStore.Audio.Media.COMPOSER,
     };
 
-    final private static String[] albumsRequestedColumns = {
-            MediaStore.Audio.Albums._ID,
-            MediaStore.Audio.Albums.ALBUM,
-            MediaStore.Audio.Albums.ARTIST,
-            MediaStore.Audio.Albums.ALBUM_ART,
-    };
-
     public static ArrayList<Object> listAudioFiles(Context ctx)
     {
         Log.d(TAG, "listAudioFiles");
 
         ArrayList<Object> allTracks = new ArrayList<>();
-
-        HashMap<Long, AlbumDataType> allAlbums = new HashMap<>();
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_MEDIA_AUDIO)
@@ -63,24 +55,6 @@ public final class FileListing
             }
         }
 
-        try (Cursor albumsCursor = ctx.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, albumsRequestedColumns, null, null, null)) {
-
-            if (albumsCursor == null || !albumsCursor.moveToFirst()) {
-                Log.d(TAG, "Albums cursor empty");
-                return allTracks;
-            }
-
-            do {
-                String albumArtUri;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                    albumArtUri = ContentUris.withAppendedId(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, albumsCursor.getLong(0)).toString();
-                } else {
-                    albumArtUri = albumsCursor.getString(3);
-                }
-                allAlbums.put(albumsCursor.getLong(0), new AlbumDataType(albumsCursor.getString(1), albumsCursor.getString(2), albumArtUri));
-            } while (albumsCursor.moveToNext());
-        }
-
         String tracksSelection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
         String tracksSortOrder = MediaStore.Audio.Media.DEFAULT_SORT_ORDER + " ASC";
 
@@ -92,12 +66,7 @@ public final class FileListing
             }
 
             do {
-                AlbumDataType currentAlbum = allAlbums.get(tracksCursor.getLong(5));
-
-                String albumCover = "";
-                if (currentAlbum != null) {
-                    albumCover = currentAlbum.getAlbumCover();
-                }
+                String albumArtUri = ContentUris.withAppendedId(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, tracksCursor.getLong(5)).toString();
 
                 int trackAndDiscNumber = tracksCursor.getInt(7);
 
@@ -105,7 +74,7 @@ public final class FileListing
                         tracksCursor.getString(4), tracksCursor.getString(6),
                         trackAndDiscNumber % 1000, trackAndDiscNumber / 1000,
                         tracksCursor.getLong(8), tracksCursor.getString(9),
-                        albumCover, "",
+                        albumArtUri, "",
                         tracksCursor.getString(10)));
             } while (tracksCursor.moveToNext());
         }
@@ -188,29 +157,4 @@ class TrackDataType
     final private String mAlbumCover;
     final private String mGenre;
     final private String mComposer;
-}
-
-class AlbumDataType
-{
-    AlbumDataType (String albumName, String albumArtist, String albumCover) {
-        this.mAlbumName = albumName;
-        this.mAlbumArtist = albumArtist;
-        this.mAlbumCover = albumCover;
-    }
-
-    public String getAlbumName() {
-        return mAlbumName;
-    }
-
-    public String getAlbumArtist() {
-        return mAlbumArtist;
-    }
-
-    public String getAlbumCover() {
-        return mAlbumCover;
-    }
-
-    final private String mAlbumName;
-    final private String mAlbumArtist;
-    final private String mAlbumCover;
 }

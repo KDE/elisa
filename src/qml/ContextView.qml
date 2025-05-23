@@ -325,6 +325,7 @@ Kirigami.Page {
             Item {
                 id: lyricItem
                 Layout.fillHeight: true
+                visible: contentLayout.wideMode || showLyricButton.checked
 
                 implicitWidth: {
                     if (contentLayout.wideMode) {

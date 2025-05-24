@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-27 00:41+0000\n"
+"POT-Creation-Date: 2025-05-24 00:41+0000\n"
 "PO-Revision-Date: 2025-04-06 16:11+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
@@ -484,19 +484,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Sýna spilunarlista"
 
-#: qml/ContextView.qml:425
+#: qml/ContextView.qml:426
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Engir lagatextar fundust"
 
-#: qml/ContextView.qml:441
+#: qml/ContextView.qml:442
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Ekkert í spilun"
 
-#: qml/ContextView.qml:475
+#: qml/ContextView.qml:476
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

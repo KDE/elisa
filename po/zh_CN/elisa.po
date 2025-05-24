@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-27 00:41+0000\n"
+"POT-Creation-Date: 2025-05-24 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -483,19 +483,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "显示播放列表"
 
-#: qml/ContextView.qml:425
+#: qml/ContextView.qml:426
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "未找到歌词"
 
-#: qml/ContextView.qml:441
+#: qml/ContextView.qml:442
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "没有正在播放的音乐"
 
-#: qml/ContextView.qml:475
+#: qml/ContextView.qml:476
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

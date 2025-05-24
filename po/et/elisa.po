@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-06 02:34+0000\n"
+"POT-Creation-Date: 2025-05-24 02:36+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -589,13 +589,13 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Esitusloendi näitamine"
 
-#: qml/ContextView.qml:412
+#: qml/ContextView.qml:413
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr ""
 
-#: qml/ContextView.qml:428
+#: qml/ContextView.qml:429
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -603,7 +603,7 @@ msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Praegu esitusel"
 
-#: qml/ContextView.qml:462
+#: qml/ContextView.qml:463
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@action:button"

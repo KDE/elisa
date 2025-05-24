@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-06 02:34+0000\n"
+"POT-Creation-Date: 2025-05-24 02:36+0000\n"
 "PO-Revision-Date: 2025-01-15 17:49+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -483,19 +483,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Visa spellista"
 
-#: qml/ContextView.qml:412
+#: qml/ContextView.qml:413
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Ingen sångtext hittades"
 
-#: qml/ContextView.qml:428
+#: qml/ContextView.qml:429
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Inget spelas upp"
 
-#: qml/ContextView.qml:462
+#: qml/ContextView.qml:463
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

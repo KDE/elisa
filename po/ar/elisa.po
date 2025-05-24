@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-06 02:34+0000\n"
+"POT-Creation-Date: 2025-05-24 02:36+0000\n"
 "PO-Revision-Date: 2025-01-14 18:30+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -485,19 +485,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "اعرض قائمة تشغيل"
 
-#: qml/ContextView.qml:412
+#: qml/ContextView.qml:413
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "لم يعثر على الكلمات"
 
-#: qml/ContextView.qml:428
+#: qml/ContextView.qml:429
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "لا يُعزف الآن"
 
-#: qml/ContextView.qml:462
+#: qml/ContextView.qml:463
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-06 02:34+0000\n"
+"POT-Creation-Date: 2025-05-24 02:36+0000\n"
 "PO-Revision-Date: 2025-01-14 05:21+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -484,19 +484,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "დასაკრავი სიის ჩვენება"
 
-#: qml/ContextView.qml:412
+#: qml/ContextView.qml:413
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "ლირიკის პოვნა შეუძლებელია"
 
-#: qml/ContextView.qml:428
+#: qml/ContextView.qml:429
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "დაკვრა არ მიმდინარეობს"
 
-#: qml/ContextView.qml:462
+#: qml/ContextView.qml:463
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

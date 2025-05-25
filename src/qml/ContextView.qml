@@ -401,10 +401,10 @@ Kirigami.Page {
                             lyricScrollAnimation.to = toPos
                         }
                         header: Item {
-                            height: lyricScroll.height / 2
+                            height: lyricScroll.height * 0.5
                         }
                         footer: Item {
-                            height: lyricScroll.height / 2
+                            height: lyricScroll.height * 0.5
                         }
                     }
                 }

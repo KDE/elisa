@@ -19,6 +19,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QMimeDatabase>
+#include <QTimer>
 
 #if KFKIO_FOUND
 #include <KIO/OpenUrlJob>
@@ -176,12 +177,20 @@ public:
 
     QUrl mLoadedPlayListUrl;
 
+    QTimer mDurationChangedTimer;
 };
 
 MediaPlayListProxyModel::MediaPlayListProxyModel(QObject *parent) : QAbstractProxyModel (parent),
     d(std::make_unique<MediaPlayListProxyModelPrivate>())
 {
     d->mRandomGenerator.seed(static_cast<unsigned int>(QTime::currentTime().msec()));
+
+    d->mDurationChangedTimer.setInterval(50);
+    d->mDurationChangedTimer.setSingleShot(true);
+    connect(&d->mDurationChangedTimer, &QTimer::timeout, this, [this]() {
+        Q_EMIT remainingTracksDurationChanged();
+        Q_EMIT totalTracksDurationChanged();
+    });
 }
 
 MediaPlayListProxyModel::~MediaPlayListProxyModel()
@@ -656,10 +665,9 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
         determineTracks();
     }
 
+    d->mDurationChangedTimer.start();
     Q_EMIT tracksCountChanged();
-    Q_EMIT totalTracksDurationChanged();
     Q_EMIT remainingTracksChanged();
-    Q_EMIT remainingTracksDurationChanged();
     Q_EMIT persistentStateChanged();
 }
 
@@ -719,10 +727,9 @@ void MediaPlayListProxyModel::sourceRowsRemoved(const QModelIndex &parent, int s
     if (!d->mNextTrack.isValid() || !d->mPreviousTrack.isValid()) {
         determineAndNotifyPreviousAndNextTracks();
     }
+    d->mDurationChangedTimer.start();
     Q_EMIT tracksCountChanged();
-    Q_EMIT totalTracksDurationChanged();
     Q_EMIT remainingTracksChanged();
-    Q_EMIT remainingTracksDurationChanged();
     Q_EMIT persistentStateChanged();
 }
 
@@ -762,9 +769,8 @@ void MediaPlayListProxyModel::sourceDataChanged(const QModelIndex &topLeft, cons
     for (int i = startSourceRow; i <= endSourceRow; i++) {
         const auto proxyRow = mapRowFromSource(i);
 
+        d->mDurationChangedTimer.start();
         Q_EMIT dataChanged(index(proxyRow, 0), index(proxyRow, 0), roles);
-        Q_EMIT remainingTracksDurationChanged();
-        Q_EMIT totalTracksDurationChanged();
         if (proxyRow == d->mCurrentTrack.row()) {
             Q_EMIT currentTrackDataChanged();
         } else if (proxyRow == d->mNextTrack.row()) {

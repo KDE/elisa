@@ -393,13 +393,6 @@ Kirigami.Page {
 
                             // center aligned
                             var toPos = Math.round(currentItem.y + currentItem.height * 0.5 - lyricScroll.height * 0.5)
-                            // make sure the first and the last lines are always
-                            // positioned at the beginning and the end of the view
-
-                            console.log('before', toPos)
-                            toPos = Math.max(toPos, 0)
-                            toPos = Math.min(toPos, contentHeight - lyricScroll.height)
-                            console.log('after', toPos)
 
                             lyricScrollAnimation.to = toPos
                         }

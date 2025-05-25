@@ -48,6 +48,11 @@ private Q_SLOTS:
                                                                       {u"Lyric 2"_s, 2min + 6s + 810ms},
                                                                       {u"Lyric 3"_s, 3min + 30s + 460ms}};
 
+        QTest::addRow("Timestamps with different length") << u"[01:23.4]Lyric 1\n[01:23.45]Lyric 2\n[01:23.456]Lyric 3"_s
+                                                 << QList<LyricsData>{{u"Lyric 1"_s, 1min + 23s + 400ms},
+                                                                      {u"Lyric 2"_s, 1min + 23s + 450ms},
+                                                                      {u"Lyric 3"_s, 1min + 23s + 456ms}};
+
         QTest::addRow("Repeated lyric") << u"[01:33.82][03:30.46]Chorus\n[02:06.81]Lyric 2\n"_s
                                         << QList<LyricsData>{{u"Chorus"_s, 1min + 33s + 820ms},
                                                              {u"Lyric 2"_s, 2min + 6s + 810ms},

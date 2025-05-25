@@ -67,6 +67,11 @@ private Q_SLOTS:
                                                  << QList<LyricsData>{{u"Lyric 1"_s, 1min + 33s + 820ms},
                                                                       {u"Lyric 2"_s, 2min + 6s + 810ms},
                                                                       {u"Lyric 3"_s, 3min + 30s + 460ms}};
+
+        QTest::addRow("Empty line with timestamp") << u"[01:33.82]Lyric 1\n[02:06.81]\n[03:30.46]Lyric 3"_s
+                                                 << QList<LyricsData>{{u"Lyric 1"_s, 1min + 33s + 820ms},
+                                                                      {u""_s, 2min + 6s + 810ms},
+                                                                      {u"Lyric 3"_s, 3min + 30s + 460ms}};
     }
 
     void testParse()

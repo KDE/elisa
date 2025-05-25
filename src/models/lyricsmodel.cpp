@@ -223,7 +223,7 @@ bool LyricsModel::LyricsModelPrivate::parse(const QString &lyric)
           timeStamp = parseOneTimeStamp(begin, end);
         }
         auto string = parseOneLine(begin, end);
-        if (!string.isEmpty() && !timeStamps.empty()) {
+        if (!timeStamps.empty()) {
             for (auto time : timeStamps) {
                 lyrics.push_back({string, time});
             }

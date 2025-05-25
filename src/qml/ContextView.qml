@@ -350,6 +350,7 @@ Kirigami.Page {
                     anchors.centerIn: parent
                     height: Math.min(lyricItem.height, implicitHeight)
                     width: lyricItem.width
+                    verticalPadding: 100,
 
                     // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
                     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff

@@ -350,7 +350,6 @@ Kirigami.Page {
                     anchors.centerIn: parent
                     height: Math.min(lyricItem.height, implicitHeight)
                     width: lyricItem.width
-                    verticalPadding: 100
 
                     // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
                     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
@@ -393,14 +392,19 @@ Kirigami.Page {
                                 return
 
                             // center aligned
-                            var toPos = Math.round(currentItem.y + currentItem.height * 0.5 - lyricScroll.height * 0.5)
+                            var toPos = Math.round(currentItem.y + currentItem.height * 0.5)
                             // make sure the first and the last lines are always
                             // positioned at the beginning and the end of the view
 
                             toPos = Math.max(toPos, 0)
                             toPos = Math.min(toPos, contentHeight - lyricScroll.height)
                             lyricScrollAnimation.to = toPos
-
+                        }
+                        header: Item {
+                            height: lyricScroll.height / 2
+                        }
+                        footer: Item {
+                            height: lyricScroll.height / 2
                         }
                     }
                 }

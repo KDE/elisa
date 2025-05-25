@@ -6,7 +6,9 @@
 
 #include "progressindicator.h"
 
-#include <QTime>
+#include <KLocalizedString>
+
+using namespace Qt::StringLiterals;
 
 ProgressIndicator::ProgressIndicator(QObject *parent) : QObject(parent)
 {
@@ -32,12 +34,22 @@ void ProgressIndicator::setPosition(int position)
 
     mPosition = position;
 
-    QTime currentProgress = QTime::fromMSecsSinceStartOfDay(mPosition);
-    if (currentProgress.hour() == 0) {
-        mProgressDuration = currentProgress.toString(QStringLiteral("m:ss"));
+    int totalNumberOfSeconds = mPosition / 1000;
+    int seconds = totalNumberOfSeconds % 60;
+    int minutes = (totalNumberOfSeconds / 60) % 60;
+    int hours = (totalNumberOfSeconds / 60 / 60);
+
+    QString hoursString = u"%1"_s.arg(hours, 2, 10, '0'_L1);
+    QString minutesString = u"%1"_s.arg(minutes, 2, 10, '0'_L1);
+    QString secondsString = u"%1"_s.arg(seconds, 2, 10, '0'_L1);
+
+    QString duration;
+    if (hours == 0) {
+        duration = i18nc("duration formatted as minutes:seconds", "%1:%2", minutesString, secondsString);
     } else {
-        mProgressDuration = currentProgress.toString(QStringLiteral("h:mm:ss"));
+        duration = i18nc("duration formatted as hours:minutes:seconds", "%1:%2:%3", hoursString, minutesString, secondsString);
     }
+    mProgressDuration = duration;
 
     Q_EMIT positionChanged();
     Q_EMIT progressDurationChanged();

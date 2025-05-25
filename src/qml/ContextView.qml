@@ -392,7 +392,7 @@ Kirigami.Page {
                                 return
 
                             // center aligned
-                            var toPos = Math.round(currentItem.y + currentItem.height * 0.5)
+                            var toPos = Math.round(currentItem.y + currentItem.height * 0.5 - lyricScroll.height * 0.5)
                             // make sure the first and the last lines are always
                             // positioned at the beginning and the end of the view
 

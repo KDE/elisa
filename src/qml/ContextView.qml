@@ -386,6 +386,15 @@ Kirigami.Page {
                                 }
                             }
                         }
+
+                        header: Item {
+                            height: lyricScroll.height * 0.5
+                        }
+
+                        footer: Item {
+                            height: lyricScroll.height * 0.5
+                        }
+
                         currentIndex: lyricsModel.highlightedIndex
                         onCurrentIndexChanged: {
                             if (currentIndex === -1)
@@ -393,13 +402,8 @@ Kirigami.Page {
 
                             // center aligned
                             var toPos = Math.round(currentItem.y + currentItem.height * 0.5 - lyricScroll.height * 0.5)
-                            // make sure the first and the last lines are always
-                            // positioned at the beginning and the end of the view
 
-                            toPos = Math.max(toPos, 0)
-                            toPos = Math.min(toPos, contentHeight - lyricScroll.height)
                             lyricScrollAnimation.to = toPos
-
                         }
                     }
                 }

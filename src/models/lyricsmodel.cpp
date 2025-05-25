@@ -44,7 +44,7 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
      * ||| || || ||
      * ||| || || |End
      * ||| || || RightBracket
-     * ||| || |Hundredths
+     * ||| || |Milliseconds
      * ||| || Period
      * ||| |Seconds
      * ||| Colon
@@ -52,9 +52,9 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
      * |LeftBracket
      * Start
      * */
-    enum States {Start, LeftBracket, Minutes, Colon, Seconds, Period, Hundredths, RightBracket, End};
+    enum States {Start, LeftBracket, Minutes, Colon, Seconds, Period, Milliseconds, RightBracket, End};
     auto states {States::Start};
-    auto minute {0}, second {0}, hundred {0};
+    auto minute {0}, second {0}, ms {0}, msFactor {100};
 
     while (begin != end) {
         switch (begin->toLatin1()) {
@@ -68,9 +68,9 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
             break;
         case ']':
             ++begin;
-            if (states == Hundredths) {
-                return minute * 60 * 1000 + second * 1000 +
-                    hundred * 10; // we return milliseconds
+            if (states == Milliseconds) {
+                // we return milliseconds
+                return minute * 60 * 1000 + second * 1000 + ms;
             }
             else {
                 return -1;
@@ -97,15 +97,11 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
                         second += begin->digitValue();
                         break;
                     case Period:
-                        states = Hundredths;
+                        states = Milliseconds;
                         [[fallthrough]];
-                    case Hundredths:
-                        // we only parse to hundredth second
-                        if (hundred >= 100) {
-                            break;
-                        }
-                        hundred *= 10;
-                        hundred += begin->digitValue();
+                    case Milliseconds:
+                        ms += begin->digitValue() * msFactor;
+                        msFactor /= 10;
                         break;
                     default:
                         // lyric format is corrupt

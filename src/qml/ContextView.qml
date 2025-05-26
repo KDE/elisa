@@ -388,11 +388,11 @@ Kirigami.Page {
                         }
 
                         header: Item {
-                            height: lyricScroll.height * 0.5
+                            height: lyricItem.height * 0.5
                         }
 
                         footer: Item {
-                            height: lyricScroll.height * 0.5
+                            height: lyricItem.height * 0.5
                         }
 
                         currentIndex: lyricsModel.highlightedIndex

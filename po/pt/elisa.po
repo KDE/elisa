@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-24 00:41+0000\n"
+"POT-Creation-Date: 2025-05-27 00:41+0000\n"
 "PO-Revision-Date: 2023-05-06 11:47+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -97,7 +97,7 @@ msgctxt "@info"
 msgid "(c) 2015-2020, Elisa contributors"
 msgstr "(c) 2015-2020 dos responsáveis do Elisa"
 
-#: main.cpp:119 models/lyricsmodel.cpp:160
+#: main.cpp:119 models/lyricsmodel.cpp:156
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
@@ -151,49 +151,49 @@ msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "O título está vazio."
 
-#: models/lyricsmodel.cpp:157
+#: models/lyricsmodel.cpp:153
 #, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "Artista"
 
-#: models/lyricsmodel.cpp:158
+#: models/lyricsmodel.cpp:154
 #, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "Álbum"
 
-#: models/lyricsmodel.cpp:159
+#: models/lyricsmodel.cpp:155
 #, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "Título"
 
-#: models/lyricsmodel.cpp:161
+#: models/lyricsmodel.cpp:157
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "Duração"
 
-#: models/lyricsmodel.cpp:162
+#: models/lyricsmodel.cpp:158
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr "Criado por"
 
-#: models/lyricsmodel.cpp:163
+#: models/lyricsmodel.cpp:159
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "Editor"
 
-#: models/lyricsmodel.cpp:164
+#: models/lyricsmodel.cpp:160
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "Versão"
 
-#: models/lyricsmodel.cpp:186
+#: models/lyricsmodel.cpp:182
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
@@ -361,6 +361,18 @@ msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "A tocar música"
 
+#: progressindicator.cpp:48
+#, kde-format
+msgctxt "duration formatted as minutes:seconds"
+msgid "%1:%2"
+msgstr ""
+
+#: progressindicator.cpp:50
+#, kde-format
+msgctxt "duration formatted as hours:minutes:seconds"
+msgid "%1:%2:%3"
+msgstr ""
+
 #: qml/AbstractBrowserDelegate.qml:42
 #, kde-format
 msgctxt "@action:button"
@@ -482,19 +494,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Mostrar a Lista de Reprodução"
 
-#: qml/ContextView.qml:426
+#: qml/ContextView.qml:430
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Não foram encontradas letras musicais"
 
-#: qml/ContextView.qml:442
+#: qml/ContextView.qml:446
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nada a tocar"
 
-#: qml/ContextView.qml:476
+#: qml/ContextView.qml:480
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

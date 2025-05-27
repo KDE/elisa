@@ -87,6 +87,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="pt-BR">Reproduza músicas locais e ouça rádios online</summary>
   <summary xml:lang="ru">Воспроизведение хранящейся локально музыки и прослушивание интернет-радиостанций</summary>
   <summary xml:lang="sa">स्थानीयसङ्गीतं वादयन्तु, ऑनलाइन रेडियो शृणुत च</summary>
+  <summary xml:lang="sk">Prehrávanie miestnej hudby a počúvanie online rádia</summary>
   <summary xml:lang="sl">Predvajajte glasbo in poslušajte spletni radio</summary>
   <summary xml:lang="sv">Spela lokal musik och lyssna på nätradiostationer</summary>
   <summary xml:lang="ta">பாடல்களையும் இணைய வானொலி நிலையங்களையும் கேட்கலாம்</summary>
@@ -169,6 +170,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ro">Cu Elisa, vă puteți răsfoi colecția locală de muzică după gen, interpret, album sau piesă, puteți asculta radio prin Internet, crea și gestiona liste de redare, afișa versuri, și altele.</p>
     <p xml:lang="ru">Приложение позволяет просматривать коллекцию музыки, используя упорядочивание по жанру, исполнителю, альбомам или дорожкам. Проигрыватель позволяет прослушивать интернет-радиостанции, создавать списки воспроизведения и управлять ими, просматривать тексты песен и многое другое.</p>
     <p xml:lang="sa">एलिसा इत्यनेन सह, भवान् विधायाः, कलाकारस्य, सङ्गीतराशिस्य, अथवा संगीतपङ्क्तस्य आधारेण स्वस्य स्थानीयसङ्गीतसङ्ग्रहं गवेषय कर्तुं, साङ्गणिक आकाशवाणी श्रोतुं, वादनीयसूची निर्मातुं प्रबन्धयितुं च, गीतं प्रदर्शयितुं, इत्यादीनि च कर्तुं शक्नोति।.</p>
+    <p xml:lang="sk">Pomocou aplikácie Elisa môžete prehľadávať svoju miestnu hudobnú zbierku podľa žánru, interpreta, alebo skladby, počúvať online rádio, vytvárať a spravovať zoznamy skladieb, zobraziť texty piesní a mnoho ďalšieho.</p>
     <p xml:lang="sl">Z Eliso lahko brskate po lokalni glasbeni zbirki po zvrsti, izvajalcu, albumu ali skladbi, poslušate spletni radio, ustvarjate in upravljate sezname predvajanja, prikazujete besedila in drugo.</p>
     <p xml:lang="sv">Med Elisa kan du bläddra i din lokala musiksamling efter genre, artist, album eller spår, lyssna på nätradio, skapa och hantera spellistor,visa texter, med mera.</p>
     <p xml:lang="th">ด้วย Elisa คุณสามารถค้นหาคอลเลกชันเพลงบนเครื่องของคุณตามประเภท ศิลปิน อัลบั้ม หรือเพลง ฟังวิทยุออนไลน์ สร้างและจัดการรายการเพลง แสดงเนื้อเพลง และอื่นๆ อีกมากมาย</p>
@@ -208,6 +210,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ro">Elisa susține deplin schema de culori KDE când e folosită pe biroul Plasma, iar în caz contrar oferă regimul luminos și întunecat.</p>
     <p xml:lang="ru">При работе в среде Plasma музыкальный проигрыватель Elisa полностью поддерживает цветовые схемы рабочего стола, а при работе в других окружениях — стандартные тёмное и светлое оформления.</p>
     <p xml:lang="sa">Elisa भवतः पूर्णं KDE वर्णयोजनां समर्थयति यदा Plasma डेस्कटॉप् मध्ये उपयुज्यते, अन्यथा मानकप्रकाशः अन्धकारः च मोडाः ।</p>
+    <p xml:lang="sk">Elisa podporuje celú farebnú schému KDE pri použití na pracovnej ploche Plasma,alebo štandardné svetlé a tmavé režimy.</p>
     <p xml:lang="sl">Elisa podpira vašo celotno barvno shemo KDE, ko jo uporabljate na namizju Plasma, oziroma standardna svetla in temna načina.</p>
     <p xml:lang="sv">Elisa stöder KDE:s fullständiga färgschema när det används på Plasma-skrivbordet, eller annars standardmässiga ljusa och mörka lägen.</p>
     <p xml:lang="th">Elisa รองรับชุดสีของ KDE เต็มรูปแบบเมื่อใช้บนเดสก์ท็อป Plasma หรือโหมดสว่างและมืดมาตรฐาน</p>
@@ -248,6 +251,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ro">Relaxați-vă cu regimul de petrecere ce pune coperțile albumelor în evidență.</p>
     <p xml:lang="ru">Музыкальный проигрыватель Elisa поддерживает режим вечеринки, в котором на первом плане выводится обложка альбома проигрываемого трека.</p>
     <p xml:lang="sa">उत्सवस्य पद्धति इत्यनेन सह अभिशीतम्‌ कुर्वन्तु, यत् भवतः सङ्गीतराशि चित्र अग्रे केन्द्रे च स्थापयति।.</p>
+    <p xml:lang="sk">V režime Party Mode, ktorý zobrazuje obálku vášho hudobného albumu vpredu a do stredu.</p>
     <p xml:lang="sl">Sprostite se s party načinom, ki postavi sliko albuma vaše glasbe v ospredje in v center.</p>
     <p xml:lang="sv">Slappna av med party-läge, som placerar musikens skivomslag i fokus.</p>
     <p xml:lang="th">ผ่อนคลายไปกับโหมดปาร์ตี้ที่จะแสดงภาพปกอัลบั้มเพลงของคุณไว้ตรงจุดสนใจ</p>

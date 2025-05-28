@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-27 00:41+0000\n"
-"PO-Revision-Date: 2025-01-14 10:49+0100\n"
+"PO-Revision-Date: 2025-05-27 11:17+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -372,13 +372,13 @@ msgstr "Reproducció de música"
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr ""
+msgstr "%1:%2"
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr ""
+msgstr "%1:%2:%3"
 
 #: qml/AbstractBrowserDelegate.qml:42
 #, kde-format
@@ -1935,52 +1935,3 @@ msgstr "Fitxers"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
-
-#~| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#~| msgid "%1 track"
-#~| msgid_plural "%1 tracks"
-#~ msgctxt "@item:intable %1 tracks"
-#~ msgid "%1 tracks"
-#~ msgstr "%1 peces"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Party Mode"
-#~ msgstr "Commuta al mode festa"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Mute"
-#~ msgstr "Commuta el silenci"
-
-#~ msgctxt "@action:button"
-#~ msgid "Application Menu"
-#~ msgstr "Menú d'aplicacions"
-
-#~ msgctxt "@action:button"
-#~ msgid "Create a radio"
-#~ msgstr "Crea una ràdio"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle View Style"
-#~ msgstr "Commuta l'estil de la vista"
-
-#~ msgctxt ""
-#~ "@info:status %1 is the translation of track[s], %2 is the translation of "
-#~ "remaining"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (%2)"
-
-#~ msgctxt "@action:button"
-#~ msgid "Toggle Shuffle"
-#~ msgstr "Commuta la barreja"
-
-#~ msgctxt "@action:inmenu shuffle mode is turned on"
-#~ msgid "On"
-#~ msgstr "Actiu"
-
-#~ msgctxt "@action:button"
-#~ msgid "OK"
-#~ msgstr "D'acord"
-
-#~ msgctxt "@action:button"
-#~ msgid "Apply"
-#~ msgstr "Aplica"

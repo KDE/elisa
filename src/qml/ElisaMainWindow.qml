@@ -500,6 +500,9 @@ Kirigami.ApplicationWindow {
                     albumArtist: (ElisaApplication.manageHeaderBar.albumArtist !== undefined ? ElisaApplication.manageHeaderBar.albumArtist : '')
                     image: ElisaApplication.manageHeaderBar.image
                     albumID: ElisaApplication.manageHeaderBar.albumId
+                    databaseId: ElisaApplication.manageHeaderBar.databaseId
+                    trackType: ElisaApplication.manageHeaderBar.trackType
+                    fileUrl: ElisaApplication.manageHeaderBar.fileUrl
                     handlePosition: persistentSettings.headerBarHeight
 
                     ratingVisible: false

@@ -12,7 +12,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.2
 import QtQuick.Effects as FX
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 import org.kde.elisa
 
 FocusScope {
@@ -25,6 +25,10 @@ FocusScope {
     property string image
     property int trackRating
     property int albumID
+    property int databaseId: 0
+    property var trackType
+    property url fileUrl: ""
+
     property bool ratingVisible
     property alias playerControl: playControlItem
     property alias isMaximized: playControlItem.isMaximized
@@ -89,6 +93,42 @@ FocusScope {
         images.pendingImageIncubator.object.statusChanged.disconnect(replaceIconWhenLoaded);
         images.replace(images.pendingImageIncubator.object, {}, StackView.Transition);
         images.pendingImageIncubator = undefined;
+    }
+
+    onFileUrlChanged: {
+        if (ElisaApplication.musicManager && trackType !== undefined && fileUrl.toString().length !== 0) {
+            if (databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            } else {
+                metaDataModel.initializeByUrl(trackType, fileUrl)
+            }
+        }
+    }
+
+    onTrackTypeChanged: {
+        if (ElisaApplication.musicManager && trackType !== undefined && fileUrl.toString().length !== 0) {
+            if (databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            } else {
+                metaDataModel.initializeByUrl(trackType, fileUrl)
+            }
+        }
+    }
+
+    TrackContextMetaDataModel {
+        id: metaDataModel
+        onLyricsChanged: lyricsModel.setLyric(lyrics)
+        manager: ElisaApplication.musicManager
+    }
+
+    Connections {
+        target: ElisaApplication
+
+        function onMusicManagerChanged() {
+            if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            }
+        }
     }
 
     StackView {
@@ -488,6 +528,103 @@ FocusScope {
                         starRating: trackRating
                     }
                 }
+
+                // Lyrics
+                Item {
+                    id: lyricItem
+
+                    Layout.fillHeight: false
+                    Layout.fillWidth: true
+                    Layout.minimumHeight: 200
+                    visible: headerBar.isMaximized
+
+
+                    ScrollView {
+                        id: lyricScroll
+                        anchors.centerIn: parent
+                        height: Math.min(lyricItem.height, implicitHeight)
+                        width: lyricItem.width
+
+                        // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
+                        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                        PropertyAnimation {
+                            id: lyricScrollAnimation
+
+                            // the target is a flickable
+                            target: lyricScroll.contentItem
+                            property: "contentY"
+                            onToChanged: restart()
+                        }
+
+                        contentItem: ListView {
+                            id: lyricsView
+
+                            model: lyricsModel
+                            delegate: Label {
+                                required property string lyric
+                                required property int timestamp
+
+                                text: lyric
+                                width: lyricsView.width
+                                wrapMode: Text.WordWrap
+                                font.bold: ListView.isCurrentItem
+                                horizontalAlignment: Text.AlignHCenter
+                                MouseArea {
+                                    height: parent.height
+                                    width: Math.min(parent.width, parent.contentWidth)
+                                    enabled: lyricsModel.isLRC
+                                    cursorShape: enabled ? Qt.PointingHandCursor : undefined
+                                    onClicked: {
+                                        ElisaApplication.audioPlayer.position = timestamp;
+                                    }
+                                }
+                            }
+
+                            header: Item {
+                                height: lyricItem.height * 0.5
+                            }
+
+                            footer: Item {
+                                height: lyricItem.height * 0.5
+                            }
+
+                            currentIndex: lyricsModel.highlightedIndex
+                            onCurrentIndexChanged: {
+                                if (currentIndex === -1)
+                                    return
+
+                                // center aligned
+                                var toPos = Math.round(currentItem.y + currentItem.height * 0.5 - lyricScroll.height * 0.5)
+
+                                lyricScrollAnimation.to = toPos
+                            }
+                        }
+                    }
+
+                    LyricsModel {
+                        id: lyricsModel
+                    }
+                    Connections {
+                        target: ElisaApplication.audioPlayer
+                        function onPositionChanged(position) {
+                            lyricsModel.setPosition(position)
+                        }
+                    }
+
+                    Loader {
+                        id: lyricPlaceholder
+                        anchors.centerIn: parent
+                        width: parent.width
+
+                        active: lyricsView.count === 0
+                        visible: active && status === Loader.Ready
+
+                        sourceComponent: Kirigami.PlaceholderMessage {
+                            text: i18nc("@info:placeholder", "No lyrics found")
+                            icon.name: "view-media-lyrics"
+                        }
+                    }
+                }
                 Loader {
                     id: playLoader
                     active: headerBar.isMaximized
@@ -524,5 +661,14 @@ FocusScope {
 
     Component.onCompleted: {
         loadImage();
+
+        if (ElisaApplication.musicManager && trackType !== undefined) {
+            if (databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            } else {
+                metaDataModel.initializeByUrl(trackType, fileUrl)
+            }
+                    visible: headerBar.isMaximized
+        }
     }
 }

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-24 02:36+0000\n"
-"PO-Revision-Date: 2024-09-22 16:28+0200\n"
+"PO-Revision-Date: 2025-06-01 15:07+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.07.70\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -533,13 +533,13 @@ msgid "Show In Folder"
 msgstr "Vis i mappe"
 
 #: qml/DataGridView.qml:159
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "%1 spor"
+msgstr "Alle spora"
 
 #: qml/DataGridView.qml:160
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -552,7 +552,7 @@ msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
 "text."
 msgid "00:00:00"
-msgstr "00:00:00"
+msgstr "00.00.00"
 
 #: qml/DurationSlider.qml:105
 #, kde-format
@@ -965,12 +965,11 @@ msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
 msgstr "Fjern merkelappen"
 
-# unreviewed-context
 #: qml/MediaTrackMetadataDelegate.qml:214
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "Legg til ny merkelapp:"
+msgstr "Legg til merkelapp"
 
 #: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:44
 #, kde-format

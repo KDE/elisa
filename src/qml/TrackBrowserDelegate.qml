@@ -213,7 +213,7 @@ FocusScope {
                             // not detailed view refers to an album page, in which we should put track numbers
                             if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
                                 return i18nc("@item:intable %1: track number. %2: track title.",
-                                        "%1 - %2",
+                                        "%1 – %2",
                                         trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                         title);
                             } else {
@@ -224,19 +224,19 @@ FocusScope {
                             if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
                                 if (albumArtist !== undefined && artist !== albumArtist) {
                                     return i18nc("@item:intable %1: track number. %2: track title. %3: artist name",
-                                                "%1 - %2 - %3",
+                                                "%1 – %2 – %3",
                                                 trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                                 title, artist);
                                 } else {
                                     return i18nc("@item:intable %1: track number. %2: track title.",
-                                                "%1 - %2",
+                                                "%1 – %2",
                                                 trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                                 title);
                                 }
                             } else {
                                 if (albumArtist !== undefined && artist !== albumArtist) {
                                     return i18nc("@item:intable %1: track title. %2: artist name",
-                                                "%1 - %2",
+                                                "%1 – %2",
                                                 title, artist);
                                 } else {
                                     return title;

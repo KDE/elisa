@@ -573,7 +573,7 @@ QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
         result = i18nc("@label:textbox Lyrics label for track metadata view", "Lyrics");
         break;
     case DataTypes::ResourceRole:
-        result = i18nc("@label:textbox Radio HTTP address for radio metadata view", "Stream Http Address");
+        result = i18nc("@label:textbox Radio HTTP address for radio metadata view", "Stream HTTP Address");
         break;
     case DataTypes::ImageUrlRole:
         result = i18nc("@label:textbox Image address for radio metadata view", "Image Address");

@@ -226,7 +226,7 @@ public:
 
     Qt::SortOrder mSortOrder = Qt::AscendingOrder;
 
-    QList<QString> mSortOrderNames = {QStringLiteral("A-Z"), QStringLiteral("Z-A")};
+    QList<QString> mSortOrderNames = {QStringLiteral("A–Z"), QStringLiteral("Z–A")};
 
     ViewManager::AlbumCardinality mAlbumCardinality = ViewManager::MultipleAlbum;
 

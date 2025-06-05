@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-27 00:41+0000\n"
+"POT-Creation-Date: 2025-06-05 00:41+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -115,7 +115,7 @@ msgstr "Lihtne muusikamängija, loodud armastusega KDE kogukonna poolt"
 #, fuzzy, kde-format
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
-msgid "(c) 2015-2020, Elisa contributors"
+msgid "© 2015–2020, Elisa contributors"
 msgstr "(c) 2015-2020: Elisa autorid"
 
 #: main.cpp:119 models/lyricsmodel.cpp:156
@@ -400,7 +400,7 @@ msgstr "Sõnad"
 #| msgctxt "Radio HTTP address for radio metadata view"
 #| msgid "Stream Http Address"
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-msgid "Stream Http Address"
+msgid "Stream HTTP Address"
 msgstr "Voo HTTP-aadress"
 
 #: models/trackmetadatamodel.cpp:579
@@ -1963,28 +1963,24 @@ msgid "Play from here, replacing current playlist"
 msgstr "Esitamine kohe senist esitusloendit asendades"
 
 #: qml/TrackBrowserDelegate.qml:216 qml/TrackBrowserDelegate.qml:232
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title"
-#| msgid "%1 - %2"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
-msgid "%1 - %2"
-msgstr "%1 - %2"
+msgid "%1 – %2"
+msgstr ""
 
 #: qml/TrackBrowserDelegate.qml:227
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title"
 #| msgid "%1 - %2"
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-msgid "%1 - %2 - %3"
+msgid "%1 – %2 – %3"
 msgstr "%1 - %2"
 
 #: qml/TrackBrowserDelegate.qml:239
-#, fuzzy, kde-format
-#| msgctxt "%1: track number. %2: track title"
-#| msgid "%1 - %2"
+#, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
-msgid "%1 - %2"
-msgstr "%1 - %2"
+msgid "%1 – %2"
+msgstr ""
 
 #: qml/TrackBrowserDelegate.qml:377
 #, fuzzy, kde-format
@@ -2064,21 +2060,19 @@ msgstr ""
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
 #: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
 #: viewslistdata.cpp:111 viewslistdata.cpp:136
-#, fuzzy, kde-format
-#| msgid "A-Z"
+#, kde-format
 msgctxt "@item:inmenu"
-msgid "A-Z"
-msgstr "A-Y"
+msgid "A–Z"
+msgstr ""
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
 #: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
 #: viewslistdata.cpp:111 viewslistdata.cpp:136
-#, fuzzy, kde-format
-#| msgid "Z-A"
+#, kde-format
 msgctxt "@item:inmenu"
-msgid "Z-A"
-msgstr "Y-A"
+msgid "Z–A"
+msgstr ""
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, fuzzy, kde-format
@@ -2295,6 +2289,32 @@ msgstr "Failid"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Raadio"
+
+#, fuzzy
+#~| msgctxt "%1: track number. %2: track title"
+#~| msgid "%1 - %2"
+#~ msgctxt "@item:intable %1: track number. %2: track title."
+#~ msgid "%1 - %2"
+#~ msgstr "%1 - %2"
+
+#, fuzzy
+#~| msgctxt "%1: track number. %2: track title"
+#~| msgid "%1 - %2"
+#~ msgctxt "@item:intable %1: track title. %2: artist name"
+#~ msgid "%1 - %2"
+#~ msgstr "%1 - %2"
+
+#, fuzzy
+#~| msgid "A-Z"
+#~ msgctxt "@item:inmenu"
+#~ msgid "A-Z"
+#~ msgstr "A-Y"
+
+#, fuzzy
+#~| msgid "Z-A"
+#~ msgctxt "@item:inmenu"
+#~ msgid "Z-A"
+#~ msgstr "Y-A"
 
 #, fuzzy
 #~| msgid "1 track"

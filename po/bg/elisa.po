@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-27 00:41+0000\n"
+"POT-Creation-Date: 2025-06-05 00:41+0000\n"
 "PO-Revision-Date: 2025-05-31 10:18+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -95,9 +95,11 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Прост музикален плеър, направен с любов от общността на KDE"
 
 #: main.cpp:117
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info"
+#| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
-msgid "(c) 2015-2020, Elisa contributors"
+msgid "© 2015–2020, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa contributors"
 
 #: main.cpp:119 models/lyricsmodel.cpp:156
@@ -323,9 +325,11 @@ msgid "Lyrics"
 msgstr "Текстове на песни"
 
 #: models/trackmetadatamodel.cpp:576
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
+#| msgid "Stream Http Address"
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-msgid "Stream Http Address"
+msgid "Stream HTTP Address"
 msgstr "Http адрес на медийния поток"
 
 #: models/trackmetadatamodel.cpp:579
@@ -1659,20 +1663,22 @@ msgstr "Изпълняване от тук, измествайки текущи�
 #: qml/TrackBrowserDelegate.qml:216 qml/TrackBrowserDelegate.qml:232
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
-msgid "%1 - %2"
-msgstr "%1 - %2"
+msgid "%1 – %2"
+msgstr ""
 
 #: qml/TrackBrowserDelegate.qml:227
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
+#| msgid "%1 - %2 - %3"
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-msgid "%1 - %2 - %3"
+msgid "%1 – %2 – %3"
 msgstr "%1 - %2 - %3"
 
 #: qml/TrackBrowserDelegate.qml:239
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
-msgid "%1 - %2"
-msgstr "%1 - %2"
+msgid "%1 – %2"
+msgstr ""
 
 #: qml/TrackBrowserDelegate.qml:377
 #, kde-format
@@ -1742,8 +1748,8 @@ msgstr "Низходящо"
 #: viewslistdata.cpp:111 viewslistdata.cpp:136
 #, kde-format
 msgctxt "@item:inmenu"
-msgid "A-Z"
-msgstr "А-Я"
+msgid "A–Z"
+msgstr ""
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1751,8 +1757,8 @@ msgstr "А-Я"
 #: viewslistdata.cpp:111 viewslistdata.cpp:136
 #, kde-format
 msgctxt "@item:inmenu"
-msgid "Z-A"
-msgstr "Я-А"
+msgid "Z–A"
+msgstr ""
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format
@@ -1930,6 +1936,22 @@ msgstr "Файлове"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Радиостанции"
+
+#~ msgctxt "@item:intable %1: track number. %2: track title."
+#~ msgid "%1 - %2"
+#~ msgstr "%1 - %2"
+
+#~ msgctxt "@item:intable %1: track title. %2: artist name"
+#~ msgid "%1 - %2"
+#~ msgstr "%1 - %2"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "A-Z"
+#~ msgstr "А-Я"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Z-A"
+#~ msgstr "Я-А"
 
 #, fuzzy
 #~| msgctxt "@info:status %1 is the total number of tracks of the playlist"

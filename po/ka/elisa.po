@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-05 00:41+0000\n"
-"PO-Revision-Date: 2025-05-27 05:39+0200\n"
+"PO-Revision-Date: 2025-06-05 05:56+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -96,12 +96,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "მარტივი მუსიკის დამკვრელი, თქვენთვის. სიყვარულით, KDE-ის საზოგადოება"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
-msgstr "(c) 2015-2020, Elisa -ის შემომწირავები, ყველა უფლება დაცულია"
+msgstr "© 2015-2020, Elisa-ის მოხალისეები. ყველა უფლება დაცულია"
 
 #: main.cpp:119 models/lyricsmodel.cpp:156
 #, kde-format
@@ -326,9 +324,7 @@ msgid "Lyrics"
 msgstr "ლირიკა"
 
 #: models/trackmetadatamodel.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
 msgstr "ნაკადის HTTP მისამართი"
@@ -1662,21 +1658,19 @@ msgstr "აქედან დაკვრა, მიმდინარე დ�
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr "%1 - %2 - %3"
+msgstr "%1 – %2 – %3"
 
 #: qml/TrackBrowserDelegate.qml:239
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:377
 #, kde-format
@@ -1747,7 +1741,7 @@ msgstr "დაღმავალი"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "A–Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1756,7 +1750,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "Z–A"
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format

@@ -2054,21 +2054,3 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
-
-# unreviewed-context
-#~ msgctxt "@item:intable %1: track number. %2: track title."
-#~ msgid "%1 - %2"
-#~ msgstr "%1 – %2"
-
-#~ msgctxt "@item:intable %1: track title. %2: artist name"
-#~ msgid "%1 - %2"
-#~ msgstr "%1 – %2"
-
-#~ msgctxt "@item:inmenu"
-#~ msgid "A-Z"
-#~ msgstr "A til Å"
-
-# unreviewed-context
-#~ msgctxt "@item:inmenu"
-#~ msgid "Z-A"
-#~ msgstr "Å til A"

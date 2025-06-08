@@ -1,14 +1,15 @@
-# Translation of elisa to Spanish
+# Spanish translations for elisa.po package.
+# Copyright (C) 2016-2025 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Víctor Rodrigo Córdoba <vrcordoba@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-05 00:41+0000\n"
-"PO-Revision-Date: 2025-01-18 19:26+0100\n"
+"PO-Revision-Date: 2025-06-08 00:55+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -96,12 +97,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Un sencillo reproductor de música hecho con amor por la comunidad KDE"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
-msgstr "© 2015-2020, los colaboradores de Elisa"
+msgstr "© 2015–2020, los colaboradores de Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:156
 #, kde-format
@@ -326,12 +325,10 @@ msgid "Lyrics"
 msgstr "Letra"
 
 #: models/trackmetadatamodel.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
-msgstr "Dirección Http de la emisión"
+msgstr "Dirección HTTP de la emisión"
 
 #: models/trackmetadatamodel.cpp:579
 #, kde-format
@@ -373,13 +370,13 @@ msgstr "Reproduciendo música"
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr ""
+msgstr "%1:%2"
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr ""
+msgstr "%1:%2:%3"
 
 #: qml/AbstractBrowserDelegate.qml:42
 #, kde-format
@@ -785,13 +782,13 @@ msgstr "Limpiar todas"
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
-msgstr "Guardar..."
+msgstr "Guardar…"
 
 #: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
-msgstr "Abrir..."
+msgstr "Abrir…"
 
 #: qml/MediaPlayListView.qml:127
 #, kde-format
@@ -1083,13 +1080,13 @@ msgstr "Archivo"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save Playlist…"
-msgstr "Guardar lista de reproducción..."
+msgstr "Guardar lista de reproducción…"
 
 #: qml/NativeGlobalMenu.qml:28
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Playlist…"
-msgstr "Abrir lista de reproducción..."
+msgstr "Abrir lista de reproducción…"
 
 #: qml/NativeGlobalMenu.qml:60
 #, kde-format
@@ -1587,7 +1584,7 @@ msgstr "Localización inicial para la vista de archivos:"
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr "Elija..."
+msgstr "Elija…"
 
 #: qml/SettingsForm.qml:338 qml/SettingsForm.qml:468
 #, kde-format
@@ -1666,21 +1663,19 @@ msgstr "Reproducir desde aquí, sustituyendo la lista de reproducción actual"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:227
-#, fuzzy, kde-format
-#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr "%1 - %2 - %3"
+msgstr "%1 – %2 – %3"
 
 #: qml/TrackBrowserDelegate.qml:239
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:377
 #, kde-format
@@ -1751,7 +1746,7 @@ msgstr "Descendiente"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "A–Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1760,7 +1755,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "Z–A"
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format
@@ -1938,19 +1933,3 @@ msgstr "Archivos"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estaciones de radio"
-
-#~ msgctxt "@item:intable %1: track number. %2: track title."
-#~ msgid "%1 - %2"
-#~ msgstr "%1 - %2"
-
-#~ msgctxt "@item:intable %1: track title. %2: artist name"
-#~ msgid "%1 - %2"
-#~ msgstr "%1 - %2"
-
-#~ msgctxt "@item:inmenu"
-#~ msgid "A-Z"
-#~ msgstr "A-Z"
-
-#~ msgctxt "@item:inmenu"
-#~ msgid "Z-A"
-#~ msgstr "Z-A"

@@ -144,8 +144,8 @@ Item {
         FlatButtonWithToolTip {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
-            text: i18nc("@action:button", "Play Next")
-            ToolTip.text: i18nc("@info:tooltip", "Play next")
+            text: i18nc("@action:button Add as the next track(s) in the playlist", "Play Next")
+            ToolTip.text: i18nc("@info:tooltip", "Play next in playlist")
             icon.name: "media-playlist-append-next"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: navigationBar.playNext()

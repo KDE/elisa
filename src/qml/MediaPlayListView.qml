@@ -68,7 +68,7 @@ Kirigami.Page {
 
                 actions: [
                     Kirigami.Action {
-                        text: i18nc("@action:button", "Show Current")
+                        text: i18nc("@action:button Show current track in playlist", "Show Current")
                         icon.name: 'media-track-show-active'
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false

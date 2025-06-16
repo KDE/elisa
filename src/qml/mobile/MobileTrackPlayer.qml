@@ -298,7 +298,7 @@ BasePlayerControl {
                             mode: MediaPlayListProxyModel.Playlist
                         }
                         PlaylistModeItem {
-                            text: i18nc("@action:inmenu", "One")
+                            text: i18nc("@action:inmenu", "One track")
                             mode: MediaPlayListProxyModel.One
                         }
                         PlaylistModeItem {

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2025-06-10 11:36+0200\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -748,11 +748,17 @@ msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Scaletta"
 
+# NOTA: Non togliere %1 dalla forma singola in questo caso,
+# perché la forma plurale richiede due segnaposto e la forma
+# singolare ne deve perciò avere almeno uno.
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item:intable number of tracks/songs in all albums"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "Attuale"
+msgid "One track"
+msgstr "%1 traccia"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -769,8 +775,10 @@ msgid "Playlist"
 msgstr "Scaletta"
 
 #: qml/MediaPlayListView.qml:71
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Current"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Mostra attuale"
 
@@ -1264,16 +1272,20 @@ msgid "Play now, replacing current playlist"
 msgstr "Riproduci adesso, sostituendo la scaletta attuale"
 
 #: qml/NavigationActionBar.qml:147
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play Next"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Riproduci successivo"
 
 #: qml/NavigationActionBar.qml:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "Riproduci successivo"
+msgid "Play next in playlist"
+msgstr "Riproduci adesso, sostituendo la scaletta attuale"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1944,6 +1956,14 @@ msgstr "File"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Stazioni radio"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "Attuale"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "Riproduci successivo"
 
 #~ msgctxt "@item:intable %1: track number. %2: track title."
 #~ msgid "%1 - %2"

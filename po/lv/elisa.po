@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2025-06-07 16:52+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -747,10 +747,13 @@ msgid "Playlist"
 msgstr "Repertuārs"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item:intable number of tracks/songs in all albums"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "Vienu"
+msgid "One track"
+msgstr "%1 celiņš"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -767,8 +770,10 @@ msgid "Playlist"
 msgstr "Repertuārs"
 
 #: qml/MediaPlayListView.qml:71
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Current"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Parādīt pašreizējo"
 
@@ -1258,16 +1263,20 @@ msgid "Play now, replacing current playlist"
 msgstr "Atskaņot, aizvietojot pašreizējo repertuāru"
 
 #: qml/NavigationActionBar.qml:147
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play Next"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Atskaņot nākamo"
 
 #: qml/NavigationActionBar.qml:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "Atskaņot nākamo"
+msgid "Play next in playlist"
+msgstr "Atskaņot, aizvietojot pašreizējo repertuāru"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1936,6 +1945,14 @@ msgstr "Datnes"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiostacijas"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "Vienu"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "Atskaņot nākamo"
 
 #~ msgctxt "@item:intable %1: track number. %2: track title."
 #~ msgid "%1 - %2"

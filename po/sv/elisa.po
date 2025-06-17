@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2025-06-06 11:40+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -745,10 +745,13 @@ msgid "Playlist"
 msgstr "Spellista"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item:intable number of tracks/songs in all albums"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "En"
+msgid "One track"
+msgstr "%1 spår"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -765,8 +768,10 @@ msgid "Playlist"
 msgstr "Spellista"
 
 #: qml/MediaPlayListView.qml:71
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Current"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Visa aktuellt"
 
@@ -1251,16 +1256,20 @@ msgid "Play now, replacing current playlist"
 msgstr "Spela nu och ersätt aktuell spellista"
 
 #: qml/NavigationActionBar.qml:147
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play Next"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Spela nästa"
 
 #: qml/NavigationActionBar.qml:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "Spela nästa"
+msgid "Play next in playlist"
+msgstr "Spela nu och ersätt aktuell spellista"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1928,6 +1937,14 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiostationer"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "En"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "Spela nästa"
 
 #~ msgctxt "@item:intable %1: track number. %2: track title."
 #~ msgid "%1 - %2"

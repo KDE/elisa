@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2025-06-01 15:07+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -791,12 +791,14 @@ msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Speleliste"
 
-# unreviewed-context
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item:intable number of tracks/songs in all albums"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "Eitt"
+msgid "One track"
+msgstr "%1 spor"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -813,8 +815,10 @@ msgid "Playlist"
 msgstr "Speleliste"
 
 #: qml/MediaPlayListView.qml:71
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Current"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Vis gjeldande spor"
 
@@ -1324,16 +1328,20 @@ msgid "Play now, replacing current playlist"
 msgstr "Spel no og byt ut spelelista"
 
 #: qml/NavigationActionBar.qml:147
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play Next"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Spel som neste"
 
 #: qml/NavigationActionBar.qml:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "Spel som neste"
+msgid "Play next in playlist"
+msgstr "Spel no og byt ut spelelista"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -2054,3 +2062,12 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
+
+# unreviewed-context
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "Eitt"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "Spel som neste"

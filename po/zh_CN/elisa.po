@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -742,10 +742,13 @@ msgid "Playlist"
 msgstr "播放列表"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item:intable number of tracks/songs in all albums"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "重复一首"
+msgid "One track"
+msgstr "%1 首曲目"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -762,8 +765,10 @@ msgid "Playlist"
 msgstr "播放列表"
 
 #: qml/MediaPlayListView.qml:71
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Current"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "显示当前曲目"
 
@@ -1239,16 +1244,20 @@ msgid "Play now, replacing current playlist"
 msgstr "立即播放，替换当前播放列表"
 
 #: qml/NavigationActionBar.qml:147
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play Next"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "播放下一首"
 
 #: qml/NavigationActionBar.qml:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "播放下一首"
+msgid "Play next in playlist"
+msgstr "立即播放，替换当前播放列表"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1913,3 +1922,11 @@ msgstr "文件"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "电台"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "重复一首"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "播放下一首"

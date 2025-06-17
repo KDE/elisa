@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2025-06-05 05:56+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -746,10 +746,13 @@ msgid "Playlist"
 msgstr "დასაკრავი სია"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item:intable number of tracks/songs in all albums"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "ერთი"
+msgid "One track"
+msgstr "%1 ტრეკი"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -766,8 +769,10 @@ msgid "Playlist"
 msgstr "დასაკრავი სია"
 
 #: qml/MediaPlayListView.qml:71
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Current"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "მიმდინარის ჩვენება"
 
@@ -1252,16 +1257,20 @@ msgid "Play now, replacing current playlist"
 msgstr "ახლავე დაკვრა, მიმდინარე რიგის ჩანაცვლებით"
 
 #: qml/NavigationActionBar.qml:147
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play Next"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "შემდეგის დაკვრა"
 
 #: qml/NavigationActionBar.qml:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "შემდეგის დაკვრა"
+msgid "Play next in playlist"
+msgstr "ახლავე დაკვრა, მიმდინარე რიგის ჩანაცვლებით"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1928,6 +1937,14 @@ msgstr "ფაილები"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "რადიოსადგურები"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "ერთი"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "შემდეგის დაკვრა"
 
 #~ msgctxt "@item:intable %1: track number. %2: track title."
 #~ msgid "%1 - %2"

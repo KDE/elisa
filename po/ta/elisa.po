@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2025-01-26 18:07+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -749,10 +749,13 @@ msgid "Playlist"
 msgstr "பாடல்வரிசை"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item:intable number of tracks/songs in all albums"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "ஒன்றுமட்டும்"
+msgid "One track"
+msgstr "%1 பாடல்"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -769,8 +772,10 @@ msgid "Playlist"
 msgstr "பாடல்வரிசை"
 
 #: qml/MediaPlayListView.qml:71
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Current"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "தற்போதையதை காட்டு"
 
@@ -1254,16 +1259,20 @@ msgid "Play now, replacing current playlist"
 msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
 
 #: qml/NavigationActionBar.qml:147
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play Next"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "அடுத்த‍தை இசை"
 
 #: qml/NavigationActionBar.qml:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "அடுத்ததை இசை"
+msgid "Play next in playlist"
+msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1933,6 +1942,14 @@ msgstr "கோப்புகள்"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "வானொலி நிலையங்கள்"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "ஒன்றுமட்டும்"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "அடுத்ததை இசை"
 
 #~ msgctxt "@item:intable %1: track number. %2: track title."
 #~ msgid "%1 - %2"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2023-11-06 01:05+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -745,7 +745,7 @@ msgstr ""
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
 #, kde-format
 msgctxt "@action:inmenu"
-msgid "One"
+msgid "One track"
 msgstr ""
 
 #: qml/MediaPlayerControl.qml:321
@@ -764,7 +764,7 @@ msgstr ""
 
 #: qml/MediaPlayListView.qml:71
 #, kde-format
-msgctxt "@action:button"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr ""
 
@@ -1246,14 +1246,14 @@ msgstr ""
 
 #: qml/NavigationActionBar.qml:147
 #, kde-format
-msgctxt "@action:button"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr ""
 
 #: qml/NavigationActionBar.qml:148
 #, kde-format
 msgctxt "@info:tooltip"
-msgid "Play next"
+msgid "Play next in playlist"
 msgstr ""
 
 #: qml/NavigationActionBar.qml:160

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2025-06-11 00:09+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -745,10 +745,13 @@ msgid "Playlist"
 msgstr "재생 목록"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@item:intable number of tracks/songs in all albums"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "한 곡"
+msgid "One track"
+msgstr "트랙 %1개"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -765,8 +768,10 @@ msgid "Playlist"
 msgstr "재생 목록"
 
 #: qml/MediaPlayListView.qml:71
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Current"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "현재 곡 표시"
 
@@ -1246,16 +1251,20 @@ msgid "Play now, replacing current playlist"
 msgstr "바로 재생 및 재생 목록 바꾸기"
 
 #: qml/NavigationActionBar.qml:147
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Play Next"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "다음 재생"
 
 #: qml/NavigationActionBar.qml:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "다음 재생"
+msgid "Play next in playlist"
+msgstr "바로 재생 및 재생 목록 바꾸기"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1921,6 +1930,14 @@ msgstr "파일"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "라디오 방송국"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "한 곡"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "다음 재생"
 
 #~ msgctxt "@item:intable %1: track number. %2: track title."
 #~ msgid "%1 - %2"

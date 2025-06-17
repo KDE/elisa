@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -901,11 +901,11 @@ msgstr "Esitusloend"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
 #, fuzzy, kde-format
-#| msgctxt "Open view of the container"
-#| msgid "Open"
+#| msgid "1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "Ava"
+msgid "One track"
+msgstr "1 rada"
 
 #: qml/MediaPlayerControl.qml:321
 #, fuzzy, kde-format
@@ -929,7 +929,7 @@ msgstr "Esitusloend"
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current Track"
-msgctxt "@action:button"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Aktiivse raja näitamine"
 
@@ -1507,17 +1507,17 @@ msgstr "Esitamine kohe senist esitusloendit asendades"
 #, fuzzy, kde-format
 #| msgctxt "Play now current track from play list"
 #| msgid "Play Now"
-msgctxt "@action:button"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Esita kohe"
 
 #: qml/NavigationActionBar.qml:148
 #, fuzzy, kde-format
-#| msgctxt "Play counter label for track metadata view"
-#| msgid "Play count"
+#| msgctxt "Clear play list and add whole container to play list"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "Esituste arv"
+msgid "Play next in playlist"
+msgstr "Esitamine kohe senist esitusloendit asendades"
 
 #: qml/NavigationActionBar.qml:160
 #, fuzzy, kde-format
@@ -2289,6 +2289,20 @@ msgstr "Failid"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Raadio"
+
+#, fuzzy
+#~| msgctxt "Open view of the container"
+#~| msgid "Open"
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "Ava"
+
+#, fuzzy
+#~| msgctxt "Play counter label for track metadata view"
+#~| msgid "Play count"
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "Esituste arv"
 
 #, fuzzy
 #~| msgctxt "%1: track number. %2: track title"

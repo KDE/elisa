@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-05 00:41+0000\n"
+"POT-Creation-Date: 2025-06-17 00:41+0000\n"
 "PO-Revision-Date: 2024-12-15 19:32+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Hindi <kde-i18n-doc@kde.org>\n"
@@ -780,10 +780,13 @@ msgid "Playlist"
 msgstr "गीत-सूची"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:status"
+#| msgid "%1 track"
+#| msgid_plural "%1 tracks"
 msgctxt "@action:inmenu"
-msgid "One"
-msgstr "एक"
+msgid "One track"
+msgstr "%1 गीत"
 
 #: qml/MediaPlayerControl.qml:321
 #, fuzzy, kde-format
@@ -802,8 +805,10 @@ msgid "Playlist"
 msgstr "गीत-सूची"
 
 #: qml/MediaPlayListView.qml:71
-#, kde-format
-msgctxt "@action:button"
+#, fuzzy, kde-format
+#| msgctxt "@action:button"
+#| msgid "Show Current"
+msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "वर्तमान दिखाएँ"
 
@@ -1330,17 +1335,17 @@ msgstr "मौजूदा गीत-सूची परिस्थापित
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Play counter label for track metadata view"
 #| msgid "Play count"
-msgctxt "@action:button"
+msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "बजने की संख्या"
 
 #: qml/NavigationActionBar.qml:148
 #, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#| msgctxt "@action:button"
+#| msgid "Play now, replacing current playlist"
 msgctxt "@info:tooltip"
-msgid "Play next"
-msgstr "बजने की संख्या"
+msgid "Play next in playlist"
+msgstr "मौजूदा गीत-सूची परिस्थापित करते हुए, अभी बजाएँ"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -2043,6 +2048,17 @@ msgstr "फ़ाइलें"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "रेडियो स्टेशन"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "One"
+#~ msgstr "एक"
+
+#, fuzzy
+#~| msgctxt "@label:textbox Play counter label for track metadata view"
+#~| msgid "Play count"
+#~ msgctxt "@info:tooltip"
+#~ msgid "Play next"
+#~ msgstr "बजने की संख्या"
 
 #~ msgctxt "@item:intable %1: track number. %2: track title."
 #~ msgid "%1 - %2"

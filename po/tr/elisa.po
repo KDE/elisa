@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:41+0000\n"
-"PO-Revision-Date: 2025-06-05 11:56+0300\n"
+"PO-Revision-Date: 2025-06-17 08:46+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -605,7 +605,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr "m3u8, m3u Çalma Listesi Dosyası (*.m3u*)"
+msgstr "m3u8, m3u çalma listesi dosyası (*.m3u*)"
 
 #: qml/ElisaMainWindow.qml:295
 #, kde-format
@@ -613,7 +613,7 @@ msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr "pls Çalma Listesi Dosyası (*.pls)"
+msgstr "pls çalma listesi dosyası (*.pls)"
 
 #: qml/ElisaMainWindow.qml:302
 #, kde-format
@@ -621,7 +621,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
 "do not translate *.m3u8 *.m3u *.pls"
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr "m3u8, m3u, pls Çalma Listesi Dosyası (*.m3u8 *.m3u *.pls)"
+msgstr "m3u8, m3u, pls çalma listesi dosyası (*.m3u8 *.m3u *.pls)"
 
 #: qml/ElisaMainWindow.qml:313
 #, kde-format
@@ -746,13 +746,10 @@ msgid "Playlist"
 msgstr "Çalma Listesi"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 parça"
+msgstr "1 Parça"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -769,9 +766,7 @@ msgid "Playlist"
 msgstr "Çalma Listesi"
 
 #: qml/MediaPlayListView.qml:71
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Geçerli Parçayı Göster"
@@ -1257,20 +1252,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Geçerli listeyi değiştirip şimdi çal"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
-msgstr "Sıradaki Yap"
+msgstr "Sonraki Parçayı Çal"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Geçerli listeyi değiştirip şimdi çal"
+msgstr "Çalma listesindeki sonraki parçayı çal"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:41+0000\n"
-"PO-Revision-Date: 2025-06-05 17:37+0300\n"
+"PO-Revision-Date: 2025-06-17 09:47+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -750,13 +750,10 @@ msgid "Playlist"
 msgstr "Список відтворення"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 композиція"
+msgstr "Одна композиція"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -773,9 +770,7 @@ msgid "Playlist"
 msgstr "Список відтворення"
 
 #: qml/MediaPlayListView.qml:71
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Показувати поточну"
@@ -1271,20 +1266,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Відтворити зараз, замінити список відтворення"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Відтворити наступну"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Відтворити зараз, замінити список відтворення"
+msgstr "Відтворити наступну у списку відтворення"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format

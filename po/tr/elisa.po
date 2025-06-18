@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-24 02:36+0000\n"
-"PO-Revision-Date: 2025-02-17 19:21+0300\n"
-"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"PO-Revision-Date: 2025-06-17 08:46+0300\n"
+"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -593,7 +593,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr "m3u8, m3u Çalma Listesi Dosyası (*.m3u*)"
+msgstr "m3u8, m3u çalma listesi dosyası (*.m3u*)"
 
 #: qml/ElisaMainWindow.qml:293
 #, kde-format
@@ -601,7 +601,7 @@ msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr "pls Çalma Listesi Dosyası (*.pls)"
+msgstr "pls çalma listesi dosyası (*.pls)"
 
 #: qml/ElisaMainWindow.qml:300
 #, kde-format
@@ -609,7 +609,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
 "do not translate *.m3u8 *.m3u *.pls"
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr "m3u8, m3u, pls Çalma Listesi Dosyası (*.m3u8 *.m3u *.pls)"
+msgstr "m3u8, m3u, pls çalma listesi dosyası (*.m3u8 *.m3u *.pls)"
 
 #: qml/ElisaMainWindow.qml:311
 #, kde-format

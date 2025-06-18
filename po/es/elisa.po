@@ -1,4 +1,5 @@
-# Translation of elisa to Spanish
+# Spanish translations for elisa.po package.
+# Copyright (C) 2016-2025 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
 # SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2024 Eloy Cuadra <ecuadra@eloihr.net>
@@ -8,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-24 02:36+0000\n"
-"PO-Revision-Date: 2025-01-18 19:26+0100\n"
+"PO-Revision-Date: 2025-06-18 01:35+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -769,13 +770,13 @@ msgstr "Limpiar todas"
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
-msgstr "Guardar..."
+msgstr "Guardar…"
 
 #: qml/MediaPlayListView.qml:100
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Load…"
-msgstr "Abrir..."
+msgstr "Abrir…"
 
 #: qml/MediaPlayListView.qml:125
 #, kde-format
@@ -1067,13 +1068,13 @@ msgstr "Archivo"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save Playlist…"
-msgstr "Guardar lista de reproducción..."
+msgstr "Guardar lista de reproducción…"
 
 #: qml/NativeGlobalMenu.qml:26
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Playlist…"
-msgstr "Abrir lista de reproducción..."
+msgstr "Abrir lista de reproducción…"
 
 #: qml/NativeGlobalMenu.qml:58
 #, kde-format
@@ -1571,7 +1572,7 @@ msgstr "Localización inicial para la vista de archivos:"
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr "Elija..."
+msgstr "Elija…"
 
 #: qml/SettingsForm.qml:336 qml/SettingsForm.qml:463
 #, kde-format

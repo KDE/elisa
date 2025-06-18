@@ -1230,7 +1230,7 @@ msgstr "立即播放，替换当前播放列表"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Next"
-msgstr "播放下一首"
+msgstr ""
 
 #: qml/NavigationActionBar.qml:148
 #, kde-format

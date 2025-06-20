@@ -32,7 +32,7 @@ AbstractBrowserDelegate {
         anchors.fill: parent
         z: 1
 
-        color: listEntry.isAlternateColor ? myPalette.alternateBase : myPalette.base
+        color: listEntry.isAlternateColor ? palette.alternateBase : palette.base
     }
 
     MouseArea {
@@ -91,7 +91,7 @@ AbstractBrowserDelegate {
 
                         blurMax: 8
                         shadowEnabled: true
-                        shadowColor: myPalette.shadow
+                        shadowColor: palette.shadow
                     }
                 }
             }
@@ -173,7 +173,7 @@ AbstractBrowserDelegate {
             when: !listEntry.activeFocus && !hoverArea.containsMouse && !listEntry.isSelected
             PropertyChanges {
                 target: rowRoot
-                color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
+                color: (isAlternateColor ? palette.alternateBase : palette.base)
             }
             PropertyChanges {
                 target: rowRoot
@@ -185,7 +185,7 @@ AbstractBrowserDelegate {
             when: !listEntry.activeFocus && hoverArea.containsMouse
             PropertyChanges {
                 target: rowRoot
-                color: myPalette.highlight
+                color: palette.highlight
             }
             PropertyChanges {
                 target: rowRoot
@@ -197,7 +197,7 @@ AbstractBrowserDelegate {
             when: !listEntry.activeFocus && listEntry.isSelected
             PropertyChanges {
                 target: rowRoot
-                color: myPalette.mid
+                color: palette.mid
             }
             PropertyChanges {
                 target: rowRoot
@@ -209,7 +209,7 @@ AbstractBrowserDelegate {
             when: listEntry.activeFocus
             PropertyChanges {
                 target: rowRoot
-                color: myPalette.highlight
+                color: palette.highlight
             }
             PropertyChanges {
                 target: rowRoot

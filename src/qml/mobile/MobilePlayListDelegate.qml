@@ -60,7 +60,7 @@ BasePlayListDelegate {
             sourceComponent: Rectangle {
                 width: background.width * (ElisaApplication.audioPlayer.position / ElisaApplication.audioPlayer.duration)
                 height: background.height
-                color: myPalette.mid
+                color: palette.mid
             }
         }
 
@@ -93,7 +93,7 @@ BasePlayListDelegate {
 
                     text: title
                     textFormat: Text.PlainText
-                    color: myPalette.text
+                    color: palette.text
                     elide: Text.ElideRight
 
                     Layout.fillWidth: true
@@ -119,7 +119,7 @@ BasePlayListDelegate {
 
                     visible: text.length > 0
                     opacity: 0.6
-                    color: myPalette.text
+                    color: palette.text
 
                     Layout.fillWidth: true
                     elide: Text.ElideRight
@@ -133,7 +133,7 @@ BasePlayListDelegate {
                 text: duration
 
                 font.weight: Font.Light
-                color: myPalette.text
+                color: palette.text
 
                 Layout.rightMargin: !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
                 Layout.leftMargin: LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0

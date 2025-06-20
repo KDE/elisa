@@ -21,9 +21,9 @@ AbstractBrowserDelegate {
 
     property color stateIndicatorColor: {
         if (gridEntry.activeFocus || hoverHandle.pressed || hoverHandle.containsMouse) {
-            return myPalette.highlight;
+            return palette.highlight;
         } else if (gridEntry.isSelected && !Kirigami.Settings.isMobile) {
-            return myPalette.mid;
+            return palette.mid;
         } else {
             return "transparent";
         }
@@ -102,7 +102,7 @@ AbstractBrowserDelegate {
 
                     shadowBlur: 0.8
                     shadowEnabled: true
-                    shadowColor: myPalette.shadow
+                    shadowColor: palette.shadow
                 }
             }
 
@@ -202,7 +202,7 @@ AbstractBrowserDelegate {
 
                         level: Kirigami.Settings.isMobile ? 6 : 4
 
-                        color: myPalette.text
+                        color: palette.text
 
                         // FIXME: Center-aligned text looks better overall, but
                         // sometimes results in font kerning issues
@@ -226,7 +226,7 @@ AbstractBrowserDelegate {
                         text: gridEntry.secondaryText
 
                         opacity: 0.6
-                        color: myPalette.text
+                        color: palette.text
 
                         // FIXME: Center-aligned text looks better overall, but
                         // sometimes results in font kerning issues

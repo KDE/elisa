@@ -279,11 +279,6 @@ Kirigami.ApplicationWindow {
         fromQAction: ElisaApplication.action("togglePartyMode")
     }
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
     Theme {
         id: elisaTheme
     }
@@ -453,7 +448,7 @@ Kirigami.ApplicationWindow {
 
         visible: !mainWindow.layerOnTop
 
-        color: myPalette.base
+        color: palette.base
         anchors.fill: parent
         anchors.bottomMargin: Kirigami.Settings.isMobile ? mobileFooterBarLoader.toolBarHeight : 0
 

@@ -47,7 +47,7 @@ Window {
     flags: Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint
            | Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint
 
-    color: myPalette.window
+    color: palette.window
 
     minimumHeight: elisaTheme.metaDataDialogHeight
     minimumWidth: elisaTheme.metaDataDialogWidth

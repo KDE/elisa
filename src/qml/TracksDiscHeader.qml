@@ -13,7 +13,7 @@ import org.kde.kirigami 2.5 as Kirigami
 Rectangle {
     property int discNumber
 
-    color: myPalette.mid
+    color: palette.mid
     height: Kirigami.Units.gridUnit + Kirigami.Units.largeSpacing
 
     LabelWithToolTip {
@@ -23,7 +23,7 @@ Rectangle {
 
         font.weight: Font.Bold
         font.italic: true
-        color: myPalette.text
+        color: palette.text
 
         verticalAlignment: Text.AlignVCenter
 

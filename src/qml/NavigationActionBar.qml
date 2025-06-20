@@ -522,7 +522,7 @@ Item {
                 anchors.fill: parent
                 z: 1
 
-                color: myPalette.window
+                color: palette.window
                 opacity: 0.3
             }
         }

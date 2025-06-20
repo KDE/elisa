@@ -35,11 +35,6 @@ BasePlayerControl {
 
     property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
     Theme {
         id: elisaTheme
     }
@@ -80,7 +75,7 @@ BasePlayerControl {
     Rectangle {
         anchors.fill: parent
 
-        color: myPalette.dark
+        color: palette.dark
         opacity: elisaTheme.mediaPlayerControlOpacity
     }
 

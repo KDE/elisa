@@ -36,11 +36,6 @@ BasePlayerControl {
 
     onIsMaximizedChanged: isMaximized ? maximize() : minimize()
 
-    SystemPalette {
-        id: myPalette
-        colorGroup: SystemPalette.Active
-    }
-
     Theme {
         id: elisaTheme
     }
@@ -48,7 +43,7 @@ BasePlayerControl {
     Rectangle {
         anchors.fill: parent
 
-        color: myPalette.midlight
+        color: palette.midlight
         opacity: elisaTheme.mediaPlayerControlOpacity
     }
 
@@ -138,7 +133,7 @@ BasePlayerControl {
                     playEnabled: musicWidget.playEnabled
                     onSeek: position => musicWidget.seek(position)
 
-                    labelColor: myPalette.text
+                    labelColor: palette.text
                 }
 
                 RowLayout {

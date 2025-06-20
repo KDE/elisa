@@ -26,7 +26,7 @@ Rectangle {
 
     implicitHeight: contentLayout.height + contentLayout.anchors.topMargin * 2
 
-    color: simpleMode ? "transparent" : myPalette.window
+    color: simpleMode ? "transparent" : palette.window
 
     RowLayout {
         id: contentLayout

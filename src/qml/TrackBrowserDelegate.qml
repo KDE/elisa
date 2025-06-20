@@ -130,7 +130,7 @@ FocusScope {
         anchors.fill: parent
         z: 1
 
-        color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
+        color: (isAlternateColor ? palette.alternateBase : palette.base)
     }
 
     MouseArea {
@@ -185,7 +185,7 @@ FocusScope {
                         radius: 8
                         samples: (radius * 2) + 1
                         cached: true
-                        color: myPalette.shadow
+                        color: palette.shadow
                     }
                 }
             }
@@ -402,7 +402,7 @@ FocusScope {
             when: !mediaTrack.activeFocus && !hoverArea.containsMouse && !mediaTrack.isSelected
             PropertyChanges {
                 target: rowRoot
-                color: (isAlternateColor ? myPalette.alternateBase : myPalette.base)
+                color: (isAlternateColor ? palette.alternateBase : palette.base)
             }
             PropertyChanges {
                 target: rowRoot
@@ -414,7 +414,7 @@ FocusScope {
             when: !mediaTrack.activeFocus && hoverArea.containsMouse
             PropertyChanges {
                 target: rowRoot
-                color: myPalette.highlight
+                color: palette.highlight
             }
             PropertyChanges {
                 target: rowRoot
@@ -426,7 +426,7 @@ FocusScope {
             when: !mediaTrack.activeFocus && mediaTrack.isSelected
             PropertyChanges {
                 target: rowRoot
-                color: myPalette.mid
+                color: palette.mid
             }
             PropertyChanges {
                 target: rowRoot
@@ -438,7 +438,7 @@ FocusScope {
             when: mediaTrack.activeFocus
             PropertyChanges {
                 target: rowRoot
-                color: myPalette.highlight
+                color: palette.highlight
             }
             PropertyChanges {
                 target: rowRoot

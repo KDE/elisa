@@ -72,7 +72,7 @@ BasePlayerControl {
             mipmap: true
 
             source: trackPlayer.image
-            fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
+            fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
 
             sourceSize {
                 width: imageSourceSize * Screen.devicePixelRatio

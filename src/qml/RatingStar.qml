@@ -97,8 +97,8 @@ QQC2.Control {
 
                     animated: false
                     source: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
-                        ? Qt.resolvedUrl(elisaTheme.ratingIcon)
-                        : Qt.resolvedUrl(elisaTheme.ratingUnratedIcon)
+                        ? Qt.resolvedUrl(Theme.ratingIcon)
+                        : Qt.resolvedUrl(Theme.ratingUnratedIcon)
 
                     opacity: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
                         ? 1 : 0.7

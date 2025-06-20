@@ -40,7 +40,7 @@ Kirigami.Page {
     title: i18nc("@title:window Title of the context view related to the currently playing track", "Now Playing")
     padding: 0
 
-    property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+    property bool isWidescreen: mainWindow.width >= Theme.viewSelectorSmallSizeThreshold
 
     onAlbumArtUrlChanged: {
         background.loadImage();
@@ -90,7 +90,7 @@ Kirigami.Page {
             // Invisible; this exists purely to make the toolbar height match that
             // of the adjacent one
             Item {
-                implicitHeight: elisaTheme.toolBarHeaderMinimumHeight
+                implicitHeight: Theme.toolBarHeaderMinimumHeight
             }
 
             ButtonGroup {
@@ -195,7 +195,7 @@ Kirigami.Page {
 
                 doesSkipAnimation = currentItem == undefined;
                 pendingImage = backgroundComponent.createObject(background, {
-                    "source": topItem.albumArtUrl.toString() === "" ? Qt.resolvedUrl(elisaTheme.defaultAlbumImage) : topItem.albumArtUrl,
+                    "source": topItem.albumArtUrl.toString() === "" ? Qt.resolvedUrl(Theme.defaultAlbumImage) : topItem.albumArtUrl,
                     "opacity": 0,
                 });
 

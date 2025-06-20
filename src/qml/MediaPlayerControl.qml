@@ -36,15 +36,11 @@ BasePlayerControl {
 
     onIsMaximizedChanged: isMaximized ? maximize() : minimize()
 
-    Theme {
-        id: elisaTheme
-    }
-
     Rectangle {
         anchors.fill: parent
 
         color: palette.midlight
-        opacity: elisaTheme.mediaPlayerControlOpacity
+        opacity: Theme.mediaPlayerControlOpacity
     }
 
     ToolBar {
@@ -153,9 +149,9 @@ BasePlayerControl {
 
                     VolumeSlider {
                         id: volumeSlider
-                        Layout.preferredWidth: elisaTheme.volumeSliderWidth
-                        Layout.maximumWidth: elisaTheme.volumeSliderWidth
-                        Layout.minimumWidth: elisaTheme.volumeSliderWidth
+                        Layout.preferredWidth: Theme.volumeSliderWidth
+                        Layout.maximumWidth: Theme.volumeSliderWidth
+                        Layout.minimumWidth: Theme.volumeSliderWidth
                         Layout.fillHeight: true
 
                         muted: musicWidget.muted
@@ -286,7 +282,7 @@ BasePlayerControl {
                     // show the playlistDrawer handle, this opens the drawer instead
 
                     id: showHidePlaylistAction
-                    property bool _togglesDrawer: mainWindow.width < elisaTheme.viewSelectorSmallSizeThreshold
+                    property bool _togglesDrawer: mainWindow.width < Theme.viewSelectorSmallSizeThreshold
 
                     action: Kirigami.Action {
                         fromQAction: ElisaApplication.action("toggle_playlist")

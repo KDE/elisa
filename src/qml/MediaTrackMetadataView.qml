@@ -48,8 +48,8 @@ Window {
 
     color: palette.window
 
-    minimumHeight: elisaTheme.metaDataDialogHeight
-    minimumWidth: elisaTheme.metaDataDialogWidth
+    minimumHeight: Theme.metaDataDialogHeight
+    minimumWidth: Theme.metaDataDialogWidth
 
     // Close when pressing Esc key
     Shortcut {
@@ -96,7 +96,7 @@ Window {
                     implicitWidth: size
                     implicitHeight: size
 
-                    source: elisaTheme.folderIcon
+                    source: Theme.folderIcon
                 }
 
                 LabelWithToolTip {

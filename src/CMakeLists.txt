@@ -312,10 +312,6 @@ endif()
 
 target_include_directories(elisaLib PRIVATE ${elisaLib_INCLUDEDIRS})
 
-set_source_files_properties(windows/WindowsTheme.qml PROPERTIES
-    QT_RESOURCE_ALIAS qml/+windows/WindowsTheme.qml
-)
-
 set_source_files_properties(windows/PlatformIntegration.qml PROPERTIES
     QT_RESOURCE_ALIAS qml/+windows/PlatformIntegration.qml
 )
@@ -328,6 +324,9 @@ set_source_files_properties(android/qtquickcontrols2.conf PROPERTIES
     QT_RESOURCE_ALIAS qml/+android/qtquickcontrols2.conf
 )
 
+set_source_files_properties(qml/Theme.qml
+    PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
 qt_policy(SET QTP0001 NEW)
 qt_add_qml_module(elisaLib
     URI org.kde.elisa
@@ -335,13 +334,12 @@ qt_add_qml_module(elisaLib
         android/PlatformIntegration.qml
 
         windows/PlatformIntegration.qml
-        windows/WindowsTheme.qml
 
         qml/AbstractBrowserDelegate.qml
         qml/AbstractDataView.qml
         qml/AccessibleSlider.qml
         qml/ApplicationMenu.qml
-        qml/BaseTheme.qml
+        qml/Theme.qml
         qml/BasicPlayListAlbumHeader.qml
         qml/ButtonWithToolTip.qml
         qml/ConfigurationDialog.qml
@@ -377,7 +375,6 @@ qt_add_qml_module(elisaLib
         qml/ShuffleModeItem.qml
         qml/SimplePlayListView.qml
         qml/SortMenu.qml
-        qml/Theme.qml
         qml/TrackBrowserDelegate.qml
         qml/TrackImportNotification.qml
         qml/TracksDiscHeader.qml

@@ -50,7 +50,7 @@ Item {
     signal goBack();
     signal showArtist(string name)
 
-    property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+    property bool isWidescreen: mainWindow.width >= Theme.viewSelectorSmallSizeThreshold
 
     required property bool displaySingleAlbum
 
@@ -268,7 +268,7 @@ Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.leftMargin: mainIcon.visible ? Kirigami.Units.smallSpacing : Kirigami.Units.largeSpacing
-                    Layout.minimumHeight: elisaTheme.toolBarHeaderMinimumHeight
+                    Layout.minimumHeight: Theme.toolBarHeaderMinimumHeight
 
                     spacing: 0
 
@@ -493,7 +493,7 @@ Item {
                 anchors.fill: parent
 
                 source: ElisaApplication.manageHeaderBar.image
-                fallback: elisaTheme.defaultBackgroundImage
+                fallback: Theme.defaultBackgroundImage
                 asynchronous: true
 
                 sourceSize.width: Screen.width

@@ -21,7 +21,7 @@ BasePlayListDelegate {
     property bool editingRating: false
     // wideMode means there is enough room for the button row
     // otherwise display a menu button
-    readonly property bool wideMode: width >= elisaTheme.playListEntryMinWidth
+    readonly property bool wideMode: width >= Theme.playListEntryMinWidth
 
     property var listDelegate
 
@@ -156,7 +156,7 @@ BasePlayListDelegate {
             // We want the list items to be a bit taller in touch mode
             height: Math.max(
                 (playListEntry.grouped && !Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.gridUnit : Kirigami.Units.gridUnit * 2),
-                (elisaTheme.toolButtonHeight + Kirigami.Units.smallSpacing))
+                (Theme.toolButtonHeight + Kirigami.Units.smallSpacing))
 
             spacing: Kirigami.Units.smallSpacing
 
@@ -179,7 +179,7 @@ BasePlayListDelegate {
 
             // Container for the play/pause icon and the track/disc label
             Item {
-                Layout.preferredWidth: Math.max(elisaTheme.trackNumberWidth, elisaTheme.coverArtSize)
+                Layout.preferredWidth: Math.max(Theme.trackNumberWidth, Theme.coverArtSize)
                 Layout.fillHeight: true
 
                 Loader {
@@ -189,7 +189,7 @@ BasePlayListDelegate {
 
                     sourceComponent: ImageWithFallback {
                         source: imageUrl
-                        fallback: elisaTheme.defaultAlbumImage
+                        fallback: Theme.defaultAlbumImage
 
                         sourceSize.width: height
                         sourceSize.height: height
@@ -205,7 +205,7 @@ BasePlayListDelegate {
                     anchors.centerIn: parent
 
                     source: (isPlaying === MediaPlayList.IsPlaying ?
-                    Qt.resolvedUrl(elisaTheme.playingIndicatorIcon) : Qt.resolvedUrl(elisaTheme.pausedIndicatorIcon))
+                    Qt.resolvedUrl(Theme.playingIndicatorIcon) : Qt.resolvedUrl(Theme.pausedIndicatorIcon))
 
                     width: Kirigami.Units.iconSizes.smallMedium
                     height: Kirigami.Units.iconSizes.smallMedium

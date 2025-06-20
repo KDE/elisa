@@ -56,7 +56,7 @@ FocusScope {
     ListView.onPooled: delegateLoaded = false
     ListView.onReused: delegateLoaded = true
 
-    height: detailedView ? elisaTheme.listDelegateHeight : elisaTheme.listDelegateSingleLineHeight
+    height: detailedView ? Theme.listDelegateHeight : Theme.listDelegateSingleLineHeight
 
     property list<Kirigami.Action> actions: [
         Kirigami.Action {
@@ -172,7 +172,7 @@ FocusScope {
                     smooth: true
 
                     source: imageUrl
-                    fallback: elisaTheme.defaultAlbumImage
+                    fallback: Theme.defaultAlbumImage
 
                     asynchronous: true
 
@@ -296,8 +296,8 @@ FocusScope {
                         delegate: FlatButtonWithToolTip {
                             required property Kirigami.Action modelData
 
-                            width: elisaTheme.listDelegateSingleLineHeight
-                            height: elisaTheme.listDelegateSingleLineHeight
+                            width: Theme.listDelegateSingleLineHeight
+                            height: Theme.listDelegateSingleLineHeight
                             action: modelData
                             visible: modelData.visible
                         }
@@ -316,8 +316,8 @@ FocusScope {
                 z: 1
 
                 sourceComponent: FlatButtonWithToolTip {
-                    width: elisaTheme.listDelegateSingleLineHeight
-                    height: elisaTheme.listDelegateSingleLineHeight
+                    width: Theme.listDelegateSingleLineHeight
+                    height: Theme.listDelegateSingleLineHeight
                     text: i18nc("@action:button", "Cancel rating this track")
                     icon.name: "dialog-cancel"
                     onClicked: { mediaTrack.editingRating = false; }
@@ -344,8 +344,8 @@ FocusScope {
                 visible: !Kirigami.Settings.isMobile && ElisaApplication.useFavoriteStyleRatings && !hoverLoader.active && mediaTrack.isFavorite
 
                 sourceComponent: FlatButtonWithToolTip {
-                    width: elisaTheme.listDelegateSingleLineHeight
-                    height: elisaTheme.listDelegateSingleLineHeight
+                    width: Theme.listDelegateSingleLineHeight
+                    height: Theme.listDelegateSingleLineHeight
                     icon.name: mediaTrack.isFavorite ? "rating" : "rating-unrated"
                 }
             }
@@ -370,7 +370,7 @@ FocusScope {
                 Layout.alignment: Qt.AlignVCenter
                 Layout.maximumHeight: parent.height
                 Layout.preferredWidth: height
-                Layout.preferredHeight: elisaTheme.listDelegateSingleLineHeight - Kirigami.Units.smallSpacing * 2
+                Layout.preferredHeight: Theme.listDelegateSingleLineHeight - Kirigami.Units.smallSpacing * 2
 
                 text: i18nc("@action:button", "Song Options")
                 icon.name: "view-more-symbolic"

@@ -141,7 +141,7 @@ FocusScope {
         id: backgroundComponent
 
         ImageWithFallback {
-            fallback: Qt.resolvedUrl(elisaTheme.defaultBackgroundImage)
+            fallback: Qt.resolvedUrl(Theme.defaultBackgroundImage)
             asynchronous: true
 
             sourceSize.width: Screen.width
@@ -186,8 +186,8 @@ FocusScope {
         text: i18nc("@action:button", "Exit Full Screen")
         icon.name: "view-restore"
         display: AbstractButton.TextBesideIcon
-        icon.color: elisaTheme.headerForegroundColor
-        Kirigami.Theme.textColor: elisaTheme.headerForegroundColor
+        icon.color: Theme.headerForegroundColor
+        Kirigami.Theme.textColor: Theme.headerForegroundColor
 
         onClicked: mainWindow.restorePreviousStateBeforeFullScreen();
     }
@@ -224,7 +224,7 @@ FocusScope {
         // Hardcoded because the headerbar blur always makes a dark-ish
         // background, so we don't want to use a color scheme color that
         // might also be dark.
-        Kirigami.Theme.textColor: elisaTheme.headerForegroundColor
+        Kirigami.Theme.textColor: Theme.headerForegroundColor
 
 
         GridLayout {
@@ -295,7 +295,7 @@ FocusScope {
                     asynchronous: true
                     mipmap: true
 
-                    fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
+                    fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
 
                     sourceSize {
                         width: imageSourceSize * Screen.devicePixelRatio

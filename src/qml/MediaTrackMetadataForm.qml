@@ -104,17 +104,17 @@ Kirigami.FormLayout {
 
     Item {
         id: imageParent
-        implicitHeight: elisaTheme.coverImageSize
-        implicitWidth: elisaTheme.coverImageSize
+        implicitHeight: Theme.coverImageSize
+        implicitWidth: Theme.coverImageSize
 
         ImageWithFallback {
             id: metadataImage
 
             source: metadataModel.coverUrl
-            fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
+            fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
 
-            sourceSize.width: elisaTheme.coverImageSize * Screen.devicePixelRatio
-            sourceSize.height: elisaTheme.coverImageSize * Screen.devicePixelRatio
+            sourceSize.width: Theme.coverImageSize * Screen.devicePixelRatio
+            sourceSize.height: Theme.coverImageSize * Screen.devicePixelRatio
 
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent

@@ -135,7 +135,7 @@ Kirigami.ApplicationWindow {
         id: playlistDrawer
         handleClosedIcon.name: "view-media-playlist"
         // force same color as header text; always has dark background
-        handleClosedIcon.color: elisaTheme.headerForegroundColor
+        handleClosedIcon.color: Theme.headerForegroundColor
         handleOpenIcon.name: "view-right-close"
         handleClosedToolTip: i18nc("@action:button", "Show playlist drawer")
         handleOpenToolTip: i18nc("@action:button", "Hide playlist drawer")
@@ -242,7 +242,7 @@ Kirigami.ApplicationWindow {
     readonly property alias fileDialog: fileDialog
 
     readonly property bool inPartyMode: headerBarLoader.item?.isMaximized ?? false
-    readonly property bool isWideScreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
+    readonly property bool isWideScreen: mainWindow.width >= Theme.viewSelectorSmallSizeThreshold
     readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > headerBarLoader.toolBarHeight * 2
 
     // Setup keyboard shortcuts for actions that aren't used in the GUI
@@ -276,10 +276,6 @@ Kirigami.ApplicationWindow {
 
     Kirigami.Action {
         fromQAction: ElisaApplication.action("togglePartyMode")
-    }
-
-    Theme {
-        id: elisaTheme
     }
 
     FileDialog {

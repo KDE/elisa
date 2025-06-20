@@ -45,11 +45,11 @@ Rectangle {
         }
 
         ImageWithFallback {
-            Layout.preferredWidth: elisaTheme.coverArtSize
-            Layout.preferredHeight: elisaTheme.coverArtSize
+            Layout.preferredWidth: Theme.coverArtSize
+            Layout.preferredHeight: Theme.coverArtSize
 
             source: imageUrl
-            fallback: elisaTheme.defaultAlbumImage
+            fallback: Theme.defaultAlbumImage
 
             sourceSize.width: height * Screen.devicePixelRatio
             sourceSize.height: height * Screen.devicePixelRatio

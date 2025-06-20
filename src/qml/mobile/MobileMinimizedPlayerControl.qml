@@ -33,18 +33,14 @@ BasePlayerControl {
 
     property int imageSourceSize: 512
 
-    property bool isWidescreen: mainWindow.width >= elisaTheme.viewSelectorSmallSizeThreshold
-
-    Theme {
-        id: elisaTheme
-    }
+    property bool isWidescreen: mainWindow.width >= Theme.viewSelectorSmallSizeThreshold
 
     // background image
     ImageWithFallback {
         id: oldBackground
 
         source: image
-        fallback: elisaTheme.defaultBackgroundImage
+        fallback: Theme.defaultBackgroundImage
         asynchronous: true
 
         anchors.fill: parent
@@ -76,7 +72,7 @@ BasePlayerControl {
         anchors.fill: parent
 
         color: palette.dark
-        opacity: elisaTheme.mediaPlayerControlOpacity
+        opacity: Theme.mediaPlayerControlOpacity
     }
 
     // progress bar for limited width (phones)
@@ -126,7 +122,7 @@ BasePlayerControl {
                         mipmap: true
 
                         source: image
-                        fallback: Qt.resolvedUrl(elisaTheme.defaultAlbumImage)
+                        fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
 
                         sourceSize {
                             width: imageSourceSize * Screen.devicePixelRatio

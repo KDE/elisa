@@ -128,7 +128,7 @@ Flickable {
         }
 
         component BlurredImage : ImageWithFallback {
-            fallback: elisaTheme.defaultBackgroundImage
+            fallback: Theme.defaultBackgroundImage
             asynchronous: true
 
             anchors.fill: parent
@@ -213,12 +213,12 @@ Flickable {
         onStarted: {
             newBackground.opacity = 0;
             newBackground.visible = true;
-            newBackground.source = (newImage ? newImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage));
+            newBackground.source = (newImage ? newImage : Qt.resolvedUrl(Theme.defaultBackgroundImage));
         }
 
         onStopped: {
             footerBar.oldImage = image;
-            oldBackground.source = (footerBar.oldImage ? footerBar.oldImage : Qt.resolvedUrl(elisaTheme.defaultBackgroundImage));
+            oldBackground.source = (footerBar.oldImage ? footerBar.oldImage : Qt.resolvedUrl(Theme.defaultBackgroundImage));
             oldBackground.opacity = 1;
             newBackground.visible = false;
             oldImage = newImage;

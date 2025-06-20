@@ -24,7 +24,7 @@ AbstractBrowserDelegate {
 
     property bool hideActions: false
 
-    height: elisaTheme.listDelegateHeight
+    height: Theme.listDelegateHeight
 
     Rectangle {
         id: rowRoot
@@ -145,8 +145,8 @@ AbstractBrowserDelegate {
                         delegate: FlatButtonWithToolTip {
                             required property Kirigami.Action modelData
 
-                            width: elisaTheme.listDelegateSingleLineHeight
-                            height: elisaTheme.listDelegateSingleLineHeight
+                            width: Theme.listDelegateSingleLineHeight
+                            height: Theme.listDelegateSingleLineHeight
                             action: modelData
                             visible: modelData.visible
                         }
@@ -162,7 +162,7 @@ AbstractBrowserDelegate {
                 Layout.alignment: Qt.AlignVCenter
                 Layout.maximumHeight: parent.height
                 Layout.preferredWidth: height
-                Layout.preferredHeight: elisaTheme.listDelegateSingleLineHeight - Kirigami.Units.smallSpacing * 2
+                Layout.preferredHeight: Theme.listDelegateSingleLineHeight - Kirigami.Units.smallSpacing * 2
             }
         }
     }

@@ -72,7 +72,7 @@ AbstractDataView {
         GridBrowserDelegate {
             Package.name: 'grid'
 
-            width: Kirigami.Settings.isMobile ? contentDirectoryView.cellWidth : elisaTheme.gridDelegateSize
+            width: Kirigami.Settings.isMobile ? contentDirectoryView.cellWidth : Theme.gridDelegateSize
             height: contentDirectoryView.cellHeight
 
             focus: true
@@ -154,13 +154,13 @@ AbstractDataView {
 
             sourceComponent: ListBrowserDelegate {
                 index: 0
-                height: elisaTheme.listDelegateHeight
+                height: Theme.listDelegateHeight
                 width: contentDirectoryView.width
                 hideActions: true
                 hasChildren: true
                 mainText: i18nc("@item:intable View all tracks", "All tracks")
                 secondaryText: i18ncp("@item:intable number of tracks/songs in all albums", "%1 track", "%1 tracks", gridView.contentModel.tracksCount)
-                imageFallbackUrl: elisaTheme.trackIcon
+                imageFallbackUrl: Theme.trackIcon
                 onOpen: gridView.viewManager.openTracksView(gridView.mainTitle)
             }
         }
@@ -170,18 +170,18 @@ AbstractDataView {
                 return width;
             }
 
-            const columns = Math.max(Math.floor(width / elisaTheme.gridDelegateSize), 2);
+            const columns = Math.max(Math.floor(width / Theme.gridDelegateSize), 2);
             return Math.floor(width / columns);
         }
         cellHeight: {
             if (!gridView.showingGridViewStyle) {
-                return elisaTheme.listDelegateHeight;
+                return Theme.listDelegateHeight;
             }
 
             if (Kirigami.Settings.isMobile) {
                 return cellWidth + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
             } else {
-                return elisaTheme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
+                return Theme.gridDelegateSize + Kirigami.Units.gridUnit * 2 + Kirigami.Units.largeSpacing;
             }
         }
     }

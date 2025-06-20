@@ -58,7 +58,7 @@ Kirigami.Page {
             // Invisible; this exists purely to make the toolbar height match that
             // of the adjacent one
             Item {
-                implicitHeight: elisaTheme.toolBarHeaderMinimumHeight
+                implicitHeight: Theme.toolBarHeaderMinimumHeight
             }
 
             Kirigami.ActionToolBar {

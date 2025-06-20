@@ -118,7 +118,7 @@ Kirigami.ScrollablePage {
                 Layout.preferredWidth: fileNameLabel.height
                 Layout.preferredHeight: fileNameLabel.height
 
-                source: elisaTheme.folderIcon
+                source: Theme.folderIcon
             }
 
             LabelWithToolTip {

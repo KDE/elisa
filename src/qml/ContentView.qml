@@ -37,7 +37,7 @@ SplitView {
     }
 
     function openAlbum(album, artist, image, albumID) {
-        image = !image ? elisaTheme.defaultAlbumImage : image;
+        image = !image ? Theme.defaultAlbumImage : image;
         viewManager.openAlbumView(album, artist, albumID, image);
     }
 
@@ -182,7 +182,7 @@ SplitView {
         focus: true
 
         SplitView.fillWidth: true
-        SplitView.minimumWidth: Kirigami.Settings.isMobile ? mainWindow.minimumWidth : elisaTheme.contentViewMinimumSize
+        SplitView.minimumWidth: Kirigami.Settings.isMobile ? mainWindow.minimumWidth : Theme.contentViewMinimumSize
 
         MouseArea {
             anchors.fill: parent

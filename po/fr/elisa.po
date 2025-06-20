@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:41+0000\n"
-"PO-Revision-Date: 2025-06-10 14:44+0200\n"
+"PO-Revision-Date: 2025-06-18 17:13+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -754,13 +754,10 @@ msgid "Playlist"
 msgstr "Liste de lecture"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "Piste %1"
+msgstr "Une piste"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -777,9 +774,7 @@ msgid "Playlist"
 msgstr "Liste de lecture"
 
 #: qml/MediaPlayListView.qml:71
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Afficher la piste actuelle"
@@ -1265,20 +1260,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Lire maintenant. Remplacement de la liste de lecture courante"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
-msgstr "Lire le suivant"
+msgstr "Lire le morceau suivant"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Lire maintenant. Remplacement de la liste de lecture courante"
+msgstr "Lire le morceau suivant de la liste de lecture"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format

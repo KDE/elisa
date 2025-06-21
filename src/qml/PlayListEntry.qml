@@ -42,9 +42,6 @@ BasePlayListDelegate {
         playListEntry.startPlayback()
     }
 
-    KeyNavigation.right: (buttonRowLoader.item && buttonRowLoader.item.children[0]) || menuButtonLoader.item || null
-    KeyNavigation.left:  (buttonRowLoader.item && buttonRowLoader.item.children[buttonRowLoader.item.children.length -1]) || menuButtonLoader.item || null
-
     topPadding: grouped ? 0 : Kirigami.Units.smallSpacing
     bottomPadding: grouped ? 0 : Kirigami.Units.smallSpacing
     leftPadding: mirrored ? Kirigami.Units.smallSpacing : 0
@@ -279,6 +276,8 @@ BasePlayListDelegate {
                 visible: active && !playListEntry.editingRating
 
                 sourceComponent: Row {
+                    id: buttonRow
+
                     FlatButtonWithToolTip {
                         id: locateFileButton
                         action: actionList.locateFileAction
@@ -326,6 +325,11 @@ BasePlayListDelegate {
                         visible: actionList.favoriteAction.visible
 
                         KeyNavigation.right: locateFileButton
+                    }
+
+                    data: Binding {
+                        playListEntry.KeyNavigation.right: buttonRow.children[0]
+                        playListEntry.KeyNavigation.left: buttonRow.children[buttonRow.children.length - 1]
                     }
                 }
             }
@@ -375,6 +379,8 @@ BasePlayListDelegate {
                 active: !playListEntry.wideMode || Kirigami.Settings.hasTransientTouchInput
                 visible: active
                 sourceComponent: FlatButtonWithToolTip {
+                    id: menuButton
+
                     icon.name: "overflow-menu"
                     text: entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
                     down: pressed || menuLoader.menuVisible
@@ -382,6 +388,11 @@ BasePlayListDelegate {
                     Keys.onReturnPressed: menuLoader.item.open()
                     Keys.onEnterPressed: menuLoader.item.open()
                     activeFocusOnTab: playListEntry.isSelected
+
+                    Binding {
+                        playListEntry.KeyNavigation.right: menuButton
+                        playListEntry.KeyNavigation.left: menuButton
+                    }
                 }
             }
             Loader {

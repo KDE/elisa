@@ -745,7 +745,7 @@ msgstr "播放列表"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr ""
+msgstr "1 首曲目"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -1242,13 +1242,13 @@ msgstr "立即播放，替换当前播放列表"
 #, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
-msgstr ""
+msgstr "播放下一首"
 
 #: qml/NavigationActionBar.qml:148
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr ""
+msgstr "播放列表中的下一首"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format

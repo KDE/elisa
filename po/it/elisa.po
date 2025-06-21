@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:41+0000\n"
-"PO-Revision-Date: 2025-06-10 11:36+0200\n"
+"PO-Revision-Date: 2025-06-18 15:30+0200\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -748,17 +748,11 @@ msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Scaletta"
 
-# NOTA: Non togliere %1 dalla forma singola in questo caso,
-# perché la forma plurale richiede due segnaposto e la forma
-# singolare ne deve perciò avere almeno uno.
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 traccia"
+msgstr "Una traccia"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -775,9 +769,7 @@ msgid "Playlist"
 msgstr "Scaletta"
 
 #: qml/MediaPlayListView.qml:71
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Mostra attuale"
@@ -1272,20 +1264,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Riproduci adesso, sostituendo la scaletta attuale"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Riproduci successivo"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Riproduci adesso, sostituendo la scaletta attuale"
+msgstr "Riproduci il successivo nella scaletta"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format

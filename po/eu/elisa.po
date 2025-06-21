@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:41+0000\n"
-"PO-Revision-Date: 2025-06-08 10:24+0200\n"
+"PO-Revision-Date: 2025-06-20 22:58+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -748,13 +748,10 @@ msgid "Playlist"
 msgstr "Jotze-zerrenda"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "Pista %1"
+msgstr "Pista bat"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -771,9 +768,7 @@ msgid "Playlist"
 msgstr "Jotze-zerrenda"
 
 #: qml/MediaPlayListView.qml:71
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Erakutsi unekoa"
@@ -1259,20 +1254,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Jo orain, uneko jotze-zerrenda ordezkatuz"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Jo hurrengoa"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Jo orain, uneko jotze-zerrenda ordezkatuz"
+msgstr "Jo jotze-zerrendan hurrengoa"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format

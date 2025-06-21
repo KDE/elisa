@@ -279,22 +279,53 @@ BasePlayListDelegate {
                 visible: active && !playListEntry.editingRating
 
                 sourceComponent: Row {
-                    Repeater {
-                        model: [
-                            actionList.locateFileAction,
-                            actionList.infoAction,
-                            actionList.playPauseAction,
-                            actionList.removeAction,
-                            actionList.ratingAction,
-                            actionList.favoriteAction
-                        ]
-                        delegate: FlatButtonWithToolTip {
-                            required property Kirigami.Action modelData
+                    FlatButtonWithToolTip {
+                        id: locateFileButton
+                        action: actionList.locateFileAction
+                        visible: actionList.locateFileAction.visible
 
-                            action: modelData
-                            visible: modelData.visible
-                            activeFocusOnTab: playListEntry.isSelected
-                        }
+                        KeyNavigation.left: favoriteButton
+                        KeyNavigation.right: infoButton
+                    }
+
+                    FlatButtonWithToolTip {
+                        id: infoButton
+                        action: actionList.infoAction
+                        visible: actionList.infoAction.visible
+
+                        KeyNavigation.right: playPauseButton
+                    }
+
+                    FlatButtonWithToolTip {
+                        id: playPauseButton
+                        action: actionList.playPauseAction
+                        visible: actionList.playPauseAction.visible
+
+                        KeyNavigation.right: removeButton
+                    }
+
+                    FlatButtonWithToolTip {
+                        id: removeButton
+                        action: actionList.removeAction
+                        visible: actionList.removeAction.visible
+
+                        KeyNavigation.right: ratingButton
+                    }
+
+                    FlatButtonWithToolTip {
+                        id: ratingButton
+                        action: actionList.ratingAction
+                        visible: actionList.ratingAction.visible
+
+                        KeyNavigation.right: favoriteButton
+                    }
+
+                    FlatButtonWithToolTip {
+                        id: favoriteButton
+                        action: actionList.favoriteAction
+                        visible: actionList.favoriteAction.visible
+
+                        KeyNavigation.right: locateFileButton
                     }
                 }
             }

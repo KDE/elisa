@@ -2062,12 +2062,3 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
-
-# unreviewed-context
-#~ msgctxt "@action:inmenu"
-#~ msgid "One"
-#~ msgstr "Eitt"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Play next"
-#~ msgstr "Spel som neste"

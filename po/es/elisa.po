@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:41+0000\n"
-"PO-Revision-Date: 2025-06-09 01:43+0100\n"
+"PO-Revision-Date: 2025-06-22 18:45+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -747,13 +747,10 @@ msgid "Playlist"
 msgstr "Lista de reproducción"
 
 #: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 pista"
+msgstr "Una pista"
 
 #: qml/MediaPlayerControl.qml:321
 #, kde-format
@@ -770,9 +767,7 @@ msgid "Playlist"
 msgstr "Lista"
 
 #: qml/MediaPlayListView.qml:71
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Mostrar actual"
@@ -1258,20 +1253,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Reproducir ahora, sustituyendo la lista de reproducción actual"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Reproducir siguiente"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Reproducir ahora, sustituyendo la lista de reproducción actual"
+msgstr "Reproducir siguiente en la lista"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1942,11 +1933,3 @@ msgstr "Archivos"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estaciones de radio"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "One"
-#~ msgstr "Una"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Play next"
-#~ msgstr "Reproducir siguiente"

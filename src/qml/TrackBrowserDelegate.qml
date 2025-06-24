@@ -16,8 +16,6 @@ import Qt5Compat.GraphicalEffects
 import org.kde.kirigami 2.19 as Kirigami
 import org.kde.elisa
 
-import "mobile"
-
 FocusScope {
     id: mediaTrack
 

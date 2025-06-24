@@ -8,7 +8,6 @@ pragma ComponentBehavior: Bound
 
 import QtQuick 2.0
 import org.kde.elisa
-import QtMultimedia as Multimedia
 
 Item {
     id: rootItem

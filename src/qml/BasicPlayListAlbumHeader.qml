@@ -9,12 +9,9 @@ pragma ComponentBehavior: Bound
 import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.3
 import org.kde.kirigami 2.10 as Kirigami
 
 import org.kde.elisa
-
-import QtQuick 2.0
 
 Rectangle {
     property var headerData

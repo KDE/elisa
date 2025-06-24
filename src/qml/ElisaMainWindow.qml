@@ -8,7 +8,6 @@ pragma ComponentBehavior: Bound
 
 import QtCore
 import QtQuick 2.15
-import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.kde.config as KConfig

@@ -10,8 +10,6 @@ pragma ComponentBehavior: Bound
 import QtQuick 2.15
 import org.kde.kirigami 2.19 as Kirigami
 
-import "mobile"
-
 FocusScope {
     id: dataEntry
 

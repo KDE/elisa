@@ -8,7 +8,6 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Controls 2.15 as QQC2
-import QtQuick.Layouts 1.2
 import QtQuick.Effects as FX
 import org.kde.kirigami 2.5 as Kirigami
 

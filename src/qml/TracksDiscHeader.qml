@@ -7,7 +7,6 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick 2.7
-import QtQuick.Layouts 1.2
 import org.kde.kirigami 2.5 as Kirigami
 
 Rectangle {

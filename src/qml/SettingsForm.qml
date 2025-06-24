@@ -19,8 +19,6 @@ import org.kde.kirigami 2.14 as Kirigami
 
 import org.kde.elisa
 
-import ".."
-
 ColumnLayout {
     readonly property alias dirtyClosingDialog: dirtyClosingDialog
 

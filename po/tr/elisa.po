@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-17 00:41+0000\n"
+"POT-Creation-Date: 2025-06-24 00:41+0000\n"
 "PO-Revision-Date: 2025-06-17 08:46+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -396,7 +396,7 @@ msgid "Add to playlist"
 msgstr "Çalma Listesine Ekle"
 
 #: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/PlayListEntry.qml:88 qml/TrackBrowserDelegate.qml:65
+#: qml/PlayListEntry.qml:85 qml/TrackBrowserDelegate.qml:65
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -489,7 +489,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Şarkı Sözleri"
 
-#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:304
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:299
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
@@ -548,7 +548,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "Yükleme başarısız oldu"
 
-#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:313
+#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:308
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -578,7 +578,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Çalma listesi çekmecesini gizle"
 
-#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:623
+#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:618
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -599,7 +599,7 @@ msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:295
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -607,7 +607,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u çalma listesi dosyası (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:295
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -615,7 +615,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls çalma listesi dosyası (*.pls)"
 
-#: qml/ElisaMainWindow.qml:302
+#: qml/ElisaMainWindow.qml:297
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
@@ -623,7 +623,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "m3u8, m3u, pls çalma listesi dosyası (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:313
+#: qml/ElisaMainWindow.qml:308
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -635,123 +635,123 @@ msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Tam Ekran Kipinden Çık"
 
-#: qml/MediaPlayerControl.qml:100
+#: qml/MediaPlayerControl.qml:95
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
 msgstr "Parti kipinden çık"
 
-#: qml/MediaPlayerControl.qml:101
+#: qml/MediaPlayerControl.qml:96
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "Parti kipine gir"
 
-#: qml/MediaPlayerControl.qml:109
+#: qml/MediaPlayerControl.qml:104
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Geri atla"
 
-#: qml/MediaPlayerControl.qml:118
+#: qml/MediaPlayerControl.qml:113
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Duraklat"
 
-#: qml/MediaPlayerControl.qml:119
+#: qml/MediaPlayerControl.qml:114
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Çal"
 
-#: qml/MediaPlayerControl.qml:127
+#: qml/MediaPlayerControl.qml:122
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "İleri atla"
 
-#: qml/MediaPlayerControl.qml:153
+#: qml/MediaPlayerControl.qml:148
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "Sesi aç"
 
-#: qml/MediaPlayerControl.qml:154
+#: qml/MediaPlayerControl.qml:149
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "Sessize al"
 
-#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:171 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "Geçerli: Karıştırma yok"
 
-#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Geçerli: Parçaları karıştır"
 
-#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Geçerli: Albümleri karıştır"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:244
+#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Parça"
 
-#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:248
+#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:248
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Albüm"
 
-#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
+#: qml/MediaPlayerControl.qml:209 qml/MediaPlayerControl.qml:267
 #: qml/mobile/MobileTrackPlayer.qml:252 qml/mobile/MobileTrackPlayer.qml:305
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Yok"
 
-#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:230 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Geçerli: Parçaları yineleme"
 
-#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Geçerli: Çalınan parçayı yinele"
 
-#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Geçerli: Çalma listesindeki tüm parçaları yinele"
 
-#: qml/MediaPlayerControl.qml:264 qml/mobile/MobileTrackPlayer.qml:297
+#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Çalma Listesi"
 
-#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:301
+#: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "1 Parça"
 
-#: qml/MediaPlayerControl.qml:321
+#: qml/MediaPlayerControl.qml:316
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -906,14 +906,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "%1 parça, %1 dak kaldı"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:116
 #: qml/TrackBrowserDelegate.qml:100
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Şarkıyı Beğenilenlerden Çıkar"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:116
 #: qml/TrackBrowserDelegate.qml:100
 #, kde-format
 msgctxt "@action:button"
@@ -992,47 +992,47 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr "İptal"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:232
+#: qml/mobile/MobileMinimizedPlayerControl.qml:227
 #: qml/mobile/MobileTrackPlayer.qml:355
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Geri Atla"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:246
+#: qml/mobile/MobileMinimizedPlayerControl.qml:241
 #: qml/mobile/MobileTrackPlayer.qml:368
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Duraklat"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:246
+#: qml/mobile/MobileMinimizedPlayerControl.qml:241
 #: qml/mobile/MobileTrackPlayer.qml:368
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Çal"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:260
+#: qml/mobile/MobileMinimizedPlayerControl.qml:255
 #: qml/mobile/MobileTrackPlayer.qml:381
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "İleri Atla"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:348
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:385
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Parça Seçenekleri"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:348
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:385
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Radyo Seçenekleri"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:95
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:92
 #: qml/TrackBrowserDelegate.qml:72
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1349,31 +1349,31 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Yalnızca Beğenilenleri Göster"
 
-#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:92
+#: qml/PlayListEntry.qml:106 qml/TrackBrowserDelegate.qml:92
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Parça Derecelendirmesini Ayarla"
 
-#: qml/PlayListEntry.qml:132
+#: qml/PlayListEntry.qml:129
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "Duraklat"
 
-#: qml/PlayListEntry.qml:132
+#: qml/PlayListEntry.qml:129
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "Çal"
 
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:144
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Kaldır"
 
-#: qml/PlayListEntry.qml:304 qml/TrackBrowserDelegate.qml:323
+#: qml/PlayListEntry.qml:339 qml/TrackBrowserDelegate.qml:323
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-24 00:41+0000\n"
-"PO-Revision-Date: 2025-02-15 18:05+0200\n"
+"PO-Revision-Date: 2025-06-04 09:15+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -374,13 +374,13 @@ msgstr "Soitetaan musiikkia"
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr ""
+msgstr "%1.%2"
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr ""
+msgstr "%1.%2,%3"
 
 #: qml/AbstractBrowserDelegate.qml:42
 #, kde-format

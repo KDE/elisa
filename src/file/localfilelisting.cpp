@@ -77,9 +77,7 @@ DataTypes::TrackDataType LocalFileListing::scanOneFile(const QUrl &scanFile, con
 {
     auto trackData = AbstractFileListing::scanOneFile(scanFile, scanFileInfo, watchForFileSystemChanges);
 
-    if (trackData.isValid()) {
-        addCover(trackData);
-    } else {
+    if (!trackData.isValid()) {
         qCDebug(orgKdeElisaIndexer()) << "LocalFileListing::scanOneFile" << scanFile << "invalid track";
     }
 

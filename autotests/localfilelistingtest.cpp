@@ -143,10 +143,8 @@ private Q_SLOTS:
         auto firstNewTracks = firstNewTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
         const auto &secondNewTracksSignal = tracksListSpy.at(1);
         auto secondNewTracks = secondNewTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
-        auto newCovers = secondNewTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(firstNewTracks.count() + secondNewTracks.count(), 5);
-        QCOMPARE(newCovers.count(), 5);
 
         tracksListSpy.clear();
         removedTracksListSpy.clear();
@@ -157,10 +155,8 @@ private Q_SLOTS:
         QCOMPARE(removedTracksListSpy.count(), 0);
 
         auto newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
-        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 5);
-        QCOMPARE(newCovers.count(), 5);
 
         tracksListSpy.clear();
         removedTracksListSpy.clear();
@@ -222,10 +218,8 @@ private Q_SLOTS:
 
         auto newTracksSignal = tracksListSpy.at(0);
         auto newTracks = newTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
-        auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 1);
-        QCOMPARE(newCovers.count(), 1);
 
         QDir musicDirectory(musicPath);
         QCOMPARE(musicDirectory.removeRecursively(), true);
@@ -257,10 +251,8 @@ private Q_SLOTS:
 
         auto newTracksSignalLast = tracksListSpy.at(1);
         auto newTracksLast = newTracksSignalLast.at(0).value<DataTypes::ListTrackDataType>();
-        auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracksLast.count(), 1);
-        QCOMPARE(newCoversLast.count(), 1);
     }
 
     void addTracksAndRemoveDirectory()
@@ -316,10 +308,8 @@ private Q_SLOTS:
 
         auto newTracksSignal = tracksListSpy.at(0);
         auto newTracks = newTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
-        auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 1);
-        QCOMPARE(newCovers.count(), 1);
 
         QDir musicDirectory(innerMusicPath);
         musicDirectory.removeRecursively();
@@ -351,10 +341,8 @@ private Q_SLOTS:
 
         auto newTracksSignalLast = tracksListSpy.at(1);
         auto newTracksLast = newTracksSignalLast.at(0).value<DataTypes::ListTrackDataType>();
-        auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracksLast.count(), 1);
-        QCOMPARE(newCoversLast.count(), 1);
     }
 
     void addAndMoveTracks()
@@ -420,10 +408,8 @@ private Q_SLOTS:
 
         auto newTracksSignal = tracksListSpy.at(0);
         auto newTracks = newTracksSignal.at(0).value<DataTypes::ListTrackDataType>();
-        auto newCovers = newTracksSignal.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 1);
-        QCOMPARE(newCovers.count(), 1);
 
         QDir().rename(musicPath, musicFriendPath);
 
@@ -457,10 +443,8 @@ private Q_SLOTS:
 
         auto newTracksSignalLast = tracksListSpy.at(1);
         auto newTracksLast = newTracksSignalLast.at(0).value<DataTypes::ListTrackDataType>();
-        auto newCoversLast = newTracksSignalLast.at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracksLast.count(), 1);
-        QCOMPARE(newCoversLast.count(), 1);
     }
 
     void restoreRemovedTracks()
@@ -589,20 +573,12 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
 
         auto newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
-        auto newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 2);
-        // The file scanner thinks there are covers due to the static cover file cache
-        // carrying over between tests. We could watch each cover file to remove it from
-        // the cache when it gets deleted. Not sure if it is worth the resources, given
-        // the amount of files we already watch in AbstractFileListing.
-        QCOMPARE(newCovers.count(), 2);
 
         newTracks = tracksListSpy.at(1).at(0).value<DataTypes::ListTrackDataType>();
-        newCovers = tracksListSpy.at(1).at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 1);
-        QCOMPARE(newCovers.count(), 3);
 
         tracksListSpy.clear();
 
@@ -619,10 +595,8 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
 
         newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
-        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 3);
-        QCOMPARE(newCovers.count(), 3);
 
         tracksListSpy.clear();
 
@@ -637,10 +611,8 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
 
         newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
-        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 2);
-        QCOMPARE(newCovers.count(), 3);
 
         tracksListSpy.clear();
 
@@ -659,10 +631,8 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
 
         newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
-        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
 
         QCOMPARE(newTracks.count(), 3);
-        QCOMPARE(newCovers.count(), 3);
 
         tracksListSpy.clear();
 
@@ -677,11 +647,9 @@ private Q_SLOTS:
         QCOMPARE(modifiedTracksListSpy.count(), 0);
 
         newTracks = tracksListSpy.at(0).at(0).value<DataTypes::ListTrackDataType>();
-        newCovers = tracksListSpy.at(0).at(1).value<QHash<QString, QUrl>>();
         auto removedTracks = removedTracksListSpy.at(0).at(0).value<QList<QUrl>>();
 
         QCOMPARE(newTracks.count(), 2);
-        QCOMPARE(newCovers.count(), 3);
         QCOMPARE(removedTracks.count(), 1);
     }
 };

@@ -142,6 +142,11 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
+    void insertTracksList(const DataTypes::ListTrackDataType &tracks)
+    {
+        insertTracksList(tracks, {});
+    }
+
     void insertTracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers);
 
     void removeTracksList(const QList<QUrl> &removedTracks);

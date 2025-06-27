@@ -37,8 +37,6 @@ public:
 
     DataTypes::ListTrackDataType mNewTracks;
 
-    QHash<QString, QUrl> mCovers;
-
     QAtomicInt mStopRequest = 0;
 };
 
@@ -147,7 +145,7 @@ void AndroidFileListing::triggerRefreshOfContent()
         d->mNewTracks.push_back(newTrack);
     }
 
-    Q_EMIT tracksList(d->mNewTracks, d->mCovers);
+    Q_EMIT tracksList(d->mNewTracks);
 
     Q_EMIT indexingFinished();
 }

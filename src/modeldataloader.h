@@ -83,7 +83,7 @@ Q_SIGNALS:
 
     void albumModified(const ModelDataLoader::AlbumDataType &modifiedAlbum);
 
-    void saveTrackModified(const ModelDataLoader::ListTrackDataType &trackDataType, const QHash<QString, QUrl> &covers);
+    void saveTrackModified(const ModelDataLoader::ListTrackDataType &trackDataType);
 
     void removeRadio(qulonglong radioId);
 
@@ -120,7 +120,7 @@ public Q_SLOTS:
 
     void updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, const QVariant &data);
 
-    void trackHasBeenModified(ModelDataLoader::ListTrackDataType trackDataType, const QHash<QString, QUrl> &covers);
+    void trackHasBeenModified(ModelDataLoader::ListTrackDataType trackDataType);
 
 private Q_SLOTS:
 

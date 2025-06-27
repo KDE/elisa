@@ -227,7 +227,7 @@ void EditableTrackMetadataModel::saveData()
         newTrackData[DataTypes::ImageUrlRole] = QUrl::fromUserInput(QStringLiteral("file:/").append(imageUrl));
     }
 
-    Q_EMIT saveTrackModified({newTrackData}, {});
+    Q_EMIT saveTrackModified({newTrackData});
 }
 
 void EditableTrackMetadataModel::resetData()

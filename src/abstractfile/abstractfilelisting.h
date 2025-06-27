@@ -49,11 +49,11 @@ public:
 
 Q_SIGNALS:
 
-    void tracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers);
+    void tracksList(const DataTypes::ListTrackDataType &tracks);
 
     void removedTracksList(const QList<QUrl> &removedTracks);
 
-    void modifyTracksList(const DataTypes::ListTrackDataType &modifiedTracks, const QHash<QString, QUrl> &covers);
+    void modifyTracksList(const DataTypes::ListTrackDataType &modifiedTracks);
 
     void indexingStarted();
 
@@ -119,8 +119,6 @@ protected:
     void setHandleNewFiles(bool handleThem);
 
     void emitNewFiles(const DataTypes::ListTrackDataType &tracks);
-
-    void addCover(const DataTypes::TrackDataType &newTrack);
 
     void removeDirectory(const QUrl &removedDirectory, QList<QUrl> &allRemovedFiles);
 

@@ -226,6 +226,7 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
         trackData[DataTypes::ImageUrlRole] = QUrl(QLatin1String("image://cover/") + localFileName);
     } else {
         trackData[DataTypes::HasEmbeddedCover] = false;
+        trackData[DataTypes::ImageUrlRole] = searchForCoverFile(localFileName);
     }
 
 #if !defined Q_OS_ANDROID && !defined Q_OS_WIN

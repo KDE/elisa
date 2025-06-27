@@ -111,7 +111,7 @@ void AbstractFileListing::newTrackFile(const DataTypes::TrackDataType &partialTr
     const auto &newTrack = scanOneFile(partialTrack.resourceURI(), scanFileInfo, WatchChangedDirectories | WatchChangedFiles);
 
     if (newTrack.isValid() && newTrack != partialTrack) {
-        Q_EMIT modifyTracksList({newTrack}, d->mAllAlbumCover);
+        Q_EMIT modifyTracksList({newTrack});
     }
 }
 
@@ -230,8 +230,6 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
         auto newTrack = scanOneFile(newFilePath, oneEntry, WatchChangedDirectories | WatchChangedFiles);
 
         if (newTrack.isValid() && d->mStopRequest == 0) {
-            addCover(newTrack);
-
             addFileInDirectory(newTrack.resourceURI(), path, WatchChangedDirectories | WatchChangedFiles);
             newFiles.push_back(newTrack);
 
@@ -273,7 +271,7 @@ void AbstractFileListing::fileChanged(const QString &modifiedFileName)
     auto modifiedTrack = scanOneFile(modifiedFile, modifiedFileInfo, WatchChangedDirectories | WatchChangedFiles);
 
     if (modifiedTrack.isValid()) {
-        Q_EMIT modifyTracksList({modifiedTrack}, d->mAllAlbumCover);
+        Q_EMIT modifyTracksList({modifiedTrack});
     }
 }
 
@@ -408,19 +406,7 @@ void AbstractFileListing::setHandleNewFiles(bool handleThem)
 
 void AbstractFileListing::emitNewFiles(const DataTypes::ListTrackDataType &tracks)
 {
-    Q_EMIT tracksList(tracks, d->mAllAlbumCover);
-}
-
-void AbstractFileListing::addCover(const DataTypes::TrackDataType &newTrack)
-{
-    if (d->mAllAlbumCover.contains(newTrack.album())) {
-        return;
-    }
-
-    auto coverUrl = d->mFileScanner.searchForCoverFile(newTrack.resourceURI().toLocalFile());
-    if (!coverUrl.isEmpty()) {
-        d->mAllAlbumCover[newTrack.resourceURI().toString()] = coverUrl;
-    }
+    Q_EMIT tracksList(tracks);
 }
 
 void AbstractFileListing::removeDirectory(const QUrl &removedDirectory, QList<QUrl> &allRemovedFiles)

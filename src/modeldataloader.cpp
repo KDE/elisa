@@ -66,7 +66,7 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
     connect(database, &DatabaseInterface::artistRemoved,
             this, &ModelDataLoader::artistRemoved);
     connect(this, &ModelDataLoader::saveTrackModified,
-            database, &DatabaseInterface::insertTracksList);
+            database, qOverload<const DataTypes::ListTrackDataType &>(&DatabaseInterface::insertTracksList));
     connect(this, &ModelDataLoader::removeRadio,
             database, &DatabaseInterface::removeRadio);
     connect(database, &DatabaseInterface::radioAdded,
@@ -467,7 +467,7 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     }
 }
 
-void ModelDataLoader::trackHasBeenModified(ModelDataLoader::ListTrackDataType trackDataType, const QHash<QString, QUrl> &covers)
+void ModelDataLoader::trackHasBeenModified(ModelDataLoader::ListTrackDataType trackDataType)
 {
     for(auto &oneTrack : trackDataType) {
         if (oneTrack.elementType() == ElisaUtils::Track) {
@@ -481,7 +481,7 @@ void ModelDataLoader::trackHasBeenModified(ModelDataLoader::ListTrackDataType tr
         }
     }
 
-    Q_EMIT saveTrackModified(trackDataType, covers);
+    Q_EMIT saveTrackModified(trackDataType);
 }
 
 void ModelDataLoader::updateFileMetaData(const DataTypes::TrackDataType &trackDataType, const QUrl &url)

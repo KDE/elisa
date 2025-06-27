@@ -17,6 +17,8 @@
 #include <android/bitmap.h>
 #include <jni.h>
 
+namespace
+{
 QImage androidBitmapToImage(QJniObject qbitmap)
 {
     QJniEnvironment qenv;
@@ -136,6 +138,7 @@ public:
     QSize mRequestedSize;
     QImage mCoverImage;
 };
+}
 
 AndroidCoverImageProvider::AndroidCoverImageProvider()
     : QQuickAsyncImageProvider()

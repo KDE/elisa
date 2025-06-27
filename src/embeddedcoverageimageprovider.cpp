@@ -13,6 +13,8 @@
 #include <QImage>
 #include <QMimeDatabase>
 
+namespace
+{
 class AsyncImageResponse : public QQuickImageResponse, public QRunnable
 {
     Q_OBJECT
@@ -89,6 +91,7 @@ public:
     QSize mRequestedSize;
     QImage mCoverImage;
 };
+}
 
 EmbeddedCoverageImageProvider::EmbeddedCoverageImageProvider()
     : QQuickAsyncImageProvider()

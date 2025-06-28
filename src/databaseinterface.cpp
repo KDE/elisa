@@ -1126,7 +1126,7 @@ void DatabaseInterface::applicationAboutToQuit()
     d->mStopRequest = 1;
 }
 
-void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers)
+void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tracks)
 {
     qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << tracks.count();
     if (d->mStopRequest == 1) {
@@ -1148,7 +1148,7 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
         case ElisaUtils::Track:
         {
             qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "insert one track";
-            internalInsertOneTrack(oneTrack, covers);
+            internalInsertOneTrack(oneTrack);
             break;
         }
         case ElisaUtils::Radio:
@@ -7038,7 +7038,7 @@ void DatabaseInterface::recordModifiedAlbum(qulonglong albumId)
     d->mModifiedAlbumIds.insert(albumId);
 }
 
-void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack, const QHash<QString, QUrl> &covers)
+void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack)
 {
     d->mSelectTracksMapping.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
 
@@ -7071,7 +7071,7 @@ void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &o
 
     bool isInserted = false;
 
-    const auto insertedTrackId = internalInsertTrack(oneTrack, covers, isInserted);
+    const auto insertedTrackId = internalInsertTrack(oneTrack, isInserted);
 
     if (isInserted && insertedTrackId != 0) {
         d->mInsertedTracks.insert(insertedTrackId);
@@ -7399,8 +7399,7 @@ void DatabaseInterface::updateTrackOrigin(const QUrl &fileName, const QDateTime 
     d->mUpdateTrackFileModifiedTime.finish();
 }
 
-qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType &oneTrack,
-                                                  const QHash<QString, QUrl> &covers, bool &isInserted)
+qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType &oneTrack, bool &isInserted)
 {
     qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack trying to insert" << oneTrack;
 
@@ -7429,13 +7428,10 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
     const auto &trackPath = oneTrack.resourceURI().toString(currentOptions);
 
-    auto albumCover = covers[oneTrack.resourceURI().toString()];
-    if (albumCover.isEmpty() && !covers.contains(oneTrack.resourceURI().toString())) {
-        albumCover = oneTrack.albumCover();
-    }
+    auto albumCover = oneTrack.hasEmbeddedCover() ? QUrl{} : oneTrack.albumCover();
 
     auto albumId = insertAlbum(oneTrack.album(), (oneTrack.hasAlbumArtist() ? oneTrack.albumArtist() : QString()),
-                               trackPath, oneTrack.hasEmbeddedCover() ? QUrl{} : albumCover);
+                               trackPath, albumCover);
 
     if (isModifiedTrack) {
         resultId = existingTrackId;
@@ -7453,7 +7449,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         newTrack[DataTypes::ColumnsRoles::DatabaseIdRole] = resultId;
         updateTrackInDatabase(newTrack, trackPath);
         updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
-        auto albumIsModified = updateAlbumFromId(albumId, oneTrack.hasEmbeddedCover() ? QUrl{} : oneTrack.albumCover(), oneTrack, trackPath);
+        auto albumIsModified = updateAlbumFromId(albumId, albumCover, oneTrack, trackPath);
 
         recordModifiedTrack(existingTrackId);
         if (albumIsModified && albumId != 0) {
@@ -7576,7 +7572,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
     updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
 
     if (albumId != 0) {
-        if (updateAlbumFromId(albumId, covers[oneTrack.resourceURI().toString()], oneTrack, trackPath)) {
+        if (updateAlbumFromId(albumId, albumCover, oneTrack, trackPath)) {
             const auto modifiedTracks = fetchTrackIds(albumId);
             for (auto oneModifiedTrack : modifiedTracks) {
                 if (oneModifiedTrack != resultId) {

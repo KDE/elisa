@@ -70,7 +70,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(mNewTracks);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);
@@ -144,7 +144,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(mNewTracks);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -174,12 +174,7 @@ private Q_SLOTS:
                 QUrl::fromLocalFile(QStringLiteral("album3")), 5, true,
                 QStringLiteral("genre5"), QStringLiteral("composer1"), QStringLiteral("lyricist1"), false}};
 
-        auto newCovers = mNewCovers;
-        newCovers[QStringLiteral("/test/$23")] = QUrl::fromLocalFile(QStringLiteral("album3"));
-        newCovers[QStringLiteral("/test/$24")] = QUrl::fromLocalFile(QStringLiteral("album3"));
-        newCovers[QStringLiteral("/test/$25")] = QUrl::fromLocalFile(QStringLiteral("album3"));
-
-        musicDb.insertTracksList(newTracks, newCovers);
+        musicDb.insertTracksList(newTracks);
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
@@ -197,9 +192,7 @@ private Q_SLOTS:
             QUrl::fromLocalFile(QStringLiteral("album3")), 5, true,
             QStringLiteral("a genre"), QStringLiteral("composer1"), QStringLiteral("lyricist1"), false};
 
-        const auto newCover = QHash<QString, QUrl>{{QStringLiteral("/test/$26"), QUrl::fromLocalFile(QStringLiteral("album3"))}};
-
-        musicDb.insertTracksList({newTrack}, newCover);
+        musicDb.insertTracksList({newTrack});
 
         QCOMPARE(beginInsertRowsSpy.count(), 3);
         QCOMPARE(endInsertRowsSpy.count(), 3);
@@ -278,7 +271,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews - 1);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(mNewTracks);
 
         QCOMPARE(beginInsertRowsSpy.count(), 1);
         QCOMPARE(endInsertRowsSpy.count(), 1);
@@ -308,12 +301,7 @@ private Q_SLOTS:
                 QUrl::fromLocalFile(QStringLiteral("album10")), 5, true,
                 QStringLiteral("genre5"), QStringLiteral("composer1"), QStringLiteral("lyricist1"), false}};
 
-        auto newCovers = mNewCovers;
-        newCovers[QStringLiteral("/test/$23")] = QUrl::fromLocalFile(QStringLiteral("album8"));
-        newCovers[QStringLiteral("/test/$24")] = QUrl::fromLocalFile(QStringLiteral("album9"));
-        newCovers[QStringLiteral("/test/$25")] = QUrl::fromLocalFile(QStringLiteral("album10"));
-
-        musicDb.insertTracksList(newTracks, newCovers);
+        musicDb.insertTracksList(newTracks);
 
         QCOMPARE(beginInsertRowsSpy.count(), 2);
         QCOMPARE(endInsertRowsSpy.count(), 2);
@@ -668,7 +656,7 @@ private Q_SLOTS:
         QCOMPARE(viewsModel.rowCount(), mNumOfBaseViews);
         QCOMPARE(viewsProxyModel.rowCount(), mNumOfBaseViews);
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(mNewTracks);
 
         QCOMPARE(beginInsertRowsSpy.count(), 0);
         QCOMPARE(endInsertRowsSpy.count(), 0);

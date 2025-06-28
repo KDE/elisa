@@ -137,7 +137,7 @@ void MediaPlayListProxyModelTest::init()
     connect(mDatabaseContent, &DatabaseInterface::tracksAdded,
             mListener, &TracksListener::tracksAdded);
 
-    mDatabaseContent->insertTracksList(mNewTracks, mNewCovers);
+    mDatabaseContent->insertTracksList(mNewTracks);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
@@ -1142,7 +1142,7 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
             {MediaPlayList::ColumnsRoles::AlbumRole, u"album1"_s},
             {MediaPlayList::ColumnsRoles::TrackNumberRole, 1},
             {MediaPlayList::ColumnsRoles::DiscNumberRole, 1},
-            {MediaPlayList::ColumnsRoles::ImageUrlRole, QUrl::fromLocalFile(u"album1"_s)},
+            {MediaPlayList::ColumnsRoles::ImageUrlRole, QUrl(u"image://cover//$1"_s).toString()},
             {MediaPlayList::ColumnsRoles::ResourceRole, QUrl::fromUserInput(u"/$1"_s)},
             {MediaPlayList::ColumnsRoles::IsPlayingRole, false},
             {MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole, false},
@@ -1197,7 +1197,7 @@ void MediaPlayListProxyModelTest::testSavePersistentState()
             {MediaPlayList::ColumnsRoles::AlbumRole, u"album1"_s},
             {MediaPlayList::ColumnsRoles::TrackNumberRole, 1},
             {MediaPlayList::ColumnsRoles::DiscNumberRole, 1},
-            {MediaPlayList::ColumnsRoles::ImageUrlRole, QUrl::fromLocalFile(u"album1"_s)},
+            {MediaPlayList::ColumnsRoles::ImageUrlRole, QUrl(u"image://cover//$1"_s).toString()},
             {MediaPlayList::ColumnsRoles::ResourceRole, QUrl::fromUserInput(u"/$1"_s)},
             {MediaPlayList::ColumnsRoles::IsPlayingRole, false},
             {MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole, false},
@@ -2985,7 +2985,7 @@ void MediaPlayListProxyModelTest::testReplaceAndPlayArtist()
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 3);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 3);
-    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ImageUrlRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ImageUrlRole).toUrl(), QUrl(QStringLiteral("image://cover//$1")));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$3")));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole).toBool(), false);
@@ -3027,7 +3027,7 @@ void MediaPlayListProxyModelTest::testReplaceAndPlayArtist()
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 4);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 4);
-    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ImageUrlRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ImageUrlRole).toUrl(), QUrl(QStringLiteral("image://cover//$1")));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$4")));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole).toBool(), false);
@@ -3077,7 +3077,7 @@ void MediaPlayListProxyModelTest::testReplaceAndPlayTrackId()
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 3);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 3);
-    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ImageUrlRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ImageUrlRole).toUrl(), QUrl(QStringLiteral("image://cover//$1")));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$3")));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole).toBool(), false);
@@ -3124,7 +3124,7 @@ void MediaPlayListProxyModelTest::testReplaceAndPlayTrackId()
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::AlbumRole).toString(), QStringLiteral("album1"));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 4);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 4);
-    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ImageUrlRole).toUrl(), QUrl::fromLocalFile(QStringLiteral("album1")));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ImageUrlRole).toUrl(), QUrl(QStringLiteral("image://cover//$1")));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), QUrl::fromUserInput(QStringLiteral("/$4")));
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsPlayingRole).toBool(), false);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::IsSingleDiscAlbumRole).toBool(), false);

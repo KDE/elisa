@@ -101,7 +101,7 @@ void MediaPlayListTest::init()
     connect(mDatabaseContent, &DatabaseInterface::tracksAdded,
             mListener, &TracksListener::tracksAdded);
 
-    mDatabaseContent->insertTracksList(mNewTracks, mNewCovers);
+    mDatabaseContent->insertTracksList(mNewTracks);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
@@ -1261,7 +1261,7 @@ void MediaPlayListTest::testHasHeaderWithRestore()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 4);
     QCOMPARE(mNewEntryInListSpy->count(), 0);
 
-    mDatabaseContent->insertTracksList(mNewTracks, mNewCovers);
+    mDatabaseContent->insertTracksList(mNewTracks);
 
     while (mDataChangedSpy->count() < 4) {
         QCOMPARE(mDataChangedSpy->wait(), true);
@@ -1554,7 +1554,7 @@ void MediaPlayListTest::restoreMultipleIdenticalTracks()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 4);
     QCOMPARE(mNewEntryInListSpy->count(), 0);
 
-    mDatabaseContent->insertTracksList(mNewTracks, mNewCovers);
+    mDatabaseContent->insertTracksList(mNewTracks);
 
     QCOMPARE(mDataChangedSpy->wait(), true);
 
@@ -1614,7 +1614,7 @@ void MediaPlayListTest::restoreTrackWithoutAlbum()
     newTrack[DataTypes::HasEmbeddedCover] = false;
     newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
 
-    mDatabaseContent->insertTracksList({newTrack}, mNewCovers);
+    mDatabaseContent->insertTracksList({newTrack});
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);

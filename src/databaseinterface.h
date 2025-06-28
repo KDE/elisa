@@ -142,12 +142,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void insertTracksList(const DataTypes::ListTrackDataType &tracks)
-    {
-        insertTracksList(tracks, {});
-    }
-
-    void insertTracksList(const DataTypes::ListTrackDataType &tracks, const QHash<QString, QUrl> &covers);
+    void insertTracksList(const DataTypes::ListTrackDataType &tracks);
 
     void removeTracksList(const QList<QUrl> &removedTracks);
 
@@ -296,8 +291,7 @@ private:
 
     void updateTrackOrigin(const QUrl &fileName, const QDateTime &fileModifiedTime);
 
-    qulonglong internalInsertTrack(const DataTypes::TrackDataType &oneModifiedTrack,
-                                   const QHash<QString, QUrl> &covers, bool &isInserted);
+    qulonglong internalInsertTrack(const DataTypes::TrackDataType &oneModifiedTrack, bool &isInserted);
 
     [[nodiscard]] DataTypes::TrackDataType buildTrackDataFromDatabaseRecord(const QSqlRecord &trackRecord) const;
 
@@ -358,7 +352,7 @@ private:
 
     void updateTrackFinishedStatistics(const QUrl &fileName, const QDateTime &time);
 
-    void internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack, const QHash<QString, QUrl> &covers);
+    void internalInsertOneTrack(const DataTypes::TrackDataType &oneTrack);
 
     void internalInsertOneRadio(const DataTypes::TrackDataType &oneTrack);
 

@@ -66,7 +66,7 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
     connect(database, &DatabaseInterface::artistRemoved,
             this, &ModelDataLoader::artistRemoved);
     connect(this, &ModelDataLoader::saveTrackModified,
-            database, qOverload<const DataTypes::ListTrackDataType &>(&DatabaseInterface::insertTracksList));
+            database, &DatabaseInterface::insertTracksList);
     connect(this, &ModelDataLoader::removeRadio,
             database, &DatabaseInterface::removeRadio);
     connect(database, &DatabaseInterface::radioAdded,

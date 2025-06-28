@@ -460,32 +460,6 @@ protected:
          QStringLiteral("lyricist1"),
          false},
     };
-
-    QHash<QString, QUrl> mNewCovers = {
-        {QStringLiteral("file:///$1"), QUrl::fromLocalFile(QStringLiteral("album1"))},
-        {QStringLiteral("file:///$2"), QUrl::fromLocalFile(QStringLiteral("album1"))},
-        {QStringLiteral("file:///$3"), QUrl::fromLocalFile(QStringLiteral("album1"))},
-        {QStringLiteral("file:///$4"), QUrl::fromLocalFile(QStringLiteral("album1"))},
-        {QStringLiteral("file:///$4Bis"), QUrl::fromLocalFile(QStringLiteral("album1"))},
-        {QStringLiteral("file:///$5"), QUrl::fromLocalFile(QStringLiteral("album2"))},
-        {QStringLiteral("file:///$6"), QUrl::fromLocalFile(QStringLiteral("album2"))},
-        {QStringLiteral("file:///$7"), QUrl::fromLocalFile(QStringLiteral("album2"))},
-        {QStringLiteral("file:///$8"), QUrl::fromLocalFile(QStringLiteral("album2"))},
-        {QStringLiteral("file:///$9"), QUrl::fromLocalFile(QStringLiteral("album2"))},
-        {QStringLiteral("file:///$0"), QUrl::fromLocalFile(QStringLiteral("album2"))},
-        {QStringLiteral("file:///$11"), QUrl::fromLocalFile(QStringLiteral("album3"))},
-        {QStringLiteral("file:///$12"), QUrl::fromLocalFile(QStringLiteral("album3"))},
-        {QStringLiteral("file:///$13"), QUrl::fromLocalFile(QStringLiteral("album3"))},
-        {QStringLiteral("file:///$14"), QUrl::fromLocalFile(QStringLiteral("album4"))},
-        {QStringLiteral("file:///$15"), QUrl::fromLocalFile(QStringLiteral("album4"))},
-        {QStringLiteral("file:///$16"), QUrl::fromLocalFile(QStringLiteral("album4"))},
-        {QStringLiteral("file:///$17"), QUrl::fromLocalFile(QStringLiteral("album4"))},
-        {QStringLiteral("file:///$18"), QUrl::fromLocalFile(QStringLiteral("album4"))},
-        {QStringLiteral("file:///$19"), QUrl::fromLocalFile(QStringLiteral("album3"))},
-        {QStringLiteral("file:///$20"), QUrl::fromLocalFile(QStringLiteral("album3"))},
-        {QStringLiteral("file:///$21"), QUrl::fromLocalFile(QStringLiteral("album3"))},
-        {QStringLiteral("file:///$22"), QUrl::fromLocalFile(QStringLiteral("album3"))},
-    };
 };
 
 #endif // DATABASETESTDATA_H

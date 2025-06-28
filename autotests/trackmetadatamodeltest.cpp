@@ -90,7 +90,7 @@ private Q_SLOTS:
 
         musicDb.init(QStringLiteral("testDb"), databaseFile.fileName());
 
-        musicDb.insertTracksList(mNewTracks, mNewCovers);
+        musicDb.insertTracksList(mNewTracks);
 
         TrackMetadataModel myModel;
         TrackMetadataProxyModel proxyModel;

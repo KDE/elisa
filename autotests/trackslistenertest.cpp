@@ -75,7 +75,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -209,7 +209,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -277,7 +277,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -356,7 +356,7 @@ private Q_SLOTS:
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), -1);
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 0);
 
-        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks);
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -410,7 +410,7 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myDatabaseContent.insertTracksList(mNewTracks, mNewCovers);
+        myDatabaseContent.insertTracksList(mNewTracks);
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -440,7 +440,7 @@ private Q_SLOTS:
                                                 QDateTime::fromMSecsSinceEpoch(1),
                                                 {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 1, false,
                                                 {}, {}, QStringLiteral("lyricist1"), false}
-                                           }, mNewCovers);
+                                           });
 
         QCOMPARE(trackHasChangedSpy.count(), 2);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);

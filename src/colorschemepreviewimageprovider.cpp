@@ -11,10 +11,6 @@
 #include <QIcon>
 #include <QModelIndex>
 
-#if KCOLORSCHEME_VERSION < QT_VERSION_CHECK(6, 6, 0)
-#include <memory>
-#endif
-
 ColorSchemePreviewImageProvider::ColorSchemePreviewImageProvider()
     : QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
@@ -22,11 +18,7 @@ ColorSchemePreviewImageProvider::ColorSchemePreviewImageProvider()
 
 QPixmap ColorSchemePreviewImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
-#if KCOLORSCHEME_VERSION < QT_VERSION_CHECK(6, 6, 0)
-    auto schemes = std::make_unique<KColorSchemeManager>();
-#else
     auto *schemes = KColorSchemeManager::instance();
-#endif
 
     QModelIndex index = schemes->indexForScheme(id);
 

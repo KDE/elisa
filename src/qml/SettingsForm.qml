@@ -470,7 +470,7 @@ ColumnLayout {
                     visible: false
 
                     onAccepted: {
-                        var oldPaths = ElisaConfigurationDialog.rootPath
+                        let oldPaths = ElisaConfigurationDialog.rootPath
                         oldPaths.push(fileDialog.selectedFolder)
                         ElisaConfigurationDialog.rootPath = oldPaths
                     }

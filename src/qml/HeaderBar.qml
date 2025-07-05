@@ -335,7 +335,7 @@ FocusScope {
                     Layout.fillWidth: true
                     Layout.fillHeight: false
                     Layout.maximumHeight: {
-                        var h = headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing
+                        const h = headerBar.height - playControlItem.height - 8 * Kirigami.Units.largeSpacing
                         if (h < gridLayoutContent.height)
                             return h
                         return gridLayoutContent.height + 8

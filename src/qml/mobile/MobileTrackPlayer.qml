@@ -58,8 +58,8 @@ BasePlayerControl {
         // album art
         ImageWithFallback {
             property double specWidth: {
-                let allowedWidth = mainWindow.width - Kirigami.Units.largeSpacing * 4;
-                let allowedHeight = mainWindow.height - Kirigami.Units.largeSpacing * 8 - (minimizePlayer.height + bottomPlayerControls.height);
+                const allowedWidth = mainWindow.width - Kirigami.Units.largeSpacing * 4;
+                const allowedHeight = mainWindow.height - Kirigami.Units.largeSpacing * 8 - (minimizePlayer.height + bottomPlayerControls.height);
                 return Math.min(allowedWidth, allowedHeight);
             }
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop

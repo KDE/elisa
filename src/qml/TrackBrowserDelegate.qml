@@ -254,7 +254,7 @@ FocusScope {
                     Layout.fillWidth: true
 
                     text: {
-                        var labelText = ""
+                        let labelText = ""
                         if (artist) {
                             labelText += artist
                         }

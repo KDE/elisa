@@ -35,7 +35,7 @@ Kirigami.GlobalDrawer {
     }
 
     Component.onCompleted: {
-        let settings = action.createObject(drawer, {"icon.name": "settings-configure", text: i18nc("@title:window", "Settings")});
+        const settings = action.createObject(drawer, {"icon.name": "settings-configure", text: i18nc("@title:window", "Settings")});
         settings.onTriggered.connect(() => {
             mainWindow.pageStack.layers.push("MobileSettingsPage.qml");
         });
@@ -53,8 +53,8 @@ Kirigami.GlobalDrawer {
             Component.onCompleted: {
                 // HACK: the images provided by the model are in the form "image://icon/view-media-genre"
                 // remove the "image://icon/" in order to use icons
-                let icon = String(image).substring(13);
-                let object = action.createObject(drawer, {"icon.name": icon, text: title});
+                const icon = String(image).substring(13);
+                const object = action.createObject(drawer, {"icon.name": icon, text: title});
                 object.onTriggered.connect(() => {
                     viewIndex = index;
                     switchView(index);

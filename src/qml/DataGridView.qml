@@ -170,7 +170,7 @@ AbstractDataView {
                 return width;
             }
 
-            let columns = Math.max(Math.floor(width / elisaTheme.gridDelegateSize), 2);
+            const columns = Math.max(Math.floor(width / elisaTheme.gridDelegateSize), 2);
             return Math.floor(width / columns);
         }
         cellHeight: {

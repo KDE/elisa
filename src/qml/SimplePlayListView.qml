@@ -25,7 +25,7 @@ ScrollView {
         id: playListView
 
         readonly property int nextIndex: {
-            var playingIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
+            const playingIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
             if (playingIndex > 0 && playingIndex < playListView.count - 1) {
                 return playingIndex + 1
             } else {

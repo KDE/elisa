@@ -227,7 +227,7 @@ BasePlayListDelegate {
                         verticalAlignment: Text.AlignVCenter
 
                         text: {
-                            var trackNumberString;
+                            let trackNumberString = "";
                             if (trackNumber !== -1) {
                                 trackNumberString = Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0);
                             } else {

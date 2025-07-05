@@ -103,7 +103,7 @@ BasePlayListDelegate {
                     id: artistLabel
 
                     text: {
-                        var labelText = ""
+                        let labelText = ""
                         if (artist) {
                             labelText += artist
                         }

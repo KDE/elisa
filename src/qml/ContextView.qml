@@ -400,7 +400,7 @@ Kirigami.Page {
                                 return
 
                             // center aligned
-                            var toPos = Math.round(currentItem.y + currentItem.height * 0.5 - lyricScroll.height * 0.5)
+                            const toPos = Math.round(currentItem.y + currentItem.height * 0.5 - lyricScroll.height * 0.5)
 
                             lyricScrollAnimation.to = toPos
                         }

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-27 00:42+0000\n"
+"POT-Creation-Date: 2025-07-06 00:42+0000\n"
 "PO-Revision-Date: 2024-09-19 14:44+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -31,56 +31,56 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "george.stefanakis@gmail.com, sstavra@gmail.com"
 
-#: databaseinterface.cpp:7615 databaseinterface.cpp:8722
-#: databaseinterface.cpp:8807
+#: databaseinterface.cpp:7611 databaseinterface.cpp:8718
+#: databaseinterface.cpp:8803
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Διάφοροι καλλιτέχνες"
 
-#: databaseinterface.cpp:7683
+#: databaseinterface.cpp:7679
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Ραδιοφωνικοί σταθμοί"
 
-#: elisaapplication.cpp:188
+#: elisaapplication.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Εναλλαγή λίστας αναπαραγωγής"
 
-#: elisaapplication.cpp:194
+#: elisaapplication.cpp:190
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Αναζήτηση προς τα εμπρός 10 δευτερόλεπτα"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Αναζήτηση προς τα πίσω 10 δευτερόλεπτα"
 
-#: elisaapplication.cpp:208
+#: elisaapplication.cpp:204
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Μετάβαση στο επόμενο κομμάτι"
 
-#: elisaapplication.cpp:215
+#: elisaapplication.cpp:211
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Μετάβαση στο προηγούμενο κομμάτι"
 
-#: elisaapplication.cpp:222
+#: elisaapplication.cpp:218
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Αναπαραγωγή/Παύση"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:231
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"

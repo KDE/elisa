@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-27 00:42+0000\n"
+"POT-Creation-Date: 2025-07-06 00:42+0000\n"
 "PO-Revision-Date: 2025-05-25 23:18+0200\n"
 "Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -28,56 +28,56 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-i18n-de@kde.org"
 
-#: databaseinterface.cpp:7615 databaseinterface.cpp:8722
-#: databaseinterface.cpp:8807
+#: databaseinterface.cpp:7611 databaseinterface.cpp:8718
+#: databaseinterface.cpp:8803
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Verschiedene Interpreten"
 
-#: databaseinterface.cpp:7683
+#: databaseinterface.cpp:7679
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radiostation"
 
-#: elisaapplication.cpp:188
+#: elisaapplication.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Wiedergabeliste umschalten"
 
-#: elisaapplication.cpp:194
+#: elisaapplication.cpp:190
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10 Sekunden vorwärts spulen"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "10 Sekunden rückwärts spulen"
 
-#: elisaapplication.cpp:208
+#: elisaapplication.cpp:204
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Zum nächsten Stück"
 
-#: elisaapplication.cpp:215
+#: elisaapplication.cpp:211
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Zum vorherigen Stück"
 
-#: elisaapplication.cpp:222
+#: elisaapplication.cpp:218
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Wiedergabe/Pause"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:231
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"

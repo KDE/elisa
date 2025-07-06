@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-27 00:42+0000\n"
+"POT-Creation-Date: 2025-07-06 00:42+0000\n"
 "PO-Revision-Date: 2025-06-20 21:43+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -28,56 +28,56 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "ulysses@fsf.hu,majertamas@yahoo.com"
 
-#: databaseinterface.cpp:7615 databaseinterface.cpp:8722
-#: databaseinterface.cpp:8807
+#: databaseinterface.cpp:7611 databaseinterface.cpp:8718
+#: databaseinterface.cpp:8803
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Különböző előadók"
 
-#: databaseinterface.cpp:7683
+#: databaseinterface.cpp:7679
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Rádióállomások"
 
-#: elisaapplication.cpp:188
+#: elisaapplication.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Lejátszási lista be-/kikapcsolása"
 
-#: elisaapplication.cpp:194
+#: elisaapplication.cpp:190
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Előre ugrás 10 másodperccel"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Visszaugrás 10 másodperccel"
 
-#: elisaapplication.cpp:208
+#: elisaapplication.cpp:204
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Ugrás a következő számra"
 
-#: elisaapplication.cpp:215
+#: elisaapplication.cpp:211
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Ugrás az előző számra"
 
-#: elisaapplication.cpp:222
+#: elisaapplication.cpp:218
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Lejátszás/szünet"
 
-#: elisaapplication.cpp:235
+#: elisaapplication.cpp:231
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"

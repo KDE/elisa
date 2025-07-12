@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-27 00:42+0000\n"
-"PO-Revision-Date: 2025-06-04 09:15+0300\n"
+"PO-Revision-Date: 2025-07-07 15:59+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -97,9 +97,7 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "KDE-yhteisön rakkaudella luoma yksinkertainen musiikkisoitin"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
 msgstr "© 2015–2020 Elisan avustajat"
@@ -327,9 +325,7 @@ msgid "Lyrics"
 msgstr "Sanoittaja"
 
 #: models/trackmetadatamodel.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
 msgstr "Suoratoiston HTTP-osoite"
@@ -752,13 +748,10 @@ msgid "Playlist"
 msgstr "Soittolista"
 
 #: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 kappale"
+msgstr "Yksi raita"
 
 #: qml/MediaPlayerControl.qml:316
 #, kde-format
@@ -775,9 +768,7 @@ msgid "Playlist"
 msgstr "Soittolista"
 
 #: qml/MediaPlayListView.qml:70
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Näytä nykyinen"
@@ -1265,20 +1256,16 @@ msgstr "Soita nyt ja korvaa soittolista"
 
 # *** TARKISTA: Epäselvä. Voi tarkoittaa myös ”soita seuraava” (eli keskeytä nykyinen, siirry seuraavaan)
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Soita seuraavaksi"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Soita nyt ja korvaa soittolista"
+msgstr "Soita soittolistalla seuraavaksi"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1676,12 +1663,10 @@ msgstr "Soita tästä ja korvaa nykyinen soittolista"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:225
-#, fuzzy, kde-format
-#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
 msgstr "%1 – %2 – %3"
@@ -1690,7 +1675,7 @@ msgstr "%1 – %2 – %3"
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:375
 #, kde-format
@@ -1762,7 +1747,7 @@ msgstr "Laskeva"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "A–Ö"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1771,7 +1756,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "Ö–A"
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format

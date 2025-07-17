@@ -1,22 +1,22 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2023, 2024 Guðmundur Erlingsson <gudmundure@gmail.com>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 Guðmundur Erlingsson <gudmundure@gmail.com>
 # SPDX-FileCopyrightText: 2024, 2025 Sveinn í Felli <sv1@fellsnet.is>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-07 00:41+0000\n"
-"PO-Revision-Date: 2025-04-06 16:11+0000\n"
-"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic\n"
+"PO-Revision-Date: 2025-07-11 23:05+0000\n"
+"Last-Translator: Gummi <gudmundure@gmail.com>\n"
+"Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -96,12 +96,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Einfaldur tónlistarspilari gerður af alúð af KDE samfélaginu"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
-msgstr "(c) 2015-2020, þróunaraðilar Elisa"
+msgstr "© 2015-2020, þróunaraðilar Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:156
 #, kde-format
@@ -326,12 +324,10 @@ msgid "Lyrics"
 msgstr "Lagatextar"
 
 #: models/trackmetadatamodel.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
-msgstr "Http-slóð fyrir straum"
+msgstr "HTTP-slóð fyrir straum"
 
 #: models/trackmetadatamodel.cpp:579
 #, kde-format
@@ -373,13 +369,13 @@ msgstr "Tónlist í spilun"
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr ""
+msgstr "%1:%2"
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr ""
+msgstr "%1:%2:%3"
 
 #: qml/AbstractBrowserDelegate.qml:40
 #, kde-format
@@ -750,13 +746,10 @@ msgid "Playlist"
 msgstr "Spilunarlista"
 
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 lag"
+msgstr "Eitt lag"
 
 #: qml/MediaPlayerControl.qml:312
 #, kde-format
@@ -773,9 +766,7 @@ msgid "Playlist"
 msgstr "Spilunarlisti"
 
 #: qml/MediaPlayListView.qml:70
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Sýna lag í spilun"
@@ -1261,20 +1252,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Spila núna, skipta út fyrirliggjandi spilunarlista"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Spila næst"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Spila núna, skipta út fyrirliggjandi spilunarlista"
+msgstr "Spila næst í spilunarlista"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1672,21 +1659,19 @@ msgstr "Spila héðan, skipta út núverandi spilunarlista"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:225
-#, fuzzy, kde-format
-#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr "%1 - %2 - %3"
+msgstr "%1 – %2 – %3"
 
 #: qml/TrackBrowserDelegate.qml:237
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:375
 #, kde-format
@@ -1757,7 +1742,7 @@ msgstr "Lækkandi"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "A-Ö"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1766,7 +1751,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "Ö-A"
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format

@@ -616,12 +616,8 @@ bool TrackMetadataModel::metadataExists(DataTypes::ColumnsRoles metadataRole) co
 void TrackMetadataModel::fetchLyrics()
 {
     auto fileUrl = mFullData[DataTypes::ResourceRole].toUrl();
-    auto lyricicsValue = QtConcurrent::run(QThreadPool::globalInstance(), [fileUrl, this]() {
+    auto lyricsValue = QtConcurrent::run(QThreadPool::globalInstance(), [fileUrl, this]() {
         auto locker = QMutexLocker(&mFileScannerMutex);
-        auto trackData = mFileScanner.scanOneFile(fileUrl);
-        if (!trackData.lyrics().isEmpty()) {
-            return std::make_pair(trackData.lyrics(), QString{});
-        }
         if (fileUrl.isLocalFile()) {
             QFileInfo fileInfo(fileUrl.toLocalFile());
             QDir lyricsDir(fileInfo.dir());
@@ -639,36 +635,38 @@ void TrackMetadataModel::fetchLyrics()
                     }
                 }
             }
-            if (fileContent.isEmpty()) {
-                return std::make_pair(QString{}, QString{});
-            }
-
-            KEncodingProber prober(KEncodingProber::Universal);
-            prober.feed(fileContent);
-            const QByteArray encoding(prober.encoding());
-            QString decodedContent;
+            if (!fileContent.isEmpty()) {
+                KEncodingProber prober(KEncodingProber::Universal);
+                prober.feed(fileContent);
+                const QByteArray encoding(prober.encoding());
+                QString decodedContent;
 #if QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
-            auto toUtf16 = QStringDecoder(encoding.constData());
+                auto toUtf16 = QStringDecoder(encoding.constData());
 #else
-            auto toUtf16 = QStringDecoder(encoding);
+                auto toUtf16 = QStringDecoder(encoding);
 #endif // QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
-            // Don't use `QStringConverter::availableCodecs().contains(QString(encoding))` here, since the charset
-            // encoding name might not match, e.g. GB18030 (from availableCodecs) != gb18030 (from KEncodingProber)
-            if (toUtf16.isValid()) {
-                decodedContent = toUtf16(fileContent);
-            } else {
-                // Developers who attempted to build Elisa against Qt without ICU feature enabled might facing this issue.
-                // Qt's official binary release didn't have ICU enabled, while KDE Craft do.
-                qCDebug(orgKdeElisaLyrics) << "No codec for the detected encoding:" << encoding
-                                           << ", Available codecs are:" << QStringConverter::availableCodecs();
-                decodedContent = QString::fromLocal8Bit(fileContent);
+                // Don't use `QStringConverter::availableCodecs().contains(QString(encoding))` here, since the charset
+                // encoding name might not match, e.g. GB18030 (from availableCodecs) != gb18030 (from KEncodingProber)
+                if (toUtf16.isValid()) {
+                    decodedContent = toUtf16(fileContent);
+                } else {
+                    // Developers who attempted to build Elisa against Qt without ICU feature enabled might facing this issue.
+                    // Qt's official binary release didn't have ICU enabled, while KDE Craft do.
+                    qCDebug(orgKdeElisaLyrics) << "No codec for the detected encoding:" << encoding
+                                               << ", Available codecs are:" << QStringConverter::availableCodecs();
+                    decodedContent = QString::fromLocal8Bit(fileContent);
+                }
+                return std::make_pair(decodedContent, lyricsFileName);
             }
-            return std::make_pair(decodedContent, lyricsFileName);
+        }
+        auto trackData = mFileScanner.scanOneFile(fileUrl);
+        if (!trackData.lyrics().isEmpty()) {
+            return std::make_pair(trackData.lyrics(), QString{});
         }
         return std::make_pair(QString{}, QString{});
     });
 
-    mLyricsValueWatcher.setFuture(lyricicsValue);
+    mLyricsValueWatcher.setFuture(lyricsValue);
 }
 
 void TrackMetadataModel::initializeForNewRadio()

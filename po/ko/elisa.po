@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-27 00:42+0000\n"
-"PO-Revision-Date: 2025-06-11 00:09+0200\n"
+"PO-Revision-Date: 2025-07-20 00:54+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -745,13 +745,10 @@ msgid "Playlist"
 msgstr "재생 목록"
 
 #: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "트랙 %1개"
+msgstr "1곡"
 
 #: qml/MediaPlayerControl.qml:316
 #, kde-format
@@ -768,9 +765,7 @@ msgid "Playlist"
 msgstr "재생 목록"
 
 #: qml/MediaPlayListView.qml:70
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "현재 곡 표시"
@@ -1251,20 +1246,16 @@ msgid "Play now, replacing current playlist"
 msgstr "바로 재생 및 재생 목록 바꾸기"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "다음 재생"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "바로 재생 및 재생 목록 바꾸기"
+msgstr "재생 목록의 다음 곡 재생"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format

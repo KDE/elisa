@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # scootergrisen, 2017, 2019.
 # Martin Schlander <mschlander@opensuse.org>, 2019, 2020, 2021.
-# SPDX-FileCopyrightText: 2024 rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>
+# SPDX-FileCopyrightText: 2024, 2025 rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-07 00:41+0000\n"
-"PO-Revision-Date: 2024-10-28 12:41+0100\n"
+"PO-Revision-Date: 2025-07-31 11:52+0200\n"
 "Last-Translator: rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
 "Language: da\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Project-Style: kde\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -47,7 +47,7 @@ msgstr "Radiostationer"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
-msgstr "Slå afspilningsliste til/fra"
+msgstr "Slå playliste til/fra"
 
 #: elisaapplication.cpp:190
 #, kde-format
@@ -98,12 +98,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "En simpel musikafspiller skabt med kærlighed af KDE-fællesskabet"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
-msgstr "(c) 2015-2020, Elisa-bidragsyderne"
+msgstr "© 2015–2020, Elisa contributors"
 
 #: main.cpp:119 models/lyricsmodel.cpp:156
 #, kde-format
@@ -328,12 +326,10 @@ msgid "Lyrics"
 msgstr "Sangtekst"
 
 #: models/trackmetadatamodel.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
-msgstr "Streamens http-adresse"
+msgstr "Streamens HTTP-adresse"
 
 #: models/trackmetadatamodel.cpp:579
 #, kde-format
@@ -375,13 +371,13 @@ msgstr "Afspiller musik"
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr ""
+msgstr "%1:%2"
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr ""
+msgstr "%1:%2:%3"
 
 #: qml/AbstractBrowserDelegate.qml:40
 #, kde-format
@@ -500,7 +496,7 @@ msgstr "Sangtekster"
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
-msgstr "Vis afspilningsliste"
+msgstr "Vis playliste"
 
 #: qml/ContextView.qml:429
 #, kde-format
@@ -521,18 +517,13 @@ msgid "Show In Folder"
 msgstr "Vis i mappe"
 
 #: qml/DataGridView.qml:161
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "1 track"
+#, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "1 nummer"
+msgstr "Alle numre"
 
 #: qml/DataGridView.qml:162
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -569,7 +560,7 @@ msgstr "Prøv igen"
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
-msgstr "Afspilningsliste ryddet"
+msgstr "Playliste ryddet"
 
 #: qml/ElisaMainWindow.qml:33
 #, kde-format
@@ -581,13 +572,13 @@ msgstr "Fortryd"
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr "Vis afspilningsskuffe"
+msgstr "Vis playlisteskuffe"
 
 #: qml/ElisaMainWindow.qml:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr "Skjul afspilningsskuffe"
+msgstr "Skjul playlisteskuffe"
 
 #: qml/ElisaMainWindow.qml:178 qml/ElisaMainWindow.qml:613
 #, kde-format
@@ -615,7 +606,7 @@ msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
 "translate *.m3u*"
 msgid "m3u8, m3u Playlist File (*.m3u*)"
-msgstr "m3u8, m3u Afspilningslistefiler (*.m3u*)"
+msgstr "m3u8, m3u Playlistefiler (*.m3u*)"
 
 #: qml/ElisaMainWindow.qml:285
 #, kde-format
@@ -623,7 +614,7 @@ msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
 "translate *.pls"
 msgid "pls Playlist File (*.pls)"
-msgstr "pls Afspilningslistefil (*.pls)"
+msgstr "pls Playlistefiler (*.pls)"
 
 #: qml/ElisaMainWindow.qml:292
 #, kde-format
@@ -747,22 +738,19 @@ msgstr "Nuværende: Gentag nuværende nummer"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
-msgstr "Nuværende: Gentag alle numre i afspilningsliste"
+msgstr "Nuværende: Gentag alle numre i playliste"
 
 #: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
-msgstr "Afspilningsliste"
+msgstr "Playliste"
 
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@info:status %1 is the total number of tracks of the playlist"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 nummer"
+msgstr "Én sang"
 
 #: qml/MediaPlayerControl.qml:312
 #, kde-format
@@ -776,12 +764,10 @@ msgctxt ""
 "@title:window Title of the view of the playlist; keep this string as short "
 "as possible because horizontal space is quite scarce"
 msgid "Playlist"
-msgstr "Afspilningsliste"
+msgstr "Playliste"
 
 #: qml/MediaPlayListView.qml:70
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Vis nuværende"
@@ -818,13 +804,13 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
-msgstr "Redigér afspilningslistefil"
+msgstr "Redigér playlistefil"
 
 #: qml/MediaPlayListView.qml:302
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
-msgstr "Afspilningslisten er tom"
+msgstr "Playlisten er tom"
 
 #: qml/MediaPlayListView.qml:303
 #, kde-format
@@ -840,21 +826,21 @@ msgstr ""
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
-msgstr "Din afspilningsliste er tom."
+msgstr "Din playliste er tom."
 
 #: qml/MediaPlayListView.qml:475 qml/MediaPlayListView.qml:484
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] "%1/%2 nummer tilbage"
-msgstr[1] "%1/%2 numre tilbage"
+msgstr[0] "%1/%2 sang tilbage"
+msgstr[1] "%1/%2 sange tilbage"
 
 #: qml/MediaPlayListView.qml:476
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
-msgstr "%1 nummer tilbage, %2 i alt"
+msgstr "%1 tilbage, %2 i alt"
 
 #: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
 #: qml/MediaPlayListView.qml:495
@@ -869,7 +855,7 @@ msgstr "%1, %2"
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
-msgstr "%1/%2 nummer tilbage"
+msgstr "%1/%2 tilbage"
 
 #: qml/MediaPlayListView.qml:493
 #, kde-format
@@ -942,12 +928,10 @@ msgid "Remove this tag"
 msgstr "Fjern dette etiket"
 
 #: qml/MediaTrackMetadataDelegate.qml:214
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "Tilføj nyt mærke:"
+msgstr "Tilføj mærke"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -1096,13 +1080,13 @@ msgstr "Fil"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save Playlist…"
-msgstr "Gem afspilningsliste..."
+msgstr "Gem playliste..."
 
 #: qml/NativeGlobalMenu.qml:28
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Playlist…"
-msgstr "Åbn afspilningsliste..."
+msgstr "Åbn playliste..."
 
 #: qml/NativeGlobalMenu.qml:60
 #, kde-format
@@ -1120,13 +1104,13 @@ msgstr "Slå festtilstand til/fra"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Playlist"
-msgstr "Skjul afspilningsliste"
+msgstr "Skjul playliste"
 
 #: qml/NativeGlobalMenu.qml:76
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Playlist"
-msgstr "Vis afspilningsliste"
+msgstr "Vis playliste"
 
 #: qml/NativeGlobalMenu.qml:81
 #, kde-format
@@ -1198,7 +1182,7 @@ msgstr "Gentag"
 #, kde-format
 msgctxt "@action:inmenu repeat all songs in this playlist"
 msgid "Playlist"
-msgstr "Afspilningsliste"
+msgstr "Playliste"
 
 #: qml/NativeGlobalMenu.qml:148
 #, kde-format
@@ -1269,20 +1253,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Afspil nu og erstat aktuel spilleliste"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Afspil som næste"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Afspil nu og erstat aktuel spilleliste"
+msgstr "Afspil som næste i spillelisten"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1300,7 +1280,7 @@ msgstr "Vis kunstner"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
-msgstr "Vis afspilningsliste"
+msgstr "Vis playliste"
 
 #: qml/NavigationActionBar.qml:187
 #, kde-format
@@ -1548,7 +1528,7 @@ msgstr "Afspiller nu"
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
-msgstr "Nyligt spillet"
+msgstr "Senest afspillet"
 
 #: qml/SettingsForm.qml:288
 #, kde-format
@@ -1680,21 +1660,19 @@ msgstr "Afspil herfra og erstat aktuel afspilningsliste"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:225
-#, fuzzy, kde-format
-#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr "%1 - %2 - %3"
+msgstr "%1 – %2 – %3"
 
 #: qml/TrackBrowserDelegate.qml:237
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:375
 #, kde-format
@@ -1765,7 +1743,7 @@ msgstr "Faldende"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "A–Å"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1774,7 +1752,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "Å–A"
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format
@@ -1885,7 +1863,7 @@ msgstr "Afspiller nu"
 #, kde-format
 msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
-msgstr "Nyligt spillet"
+msgstr "Senest afspillet"
 
 #: viewslistdata.cpp:35
 #, kde-format
@@ -1897,13 +1875,13 @@ msgstr "Dato for senest afspillet"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
-msgstr "Mindst nyligt spillede først"
+msgstr "Senest afspillet til sidst"
 
 #: viewslistdata.cpp:37
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
-msgstr "Mest nyligt spillede først"
+msgstr "Senest afspillede først"
 
 #: viewslistdata.cpp:40
 #, kde-format

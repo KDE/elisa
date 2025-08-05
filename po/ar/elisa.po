@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-27 00:42+0000\n"
-"PO-Revision-Date: 2025-08-03 16:04+0400\n"
+"PO-Revision-Date: 2025-08-04 12:39+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -130,7 +130,7 @@ msgstr "دعم التّوطين"
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
-msgstr "دعم التّخطيط اليمينيّ في الواجهة"
+msgstr "دعم التخطيط اليمينيّ في الواجهة"
 
 #: main.cpp:125
 #, kde-format
@@ -450,7 +450,7 @@ msgstr "افحص بحثًا عن موسيقى جديدة"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
-msgstr "أعد ضبط قاعدة البيانات وأعد فحص كل شيء"
+msgstr "صفّر قاعدة البيانات وأعد فحص كل شيء"
 
 #: qml/ApplicationMenu.qml:49
 #, kde-format
@@ -1492,13 +1492,13 @@ msgstr "يفحص الموسيقى"
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
-msgstr "أعد ضبط قاعدة البيانات وأعد فحص كل شيء"
+msgstr "صفّر قاعدة البيانات وأعد فحص كل شيء"
 
 #: qml/SettingsForm.qml:231
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
-msgstr "صفرت قاعدة بيانات"
+msgstr "صُفرت قاعدة بيانات"
 
 #: qml/SettingsForm.qml:246
 #, kde-format

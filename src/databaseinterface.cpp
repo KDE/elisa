@@ -902,9 +902,9 @@ bool DatabaseInterface::internalArtistMatchGenre(qulonglong databaseId, const QS
     if (!queryResult || !d->mArtistMatchGenreQuery.isSelect() || !d->mArtistMatchGenreQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::artistMatchGenre" << d->mArtistMatchGenreQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::artistMatchGenre" << d->mArtistMatchGenreQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::artistMatchGenre" << d->mArtistMatchGenreQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::artistMatchGenre" << d->mArtistMatchGenreQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::artistMatchGenre" << d->mArtistMatchGenreQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::artistMatchGenre" << d->mArtistMatchGenreQuery.lastError();
 
         d->mArtistMatchGenreQuery.finish();
 
@@ -1366,9 +1366,9 @@ void DatabaseInterface::clearData()
     if (!queryResult || !d->mClearTracksTable.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksTable.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksTable.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksTable.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksTable.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksTable.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksTable.lastError();
     }
 
     d->mClearTracksTable.finish();
@@ -1378,9 +1378,9 @@ void DatabaseInterface::clearData()
     if (!queryResult || !d->mClearTracksDataTable.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksDataTable.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksDataTable.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksDataTable.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksDataTable.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksDataTable.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearTracksDataTable.lastError();
     }
 
     d->mClearTracksDataTable.finish();
@@ -1390,9 +1390,9 @@ void DatabaseInterface::clearData()
     if (!queryResult || !d->mClearAlbumsTable.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearAlbumsTable.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearAlbumsTable.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearAlbumsTable.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearAlbumsTable.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearAlbumsTable.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearAlbumsTable.lastError();
     }
 
     d->mClearAlbumsTable.finish();
@@ -1402,9 +1402,9 @@ void DatabaseInterface::clearData()
     if (!queryResult || !d->mClearComposerTable.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearComposerTable.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearComposerTable.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearComposerTable.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearComposerTable.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearComposerTable.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearComposerTable.lastError();
     }
 
     d->mClearComposerTable.finish();
@@ -1414,9 +1414,9 @@ void DatabaseInterface::clearData()
     if (!queryResult || !d->mClearLyricistTable.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearLyricistTable.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearLyricistTable.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearLyricistTable.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearLyricistTable.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearLyricistTable.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearLyricistTable.lastError();
     }
 
     d->mClearLyricistTable.finish();
@@ -1426,9 +1426,9 @@ void DatabaseInterface::clearData()
     if (!queryResult || !d->mClearGenreTable.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearGenreTable.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearGenreTable.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearGenreTable.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearGenreTable.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearGenreTable.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearGenreTable.lastError();
     }
 
     d->mClearGenreTable.finish();
@@ -1438,9 +1438,9 @@ void DatabaseInterface::clearData()
     if (!queryResult || !d->mClearArtistsTable.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearArtistsTable.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearArtistsTable.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearArtistsTable.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearArtistsTable.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearArtistsTable.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::clearData" << d->mClearArtistsTable.lastError();
     }
 
     d->mClearArtistsTable.finish();
@@ -1523,8 +1523,8 @@ bool DatabaseInterface::initDatabase()
             auto result = createSchemaQuery.exec(QLatin1String("DROP TABLE ") + oneTable);
 
             if (!result) {
-                qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
-                qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
+                qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabase" << createSchemaQuery.lastQuery();
+                qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabase" << createSchemaQuery.lastError();
 
                 Q_EMIT databaseError();
             }
@@ -1544,8 +1544,8 @@ void DatabaseInterface::createDatabaseV9()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV9` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1559,8 +1559,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                    "UNIQUE (`Name`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1574,8 +1574,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                    "UNIQUE (`Name`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1589,8 +1589,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                    "UNIQUE (`Name`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1604,8 +1604,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                    "UNIQUE (`Name`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1619,8 +1619,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                    "UNIQUE (`Name`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1640,8 +1640,10 @@ void DatabaseInterface::createDatabaseV9()
                                                                    "ON DELETE CASCADE)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1685,8 +1687,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                    "REFERENCES `Albums`(`Title`, `ArtistName`, `AlbumPath`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1707,8 +1709,10 @@ void DatabaseInterface::createDatabaseV9()
                                                                    "CONSTRAINT fk_tracksmapping_discoverID FOREIGN KEY (`DiscoverID`) REFERENCES `DiscoverSource`(`ID`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -1721,8 +1725,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                   "(`Title`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1737,8 +1741,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                   "(`ArtistName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1753,8 +1757,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                   "(`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1769,8 +1773,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                   "(`ArtistName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1785,8 +1789,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                   "(`AlbumArtistName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1801,8 +1805,8 @@ void DatabaseInterface::createDatabaseV9()
                                                                   "(`FileName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1821,8 +1825,8 @@ void DatabaseInterface::upgradeDatabaseV9()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV9` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1834,8 +1838,8 @@ void DatabaseInterface::upgradeDatabaseV9()
         auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << disableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << disableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << disableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << disableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1857,8 +1861,8 @@ void DatabaseInterface::upgradeDatabaseV9()
                                                                    "ON DELETE CASCADE)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
         }
     }
 
@@ -1881,8 +1885,8 @@ void DatabaseInterface::upgradeDatabaseV9()
                                                         "albumArtistMapping.`ArtistID` = artist.`ID`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1894,8 +1898,8 @@ void DatabaseInterface::upgradeDatabaseV9()
         auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Albums`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1907,8 +1911,8 @@ void DatabaseInterface::upgradeDatabaseV9()
         auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `AlbumsArtists`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1920,8 +1924,8 @@ void DatabaseInterface::upgradeDatabaseV9()
         auto result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `NewAlbums` RENAME TO `Albums`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -1967,8 +1971,8 @@ void DatabaseInterface::upgradeDatabaseV9()
                                                                    "REFERENCES `Albums`(`Title`, `ArtistName`, `AlbumPath`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2027,8 +2031,8 @@ void DatabaseInterface::upgradeDatabaseV9()
                                                         "track.`AlbumID` = album.`ID`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << copyDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2040,8 +2044,8 @@ void DatabaseInterface::upgradeDatabaseV9()
         auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Tracks`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2053,8 +2057,8 @@ void DatabaseInterface::upgradeDatabaseV9()
         auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `TracksArtists`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2066,8 +2070,8 @@ void DatabaseInterface::upgradeDatabaseV9()
         auto result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `NewTracks` RENAME TO `Tracks`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2081,8 +2085,8 @@ void DatabaseInterface::upgradeDatabaseV9()
         auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << enableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << enableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << enableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << enableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2101,8 +2105,8 @@ void DatabaseInterface::upgradeDatabaseV11()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV11` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2114,8 +2118,8 @@ void DatabaseInterface::upgradeDatabaseV11()
         auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << disableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << disableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << disableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << disableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2138,8 +2142,10 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                                    "CONSTRAINT fk_tracksmapping_discoverID FOREIGN KEY (`DiscoverID`) REFERENCES `DiscoverSource`(`ID`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2162,8 +2168,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                         "t.`ID` = m.`TrackID`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << copyDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << copyDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << copyDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << copyDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2214,8 +2220,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                             "REFERENCES `Albums`(`Title`, `ArtistName`, `AlbumPath`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2277,8 +2283,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                         "t.`ID` = m.`TrackID`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << copyDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << copyDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << copyDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << copyDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2294,8 +2300,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                           "`TrackNumber` = -1"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2311,8 +2317,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                           "`Channels` = -1"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2328,8 +2334,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                           "`BitRate` = -1"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2345,8 +2351,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                           "`SampleRate` = -1"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << updateDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2358,8 +2364,8 @@ void DatabaseInterface::upgradeDatabaseV11()
         auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Tracks`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2371,8 +2377,8 @@ void DatabaseInterface::upgradeDatabaseV11()
         auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `TracksMapping`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2384,8 +2390,8 @@ void DatabaseInterface::upgradeDatabaseV11()
         auto result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `NewTracks` RENAME TO `Tracks`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2399,8 +2405,8 @@ void DatabaseInterface::upgradeDatabaseV11()
         auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << enableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << enableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << enableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << enableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2415,8 +2421,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                                   "(`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2431,8 +2437,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                                   "(`ArtistName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2447,8 +2453,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                                   "(`AlbumArtistName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2464,8 +2470,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                                   "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2481,8 +2487,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                                   "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2497,8 +2503,8 @@ void DatabaseInterface::upgradeDatabaseV11()
                                                                   "(`FileName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2517,8 +2523,8 @@ void DatabaseInterface::upgradeDatabaseV12()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV12` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2530,8 +2536,8 @@ void DatabaseInterface::upgradeDatabaseV12()
         auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << disableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << disableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << disableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << disableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2582,8 +2588,10 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                                    "REFERENCES `Albums`(`Title`, `ArtistName`, `AlbumPath`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2600,8 +2608,10 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                                    "PRIMARY KEY (`FileName`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2620,8 +2630,8 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                         "`TracksData` td"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << copyDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << copyDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << copyDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << copyDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2657,8 +2667,8 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                         "`Tracks` t"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << copyDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << copyDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << copyDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << copyDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2670,8 +2680,8 @@ void DatabaseInterface::upgradeDatabaseV12()
         auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `TracksData`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2683,8 +2693,8 @@ void DatabaseInterface::upgradeDatabaseV12()
         auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Tracks`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2696,8 +2706,8 @@ void DatabaseInterface::upgradeDatabaseV12()
         auto result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `NewTracksData` RENAME TO `TracksData`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2709,8 +2719,8 @@ void DatabaseInterface::upgradeDatabaseV12()
         auto result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `NewTracks` RENAME TO `Tracks`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2724,8 +2734,8 @@ void DatabaseInterface::upgradeDatabaseV12()
         auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << enableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << enableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << enableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << enableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2740,8 +2750,8 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                                   "(`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2756,8 +2766,8 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                                   "(`ArtistName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2772,8 +2782,8 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                                   "(`AlbumArtistName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2789,8 +2799,8 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                                   "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2806,8 +2816,8 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                                   "`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2822,8 +2832,8 @@ void DatabaseInterface::upgradeDatabaseV12()
                                                                   "(`FileName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2842,8 +2852,8 @@ void DatabaseInterface::upgradeDatabaseV13()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV13` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2855,8 +2865,8 @@ void DatabaseInterface::upgradeDatabaseV13()
         auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << disableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << disableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << disableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << disableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2908,8 +2918,10 @@ void DatabaseInterface::upgradeDatabaseV13()
                                                                    "REFERENCES `Albums`(`Title`, `ArtistName`, `AlbumPath`))"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -2943,8 +2955,8 @@ void DatabaseInterface::upgradeDatabaseV13()
                                                         "`Tracks` t"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << copyDataQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << copyDataQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << copyDataQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << copyDataQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2956,8 +2968,8 @@ void DatabaseInterface::upgradeDatabaseV13()
         auto result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Tracks`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2969,8 +2981,8 @@ void DatabaseInterface::upgradeDatabaseV13()
         auto result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `NewTracks` RENAME TO `Tracks`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -2984,8 +2996,8 @@ void DatabaseInterface::upgradeDatabaseV13()
         auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << enableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << enableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << enableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << enableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3000,8 +3012,8 @@ void DatabaseInterface::upgradeDatabaseV13()
                                                                   "(`AlbumTitle`, `AlbumArtistName`, `AlbumPath`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3016,8 +3028,8 @@ void DatabaseInterface::upgradeDatabaseV13()
                                                                   "(`ArtistName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3032,8 +3044,8 @@ void DatabaseInterface::upgradeDatabaseV13()
                                                                   "(`AlbumArtistName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3050,8 +3062,8 @@ void DatabaseInterface::upgradeDatabaseV13()
                                                                   "`TrackNumber`, `DiscNumber`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3068,8 +3080,8 @@ void DatabaseInterface::upgradeDatabaseV13()
                                                                   "`TrackNumber`, `DiscNumber`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3084,8 +3096,8 @@ void DatabaseInterface::upgradeDatabaseV13()
                                                                   "(`FileName`)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createTrackIndex.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3104,8 +3116,8 @@ void DatabaseInterface::upgradeDatabaseV14()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV14` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3117,8 +3129,8 @@ void DatabaseInterface::upgradeDatabaseV14()
         auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << disableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << disableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << disableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << disableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3147,8 +3159,8 @@ void DatabaseInterface::upgradeDatabaseV14()
                                                                    ));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3170,8 +3182,8 @@ void DatabaseInterface::upgradeDatabaseV14()
                                         "SELECT 'https://stream.laut.fm/jahfari', 1, 'Jahfari'"
                                                                    ));
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3185,8 +3197,8 @@ void DatabaseInterface::upgradeDatabaseV14()
         auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << enableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << enableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << enableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << enableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3205,8 +3217,8 @@ void DatabaseInterface::upgradeDatabaseV15()
         const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV15` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3218,8 +3230,8 @@ void DatabaseInterface::upgradeDatabaseV15()
         auto result = disableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=OFF"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << disableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << disableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << disableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << disableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3248,8 +3260,8 @@ void DatabaseInterface::upgradeDatabaseV15()
                                                                    ));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3261,8 +3273,8 @@ void DatabaseInterface::upgradeDatabaseV15()
         const auto &result = createSchemaQuery.exec(QStringLiteral("INSERT INTO RadiosNew SELECT ID, HttpAddress, '', Title, Rating, Genre, Comment FROM Radios"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3274,8 +3286,8 @@ void DatabaseInterface::upgradeDatabaseV15()
         const auto &result = createSchemaQuery.exec(QStringLiteral("DROP TABLE `Radios`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3287,8 +3299,8 @@ void DatabaseInterface::upgradeDatabaseV15()
         const auto &result = createSchemaQuery.exec(QStringLiteral("ALTER TABLE `RadiosNew` RENAME TO `Radios`"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3311,8 +3323,8 @@ void DatabaseInterface::upgradeDatabaseV15()
                                         "       ('https://chai5she.cdn.dvmr.fr/francemusique-lofi.mp3', 'https://static.radio.fr/images/broadcasts/07/f7/3366/c44.png', 'France Musique')"
                                                                    ));
         if (!result) {
-            qCInfo(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
-            qCInfo(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3326,8 +3338,8 @@ void DatabaseInterface::upgradeDatabaseV15()
         auto result = enableForeignKeys.exec(QStringLiteral(" PRAGMA foreign_keys=ON"));
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << enableForeignKeys.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << enableForeignKeys.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << enableForeignKeys.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << enableForeignKeys.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3440,8 +3452,8 @@ DatabaseInterface::DatabaseVersion DatabaseInterface::currentDatabaseVersion()
 
         auto queryResult = execQuery(d->mSelectDatabaseVersionQuery);
         if (!queryResult) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseToLatestVersion" << d->mUpdateDatabaseVersionQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseToLatestVersion" << d->mUpdateDatabaseVersionQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseToLatestVersion" << d->mUpdateDatabaseVersionQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseToLatestVersion" << d->mUpdateDatabaseVersionQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3512,8 +3524,8 @@ void DatabaseInterface::dropTable(const QString &query)
     const auto &result = dropQueryQuery.exec(query);
 
     if (!result) {
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::dropTable" << dropQueryQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::dropTable" << dropQueryQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::dropTable" << dropQueryQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::dropTable" << dropQueryQuery.lastError();
 
         Q_EMIT databaseError();
     }
@@ -3526,8 +3538,8 @@ void DatabaseInterface::setDatabaseVersionInTable(int version)
     auto queryResult = execQuery(d->mUpdateDatabaseVersionQuery);
 
     if (!queryResult) {
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::setDatabaseVersionInTable" << d->mUpdateDatabaseVersionQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::setDatabaseVersionInTable" << d->mUpdateDatabaseVersionQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::setDatabaseVersionInTable" << d->mUpdateDatabaseVersionQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::setDatabaseVersionInTable" << d->mUpdateDatabaseVersionQuery.lastError();
 
         Q_EMIT databaseError();
     }
@@ -3541,16 +3553,16 @@ void DatabaseInterface::createDatabaseVersionTable()
     const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersion` (`Version` INTEGER PRIMARY KEY NOT NULL default 0)"));
 
     if (!result) {
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastError();
 
         Q_EMIT databaseError();
     }
 
     const auto resultInsert = createSchemaQuery.exec(QStringLiteral("INSERT INTO `DatabaseVersion` VALUES (0)"));
     if (!resultInsert) {
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastError();
 
         Q_EMIT databaseError();
     }
@@ -3564,8 +3576,8 @@ void DatabaseInterface::initDatabaseVersionQueries()
         auto result = prepareQuery(d->mUpdateDatabaseVersionQuery, initDatabaseVersionQuery);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mUpdateDatabaseVersionQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mUpdateDatabaseVersionQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mUpdateDatabaseVersionQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mUpdateDatabaseVersionQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3577,8 +3589,8 @@ void DatabaseInterface::initDatabaseVersionQueries()
         auto result = prepareQuery(d->mSelectDatabaseVersionQuery, selectDatabaseVersionQuery);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mSelectDatabaseVersionQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mSelectDatabaseVersionQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mSelectDatabaseVersionQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mSelectDatabaseVersionQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3624,7 +3636,7 @@ bool DatabaseInterface::startTransaction()
 
     auto transactionResult = d->mTracksDatabase.transaction();
     if (!transactionResult) {
-        qCDebug(orgKdeElisaDatabase) << "transaction failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().driverText();
+        qCCritical(orgKdeElisaDatabase) << "transaction failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().driverText();
 
         return result;
     }
@@ -3641,7 +3653,7 @@ bool DatabaseInterface::finishTransaction()
     auto transactionResult = d->mTracksDatabase.commit();
 
     if (!transactionResult) {
-        qCDebug(orgKdeElisaDatabase) << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
+        qCCritical(orgKdeElisaDatabase) << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
 
         return result;
     }
@@ -3658,7 +3670,7 @@ bool DatabaseInterface::rollBackTransaction()
     auto transactionResult = d->mTracksDatabase.rollback();
 
     if (!transactionResult) {
-        qCDebug(orgKdeElisaDatabase) << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
+        qCCritical(orgKdeElisaDatabase) << "commit failed" << d->mTracksDatabase.lastError() << d->mTracksDatabase.lastError().nativeErrorCode();
 
         return result;
     }
@@ -3773,8 +3785,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAlbumQuery, selectAlbumQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3790,8 +3802,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllGenresQuery, selectAllGenresText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllGenresQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllGenresQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllGenresQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllGenresQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3855,8 +3867,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllAlbumsShortQuery, selectAllAlbumsText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -3959,8 +3971,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllAlbumsShortWithGenreArtistFilterQuery, selectAllAlbumsText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4061,8 +4073,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllAlbumsShortWithArtistFilterQuery, selectAllAlbumsText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithArtistFilterQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithArtistFilterQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithArtistFilterQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithArtistFilterQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4081,8 +4093,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllArtistsQuery, selectAllArtistsWithFilterText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4131,8 +4143,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllArtistsWithGenreFilterQuery, selectAllArtistsWithGenreFilterText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsWithGenreFilterQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsWithGenreFilterQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsWithGenreFilterQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsWithGenreFilterQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4159,8 +4171,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mArtistMatchGenreQuery, artistMatchGenreText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mArtistMatchGenreQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mArtistMatchGenreQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mArtistMatchGenreQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mArtistMatchGenreQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4175,8 +4187,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllComposersQuery, selectAllComposersWithFilterText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllComposersQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllComposersQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllComposersQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllComposersQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4191,8 +4203,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllLyricistsQuery, selectAllLyricistsWithFilterText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllLyricistsQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllLyricistsQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllLyricistsQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllLyricistsQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4322,8 +4334,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllTracksQuery, selectAllTracksText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4346,8 +4358,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllRadiosQuery, selectAllRadiosText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRadiosQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRadiosQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRadiosQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRadiosQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4476,8 +4488,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllRecentlyPlayedTracksQuery, selectAllTracksText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRecentlyPlayedTracksQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRecentlyPlayedTracksQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRecentlyPlayedTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRecentlyPlayedTracksQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4606,8 +4618,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllFrequentlyPlayedTracksQuery, selectAllTracksText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllFrequentlyPlayedTracksQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllFrequentlyPlayedTracksQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllFrequentlyPlayedTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllFrequentlyPlayedTracksQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4619,8 +4631,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mClearAlbumsTable, clearAlbumsTableText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearAlbumsTable.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearAlbumsTable.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearAlbumsTable.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearAlbumsTable.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4632,8 +4644,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mClearArtistsTable, clearArtistsTableText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearArtistsTable.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearArtistsTable.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearArtistsTable.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearArtistsTable.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4645,8 +4657,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mClearComposerTable, clearComposerTableText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearComposerTable.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearComposerTable.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearComposerTable.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearComposerTable.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4658,8 +4670,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mClearGenreTable, clearGenreTableText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearGenreTable.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearGenreTable.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearGenreTable.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearGenreTable.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4671,8 +4683,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mClearLyricistTable, clearLyricistTableText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearLyricistTable.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearLyricistTable.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearLyricistTable.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearLyricistTable.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4684,8 +4696,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mClearTracksDataTable, clearTracksDataTableText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearTracksDataTable.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearTracksDataTable.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearTracksDataTable.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearTracksDataTable.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4697,8 +4709,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mClearTracksTable, clearTracksTableText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearTracksTable.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearTracksTable.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearTracksTable.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mClearTracksTable.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4757,8 +4769,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllTracksShortQuery, selectAllTracksShortText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksShortQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksShortQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksShortQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksShortQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4774,8 +4786,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectArtistByNameQuery, selectArtistByNameText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistByNameQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistByNameQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistByNameQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistByNameQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4791,8 +4803,10 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectComposerByNameQuery, selectComposerByNameText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerByNameQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerByNameQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerByNameQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerByNameQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -4806,8 +4820,10 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectLyricistByNameQuery, selectLyricistByNameText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistByNameQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistByNameQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistByNameQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistByNameQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -4821,8 +4837,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectGenreByNameQuery, selectGenreByNameText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreByNameQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreByNameQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreByNameQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreByNameQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4835,8 +4851,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mInsertArtistsQuery, insertArtistsText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertArtistsQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertArtistsQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertArtistsQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertArtistsQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4849,8 +4865,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mInsertGenreQuery, insertGenreText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertGenreQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertGenreQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertGenreQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertGenreQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -4863,8 +4879,10 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mInsertComposerQuery, insertComposerText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertComposerQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertComposerQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertComposerQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertComposerQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -4875,8 +4893,10 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mInsertLyricistQuery, insertLyricistText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertLyricistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertLyricistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertLyricistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertLyricistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -5004,8 +5024,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTrackQuery, selectTrackQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5045,8 +5065,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTrackIdQuery, selectTrackQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5162,8 +5182,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTrackFromIdQuery, selectTrackFromIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5280,8 +5300,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTrackFromIdAndUrlQuery, selectTrackFromIdAndUrlQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdAndUrlQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdAndUrlQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdAndUrlQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdAndUrlQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5306,8 +5326,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectRadioFromIdQuery, selectRadioFromIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectRadioFromIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectRadioFromIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectRadioFromIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectRadioFromIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5320,8 +5340,8 @@ void DatabaseInterface::initDataQueries()
         const auto result = prepareQuery(d->mSelectCountAlbumsForArtistQuery, selectCountAlbumsQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForArtistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5344,8 +5364,8 @@ void DatabaseInterface::initDataQueries()
         const auto result = prepareQuery(d->mSelectGenreForArtistQuery, selectGenreForArtistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForArtistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5368,8 +5388,8 @@ void DatabaseInterface::initDataQueries()
         const auto result = prepareQuery(d->mSelectGenreForAlbumQuery, selectGenreForAlbumQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForAlbumQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForAlbumQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForAlbumQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForAlbumQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5390,8 +5410,8 @@ void DatabaseInterface::initDataQueries()
         const auto result = prepareQuery(d->mSelectCountAlbumsForComposerQuery, selectCountAlbumsQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForComposerQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForComposerQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForComposerQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForComposerQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5412,8 +5432,8 @@ void DatabaseInterface::initDataQueries()
         const auto result = prepareQuery(d->mSelectCountAlbumsForLyricistQuery, selectCountAlbumsQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForLyricistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForLyricistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForLyricistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForLyricistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5431,8 +5451,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleQuery, selectAlbumIdFromTitleQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5451,8 +5471,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleAndArtistQuery, selectAlbumIdFromTitleAndArtistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5471,8 +5491,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleWithoutArtistQuery, selectAlbumIdFromTitleWithoutArtistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5495,8 +5515,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mInsertAlbumQuery, insertAlbumQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertAlbumQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertAlbumQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertAlbumQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertAlbumQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5514,8 +5534,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mInsertTrackMapping, insertTrackMappingQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackMapping.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackMapping.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackMapping.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackMapping.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5530,8 +5550,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateTrackFileModifiedTime, initialUpdateTracksValidityQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFileModifiedTime.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFileModifiedTime.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFileModifiedTime.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFileModifiedTime.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5546,8 +5566,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateTrackPriority, initialUpdateTracksValidityQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackPriority.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackPriority.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackPriority.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackPriority.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5560,8 +5580,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mRemoveTracksMappingFromSource, removeTracksMappingFromSourceQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMappingFromSource.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMappingFromSource.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMappingFromSource.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMappingFromSource.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5574,8 +5594,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mRemoveTracksMapping, removeTracksMappingQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMapping.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMapping.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMapping.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMapping.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5690,8 +5710,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTracksWithoutMappingQuery, selectTracksWithoutMappingQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksWithoutMappingQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksWithoutMappingQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksWithoutMappingQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksWithoutMappingQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5715,8 +5735,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTracksMapping, selectTracksMappingQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMapping.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMapping.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMapping.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMapping.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5756,8 +5776,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTracksMappingPriority, selectTracksMappingPriorityQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriority.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriority.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriority.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriority.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5776,8 +5796,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTracksMappingPriorityByTrackId, selectTracksMappingPriorityQueryByTrackIdText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriorityByTrackId.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriorityByTrackId.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriorityByTrackId.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriorityByTrackId.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5793,8 +5813,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAllTrackFilesQuery, selectAllTrackFilesFromSourceQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTrackFilesQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTrackFilesQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTrackFilesQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTrackFilesQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5807,8 +5827,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mInsertMusicSource, insertMusicSourceQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertMusicSource.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertMusicSource.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertMusicSource.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertMusicSource.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5820,8 +5840,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectMusicSource, selectMusicSourceQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectMusicSource.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectMusicSource.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectMusicSource.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectMusicSource.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5859,8 +5879,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTrackIdFromTitleAlbumIdArtistQuery, selectTrackQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5917,8 +5937,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mInsertTrackQuery, insertTrackQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5951,8 +5971,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateTrackQuery, updateTrackQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5977,8 +5997,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mInsertRadioQuery, insertRadioQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertRadioQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertRadioQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertRadioQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertRadioQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -5991,8 +6011,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mDeleteRadioQuery, deleteRadioQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mDeleteRadioQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mDeleteRadioQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mDeleteRadioQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mDeleteRadioQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6012,8 +6032,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateRadioQuery, updateRadioQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateRadioQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateRadioQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateRadioQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateRadioQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6029,8 +6049,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateAlbumArtistQuery, updateAlbumArtistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6048,8 +6068,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateAlbumArtistInTracksQuery, updateAlbumArtistInTracksQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistInTracksQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistInTracksQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistInTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistInTracksQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6063,8 +6083,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mQueryMaximumTrackIdQuery, queryMaximumTrackIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumTrackIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumTrackIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumTrackIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumTrackIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6078,8 +6098,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mQueryMaximumAlbumIdQuery, queryMaximumAlbumIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumAlbumIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumAlbumIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumAlbumIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumAlbumIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6093,8 +6113,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mQueryMaximumArtistIdQuery, queryMaximumArtistIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumArtistIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumArtistIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumArtistIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumArtistIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6108,8 +6128,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mQueryMaximumLyricistIdQuery, queryMaximumLyricistIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumLyricistIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumLyricistIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumLyricistIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumLyricistIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6123,8 +6143,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mQueryMaximumComposerIdQuery, queryMaximumComposerIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumComposerIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumComposerIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumComposerIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumComposerIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6138,8 +6158,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mQueryMaximumGenreIdQuery, queryMaximumGenreIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumGenreIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumGenreIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumGenreIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumGenreIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6160,8 +6180,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery, selectTrackQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6187,8 +6207,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery, selectTrackQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6204,8 +6224,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAlbumArtUriFromAlbumIdQuery, selectAlbumArtUriFromAlbumIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6220,8 +6240,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateAlbumArtUriFromAlbumIdQuery, updateAlbumArtUriFromAlbumIdQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6252,10 +6272,10 @@ void DatabaseInterface::initDataQueries()
       auto result = prepareQuery(d->mSelectUpToFourLatestCoversFromArtistNameQuery, selectUpToFourLatestCoversFromArtistNameQueryText);
 
       if (!result) {
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastError();
+          qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastQuery();
+          qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastError();
 
-        Q_EMIT databaseError();
+          Q_EMIT databaseError();
         }
     }
 
@@ -6386,8 +6406,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTracksFromArtist, selectTracksFromArtistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtist.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtist.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtist.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtist.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6520,8 +6540,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTracksFromGenre, selectTracksFromGenreQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromGenre.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromGenre.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromGenre.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromGenre.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6656,8 +6676,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectTracksFromArtistAndGenre, selectTracksFromArtistAndGenreQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtistAndGenre.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtistAndGenre.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtistAndGenre.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtistAndGenre.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6674,8 +6694,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectAlbumIdsFromArtist, selectAlbumIdsFromArtistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdsFromArtist.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdsFromArtist.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdsFromArtist.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdsFromArtist.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6691,8 +6711,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectArtistQuery, selectArtistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6708,8 +6728,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateTrackStartedStatistics, updateTrackStartedStatisticsQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackStartedStatistics.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackStartedStatistics.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackStartedStatistics.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackStartedStatistics.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6725,8 +6745,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateTrackFinishedStatistics, updateTrackFinishedStatisticsQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFinishedStatistics.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFinishedStatistics.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFinishedStatistics.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFinishedStatistics.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6743,8 +6763,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mUpdateTrackFirstPlayStatistics, updateTrackFirstPlayStatisticsQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFirstPlayStatistics.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFirstPlayStatistics.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFirstPlayStatistics.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFirstPlayStatistics.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6760,8 +6780,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectGenreQuery, selectGenreQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6777,8 +6797,10 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectComposerQuery, selectComposerQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -6792,8 +6814,10 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mSelectLyricistQuery, selectLyricistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistQuery.lastError();
+
+            Q_EMIT databaseError();
         }
     }
 
@@ -6805,8 +6829,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mRemoveTrackQuery, removeTrackQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTrackQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTrackQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTrackQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTrackQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6820,8 +6844,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mRemoveAlbumQuery, removeAlbumQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveAlbumQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveAlbumQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveAlbumQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveAlbumQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6836,8 +6860,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mRemoveArtistQuery, removeArtistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveArtistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveArtistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6852,8 +6876,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mRemoveGenreQuery, removeGenreQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveGenreQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveGenreQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveGenreQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveGenreQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6868,8 +6892,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mRemoveComposerQuery, removeComposerQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveComposerQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveComposerQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveComposerQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveComposerQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6884,8 +6908,8 @@ void DatabaseInterface::initDataQueries()
         auto result = prepareQuery(d->mRemoveLyricistQuery, removeLyricistQueryText);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveLyricistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveLyricistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveLyricistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveLyricistQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6903,8 +6927,8 @@ void DatabaseInterface::initDataQueries()
         const auto result = prepareQuery(d->mArtistHasTracksQuery, artistHasTracks);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6921,8 +6945,8 @@ void DatabaseInterface::initDataQueries()
         const auto result = prepareQuery(d->mGenreHasTracksQuery, genreHasTracks);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mGenreHasTracksQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mGenreHasTracksQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mGenreHasTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mGenreHasTracksQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6939,8 +6963,8 @@ void DatabaseInterface::initDataQueries()
         const auto result = prepareQuery(d->mComposerHasTracksQuery, composerHasTracks);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mComposerHasTracksQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mComposerHasTracksQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mComposerHasTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mComposerHasTracksQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -6957,8 +6981,8 @@ void DatabaseInterface::initDataQueries()
         const auto result = prepareQuery(d->mLyricistHasTracksQuery, lyricistHasTracks);
 
         if (!result) {
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mLyricistHasTracksQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mLyricistHasTracksQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mLyricistHasTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mLyricistHasTracksQuery.lastError();
 
             Q_EMIT databaseError();
         }
@@ -7047,9 +7071,9 @@ void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &o
     if (!result || !d->mSelectTracksMapping.isSelect() || !d->mSelectTracksMapping.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertTracksList" << d->mSelectTracksMapping.lastError();
 
         d->mSelectTracksMapping.finish();
 
@@ -7094,9 +7118,9 @@ void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &o
     if (!result || !query.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertOneRadio" << query.lastError();
     } else {
         if (!oneTrack.hasDatabaseId()) {
             d->mInsertedRadios.insert(internalRadioIdFromHttpAddress(oneTrack.resourceURI().toString()));
@@ -7126,9 +7150,9 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
     if (!queryResult || !d->mSelectAlbumIdFromTitleAndArtistQuery.isSelect() || !d->mSelectAlbumIdFromTitleAndArtistQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
 
         d->mSelectAlbumIdFromTitleAndArtistQuery.finish();
 
@@ -7169,9 +7193,9 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
     if (!queryResult || !d->mInsertAlbumQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mInsertAlbumQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mInsertAlbumQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mInsertAlbumQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mInsertAlbumQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mInsertAlbumQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertAlbum" << d->mInsertAlbumQuery.lastError();
 
         d->mInsertAlbumQuery.finish();
 
@@ -7227,9 +7251,9 @@ qulonglong DatabaseInterface::insertArtist(const QString &name)
     if (!queryResult || !d->mInsertArtistsQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertArtistsQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertArtistsQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertArtistsQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertArtistsQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertArtistsQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertArtistsQuery.lastError();
 
         d->mInsertArtistsQuery.finish();
 
@@ -7262,9 +7286,9 @@ qulonglong DatabaseInterface::insertComposer(const QString &name)
     if (!queryResult || !d->mSelectComposerByNameQuery.isSelect() || !d->mSelectComposerByNameQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mSelectComposerByNameQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mSelectComposerByNameQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mSelectComposerByNameQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mSelectComposerByNameQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mSelectComposerByNameQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mSelectComposerByNameQuery.lastError();
 
         d->mSelectComposerByNameQuery.finish();
 
@@ -7290,9 +7314,9 @@ qulonglong DatabaseInterface::insertComposer(const QString &name)
     if (!queryResult || !d->mInsertComposerQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mInsertComposerQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mInsertComposerQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mInsertComposerQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mInsertComposerQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mInsertComposerQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertComposer" << d->mInsertComposerQuery.lastError();
 
         d->mInsertComposerQuery.finish();
 
@@ -7332,9 +7356,9 @@ qulonglong DatabaseInterface::insertGenre(const QString &name)
     if (!queryResult || !d->mInsertGenreQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertGenre" << d->mInsertGenreQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertGenre" << d->mInsertGenreQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertGenre" << d->mInsertGenreQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertGenre" << d->mInsertGenreQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertGenre" << d->mInsertGenreQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertGenre" << d->mInsertGenreQuery.lastError();
 
         d->mInsertGenreQuery.finish();
 
@@ -7365,9 +7389,9 @@ void DatabaseInterface::insertTrackOrigin(const QUrl &fileNameURI, const QDateTi
     if (!queryResult || !d->mInsertTrackMapping.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertTrackMapping.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertTrackMapping.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertTrackMapping.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertTrackMapping.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertTrackMapping.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mInsertTrackMapping.lastError();
 
         d->mInsertTrackMapping.finish();
 
@@ -7387,9 +7411,9 @@ void DatabaseInterface::updateTrackOrigin(const QUrl &fileName, const QDateTime 
     if (!queryResult || !d->mUpdateTrackFileModifiedTime.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackFileModifiedTime.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackFileModifiedTime.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackFileModifiedTime.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackFileModifiedTime.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackFileModifiedTime.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackOrigin" << d->mUpdateTrackFileModifiedTime.lastError();
 
         d->mUpdateTrackFileModifiedTime.finish();
 
@@ -7558,10 +7582,10 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << oneTrack.resourceURI();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << oneTrack << oneTrack.resourceURI();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalInsertTrack" << d->mInsertTrackQuery.lastError();
 
         isInserted = false;
         return resultId;
@@ -7730,9 +7754,9 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
         if (!result || !d->mRemoveTracksMapping.isActive()) {
             Q_EMIT databaseError();
 
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalRemoveTracksList" << d->mRemoveTracksMapping.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalRemoveTracksList" << d->mRemoveTracksMapping.boundValues();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalRemoveTracksList" << d->mRemoveTracksMapping.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalRemoveTracksList" << d->mRemoveTracksMapping.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalRemoveTracksList" << d->mRemoveTracksMapping.boundValues();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalRemoveTracksList" << d->mRemoveTracksMapping.lastError();
 
             continue;
         }
@@ -7772,9 +7796,9 @@ QUrl DatabaseInterface::internalAlbumArtUriFromAlbumId(qulonglong albumId)
     if (!queryResult || !d->mSelectAlbumArtUriFromAlbumIdQuery.isSelect() || !d->mSelectAlbumArtUriFromAlbumIdQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectAlbumArtUriFromAlbumIdQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectAlbumArtUriFromAlbumIdQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertArtist" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastError();
 
         d->mSelectAlbumArtUriFromAlbumIdQuery.finish();
 
@@ -7805,9 +7829,9 @@ bool DatabaseInterface::isValidArtist(qulonglong albumId)
     if (!queryResult || !d->mSelectAlbumQuery.isSelect() || !d->mSelectAlbumQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumFromId" << d->mSelectAlbumQuery.lastError();
 
         d->mSelectAlbumQuery.finish();
 
@@ -7836,9 +7860,9 @@ bool DatabaseInterface::internalGenericPartialData(QSqlQuery &query)
     if (!queryResult || !query.isSelect() || !query.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAllGenericPartialData" << query.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAllGenericPartialData" << query.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAllGenericPartialData" << query.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAllGenericPartialData" << query.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAllGenericPartialData" << query.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAllGenericPartialData" << query.lastError();
 
         query.finish();
 
@@ -7870,9 +7894,9 @@ qulonglong DatabaseInterface::insertLyricist(const QString &name)
     if (!queryResult || !d->mSelectLyricistByNameQuery.isSelect() || !d->mSelectLyricistByNameQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mSelectLyricistByNameQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mSelectLyricistByNameQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mSelectLyricistByNameQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mSelectLyricistByNameQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mSelectLyricistByNameQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mSelectLyricistByNameQuery.lastError();
 
         d->mSelectLyricistByNameQuery.finish();
 
@@ -7897,9 +7921,9 @@ qulonglong DatabaseInterface::insertLyricist(const QString &name)
     if (!queryResult || !d->mInsertLyricistQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mInsertLyricistQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mInsertLyricistQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mInsertLyricistQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mInsertLyricistQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mInsertLyricistQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertLyricist" << d->mInsertLyricistQuery.lastError();
 
         d->mInsertLyricistQuery.finish();
 
@@ -7926,9 +7950,9 @@ QHash<QUrl, QDateTime> DatabaseInterface::internalAllFileName()
     if (!queryResult || !d->mSelectAllTrackFilesQuery.isSelect() || !d->mSelectAllTrackFilesQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << d->mSelectAllTrackFilesQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << d->mSelectAllTrackFilesQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << d->mSelectAllTrackFilesQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << d->mSelectAllTrackFilesQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << d->mSelectAllTrackFilesQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << d->mSelectAllTrackFilesQuery.lastError();
 
         d->mSelectAllTrackFilesQuery.finish();
 
@@ -7956,9 +7980,9 @@ qulonglong DatabaseInterface::internalGenericIdFromName(QSqlQuery &query)
     if (!queryResult || !query.isSelect() || !query.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenericIdFromName" << query.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenericIdFromName" << query.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGenericIdFromName" << query.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalGenericIdFromName" << query.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalGenericIdFromName" << query.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalGenericIdFromName" << query.lastError();
 
         query.finish();
 
@@ -8007,9 +8031,9 @@ void DatabaseInterface::removeTrackInDatabase(qulonglong trackId)
     if (!result || !d->mRemoveTrackQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeTrackInDatabase" << d->mRemoveTrackQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeTrackInDatabase" << d->mRemoveTrackQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeTrackInDatabase" << d->mRemoveTrackQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeTrackInDatabase" << d->mRemoveTrackQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeTrackInDatabase" << d->mRemoveTrackQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeTrackInDatabase" << d->mRemoveTrackQuery.lastError();
     }
 
     d->mRemoveTrackQuery.finish();
@@ -8079,9 +8103,9 @@ void DatabaseInterface::updateTrackInDatabase(const DataTypes::TrackDataType &on
     if (!result || !d->mUpdateTrackQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << d->mUpdateTrackQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << d->mUpdateTrackQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << d->mUpdateTrackQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << d->mUpdateTrackQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << d->mUpdateTrackQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackInDatabase" << d->mUpdateTrackQuery.lastError();
     }
 
     d->mUpdateTrackQuery.finish();
@@ -8096,9 +8120,9 @@ void DatabaseInterface::removeRadio(qulonglong radioId)
     if (!result || !d->mDeleteRadioQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeRadio" << d->mDeleteRadioQuery.lastError();
     } else {
         d->mRemovedRadioIds.insert(radioId);
     }
@@ -8115,9 +8139,9 @@ void DatabaseInterface::removeAlbumInDatabase(qulonglong albumId)
     if (!result || !d->mRemoveAlbumQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeAlbumInDatabase" << d->mRemoveAlbumQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeAlbumInDatabase" << d->mRemoveAlbumQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeAlbumInDatabase" << d->mRemoveAlbumQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeAlbumInDatabase" << d->mRemoveAlbumQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeAlbumInDatabase" << d->mRemoveAlbumQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeAlbumInDatabase" << d->mRemoveAlbumQuery.lastError();
     }
 
     d->mRemoveAlbumQuery.finish();
@@ -8132,9 +8156,9 @@ void DatabaseInterface::removeArtistInDatabase(qulonglong artistId)
     if (!result || !d->mRemoveArtistQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeArtistInDatabase" << d->mRemoveArtistQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeArtistInDatabase" << d->mRemoveArtistQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeArtistInDatabase" << d->mRemoveArtistQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeArtistInDatabase" << d->mRemoveArtistQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeArtistInDatabase" << d->mRemoveArtistQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeArtistInDatabase" << d->mRemoveArtistQuery.lastError();
     }
 
     d->mRemoveArtistQuery.finish();
@@ -8149,9 +8173,9 @@ void DatabaseInterface::removeGenreInDatabase(qulonglong genreId)
     if (!result || !d->mRemoveGenreQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeGenreInDatabase" << d->mRemoveGenreQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeGenreInDatabase" << d->mRemoveGenreQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeGenreInDatabase" << d->mRemoveGenreQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeGenreInDatabase" << d->mRemoveGenreQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeGenreInDatabase" << d->mRemoveGenreQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeGenreInDatabase" << d->mRemoveGenreQuery.lastError();
     }
 
     d->mRemoveGenreQuery.finish();
@@ -8166,9 +8190,9 @@ void DatabaseInterface::removeComposerInDatabase(qulonglong composerId)
     if (!result || !d->mRemoveComposerQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeComposerInDatabase" << d->mRemoveComposerQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeComposerInDatabase" << d->mRemoveComposerQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeComposerInDatabase" << d->mRemoveComposerQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeComposerInDatabase" << d->mRemoveComposerQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeComposerInDatabase" << d->mRemoveComposerQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeComposerInDatabase" << d->mRemoveComposerQuery.lastError();
     }
 
     d->mRemoveComposerQuery.finish();
@@ -8183,9 +8207,9 @@ void DatabaseInterface::removeLyricistInDatabase(qulonglong lyricistId)
     if (!result || !d->mRemoveLyricistQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeLyricistInDatabase" << d->mRemoveLyricistQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeLyricistInDatabase" << d->mRemoveLyricistQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::removeLyricistInDatabase" << d->mRemoveLyricistQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeLyricistInDatabase" << d->mRemoveLyricistQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeLyricistInDatabase" << d->mRemoveLyricistQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::removeLyricistInDatabase" << d->mRemoveLyricistQuery.lastError();
     }
 
     d->mRemoveLyricistQuery.finish();
@@ -8217,9 +8241,9 @@ qulonglong DatabaseInterface::genericInitialId(QSqlQuery &request)
     if (!queryResult || !request.isSelect() || !request.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << request.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << request.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << request.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << request.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << request.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::insertMusicSource" << request.lastError();
 
         request.finish();
 
@@ -8256,9 +8280,9 @@ QList<qulonglong> DatabaseInterface::fetchTrackIds(qulonglong albumId)
     if (!result || !d->mSelectTrackIdQuery.isSelect() || !d->mSelectTrackIdQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackIdQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackIdQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackIdQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackIdQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackIdQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::fetchTrackIds" << d->mSelectTrackIdQuery.lastError();
     }
 
     while (d->mSelectTrackIdQuery.next()) {
@@ -8284,9 +8308,9 @@ qulonglong DatabaseInterface::internalAlbumIdFromTitleAndArtist(const QString &t
     if (!queryResult || !d->mSelectAlbumIdFromTitleQuery.isSelect() || !d->mSelectAlbumIdFromTitleQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist" << d->mSelectAlbumIdFromTitleQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist" << d->mSelectAlbumIdFromTitleQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist" << d->mSelectAlbumIdFromTitleQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist" << d->mSelectAlbumIdFromTitleQuery.lastError();
 
         d->mSelectAlbumIdFromTitleQuery.finish();
 
@@ -8308,9 +8332,12 @@ qulonglong DatabaseInterface::internalAlbumIdFromTitleAndArtist(const QString &t
         if (!queryResult || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isSelect() || !d->mSelectAlbumIdFromTitleWithoutArtistQuery.isActive()) {
             Q_EMIT databaseError();
 
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.boundValues();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist"
+                                            << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist"
+                                            << d->mSelectAlbumIdFromTitleWithoutArtistQuery.boundValues();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalAlbumIdFromTitleAndArtist"
+                                            << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
 
             d->mSelectAlbumIdFromTitleWithoutArtistQuery.finish();
 
@@ -8346,9 +8373,9 @@ DataTypes::TrackDataType DatabaseInterface::internalTrackFromDatabaseId(qulonglo
     if (!queryResult || !d->mSelectTrackFromIdQuery.isSelect() || !d->mSelectTrackFromIdQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackFromDatabaseId" << d->mSelectTrackFromIdQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackFromDatabaseId" << d->mSelectTrackFromIdQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackFromDatabaseId" << d->mSelectTrackFromIdQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackFromDatabaseId" << d->mSelectTrackFromIdQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackFromDatabaseId" << d->mSelectTrackFromIdQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackFromDatabaseId" << d->mSelectTrackFromIdQuery.lastError();
 
         d->mSelectTrackFromIdQuery.finish();
 
@@ -8402,9 +8429,12 @@ qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const 
     if (!queryResult || !d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.isSelect() || !d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist"
+                                        << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist"
+                                        << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist"
+                                        << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastError();
 
         d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.finish();
 
@@ -8445,9 +8475,10 @@ qulonglong DatabaseInterface::getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(c
     if (!queryResult || !d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.isSelect() || !d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist"
+                                        << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastError();
 
         d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.finish();
 
@@ -8478,9 +8509,9 @@ qulonglong DatabaseInterface::internalTrackIdFromFileName(const QUrl &fileName)
     if (!queryResult || !d->mSelectTracksMapping.isSelect() || !d->mSelectTracksMapping.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMapping.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMapping.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMapping.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMapping.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMapping.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectTracksMapping.lastError();
 
         d->mSelectTracksMapping.finish();
 
@@ -8514,9 +8545,9 @@ qulonglong DatabaseInterface::internalRadioIdFromHttpAddress(const QString &http
     if (!queryResult || !d->mSelectRadioIdFromHttpAddress.isSelect() || !d->mSelectRadioIdFromHttpAddress.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectRadioIdFromHttpAddress.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectRadioIdFromHttpAddress.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectRadioIdFromHttpAddress.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectRadioIdFromHttpAddress.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectRadioIdFromHttpAddress.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalTrackIdFromFileName" << d->mSelectRadioIdFromHttpAddress.lastError();
 
         d->mSelectRadioIdFromHttpAddress.finish();
 
@@ -8546,9 +8577,9 @@ DataTypes::ListTrackDataType DatabaseInterface::internalTracksFromAuthor(const Q
     if (!result || !d->mSelectTracksFromArtist.isSelect() || !d->mSelectTracksFromArtist.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectTracksFromArtist.lastError();
 
         return allTracks;
     }
@@ -8575,9 +8606,9 @@ DataTypes::ListTrackDataType DatabaseInterface::internalTracksFromGenre(const QS
     if (!result || !d->mSelectTracksFromGenre.isSelect() || !d->mSelectTracksFromGenre.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromGenre" << d->mSelectTracksFromGenre.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromGenre" << d->mSelectTracksFromGenre.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromGenre" << d->mSelectTracksFromGenre.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromGenre" << d->mSelectTracksFromGenre.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromGenre" << d->mSelectTracksFromGenre.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromGenre" << d->mSelectTracksFromGenre.lastError();
 
         return allTracks;
     }
@@ -8605,9 +8636,9 @@ DataTypes::ListTrackDataType DatabaseInterface::internalTracksFromAuthorAndGenre
     if (!result || !d->mSelectTracksFromArtistAndGenre.isSelect() || !d->mSelectTracksFromArtistAndGenre.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthorAndGenre" << d->mSelectTracksFromArtistAndGenre.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthorAndGenre" << d->mSelectTracksFromArtistAndGenre.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthorAndGenre" << d->mSelectTracksFromArtistAndGenre.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthorAndGenre" << d->mSelectTracksFromArtistAndGenre.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthorAndGenre" << d->mSelectTracksFromArtistAndGenre.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthorAndGenre" << d->mSelectTracksFromArtistAndGenre.lastError();
 
         return allTracks;
     }
@@ -8634,9 +8665,9 @@ QList<qulonglong> DatabaseInterface::internalAlbumIdsFromAuthor(const QString &A
     if (!result || !d->mSelectAlbumIdsFromArtist.isSelect() || !d->mSelectAlbumIdsFromArtist.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectAlbumIdsFromArtist.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectAlbumIdsFromArtist.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectAlbumIdsFromArtist.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectAlbumIdsFromArtist.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectAlbumIdsFromArtist.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::tracksFromAuthor" << d->mSelectAlbumIdsFromArtist.lastError();
 
         return allAlbumIds;
     }
@@ -8751,9 +8782,9 @@ DataTypes::ListTrackDataType DatabaseInterface::internalOneAlbumData(qulonglong 
     if (!queryResult || !d->mSelectTrackQuery.isSelect() || !d->mSelectTrackQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::albumData" << d->mSelectTrackQuery.lastError();
     }
 
     while (d->mSelectTrackQuery.next()) {
@@ -9154,9 +9185,9 @@ void DatabaseInterface::updateAlbumArtist(qulonglong albumId, const QString &tit
     if (!queryResult || !d->mUpdateAlbumArtistQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistQuery.lastError();
 
         d->mUpdateAlbumArtistQuery.finish();
 
@@ -9174,9 +9205,9 @@ void DatabaseInterface::updateAlbumArtist(qulonglong albumId, const QString &tit
     if (!queryResult || !d->mUpdateAlbumArtistInTracksQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistInTracksQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistInTracksQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistInTracksQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistInTracksQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistInTracksQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumArtist" << d->mUpdateAlbumArtistInTracksQuery.lastError();
 
         d->mUpdateAlbumArtistInTracksQuery.finish();
 
@@ -9201,9 +9232,9 @@ bool DatabaseInterface::updateAlbumCover(qulonglong albumId, const QUrl &albumAr
         if (!result || !d->mUpdateAlbumArtUriFromAlbumIdQuery.isActive()) {
             Q_EMIT databaseError();
 
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumCover" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumCover" << d->mUpdateAlbumArtUriFromAlbumIdQuery.boundValues();
-            qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumCover" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastError();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumCover" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumCover" << d->mUpdateAlbumArtUriFromAlbumIdQuery.boundValues();
+            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateAlbumCover" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastError();
 
             d->mUpdateAlbumArtUriFromAlbumIdQuery.finish();
 
@@ -9228,9 +9259,12 @@ QVariantList DatabaseInterface::internalGetLatestFourCoversForArtist(const QStri
     if (!queryResult || !d->mSelectUpToFourLatestCoversFromArtistNameQuery.isSelect() || !d->mSelectUpToFourLatestCoversFromArtistNameQuery.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGetLatestFourCoversForArtist" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGetLatestFourCoversForArtist" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::internalGetLatestFourCoversForArtist" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalGetLatestFourCoversForArtist"
+                                        << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalGetLatestFourCoversForArtist"
+                                        << d->mSelectUpToFourLatestCoversFromArtistNameQuery.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::internalGetLatestFourCoversForArtist"
+                                        << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastError();
 
         d->mSelectUpToFourLatestCoversFromArtistNameQuery.finish();
 
@@ -9262,9 +9296,9 @@ void DatabaseInterface::updateTrackStartedStatistics(const QUrl &fileName, const
     if (!queryResult || !d->mUpdateTrackStartedStatistics.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStartedStatistics" << d->mUpdateTrackStartedStatistics.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStartedStatistics" << d->mUpdateTrackStartedStatistics.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStartedStatistics" << d->mUpdateTrackStartedStatistics.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStartedStatistics" << d->mUpdateTrackStartedStatistics.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStartedStatistics" << d->mUpdateTrackStartedStatistics.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackStartedStatistics" << d->mUpdateTrackStartedStatistics.lastError();
 
         d->mUpdateTrackStartedStatistics.finish();
 
@@ -9284,9 +9318,9 @@ void DatabaseInterface::updateTrackFinishedStatistics(const QUrl &fileName, cons
     if (!queryResult || !d->mUpdateTrackFinishedStatistics.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFinishedStatistics.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFinishedStatistics.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFinishedStatistics.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFinishedStatistics.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFinishedStatistics.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFinishedStatistics.lastError();
 
         d->mUpdateTrackFinishedStatistics.finish();
 
@@ -9303,9 +9337,9 @@ void DatabaseInterface::updateTrackFinishedStatistics(const QUrl &fileName, cons
     if (!queryResult || !d->mUpdateTrackFirstPlayStatistics.isActive()) {
         Q_EMIT databaseError();
 
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFirstPlayStatistics.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFirstPlayStatistics.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFirstPlayStatistics.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFirstPlayStatistics.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFirstPlayStatistics.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::updateTrackFinishedStatistics" << d->mUpdateTrackFirstPlayStatistics.lastError();
 
         d->mUpdateTrackFirstPlayStatistics.finish();
 
@@ -9318,9 +9352,9 @@ void DatabaseInterface::updateTrackFinishedStatistics(const QUrl &fileName, cons
 bool DatabaseInterface::execHasRowQuery(QSqlQuery &query)
 {
     if (!execQuery(query) || !query.isActive()) {
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::execHasRowQuery" << query.lastQuery();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::execHasRowQuery" << query.boundValues();
-        qCDebug(orgKdeElisaDatabase) << "DatabaseInterface::execHasRowQuery" << query.lastError();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::execHasRowQuery" << query.lastQuery();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::execHasRowQuery" << query.boundValues();
+        qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::execHasRowQuery" << query.lastError();
 
         Q_EMIT databaseError();
 

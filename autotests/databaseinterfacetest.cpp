@@ -74,6 +74,14 @@ private Q_SLOTS:
         QSqlDatabase::removeDatabase(testConnectionName);
     }
 
+    void initDatabase()
+    {
+        DatabaseInterface musicDb;
+        QSignalSpy databaseErrorSpy{&musicDb, &DatabaseInterface::databaseError};
+        musicDb.init(testConnectionName);
+        QCOMPARE(databaseErrorSpy.count(), 0);
+    }
+
     void avoidCrashInTrackIdFromTitleAlbumArtist()
     {
         DatabaseInterface musicDb;

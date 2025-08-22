@@ -7,8 +7,8 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Controls 2.4
-import org.kde.kirigami 2.10 as Kirigami
+import QtQuick.Controls
+import org.kde.kirigami as Kirigami
 
 ScrollView {
     id: scrollView

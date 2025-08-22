@@ -7,11 +7,11 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.15
+import QtQuick
 
 import QtQml.Models
 
-import org.kde.kirigami 2.12 as Kirigami
+import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
 AbstractDataView {

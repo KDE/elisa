@@ -7,7 +7,7 @@
 pragma ComponentBehavior: Bound
 
 import org.kde.elisa
-import QtQuick.Controls 2.3
+import QtQuick.Controls
 
 MenuItem {
     required property int mode

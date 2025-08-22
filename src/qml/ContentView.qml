@@ -6,11 +6,11 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.7
+import QtQuick
 import QtQuick.Controls
-import QtQuick.Window 2.2
+import QtQuick.Window
 import org.kde.elisa
-import org.kde.kirigami 2.8 as Kirigami
+import org.kde.kirigami as Kirigami
 
 SplitView {
     id: contentViewContainer

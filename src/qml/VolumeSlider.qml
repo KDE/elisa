@@ -7,9 +7,9 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.7
-import QtQuick.Controls 2.3
-import org.kde.kirigami 2.5 as Kirigami
+import QtQuick
+import QtQuick.Controls
+import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
 AccessibleSlider {

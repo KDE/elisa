@@ -6,8 +6,8 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.7
-import org.kde.kirigami 2.5 as Kirigami
+import QtQuick
+import org.kde.kirigami as Kirigami
 
 Rectangle {
     property int discNumber

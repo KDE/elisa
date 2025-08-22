@@ -7,9 +7,9 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.7
-import QtQuick.Window 2.7
-import QtQuick.Controls 2.3
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
 import org.kde.elisa
 import org.kde.kirigami as Kirigami
 

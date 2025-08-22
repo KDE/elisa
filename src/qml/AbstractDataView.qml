@@ -7,12 +7,12 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQml.Models 2.1
-import QtQuick.Layouts 1.2
+import QtQuick
+import QtQuick.Controls
+import QtQml.Models
+import QtQuick.Layouts
 
-import org.kde.kirigami 2.12 as Kirigami
+import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
 FocusScope {

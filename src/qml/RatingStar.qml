@@ -7,9 +7,9 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Controls 2.15 as QQC2
+import QtQuick.Controls as QQC2
 import QtQuick.Effects as FX
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami as Kirigami
 
 QQC2.Control {
     id: control

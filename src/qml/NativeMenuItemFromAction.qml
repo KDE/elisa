@@ -6,8 +6,8 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.7
-import Qt.labs.platform 1.1
+import QtQuick
+import Qt.labs.platform
 import org.kde.kirigami as Kirigami
 
 MenuItem {

@@ -7,10 +7,10 @@
 pragma ComponentBehavior: Bound
 pragma Singleton
 
-import QtQuick 2.7
+import QtQuick
 import QtQuick.Controls as QQC2
 import QtQuick.Layouts
-import org.kde.kirigami 2.12 as Kirigami
+import org.kde.kirigami as Kirigami
 
 Item {
     readonly property string defaultAlbumImage: 'image://icon/media-default-album'

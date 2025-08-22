@@ -6,10 +6,10 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.7
-import QtQuick.Layouts 1.2
+import QtQuick
+import QtQuick.Layouts
 import org.kde.elisa
-import org.kde.kirigami 2.5 as Kirigami
+import org.kde.kirigami as Kirigami
 
 /**
  * Aligned into a 5x2 grid

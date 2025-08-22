@@ -6,7 +6,7 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.7
+import QtQuick
 import org.kde.elisa
 
 Item {

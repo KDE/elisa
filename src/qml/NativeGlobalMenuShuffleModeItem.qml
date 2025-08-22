@@ -7,7 +7,7 @@
 
 pragma ComponentBehavior: Bound
 
-import Qt.labs.platform 1.1
+import Qt.labs.platform
 import org.kde.elisa
 
 MenuItem {

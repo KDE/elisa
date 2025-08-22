@@ -6,8 +6,8 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.15
-import QtQuick.Controls 2.15 as QQC2
+import QtQuick
+import QtQuick.Controls as QQC2
 
 QQC2.Menu {
     id: root

@@ -9,13 +9,13 @@
 pragma ComponentBehavior: Bound
 
 import QtCore
-import QtQuick 2.11
-import QtQuick.Layouts 1.12
-import QtQuick.Window 2.12
-import QtQuick.Controls 2.4 as QQC2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Window
+import QtQuick.Controls as QQC2
 import QtQuick.Dialogs as Dialogs
 
-import org.kde.kirigami 2.14 as Kirigami
+import org.kde.kirigami as Kirigami
 
 import org.kde.elisa
 

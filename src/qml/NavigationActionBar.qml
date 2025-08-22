@@ -7,12 +7,12 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQml 2.2
-import QtQuick 2.15
-import QtQuick.Layouts 1.3
-import QtQuick.Controls 2.15
+import QtQml
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 import QtQuick.Effects as FX
-import org.kde.kirigami 2.8 as Kirigami
+import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
 Item {

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-07 00:41+0000\n"
-"PO-Revision-Date: 2025-08-06 13:42+0400\n"
+"PO-Revision-Date: 2025-08-21 10:14+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -124,13 +124,13 @@ msgstr "العمل على الفكرة والتّصميم"
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
-msgstr "دعم التّوطين"
+msgstr "توفير التّوطين اللغات"
 
 #: main.cpp:124
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
-msgstr "دعم التخطيط اليمينيّ في الواجهة"
+msgstr "توفير التخطيط اليمينيّ في الواجهة"
 
 #: main.cpp:125
 #, kde-format

@@ -12,7 +12,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.3
 import QtQuick.Window 2.2
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects as FX
 import org.kde.kirigami 2.19 as Kirigami
 import org.kde.elisa
 
@@ -178,12 +178,12 @@ FocusScope {
 
                     layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software && !usingFallback && !Kirigami.Settings.isMobile // disable drop shadow for mobile
 
-                    layer.effect: DropShadow {
+                    layer.effect: FX.MultiEffect {
                         source: coverImageElement
-                        radius: 8
-                        samples: (radius * 2) + 1
-                        cached: true
-                        color: palette.shadow
+
+                        blurMax: 8
+                        shadowEnabled: true
+                        shadowColor: palette.shadow
                     }
                 }
             }

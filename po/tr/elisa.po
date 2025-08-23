@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-07 00:41+0000\n"
+"POT-Creation-Date: 2025-08-23 00:41+0000\n"
 "PO-Revision-Date: 2025-06-17 08:46+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sunder67@hotmail.com, emir_sari@icloud.com"
 
-#: databaseinterface.cpp:7611 databaseinterface.cpp:8718
-#: databaseinterface.cpp:8803
+#: databaseinterface.cpp:8053 databaseinterface.cpp:9167
+#: databaseinterface.cpp:9252
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Çeşitli Sanatçılar"
 
-#: databaseinterface.cpp:7679
+#: databaseinterface.cpp:8121
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

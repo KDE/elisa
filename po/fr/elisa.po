@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-07 00:41+0000\n"
+"POT-Creation-Date: 2025-08-23 00:41+0000\n"
 "PO-Revision-Date: 2025-06-22 21:52+0200\n"
 "Last-Translator: Quentin Guyot <qguyot@proton.me>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -34,14 +34,14 @@ msgid "Your emails"
 msgstr ""
 "johan.claudebreuninger@gmail.com, sdepiets@gmail.com, xavier.besnard@kde.org"
 
-#: databaseinterface.cpp:7611 databaseinterface.cpp:8718
-#: databaseinterface.cpp:8803
+#: databaseinterface.cpp:8053 databaseinterface.cpp:9167
+#: databaseinterface.cpp:9252
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Artistes divers"
 
-#: databaseinterface.cpp:7679
+#: databaseinterface.cpp:8121
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

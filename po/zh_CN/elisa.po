@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-07 00:41+0000\n"
+"POT-Creation-Date: 2025-08-23 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -27,14 +27,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-china@kde.org, EasternLi@kde.org, i@guoyunhe.me, tds00@qq.com"
 
-#: databaseinterface.cpp:7611 databaseinterface.cpp:8718
-#: databaseinterface.cpp:8803
+#: databaseinterface.cpp:8053 databaseinterface.cpp:9167
+#: databaseinterface.cpp:9252
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "多位艺术家"
 
-#: databaseinterface.cpp:7679
+#: databaseinterface.cpp:8121
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

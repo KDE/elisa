@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-07 00:41+0000\n"
+"POT-Creation-Date: 2025-08-23 00:41+0000\n"
 "PO-Revision-Date: 2025-08-21 10:14+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -29,14 +29,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "zayed.alsaidi@gmail.com,safaalfulaij@hotmail.com"
 
-#: databaseinterface.cpp:7611 databaseinterface.cpp:8718
-#: databaseinterface.cpp:8803
+#: databaseinterface.cpp:8053 databaseinterface.cpp:9167
+#: databaseinterface.cpp:9252
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "عدة الفنّانون"
 
-#: databaseinterface.cpp:7679
+#: databaseinterface.cpp:8121
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

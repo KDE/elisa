@@ -1586,13 +1586,13 @@ msgstr "Ubicació inicial de la vista Fitxers:"
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
-msgstr "Seleccioneu…"
+msgstr "Tria…"
 
 #: qml/SettingsForm.qml:336 qml/SettingsForm.qml:466
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
-msgstr "Seleccioneu una carpeta"
+msgstr "Trieu una carpeta"
 
 #: qml/SettingsForm.qml:359
 #, kde-format

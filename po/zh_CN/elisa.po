@@ -411,7 +411,7 @@ msgstr "选项"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
-msgstr "无匹配项"
+msgstr "没有匹配的内容"
 
 #: qml/AbstractDataView.qml:208
 #, kde-format

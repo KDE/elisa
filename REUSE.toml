@@ -13,6 +13,12 @@ SPDX-FileCopyrightText = "2023 Tobias Fella <tobias.fella@kde.org>"
 SPDX-License-Identifier = "BSD-2-Clause"
 
 [[annotations]]
+path = ".flatpak-patches/*.patch"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "none"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
 path = ".gitlab/merge_request_templates/Default.md"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2023 Nate Graham <nate@kde.org>"

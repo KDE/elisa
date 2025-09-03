@@ -28,7 +28,7 @@ BasePlayerControl {
     signal maximize()
     signal minimize()
     /*
-      Emmited when User uses the Item as a handle to resize the layout.
+      Emitted when User uses the Item as a handle to resize the layout.
       y: difference to previous position
       offset: cursor offset (y coordinate relative to this Item, where dragging begun)
       */

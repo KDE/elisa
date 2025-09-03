@@ -64,7 +64,7 @@ ScrollView {
 
             width: playListView.width
 
-            // album seperator
+            // album separator
             Item {
                 width: playListView.width
                 height: Kirigami.Units.smallSpacing

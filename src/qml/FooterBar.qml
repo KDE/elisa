@@ -14,7 +14,7 @@ import org.kde.elisa
 
 
 /*
-  This is intended as a area to show status messages and outher helpful stuff.
+  This is intended as a area to show status messages and other helpful stuff.
   For now it only supports TrackImportNotification
  */
 ToolBar {

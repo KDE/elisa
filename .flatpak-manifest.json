@@ -5,115 +5,141 @@
     "runtime-version": "6.9",
     "sdk": "org.kde.Sdk",
     "command": "elisa",
+    "rename-icon": "elisa",
     "tags": ["nightly"],
     "desktop-file-name-suffix": " (Nightly)",
-    "finish-args": ["--share=ipc", "--socket=fallback-x11", "--socket=wayland", "--filesystem=home", "--socket=pulseaudio", "--device=dri", "--socket=session-bus"],
-
+    "finish-args": [
+        "--device=dri",
+        "--filesystem=xdg-music",
+        "--own-name=org.mpris.MediaPlayer2.elisa",
+        "--share=ipc",
+        "--share=network",
+        "--socket=fallback-x11",
+        "--socket=pulseaudio",
+        "--socket=wayland",
+        "--system-talk-name=org.freedesktop.UDisks2",
+        "--talk-name=org.freedesktop.FileManager1",
+        "--talk-name=org.freedesktop.PowerManagement.Inhibit",
+        "--talk-name=org.kde.StatusNotifierWatcher"
+    ],
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "/lib/cmake",
+        "*.la",
+        "*.a"
+    ],
+    "cleanup-commands": [
+        "rm -f /app/lib/vlc/plugins/plugins.dat",
+        "/app/lib/vlc/vlc-cache-gen /app/lib/vlc/plugins"
+    ],
     "modules": [
         {
-            "config-opts": [ "-DBUILD_SHARED_LIBS=ON" ],
-            "name": "taglib",
-            "buildsystem": "cmake-ninja",
+            "name": "ffmpeg",
+            "config-opts": [
+                "--enable-pic",
+                "--enable-shared",
+                "--disable-doc",
+                "--disable-static",
+                "--enable-gpl",
+                "--enable-libvpx",
+                "--enable-libmp3lame",
+                "--enable-libvorbis",
+                "--enable-libopus"
+            ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://taglib.github.io/releases/taglib-1.12.tar.gz",
-                    "sha256": "7fccd07669a523b07a15bd24c8da1bbb92206cb19e9366c3692af3d79253b703",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 1982,
-                        "stable-only": true,
-                        "url-template": "https://taglib.github.io/releases/taglib-$version.tar.gz"
-                    }
+                    "url": "https://ffmpeg.org/releases/ffmpeg-4.4.5.tar.xz",
+                    "sha256": "f9514e0d3515aee5a271283df71636e1d1ff7274b15853bcd84e144be416ab07"
                 }
             ]
         },
         {
-            "config-opts": [ "BUILDCC=gcc", "--disable-lua", "--disable-a52", "--disable-qt", "--disable-ncurses", "--disable-udev" ],
             "name": "libvlc",
+            "config-opts": [
+                "BUILDCC=gcc",
+                "--disable-lua",
+                "--disable-a52",
+                "--disable-qt",
+                "--disable-ncurses",
+                "--disable-udev"
+            ],
             "sources": [
                 {
                     "type": "archive",
                     "url": "https://get.videolan.org/vlc/3.0.21/vlc-3.0.21.tar.xz",
-                    "sha256": "24dbbe1d7dfaeea0994d5def0bbde200177347136dbfe573f5b6a4cee25afbb0"
-                }
-            ],
-            "modules": [
+                    "sha256": "24dbbe1d7dfaeea0994d5def0bbde200177347136dbfe573f5b6a4cee25afbb0",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 6504,
+                        "stable-only": true,
+                        "url-template": "https://get.videolan.org/vlc/$version/vlc-$version.tar.xz"
+                    }
+                },
                 {
-                    "name": "ffmpeg",
-                    "config-opts": [
-                        "--enable-pic",
-                        "--enable-shared",
-                        "--disable-doc",
-                        "--disable-static",
-                        "--enable-gpl",
-                        "--enable-libvpx",
-                        "--enable-libmp3lame",
-                        "--enable-libvorbis",
-                        "--enable-libopus"
-                    ],
-                    "sources": [
-                        {
-                            "type": "archive",
-                            "url": "https://ffmpeg.org/releases/ffmpeg-4.4.5.tar.xz",
-                            "sha256": "f9514e0d3515aee5a271283df71636e1d1ff7274b15853bcd84e144be416ab07"
-                        }
-                    ]
+                    "type": "patch",
+                    "path": ".flathub-patches/vlc-ignore-time-for-cache.patch"
+                },
+                {
+                    "type": "patch",
+                    "path": ".flathub-patches/taglib-2.patch"
                 }
             ]
         },
         {
             "name": "lmdb",
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://git.openldap.org/openldap/openldap.git",
-                    "tag": "LMDB_0.9.29",
-                    "x-checker-data": {
-                        "type": "git",
-                        "tag-pattern": "^LMDB_([\\d.]+)$"
-                    },
-                    "commit": "8ad7be2510414b9506ec9f9e24f24d04d9b04a1a"
-                }
-            ],
             "no-autogen": true,
-            "make-install-args": ["prefix=/app"],
-            "subdir" : "libraries/liblmdb"
-        },
-        {
-            "config-opts": ["-DENABLE_TESTING=OFF"],
-            "name": "kfilemetadata",
-            "buildsystem": "cmake-ninja",
+            "subdir": "libraries/liblmdb",
+            "make-install-args": [
+                "prefix=/app"
+            ],
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://invent.kde.org/frameworks/kfilemetadata.git",
-                    "tag": "v5.247.0",
+                    "type": "archive",
+                    "url": "https://git.openldap.org/openldap/openldap/-/archive/LMDB_0.9.33/openldap-LMDB_0.9.33.tar.gz",
+                    "sha256": "476801f5239c88c7de61c3390502a5d13965ecedef80105b5fb0fcb8373d1e53",
                     "x-checker-data": {
-                        "type": "git",
-                        "tag-pattern": "^v([\\d.]+)$"
-                    },
-                    "commit": "2fb8561b76a0a47933f69872ac004330d9c21b2d"
+                        "type": "anitya",
+                        "project-id": 6974,
+                        "stable-only": true,
+                        "url-template": "https://git.openldap.org/openldap/openldap/-/archive/LMDB_$version/openldap-LMDB_$version.tar.gz"
+                    }
                 }
             ]
         },
-          {
-            "name": "kirigamiaddons",
-            "config-opts": [ "-DBUILD_TESTING=OFF" ],
+        {
+            "name": "kirigami-addons",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF",
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+            ],
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://invent.kde.org/libraries/kirigami-addons.git"
-                } 
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-1.9.0.tar.xz",
+                    "sha256": "21314a91f26b1c962def3fd7ff2e762d3358b075f63f4d7e0144fb2c63b7ebc7",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 242933,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-$version.tar.xz"
+                    }
+                }
             ]
         },
         {
             "name": "elisa",
             "buildsystem": "cmake-ninja",
-            "builddir": true,
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+            ],
             "sources": [
-                { "type": "dir", "path": "." }
+                {
+                    "type": "dir",
+                    "path": "."
+                }
             ]
         }
     ]

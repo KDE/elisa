@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-27 00:42+0000\n"
-"PO-Revision-Date: 2025-01-28 23:44+0200\n"
+"PO-Revision-Date: 2025-09-09 20:53+0300\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
 "Language: lt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -97,12 +97,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Paprastas muzikos grotuvas, su meile sukurtas KDE bendruomenės"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
-msgstr "(c) 2015-2020, Elisa talkininkai"
+msgstr "© 2015–2020, Elisa talkininkai"
 
 #: main.cpp:119 models/lyricsmodel.cpp:156
 #, kde-format
@@ -327,9 +325,7 @@ msgid "Lyrics"
 msgstr "Dainos žodžiai"
 
 #: models/trackmetadatamodel.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
 msgstr "Srauto HTTP adresas"
@@ -374,13 +370,13 @@ msgstr "Atkuriama muzika"
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr ""
+msgstr "%1:%2"
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr ""
+msgstr "%1:%2:%3"
 
 #: qml/AbstractBrowserDelegate.qml:40
 #, kde-format
@@ -753,13 +749,10 @@ msgid "Playlist"
 msgstr "Grojaraštis"
 
 #: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 takelis"
+msgstr "Vienas takelis"
 
 #: qml/MediaPlayerControl.qml:316
 #, kde-format
@@ -776,9 +769,7 @@ msgid "Playlist"
 msgstr "Grojaraštis"
 
 #: qml/MediaPlayListView.qml:70
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Rodyti dabartinį"
@@ -1274,20 +1265,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Atkurti dabar, pakeičiant dabartinį grojaraštį"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Atkurti kitą"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Atkurti dabar, pakeičiant dabartinį grojaraštį"
+msgstr "Atkurti kitą grojaraštyje"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1685,21 +1672,19 @@ msgstr "Atkurti nuo čia, pakeičiant dabartinį grojaraštį"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:225
-#, fuzzy, kde-format
-#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr "%1 - %2 - %3"
+msgstr "%1 – %2 – %3"
 
 #: qml/TrackBrowserDelegate.qml:237
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:375
 #, kde-format
@@ -1772,7 +1757,7 @@ msgstr "Mažėjančiai"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "A–Ž"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1781,7 +1766,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "Ž–A"
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format

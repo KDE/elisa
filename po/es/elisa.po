@@ -1713,7 +1713,7 @@ msgstr "Volumen"
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr "%1%"
+msgstr "%1 %"
 
 #: viewmanager.cpp:41
 #, kde-format

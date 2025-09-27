@@ -50,7 +50,7 @@ Item {
     // This is the text color of Breeze Dark
     readonly property string headerForegroundColor: "#eff0f1"
 
-    readonly property real subtitleOpacity: 0.6
+    readonly property real subtitleOpacity: 0.75
 
     // get height of buttons inside loaders
     FlatButtonWithToolTip {

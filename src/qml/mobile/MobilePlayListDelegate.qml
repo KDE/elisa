@@ -118,7 +118,7 @@ BasePlayListDelegate {
                     textFormat: Text.PlainText
 
                     visible: text.length > 0
-                    opacity: 0.6
+                    opacity: Theme.subtitleOpacity
                     color: palette.text
 
                     Layout.fillWidth: true

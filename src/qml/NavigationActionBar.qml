@@ -286,7 +286,7 @@ Item {
                         Layout.fillWidth: true
 
                         visible: secondaryTitle !== ""
-                        opacity: 0.6
+                        opacity: Theme.subtitleOpacity
 
                         text: secondaryTitle
                         elide: Text.ElideRight

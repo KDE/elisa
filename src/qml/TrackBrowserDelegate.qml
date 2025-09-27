@@ -269,7 +269,7 @@ FocusScope {
                     horizontalAlignment: Text.AlignLeft
 
                     visible: text.length > 0 && (Kirigami.Settings.isMobile || detailedView)
-                    opacity: 0.6
+                    opacity: Theme.subtitleOpacity
                     textFormat: Text.PlainText
 
                     elide: Text.ElideRight

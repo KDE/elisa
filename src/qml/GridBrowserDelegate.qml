@@ -224,7 +224,7 @@ AbstractBrowserDelegate {
                         visible: gridEntry.displaySecondaryText
                         text: gridEntry.secondaryText
 
-                        opacity: 0.6
+                        opacity: Theme.subtitleOpacity
                         color: palette.text
 
                         // FIXME: Center-aligned text looks better overall, but

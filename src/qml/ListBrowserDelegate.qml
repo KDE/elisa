@@ -117,7 +117,7 @@ AbstractBrowserDelegate {
                     Layout.fillWidth: true
 
                     visible: listEntry.displaySecondaryText && text.length > 0
-                    opacity: 0.6
+                    opacity: Theme.subtitleOpacity
 
                     text: listEntry.secondaryText
                     horizontalAlignment: Text.AlignLeft

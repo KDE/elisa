@@ -20,62 +20,42 @@ AbstractBrowserDelegate {
     id: listEntry
 
     required property int index
-    readonly property bool isAlternateColor: index % 2 === 1
 
     property bool hideActions: false
 
-    height: Theme.listDelegateHeight
+    readonly property bool hasActiveFocus: activeFocus || focusScope.activeFocus
 
-    Rectangle {
-        id: rowRoot
+    readonly property color textColor: highlighted || down ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+    readonly property color iconColor: textColor
 
-        anchors.fill: parent
-        z: 1
+    Kirigami.Theme.useAlternateBackgroundColor: index % 2 === 1
 
-        color: listEntry.isAlternateColor ? palette.alternateBase : palette.base
-    }
+    onClicked: listEntry.hasChildren ? listEntry.open() : listEntry.enqueue()
 
-    MouseArea {
-        id: hoverArea
+    contentItem: FocusScope {
+        id: focusScope
 
-        anchors.fill: parent
-        z: 2
-
-        hoverEnabled: true
-        // fix mousearea from stealing swipes from flickable
-        // propagateComposedEvents: false
-        // onReleased: {
-        //     if (!propagateComposedEvents) {
-        //         propagateComposedEvents = true
-        //     }
-        // }
-        acceptedButtons: Qt.LeftButton
-
-        onClicked: listEntry.hasChildren ? open() : enqueue()
+        implicitHeight: childrenRect.height
 
         RowLayout {
-            anchors {
-                fill: parent
-                leftMargin: Kirigami.Units.largeSpacing
-                rightMargin: Kirigami.Units.largeSpacing
-            }
+            width: parent.width
+            height: implicitHeight
 
             spacing: Kirigami.Units.largeSpacing
 
             Loader {
                 active: listEntry.delegateLoaded
 
-                // mobile delegate needs more margins
-                Layout.preferredWidth: listEntry.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
-                Layout.preferredHeight: listEntry.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
-
                 Layout.alignment: Qt.AlignCenter
+
+                Layout.preferredWidth: Theme.listDelegateIconHeight
+                Layout.preferredHeight: Theme.listDelegateIconHeight
 
                 sourceComponent: ImageWithFallback {
                     id: coverImageElement
 
-                    sourceSize.width: (listEntry.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)) * Screen.devicePixelRatio
-                    sourceSize.height: (listEntry.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)) * Screen.devicePixelRatio
+                    sourceSize.width: Theme.listDelegateIconHeight * Screen.devicePixelRatio
+                    sourceSize.height: Theme.listDelegateIconHeight * Screen.devicePixelRatio
                     fillMode: Image.PreserveAspectFit
                     smooth: true
 
@@ -110,6 +90,7 @@ AbstractBrowserDelegate {
                     text: listEntry.mainText
                     textFormat: Text.PlainText
                     elide: Text.ElideRight
+                    color: listEntry.textColor
                 }
 
                 // Secondary label
@@ -124,12 +105,13 @@ AbstractBrowserDelegate {
                     textFormat: Text.PlainText
                     elide: Text.ElideRight
                     font: Kirigami.Theme.smallFont
+                    color: listEntry.textColor
                 }
             }
 
             // hover actions (for desktop)
             Loader {
-                active: !listEntry.hideActions && !Kirigami.Settings.isMobile && (hoverArea.containsMouse || listEntry.activeFocus) && !listEntry.editingRating
+                active: !listEntry.hideActions && !Kirigami.Settings.isMobile && (listEntry.hovered || listEntry.hasActiveFocus) && !listEntry.editingRating
                 visible: active
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
@@ -145,10 +127,11 @@ AbstractBrowserDelegate {
                         delegate: FlatButtonWithToolTip {
                             required property Kirigami.Action modelData
 
-                            width: Theme.listDelegateSingleLineHeight
-                            height: Theme.listDelegateSingleLineHeight
+                            width: Theme.listDelegateButtonHeight
+                            height: width
                             action: modelData
                             visible: modelData.visible
+                            icon.color: listEntry.iconColor
                         }
                     }
                 }
@@ -162,59 +145,9 @@ AbstractBrowserDelegate {
                 Layout.alignment: Qt.AlignVCenter
                 Layout.maximumHeight: parent.height
                 Layout.preferredWidth: height
-                Layout.preferredHeight: Theme.listDelegateSingleLineHeight - Kirigami.Units.smallSpacing * 2
+                Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                icon.color: listEntry.iconColor
             }
         }
     }
-
-    states: [
-        State {
-            name: 'notSelected'
-            when: !listEntry.activeFocus && !hoverArea.containsMouse && !listEntry.isSelected
-            PropertyChanges {
-                target: rowRoot
-                color: (isAlternateColor ? palette.alternateBase : palette.base)
-            }
-            PropertyChanges {
-                target: rowRoot
-                opacity: 1
-            }
-        },
-        State {
-            name: 'hovered'
-            when: !listEntry.activeFocus && hoverArea.containsMouse
-            PropertyChanges {
-                target: rowRoot
-                color: palette.highlight
-            }
-            PropertyChanges {
-                target: rowRoot
-                opacity: 0.2
-            }
-        },
-        State {
-            name: 'selected'
-            when: !listEntry.activeFocus && listEntry.isSelected
-            PropertyChanges {
-                target: rowRoot
-                color: palette.mid
-            }
-            PropertyChanges {
-                target: rowRoot
-                opacity: 1.
-            }
-        },
-        State {
-            name: 'focused'
-            when: listEntry.activeFocus
-            PropertyChanges {
-                target: rowRoot
-                color: palette.highlight
-            }
-            PropertyChanges {
-                target: rowRoot
-                opacity: 0.6
-            }
-        }
-    ]
 }

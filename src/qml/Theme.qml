@@ -13,12 +13,13 @@ import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 
 Item {
+    id: root
+
     readonly property string defaultAlbumImage: 'image://icon/media-default-album'
     readonly property string defaultBackgroundImage: 'qrc:/qt/qml/org/kde/elisa/background.png'
     readonly property string pausedIndicatorIcon: 'image://icon/media-playback-paused'
     readonly property string playingIndicatorIcon: 'image://icon/media-playback-playing'
-    readonly property string ratingIcon: 'image://icon/rating'
-    readonly property string ratingUnratedIcon: 'image://icon/rating-unrated'
+
     readonly property string folderIcon: 'image://icon/document-open-folder'
     readonly property string trackIcon: 'image://icon/view-media-track'
 
@@ -31,10 +32,12 @@ Item {
     readonly property int volumeSliderWidth: Kirigami.Units.gridUnit * 5
 
     readonly property int gridDelegateSize: Kirigami.Units.gridUnit * 9
-    readonly property real listDelegateSingleLineHeight: Kirigami.Settings.isMobile
-                                                            ? 4 * Kirigami.Units.smallSpacing + 2 * Kirigami.Units.gridUnit
-                                                            : 3 * Kirigami.Units.smallSpacing + Kirigami.Units.gridUnit
-    readonly property real listDelegateHeight: listDelegateSingleLineHeight + (Kirigami.Settings.isMobile ? 0 : Kirigami.Units.gridUnit)
+
+    readonly property real listDelegateIconHeight: 2 * Kirigami.Units.smallSpacing + 2 * Kirigami.Units.gridUnit
+    readonly property real listDelegateButtonHeight: Kirigami.Units.iconSizes.medium
+
+    readonly property real listDelegateSingleLineHeight: listDelegateSingleLine.implicitHeight
+    readonly property real listDelegateHeight: listDelegateSingleLineHeight - listDelegateButtonHeight + listDelegateIconHeight
 
     readonly property real contentViewMinimumSize: 2 * gridDelegateSize + scrollBar.width
     readonly property int viewSelectorSmallSizeThreshold: Kirigami.Units.gridUnit * 44
@@ -85,6 +88,15 @@ Item {
         }
         LabelWithToolTip {
             id: subTitle
+        }
+    }
+
+    QQC2.ItemDelegate {
+        id: listDelegateSingleLine
+        visible: false
+        contentItem: Rectangle {
+            implicitWidth: 1
+            implicitHeight: root.listDelegateButtonHeight
         }
     }
 }

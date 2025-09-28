@@ -20,6 +20,9 @@ QQC2.Control {
     property double hoverBrightness: 0
     property double hoverContrast: -0.3
 
+    property bool highlighted
+    property color iconColor: palette.text
+
     readonly property int hoveredStar: mouseArea.containsMouse ? Math.ceil(5 * mouseArea.mouseX / mouseArea.width) : 0
     readonly property int hoveredRating: 2 * hoveredStar
 
@@ -97,11 +100,14 @@ QQC2.Control {
 
                     animated: false
                     source: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
-                        ? Qt.resolvedUrl(Theme.ratingIcon)
-                        : Qt.resolvedUrl(Theme.ratingUnratedIcon)
+                        ? "rating"
+                        : "rating-unrated"
 
                     opacity: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
                         ? 1 : 0.7
+
+                    selected: control.highlighted
+                    color: control.iconColor
                 }
             }
         }

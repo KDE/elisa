@@ -8,9 +8,10 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Controls as QQC
 import org.kde.kirigami as Kirigami
 
-FocusScope {
+QQC.ItemDelegate {
     id: dataEntry
 
     property string mainText

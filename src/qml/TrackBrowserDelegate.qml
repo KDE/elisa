@@ -16,7 +16,7 @@ import QtQuick.Effects as FX
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
-FocusScope {
+ItemDelegate {
     id: mediaTrack
 
     property url trackUrl
@@ -37,12 +37,20 @@ FocusScope {
     property bool editingRating: false
     readonly property bool isFavorite: rating === 10
 
-    signal clicked()
+    readonly property bool imageVisible: delegateLoaded && (detailedView || Kirigami.Settings.isMobile)
+
+    readonly property bool hasActiveFocus: activeFocus || focusScope.activeFocus
+
+    readonly property color textColor: highlighted || down ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+    readonly property color iconColor: textColor
+
     signal enqueue()
     signal playNext()
     signal replaceAndPlay(var url)
     signal callOpenMetaDataView(var url, var entryType)
     signal trackRatingChanged(var url, var rating)
+
+    Kirigami.Theme.useAlternateBackgroundColor: isAlternateColor
 
     Accessible.role: Accessible.ListItem
     Accessible.name: title
@@ -55,8 +63,6 @@ FocusScope {
 
     ListView.onPooled: delegateLoaded = false
     ListView.onReused: delegateLoaded = true
-
-    height: detailedView ? Theme.listDelegateHeight : Theme.listDelegateSingleLineHeight
 
     property list<Kirigami.Action> actions: [
         Kirigami.Action {
@@ -115,59 +121,40 @@ FocusScope {
         contextMenuLoader.item.open();
     }
 
-    onActiveFocusChanged: {
-        if (!activeFocus) {
+    onHasActiveFocusChanged: {
+        if (!hasActiveFocus) {
             editingRating = false
         }
     }
 
+    onClicked: replaceAndPlay(trackUrl)
 
-    Rectangle {
-        id: rowRoot
+    contentItem: FocusScope {
+        id: focusScope
 
-        anchors.fill: parent
-        z: 1
-
-        color: (isAlternateColor ? palette.alternateBase : palette.base)
-    }
-
-    MouseArea {
-        id: hoverArea
-
-        anchors.fill: parent
-        z: 2
-
-        hoverEnabled: true
-        acceptedButtons: Qt.LeftButton
-
-        onClicked: {
-            mediaTrack.clicked()
-            replaceAndPlay(trackUrl);
-        }
+        implicitHeight: childrenRect.height
 
         RowLayout {
-            anchors {
-                fill: parent
-                leftMargin: Kirigami.Units.largeSpacing
-                rightMargin: Kirigami.Units.largeSpacing
-            }
+            width: parent.width
+            height: implicitHeight
 
             spacing: Kirigami.Units.largeSpacing
 
             Loader {
-                active: mediaTrack.delegateLoaded && (detailedView || Kirigami.Settings.isMobile) // cover is always visible on mobile
+                active: mediaTrack.imageVisible
+                visible: active
 
                 // mobile delegate needs more margins
-                Layout.preferredWidth: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
-                Layout.preferredHeight: mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)
+                Layout.preferredWidth: Theme.listDelegateIconHeight
+                Layout.preferredHeight: Theme.listDelegateIconHeight
 
                 Layout.alignment: Qt.AlignCenter
 
                 sourceComponent: ImageWithFallback {
                     id: coverImageElement
 
-                    sourceSize.width: (mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)) * Screen.devicePixelRatio
-                    sourceSize.height: (mediaTrack.height - Kirigami.Units.smallSpacing * (Kirigami.Settings.isMobile ? 2 : 1)) * Screen.devicePixelRatio
+                    sourceSize.width: Theme.listDelegateIconHeight * Screen.devicePixelRatio
+                    sourceSize.height: Theme.listDelegateIconHeight * Screen.devicePixelRatio
                     fillMode: Image.PreserveAspectFit
                     smooth: true
 
@@ -245,6 +232,7 @@ FocusScope {
                     textFormat: Text.PlainText
 
                     elide: Text.ElideRight
+                    color: mediaTrack.textColor
                 }
 
                 // second row (shown for mobile, and desktop detailed view)
@@ -274,16 +262,17 @@ FocusScope {
 
                     elide: Text.ElideRight
                     font: Kirigami.Theme.smallFont
+                    color: mediaTrack.textColor
                 }
             }
 
             // hover actions (for desktop)
             Loader {
                 id: hoverLoader
-                active: !Kirigami.Settings.isMobile && (hoverArea.containsMouse || mediaTrack.activeFocus) && !mediaTrack.editingRating
-                visible: active
+                active: !Kirigami.Settings.isMobile && (mediaTrack.hovered || mediaTrack.hasActiveFocus) && !mediaTrack.editingRating
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                Layout.preferredHeight: Theme.listDelegateButtonHeight
 
                 z: 1
 
@@ -296,10 +285,11 @@ FocusScope {
                         delegate: FlatButtonWithToolTip {
                             required property Kirigami.Action modelData
 
-                            width: Theme.listDelegateSingleLineHeight
-                            height: Theme.listDelegateSingleLineHeight
+                            width: Theme.listDelegateButtonHeight
+                            height: Theme.listDelegateButtonHeight
                             action: modelData
                             visible: modelData.visible
+                            icon.color: mediaTrack.iconColor
                         }
                     }
                 }
@@ -308,7 +298,7 @@ FocusScope {
             // ratings (desktop)
             Loader {
                 id: cancelRatingLoader
-                active: !Kirigami.Settings.isMobile && (hoverArea.containsMouse || mediaTrack.activeFocus)
+                active: !Kirigami.Settings.isMobile && (mediaTrack.hovered || mediaTrack.hasActiveFocus)
                 visible: active && mediaTrack.editingRating
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
@@ -316,20 +306,23 @@ FocusScope {
                 z: 1
 
                 sourceComponent: FlatButtonWithToolTip {
-                    width: Theme.listDelegateSingleLineHeight
-                    height: Theme.listDelegateSingleLineHeight
+                    width: Theme.listDelegateButtonHeight
+                    height: Theme.listDelegateButtonHeight
                     text: i18nc("@action:button", "Cancel rating this track")
                     icon.name: "dialog-cancel"
+                    icon.color: mediaTrack.iconColor
                     onClicked: { mediaTrack.editingRating = false; }
                 }
             }
             RatingStar {
                 id: ratingWidget
-                visible: !Kirigami.Settings.isMobile && (mediaTrack.editingRating || (rating > 0 && !hoverArea.containsMouse && !mediaTrack.activeFocus && !ElisaApplication.useFavoriteStyleRatings))
+                visible: !Kirigami.Settings.isMobile && (mediaTrack.editingRating || (rating > 0 && !mediaTrack.hovered && !mediaTrack.hasActiveFocus && !ElisaApplication.useFavoriteStyleRatings))
 
                 readOnly: !mediaTrack.editingRating
 
                 starRating: rating
+
+                iconColor: mediaTrack.iconColor
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
@@ -344,9 +337,10 @@ FocusScope {
                 visible: !Kirigami.Settings.isMobile && ElisaApplication.useFavoriteStyleRatings && !hoverLoader.active && mediaTrack.isFavorite
 
                 sourceComponent: FlatButtonWithToolTip {
-                    width: Theme.listDelegateSingleLineHeight
-                    height: Theme.listDelegateSingleLineHeight
+                    width: Theme.listDelegateButtonHeight
+                    height: Theme.listDelegateButtonHeight
                     icon.name: mediaTrack.isFavorite ? "rating" : "rating-unrated"
+                    icon.color: mediaTrack.iconColor
                 }
             }
 
@@ -360,6 +354,7 @@ FocusScope {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
                 font.features: { "tnum": 1 }
+                color: mediaTrack.textColor
             }
 
             // mobile context actions menu button
@@ -370,10 +365,11 @@ FocusScope {
                 Layout.alignment: Qt.AlignVCenter
                 Layout.maximumHeight: parent.height
                 Layout.preferredWidth: height
-                Layout.preferredHeight: Theme.listDelegateSingleLineHeight - Kirigami.Units.smallSpacing * 2
+                Layout.preferredHeight: Theme.listDelegateButtonHeight
 
                 text: i18nc("@action:button", "Song Options")
                 icon.name: "view-more-symbolic"
+                icon.color: mediaTrack.iconColor
                 onClicked: openContextMenu()
             }
         }
@@ -393,55 +389,4 @@ FocusScope {
             actions: mediaTrack.actions
         }
     }
-
-    states: [
-        State {
-            name: 'notSelected'
-            when: !mediaTrack.activeFocus && !hoverArea.containsMouse && !mediaTrack.isSelected
-            PropertyChanges {
-                target: rowRoot
-                color: (isAlternateColor ? palette.alternateBase : palette.base)
-            }
-            PropertyChanges {
-                target: rowRoot
-                opacity: 1
-            }
-        },
-        State {
-            name: 'hovered'
-            when: !mediaTrack.activeFocus && hoverArea.containsMouse
-            PropertyChanges {
-                target: rowRoot
-                color: palette.highlight
-            }
-            PropertyChanges {
-                target: rowRoot
-                opacity: 0.2
-            }
-        },
-        State {
-            name: 'selected'
-            when: !mediaTrack.activeFocus && mediaTrack.isSelected
-            PropertyChanges {
-                target: rowRoot
-                color: palette.mid
-            }
-            PropertyChanges {
-                target: rowRoot
-                opacity: 1.
-            }
-        },
-        State {
-            name: 'focused'
-            when: mediaTrack.activeFocus
-            PropertyChanges {
-                target: rowRoot
-                color: palette.highlight
-            }
-            PropertyChanges {
-                target: rowRoot
-                opacity: 0.6
-            }
-        }
-    ]
 }

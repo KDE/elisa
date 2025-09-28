@@ -101,6 +101,17 @@ AbstractDataView {
                                                                      ElisaUtils.AfterCurrentTrack,
                                                                      ElisaUtils.DoNotTriggerPlay)
 
+        onReplaceAndPlay: url => {
+            // If we're a radio type then only enqueue the current track
+            if (dataType === ElisaUtils.Radio) {
+                ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
+                                                                 ElisaUtils.ReplacePlayList,
+                                                                 ElisaUtils.TriggerPlay);
+            } else {
+                listView.contentModel.replaceAndPlayOfPlayListFromTrackUrl(contentDirectoryView.model.rootIndex, url);
+            }
+        }
+
         onClicked: {
             forceActiveFocus()
             contentDirectoryView.currentIndex = model.index
@@ -114,21 +125,6 @@ AbstractDataView {
 
         onCallOpenMetaDataView: (url, entryType) => {
             openMetaDataView(databaseId, url, entryType)
-        }
-
-        Connections {
-            id: navigationBar
-            // Escalate to our parent, so we can replace the current playlist with this view's tracks.
-            function onReplaceAndPlay(url) {
-                // If we're a radio type then only enqueue the current track
-                if (dataType === ElisaUtils.Radio) {
-                    ElisaApplication.mediaPlayListProxyModel.enqueue(model.fullData, model.display,
-                        ElisaUtils.ReplacePlayList,
-                        ElisaUtils.TriggerPlay)
-                } else {
-                    listView.contentModel.replaceAndPlayOfPlayListFromTrackUrl(contentDirectoryView.model.rootIndex, url)
-                }
-            }
         }
     }
 

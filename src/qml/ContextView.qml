@@ -368,11 +368,12 @@ Kirigami.Page {
                         delegate: Label {
                             required property string lyric
                             required property int timestamp
+                            required property bool isHighlighted
 
                             text: lyric
                             width: lyricsView.width
                             wrapMode: Text.WordWrap
-                            font.bold: ListView.isCurrentItem
+                            font.bold: isHighlighted
                             horizontalAlignment: contentLayout.wideMode? Text.AlignLeft : Text.AlignHCenter
                             MouseArea {
                                 height: parent.height

@@ -11,7 +11,6 @@
 #include <QQmlEngine>
 
 #include <memory>
-#include <vector>
 class ELISALIB_EXPORT LyricsModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -23,7 +22,7 @@ class ELISALIB_EXPORT LyricsModel : public QAbstractListModel
                NOTIFY highlightedIndexChanged)
     Q_PROPERTY(bool isLRC READ isLRC NOTIFY isLRCChanged)
 public:
-    enum LyricsRole {Lyric = Qt::UserRole, TimeStamp};
+    enum LyricsRole {Lyric = Qt::UserRole, TimeStamp, IsHighlighted};
     LyricsModel(QObject *parent = nullptr);
     ~LyricsModel() override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -41,6 +40,7 @@ Q_SIGNALS:
     void highlightedIndexChanged();
     void positionChanged();
     void isLRCChanged();
+
 private:
     class LyricsModelPrivate;
     std::unique_ptr<LyricsModelPrivate> d;

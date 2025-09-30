@@ -15,6 +15,7 @@ class LyricsModel::LyricsModelPrivate
 public:
     bool parse(const QString &lyric);
     int highlightedIndex{-1};
+    qint64 highlightedTimestamp{-1};
     bool isLRC {false};
 
     std::vector<std::pair<QString, qint64>> lyrics;
@@ -231,12 +232,11 @@ bool LyricsModel::LyricsModelPrivate::parse(const QString &lyric)
         timeStamps.clear();
     }
 
-    std::sort(lyrics.begin(),
-              lyrics.end(),
-              [](const std::pair<QString, qint64> &lhs,
-                 const std::pair<QString, qint64> &rhs) {
-                  return lhs.second < rhs.second;
-              });
+    // Keep original relative order for identical timestamps so that
+    // (original, translation) lines remain adjacent and ordered as in file.
+    std::stable_sort(lyrics.begin(), lyrics.end(), [](const std::pair<QString, qint64> &lhs, const std::pair<QString, qint64> &rhs) {
+        return lhs.second < rhs.second;
+    });
     if (offset) {
       std::transform(lyrics.begin(), lyrics.end(),
                      lyrics.begin(),
@@ -276,6 +276,10 @@ QVariant LyricsModel::data(const QModelIndex &index, int role) const
         return d->lyrics.at(index.row()).first;
     case LyricsRole::TimeStamp:
         return d->lyrics.at(index.row()).second;
+    case LyricsRole::IsHighlighted: {
+        const auto &item = d->lyrics.at(index.row());
+        return (d->highlightedTimestamp >= 0 && item.second == d->highlightedTimestamp);
+    }
     }
 
     return QVariant();
@@ -292,11 +296,17 @@ void LyricsModel::setLyric(const QString &lyric)
     if (!ret && !lyric.isEmpty()) {
         d->lyrics = {{lyric, 0ll}};
         d->highlightedIndex = -1;
+        d->highlightedTimestamp = -1;
         isLRC = false;
     }
     endResetModel();
 
     Q_EMIT highlightedIndexChanged();
+    if (!d->lyrics.empty()) {
+        const auto topLeft = index(0, 0);
+        const auto bottomRight = index(d->lyrics.size() - 1, 0);
+        Q_EMIT dataChanged(topLeft, bottomRight, {LyricsRole::IsHighlighted});
+    }
     Q_EMIT lyricChanged();
     if (isLRC != d->isLRC) {
         d->isLRC = isLRC;
@@ -310,6 +320,24 @@ void LyricsModel::setPosition(qint64 position)
         return;
     }
 
+    // get the [firstRow, lastRow] inclusive range for a given timestamp
+    auto groupRowsForTimestamp = [this](qint64 timestamp) -> std::pair<int, int> {
+        if (timestamp < 0 || d->lyrics.empty()) {
+            return {-1, -1};
+        }
+        const auto key = std::make_pair(QString(), timestamp);
+        auto comp = [](const std::pair<QString, qint64> &lhs, const std::pair<QString, qint64> &rhs) {
+            return lhs.second < rhs.second;
+        };
+        const auto range = std::equal_range(d->lyrics.begin(), d->lyrics.end(), key, comp);
+        if (range.first == range.second) {
+            return {-1, -1};
+        }
+        const int firstRow = std::distance(d->lyrics.begin(), range.first);
+        const int lastRow = std::distance(d->lyrics.begin(), range.second) - 1;
+        return {firstRow, lastRow};
+    };
+
     // do binary search
     auto result =
         std::lower_bound(d->lyrics.begin(),
@@ -320,16 +348,39 @@ void LyricsModel::setPosition(qint64 position)
                          });
 
     int highlightedIndex = -1;
+    qint64 highlightedTimestamp = -1;
 
     if (result != d->lyrics.end() && result->second == position) {
+        // exact match -> highlight the first item at this timestamp
         highlightedIndex = std::distance(d->lyrics.begin(), result);
+        highlightedTimestamp = result->second;
     } else if (result != d->lyrics.begin()) {
-        highlightedIndex = std::distance(d->lyrics.begin(), --result);
+        // otherwise highlight the previous timestamp group (last item in that group visually,
+        // but we expose timestamp so all items with same timestamp can react)
+        --result;
+        highlightedIndex = std::distance(d->lyrics.begin(), result);
+        highlightedTimestamp = result->second;
     }
 
-    if (highlightedIndex != d->highlightedIndex) {
+    const bool indexChanged = (highlightedIndex != d->highlightedIndex);
+    const qint64 oldTimestamp = d->highlightedTimestamp;
+    const bool timestampChanged = (highlightedTimestamp != oldTimestamp);
+    if (indexChanged) {
         d->highlightedIndex = highlightedIndex;
         Q_EMIT highlightedIndexChanged();
+    }
+    if (timestampChanged) {
+        const auto oldRange = groupRowsForTimestamp(oldTimestamp);
+        const auto newRange = groupRowsForTimestamp(highlightedTimestamp);
+
+        d->highlightedTimestamp = highlightedTimestamp;
+
+        if (oldRange.first != -1) {
+            Q_EMIT dataChanged(index(oldRange.first, 0), index(oldRange.second, 0), {LyricsRole::IsHighlighted});
+        }
+        if (newRange.first != -1) {
+            Q_EMIT dataChanged(index(newRange.first, 0), index(newRange.second, 0), {LyricsRole::IsHighlighted});
+        }
     }
 }
 
@@ -345,7 +396,9 @@ bool LyricsModel::isLRC() const
 
 QHash<int, QByteArray> LyricsModel::roleNames() const
 {
-    return {{LyricsRole::Lyric, QByteArrayLiteral("lyric")}, {LyricsRole::TimeStamp, QByteArrayLiteral("timestamp")}};
+    return {{LyricsRole::Lyric, QByteArrayLiteral("lyric")},
+            {LyricsRole::TimeStamp, QByteArrayLiteral("timestamp")},
+            {LyricsRole::IsHighlighted, QByteArrayLiteral("isHighlighted")}};
 }
 
 #include "moc_lyricsmodel.cpp"

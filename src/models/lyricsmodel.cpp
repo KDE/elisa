@@ -54,11 +54,18 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
      * Start
      * */
     enum States {Start, LeftBracket, Minutes, Colon, Seconds, Period, Milliseconds, RightBracket, End};
-    auto states {States::Start};
-    auto minute {0}, second {0}, ms {0}, msFactor {100};
 
-    while (begin != end) {
-        switch (begin->toLatin1()) {
+    // Keep caller iterator intact unless we successfully parse a timestamp
+    auto current = begin;
+    if (current == end || *current != '['_L1) {
+        return -1;
+    }
+
+    auto states{States::Start};
+    auto minute{0}, second{0}, ms{0}, msFactor{100};
+
+    while (current != end) {
+        switch (current->toLatin1()) {
         case '.':
             if (states == Seconds)
                 states = Period;
@@ -68,12 +75,13 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
                 states = LeftBracket;
             break;
         case ']':
-            ++begin;
+            ++current;
             if (states == Milliseconds) {
                 // we return milliseconds
+                // Commit the consumed input to caller only on success
+                begin = current;
                 return minute * 60 * 1000 + second * 1000 + ms;
-            }
-            else {
+            } else {
                 return -1;
             }
         case ':':
@@ -81,39 +89,39 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
                 states = Colon;
             break;
         default:
-            if (begin->isDigit()) {
+            if (current->isDigit()) {
                 switch (states) {
-                    case LeftBracket:
-                        states = Minutes;
-                        [[fallthrough]];
-                    case Minutes:
-                        minute *= 10;
-                        minute += begin->digitValue();
-                        break;
-                    case Colon:
-                        states = Seconds;
-                        [[fallthrough]];
-                    case Seconds:
-                        second *= 10;
-                        second += begin->digitValue();
-                        break;
-                    case Period:
-                        states = Milliseconds;
-                        [[fallthrough]];
-                    case Milliseconds:
-                        ms += begin->digitValue() * msFactor;
-                        msFactor /= 10;
-                        break;
-                    default:
-                        // lyric format is corrupt
-                        break;
+                case LeftBracket:
+                    states = Minutes;
+                    [[fallthrough]];
+                case Minutes:
+                    minute *= 10;
+                    minute += current->digitValue();
+                    break;
+                case Colon:
+                    states = Seconds;
+                    [[fallthrough]];
+                case Seconds:
+                    second *= 10;
+                    second += current->digitValue();
+                    break;
+                case Period:
+                    states = Milliseconds;
+                    [[fallthrough]];
+                case Milliseconds:
+                    ms += current->digitValue() * msFactor;
+                    msFactor /= 10;
+                    break;
+                default:
+                    // lyric format is corrupt
+                    break;
                 }
             } else {
                 return -1;
             }
             break;
         }
-        ++begin;
+        ++current;
     }
 
     // end of lyric and no correct value found

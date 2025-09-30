@@ -78,6 +78,11 @@ private Q_SLOTS:
             << QList<LyricsData>{{u"悴んだ心 ふるえる眼差し"_s, 15s + 130ms},
                                  {u"『内心满是憔悴 眼神游动不止』"_s, 15s + 130ms},
                                  {u"\"A heart grown numb with cold a trembling gaze\""_s, 15s + 130ms}};
+
+        QTest::addRow("Begin with number") << u"[01:33.82]1st line\n[02:06.81]2nd line\n[03:30.46]3rd line"_s
+                                           << QList<LyricsData>{{u"1st line"_s, 1min + 33s + 820ms},
+                                                                {u"2nd line"_s, 2min + 6s + 810ms},
+                                                                {u"3rd line"_s, 3min + 30s + 460ms}};
     }
 
     void testParse()

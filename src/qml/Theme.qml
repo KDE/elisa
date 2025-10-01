@@ -17,8 +17,6 @@ Item {
 
     readonly property string defaultAlbumImage: 'image://icon/media-default-album'
     readonly property string defaultBackgroundImage: 'qrc:/qt/qml/org/kde/elisa/background.png'
-    readonly property string pausedIndicatorIcon: 'image://icon/media-playback-paused'
-    readonly property string playingIndicatorIcon: 'image://icon/media-playback-playing'
 
     readonly property string folderIcon: 'image://icon/document-open-folder'
     readonly property string trackIcon: 'image://icon/view-media-track'

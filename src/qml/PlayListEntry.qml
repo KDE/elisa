@@ -34,6 +34,9 @@ BasePlayListDelegate {
 
     readonly property bool hasActiveFocus: playListEntry.activeFocus || entryFocusScope.activeFocus
 
+    readonly property color textColor: highlighted || down ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
+    readonly property color iconColor: textColor
+
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
 
@@ -204,8 +207,7 @@ BasePlayListDelegate {
 
                     anchors.centerIn: parent
 
-                    source: (isPlaying === MediaPlayList.IsPlaying ?
-                    Qt.resolvedUrl(Theme.playingIndicatorIcon) : Qt.resolvedUrl(Theme.pausedIndicatorIcon))
+                    source: playListEntry.isPlaying === MediaPlayList.IsPlaying ? "media-playback-playing" : "media-playback-pause"
 
                     width: Kirigami.Units.iconSizes.smallMedium
                     height: Kirigami.Units.iconSizes.smallMedium
@@ -213,7 +215,7 @@ BasePlayListDelegate {
                     visible: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
 
                     isMask: simpleMode
-                    color: Kirigami.Theme.textColor
+                    color: playListEntry.iconColor
                 }
 
                 Loader {
@@ -242,6 +244,7 @@ BasePlayListDelegate {
                         textFormat: Text.PlainText
                         font.weight: (isPlaying ? Font.Bold : Font.Normal)
                         font.features: { "tnum": 1 }
+                        color: playListEntry.textColor
                     }
                 }
             }
@@ -255,6 +258,7 @@ BasePlayListDelegate {
                     font.weight: isPlaying ? Font.Bold : Font.Normal
                     visible: isValid
                     Layout.fillWidth: true
+                    color: playListEntry.textColor
                 }
 
                 Loader {
@@ -264,6 +268,7 @@ BasePlayListDelegate {
                     sourceComponent: LabelWithToolTip {
                         text: [artist, album].filter(Boolean).join(" - ")
                         type: Kirigami.Heading.Type.Secondary
+                        color: playListEntry.textColor
                     }
                 }
             }
@@ -282,6 +287,7 @@ BasePlayListDelegate {
                         id: locateFileButton
                         action: actionList.locateFileAction
                         visible: actionList.locateFileAction.visible
+                        icon.color: playListEntry.iconColor
 
                         KeyNavigation.left: favoriteButton
                         KeyNavigation.right: infoButton
@@ -291,6 +297,7 @@ BasePlayListDelegate {
                         id: infoButton
                         action: actionList.infoAction
                         visible: actionList.infoAction.visible
+                        icon.color: playListEntry.iconColor
 
                         KeyNavigation.right: playPauseButton
                     }
@@ -299,6 +306,7 @@ BasePlayListDelegate {
                         id: playPauseButton
                         action: actionList.playPauseAction
                         visible: actionList.playPauseAction.visible
+                        icon.color: playListEntry.iconColor
 
                         KeyNavigation.right: removeButton
                     }
@@ -307,6 +315,7 @@ BasePlayListDelegate {
                         id: removeButton
                         action: actionList.removeAction
                         visible: actionList.removeAction.visible
+                        icon.color: playListEntry.iconColor
 
                         KeyNavigation.right: ratingButton
                     }
@@ -315,6 +324,7 @@ BasePlayListDelegate {
                         id: ratingButton
                         action: actionList.ratingAction
                         visible: actionList.ratingAction.visible
+                        icon.color: playListEntry.iconColor
 
                         KeyNavigation.right: favoriteButton
                     }
@@ -323,6 +333,7 @@ BasePlayListDelegate {
                         id: favoriteButton
                         action: actionList.favoriteAction
                         visible: actionList.favoriteAction.visible
+                        icon.color: playListEntry.iconColor
 
                         KeyNavigation.right: locateFileButton
                     }
@@ -338,6 +349,7 @@ BasePlayListDelegate {
                 visible: playListEntry.editingRating && playListEntry.wideMode
                 text: i18nc("@action:button", "Cancel rating this track")
                 icon.name: "dialog-cancel"
+                icon.color: playListEntry.iconColor
                 onClicked: { playListEntry.editingRating = false; }
             }
 
@@ -348,6 +360,8 @@ BasePlayListDelegate {
                 starRating: rating
 
                 visible: (playListEntry.editingRating || (rating > 0 && !playListEntry.hovered && !playListEntry.hasActiveFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode
+
+                iconColor: playListEntry.iconColor
 
                 onRatingEdited: {
                     ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, starRating);
@@ -363,6 +377,7 @@ BasePlayListDelegate {
                 sourceComponent: FlatButtonWithToolTip {
                     visible: action.visible
                     action: actionList.favoriteAction
+                    icon.color: playListEntry.iconColor
                 }
             }
 
@@ -372,6 +387,7 @@ BasePlayListDelegate {
                 text: duration
                 font.weight: isPlaying ? Font.Bold : Font.Normal
                 font.features: { "tnum": 1 }
+                color: playListEntry.textColor
             }
 
             Loader {
@@ -382,6 +398,7 @@ BasePlayListDelegate {
                     id: menuButton
 
                     icon.name: "overflow-menu"
+                    icon.color: playListEntry.iconColor
                     text: entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
                     down: pressed || menuLoader.menuVisible
                     onPressed: menuLoader.item.open()

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:41+0000\n"
+"POT-Creation-Date: 2025-10-01 00:44+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -103,7 +103,7 @@ msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
 msgstr "(c) २०१५-२०२०, एलिसा योगदानकर्ता"
 
-#: main.cpp:119 models/lyricsmodel.cpp:156
+#: main.cpp:119 models/lyricsmodel.cpp:157
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
@@ -157,49 +157,49 @@ msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "रिक्त शीर्षक।."
 
-#: models/lyricsmodel.cpp:153
+#: models/lyricsmodel.cpp:154
 #, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "कलाकार"
 
-#: models/lyricsmodel.cpp:154
+#: models/lyricsmodel.cpp:155
 #, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "सङ्गीतराशि"
 
-#: models/lyricsmodel.cpp:155
+#: models/lyricsmodel.cpp:156
 #, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "शीर्षकम्"
 
-#: models/lyricsmodel.cpp:157
+#: models/lyricsmodel.cpp:158
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "दैर्घ्यम्‌"
 
-#: models/lyricsmodel.cpp:158
+#: models/lyricsmodel.cpp:159
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr "निर्मितः"
 
-#: models/lyricsmodel.cpp:159
+#: models/lyricsmodel.cpp:160
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "सम्पादक"
 
-#: models/lyricsmodel.cpp:160
+#: models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "संस्करणम्"
 
-#: models/lyricsmodel.cpp:182
+#: models/lyricsmodel.cpp:183
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
@@ -500,19 +500,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "वादनीयसूची दर्शयतु"
 
-#: qml/ContextView.qml:429
+#: qml/ContextView.qml:430
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "गीतस्य पङ्क्तयः न लब्धम्"
 
-#: qml/ContextView.qml:445
+#: qml/ContextView.qml:446
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "न किमपि वादयति"
 
-#: qml/ContextView.qml:479
+#: qml/ContextView.qml:480
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

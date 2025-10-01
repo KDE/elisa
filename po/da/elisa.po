@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:41+0000\n"
+"POT-Creation-Date: 2025-10-01 00:44+0000\n"
 "PO-Revision-Date: 2025-07-31 11:52+0200\n"
 "Last-Translator: rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -103,7 +103,7 @@ msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
 msgstr "© 2015–2020, Elisa contributors"
 
-#: main.cpp:119 models/lyricsmodel.cpp:156
+#: main.cpp:119 models/lyricsmodel.cpp:157
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
@@ -157,49 +157,49 @@ msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "Tom titel."
 
-#: models/lyricsmodel.cpp:153
+#: models/lyricsmodel.cpp:154
 #, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "Kunstner"
 
-#: models/lyricsmodel.cpp:154
+#: models/lyricsmodel.cpp:155
 #, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "Album"
 
-#: models/lyricsmodel.cpp:155
+#: models/lyricsmodel.cpp:156
 #, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "Titel"
 
-#: models/lyricsmodel.cpp:157
+#: models/lyricsmodel.cpp:158
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "Længde"
 
-#: models/lyricsmodel.cpp:158
+#: models/lyricsmodel.cpp:159
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr "Oprettet af"
 
-#: models/lyricsmodel.cpp:159
+#: models/lyricsmodel.cpp:160
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "Redaktør"
 
-#: models/lyricsmodel.cpp:160
+#: models/lyricsmodel.cpp:161
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "Version"
 
-#: models/lyricsmodel.cpp:182
+#: models/lyricsmodel.cpp:183
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
@@ -498,19 +498,19 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Vis playliste"
 
-#: qml/ContextView.qml:429
+#: qml/ContextView.qml:430
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Ingen sangtekster fundet"
 
-#: qml/ContextView.qml:445
+#: qml/ContextView.qml:446
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Intet afspilles"
 
-#: qml/ContextView.qml:479
+#: qml/ContextView.qml:480
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

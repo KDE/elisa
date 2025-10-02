@@ -39,60 +39,74 @@ private Q_SLOTS:
     {
         QTest::addColumn<QString>("lyrics");
         QTest::addColumn<QList<LyricsData>>("parsedLyrics");
+        QTest::addColumn<bool>("expectIsLrc");
 
         QTest::addRow("Simple") << u"[01:33.82]Lyric 1\n[02:06.81]Lyric 2\n[03:30.46]Lyric 3\n"_s
-                                << QList<LyricsData>{{u"Lyric 1"_s, 1min + 33s + 820ms}, {u"Lyric 2"_s, 2min + 6s + 810ms}, {u"Lyric 3"_s, 3min + 30s + 460ms}};
+                                << QList<LyricsData>{{u"Lyric 1"_s, 1min + 33s + 820ms}, {u"Lyric 2"_s, 2min + 6s + 810ms}, {u"Lyric 3"_s, 3min + 30s + 460ms}}
+                                << true;
 
         QTest::addRow("Timestamps out of order") << u"[02:06.81]Lyric 2\n[01:33.82]Lyric 1\n[03:30.46]Lyric 3\n"_s
                                                  << QList<LyricsData>{{u"Lyric 1"_s, 1min + 33s + 820ms},
                                                                       {u"Lyric 2"_s, 2min + 6s + 810ms},
-                                                                      {u"Lyric 3"_s, 3min + 30s + 460ms}};
+                                                                      {u"Lyric 3"_s, 3min + 30s + 460ms}}
+                                                 << true;
 
         QTest::addRow("Timestamps with different length") << u"[01:23.4]Lyric 1\n[01:23.45]Lyric 2\n[01:23.456]Lyric 3"_s
                                                  << QList<LyricsData>{{u"Lyric 1"_s, 1min + 23s + 400ms},
                                                                       {u"Lyric 2"_s, 1min + 23s + 450ms},
-                                                                      {u"Lyric 3"_s, 1min + 23s + 456ms}};
+                                                                      {u"Lyric 3"_s, 1min + 23s + 456ms}}
+                                                 << true;
 
         QTest::addRow("Repeated lyric") << u"[01:33.82][03:30.46]Chorus\n[02:06.81]Lyric 2\n"_s
                                         << QList<LyricsData>{{u"Chorus"_s, 1min + 33s + 820ms},
                                                              {u"Lyric 2"_s, 2min + 6s + 810ms},
-                                                             {u"Chorus"_s, 3min + 30s + 460ms}};
+                                                             {u"Chorus"_s, 3min + 30s + 460ms}}
+                                        << true;
 
         QTest::addRow("Chinese") << u"[01:33.82][03:30.46]一如最初的模样\n[02:06.81]烟花的瞬间\n"_s
                                  << QList<LyricsData>{{u"一如最初的模样"_s, 1min + 33s + 820ms},
                                                       {u"烟花的瞬间"_s, 2min + 6s + 810ms},
-                                                      {u"一如最初的模样"_s, 3min + 30s + 460ms}};
+                                                      {u"一如最初的模样"_s, 3min + 30s + 460ms}}
+                                 << true;
 
         QTest::addRow("No linebreak at the end") << u"[01:33.82]Lyric 1\n[02:06.81]Lyric 2\n[03:30.46]Lyric 3"_s
                                                  << QList<LyricsData>{{u"Lyric 1"_s, 1min + 33s + 820ms},
                                                                       {u"Lyric 2"_s, 2min + 6s + 810ms},
-                                                                      {u"Lyric 3"_s, 3min + 30s + 460ms}};
+                                                                      {u"Lyric 3"_s, 3min + 30s + 460ms}}
+                                                 << true;
 
         QTest::addRow("Empty line with timestamp") << u"[01:33.82]Lyric 1\n[02:06.81]\n[03:30.46]Lyric 3"_s
                                                    << QList<LyricsData>{{u"Lyric 1"_s, 1min + 33s + 820ms},
                                                                         {u""_s, 2min + 6s + 810ms},
-                                                                        {u"Lyric 3"_s, 3min + 30s + 460ms}};
+                                                                        {u"Lyric 3"_s, 3min + 30s + 460ms}}
+                                                   << true;
 
         QTest::addRow("Bilingual same timestamp")
             << u"[00:15.13]悴んだ心 ふるえる眼差し\n[00:15.13]『内心满是憔悴 眼神游动不止』\n[00:15.13]\"A heart grown numb with cold a trembling gaze\""_s
             << QList<LyricsData>{{u"悴んだ心 ふるえる眼差し"_s, 15s + 130ms},
                                  {u"『内心满是憔悴 眼神游动不止』"_s, 15s + 130ms},
-                                 {u"\"A heart grown numb with cold a trembling gaze\""_s, 15s + 130ms}};
+                                 {u"\"A heart grown numb with cold a trembling gaze\""_s, 15s + 130ms}}
+            << true;
 
         QTest::addRow("Begin with number") << u"[01:33.82]1st line\n[02:06.81]2nd line\n[03:30.46]3rd line"_s
                                            << QList<LyricsData>{{u"1st line"_s, 1min + 33s + 820ms},
                                                                 {u"2nd line"_s, 2min + 6s + 810ms},
-                                                                {u"3rd line"_s, 3min + 30s + 460ms}};
+                                                                {u"3rd line"_s, 3min + 30s + 460ms}}
+                                           << true;
+
+        QTest::addRow("Corrupted line with leading number") << u"3[2:13.10]Lyric"_s << QList<LyricsData>{{u"3[2:13.10]Lyric"_s, 0ms}} << false;
     }
 
     void testParse()
     {
         QFETCH(QString, lyrics);
         QFETCH(QList<LyricsData>, parsedLyrics);
+        QFETCH(bool, expectIsLrc);
 
         LyricsModel lyricsModel;
         lyricsModel.setLyric(lyrics);
 
+        QCOMPARE(lyricsModel.isLRC(), expectIsLrc);
         QCOMPARE(lyricsModel.rowCount(), parsedLyrics.size());
         for (int i = 0; i < parsedLyrics.size(); ++i) {
             const auto expectedData = parsedLyrics.at(i);

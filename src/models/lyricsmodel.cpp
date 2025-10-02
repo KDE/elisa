@@ -169,13 +169,14 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
         {QStringLiteral("ve"), i18nc("@label", "Version")}};
     QString tags;
 
+    auto rollback = begin;
+
     while (begin != end) {
         // skip till tags
         begin = std::find(begin, end, '['_L1);
         if (begin != end) {
             ++begin;
-        }
-        else {
+        } else {
             break;
         }
 
@@ -196,15 +197,15 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
 
             if (ok) {
                 begin = tagContentEnd;
+                rollback = begin;
             } else {
-                // Invalid offset tag, we step back one to compensate the '[' we
-                // step over
-                --begin;
+                // Invalid offset: fully rollback so caller sees the whole line
+                begin = rollback;
                 break;
             }
         } else {
-          // No tag, we step back one to compensate the '[' we step over
-          --begin;
+          // No tag, we step rollback to compensate the '[' we step over
+          begin = rollback;
           break;
         }
     }

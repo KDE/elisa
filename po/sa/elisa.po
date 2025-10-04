@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-01 00:44+0000\n"
+"POT-Creation-Date: 2025-10-04 14:14+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -381,32 +381,32 @@ msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
 msgstr ""
 
-#: qml/AbstractBrowserDelegate.qml:40
+#: qml/AbstractBrowserDelegate.qml:41
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "इदानीं सङ्गीतं वादयन्तु, वर्तमानस्य वादनीयसूची प्रतिस्थापयन्"
 
-#: qml/AbstractBrowserDelegate.qml:46 qml/TrackBrowserDelegate.qml:80
+#: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:86
 #, kde-format
 msgctxt "@action:button"
 msgid "Play next"
 msgstr "अग्रिमगीतं वादयन्तु"
 
-#: qml/AbstractBrowserDelegate.qml:51 qml/TrackBrowserDelegate.qml:75
+#: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:81
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "वादनीयसूची मध्ये योजयतु"
 
-#: qml/AbstractBrowserDelegate.qml:60 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/PlayListEntry.qml:85 qml/TrackBrowserDelegate.qml:63
+#: qml/AbstractBrowserDelegate.qml:61 qml/mobile/MobilePlayListDelegate.qml:168
+#: qml/PlayListEntry.qml:88 qml/TrackBrowserDelegate.qml:69
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "पुटे दर्शयतु"
 
-#: qml/AbstractBrowserDelegate.qml:82
+#: qml/AbstractBrowserDelegate.qml:83
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
@@ -921,15 +921,15 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "१ संगीतपङ्क्ति, %1मिनिट् अवशिष्टः"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:116
-#: qml/TrackBrowserDelegate.qml:98
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "अस्मात् गीतात् प्रियं रूपेण चिह्नं निष्कासयन्तु"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:116
-#: qml/TrackBrowserDelegate.qml:98
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
@@ -1035,20 +1035,20 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "अग्रतः लङ्घयन्तु"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:385
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "संगीतपङ्क्तिस्य विकल्पाः"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:385
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "आकाशवाणीस्थानकानि"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:92
-#: qml/TrackBrowserDelegate.qml:70
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:95
+#: qml/TrackBrowserDelegate.qml:76
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
@@ -1368,31 +1368,31 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "केवलं प्रियं दर्शयतु"
 
-#: qml/PlayListEntry.qml:106 qml/TrackBrowserDelegate.qml:90
+#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:96
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "संगीतपङ्क्ति मूल्याङ्कनं निर्धारयन्तु"
 
-#: qml/PlayListEntry.qml:129
+#: qml/PlayListEntry.qml:132
 #, kde-format
 msgctxt "@action:button Pause current track from playlist"
 msgid "Pause"
 msgstr "विरामयतु"
 
-#: qml/PlayListEntry.qml:129
+#: qml/PlayListEntry.qml:132
 #, kde-format
 msgctxt "@action:button Play this track from playlist"
 msgid "Play"
 msgstr "वादयतु"
 
-#: qml/PlayListEntry.qml:144
+#: qml/PlayListEntry.qml:147
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "निष्कासयतु"
 
-#: qml/PlayListEntry.qml:339 qml/TrackBrowserDelegate.qml:321
+#: qml/PlayListEntry.qml:350 qml/TrackBrowserDelegate.qml:311
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -1668,19 +1668,19 @@ msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "क्रमाङ्कनम्"
 
-#: qml/TrackBrowserDelegate.qml:85
+#: qml/TrackBrowserDelegate.qml:91
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "इतः वादयन्तु, वर्तमानस्य वादनीयसूची प्रतिस्थाप्य"
 
-#: qml/TrackBrowserDelegate.qml:214 qml/TrackBrowserDelegate.qml:230
+#: qml/TrackBrowserDelegate.qml:201 qml/TrackBrowserDelegate.qml:217
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:225
+#: qml/TrackBrowserDelegate.qml:212
 #, fuzzy, kde-format
 #| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 #| msgid "%1 - %2 - %3"
@@ -1688,13 +1688,13 @@ msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/TrackBrowserDelegate.qml:237
+#: qml/TrackBrowserDelegate.qml:224
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:375
+#: qml/TrackBrowserDelegate.qml:370
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"

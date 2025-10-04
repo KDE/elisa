@@ -291,14 +291,11 @@ Item {
                         text: secondaryTitle
                         elide: Text.ElideRight
 
-                        TapHandler {
-                            id: showArtistTaphandler
-                            enabled: navigationBar.allowArtistNavigation && !navigationBar.showCreateRadioButton
-                            onTapped: navigationBar.showArtist(secondaryTitle)
-                        }
-                        HoverHandler {
-                            enabled: showArtistTaphandler.enabled
+                        MouseArea {
+                            width: Math.min(parent.implicitWidth, parent.width)
+                            height: parent.height
                             cursorShape: Qt.PointingHandCursor
+                            onClicked: navigationBar.showArtist(navigationBar.secondaryTitle)
                         }
                     }
                 }

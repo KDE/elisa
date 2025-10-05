@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-04 14:14+0000\n"
+"POT-Creation-Date: 2025-10-05 00:39+0000\n"
 "PO-Revision-Date: 2025-06-17 06:47+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -102,7 +102,7 @@ msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
 msgstr "© 2015-2020, sodelavci Elise"
 
-#: main.cpp:119 models/lyricsmodel.cpp:157
+#: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
@@ -156,49 +156,49 @@ msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "Prazen naslov."
 
-#: models/lyricsmodel.cpp:154
+#: models/lyricsmodel.cpp:162
 #, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "Avtor"
 
-#: models/lyricsmodel.cpp:155
+#: models/lyricsmodel.cpp:163
 #, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "Album"
 
-#: models/lyricsmodel.cpp:156
+#: models/lyricsmodel.cpp:164
 #, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "Naslov"
 
-#: models/lyricsmodel.cpp:158
+#: models/lyricsmodel.cpp:166
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "Dolžina"
 
-#: models/lyricsmodel.cpp:159
+#: models/lyricsmodel.cpp:167
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr "Ustvaril"
 
-#: models/lyricsmodel.cpp:160
+#: models/lyricsmodel.cpp:168
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "Urejevalnik"
 
-#: models/lyricsmodel.cpp:161
+#: models/lyricsmodel.cpp:169
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "Verzija"
 
-#: models/lyricsmodel.cpp:183
+#: models/lyricsmodel.cpp:192
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"

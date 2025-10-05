@@ -163,6 +163,7 @@ SplitView {
         }
 
         sourceComponent: ViewSelector {
+            displayedViewIndex: model.mapRowFromSource(viewManager.viewIndex)
             model: pageProxyModel
             viewIndex: model.mapRowFromSource(viewManager.viewIndex)
             onSwitchView: viewIndex => viewManager.openView(model.mapRowToSource(viewIndex))

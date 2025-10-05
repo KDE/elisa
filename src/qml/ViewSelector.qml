@@ -13,6 +13,9 @@ import org.kde.kirigami as Kirigami
 ScrollView {
     id: scrollView
 
+    // The index of the view being displayed, not the one that is "highlighted" by the ListView
+    required property int displayedViewIndex
+
     property alias model: viewModeView.model
 
     property alias viewIndex: viewModeView.currentIndex
@@ -55,7 +58,7 @@ ScrollView {
             icon.name: usingThemeIcon ? delegate.image.toString().substring(13) : ""
             icon.source: image
             text: title
-            highlighted: ListView.isCurrentItem
+            highlighted: index === scrollView.displayedViewIndex
 
             // Prevent icon recoloring for styles that don't set `icon.color: "transparent"` by default
             // otherwise it applies a single-color mask above the entire album cover image

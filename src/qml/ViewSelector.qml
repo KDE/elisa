@@ -71,6 +71,11 @@ ScrollView {
                 scrollView.switchView(index)
                 forceActiveFocus()
             }
+
+            Keys.onReturnPressed: {
+                scrollView.switchView(index);
+                forceActiveFocus();
+            }
         }
 
         section.property: 'entryCategory'

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-05 00:39+0000\n"
-"PO-Revision-Date: 2025-06-17 21:36+0300\n"
+"POT-Creation-Date: 2025-10-06 00:41+0000\n"
+"PO-Revision-Date: 2025-10-05 12:18+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1319,39 +1319,39 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "חזרה"
 
-#: qml/NavigationActionBar.qml:336
+#: qml/NavigationActionBar.qml:333
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "הצגת סרגל חיפוש וסינון"
 
-#: qml/NavigationActionBar.qml:337
+#: qml/NavigationActionBar.qml:334
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "הסתרת סרגל חיפוש וסינון"
 
-#: qml/NavigationActionBar.qml:430
+#: qml/NavigationActionBar.qml:427
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "חיפוש לפי שם רצועה, אומנים וכו׳"
 
-#: qml/NavigationActionBar.qml:431
+#: qml/NavigationActionBar.qml:428
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "חיפוש לפי שם אלבום, אומנים וכו׳"
 
-#: qml/NavigationActionBar.qml:440
+#: qml/NavigationActionBar.qml:437
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "סינון לפי דירוג:"
 
-#: qml/NavigationActionBar.qml:458
+#: qml/NavigationActionBar.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
@@ -1621,7 +1621,7 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
-"בחירה באפשרות  <interface>העדפת נתיבים יחסיים</interface> תגרום לכך שקבצים "
+"בחירה באפשרות <interface>העדפת נתיבים יחסיים</interface> תגרום לכך שקבצים "
 "באותה התיקייה עם רשימת הנגינה ייקראו בשם הקובץ בלבד. במקרים אחרים ייעשה "
 "שימוש בנתיבים מלאים."
 

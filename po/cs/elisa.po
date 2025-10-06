@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-05 00:39+0000\n"
+"POT-Creation-Date: 2025-10-06 00:41+0000\n"
 "PO-Revision-Date: 2024-11-14 14:04+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1319,39 +1319,39 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Zpět"
 
-#: qml/NavigationActionBar.qml:336
+#: qml/NavigationActionBar.qml:333
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Zobrazit lištu pro hledání a filtrování"
 
-#: qml/NavigationActionBar.qml:337
+#: qml/NavigationActionBar.qml:334
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Skrýt lištu pro hledání a filtrování"
 
-#: qml/NavigationActionBar.qml:430
+#: qml/NavigationActionBar.qml:427
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Hledat název skladby, umělce apod."
 
-#: qml/NavigationActionBar.qml:431
+#: qml/NavigationActionBar.qml:428
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Hledat název alba, umělce apod."
 
-#: qml/NavigationActionBar.qml:440
+#: qml/NavigationActionBar.qml:437
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrovat podle hodnocení: "
 
-#: qml/NavigationActionBar.qml:458
+#: qml/NavigationActionBar.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-05 00:39+0000\n"
+"POT-Creation-Date: 2025-10-06 00:41+0000\n"
 "PO-Revision-Date: 2025-07-13 15:21+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1313,39 +1313,39 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Atzera"
 
-#: qml/NavigationActionBar.qml:336
+#: qml/NavigationActionBar.qml:333
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Erakutsi bilatu eta iragazi tresna-barra"
 
-#: qml/NavigationActionBar.qml:337
+#: qml/NavigationActionBar.qml:334
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Ezkutatu Bilatu eta iragazi tresna-barra"
 
-#: qml/NavigationActionBar.qml:430
+#: qml/NavigationActionBar.qml:427
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Bilatu pistaren izena, artista, etab."
 
-#: qml/NavigationActionBar.qml:431
+#: qml/NavigationActionBar.qml:428
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Bilatu albumaren izena, artista, etab."
 
-#: qml/NavigationActionBar.qml:440
+#: qml/NavigationActionBar.qml:437
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Iragazi balorazioen arabera:"
 
-#: qml/NavigationActionBar.qml:458
+#: qml/NavigationActionBar.qml:455
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

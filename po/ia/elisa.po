@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-06 00:41+0000\n"
-"PO-Revision-Date: 2025-05-27 11:25+0200\n"
+"PO-Revision-Date: 2025-10-14 12:44+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -97,12 +97,10 @@ msgstr ""
 "Un Simple Reproductor de musica facite con amor per le communitate de KDE"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
-msgstr "(c) 2015-2020, contributores de Elisa"
+msgstr "© 2015–2020, contributores de Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -327,12 +325,10 @@ msgid "Lyrics"
 msgstr "Parolas del Canto"
 
 #: models/trackmetadatamodel.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
-msgstr "Adresse http de Stream"
+msgstr "Adresse HTTP de Stream"
 
 #: models/trackmetadatamodel.cpp:579
 #, kde-format
@@ -752,13 +748,10 @@ msgid "Playlist"
 msgstr "Lista de reproduction"
 
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 tracia"
+msgstr "Un tracia"
 
 #: qml/MediaPlayerControl.qml:312
 #, kde-format
@@ -775,9 +768,7 @@ msgid "Playlist"
 msgstr "Lista de reproduction"
 
 #: qml/MediaPlayListView.qml:70
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Monstra currente"
@@ -1263,20 +1254,16 @@ msgid "Play now, replacing current playlist"
 msgstr "Reproduce nunc, reimplaciente le lista de reproduction actual"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Reproduce proxime"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Reproduce nunc, reimplaciente le lista de reproduction actual"
+msgstr "Reproduce proxim in le lista de reproduction"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1676,21 +1663,19 @@ msgstr "Reproduce ab nunc, reimplaciente le lista de reproduction actual"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr "%1 - %2 - %3"
+msgstr "%1 – %2 – %3"
 
 #: qml/TrackBrowserDelegate.qml:224
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:370
 #, kde-format
@@ -1761,7 +1746,7 @@ msgstr "Descendente"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "A–Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1770,7 +1755,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "Z–A"
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format

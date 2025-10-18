@@ -5,6 +5,7 @@ Comment[ar]=شغل الصوتيات المحلية واستمع لمحطات ا�
 Comment[bg]=Възпроизвеждане на локални музикални файлове и слушане на онлайн радиостанции
 Comment[ca]=Reproduïu música local i escolteu ràdio en línia
 Comment[ca@valencia]=Reproduïu música local i escolteu ràdio en línia
+Comment[cs]=Přehrávejte si místní hudbu a poslouchejte online rádia
 Comment[da]=Afspil lokal musik og lyt til onlineradioer
 Comment[de]=Lokal gespeicherte Musik abspielen und Online-Radio hören
 Comment[eo]=Ludu lokan muzikon kaj aŭskultu al retradio

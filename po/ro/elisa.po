@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the elisa package.
-# Sergiu Bivol <sergiu@cip.md>, 2022, 2023, 2024.
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Sergiu Bivol <sergiu@cip.md>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-06 00:41+0000\n"
-"PO-Revision-Date: 2024-06-08 16:50+0100\n"
+"PO-Revision-Date: 2025-10-18 14:16+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -97,12 +97,10 @@ msgstr ""
 "Aplicație simplă pentru redarea muzicii, făcută cu drag de comunitatea KDE"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
-msgstr "(c) 2015-2020, Contribuitorii Elisa"
+msgstr "© 2015-2020, Contribuitorii Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -327,9 +325,7 @@ msgid "Lyrics"
 msgstr "Versuri"
 
 #: models/trackmetadatamodel.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
 msgstr "Adresă HTTP flux"
@@ -374,13 +370,13 @@ msgstr "se redă muzică"
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr ""
+msgstr "%1:%2"
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr ""
+msgstr "%1:%2:%3"
 
 #: qml/AbstractBrowserDelegate.qml:41
 #, kde-format
@@ -389,12 +385,10 @@ msgid "Play now, replacing current playlist"
 msgstr "Redă acum, înlocuind lista actuală"
 
 #: qml/AbstractBrowserDelegate.qml:47 qml/TrackBrowserDelegate.qml:86
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play next"
-msgstr "Contor redări"
+msgstr "Redă următoarea"
 
 #: qml/AbstractBrowserDelegate.qml:52 qml/TrackBrowserDelegate.qml:81
 #, kde-format
@@ -522,18 +516,13 @@ msgid "Show In Folder"
 msgstr "Arată în dosar"
 
 #: qml/DataGridView.qml:161
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "1 track"
+#, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "1 piesă"
+msgstr "Toate piesele"
 
 #: qml/DataGridView.qml:162
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -580,20 +569,16 @@ msgid "Undo"
 msgstr "Desfă"
 
 #: qml/ElisaMainWindow.qml:140
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr "Arată lista de redare"
+msgstr "Arată sertar cu lista de redare"
 
 #: qml/ElisaMainWindow.qml:141
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Hide Playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr "Ascunde lista de redare"
+msgstr "Ascunde sertar cu lista de redare"
 
 #: qml/ElisaMainWindow.qml:178 qml/ElisaMainWindow.qml:613
 #, kde-format
@@ -656,45 +641,35 @@ msgstr "Ieși din ecranul complet"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
-msgstr ""
+msgstr "Părăsește regimul de petrecere"
 
 #: qml/MediaPlayerControl.qml:92
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Party Mode"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
-msgstr "Comută regimul de petrecere"
+msgstr "Intră în regim de petrecere"
 
 #: qml/MediaPlayerControl.qml:100
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Skip Backward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Derulează înapoi"
 
 #: qml/MediaPlayerControl.qml:109
-#, fuzzy, kde-format
-#| msgctxt "@action:button Pause any media that is playing"
-#| msgid "Pause"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Întrerupe"
 
 #: qml/MediaPlayerControl.qml:110
-#, fuzzy, kde-format
-#| msgctxt "@action:button Start playing media"
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Redă"
 
 #: qml/MediaPlayerControl.qml:118
-#, fuzzy, kde-format
-#| msgctxt "@action:button skip forward in playlists"
-#| msgid "Skip Forward"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Derulează înainte"
@@ -703,13 +678,13 @@ msgstr "Derulează înainte"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr ""
+msgstr "Sonorizează"
 
 #: qml/MediaPlayerControl.qml:145
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "Muțește"
 
 #: qml/MediaPlayerControl.qml:167 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
@@ -773,18 +748,13 @@ msgid "Playlist"
 msgstr "Listă de redare"
 
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 piesă"
+msgstr "O pistă"
 
 #: qml/MediaPlayerControl.qml:312
-#, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "Application Menu"
+#, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "Meniul aplicației"
@@ -798,9 +768,7 @@ msgid "Playlist"
 msgstr "Listă de redare"
 
 #: qml/MediaPlayListView.qml:70
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Arată actuală"
@@ -862,25 +830,19 @@ msgid "Your playlist is empty."
 msgstr "Lista de redare e goală."
 
 #: qml/MediaPlayListView.qml:475 qml/MediaPlayListView.qml:484
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] "%1 rămasă"
-msgstr[1] "%1 rămase"
-msgstr[2] "%1 rămase"
+msgstr[0] "%1/%2 piese rămasă"
+msgstr[1] "%1/%2 piese rămase"
+msgstr[2] "%1/%2 de piese rămase"
 
 #: qml/MediaPlayListView.qml:476
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
-msgstr "%1 rămasă"
+msgstr "%1 rămase, %2 în total"
 
 #: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
 #: qml/MediaPlayListView.qml:495
@@ -889,34 +851,25 @@ msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
 "time remaining"
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: qml/MediaPlayListView.qml:485 qml/MediaPlayListView.qml:494
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
-msgstr "%1 rămasă"
+msgstr "%1/%2 rămase"
 
 #: qml/MediaPlayListView.qml:493
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
-msgstr[0] "%1 piesă"
-msgstr[1] "%1 piese"
-msgstr[2] "%1 de piese"
+msgstr[0] "%1/%2 piese"
+msgstr[1] "%1/%2 piese"
+msgstr[2] "%1/%2 de piese"
 
 #: qml/MediaPlayListView.qml:502
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
@@ -929,9 +882,9 @@ msgstr[2] "%1 de piese"
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1 post radio"
+msgstr[1] "%1 posturi radio"
+msgstr[2] "%1 de posturi radio"
 
 #: qml/MediaPlayListView.qml:504
 #, kde-format
@@ -939,32 +892,26 @@ msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
 "radios"
 msgid "%1, %2 total"
-msgstr ""
+msgstr "%1, %2 în total"
 
 #: qml/MediaPlayListView.qml:507
-#, fuzzy, kde-format
-#| msgctxt "@info:status"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
 "duration formatted like hh:mm:ss or mm:ss"
 msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
-msgstr[0] "%1 piesă"
-msgstr[1] "%1 piese"
-msgstr[2] "%1 de piese"
+msgstr[0] "%1 piesă, %2 în total"
+msgstr[1] "%1 piese, %2 în total"
+msgstr[2] "%1 de piese, %2 în total"
 
 #: qml/MediaPlayListView.qml:509
-#, fuzzy, kde-format
-#| msgctxt "@info:status number of tracks remaining"
-#| msgid "%1 remaining"
-#| msgid_plural "%1 remaining"
+#, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
 msgid "1 track, %1min remaining"
-msgstr "%1 rămasă"
+msgstr "1 piesă, %1min rămase"
 
 #: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:104
@@ -987,12 +934,10 @@ msgid "Remove this tag"
 msgstr "Elimină acest marcaj"
 
 #: qml/MediaTrackMetadataDelegate.qml:214
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Add new tag:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
-msgstr "Adaugă marcaj nou:"
+msgstr "Adaugă marcaj"
 
 #: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:44
 #, kde-format
@@ -1281,13 +1226,13 @@ msgstr "Sortează"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr ""
+msgstr "Adaugă radio"
 
 #: qml/NavigationActionBar.qml:108
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr ""
+msgstr "Adaugă radio"
 
 #: qml/NavigationActionBar.qml:120
 #, kde-format
@@ -1296,44 +1241,34 @@ msgid "Add to Playlist"
 msgstr "Adaugă la lista de redare"
 
 #: qml/NavigationActionBar.qml:121
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Add to playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Adaugă la lista de redare"
 
 #: qml/NavigationActionBar.qml:134
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Redă acum, înlocuind lista actuală"
 
 #: qml/NavigationActionBar.qml:135
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Redă acum, înlocuind lista actuală"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Play counter label for track metadata view"
-#| msgid "Play count"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
-msgstr "Contor redări"
+msgstr "Redă următoarea"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Redă acum, înlocuind lista actuală"
+msgstr "Redă următoarea din listă"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1342,17 +1277,13 @@ msgid "Display Artist"
 msgstr "Arată interpretul"
 
 #: qml/NavigationActionBar.qml:161
-#, fuzzy, kde-format
-#| msgctxt "@action:button navigate to the view for artist of this album"
-#| msgid "Display Artist"
+#, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Arată interpretul"
 
 #: qml/NavigationActionBar.qml:176
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Arată lista de redare"
@@ -1361,29 +1292,25 @@ msgstr "Arată lista de redare"
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "Vizualizează ca grilă de pictograme"
 
 #: qml/NavigationActionBar.qml:188
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "View details"
+#, kde-format
 msgctxt "@action:button"
 msgid "View as List"
-msgstr "Vezi detalii"
+msgstr "Vizualizează ca listă"
 
 #: qml/NavigationActionBar.qml:190
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "Vizualizează ca grilă de pictograme"
 
 #: qml/NavigationActionBar.qml:191
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "View details"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
-msgstr "Vezi detalii"
+msgstr "Vizualizează ca listă"
 
 #: qml/NavigationActionBar.qml:251
 #, kde-format
@@ -1392,38 +1319,30 @@ msgid "Back"
 msgstr "Înapoi"
 
 #: qml/NavigationActionBar.qml:333
-#, fuzzy, kde-format
-#| msgctxt "@action:button Show filters in the navigation bar"
-#| msgid "Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
-msgstr "Căutare și filtrare"
+msgstr "Arată bara de căutare și filtrare"
 
 #: qml/NavigationActionBar.qml:334
-#, fuzzy, kde-format
-#| msgctxt "@action:button Hide filters in the navigation bar"
-#| msgid "Hide Search and Filter"
+#, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
-msgstr "Ascunde căutarea și filtrarea"
+msgstr "Ascunde bara de căutare și filtrare"
 
 #: qml/NavigationActionBar.qml:427
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "Caută denumire de album, interpret, etc."
+msgstr "Caută denumirea, interpretul, și alte detalii ale piesei"
 
 #: qml/NavigationActionBar.qml:428
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder"
-#| msgid "Search for album name, artist, etc."
+#, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
-msgstr "Caută denumire de album, interpret, etc."
+msgstr "Caută denumirea, interpretul, și alte detalii ale albumului"
 
 #: qml/NavigationActionBar.qml:437
 #, kde-format
@@ -1480,17 +1399,13 @@ msgid "Show background on Now Playing page"
 msgstr "Arată fundal pe pagina „În redare”"
 
 #: qml/SettingsForm.qml:84
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Show progress on Task Manager entries"
+#, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "Arată progresul pe înregistrările gestionarului de sarcini"
 
 #: qml/SettingsForm.qml:95
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Keep running in System Tray when main window is closed"
+#, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr "Continuă rularea în tava de sistem când fereastra principală e închisă"
@@ -1502,9 +1417,7 @@ msgid "Start playing on startup"
 msgstr "Începe redarea la pornire"
 
 #: qml/SettingsForm.qml:117
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Scan for New Music on startup"
+#, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "Scanează pentru muzică nouă la pornire"
@@ -1542,9 +1455,7 @@ msgid "Favorite/not favorite"
 msgstr "Favorită/nefavorită"
 
 #: qml/SettingsForm.qml:181
-#, fuzzy, kde-format
-#| msgctxt "@label:listbox"
-#| msgid "Color Scheme:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Schemă de culori:"
@@ -1680,12 +1591,10 @@ msgid "Choose…"
 msgstr "Alege…"
 
 #: qml/SettingsForm.qml:336 qml/SettingsForm.qml:466
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
-msgstr "Alege un dosar"
+msgstr "Alege dosarul"
 
 #: qml/SettingsForm.qml:359
 #, kde-format
@@ -1757,21 +1666,19 @@ msgstr "Redă de aici, înlocuind lista actuală"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr "%1 - %2 - %3"
+msgstr "%1 – %2 – %3"
 
 #: qml/TrackBrowserDelegate.qml:224
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:370
 #, kde-format
@@ -1843,7 +1750,7 @@ msgstr "Descrescător"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "A–Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1852,7 +1759,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "Z–A"
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format

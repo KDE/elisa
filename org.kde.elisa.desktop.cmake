@@ -26,6 +26,7 @@ Comment[nl]=Speel lokaal muziek en luister naar online radio
 Comment[nn]=Spel av lokal musikk og lytt på nettradio
 Comment[pl]=Odtwarzaj muzykę lokalnie i słucha radia z sieci
 Comment[pt_BR]=Reproduza músicas locais e ouça rádios online
+Comment[ro]=Redă muzică locală și ascultă stații radio prin Internet
 Comment[ru]=Воспроизведение хранящейся локально музыки и прослушивание интернет-радиостанций
 Comment[sa]=स्थानीयसङ्गीतं वादयन्तु, ऑनलाइन रेडियो शृणुत च
 Comment[sl]=Predvaja lokalno glasbo in posluša spletni radio

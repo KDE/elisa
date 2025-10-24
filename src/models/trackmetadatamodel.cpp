@@ -640,11 +640,19 @@ void TrackMetadataModel::fetchLyrics()
                 prober.feed(fileContent);
                 const QByteArray encoding(prober.encoding());
                 QString decodedContent;
+                
+                QStringDecoder toUtf16;
+                if (prober.confidence() > 0.5 && prober.state() != KEncodingProber::Probing) {
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
-                auto toUtf16 = QStringDecoder(encoding.constData());
+                    toUtf16 = QStringDecoder(encoding.constData());
 #else
-                auto toUtf16 = QStringDecoder(encoding);
+                    toUtf16 = QStringDecoder(encoding);
 #endif // QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
+
+                } else {
+                    toUtf16 = QStringDecoder(QStringDecoder::Utf8);
+                }
                 // Don't use `QStringConverter::availableCodecs().contains(QString(encoding))` here, since the charset
                 // encoding name might not match, e.g. GB18030 (from availableCodecs) != gb18030 (from KEncodingProber)
                 if (toUtf16.isValid()) {

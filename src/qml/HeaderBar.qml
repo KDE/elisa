@@ -37,9 +37,53 @@ FocusScope {
 
     property int handlePosition: implicitHeight
 
+    property bool lyricsVisible: false
+
     signal openArtist()
     signal openAlbum()
     signal openNowPlaying()
+
+    readonly property int trackType: ElisaApplication.manageHeaderBar.trackType
+    readonly property int databaseId: ElisaApplication.manageHeaderBar.databaseId
+    readonly property url fileUrl: ElisaApplication.manageHeaderBar.fileUrl
+
+    TrackContextMetaDataModel {
+        id: metaDataModel
+        onLyricsChanged: lyricsView.model.setLyric(lyrics)
+        manager: ElisaApplication.musicManager
+    }
+
+    //Required for TrackContextMetaDataModel to work properly
+
+    onFileUrlChanged: {
+        if (ElisaApplication.musicManager && trackType !== undefined && fileUrl !== undefined && fileUrl.toString().length !== 0) {
+            if (databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl);
+            } else {
+                metaDataModel.initializeByUrl(trackType, fileUrl);
+            }
+        }
+    }
+
+    onTrackTypeChanged: {
+        if (ElisaApplication.musicManager && trackType !== undefined && fileUrl !== undefined && fileUrl.toString().length !== 0) {
+            if (databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl);
+            } else {
+                metaDataModel.initializeByUrl(trackType, fileUrl);
+            }
+        }
+    }
+
+    Connections {
+        target: ElisaApplication
+
+        function onMusicManagerChanged() {
+            if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl);
+            }
+        }
+    }
 
     onImageChanged: {
         if (changeBackgroundTransition.running) {
@@ -174,22 +218,66 @@ FocusScope {
         }
     }
 
-    FlatButtonWithToolTip {
+    RowLayout {
         anchors.top: parent.top
         anchors.right: parent.right
-        // leave space for contextDrawer handle if it is visible (party mode), and match the top padding of the handle
-        anchors.rightMargin: mainWindow.contextDrawer.handleVisible ? mainWindow.contextDrawer.handle.width : 0
-        anchors.topMargin: mainWindow.contextDrawer.handleVisible ? 0.75 * Kirigami.Units.smallSpacing : 0
+        anchors.topMargin: mainWindow.contextDrawer.handleVisible ? Kirigami.Units.smallSpacing : 0
+        anchors.rightMargin: {
+            let rightPadding = Kirigami.Units.mediumSpacing;
+            if (mainWindow.contextDrawer.handleVisible) {
+                const handleMargin = Kirigami.Units.smallSpacing;
+                rightPadding += mainWindow.contextDrawer.handle.width + handleMargin;
+            }
+            return rightPadding;
+        }
 
-        visible: mainWindow.visibility == Window.FullScreen
+        spacing: Kirigami.Units.smallSpacing
 
-        text: i18nc("@action:button", "Exit Full Screen")
-        icon.name: "view-restore"
-        display: AbstractButton.TextBesideIcon
-        icon.color: Theme.headerForegroundColor
-        Kirigami.Theme.textColor: Theme.headerForegroundColor
+        FlatButtonWithToolTip {
+            id: playlistToggleButton
+            autoExclusive: true
 
-        onClicked: mainWindow.restorePreviousStateBeforeFullScreen();
+            visible: headerBar.isMaximized
+
+            text: i18nc("@action:inmenu", "Playlist")
+            icon.name: "view-media-playlist"
+            display: AbstractButton.TextBesideIcon
+            icon.color: Theme.headerForegroundColor
+            Kirigami.Theme.textColor: Theme.headerForegroundColor
+
+            checkable: true
+            checked: !headerBar.lyricsVisible
+            onCheckedChanged: if (checked) headerBar.lyricsVisible = false
+        }
+
+        FlatButtonWithToolTip {
+            id: lyricsToggleButton
+            autoExclusive: true
+
+            visible: headerBar.isMaximized
+
+            text: i18nc("@action:button", "Lyrics")
+            icon.name: "view-media-lyrics"
+            display: AbstractButton.TextBesideIcon
+            icon.color: Theme.headerForegroundColor
+            Kirigami.Theme.textColor: Theme.headerForegroundColor
+
+            checkable: true
+            checked: headerBar.lyricsVisible
+            onCheckedChanged: if (checked) headerBar.lyricsVisible = true
+        }
+
+        FlatButtonWithToolTip {
+            visible: mainWindow.visibility == Window.FullScreen
+
+            text: i18nc("@action:button", "Exit Full Screen")
+            icon.name: "view-restore"
+            display: AbstractButton.TextBesideIcon
+            icon.color: Theme.headerForegroundColor
+            Kirigami.Theme.textColor: Theme.headerForegroundColor
+
+            onClicked: mainWindow.restorePreviousStateBeforeFullScreen()
+        }
     }
 
     MediaPlayerControl {
@@ -218,6 +306,7 @@ FocusScope {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: playControlItem.top
+        anchors.topMargin: headerBar.isMaximized ? Kirigami.Units.largeSpacing : 0
 
         spacing: 0
 
@@ -492,7 +581,7 @@ FocusScope {
                     id: playLoader
                     active: headerBar.isMaximized
                     asynchronous: true
-                    visible: headerBar.isMaximized
+                    visible: headerBar.isMaximized && !headerBar.lyricsVisible
 
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -501,6 +590,26 @@ FocusScope {
 
                     sourceComponent: SimplePlayListView {
                         model: ElisaApplication.mediaPlayListProxyModel
+                    }
+                }
+
+                LyricsView {
+                    id: lyricsView
+                    visible: headerBar.isMaximized && headerBar.lyricsVisible
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                    Layout.topMargin: Kirigami.Units.largeSpacing
+
+                    fadeInOut: true
+
+                    pointSize: {
+                        if (lyricsView.width < 300 || lyricsView.height < 220) {
+                            return Kirigami.Theme.defaultFont.pointSize;
+                        } else {
+                            return Kirigami.Theme.defaultFont.pointSize * 1.5;
+                        }
                     }
                 }
             }
@@ -524,5 +633,13 @@ FocusScope {
 
     Component.onCompleted: {
         loadImage();
+
+        if (ElisaApplication.musicManager && trackType !== undefined) {
+            if (ElisaApplication.manageHeaderBar.databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl);
+            } else {
+                metaDataModel.initializeByUrl(trackType, fileUrl);
+            }
+        }
     }
 }

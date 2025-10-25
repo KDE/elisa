@@ -48,7 +48,7 @@ Kirigami.Page {
 
     TrackContextMetaDataModel {
         id: metaDataModel
-        onLyricsChanged: lyricsModel.setLyric(lyrics)
+        onLyricsChanged: lyricsView.model.setLyric(lyrics)
         manager: ElisaApplication.musicManager
     }
 
@@ -331,105 +331,19 @@ Kirigami.Page {
                 }
             }
 
-            // Lyrics
-            Item {
-                id: lyricItem
-                Layout.fillHeight: true
+            //Lyrics
+            LyricsView {
+                id: lyricsView
                 visible: contentLayout.wideMode || showLyricButton.checked
+                alignLeft: contentLayout.wideMode
+
+                Layout.fillHeight: true
 
                 implicitWidth: {
                     if (contentLayout.wideMode) {
-                        return contentLayout.width * 0.5
+                        return contentLayout.width * 0.5;
                     } else {
-                        return showLyricButton.checked ? contentLayout.width : 0
-                    }
-                }
-
-                ScrollView {
-                    id: lyricScroll
-                    anchors.centerIn: parent
-                    height: Math.min(lyricItem.height, implicitHeight)
-                    width: lyricItem.width
-
-                    // HACK: workaround for https://bugreports.qt.io/browse/QTBUG-83890
-                    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-                    PropertyAnimation {
-                        id: lyricScrollAnimation
-
-                        // the target is a flickable
-                        target: lyricScroll.contentItem
-                        property: "contentY"
-                        onToChanged: restart()
-                    }
-
-                    contentItem: ListView {
-                        id: lyricsView
-
-                        model: lyricsModel
-                        delegate: Label {
-                            required property string lyric
-                            required property int timestamp
-                            required property bool isHighlighted
-
-                            text: lyric
-                            width: lyricsView.width
-                            wrapMode: Text.WordWrap
-                            font.bold: isHighlighted
-                            horizontalAlignment: contentLayout.wideMode? Text.AlignLeft : Text.AlignHCenter
-                            MouseArea {
-                                height: parent.height
-                                width: Math.min(parent.width, parent.contentWidth)
-                                x: contentLayout.wideMode ? 0 : (parent.width - width) / 2
-                                enabled: lyricsModel.isLRC
-                                cursorShape: enabled ? Qt.PointingHandCursor : undefined
-                                onClicked: {
-                                    ElisaApplication.audioPlayer.position = timestamp;
-                                }
-                            }
-                        }
-
-                        header: Item {
-                            height: lyricItem.height * 0.5
-                        }
-
-                        footer: Item {
-                            height: lyricItem.height * 0.5
-                        }
-
-                        currentIndex: lyricsModel.highlightedIndex
-                        onCurrentIndexChanged: {
-                            if (currentIndex === -1)
-                                return
-
-                            // center aligned
-                            const toPos = Math.round(currentItem.y + currentItem.height * 0.5 - lyricScroll.height * 0.5)
-
-                            lyricScrollAnimation.to = toPos
-                        }
-                    }
-                }
-
-                LyricsModel {
-                    id: lyricsModel
-                }
-                Connections {
-                    target: ElisaApplication.audioPlayer
-                    function onPositionChanged(position) {
-                        lyricsModel.setPosition(position)
-                    }
-                }
-
-                Loader {
-                    id: lyricPlaceholder
-                    anchors.centerIn: parent
-                    width: parent.width
-
-                    active: lyricsView.count === 0
-                    visible: active && status === Loader.Ready
-
-                    sourceComponent: Kirigami.PlaceholderMessage {
-                        text: i18nc("@info:placeholder", "No lyrics found")
-                        icon.name: "view-media-lyrics"
+                        return showLyricButton.checked ? contentLayout.width : 0;
                     }
                 }
             }

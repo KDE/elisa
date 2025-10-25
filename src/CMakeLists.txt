@@ -352,6 +352,7 @@ qt_add_qml_module(elisaLib
         qml/ImageWithFallback.qml
         qml/LabelWithToolTip.qml
         qml/ListBrowserDelegate.qml
+        qml/LyricsView.qml
         qml/MediaPlayerControl.qml
         qml/MediaPlayListView.qml
         qml/MediaTrackMetadataDelegate.qml

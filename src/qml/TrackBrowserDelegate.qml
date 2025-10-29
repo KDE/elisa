@@ -102,12 +102,12 @@ ItemDelegate {
         },
         Kirigami.Action {
             text: mediaTrack.isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
-            icon.name: mediaTrack.isFavorite ? "rating" : "rating-unrated"
+            icon.name: mediaTrack.isFavorite ? "starred" : "non-starred"
 
             onTriggered: {
                 const newRating = mediaTrack.isFavorite ? 0 : 10
                 // Change icon immediately in case backend is slow
-                icon.name = mediaTrack.isFavorite ? "rating-unrated" : "rating"
+                icon.name = mediaTrack.isFavorite ? "non-starred" : "starred"
                 mediaTrack.trackRatingChanged(mediaTrack.trackUrl, newRating);
             }
 
@@ -339,7 +339,7 @@ ItemDelegate {
                 sourceComponent: FlatButtonWithToolTip {
                     width: Theme.listDelegateButtonHeight
                     height: Theme.listDelegateButtonHeight
-                    icon.name: mediaTrack.isFavorite ? "rating" : "rating-unrated"
+                    icon.name: mediaTrack.isFavorite ? "starred" : "non-starred"
                     icon.color: mediaTrack.iconColor
                 }
             }

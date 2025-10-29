@@ -100,8 +100,8 @@ QQC2.Control {
 
                     animated: false
                     source: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
-                        ? "rating"
-                        : "rating-unrated"
+                        ? "starred"
+                        : "non-starred"
 
                     opacity: (control.starRating >= delegate.ratingThreshold || control.hoveredRating >= delegate.ratingThreshold)
                         ? 1 : 0.7

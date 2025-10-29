@@ -529,8 +529,8 @@ if (ANDROID)
         documentinfo
         folder
         radio
-        rating-unrated
-        rating
+        non-starred
+        starred
         media-playback-playing
         media-playback-paused
         settings-configure

@@ -453,7 +453,7 @@ Item {
                     display: AbstractButton.TextBesideIcon
 
                     text: i18nc("@action:button", "Only Show Favorites")
-                    icon.name: "rating"
+                    icon.name: "starred"
                     checkable: true
                     checked: ratingFilter.starRating === 10
                     onToggled: {

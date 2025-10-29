@@ -117,14 +117,14 @@ BasePlayListDelegate {
             }
             property var favoriteAction: Kirigami.Action {
                 text: playListEntry.isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
-                icon.name: playListEntry.isFavorite ? "rating" : "rating-unrated"
+                icon.name: playListEntry.isFavorite ? "starred" : "non-starred"
                 visible: ElisaApplication.useFavoriteStyleRatings
                 enabled: isValid
 
                 onTriggered: {
                     const newRating = playListEntry.isFavorite ? 0 : 10;
                     // Change icon immediately in case backend is slow
-                    icon.name = playListEntry.isFavorite ? "rating-unrated" : "rating";
+                    icon.name = playListEntry.isFavorite ? "non-starred" : "starred";
                     ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, newRating);
                 }
             }

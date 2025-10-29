@@ -153,12 +153,12 @@ RowLayout {
                 readonly property bool isFavorite: delegateRow.display === 10
 
                 text: isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
-                icon.name: isFavorite ? "rating" : "rating-unrated"
+                icon.name: isFavorite ? "starred" : "non-starred"
 
                 onClicked: {
                     const newRating = isFavorite ? 0 : 10;
                     // Change icon immediately in case backend is slow
-                    icon.name = isFavorite ? "rating-unrated" : "rating";
+                    icon.name = isFavorite ? "non-starred" : "starred";
                     ElisaApplication.musicManager.updateSingleFileMetaData(delegateRow.url, DataTypes.RatingRole, newRating)
                     delegateRow.edited()
                 }

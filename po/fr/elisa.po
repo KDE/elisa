@@ -1411,7 +1411,7 @@ msgstr "Afficher l'avancement pour les entrées du gestionnaire de tâches"
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr ""
-"Maintenir en fonctionnement dans la boîte à miniatures lorsque la fenêtre "
+"Maintenir en fonctionnement dans la boite à miniatures lorsque la fenêtre "
 "principale est fermée"
 
 #: qml/SettingsForm.qml:106

@@ -182,7 +182,7 @@ msgstr "长度"
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
-msgstr "作者："
+msgstr "作者"
 
 #: models/lyricsmodel.cpp:168
 #, kde-format

@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/elisa/elisa.pot\n"
-"X-Crowdin-File-ID: 45003\n"
+"X-Crowdin-File: /kf6-stable/messages/elisa/elisa.pot\n"
+"X-Crowdin-File-ID: 52426\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -182,7 +182,7 @@ msgstr "长度"
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
-msgstr "作者："
+msgstr "作者"
 
 #: models/lyricsmodel.cpp:168
 #, kde-format

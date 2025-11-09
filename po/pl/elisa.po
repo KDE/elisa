@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-06 00:41+0000\n"
-"PO-Revision-Date: 2025-06-22 09:00+0200\n"
+"PO-Revision-Date: 2025-11-08 09:16+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
-"Language-Team: Polish <kde-i18n-doc@kde.org>\n"
+"Language-Team: pl\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1603,7 +1603,7 @@ msgstr "Przy zapisywaniu plików list odtwarzania:"
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
-msgstr "Skłaniaj się ku ścieżką względnym"
+msgstr "Skłaniaj się ku ścieżkom względnym"
 
 #: qml/SettingsForm.qml:369
 #, kde-format
@@ -1619,9 +1619,9 @@ msgid ""
 "same folder as the playlist will be referred with only the filename. "
 "Absolute paths are used in other cases."
 msgstr ""
-"Po wybraniu <interface>Skłaniaj się ku ścieżką względnym</interface>, pliki, "
-"w tym samym katalogu co lista odtwarzania, będą wywoływane po nazwie pliku. "
-"W innych przypadkach będą używane ścieżki bezwzględne."
+"Po wybraniu <interface>Skłaniaj się ku ścieżkom względnym</interface>, "
+"pliki, w tym samym katalogu co lista odtwarzania, będą wywoływane po nazwie "
+"pliku. W innych przypadkach będą używane ścieżki bezwzględne."
 
 #: qml/SettingsForm.qml:395
 #, kde-format

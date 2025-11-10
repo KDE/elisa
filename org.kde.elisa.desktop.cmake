@@ -141,6 +141,7 @@ Name[zh_CN]=Elisa 音乐播放器
 Name[zh_TW]=Elisa
 StartupWMClass=elisa
 Type=Application
+# Keep these in sync with filename extensions listed in ElisaMainWindow.qml
 MimeType=audio/aac;audio/mp4;audio/mpeg;audio/mpegurl;audio/vnd.rn-realaudio;audio/vorbis;audio/x-flac;audio/x-mp3;audio/x-mpegurl;audio/x-ms-wma;audio/x-musepack;audio/x-oggflac;audio/x-pn-realaudio;audio/x-scpls;audio/x-speex;audio/x-vorbis;audio/x-wav;application/x-ogm-audio;audio/x-vorbis+ogg;audio/ogg;
 SingleMainWindow=true
 @ELISA_DBUSACTIVATABLE@

@@ -282,14 +282,22 @@ Kirigami.ApplicationWindow {
     Dialogs.FileDialog {
         id: fileDialog
 
+        // Keep these in sync with MIME types listed in org.kde.elisa.desktop.cmake
+        readonly property string playlistFormats: "*.m3u* *.pls"
+        readonly property string musicFormats: "*.aac *.m4a *.ra *.rax *.oga *.ogg *.opus *.spx *.flac *.mp3 *.wma *.mpc *.mpp *.mp+ *.wav *.ogm"
+
         function savePlaylist() {
-            nameFilters = [i18nc("@option file type (mime type) for m3u, m3u8 playlist file formats; do not translate *.m3u*", "m3u8, m3u Playlist File (*.m3u*)"), i18nc("@option file type (mime type) for pls playlist file formats; do not translate *.pls", "pls Playlist File (*.pls)")]
+            nameFilters = [ i18nc("@option file type (mime type) for m3u, m3u8 playlist file formats; do not translate *.m3u*", "m3u8, m3u Playlist File (*.m3u*)"), i18nc("@option file type (mime type) for pls playlist file formats; do not translate *.pls", "pls Playlist File (*.pls)")]
             defaultSuffix = 'm3u8'
             fileMode = FileDialog.SaveFile
             open()
         }
-        function loadPlaylist() {
-            nameFilters = [i18nc("@option file type (mime type) for m3u, m3u8 and pls playlist file formats; do not translate *.m3u8 *.m3u *.pls", "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)")]
+        function loadPlaylistOrMusicFile() {
+            nameFilters = [
+                i18nc("@option Allow opening music and playlist files. %1 and %2 are lists of untranslated file extensions", "Playlist files and music files (%1 %2) (%1 %2)", playlistFormats, musicFormats),
+                i18nc("@option Allow opening playlist files. %1 is an untranslated list of file extensions", "Playlist files (%1) (%1)", playlistFormats),
+                i18nc("@option Allow opening music files. %1 is an untranslated list of file extensions", "Music files (%1) (%1)", musicFormats)
+            ]
             fileMode = FileDialog.OpenFile
             open()
         }
@@ -302,7 +310,12 @@ Kirigami.ApplicationWindow {
                     showPassiveNotification(i18nc("@label", "Saving failed"), 7000, i18nc("@action:button", "Retry"), () => savePlaylistButton.clicked())
                 }
             } else {
-                ElisaApplication.mediaPlayListProxyModel.loadPlayList(selectedFile)
+                let selectedFileExtension = selectedFile.toString().split('.').pop()
+                if (playlistFormats.includes(selectedFileExtension)) {
+                    ElisaApplication.mediaPlayListProxyModel.loadPlayList(selectedFile)
+                } else {
+                    ElisaApplication.openFiles(selectedFiles)
+                }
             }
         }
     }

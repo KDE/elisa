@@ -98,11 +98,12 @@ Kirigami.Page {
                     },
                     Kirigami.Action {
                         id: loadPlaylistButton
-                        text: i18nc("@action:button Load a playlist file", "Load…")
+                        text: i18nc("@action:button Load a playlist file", "Open…")
+                        tooltip: i18nc("@info:tooltip", "Open music files or saved playlists")
                         icon.name: 'document-open'
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         onTriggered: {
-                            mainWindow.fileDialog.loadPlaylist()
+                            mainWindow.fileDialog.loadPlaylistOrMusicFile()
                         }
                     }
                 ]

@@ -283,26 +283,26 @@ Kirigami.ApplicationWindow {
         id: fileDialog
 
         function savePlaylist() {
-            fileDialog.nameFilters = [i18nc("@option file type (mime type) for m3u, m3u8 playlist file formats; do not translate *.m3u*", "m3u8, m3u Playlist File (*.m3u*)"), i18nc("@option file type (mime type) for pls playlist file formats; do not translate *.pls", "pls Playlist File (*.pls)")]
-            fileDialog.defaultSuffix = 'm3u8'
-            fileDialog.fileMode = FileDialog.SaveFile
-            fileDialog.open()
+            nameFilters = [i18nc("@option file type (mime type) for m3u, m3u8 playlist file formats; do not translate *.m3u*", "m3u8, m3u Playlist File (*.m3u*)"), i18nc("@option file type (mime type) for pls playlist file formats; do not translate *.pls", "pls Playlist File (*.pls)")]
+            defaultSuffix = 'm3u8'
+            fileMode = FileDialog.SaveFile
+            open()
         }
         function loadPlaylist() {
-            fileDialog.nameFilters = [i18nc("@option file type (mime type) for m3u, m3u8 and pls playlist file formats; do not translate *.m3u8 *.m3u *.pls", "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)")]
-            fileDialog.fileMode = FileDialog.OpenFile
-            fileDialog.open()
+            nameFilters = [i18nc("@option file type (mime type) for m3u, m3u8 and pls playlist file formats; do not translate *.m3u8 *.m3u *.pls", "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)")]
+            fileMode = FileDialog.OpenFile
+            open()
         }
 
         currentFolder: StandardPaths.writableLocation(StandardPaths.MusicLocation)
 
         onAccepted: {
             if (fileMode === FileDialog.SaveFile) {
-                if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(fileDialog.selectedFile)) {
+                if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(selectedFile)) {
                     showPassiveNotification(i18nc("@label", "Saving failed"), 7000, i18nc("@action:button", "Retry"), () => savePlaylistButton.clicked())
                 }
             } else {
-                ElisaApplication.mediaPlayListProxyModel.loadPlayList(fileDialog.selectedFile)
+                ElisaApplication.mediaPlayListProxyModel.loadPlayList(selectedFile)
             }
         }
     }

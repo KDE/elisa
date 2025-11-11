@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-06 00:41+0000\n"
+"POT-Creation-Date: 2025-11-11 00:41+0000\n"
 "PO-Revision-Date: 2023-05-29 22:07+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -554,31 +554,31 @@ msgctxt "@label"
 msgid "Duration"
 msgstr "Müddət"
 
-#: qml/ElisaMainWindow.qml:29
+#: qml/ElisaMainWindow.qml:30
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "Yükləmək mümkün olmadı"
 
-#: qml/ElisaMainWindow.qml:29 qml/ElisaMainWindow.qml:303
+#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "Təkrar"
 
-#: qml/ElisaMainWindow.qml:33
+#: qml/ElisaMainWindow.qml:34
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Mahnı siyahısı təmizləndi"
 
-#: qml/ElisaMainWindow.qml:33
+#: qml/ElisaMainWindow.qml:34
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Geri qaytar"
 
-#: qml/ElisaMainWindow.qml:140
+#: qml/ElisaMainWindow.qml:141
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Playlist"
@@ -586,7 +586,7 @@ msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "Mahnı siyahısını göstərmək"
 
-#: qml/ElisaMainWindow.qml:141
+#: qml/ElisaMainWindow.qml:142
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Hide Playlist"
@@ -594,7 +594,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Mahnı siyahısını gizlət"
 
-#: qml/ElisaMainWindow.qml:178 qml/ElisaMainWindow.qml:613
+#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:612
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -603,19 +603,19 @@ msgstr ""
 "Bəzi fayllar yüklənə bilmədi. Elisa yalnız səs və mahnı siyahısı fayllarını "
 "aça bilər."
 
-#: qml/ElisaMainWindow.qml:237 qml/mobile/MobileSidebar.qml:22
+#: qml/ElisaMainWindow.qml:238 qml/mobile/MobileSidebar.qml:22
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:237
+#: qml/ElisaMainWindow.qml:238
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:285
+#: qml/ElisaMainWindow.qml:286
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -623,7 +623,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u mahnı siyahısı faylı (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:285
+#: qml/ElisaMainWindow.qml:286
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -639,7 +639,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "m3u8, m3u, pls mahnı siyahısı faylı (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:303
+#: qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"

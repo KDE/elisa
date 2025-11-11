@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: d 664cf4f-342c-46fd-8dc1-63f78e432d04\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-06 00:41+0000\n"
+"POT-Creation-Date: 2025-11-11 00:41+0000\n"
 "PO-Revision-Date: 2017-04-08 03:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -544,62 +544,62 @@ msgctxt "@label"
 msgid "Duration"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:29
+#: qml/ElisaMainWindow.qml:30
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:29 qml/ElisaMainWindow.qml:303
+#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:33
+#: qml/ElisaMainWindow.qml:34
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:33
+#: qml/ElisaMainWindow.qml:34
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:140
+#: qml/ElisaMainWindow.qml:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:141
+#: qml/ElisaMainWindow.qml:142
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:178 qml/ElisaMainWindow.qml:613
+#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:612
 #, kde-format
 msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:237 qml/mobile/MobileSidebar.qml:22
+#: qml/ElisaMainWindow.qml:238 qml/mobile/MobileSidebar.qml:22
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:237
+#: qml/ElisaMainWindow.qml:238
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:285
+#: qml/ElisaMainWindow.qml:286
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -607,7 +607,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:285
+#: qml/ElisaMainWindow.qml:286
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -623,7 +623,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:303
+#: qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"

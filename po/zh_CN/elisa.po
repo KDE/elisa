@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-06 00:41+0000\n"
+"POT-Creation-Date: 2025-11-11 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -540,62 +540,62 @@ msgctxt "@label"
 msgid "Duration"
 msgstr "时长"
 
-#: qml/ElisaMainWindow.qml:29
+#: qml/ElisaMainWindow.qml:30
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "加载失败"
 
-#: qml/ElisaMainWindow.qml:29 qml/ElisaMainWindow.qml:303
+#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "重试"
 
-#: qml/ElisaMainWindow.qml:33
+#: qml/ElisaMainWindow.qml:34
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "已清空播放列表"
 
-#: qml/ElisaMainWindow.qml:33
+#: qml/ElisaMainWindow.qml:34
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "撤销"
 
-#: qml/ElisaMainWindow.qml:140
+#: qml/ElisaMainWindow.qml:141
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "显示播放列表抽屉栏"
 
-#: qml/ElisaMainWindow.qml:141
+#: qml/ElisaMainWindow.qml:142
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "隐藏播放列表抽屉栏"
 
-#: qml/ElisaMainWindow.qml:178 qml/ElisaMainWindow.qml:613
+#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:612
 #, kde-format
 msgctxt "@info:status"
 msgid ""
 "Could not load some files. Elisa can only open audio and playlist files."
 msgstr "有些文件无法加载。Elisa 只能打开音频和播放列表文件。"
 
-#: qml/ElisaMainWindow.qml:237 qml/mobile/MobileSidebar.qml:22
+#: qml/ElisaMainWindow.qml:238 qml/mobile/MobileSidebar.qml:22
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:237
+#: qml/ElisaMainWindow.qml:238
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:285
+#: qml/ElisaMainWindow.qml:286
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -603,7 +603,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u 播放列表文件 (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:285
+#: qml/ElisaMainWindow.qml:286
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -619,7 +619,7 @@ msgctxt ""
 msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
 msgstr "m3u8, m3u, pls 播放列表文件 (*.m3u8 *.m3u *.pls)"
 
-#: qml/ElisaMainWindow.qml:303
+#: qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"

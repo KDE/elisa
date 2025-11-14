@@ -411,6 +411,6 @@ SPDX-License-Identifier: CC0-1.0
   <custom>
     <value key="KDE::windows_store">https://www.microsoft.com/p/elisa/9pb5md7zh8tl</value>
     <value key="KDE::f_droid">https://community.kde.org/Android/FDroid</value>
-    <value key="KDE::supporters"> </value>
+    <value key="KDE::supporters">fschaupp</value>
   </custom>
 </component>

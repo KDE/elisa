@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-11 00:41+0000\n"
-"PO-Revision-Date: 2025-10-05 12:18+0300\n"
+"PO-Revision-Date: 2025-11-13 14:50+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -249,7 +249,7 @@ msgstr "מספר דיסק"
 #, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
-msgstr "דרוג"
+msgstr "דירוג"
 
 #: models/trackmetadatamodel.cpp:540
 #, kde-format

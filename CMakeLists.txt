@@ -117,6 +117,7 @@ if (NOT WIN32 AND NOT ANDROID)
 endif()
 
 if (ANDROID)
+    find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS CorePrivate)
     find_package(KF6Kirigami ${REQUIRED_KF_VERSION} CONFIG QUIET)
     set_package_properties(KF6Kirigami PROPERTIES
         DESCRIPTION "Used to package icons on Android."

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-11-20 00:41+0000\n"
 "PO-Revision-Date: 2023-05-06 11:47+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -557,7 +557,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "O carregamento falhou"
 
-#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:302
+#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -591,7 +591,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Esconder a Lista de Reprodução"
 
-#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:612
+#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:625
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -612,7 +612,7 @@ msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:286
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -620,7 +620,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "Lista de Reprodução M3U8, M3U (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:286
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -628,15 +628,35 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "Lista de Reprodução PLS (*.pls)"
 
-#: qml/ElisaMainWindow.qml:292
+#: qml/ElisaMainWindow.qml:297
 #, kde-format
 msgctxt ""
-"@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
-"do not translate *.m3u8 *.m3u *.pls"
-msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr "Lista de Reprodução M3U8, M3U, PLS (*.m3u8 *.m3u *.pls)"
+"@option Allow opening music and playlist files. %1 and %2 are lists of "
+"untranslated file extensions"
+msgid "Playlist files and music files (%1 %2) (%1 %2)"
+msgstr ""
 
-#: qml/ElisaMainWindow.qml:302
+#: qml/ElisaMainWindow.qml:298
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "@option file type (mime type) for pls playlist file formats; do not "
+#| "translate *.pls"
+#| msgid "pls Playlist File (*.pls)"
+msgctxt ""
+"@option Allow opening playlist files. %1 is an untranslated list of file "
+"extensions"
+msgid "Playlist files (%1) (%1)"
+msgstr "Lista de Reprodução PLS (*.pls)"
+
+#: qml/ElisaMainWindow.qml:299
+#, kde-format
+msgctxt ""
+"@option Allow opening music files. %1 is an untranslated list of file "
+"extensions"
+msgid "Music files (%1) (%1)"
+msgstr ""
+
+#: qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -820,12 +840,20 @@ msgid "Save…"
 msgstr "Gravar…"
 
 #: qml/MediaPlayListView.qml:101
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open Playlist…"
 msgctxt "@action:button Load a playlist file"
-msgid "Load…"
-msgstr "Carregar…"
+msgid "Open…"
+msgstr "Abrir uma Lista de Reprodução…"
 
-#: qml/MediaPlayListView.qml:126
+#: qml/MediaPlayListView.qml:102
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Open music files or saved playlists"
+msgstr ""
+
+#: qml/MediaPlayListView.qml:127
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -835,19 +863,19 @@ msgstr ""
 "Não foi possível carregar algumas faixas. Certifique-se que não foram "
 "removidas ou tenham mudado de nome."
 
-#: qml/MediaPlayListView.qml:132
+#: qml/MediaPlayListView.qml:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Editar o Ficheiro da Lista de Reprodução"
 
-#: qml/MediaPlayListView.qml:302
+#: qml/MediaPlayListView.qml:303
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "A lista de reprodução está vazia"
 
-#: qml/MediaPlayListView.qml:303
+#: qml/MediaPlayListView.qml:304
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -857,13 +885,13 @@ msgstr ""
 "Adicione algumas músicas para começar. Poderá escolher a sua música nas "
 "áreas à esquerda."
 
-#: qml/MediaPlayListView.qml:378
+#: qml/MediaPlayListView.qml:379
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "A sua lista de reprodução está vazia."
 
-#: qml/MediaPlayListView.qml:475 qml/MediaPlayListView.qml:484
+#: qml/MediaPlayListView.qml:476 qml/MediaPlayListView.qml:485
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -874,7 +902,7 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "falta %1"
 msgstr[1] "faltam %1"
 
-#: qml/MediaPlayListView.qml:476
+#: qml/MediaPlayListView.qml:477
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -883,8 +911,8 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "falta %1"
 
-#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
-#: qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
+#: qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -892,7 +920,7 @@ msgctxt ""
 msgid "%1, %2"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:485 qml/MediaPlayListView.qml:494
+#: qml/MediaPlayListView.qml:486 qml/MediaPlayListView.qml:495
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -901,7 +929,7 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "falta %1"
 
-#: qml/MediaPlayListView.qml:493
+#: qml/MediaPlayListView.qml:494
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -912,7 +940,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "%1 faixa"
 msgstr[1] "%1 faixas"
 
-#: qml/MediaPlayListView.qml:502
+#: qml/MediaPlayListView.qml:503
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -923,7 +951,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 faixa"
 msgstr[1] "%1 faixas"
 
-#: qml/MediaPlayListView.qml:503
+#: qml/MediaPlayListView.qml:504
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -931,7 +959,7 @@ msgid_plural "%1 radios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -939,7 +967,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:507
+#: qml/MediaPlayListView.qml:508
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -952,7 +980,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 faixa"
 msgstr[1] "%1 faixas"
 
-#: qml/MediaPlayListView.qml:509
+#: qml/MediaPlayListView.qml:510
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -2044,6 +2072,16 @@ msgstr "Ficheiros"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estações de Rádio"
+
+#~ msgctxt ""
+#~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "
+#~ "formats; do not translate *.m3u8 *.m3u *.pls"
+#~ msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
+#~ msgstr "Lista de Reprodução M3U8, M3U, PLS (*.m3u8 *.m3u *.pls)"
+
+#~ msgctxt "@action:button Load a playlist file"
+#~ msgid "Load…"
+#~ msgstr "Carregar…"
 
 #~ msgctxt "@action:inmenu"
 #~ msgid "One"

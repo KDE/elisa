@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-11-20 00:41+0000\n"
 "PO-Revision-Date: 2024-12-15 19:32+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Hindi <kde-i18n-doc@kde.org>\n"
@@ -562,7 +562,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "लोड करने में असफल"
 
-#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:302
+#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -596,7 +596,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "गीत-सूची छिपाएँ"
 
-#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:612
+#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:625
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -617,7 +617,7 @@ msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — एलिसा"
 
-#: qml/ElisaMainWindow.qml:286
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -625,7 +625,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u गीत-सूची फ़ाइल (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:286
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -633,15 +633,35 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls गीत-सूची फ़ाइल (*.pls)"
 
-#: qml/ElisaMainWindow.qml:292
+#: qml/ElisaMainWindow.qml:297
 #, kde-format
 msgctxt ""
-"@option file type (mime type) for m3u, m3u8 and pls playlist file formats; "
-"do not translate *.m3u8 *.m3u *.pls"
-msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-msgstr "m3u8, m3u, pls गीत-सूची फ़ाइल (*.m3u8 *.m3u *.pls)"
+"@option Allow opening music and playlist files. %1 and %2 are lists of "
+"untranslated file extensions"
+msgid "Playlist files and music files (%1 %2) (%1 %2)"
+msgstr ""
 
-#: qml/ElisaMainWindow.qml:302
+#: qml/ElisaMainWindow.qml:298
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "@option file type (mime type) for pls playlist file formats; do not "
+#| "translate *.pls"
+#| msgid "pls Playlist File (*.pls)"
+msgctxt ""
+"@option Allow opening playlist files. %1 is an untranslated list of file "
+"extensions"
+msgid "Playlist files (%1) (%1)"
+msgstr "pls गीत-सूची फ़ाइल (*.pls)"
+
+#: qml/ElisaMainWindow.qml:299
+#, kde-format
+msgctxt ""
+"@option Allow opening music files. %1 is an untranslated list of file "
+"extensions"
+msgid "Music files (%1) (%1)"
+msgstr ""
+
+#: qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -825,12 +845,20 @@ msgid "Save…"
 msgstr "सहेजें…"
 
 #: qml/MediaPlayListView.qml:101
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open Playlist…"
 msgctxt "@action:button Load a playlist file"
-msgid "Load…"
-msgstr "लोड करें…"
+msgid "Open…"
+msgstr "गीत-सूची खोलें…"
 
-#: qml/MediaPlayListView.qml:126
+#: qml/MediaPlayListView.qml:102
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Open music files or saved playlists"
+msgstr ""
+
+#: qml/MediaPlayListView.qml:127
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -840,19 +868,19 @@ msgstr ""
 "कुछ ट्रैक लोड करने में विफल। सुनिश्चित करें कि उन्हें हटाया नहीं गया है या उनका नाम नहीं "
 "बदला गया है।"
 
-#: qml/MediaPlayListView.qml:132
+#: qml/MediaPlayListView.qml:133
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "गीत-सूची संपादित करें"
 
-#: qml/MediaPlayListView.qml:302
+#: qml/MediaPlayListView.qml:303
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "आपकी गीत-सूची ख़ाली है"
 
-#: qml/MediaPlayListView.qml:303
+#: qml/MediaPlayListView.qml:304
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -862,13 +890,13 @@ msgstr ""
 "प्रारंभ करने के लिए कुछ गीत जोड़ें। आप बाईं ओर के दृश्यों का उपयोग करके अपना संगीत ब्राउज़ कर "
 "सकते हैं।"
 
-#: qml/MediaPlayListView.qml:378
+#: qml/MediaPlayListView.qml:379
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "आपकी गीत-सूची ख़ाली है।"
 
-#: qml/MediaPlayListView.qml:475 qml/MediaPlayListView.qml:484
+#: qml/MediaPlayListView.qml:476 qml/MediaPlayListView.qml:485
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -879,7 +907,7 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "%1 बाकी"
 msgstr[1] "%1 बाकी"
 
-#: qml/MediaPlayListView.qml:476
+#: qml/MediaPlayListView.qml:477
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -888,8 +916,8 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 बाकी"
 
-#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
-#: qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
+#: qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -897,7 +925,7 @@ msgctxt ""
 msgid "%1, %2"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:485 qml/MediaPlayListView.qml:494
+#: qml/MediaPlayListView.qml:486 qml/MediaPlayListView.qml:495
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -906,7 +934,7 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1 बाकी"
 
-#: qml/MediaPlayListView.qml:493
+#: qml/MediaPlayListView.qml:494
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -917,7 +945,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "%1 गीत"
 msgstr[1] "%1 गीत"
 
-#: qml/MediaPlayListView.qml:502
+#: qml/MediaPlayListView.qml:503
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -928,7 +956,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 गीत"
 msgstr[1] "%1 गीत"
 
-#: qml/MediaPlayListView.qml:503
+#: qml/MediaPlayListView.qml:504
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -936,7 +964,7 @@ msgid_plural "%1 radios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -944,7 +972,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:507
+#: qml/MediaPlayListView.qml:508
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -957,7 +985,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 गीत"
 msgstr[1] "%1 गीत"
 
-#: qml/MediaPlayListView.qml:509
+#: qml/MediaPlayListView.qml:510
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -2048,6 +2076,16 @@ msgstr "फ़ाइलें"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "रेडियो स्टेशन"
+
+#~ msgctxt ""
+#~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "
+#~ "formats; do not translate *.m3u8 *.m3u *.pls"
+#~ msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
+#~ msgstr "m3u8, m3u, pls गीत-सूची फ़ाइल (*.m3u8 *.m3u *.pls)"
+
+#~ msgctxt "@action:button Load a playlist file"
+#~ msgid "Load…"
+#~ msgstr "लोड करें…"
 
 #~ msgctxt "@action:inmenu"
 #~ msgid "One"

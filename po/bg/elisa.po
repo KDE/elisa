@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:41+0000\n"
-"PO-Revision-Date: 2025-06-21 11:59+0200\n"
+"PO-Revision-Date: 2025-11-20 11:09+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -620,19 +620,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "Файлове с музика или списък с песни (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:298
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "pls Списък с песни (*.pls)"
+msgstr "Списък с песни (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:299
 #, kde-format
@@ -640,7 +636,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "Фалове с музика (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:310
 #, kde-format
@@ -803,18 +799,16 @@ msgid "Save…"
 msgstr "Запазване…"
 
 #: qml/MediaPlayListView.qml:101
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "Отваряне на списък с песни…"
+msgstr "Отваряне…"
 
 #: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "Отваряне на файлове с музика или запазени списъци с песни"
 
 #: qml/MediaPlayListView.qml:127
 #, kde-format
@@ -1958,13 +1952,3 @@ msgstr "Файлове"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Радиостанции"
-
-#~ msgctxt ""
-#~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "
-#~ "formats; do not translate *.m3u8 *.m3u *.pls"
-#~ msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-#~ msgstr "m3u8, m3u, pls Списък с песни (*.m3u8 *.m3u *.pls)"
-
-#~ msgctxt "@action:button Load a playlist file"
-#~ msgid "Load…"
-#~ msgstr "Зареждане…"

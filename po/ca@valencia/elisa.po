@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:41+0000\n"
-"PO-Revision-Date: 2025-06-17 08:20+0200\n"
+"PO-Revision-Date: 2025-11-20 10:02+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -624,19 +624,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "Fitxers de llista de reproducció i fitxers de música (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:298
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "Llista de reproducció pls (*.pls)"
+msgstr "Fitxers de llista de reproducció (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:299
 #, kde-format
@@ -644,7 +640,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "Fitxers de música (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:310
 #, kde-format
@@ -807,18 +803,16 @@ msgid "Save…"
 msgstr "Guarda…"
 
 #: qml/MediaPlayListView.qml:101
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "Obri una llista de reproducció…"
+msgstr "Obri…"
 
 #: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "Obri fitxers de música o llistes de reproducció guardades"
 
 #: qml/MediaPlayListView.qml:127
 #, kde-format
@@ -1963,13 +1957,3 @@ msgstr "Fitxers"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
-
-#~ msgctxt ""
-#~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "
-#~ "formats; do not translate *.m3u8 *.m3u *.pls"
-#~ msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-#~ msgstr "Llista de reproducció m3u8, m3u, pls (*.m3u8 *.m3u *.pls)"
-
-#~ msgctxt "@action:button Load a playlist file"
-#~ msgid "Load…"
-#~ msgstr "Carrega…"

@@ -617,19 +617,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "播放列表文件和音乐文件 (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:298
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "pls 播放列表文件 (*.pls)"
+msgstr "播放列表文件 (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:299
 #, kde-format
@@ -637,7 +633,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "音乐文件 (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:310
 #, kde-format
@@ -800,18 +796,16 @@ msgid "Save…"
 msgstr "保存…"
 
 #: qml/MediaPlayListView.qml:101
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "打开播放列表…"
+msgstr "打开…"
 
 #: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "打开音乐文件或保存的播放列表"
 
 #: qml/MediaPlayListView.qml:127
 #, kde-format
@@ -1941,13 +1935,3 @@ msgstr "文件"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "电台"
-
-#~ msgctxt ""
-#~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "
-#~ "formats; do not translate *.m3u8 *.m3u *.pls"
-#~ msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-#~ msgstr "m3u8, m3u, pls 播放列表文件 (*.m3u8 *.m3u *.pls)"
-
-#~ msgctxt "@action:button Load a playlist file"
-#~ msgid "Load…"
-#~ msgstr "加载…"

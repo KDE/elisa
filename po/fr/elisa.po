@@ -13,15 +13,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:41+0000\n"
-"PO-Revision-Date: 2025-06-22 21:52+0200\n"
-"Last-Translator: Quentin Guyot <qguyot@proton.me>\n"
-"Language-Team: French <kde-francophone@kde.org>\n"
+"PO-Revision-Date: 2025-11-22 18:16+0100\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
+"Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.11.80\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -630,19 +630,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "Fichiers de liste de lecture et de fichiers musicaux (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:298
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "Fichier de liste de lecture pls (*.pls)"
+msgstr "Fichier de liste de lecture (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:299
 #, kde-format
@@ -650,7 +646,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "Fichiers de musique (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:310
 #, kde-format
@@ -813,18 +809,16 @@ msgid "Save…"
 msgstr "Enregistrer..."
 
 #: qml/MediaPlayListView.qml:101
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "Ouvrir une liste de lecture..."
+msgstr "Ouvrir…"
 
 #: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "Ouvrir des fichiers musicaux ou des listes de lecture enregistrées"
 
 #: qml/MediaPlayListView.qml:127
 #, kde-format

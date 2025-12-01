@@ -1935,27 +1935,3 @@ msgstr "Fitxers"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estacions de ràdio"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "One"
-#~ msgstr "Una"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Play next"
-#~ msgstr "Reprodueix la següent"
-
-#~ msgctxt "@item:intable %1: track number. %2: track title."
-#~ msgid "%1 - %2"
-#~ msgstr "%1 - %2"
-
-#~ msgctxt "@item:intable %1: track title. %2: artist name"
-#~ msgid "%1 - %2"
-#~ msgstr "%1 - %2"
-
-#~ msgctxt "@item:inmenu"
-#~ msgid "A-Z"
-#~ msgstr "A-Z"
-
-#~ msgctxt "@item:inmenu"
-#~ msgid "Z-A"
-#~ msgstr "Z-A"

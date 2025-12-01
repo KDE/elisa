@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:41+0000\n"
-"PO-Revision-Date: 2025-01-26 18:07+0530\n"
+"PO-Revision-Date: 2025-11-30 14:36+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
-"Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
+"Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -95,12 +95,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "கே.டீ.யீ. சமூகம் உருவாக்கிய எளிய பாடல் இசைப்பி"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "(c) 2015-2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2020, Elisa contributors"
-msgstr "(c) 2015-2020, எலைசா நிரலாளர்கள்"
+msgstr "(c) 2015–2020, எலைசா நிரலாளர்கள்"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -325,9 +323,7 @@ msgid "Lyrics"
 msgstr "பாடல்வரிகள்"
 
 #: models/trackmetadatamodel.cpp:576
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream Http Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
 msgstr "ஒலிபரப்புக்கான HTTP முகவரி"
@@ -372,13 +368,13 @@ msgstr "பாடல் இசைக்கப்படுகிறது"
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr ""
+msgstr "%1:%2"
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr ""
+msgstr "%1:%2:%3"
 
 #: qml/AbstractBrowserDelegate.qml:41
 #, kde-format
@@ -624,19 +620,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "பாடல்வரிசை கோப்புகளும் ஒலிக்கோப்புகளும் (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:298
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "pls பாடல்வரிசை கோப்பு (*.pls)"
+msgstr "பாடல்வரிசை கோப்புகள் (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:299
 #, kde-format
@@ -644,7 +636,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "ஒலிக்கோப்புகள் (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:310
 #, kde-format
@@ -769,13 +761,10 @@ msgid "Playlist"
 msgstr "பாடல்வரிசை"
 
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
-#, fuzzy, kde-format
-#| msgctxt "@item:intable number of tracks/songs in all albums"
-#| msgid "%1 track"
-#| msgid_plural "%1 tracks"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "%1 பாடல்"
+msgstr "ஒரு பாடல்"
 
 #: qml/MediaPlayerControl.qml:312
 #, kde-format
@@ -792,9 +781,7 @@ msgid "Playlist"
 msgstr "பாடல்வரிசை"
 
 #: qml/MediaPlayListView.qml:70
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Show Current"
+#, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "தற்போதையதை காட்டு"
@@ -812,18 +799,16 @@ msgid "Save…"
 msgstr "சேமி…"
 
 #: qml/MediaPlayListView.qml:101
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "பாடல்வரிசையைத் திற…"
+msgstr "திற…"
 
 #: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "ஒலிக்கோப்புகளையோ சேமித்துள்ள பாடல்வரிசைகளையோ திறக்க உதவும்"
 
 #: qml/MediaPlayListView.qml:127
 #, kde-format
@@ -1287,20 +1272,16 @@ msgid "Play now, replacing current playlist"
 msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
 
 #: qml/NavigationActionBar.qml:147
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Play Next"
+#, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "அடுத்த‍தை இசை"
 
 #: qml/NavigationActionBar.qml:148
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Play now, replacing current playlist"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "தற்போதைய பாடல்வரிசைக்கு பதிலாக இதை இசை"
+msgstr "தற்போதைய பாடல்வரிசையிலுள்ள அடுத்ததை இசைக்கும்"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1698,21 +1679,19 @@ msgstr "தற்போதைய பாடல்வரிசைக்கு ப�
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:212
-#, fuzzy, kde-format
-#| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
-#| msgid "%1 - %2 - %3"
+#, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr "%1 - %2 - %3"
+msgstr "%1 – %2 – %3"
 
 #: qml/TrackBrowserDelegate.qml:224
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:370
 #, kde-format
@@ -1783,7 +1762,7 @@ msgstr "இறங்குவரிசை"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "அ–ஃ"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1792,7 +1771,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "ஃ–அ"
 
 #: viewmanager.cpp:55 viewmanager.cpp:83
 #, kde-format

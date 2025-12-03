@@ -799,8 +799,8 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
-"No s'ha pogut carregar algunes peces. Assegureu-vos que no s'hagen eliminat "
-"o canviat de nom."
+"Ha fallat mentre es carregaven algunes peces. Assegureu-vos que no s'hagen "
+"eliminat o canviat de nom."
 
 #: qml/MediaPlayListView.qml:132
 #, kde-format

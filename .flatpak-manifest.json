@@ -2,7 +2,7 @@
     "id": "org.kde.elisa",
     "branch": "master",
     "runtime": "org.kde.Platform",
-    "runtime-version": "6.9",
+    "runtime-version": "6.10",
     "sdk": "org.kde.Sdk",
     "command": "elisa",
     "rename-icon": "elisa",
@@ -36,27 +36,6 @@
         "/app/lib/vlc/vlc-cache-gen /app/lib/vlc/plugins"
     ],
     "modules": [
-        {
-            "name": "ffmpeg",
-            "config-opts": [
-                "--enable-pic",
-                "--enable-shared",
-                "--disable-doc",
-                "--disable-static",
-                "--enable-gpl",
-                "--enable-libvpx",
-                "--enable-libmp3lame",
-                "--enable-libvorbis",
-                "--enable-libopus"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://ffmpeg.org/releases/ffmpeg-4.4.5.tar.xz",
-                    "sha256": "f9514e0d3515aee5a271283df71636e1d1ff7274b15853bcd84e144be416ab07"
-                }
-            ]
-        },
         {
             "name": "libvlc",
             "config-opts": [
@@ -106,27 +85,6 @@
                         "project-id": 6974,
                         "stable-only": true,
                         "url-template": "https://git.openldap.org/openldap/openldap/-/archive/LMDB_$version/openldap-LMDB_$version.tar.gz"
-                    }
-                }
-            ]
-        },
-        {
-            "name": "kirigami-addons",
-            "config-opts": [
-                "-DBUILD_TESTING=OFF",
-                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
-            ],
-            "buildsystem": "cmake-ninja",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-1.10.0.tar.xz",
-                    "sha256": "c98f92bf7c452e12f6dc403404215413db3959fe904ad830ead0db6bb09b3d11",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 242933,
-                        "stable-only": true,
-                        "url-template": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-$version.tar.xz"
                     }
                 }
             ]

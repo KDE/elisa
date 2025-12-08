@@ -419,6 +419,9 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
     if (!m_manageHeaderBar->artist().isNull() && !m_manageHeaderBar->artist().toString().isEmpty()) {
         result[QStringLiteral("xesam:artist")] = QStringList{m_manageHeaderBar->artist().toString()};
     }
+    if (!m_manageHeaderBar->albumArtist().isNull() && !m_manageHeaderBar->albumArtist().toString().isEmpty()) {
+        result[QStringLiteral("xesam:albumArtist")] = QStringList{m_manageHeaderBar->albumArtist().toString()};
+    }
     if (!m_manageHeaderBar->image().isEmpty() && !m_manageHeaderBar->image().toString().isEmpty()) {
         if (m_manageHeaderBar->image().scheme() == QStringLiteral("image")) {
             // adding a special case for image:// URLs that are only valid because Elisa installs a special handler for them

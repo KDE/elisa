@@ -320,10 +320,6 @@ set_source_files_properties(android/PlatformIntegration.qml PROPERTIES
     QT_RESOURCE_ALIAS qml/+android/PlatformIntegration.qml
 )
 
-set_source_files_properties(android/qtquickcontrols2.conf PROPERTIES
-    QT_RESOURCE_ALIAS qml/+android/qtquickcontrols2.conf
-)
-
 set_source_files_properties(qml/Theme.qml
     PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 
@@ -394,7 +390,6 @@ qt_add_qml_module(elisaLib
         qml/shared/BasePlayListDelegate.qml
     RESOURCES
         background.png
-        qtquickcontrols2.conf
     )
 
 if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)

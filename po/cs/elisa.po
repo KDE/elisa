@@ -1968,13 +1968,3 @@ msgstr "Soubory"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Rozhlasové stanice"
-
-#~ msgctxt ""
-#~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "
-#~ "formats; do not translate *.m3u8 *.m3u *.pls"
-#~ msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-#~ msgstr "m3u8, m3u, pls Soubor seznamu skladeb(*.m3u8 *.m3u *.pls)"
-
-#~ msgctxt "@action:button Load a playlist file"
-#~ msgid "Load…"
-#~ msgstr "Načíst…"

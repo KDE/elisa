@@ -10,6 +10,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Window
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -84,8 +85,9 @@ BasePlayListDelegate {
 
         QtObject {
             id: actionList
+
             property var infoAction: Kirigami.Action {
-                text: i18nc("@action:button Show track metadata", "View details")
+                text: KI18n.i18nc("@action:button Show track metadata", "View details")
                 icon.name: "help-about"
                 enabled: playListEntry.isValid
                 onTriggered: {
@@ -99,7 +101,7 @@ BasePlayListDelegate {
                 }
             }
             property var ratingAction: Kirigami.Action {
-                text: i18nc("@action:button", "Set track rating")
+                text: KI18n.i18nc("@action:button", "Set track rating")
                 icon.name: "view-media-favorite"
                 visible: !ElisaApplication.useFavoriteStyleRatings
                 enabled: playListEntry.isValid
@@ -109,7 +111,7 @@ BasePlayListDelegate {
                 }
             }
             property var favoriteAction: Kirigami.Action {
-                text: playListEntry.isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
+                text: playListEntry.isFavorite ? KI18n.i18nc("@action:button", "Un-mark this song as a favorite") : KI18n.i18nc("@action:button", "Mark this song as a favorite")
                 icon.name: playListEntry.isFavorite ? "starred" : "non-starred"
                 visible: ElisaApplication.useFavoriteStyleRatings
                 enabled: playListEntry.isValid
@@ -121,8 +123,9 @@ BasePlayListDelegate {
                     ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, newRating);
                 }
             }
+
             property var removeAction: Kirigami.Action {
-                text: i18nc("@action:button Remove current track from play list", "Remove")
+                text: KI18n.i18nc("@action:button Remove current track from play list", "Remove")
                 icon.name: "edit-delete-remove"
                 onTriggered: {
                     playListEntry.removeFromPlaylist(playListEntry.index)
@@ -307,7 +310,7 @@ BasePlayListDelegate {
 
             FlatButtonWithToolTip {
                 visible: playListEntry.editingRating && playListEntry.wideMode
-                text: i18nc("@action:button", "Cancel rating this track")
+                text: KI18n.i18nc("@action:button", "Cancel rating this track")
                 icon.name: "dialog-cancel"
                 icon.color: playListEntry.iconColor
                 onClicked: { playListEntry.editingRating = false; }
@@ -359,7 +362,7 @@ BasePlayListDelegate {
 
                     icon.name: "overflow-menu"
                     icon.color: playListEntry.iconColor
-                    text: playListEntry.entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
+                    text: playListEntry.entryType === ElisaUtils.Track ? KI18n.i18nc("@action:button", "Track Options") : KI18n.i18nc("@action:button", "Radio Options")
                     down: pressed || menuLoader.menuVisible
                     onPressed: (menuLoader.item as Menu).open()
                     Keys.onReturnPressed: (menuLoader.item as Menu).open()

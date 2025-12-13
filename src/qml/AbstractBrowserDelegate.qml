@@ -11,6 +11,7 @@ import QtQuick
 import QtQuick.Controls as QQC
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
+import org.kde.ki18n
 
 QQC.ItemDelegate {
     id: dataEntry
@@ -39,18 +40,18 @@ QQC.ItemDelegate {
 
     property list<Kirigami.Action> actions: [
         Kirigami.Action {
-            text: i18nc("@action:button", "Play now, replacing current playlist")
+            text: KI18n.i18nc("@action:button", "Play now, replacing current playlist")
             icon.name: "media-playback-start-symbolic"
             visible: dataEntry.showPlayButton
             onTriggered: dataEntry.replaceAndPlay()
         },
         Kirigami.Action {
-            text: i18nc("@action:button", "Play next")
+            text: KI18n.i18nc("@action:button", "Play next")
             icon.name: "media-playlist-append-next-symbolic"
             onTriggered: dataEntry.playNext()
         },
         Kirigami.Action {
-            text: i18nc("@action:button", "Add to playlist")
+            text: KI18n.i18nc("@action:button", "Add to playlist")
             icon.name: 'list-add'
             visible: dataEntry.showEnqueueButton
             onTriggered: dataEntry.enqueue()
@@ -59,7 +60,7 @@ QQC.ItemDelegate {
             visible: dataEntry.fileUrl.toString().substring(0, 7) === 'file://' && Kirigami.Settings.isMobile
             onTriggered: ElisaApplication.showInFolder(dataEntry.fileUrl)
             icon.name: "document-open-folder"
-            text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
+            text: KI18n.i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
         }
     ]
 
@@ -81,7 +82,7 @@ QQC.ItemDelegate {
     Kirigami.Action {
         id: mobileContextMenuAction
 
-        text: i18nc("@action:button", "Options")
+        text: KI18n.i18nc("@action:button", "Options")
         icon.name: "view-more-symbolic"
         onTriggered: dataEntry.openMobileContextMenu()
         visible: Kirigami.Settings.isMobile

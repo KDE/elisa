@@ -13,6 +13,7 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Dialogs as Dialogs
 
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -62,8 +63,8 @@ Kirigami.FormLayout {
     readonly property Dialogs.MessageDialog dirtyClosingDialog: Dialogs.MessageDialog {
         id: dirtyClosingDialog
 
-        title: i18nc("@title:window", "Warning")
-        text: i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
+        title: KI18n.i18nc("@title:window", "Warning")
+        text: KI18n.i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
         buttons: Dialogs.MessageDialog.Save | Dialogs.MessageDialog.Discard | Dialogs.MessageDialog.Cancel
 
         onButtonClicked: (button, role) => {
@@ -92,7 +93,7 @@ Kirigami.FormLayout {
     Kirigami.InlineMessage {
         id: formInvalidNotification
 
-        text: i18nc("@label", "Data is not valid. %1", form.metadataModel.errorMessage)
+        text: KI18n.i18nc("@label", "Data is not valid. %1", form.metadataModel.errorMessage)
         type: Kirigami.MessageType.Error
         showCloseButton: false
         visible: !form.metadataModel.isDataValid && form.metadataModel.isDirty
@@ -144,7 +145,7 @@ Kirigami.FormLayout {
             required property bool isReadOnly
             required property bool isRemovable
 
-            readonly property string formLabelText: i18nc("Track metadata form label, e.g. 'Artist:'", "%1:", name)
+            readonly property string formLabelText: KI18n.i18nc("Track metadata form label, e.g. 'Artist:'", "%1:", name)
             // Make labels bold on mobile read-only mode to help differentiate label from metadata
             readonly property bool singleColumnPlainText: !form.wideMode && !form.isCreating && !form.isModifying
             Kirigami.FormData.label: singleColumnPlainText ? "<b>" + formLabelText + "</b>" : formLabelText

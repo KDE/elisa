@@ -15,6 +15,7 @@ import QtQuick.Window
 import QtQuick.Controls as QQC2
 import QtQuick.Dialogs as Dialogs
 
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 
 import org.kde.elisa
@@ -43,8 +44,8 @@ ColumnLayout {
     Dialogs.MessageDialog {
         id: dirtyClosingDialog
 
-        title: i18nc("@title:window", "Warning")
-        text: i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
+        title: KI18n.i18nc("@title:window", "Warning")
+        text: KI18n.i18nc("@info", 'You have unsaved changes. Do you want to apply the changes or discard them?')
         buttons: Dialogs.MessageDialog.Save | Dialogs.MessageDialog.Discard | Dialogs.MessageDialog.Cancel
 
         onButtonClicked: (button, role) => {
@@ -66,11 +67,11 @@ ColumnLayout {
         Layout.fillWidth: true
 
         QQC2.CheckBox {
-            Kirigami.FormData.label: i18nc("@title:group", "General:")
+            Kirigami.FormData.label: KI18n.i18nc("@title:group", "General:")
 
             Layout.fillWidth: true
 
-            text: i18nc("@option:check", "Show background on Now Playing page")
+            text: KI18n.i18nc("@option:check", "Show background on Now Playing page")
 
             checked: ElisaConfigurationDialog.showNowPlayingBackground
             onToggled: ElisaConfigurationDialog.showNowPlayingBackground = checked
@@ -83,7 +84,7 @@ ColumnLayout {
 
             Layout.fillWidth: true
 
-            text: i18nc("@option:check", "Show progress on task manager entries")
+            text: KI18n.i18nc("@option:check", "Show progress on task manager entries")
 
             checked: ElisaConfigurationDialog.showProgressInTaskBar
             onToggled: ElisaConfigurationDialog.showProgressInTaskBar = checked
@@ -94,7 +95,7 @@ ColumnLayout {
         QQC2.CheckBox {
             Layout.fillWidth: true
 
-            text: i18nc("@option:check", "Keep running in system tray when main window is closed")
+            text: KI18n.i18nc("@option:check", "Keep running in system tray when main window is closed")
 
             checked: ElisaConfigurationDialog.showSystemTrayIcon
             onToggled: ElisaConfigurationDialog.showSystemTrayIcon = checked
@@ -105,7 +106,7 @@ ColumnLayout {
         QQC2.CheckBox {
             Layout.fillWidth: true
 
-            text: i18nc("@option:check", "Start playing on startup")
+            text: KI18n.i18nc("@option:check", "Start playing on startup")
 
             checked: ElisaConfigurationDialog.playAtStartup
             onToggled: ElisaConfigurationDialog.playAtStartup = checked
@@ -116,7 +117,7 @@ ColumnLayout {
         QQC2.CheckBox {
             Layout.fillWidth: true
 
-            text: i18nc("@option:check", "Scan for new music on startup")
+            text: KI18n.i18nc("@option:check", "Scan for new music on startup")
 
             checked: ElisaConfigurationDialog.scanAtStartup
             onToggled: {
@@ -135,7 +136,7 @@ ColumnLayout {
             visible: false
 
             type: Kirigami.MessageType.Warning
-            text: xi18nc("@info", "When using this setting, you will need to manually refresh the music collection whenever new files are added to configured music folders. You can do this with the <interface>Scan for new music</interface> item in Elisa's hamburger menu.")
+            text: KI18n.xi18nc("@info", "When using this setting, you will need to manually refresh the music collection whenever new files are added to configured music folders. You can do this with the <interface>Scan for new music</interface> item in Elisa's hamburger menu.")
         }
 
 
@@ -146,11 +147,11 @@ ColumnLayout {
         QQC2.ButtonGroup { id: ratingStyleGroup }
 
         QQC2.RadioButton {
-            Kirigami.FormData.label: i18nc("@title:group", "Song rating style:")
+            Kirigami.FormData.label: KI18n.i18nc("@title:group", "Song rating style:")
 
             Layout.fillWidth: true
 
-            text: i18nc("@option:radio", "0-5 stars")
+            text: KI18n.i18nc("@option:radio", "0-5 stars")
 
             QQC2.ButtonGroup.group: ratingStyleGroup
 
@@ -162,7 +163,7 @@ ColumnLayout {
         QQC2.RadioButton {
             Layout.fillWidth: true
 
-            text: i18nc("@option:radio", "Favorite/not favorite")
+            text: KI18n.i18nc("@option:radio", "Favorite/not favorite")
 
             QQC2.ButtonGroup.group: ratingStyleGroup
 
@@ -180,7 +181,7 @@ ColumnLayout {
 
         // select colour scheme (mobile only, since desktop has it in the application menu)
         QQC2.ComboBox {
-            Kirigami.FormData.label: i18nc("@label:listbox", "Color scheme:")
+            Kirigami.FormData.label: KI18n.i18nc("@label:listbox", "Color scheme:")
 
             visible: Kirigami.Settings.isMobile
 
@@ -216,22 +217,22 @@ ColumnLayout {
         // scan for new music (mobile only, since on desktop it is in the application menu)
         QQC2.Button {
             visible: Kirigami.Settings.isMobile
-            text: i18nc("@action:button", "Scan for New Music")
+            text: KI18n.i18nc("@action:button", "Scan for New Music")
             icon.name: "view-refresh"
             onClicked: {
                 ElisaApplication.musicManager.scanCollection(MusicListenersManager.Soft)
-                showPassiveNotification(i18nc("@info", "Started scanning for music"))
+                showPassiveNotification(KI18n.i18nc("@info", "Started scanning for music"))
             }
         }
 
         QQC2.Button {
             visible: Kirigami.Settings.isMobile
-            text: i18nc("@action:button", "Reset Database and Re-Scan Everything")
+            text: KI18n.i18nc("@action:button", "Reset Database and Re-Scan Everything")
             icon.name: "edit-clear-all"
             onClicked: {
                 ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
-                showPassiveNotification(i18nc("@info", "Database has been reset"))
-                showPassiveNotification(i18nc("@info", "Started scanning for music"))
+                showPassiveNotification(KI18n.i18nc("@info", "Database has been reset"))
+                showPassiveNotification(KI18n.i18nc("@info", "Started scanning for music"))
             }
         }
 
@@ -245,12 +246,12 @@ ColumnLayout {
             id: embeddedCategoryCombo
             visible: !Kirigami.Settings.isMobile
 
-            Kirigami.FormData.label: i18nc("@label:listbox", "Embed category in sidebar:")
+            Kirigami.FormData.label: KI18n.i18nc("@label:listbox", "Embed category in sidebar:")
 
-            model: [i18nc("@item:inlistbox Configure dialog, embed no category in views navigation list", "Nothing"),
-                i18nc("@item:inlistbox Configure dialog, embed all albums in views navigation list", "Albums"),
-                i18nc("@item:inlistbox Configure dialog, embed all artists in views navigation list", "Artists"),
-                i18nc("@item:inlistbox Configure dialog, embed all genres in views navigation list", "Genres")]
+            model: [KI18n.i18nc("@item:inlistbox Configure dialog, embed no category in views navigation list", "Nothing"),
+                KI18n.i18nc("@item:inlistbox Configure dialog, embed all albums in views navigation list", "Albums"),
+                KI18n.i18nc("@item:inlistbox Configure dialog, embed all artists in views navigation list", "Artists"),
+                KI18n.i18nc("@item:inlistbox Configure dialog, embed all genres in views navigation list", "Genres")]
 
             editable: false
             currentIndex: (ElisaConfigurationDialog.embeddedView === ElisaUtils.Genre ? 3 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Album ? 1 : (ElisaConfigurationDialog.embeddedView === ElisaUtils.Artist ? 2 : 0)))
@@ -283,17 +284,17 @@ ColumnLayout {
         QQC2.ComboBox {
             id: initialViewCombo
 
-            Kirigami.FormData.label: i18nc("@label:listbox", "Initial view on startup:")
+            Kirigami.FormData.label: KI18n.i18nc("@label:listbox", "Initial view on startup:")
 
-            model: [i18nc("@item:inlistbox Title of the view of the playlist", "Now Playing"),
-                i18nc("@item:inlistbox Title of the view of recently played tracks", "Recently Played"),
-                i18nc("@item:inlistbox Title of the view of frequently played tracks", "Frequently Played"),
-                i18nc("@item:inlistbox Title of the view of all albums", "Albums"),
-                i18nc("@item:inlistbox Title of the view of all artists", "Artists"),
-                i18nc("@item:inlistbox Title of the view of all tracks", "Tracks"),
-                i18nc("@item:inlistbox Title of the view of all genres", "Genres"),
-                i18nc("@item:inlistbox Title of the file browser view", "Files"),
-                i18nc("@item:inlistbox Title of the file radios browser view", "Radio Stations"),
+            model: [KI18n.i18nc("@item:inlistbox Title of the view of the playlist", "Now Playing"),
+                KI18n.i18nc("@item:inlistbox Title of the view of recently played tracks", "Recently Played"),
+                KI18n.i18nc("@item:inlistbox Title of the view of frequently played tracks", "Frequently Played"),
+                KI18n.i18nc("@item:inlistbox Title of the view of all albums", "Albums"),
+                KI18n.i18nc("@item:inlistbox Title of the view of all artists", "Artists"),
+                KI18n.i18nc("@item:inlistbox Title of the view of all tracks", "Tracks"),
+                KI18n.i18nc("@item:inlistbox Title of the view of all genres", "Genres"),
+                KI18n.i18nc("@item:inlistbox Title of the file browser view", "Files"),
+                KI18n.i18nc("@item:inlistbox Title of the file radios browser view", "Radio Stations"),
             ]
 
             editable: false
@@ -313,7 +314,7 @@ ColumnLayout {
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18nc("@label:textbox", "Initial location for Files view:")
+            Kirigami.FormData.label: KI18n.i18nc("@label:textbox", "Initial location for Files view:")
             spacing: Kirigami.Units.smallSpacing
 
             QQC2.TextField {
@@ -327,7 +328,7 @@ ColumnLayout {
 
             QQC2.Button {
                 icon.name: "document-open-folder"
-                text: i18nc("@action:button as in, choose a file path on disk", "Choose…")
+                text: KI18n.i18nc("@action:button as in, choose a file path on disk", "Choose…")
                 onClicked: {
                     filesViewPathChooserDialog.visible = true
                 }
@@ -335,7 +336,7 @@ ColumnLayout {
                 Dialogs.FolderDialog {
                     id: filesViewPathChooserDialog
 
-                    title: i18nc("@title:window", "Choose Folder")
+                    title: KI18n.i18nc("@title:window", "Choose Folder")
                     currentFolder: ElisaConfigurationDialog.initialFilesViewPath
 
                     onAccepted: {
@@ -358,7 +359,7 @@ ColumnLayout {
         // ======================
 
         ColumnLayout {
-            Kirigami.FormData.label: i18n("When saving playlist files:")
+            Kirigami.FormData.label: KI18n.i18n("When saving playlist files:")
             Kirigami.FormData.buddyFor: playlistFilePathTypeBox
 
             Layout.fillWidth: true
@@ -367,8 +368,8 @@ ColumnLayout {
 
             QQC2.ComboBox {
                 id: playlistFilePathTypeBox
-                model: [i18nc("@item:inlistbox Configure dialog, playlist save type", "Prefer relative paths"),
-                        i18nc("@item:inlistbox Configure dialog, playlist save type", "Always use absolute paths")]
+                model: [KI18n.i18nc("@item:inlistbox Configure dialog, playlist save type", "Prefer relative paths"),
+                        KI18n.i18nc("@item:inlistbox Configure dialog, playlist save type", "Always use absolute paths")]
 
                 currentIndex: ElisaConfigurationDialog.alwaysUseAbsolutePlaylistPaths ? 1 : 0
                 onActivated: {
@@ -379,7 +380,7 @@ ColumnLayout {
             QQC2.Label {
                 Layout.fillWidth: true
                 Layout.maximumWidth: Kirigami.Units.gridUnit * 16
-                text: xi18nc("@info:tooltip Playlist Relative Paths", "When <interface>Prefer relative paths</interface> is selected, files in the same folder as the playlist will be referred with only the filename. Absolute paths are used in other cases.")
+                text: KI18n.xi18nc("@info:tooltip Playlist Relative Paths", "When <interface>Prefer relative paths</interface> is selected, files in the same folder as the playlist will be referred with only the filename. Absolute paths are used in other cases.")
                 wrapMode: Text.Wrap
                 font: Kirigami.Theme.smallFont
             }
@@ -394,7 +395,7 @@ ColumnLayout {
 
         Kirigami.Heading {
             Layout.fillWidth: true
-            text: i18nc("@title The configured folders where the user's music collection can be found", "Music folders:")
+            text: KI18n.i18nc("@title The configured folders where the user's music collection can be found", "Music folders:")
             level: 4
         }
 
@@ -437,7 +438,7 @@ ColumnLayout {
 
                     actions: Kirigami.Action {
                         icon.name: "edit-delete"
-                        text: i18nc("@action:button", "Stop looking for music here")
+                        text: KI18n.i18nc("@action:button", "Stop looking for music here")
 
                         visible: pathList.count > 1
                         onTriggered: ElisaConfigurationDialog.removeMusicLocation(delegate.modelData)
@@ -450,7 +451,7 @@ ColumnLayout {
             spacing: Kirigami.Units.largeSpacing * 2
 
             QQC2.Button {
-                text: i18nc("@action:button", "Add New Location")
+                text: KI18n.i18nc("@action:button", "Add New Location")
                 icon.name: "list-add"
 
                 Layout.alignment: Qt.AlignTop | Qt.AlignLeft
@@ -460,7 +461,7 @@ ColumnLayout {
 
                 Dialogs.FolderDialog {
                     id: fileDialog
-                    title: i18nc("@title:window", "Choose Folder")
+                    title: KI18n.i18nc("@title:window", "Choose Folder")
 
                     currentFolder: StandardPaths.standardLocations(StandardPaths.HomeLocation)[0]
 

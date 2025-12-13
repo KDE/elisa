@@ -13,6 +13,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Effects as FX
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -220,7 +221,7 @@ BasePlayerControl {
             Layout.maximumWidth: height
             Layout.preferredWidth: height
             enabled: musicWidget.skipBackwardEnabled
-            text: i18nc("@action:button", "Skip Backward")
+            text: KI18n.i18nc("@action:button", "Skip Backward")
             onClicked: musicWidget.playPrevious()
             icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
             icon.color: "white"
@@ -234,7 +235,7 @@ BasePlayerControl {
             Layout.maximumWidth: height
             Layout.preferredWidth: height
             enabled: musicWidget.playEnabled
-            text: musicWidget.isPlaying ? i18nc("@action:button Pause any media that is playing", "Pause") : i18nc("@action:button Start playing media", "Play")
+            text: musicWidget.isPlaying ? KI18n.i18nc("@action:button Pause any media that is playing", "Pause") : KI18n.i18nc("@action:button Start playing media", "Play")
             onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
             icon.name: musicWidget.isPlaying ? "media-playback-pause" : "media-playback-start"
             icon.color: "white"
@@ -248,7 +249,7 @@ BasePlayerControl {
             Layout.maximumWidth: height
             Layout.preferredWidth: height
             enabled: musicWidget.skipForwardEnabled
-            text: i18nc("@action:button", "Skip Forward")
+            text: KI18n.i18nc("@action:button", "Skip Forward")
             onClicked: musicWidget.playNext()
             icon.name: musicWidget.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"
             icon.color: "white"

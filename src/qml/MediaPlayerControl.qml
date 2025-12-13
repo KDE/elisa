@@ -10,6 +10,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -88,8 +89,8 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: minimizeMaximizeButton
                     text: musicWidget.isMaximized
-                        ? i18nc("@action:button displayed as @info:tooltip", "Exit party mode")
-                        : i18nc("@action:button displayed as @info:tooltip", "Enter party mode")
+                        ? KI18n.i18nc("@action:button displayed as @info:tooltip", "Exit party mode")
+                        : KI18n.i18nc("@action:button displayed as @info:tooltip", "Enter party mode")
                     icon.name: musicWidget.isMaximized ? "draw-arrow-up" : "draw-arrow-down"
                     onClicked: musicWidget.isMaximized = !musicWidget.isMaximized
                 }
@@ -97,7 +98,7 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: skipBackwardButton
                     enabled: musicWidget.skipBackwardEnabled
-                    text: i18nc("@action:button displayed as @info:tooltip", "Skip backward")
+                    text: KI18n.i18nc("@action:button displayed as @info:tooltip", "Skip backward")
                     icon.name: "media-skip-backward"
                     onClicked: musicWidget.playPrevious()
                 }
@@ -106,8 +107,8 @@ BasePlayerControl {
                     id: playPauseButton
                     enabled: musicWidget.playEnabled
                     text: musicWidget.isPlaying
-                        ? i18nc("@action:button displayed as @info:tooltip Pause any media that is playing", "Pause")
-                        : i18nc("@action:button displayed as @info:tooltip Start playing media", "Play")
+                        ? KI18n.i18nc("@action:button displayed as @info:tooltip Pause any media that is playing", "Pause")
+                        : KI18n.i18nc("@action:button displayed as @info:tooltip Start playing media", "Play")
                     icon.name: musicWidget.isPlaying ? "media-playback-pause" : "media-playback-start"
                     onClicked: musicWidget.isPlaying ? musicWidget.pause() : musicWidget.play()
                 }
@@ -115,7 +116,7 @@ BasePlayerControl {
                 FlatButtonWithToolTip {
                     id: skipForwardButton
                     enabled: musicWidget.skipForwardEnabled
-                    text: i18nc("@action:button displayed as @info:tooltip skip forward in playlists", "Skip forward")
+                    text: KI18n.i18nc("@action:button displayed as @info:tooltip skip forward in playlists", "Skip forward")
                     icon.name: "media-skip-forward"
                     onClicked: musicWidget.playNext()
                 }
@@ -141,8 +142,8 @@ BasePlayerControl {
                     FlatButtonWithToolTip {
                         id: muteButton
                         text: musicWidget.muted
-                            ? i18nc("@action:button displayed as @info:tooltip", "Unmute")
-                            : i18nc("@action:button displayed as @info:tooltip", "Mute")
+                            ? KI18n.i18nc("@action:button displayed as @info:tooltip", "Unmute")
+                            : KI18n.i18nc("@action:button displayed as @info:tooltip", "Mute")
                         icon.name: musicWidget.muted ? "audio-volume-muted" : "audio-volume-high"
                         onClicked: musicWidget.muted = !musicWidget.muted
                     }
@@ -168,9 +169,9 @@ BasePlayerControl {
                         id: shuffleButton
                         text: {
                             const map = {
-                                [MediaPlayListProxyModel.NoShuffle]: i18nc("@info:tooltip", "Current: No shuffle"),
-                                [MediaPlayListProxyModel.Track]: i18nc("@info:tooltip", "Current: Shuffle tracks"),
-                                [MediaPlayListProxyModel.Album]: i18nc("@info:tooltip", "Current: Shuffle albums"),
+                                [MediaPlayListProxyModel.NoShuffle]: KI18n.i18nc("@info:tooltip", "Current: No shuffle"),
+                                [MediaPlayListProxyModel.Track]: KI18n.i18nc("@info:tooltip", "Current: Shuffle tracks"),
+                                [MediaPlayListProxyModel.Album]: KI18n.i18nc("@info:tooltip", "Current: Shuffle albums"),
                             }
                             return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
                         }
@@ -198,15 +199,15 @@ BasePlayerControl {
 
                         menu: Menu {
                             ShuffleModeItem {
-                                text: i18nc("@action:inmenu", "Track")
+                                text: KI18n.i18nc("@action:inmenu", "Track")
                                 mode: MediaPlayListProxyModel.Track
                             }
                             ShuffleModeItem {
-                                text: i18nc("@action:inmenu", "Album")
+                                text: KI18n.i18nc("@action:inmenu", "Album")
                                 mode: MediaPlayListProxyModel.Album
                             }
                             ShuffleModeItem {
-                                text: i18nc("@action:inmenu", "None")
+                                text: KI18n.i18nc("@action:inmenu", "None")
                                 mode: MediaPlayListProxyModel.NoShuffle
                             }
                         }
@@ -227,9 +228,9 @@ BasePlayerControl {
                         id: repeatButton
                         text: {
                             const map = {
-                                [MediaPlayListProxyModel.None]: i18nc("@info:tooltip", "Current: Don't repeat tracks"),
-                                [MediaPlayListProxyModel.One]: i18nc("@info:tooltip", "Current: Repeat current track"),
-                                [MediaPlayListProxyModel.Playlist]: i18nc("@info:tooltip", "Current: Repeat all tracks in playlist"),
+                                [MediaPlayListProxyModel.None]: KI18n.i18nc("@info:tooltip", "Current: Don't repeat tracks"),
+                                [MediaPlayListProxyModel.One]: KI18n.i18nc("@info:tooltip", "Current: Repeat current track"),
+                                [MediaPlayListProxyModel.Playlist]: KI18n.i18nc("@info:tooltip", "Current: Repeat all tracks in playlist"),
                             }
                             return map[ElisaApplication.mediaPlayListProxyModel.repeatMode]
                         }
@@ -256,15 +257,15 @@ BasePlayerControl {
 
                         menu: Menu {
                             PlaylistModeItem {
-                                text: i18nc("@action:inmenu", "Playlist")
+                                text: KI18n.i18nc("@action:inmenu", "Playlist")
                                 mode: MediaPlayListProxyModel.Playlist
                             }
                             PlaylistModeItem {
-                                text: i18nc("@action:inmenu", "One track")
+                                text: KI18n.i18nc("@action:inmenu", "One track")
                                 mode: MediaPlayListProxyModel.One
                             }
                             PlaylistModeItem {
-                                text: i18nc("@action:inmenu", "None")
+                                text: KI18n.i18nc("@action:inmenu", "None")
                                 mode: MediaPlayListProxyModel.None
                             }
                         }
@@ -296,7 +297,7 @@ BasePlayerControl {
                         visible: !musicWidget.isMaximized && (!_togglesDrawer || musicWidget.isNearCollapse)
 
                         display: _togglesDrawer ? AbstractButton.IconOnly : AbstractButton.TextBesideIcon
-                        text: i18nc("@action:button", "Show Playlist")
+                        text: KI18n.i18nc("@action:button", "Show Playlist")
                         icon.name: "view-media-playlist"
 
                         checked: _togglesDrawer ? playlistDrawer.visible : contentView.showPlaylist
@@ -313,7 +314,7 @@ BasePlayerControl {
                             }
                         }
 
-                        text: i18nc("@action:button displayed as @info:tooltip", "Application menu")
+                        text: KI18n.i18nc("@action:button displayed as @info:tooltip", "Application menu")
                         icon.name: "open-menu-symbolic"
 
                         down: pressed || menu.visible

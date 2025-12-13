@@ -10,6 +10,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -152,7 +153,7 @@ RowLayout {
             FlatButtonWithToolTip {
                 readonly property bool isFavorite: delegateRow.display === 10
 
-                text: isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
+                text: isFavorite ? KI18n.i18nc("@action:button", "Un-mark this song as a favorite") : KI18n.i18nc("@action:button", "Mark this song as a favorite")
                 icon.name: isFavorite ? "starred" : "non-starred"
 
                 onClicked: {
@@ -203,7 +204,7 @@ RowLayout {
         Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
 
         icon.name: 'delete'
-        text: i18nc("@action:button remove a metadata tag", "Remove this tag")
+        text: KI18n.i18nc("@action:button remove a metadata tag", "Remove this tag")
 
         visible: !delegateRow.readOnly && delegateRow.hasData && delegateRow.isRemovable
         onClicked: delegateRow.deleteField()
@@ -211,7 +212,7 @@ RowLayout {
 
     Button {
         icon.name: 'list-add'
-        text: i18nc("@action:button", "Add tag")
+        text: KI18n.i18nc("@action:button", "Add tag")
         visible: !delegateRow.readOnly && !delegateRow.hasData
 
         onClicked: delegateRow.addField()

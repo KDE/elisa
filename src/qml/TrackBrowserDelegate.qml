@@ -13,6 +13,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Effects as FX
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -66,34 +67,34 @@ ItemDelegate {
 
     property list<Kirigami.Action> actions: [
         Kirigami.Action {
-            text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
+            text: KI18n.i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
             icon.name: "document-open-folder"
             onTriggered: ElisaApplication.showInFolder(mediaTrack.trackUrl)
 
             visible: mediaTrack.trackUrl.toString().substring(0, 7) === 'file://'
         },
         Kirigami.Action {
-            text: i18nc("@action:button Show track metadata", "View details")
+            text: KI18n.i18nc("@action:button Show track metadata", "View details")
             icon.name: "help-about"
             onTriggered: mediaTrack.callOpenMetaDataView(mediaTrack.trackUrl, mediaTrack.dataType)
         },
         Kirigami.Action {
-            text: i18nc("@action:button", "Add to playlist")
+            text: KI18n.i18nc("@action:button", "Add to playlist")
             icon.name: "list-add"
             onTriggered: mediaTrack.enqueue()
         },
         Kirigami.Action {
-            text: i18nc("@action:button", "Play next")
+            text: KI18n.i18nc("@action:button", "Play next")
             icon.name: "media-playlist-append-next-symbolic"
             onTriggered: mediaTrack.playNext()
         },
         Kirigami.Action {
-            text: i18nc("@action:button", "Play from here, replacing current playlist")
+            text: KI18n.i18nc("@action:button", "Play from here, replacing current playlist")
             icon.name: "media-playback-start-symbolic"
             onTriggered: mediaTrack.replaceAndPlay(mediaTrack.trackUrl)
         },
         Kirigami.Action {
-            text: i18nc("@action:button", "Set track rating")
+            text: KI18n.i18nc("@action:button", "Set track rating")
             icon.name: "view-media-favorite"
             onTriggered: {
                 mediaTrack.editingRating = true;
@@ -101,7 +102,7 @@ ItemDelegate {
             visible: !ElisaApplication.useFavoriteStyleRatings && !Kirigami.Settings.isMobile
         },
         Kirigami.Action {
-            text: mediaTrack.isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
+            text: mediaTrack.isFavorite ? KI18n.i18nc("@action:button", "Un-mark this song as a favorite") : KI18n.i18nc("@action:button", "Mark this song as a favorite")
             icon.name: mediaTrack.isFavorite ? "starred" : "non-starred"
 
             onTriggered: {
@@ -197,7 +198,7 @@ ItemDelegate {
                             // specific artist/album page (mobile)
                             // not detailed view refers to an album page, in which we should put track numbers
                             if (mediaTrack.trackNumber !== 0 && mediaTrack.trackNumber !== -1 && mediaTrack.trackNumber !== undefined) {
-                                return i18nc("@item:intable %1: track number. %2: track title.",
+                                return KI18n.i18nc("@item:intable %1: track number. %2: track title.",
                                         "%1 – %2",
                                         mediaTrack.trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                         mediaTrack.title);
@@ -208,19 +209,19 @@ ItemDelegate {
                             // specific artist/album page (desktop)
                             if (mediaTrack.trackNumber !== 0 && mediaTrack.trackNumber !== -1 && mediaTrack.trackNumber !== undefined) {
                                 if (mediaTrack.albumArtist !== undefined && mediaTrack.artist !== mediaTrack.albumArtist) {
-                                    return i18nc("@item:intable %1: track number. %2: track title. %3: artist name",
+                                    return KI18n.i18nc("@item:intable %1: track number. %2: track title. %3: artist name",
                                                 "%1 – %2 – %3",
                                                 mediaTrack.trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                                 mediaTrack.title, mediaTrack.artist);
                                 } else {
-                                    return i18nc("@item:intable %1: track number. %2: track title.",
+                                    return KI18n.i18nc("@item:intable %1: track number. %2: track title.",
                                                 "%1 – %2",
                                                 mediaTrack.trackNumber.toLocaleString(Qt.locale(), 'f', 0),
                                                 mediaTrack.title);
                                 }
                             } else {
                                 if (mediaTrack.albumArtist !== undefined && mediaTrack.artist !== mediaTrack.albumArtist) {
-                                    return i18nc("@item:intable %1: track title. %2: artist name",
+                                    return KI18n.i18nc("@item:intable %1: track title. %2: artist name",
                                                 "%1 – %2",
                                                 mediaTrack.title, mediaTrack.artist);
                                 } else {
@@ -308,7 +309,7 @@ ItemDelegate {
                 sourceComponent: FlatButtonWithToolTip {
                     width: Theme.listDelegateButtonHeight
                     height: Theme.listDelegateButtonHeight
-                    text: i18nc("@action:button", "Cancel rating this track")
+                    text: KI18n.i18nc("@action:button", "Cancel rating this track")
                     icon.name: "dialog-cancel"
                     icon.color: mediaTrack.iconColor
                     onClicked: { mediaTrack.editingRating = false; }
@@ -367,7 +368,7 @@ ItemDelegate {
                 Layout.preferredWidth: height
                 Layout.preferredHeight: Theme.listDelegateButtonHeight
 
-                text: i18nc("@action:button", "Song Options")
+                text: KI18n.i18nc("@action:button", "Song Options")
                 icon.name: "view-more-symbolic"
                 icon.color: mediaTrack.iconColor
                 onClicked: mediaTrack.openContextMenu()

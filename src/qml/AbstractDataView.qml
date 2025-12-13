@@ -12,6 +12,7 @@ import QtQuick.Controls
 import QtQml.Models
 import QtQuick.Layouts
 
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -205,7 +206,7 @@ FocusScope {
         sourceComponent: Kirigami.PlaceholderMessage {
             anchors.centerIn: parent
             icon.name: "edit-none"
-            text: navigationBar.filterText.length > 0 ? i18nc("@info:placeholder", "No matches") : i18nc("@info:placeholder", "Nothing to display")
+            text: navigationBar.filterText.length > 0 ? KI18n.i18nc("@info:placeholder", "No matches") : KI18n.i18nc("@info:placeholder", "Nothing to display")
         }
     }
 

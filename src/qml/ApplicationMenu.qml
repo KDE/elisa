@@ -11,14 +11,15 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
 import org.kde.elisa
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 
 Menu {
     id: applicationMenu
-    title: i18nc("@title:menu", "Application Menu")
+    title: KI18n.i18nc("@title:menu", "Application Menu")
 
     Action {
-        text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Exit Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
+        text: mainWindow.visibility == Window.FullScreen ? KI18n.i18nc("@action:inmenu", "Exit Full Screen") : KI18n.i18nc("@action:inmenu", "Enter Full Screen")
         icon.name: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
         onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.restorePreviousStateBeforeFullScreen() : mainWindow.goFullScreen()
     }
@@ -26,7 +27,7 @@ Menu {
     MenuSeparator {}
 
     Action {
-        text: i18nc("@action:inmenu", "Scan for New Music")
+        text: KI18n.i18nc("@action:inmenu", "Scan for New Music")
         icon.name: "view-refresh"
         onTriggered: {
             applicationMenu.close()
@@ -35,7 +36,7 @@ Menu {
     }
 
     Action {
-        text: i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
+        text: KI18n.i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
         icon.name: "edit-clear-all"
         onTriggered: {
             applicationMenu.close()
@@ -46,7 +47,7 @@ Menu {
     MenuSeparator {}
 
     Menu {
-        title: i18nc("@action:inmenu this has child menu items", "Color Scheme")
+        title: KI18n.i18nc("@action:inmenu this has child menu items", "Color Scheme")
         Repeater {
             model: ElisaApplication.colorSchemesModel
             delegate: MenuItem {

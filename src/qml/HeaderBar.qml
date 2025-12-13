@@ -12,6 +12,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Effects as FX
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -239,7 +240,7 @@ FocusScope {
 
             visible: headerBar.isMaximized
 
-            text: i18nc("@action:inmenu", "Playlist")
+            text: KI18n.i18nc("@action:inmenu", "Playlist")
             icon.name: "view-media-playlist"
             display: AbstractButton.TextBesideIcon
             icon.color: Theme.headerForegroundColor
@@ -256,7 +257,7 @@ FocusScope {
 
             visible: headerBar.isMaximized
 
-            text: i18nc("@action:button", "Lyrics")
+            text: KI18n.i18nc("@action:button", "Lyrics")
             icon.name: "view-media-lyrics"
             display: AbstractButton.TextBesideIcon
             icon.color: Theme.headerForegroundColor
@@ -270,7 +271,7 @@ FocusScope {
         FlatButtonWithToolTip {
             visible: mainWindow.visibility == Window.FullScreen
 
-            text: i18nc("@action:button", "Exit Full Screen")
+            text: KI18n.i18nc("@action:button", "Exit Full Screen")
             icon.name: "view-restore"
             display: AbstractButton.TextBesideIcon
             icon.color: Theme.headerForegroundColor

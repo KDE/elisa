@@ -10,20 +10,21 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Qt.labs.platform
 import org.kde.elisa
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 
 Menu {
     id: applicationMenu
-    title: i18nc("@title:menu", "Application Menu")
+    title: KI18n.i18nc("@title:menu", "Application Menu")
 
     MenuItem  {
-        text: i18nc("@action:inmenu", "Scan for New Music")
+        text: KI18n.i18nc("@action:inmenu", "Scan for New Music")
         icon.name: "view-refresh"
         onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Soft)
     }
 
     MenuItem {
-        text: i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
+        text: KI18n.i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
         icon.name: "edit-clear-all"
         onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
     }

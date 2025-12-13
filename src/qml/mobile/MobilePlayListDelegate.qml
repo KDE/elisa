@@ -10,6 +10,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Window
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -143,7 +144,7 @@ BasePlayListDelegate {
             FlatButtonWithToolTip {
                 id: contextMenuButton
                 scale: LayoutMirroring.enabled ? -1 : 1
-                text: playListEntry.entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
+                text: playListEntry.entryType === ElisaUtils.Track ? KI18n.i18nc("@action:button", "Track Options") : KI18n.i18nc("@action:button", "Radio Options")
                 icon.name: "view-more-symbolic"
                 onClicked: playListEntry.openContextMenu()
                 activeFocusOnTab: playListEntry.isSelected
@@ -165,13 +166,13 @@ BasePlayListDelegate {
                     Kirigami.Action {
                         visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
                         icon.name: "document-open-folder"
-                        text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
+                        text: KI18n.i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                         onTriggered: ElisaApplication.showInFolder(playListEntry.fileName)
                     },
                     Kirigami.Action {
                         visible: playListEntry.isValid
                         icon.name: "documentinfo"
-                        text: i18nc("@action:button Show track metadata", "View details")
+                        text: KI18n.i18nc("@action:button Show track metadata", "View details")
                         onTriggered: {
                             if (metadataLoader.active === false) {
                                 metadataLoader.active = true
@@ -184,7 +185,7 @@ BasePlayListDelegate {
                     Kirigami.Action {
                         visible: playListEntry.isValid
                         icon.name: "error"
-                        text: i18nc("@action:button", "Remove from queue")
+                        text: KI18n.i18nc("@action:button", "Remove from queue")
                         onTriggered: playListEntry.removeFromPlaylist(playListEntry.index)
                     }
                 ]

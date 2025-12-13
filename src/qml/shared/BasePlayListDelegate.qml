@@ -9,6 +9,7 @@ pragma ComponentBehavior: Bound
 import QtQuick 2.7
 import QtQuick.Controls as QQC2
 
+import org.kde.ki18n
 import org.kde.elisa
 
 QQC2.ItemDelegate {
@@ -64,10 +65,10 @@ QQC2.ItemDelegate {
 
     onIsValidChanged: {
         if (!isValid) {
-            showPassiveNotification(i18nc("@info:status", "\"%1\" could not be played", title))
+            showPassiveNotification(KI18n.i18nc("@info:status", "\"%1\" could not be played", title))
             // Can't make it too long due to https://bugs.kde.org/show_bug.cgi?id=476021.
             // TODO: Once that's fixed, use this longer and more descriptive string!
-            // showPassiveNotification(i18nc("@label", "\"%1\" could not be played; make sure it has not been deleted or renamed", title))
+            // showPassiveNotification(KI18n.i18nc("@label", "\"%1\" could not be played; make sure it has not been deleted or renamed", title))
         }
     }
 }

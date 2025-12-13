@@ -11,6 +11,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Window
 import QtQuick.Layouts
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -44,31 +45,31 @@ Kirigami.ScrollablePage {
     LayoutMirroring.enabled: Application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    title: isCreating ? i18nc("@title:window", "Create a Radio") :
-                        i18nc("@title:window", "View details")
+    title: isCreating ? KI18n.i18nc("@title:window", "Create a Radio") :
+                        KI18n.i18nc("@title:window", "View details")
 
     actions: [
         Kirigami.Action {
             icon.name: 'document-edit'
-            text: i18nc("@action:button", "Modify")
+            text: KI18n.i18nc("@action:button", "Modify")
             onTriggered: metadataForm.isModifying = true
             visible: !metadataForm.isModifying && !metadataForm.isCreating
         },
         Kirigami.Action {
             icon.name: "dialog-ok-apply"
-            text: i18nc("@action:button", "Save")
+            text: KI18n.i18nc("@action:button", "Save")
             onTriggered: metadataForm.isCreating ? metadataForm.applyAndClose() : metadataForm.apply()
             visible: metadataForm.isModifying || metadataForm.isCreating
         },
         Kirigami.Action {
             icon.name: 'dialog-cancel'
-            text: i18nc("@action:button", "Cancel")
+            text: KI18n.i18nc("@action:button", "Cancel")
             onTriggered: metadataForm.isCreating ? metadataForm.cancelAndClose() : metadataForm.cancel()
             visible: metadataForm.isModifying || metadataForm.isCreating
         },
         Kirigami.Action {
             icon.name: 'delete'
-            text: i18nc("@action:button", "Delete")
+            text: KI18n.i18nc("@action:button", "Delete")
             onTriggered: metadataForm.deleteItem()
             visible: metadataForm.showDeleteButton && !metadataForm.isCreating
         }

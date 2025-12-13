@@ -11,6 +11,7 @@ import QtQuick
 
 import QtQml.Models
 
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -158,8 +159,8 @@ AbstractDataView {
                 width: contentDirectoryView.width
                 hideActions: true
                 hasChildren: true
-                mainText: i18nc("@item:intable View all tracks", "All tracks")
-                secondaryText: i18ncp("@item:intable number of tracks/songs in all albums", "%1 track", "%1 tracks", gridView.contentModel.tracksCount)
+                mainText: KI18n.i18nc("@item:intable View all tracks", "All tracks")
+                secondaryText: KI18n.i18ncp("@item:intable number of tracks/songs in all albums", "%1 track", "%1 tracks", gridView.contentModel.tracksCount)
                 imageFallbackUrl: Theme.trackIcon
                 onOpen: gridView.viewManager.openTracksView(gridView.mainTitle)
             }

@@ -11,6 +11,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -33,8 +34,8 @@ Window {
     LayoutMirroring.enabled: Application.layoutDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
 
-    title: isCreating ? i18nc("@title:window", "Create a Radio") :
-                        i18nc("@title:window", "View details")
+    title: isCreating ? KI18n.i18nc("@title:window", "Create a Radio") :
+                        KI18n.i18nc("@title:window", "View details")
 
     EditableTrackMetadataModel {
         id: realModel
@@ -125,7 +126,7 @@ Window {
                     visible: trackMetadata.showDeleteButton && !trackMetadata.isCreating
 
                     Button {
-                        text: i18nc("@action:button", "Delete")
+                        text: KI18n.i18nc("@action:button", "Delete")
                         icon.name: 'delete'
                         DialogButtonBox.buttonRole: DialogButtonBox.DestructiveRole
                         onClicked: metadataForm.deleteItem()
@@ -143,7 +144,7 @@ Window {
                     onAccepted: metadataForm.close()
 
                     Button {
-                        text: i18nc("@action:button", "Modify")
+                        text: KI18n.i18nc("@action:button", "Modify")
                         icon.name: 'document-edit'
                         DialogButtonBox.buttonRole: DialogButtonBox.ActionRole
                         onClicked: metadataForm.isModifying = true

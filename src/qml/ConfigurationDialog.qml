@@ -11,6 +11,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls as QQC2
 
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 
 import org.kde.elisa
@@ -18,7 +19,7 @@ import org.kde.elisa
 Window {
     id: dialog
 
-    title: i18nc("@title:window", "Configure")
+    title: KI18n.i18nc("@title:window", "Configure")
 
     visible: true
     modality: Qt.ApplicationModal

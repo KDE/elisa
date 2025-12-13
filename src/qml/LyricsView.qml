@@ -12,6 +12,7 @@ import QtQuick.Controls
 import QtQuick.Effects
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
+import org.kde.ki18n
 
 Item {
     id: lyricItem
@@ -158,7 +159,7 @@ Item {
         visible: active && status === Loader.Ready
 
         sourceComponent: Kirigami.PlaceholderMessage {
-            text: i18nc("@info:placeholder", "No lyrics found")
+            text: KI18n.i18nc("@info:placeholder", "No lyrics found")
             icon.name: "view-media-lyrics"
         }
     }

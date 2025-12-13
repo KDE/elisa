@@ -9,6 +9,8 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls as QQC2
 
+import org.kde.ki18n
+
 QQC2.Menu {
     id: root
 
@@ -19,7 +21,7 @@ QQC2.Menu {
     property /*Qt::SortOrder*/int sortOrder
     property var sortOrderNames
 
-    title: i18nc("@title:menu", "Sort By")
+    title: KI18n.i18nc("@title:menu", "Sort By")
 
     function refreshSortOrderNames() {
         if (!sortOrderNames) {

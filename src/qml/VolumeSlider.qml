@@ -9,6 +9,7 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Controls
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -25,7 +26,7 @@ AccessibleSlider {
 
     enabled: !muted
 
-    Accessible.name: i18nc("@label", "Volume")
+    Accessible.name: KI18n.i18nc("@label", "Volume")
 
     onPressedChanged: {
         tooltip.delay = pressed ? 0 : Kirigami.Units.toolTipDelay
@@ -46,6 +47,6 @@ AccessibleSlider {
         delay: volumeSlider.pressed ? 0 : Kirigami.Units.toolTipDelay
         closePolicy: Popup.NoAutoClose
         timeout: -1
-        text: i18nc("Volume as a percentage", "%1%", Math.round(volumeSlider.value))
+        text: KI18n.i18nc("Volume as a percentage", "%1%", Math.round(volumeSlider.value))
     }
 }

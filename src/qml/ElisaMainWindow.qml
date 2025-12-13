@@ -12,6 +12,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Dialogs as Dialogs
 import org.kde.config as KConfig
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.kirigamiaddons.formcard as FormCard
 import org.kde.elisa
@@ -27,11 +28,11 @@ Kirigami.ApplicationWindow {
     Connections {
         target: ElisaApplication.mediaPlayListProxyModel
         function onPlayListLoadFailed() {
-            mainWindow.showPassiveNotification(i18nc("@label", "Loading failed"), 7000, i18nc("@action:button", "Retry"), () => loadPlaylistButton.clicked())
+            mainWindow.showPassiveNotification(KI18n.i18nc("@label", "Loading failed"), 7000, KI18n.i18nc("@action:button", "Retry"), () => loadPlaylistButton.clicked())
         }
 
         function onDisplayUndoNotification() {
-            mainWindow.showPassiveNotification(i18nc("@label", "Playlist cleared"), 7000, i18nc("@action:button", "Undo"), () => ElisaApplication.mediaPlayListProxyModel.undoClearPlayList())
+            mainWindow.showPassiveNotification(KI18n.i18nc("@label", "Playlist cleared"), 7000, KI18n.i18nc("@action:button", "Undo"), () => ElisaApplication.mediaPlayListProxyModel.undoClearPlayList())
         }
     }
 
@@ -138,8 +139,8 @@ Kirigami.ApplicationWindow {
         // force same color as header text; always has dark background
         handleClosedIcon.color: Theme.headerForegroundColor
         handleOpenIcon.name: "view-right-close"
-        handleClosedToolTip: i18nc("@action:button", "Show playlist drawer")
-        handleOpenToolTip: i18nc("@action:button", "Hide playlist drawer")
+        handleClosedToolTip: KI18n.i18nc("@action:button", "Show playlist drawer")
+        handleOpenToolTip: KI18n.i18nc("@action:button", "Hide playlist drawer")
 
         handleVisible: !Kirigami.Settings.isMobile && (drawerOpen || mainWindow.spaceForPlayListIconInHeader)
 
@@ -175,7 +176,7 @@ Kirigami.ApplicationWindow {
         onDropped: drop => {
             if (drop.hasUrls) {
                 if (!ElisaApplication.openFiles(drop.urls)) {
-                    mainWindow.showPassiveNotification(i18nc("@info:status", "Could not load some files. Elisa can only open audio and playlist files."), 7000, "", function() {})
+                    mainWindow.showPassiveNotification(KI18n.i18nc("@info:status", "Could not load some files. Elisa can only open audio and playlist files."), 7000, "", function() {})
                 }
             }
         }
@@ -234,7 +235,7 @@ Kirigami.ApplicationWindow {
     width: Kirigami.Units.gridUnit * 50
     height: Kirigami.Units.gridUnit * 36
 
-    title: ElisaApplication.manageHeaderBar.title ? i18nc("@title:window", "%1 — Elisa", ElisaApplication.manageHeaderBar.title) : i18nc("@title:window", "Elisa")
+    title: ElisaApplication.manageHeaderBar.title ? KI18n.i18nc("@title:window", "%1 — Elisa", ElisaApplication.manageHeaderBar.title) : KI18n.i18nc("@title:window", "Elisa")
 
     readonly property int initialViewIndex: 3
 
@@ -286,16 +287,16 @@ Kirigami.ApplicationWindow {
         readonly property string musicFormats: "*.aac *.m4a *.ra *.rax *.oga *.ogg *.opus *.spx *.flac *.mp3 *.wma *.mpc *.mpp *.mp+ *.wav *.ogm"
 
         function savePlaylist() {
-            nameFilters = [ i18nc("@option file type (mime type) for m3u, m3u8 playlist file formats; do not translate *.m3u*", "m3u8, m3u Playlist File (*.m3u*)"), i18nc("@option file type (mime type) for pls playlist file formats; do not translate *.pls", "pls Playlist File (*.pls)")]
+            nameFilters = [ KI18n.i18nc("@option file type (mime type) for m3u, m3u8 playlist file formats; do not translate *.m3u*", "m3u8, m3u Playlist File (*.m3u*)"), KI18n.i18nc("@option file type (mime type) for pls playlist file formats; do not translate *.pls", "pls Playlist File (*.pls)")]
             defaultSuffix = 'm3u8'
             fileMode = FileDialog.SaveFile
             open()
         }
         function loadPlaylistOrMusicFile() {
             nameFilters = [
-                i18nc("@option Allow opening music and playlist files. %1 and %2 are lists of untranslated file extensions", "Playlist files and music files (%1 %2) (%1 %2)", playlistFormats, musicFormats),
-                i18nc("@option Allow opening playlist files. %1 is an untranslated list of file extensions", "Playlist files (%1) (%1)", playlistFormats),
-                i18nc("@option Allow opening music files. %1 is an untranslated list of file extensions", "Music files (%1) (%1)", musicFormats)
+                KI18n.i18nc("@option Allow opening music and playlist files. %1 and %2 are lists of untranslated file extensions", "Playlist files and music files (%1 %2) (%1 %2)", playlistFormats, musicFormats),
+                KI18n.i18nc("@option Allow opening playlist files. %1 is an untranslated list of file extensions", "Playlist files (%1) (%1)", playlistFormats),
+                KI18n.i18nc("@option Allow opening music files. %1 is an untranslated list of file extensions", "Music files (%1) (%1)", musicFormats)
             ]
             fileMode = FileDialog.OpenFile
             open()
@@ -306,7 +307,7 @@ Kirigami.ApplicationWindow {
         onAccepted: {
             if (fileMode === FileDialog.SaveFile) {
                 if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(selectedFile)) {
-                    mainWindow.showPassiveNotification(i18nc("@label", "Saving failed"), 7000, i18nc("@action:button", "Retry"), () => savePlaylistButton.clicked())
+                    mainWindow.showPassiveNotification(KI18n.i18nc("@label", "Saving failed"), 7000, KI18n.i18nc("@action:button", "Retry"), () => savePlaylistButton.clicked())
                 }
             } else {
                 let selectedFileExtension = selectedFile.toString().split('.').pop()
@@ -619,7 +620,7 @@ Kirigami.ApplicationWindow {
         mprisloader.active = true
 
         if (!ElisaApplication.openFiles(elisaStartupArguments)) {
-            showPassiveNotification(i18nc("@info:status", "Could not load some files. Elisa can only open audio and playlist files."), 7000, "", function() {})
+            showPassiveNotification(KI18n.i18nc("@info:status", "Could not load some files. Elisa can only open audio and playlist files."), 7000, "", function() {})
         }
     }
 

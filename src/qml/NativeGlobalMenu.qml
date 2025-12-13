@@ -10,14 +10,15 @@ import QtQuick
 import QtQuick.Window
 import Qt.labs.platform
 import org.kde.elisa
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 
 MenuBar {
     Menu {
-        title: i18nc("@title:menu", "File")
+        title: KI18n.i18nc("@title:menu", "File")
 
         MenuItem {
-            text: i18nc("@action:inmenu", "Save Playlist…")
+            text: KI18n.i18nc("@action:inmenu", "Save Playlist…")
             icon.name: "document-save"
             onTriggered: {
                 mainWindow.fileDialog.savePlaylist()
@@ -25,7 +26,7 @@ MenuBar {
         }
 
         MenuItem {
-            text: i18nc("@action:inmenu", "Open Playlist…")
+            text: KI18n.i18nc("@action:inmenu", "Open Playlist…")
             icon.name: "document-open"
             onTriggered: {
                 mainWindow.fileDialog.loadPlaylist()
@@ -33,7 +34,7 @@ MenuBar {
         }
 
         MenuItem {
-            text: i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
+            text: KI18n.i18nc("@action:inmenu", "Reset Database and Re-Scan Everything")
             icon.name: "view-refresh"
             onTriggered: ElisaApplication.musicManager.scanCollection(MusicListenersManager.Hard)
         }
@@ -57,38 +58,38 @@ MenuBar {
         }
     }
     Menu {
-        title: i18nc("@title:menu", "View")
+        title: KI18n.i18nc("@title:menu", "View")
 
         MenuItem {
-            text: i18nc("@action:inmenu", "Toggle Party Mode")
+            text: KI18n.i18nc("@action:inmenu", "Toggle Party Mode")
             icon.name: mediaPlayerControl && mediaPlayerControl.isMaximized ? "arrow-up" : "expand"
             onTriggered: mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized
         }
 
         MenuItem {
-            text: mainWindow.visibility === Window.FullScreen ? i18nc("@action:inmenu", "Exit Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
+            text: mainWindow.visibility === Window.FullScreen ? KI18n.i18nc("@action:inmenu", "Exit Full Screen") : KI18n.i18nc("@action:inmenu", "Enter Full Screen")
             icon.name: mainWindow.visibility === Window.FullScreen ? "view-restore" : "view-fullscreen"
             onTriggered: mainWindow.visibility === Window.FullScreen ? mainWindow.restorePreviousStateBeforeFullScreen() : mainWindow.goFullScreen()
         }
 
         Kirigami.Action {
             fromQAction: ElisaApplication.action("toggle_playlist")
-            text: contentView.showPlaylist ? i18nc("@action:inmenu", "Hide Playlist") : i18nc("@action:inmenu", "Show Playlist")
+            text: contentView.showPlaylist ? KI18n.i18nc("@action:inmenu", "Hide Playlist") : KI18n.i18nc("@action:inmenu", "Show Playlist")
             icon.name: contentView.showPlaylist ? "show-menu" : "view-media-playlist"
         }
     }
     Menu {
-        title: i18nc("@title:menu", "Controls")
+        title: KI18n.i18nc("@title:menu", "Controls")
 
         MenuItem {
-            text: ElisaApplication.audioControl.playerPlaybackState === 1 ? i18nc("@action:inmenu", "Pause") : i18nc("@action:inmenu", "Play")
+            text: ElisaApplication.audioControl.playerPlaybackState === 1 ? KI18n.i18nc("@action:inmenu", "Pause") : KI18n.i18nc("@action:inmenu", "Play")
             icon.name: ElisaApplication.audioControl.playerPlaybackState === 1 ? "media-playback-pause" : "media-playback-start"
             onTriggered: ElisaApplication.audioControl.playPause()
         }
 
         MenuItem {
             enabled: ElisaApplication.audioControl.playerPlaybackState !== 0
-            text: i18nc("@action:inmenu", "Stop")
+            text: KI18n.i18nc("@action:inmenu", "Stop")
             icon.name: "media-playback-stop"
             onTriggered: ElisaApplication.audioControl.stop()
         }
@@ -97,12 +98,12 @@ MenuBar {
         }
 
         MenuItem {
-            text: i18nc("@action:inmenu", "Increase Volume")
+            text: KI18n.i18nc("@action:inmenu", "Increase Volume")
             enabled: ElisaApplication.audioPlayer.volume < 100.0
             onTriggered: ElisaApplication.audioPlayer.setVolume(ElisaApplication.audioPlayer.volume + 5)
         }
         MenuItem {
-            text: i18nc("@action:inmenu", "Decrease Volume")
+            text: KI18n.i18nc("@action:inmenu", "Decrease Volume")
             enabled: ElisaApplication.audioPlayer.volume > 0.0
             onTriggered: ElisaApplication.audioPlayer.setVolume(ElisaApplication.audioPlayer.volume - 5)
         }
@@ -112,50 +113,50 @@ MenuBar {
 
         Menu {
             id: shuffleMenu
-            title: i18nc("@title:menu", "Shuffle")
+            title: KI18n.i18nc("@title:menu", "Shuffle")
 
             MenuItemGroup {
                 items: shuffleMenu.items
             }
 
             NativeGlobalMenuShuffleModeItem {
-                text: i18nc("@action:inmenu shuffle all tracks in playlist", "Track")
+                text: KI18n.i18nc("@action:inmenu shuffle all tracks in playlist", "Track")
                 mode: MediaPlayListProxyModel.Track
             }
             NativeGlobalMenuShuffleModeItem {
-                text: i18nc("@action:inmenu shuffle albums in playlist", "Album")
+                text: KI18n.i18nc("@action:inmenu shuffle albums in playlist", "Album")
                 mode: MediaPlayListProxyModel.Album
             }
             NativeGlobalMenuShuffleModeItem {
-                text: i18nc("@action:inmenu disable shuffle mode", "Off")
+                text: KI18n.i18nc("@action:inmenu disable shuffle mode", "Off")
                 mode: MediaPlayListProxyModel.NoShuffle
             }
         }
 
         Menu {
             id: repeatMenu
-            title: i18nc("@title:menu", "Repeat")
+            title: KI18n.i18nc("@title:menu", "Repeat")
 
             MenuItemGroup {
                 items: repeatMenu.items
             }
 
             NativeGlobalMenuPlaylistModeItem {
-                text: i18nc("@action:inmenu repeat all songs in this playlist", "Playlist")
+                text: KI18n.i18nc("@action:inmenu repeat all songs in this playlist", "Playlist")
                 mode: MediaPlayListProxyModel.Playlist
             }
             NativeGlobalMenuPlaylistModeItem {
-                text: i18nc("@action:inmenu repeat this one song", "One")
+                text: KI18n.i18nc("@action:inmenu repeat this one song", "One")
                 mode: MediaPlayListProxyModel.One
             }
             NativeGlobalMenuPlaylistModeItem {
-                text: i18nc("@action:inmenu no repeat mode set; stop playback after last song in the playlist", "None")
+                text: KI18n.i18nc("@action:inmenu no repeat mode set; stop playback after last song in the playlist", "None")
                 mode: MediaPlayListProxyModel.None
             }
         }
     }
     Menu {
-        title: i18nc("@title:menu", "Help")
+        title: KI18n.i18nc("@title:menu", "Help")
 
         NativeMenuItemFromAction {
             action: Kirigami.Action {

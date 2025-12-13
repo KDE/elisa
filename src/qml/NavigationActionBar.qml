@@ -12,6 +12,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Effects as FX
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
@@ -89,8 +90,8 @@ Item {
 
             icon.name: "view-sort"
             text: sortMenu.sortRoleName !== ""
-                ? i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
-                : i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort")
+                ? KI18n.i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort: %1", sortMenu.sortRoleName)
+                : KI18n.i18nc("@label:listbox Sort By Menu Title with no sort selected", "Sort")
 
             onPressed: openMenu()
             Keys.onReturnPressed: openMenu()
@@ -104,8 +105,8 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: "createRadioButton"
-            text: i18nc("@action:button", "Add Radio")
-            ToolTip.text: i18nc("@info:tooltip", "Add radio")
+            text: KI18n.i18nc("@action:button", "Add Radio")
+            ToolTip.text: KI18n.i18nc("@info:tooltip", "Add radio")
             icon.name: "list-add"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: navigationBar.createRadio()
@@ -117,8 +118,8 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: "enqueueButton"
-            text: i18nc("@action:button", "Add to Playlist")
-            ToolTip.text: i18nc("@info:tooltip", "Add to playlist")
+            text: KI18n.i18nc("@action:button", "Add to Playlist")
+            ToolTip.text: KI18n.i18nc("@info:tooltip", "Add to playlist")
             icon.name: "list-add"
             enabled: navigationBar.canEnqueueView
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
@@ -131,8 +132,8 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: "replaceAndPlayButton"
-            text: i18nc("@action:button", "Play Now, Replacing Current Playlist")
-            ToolTip.text: i18nc("@info:tooltip", "Play now, replacing current playlist")
+            text: KI18n.i18nc("@action:button", "Play Now, Replacing Current Playlist")
+            ToolTip.text: KI18n.i18nc("@info:tooltip", "Play now, replacing current playlist")
             icon.name: "media-playback-start"
             enabled: navigationBar.canEnqueueView
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
@@ -144,8 +145,8 @@ Item {
         FlatButtonWithToolTip {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
-            text: i18nc("@action:button Add as the next track(s) in the playlist", "Play Next")
-            ToolTip.text: i18nc("@info:tooltip", "Play next in playlist")
+            text: KI18n.i18nc("@action:button Add as the next track(s) in the playlist", "Play Next")
+            ToolTip.text: KI18n.i18nc("@info:tooltip", "Play next in playlist")
             icon.name: "media-playlist-append-next"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: navigationBar.playNext()
@@ -157,8 +158,8 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             objectName: "showArtistButton"
-            text: i18nc("@action:button navigate to the view for artist of this album", "Display Artist")
-            ToolTip.text: i18nc("@info:tooltip navigate to the view for artist of this album", "Display Artist")
+            text: KI18n.i18nc("@action:button navigate to the view for artist of this album", "Display Artist")
+            ToolTip.text: KI18n.i18nc("@info:tooltip navigate to the view for artist of this album", "Display Artist")
             icon.name: "view-media-artist"
             display: Kirigami.Settings.isMobile && navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
             onClicked: if (navigationBar.secondaryTitle) { navigationBar.showArtist(navigationBar.secondaryTitle) }
@@ -172,8 +173,8 @@ Item {
             action: Kirigami.Action {
                 fromQAction: ElisaApplication.action("toggle_playlist")
             }
-            text: i18nc("@action:button", "Show Playlist")
-            ToolTip.text: i18nc("@info:tooltip", "Show playlist")
+            text: KI18n.i18nc("@action:button", "Show Playlist")
+            ToolTip.text: KI18n.i18nc("@info:tooltip", "Show playlist")
             icon.name: "view-media-playlist"
             display: navigationBar.isWidescreen ? AbstractButton.TextBesideIcon : AbstractButton.IconOnly
         }
@@ -184,11 +185,11 @@ Item {
             Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
             Kirigami.Theme.inherit: false
             text: navigationBar.viewStyle === ViewManager.ListStyle
-                ? i18nc("@action:button", "View as Icon Grid")
-                : i18nc("@action:button", "View as List")
+                ? KI18n.i18nc("@action:button", "View as Icon Grid")
+                : KI18n.i18nc("@action:button", "View as List")
             ToolTip.text: navigationBar.viewStyle === ViewManager.ListStyle
-                ? i18nc("@info:tooltip", "View as icon grid")
-                : i18nc("@info:tooltip", "View as list")
+                ? KI18n.i18nc("@info:tooltip", "View as icon grid")
+                : KI18n.i18nc("@info:tooltip", "View as list")
             icon.name: {
                 switch (navigationBar.viewStyle) {
                 case ViewManager.ListStyle:
@@ -240,7 +241,7 @@ Item {
                     id: showSidebarButton
                     objectName: "showSidebarButton"
                     visible: Kirigami.Settings.isMobile
-                    text: i18nc("@action:button", "Open sidebar")
+                    text: KI18n.i18nc("@action:button", "Open sidebar")
                     icon.name: "open-menu-symbolic"
                     onClicked: mainWindow.globalDrawer.open()
                 }
@@ -248,7 +249,7 @@ Item {
                     id: goPreviousButton
                     objectName: "goPreviousButton"
                     visible: navigationBar.enableGoBack
-                    text: i18nc("@action:button navigate back in the view's stack", "Back")
+                    text: KI18n.i18nc("@action:button navigate back in the view's stack", "Back")
                     icon.name: (Application.layoutDirection === Qt.RightToLeft) ? "go-next" : "go-previous"
                     onClicked: navigationBar.goBack()
                 }
@@ -329,8 +330,8 @@ Item {
                     Kirigami.Theme.inherit: false
                     objectName: "showFilterButton"
                     text: !navigationBar.expandedFilterView
-                    ? i18nc("@action:button displayed as @info:tooltip Show filters in the navigation bar", "Show search and filter toolbar")
-                    : i18nc("@action:button displayed as @info:tooltip Hide filters in the navigation bar", "Hide search and filter toolbar")
+                    ? KI18n.i18nc("@action:button displayed as @info:tooltip Show filters in the navigation bar", "Show search and filter toolbar")
+                    : KI18n.i18nc("@action:button displayed as @info:tooltip Hide filters in the navigation bar", "Hide search and filter toolbar")
                     icon.name: "search"
                     checkable: true
                     checked: navigationBar.expandedFilterView
@@ -423,11 +424,10 @@ Item {
                     Accessible.role: Accessible.EditableText
 
                     placeholderText: navigationBar.showCreateRadioButton
-                        ? i18nc("@info:placeholder radio view filter", "Search for radio station")
+                        ? KI18n.i18nc("@info:placeholder radio view filter", "Search for radio station")
                         : (navigationBar.displaySingleAlbum
-                            ? i18nc("@info:placeholder track view filter single album", "Search for track name, artist, etc.")
-                            : i18nc("@info:placeholder track view filter general", "Search for album name, artist, etc."))
-
+                            ? KI18n.i18nc("@info:placeholder track view filter single album", "Search for track name, artist, etc.")
+                            : KI18n.i18nc("@info:placeholder track view filter general", "Search for album name, artist, etc."))
                     Keys.onEscapePressed: persistentSettings.expandedFilterView = false;
                 }
                 Item {
@@ -435,7 +435,7 @@ Item {
                     visible: navigationBar.showRating && !ElisaApplication.useFavoriteStyleRatings
                 }
                 LabelWithToolTip {
-                    text: i18nc("@label:chooser", "Filter by rating: ")
+                    text: KI18n.i18nc("@label:chooser", "Filter by rating: ")
 
                     visible: navigationBar.showRating && !ElisaApplication.useFavoriteStyleRatings
                 }
@@ -453,7 +453,7 @@ Item {
                     flat: false
                     display: AbstractButton.TextBesideIcon
 
-                    text: i18nc("@action:button", "Only Show Favorites")
+                    text: KI18n.i18nc("@action:button", "Only Show Favorites")
                     icon.name: "starred"
                     checkable: true
                     checked: ratingFilter.starRating === 10

@@ -9,6 +9,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import org.kde.elisa
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 
 /**
@@ -64,7 +65,7 @@ GridLayout {
 
     TextMetrics {
         id: durationTextMetrics
-        text: i18nc("@info:placeholder This is used to preserve a fixed width for the duration text.", "00:00:00")
+        text: KI18n.i18nc("@info:placeholder This is used to preserve a fixed width for the duration text.", "00:00:00")
     }
 
     LabelWithToolTip {
@@ -102,7 +103,7 @@ GridLayout {
         Layout.rightMargin: !root.labelsInline ? 0 : !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
         Layout.leftMargin: !root.labelsInline ? 0 : LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
 
-        Accessible.name: i18nc("@label", "Duration")
+        Accessible.name: KI18n.i18nc("@label", "Duration")
 
         // from, to and value of Slider are rescaled to seconds to avoid integer overflow issues
         from: 0

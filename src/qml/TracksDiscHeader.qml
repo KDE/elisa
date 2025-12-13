@@ -7,6 +7,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 
 Rectangle {
@@ -19,7 +20,7 @@ Rectangle {
     LabelWithToolTip {
         id: discHeaderLabel
 
-        text: i18nc("@title:row disc header text when showing an album", "Disc %1", root.discNumber)
+        text: KI18n.i18nc("@title:row disc header text when showing an album", "Disc %1", root.discNumber)
 
         font.weight: Font.Bold
         font.italic: true

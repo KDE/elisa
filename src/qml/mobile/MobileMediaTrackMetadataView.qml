@@ -9,9 +9,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Window
-import QtQml.Models
 import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 import org.kde.elisa
@@ -72,7 +70,7 @@ Kirigami.ScrollablePage {
             icon.name: 'delete'
             text: i18nc("@action:button", "Delete")
             onTriggered: metadataForm.deleteItem()
-            visible: showDeleteButton && !isCreating
+            visible: metadataForm.showDeleteButton && !metadataForm.isCreating
         }
     ]
 
@@ -94,10 +92,10 @@ Kirigami.ScrollablePage {
             target: ElisaApplication
 
             function onMusicManagerChanged() {
-                if (isCreating) {
+                if (trackMetadata.isCreating) {
                     realModel.initializeForNewRadio()
                 } else {
-                    realModel.initializeByUrl(modelType, fileName)
+                    realModel.initializeByUrl(trackMetadata.modelType, trackMetadata.fileName)
                 }
             }
         }
@@ -110,7 +108,7 @@ Kirigami.ScrollablePage {
         // file location
         RowLayout {
             id: fileNameRow
-            visible: showTrackFileName
+            visible: trackMetadata.showTrackFileName
 
             spacing: Kirigami.Units.largeSpacing
 

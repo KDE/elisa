@@ -75,8 +75,8 @@ BasePlayerControl {
             fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
 
             sourceSize {
-                width: imageSourceSize * Screen.devicePixelRatio
-                height: imageSourceSize * Screen.devicePixelRatio
+                width: trackPlayer.imageSourceSize * Screen.devicePixelRatio
+                height: trackPlayer.imageSourceSize * Screen.devicePixelRatio
             }
 
             fillMode: Image.PreserveAspectFit
@@ -95,7 +95,7 @@ BasePlayerControl {
 
             LabelWithToolTip {
                 id: mainLabel
-                text: title
+                text: trackPlayer.title
                 wrapMode: Text.Wrap
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                 Layout.fillWidth: true
@@ -125,7 +125,7 @@ BasePlayerControl {
 
             LabelWithToolTip {
                 id: authorLabel
-                text: artist
+                text: trackPlayer.artist
                 visible: text.length > 0
                 wrapMode: Text.Wrap
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
@@ -154,7 +154,7 @@ BasePlayerControl {
 
             LabelWithToolTip {
                 id: albumLabel
-                text: album
+                text: trackPlayer.album
                 visible: text.length > 0
                 wrapMode: Text.Wrap
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
@@ -236,7 +236,7 @@ BasePlayerControl {
                         ElisaApplication.mediaPlayListProxyModel.shuffleMode = (ElisaApplication.mediaPlayListProxyModel.shuffleMode + 1) % 3
                     }
                     onPressAndHold: {
-                        menu.popup()
+                        (menu as Menu).popup()
                     }
 
                     menu: Menu {
@@ -289,7 +289,7 @@ BasePlayerControl {
                         ElisaApplication.mediaPlayListProxyModel.repeatMode = (ElisaApplication.mediaPlayListProxyModel.repeatMode + 1) % 3
                     }
                     onPressAndHold: {
-                        menu.popup()
+                        (menu as Menu).popup()
                     }
 
                     menu: Menu {
@@ -351,7 +351,7 @@ BasePlayerControl {
                     Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
-                    enabled: skipBackwardEnabled
+                    enabled: trackPlayer.skipBackwardEnabled
                     text: i18nc("@action:button", "Skip Backward")
                     onClicked: trackPlayer.playPrevious()
                     icon.name: trackPlayer.LayoutMirroring.enabled ? "media-skip-forward" : "media-skip-backward"
@@ -377,7 +377,7 @@ BasePlayerControl {
                     Layout.preferredHeight: Math.floor(Kirigami.Units.gridUnit * 3)
                     Layout.maximumWidth: height
                     Layout.preferredWidth: height
-                    enabled: skipForwardEnabled
+                    enabled: trackPlayer.skipForwardEnabled
                     text: i18nc("@action:button", "Skip Forward")
                     onClicked: trackPlayer.playNext()
                     icon.name: trackPlayer.LayoutMirroring.enabled ? "media-skip-backward" : "media-skip-forward"

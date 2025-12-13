@@ -54,7 +54,7 @@ Window {
     // Close when pressing Esc key
     Shortcut {
         sequence: StandardKey.Cancel
-        onActivated: close()
+        onActivated: trackMetadata.close()
     }
 
     onClosing: close => {
@@ -85,7 +85,7 @@ Window {
             // file location
             RowLayout {
                 id: fileNameRow
-                visible: showTrackFileName
+                visible: trackMetadata.showTrackFileName
                 Layout.topMargin: Kirigami.Units.largeSpacing
                 Layout.leftMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
                 Layout.rightMargin: Kirigami.Units.largeSpacing + Kirigami.Units.smallSpacing
@@ -122,7 +122,7 @@ Window {
                     Layout.minimumHeight: implicitHeight
                     alignment: Qt.AlignLeft
 
-                    visible: showDeleteButton && !isCreating
+                    visible: trackMetadata.showDeleteButton && !trackMetadata.isCreating
 
                     Button {
                         text: i18nc("@action:button", "Delete")
@@ -137,7 +137,7 @@ Window {
                     Layout.minimumHeight: implicitHeight
                     alignment: Qt.AlignRight
 
-                    visible: !isModifying && !isCreating
+                    visible: !trackMetadata.isModifying && !trackMetadata.isCreating
                     standardButtons: DialogButtonBox.Ok
 
                     onAccepted: metadataForm.close()
@@ -182,10 +182,10 @@ Window {
         target: ElisaApplication
 
         function onMusicManagerChanged() {
-            if (isCreating) {
+            if (trackMetadata.isCreating) {
                 realModel.initializeForNewRadio()
             } else {
-                realModel.initializeByUrl(modelType, fileName)
+                realModel.initializeByUrl(trackMetadata.modelType, trackMetadata.fileName)
             }
         }
     }

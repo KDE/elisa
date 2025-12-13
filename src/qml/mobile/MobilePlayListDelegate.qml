@@ -33,7 +33,7 @@ BasePlayListDelegate {
     function openContextMenu() {
         mainWindow.contextDrawer.close();
         contextMenuLoader.active = true;
-        contextMenuLoader.item.open();
+        (contextMenuLoader.item as Kirigami.MenuDialog).open();
     }
 
     contentItem: Item {
@@ -46,20 +46,20 @@ BasePlayListDelegate {
 
             sourceComponent: MobileMediaTrackMetadataView {
                 fileName: playListEntry.fileName
-                showImage: entryType !== ElisaUtils.Radio
-                modelType: entryType
-                showTrackFileName: entryType !== ElisaUtils.Radio
-                showDeleteButton: entryType === ElisaUtils.Radio
+                showImage: playListEntry.entryType !== ElisaUtils.Radio
+                modelType: playListEntry.entryType
+                showTrackFileName: playListEntry.entryType !== ElisaUtils.Radio
+                showDeleteButton: playListEntry.entryType === ElisaUtils.Radio
                 editableMetadata: playListEntry.metadataModifiableRole
-                canAddMoreMetadata: entryType !== ElisaUtils.Radio
+                canAddMoreMetadata: playListEntry.entryType !== ElisaUtils.Radio
             }
         }
 
         Loader {
-            active: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
+            active: playListEntry.isPlaying === MediaPlayList.IsPlaying || playListEntry.isPlaying === MediaPlayList.IsPaused
             sourceComponent: Rectangle {
-                width: background.width * (ElisaApplication.audioPlayer.position / ElisaApplication.audioPlayer.duration)
-                height: background.height
+                width: playListEntry.background.width * (ElisaApplication.audioPlayer.position / ElisaApplication.audioPlayer.duration)
+                height: playListEntry.background.height
                 color: palette.mid
             }
         }
@@ -91,7 +91,7 @@ BasePlayListDelegate {
                 Label {
                     id: mainLabelDetailed
 
-                    text: title
+                    text: playListEntry.title
                     textFormat: Text.PlainText
                     color: palette.text
                     elide: Text.ElideRight
@@ -104,13 +104,13 @@ BasePlayListDelegate {
 
                     text: {
                         let labelText = ""
-                        if (artist) {
-                            labelText += artist
+                        if (playListEntry.artist) {
+                            labelText += playListEntry.artist
                         }
-                        if (album !== '') {
-                            labelText += ' - ' + album
-                            if (!hideDiscNumber && discNumber !== -1) {
-                                labelText += ' - CD ' + discNumber
+                        if (playListEntry.album !== '') {
+                            labelText += ' - ' + playListEntry.album
+                            if (!playListEntry.hideDiscNumber && playListEntry.discNumber !== -1) {
+                                labelText += ' - CD ' + playListEntry.discNumber
                             }
                         }
                         return labelText;
@@ -130,7 +130,7 @@ BasePlayListDelegate {
             LabelWithToolTip {
                 id: durationLabel
 
-                text: duration
+                text: playListEntry.duration
 
                 font.weight: Font.Light
                 color: palette.text
@@ -143,9 +143,9 @@ BasePlayListDelegate {
             FlatButtonWithToolTip {
                 id: contextMenuButton
                 scale: LayoutMirroring.enabled ? -1 : 1
-                text: entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
+                text: playListEntry.entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
                 icon.name: "view-more-symbolic"
-                onClicked: openContextMenu()
+                onClicked: playListEntry.openContextMenu()
                 activeFocusOnTab: playListEntry.isSelected
             }
         }
@@ -169,7 +169,7 @@ BasePlayListDelegate {
                         onTriggered: ElisaApplication.showInFolder(playListEntry.fileName)
                     },
                     Kirigami.Action {
-                        visible: isValid
+                        visible: playListEntry.isValid
                         icon.name: "documentinfo"
                         text: i18nc("@action:button Show track metadata", "View details")
                         onTriggered: {
@@ -182,7 +182,7 @@ BasePlayListDelegate {
                         }
                     },
                     Kirigami.Action {
-                        visible: isValid
+                        visible: playListEntry.isValid
                         icon.name: "error"
                         text: i18nc("@action:button", "Remove from queue")
                         onTriggered: playListEntry.removeFromPlaylist(playListEntry.index)

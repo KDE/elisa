@@ -285,10 +285,10 @@ Item {
                         Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                         Layout.fillWidth: true
 
-                        visible: secondaryTitle !== ""
+                        visible: navigationBar.secondaryTitle !== ""
                         opacity: Theme.subtitleOpacity
 
-                        text: secondaryTitle
+                        text: navigationBar.secondaryTitle
                         elide: Text.ElideRight
 
                         MouseArea {

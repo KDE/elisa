@@ -146,22 +146,22 @@ FocusScope {
                 value: navigationBar.sortRole
             }
 
-            onEnqueue: contentModel.enqueueAll(ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
+            onEnqueue: abstractView.contentModel.enqueueAll(ElisaUtils.AppendPlayList, ElisaUtils.DoNotTriggerPlay)
 
-            onReplaceAndPlay: contentModel.enqueueAll(ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
+            onReplaceAndPlay: abstractView.contentModel.enqueueAll(ElisaUtils.ReplacePlayList, ElisaUtils.TriggerPlay)
 
-            onPlayNext: contentModel.enqueueAll(ElisaUtils.AfterCurrentTrack, ElisaUtils.DoNotTriggerPlay)
+            onPlayNext: abstractView.contentModel.enqueueAll(ElisaUtils.AfterCurrentTrack, ElisaUtils.DoNotTriggerPlay)
 
             onGoBack: abstractView.viewManager.goBack()
 
             onSortOrderChanged: {
-                if (!contentModel || !navigationBar.enableSorting) {
+                if (!abstractView.contentModel || !navigationBar.enableSorting) {
                     return
                 }
 
-                if ((contentModel.sortedAscending && sortOrder !== Qt.AscendingOrder) ||
-                    (!contentModel.sortedAscending && sortOrder !== Qt.DescendingOrder)) {
-                    contentModel.sortModel(sortOrder)
+                if ((abstractView.contentModel.sortedAscending && sortOrder !== Qt.AscendingOrder) ||
+                    (!abstractView.contentModel.sortedAscending && sortOrder !== Qt.DescendingOrder)) {
+                    abstractView.contentModel.sortModel(sortOrder)
                 }
             }
         }
@@ -186,7 +186,7 @@ FocusScope {
         height: Kirigami.Units.gridUnit * 5
         width: height
 
-        active: realModel ? realModel.isBusy : true
+        active: abstractView.realModel ? abstractView.realModel.isBusy : true
         visible: active && status === Loader.Ready
 
         sourceComponent: BusyIndicator {

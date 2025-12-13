@@ -30,7 +30,7 @@ Window {
     // Close when pressing Esc key
     Shortcut {
         sequence: StandardKey.Cancel
-        onActivated: close()
+        onActivated: dialog.close()
     }
 
     Kirigami.ScrollablePage {

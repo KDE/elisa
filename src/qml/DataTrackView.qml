@@ -58,7 +58,7 @@ AbstractDataView {
             if (Kirigami.Settings.isMobile) {
                 mainWindow.pageStack.layers.push(item);
             } else {
-                item.show();
+                (item as MediaTrackMetadataView).show();
             }
         }
     }
@@ -124,7 +124,7 @@ AbstractDataView {
         }
 
         onCallOpenMetaDataView: (url, entryType) => {
-            openMetaDataView(databaseId, url, entryType)
+            listView.openMetaDataView(listView.databaseId, url, entryType)
         }
     }
 
@@ -137,16 +137,16 @@ AbstractDataView {
 
         reuseItems: true
 
-        model: delegateModel
+        model: listView.delegateModel
 
         // HACK: setting currentIndex to -1 in mobile for some reason causes segfaults, no idea why
         currentIndex: Kirigami.Settings.isMobile ? 0 : -1
 
         Accessible.role: Accessible.List
-        Accessible.name: mainTitle
-        Accessible.description: secondaryTitle
+        Accessible.name: listView.mainTitle
+        Accessible.description: listView.secondaryTitle
 
-        section.property: showSection ? "discNumber" : ""
+        section.property: listView.showSection ? "discNumber" : ""
         section.criteria: ViewSection.FullString
         section.labelPositioning: ViewSection.InlineLabels
         section.delegate: TracksDiscHeader {
@@ -161,14 +161,14 @@ AbstractDataView {
     }
 
     Connections {
-        target: navigationBar // lives in parent item
+        target: listView.navigationBar // lives in parent item
 
         function onCreateRadio() {
             listView.openCreateRadioView()
         }
 
         function onShowArtist(name: string) {
-            viewManager.openArtistView(name)
+            listView.viewManager.openArtistView(name)
         }
     }
 }

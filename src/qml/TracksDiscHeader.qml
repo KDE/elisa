@@ -10,6 +10,7 @@ import QtQuick
 import org.kde.kirigami as Kirigami
 
 Rectangle {
+    id: root
     property int discNumber
 
     color: palette.mid
@@ -18,7 +19,7 @@ Rectangle {
     LabelWithToolTip {
         id: discHeaderLabel
 
-        text: i18nc("@title:row disc header text when showing an album", "Disc %1", discNumber)
+        text: i18nc("@title:row disc header text when showing an album", "Disc %1", root.discNumber)
 
         font.weight: Font.Bold
         font.italic: true

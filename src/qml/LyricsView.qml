@@ -103,7 +103,7 @@ Item {
                     enabled: lyricsModel.isLRC
                     cursorShape: enabled ? Qt.PointingHandCursor : undefined
                     onClicked: {
-                        ElisaApplication.audioPlayer.position = timestamp;
+                        ElisaApplication.audioPlayer.position = lyricsDelegate.timestamp;
                     }
                 }
             }

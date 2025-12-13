@@ -72,9 +72,9 @@ Kirigami.Page {
                         displayHint: Kirigami.DisplayHint.KeepVisible
                         enabled: ElisaApplication.mediaPlayListProxyModel ? ElisaApplication.mediaPlayListProxyModel.tracksCount > 0 : false
                         onTriggered: {
-                            playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
-                            playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
-                            playListView.currentItem.forceActiveFocus()
+                            topItem.playListView.positionViewAtIndex(ElisaApplication.mediaPlayListProxyModel.currentTrackRow, ListView.Contain)
+                            topItem.playListView.currentIndex = ElisaApplication.mediaPlayListProxyModel.currentTrackRow
+                            topItem.playListView.currentItem.forceActiveFocus()
                         }
                     },
                     Kirigami.Action {

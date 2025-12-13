@@ -8,8 +8,6 @@ pragma ComponentBehavior: Bound
 
 import org.kde.kirigami as Kirigami
 import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
 
 Kirigami.GlobalDrawer {
     id: drawer
@@ -35,8 +33,8 @@ Kirigami.GlobalDrawer {
     }
 
     Component.onCompleted: {
-        const settings = action.createObject(drawer, {"icon.name": "settings-configure", text: i18nc("@title:window", "Settings")});
-        settings.onTriggered.connect(() => {
+        const settings = action.createObject(drawer, {"icon.name": "settings-configure", text: i18nc("@title:window", "Settings")}) as Kirigami.Action;
+        settings.triggered.connect(() => {
             mainWindow.pageStack.layers.push("MobileSettingsPage.qml");
         });
         drawer.actions.push(settings);
@@ -54,10 +52,10 @@ Kirigami.GlobalDrawer {
                 // HACK: the images provided by the model are in the form "image://icon/view-media-genre"
                 // remove the "image://icon/" in order to use icons
                 const icon = String(image).substring(13);
-                const object = action.createObject(drawer, {"icon.name": icon, text: title});
-                object.onTriggered.connect(() => {
-                    viewIndex = index;
-                    switchView(index);
+                const object = action.createObject(drawer, {"icon.name": icon, text: title}) as Kirigami.Action;
+                object.triggered.connect(() => {
+                    drawer.viewIndex = index;
+                    drawer.switchView(index);
                 });
                 drawer.actions.push(object);
             }

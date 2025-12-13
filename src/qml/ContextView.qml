@@ -428,8 +428,8 @@ Kirigami.Page {
         target: ElisaApplication
 
         function onMusicManagerChanged() {
-            if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
-                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl)
+            if (ElisaApplication.musicManager && topItem.trackType !== undefined && topItem.databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(topItem.trackType, topItem.databaseId, topItem.fileUrl)
             }
         }
     }

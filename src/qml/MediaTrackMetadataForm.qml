@@ -71,6 +71,7 @@ Kirigami.FormLayout {
                 case Dialogs.MessageDialog.Save: {
                     form.metadataModel.saveData()
                     form.close()
+                    break
                 }
                 case Dialogs.MessageDialog.Discard: {
                     form.metadataModel.resetData()
@@ -91,10 +92,10 @@ Kirigami.FormLayout {
     Kirigami.InlineMessage {
         id: formInvalidNotification
 
-        text: i18nc("@label", "Data is not valid. %1", metadataModel.errorMessage)
+        text: i18nc("@label", "Data is not valid. %1", form.metadataModel.errorMessage)
         type: Kirigami.MessageType.Error
         showCloseButton: false
-        visible: !metadataModel.isDataValid && metadataModel.isDirty
+        visible: !form.metadataModel.isDataValid && form.metadataModel.isDirty
 
         Layout.topMargin: Kirigami.Units.largeSpacing
         Layout.fillWidth: true
@@ -110,7 +111,7 @@ Kirigami.FormLayout {
         ImageWithFallback {
             id: metadataImage
 
-            source: metadataModel.coverUrl
+            source: form.metadataModel.coverUrl
             fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
 
             sourceSize.width: Theme.coverImageSize * Screen.devicePixelRatio
@@ -168,8 +169,8 @@ Kirigami.FormLayout {
                 onEdited: delegateRoot.model.display = display
                 readOnly: form.readOnly || delegateRoot.isReadOnly
 
-                onAddField: metadataModel.addData(proxyModel.mapRowToSource(index))
-                onDeleteField: metadataModel.removeData(proxyModel.mapRowToSource(index))
+                onAddField: form.metadataModel.addData(proxyModel.mapRowToSource(index))
+                onDeleteField: form.metadataModel.removeData(proxyModel.mapRowToSource(index))
                 Layout.minimumHeight: Kirigami.Units.gridUnit * 1.5
             }
         }

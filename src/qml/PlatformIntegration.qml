@@ -31,7 +31,7 @@ Item {
         function onClosing(close) {
             if (systemTrayIcon.available && root.showSystemTrayIcon && !root.forceCloseWindow) {
                 close.accepted = false
-                elisaMainWindow.hide()
+                root.elisaMainWindow.hide()
             }
         }
     }

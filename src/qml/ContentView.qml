@@ -64,7 +64,7 @@ SplitView {
         onViewIndexChanged: contentViewContainer.viewIndexChanged()
 
         onOpenGridView: configurationData => {
-            openViewCommon(dataGridView, {
+            contentViewContainer.openViewCommon(dataGridView, {
                 filterType: configurationData.filterType,
                 mainTitle: configurationData.mainTitle,
                 secondaryTitle: configurationData.secondaryTitle,
@@ -89,7 +89,7 @@ SplitView {
         }
 
         onOpenTrackView: configurationData => {
-            openViewCommon(dataTrackView, {
+            contentViewContainer.openViewCommon(dataTrackView, {
                 filterType: configurationData.filterType,
                 isSubPage: configurationData.expectedDepth > 1,
                 mainTitle: configurationData.mainTitle,
@@ -114,7 +114,7 @@ SplitView {
         }
 
         onSwitchContextView: (expectedDepth, mainTitle, imageUrl) => {
-            openViewCommon(albumContext, {opacity: 1}, expectedDepth)
+            contentViewContainer.openViewCommon(albumContext, {opacity: 1}, expectedDepth)
         }
 
         onPopOneView: {
@@ -153,8 +153,8 @@ SplitView {
         active: !Kirigami.Settings.isMobile
         visible: active
 
-        SplitView.minimumWidth: active ? item.iconsOnlyMinWidth : 0
-        SplitView.preferredWidth: active ? item.wideWidth : 0
+        SplitView.minimumWidth: active ? (item as ViewSelector).iconsOnlyMinWidth : 0
+        SplitView.preferredWidth: active ? (item as ViewSelector).wideWidth : 0
 
         function updateSidebarIndex() {
             if (status === Loader.Ready) {
@@ -188,7 +188,7 @@ SplitView {
         MouseArea {
             anchors.fill: parent
             acceptedButtons: Qt.BackButton
-            onClicked: goBack()
+            onClicked: contentViewContainer.goBack()
         }
 
         StackView {
@@ -288,15 +288,11 @@ SplitView {
                 name: "playlistVisible"
                 when: mainWindow.isWideScreen && contentViewContainer.showPlaylist
                 PropertyChanges {
-                    target: playListContainer
-                    visible: true
-                    SplitView.minimumWidth: 10 * Kirigami.Units.gridUnit
-                    SplitView.preferredWidth: hiddenCachedWidth
-                    preferredWidth: SplitView.preferredWidth
-                }
-                PropertyChanges {
-                    target: playList
-                    width: playListContainer.width
+                    playListContainer.visible: true
+                    playListContainer.SplitView.minimumWidth: 10 * Kirigami.Units.gridUnit
+                    playListContainer.SplitView.preferredWidth: playListContainer.hiddenCachedWidth
+                    playListContainer.preferredWidth: playListContainer.SplitView.preferredWidth
+                    playList.width: playListContainer.width
                 }
             }
         ]
@@ -321,7 +317,7 @@ SplitView {
         id: dataGridView
 
         DataGridView {
-            expandedFilterView: showExpandedFilterView
+            expandedFilterView: contentViewContainer.showExpandedFilterView
         }
     }
 
@@ -329,7 +325,7 @@ SplitView {
         id: dataTrackView
 
         DataTrackView {
-            expandedFilterView: showExpandedFilterView
+            expandedFilterView: contentViewContainer.showExpandedFilterView
         }
     }
 

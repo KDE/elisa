@@ -118,7 +118,7 @@ ItemDelegate {
     // open mobile context menu
     function openContextMenu() {
         contextMenuLoader.active = true;
-        contextMenuLoader.item.open();
+        (contextMenuLoader.item as Kirigami.MenuDialog).open();
     }
 
     onHasActiveFocusChanged: {
@@ -158,7 +158,7 @@ ItemDelegate {
                     fillMode: Image.PreserveAspectFit
                     smooth: true
 
-                    source: imageUrl
+                    source: mediaTrack.imageUrl
                     fallback: Theme.defaultAlbumImage
 
                     asynchronous: true
@@ -191,40 +191,40 @@ ItemDelegate {
                     Layout.fillWidth: true
 
                     text: {
-                        if (detailedView) {
-                            return title;
+                        if (mediaTrack.detailedView) {
+                            return mediaTrack.title;
                         } else if (Kirigami.Settings.isMobile) {
                             // specific artist/album page (mobile)
                             // not detailed view refers to an album page, in which we should put track numbers
-                            if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
+                            if (mediaTrack.trackNumber !== 0 && mediaTrack.trackNumber !== -1 && mediaTrack.trackNumber !== undefined) {
                                 return i18nc("@item:intable %1: track number. %2: track title.",
                                         "%1 – %2",
-                                        trackNumber.toLocaleString(Qt.locale(), 'f', 0),
-                                        title);
+                                        mediaTrack.trackNumber.toLocaleString(Qt.locale(), 'f', 0),
+                                        mediaTrack.title);
                             } else {
-                                return title;
+                                return mediaTrack.title;
                             }
                         } else {
                             // specific artist/album page (desktop)
-                            if (trackNumber !== 0 && trackNumber !== -1 && trackNumber !== undefined) {
-                                if (albumArtist !== undefined && artist !== albumArtist) {
+                            if (mediaTrack.trackNumber !== 0 && mediaTrack.trackNumber !== -1 && mediaTrack.trackNumber !== undefined) {
+                                if (mediaTrack.albumArtist !== undefined && mediaTrack.artist !== mediaTrack.albumArtist) {
                                     return i18nc("@item:intable %1: track number. %2: track title. %3: artist name",
                                                 "%1 – %2 – %3",
-                                                trackNumber.toLocaleString(Qt.locale(), 'f', 0),
-                                                title, artist);
+                                                mediaTrack.trackNumber.toLocaleString(Qt.locale(), 'f', 0),
+                                                mediaTrack.title, mediaTrack.artist);
                                 } else {
                                     return i18nc("@item:intable %1: track number. %2: track title.",
                                                 "%1 – %2",
-                                                trackNumber.toLocaleString(Qt.locale(), 'f', 0),
-                                                title);
+                                                mediaTrack.trackNumber.toLocaleString(Qt.locale(), 'f', 0),
+                                                mediaTrack.title);
                                 }
                             } else {
-                                if (albumArtist !== undefined && artist !== albumArtist) {
+                                if (mediaTrack.albumArtist !== undefined && mediaTrack.artist !== mediaTrack.albumArtist) {
                                     return i18nc("@item:intable %1: track title. %2: artist name",
                                                 "%1 – %2",
-                                                title, artist);
+                                                mediaTrack.title, mediaTrack.artist);
                                 } else {
-                                    return title;
+                                    return mediaTrack.title;
                                 }
                             }
                         }
@@ -243,20 +243,20 @@ ItemDelegate {
 
                     text: {
                         let labelText = ""
-                        if (artist) {
-                            labelText += artist
+                        if (mediaTrack.artist) {
+                            labelText += mediaTrack.artist
                         }
-                        if (album !== '' && detailedView) { // don't show album name on not detailed view
-                            labelText += ' - ' + album
-                            if (!hideDiscNumber && discNumber !== -1) {
-                                labelText += ' - CD ' + discNumber
+                        if (mediaTrack.album !== '' && mediaTrack.detailedView) { // don't show album name on not detailed view
+                            labelText += ' - ' + mediaTrack.album
+                            if (!mediaTrack.hideDiscNumber && mediaTrack.discNumber !== -1) {
+                                labelText += ' - CD ' + mediaTrack.discNumber
                             }
                         }
                         return labelText;
                     }
                     horizontalAlignment: Text.AlignLeft
 
-                    visible: text.length > 0 && (Kirigami.Settings.isMobile || detailedView)
+                    visible: text.length > 0 && (Kirigami.Settings.isMobile || mediaTrack.detailedView)
                     opacity: Theme.subtitleOpacity
                     textFormat: Text.PlainText
 
@@ -316,11 +316,11 @@ ItemDelegate {
             }
             RatingStar {
                 id: ratingWidget
-                visible: !Kirigami.Settings.isMobile && (mediaTrack.editingRating || (rating > 0 && !mediaTrack.hovered && !mediaTrack.hasActiveFocus && !ElisaApplication.useFavoriteStyleRatings))
+                visible: !Kirigami.Settings.isMobile && (mediaTrack.editingRating || (mediaTrack.rating > 0 && !mediaTrack.hovered && !mediaTrack.hasActiveFocus && !ElisaApplication.useFavoriteStyleRatings))
 
                 readOnly: !mediaTrack.editingRating
 
-                starRating: rating
+                starRating: mediaTrack.rating
 
                 iconColor: mediaTrack.iconColor
 
@@ -328,7 +328,7 @@ ItemDelegate {
 
                 onRatingEdited: {
                     mediaTrack.editingRating = false
-                    trackRatingChanged(trackUrl, starRating);
+                    mediaTrack.trackRatingChanged(mediaTrack.trackUrl, starRating);
                 }
             }
             Loader {
@@ -347,7 +347,7 @@ ItemDelegate {
             LabelWithToolTip {
                 id: durationLabel
 
-                text: duration
+                text: mediaTrack.duration
 
                 horizontalAlignment: Text.AlignRight
 
@@ -370,7 +370,7 @@ ItemDelegate {
                 text: i18nc("@action:button", "Song Options")
                 icon.name: "view-more-symbolic"
                 icon.color: mediaTrack.iconColor
-                onClicked: openContextMenu()
+                onClicked: mediaTrack.openContextMenu()
             }
         }
     }

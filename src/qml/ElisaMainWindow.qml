@@ -27,11 +27,11 @@ Kirigami.ApplicationWindow {
     Connections {
         target: ElisaApplication.mediaPlayListProxyModel
         function onPlayListLoadFailed() {
-            showPassiveNotification(i18nc("@label", "Loading failed"), 7000, i18nc("@action:button", "Retry"), () => loadPlaylistButton.clicked())
+            mainWindow.showPassiveNotification(i18nc("@label", "Loading failed"), 7000, i18nc("@action:button", "Retry"), () => loadPlaylistButton.clicked())
         }
 
         function onDisplayUndoNotification() {
-            showPassiveNotification(i18nc("@label", "Playlist cleared"), 7000, i18nc("@action:button", "Undo"), () => ElisaApplication.mediaPlayListProxyModel.undoClearPlayList())
+            mainWindow.showPassiveNotification(i18nc("@label", "Playlist cleared"), 7000, i18nc("@action:button", "Undo"), () => ElisaApplication.mediaPlayListProxyModel.undoClearPlayList())
         }
     }
 
@@ -39,7 +39,7 @@ Kirigami.ApplicationWindow {
         target: ElisaApplication
 
         function onOpenAboutKDEPage() {
-            const openDialogWindow = pageStack.pushDialogLayer(aboutKDEPage, {
+            const openDialogWindow = mainWindow.pageStack.pushDialogLayer(aboutKDEPage, {
                 width: ElisaApplication.width
             }, {
                 width: Kirigami.Units.gridUnit * 30,
@@ -49,7 +49,7 @@ Kirigami.ApplicationWindow {
         }
 
         function onOpenAboutAppPage() {
-            const openDialogWindow = pageStack.pushDialogLayer(aboutAppPage, {
+            const openDialogWindow = mainWindow.pageStack.pushDialogLayer(aboutAppPage, {
                 width: ElisaApplication.width
             }, {
                 width: Kirigami.Units.gridUnit * 30,
@@ -85,11 +85,11 @@ Kirigami.ApplicationWindow {
 
         function onSeek() {
             console.log("onSeek");
-            ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position + 10000);
+            ElisaApplication.audioControl.seek(mainWindow.mediaPlayerControl.playerControl.position + 10000);
         }
 
         function onScrub() {
-            ElisaApplication.audioControl.seek(mediaPlayerControl.playerControl.position - 10000);
+            ElisaApplication.audioControl.seek(mainWindow.mediaPlayerControl.playerControl.position - 10000);
         }
 
         function onNextTrack() {
@@ -109,7 +109,7 @@ Kirigami.ApplicationWindow {
         }
 
         function onTogglePartyMode() {
-            mediaPlayerControl.isMaximized = !mediaPlayerControl.isMaximized;
+            mainWindow.mediaPlayerControl.isMaximized = !mainWindow.mediaPlayerControl.isMaximized;
         }
     }
 
@@ -119,7 +119,7 @@ Kirigami.ApplicationWindow {
 
         function updateSidebarIndex() {
             if (status === Loader.Ready) {
-                item.viewIndex = item.model.mapRowFromSource(contentView.viewManager.viewIndex)
+                item.viewIndex = (item as MobileSidebar).model.mapRowFromSource(contentView.viewManager.viewIndex)
             }
         }
 
@@ -130,7 +130,7 @@ Kirigami.ApplicationWindow {
         }
     }
 
-    globalDrawer: mobileSidebar.active ? mobileSidebar.item : null
+    globalDrawer: mobileSidebar.active ? mobileSidebar.item as MobileSidebar : null
 
     contextDrawer: Kirigami.ContextDrawer {
         id: playlistDrawer
@@ -160,11 +160,10 @@ Kirigami.ApplicationWindow {
                     name: "inactive"
                     when: mainWindow.isWideScreen && !mainWindow.inPartyMode
                     PropertyChanges {
-                        target: playlistDrawer
-                        collapsed: true
-                        visible: false
-                        drawerOpen: false
-                        handleVisible: false
+                        playlistDrawer.collapsed: true
+                        playlistDrawer.visible: false
+                        playlistDrawer.drawerOpen: false
+                        playlistDrawer.handleVisible: false
                     }
                 }
             ]
@@ -173,10 +172,10 @@ Kirigami.ApplicationWindow {
 
     DropArea {
         anchors.fill: parent
-        onDropped: {
+        onDropped: drop => {
             if (drop.hasUrls) {
                 if (!ElisaApplication.openFiles(drop.urls)) {
-                    showPassiveNotification(i18nc("@info:status", "Could not load some files. Elisa can only open audio and playlist files."), 7000, "", function() {})
+                    mainWindow.showPassiveNotification(i18nc("@info:status", "Could not load some files. Elisa can only open audio and playlist files."), 7000, "", function() {})
                 }
             }
         }
@@ -192,7 +191,7 @@ Kirigami.ApplicationWindow {
         interval: 10
         running: true
         repeat: false
-        onTriggered: { transitionsEnabled = true }
+        onTriggered: { mainWindow.transitionsEnabled = true }
     }
 
     minimumWidth: Kirigami.Units.gridUnit * (Kirigami.Settings.isMobile ? 17 : 34)
@@ -223,7 +222,7 @@ Kirigami.ApplicationWindow {
             previousStateBeforeFullScreen = "minimized"
         } else if (visibility === Window.Hidden) {
             previousStateBeforeFullScreen = "hidden"
-        } else if (visibility === Window.Automatic){
+        } else if (visibility === Window.AutomaticVisibility){
             previousStateBeforeFullScreen = "automatic"
         }
         showFullScreen()
@@ -242,7 +241,7 @@ Kirigami.ApplicationWindow {
     readonly property var mediaPlayerControl: Kirigami.Settings.isMobile ? mobileFooterBarLoader.item : headerBarLoader.item
     readonly property alias fileDialog: fileDialog
 
-    readonly property bool inPartyMode: headerBarLoader.item?.isMaximized ?? false
+    readonly property bool inPartyMode: (headerBarLoader.item as HeaderBar)?.isMaximized ?? false
     readonly property bool isWideScreen: mainWindow.width >= Theme.viewSelectorSmallSizeThreshold
     readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > headerBarLoader.toolBarHeight * 2
 
@@ -307,7 +306,7 @@ Kirigami.ApplicationWindow {
         onAccepted: {
             if (fileMode === FileDialog.SaveFile) {
                 if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(selectedFile)) {
-                    showPassiveNotification(i18nc("@label", "Saving failed"), 7000, i18nc("@action:button", "Retry"), () => savePlaylistButton.clicked())
+                    mainWindow.showPassiveNotification(i18nc("@label", "Saving failed"), 7000, i18nc("@action:button", "Retry"), () => savePlaylistButton.clicked())
                 }
             } else {
                 let selectedFileExtension = selectedFile.toString().split('.').pop()
@@ -361,9 +360,9 @@ Kirigami.ApplicationWindow {
             persistentSettings.showPlaylist = contentView.showPlaylist
 
             if (Kirigami.Settings.isMobile) {
-                persistentSettings.headerBarIsMaximized = mobileFooterBarLoader.item.isMaximized
+                persistentSettings.headerBarIsMaximized = (mobileFooterBarLoader.item as MobileFooterBar).isMaximized
             } else {
-                persistentSettings.headerBarIsMaximized = headerBarLoader.item.isMaximized
+                persistentSettings.headerBarIsMaximized = (headerBarLoader.item as HeaderBar).isMaximized
             }
         }
     }
@@ -395,13 +394,13 @@ Kirigami.ApplicationWindow {
     Connections {
         target: ElisaApplication.audioPlayer
         function onVolumeChanged() {
-            if (mediaPlayerControl !== null) {
-                mediaPlayerControl.playerControl.volume = ElisaApplication.audioPlayer.volume
+            if (mainWindow.mediaPlayerControl !== null) {
+                mainWindow.mediaPlayerControl.playerControl.volume = ElisaApplication.audioPlayer.volume
             }
         }
         function onMutedChanged() {
-            if (mediaPlayerControl !== null) {
-                mediaPlayerControl.playerControl.muted = ElisaApplication.audioPlayer.muted
+            if (mainWindow.mediaPlayerControl !== null) {
+                mainWindow.mediaPlayerControl.playerControl.muted = ElisaApplication.audioPlayer.muted
             }
         }
     }
@@ -416,9 +415,9 @@ Kirigami.ApplicationWindow {
 
         // footer bar fills the whole page, so only be in front of the main view when it is opened
         // otherwise, it captures all mouse/touch events on the main view
-        z: (!item || item.contentY === 0) ? (mainWindow.layerOnTop ? -1 : 0) : 999
+        z: (!item || (item as MobileFooterBar).contentY === 0) ? (mainWindow.layerOnTop ? -1 : 0) : 999
 
-        readonly property real toolBarHeight: active ? item.trackControl.height : 0
+        readonly property real toolBarHeight: active ? (item as MobileFooterBar).trackControl.height : 0
 
         sourceComponent: MobileFooterBar {
             id: mobileFooterBar
@@ -473,16 +472,16 @@ Kirigami.ApplicationWindow {
                 Layout.minimumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : toolBarHeight
                 Layout.maximumHeight: persistentSettings.isMaximized ? Layout.maximumHeight : Math.round(mainWindow.height * 0.2 + toolBarHeight)
                 Layout.fillWidth: true
-                Layout.preferredHeight: status === Loader.Ready ? item.handlePosition : normalHeight
+                Layout.preferredHeight: status === Loader.Ready ? (item as HeaderBar).handlePosition : normalHeight
 
                 // height when HeaderBar is not maximized
                 property int normalHeight : persistentSettings.headerBarHeight
-                readonly property real toolBarHeight: active ? item.playerControl.height : 0
+                readonly property real toolBarHeight: active ? (item as HeaderBar).playerControl.height : 0
 
                 Component.onDestruction: {
                     // saving height in onAboutToQuit() leads to invalid values, so we do it here
                     if (!Kirigami.Settings.isMobile) {
-                        if (headerBarLoader.item.isMaximized) {
+                        if ((headerBarLoader.item as HeaderBar).isMaximized) {
                             persistentSettings.headerBarHeight = normalHeight
                         } else {
                             persistentSettings.headerBarHeight = Layout.preferredHeight
@@ -518,38 +517,36 @@ Kirigami.ApplicationWindow {
                             State {
                                 name: "headerBarIsNormal"
                                 when: !headerBar.isMaximized
-                                changes: [
-                                    PropertyChanges {
-                                        target: mainWindow
-                                        minimumHeight: mainWindow.minHeight * 1.5
-                                        explicit: true
-                                    },
-                                    PropertyChanges {
-                                        target: headerBarLoader
-                                        Layout.preferredHeight: headerBar.handlePosition
-                                    }
-                                ]
+
+                                PropertyChanges {
+                                    mainWindow.minimumHeight: mainWindow.minHeight * 1.5
+                                    explicit: true
+                                }
+                                PropertyChanges {
+                                    headerBarLoader.Layout.preferredHeight: headerBar.handlePosition
+                                }
                             },
                             State {
                                 name: "headerBarIsMaximized"
                                 // Workaround: only do this when transitions are enabled, or the playlist layout will be messed up
-                                when: headerBar.isMaximized && transitionsEnabled
-                                changes: [
-                                    PropertyChanges {
-                                        target: mainWindow
-                                        minimumHeight: mainWindow.minHeight
-                                        explicit: true
-                                    },
-                                    PropertyChanges {
-                                        target: headerBarLoader
-                                        Layout.minimumHeight: mainWindow.height
-                                        Layout.maximumHeight: mainWindow.height
-                                        Layout.preferredHeight: Layout.maximumHeight
-                                    },
-                                    StateChangeScript {
-                                        script: headerBarLoader.normalHeight = headerBarLoader.height
-                                    }
-                                ]
+                                when: headerBar.isMaximized && mainWindow.transitionsEnabled
+
+                                PropertyChanges {
+                                    mainWindow.minimumHeight: mainWindow.minHeight
+                                    explicit: true
+                                }
+                                PropertyChanges {
+                                    // TODO: this should be ported away fom custom parsing to make qmllint happy
+                                    // but doing so breaks the animation on entering/exiting party mode.
+                                    // needs to be looked at with fresh eyes at some point.
+                                    target: headerBarLoader
+                                    Layout.minimumHeight: mainWindow.height
+                                    Layout.maximumHeight: mainWindow.height
+                                    Layout.preferredHeight: Layout.maximumHeight
+                                }
+                                StateChangeScript {
+                                    script: headerBarLoader.normalHeight = headerBarLoader.height
+                                }
                             }
                         ]
                         transitions: Transition {

@@ -14,6 +14,8 @@ import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
 Rectangle {
+    id: root
+
     property var headerData
     property string album: headerData[0]
     property string albumArtist: headerData[1]
@@ -39,7 +41,7 @@ Rectangle {
 
         // keep section's elements aligned with playlistEntry's ones
         Item {
-            visible: !simpleMode
+            visible: !root.simpleMode
             Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
             Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
         }
@@ -48,7 +50,7 @@ Rectangle {
             Layout.preferredWidth: Theme.coverArtSize
             Layout.preferredHeight: Theme.coverArtSize
 
-            source: imageUrl
+            source: root.imageUrl
             fallback: Theme.defaultAlbumImage
 
             sourceSize.width: height * Screen.devicePixelRatio
@@ -70,7 +72,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignBottom | Qt.AlignLeft
 
-                text: album
+                text: root.album
                 level: 2
             }
 
@@ -80,7 +82,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignTop | Qt.AlignLeft
 
-                text: albumArtist
+                text: root.albumArtist
                 type: Kirigami.Heading.Type.Secondary
             }
         }

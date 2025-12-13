@@ -84,7 +84,7 @@ AbstractDataView {
             secondaryText: delegatePackage.secondaryText ? delegatePackage.secondaryText : ""
             imageUrl: delegatePackage.imageUrl ? delegatePackage.imageUrl : ""
             multipleImageUrls: delegatePackage.multipleImageUrls
-            imageFallbackUrl: defaultIcon
+            imageFallbackUrl: gridView.defaultIcon
             displaySecondaryText: gridView.delegateDisplaySecondaryText
             hasChildren: delegatePackage.hasChildren
 
@@ -115,7 +115,7 @@ AbstractDataView {
             secondaryText: delegatePackage.secondaryText ? delegatePackage.secondaryText : ""
             imageUrl: delegatePackage.imageUrl ? delegatePackage.imageUrl : ""
             multipleImageUrls: delegatePackage.multipleImageUrls
-            imageFallbackUrl: defaultIcon
+            imageFallbackUrl: gridView.defaultIcon
             displaySecondaryText: gridView.delegateDisplaySecondaryText
             hasChildren: delegatePackage.hasChildren
 
@@ -146,7 +146,7 @@ AbstractDataView {
         currentIndex: Kirigami.Settings.isMobile ? 0 : -1
 
         Accessible.role: Accessible.List
-        Accessible.name: mainTitle
+        Accessible.name: gridView.mainTitle
 
         header: Loader {
             active: (gridView.realModel ? !gridView.realModel.isBusy : false) &&

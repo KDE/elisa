@@ -79,8 +79,8 @@ FocusScope {
         target: ElisaApplication
 
         function onMusicManagerChanged() {
-            if (ElisaApplication.musicManager && trackType !== undefined && databaseId !== 0) {
-                metaDataModel.initializeByIdAndUrl(trackType, databaseId, fileUrl);
+            if (ElisaApplication.musicManager && headerBar.trackType !== undefined && headerBar.databaseId !== 0) {
+                metaDataModel.initializeByIdAndUrl(headerBar.trackType, headerBar.databaseId, headerBar.fileUrl);
             }
         }
     }
@@ -295,7 +295,7 @@ FocusScope {
 
         onHandlePositionChanged: (y, offset) => {
             const newHeight = headerBar.height - offset + y
-            handlePosition = Math.max(newHeight, 0)
+            headerBar.handlePosition = Math.max(newHeight, 0)
         }
     }
 
@@ -320,22 +320,22 @@ FocusScope {
             id: gridLayoutContent
             visible: contentZone.height > mainLabel.height
 
-            columns: portrait? 1: 2
+            columns: headerBar.portrait ? 1: 2
 
-            columnSpacing: Kirigami.Units.largeSpacing * (isMaximized ? 4 : 1)
+            columnSpacing: Kirigami.Units.largeSpacing * (headerBar.isMaximized ? 4 : 1)
             rowSpacing: Kirigami.Units.largeSpacing
 
             Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.rightMargin: (LayoutMirroring.enabled && !portrait && !isMaximized)? contentZone.width * 0.15: 4 * Kirigami.Units.largeSpacing
-            Layout.leftMargin: (!LayoutMirroring.enabled && !portrait && !isMaximized)? contentZone.width * 0.15: 4 * Kirigami.Units.largeSpacing
-            Layout.topMargin: isMaximized? 4 * Kirigami.Units.largeSpacing : 0
-            Layout.bottomMargin: isMaximized? 4 * Kirigami.Units.largeSpacing : 0
-            Layout.maximumWidth: contentZone.width - 2 * ((!portrait && !isMaximized) ? contentZone.width * 0.15 : 4 * Kirigami.Units.largeSpacing)
+            Layout.rightMargin: (LayoutMirroring.enabled && !headerBar.portrait && !headerBar.isMaximized)? contentZone.width * 0.15: 4 * Kirigami.Units.largeSpacing
+            Layout.leftMargin: (!LayoutMirroring.enabled && !headerBar.portrait && !headerBar.isMaximized)? contentZone.width * 0.15: 4 * Kirigami.Units.largeSpacing
+            Layout.topMargin: headerBar.isMaximized? 4 * Kirigami.Units.largeSpacing : 0
+            Layout.bottomMargin: headerBar.isMaximized? 4 * Kirigami.Units.largeSpacing : 0
+            Layout.maximumWidth: contentZone.width - 2 * ((!headerBar.portrait && !headerBar.isMaximized) ? contentZone.width * 0.15 : 4 * Kirigami.Units.largeSpacing)
 
             Behavior on Layout.topMargin {
-                enabled: transitionsEnabled
+                enabled: headerBar.transitionsEnabled
                 NumberAnimation {
                     easing.type: Easing.InOutQuad
                     duration: Kirigami.Units.shortDuration
@@ -343,7 +343,7 @@ FocusScope {
             }
 
             Behavior on Layout.leftMargin {
-                enabled: transitionsEnabled
+                enabled: headerBar.transitionsEnabled
                 NumberAnimation {
                     easing.type: Easing.InOutQuad
                     duration: Kirigami.Units.shortDuration
@@ -353,7 +353,7 @@ FocusScope {
             StackView {
                 id: images
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                property double imageSize: Math.min(smallerDimension * 0.9, portrait ? gridLayoutContent.height/3 : gridLayoutContent.width/2)
+                property double imageSize: Math.min(headerBar.smallerDimension * 0.9, headerBar.portrait ? gridLayoutContent.height/3 : gridLayoutContent.width/2)
                 property var pendingImageIncubator
 
                 Layout.preferredHeight: imageSize
@@ -387,8 +387,8 @@ FocusScope {
                     fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
 
                     sourceSize {
-                        width: imageSourceSize * Screen.devicePixelRatio
-                        height: imageSourceSize * Screen.devicePixelRatio
+                        width: headerBar.imageSourceSize * Screen.devicePixelRatio
+                        height: headerBar.imageSourceSize * Screen.devicePixelRatio
                     }
 
                     fillMode: Image.PreserveAspectFit
@@ -420,7 +420,7 @@ FocusScope {
 
                     rowSpacing: Kirigami.Units.largeSpacing
                     columnSpacing: Kirigami.Units.largeSpacing * 6
-                    Layout.alignment:  (portrait && isMaximized ? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
+                    Layout.alignment:  (headerBar.portrait && headerBar.isMaximized ? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignTop
                     Layout.fillWidth: true
                     Layout.fillHeight: false
                     Layout.maximumHeight: {
@@ -433,15 +433,14 @@ FocusScope {
                     states: State {
                         name: "leftToRight"
                         when: contentZone.height < (mainLabel.height * 3 + Kirigami.Units.largeSpacing * 4
-                                                + (ratingVisible ? mainRating.height + Kirigami.Units.largeSpacing : 0) )
+                                                + (headerBar.ratingVisible ? mainRating.height + Kirigami.Units.largeSpacing : 0) )
                         PropertyChanges {
-                            target: trackInfoGrid
-                            flow: Grid.LeftToRight
-                            Layout.alignment: (portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignVCenter
-                            Layout.maximumHeight: gridLayoutContent.height
-                            rows: 1
-                            columns: 4
-                            isLeftToRight: true
+                            trackInfoGrid.flow: Grid.LeftToRight
+                            trackInfoGrid.Layout.alignment: (headerBar.portrait? Qt.AlignHCenter: Qt.AlignLeft) | Qt.AlignVCenter
+                            trackInfoGrid.Layout.maximumHeight: gridLayoutContent.height
+                            trackInfoGrid.rows: 1
+                            trackInfoGrid.columns: 4
+                            trackInfoGrid.isLeftToRight: true
                         }
                     }
 
@@ -450,9 +449,9 @@ FocusScope {
 
                     LabelWithToolTip {
                         id: mainLabel
-                        text: title
+                        text: headerBar.title
                         Layout.fillWidth: true
-                        horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+                        horizontalAlignment: headerBar.portrait? Text.AlignHCenter : Text.AlignLeft
                         level: 1
                         font.bold: true
 
@@ -460,9 +459,8 @@ FocusScope {
                             name: "mainLabelLeftToRight"
                             when: trackInfoGrid.isLeftToRight
                             PropertyChanges {
-                                target: mainLabel
-                                Layout.minimumWidth: Math.min(implicitWidth, trackInfoGrid.colWidth)
-                                Layout.maximumWidth: implicitWidth * 1.2
+                                mainLabel.Layout.minimumWidth: Math.min(mainLabel.implicitWidth, trackInfoGrid.colWidth)
+                                mainLabel.Layout.maximumWidth: mainLabel.implicitWidth * 1.2
                             }
                         }
 
@@ -473,13 +471,13 @@ FocusScope {
                             height: parent.height
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
-                                openNowPlaying()
+                                headerBar.openNowPlaying()
                                 playControlItem.isMaximized = false
                             }
 
                             states: State {
                                 name: "titleMouseAreaAnchor"
-                                when: portrait && isMaximized
+                                when: headerBar.portrait && headerBar.isMaximized
                                 AnchorChanges {
                                     target: titleMouseArea
                                     anchors.left: undefined
@@ -491,19 +489,18 @@ FocusScope {
 
                     LabelWithToolTip {
                         id: authorLabel
-                        text: artist
-                        visible: artist
+                        text: headerBar.artist
+                        visible: headerBar.artist
                         Layout.fillWidth: true
-                        horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+                        horizontalAlignment: headerBar.portrait? Text.AlignHCenter : Text.AlignLeft
                         level: 3
 
                         states: State {
                             name: "authorLabelLeftToRight"
                             when: trackInfoGrid.isLeftToRight
                             PropertyChanges {
-                                target: authorLabel
-                                Layout.minimumWidth: Math.min(implicitWidth, trackInfoGrid.colWidth)
-                                Layout.maximumWidth: implicitWidth * 1.2
+                                authorLabel.Layout.minimumWidth: Math.min(authorLabel.implicitWidth, trackInfoGrid.colWidth)
+                                authorLabel.Layout.maximumWidth: authorLabel.implicitWidth * 1.2
                             }
                         }
 
@@ -514,13 +511,13 @@ FocusScope {
                             height: parent.height
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
-                                openArtist()
+                                headerBar.openArtist()
                                 playControlItem.isMaximized = false
                             }
 
                             states: State {
                                 name: "authorMouseAreaAnchor"
-                                when: portrait && isMaximized
+                                when: headerBar.portrait && headerBar.isMaximized
                                 AnchorChanges {
                                     target: authorMouseArea
                                     anchors.left: undefined
@@ -532,19 +529,18 @@ FocusScope {
 
                     LabelWithToolTip {
                         id: albumLabel
-                        text: album
-                        visible: album
+                        text: headerBar.album
+                        visible: headerBar.album
                         Layout.fillWidth: true
-                        horizontalAlignment: portrait? Text.AlignHCenter : Text.AlignLeft
+                        horizontalAlignment: headerBar.portrait ? Text.AlignHCenter : Text.AlignLeft
                         level: 3
 
                         states: State {
                             name: "albumLabelLeftToRight"
                             when: trackInfoGrid.isLeftToRight
                             PropertyChanges {
-                                target: albumLabel
-                                Layout.minimumWidth: Math.min(implicitWidth, trackInfoGrid.colWidth)
-                                Layout.maximumWidth: implicitWidth * 1.2
+                                albumLabel.Layout.minimumWidth: Math.min(albumLabel.implicitWidth, trackInfoGrid.colWidth)
+                                albumLabel.Layout.maximumWidth: albumLabel.implicitWidth * 1.2
                             }
                         }
 
@@ -555,13 +551,13 @@ FocusScope {
                             height: parent.height
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
-                                openAlbum()
+                                headerBar.openAlbum()
                                 playControlItem.isMaximized = false
                             }
 
                             states: State {
                                 name: "albumMouseAreaAnchor"
-                                when: portrait && isMaximized
+                                when: headerBar.portrait && headerBar.isMaximized
                                 AnchorChanges {
                                     target: albumMouseArea
                                     anchors.left: undefined
@@ -573,8 +569,8 @@ FocusScope {
 
                     RatingStar {
                         id: mainRating
-                        visible: ratingVisible
-                        starRating: trackRating
+                        visible: headerBar.ratingVisible
+                        starRating: headerBar.trackRating
                     }
                 }
                 Loader {

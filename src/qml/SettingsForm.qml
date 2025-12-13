@@ -20,6 +20,8 @@ import org.kde.kirigami as Kirigami
 import org.kde.elisa
 
 ColumnLayout {
+    id: settingsForm
+
     readonly property alias dirtyClosingDialog: dirtyClosingDialog
 
     signal closeForm()
@@ -48,10 +50,10 @@ ColumnLayout {
         onButtonClicked: (button, role) => {
             switch(button) {
                 case Dialogs.MessageDialog.Save: {
-                    saveAndCloseForm()
+                    settingsForm.saveAndCloseForm()
                 }
                 case Dialogs.MessageDialog.Discard: {
-                    discardAndCloseForm()
+                    settingsForm.discardAndCloseForm()
                 }
             }
             close()
@@ -443,7 +445,7 @@ ColumnLayout {
                         text: i18nc("@action:button", "Stop looking for music here")
 
                         visible: pathList.count > 1
-                        onTriggered: ElisaConfigurationDialog.removeMusicLocation(modelData)
+                        onTriggered: ElisaConfigurationDialog.removeMusicLocation(delegate.modelData)
                     }
                 }
             }

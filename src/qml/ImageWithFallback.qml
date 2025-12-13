@@ -29,7 +29,7 @@ Item {
     }
 
     function getImageUrl() {
-        if (source == '' || source === undefined) {
+        if (source === Qt.url("") || source === '' || source === undefined) {
             usingFallback = true;
             return fallback;
         } else {

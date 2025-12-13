@@ -10,6 +10,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls as QQC
 import org.kde.kirigami as Kirigami
+import org.kde.elisa
 
 QQC.ItemDelegate {
     id: dataEntry
@@ -55,7 +56,7 @@ QQC.ItemDelegate {
             onTriggered: dataEntry.enqueue()
         },
         Kirigami.Action {
-            visible: fileUrl.toString().substring(0, 7) === 'file://' && Kirigami.Settings.isMobile
+            visible: dataEntry.fileUrl.toString().substring(0, 7) === 'file://' && Kirigami.Settings.isMobile
             onTriggered: ElisaApplication.showInFolder(dataEntry.fileUrl)
             icon.name: "document-open-folder"
             text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
@@ -68,7 +69,7 @@ QQC.ItemDelegate {
 
     function openMobileContextMenu() {
         mobileContextMenuLoader.active = true;
-        mobileContextMenuLoader.item.open();
+        (mobileContextMenuLoader.item as Kirigami.MenuDialog).open();
     }
 
     Keys.onReturnPressed: open()
@@ -82,7 +83,7 @@ QQC.ItemDelegate {
 
         text: i18nc("@action:button", "Options")
         icon.name: "view-more-symbolic"
-        onTriggered: openMobileContextMenu()
+        onTriggered: dataEntry.openMobileContextMenu()
         visible: Kirigami.Settings.isMobile
     }
 

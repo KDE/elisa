@@ -34,7 +34,7 @@ BasePlayerControl {
       */
     signal handlePositionChanged(int y, int offset)
 
-    onIsMaximizedChanged: isMaximized ? maximize() : minimize()
+    onIsMaximizedChanged: musicWidget.isMaximized ? maximize() : minimize()
 
     Rectangle {
         anchors.fill: parent
@@ -61,7 +61,7 @@ BasePlayerControl {
                 property int dragStartOffset: 0
 
                 anchors.fill: parent
-                cursorShape: isMaximized ? Qt.ArrowCursor : Qt.SizeVerCursor
+                cursorShape: musicWidget.isMaximized ? Qt.ArrowCursor : Qt.SizeVerCursor
 
                 onPressed: mouse => {
                     dragStartOffset = mouse.y
@@ -96,7 +96,7 @@ BasePlayerControl {
 
                 FlatButtonWithToolTip {
                     id: skipBackwardButton
-                    enabled: skipBackwardEnabled
+                    enabled: musicWidget.skipBackwardEnabled
                     text: i18nc("@action:button displayed as @info:tooltip", "Skip backward")
                     icon.name: "media-skip-backward"
                     onClicked: musicWidget.playPrevious()
@@ -114,7 +114,7 @@ BasePlayerControl {
 
                 FlatButtonWithToolTip {
                     id: skipForwardButton
-                    enabled: skipForwardEnabled
+                    enabled: musicWidget.skipForwardEnabled
                     text: i18nc("@action:button displayed as @info:tooltip skip forward in playlists", "Skip forward")
                     icon.name: "media-skip-forward"
                     onClicked: musicWidget.playNext()
@@ -189,7 +189,7 @@ BasePlayerControl {
                         ElisaApplication.mediaPlayListProxyModel.shuffleMode = (ElisaApplication.mediaPlayListProxyModel.shuffleMode + 1) % 3
                     }
                     onPressAndHold: {
-                        menu.popup()
+                        (menu as Menu).popup()
                     }
 
                     menu: Menu {
@@ -247,7 +247,7 @@ BasePlayerControl {
                         ElisaApplication.mediaPlayListProxyModel.repeatMode = (ElisaApplication.mediaPlayListProxyModel.repeatMode + 1) % 3
                     }
                     onPressAndHold: {
-                        menu.popup()
+                        (menu as Menu).popup()
                     }
 
                     menu: Menu {
@@ -305,7 +305,7 @@ BasePlayerControl {
                         if (!menu.visible) {
                             menu.open()
                         } else {
-                            menu.dismiss()
+                            (menu as ApplicationMenu).dismiss()
                         }
                     }
 
@@ -332,8 +332,7 @@ BasePlayerControl {
         states: State {
             when: musicWidget.isTranslucent
             PropertyChanges {
-                target: toolBar.background
-                opacity: 0
+                toolBar.background.opacity: 0
             }
         }
         transitions: Transition {

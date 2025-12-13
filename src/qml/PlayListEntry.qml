@@ -67,16 +67,16 @@ BasePlayListDelegate {
         Loader {
             id: metadataLoader
             active: false
-            onLoaded: item.show()
+            onLoaded: (item as MediaTrackMetadataView).show()
 
             sourceComponent: MediaTrackMetadataView {
                 fileName: playListEntry.fileName
-                showImage: entryType !== ElisaUtils.Radio
-                modelType: entryType
-                showTrackFileName: entryType !== ElisaUtils.Radio
-                showDeleteButton: entryType === ElisaUtils.Radio
+                showImage: playListEntry.entryType !== ElisaUtils.Radio
+                modelType: playListEntry.entryType
+                showTrackFileName: playListEntry.entryType !== ElisaUtils.Radio
+                showDeleteButton: playListEntry.entryType === ElisaUtils.Radio
                 editableMetadata: playListEntry.metadataModifiableRole
-                canAddMoreMetadata: entryType !== ElisaUtils.Radio
+                canAddMoreMetadata: playListEntry.entryType !== ElisaUtils.Radio
 
                 onRejected: metadataLoader.active = false
             }
@@ -88,19 +88,19 @@ BasePlayListDelegate {
                 text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
                 icon.name: "document-open-folder"
                 visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
-                enabled: isValid
+                enabled: playListEntry.isValid
                 onTriggered: ElisaApplication.showInFolder(playListEntry.fileName)
             }
             property var infoAction: Kirigami.Action {
                 text: i18nc("@action:button Show track metadata", "View details")
                 icon.name: "help-about"
-                enabled: isValid
+                enabled: playListEntry.isValid
                 onTriggered: {
                     if (metadataLoader.active === false) {
                         metadataLoader.active = true
                     }
                     else {
-                        metadataLoader.item.close();
+                        (metadataLoader.item as MediaTrackMetadataView).close();
                         metadataLoader.active = false
                     }
                 }
@@ -109,7 +109,7 @@ BasePlayListDelegate {
                 text: i18nc("@action:button", "Set track rating")
                 icon.name: "view-media-favorite"
                 visible: !ElisaApplication.useFavoriteStyleRatings
-                enabled: isValid
+                enabled: playListEntry.isValid
 
                 onTriggered: {
                     playListEntry.editingRating = true;
@@ -119,7 +119,7 @@ BasePlayListDelegate {
                 text: playListEntry.isFavorite ? i18nc("@action:button", "Un-mark this song as a favorite") : i18nc("@action:button", "Mark this song as a favorite")
                 icon.name: playListEntry.isFavorite ? "starred" : "non-starred"
                 visible: ElisaApplication.useFavoriteStyleRatings
-                enabled: isValid
+                enabled: playListEntry.isValid
 
                 onTriggered: {
                     const newRating = playListEntry.isFavorite ? 0 : 10;
@@ -129,13 +129,13 @@ BasePlayListDelegate {
                 }
             }
             property var playPauseAction: Kirigami.Action {
-                text: (isPlaying === MediaPlayList.IsPlaying) ? i18nc("@action:button Pause current track from playlist", "Pause") : i18nc("@action:button Play this track from playlist", "Play")
-                icon.name: (isPlaying === MediaPlayList.IsPlaying) ? "media-playback-pause" : "media-playback-start"
-                enabled: isValid
+                text: (playListEntry.isPlaying === MediaPlayList.IsPlaying) ? i18nc("@action:button Pause current track from playlist", "Pause") : i18nc("@action:button Play this track from playlist", "Play")
+                icon.name: (playListEntry.isPlaying === MediaPlayList.IsPlaying) ? "media-playback-pause" : "media-playback-start"
+                enabled: playListEntry.isValid
                 onTriggered: {
-                    if (isPlaying === MediaPlayList.IsPlaying) {
+                    if (playListEntry.isPlaying === MediaPlayList.IsPlaying) {
                         playListEntry.pausePlayback()
-                    } else if (isPlaying === MediaPlayList.IsPaused) {
+                    } else if (playListEntry.isPlaying === MediaPlayList.IsPaused) {
                         playListEntry.startPlayback()
                     } else {
                         playListEntry.switchToTrack(playListEntry.index)
@@ -165,7 +165,7 @@ BasePlayListDelegate {
 
             Loader {
                 Layout.leftMargin: trackRow.spacing
-                active: !simpleMode && playListEntry.showDragHandle
+                active: !playListEntry.simpleMode && playListEntry.showDragHandle
                 sourceComponent: Kirigami.ListItemDragHandle {
                     listItem: playListEntry
                     listView: playListEntry.listView
@@ -191,7 +191,7 @@ BasePlayListDelegate {
                     anchors.fill: parent
 
                     sourceComponent: ImageWithFallback {
-                        source: imageUrl
+                        source: playListEntry.imageUrl
                         fallback: Theme.defaultAlbumImage
 
                         sourceSize.width: height
@@ -212,14 +212,14 @@ BasePlayListDelegate {
                     width: Kirigami.Units.iconSizes.smallMedium
                     height: Kirigami.Units.iconSizes.smallMedium
 
-                    visible: isPlaying === MediaPlayList.IsPlaying || isPlaying === MediaPlayList.IsPaused
+                    visible: playListEntry.isPlaying === MediaPlayList.IsPlaying || playListEntry.isPlaying === MediaPlayList.IsPaused
 
-                    isMask: simpleMode
+                    isMask: playListEntry.simpleMode
                     color: playListEntry.iconColor
                 }
 
                 Loader {
-                    active: playListEntry.grouped && isValid && !playIcon.visible
+                    active: playListEntry.grouped && playListEntry.isValid && !playIcon.visible
                     anchors.fill: parent
 
                     sourceComponent: Label {
@@ -230,19 +230,19 @@ BasePlayListDelegate {
 
                         text: {
                             let trackNumberString = "";
-                            if (trackNumber !== -1) {
-                                trackNumberString = Number(trackNumber).toLocaleString(Qt.locale(), 'f', 0);
+                            if (playListEntry.trackNumber !== -1) {
+                                trackNumberString = Number(playListEntry.trackNumber).toLocaleString(Qt.locale(), 'f', 0);
                             } else {
                                 trackNumberString = ''
                             }
-                            if (!isSingleDiscAlbum && discNumber !== 0 ) {
-                                return trackNumberString + "/" + Number(discNumber).toLocaleString(Qt.locale(), 'f', 0)
+                            if (!playListEntry.isSingleDiscAlbum && playListEntry.discNumber !== 0 ) {
+                                return trackNumberString + "/" + Number(playListEntry.discNumber).toLocaleString(Qt.locale(), 'f', 0)
                             } else {
                                 return trackNumberString
                             }
                         }
                         textFormat: Text.PlainText
-                        font.weight: (isPlaying ? Font.Bold : Font.Normal)
+                        font.weight: (playListEntry.isPlaying ? Font.Bold : Font.Normal)
                         font.features: { "tnum": 1 }
                         color: playListEntry.textColor
                     }
@@ -254,19 +254,19 @@ BasePlayListDelegate {
                 Layout.fillWidth: true
 
                 LabelWithToolTip {
-                    text: title
-                    font.weight: isPlaying ? Font.Bold : Font.Normal
-                    visible: isValid
+                    text: playListEntry.title
+                    font.weight: playListEntry.isPlaying ? Font.Bold : Font.Normal
+                    visible: playListEntry.isValid
                     Layout.fillWidth: true
                     color: playListEntry.textColor
                 }
 
                 Loader {
-                    active: !playListEntry.grouped && (artist || album)
+                    active: !playListEntry.grouped && (playListEntry.artist || playListEntry.album)
                     visible: active
                     Layout.fillWidth: true
                     sourceComponent: LabelWithToolTip {
-                        text: [artist, album].filter(Boolean).join(" - ")
+                        text: [playListEntry.artist, playListEntry.album].filter(Boolean).join(" - ")
                         type: Kirigami.Heading.Type.Secondary
                         color: playListEntry.textColor
                     }
@@ -357,9 +357,9 @@ BasePlayListDelegate {
                 id: ratingWidget
 
                 readOnly: !playListEntry.editingRating
-                starRating: rating
+                starRating: playListEntry.rating
 
-                visible: (playListEntry.editingRating || (rating > 0 && !playListEntry.hovered && !playListEntry.hasActiveFocus && !simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode
+                visible: (playListEntry.editingRating || (playListEntry.rating > 0 && !playListEntry.hovered && !playListEntry.hasActiveFocus && !playListEntry.simpleMode && !ElisaApplication.useFavoriteStyleRatings)) && playListEntry.wideMode
 
                 iconColor: playListEntry.iconColor
 
@@ -372,7 +372,7 @@ BasePlayListDelegate {
             Loader {
                 id: favoriteMark
 
-                visible: playListEntry.isFavorite && !playListEntry.hovered && !playListEntry.hasActiveFocus && !simpleMode && ElisaApplication.useFavoriteStyleRatings
+                visible: playListEntry.isFavorite && !playListEntry.hovered && !playListEntry.hasActiveFocus && !playListEntry.simpleMode && ElisaApplication.useFavoriteStyleRatings
 
                 sourceComponent: FlatButtonWithToolTip {
                     visible: action.visible
@@ -384,8 +384,8 @@ BasePlayListDelegate {
 
             LabelWithToolTip {
                 id: durationLabel
-                text: duration
-                font.weight: isPlaying ? Font.Bold : Font.Normal
+                text: playListEntry.duration
+                font.weight: playListEntry.isPlaying ? Font.Bold : Font.Normal
                 font.features: { "tnum": 1 }
                 color: playListEntry.textColor
             }
@@ -399,11 +399,11 @@ BasePlayListDelegate {
 
                     icon.name: "overflow-menu"
                     icon.color: playListEntry.iconColor
-                    text: entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
+                    text: playListEntry.entryType === ElisaUtils.Track ? i18nc("@action:button", "Track Options") : i18nc("@action:button", "Radio Options")
                     down: pressed || menuLoader.menuVisible
-                    onPressed: menuLoader.item.open()
-                    Keys.onReturnPressed: menuLoader.item.open()
-                    Keys.onEnterPressed: menuLoader.item.open()
+                    onPressed: (menuLoader.item as Menu).open()
+                    Keys.onReturnPressed: (menuLoader.item as Menu).open()
+                    Keys.onEnterPressed: (menuLoader.item as Menu).open()
                     activeFocusOnTab: playListEntry.isSelected
 
                     Binding {
@@ -425,7 +425,7 @@ BasePlayListDelegate {
                     dim: false
                     modal: true
                     x: -width
-                    parent: menuButtonLoader.item
+                    parent: menuButtonLoader.item as FlatButtonWithToolTip
 
                     onVisibleChanged: menuLoader.menuVisible = visible
 
@@ -461,18 +461,16 @@ BasePlayListDelegate {
             },
             State {
                 name: 'hovered'
-                when: playListEntry.hovered && !playListEntry.hasActiveFocus && !simpleMode
+                when: playListEntry.hovered && !playListEntry.hasActiveFocus && !playListEntry.simpleMode
                 PropertyChanges {
-                    target: buttonRowLoader
-                    active: playListEntry.wideMode
+                    buttonRowLoader.active: playListEntry.wideMode
                 }
             },
             State {
                 name: 'focused'
-                when: playListEntry.hasActiveFocus && !simpleMode
+                when: playListEntry.hasActiveFocus && !playListEntry.simpleMode
                 PropertyChanges {
-                    target: buttonRowLoader
-                    active: playListEntry.wideMode
+                    buttonRowLoader.active: playListEntry.wideMode
                 }
             }
         ]

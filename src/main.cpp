@@ -23,8 +23,8 @@
 
 //#define QT_QML_DEBUG
 
+#include <KLocalizedQmlContext>
 #include <KLocalizedString>
-#include <KLocalizedContext>
 
 #include <KAboutData>
 #include <KIconTheme>
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
 
     engine.addImageProvider(QStringLiteral("colorScheme"), new ColorSchemePreviewImageProvider);
 
-    engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
+    KLocalization::setupLocalizedContext(&engine);
 
     QList<QUrl> urls;
     const auto positionalArguments = parser.positionalArguments();

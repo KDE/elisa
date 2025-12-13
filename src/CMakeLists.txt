@@ -420,7 +420,7 @@ if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
         LINK_PRIVATE
         elisaLib
         Qt::Widgets Qt::QuickControls2
-        KF6::I18n KF6::CoreAddons KF6::ConfigCore KF6::ConfigGui
+        KF6::I18n KF6::I18nQml KF6::CoreAddons KF6::ConfigCore KF6::ConfigGui
         KF6::IconThemes
         )
 

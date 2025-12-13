@@ -390,6 +390,8 @@ qt_add_qml_module(elisaLib
         qml/shared/BasePlayListDelegate.qml
     RESOURCES
         background.png
+    OUTPUT_DIRECTORY
+        ${CMAKE_BINARY_DIR}/src/org/kde/elisa
     )
 
 if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:41+0000\n"
+"POT-Creation-Date: 2025-12-19 00:43+0000\n"
 "PO-Revision-Date: 2025-11-22 21:06+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -97,9 +97,11 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Un sencillo reproductor de música hecho con amor por la comunidad KDE"
 
 #: main.cpp:117
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info"
+#| msgid "© 2015–2020, Elisa contributors"
 msgctxt "@info"
-msgid "© 2015–2020, Elisa contributors"
+msgid "© 2015–2025, Elisa contributors"
 msgstr "© 2015–2020, los colaboradores de Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165

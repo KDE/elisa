@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:41+0000\n"
+"POT-Creation-Date: 2025-12-19 00:43+0000\n"
 "PO-Revision-Date: 2024-02-04 09:31-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -99,7 +99,7 @@ msgstr "ਕੇਡੀਈ ਕਮਿਊਨਟੀ ਵਲੋਂ ਪਿਆਰ ਨਾ�
 #| msgctxt "@info"
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
-msgid "© 2015–2020, Elisa contributors"
+msgid "© 2015–2025, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa ਯੋਗਦਾਨੀ"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165

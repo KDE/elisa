@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:41+0000\n"
+"POT-Creation-Date: 2025-12-19 00:43+0000\n"
 "PO-Revision-Date: 2025-10-26 13:32+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -96,9 +96,11 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Enkel musikkspelar, laga med omsorg av KDE-fellesskapet"
 
 #: main.cpp:117
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info"
+#| msgid "© 2015–2020, Elisa contributors"
 msgctxt "@info"
-msgid "© 2015–2020, Elisa contributors"
+msgid "© 2015–2025, Elisa contributors"
 msgstr "© 2015–2020 Elisa-bidragsytarane"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
@@ -2071,14 +2073,3 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
-
-#~ msgctxt ""
-#~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "
-#~ "formats; do not translate *.m3u8 *.m3u *.pls"
-#~ msgid "m3u8, m3u, pls Playlist File (*.m3u8 *.m3u *.pls)"
-#~ msgstr "m3u8-/m3u-/pls-spelelistefil (*.m3u8 *.m3u *.pls)"
-
-# unreviewed-context
-#~ msgctxt "@action:button Load a playlist file"
-#~ msgid "Load…"
-#~ msgstr "Opna …"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:41+0000\n"
+"POT-Creation-Date: 2025-12-19 00:43+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Teruyoshi Ogawa <terucco@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -99,7 +99,7 @@ msgstr "KDE コミュニティによって作成されたシンプルな音楽�
 #| msgctxt "@info"
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
-msgid "© 2015–2020, Elisa contributors"
+msgid "© 2015–2025, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa の貢献者"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165

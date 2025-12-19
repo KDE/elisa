@@ -83,6 +83,7 @@ Kirigami.Page {
                 Layout.fillWidth: true
                 Layout.leftMargin: Kirigami.Units.largeSpacing
                 Layout.alignment: Qt.AlignVCenter
+                elide: Text.ElideRight
 
                 text: topItem.title
             }

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-19 00:43+0000\n"
-"PO-Revision-Date: 2025-11-20 21:36+0200\n"
+"POT-Creation-Date: 2025-12-20 00:41+0000\n"
+"PO-Revision-Date: 2025-12-19 13:29+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -98,12 +98,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Простий програвач музичних даних, створений із любов'ю спільнотою KDE"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2025, Elisa contributors"
-msgstr "© Учасники розробки Elisa, 2015–2020"
+msgstr "© Учасники розробки Elisa, 2015–2025"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -481,38 +479,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Відкрити бічну панель"
 
-#: qml/ContextView.qml:112
+#: qml/ContextView.qml:113
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Метадані"
 
-#: qml/ContextView.qml:123
+#: qml/ContextView.qml:124
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Текст"
 
-#: qml/ContextView.qml:130 qml/MediaPlayerControl.qml:295
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:295
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Показати список відтворення"
 
-#: qml/ContextView.qml:430
+#: qml/ContextView.qml:431
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Тексту не знайдено"
 
-#: qml/ContextView.qml:446
+#: qml/ContextView.qml:447
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Нічого відтворювати"
 
-#: qml/ContextView.qml:480
+#: qml/ContextView.qml:481
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

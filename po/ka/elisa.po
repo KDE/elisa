@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-19 00:43+0000\n"
-"PO-Revision-Date: 2025-11-20 04:54+0100\n"
+"POT-Creation-Date: 2025-12-20 00:41+0000\n"
+"PO-Revision-Date: 2025-12-19 02:34+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -96,12 +96,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "მარტივი მუსიკის დამკვრელი, თქვენთვის. სიყვარულით, KDE-ის საზოგადოება"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2025, Elisa contributors"
-msgstr "© 2015-2020, Elisa-ის მოხალისეები. ყველა უფლება დაცულია"
+msgstr "© 2015-2025, Elisa-ის მოხალისეები"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -479,38 +477,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "გვერდითი ზოლის გახსნა"
 
-#: qml/ContextView.qml:112
+#: qml/ContextView.qml:113
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "მეტამონაცემები"
 
-#: qml/ContextView.qml:123
+#: qml/ContextView.qml:124
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "ლირიკა"
 
-#: qml/ContextView.qml:130 qml/MediaPlayerControl.qml:295
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:295
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "დასაკრავი სიის ჩვენება"
 
-#: qml/ContextView.qml:430
+#: qml/ContextView.qml:431
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "ლირიკის პოვნა შეუძლებელია"
 
-#: qml/ContextView.qml:446
+#: qml/ContextView.qml:447
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "დაკვრა არ მიმდინარეობს"
 
-#: qml/ContextView.qml:480
+#: qml/ContextView.qml:481
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:40+0000\n"
-"PO-Revision-Date: 2025-06-17 08:46+0300\n"
-"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
+"POT-Creation-Date: 2025-12-20 02:35+0000\n"
+"PO-Revision-Date: 2025-12-19 16:33+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.11.80\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -477,38 +477,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Kenar Çubuğunu Aç"
 
-#: qml/ContextView.qml:112
+#: qml/ContextView.qml:113
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Üst Veri"
 
-#: qml/ContextView.qml:123
+#: qml/ContextView.qml:124
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Şarkı Sözleri"
 
-#: qml/ContextView.qml:130 qml/MediaPlayerControl.qml:295
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:295
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Çalma Listesini Göster"
 
-#: qml/ContextView.qml:430
+#: qml/ContextView.qml:431
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Şarkı sözü bulunamadı"
 
-#: qml/ContextView.qml:446
+#: qml/ContextView.qml:447
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Çalınan müzik yok"
 
-#: qml/ContextView.qml:480
+#: qml/ContextView.qml:481
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -832,14 +832,14 @@ msgstr "Çalma listesi boş."
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] "%1/%2 parça kaldı"
-msgstr[1] "%1/%2 parça kaldı"
+msgstr[0] "%1/%2 parça çalınacak"
+msgstr[1] "%1/%2 parça çalınacak"
 
 #: qml/MediaPlayListView.qml:476
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
-msgstr "%1 kaldı, toplam %2"
+msgstr "%1, toplam %2"
 
 #: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
 #: qml/MediaPlayListView.qml:495
@@ -1659,19 +1659,19 @@ msgstr "Geçerli Listeyi Değiştirip Buradan Çal"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr "%1 — %2"
+msgstr "%1 · %2"
 
 #: qml/TrackBrowserDelegate.qml:212
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr "%1 — %2 — %3"
+msgstr "%1 · %2 · %3"
 
 #: qml/TrackBrowserDelegate.qml:224
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr "%1 — %2"
+msgstr "%1 · %2"
 
 #: qml/TrackBrowserDelegate.qml:370
 #, kde-format

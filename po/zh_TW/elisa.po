@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:40+0000\n"
+"POT-Creation-Date: 2025-12-20 02:35+0000\n"
 "PO-Revision-Date: 2025-06-19 22:16+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -478,38 +478,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "開啟側邊欄"
 
-#: qml/ContextView.qml:112
+#: qml/ContextView.qml:113
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "中繼資料"
 
-#: qml/ContextView.qml:123
+#: qml/ContextView.qml:124
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: qml/ContextView.qml:130 qml/MediaPlayerControl.qml:295
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:295
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "顯示播放清單"
 
-#: qml/ContextView.qml:430
+#: qml/ContextView.qml:431
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "找不到歌詞"
 
-#: qml/ContextView.qml:446
+#: qml/ContextView.qml:447
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "沒有播放任何曲目"
 
-#: qml/ContextView.qml:480
+#: qml/ContextView.qml:481
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

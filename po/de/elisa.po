@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:40+0000\n"
+"POT-Creation-Date: 2025-12-20 02:35+0000\n"
 "PO-Revision-Date: 2025-07-21 22:40+0200\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -479,38 +479,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Seitenleiste öffnen"
 
-#: qml/ContextView.qml:112
+#: qml/ContextView.qml:113
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadaten"
 
-#: qml/ContextView.qml:123
+#: qml/ContextView.qml:124
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Liedtext"
 
-#: qml/ContextView.qml:130 qml/MediaPlayerControl.qml:295
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:295
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Wiedergabeliste anzeigen"
 
-#: qml/ContextView.qml:430
+#: qml/ContextView.qml:431
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Keine Liedtexte gefunden"
 
-#: qml/ContextView.qml:446
+#: qml/ContextView.qml:447
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Keine Wiedergabe"
 
-#: qml/ContextView.qml:480
+#: qml/ContextView.qml:481
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

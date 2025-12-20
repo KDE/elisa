@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:40+0000\n"
+"POT-Creation-Date: 2025-12-20 02:35+0000\n"
 "PO-Revision-Date: 2025-07-11 23:05+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -477,38 +477,38 @@ msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Opna hliðarstiku"
 
-#: qml/ContextView.qml:112
+#: qml/ContextView.qml:113
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Lýsigögn"
 
-#: qml/ContextView.qml:123
+#: qml/ContextView.qml:124
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Lagatextar"
 
-#: qml/ContextView.qml:130 qml/MediaPlayerControl.qml:295
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:295
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Sýna spilunarlista"
 
-#: qml/ContextView.qml:430
+#: qml/ContextView.qml:431
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Engir lagatextar fundust"
 
-#: qml/ContextView.qml:446
+#: qml/ContextView.qml:447
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Ekkert í spilun"
 
-#: qml/ContextView.qml:480
+#: qml/ContextView.qml:481
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"

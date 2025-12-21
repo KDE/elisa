@@ -1,15 +1,15 @@
-# SPDX-FileCopyrightText: 2024, 2025 Alois Spitzbart <spitz234@hotmail.com>
 # SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
 # SPDX-FileCopyrightText: 2016, 2018, 2020, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
 # SPDX-FileCopyrightText: 2022 Konstantin Tutsch <konstantin.tutsch@e.email>
 # SPDX-FileCopyrightText: 2023 Jannick Kuhr <opensource@kuhr.org>
+# SPDX-FileCopyrightText: 2024, 2025 Alois Spitzbart <spitz234@hotmail.com>
 # SPDX-FileCopyrightText: 2025 Philipp Kiemle <l10n.daphipz@fastmail.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-20 00:41+0000\n"
-"PO-Revision-Date: 2025-07-21 22:40+0200\n"
+"PO-Revision-Date: 2025-12-13 15:47+0100\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -625,19 +625,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "Wiedergabelisten- und Musikdateien (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:298
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "pls-Wiedergabelistendatei (*.pls)"
+msgstr "Wiedergabelistendateien (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:299
 #, kde-format
@@ -645,7 +641,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "Musikdateien (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:310
 #, kde-format
@@ -808,18 +804,16 @@ msgid "Save…"
 msgstr "Speichern …"
 
 #: qml/MediaPlayListView.qml:101
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "Wiedergabeliste öffnen …"
+msgstr "Öffnen …"
 
 #: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "Musikdateien oder gespeicherte Wiedergabelisten öffnen"
 
 #: qml/MediaPlayListView.qml:127
 #, kde-format

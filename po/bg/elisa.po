@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-20 00:41+0000\n"
-"PO-Revision-Date: 2025-11-20 11:09+0100\n"
+"PO-Revision-Date: 2025-12-20 19:11+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -95,12 +95,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Прост музикален плеър, направен с любов от общността на KDE"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2025, Elisa contributors"
-msgstr "© 2015–2020, Elisa contributors"
+msgstr "© 2015–2025, Elisa contributors"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format

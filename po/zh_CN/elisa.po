@@ -98,7 +98,7 @@ msgstr "KDE 社区精心打造的简易音乐播放器"
 #, kde-format
 msgctxt "@info"
 msgid "© 2015–2025, Elisa contributors"
-msgstr ""
+msgstr "© 2015–2025, Elisa contributors"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format

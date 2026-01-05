@@ -159,7 +159,7 @@ FocusScope {
 
             Component.onCompleted: {
                 if (status === Image.Loading) {
-                    statusChanged.connect(headerBar.replaceWhenLoaded);
+                    statusChanged.connect(() => { if (status == Image.Ready) { headerBar.replaceWhenLoaded() } });
                 } else {
                     headerBar.replaceWhenLoaded();
                 }

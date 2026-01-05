@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the elisa package.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Sergiu Bivol <sergiu@cip.md>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Sergiu Bivol <sergiu@cip.md>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-20 00:41+0000\n"
-"PO-Revision-Date: 2025-11-27 13:16+0000\n"
+"PO-Revision-Date: 2026-01-03 14:27+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -97,12 +97,10 @@ msgstr ""
 "Aplicație simplă pentru redarea muzicii, făcută cu drag de comunitatea KDE"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2025, Elisa contributors"
-msgstr "© 2015-2020, Contribuitorii Elisa"
+msgstr "© 2015-2025, Contribuitorii Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format

@@ -12,18 +12,19 @@
 
 #if KFFileMetaData_FOUND
 
-#include <KFileMetaData/ExtractorCollection>
 #include <KFileMetaData/Extractor>
+#include <KFileMetaData/ExtractorCollection>
+#include <KFileMetaData/MimeUtils>
+#include <KFileMetaData/Properties>
 #include <KFileMetaData/SimpleExtractionResult>
 #include <KFileMetaData/UserMetaData>
-#include <KFileMetaData/Properties>
 
 #endif
 
-#include <QFileInfo>
-#include <QLocale>
 #include <QDir>
+#include <QFileInfo>
 #include <QHash>
+#include <QLocale>
 #include <QMimeDatabase>
 
 QStringList buildCoverFileNames(const QStringList &fileNames, const QStringList &fileExtensions)
@@ -104,8 +105,13 @@ FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
 
 bool FileScanner::shouldScanFile(const QString &scanFile)
 {
-    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(scanFile);
+#if KFFileMetaData_FOUND
+    const auto fileMimeType = KFileMetaData::MimeUtils::strictMimeType(scanFile, d->mMimeDb);
     return fileMimeType.name().startsWith(QLatin1String("audio/"));
+#else
+    const auto fileMimeType = d->mMimeDb.mimeTypeForFile(scanFile);
+    return fileMimeType.name().startsWith(QLatin1String("audio/"));
+#endif
 }
 
 FileScanner::~FileScanner() = default;
@@ -126,12 +132,11 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 #if KFFileMetaData_FOUND
     const auto &localFileName = scanFile.toLocalFile();
 
-    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
-    if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
+    const auto fileMimeType = KFileMetaData::MimeUtils::strictMimeType(localFileName, d->mMimeDb);
+    const auto mimetype = fileMimeType.name();
+    if (!mimetype.startsWith(QLatin1String("audio/"))) {
         return newTrack;
     }
-
-    const auto &mimetype = fileMimeType.name();
 
     const QList<KFileMetaData::Extractor*> &exList = d->mAllExtractors.fetchExtractors(mimetype);
 
@@ -304,7 +309,8 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
 bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
 {
 #if KFFileMetaData_FOUND
-    const auto &mimeType = QMimeDatabase().mimeTypeForFile(localFileName).name();
+    const auto fileMimeType = KFileMetaData::MimeUtils::strictMimeType(localFileName, d->mMimeDb);
+    const auto mimeType = fileMimeType.name();
     const auto extractors = d->mAllExtractors.fetchExtractors(mimeType);
 
     for (const auto &extractor : extractors) {

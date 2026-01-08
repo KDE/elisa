@@ -14,10 +14,11 @@
 
 #if KFFileMetaData_FOUND
 
-#include <KFileMetaData/WriterCollection>
-#include <KFileMetaData/Writer>
+#include <KFileMetaData/MimeUtils>
 #include <KFileMetaData/UserMetaData>
 #include <KFileMetaData/WriteData>
+#include <KFileMetaData/Writer>
+#include <KFileMetaData/WriterCollection>
 #include <QHash>
 
 #endif
@@ -64,12 +65,12 @@ bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::Col
         return false;
     }
     const auto &localFileName = url.toLocalFile();
-    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
-    if (!fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
+    const auto fileMimeType = KFileMetaData::MimeUtils::strictMimeType(localFileName, d->mMimeDb);
+    const auto mimetype = fileMimeType.name();
+    if (!mimetype.startsWith(QStringLiteral("audio/"))) {
         return false;
     }
 
-    const auto &mimetype = fileMimeType.name();
     const QList<KFileMetaData::Writer*> &writerList = d->mAllWriters.fetchWriters(mimetype);
 
     if (writerList.isEmpty()) {
@@ -113,8 +114,9 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
         return false;
     }
     const auto &localFileName = url.toLocalFile();
-    const auto &fileMimeType = d->mMimeDb.mimeTypeForFile(localFileName);
-    if (!fileMimeType.name().startsWith(QLatin1String("audio/"))) {
+    const auto fileMimeType = KFileMetaData::MimeUtils::strictMimeType(localFileName, d->mMimeDb);
+    const auto mimetype = fileMimeType.name();
+    if (!mimetype.startsWith(QLatin1String("audio/"))) {
         return false;
     }
 
@@ -122,7 +124,6 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
     md.setUserComment(data.value(DataTypes::ColumnsRoles::CommentRole).toString());
     md.setRating(data.value(DataTypes::ColumnsRoles::RatingRole).toInt());
 
-    const auto &mimetype = fileMimeType.name();
     const QList<KFileMetaData::Writer*> &writerList = d->mAllWriters.fetchWriters(mimetype);
 
     if (writerList.isEmpty()) {

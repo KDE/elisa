@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
                           QStringLiteral(ELISA_VERSION_STRING),
                           i18nc("@info", "A Simple Music Player made with love by the KDE community"),
                           KAboutLicense::LGPL_V3,
-                          i18nc("@info", "© 2015–2025, Elisa contributors"));
+                          i18nc("@info", "© 2015–2026, Elisa contributors"));
 
     aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18nc("@label", "Creator"), QStringLiteral("mgallien@mgallien.fr"));
     aboutData.addAuthor(QStringLiteral("Nate Graham"), i18nc("@label", "Author"), QStringLiteral("nate@kde.org"));

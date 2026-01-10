@@ -1,14 +1,14 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025, 2026 Giovanni Sora <g.sora@tiscali.it>
 # giovanni <g.sora@tiscali.it>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:41+0000\n"
-"PO-Revision-Date: 2025-10-14 12:44+0200\n"
+"POT-Creation-Date: 2026-01-10 00:42+0000\n"
+"PO-Revision-Date: 2026-01-09 15:18+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -99,10 +99,10 @@ msgstr ""
 #: main.cpp:117
 #, fuzzy, kde-format
 #| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#| msgid "© 2015–2025, Elisa contributors"
 msgctxt "@info"
-msgid "© 2015–2025, Elisa contributors"
-msgstr "© 2015–2020, contributores de Elisa"
+msgid "© 2015–2026, Elisa contributors"
+msgstr "© 2015–2025, contributores de Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -499,19 +499,13 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Monstra lista de reproduction"
 
-#: qml/ContextView.qml:431
-#, kde-format
-msgctxt "@info:placeholder"
-msgid "No lyrics found"
-msgstr "Necun parolas de canto disponibile"
-
-#: qml/ContextView.qml:447
+#: qml/ContextView.qml:361
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nihil reproducente"
 
-#: qml/ContextView.qml:481
+#: qml/ContextView.qml:395
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -624,19 +618,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "Files de lista de sonar (Playlist) e files de musica (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:298
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "pls File de lista de reproduction (Playlist File) (*.pls)"
+msgstr "Files de lista de reproduction (Playlist Files) (%1)(%1)"
 
 #: qml/ElisaMainWindow.qml:299
 #, kde-format
@@ -644,7 +634,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "Files de Musica  (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:310
 #, kde-format
@@ -652,11 +642,32 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Il falleva a salveguardar"
 
-#: qml/HeaderBar.qml:186
+#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:255
+#: qml/mobile/MobileTrackPlayer.qml:297
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Playlist"
+msgstr "Lista de reproduction"
+
+#: qml/HeaderBar.qml:259
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Lyrics label for track metadata view"
+#| msgid "Lyrics"
+msgctxt "@action:button"
+msgid "Lyrics"
+msgstr "Parolas del Canto"
+
+#: qml/HeaderBar.qml:273
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Exi del schermo integre"
+
+#: qml/LyricsView.qml:161
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "No lyrics found"
+msgstr "Necun parolas de canto disponibile"
 
 #: qml/MediaPlayerControl.qml:91
 #, kde-format
@@ -762,12 +773,6 @@ msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Currente: Repete omne tracias in lista de reproduction"
 
-#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:297
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Playlist"
-msgstr "Lista de reproduction"
-
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
 #, kde-format
 msgctxt "@action:inmenu"
@@ -807,18 +812,16 @@ msgid "Save…"
 msgstr "Salveguarda…"
 
 #: qml/MediaPlayListView.qml:101
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "Aperi lista de reproduction…"
+msgstr "Aperi…"
 
 #: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "Aperi files de musica e listas de reproduction"
 
 #: qml/MediaPlayListView.qml:127
 #, kde-format

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:41+0000\n"
+"POT-Creation-Date: 2026-01-10 00:42+0000\n"
 "PO-Revision-Date: 2025-03-02 00:31+0700\n"
 "Last-Translator: Pongsakorn S. <kde@xerusion.me>\n"
 "Language-Team: Thai\n"
@@ -99,7 +99,7 @@ msgstr "เครื่องเล่นเพลงเรียบง่าย
 #| msgctxt "@info"
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
-msgid "© 2015–2025, Elisa contributors"
+msgid "© 2015–2026, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa contributors"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
@@ -499,19 +499,13 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "แสดงเพลย์ลิสต์"
 
-#: qml/ContextView.qml:431
-#, kde-format
-msgctxt "@info:placeholder"
-msgid "No lyrics found"
-msgstr "ไม่พบเนื้อเพลง"
-
-#: qml/ContextView.qml:447
+#: qml/ContextView.qml:361
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "ไม่มีอะไรเล่นอยู่"
 
-#: qml/ContextView.qml:481
+#: qml/ContextView.qml:395
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -649,11 +643,32 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "การบันทึกล้มเหลว"
 
-#: qml/HeaderBar.qml:186
+#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:255
+#: qml/mobile/MobileTrackPlayer.qml:297
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Playlist"
+msgstr "เพลย์ลิสต์"
+
+#: qml/HeaderBar.qml:259
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Lyrics label for track metadata view"
+#| msgid "Lyrics"
+msgctxt "@action:button"
+msgid "Lyrics"
+msgstr "เนื้อเพลง"
+
+#: qml/HeaderBar.qml:273
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Screen"
+
+#: qml/LyricsView.qml:161
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "No lyrics found"
+msgstr "ไม่พบเนื้อเพลง"
 
 #: qml/MediaPlayerControl.qml:91
 #, kde-format
@@ -758,12 +773,6 @@ msgstr "ปัจจุบัน: เล่นเพลงปัจจุบั�
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "ปัจจุบัน: เล่นทุกเพลงในเพลย์ลิสต์ซ้ํา"
-
-#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:297
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Playlist"
-msgstr "เพลย์ลิสต์"
 
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
 #, fuzzy, kde-format

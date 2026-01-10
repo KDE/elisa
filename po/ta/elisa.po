@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:41+0000\n"
+"POT-Creation-Date: 2026-01-10 00:42+0000\n"
 "PO-Revision-Date: 2026-01-04 15:45+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -95,9 +95,11 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "கே.டீ.யீ. சமூகம் உருவாக்கிய எளிய பாடல் இசைப்பி"
 
 #: main.cpp:117
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info"
+#| msgid "© 2015–2025, Elisa contributors"
 msgctxt "@info"
-msgid "© 2015–2025, Elisa contributors"
+msgid "© 2015–2026, Elisa contributors"
 msgstr "(c) 2015–2025, எலைசா நிரலாளர்கள்"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
@@ -495,19 +497,13 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "பாடல்வரிசையைக் காட்டு"
 
-#: qml/ContextView.qml:431
-#, kde-format
-msgctxt "@info:placeholder"
-msgid "No lyrics found"
-msgstr "பாடல்வரிகளை கண்டறிய முடியவில்லை"
-
-#: qml/ContextView.qml:447
+#: qml/ContextView.qml:361
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "எதுவும் இசைக்கப்படவில்லை"
 
-#: qml/ContextView.qml:481
+#: qml/ContextView.qml:395
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -644,11 +640,32 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "சேமிப்பது தோல்வியடைந்தது"
 
-#: qml/HeaderBar.qml:186
+#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:255
+#: qml/mobile/MobileTrackPlayer.qml:297
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Playlist"
+msgstr "பாடல்வரிசை"
+
+#: qml/HeaderBar.qml:259
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Lyrics label for track metadata view"
+#| msgid "Lyrics"
+msgctxt "@action:button"
+msgid "Lyrics"
+msgstr "பாடல்வரிகள்"
+
+#: qml/HeaderBar.qml:273
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "முழுத்திரை பயன்முறையில் நுழை"
+
+#: qml/LyricsView.qml:161
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "No lyrics found"
+msgstr "பாடல்வரிகளை கண்டறிய முடியவில்லை"
 
 #: qml/MediaPlayerControl.qml:91
 #, kde-format
@@ -753,12 +770,6 @@ msgstr "தற்போது: தற்போதைய பாடலை தி�
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "தற்போது: பாடல்வரிசையை திரும்ப இசை"
-
-#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:297
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Playlist"
-msgstr "பாடல்வரிசை"
 
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
 #, kde-format

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:41+0000\n"
+"POT-Creation-Date: 2026-01-10 00:42+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Teruyoshi Ogawa <terucco@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -99,7 +99,7 @@ msgstr "KDE コミュニティによって作成されたシンプルな音楽�
 #| msgctxt "@info"
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
-msgid "© 2015–2025, Elisa contributors"
+msgid "© 2015–2026, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa の貢献者"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
@@ -499,19 +499,13 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "プレイリストを表示"
 
-#: qml/ContextView.qml:431
-#, kde-format
-msgctxt "@info:placeholder"
-msgid "No lyrics found"
-msgstr "歌詞が見つかりません"
-
-#: qml/ContextView.qml:447
+#: qml/ContextView.qml:361
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "何も再生していません"
 
-#: qml/ContextView.qml:481
+#: qml/ContextView.qml:395
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -651,11 +645,32 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "保存に失敗しました"
 
-#: qml/HeaderBar.qml:186
+#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:255
+#: qml/mobile/MobileTrackPlayer.qml:297
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Playlist"
+msgstr "プレイリスト"
+
+#: qml/HeaderBar.qml:259
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Lyrics label for track metadata view"
+#| msgid "Lyrics"
+msgctxt "@action:button"
+msgid "Lyrics"
+msgstr "歌詞"
+
+#: qml/HeaderBar.qml:273
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "フルスクリーンを終了する"
+
+#: qml/LyricsView.qml:161
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "No lyrics found"
+msgstr "歌詞が見つかりません"
 
 #: qml/MediaPlayerControl.qml:91
 #, kde-format
@@ -760,12 +775,6 @@ msgstr "現在: 再生中のトラックをリピート"
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "現在: プレイリスト内の全トラックをリピート"
-
-#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:297
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Playlist"
-msgstr "プレイリスト"
 
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
 #, fuzzy, kde-format

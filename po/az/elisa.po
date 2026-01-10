@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 00:41+0000\n"
+"POT-Creation-Date: 2026-01-10 00:42+0000\n"
 "PO-Revision-Date: 2023-05-29 22:07+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -99,7 +99,7 @@ msgstr "KDE icması tərəfindən məmnuniyyətlə hazırlanmış Sadə Musiqi O
 #| msgctxt "@info"
 #| msgid "(c) 2015-2020, Elisa contributors"
 msgctxt "@info"
-msgid "© 2015–2025, Elisa contributors"
+msgid "© 2015–2026, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa əməkdaşları"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
@@ -501,19 +501,13 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Mahnı siyahısını göstərmək"
 
-#: qml/ContextView.qml:431
-#, kde-format
-msgctxt "@info:placeholder"
-msgid "No lyrics found"
-msgstr "Mahnının sözləri tapılmadı"
-
-#: qml/ContextView.qml:447
+#: qml/ContextView.qml:361
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Heç nə səslənmir"
 
-#: qml/ContextView.qml:481
+#: qml/ContextView.qml:395
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -665,11 +659,32 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Saxlamaq mümkün olmadı"
 
-#: qml/HeaderBar.qml:186
+#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:255
+#: qml/mobile/MobileTrackPlayer.qml:297
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Playlist"
+msgstr "Mahnı siyahısı"
+
+#: qml/HeaderBar.qml:259
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Lyrics label for track metadata view"
+#| msgid "Lyrics"
+msgctxt "@action:button"
+msgid "Lyrics"
+msgstr "Mahnının sözləri"
+
+#: qml/HeaderBar.qml:273
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Tam ekran aç"
+
+#: qml/LyricsView.qml:161
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "No lyrics found"
+msgstr "Mahnının sözləri tapılmadı"
 
 #: qml/MediaPlayerControl.qml:91
 #, kde-format
@@ -790,12 +805,6 @@ msgstr "Hazırkı: Cari mahnı təkrarlansın"
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Hazırkı: Mahnı siyahısındakı bütün mahnılar təkrarlansın"
-
-#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:297
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Playlist"
-msgstr "Mahnı siyahısı"
 
 #: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
 #, fuzzy, kde-format

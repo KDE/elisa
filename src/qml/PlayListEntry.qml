@@ -84,13 +84,6 @@ BasePlayListDelegate {
 
         QtObject {
             id: actionList
-            property var locateFileAction: Kirigami.Action {
-                text: i18nc("@action:button Show the file for this song in the file manager", "Show in folder")
-                icon.name: "document-open-folder"
-                visible: playListEntry.fileName.toString().substring(0, 7) === 'file://'
-                enabled: playListEntry.isValid
-                onTriggered: ElisaApplication.showInFolder(playListEntry.fileName)
-            }
             property var infoAction: Kirigami.Action {
                 text: i18nc("@action:button Show track metadata", "View details")
                 icon.name: "help-about"
@@ -126,21 +119,6 @@ BasePlayListDelegate {
                     // Change icon immediately in case backend is slow
                     icon.name = playListEntry.isFavorite ? "non-starred" : "starred";
                     ElisaApplication.musicManager.updateSingleFileMetaData(playListEntry.fileName, DataTypes.RatingRole, newRating);
-                }
-            }
-            property var playPauseAction: Kirigami.Action {
-                text: (playListEntry.isPlaying === MediaPlayList.IsPlaying) ? i18nc("@action:button Pause current track from playlist", "Pause") : i18nc("@action:button Play this track from playlist", "Play")
-                icon.name: (playListEntry.isPlaying === MediaPlayList.IsPlaying) ? "media-playback-pause" : "media-playback-start"
-                enabled: playListEntry.isValid
-                onTriggered: {
-                    if (playListEntry.isPlaying === MediaPlayList.IsPlaying) {
-                        playListEntry.pausePlayback()
-                    } else if (playListEntry.isPlaying === MediaPlayList.IsPaused) {
-                        playListEntry.startPlayback()
-                    } else {
-                        playListEntry.switchToTrack(playListEntry.index)
-                        playListEntry.startPlayback()
-                    }
                 }
             }
             property var removeAction: Kirigami.Action {
@@ -284,30 +262,12 @@ BasePlayListDelegate {
                     id: buttonRow
 
                     FlatButtonWithToolTip {
-                        id: locateFileButton
-                        action: actionList.locateFileAction
-                        visible: actionList.locateFileAction.visible
-                        icon.color: playListEntry.iconColor
-
-                        KeyNavigation.left: favoriteButton
-                        KeyNavigation.right: infoButton
-                    }
-
-                    FlatButtonWithToolTip {
                         id: infoButton
                         action: actionList.infoAction
                         visible: actionList.infoAction.visible
                         icon.color: playListEntry.iconColor
 
-                        KeyNavigation.right: playPauseButton
-                    }
-
-                    FlatButtonWithToolTip {
-                        id: playPauseButton
-                        action: actionList.playPauseAction
-                        visible: actionList.playPauseAction.visible
-                        icon.color: playListEntry.iconColor
-
+                        KeyNavigation.left: favoriteButton
                         KeyNavigation.right: removeButton
                     }
 
@@ -335,7 +295,7 @@ BasePlayListDelegate {
                         visible: actionList.favoriteAction.visible
                         icon.color: playListEntry.iconColor
 
-                        KeyNavigation.right: locateFileButton
+                        KeyNavigation.right: infoButton
                     }
 
                     data: Binding {
@@ -430,13 +390,7 @@ BasePlayListDelegate {
                     onVisibleChanged: menuLoader.menuVisible = visible
 
                     MenuItem {
-                        action: actionList.playPauseAction
-                    }
-                    MenuItem {
                         action: actionList.infoAction
-                    }
-                    MenuItem {
-                        action: actionList.locateFileAction
                     }
                     MenuItem {
                         action: actionList.ratingAction

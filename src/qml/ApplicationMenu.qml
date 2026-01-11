@@ -24,6 +24,18 @@ Menu {
         onTriggered: mainWindow.visibility == Window.FullScreen ? mainWindow.restorePreviousStateBeforeFullScreen() : mainWindow.goFullScreen()
     }
 
+    Kirigami.Action {
+        readonly property bool togglesDrawer: mainWindow.width < Theme.viewSelectorSmallSizeThreshold
+        readonly property bool playlistVisible: togglesDrawer ? playlistDrawer.visible : contentView.showPlaylist
+
+        text: playlistVisible
+            ? KI18n.i18nc("@action:inmenu", "Hide Playlist")
+            : KI18n.i18nc("@action:inmenu", "Show Playlist")
+        icon.name: "view-media-playlist"
+
+        fromQAction: ElisaApplication.action("toggle_playlist")
+    }
+
     MenuSeparator {}
 
     Action {

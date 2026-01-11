@@ -22,7 +22,6 @@ BasePlayerControl {
     property alias volume: volumeSlider.value
     property bool isMaximized
     property bool isTranslucent
-    property bool isNearCollapse
 
     implicitHeight: toolBar.implicitHeight
 
@@ -284,27 +283,6 @@ BasePlayerControl {
                             height: Math.round(Kirigami.Units.iconSizes.small / 2)
                             source: "arrow-down"
                         }
-                    }
-
-                    FlatButtonWithToolTip {
-                        // normally toggles the playlist in contentView, but when the headerbar is too narrow to
-                        // show the playlistDrawer handle, this opens the drawer instead
-
-                        id: showHidePlaylistAction
-                        property bool _togglesDrawer: mainWindow.width < Theme.viewSelectorSmallSizeThreshold
-
-                        action: Kirigami.Action {
-                            fromQAction: ElisaApplication.action("toggle_playlist")
-                            checkable: true
-                        }
-
-                        visible: !musicWidget.isMaximized && (!_togglesDrawer || musicWidget.isNearCollapse)
-
-                        display: _togglesDrawer ? AbstractButton.IconOnly : AbstractButton.TextBesideIcon
-                        text: KI18n.i18nc("@action:button", "Show Playlist")
-                        icon.name: "view-media-playlist"
-
-                        checked: _togglesDrawer ? playlistDrawer.visible : contentView.showPlaylist
                     }
 
                     FlatButtonWithToolTip {

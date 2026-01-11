@@ -219,65 +219,79 @@ FocusScope {
         }
     }
 
-    RowLayout {
+    Item {
+        id: headerBarHeaderContainer
+
+        readonly property int handleVisible: mainWindow.contextDrawer.handleVisible
+        readonly property int handleMargin: Kirigami.Units.smallSpacing
+        readonly property int handleWidth: (handleMargin * 2) + mainWindow.contextDrawer.handle.width
+
         anchors.top: parent.top
+        anchors.left: parent.left
         anchors.right: parent.right
-        anchors.topMargin: mainWindow.contextDrawer.handleVisible ? Kirigami.Units.smallSpacing : 0
-        anchors.rightMargin: {
-            let rightPadding = Kirigami.Units.mediumSpacing;
-            if (mainWindow.contextDrawer.handleVisible) {
-                const handleMargin = Kirigami.Units.smallSpacing;
-                rightPadding += mainWindow.contextDrawer.handle.width + handleMargin;
+        anchors.topMargin: handleVisible ? handleMargin : 0
+
+
+        RowLayout {
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            spacing: 0
+
+            FlatButtonWithToolTip {
+                id: playlistToggleButton
+                autoExclusive: true
+
+                visible: headerBar.isMaximized
+
+                text: KI18n.i18nc("@action:inmenu", "Playlist")
+                icon.name: "view-media-playlist"
+                display: AbstractButton.TextBesideIcon
+                icon.color: Theme.headerForegroundColor
+                Kirigami.Theme.textColor: Theme.headerForegroundColor
+
+                checkable: true
+                checked: !headerBar.lyricsVisible
+                onCheckedChanged: if (checked) headerBar.lyricsVisible = false
             }
-            return rightPadding;
+
+            FlatButtonWithToolTip {
+                id: lyricsToggleButton
+                autoExclusive: true
+
+                visible: headerBar.isMaximized
+
+                text: KI18n.i18nc("@action:button", "Lyrics")
+                icon.name: "view-media-lyrics"
+                display: AbstractButton.TextBesideIcon
+                icon.color: Theme.headerForegroundColor
+                Kirigami.Theme.textColor: Theme.headerForegroundColor
+
+                checkable: true
+                checked: headerBar.lyricsVisible
+                onCheckedChanged: if (checked) headerBar.lyricsVisible = true
+            }
+
         }
 
-        spacing: Kirigami.Units.smallSpacing
-
         FlatButtonWithToolTip {
-            id: playlistToggleButton
-            autoExclusive: true
+            readonly property bool isFullScreen: mainWindow.visibility == Window.FullScreen
+
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.rightMargin: headerBarHeaderContainer.handleVisible ? headerBarHeaderContainer.handleWidth : 0
 
             visible: headerBar.isMaximized
 
-            text: KI18n.i18nc("@action:inmenu", "Playlist")
-            icon.name: "view-media-playlist"
-            display: AbstractButton.TextBesideIcon
-            icon.color: Theme.headerForegroundColor
-            Kirigami.Theme.textColor: Theme.headerForegroundColor
-
-            checkable: true
-            checked: !headerBar.lyricsVisible
-            onCheckedChanged: if (checked) headerBar.lyricsVisible = false
-        }
-
-        FlatButtonWithToolTip {
-            id: lyricsToggleButton
-            autoExclusive: true
-
-            visible: headerBar.isMaximized
-
-            text: KI18n.i18nc("@action:button", "Lyrics")
-            icon.name: "view-media-lyrics"
-            display: AbstractButton.TextBesideIcon
-            icon.color: Theme.headerForegroundColor
-            Kirigami.Theme.textColor: Theme.headerForegroundColor
-
-            checkable: true
-            checked: headerBar.lyricsVisible
-            onCheckedChanged: if (checked) headerBar.lyricsVisible = true
-        }
-
-        FlatButtonWithToolTip {
-            visible: mainWindow.visibility == Window.FullScreen
-
-            text: KI18n.i18nc("@action:button", "Exit Full Screen")
+            text: isFullScreen
+                ? KI18n.i18nc("@action:button", "Exit Full Screen")
+                : KI18n.i18nc("@action:button", "Enter Full Screen")
             icon.name: "view-restore"
             display: AbstractButton.TextBesideIcon
             icon.color: Theme.headerForegroundColor
             Kirigami.Theme.textColor: Theme.headerForegroundColor
 
-            onClicked: mainWindow.restorePreviousStateBeforeFullScreen()
+            onClicked: isFullScreen ? mainWindow.restorePreviousStateBeforeFullScreen() : mainWindow.goFullScreen()
         }
     }
 
@@ -292,7 +306,6 @@ FocusScope {
         anchors.bottom: background.bottom
 
         isTranslucent: headerBar.height > height
-        isNearCollapse: headerBar.height < height * 2
 
         onHandlePositionChanged: (y, offset) => {
             const newHeight = headerBar.height - offset + y

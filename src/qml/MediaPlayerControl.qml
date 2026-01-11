@@ -162,7 +162,7 @@ BasePlayerControl {
 
                 // Checkable buttons in this group benefits from the standard spacing
                 RowLayout {
-                    spacing: kirigami.Units.smallSpacing
+                    spacing: Kirigami.Units.smallSpacing
 
                     FlatButtonWithToolTip {
                         id: shuffleButton

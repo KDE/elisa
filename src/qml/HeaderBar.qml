@@ -266,18 +266,6 @@ FocusScope {
             checked: headerBar.lyricsVisible
             onCheckedChanged: if (checked) headerBar.lyricsVisible = true
         }
-
-        FlatButtonWithToolTip {
-            visible: mainWindow.visibility == Window.FullScreen
-
-            text: i18nc("@action:button", "Exit Full Screen")
-            icon.name: "view-restore"
-            display: AbstractButton.TextBesideIcon
-            icon.color: Theme.headerForegroundColor
-            Kirigami.Theme.textColor: Theme.headerForegroundColor
-
-            onClicked: mainWindow.restorePreviousStateBeforeFullScreen()
-        }
     }
 
     MediaPlayerControl {
@@ -291,7 +279,6 @@ FocusScope {
         anchors.bottom: background.bottom
 
         isTranslucent: headerBar.height > height
-        isNearCollapse: headerBar.height < height * 2
 
         onHandlePositionChanged: (y, offset) => {
             const newHeight = headerBar.height - offset + y

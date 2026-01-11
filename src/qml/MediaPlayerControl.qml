@@ -21,7 +21,6 @@ BasePlayerControl {
     property alias volume: volumeSlider.value
     property bool isMaximized
     property bool isTranslucent
-    property bool isNearCollapse
 
     implicitHeight: toolBar.implicitHeight
 
@@ -282,24 +281,27 @@ BasePlayerControl {
                     }
 
                     FlatButtonWithToolTip {
-                        // normally toggles the playlist in contentView, but when the headerbar is too narrow to
-                        // show the playlistDrawer handle, this opens the drawer instead
-
                         id: showHidePlaylistAction
-                        property bool _togglesDrawer: mainWindow.width < Theme.viewSelectorSmallSizeThreshold
+
+                        readonly property bool _togglesDrawer: mainWindow.width < Theme.viewSelectorSmallSizeThreshold
 
                         action: Kirigami.Action {
                             fromQAction: ElisaApplication.action("toggle_playlist")
                             checkable: true
                         }
 
-                        visible: !musicWidget.isMaximized && (!_togglesDrawer || musicWidget.isNearCollapse)
+                        visible: !musicWidget.isMaximized && _togglesDrawer
 
-                        display: _togglesDrawer ? AbstractButton.IconOnly : AbstractButton.TextBesideIcon
                         text: i18nc("@action:button", "Show Playlist")
                         icon.name: "view-media-playlist"
-
                         checked: _togglesDrawer ? playlistDrawer.visible : contentView.showPlaylist
+
+                    }
+                    FlatButtonWithToolTip {
+                        text: mainWindow.visibility == Window.FullScreen ? i18nc("@action:inmenu", "Exit Full Screen") : i18nc("@action:inmenu", "Enter Full Screen")
+                        icon.name: mainWindow.visibility == Window.FullScreen ? "view-restore" : "view-fullscreen"
+
+                        onClicked: mainWindow.visibility == Window.FullScreen ? mainWindow.restorePreviousStateBeforeFullScreen() : mainWindow.goFullScreen()
                     }
 
                     FlatButtonWithToolTip {

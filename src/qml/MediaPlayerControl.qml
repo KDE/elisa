@@ -160,170 +160,175 @@ BasePlayerControl {
 
                 Item { implicitWidth: Kirigami.Units.largeSpacing }
 
-                FlatButtonWithToolTip {
-                    id: shuffleButton
-                    text: {
-                        const map = {
-                            [MediaPlayListProxyModel.NoShuffle]: i18nc("@info:tooltip", "Current: No shuffle"),
-                            [MediaPlayListProxyModel.Track]: i18nc("@info:tooltip", "Current: Shuffle tracks"),
-                            [MediaPlayListProxyModel.Album]: i18nc("@info:tooltip", "Current: Shuffle albums"),
+                // Checkable buttons in this group benefits from the standard spacing
+                RowLayout {
+                    spacing: kirigami.Units.smallSpacing
+
+                    FlatButtonWithToolTip {
+                        id: shuffleButton
+                        text: {
+                            const map = {
+                                [MediaPlayListProxyModel.NoShuffle]: i18nc("@info:tooltip", "Current: No shuffle"),
+                                [MediaPlayListProxyModel.Track]: i18nc("@info:tooltip", "Current: Shuffle tracks"),
+                                [MediaPlayListProxyModel.Album]: i18nc("@info:tooltip", "Current: Shuffle albums"),
+                            }
+                            return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
                         }
-                        return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
-                    }
-                    icon.name: {
-                        const map = {
-                            [MediaPlayListProxyModel.NoShuffle]: "media-playlist-no-shuffle-symbolic",
-                            [MediaPlayListProxyModel.Track]: "media-playlist-shuffle",
-                            [MediaPlayListProxyModel.Album]: "media-random-albums-amarok",
+                        icon.name: {
+                            const map = {
+                                [MediaPlayListProxyModel.NoShuffle]: "media-playlist-no-shuffle-symbolic",
+                                [MediaPlayListProxyModel.Track]: "media-playlist-shuffle",
+                                [MediaPlayListProxyModel.Album]: "media-random-albums-amarok",
+                            }
+                            return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
                         }
-                        return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
-                    }
 
-                    down: pressed || menu.visible
-                    Accessible.role: Accessible.ButtonMenu
+                        down: pressed || menu.visible
+                        Accessible.role: Accessible.ButtonMenu
 
-                    checkable: true
-                    checked: ElisaApplication.mediaPlayListProxyModel.shuffleMode !== 0
-
-                    onClicked: {
-                        ElisaApplication.mediaPlayListProxyModel.shuffleMode = (ElisaApplication.mediaPlayListProxyModel.shuffleMode + 1) % 3
-                    }
-                    onPressAndHold: {
-                        (menu as Menu).popup()
-                    }
-
-                    menu: Menu {
-                        ShuffleModeItem {
-                            text: i18nc("@action:inmenu", "Track")
-                            mode: MediaPlayListProxyModel.Track
-                        }
-                        ShuffleModeItem {
-                            text: i18nc("@action:inmenu", "Album")
-                            mode: MediaPlayListProxyModel.Album
-                        }
-                        ShuffleModeItem {
-                            text: i18nc("@action:inmenu", "None")
-                            mode: MediaPlayListProxyModel.NoShuffle
-                        }
-                    }
-
-                    Kirigami.Icon {
-                        anchors {
-                            right: parent.right
-                            bottom: parent.bottom
-                            margins: Kirigami.Units.smallSpacing
-                        }
-                        width: Math.round(Kirigami.Units.iconSizes.small / 2)
-                        height: Math.round(Kirigami.Units.iconSizes.small / 2)
-                        source: "arrow-down"
-                    }
-                }
-
-                FlatButtonWithToolTip {
-                    id: repeatButton
-                    text: {
-                        const map = {
-                            [MediaPlayListProxyModel.None]: i18nc("@info:tooltip", "Current: Don't repeat tracks"),
-                            [MediaPlayListProxyModel.One]: i18nc("@info:tooltip", "Current: Repeat current track"),
-                            [MediaPlayListProxyModel.Playlist]: i18nc("@info:tooltip", "Current: Repeat all tracks in playlist"),
-                        }
-                        return map[ElisaApplication.mediaPlayListProxyModel.repeatMode]
-                    }
-                    icon.name: {
-                        const map = {
-                            [MediaPlayListProxyModel.None]: "media-repeat-none",
-                            [MediaPlayListProxyModel.One]: "media-repeat-single",
-                            [MediaPlayListProxyModel.Playlist]: "media-repeat-all",
-                        }
-                        return map[ElisaApplication.mediaPlayListProxyModel.repeatMode]
-                    }
-
-                    down: pressed || menu.visible
-                    Accessible.role: Accessible.ButtonMenu
-
-                    checkable: true
-                    checked: ElisaApplication.mediaPlayListProxyModel.repeatMode !== 0
-                    onClicked: {
-                        ElisaApplication.mediaPlayListProxyModel.repeatMode = (ElisaApplication.mediaPlayListProxyModel.repeatMode + 1) % 3
-                    }
-                    onPressAndHold: {
-                        (menu as Menu).popup()
-                    }
-
-                    menu: Menu {
-                        PlaylistModeItem {
-                            text: i18nc("@action:inmenu", "Playlist")
-                            mode: MediaPlayListProxyModel.Playlist
-                        }
-                        PlaylistModeItem {
-                            text: i18nc("@action:inmenu", "One track")
-                            mode: MediaPlayListProxyModel.One
-                        }
-                        PlaylistModeItem {
-                            text: i18nc("@action:inmenu", "None")
-                            mode: MediaPlayListProxyModel.None
-                        }
-                    }
-
-                    Kirigami.Icon {
-                        anchors {
-                            right: parent.right
-                            bottom: parent.bottom
-                            margins: Kirigami.Units.smallSpacing
-                        }
-                        width: Math.round(Kirigami.Units.iconSizes.small / 2)
-                        height: Math.round(Kirigami.Units.iconSizes.small / 2)
-                        source: "arrow-down"
-                    }
-                }
-
-                FlatButtonWithToolTip {
-                    // normally toggles the playlist in contentView, but when the headerbar is too narrow to
-                    // show the playlistDrawer handle, this opens the drawer instead
-
-                    id: showHidePlaylistAction
-                    property bool _togglesDrawer: mainWindow.width < Theme.viewSelectorSmallSizeThreshold
-
-                    action: Kirigami.Action {
-                        fromQAction: ElisaApplication.action("toggle_playlist")
                         checkable: true
-                    }
+                        checked: ElisaApplication.mediaPlayListProxyModel.shuffleMode !== 0
 
-                    visible: !musicWidget.isMaximized && (!_togglesDrawer || musicWidget.isNearCollapse)
+                        onClicked: {
+                            ElisaApplication.mediaPlayListProxyModel.shuffleMode = (ElisaApplication.mediaPlayListProxyModel.shuffleMode + 1) % 3
+                        }
+                        onPressAndHold: {
+                            (menu as Menu).popup()
+                        }
 
-                    display: _togglesDrawer ? AbstractButton.IconOnly : AbstractButton.TextBesideIcon
-                    text: i18nc("@action:button", "Show Playlist")
-                    icon.name: "view-media-playlist"
+                        menu: Menu {
+                            ShuffleModeItem {
+                                text: i18nc("@action:inmenu", "Track")
+                                mode: MediaPlayListProxyModel.Track
+                            }
+                            ShuffleModeItem {
+                                text: i18nc("@action:inmenu", "Album")
+                                mode: MediaPlayListProxyModel.Album
+                            }
+                            ShuffleModeItem {
+                                text: i18nc("@action:inmenu", "None")
+                                mode: MediaPlayListProxyModel.NoShuffle
+                            }
+                        }
 
-                    checked: _togglesDrawer ? playlistDrawer.visible : contentView.showPlaylist
-                }
-
-                FlatButtonWithToolTip {
-                    id: menuButton
-
-                    function openMenu() {
-                        if (!menu.visible) {
-                            menu.open()
-                        } else {
-                            (menu as ApplicationMenu).dismiss()
+                        Kirigami.Icon {
+                            anchors {
+                                right: parent.right
+                                bottom: parent.bottom
+                                margins: Kirigami.Units.smallSpacing
+                            }
+                            width: Math.round(Kirigami.Units.iconSizes.small / 2)
+                            height: Math.round(Kirigami.Units.iconSizes.small / 2)
+                            source: "arrow-down"
                         }
                     }
 
-                    text: i18nc("@action:button displayed as @info:tooltip", "Application menu")
-                    icon.name: "open-menu-symbolic"
+                    FlatButtonWithToolTip {
+                        id: repeatButton
+                        text: {
+                            const map = {
+                                [MediaPlayListProxyModel.None]: i18nc("@info:tooltip", "Current: Don't repeat tracks"),
+                                [MediaPlayListProxyModel.One]: i18nc("@info:tooltip", "Current: Repeat current track"),
+                                [MediaPlayListProxyModel.Playlist]: i18nc("@info:tooltip", "Current: Repeat all tracks in playlist"),
+                            }
+                            return map[ElisaApplication.mediaPlayListProxyModel.repeatMode]
+                        }
+                        icon.name: {
+                            const map = {
+                                [MediaPlayListProxyModel.None]: "media-repeat-none",
+                                [MediaPlayListProxyModel.One]: "media-repeat-single",
+                                [MediaPlayListProxyModel.Playlist]: "media-repeat-all",
+                            }
+                            return map[ElisaApplication.mediaPlayListProxyModel.repeatMode]
+                        }
 
-                    down: pressed || menu.visible
-                    Accessible.role: Accessible.ButtonMenu
+                        down: pressed || menu.visible
+                        Accessible.role: Accessible.ButtonMenu
 
-                    onPressed: openMenu()
-                    Keys.onReturnPressed: openMenu()
-                    Keys.onEnterPressed: openMenu()
+                        checkable: true
+                        checked: ElisaApplication.mediaPlayListProxyModel.repeatMode !== 0
+                        onClicked: {
+                            ElisaApplication.mediaPlayListProxyModel.repeatMode = (ElisaApplication.mediaPlayListProxyModel.repeatMode + 1) % 3
+                        }
+                        onPressAndHold: {
+                            (menu as Menu).popup()
+                        }
 
-                    menu: ApplicationMenu {
-                        y: menuButton.height
-                        // without modal, clicking on menuButton will not close the menu
-                        modal: true
-                        dim: false
+                        menu: Menu {
+                            PlaylistModeItem {
+                                text: i18nc("@action:inmenu", "Playlist")
+                                mode: MediaPlayListProxyModel.Playlist
+                            }
+                            PlaylistModeItem {
+                                text: i18nc("@action:inmenu", "One track")
+                                mode: MediaPlayListProxyModel.One
+                            }
+                            PlaylistModeItem {
+                                text: i18nc("@action:inmenu", "None")
+                                mode: MediaPlayListProxyModel.None
+                            }
+                        }
+
+                        Kirigami.Icon {
+                            anchors {
+                                right: parent.right
+                                bottom: parent.bottom
+                                margins: Kirigami.Units.smallSpacing
+                            }
+                            width: Math.round(Kirigami.Units.iconSizes.small / 2)
+                            height: Math.round(Kirigami.Units.iconSizes.small / 2)
+                            source: "arrow-down"
+                        }
+                    }
+
+                    FlatButtonWithToolTip {
+                        // normally toggles the playlist in contentView, but when the headerbar is too narrow to
+                        // show the playlistDrawer handle, this opens the drawer instead
+
+                        id: showHidePlaylistAction
+                        property bool _togglesDrawer: mainWindow.width < Theme.viewSelectorSmallSizeThreshold
+
+                        action: Kirigami.Action {
+                            fromQAction: ElisaApplication.action("toggle_playlist")
+                            checkable: true
+                        }
+
+                        visible: !musicWidget.isMaximized && (!_togglesDrawer || musicWidget.isNearCollapse)
+
+                        display: _togglesDrawer ? AbstractButton.IconOnly : AbstractButton.TextBesideIcon
+                        text: i18nc("@action:button", "Show Playlist")
+                        icon.name: "view-media-playlist"
+
+                        checked: _togglesDrawer ? playlistDrawer.visible : contentView.showPlaylist
+                    }
+
+                    FlatButtonWithToolTip {
+                        id: menuButton
+
+                        function openMenu() {
+                            if (!menu.visible) {
+                                menu.open()
+                            } else {
+                                (menu as ApplicationMenu).dismiss()
+                            }
+                        }
+
+                        text: i18nc("@action:button displayed as @info:tooltip", "Application menu")
+                        icon.name: "open-menu-symbolic"
+
+                        down: pressed || menu.visible
+                        Accessible.role: Accessible.ButtonMenu
+
+                        onPressed: openMenu()
+                        Keys.onReturnPressed: openMenu()
+                        Keys.onEnterPressed: openMenu()
+
+                        menu: ApplicationMenu {
+                            y: menuButton.height
+                            // without modal, clicking on menuButton will not close the menu
+                            modal: true
+                            dim: false
+                        }
                     }
                 }
             }

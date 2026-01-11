@@ -427,20 +427,15 @@ ColumnLayout {
 
                     required property string modelData
 
-                    // Don't need a highlight effect on hover
-                    hoverEnabled: false
+                    width: pathList.width - pathList.leftMargin - pathList.rightMargin
+                    text: modelData
 
-                    contentItem: QQC2.Label {
-                        text: delegate.modelData
-                        width: delegate.width - delegate.leftPadding
-                                              - delegate.rightPadding
-                                              - (action.visible ? action.width : 0)
-                        elide: Text.ElideMiddle
-                        verticalAlignment: Text.AlignVCenter
-                    }
+                    // No hover or click effects wanted here
+                    hoverEnabled: false
+                    highlighted: false
+                    down: false
 
                     actions: Kirigami.Action {
-                        id: action
                         icon.name: "edit-delete"
                         text: i18nc("@action:button", "Stop looking for music here")
 

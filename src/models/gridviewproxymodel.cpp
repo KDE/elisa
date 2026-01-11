@@ -43,6 +43,13 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
         return result;
     }
 
+    if (mDataType == ElisaUtils::Radio) {
+        if (mFilterExpression.match(mainValue.normalized(QString::NormalizationForm_KC)).hasMatch()) {
+            result = true;
+        }
+        return result;
+    }
+
     if (mFilterExpression.match(mainValue.normalized(QString::NormalizationForm_KC)).hasMatch()) {
         result = true;
         return result;

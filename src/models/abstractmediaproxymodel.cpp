@@ -74,6 +74,11 @@ bool AbstractMediaProxyModel::sortedAscending() const
     return sortOrder() ? false : true;
 }
 
+ElisaUtils::PlayListEntryType AbstractMediaProxyModel::dataType() const
+{
+    return mDataType;
+}
+
 MediaPlayListProxyModel *AbstractMediaProxyModel::playList() const
 {
     return mPlayList;
@@ -83,6 +88,16 @@ void AbstractMediaProxyModel::sortModel(Qt::SortOrder order)
 {
     sort(0, order);
     Q_EMIT sortedAscendingChanged();
+}
+
+void AbstractMediaProxyModel::setDataType(ElisaUtils::PlayListEntryType dataType)
+{
+    if (mDataType == dataType) {
+        return;
+    }
+
+    mDataType = dataType;
+    Q_EMIT dataTypeChanged();
 }
 
 void AbstractMediaProxyModel::setPlayList(MediaPlayListProxyModel *playList)

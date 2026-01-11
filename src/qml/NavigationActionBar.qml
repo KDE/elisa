@@ -328,7 +328,6 @@ Item {
                     Kirigami.Theme.colorSet: Kirigami.Settings.isMobile ? Kirigami.Theme.Complementary : Kirigami.Theme.Window
                     Kirigami.Theme.inherit: false
                     objectName: "showFilterButton"
-                    visible: !navigationBar.showCreateRadioButton
                     text: !navigationBar.expandedFilterView
                     ? i18nc("@action:button displayed as @info:tooltip Show filters in the navigation bar", "Show search and filter toolbar")
                     : i18nc("@action:button displayed as @info:tooltip Hide filters in the navigation bar", "Hide search and filter toolbar")
@@ -423,9 +422,11 @@ Item {
 
                     Accessible.role: Accessible.EditableText
 
-                    placeholderText: navigationBar.displaySingleAlbum
-                        ? i18nc("@info:placeholder track view filter single album", "Search for track name, artist, etc.")
-                        : i18nc("@info:placeholder track view filter general", "Search for album name, artist, etc.")
+                    placeholderText: navigationBar.showCreateRadioButton
+                        ? i18nc("@info:placeholder radio view filter", "Search for radio station")
+                        : (navigationBar.displaySingleAlbum
+                            ? i18nc("@info:placeholder track view filter single album", "Search for track name, artist, etc.")
+                            : i18nc("@info:placeholder track view filter general", "Search for album name, artist, etc."))
 
                     Keys.onEscapePressed: persistentSettings.expandedFilterView = false;
                 }

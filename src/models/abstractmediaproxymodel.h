@@ -41,6 +41,8 @@ class ELISALIB_EXPORT AbstractMediaProxyModel : public QSortFilterProxyModel
                READ sortedAscending
                NOTIFY sortedAscendingChanged)
 
+    Q_PROPERTY(ElisaUtils::PlayListEntryType dataType READ dataType WRITE setDataType NOTIFY dataTypeChanged)
+
     Q_PROPERTY(MediaPlayListProxyModel* playList READ playList WRITE setPlayList NOTIFY playListChanged)
 
 public:
@@ -55,6 +57,8 @@ public:
 
     [[nodiscard]] bool sortedAscending() const;
 
+    [[nodiscard]] ElisaUtils::PlayListEntryType dataType() const;
+
     [[nodiscard]] MediaPlayListProxyModel* playList() const;
 
 public Q_SLOTS:
@@ -64,6 +68,8 @@ public Q_SLOTS:
     void setFilterRating(int filterRating);
 
     void sortModel(Qt::SortOrder order);
+
+    void setDataType(ElisaUtils::PlayListEntryType dataType);
 
     void setPlayList(MediaPlayListProxyModel* playList);
 
@@ -86,6 +92,8 @@ Q_SIGNALS:
 
     void sortedAscendingChanged();
 
+    void dataTypeChanged();
+
     void playListChanged();
 
     void entriesToEnqueue(const DataTypes::EntryDataList &newEntries,
@@ -105,6 +113,8 @@ protected:
     QString mFilterText;
 
     int mFilterRating = 0;
+
+    ElisaUtils::PlayListEntryType mDataType = ElisaUtils::Unknown;
 
     QRegularExpression mFilterExpression;
 

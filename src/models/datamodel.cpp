@@ -64,7 +64,8 @@ int DataModel::rowCount(const QModelIndex &parent) const
         return dataCount;
     }
 
-    dataCount = d->mAllTrackData.size() + d->mAllAlbumData.size() + d->mAllArtistData.size() + d->mAllGenreData.size();
+    dataCount = d->mModelType == ElisaUtils::Radio ? d->mAllRadiosData.size()
+                                                   : d->mAllTrackData.size() + d->mAllAlbumData.size() + d->mAllArtistData.size() + d->mAllGenreData.size();
 
     return dataCount;
 }

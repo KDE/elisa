@@ -1,0 +1,112 @@
+# SPDX-FileCopyrightText: 2024-2026 Scarlett Moore <sgmoore@kde.org>
+#
+# SPDX-License-Identifier: CC0-1.0
+---
+name: elisa
+confinement: strict
+grade: stable
+base: core24
+adopt-info: elisa
+icon: $CRAFT_PROJECT_DIR/logo.png
+apps:
+  elisa:
+    extensions:
+      - kde-neon-6
+    common-id: org.kde.elisa.desktop
+    desktop: usr/share/applications/org.kde.elisa.desktop
+    command: usr/bin/elisa
+    slots:
+      - mpris
+    plugs:
+      - home
+      - removable-media
+      - screen-inhibit-control
+      - pulseaudio
+      - audio-record
+environment:
+  LD_LIBRARY_PATH: >
+    "$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib:$SNAP/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/elisa:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio${LD_LIBRARY_PATH}:$SNAP/ffmpeg-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR"
+  PATH: $SNAP/ffmpeg-platform/usr/bin:${PATH}
+  ALSA_CONFIG_PATH: "$SNAP/kf6/etc/asound.conf"
+  QT_MEDIA_BACKEND: "ffmpeg"
+  GST_PLUGIN_SYSTEM_PATH: $SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer-1.0/
+  GST_PLUGIN_PATH: "$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer-1.0"
+  GST_PLUGIN_SCANNER: "$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner"
+
+plugs:
+  ffmpeg-2404:
+    interface: content
+    target: ffmpeg-platform
+    default-provider: ffmpeg-2404
+
+layout:
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib
+  /usr/share/alsa:
+    symlink: $SNAP/usr/share/alsa
+  "/etc/alsa/conf.d":
+    bind: "$SNAP/etc/alsa/conf.d"
+
+slots:
+  session-dbus-interface:
+    interface: dbus
+    name: org.kde.elisa
+    bus: session
+  mpris-elisa:
+    interface: dbus
+    name: org.mpris.MediaPlayer2.elisa
+    bus: session
+parts:
+  elisa:
+    parse-info:
+      - usr/share/metainfo/org.kde.elisa.appdata.xml
+    plugin: cmake
+    build-snaps:
+      - kde-qt6-core24-sdk/latest/beta
+      - kf6-core24-sdk/latest/beta
+    build-packages:
+      - libvlc-dev
+      - libpulse0
+    stage-packages:
+      - libasound2
+      - libasound2-plugins
+      - libasound2-data
+      - libpulse0
+    source: https://invent.kde.org/multimedia/elisa.git
+    source-branch: master
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DQT_MAJOR_VERSION=6
+      - -DBUILD_WITH_QT6=ON
+      - -DBUILD_TESTING=OFF
+    prime:
+      - -usr/lib/*/cmake/*
+      - -usr/include/*
+      - -usr/share/ECM/*
+      - -usr/share/man/*
+      - -usr/bin/X11
+      - -usr/lib/gcc/$CRAFT_ARCH_TRIPLET_BUILD_FOR/6.0.0
+      - -usr/lib/aspell/*
+      - -usr/share/lintian
+  gpu-2404:
+    after: [elisa]
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
+    prime:
+      - bin/gpu-2404-wrapper
+  cleanup:
+    after:
+      - elisa
+    plugin: nil
+    build-snaps:
+      - core24
+      - kf6-core24
+    override-prime: |
+        set -eux
+        for snap in "core24" "kf6-core24"; do
+            cd "/snap/$snap/current" && find . -type f,l -exec rm -rf "${CRAFT_PRIME}/{}" \;
+        done

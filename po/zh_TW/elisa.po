@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:42+0000\n"
+"POT-Creation-Date: 2026-01-12 00:42+0000\n"
 "PO-Revision-Date: 2025-12-21 06:51+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -492,7 +492,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:295
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:299
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
@@ -639,7 +639,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "儲存失敗"
 
-#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:255
+#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:259
 #: qml/mobile/MobileTrackPlayer.qml:297
 #, kde-format
 msgctxt "@action:inmenu"
@@ -715,68 +715,68 @@ msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "靜音"
 
-#: qml/MediaPlayerControl.qml:167 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:171 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "目前：不隨機播放"
 
-#: qml/MediaPlayerControl.qml:168 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "目前：隨機播放曲目"
 
-#: qml/MediaPlayerControl.qml:169 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "目前：隨機播放專輯"
 
-#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:244
+#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "曲目"
 
-#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:248
+#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:248
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "專輯"
 
-#: qml/MediaPlayerControl.qml:205 qml/MediaPlayerControl.qml:263
+#: qml/MediaPlayerControl.qml:209 qml/MediaPlayerControl.qml:267
 #: qml/mobile/MobileTrackPlayer.qml:252 qml/mobile/MobileTrackPlayer.qml:305
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "無"
 
-#: qml/MediaPlayerControl.qml:226 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:230 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "目前：不重複播放曲目"
 
-#: qml/MediaPlayerControl.qml:227 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "目前：重複播放目前曲目"
 
-#: qml/MediaPlayerControl.qml:228 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "目前：重複播放播放清單中的所有曲目"
 
-#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
+#: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "一首歌曲"
 
-#: qml/MediaPlayerControl.qml:312
+#: qml/MediaPlayerControl.qml:316
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -1333,39 +1333,45 @@ msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "返回"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:332
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "顯示搜尋與過濾工具列"
 
-#: qml/NavigationActionBar.qml:334
+#: qml/NavigationActionBar.qml:333
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "隱藏搜尋與過濾工具列"
 
-#: qml/NavigationActionBar.qml:427
+#: qml/NavigationActionBar.qml:426
+#, kde-format
+msgctxt "@info:placeholder radio view filter"
+msgid "Search for radio station"
+msgstr ""
+
+#: qml/NavigationActionBar.qml:428
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "搜尋曲目名稱、藝人等等"
 
-#: qml/NavigationActionBar.qml:428
+#: qml/NavigationActionBar.qml:429
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "搜尋專輯名稱、藝人等等"
 
-#: qml/NavigationActionBar.qml:437
+#: qml/NavigationActionBar.qml:438
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "依評分過濾："
 
-#: qml/NavigationActionBar.qml:455
+#: qml/NavigationActionBar.qml:456
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
@@ -1604,7 +1610,7 @@ msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "選擇…"
 
-#: qml/SettingsForm.qml:338 qml/SettingsForm.qml:468
+#: qml/SettingsForm.qml:338 qml/SettingsForm.qml:463
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
@@ -1645,13 +1651,13 @@ msgctxt ""
 msgid "Music folders:"
 msgstr "音樂資料夾："
 
-#: qml/SettingsForm.qml:445
+#: qml/SettingsForm.qml:440
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "不再從這裡尋找音樂"
 
-#: qml/SettingsForm.qml:458
+#: qml/SettingsForm.qml:453
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-12 00:42+0000\n"
-"PO-Revision-Date: 2026-01-10 02:31+0100\n"
+"PO-Revision-Date: 2026-01-12 03:25+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1358,7 +1358,7 @@ msgstr "ძებნისა და ფილტრის პანელის
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "რადიოსადგურის ძებნა"
 
 #: qml/NavigationActionBar.qml:428
 #, kde-format

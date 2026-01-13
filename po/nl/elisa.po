@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-12 00:42+0000\n"
-"PO-Revision-Date: 2026-01-10 12:26+0100\n"
+"PO-Revision-Date: 2026-01-12 12:22+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -1357,7 +1357,7 @@ msgstr "Werkbalk voor zoeken en filteren verbergen"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "Naar radiostation zoeken"
 
 #: qml/NavigationActionBar.qml:428
 #, kde-format

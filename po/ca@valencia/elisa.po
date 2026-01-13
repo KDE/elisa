@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-12 00:42+0000\n"
-"PO-Revision-Date: 2026-01-10 12:40+0100\n"
+"PO-Revision-Date: 2026-01-12 10:03+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -1361,7 +1361,7 @@ msgstr "Oculta la barra d'eines de busca i filtratge"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "Busca una estació de ràdio"
 
 #: qml/NavigationActionBar.qml:428
 #, kde-format

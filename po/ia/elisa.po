@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-12 00:42+0000\n"
-"PO-Revision-Date: 2026-01-09 15:18+0100\n"
+"PO-Revision-Date: 2026-01-13 11:44+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -97,12 +97,10 @@ msgstr ""
 "Un Simple Reproductor de musica facite con amor per le communitate de KDE"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2025, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
-msgstr "© 2015–2025, contributores de Elisa"
+msgstr "© 2015–2026, contributores de Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -650,9 +648,7 @@ msgid "Playlist"
 msgstr "Lista de reproduction"
 
 #: qml/HeaderBar.qml:259
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "Parolas del Canto"
@@ -1363,7 +1359,7 @@ msgstr "Cela Barra de instrumento de Cercar e Filtrar"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "Cerca station radio"
 
 #: qml/NavigationActionBar.qml:428
 #, kde-format

@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the elisa package.
 #
 # SPDX-FileCopyrightText: 2023, 2024, 2025 Guðmundur Erlingsson <gudmundure@gmail.com>
-# SPDX-FileCopyrightText: 2024, 2025 Sveinn í Felli <sv1@fellsnet.is>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 Sveinn í Felli <sv1@fellsnet.is>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-12 00:42+0000\n"
-"PO-Revision-Date: 2025-11-20 09:08+0000\n"
+"POT-Creation-Date: 2026-01-16 00:42+0000\n"
+"PO-Revision-Date: 2026-01-15 13:23+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -96,12 +96,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Einfaldur tónlistarspilari gerður af alúð af KDE samfélaginu"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
-msgstr "© 2015-2020, þróunaraðilar Elisa"
+msgstr "© 2015-2026, þróunaraðilar Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -398,7 +396,7 @@ msgid "Add to playlist"
 msgstr "Bæta við spilunarlista"
 
 #: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/PlayListEntry.qml:88 qml/TrackBrowserDelegate.qml:69
+#: qml/TrackBrowserDelegate.qml:69
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -649,9 +647,7 @@ msgid "Playlist"
 msgstr "Spilunarlista"
 
 #: qml/HeaderBar.qml:259
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "Lagatextar"
@@ -939,14 +935,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "1 lag, %1 mín eftir"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Afmerkja lagið sem eftirlæti"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
@@ -1053,19 +1049,19 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Hoppa áfram"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Valkostir lags"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Stillingar útvarps"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:95
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #: qml/TrackBrowserDelegate.qml:76
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1362,7 +1358,7 @@ msgstr "Fela verkfærastiku fyrir leit og síun"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "Leita að útvarpsstöð"
 
 #: qml/NavigationActionBar.qml:428
 #, kde-format
@@ -1388,31 +1384,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Sýna aðeins eftirlæti"
 
-#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:96
+#: qml/PlayListEntry.qml:102 qml/TrackBrowserDelegate.qml:96
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Velja einkunn"
 
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Pause current track from playlist"
-msgid "Pause"
-msgstr "Setja á pásu"
-
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Play this track from playlist"
-msgid "Play"
-msgstr "Spila"
-
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:125
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Fjarlægja"
 
-#: qml/PlayListEntry.qml:350 qml/TrackBrowserDelegate.qml:311
+#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:311
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -1968,6 +1952,14 @@ msgstr "Skrár"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Útvarpsstöðvar"
+
+#~ msgctxt "@action:button Pause current track from playlist"
+#~ msgid "Pause"
+#~ msgstr "Setja á pásu"
+
+#~ msgctxt "@action:button Play this track from playlist"
+#~ msgid "Play"
+#~ msgstr "Spila"
 
 #~ msgctxt ""
 #~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "

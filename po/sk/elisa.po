@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-12 00:42+0000\n"
+"POT-Creation-Date: 2026-01-16 00:42+0000\n"
 "PO-Revision-Date: 2023-03-02 18:26+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -403,7 +403,7 @@ msgid "Add to playlist"
 msgstr "Pridať do zoznamu skladieb"
 
 #: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/PlayListEntry.qml:88 qml/TrackBrowserDelegate.qml:69
+#: qml/TrackBrowserDelegate.qml:69
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -1011,14 +1011,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "%1 zostávajúca"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Odznačiť túto skladbu ako obľúbenú"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
@@ -1129,13 +1129,13 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Preskočiť dopredu"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Možnosti skladby"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, fuzzy, kde-format
 #| msgctxt "@item:intable"
 #| msgid "Radio Stations"
@@ -1143,7 +1143,7 @@ msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Rádiové stanice"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:95
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #: qml/TrackBrowserDelegate.qml:76
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1500,31 +1500,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Zobrazovať iba obľúbené"
 
-#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:96
+#: qml/PlayListEntry.qml:102 qml/TrackBrowserDelegate.qml:96
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Nastaviť hodnotenie skladby"
 
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Pause current track from playlist"
-msgid "Pause"
-msgstr "Pozastaviť"
-
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Play this track from playlist"
-msgid "Play"
-msgstr "Prehrať"
-
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:125
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: qml/PlayListEntry.qml:350 qml/TrackBrowserDelegate.qml:311
+#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:311
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -2103,6 +2091,14 @@ msgstr "Súbory"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Rádiové stanice"
+
+#~ msgctxt "@action:button Pause current track from playlist"
+#~ msgid "Pause"
+#~ msgstr "Pozastaviť"
+
+#~ msgctxt "@action:button Play this track from playlist"
+#~ msgid "Play"
+#~ msgstr "Prehrať"
 
 #~ msgctxt ""
 #~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "

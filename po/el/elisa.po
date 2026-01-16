@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-12 00:42+0000\n"
+"POT-Creation-Date: 2026-01-16 00:42+0000\n"
 "PO-Revision-Date: 2024-09-19 14:44+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -407,7 +407,7 @@ msgid "Add to playlist"
 msgstr "Προσθήκη στη λίστα αναπαραγωγής"
 
 #: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/PlayListEntry.qml:88 qml/TrackBrowserDelegate.qml:69
+#: qml/TrackBrowserDelegate.qml:69
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -989,14 +989,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "%1 απομένει"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Να αναιρεθεί η σημείωση αυτού του τραγουδιού ως αγαπημένο"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
@@ -1105,13 +1105,13 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Παράλειψη προς τα εμπρός"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Επιλογές κομματιών"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, fuzzy, kde-format
 #| msgctxt "@item:intable"
 #| msgid "Radio Stations"
@@ -1119,7 +1119,7 @@ msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Ραδιοφωνικοί σταθμοί"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:95
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #: qml/TrackBrowserDelegate.qml:76
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1460,31 +1460,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Προβολή Μόνο Αγαπημένων"
 
-#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:96
+#: qml/PlayListEntry.qml:102 qml/TrackBrowserDelegate.qml:96
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Ρύθμιση αξιολόγησης κομματιού"
 
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Pause current track from playlist"
-msgid "Pause"
-msgstr "Παύση"
-
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Play this track from playlist"
-msgid "Play"
-msgstr "Αναπαραγωγή"
-
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:125
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Αφαίρεση"
 
-#: qml/PlayListEntry.qml:350 qml/TrackBrowserDelegate.qml:311
+#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:311
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -2051,6 +2039,14 @@ msgstr "Αρχεία"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Ραδιοφωνικοί σταθμοί"
+
+#~ msgctxt "@action:button Pause current track from playlist"
+#~ msgid "Pause"
+#~ msgstr "Παύση"
+
+#~ msgctxt "@action:button Play this track from playlist"
+#~ msgid "Play"
+#~ msgstr "Αναπαραγωγή"
 
 #~ msgctxt ""
 #~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "

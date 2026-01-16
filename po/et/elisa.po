@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-12 00:42+0000\n"
+"POT-Creation-Date: 2026-01-16 00:42+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -488,7 +488,7 @@ msgid "Add to playlist"
 msgstr "Lisa esitusloendisse"
 
 #: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/PlayListEntry.qml:88 qml/TrackBrowserDelegate.qml:69
+#: qml/TrackBrowserDelegate.qml:69
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@action:button Show the file for this song in the file manager"
@@ -1129,14 +1129,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "1 rada jäänud"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr ""
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
@@ -1264,7 +1264,7 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Hüpe edasi"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1272,14 +1272,14 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Rajad"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, fuzzy, kde-format
 #| msgid "Radios"
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Raadio"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:95
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #: qml/TrackBrowserDelegate.qml:76
 #, fuzzy, kde-format
 #| msgctxt "Show track metadata"
@@ -1664,29 +1664,13 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr ""
 
-#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:96
+#: qml/PlayListEntry.qml:102 qml/TrackBrowserDelegate.qml:96
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr ""
 
-#: qml/PlayListEntry.qml:132
-#, fuzzy, kde-format
-#| msgctxt "Pause current track from play list"
-#| msgid "Pause"
-msgctxt "@action:button Pause current track from playlist"
-msgid "Pause"
-msgstr "Paus"
-
-#: qml/PlayListEntry.qml:132
-#, fuzzy, kde-format
-#| msgctxt "Play this track from play list"
-#| msgid "Play"
-msgctxt "@action:button Play this track from playlist"
-msgid "Play"
-msgstr "Esita"
-
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:125
 #, fuzzy, kde-format
 #| msgctxt "Remove current track from play list"
 #| msgid "Remove"
@@ -1694,7 +1678,7 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Eemalda"
 
-#: qml/PlayListEntry.qml:350 qml/TrackBrowserDelegate.qml:311
+#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:311
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -2330,6 +2314,20 @@ msgstr "Failid"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Raadio"
+
+#, fuzzy
+#~| msgctxt "Pause current track from play list"
+#~| msgid "Pause"
+#~ msgctxt "@action:button Pause current track from playlist"
+#~ msgid "Pause"
+#~ msgstr "Paus"
+
+#, fuzzy
+#~| msgctxt "Play this track from play list"
+#~| msgid "Play"
+#~ msgctxt "@action:button Play this track from playlist"
+#~ msgid "Play"
+#~ msgstr "Esita"
 
 #, fuzzy
 #~| msgctxt "Open view of the container"

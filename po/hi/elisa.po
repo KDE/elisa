@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-12 00:42+0000\n"
+"POT-Creation-Date: 2026-01-16 00:42+0000\n"
 "PO-Revision-Date: 2024-12-15 19:32+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Hindi <kde-i18n-doc@kde.org>\n"
@@ -403,7 +403,7 @@ msgid "Add to playlist"
 msgstr "गीत-सूची में जोड़ें"
 
 #: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/PlayListEntry.qml:88 qml/TrackBrowserDelegate.qml:69
+#: qml/TrackBrowserDelegate.qml:69
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -1005,14 +1005,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "%1 बाकी"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "इस गीत को पसंदीदा के रूप में अचिह्नित करें"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
@@ -1121,13 +1121,13 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "आगे जाएँ"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "गीत विकल्प"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, fuzzy, kde-format
 #| msgctxt "@item:intable"
 #| msgid "Radio Stations"
@@ -1135,7 +1135,7 @@ msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "रेडियो स्टेशन"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:95
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #: qml/TrackBrowserDelegate.qml:76
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1492,31 +1492,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "केवल पसंदीदा दिखाएँ"
 
-#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:96
+#: qml/PlayListEntry.qml:102 qml/TrackBrowserDelegate.qml:96
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "गीत का मूल्यांकन नियत करें"
 
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Pause current track from playlist"
-msgid "Pause"
-msgstr "रोकें"
-
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Play this track from playlist"
-msgid "Play"
-msgstr "बजाएँ"
-
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:125
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "हटाएँ"
 
-#: qml/PlayListEntry.qml:350 qml/TrackBrowserDelegate.qml:311
+#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:311
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -2091,6 +2079,14 @@ msgstr "फ़ाइलें"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "रेडियो स्टेशन"
+
+#~ msgctxt "@action:button Pause current track from playlist"
+#~ msgid "Pause"
+#~ msgstr "रोकें"
+
+#~ msgctxt "@action:button Play this track from playlist"
+#~ msgid "Play"
+#~ msgstr "बजाएँ"
 
 #~ msgctxt ""
 #~ "@option file type (mime type) for m3u, m3u8 and pls playlist file "

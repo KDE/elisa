@@ -1,22 +1,22 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2023, 2024 Vít Pelčák <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2023, 2024, 2026 Vít Pelčák <vit@pelcak.org>
 # SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 Vit Pelcak <vit@pelcak.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-12 00:42+0000\n"
-"PO-Revision-Date: 2024-11-14 14:04+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"POT-Creation-Date: 2026-01-16 00:42+0000\n"
+"PO-Revision-Date: 2026-01-09 09:28+0100\n"
+"Last-Translator:  Vít Pelčák <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -39,7 +39,7 @@ msgstr "Různí umělci"
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
-msgstr "Rozhlasové stanice"
+msgstr "Rádio stanice"
 
 #: elisaapplication.cpp:184
 #, kde-format
@@ -99,7 +99,7 @@ msgstr "Jednoduchý přehrávač hudby napsaný s láskou komunitou KDE"
 #, kde-format
 msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
-msgstr ""
+msgstr "(c) 2015-2025, přispěvatelé do aplikace Elisa"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -327,7 +327,7 @@ msgstr "Text písně"
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP Address"
-msgstr ""
+msgstr "Adresa HTTP streamu"
 
 #: models/trackmetadatamodel.cpp:579
 #, kde-format
@@ -369,13 +369,13 @@ msgstr "Přehrávám hudbu"
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr ""
+msgstr "%1:%2"
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr ""
+msgstr "%1:%2:%3"
 
 #: qml/AbstractBrowserDelegate.qml:42
 #, kde-format
@@ -396,7 +396,7 @@ msgid "Add to playlist"
 msgstr "Přidat do seznamu skladeb"
 
 #: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/PlayListEntry.qml:88 qml/TrackBrowserDelegate.qml:69
+#: qml/TrackBrowserDelegate.qml:69
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
@@ -512,16 +512,16 @@ msgstr "Zobrazit ve složce"
 #, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr ""
+msgstr "Všechny skladby"
 
 #: qml/DataGridView.qml:162
 #, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1 skladba"
+msgstr[1] "%1 skladby"
+msgstr[2] "%1 skladeb"
 
 #: qml/DurationSlider.qml:67
 #, kde-format
@@ -565,13 +565,13 @@ msgstr "Zpět"
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr ""
+msgstr "Zobrazit seznam skladeb"
 
 #: qml/ElisaMainWindow.qml:142
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
-msgstr ""
+msgstr "Skrýt seznam skladeb"
 
 #: qml/ElisaMainWindow.qml:178 qml/ElisaMainWindow.qml:622
 #, kde-format
@@ -616,19 +616,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "Soubory seznamů skladeb a hudby (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:297
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "pls Seznam skladeb (*.pls)"
+msgstr "Soubory se seznamy skladeb (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:298
 #, kde-format
@@ -636,7 +632,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "Hudební soubory (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:309
 #, kde-format
@@ -724,19 +720,19 @@ msgstr "Ztlumit"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "Současné: Bez náhodného řazení"
 
 #: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr ""
+msgstr "Současné: Náhodné přehrávání stop"
 
 #: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "Současné: Náhodné přehrávání alb"
 
 #: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:244
 #, kde-format
@@ -780,7 +776,7 @@ msgstr "Současné: Opakovat všechny skladby v seznamu"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr ""
+msgstr "1 skladba"
 
 #: qml/MediaPlayerControl.qml:316
 #, kde-format
@@ -800,7 +796,7 @@ msgstr "Seznam skladeb"
 #, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
-msgstr ""
+msgstr "Zobrazit aktuální"
 
 #: qml/MediaPlayListView.qml:81
 #, kde-format
@@ -815,18 +811,16 @@ msgid "Save…"
 msgstr "Uložit…"
 
 #: qml/MediaPlayListView.qml:101
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "Otevřít seznam skladeb…"
+msgstr "Otevřít…"
 
 #: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "Otevřít hudbu nebo uložené seznamy skladeb"
 
 #: qml/MediaPlayListView.qml:127
 #, kde-format
@@ -871,9 +865,9 @@ msgstr "Seznam skladeb je prázdný."
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1/%2 skladeb zbývá"
+msgstr[1] "%1/%2 skladeb zbývají"
+msgstr[2] "%1/%2 skladeb zbývají"
 
 #: qml/MediaPlayListView.qml:477
 #, kde-format
@@ -901,9 +895,9 @@ msgstr "%1/%2 zbývá"
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1/%2 skladeb"
+msgstr[1] "%1/%2 skladeb"
+msgstr[2] "%1/%2 skladeb"
 
 #: qml/MediaPlayListView.qml:503
 #, kde-format
@@ -938,9 +932,9 @@ msgctxt ""
 "duration formatted like hh:mm:ss or mm:ss"
 msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1 skladba, %2 celkem"
+msgstr[1] "%1 skladby, %2 celkem"
+msgstr[2] "%1 skladeb, %2 celkem"
 
 #: qml/MediaPlayListView.qml:510
 #, kde-format
@@ -948,16 +942,16 @@ msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
 msgid "1 track, %1min remaining"
-msgstr ""
+msgstr "1 skladba, %1 min zbývá"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Zrušit označení této písně jako oblíbené"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:119
+#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
 #: qml/TrackBrowserDelegate.qml:104
 #, kde-format
 msgctxt "@action:button"
@@ -1064,19 +1058,19 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Přeskočit vpřed"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Možnosti skladby"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:402
+#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
-msgstr "Možnosti rozhlasu"
+msgstr "Možnosti rádio stanic"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:95
+#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
 #: qml/TrackBrowserDelegate.qml:76
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1300,13 +1294,13 @@ msgstr "Přehrát nyní a nahradit současný seznam skladeb"
 #, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
-msgstr ""
+msgstr "Přehrát další"
 
 #: qml/NavigationActionBar.qml:148
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr ""
+msgstr "Přehrát další v seznamu skladeb"
 
 #: qml/NavigationActionBar.qml:160
 #, kde-format
@@ -1400,31 +1394,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Zobrazit pouze oblíbené"
 
-#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:96
+#: qml/PlayListEntry.qml:102 qml/TrackBrowserDelegate.qml:96
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Zadat hodnocení skladby"
 
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Pause current track from playlist"
-msgid "Pause"
-msgstr "Pozastavit"
-
-#: qml/PlayListEntry.qml:132
-#, kde-format
-msgctxt "@action:button Play this track from playlist"
-msgid "Play"
-msgstr "Přehrát"
-
-#: qml/PlayListEntry.qml:147
+#: qml/PlayListEntry.qml:125
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: qml/PlayListEntry.qml:350 qml/TrackBrowserDelegate.qml:311
+#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:311
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -1626,7 +1608,7 @@ msgstr "Rozhlasové stanice"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
-msgstr ""
+msgstr "Počáteční umístění pro zobrazení souborů:"
 
 #: qml/SettingsForm.qml:330
 #, kde-format
@@ -1710,19 +1692,19 @@ msgstr "Přehrávat odsud a nahradit současný seznam skladeb"
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:212
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
-msgstr ""
+msgstr "%1 – %2 – %3"
 
 #: qml/TrackBrowserDelegate.qml:224
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
-msgstr ""
+msgstr "%1 – %2"
 
 #: qml/TrackBrowserDelegate.qml:370
 #, kde-format
@@ -1794,7 +1776,7 @@ msgstr "Sestupně"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
-msgstr ""
+msgstr "A–Z"
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
 #: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
@@ -1803,7 +1785,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
-msgstr ""
+msgstr "Z–A"
 
 # Tohle vypadá na název vlastnosti. Jméno bycvh nechal pro lidi a zvířata.
 #: viewmanager.cpp:55 viewmanager.cpp:83
@@ -1983,3 +1965,11 @@ msgstr "Soubory"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Rozhlasové stanice"
+
+#~ msgctxt "@action:button Pause current track from playlist"
+#~ msgid "Pause"
+#~ msgstr "Pozastavit"
+
+#~ msgctxt "@action:button Play this track from playlist"
+#~ msgid "Play"
+#~ msgstr "Přehrát"

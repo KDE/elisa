@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-16 00:42+0000\n"
-"PO-Revision-Date: 2026-01-11 00:22+0100\n"
+"PO-Revision-Date: 2026-01-18 00:15+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1359,7 +1359,7 @@ msgstr "Ocultar barra de tareas de búsqueda y filtrado"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "Buscar una estación de radio"
 
 #: qml/NavigationActionBar.qml:428
 #, kde-format
@@ -1956,11 +1956,3 @@ msgstr "Archivos"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estaciones de radio"
-
-#~ msgctxt "@action:button Pause current track from playlist"
-#~ msgid "Pause"
-#~ msgstr "Pausar"
-
-#~ msgctxt "@action:button Play this track from playlist"
-#~ msgid "Play"
-#~ msgstr "Reproducir"

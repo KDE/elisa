@@ -1936,11 +1936,3 @@ msgstr "文件"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "电台"
-
-#~ msgctxt "@action:button Pause current track from playlist"
-#~ msgid "Pause"
-#~ msgstr "暂停"
-
-#~ msgctxt "@action:button Play this track from playlist"
-#~ msgid "Play"
-#~ msgstr "播放"

@@ -2076,11 +2076,3 @@ msgstr "Filer"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Radiokanalar"
-
-#~ msgctxt "@action:button Pause current track from playlist"
-#~ msgid "Pause"
-#~ msgstr "Pause"
-
-#~ msgctxt "@action:button Play this track from playlist"
-#~ msgid "Play"
-#~ msgstr "Spel"

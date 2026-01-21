@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-16 00:42+0000\n"
-"PO-Revision-Date: 2025-12-20 03:05+0200\n"
+"PO-Revision-Date: 2026-01-20 23:54+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
 "Language: lt\n"
@@ -97,12 +97,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Paprastas muzikos grotuvas, su meile sukurtas KDE bendruomenės"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2025, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
-msgstr "© 2015–2025, Elisa talkininkai"
+msgstr "© 2015–2026, Elisa talkininkai"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -652,9 +650,7 @@ msgid "Playlist"
 msgstr "Grojaraštis"
 
 #: qml/HeaderBar.qml:259
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "Dainos žodžiai"
@@ -1375,7 +1371,7 @@ msgstr "Slėpti paieškos ir filtro įrankių juostą"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "Ieškoti radijo stoties"
 
 #: qml/NavigationActionBar.qml:428
 #, kde-format

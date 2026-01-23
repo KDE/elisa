@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-16 00:42+0000\n"
+"POT-Creation-Date: 2026-01-23 00:42+0000\n"
 "PO-Revision-Date: 2023-03-02 18:26+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -382,13 +382,13 @@ msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
 msgstr ""
 
-#: qml/AbstractBrowserDelegate.qml:42
+#: qml/AbstractBrowserDelegate.qml:43
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Prehrať teraz, nahradenie aktuálneho zoznamu skladieb"
 
-#: qml/AbstractBrowserDelegate.qml:48 qml/TrackBrowserDelegate.qml:86
+#: qml/AbstractBrowserDelegate.qml:49 qml/TrackBrowserDelegate.qml:87
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Play counter label for track metadata view"
 #| msgid "Play count"
@@ -396,81 +396,81 @@ msgctxt "@action:button"
 msgid "Play next"
 msgstr "Počet prehraní"
 
-#: qml/AbstractBrowserDelegate.qml:53 qml/TrackBrowserDelegate.qml:81
+#: qml/AbstractBrowserDelegate.qml:54 qml/TrackBrowserDelegate.qml:82
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Pridať do zoznamu skladieb"
 
-#: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/TrackBrowserDelegate.qml:69
+#: qml/AbstractBrowserDelegate.qml:63 qml/mobile/MobilePlayListDelegate.qml:169
+#: qml/TrackBrowserDelegate.qml:70
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Zobraziť v priečinku"
 
-#: qml/AbstractBrowserDelegate.qml:84
+#: qml/AbstractBrowserDelegate.qml:85
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
 msgstr "Možnosti"
 
-#: qml/AbstractDataView.qml:208
+#: qml/AbstractDataView.qml:209
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Žiadne zhody"
 
-#: qml/AbstractDataView.qml:208
+#: qml/AbstractDataView.qml:209
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
 msgstr "Nič na zobrazenie"
 
-#: qml/ApplicationMenu.qml:18 qml/NativeTrayMenu.qml:17
+#: qml/ApplicationMenu.qml:19 qml/NativeTrayMenu.qml:18
 #, kde-format
 msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "Menu aplikácie"
 
-#: qml/ApplicationMenu.qml:21 qml/NativeGlobalMenu.qml:69
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "Ukončiť režim celej obrazovky"
 
-#: qml/ApplicationMenu.qml:21 qml/NativeGlobalMenu.qml:69
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "Prejsť do režimu celej obrazovky"
 
-#: qml/ApplicationMenu.qml:29 qml/NativeTrayMenu.qml:20
+#: qml/ApplicationMenu.qml:30 qml/NativeTrayMenu.qml:21
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "Vyhľadať novú hudbu"
 
-#: qml/ApplicationMenu.qml:38 qml/NativeGlobalMenu.qml:36
-#: qml/NativeTrayMenu.qml:26
+#: qml/ApplicationMenu.qml:39 qml/NativeGlobalMenu.qml:37
+#: qml/NativeTrayMenu.qml:27
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Obnoviť databázu a znovu všetko prehľadať"
 
-#: qml/ApplicationMenu.qml:49
+#: qml/ApplicationMenu.qml:50
 #, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
 msgstr "Farebná schéma"
 
-#: qml/ConfigurationDialog.qml:21
+#: qml/ConfigurationDialog.qml:22
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure"
 msgstr "Konfigurovať"
 
-#: qml/ContextView.qml:40
+#: qml/ContextView.qml:41
 #, kde-format
 msgctxt ""
 "@title:window Title of the context view related to the currently playing "
@@ -478,44 +478,44 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Teraz sa prehráva"
 
-#: qml/ContextView.qml:77 qml/NavigationActionBar.qml:243
+#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:244
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Otvoriť bočný panel"
 
-#: qml/ContextView.qml:113
+#: qml/ContextView.qml:114
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadáta"
 
-#: qml/ContextView.qml:124
+#: qml/ContextView.qml:125
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Text piesne"
 
-#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:299
-#: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
+#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:300
+#: qml/mobile/MobileTrackPlayer.qml:396 qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Zobraziť zoznam skladieb"
 
-#: qml/ContextView.qml:361
+#: qml/ContextView.qml:362
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nič sa neprehráva"
 
-#: qml/ContextView.qml:395
+#: qml/ContextView.qml:396
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "Zobraziť v priečinku"
 
-#: qml/DataGridView.qml:161
+#: qml/DataGridView.qml:162
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "1 track"
@@ -523,7 +523,7 @@ msgctxt "@item:intable View all tracks"
 msgid "All tracks"
 msgstr "1 skladba"
 
-#: qml/DataGridView.qml:162
+#: qml/DataGridView.qml:163
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -535,7 +535,7 @@ msgstr[0] "%1 skladba"
 msgstr[1] "%1 skladby"
 msgstr[2] "%1 skladieb"
 
-#: qml/DurationSlider.qml:67
+#: qml/DurationSlider.qml:68
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -543,7 +543,7 @@ msgctxt ""
 msgid "00:00:00"
 msgstr "00:00:00"
 
-#: qml/DurationSlider.qml:105
+#: qml/DurationSlider.qml:106
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Duration label for track metadata view"
 #| msgid "Duration"
@@ -551,31 +551,31 @@ msgctxt "@label"
 msgid "Duration"
 msgstr "Trvanie"
 
-#: qml/ElisaMainWindow.qml:30
+#: qml/ElisaMainWindow.qml:31
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "Načítanie zlyhalo"
 
-#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:309
+#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "Znovu"
 
-#: qml/ElisaMainWindow.qml:34
+#: qml/ElisaMainWindow.qml:35
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Zoznam skladieb vymazaný"
 
-#: qml/ElisaMainWindow.qml:34
+#: qml/ElisaMainWindow.qml:35
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Späť"
 
-#: qml/ElisaMainWindow.qml:141
+#: qml/ElisaMainWindow.qml:142
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Playlist"
@@ -583,7 +583,7 @@ msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "Zobraziť zoznam skladieb"
 
-#: qml/ElisaMainWindow.qml:142
+#: qml/ElisaMainWindow.qml:143
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Hide Playlist"
@@ -591,7 +591,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Skryť zoznam skladieb"
 
-#: qml/ElisaMainWindow.qml:178 qml/ElisaMainWindow.qml:622
+#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:623
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -600,19 +600,19 @@ msgstr ""
 "Nepodarilo sa načítať niektoré súbory. Elisa dokáže otvoriť iba zvukové "
 "súbory a súbory zoznamov skladieb."
 
-#: qml/ElisaMainWindow.qml:237 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:238 qml/mobile/MobileSidebar.qml:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:237
+#: qml/ElisaMainWindow.qml:238
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:289
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -620,7 +620,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u Súbor zoznamu skladieb (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:289
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -628,7 +628,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls Súbor zoznamu skladieb (*.pls)"
 
-#: qml/ElisaMainWindow.qml:296
+#: qml/ElisaMainWindow.qml:297
 #, kde-format
 msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
@@ -636,7 +636,7 @@ msgctxt ""
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:297
+#: qml/ElisaMainWindow.qml:298
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "@option file type (mime type) for pls playlist file formats; do not "
@@ -648,7 +648,7 @@ msgctxt ""
 msgid "Playlist files (%1) (%1)"
 msgstr "pls Súbor zoznamu skladieb (*.pls)"
 
-#: qml/ElisaMainWindow.qml:298
+#: qml/ElisaMainWindow.qml:299
 #, kde-format
 msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
@@ -656,20 +656,20 @@ msgctxt ""
 msgid "Music files (%1) (%1)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:309
+#: qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
 msgstr "Ukladanie zlyhalo"
 
-#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:259
-#: qml/mobile/MobileTrackPlayer.qml:297
+#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:260
+#: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Zoznam skladieb"
 
-#: qml/HeaderBar.qml:259
+#: qml/HeaderBar.qml:260
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -677,25 +677,25 @@ msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "Text piesne"
 
-#: qml/HeaderBar.qml:273
+#: qml/HeaderBar.qml:274
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Ukončiť režim celej obrazovky"
 
-#: qml/LyricsView.qml:161
+#: qml/LyricsView.qml:162
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Nenašli sa žiadne texty piesní"
 
-#: qml/MediaPlayerControl.qml:91
+#: qml/MediaPlayerControl.qml:92
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:92
+#: qml/MediaPlayerControl.qml:93
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "Toggle Party Mode"
@@ -703,7 +703,7 @@ msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "Prepnúť Party režim"
 
-#: qml/MediaPlayerControl.qml:100
+#: qml/MediaPlayerControl.qml:101
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Skip Backward"
@@ -711,7 +711,7 @@ msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Preskočiť dozadu"
 
-#: qml/MediaPlayerControl.qml:109
+#: qml/MediaPlayerControl.qml:110
 #, fuzzy, kde-format
 #| msgctxt "@action:button Pause any media that is playing"
 #| msgid "Pause"
@@ -720,7 +720,7 @@ msgctxt ""
 msgid "Pause"
 msgstr "Pozastaviť"
 
-#: qml/MediaPlayerControl.qml:110
+#: qml/MediaPlayerControl.qml:111
 #, fuzzy, kde-format
 #| msgctxt "@action:button Start playing media"
 #| msgid "Play"
@@ -728,7 +728,7 @@ msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Prehrať"
 
-#: qml/MediaPlayerControl.qml:118
+#: qml/MediaPlayerControl.qml:119
 #, fuzzy, kde-format
 #| msgctxt "@action:button skip forward in playlists"
 #| msgid "Skip Forward"
@@ -736,25 +736,25 @@ msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Preskočiť dopredu"
 
-#: qml/MediaPlayerControl.qml:144
+#: qml/MediaPlayerControl.qml:145
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:145
+#: qml/MediaPlayerControl.qml:146
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:171 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "Current: Don't repeat tracks"
@@ -762,13 +762,13 @@ msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Aktuálne: Neopakovať skladby"
 
-#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:244
+#: qml/MediaPlayerControl.qml:202 qml/mobile/MobileTrackPlayer.qml:245
 #, fuzzy, kde-format
 #| msgctxt "@item:inlistbox Title of the view of all tracks"
 #| msgid "Tracks"
@@ -776,7 +776,7 @@ msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Skladby"
 
-#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:248
+#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:249
 #, fuzzy, kde-format
 #| msgctxt "@label musical album"
 #| msgid "Album"
@@ -784,32 +784,32 @@ msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
-#: qml/MediaPlayerControl.qml:209 qml/MediaPlayerControl.qml:267
-#: qml/mobile/MobileTrackPlayer.qml:252 qml/mobile/MobileTrackPlayer.qml:305
+#: qml/MediaPlayerControl.qml:210 qml/MediaPlayerControl.qml:268
+#: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Žiadne"
 
-#: qml/MediaPlayerControl.qml:230 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Aktuálne: Neopakovať skladby"
 
-#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Aktuálne: Opakovať súčasnú skladbu"
 
-#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Aktuálne: Opakovať všetky skladby v zozname skladieb"
 
-#: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
+#: qml/MediaPlayerControl.qml:264 qml/mobile/MobileTrackPlayer.qml:302
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -818,7 +818,7 @@ msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "%1 skladba"
 
-#: qml/MediaPlayerControl.qml:316
+#: qml/MediaPlayerControl.qml:317
 #, fuzzy, kde-format
 #| msgctxt "@title:menu"
 #| msgid "Application Menu"
@@ -826,7 +826,7 @@ msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "Menu aplikácie"
 
-#: qml/MediaPlayListView.qml:28
+#: qml/MediaPlayListView.qml:29
 #, kde-format
 msgctxt ""
 "@title:window Title of the view of the playlist; keep this string as short "
@@ -834,7 +834,7 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Zoznam skladieb"
 
-#: qml/MediaPlayListView.qml:70
+#: qml/MediaPlayListView.qml:71
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Current"
@@ -842,19 +842,19 @@ msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Zobraziť aktuálnu"
 
-#: qml/MediaPlayListView.qml:81
+#: qml/MediaPlayListView.qml:82
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Vymazať všetko"
 
-#: qml/MediaPlayListView.qml:91
+#: qml/MediaPlayListView.qml:92
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Uložiť..."
 
-#: qml/MediaPlayListView.qml:101
+#: qml/MediaPlayListView.qml:102
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open Playlist…"
@@ -862,13 +862,13 @@ msgctxt "@action:button Load a playlist file"
 msgid "Open…"
 msgstr "Otvoriť zoznam skladieb..."
 
-#: qml/MediaPlayListView.qml:102
+#: qml/MediaPlayListView.qml:103
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:127
+#: qml/MediaPlayListView.qml:128
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -878,19 +878,19 @@ msgstr ""
 "Nepodarilo sa načítať niektoré skladby. Skontrolujte, či neboli odstránené "
 "alebo premenované."
 
-#: qml/MediaPlayListView.qml:133
+#: qml/MediaPlayListView.qml:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Upraviť zoznam skladieb"
 
-#: qml/MediaPlayListView.qml:303
+#: qml/MediaPlayListView.qml:304
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Zoznam skladieb je prázdny"
 
-#: qml/MediaPlayListView.qml:304
+#: qml/MediaPlayListView.qml:305
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -900,13 +900,13 @@ msgstr ""
 "Ak chcete začať, pridajte nejaké piesne. Hudbu môžete prehliadať pomocou "
 "zobrazení naľavo."
 
-#: qml/MediaPlayListView.qml:379
+#: qml/MediaPlayListView.qml:380
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Váš zoznam skladieb je prázdny."
 
-#: qml/MediaPlayListView.qml:476 qml/MediaPlayListView.qml:485
+#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -918,7 +918,7 @@ msgstr[0] "%1 zostávajúca"
 msgstr[1] "%1 zostávajúce"
 msgstr[2] "%1 zostávajúcich"
 
-#: qml/MediaPlayListView.qml:477
+#: qml/MediaPlayListView.qml:478
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -927,8 +927,8 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 zostávajúca"
 
-#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
-#: qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:479 qml/MediaPlayListView.qml:488
+#: qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -936,7 +936,7 @@ msgctxt ""
 msgid "%1, %2"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:486 qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -945,7 +945,7 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1 zostávajúca"
 
-#: qml/MediaPlayListView.qml:494
+#: qml/MediaPlayListView.qml:495
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -957,7 +957,7 @@ msgstr[0] "%1 skladba"
 msgstr[1] "%1 skladby"
 msgstr[2] "%1 skladieb"
 
-#: qml/MediaPlayListView.qml:503
+#: qml/MediaPlayListView.qml:504
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -969,7 +969,7 @@ msgstr[0] "%1 skladba"
 msgstr[1] "%1 skladby"
 msgstr[2] "%1 skladieb"
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -978,7 +978,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -986,7 +986,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:508
+#: qml/MediaPlayListView.qml:509
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -1000,7 +1000,7 @@ msgstr[0] "%1 skladba"
 msgstr[1] "%1 skladby"
 msgstr[2] "%1 skladieb"
 
-#: qml/MediaPlayListView.qml:510
+#: qml/MediaPlayListView.qml:511
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -1011,27 +1011,27 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "%1 zostávajúca"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
-#: qml/TrackBrowserDelegate.qml:104
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Odznačiť túto skladbu ako obľúbenú"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
-#: qml/TrackBrowserDelegate.qml:104
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Označiť túto skladbu ako obľúbenú"
 
-#: qml/MediaTrackMetadataDelegate.qml:206
+#: qml/MediaTrackMetadataDelegate.qml:207
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
 msgstr ""
 
-#: qml/MediaTrackMetadataDelegate.qml:214
+#: qml/MediaTrackMetadataDelegate.qml:215
 #, fuzzy, kde-format
 #| msgctxt "@label:listbox"
 #| msgid "Add new tag:"
@@ -1039,19 +1039,19 @@ msgctxt "@action:button"
 msgid "Add tag"
 msgstr "Pridať novú značku:"
 
-#: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:46
+#: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:47
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Upozornenie"
 
-#: qml/MediaTrackMetadataForm.qml:95
+#: qml/MediaTrackMetadataForm.qml:96
 #, kde-format
 msgctxt "@label"
 msgid "Data is not valid. %1"
 msgstr "Údaje nie sú platné. %1"
 
-#: qml/MediaTrackMetadataForm.qml:147
+#: qml/MediaTrackMetadataForm.qml:148
 #, fuzzy, kde-format
 #| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
 #| msgid "%1:"
@@ -1059,83 +1059,83 @@ msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
 msgstr "%1:"
 
-#: qml/MediaTrackMetadataView.qml:36
-#: qml/mobile/MobileMediaTrackMetadataView.qml:47
+#: qml/MediaTrackMetadataView.qml:37
+#: qml/mobile/MobileMediaTrackMetadataView.qml:48
 #, kde-format
 msgctxt "@title:window"
 msgid "Create a Radio"
 msgstr "Vytvoriť rádio"
 
-#: qml/MediaTrackMetadataView.qml:37
-#: qml/mobile/MobileMediaTrackMetadataView.qml:48
+#: qml/MediaTrackMetadataView.qml:38
+#: qml/mobile/MobileMediaTrackMetadataView.qml:49
 #, kde-format
 msgctxt "@title:window"
 msgid "View details"
 msgstr "Zobraziť podrobnosti"
 
-#: qml/MediaTrackMetadataView.qml:128
-#: qml/mobile/MobileMediaTrackMetadataView.qml:71
+#: qml/MediaTrackMetadataView.qml:129
+#: qml/mobile/MobileMediaTrackMetadataView.qml:72
 #, kde-format
 msgctxt "@action:button"
 msgid "Delete"
 msgstr "Vymazať"
 
-#: qml/MediaTrackMetadataView.qml:146
-#: qml/mobile/MobileMediaTrackMetadataView.qml:53
+#: qml/MediaTrackMetadataView.qml:147
+#: qml/mobile/MobileMediaTrackMetadataView.qml:54
 #, kde-format
 msgctxt "@action:button"
 msgid "Modify"
 msgstr "Zmeniť"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:59
-#: qml/mobile/MobileSettingsPage.qml:38
+#: qml/mobile/MobileMediaTrackMetadataView.qml:60
+#: qml/mobile/MobileSettingsPage.qml:39
 #, kde-format
 msgctxt "@action:button"
 msgid "Save"
 msgstr "Uložiť"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:65
-#: qml/mobile/MobileSettingsPage.qml:44
+#: qml/mobile/MobileMediaTrackMetadataView.qml:66
+#: qml/mobile/MobileSettingsPage.qml:45
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:223
-#: qml/mobile/MobileTrackPlayer.qml:355
+#: qml/mobile/MobileMinimizedPlayerControl.qml:224
+#: qml/mobile/MobileTrackPlayer.qml:356
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Preskočiť dozadu"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
-#: qml/mobile/MobileTrackPlayer.qml:368
+#: qml/mobile/MobileMinimizedPlayerControl.qml:238
+#: qml/mobile/MobileTrackPlayer.qml:369
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Pozastaviť"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
-#: qml/mobile/MobileTrackPlayer.qml:368
+#: qml/mobile/MobileMinimizedPlayerControl.qml:238
+#: qml/mobile/MobileTrackPlayer.qml:369
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Prehrať"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:251
-#: qml/mobile/MobileTrackPlayer.qml:381
+#: qml/mobile/MobileMinimizedPlayerControl.qml:252
+#: qml/mobile/MobileTrackPlayer.qml:382
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Preskočiť dopredu"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:365
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Možnosti skladby"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:365
 #, fuzzy, kde-format
 #| msgctxt "@item:intable"
 #| msgid "Radio Stations"
@@ -1143,128 +1143,128 @@ msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Rádiové stanice"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
-#: qml/TrackBrowserDelegate.qml:76
+#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:90
+#: qml/TrackBrowserDelegate.qml:77
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "Zobraziť podrobnosti"
 
-#: qml/mobile/MobilePlayListDelegate.qml:187
+#: qml/mobile/MobilePlayListDelegate.qml:188
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr "Odstrániť z poradia"
 
-#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:36
+#: qml/mobile/MobileSettingsPage.qml:25 qml/mobile/MobileSidebar.qml:37
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"
 msgstr "Nastavenia"
 
-#: qml/mobile/MobileTrackPlayer.qml:50
+#: qml/mobile/MobileTrackPlayer.qml:51
 #, kde-format
 msgctxt "@action:button"
 msgid "Minimize Player"
 msgstr "Minimalizovať prehrávač"
 
-#: qml/mobile/MobileTrackPlayer.qml:198
+#: qml/mobile/MobileTrackPlayer.qml:199
 #, kde-format
 msgctxt "@action:button show track information"
 msgid "Show Info"
 msgstr "Zobraziť informácie"
 
-#: qml/mobile/MobileVolumeButton.qml:29
+#: qml/mobile/MobileVolumeButton.qml:30
 #, kde-format
 msgctxt "@action:button"
 msgid "Change Volume"
 msgstr "Zmeniť hlasitosť"
 
-#: qml/NativeGlobalMenu.qml:17
+#: qml/NativeGlobalMenu.qml:18
 #, kde-format
 msgctxt "@title:menu"
 msgid "File"
 msgstr "Súbor"
 
-#: qml/NativeGlobalMenu.qml:20
+#: qml/NativeGlobalMenu.qml:21
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save Playlist…"
 msgstr "Uložiť zoznam skladieb..."
 
-#: qml/NativeGlobalMenu.qml:28
+#: qml/NativeGlobalMenu.qml:29
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Playlist…"
 msgstr "Otvoriť zoznam skladieb..."
 
-#: qml/NativeGlobalMenu.qml:60
+#: qml/NativeGlobalMenu.qml:61
 #, kde-format
 msgctxt "@title:menu"
 msgid "View"
 msgstr "Zobraziť"
 
-#: qml/NativeGlobalMenu.qml:63
+#: qml/NativeGlobalMenu.qml:64
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "Prepnúť Party režim"
 
-#: qml/NativeGlobalMenu.qml:76
+#: qml/NativeGlobalMenu.qml:77
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Playlist"
 msgstr "Skryť zoznam skladieb"
 
-#: qml/NativeGlobalMenu.qml:76
+#: qml/NativeGlobalMenu.qml:77
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Playlist"
 msgstr "Zobraziť zoznam skladieb"
 
-#: qml/NativeGlobalMenu.qml:81
+#: qml/NativeGlobalMenu.qml:82
 #, kde-format
 msgctxt "@title:menu"
 msgid "Controls"
 msgstr "Ovládanie"
 
-#: qml/NativeGlobalMenu.qml:84
+#: qml/NativeGlobalMenu.qml:85
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pause"
 msgstr "Pozastaviť"
 
-#: qml/NativeGlobalMenu.qml:84
+#: qml/NativeGlobalMenu.qml:85
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Play"
 msgstr "Prehrať"
 
-#: qml/NativeGlobalMenu.qml:91
+#: qml/NativeGlobalMenu.qml:92
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop"
 msgstr "Zastaviť"
 
-#: qml/NativeGlobalMenu.qml:100
+#: qml/NativeGlobalMenu.qml:101
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Increase Volume"
 msgstr "Zvýšiť hlasitosť"
 
-#: qml/NativeGlobalMenu.qml:105
+#: qml/NativeGlobalMenu.qml:106
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Decrease Volume"
 msgstr "Znížiť hlasitosť"
 
-#: qml/NativeGlobalMenu.qml:115
+#: qml/NativeGlobalMenu.qml:116
 #, kde-format
 msgctxt "@title:menu"
 msgid "Shuffle"
 msgstr "Náhodné poradie"
 
-#: qml/NativeGlobalMenu.qml:122
+#: qml/NativeGlobalMenu.qml:123
 #, fuzzy, kde-format
 #| msgctxt "@item:inlistbox Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1272,7 +1272,7 @@ msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
 msgstr "Skladby"
 
-#: qml/NativeGlobalMenu.qml:126
+#: qml/NativeGlobalMenu.qml:127
 #, fuzzy, kde-format
 #| msgctxt "@label musical album"
 #| msgid "Album"
@@ -1280,7 +1280,7 @@ msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "Album"
 
-#: qml/NativeGlobalMenu.qml:130
+#: qml/NativeGlobalMenu.qml:131
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu shuffle mode is turned off"
 #| msgid "Off"
@@ -1288,25 +1288,25 @@ msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "Vypnuté"
 
-#: qml/NativeGlobalMenu.qml:137
+#: qml/NativeGlobalMenu.qml:138
 #, kde-format
 msgctxt "@title:menu"
 msgid "Repeat"
 msgstr "Opakovanie"
 
-#: qml/NativeGlobalMenu.qml:144
+#: qml/NativeGlobalMenu.qml:145
 #, kde-format
 msgctxt "@action:inmenu repeat all songs in this playlist"
 msgid "Playlist"
 msgstr "Zoznam skladieb"
 
-#: qml/NativeGlobalMenu.qml:148
+#: qml/NativeGlobalMenu.qml:149
 #, kde-format
 msgctxt "@action:inmenu repeat this one song"
 msgid "One"
 msgstr "Jedna"
 
-#: qml/NativeGlobalMenu.qml:152
+#: qml/NativeGlobalMenu.qml:153
 #, kde-format
 msgctxt ""
 "@action:inmenu no repeat mode set; stop playback after last song in the "
@@ -1314,25 +1314,25 @@ msgctxt ""
 msgid "None"
 msgstr "Žiadne"
 
-#: qml/NativeGlobalMenu.qml:158
+#: qml/NativeGlobalMenu.qml:159
 #, kde-format
 msgctxt "@title:menu"
 msgid "Help"
 msgstr "Pomocník"
 
-#: qml/NavigationActionBar.qml:92
+#: qml/NavigationActionBar.qml:93
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Usporiadať: %1"
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:94
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Usporiadať"
 
-#: qml/NavigationActionBar.qml:107
+#: qml/NavigationActionBar.qml:108
 #, fuzzy, kde-format
 #| msgctxt "Title of the file radios browser view"
 #| msgid "Radios"
@@ -1340,19 +1340,19 @@ msgctxt "@action:button"
 msgid "Add Radio"
 msgstr "Rádiá"
 
-#: qml/NavigationActionBar.qml:108
+#: qml/NavigationActionBar.qml:109
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:120
+#: qml/NavigationActionBar.qml:121
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Pridať do zoznamu skladieb"
 
-#: qml/NavigationActionBar.qml:121
+#: qml/NavigationActionBar.qml:122
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Add to playlist"
@@ -1360,7 +1360,7 @@ msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Pridať do zoznamu skladieb"
 
-#: qml/NavigationActionBar.qml:134
+#: qml/NavigationActionBar.qml:135
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Play now, replacing current playlist"
@@ -1368,7 +1368,7 @@ msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Prehrať teraz, nahradenie aktuálneho zoznamu skladieb"
 
-#: qml/NavigationActionBar.qml:135
+#: qml/NavigationActionBar.qml:136
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Play now, replacing current playlist"
@@ -1376,7 +1376,7 @@ msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Prehrať teraz, nahradenie aktuálneho zoznamu skladieb"
 
-#: qml/NavigationActionBar.qml:147
+#: qml/NavigationActionBar.qml:148
 #, fuzzy, kde-format
 #| msgctxt "Play now current track from play list"
 #| msgid "Play Now"
@@ -1384,7 +1384,7 @@ msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Prehrať teraz"
 
-#: qml/NavigationActionBar.qml:148
+#: qml/NavigationActionBar.qml:149
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Play now, replacing current playlist"
@@ -1392,13 +1392,13 @@ msgctxt "@info:tooltip"
 msgid "Play next in playlist"
 msgstr "Prehrať teraz, nahradenie aktuálneho zoznamu skladieb"
 
-#: qml/NavigationActionBar.qml:160
+#: qml/NavigationActionBar.qml:161
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Zobraziť interpreta"
 
-#: qml/NavigationActionBar.qml:161
+#: qml/NavigationActionBar.qml:162
 #, fuzzy, kde-format
 #| msgctxt "@action:button navigate to the view for artist of this album"
 #| msgid "Display Artist"
@@ -1406,7 +1406,7 @@ msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Zobraziť interpreta"
 
-#: qml/NavigationActionBar.qml:176
+#: qml/NavigationActionBar.qml:177
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Playlist"
@@ -1414,13 +1414,13 @@ msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Zobraziť zoznam skladieb"
 
-#: qml/NavigationActionBar.qml:187
+#: qml/NavigationActionBar.qml:188
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:188
+#: qml/NavigationActionBar.qml:189
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "View details"
@@ -1428,13 +1428,13 @@ msgctxt "@action:button"
 msgid "View as List"
 msgstr "Zobraziť podrobnosti"
 
-#: qml/NavigationActionBar.qml:190
+#: qml/NavigationActionBar.qml:191
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:191
+#: qml/NavigationActionBar.qml:192
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "View details"
@@ -1442,13 +1442,13 @@ msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Zobraziť podrobnosti"
 
-#: qml/NavigationActionBar.qml:251
+#: qml/NavigationActionBar.qml:252
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Späť"
 
-#: qml/NavigationActionBar.qml:332
+#: qml/NavigationActionBar.qml:333
 #, fuzzy, kde-format
 #| msgctxt "@action:button Show filters in the navigation bar"
 #| msgid "Search and Filter"
@@ -1457,7 +1457,7 @@ msgctxt ""
 msgid "Show search and filter toolbar"
 msgstr "Hľadanie a filtrovanie"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:334
 #, fuzzy, kde-format
 #| msgctxt "@action:button Hide filters in the navigation bar"
 #| msgid "Hide Search and Filter"
@@ -1466,13 +1466,13 @@ msgctxt ""
 msgid "Hide search and filter toolbar"
 msgstr "Skryť Hľadanie a filtrovanie"
 
-#: qml/NavigationActionBar.qml:426
+#: qml/NavigationActionBar.qml:427
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:428
+#: qml/NavigationActionBar.qml:429
 #, fuzzy, kde-format
 #| msgctxt "@info:placeholder"
 #| msgid "Search for album name, artist, etc."
@@ -1480,7 +1480,7 @@ msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Hľadať názov albumu, interpreta, atď."
 
-#: qml/NavigationActionBar.qml:429
+#: qml/NavigationActionBar.qml:430
 #, fuzzy, kde-format
 #| msgctxt "@info:placeholder"
 #| msgid "Search for album name, artist, etc."
@@ -1500,37 +1500,37 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Zobrazovať iba obľúbené"
 
-#: qml/PlayListEntry.qml:102 qml/TrackBrowserDelegate.qml:96
+#: qml/PlayListEntry.qml:104 qml/TrackBrowserDelegate.qml:97
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Nastaviť hodnotenie skladby"
 
-#: qml/PlayListEntry.qml:125
+#: qml/PlayListEntry.qml:128
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:311
+#: qml/PlayListEntry.qml:313 qml/TrackBrowserDelegate.qml:312
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Zrušiť hodnotenie tejto skladby"
 
-#: qml/SettingsForm.qml:69
+#: qml/SettingsForm.qml:70
 #, kde-format
 msgctxt "@title:group"
 msgid "General:"
 msgstr "Všeobecné:"
 
-#: qml/SettingsForm.qml:73
+#: qml/SettingsForm.qml:74
 #, kde-format
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "Zobraziť pozadie na stránke Práve sa prehráva"
 
-#: qml/SettingsForm.qml:86
+#: qml/SettingsForm.qml:87
 #, fuzzy, kde-format
 #| msgctxt "@option:check"
 #| msgid "Show progress on Task Manager entries"
@@ -1538,7 +1538,7 @@ msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "Zobrazovať priebeh na položkách správcu úloh"
 
-#: qml/SettingsForm.qml:97
+#: qml/SettingsForm.qml:98
 #, fuzzy, kde-format
 #| msgctxt "@option:check"
 #| msgid "Keep running in System Tray when main window is closed"
@@ -1546,13 +1546,13 @@ msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr "Nechať spustené v systémovej lište po zatvorení hlavného okna"
 
-#: qml/SettingsForm.qml:108
+#: qml/SettingsForm.qml:109
 #, kde-format
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "Spustiť prehrávanie pri spustení"
 
-#: qml/SettingsForm.qml:119
+#: qml/SettingsForm.qml:120
 #, fuzzy, kde-format
 #| msgctxt "@option:check"
 #| msgid "Scan for New Music on startup"
@@ -1560,7 +1560,7 @@ msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "Vyhľadávať novú hudbu pri spustení"
 
-#: qml/SettingsForm.qml:138
+#: qml/SettingsForm.qml:139
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1574,25 +1574,25 @@ msgstr ""
 "Môžete to urobiť pomocou položky <interface>Scan for new music</interface> v "
 "hamburgerovom menu aplikácie Elisa."
 
-#: qml/SettingsForm.qml:149
+#: qml/SettingsForm.qml:150
 #, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "Štýl hodnotenia skladby:"
 
-#: qml/SettingsForm.qml:153
+#: qml/SettingsForm.qml:154
 #, kde-format
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "0-5 hviezd"
 
-#: qml/SettingsForm.qml:165
+#: qml/SettingsForm.qml:166
 #, kde-format
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "Obľúbená/neobľúbená"
 
-#: qml/SettingsForm.qml:183
+#: qml/SettingsForm.qml:184
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu this has child menu items"
 #| msgid "Color Scheme"
@@ -1600,13 +1600,13 @@ msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Farebná schéma"
 
-#: qml/SettingsForm.qml:219
+#: qml/SettingsForm.qml:220
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "Vyhľadať novú hudbu"
 
-#: qml/SettingsForm.qml:223 qml/SettingsForm.qml:234
+#: qml/SettingsForm.qml:224 qml/SettingsForm.qml:235
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "Scanning music"
@@ -1614,125 +1614,125 @@ msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "Prehľadáva sa hudba"
 
-#: qml/SettingsForm.qml:229
+#: qml/SettingsForm.qml:230
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Obnoviť databázu a znovu všetko prehľadať"
 
-#: qml/SettingsForm.qml:233
+#: qml/SettingsForm.qml:234
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
 msgstr ""
 
-#: qml/SettingsForm.qml:248
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Vložiť kategóriu do bočného panelu:"
 
-#: qml/SettingsForm.qml:250
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "Nič"
 
-#: qml/SettingsForm.qml:251
+#: qml/SettingsForm.qml:252
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "Albumy"
 
-#: qml/SettingsForm.qml:252
+#: qml/SettingsForm.qml:253
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "Interpreti"
 
-#: qml/SettingsForm.qml:253
+#: qml/SettingsForm.qml:254
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "Žánre"
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:287
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "Počiatočné zobrazenie pri spustení:"
 
-#: qml/SettingsForm.qml:288
+#: qml/SettingsForm.qml:289
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Teraz sa prehráva"
 
-#: qml/SettingsForm.qml:289
+#: qml/SettingsForm.qml:290
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Nedávno prehrávané"
 
-#: qml/SettingsForm.qml:290
+#: qml/SettingsForm.qml:291
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Často prehrávané"
 
-#: qml/SettingsForm.qml:291 viewmanager.cpp:216
+#: qml/SettingsForm.qml:292 viewmanager.cpp:216
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumy"
 
-#: qml/SettingsForm.qml:292 viewmanager.cpp:220
+#: qml/SettingsForm.qml:293 viewmanager.cpp:220
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Interpreti"
 
-#: qml/SettingsForm.qml:293 viewmanager.cpp:218
+#: qml/SettingsForm.qml:294 viewmanager.cpp:218
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Skladby"
 
-#: qml/SettingsForm.qml:294
+#: qml/SettingsForm.qml:295
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Žánre"
 
-#: qml/SettingsForm.qml:295
+#: qml/SettingsForm.qml:296
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "Súbory"
 
-#: qml/SettingsForm.qml:296
+#: qml/SettingsForm.qml:297
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Rádiové stanice"
 
-#: qml/SettingsForm.qml:316
+#: qml/SettingsForm.qml:317
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr ""
 
-#: qml/SettingsForm.qml:330
+#: qml/SettingsForm.qml:331
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:338 qml/SettingsForm.qml:463
+#: qml/SettingsForm.qml:339 qml/SettingsForm.qml:464
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Choose a Folder"
@@ -1740,24 +1740,24 @@ msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Vybrať priečinok"
 
-#: qml/SettingsForm.qml:361
+#: qml/SettingsForm.qml:362
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "Pri ukladaní súborov zoznamov skladieb:"
 
-#: qml/SettingsForm.qml:370
+#: qml/SettingsForm.qml:371
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "Preferovať relatívne cesty"
 
-#: qml/SettingsForm.qml:371
+#: qml/SettingsForm.qml:372
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "Vždy použiť absolútne cesty"
 
-#: qml/SettingsForm.qml:382
+#: qml/SettingsForm.qml:383
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1769,38 +1769,38 @@ msgstr ""
 "v rovnakom priečinku ako zoznam skladieb sa bude odkazovať len pomocou názvu "
 "súboru. V ostatných prípadoch sa používajú absolútne cesty."
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:398
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "Priečinky s hudbou:"
 
-#: qml/SettingsForm.qml:440
+#: qml/SettingsForm.qml:441
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Tu prestať hľadať hudbu"
 
-#: qml/SettingsForm.qml:453
+#: qml/SettingsForm.qml:454
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Pridať nové umiestnenie"
 
-#: qml/shared/BasePlayListDelegate.qml:67
+#: qml/shared/BasePlayListDelegate.qml:68
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
 msgstr ""
 
-#: qml/SortMenu.qml:22
+#: qml/SortMenu.qml:24
 #, kde-format
 msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "Usporiadať podľa"
 
-#: qml/TrackBrowserDelegate.qml:91
+#: qml/TrackBrowserDelegate.qml:92
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Play now, replacing current playlist"
@@ -1808,13 +1808,13 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Prehrať teraz, nahradenie aktuálneho zoznamu skladieb"
 
-#: qml/TrackBrowserDelegate.qml:201 qml/TrackBrowserDelegate.qml:217
+#: qml/TrackBrowserDelegate.qml:202 qml/TrackBrowserDelegate.qml:218
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:212
+#: qml/TrackBrowserDelegate.qml:213
 #, fuzzy, kde-format
 #| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 #| msgid "%1 - %2 - %3"
@@ -1822,19 +1822,19 @@ msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/TrackBrowserDelegate.qml:224
+#: qml/TrackBrowserDelegate.qml:225
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:370
+#: qml/TrackBrowserDelegate.qml:371
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Možnosti skladby"
 
-#: qml/TrackImportNotification.qml:57 qml/TrackImportNotification.qml:75
+#: qml/TrackImportNotification.qml:58 qml/TrackImportNotification.qml:76
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
@@ -1843,19 +1843,19 @@ msgstr[0] "Importovaná jedna skladba"
 msgstr[1] "Importované %1 skladby"
 msgstr[2] "Importovaných %1 skladieb"
 
-#: qml/TrackImportNotification.qml:61
+#: qml/TrackImportNotification.qml:62
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"
 msgstr "Prehľadáva sa hudba"
 
-#: qml/TracksDiscHeader.qml:22
+#: qml/TracksDiscHeader.qml:23
 #, kde-format
 msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "Disk %1"
 
-#: qml/VolumeSlider.qml:28
+#: qml/VolumeSlider.qml:29
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Change Volume"
@@ -1863,7 +1863,7 @@ msgctxt "@label"
 msgid "Volume"
 msgstr "Zmeniť hlasitosť"
 
-#: qml/VolumeSlider.qml:49
+#: qml/VolumeSlider.qml:50
 #, fuzzy, kde-format
 #| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
 #| msgid "%1:"

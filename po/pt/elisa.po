@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-16 00:42+0000\n"
+"POT-Creation-Date: 2026-01-23 00:42+0000\n"
 "PO-Revision-Date: 2023-05-06 11:47+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -377,13 +377,13 @@ msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
 msgstr ""
 
-#: qml/AbstractBrowserDelegate.qml:42
+#: qml/AbstractBrowserDelegate.qml:43
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "Reproduzir agora, substituindo a lista de reprodução actual"
 
-#: qml/AbstractBrowserDelegate.qml:48 qml/TrackBrowserDelegate.qml:86
+#: qml/AbstractBrowserDelegate.qml:49 qml/TrackBrowserDelegate.qml:87
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Play counter label for track metadata view"
 #| msgid "Play count"
@@ -391,81 +391,81 @@ msgctxt "@action:button"
 msgid "Play next"
 msgstr "Número de reproduções"
 
-#: qml/AbstractBrowserDelegate.qml:53 qml/TrackBrowserDelegate.qml:81
+#: qml/AbstractBrowserDelegate.qml:54 qml/TrackBrowserDelegate.qml:82
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Adicionar à lista de reprodução"
 
-#: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/TrackBrowserDelegate.qml:69
+#: qml/AbstractBrowserDelegate.qml:63 qml/mobile/MobilePlayListDelegate.qml:169
+#: qml/TrackBrowserDelegate.qml:70
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "Mostrar na pasta"
 
-#: qml/AbstractBrowserDelegate.qml:84
+#: qml/AbstractBrowserDelegate.qml:85
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
 msgstr "Opções"
 
-#: qml/AbstractDataView.qml:208
+#: qml/AbstractDataView.qml:209
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "Sem correspondências"
 
-#: qml/AbstractDataView.qml:208
+#: qml/AbstractDataView.qml:209
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
 msgstr "Nada a mostrar"
 
-#: qml/ApplicationMenu.qml:18 qml/NativeTrayMenu.qml:17
+#: qml/ApplicationMenu.qml:19 qml/NativeTrayMenu.qml:18
 #, kde-format
 msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "Menu da Aplicação"
 
-#: qml/ApplicationMenu.qml:21 qml/NativeGlobalMenu.qml:69
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "Sair do Ecrã Completo"
 
-#: qml/ApplicationMenu.qml:21 qml/NativeGlobalMenu.qml:69
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "Entrar no Ecrã Completo"
 
-#: qml/ApplicationMenu.qml:29 qml/NativeTrayMenu.qml:20
+#: qml/ApplicationMenu.qml:30 qml/NativeTrayMenu.qml:21
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "Procurar por Música Nova"
 
-#: qml/ApplicationMenu.qml:38 qml/NativeGlobalMenu.qml:36
-#: qml/NativeTrayMenu.qml:26
+#: qml/ApplicationMenu.qml:39 qml/NativeGlobalMenu.qml:37
+#: qml/NativeTrayMenu.qml:27
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Limpar a Base de Dados e Analisar Tudo de Novo"
 
-#: qml/ApplicationMenu.qml:49
+#: qml/ApplicationMenu.qml:50
 #, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
 msgstr "Esquema de Cores"
 
-#: qml/ConfigurationDialog.qml:21
+#: qml/ConfigurationDialog.qml:22
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure"
 msgstr "Configurar"
 
-#: qml/ContextView.qml:40
+#: qml/ContextView.qml:41
 #, kde-format
 msgctxt ""
 "@title:window Title of the context view related to the currently playing "
@@ -473,44 +473,44 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Agora a Tocar"
 
-#: qml/ContextView.qml:77 qml/NavigationActionBar.qml:243
+#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:244
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Abrir a barra lateral"
 
-#: qml/ContextView.qml:113
+#: qml/ContextView.qml:114
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Meta-dados"
 
-#: qml/ContextView.qml:124
+#: qml/ContextView.qml:125
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Letras Musicais"
 
-#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:299
-#: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
+#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:300
+#: qml/mobile/MobileTrackPlayer.qml:396 qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Mostrar a Lista de Reprodução"
 
-#: qml/ContextView.qml:361
+#: qml/ContextView.qml:362
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Nada a tocar"
 
-#: qml/ContextView.qml:395
+#: qml/ContextView.qml:396
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "Mostrar na Pasta"
 
-#: qml/DataGridView.qml:161
+#: qml/DataGridView.qml:162
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "1 track"
@@ -518,7 +518,7 @@ msgctxt "@item:intable View all tracks"
 msgid "All tracks"
 msgstr "1 faixa"
 
-#: qml/DataGridView.qml:162
+#: qml/DataGridView.qml:163
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -529,7 +529,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 faixa"
 msgstr[1] "%1 faixas"
 
-#: qml/DurationSlider.qml:67
+#: qml/DurationSlider.qml:68
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -537,7 +537,7 @@ msgctxt ""
 msgid "00:00:00"
 msgstr "00:00:00"
 
-#: qml/DurationSlider.qml:105
+#: qml/DurationSlider.qml:106
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Duration label for track metadata view"
 #| msgid "Duration"
@@ -545,31 +545,31 @@ msgctxt "@label"
 msgid "Duration"
 msgstr "Duração"
 
-#: qml/ElisaMainWindow.qml:30
+#: qml/ElisaMainWindow.qml:31
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "O carregamento falhou"
 
-#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:309
+#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "Repetir"
 
-#: qml/ElisaMainWindow.qml:34
+#: qml/ElisaMainWindow.qml:35
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "A lista de reprodução foi limpa"
 
-#: qml/ElisaMainWindow.qml:34
+#: qml/ElisaMainWindow.qml:35
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Desfazer"
 
-#: qml/ElisaMainWindow.qml:141
+#: qml/ElisaMainWindow.qml:142
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Playlist"
@@ -577,7 +577,7 @@ msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "Mostrar a Lista de Reprodução"
 
-#: qml/ElisaMainWindow.qml:142
+#: qml/ElisaMainWindow.qml:143
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Hide Playlist"
@@ -585,7 +585,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Esconder a Lista de Reprodução"
 
-#: qml/ElisaMainWindow.qml:178 qml/ElisaMainWindow.qml:622
+#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:623
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -594,19 +594,19 @@ msgstr ""
 "Não foi possível carregar alguns dos ficheiros. O Elisa só consegue abrir "
 "ficheiros de áudio e listas de reprodução."
 
-#: qml/ElisaMainWindow.qml:237 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:238 qml/mobile/MobileSidebar.qml:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:237
+#: qml/ElisaMainWindow.qml:238
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:289
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -614,7 +614,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "Lista de Reprodução M3U8, M3U (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:289
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -622,7 +622,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "Lista de Reprodução PLS (*.pls)"
 
-#: qml/ElisaMainWindow.qml:296
+#: qml/ElisaMainWindow.qml:297
 #, kde-format
 msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
@@ -630,7 +630,7 @@ msgctxt ""
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:297
+#: qml/ElisaMainWindow.qml:298
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "@option file type (mime type) for pls playlist file formats; do not "
@@ -642,7 +642,7 @@ msgctxt ""
 msgid "Playlist files (%1) (%1)"
 msgstr "Lista de Reprodução PLS (*.pls)"
 
-#: qml/ElisaMainWindow.qml:298
+#: qml/ElisaMainWindow.qml:299
 #, kde-format
 msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
@@ -650,20 +650,20 @@ msgctxt ""
 msgid "Music files (%1) (%1)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:309
+#: qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
 msgstr "A gravação falhou"
 
-#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:259
-#: qml/mobile/MobileTrackPlayer.qml:297
+#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:260
+#: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Lista de Reprodução"
 
-#: qml/HeaderBar.qml:259
+#: qml/HeaderBar.qml:260
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -671,25 +671,25 @@ msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "Letras Musicais"
 
-#: qml/HeaderBar.qml:273
+#: qml/HeaderBar.qml:274
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Sair do Ecrã Completo"
 
-#: qml/LyricsView.qml:161
+#: qml/LyricsView.qml:162
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Não foram encontradas letras musicais"
 
-#: qml/MediaPlayerControl.qml:91
+#: qml/MediaPlayerControl.qml:92
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:92
+#: qml/MediaPlayerControl.qml:93
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "Toggle Party Mode"
@@ -697,7 +697,7 @@ msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "Comutar o Modo de Festa"
 
-#: qml/MediaPlayerControl.qml:100
+#: qml/MediaPlayerControl.qml:101
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Skip Backward"
@@ -705,7 +705,7 @@ msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Recuar"
 
-#: qml/MediaPlayerControl.qml:109
+#: qml/MediaPlayerControl.qml:110
 #, fuzzy, kde-format
 #| msgctxt "@action:button Pause any media that is playing"
 #| msgid "Pause"
@@ -714,7 +714,7 @@ msgctxt ""
 msgid "Pause"
 msgstr "Pausa"
 
-#: qml/MediaPlayerControl.qml:110
+#: qml/MediaPlayerControl.qml:111
 #, fuzzy, kde-format
 #| msgctxt "@action:button Start playing media"
 #| msgid "Play"
@@ -722,7 +722,7 @@ msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Reproduzir"
 
-#: qml/MediaPlayerControl.qml:118
+#: qml/MediaPlayerControl.qml:119
 #, fuzzy, kde-format
 #| msgctxt "@action:button skip forward in playlists"
 #| msgid "Skip Forward"
@@ -730,25 +730,25 @@ msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Avançar"
 
-#: qml/MediaPlayerControl.qml:144
+#: qml/MediaPlayerControl.qml:145
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:145
+#: qml/MediaPlayerControl.qml:146
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:171 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "Current: Don't repeat tracks"
@@ -756,13 +756,13 @@ msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Actual: Não repetir as faixas"
 
-#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:244
+#: qml/MediaPlayerControl.qml:202 qml/mobile/MobileTrackPlayer.qml:245
 #, fuzzy, kde-format
 #| msgctxt "@item:inlistbox Title of the view of all tracks"
 #| msgid "Tracks"
@@ -770,7 +770,7 @@ msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Faixas"
 
-#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:248
+#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:249
 #, fuzzy, kde-format
 #| msgctxt "@label musical album"
 #| msgid "Album"
@@ -778,32 +778,32 @@ msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Álbum"
 
-#: qml/MediaPlayerControl.qml:209 qml/MediaPlayerControl.qml:267
-#: qml/mobile/MobileTrackPlayer.qml:252 qml/mobile/MobileTrackPlayer.qml:305
+#: qml/MediaPlayerControl.qml:210 qml/MediaPlayerControl.qml:268
+#: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Nenhuma"
 
-#: qml/MediaPlayerControl.qml:230 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Actual: Não repetir as faixas"
 
-#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Actual: Repetir a faixa actual"
 
-#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Actual: Repetir todas as faixas da lista"
 
-#: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
+#: qml/MediaPlayerControl.qml:264 qml/mobile/MobileTrackPlayer.qml:302
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -812,7 +812,7 @@ msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "%1 faixa"
 
-#: qml/MediaPlayerControl.qml:316
+#: qml/MediaPlayerControl.qml:317
 #, fuzzy, kde-format
 #| msgctxt "@title:menu"
 #| msgid "Application Menu"
@@ -820,7 +820,7 @@ msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "Menu da Aplicação"
 
-#: qml/MediaPlayListView.qml:28
+#: qml/MediaPlayListView.qml:29
 #, kde-format
 msgctxt ""
 "@title:window Title of the view of the playlist; keep this string as short "
@@ -828,7 +828,7 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Lista de Reprodução"
 
-#: qml/MediaPlayListView.qml:70
+#: qml/MediaPlayListView.qml:71
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Current"
@@ -836,19 +836,19 @@ msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Mostrar a Actual"
 
-#: qml/MediaPlayListView.qml:81
+#: qml/MediaPlayListView.qml:82
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Limpar Tudo"
 
-#: qml/MediaPlayListView.qml:91
+#: qml/MediaPlayListView.qml:92
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Gravar…"
 
-#: qml/MediaPlayListView.qml:101
+#: qml/MediaPlayListView.qml:102
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open Playlist…"
@@ -856,13 +856,13 @@ msgctxt "@action:button Load a playlist file"
 msgid "Open…"
 msgstr "Abrir uma Lista de Reprodução…"
 
-#: qml/MediaPlayListView.qml:102
+#: qml/MediaPlayListView.qml:103
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:127
+#: qml/MediaPlayListView.qml:128
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -872,19 +872,19 @@ msgstr ""
 "Não foi possível carregar algumas faixas. Certifique-se que não foram "
 "removidas ou tenham mudado de nome."
 
-#: qml/MediaPlayListView.qml:133
+#: qml/MediaPlayListView.qml:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Editar o Ficheiro da Lista de Reprodução"
 
-#: qml/MediaPlayListView.qml:303
+#: qml/MediaPlayListView.qml:304
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "A lista de reprodução está vazia"
 
-#: qml/MediaPlayListView.qml:304
+#: qml/MediaPlayListView.qml:305
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -894,13 +894,13 @@ msgstr ""
 "Adicione algumas músicas para começar. Poderá escolher a sua música nas "
 "áreas à esquerda."
 
-#: qml/MediaPlayListView.qml:379
+#: qml/MediaPlayListView.qml:380
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "A sua lista de reprodução está vazia."
 
-#: qml/MediaPlayListView.qml:476 qml/MediaPlayListView.qml:485
+#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -911,7 +911,7 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "falta %1"
 msgstr[1] "faltam %1"
 
-#: qml/MediaPlayListView.qml:477
+#: qml/MediaPlayListView.qml:478
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -920,8 +920,8 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "falta %1"
 
-#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
-#: qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:479 qml/MediaPlayListView.qml:488
+#: qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -929,7 +929,7 @@ msgctxt ""
 msgid "%1, %2"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:486 qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -938,7 +938,7 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "falta %1"
 
-#: qml/MediaPlayListView.qml:494
+#: qml/MediaPlayListView.qml:495
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -949,7 +949,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "%1 faixa"
 msgstr[1] "%1 faixas"
 
-#: qml/MediaPlayListView.qml:503
+#: qml/MediaPlayListView.qml:504
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -960,7 +960,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 faixa"
 msgstr[1] "%1 faixas"
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -968,7 +968,7 @@ msgid_plural "%1 radios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -976,7 +976,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:508
+#: qml/MediaPlayListView.qml:509
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -989,7 +989,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 faixa"
 msgstr[1] "%1 faixas"
 
-#: qml/MediaPlayListView.qml:510
+#: qml/MediaPlayListView.qml:511
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -1000,27 +1000,27 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "falta %1"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
-#: qml/TrackBrowserDelegate.qml:104
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Retirar esta música dos favoritos"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
-#: qml/TrackBrowserDelegate.qml:104
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "Marcar esta música como favorita"
 
-#: qml/MediaTrackMetadataDelegate.qml:206
+#: qml/MediaTrackMetadataDelegate.qml:207
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
 msgstr ""
 
-#: qml/MediaTrackMetadataDelegate.qml:214
+#: qml/MediaTrackMetadataDelegate.qml:215
 #, fuzzy, kde-format
 #| msgctxt "@label:listbox"
 #| msgid "Add new tag:"
@@ -1028,19 +1028,19 @@ msgctxt "@action:button"
 msgid "Add tag"
 msgstr "Adicionar uma nova marca:"
 
-#: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:46
+#: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:47
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Aviso"
 
-#: qml/MediaTrackMetadataForm.qml:95
+#: qml/MediaTrackMetadataForm.qml:96
 #, kde-format
 msgctxt "@label"
 msgid "Data is not valid. %1"
 msgstr "Os dados não são válidos. %1"
 
-#: qml/MediaTrackMetadataForm.qml:147
+#: qml/MediaTrackMetadataForm.qml:148
 #, fuzzy, kde-format
 #| msgctxt "Volume as a percentage"
 #| msgid "%1%"
@@ -1048,83 +1048,83 @@ msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
 msgstr "%1%"
 
-#: qml/MediaTrackMetadataView.qml:36
-#: qml/mobile/MobileMediaTrackMetadataView.qml:47
+#: qml/MediaTrackMetadataView.qml:37
+#: qml/mobile/MobileMediaTrackMetadataView.qml:48
 #, kde-format
 msgctxt "@title:window"
 msgid "Create a Radio"
 msgstr "Criar uma Rádio"
 
-#: qml/MediaTrackMetadataView.qml:37
-#: qml/mobile/MobileMediaTrackMetadataView.qml:48
+#: qml/MediaTrackMetadataView.qml:38
+#: qml/mobile/MobileMediaTrackMetadataView.qml:49
 #, kde-format
 msgctxt "@title:window"
 msgid "View details"
 msgstr "Ver os detalhes"
 
-#: qml/MediaTrackMetadataView.qml:128
-#: qml/mobile/MobileMediaTrackMetadataView.qml:71
+#: qml/MediaTrackMetadataView.qml:129
+#: qml/mobile/MobileMediaTrackMetadataView.qml:72
 #, kde-format
 msgctxt "@action:button"
 msgid "Delete"
 msgstr "Apagar"
 
-#: qml/MediaTrackMetadataView.qml:146
-#: qml/mobile/MobileMediaTrackMetadataView.qml:53
+#: qml/MediaTrackMetadataView.qml:147
+#: qml/mobile/MobileMediaTrackMetadataView.qml:54
 #, kde-format
 msgctxt "@action:button"
 msgid "Modify"
 msgstr "Modificar"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:59
-#: qml/mobile/MobileSettingsPage.qml:38
+#: qml/mobile/MobileMediaTrackMetadataView.qml:60
+#: qml/mobile/MobileSettingsPage.qml:39
 #, kde-format
 msgctxt "@action:button"
 msgid "Save"
 msgstr "Gravar"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:65
-#: qml/mobile/MobileSettingsPage.qml:44
+#: qml/mobile/MobileMediaTrackMetadataView.qml:66
+#: qml/mobile/MobileSettingsPage.qml:45
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:223
-#: qml/mobile/MobileTrackPlayer.qml:355
+#: qml/mobile/MobileMinimizedPlayerControl.qml:224
+#: qml/mobile/MobileTrackPlayer.qml:356
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Recuar"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
-#: qml/mobile/MobileTrackPlayer.qml:368
+#: qml/mobile/MobileMinimizedPlayerControl.qml:238
+#: qml/mobile/MobileTrackPlayer.qml:369
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Pausa"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
-#: qml/mobile/MobileTrackPlayer.qml:368
+#: qml/mobile/MobileMinimizedPlayerControl.qml:238
+#: qml/mobile/MobileTrackPlayer.qml:369
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Reproduzir"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:251
-#: qml/mobile/MobileTrackPlayer.qml:381
+#: qml/mobile/MobileMinimizedPlayerControl.qml:252
+#: qml/mobile/MobileTrackPlayer.qml:382
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Avançar"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:365
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Opções da Faixa"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:365
 #, fuzzy, kde-format
 #| msgctxt "@item:intable"
 #| msgid "Radio Stations"
@@ -1132,128 +1132,128 @@ msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Estações de Rádio"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
-#: qml/TrackBrowserDelegate.qml:76
+#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:90
+#: qml/TrackBrowserDelegate.qml:77
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "Ver os detalhes"
 
-#: qml/mobile/MobilePlayListDelegate.qml:187
+#: qml/mobile/MobilePlayListDelegate.qml:188
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr "Remover da fila"
 
-#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:36
+#: qml/mobile/MobileSettingsPage.qml:25 qml/mobile/MobileSidebar.qml:37
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"
 msgstr "Configuração"
 
-#: qml/mobile/MobileTrackPlayer.qml:50
+#: qml/mobile/MobileTrackPlayer.qml:51
 #, kde-format
 msgctxt "@action:button"
 msgid "Minimize Player"
 msgstr "Minimizar o Leitor"
 
-#: qml/mobile/MobileTrackPlayer.qml:198
+#: qml/mobile/MobileTrackPlayer.qml:199
 #, kde-format
 msgctxt "@action:button show track information"
 msgid "Show Info"
 msgstr "Mostrar a Informação"
 
-#: qml/mobile/MobileVolumeButton.qml:29
+#: qml/mobile/MobileVolumeButton.qml:30
 #, kde-format
 msgctxt "@action:button"
 msgid "Change Volume"
 msgstr "Mudar o Volume"
 
-#: qml/NativeGlobalMenu.qml:17
+#: qml/NativeGlobalMenu.qml:18
 #, kde-format
 msgctxt "@title:menu"
 msgid "File"
 msgstr "Ficheiro"
 
-#: qml/NativeGlobalMenu.qml:20
+#: qml/NativeGlobalMenu.qml:21
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save Playlist…"
 msgstr "Gravar a Lista de Reprodução…"
 
-#: qml/NativeGlobalMenu.qml:28
+#: qml/NativeGlobalMenu.qml:29
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Playlist…"
 msgstr "Abrir uma Lista de Reprodução…"
 
-#: qml/NativeGlobalMenu.qml:60
+#: qml/NativeGlobalMenu.qml:61
 #, kde-format
 msgctxt "@title:menu"
 msgid "View"
 msgstr "Ver"
 
-#: qml/NativeGlobalMenu.qml:63
+#: qml/NativeGlobalMenu.qml:64
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "Comutar o Modo de Festa"
 
-#: qml/NativeGlobalMenu.qml:76
+#: qml/NativeGlobalMenu.qml:77
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Playlist"
 msgstr "Esconder a Lista de Reprodução"
 
-#: qml/NativeGlobalMenu.qml:76
+#: qml/NativeGlobalMenu.qml:77
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Playlist"
 msgstr "Mostrar a Lista de Reprodução"
 
-#: qml/NativeGlobalMenu.qml:81
+#: qml/NativeGlobalMenu.qml:82
 #, kde-format
 msgctxt "@title:menu"
 msgid "Controls"
 msgstr "Controlos"
 
-#: qml/NativeGlobalMenu.qml:84
+#: qml/NativeGlobalMenu.qml:85
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pause"
 msgstr "Pausa"
 
-#: qml/NativeGlobalMenu.qml:84
+#: qml/NativeGlobalMenu.qml:85
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Play"
 msgstr "Reproduzir"
 
-#: qml/NativeGlobalMenu.qml:91
+#: qml/NativeGlobalMenu.qml:92
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop"
 msgstr "Parar"
 
-#: qml/NativeGlobalMenu.qml:100
+#: qml/NativeGlobalMenu.qml:101
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Increase Volume"
 msgstr "Aumentar o Volume"
 
-#: qml/NativeGlobalMenu.qml:105
+#: qml/NativeGlobalMenu.qml:106
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Decrease Volume"
 msgstr "Diminuir o Volume"
 
-#: qml/NativeGlobalMenu.qml:115
+#: qml/NativeGlobalMenu.qml:116
 #, kde-format
 msgctxt "@title:menu"
 msgid "Shuffle"
 msgstr "Baralhar"
 
-#: qml/NativeGlobalMenu.qml:122
+#: qml/NativeGlobalMenu.qml:123
 #, fuzzy, kde-format
 #| msgctxt "@item:inlistbox Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1261,7 +1261,7 @@ msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
 msgstr "Faixas"
 
-#: qml/NativeGlobalMenu.qml:126
+#: qml/NativeGlobalMenu.qml:127
 #, fuzzy, kde-format
 #| msgctxt "@label musical album"
 #| msgid "Album"
@@ -1269,7 +1269,7 @@ msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "Álbum"
 
-#: qml/NativeGlobalMenu.qml:130
+#: qml/NativeGlobalMenu.qml:131
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu shuffle mode is turned off"
 #| msgid "Off"
@@ -1277,25 +1277,25 @@ msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "Desligado"
 
-#: qml/NativeGlobalMenu.qml:137
+#: qml/NativeGlobalMenu.qml:138
 #, kde-format
 msgctxt "@title:menu"
 msgid "Repeat"
 msgstr "Repetir"
 
-#: qml/NativeGlobalMenu.qml:144
+#: qml/NativeGlobalMenu.qml:145
 #, kde-format
 msgctxt "@action:inmenu repeat all songs in this playlist"
 msgid "Playlist"
 msgstr "Lista de Reprodução"
 
-#: qml/NativeGlobalMenu.qml:148
+#: qml/NativeGlobalMenu.qml:149
 #, kde-format
 msgctxt "@action:inmenu repeat this one song"
 msgid "One"
 msgstr "Uma"
 
-#: qml/NativeGlobalMenu.qml:152
+#: qml/NativeGlobalMenu.qml:153
 #, kde-format
 msgctxt ""
 "@action:inmenu no repeat mode set; stop playback after last song in the "
@@ -1303,43 +1303,43 @@ msgctxt ""
 msgid "None"
 msgstr "Nenhuma"
 
-#: qml/NativeGlobalMenu.qml:158
+#: qml/NativeGlobalMenu.qml:159
 #, kde-format
 msgctxt "@title:menu"
 msgid "Help"
 msgstr "Ajuda"
 
-#: qml/NavigationActionBar.qml:92
+#: qml/NavigationActionBar.qml:93
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "Ordenação: %1"
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:94
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "Ordenação"
 
-#: qml/NavigationActionBar.qml:107
+#: qml/NavigationActionBar.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:108
+#: qml/NavigationActionBar.qml:109
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:120
+#: qml/NavigationActionBar.qml:121
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "Adicionar à Lista de Reprodução"
 
-#: qml/NavigationActionBar.qml:121
+#: qml/NavigationActionBar.qml:122
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Add to playlist"
@@ -1347,7 +1347,7 @@ msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "Adicionar à lista de reprodução"
 
-#: qml/NavigationActionBar.qml:134
+#: qml/NavigationActionBar.qml:135
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Play now, replacing current playlist"
@@ -1355,7 +1355,7 @@ msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "Reproduzir agora, substituindo a lista de reprodução actual"
 
-#: qml/NavigationActionBar.qml:135
+#: qml/NavigationActionBar.qml:136
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Play now, replacing current playlist"
@@ -1363,7 +1363,7 @@ msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "Reproduzir agora, substituindo a lista de reprodução actual"
 
-#: qml/NavigationActionBar.qml:147
+#: qml/NavigationActionBar.qml:148
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Play counter label for track metadata view"
 #| msgid "Play count"
@@ -1371,7 +1371,7 @@ msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "Número de reproduções"
 
-#: qml/NavigationActionBar.qml:148
+#: qml/NavigationActionBar.qml:149
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Play now, replacing current playlist"
@@ -1379,13 +1379,13 @@ msgctxt "@info:tooltip"
 msgid "Play next in playlist"
 msgstr "Reproduzir agora, substituindo a lista de reprodução actual"
 
-#: qml/NavigationActionBar.qml:160
+#: qml/NavigationActionBar.qml:161
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Mostrar o Artista"
 
-#: qml/NavigationActionBar.qml:161
+#: qml/NavigationActionBar.qml:162
 #, fuzzy, kde-format
 #| msgctxt "@action:button navigate to the view for artist of this album"
 #| msgid "Display Artist"
@@ -1393,7 +1393,7 @@ msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "Mostrar o Artista"
 
-#: qml/NavigationActionBar.qml:176
+#: qml/NavigationActionBar.qml:177
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Playlist"
@@ -1401,13 +1401,13 @@ msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Mostrar a Lista de Reprodução"
 
-#: qml/NavigationActionBar.qml:187
+#: qml/NavigationActionBar.qml:188
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:188
+#: qml/NavigationActionBar.qml:189
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "View details"
@@ -1415,13 +1415,13 @@ msgctxt "@action:button"
 msgid "View as List"
 msgstr "Ver os detalhes"
 
-#: qml/NavigationActionBar.qml:190
+#: qml/NavigationActionBar.qml:191
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:191
+#: qml/NavigationActionBar.qml:192
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "View details"
@@ -1429,13 +1429,13 @@ msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Ver os detalhes"
 
-#: qml/NavigationActionBar.qml:251
+#: qml/NavigationActionBar.qml:252
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Recuar"
 
-#: qml/NavigationActionBar.qml:332
+#: qml/NavigationActionBar.qml:333
 #, fuzzy, kde-format
 #| msgctxt "@action:button Show filters in the navigation bar"
 #| msgid "Search and Filter"
@@ -1444,7 +1444,7 @@ msgctxt ""
 msgid "Show search and filter toolbar"
 msgstr "Pesquisa e Filtro"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:334
 #, fuzzy, kde-format
 #| msgctxt "@action:button Hide filters in the navigation bar"
 #| msgid "Hide Search and Filter"
@@ -1453,13 +1453,13 @@ msgctxt ""
 msgid "Hide search and filter toolbar"
 msgstr "Esconder a Pesquisa e Filtro"
 
-#: qml/NavigationActionBar.qml:426
+#: qml/NavigationActionBar.qml:427
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:428
+#: qml/NavigationActionBar.qml:429
 #, fuzzy, kde-format
 #| msgctxt "@info:placeholder"
 #| msgid "Search for album name, artist, etc."
@@ -1467,7 +1467,7 @@ msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Procurar pelo nome do álbum, artista, etc."
 
-#: qml/NavigationActionBar.qml:429
+#: qml/NavigationActionBar.qml:430
 #, fuzzy, kde-format
 #| msgctxt "@info:placeholder"
 #| msgid "Search for album name, artist, etc."
@@ -1487,37 +1487,37 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Mostrar Apenas os Favoritos"
 
-#: qml/PlayListEntry.qml:102 qml/TrackBrowserDelegate.qml:96
+#: qml/PlayListEntry.qml:104 qml/TrackBrowserDelegate.qml:97
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Definir a classificação da faixa"
 
-#: qml/PlayListEntry.qml:125
+#: qml/PlayListEntry.qml:128
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Remover"
 
-#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:311
+#: qml/PlayListEntry.qml:313 qml/TrackBrowserDelegate.qml:312
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "Cancelar a classificação desta faixa"
 
-#: qml/SettingsForm.qml:69
+#: qml/SettingsForm.qml:70
 #, kde-format
 msgctxt "@title:group"
 msgid "General:"
 msgstr "Geral:"
 
-#: qml/SettingsForm.qml:73
+#: qml/SettingsForm.qml:74
 #, kde-format
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "Mostrar o fundo na página 'Agora a Tocar'"
 
-#: qml/SettingsForm.qml:86
+#: qml/SettingsForm.qml:87
 #, fuzzy, kde-format
 #| msgctxt "@option:check"
 #| msgid "Show progress on Task Manager entries"
@@ -1525,7 +1525,7 @@ msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "Mostrar o progresso nos itens do Gestor de Tarefas"
 
-#: qml/SettingsForm.qml:97
+#: qml/SettingsForm.qml:98
 #, fuzzy, kde-format
 #| msgctxt "@option:check"
 #| msgid "Keep running in System Tray when main window is closed"
@@ -1534,13 +1534,13 @@ msgid "Keep running in system tray when main window is closed"
 msgstr ""
 "Manter em execução na Bandeja do Sistema quando se fechar a janela principal"
 
-#: qml/SettingsForm.qml:108
+#: qml/SettingsForm.qml:109
 #, kde-format
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "Começar a tocar no arranque"
 
-#: qml/SettingsForm.qml:119
+#: qml/SettingsForm.qml:120
 #, fuzzy, kde-format
 #| msgctxt "@option:check"
 #| msgid "Scan for New Music on startup"
@@ -1548,7 +1548,7 @@ msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "Procurar por Música Nova no Arranque"
 
-#: qml/SettingsForm.qml:138
+#: qml/SettingsForm.qml:139
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1562,25 +1562,25 @@ msgstr ""
 "configuradas. Podê-lo-á fazer com o item <interface>Procurar por Música "
 "Nova</interface> no menu em hambúrguer do Elisa."
 
-#: qml/SettingsForm.qml:149
+#: qml/SettingsForm.qml:150
 #, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "Estilo de classificação da música:"
 
-#: qml/SettingsForm.qml:153
+#: qml/SettingsForm.qml:154
 #, kde-format
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "0-5 estrelas"
 
-#: qml/SettingsForm.qml:165
+#: qml/SettingsForm.qml:166
 #, kde-format
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "Favorita/não-favorita"
 
-#: qml/SettingsForm.qml:183
+#: qml/SettingsForm.qml:184
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu this has child menu items"
 #| msgid "Color Scheme"
@@ -1588,13 +1588,13 @@ msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "Esquema de Cores"
 
-#: qml/SettingsForm.qml:219
+#: qml/SettingsForm.qml:220
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "Procurar por Música Nova"
 
-#: qml/SettingsForm.qml:223 qml/SettingsForm.qml:234
+#: qml/SettingsForm.qml:224 qml/SettingsForm.qml:235
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "Scanning music"
@@ -1602,125 +1602,125 @@ msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "A analisar a música"
 
-#: qml/SettingsForm.qml:229
+#: qml/SettingsForm.qml:230
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Limpar a Base de Dados e Analisar Tudo de Novo"
 
-#: qml/SettingsForm.qml:233
+#: qml/SettingsForm.qml:234
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
 msgstr ""
 
-#: qml/SettingsForm.qml:248
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "Incorporar a categoria na barra lateral:"
 
-#: qml/SettingsForm.qml:250
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "Nada"
 
-#: qml/SettingsForm.qml:251
+#: qml/SettingsForm.qml:252
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "Álbuns"
 
-#: qml/SettingsForm.qml:252
+#: qml/SettingsForm.qml:253
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "Artistas"
 
-#: qml/SettingsForm.qml:253
+#: qml/SettingsForm.qml:254
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "Géneros"
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:287
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "Vista inicial no arranque:"
 
-#: qml/SettingsForm.qml:288
+#: qml/SettingsForm.qml:289
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Agora a Tocar"
 
-#: qml/SettingsForm.qml:289
+#: qml/SettingsForm.qml:290
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Reproduzido Recentemente"
 
-#: qml/SettingsForm.qml:290
+#: qml/SettingsForm.qml:291
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Reproduzido Frequentemente"
 
-#: qml/SettingsForm.qml:291 viewmanager.cpp:216
+#: qml/SettingsForm.qml:292 viewmanager.cpp:216
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Álbuns"
 
-#: qml/SettingsForm.qml:292 viewmanager.cpp:220
+#: qml/SettingsForm.qml:293 viewmanager.cpp:220
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Artistas"
 
-#: qml/SettingsForm.qml:293 viewmanager.cpp:218
+#: qml/SettingsForm.qml:294 viewmanager.cpp:218
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Faixas"
 
-#: qml/SettingsForm.qml:294
+#: qml/SettingsForm.qml:295
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "Géneros"
 
-#: qml/SettingsForm.qml:295
+#: qml/SettingsForm.qml:296
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "Ficheiros"
 
-#: qml/SettingsForm.qml:296
+#: qml/SettingsForm.qml:297
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Estações de Rádio"
 
-#: qml/SettingsForm.qml:316
+#: qml/SettingsForm.qml:317
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr ""
 
-#: qml/SettingsForm.qml:330
+#: qml/SettingsForm.qml:331
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr ""
 
-#: qml/SettingsForm.qml:338 qml/SettingsForm.qml:463
+#: qml/SettingsForm.qml:339 qml/SettingsForm.qml:464
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Choose a Folder"
@@ -1728,24 +1728,24 @@ msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Escolher uma Pasta"
 
-#: qml/SettingsForm.qml:361
+#: qml/SettingsForm.qml:362
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "Ao gravar os ficheiros da lista de reprodução:"
 
-#: qml/SettingsForm.qml:370
+#: qml/SettingsForm.qml:371
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "Preferir localizações relativas"
 
-#: qml/SettingsForm.qml:371
+#: qml/SettingsForm.qml:372
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "Usar sempre localizações absolutas"
 
-#: qml/SettingsForm.qml:382
+#: qml/SettingsForm.qml:383
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1758,50 +1758,50 @@ msgstr ""
 "serão referenciados apenas pelo nome do ficheiro. As localizações absolutas "
 "são usadas noutros casos."
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:398
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "Pastas de música:"
 
-#: qml/SettingsForm.qml:440
+#: qml/SettingsForm.qml:441
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "Parar a pesquisa de música aqui"
 
-#: qml/SettingsForm.qml:453
+#: qml/SettingsForm.qml:454
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Adicionar uma Nova Localização"
 
-#: qml/shared/BasePlayListDelegate.qml:67
+#: qml/shared/BasePlayListDelegate.qml:68
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
 msgstr ""
 
-#: qml/SortMenu.qml:22
+#: qml/SortMenu.qml:24
 #, kde-format
 msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "Ordenar Por"
 
-#: qml/TrackBrowserDelegate.qml:91
+#: qml/TrackBrowserDelegate.qml:92
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Reproduzir agora, substituindo a lista de reprodução actual"
 
-#: qml/TrackBrowserDelegate.qml:201 qml/TrackBrowserDelegate.qml:217
+#: qml/TrackBrowserDelegate.qml:202 qml/TrackBrowserDelegate.qml:218
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:212
+#: qml/TrackBrowserDelegate.qml:213
 #, fuzzy, kde-format
 #| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 #| msgid "%1 - %2 - %3"
@@ -1809,19 +1809,19 @@ msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
 msgstr "%1  %2 - %3"
 
-#: qml/TrackBrowserDelegate.qml:224
+#: qml/TrackBrowserDelegate.qml:225
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:370
+#: qml/TrackBrowserDelegate.qml:371
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "Opções da Música"
 
-#: qml/TrackImportNotification.qml:57 qml/TrackImportNotification.qml:75
+#: qml/TrackImportNotification.qml:58 qml/TrackImportNotification.qml:76
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
@@ -1829,19 +1829,19 @@ msgid_plural "Imported %1 tracks"
 msgstr[0] "Foi importada uma faixa"
 msgstr[1] "Foram importadas %1 faixas"
 
-#: qml/TrackImportNotification.qml:61
+#: qml/TrackImportNotification.qml:62
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"
 msgstr "A analisar a música"
 
-#: qml/TracksDiscHeader.qml:22
+#: qml/TracksDiscHeader.qml:23
 #, kde-format
 msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "Disco %1"
 
-#: qml/VolumeSlider.qml:28
+#: qml/VolumeSlider.qml:29
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Change Volume"
@@ -1849,7 +1849,7 @@ msgctxt "@label"
 msgid "Volume"
 msgstr "Mudar o Volume"
 
-#: qml/VolumeSlider.qml:49
+#: qml/VolumeSlider.qml:50
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"

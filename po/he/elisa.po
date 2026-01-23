@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-16 00:42+0000\n"
+"POT-Creation-Date: 2026-01-23 00:42+0000\n"
 "PO-Revision-Date: 2026-01-13 10:02+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -377,93 +377,93 @@ msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
 msgstr "%1:%2:%3"
 
-#: qml/AbstractBrowserDelegate.qml:42
+#: qml/AbstractBrowserDelegate.qml:43
 #, kde-format
 msgctxt "@action:button"
 msgid "Play now, replacing current playlist"
 msgstr "לנגן כעת, תוך החלפת רשימת הנגינה הנוכחית"
 
-#: qml/AbstractBrowserDelegate.qml:48 qml/TrackBrowserDelegate.qml:86
+#: qml/AbstractBrowserDelegate.qml:49 qml/TrackBrowserDelegate.qml:87
 #, kde-format
 msgctxt "@action:button"
 msgid "Play next"
 msgstr "לנגן את הבא"
 
-#: qml/AbstractBrowserDelegate.qml:53 qml/TrackBrowserDelegate.qml:81
+#: qml/AbstractBrowserDelegate.qml:54 qml/TrackBrowserDelegate.qml:82
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "הוספה לרשימת נגינה"
 
-#: qml/AbstractBrowserDelegate.qml:62 qml/mobile/MobilePlayListDelegate.qml:168
-#: qml/TrackBrowserDelegate.qml:69
+#: qml/AbstractBrowserDelegate.qml:63 qml/mobile/MobilePlayListDelegate.qml:169
+#: qml/TrackBrowserDelegate.qml:70
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
 msgstr "הצגה בתיקייה"
 
-#: qml/AbstractBrowserDelegate.qml:84
+#: qml/AbstractBrowserDelegate.qml:85
 #, kde-format
 msgctxt "@action:button"
 msgid "Options"
 msgstr "אפשרויות"
 
-#: qml/AbstractDataView.qml:208
+#: qml/AbstractDataView.qml:209
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matches"
 msgstr "אין תוצאות"
 
-#: qml/AbstractDataView.qml:208
+#: qml/AbstractDataView.qml:209
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing to display"
 msgstr "אין מה להציג"
 
-#: qml/ApplicationMenu.qml:18 qml/NativeTrayMenu.qml:17
+#: qml/ApplicationMenu.qml:19 qml/NativeTrayMenu.qml:18
 #, kde-format
 msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "תפריט יישומים"
 
-#: qml/ApplicationMenu.qml:21 qml/NativeGlobalMenu.qml:69
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "יציאה ממסך מלא"
 
-#: qml/ApplicationMenu.qml:21 qml/NativeGlobalMenu.qml:69
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "כניסה למסך מלא"
 
-#: qml/ApplicationMenu.qml:29 qml/NativeTrayMenu.qml:20
+#: qml/ApplicationMenu.qml:30 qml/NativeTrayMenu.qml:21
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "סריקה לאיתור מוזיקה חדשה"
 
-#: qml/ApplicationMenu.qml:38 qml/NativeGlobalMenu.qml:36
-#: qml/NativeTrayMenu.qml:26
+#: qml/ApplicationMenu.qml:39 qml/NativeGlobalMenu.qml:37
+#: qml/NativeTrayMenu.qml:27
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "איפוס מסד הנתונים וסריקה של הכול מחדש"
 
-#: qml/ApplicationMenu.qml:49
+#: qml/ApplicationMenu.qml:50
 #, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
 msgstr "ערכת צבעים"
 
-#: qml/ConfigurationDialog.qml:21
+#: qml/ConfigurationDialog.qml:22
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure"
 msgstr "הגדרה"
 
-#: qml/ContextView.qml:40
+#: qml/ContextView.qml:41
 #, kde-format
 msgctxt ""
 "@title:window Title of the context view related to the currently playing "
@@ -471,50 +471,50 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "מתנגן כעת"
 
-#: qml/ContextView.qml:77 qml/NavigationActionBar.qml:243
+#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:244
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "פתיחת סרגל צד"
 
-#: qml/ContextView.qml:113
+#: qml/ContextView.qml:114
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "נתוני־על"
 
-#: qml/ContextView.qml:124
+#: qml/ContextView.qml:125
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "מילות־שיר"
 
-#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:299
-#: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
+#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:300
+#: qml/mobile/MobileTrackPlayer.qml:396 qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "הצגת רשימת נגינה"
 
-#: qml/ContextView.qml:361
+#: qml/ContextView.qml:362
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "שום דבר לא מתנגן"
 
-#: qml/ContextView.qml:395
+#: qml/ContextView.qml:396
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
 msgstr "הצגה בתיקייה"
 
-#: qml/DataGridView.qml:161
+#: qml/DataGridView.qml:162
 #, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
 msgstr "כל הרצועות"
 
-#: qml/DataGridView.qml:162
+#: qml/DataGridView.qml:163
 #, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
@@ -524,7 +524,7 @@ msgstr[1] "שתי רצועות"
 msgstr[2] "%1 רצועות"
 msgstr[3] "%1 רצועות"
 
-#: qml/DurationSlider.qml:67
+#: qml/DurationSlider.qml:68
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -532,49 +532,49 @@ msgctxt ""
 msgid "00:00:00"
 msgstr "00:00:00"
 
-#: qml/DurationSlider.qml:105
+#: qml/DurationSlider.qml:106
 #, kde-format
 msgctxt "@label"
 msgid "Duration"
 msgstr "משך"
 
-#: qml/ElisaMainWindow.qml:30
+#: qml/ElisaMainWindow.qml:31
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "הטעינה נכשלה"
 
-#: qml/ElisaMainWindow.qml:30 qml/ElisaMainWindow.qml:309
+#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "לנסות שוב"
 
-#: qml/ElisaMainWindow.qml:34
+#: qml/ElisaMainWindow.qml:35
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "רשימת הנגינה התרוקנה"
 
-#: qml/ElisaMainWindow.qml:34
+#: qml/ElisaMainWindow.qml:35
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "הסגה"
 
-#: qml/ElisaMainWindow.qml:141
+#: qml/ElisaMainWindow.qml:142
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "הצגת מגירת רשימת נגינה"
 
-#: qml/ElisaMainWindow.qml:142
+#: qml/ElisaMainWindow.qml:143
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "הסתרת מגירת רשימת נגינה"
 
-#: qml/ElisaMainWindow.qml:178 qml/ElisaMainWindow.qml:622
+#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:623
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -582,19 +582,19 @@ msgid ""
 msgstr ""
 "לא ניתן לטעון חלק מהקבצים. אליסה יכולה לפתוח קובצי שמע ורשימות נגינה בלבד."
 
-#: qml/ElisaMainWindow.qml:237 qml/mobile/MobileSidebar.qml:20
+#: qml/ElisaMainWindow.qml:238 qml/mobile/MobileSidebar.qml:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "אליסה"
 
-#: qml/ElisaMainWindow.qml:237
+#: qml/ElisaMainWindow.qml:238
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — אליסה"
 
-#: qml/ElisaMainWindow.qml:289
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -602,7 +602,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "קובץ רשימת נגינה m3u8,‏ m3u‏ (‎*.m3u*‎)"
 
-#: qml/ElisaMainWindow.qml:289
+#: qml/ElisaMainWindow.qml:290
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -610,7 +610,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "קובץ רשימת נגינה pls ‏(‎*.pls)"
 
-#: qml/ElisaMainWindow.qml:296
+#: qml/ElisaMainWindow.qml:297
 #, kde-format
 msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
@@ -618,7 +618,7 @@ msgctxt ""
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
 msgstr "קובצי רשימות נגינה ומוזיקה (%1 %2) (%1 %2)"
 
-#: qml/ElisaMainWindow.qml:297
+#: qml/ElisaMainWindow.qml:298
 #, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
@@ -626,7 +626,7 @@ msgctxt ""
 msgid "Playlist files (%1) (%1)"
 msgstr "קובץ רשימת נגינה (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:298
+#: qml/ElisaMainWindow.qml:299
 #, kde-format
 msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
@@ -634,154 +634,154 @@ msgctxt ""
 msgid "Music files (%1) (%1)"
 msgstr "קובצי מוזיקה (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:309
+#: qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
 msgstr "השמירה נכשלה"
 
-#: qml/HeaderBar.qml:242 qml/MediaPlayerControl.qml:259
-#: qml/mobile/MobileTrackPlayer.qml:297
+#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:260
+#: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "רשימת נגינה"
 
-#: qml/HeaderBar.qml:259
+#: qml/HeaderBar.qml:260
 #, kde-format
 msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "מילות שיר"
 
-#: qml/HeaderBar.qml:273
+#: qml/HeaderBar.qml:274
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "יציאה ממסך מלא"
 
-#: qml/LyricsView.qml:161
+#: qml/LyricsView.qml:162
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "לא נמצאו מילות שירים"
 
-#: qml/MediaPlayerControl.qml:91
+#: qml/MediaPlayerControl.qml:92
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
 msgstr "יציאה ממצב מסיבה"
 
-#: qml/MediaPlayerControl.qml:92
+#: qml/MediaPlayerControl.qml:93
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "מעבר למצב מסיבה"
 
-#: qml/MediaPlayerControl.qml:100
+#: qml/MediaPlayerControl.qml:101
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "דילוג אחורה"
 
-#: qml/MediaPlayerControl.qml:109
+#: qml/MediaPlayerControl.qml:110
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "השהיה"
 
-#: qml/MediaPlayerControl.qml:110
+#: qml/MediaPlayerControl.qml:111
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "נגינה"
 
-#: qml/MediaPlayerControl.qml:118
+#: qml/MediaPlayerControl.qml:119
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "דילוג קדימה"
 
-#: qml/MediaPlayerControl.qml:144
+#: qml/MediaPlayerControl.qml:145
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "ביטול השתקה"
 
-#: qml/MediaPlayerControl.qml:145
+#: qml/MediaPlayerControl.qml:146
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "השתקה"
 
-#: qml/MediaPlayerControl.qml:171 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "נוכחי: ללא ערבוב"
 
-#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "נוכחי: ערבוב רצועות"
 
-#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "נוכחי: ערבוב אלבומים"
 
-#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:244
+#: qml/MediaPlayerControl.qml:202 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "רצועה"
 
-#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:248
+#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "אלבום"
 
-#: qml/MediaPlayerControl.qml:209 qml/MediaPlayerControl.qml:267
-#: qml/mobile/MobileTrackPlayer.qml:252 qml/mobile/MobileTrackPlayer.qml:305
+#: qml/MediaPlayerControl.qml:210 qml/MediaPlayerControl.qml:268
+#: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "ללא"
 
-#: qml/MediaPlayerControl.qml:230 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "נוכחי: לא לחזור על רצועות"
 
-#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "נוכחי: לחזור על הרצועה הנוכחית"
 
-#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "נוכחי: לחזור על כל הרצועות ברשימת הנגינה"
 
-#: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
+#: qml/MediaPlayerControl.qml:264 qml/mobile/MobileTrackPlayer.qml:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "רצועה אחת"
 
-#: qml/MediaPlayerControl.qml:316
+#: qml/MediaPlayerControl.qml:317
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
 msgstr "תפריט יישומים"
 
-#: qml/MediaPlayListView.qml:28
+#: qml/MediaPlayListView.qml:29
 #, kde-format
 msgctxt ""
 "@title:window Title of the view of the playlist; keep this string as short "
@@ -789,37 +789,37 @@ msgctxt ""
 msgid "Playlist"
 msgstr "רשימת נגינה"
 
-#: qml/MediaPlayListView.qml:70
+#: qml/MediaPlayListView.qml:71
 #, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "הצגת הנוכחית"
 
-#: qml/MediaPlayListView.qml:81
+#: qml/MediaPlayListView.qml:82
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "פינוי של הכול"
 
-#: qml/MediaPlayListView.qml:91
+#: qml/MediaPlayListView.qml:92
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "שמירה…"
 
-#: qml/MediaPlayListView.qml:101
+#: qml/MediaPlayListView.qml:102
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
 msgstr "פתיחה…"
 
-#: qml/MediaPlayListView.qml:102
+#: qml/MediaPlayListView.qml:103
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
 msgstr "פתיחת קובצי מוזיקה או רשימות נגינה שמורות"
 
-#: qml/MediaPlayListView.qml:127
+#: qml/MediaPlayListView.qml:128
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -827,19 +827,19 @@ msgid ""
 "renamed."
 msgstr "טעינת חלק מהרצועות נכשלה. נא לוודא שלא הוסרו או ששמן השתנה."
 
-#: qml/MediaPlayListView.qml:133
+#: qml/MediaPlayListView.qml:134
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "עריכת קובץ רשימת נגינה"
 
-#: qml/MediaPlayListView.qml:303
+#: qml/MediaPlayListView.qml:304
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "רשימת הנגינה ריקה"
 
-#: qml/MediaPlayListView.qml:304
+#: qml/MediaPlayListView.qml:305
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -848,13 +848,13 @@ msgid ""
 msgstr ""
 "יש להוסיף כמה שירים כדי להתחיל. אפשר לעיין במוזיקה שלך דרך התצוגות שמימין."
 
-#: qml/MediaPlayListView.qml:379
+#: qml/MediaPlayListView.qml:380
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "רשימת הנגינה שלך ריקה."
 
-#: qml/MediaPlayListView.qml:476 qml/MediaPlayListView.qml:485
+#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -864,14 +864,14 @@ msgstr[1] "%1/%2 רצועות נותרה"
 msgstr[2] "%1/%2 רצועות נותרו"
 msgstr[3] "%1/%2 רצועות נותרו"
 
-#: qml/MediaPlayListView.qml:477
+#: qml/MediaPlayListView.qml:478
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 נותרו, %2 בסך הכול"
 
-#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
-#: qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:479 qml/MediaPlayListView.qml:488
+#: qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -879,13 +879,13 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:486 qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1/%2 נותרו"
 
-#: qml/MediaPlayListView.qml:494
+#: qml/MediaPlayListView.qml:495
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -895,7 +895,7 @@ msgstr[1] "שתי רצועות/%2"
 msgstr[2] "%1/%2 רצועות"
 msgstr[3] "%1/%2 רצועות"
 
-#: qml/MediaPlayListView.qml:503
+#: qml/MediaPlayListView.qml:504
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -905,7 +905,7 @@ msgstr[1] "שתי רצועות"
 msgstr[2] "%1 רצועות"
 msgstr[3] "%1 רצועות"
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -915,7 +915,7 @@ msgstr[1] "שתי תחנות רדיו"
 msgstr[2] "%1 תחנות רדיו"
 msgstr[3] "%1 תחנות רדיו"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -923,7 +923,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, %2 סך הכול"
 
-#: qml/MediaPlayListView.qml:508
+#: qml/MediaPlayListView.qml:509
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -935,7 +935,7 @@ msgstr[1] "שתי רצועות, %2 בסך הכול"
 msgstr[2] "%1 רצועות, %2 בסך הכול"
 msgstr[3] "%1 רצועות, %2 בסך הכול"
 
-#: qml/MediaPlayListView.qml:510
+#: qml/MediaPlayListView.qml:511
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
@@ -943,290 +943,290 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "רצועה, נותרו %1 דק׳"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
-#: qml/TrackBrowserDelegate.qml:104
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "ביטול סימון השיר הזה כמועדף"
 
-#: qml/MediaTrackMetadataDelegate.qml:155 qml/PlayListEntry.qml:112
-#: qml/TrackBrowserDelegate.qml:104
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Mark this song as a favorite"
 msgstr "סימון השיר הזה כמועדף"
 
-#: qml/MediaTrackMetadataDelegate.qml:206
+#: qml/MediaTrackMetadataDelegate.qml:207
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
 msgstr "הסרת התגית הזאת"
 
-#: qml/MediaTrackMetadataDelegate.qml:214
+#: qml/MediaTrackMetadataDelegate.qml:215
 #, kde-format
 msgctxt "@action:button"
 msgid "Add tag"
 msgstr "הוספת תגית"
 
-#: qml/MediaTrackMetadataForm.qml:65 qml/SettingsForm.qml:46
+#: qml/MediaTrackMetadataForm.qml:66 qml/SettingsForm.qml:47
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "אזהרה"
 
-#: qml/MediaTrackMetadataForm.qml:95
+#: qml/MediaTrackMetadataForm.qml:96
 #, kde-format
 msgctxt "@label"
 msgid "Data is not valid. %1"
 msgstr "הנתונים לא תקפים. %1"
 
-#: qml/MediaTrackMetadataForm.qml:147
+#: qml/MediaTrackMetadataForm.qml:148
 #, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
 msgstr "%1:"
 
-#: qml/MediaTrackMetadataView.qml:36
-#: qml/mobile/MobileMediaTrackMetadataView.qml:47
+#: qml/MediaTrackMetadataView.qml:37
+#: qml/mobile/MobileMediaTrackMetadataView.qml:48
 #, kde-format
 msgctxt "@title:window"
 msgid "Create a Radio"
 msgstr "יצירת רדיו"
 
-#: qml/MediaTrackMetadataView.qml:37
-#: qml/mobile/MobileMediaTrackMetadataView.qml:48
+#: qml/MediaTrackMetadataView.qml:38
+#: qml/mobile/MobileMediaTrackMetadataView.qml:49
 #, kde-format
 msgctxt "@title:window"
 msgid "View details"
 msgstr "הצגת פרטים"
 
-#: qml/MediaTrackMetadataView.qml:128
-#: qml/mobile/MobileMediaTrackMetadataView.qml:71
+#: qml/MediaTrackMetadataView.qml:129
+#: qml/mobile/MobileMediaTrackMetadataView.qml:72
 #, kde-format
 msgctxt "@action:button"
 msgid "Delete"
 msgstr "מחיקה"
 
-#: qml/MediaTrackMetadataView.qml:146
-#: qml/mobile/MobileMediaTrackMetadataView.qml:53
+#: qml/MediaTrackMetadataView.qml:147
+#: qml/mobile/MobileMediaTrackMetadataView.qml:54
 #, kde-format
 msgctxt "@action:button"
 msgid "Modify"
 msgstr "שינוי"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:59
-#: qml/mobile/MobileSettingsPage.qml:38
+#: qml/mobile/MobileMediaTrackMetadataView.qml:60
+#: qml/mobile/MobileSettingsPage.qml:39
 #, kde-format
 msgctxt "@action:button"
 msgid "Save"
 msgstr "שמירה"
 
-#: qml/mobile/MobileMediaTrackMetadataView.qml:65
-#: qml/mobile/MobileSettingsPage.qml:44
+#: qml/mobile/MobileMediaTrackMetadataView.qml:66
+#: qml/mobile/MobileSettingsPage.qml:45
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel"
 msgstr "ביטול"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:223
-#: qml/mobile/MobileTrackPlayer.qml:355
+#: qml/mobile/MobileMinimizedPlayerControl.qml:224
+#: qml/mobile/MobileTrackPlayer.qml:356
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "דילוג אחורה"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
-#: qml/mobile/MobileTrackPlayer.qml:368
+#: qml/mobile/MobileMinimizedPlayerControl.qml:238
+#: qml/mobile/MobileTrackPlayer.qml:369
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "השהיה"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:237
-#: qml/mobile/MobileTrackPlayer.qml:368
+#: qml/mobile/MobileMinimizedPlayerControl.qml:238
+#: qml/mobile/MobileTrackPlayer.qml:369
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "נגינה"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:251
-#: qml/mobile/MobileTrackPlayer.qml:381
+#: qml/mobile/MobileMinimizedPlayerControl.qml:252
+#: qml/mobile/MobileTrackPlayer.qml:382
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "דילוג קדימה"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:365
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "אפשרויות רצועה"
 
-#: qml/mobile/MobilePlayListDelegate.qml:146 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:365
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "אפשרויות רדיו"
 
-#: qml/mobile/MobilePlayListDelegate.qml:174 qml/PlayListEntry.qml:88
-#: qml/TrackBrowserDelegate.qml:76
+#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:90
+#: qml/TrackBrowserDelegate.qml:77
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "הצגת פרטים"
 
-#: qml/mobile/MobilePlayListDelegate.qml:187
+#: qml/mobile/MobilePlayListDelegate.qml:188
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
 msgstr "הסרה מהתור"
 
-#: qml/mobile/MobileSettingsPage.qml:24 qml/mobile/MobileSidebar.qml:36
+#: qml/mobile/MobileSettingsPage.qml:25 qml/mobile/MobileSidebar.qml:37
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"
 msgstr "הגדרות"
 
-#: qml/mobile/MobileTrackPlayer.qml:50
+#: qml/mobile/MobileTrackPlayer.qml:51
 #, kde-format
 msgctxt "@action:button"
 msgid "Minimize Player"
 msgstr "מזעור נגן"
 
-#: qml/mobile/MobileTrackPlayer.qml:198
+#: qml/mobile/MobileTrackPlayer.qml:199
 #, kde-format
 msgctxt "@action:button show track information"
 msgid "Show Info"
 msgstr "הצגת פרטים"
 
-#: qml/mobile/MobileVolumeButton.qml:29
+#: qml/mobile/MobileVolumeButton.qml:30
 #, kde-format
 msgctxt "@action:button"
 msgid "Change Volume"
 msgstr "שינוי עוצמת שמע"
 
-#: qml/NativeGlobalMenu.qml:17
+#: qml/NativeGlobalMenu.qml:18
 #, kde-format
 msgctxt "@title:menu"
 msgid "File"
 msgstr "קובץ"
 
-#: qml/NativeGlobalMenu.qml:20
+#: qml/NativeGlobalMenu.qml:21
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Save Playlist…"
 msgstr "שמירת רשימת נגינה…"
 
-#: qml/NativeGlobalMenu.qml:28
+#: qml/NativeGlobalMenu.qml:29
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Playlist…"
 msgstr "פתיחת רשימת נגינה…"
 
-#: qml/NativeGlobalMenu.qml:60
+#: qml/NativeGlobalMenu.qml:61
 #, kde-format
 msgctxt "@title:menu"
 msgid "View"
 msgstr "תצוגה"
 
-#: qml/NativeGlobalMenu.qml:63
+#: qml/NativeGlobalMenu.qml:64
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "החלפת מצב מסיבה"
 
-#: qml/NativeGlobalMenu.qml:76
+#: qml/NativeGlobalMenu.qml:77
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Playlist"
 msgstr "הסתרת רשימת נגינה"
 
-#: qml/NativeGlobalMenu.qml:76
+#: qml/NativeGlobalMenu.qml:77
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Playlist"
 msgstr "הצגת רשימת נגינה"
 
-#: qml/NativeGlobalMenu.qml:81
+#: qml/NativeGlobalMenu.qml:82
 #, kde-format
 msgctxt "@title:menu"
 msgid "Controls"
 msgstr "פקדים"
 
-#: qml/NativeGlobalMenu.qml:84
+#: qml/NativeGlobalMenu.qml:85
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pause"
 msgstr "השהיה"
 
-#: qml/NativeGlobalMenu.qml:84
+#: qml/NativeGlobalMenu.qml:85
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Play"
 msgstr "נגינה"
 
-#: qml/NativeGlobalMenu.qml:91
+#: qml/NativeGlobalMenu.qml:92
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop"
 msgstr "עצירה"
 
-#: qml/NativeGlobalMenu.qml:100
+#: qml/NativeGlobalMenu.qml:101
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Increase Volume"
 msgstr "הגברת עוצמת שמע"
 
-#: qml/NativeGlobalMenu.qml:105
+#: qml/NativeGlobalMenu.qml:106
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Decrease Volume"
 msgstr "הנמכת עוצמת שמע"
 
-#: qml/NativeGlobalMenu.qml:115
+#: qml/NativeGlobalMenu.qml:116
 #, kde-format
 msgctxt "@title:menu"
 msgid "Shuffle"
 msgstr "ערבוב"
 
-#: qml/NativeGlobalMenu.qml:122
+#: qml/NativeGlobalMenu.qml:123
 #, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
 msgstr "רצועה"
 
-#: qml/NativeGlobalMenu.qml:126
+#: qml/NativeGlobalMenu.qml:127
 #, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "אלבום"
 
-#: qml/NativeGlobalMenu.qml:130
+#: qml/NativeGlobalMenu.qml:131
 #, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "כבוי"
 
-#: qml/NativeGlobalMenu.qml:137
+#: qml/NativeGlobalMenu.qml:138
 #, kde-format
 msgctxt "@title:menu"
 msgid "Repeat"
 msgstr "חזרה"
 
-#: qml/NativeGlobalMenu.qml:144
+#: qml/NativeGlobalMenu.qml:145
 #, kde-format
 msgctxt "@action:inmenu repeat all songs in this playlist"
 msgid "Playlist"
 msgstr "רשימת נגינה"
 
-#: qml/NativeGlobalMenu.qml:148
+#: qml/NativeGlobalMenu.qml:149
 #, kde-format
 msgctxt "@action:inmenu repeat this one song"
 msgid "One"
 msgstr "אחד"
 
-#: qml/NativeGlobalMenu.qml:152
+#: qml/NativeGlobalMenu.qml:153
 #, kde-format
 msgctxt ""
 "@action:inmenu no repeat mode set; stop playback after last song in the "
@@ -1234,147 +1234,147 @@ msgctxt ""
 msgid "None"
 msgstr "ללא"
 
-#: qml/NativeGlobalMenu.qml:158
+#: qml/NativeGlobalMenu.qml:159
 #, kde-format
 msgctxt "@title:menu"
 msgid "Help"
 msgstr "עזרה"
 
-#: qml/NavigationActionBar.qml:92
+#: qml/NavigationActionBar.qml:93
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort: %1"
 msgstr "מיון: %1"
 
-#: qml/NavigationActionBar.qml:93
+#: qml/NavigationActionBar.qml:94
 #, kde-format
 msgctxt "@label:listbox Sort By Menu Title with no sort selected"
 msgid "Sort"
 msgstr "מיון"
 
-#: qml/NavigationActionBar.qml:107
+#: qml/NavigationActionBar.qml:108
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
 msgstr "הוספת רדיו"
 
-#: qml/NavigationActionBar.qml:108
+#: qml/NavigationActionBar.qml:109
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
 msgstr "הוספת רדיו"
 
-#: qml/NavigationActionBar.qml:120
+#: qml/NavigationActionBar.qml:121
 #, kde-format
 msgctxt "@action:button"
 msgid "Add to Playlist"
 msgstr "הוספה לרשימת נגינה"
 
-#: qml/NavigationActionBar.qml:121
+#: qml/NavigationActionBar.qml:122
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add to playlist"
 msgstr "הוספה לרשימת נגינה"
 
-#: qml/NavigationActionBar.qml:134
+#: qml/NavigationActionBar.qml:135
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
 msgstr "לנגן כעת, תוך החלפת רשימת הנגינה הנוכחית"
 
-#: qml/NavigationActionBar.qml:135
+#: qml/NavigationActionBar.qml:136
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
 msgstr "לנגן כעת, תוך החלפת רשימת הנגינה הנוכחית"
 
-#: qml/NavigationActionBar.qml:147
+#: qml/NavigationActionBar.qml:148
 #, kde-format
 msgctxt "@action:button Add as the next track(s) in the playlist"
 msgid "Play Next"
 msgstr "לנגן את הבאה"
 
-#: qml/NavigationActionBar.qml:148
+#: qml/NavigationActionBar.qml:149
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
 msgstr "לנגן את הבאה ברשימת הנגינה"
 
-#: qml/NavigationActionBar.qml:160
+#: qml/NavigationActionBar.qml:161
 #, kde-format
 msgctxt "@action:button navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "הצגת אומן/נית"
 
-#: qml/NavigationActionBar.qml:161
+#: qml/NavigationActionBar.qml:162
 #, kde-format
 msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "הצגת אומן/נית"
 
-#: qml/NavigationActionBar.qml:176
+#: qml/NavigationActionBar.qml:177
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "הצגת רשימת נגינה"
 
-#: qml/NavigationActionBar.qml:187
+#: qml/NavigationActionBar.qml:188
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr "הצגה כרשת סמלים"
 
-#: qml/NavigationActionBar.qml:188
+#: qml/NavigationActionBar.qml:189
 #, kde-format
 msgctxt "@action:button"
 msgid "View as List"
 msgstr "הצגה כרשימה"
 
-#: qml/NavigationActionBar.qml:190
+#: qml/NavigationActionBar.qml:191
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr "הצגה כרשת סמלים"
 
-#: qml/NavigationActionBar.qml:191
+#: qml/NavigationActionBar.qml:192
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "הצגה כרשימה"
 
-#: qml/NavigationActionBar.qml:251
+#: qml/NavigationActionBar.qml:252
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "חזרה"
 
-#: qml/NavigationActionBar.qml:332
+#: qml/NavigationActionBar.qml:333
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "הצגת סרגל חיפוש וסינון"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:334
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "הסתרת סרגל חיפוש וסינון"
 
-#: qml/NavigationActionBar.qml:426
+#: qml/NavigationActionBar.qml:427
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr "חיפוש תחנת רדיו"
 
-#: qml/NavigationActionBar.qml:428
+#: qml/NavigationActionBar.qml:429
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "חיפוש לפי שם רצועה, אומנים וכו׳"
 
-#: qml/NavigationActionBar.qml:429
+#: qml/NavigationActionBar.qml:430
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
@@ -1392,61 +1392,61 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "להציג מועדפים בלבד"
 
-#: qml/PlayListEntry.qml:102 qml/TrackBrowserDelegate.qml:96
+#: qml/PlayListEntry.qml:104 qml/TrackBrowserDelegate.qml:97
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "הגדרת דירוג רצועה"
 
-#: qml/PlayListEntry.qml:125
+#: qml/PlayListEntry.qml:128
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "הסרה"
 
-#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:311
+#: qml/PlayListEntry.qml:313 qml/TrackBrowserDelegate.qml:312
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
 msgstr "ביטול דירוג הרצועה הזאת"
 
-#: qml/SettingsForm.qml:69
+#: qml/SettingsForm.qml:70
 #, kde-format
 msgctxt "@title:group"
 msgid "General:"
 msgstr "כללי:"
 
-#: qml/SettingsForm.qml:73
+#: qml/SettingsForm.qml:74
 #, kde-format
 msgctxt "@option:check"
 msgid "Show background on Now Playing page"
 msgstr "הצגת רקע בעמוד מתנגן כעת"
 
-#: qml/SettingsForm.qml:86
+#: qml/SettingsForm.qml:87
 #, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
 msgstr "הצגת התקדמות על רשומות מנהל משימות"
 
-#: qml/SettingsForm.qml:97
+#: qml/SettingsForm.qml:98
 #, kde-format
 msgctxt "@option:check"
 msgid "Keep running in system tray when main window is closed"
 msgstr "להמשיך לרוץ בשורת המערכת כשהחלון הראשי סגור"
 
-#: qml/SettingsForm.qml:108
+#: qml/SettingsForm.qml:109
 #, kde-format
 msgctxt "@option:check"
 msgid "Start playing on startup"
 msgstr "התחלת נגינה עם העלייה"
 
-#: qml/SettingsForm.qml:119
+#: qml/SettingsForm.qml:120
 #, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
 msgstr "סריקה לאיתור מוזיקה חדשה עם העלייה"
 
-#: qml/SettingsForm.qml:138
+#: qml/SettingsForm.qml:139
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1459,184 +1459,184 @@ msgstr ""
 "חדשים לתיקיות מוזיקה מוגדרות. אפשר לעשות זאת עם הפריט <interface>סריקה "
 "לאיתור מוזיקה חדשה</interface> בתפריט ההמבורגר של אליסה."
 
-#: qml/SettingsForm.qml:149
+#: qml/SettingsForm.qml:150
 #, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
 msgstr "סגנון דירוג שירים:"
 
-#: qml/SettingsForm.qml:153
+#: qml/SettingsForm.qml:154
 #, kde-format
 msgctxt "@option:radio"
 msgid "0-5 stars"
 msgstr "0‏-5 כוכבים"
 
-#: qml/SettingsForm.qml:165
+#: qml/SettingsForm.qml:166
 #, kde-format
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
 msgstr "במועדפים/לא"
 
-#: qml/SettingsForm.qml:183
+#: qml/SettingsForm.qml:184
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Color scheme:"
 msgstr "ערכת צבעים:"
 
-#: qml/SettingsForm.qml:219
+#: qml/SettingsForm.qml:220
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
 msgstr "סריקה לאיתור מוזיקה חדשה"
 
-#: qml/SettingsForm.qml:223 qml/SettingsForm.qml:234
+#: qml/SettingsForm.qml:224 qml/SettingsForm.qml:235
 #, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
 msgstr "סריקת מוזיקה החלה"
 
-#: qml/SettingsForm.qml:229
+#: qml/SettingsForm.qml:230
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "איפוס מסד הנתונים וסריקה של הכול מחדש"
 
-#: qml/SettingsForm.qml:233
+#: qml/SettingsForm.qml:234
 #, kde-format
 msgctxt "@info"
 msgid "Database has been reset"
 msgstr "מסד הנתונים עבר איפוס"
 
-#: qml/SettingsForm.qml:248
+#: qml/SettingsForm.qml:249
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
 msgstr "הטמעת קטגוריה בסרגל הצד:"
 
-#: qml/SettingsForm.qml:250
+#: qml/SettingsForm.qml:251
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed no category in views navigation list"
 msgid "Nothing"
 msgstr "כלום"
 
-#: qml/SettingsForm.qml:251
+#: qml/SettingsForm.qml:252
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
 msgstr "אלבומים"
 
-#: qml/SettingsForm.qml:252
+#: qml/SettingsForm.qml:253
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all artists in views navigation list"
 msgid "Artists"
 msgstr "אומנים"
 
-#: qml/SettingsForm.qml:253
+#: qml/SettingsForm.qml:254
 #, kde-format
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
 msgstr "סוגות"
 
-#: qml/SettingsForm.qml:286
+#: qml/SettingsForm.qml:287
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Initial view on startup:"
 msgstr "תצוגה התחלתית עם העלייה:"
 
-#: qml/SettingsForm.qml:288
+#: qml/SettingsForm.qml:289
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "מתנגן כעת"
 
-#: qml/SettingsForm.qml:289
+#: qml/SettingsForm.qml:290
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "התנגנו לאחרונה"
 
-#: qml/SettingsForm.qml:290
+#: qml/SettingsForm.qml:291
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "התנגנו לאחרונה"
 
-#: qml/SettingsForm.qml:291 viewmanager.cpp:216
+#: qml/SettingsForm.qml:292 viewmanager.cpp:216
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "אלבומים"
 
-#: qml/SettingsForm.qml:292 viewmanager.cpp:220
+#: qml/SettingsForm.qml:293 viewmanager.cpp:220
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "אומנים"
 
-#: qml/SettingsForm.qml:293 viewmanager.cpp:218
+#: qml/SettingsForm.qml:294 viewmanager.cpp:218
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
 msgstr "רצועות"
 
-#: qml/SettingsForm.qml:294
+#: qml/SettingsForm.qml:295
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
 msgstr "סוגות"
 
-#: qml/SettingsForm.qml:295
+#: qml/SettingsForm.qml:296
 #, kde-format
 msgctxt "@item:inlistbox Title of the file browser view"
 msgid "Files"
 msgstr "קבצים"
 
-#: qml/SettingsForm.qml:296
+#: qml/SettingsForm.qml:297
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "תחנות רדיו"
 
-#: qml/SettingsForm.qml:316
+#: qml/SettingsForm.qml:317
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Initial location for Files view:"
 msgstr "מקום התחלתי לתצוגת קבצים:"
 
-#: qml/SettingsForm.qml:330
+#: qml/SettingsForm.qml:331
 #, kde-format
 msgctxt "@action:button as in, choose a file path on disk"
 msgid "Choose…"
 msgstr "בחירה…"
 
-#: qml/SettingsForm.qml:338 qml/SettingsForm.qml:463
+#: qml/SettingsForm.qml:339 qml/SettingsForm.qml:464
 #, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "בחירת תיקייה"
 
-#: qml/SettingsForm.qml:361
+#: qml/SettingsForm.qml:362
 #, kde-format
 msgid "When saving playlist files:"
 msgstr "בעת שמירת קובצי רשימות נגינה:"
 
-#: qml/SettingsForm.qml:370
+#: qml/SettingsForm.qml:371
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Prefer relative paths"
 msgstr "העדפת נתיבים יחסיים"
 
-#: qml/SettingsForm.qml:371
+#: qml/SettingsForm.qml:372
 #, kde-format
 msgctxt "@item:inlistbox Configure dialog, playlist save type"
 msgid "Always use absolute paths"
 msgstr "תמיד להשתמש בנתיבים מלאים"
 
-#: qml/SettingsForm.qml:382
+#: qml/SettingsForm.qml:383
 #, kde-kuit-format
 msgctxt "@info:tooltip Playlist Relative Paths"
 msgid ""
@@ -1648,68 +1648,68 @@ msgstr ""
 "באותה התיקייה עם רשימת הנגינה ייקראו בשם הקובץ בלבד. במקרים אחרים ייעשה "
 "שימוש בנתיבים מלאים."
 
-#: qml/SettingsForm.qml:397
+#: qml/SettingsForm.qml:398
 #, kde-format
 msgctxt ""
 "@title The configured folders where the user's music collection can be found"
 msgid "Music folders:"
 msgstr "תיקיות מוזיקה:"
 
-#: qml/SettingsForm.qml:440
+#: qml/SettingsForm.qml:441
 #, kde-format
 msgctxt "@action:button"
 msgid "Stop looking for music here"
 msgstr "להפסיק לחפש כאן מוזיקה"
 
-#: qml/SettingsForm.qml:453
+#: qml/SettingsForm.qml:454
 #, kde-format
 msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "הוספת מקום חדש"
 
-#: qml/shared/BasePlayListDelegate.qml:67
+#: qml/shared/BasePlayListDelegate.qml:68
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
 msgstr "אי אפשר לנגן את „%1”"
 
-#: qml/SortMenu.qml:22
+#: qml/SortMenu.qml:24
 #, kde-format
 msgctxt "@title:menu"
 msgid "Sort By"
 msgstr "מיון לפי"
 
-#: qml/TrackBrowserDelegate.qml:91
+#: qml/TrackBrowserDelegate.qml:92
 #, kde-format
 msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "לנגן מכאן, תוך החלפת רשימת הנגינה הנוכחית"
 
-#: qml/TrackBrowserDelegate.qml:201 qml/TrackBrowserDelegate.qml:217
+#: qml/TrackBrowserDelegate.qml:202 qml/TrackBrowserDelegate.qml:218
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
 msgstr "%1 – %2"
 
-#: qml/TrackBrowserDelegate.qml:212
+#: qml/TrackBrowserDelegate.qml:213
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
 msgstr "%1 – %2 – %3"
 
-#: qml/TrackBrowserDelegate.qml:224
+#: qml/TrackBrowserDelegate.qml:225
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
 msgstr "%1 – %2"
 
-#: qml/TrackBrowserDelegate.qml:370
+#: qml/TrackBrowserDelegate.qml:371
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
 msgstr "אפשרויות שיר"
 
-#: qml/TrackImportNotification.qml:57 qml/TrackImportNotification.qml:75
+#: qml/TrackImportNotification.qml:58 qml/TrackImportNotification.qml:76
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
@@ -1719,25 +1719,25 @@ msgstr[1] "יובאו שתי רצועות"
 msgstr[2] "יובאו %1 רצועות"
 msgstr[3] "יובאו %1 רצועות"
 
-#: qml/TrackImportNotification.qml:61
+#: qml/TrackImportNotification.qml:62
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"
 msgstr "מתבצעת סריקת מוזיקה"
 
-#: qml/TracksDiscHeader.qml:22
+#: qml/TracksDiscHeader.qml:23
 #, kde-format
 msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "דיסק %1"
 
-#: qml/VolumeSlider.qml:28
+#: qml/VolumeSlider.qml:29
 #, kde-format
 msgctxt "@label"
 msgid "Volume"
 msgstr "עוצמת שמע"
 
-#: qml/VolumeSlider.qml:49
+#: qml/VolumeSlider.qml:50
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"

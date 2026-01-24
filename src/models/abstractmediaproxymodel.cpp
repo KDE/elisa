@@ -138,7 +138,7 @@ QFuture<void> AbstractMediaProxyModel::genericEnqueueToPlayList(const QModelInde
                                                        ElisaUtils::PlayListEnqueueMode enqueueMode,
                                                        ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    return QtConcurrent::run(&mThreadPool, [=] () {
+    return QtConcurrent::run(&mThreadPool, [=, this] () {
         QReadLocker locker(&mDataLock);
         auto allData = DataTypes::EntryDataList{};
         allData.reserve(rowCount());

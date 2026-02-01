@@ -31,6 +31,12 @@ QQC2.Slider {
      */
     property real keyStepSize: stepSize
 
+
+    /**
+     * The height of the space the user can interact with
+     */
+    property real interactionHeight: root.height
+
     /**
      * The step size for the mouse wheel
      */
@@ -44,13 +50,24 @@ QQC2.Slider {
         moved()
     }
 
+    // containmentMask for layout
+    containmentMask: interactionRect
+
     Accessible.onDecreaseAction: __move(-__keyStepSize)
     Accessible.onIncreaseAction: __move(__keyStepSize)
     Keys.onLeftPressed: __move(-__keyStepSize)
     Keys.onRightPressed: __move(__keyStepSize)
 
+    Item {
+        id: interactionRect
+        anchors.verticalCenter: root.verticalCenter
+        visible: false 
+        height: root.interactionHeight
+        width: root.width
+    }
+
     MouseArea {
-        anchors.fill: parent
+        anchors.fill: interactionRect
         acceptedButtons: Qt.NoButton
         onWheel: wheel => root.__move(root.__wheelStepSize * (wheel.angleDelta.y > 0 ? 1 : -1))
     }

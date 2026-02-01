@@ -40,6 +40,9 @@ GridLayout {
     property color labelColor
     property bool labelsInline: true
 
+    // Use its own visible height by default
+    property real interactionHeight: height
+
     rows: 2
     columns: 5
     rowSpacing: 0
@@ -78,7 +81,6 @@ GridLayout {
         Layout.row: root.labelsInline ? 0 : 1
         Layout.column: root.labelsInline ? 0 : 1
         Layout.alignment: Qt.AlignVCenter
-        Layout.fillHeight: true
         Layout.rightMargin: !root.labelsInline ? 0 : !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : Kirigami.Units.largeSpacing * 2
         Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x) + Kirigami.Units.smallSpacing
 
@@ -98,7 +100,6 @@ GridLayout {
         Layout.column: 1
         Layout.columnSpan: 3
         Layout.alignment: Qt.AlignVCenter
-        Layout.fillHeight: true
         Layout.fillWidth: true
         Layout.rightMargin: !root.labelsInline ? 0 : !LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
         Layout.leftMargin: !root.labelsInline ? 0 : LayoutMirroring.enabled ? Kirigami.Units.largeSpacing : 0
@@ -115,6 +116,9 @@ GridLayout {
         enabled: root.seekable && root.playEnabled
         live: true
         onMoved: root.seek(value * 1000)
+
+        // area where the slider can receive input events
+        interactionHeight: root.interactionHeight
     }
 
     LabelWithToolTip {
@@ -128,7 +132,6 @@ GridLayout {
         Layout.row: root.labelsInline ? 0 : 1
         Layout.column: root.labelsInline ? 4 : 3
         Layout.alignment: Qt.AlignVCenter
-        Layout.fillHeight: true
         Layout.leftMargin: !root.labelsInline ? 0 : LayoutMirroring.enabled ? (Kirigami.Units.largeSpacing * 2) : 0
         Layout.preferredWidth: (durationTextMetrics.boundingRect.width - durationTextMetrics.boundingRect.x)
 

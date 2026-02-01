@@ -77,7 +77,7 @@ BasePlayerControl {
             RowLayout {
                 id: toolBarLayout
 
-                width: parent.width
+                anchors.fill: parent
 
                 spacing: 0
 
@@ -122,19 +122,21 @@ BasePlayerControl {
                 }
 
                 DurationSlider {
+                    Layout.alignment: Qt.AlignVCenter
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
                     position: musicWidget.position
                     duration: musicWidget.duration
                     seekable: musicWidget.seekable
                     playEnabled: musicWidget.playEnabled
                     onSeek: position => musicWidget.seek(position)
+                    interactionHeight: toolBarLayout.height
 
                     labelColor: palette.text
                 }
 
                 RowLayout {
                     spacing: 0
+                    Layout.alignment: Qt.AlignVCenter
 
                     LayoutMirroring.enabled: Application.layoutDirection === Qt.RightToLeft
                     LayoutMirroring.childrenInherit: true
@@ -153,7 +155,9 @@ BasePlayerControl {
                         Layout.preferredWidth: Theme.volumeSliderWidth
                         Layout.maximumWidth: Theme.volumeSliderWidth
                         Layout.minimumWidth: Theme.volumeSliderWidth
-                        Layout.fillHeight: true
+                        Layout.alignment: Qt.AlignVCenter
+
+                        interactionHeight: toolBarLayout.height
 
                         muted: musicWidget.muted
                     }

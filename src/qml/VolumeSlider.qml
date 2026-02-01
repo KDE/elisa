@@ -17,6 +17,9 @@ AccessibleSlider {
 
     property bool muted
 
+    // Use its own visible height by default
+    interactionHeight: height
+
     from: 0
     to: 100
 

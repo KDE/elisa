@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-23 00:42+0000\n"
+"POT-Creation-Date: 2026-02-02 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -488,7 +488,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "歌词"
 
-#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:300
+#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:304
 #: qml/mobile/MobileTrackPlayer.qml:396 qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
@@ -520,7 +520,7 @@ msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1 首曲目"
 
-#: qml/DurationSlider.qml:68
+#: qml/DurationSlider.qml:71
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -528,7 +528,7 @@ msgctxt ""
 msgid "00:00:00"
 msgstr "00:00:00"
 
-#: qml/DurationSlider.qml:106
+#: qml/DurationSlider.qml:107
 #, kde-format
 msgctxt "@label"
 msgid "Duration"
@@ -635,7 +635,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "保存失败"
 
-#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:260
+#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:264
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
@@ -697,80 +697,80 @@ msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "快进"
 
-#: qml/MediaPlayerControl.qml:145
+#: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "取消静音"
 
-#: qml/MediaPlayerControl.qml:146
+#: qml/MediaPlayerControl.qml:148
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "静音"
 
-#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "当前：不随机播放"
 
-#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "当前：随机播放曲目"
 
-#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:216
+#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "当前：随机播放专辑"
 
-#: qml/MediaPlayerControl.qml:202 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "曲目"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "专辑"
 
-#: qml/MediaPlayerControl.qml:210 qml/MediaPlayerControl.qml:268
+#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "不重复"
 
-#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "当前：不重复播放曲目"
 
-#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "当前：重复播放当前曲目"
 
-#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "当前：重复播放播放列表中的所有曲目"
 
-#: qml/MediaPlayerControl.qml:264 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "1 首曲目"
 
-#: qml/MediaPlayerControl.qml:317
+#: qml/MediaPlayerControl.qml:321
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -1706,13 +1706,13 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "第 %1 张光盘"
 
-#: qml/VolumeSlider.qml:29
+#: qml/VolumeSlider.qml:32
 #, kde-format
 msgctxt "@label"
 msgid "Volume"
 msgstr "音量"
 
-#: qml/VolumeSlider.qml:50
+#: qml/VolumeSlider.qml:53
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"

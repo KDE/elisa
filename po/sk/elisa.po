@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-23 00:42+0000\n"
+"POT-Creation-Date: 2026-02-02 00:42+0000\n"
 "PO-Revision-Date: 2023-03-02 18:26+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -496,7 +496,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Text piesne"
 
-#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:300
+#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:304
 #: qml/mobile/MobileTrackPlayer.qml:396 qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
@@ -535,7 +535,7 @@ msgstr[0] "%1 skladba"
 msgstr[1] "%1 skladby"
 msgstr[2] "%1 skladieb"
 
-#: qml/DurationSlider.qml:68
+#: qml/DurationSlider.qml:71
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -543,7 +543,7 @@ msgctxt ""
 msgid "00:00:00"
 msgstr "00:00:00"
 
-#: qml/DurationSlider.qml:106
+#: qml/DurationSlider.qml:107
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Duration label for track metadata view"
 #| msgid "Duration"
@@ -662,7 +662,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Ukladanie zlyhalo"
 
-#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:260
+#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:264
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
@@ -736,25 +736,25 @@ msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Preskočiť dopredu"
 
-#: qml/MediaPlayerControl.qml:145
+#: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:146
+#: qml/MediaPlayerControl.qml:148
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:215
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "Current: Don't repeat tracks"
@@ -762,13 +762,13 @@ msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Aktuálne: Neopakovať skladby"
 
-#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:216
+#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:202 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
 #, fuzzy, kde-format
 #| msgctxt "@item:inlistbox Title of the view of all tracks"
 #| msgid "Tracks"
@@ -776,7 +776,7 @@ msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Skladby"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
 #, fuzzy, kde-format
 #| msgctxt "@label musical album"
 #| msgid "Album"
@@ -784,32 +784,32 @@ msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
-#: qml/MediaPlayerControl.qml:210 qml/MediaPlayerControl.qml:268
+#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Žiadne"
 
-#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Aktuálne: Neopakovať skladby"
 
-#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Aktuálne: Opakovať súčasnú skladbu"
 
-#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Aktuálne: Opakovať všetky skladby v zozname skladieb"
 
-#: qml/MediaPlayerControl.qml:264 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -818,7 +818,7 @@ msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "%1 skladba"
 
-#: qml/MediaPlayerControl.qml:317
+#: qml/MediaPlayerControl.qml:321
 #, fuzzy, kde-format
 #| msgctxt "@title:menu"
 #| msgid "Application Menu"
@@ -1855,7 +1855,7 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "Disk %1"
 
-#: qml/VolumeSlider.qml:29
+#: qml/VolumeSlider.qml:32
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Change Volume"
@@ -1863,7 +1863,7 @@ msgctxt "@label"
 msgid "Volume"
 msgstr "Zmeniť hlasitosť"
 
-#: qml/VolumeSlider.qml:50
+#: qml/VolumeSlider.qml:53
 #, fuzzy, kde-format
 #| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
 #| msgid "%1:"

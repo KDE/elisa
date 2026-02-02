@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-23 00:42+0000\n"
-"PO-Revision-Date: 2026-01-04 15:45+0530\n"
+"POT-Creation-Date: 2026-02-02 00:42+0000\n"
+"PO-Revision-Date: 2026-02-01 18:49+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -95,12 +95,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "கே.டீ.யீ. சமூகம் உருவாக்கிய எளிய பாடல் இசைப்பி"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2025, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
-msgstr "(c) 2015–2025, எலைசா நிரலாளர்கள்"
+msgstr "(c) 2015–2026, எலைசா நிரலாளர்கள்"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -490,7 +488,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "பாடல்வரிகள்"
 
-#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:300
+#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:304
 #: qml/mobile/MobileTrackPlayer.qml:396 qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
@@ -523,7 +521,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 பாடல்"
 msgstr[1] "%1 பாடல்கள்"
 
-#: qml/DurationSlider.qml:68
+#: qml/DurationSlider.qml:71
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -531,7 +529,7 @@ msgctxt ""
 msgid "00:00:00"
 msgstr "00:00:00"
 
-#: qml/DurationSlider.qml:106
+#: qml/DurationSlider.qml:107
 #, kde-format
 msgctxt "@label"
 msgid "Duration"
@@ -640,7 +638,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "சேமிப்பது தோல்வியடைந்தது"
 
-#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:260
+#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:264
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
@@ -648,9 +646,7 @@ msgid "Playlist"
 msgstr "பாடல்வரிசை"
 
 #: qml/HeaderBar.qml:260
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "பாடல்வரிகள்"
@@ -704,80 +700,80 @@ msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "அடுத்த பாடலுக்கு செல்"
 
-#: qml/MediaPlayerControl.qml:145
+#: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "ஒலிமுடக்கத்தை நீக்கு"
 
-#: qml/MediaPlayerControl.qml:146
+#: qml/MediaPlayerControl.qml:148
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "ஒலியை அடக்கு"
 
-#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "தற்போது: கலக்க வேண்டாம்"
 
-#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "தற்போது: பாடல்களை கலக்கு"
 
-#: qml/MediaPlayerControl.qml:174 qml/mobile/MobileTrackPlayer.qml:216
+#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "தற்போது: ஆல்பங்களை கலக்கு"
 
-#: qml/MediaPlayerControl.qml:202 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "பாடல்"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "ஆல்பம்"
 
-#: qml/MediaPlayerControl.qml:210 qml/MediaPlayerControl.qml:268
+#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "ஏதுமில்லை"
 
-#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "தற்போது: பாடல்களை திரும்ப இசைக்காதே"
 
-#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "தற்போது: தற்போதைய பாடலை திரும்ப இசை"
 
-#: qml/MediaPlayerControl.qml:233 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "தற்போது: பாடல்வரிசையை திரும்ப இசை"
 
-#: qml/MediaPlayerControl.qml:264 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "ஒரு பாடல்"
 
-#: qml/MediaPlayerControl.qml:317
+#: qml/MediaPlayerControl.qml:321
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -1724,13 +1720,13 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "வட்டு %1"
 
-#: qml/VolumeSlider.qml:29
+#: qml/VolumeSlider.qml:32
 #, kde-format
 msgctxt "@label"
 msgid "Volume"
 msgstr "ஒலியளவு"
 
-#: qml/VolumeSlider.qml:50
+#: qml/VolumeSlider.qml:53
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"

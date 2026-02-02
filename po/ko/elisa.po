@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 02:35+0000\n"
+"POT-Creation-Date: 2026-02-02 02:39+0000\n"
 "PO-Revision-Date: 2025-07-20 00:54+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -489,7 +489,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "가사"
 
-#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:295
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:299
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
@@ -527,7 +527,7 @@ msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "트랙 %1개"
 
-#: qml/DurationSlider.qml:67
+#: qml/DurationSlider.qml:70
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -535,7 +535,7 @@ msgctxt ""
 msgid "00:00:00"
 msgstr "00:00:00"
 
-#: qml/DurationSlider.qml:105
+#: qml/DurationSlider.qml:106
 #, kde-format
 msgctxt "@label"
 msgid "Duration"
@@ -671,86 +671,86 @@ msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "앞으로 건너뛰기"
 
-#: qml/MediaPlayerControl.qml:144
+#: qml/MediaPlayerControl.qml:146
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "음소거 해제"
 
-#: qml/MediaPlayerControl.qml:145
+#: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "음소거"
 
-#: qml/MediaPlayerControl.qml:167 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:171 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "현재: 무순서 재생 없음"
 
-#: qml/MediaPlayerControl.qml:168 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "현재: 무순서 재생"
 
-#: qml/MediaPlayerControl.qml:169 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "현재: 앨범 무순서 재생"
 
-#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:244
+#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "트랙"
 
-#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:248
+#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:248
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "앨범"
 
-#: qml/MediaPlayerControl.qml:205 qml/MediaPlayerControl.qml:263
+#: qml/MediaPlayerControl.qml:209 qml/MediaPlayerControl.qml:267
 #: qml/mobile/MobileTrackPlayer.qml:252 qml/mobile/MobileTrackPlayer.qml:305
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "없음"
 
-#: qml/MediaPlayerControl.qml:226 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:230 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "현재: 곡 반복 안 함"
 
-#: qml/MediaPlayerControl.qml:227 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "현재: 현재 곡 반복"
 
-#: qml/MediaPlayerControl.qml:228 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "현재: 재생 목록의 모든 곡 반복"
 
-#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:297
+#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "재생 목록"
 
-#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
+#: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "1곡"
 
-#: qml/MediaPlayerControl.qml:312
+#: qml/MediaPlayerControl.qml:316
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -1691,13 +1691,13 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "디스크 %1"
 
-#: qml/VolumeSlider.qml:28
+#: qml/VolumeSlider.qml:31
 #, kde-format
 msgctxt "@label"
 msgid "Volume"
 msgstr "음량"
 
-#: qml/VolumeSlider.qml:49
+#: qml/VolumeSlider.qml:52
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"

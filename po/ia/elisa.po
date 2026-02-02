@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-20 02:35+0000\n"
+"POT-Creation-Date: 2026-02-02 02:39+0000\n"
 "PO-Revision-Date: 2025-10-14 12:44+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -490,7 +490,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Parolas del Canto"
 
-#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:295
+#: qml/ContextView.qml:131 qml/MediaPlayerControl.qml:299
 #: qml/mobile/MobileTrackPlayer.qml:395 qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@action:button"
@@ -529,7 +529,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 tracia"
 msgstr[1] "%1 tracias"
 
-#: qml/DurationSlider.qml:67
+#: qml/DurationSlider.qml:70
 #, kde-format
 msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
@@ -537,7 +537,7 @@ msgctxt ""
 msgid "00:00:00"
 msgstr "00:00:00"
 
-#: qml/DurationSlider.qml:105
+#: qml/DurationSlider.qml:106
 #, kde-format
 msgctxt "@label"
 msgid "Duration"
@@ -674,86 +674,86 @@ msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Salta avante"
 
-#: qml/MediaPlayerControl.qml:144
+#: qml/MediaPlayerControl.qml:146
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "Non silente"
 
-#: qml/MediaPlayerControl.qml:145
+#: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "Silente"
 
-#: qml/MediaPlayerControl.qml:167 qml/mobile/MobileTrackPlayer.qml:213
+#: qml/MediaPlayerControl.qml:171 qml/mobile/MobileTrackPlayer.qml:213
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "Currente: necun miscer (shuffle)"
 
-#: qml/MediaPlayerControl.qml:168 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:172 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Currente: Misce tracias"
 
-#: qml/MediaPlayerControl.qml:169 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:173 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Currente: Misce (Shuffle) Albums"
 
-#: qml/MediaPlayerControl.qml:197 qml/mobile/MobileTrackPlayer.qml:244
+#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Tracia"
 
-#: qml/MediaPlayerControl.qml:201 qml/mobile/MobileTrackPlayer.qml:248
+#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:248
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
-#: qml/MediaPlayerControl.qml:205 qml/MediaPlayerControl.qml:263
+#: qml/MediaPlayerControl.qml:209 qml/MediaPlayerControl.qml:267
 #: qml/mobile/MobileTrackPlayer.qml:252 qml/mobile/MobileTrackPlayer.qml:305
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Necun"
 
-#: qml/MediaPlayerControl.qml:226 qml/mobile/MobileTrackPlayer.qml:266
+#: qml/MediaPlayerControl.qml:230 qml/mobile/MobileTrackPlayer.qml:266
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Currente: Non repete tracias"
 
-#: qml/MediaPlayerControl.qml:227 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:231 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Currente: Repete tracia currente"
 
-#: qml/MediaPlayerControl.qml:228 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:232 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Currente: Repete omne tracias in lista de reproduction"
 
-#: qml/MediaPlayerControl.qml:255 qml/mobile/MobileTrackPlayer.qml:297
+#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Lista de reproduction"
 
-#: qml/MediaPlayerControl.qml:259 qml/mobile/MobileTrackPlayer.qml:301
+#: qml/MediaPlayerControl.qml:263 qml/mobile/MobileTrackPlayer.qml:301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "Un tracia"
 
-#: qml/MediaPlayerControl.qml:312
+#: qml/MediaPlayerControl.qml:316
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -1703,13 +1703,13 @@ msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
 msgstr "Disco %1"
 
-#: qml/VolumeSlider.qml:28
+#: qml/VolumeSlider.qml:31
 #, kde-format
 msgctxt "@label"
 msgid "Volume"
 msgstr "Volumine"
 
-#: qml/VolumeSlider.qml:49
+#: qml/VolumeSlider.qml:52
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"

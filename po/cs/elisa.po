@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-02 00:42+0000\n"
+"POT-Creation-Date: 2026-02-06 00:44+0000\n"
 "PO-Revision-Date: 2026-01-09 09:28+0100\n"
 "Last-Translator:  Vít Pelčák <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -438,20 +438,32 @@ msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "Přejít do celoobrazovkového režimu"
 
-#: qml/ApplicationMenu.qml:30 qml/NativeTrayMenu.qml:21
+#: qml/ApplicationMenu.qml:32 qml/NativeGlobalMenu.qml:77
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide Playlist"
+msgstr "Skrýt seznam skladeb"
+
+#: qml/ApplicationMenu.qml:33 qml/NativeGlobalMenu.qml:77
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Show Playlist"
+msgstr "Zobrazit seznam skladeb"
+
+#: qml/ApplicationMenu.qml:42 qml/NativeTrayMenu.qml:21
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "Vyhledat novou hudbu"
 
-#: qml/ApplicationMenu.qml:39 qml/NativeGlobalMenu.qml:37
+#: qml/ApplicationMenu.qml:51 qml/NativeGlobalMenu.qml:37
 #: qml/NativeTrayMenu.qml:27
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Resetovat databázi a znovu všechno projít"
 
-#: qml/ApplicationMenu.qml:50
+#: qml/ApplicationMenu.qml:62
 #, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
@@ -489,8 +501,8 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Text písně"
 
-#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:304
-#: qml/mobile/MobileTrackPlayer.qml:396 qml/NavigationActionBar.qml:176
+#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:396
+#: qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -640,14 +652,14 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Ukládání selhalo"
 
-#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:264
+#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:263
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Seznam skladeb"
 
-#: qml/HeaderBar.qml:260
+#: qml/HeaderBar.qml:264
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -655,11 +667,19 @@ msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "Text písně"
 
-#: qml/HeaderBar.qml:274
+#: qml/HeaderBar.qml:287
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Ukončit celoobrazovkový režim"
+
+#: qml/HeaderBar.qml:288
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Enter Full Screen"
+msgctxt "@action:button"
+msgid "Enter Full Screen"
+msgstr "Přejít do celoobrazovkového režimu"
 
 #: qml/LyricsView.qml:162
 #, kde-format
@@ -667,118 +687,118 @@ msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Text písně nebyl nalezen"
 
-#: qml/MediaPlayerControl.qml:92
+#: qml/MediaPlayerControl.qml:91
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
 msgstr "Spustit režim párty"
 
-#: qml/MediaPlayerControl.qml:93
+#: qml/MediaPlayerControl.qml:92
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "Ukončit režim párty"
 
-#: qml/MediaPlayerControl.qml:101
+#: qml/MediaPlayerControl.qml:100
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Přeskočit zpět"
 
-#: qml/MediaPlayerControl.qml:110
+#: qml/MediaPlayerControl.qml:109
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: qml/MediaPlayerControl.qml:111
+#: qml/MediaPlayerControl.qml:110
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Přehrát"
 
-#: qml/MediaPlayerControl.qml:119
+#: qml/MediaPlayerControl.qml:118
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Přeskočit vpřed"
 
-#: qml/MediaPlayerControl.qml:147
+#: qml/MediaPlayerControl.qml:146
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "Povolit zvuk"
 
-#: qml/MediaPlayerControl.qml:148
+#: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "Ztlumit"
 
-#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "Současné: Bez náhodného řazení"
 
-#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Současné: Náhodné přehrávání stop"
 
-#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:216
+#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Současné: Náhodné přehrávání alb"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Stopa"
 
-#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
 # žádné parametry funkce v inspektoru funkcí
-#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
+#: qml/MediaPlayerControl.qml:213 qml/MediaPlayerControl.qml:271
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Nic"
 
-#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:234 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Současné: Neopakovat skladby"
 
-#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Současné: Opakovat aktuální skladbu"
 
-#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Současné: Opakovat všechny skladby v seznamu"
 
-#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:267 qml/mobile/MobileTrackPlayer.qml:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "1 skladba"
 
-#: qml/MediaPlayerControl.qml:321
+#: qml/MediaPlayerControl.qml:299
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -1136,18 +1156,6 @@ msgstr "Pohled"
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "Přepnout režim párty"
-
-#: qml/NativeGlobalMenu.qml:77
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Hide Playlist"
-msgstr "Skrýt seznam skladeb"
-
-#: qml/NativeGlobalMenu.qml:77
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Show Playlist"
-msgstr "Zobrazit seznam skladeb"
 
 #: qml/NativeGlobalMenu.qml:82
 #, kde-format

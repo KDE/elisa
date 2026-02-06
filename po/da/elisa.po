@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-02 00:42+0000\n"
+"POT-Creation-Date: 2026-02-06 00:44+0000\n"
 "PO-Revision-Date: 2025-07-31 11:52+0200\n"
 "Last-Translator: rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -442,20 +442,32 @@ msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "Gå til fuldskærm"
 
-#: qml/ApplicationMenu.qml:30 qml/NativeTrayMenu.qml:21
+#: qml/ApplicationMenu.qml:32 qml/NativeGlobalMenu.qml:77
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide Playlist"
+msgstr "Skjul playliste"
+
+#: qml/ApplicationMenu.qml:33 qml/NativeGlobalMenu.qml:77
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Show Playlist"
+msgstr "Vis playliste"
+
+#: qml/ApplicationMenu.qml:42 qml/NativeTrayMenu.qml:21
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "Scan efter nyt musik"
 
-#: qml/ApplicationMenu.qml:39 qml/NativeGlobalMenu.qml:37
+#: qml/ApplicationMenu.qml:51 qml/NativeGlobalMenu.qml:37
 #: qml/NativeTrayMenu.qml:27
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "Nulstil database og genscan alt"
 
-#: qml/ApplicationMenu.qml:50
+#: qml/ApplicationMenu.qml:62
 #, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
@@ -493,8 +505,8 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Sangtekster"
 
-#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:304
-#: qml/mobile/MobileTrackPlayer.qml:396 qml/NavigationActionBar.qml:176
+#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:396
+#: qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -646,14 +658,14 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Kunne ikke gemme"
 
-#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:264
+#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:263
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Playliste"
 
-#: qml/HeaderBar.qml:260
+#: qml/HeaderBar.qml:264
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -661,11 +673,19 @@ msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "Sangtekst"
 
-#: qml/HeaderBar.qml:274
+#: qml/HeaderBar.qml:287
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "Afslut fuld skærm"
+
+#: qml/HeaderBar.qml:288
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Enter Full Screen"
+msgctxt "@action:button"
+msgid "Enter Full Screen"
+msgstr "Gå til fuldskærm"
 
 #: qml/LyricsView.qml:162
 #, kde-format
@@ -673,117 +693,117 @@ msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "Ingen sangtekster fundet"
 
-#: qml/MediaPlayerControl.qml:92
+#: qml/MediaPlayerControl.qml:91
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
 msgstr "Afslut festtilstand"
 
-#: qml/MediaPlayerControl.qml:93
+#: qml/MediaPlayerControl.qml:92
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "Slå festtilstand til"
 
-#: qml/MediaPlayerControl.qml:101
+#: qml/MediaPlayerControl.qml:100
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "Spring tilbage"
 
-#: qml/MediaPlayerControl.qml:110
+#: qml/MediaPlayerControl.qml:109
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "Pause"
 
-#: qml/MediaPlayerControl.qml:111
+#: qml/MediaPlayerControl.qml:110
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "Afspil"
 
-#: qml/MediaPlayerControl.qml:119
+#: qml/MediaPlayerControl.qml:118
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Spring fremad"
 
-#: qml/MediaPlayerControl.qml:147
+#: qml/MediaPlayerControl.qml:146
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "Slå lyden til"
 
-#: qml/MediaPlayerControl.qml:148
+#: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "Slå lyden fra"
 
-#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "Nuværende: Blandes ikke"
 
-#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Nuværende: Bland numre"
 
-#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:216
+#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Nuværende: Bland album"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Nummer"
 
-#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
-#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
+#: qml/MediaPlayerControl.qml:213 qml/MediaPlayerControl.qml:271
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Ingen"
 
-#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:234 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Nuværende: Gentag ikke numre"
 
-#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Nuværende: Gentag nuværende nummer"
 
-#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Nuværende: Gentag alle numre i playliste"
 
-#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:267 qml/mobile/MobileTrackPlayer.qml:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "Én sang"
 
-#: qml/MediaPlayerControl.qml:321
+#: qml/MediaPlayerControl.qml:299
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -1138,18 +1158,6 @@ msgstr "Vis"
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "Slå festtilstand til/fra"
-
-#: qml/NativeGlobalMenu.qml:77
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Hide Playlist"
-msgstr "Skjul playliste"
-
-#: qml/NativeGlobalMenu.qml:77
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Show Playlist"
-msgstr "Vis playliste"
 
 #: qml/NativeGlobalMenu.qml:82
 #, kde-format

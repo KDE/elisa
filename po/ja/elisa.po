@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-02 00:42+0000\n"
+"POT-Creation-Date: 2026-02-06 00:44+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Teruyoshi Ogawa <terucco@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -441,20 +441,32 @@ msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "フルスクリーンにする"
 
-#: qml/ApplicationMenu.qml:30 qml/NativeTrayMenu.qml:21
+#: qml/ApplicationMenu.qml:32 qml/NativeGlobalMenu.qml:77
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide Playlist"
+msgstr "プレイリストを隠す"
+
+#: qml/ApplicationMenu.qml:33 qml/NativeGlobalMenu.qml:77
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Show Playlist"
+msgstr "プレイリストを表示"
+
+#: qml/ApplicationMenu.qml:42 qml/NativeTrayMenu.qml:21
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
 msgstr "新しい音楽をスキャン"
 
-#: qml/ApplicationMenu.qml:39 qml/NativeGlobalMenu.qml:37
+#: qml/ApplicationMenu.qml:51 qml/NativeGlobalMenu.qml:37
 #: qml/NativeTrayMenu.qml:27
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
 msgstr "データベースをリセットしてすべてを再スキャン"
 
-#: qml/ApplicationMenu.qml:50
+#: qml/ApplicationMenu.qml:62
 #, kde-format
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
@@ -492,8 +504,8 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: qml/ContextView.qml:132 qml/MediaPlayerControl.qml:304
-#: qml/mobile/MobileTrackPlayer.qml:396 qml/NavigationActionBar.qml:176
+#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:396
+#: qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -645,14 +657,14 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "保存に失敗しました"
 
-#: qml/HeaderBar.qml:243 qml/MediaPlayerControl.qml:264
+#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:263
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "プレイリスト"
 
-#: qml/HeaderBar.qml:260
+#: qml/HeaderBar.qml:264
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -660,11 +672,19 @@ msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: qml/HeaderBar.qml:274
+#: qml/HeaderBar.qml:287
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr "フルスクリーンを終了する"
+
+#: qml/HeaderBar.qml:288
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Enter Full Screen"
+msgctxt "@action:button"
+msgid "Enter Full Screen"
+msgstr "フルスクリーンにする"
 
 #: qml/LyricsView.qml:162
 #, kde-format
@@ -672,111 +692,111 @@ msgctxt "@info:placeholder"
 msgid "No lyrics found"
 msgstr "歌詞が見つかりません"
 
-#: qml/MediaPlayerControl.qml:92
+#: qml/MediaPlayerControl.qml:91
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Exit party mode"
 msgstr "パーティーモードを終了する"
 
-#: qml/MediaPlayerControl.qml:93
+#: qml/MediaPlayerControl.qml:92
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Enter party mode"
 msgstr "パーティーモードに切り替え"
 
-#: qml/MediaPlayerControl.qml:101
+#: qml/MediaPlayerControl.qml:100
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
 msgstr "前へ"
 
-#: qml/MediaPlayerControl.qml:110
+#: qml/MediaPlayerControl.qml:109
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Pause any media that is playing"
 msgid "Pause"
 msgstr "一時停止"
 
-#: qml/MediaPlayerControl.qml:111
+#: qml/MediaPlayerControl.qml:110
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
 msgstr "再生"
 
-#: qml/MediaPlayerControl.qml:119
+#: qml/MediaPlayerControl.qml:118
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "次へ"
 
-#: qml/MediaPlayerControl.qml:147
+#: qml/MediaPlayerControl.qml:146
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "ミュート解除"
 
-#: qml/MediaPlayerControl.qml:148
+#: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "ミュート"
 
-#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "現在: トラックをシャッフル"
 
-#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:216
+#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "現在: アルバムをシャッフル"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "トラック"
 
-#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "アルバム"
 
-#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
+#: qml/MediaPlayerControl.qml:213 qml/MediaPlayerControl.qml:271
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "なし"
 
-#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:234 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "現在: トラックをリピートしない"
 
-#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "現在: 再生中のトラックをリピート"
 
-#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "現在: プレイリスト内の全トラックをリピート"
 
-#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:267 qml/mobile/MobileTrackPlayer.qml:302
 #, fuzzy, kde-format
 #| msgctxt "@item:intable number of tracks/songs in all albums"
 #| msgid "%1 track"
@@ -785,7 +805,7 @@ msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "%1 個のトラック"
 
-#: qml/MediaPlayerControl.qml:321
+#: qml/MediaPlayerControl.qml:299
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -1134,18 +1154,6 @@ msgstr "表示"
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "パーティーモードを切り替え"
-
-#: qml/NativeGlobalMenu.qml:77
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Hide Playlist"
-msgstr "プレイリストを隠す"
-
-#: qml/NativeGlobalMenu.qml:77
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Show Playlist"
-msgstr "プレイリストを表示"
 
 #: qml/NativeGlobalMenu.qml:82
 #, kde-format

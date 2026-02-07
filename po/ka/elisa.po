@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-06 00:44+0000\n"
-"PO-Revision-Date: 2026-01-12 03:25+0100\n"
+"PO-Revision-Date: 2026-02-06 06:26+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -430,13 +430,13 @@ msgstr "აპლიკაციების მენიუ"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
-msgstr "სრული ეკრანიდან გამოსვლა"
+msgstr "სრული ეკრანიდან გასვლა"
 
 #: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
-msgstr "სრული ეკრანი"
+msgstr "სრულ ეკრანზე გადართვა"
 
 #: qml/ApplicationMenu.qml:32 qml/NativeGlobalMenu.qml:77
 #, kde-format
@@ -668,15 +668,13 @@ msgstr "ლირიკა"
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
-msgstr "სრული ეკრანიდან გამოსვლა"
+msgstr "სრული ეკრანიდან გასვლა"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
-msgstr "სრული ეკრანი"
+msgstr "სრულ ეკრანზე გადართვა"
 
 #: qml/LyricsView.qml:162
 #, kde-format

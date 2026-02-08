@@ -667,12 +667,10 @@ msgid "Exit Full Screen"
 msgstr "退出全屏模式"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
-msgstr "进入全屏模式"
+msgstr ""
 
 #: qml/LyricsView.qml:162
 #, kde-format

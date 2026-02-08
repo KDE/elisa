@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-06 00:44+0000\n"
-"PO-Revision-Date: 2026-01-13 10:02+0200\n"
+"PO-Revision-Date: 2026-02-06 10:32+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -672,12 +672,10 @@ msgid "Exit Full Screen"
 msgstr "יציאה ממסך מלא"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
-msgstr "כניסה למסך מלא"
+msgstr "הגדלה למסך מלא"
 
 #: qml/LyricsView.qml:162
 #, kde-format

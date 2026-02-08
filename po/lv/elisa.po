@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2024, 2025 Toms Trasuns <toms.trasuns@posteo.net>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-06 00:44+0000\n"
-"PO-Revision-Date: 2025-07-02 17:19+0300\n"
+"PO-Revision-Date: 2026-02-06 15:04+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -96,12 +96,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "Vienkāršs mūzikas atskaņotājs, ko ar mīlestību veidojusi KDE kopiena"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
-msgstr "© 2015—2020, „Elisa“ veidotāji"
+msgstr "© 2015—2026, „Elisa“ veidotāji"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -630,19 +628,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "Repertuāru datnes un mūzikas datnes (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:298
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "pls repertuāra datne (*.pls)"
+msgstr "Repertuāru datnes (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:299
 #, kde-format
@@ -650,7 +644,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "Mūzikas datnes (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:310
 #, kde-format
@@ -666,12 +660,10 @@ msgid "Playlist"
 msgstr "Repertuārs"
 
 #: qml/HeaderBar.qml:264
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@action:button"
 msgid "Lyrics"
-msgstr "Dziesmas vārdi"
+msgstr "Dziesmas teksti"
 
 #: qml/HeaderBar.qml:287
 #, kde-format
@@ -680,9 +672,7 @@ msgid "Exit Full Screen"
 msgstr "Iziet no pilnekrāna režīma"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
 msgstr "Ieslēgt pilnekrāna režīmu"
@@ -836,18 +826,16 @@ msgid "Save…"
 msgstr "Saglabāt…"
 
 #: qml/MediaPlayListView.qml:102
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "Atvērt repertuāru…"
+msgstr "Atvērt…"
 
 #: qml/MediaPlayListView.qml:103
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "Atvērt mūzikas datnes vai saglabātos repertuārus"
 
 #: qml/MediaPlayListView.qml:128
 #, kde-format
@@ -1382,7 +1370,7 @@ msgstr "Paslēpt meklēšanas un filtrēšanas rīkjoslu"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "Meklēt radio stacijas"
 
 #: qml/NavigationActionBar.qml:429
 #, kde-format

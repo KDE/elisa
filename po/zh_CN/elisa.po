@@ -670,7 +670,7 @@ msgstr "退出全屏模式"
 #, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
-msgstr ""
+msgstr "进入全屏模式"
 
 #: qml/LyricsView.qml:162
 #, kde-format

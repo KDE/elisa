@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-06 00:44+0000\n"
-"PO-Revision-Date: 2026-01-14 07:49+0400\n"
+"PO-Revision-Date: 2026-02-11 20:55+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -676,9 +676,7 @@ msgid "Exit Full Screen"
 msgstr "أنهِ ملء الشاشة"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
 msgstr "ادخل ملء الشاشة"

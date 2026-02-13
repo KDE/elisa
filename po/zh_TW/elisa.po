@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-06 00:44+0000\n"
-"PO-Revision-Date: 2026-01-13 01:20+0900\n"
+"PO-Revision-Date: 2026-02-12 16:17+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: Traditional Chinese\n"
@@ -669,9 +669,7 @@ msgid "Exit Full Screen"
 msgstr "離開全螢幕"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
 msgstr "進入全螢幕"

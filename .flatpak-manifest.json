@@ -31,39 +31,7 @@
         "*.la",
         "*.a"
     ],
-    "cleanup-commands": [
-        "rm -f /app/lib/vlc/plugins/plugins.dat",
-        "/app/lib/vlc/vlc-cache-gen /app/lib/vlc/plugins"
-    ],
     "modules": [
-        {
-            "name": "libvlc",
-            "config-opts": [
-                "BUILDCC=gcc",
-                "--disable-lua",
-                "--disable-a52",
-                "--disable-qt",
-                "--disable-ncurses",
-                "--disable-udev"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://get.videolan.org/vlc/3.0.22/vlc-3.0.22.tar.xz",
-                    "sha256": "e2cc1cf0ae0902a09da5a37c249a8a4e4b5ec4dc095443b8e1493c6a7cc138ea",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 6504,
-                        "stable-only": true,
-                        "url-template": "https://get.videolan.org/vlc/$version/vlc-$version.tar.xz"
-                    }
-                },
-                {
-                    "type": "patch",
-                    "path": ".flatpak-patches/vlc-ignore-time-for-cache.patch"
-                }
-            ]
-        },
         {
             "name": "lmdb",
             "no-autogen": true,

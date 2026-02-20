@@ -139,7 +139,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="sv">Musikspelaren Elisa utvecklas av KDE-gemenskapen och strävar efter att vara enkel och trevlig att använda.</p>
     <p xml:lang="ta">எலைசா என்பது, கே.டீ.யீ.யால் உருவாக்கப்பட்டுள்ள ஓர் எளிய பாடல் இசைப்பி</p>
     <p xml:lang="th">เครื่องเล่นเพลง Elisa ได้รับการพัฒนาโดยชาว KDE และมุ่งมั่นที่จะให้ใช้งานง่ายและน่าพึงพอใจ</p>
-    <p xml:lang="tr">Elisa müzik çaları, KDE topluluğu tarafından geliştirilir ve yalın ve kullanımı kolay bir deneyim sunmaya çalışır.</p>
+    <p xml:lang="tr">Elisa müzikçalar, KDE topluluğu tarafından geliştirilir ve yalın ve kullanımı kolay bir deneyim sunmaya çalışır.</p>
     <p xml:lang="uk">Elisa — музичний програвач, який розроблено спільнотою KDE. Автори програми прагнуть зробити її простою та приємною у користуванні.</p>
     <p xml:lang="zh-CN">Elisa 是 KDE 社区开发的一款以简单易用为出发点的音乐播放器。</p>
     <p xml:lang="zh-TW">Elisa 音樂播放器由 KDE 社群所開發，以簡潔好用為目標。</p>
@@ -317,7 +317,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sv">Elisa musikspelare</caption>
       <caption xml:lang="ta">எலைசா பாடல் இசைப்பி</caption>
       <caption xml:lang="th">เครื่องเล่นเพลง Elisa</caption>
-      <caption xml:lang="tr">Elisa Müzik Çalar</caption>
+      <caption xml:lang="tr">Elisa müzikçalar</caption>
       <caption xml:lang="uk">Музичний програвач Elisa</caption>
       <caption xml:lang="zh-CN">Elisa 音乐播放器</caption>
       <caption xml:lang="zh-TW">Elisa 音樂播放器</caption>

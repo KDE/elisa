@@ -93,7 +93,7 @@ protected:
 
     void parseServiceDescription(QIODevice *serviceDescriptionContent) override;
 
-    void parseEventNotification(const QString &eventName, const QString &eventValue) Q_DECL_OVERRIDE;
+    void parseEventNotification(const QString &eventName, const QString &eventValue) override;
 
 private:
 

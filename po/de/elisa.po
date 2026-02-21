@@ -3,13 +3,13 @@
 # SPDX-FileCopyrightText: 2022 Konstantin Tutsch <konstantin.tutsch@e.email>
 # SPDX-FileCopyrightText: 2023 Jannick Kuhr <opensource@kuhr.org>
 # SPDX-FileCopyrightText: 2024, 2025 Alois Spitzbart <spitz234@hotmail.com>
-# SPDX-FileCopyrightText: 2025 Philipp Kiemle <l10n.daphipz@fastmail.de>
+# SPDX-FileCopyrightText: 2025, 2026 Philipp Kiemle <l10n.daphipz@fastmail.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-06 00:44+0000\n"
-"PO-Revision-Date: 2025-12-13 15:47+0100\n"
+"PO-Revision-Date: 2026-02-17 16:39+0100\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -64,13 +64,13 @@ msgstr "10 Sekunden rückwärts spulen"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
-msgstr "Zum nächsten Titel"
+msgstr "Zum nächsten Lied"
 
 #: elisaapplication.cpp:211
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
-msgstr "Zum vorherigen Titel"
+msgstr "Zum vorherigen Lied"
 
 #: elisaapplication.cpp:218
 #, kde-format
@@ -241,7 +241,7 @@ msgstr "Album-Interpret"
 #, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track Number"
-msgstr "Titelnummer"
+msgstr "Liednummer"
 
 #: models/trackmetadatamodel.cpp:534
 #, kde-format
@@ -528,15 +528,15 @@ msgstr "Im Ordner anzeigen"
 #, kde-format
 msgctxt "@item:intable View all tracks"
 msgid "All tracks"
-msgstr "Alle Titel"
+msgstr "Alle Lieder"
 
 #: qml/DataGridView.qml:163
 #, kde-format
 msgctxt "@item:intable number of tracks/songs in all albums"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] "%1 Titel"
-msgstr[1] "%1 Titel"
+msgstr[0] "%1 Element"
+msgstr[1] "%1 Elemente"
 
 #: qml/DurationSlider.qml:71
 #, kde-format
@@ -749,7 +749,7 @@ msgstr "Aktuell: Nicht zufällig"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "Aktuell: Zufällige Titel"
+msgstr "Aktuell: Zufällige Lieder"
 
 #: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
@@ -761,7 +761,7 @@ msgstr "Aktuell: Zufällige Alben"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
-msgstr "Titel"
+msgstr "Lied"
 
 #: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
@@ -780,25 +780,25 @@ msgstr "Nichts"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
-msgstr "Aktuell: Titel nicht wiederholen"
+msgstr "Aktuell: Lieder nicht wiederholen"
 
 #: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
-msgstr "Aktuell: Den aktuellen Titel wiederholen"
+msgstr "Aktuell: Das aktuelle Lied wiederholen"
 
 #: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
-msgstr "Aktuell: Alle Titel in der Wiedergabeliste wiederholen"
+msgstr "Aktuell: Alle Lieder in der Wiedergabeliste wiederholen"
 
 #: qml/MediaPlayerControl.qml:267 qml/mobile/MobileTrackPlayer.qml:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
-msgstr "Ein Titel"
+msgstr "Ein Lied"
 
 #: qml/MediaPlayerControl.qml:299
 #, kde-format
@@ -851,8 +851,8 @@ msgid ""
 "Failed to load some tracks. Make sure that they have not been removed or "
 "renamed."
 msgstr ""
-"Einige Titel können nicht geladen werden. Stellen Sie sicher, dass sie nicht "
-"entfernt oder umbenannt wurden."
+"Einige Lieder können nicht geladen werden. Stellen Sie sicher, dass sie "
+"nicht entfernt oder umbenannt wurden."
 
 #: qml/MediaPlayListView.qml:134
 #, kde-format
@@ -887,8 +887,8 @@ msgstr "Ihre Wiedergabeliste ist leer."
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
-msgstr[0] "%1/%2 Titel verbleibend"
-msgstr[1] "%1/%2 Titel verbleibend"
+msgstr[0] "%1/%2 Elemente verbleibend"
+msgstr[1] "%1/%2 Elemente verbleibend"
 
 #: qml/MediaPlayListView.qml:478
 #, kde-format
@@ -916,16 +916,16 @@ msgstr "%1/%2 verbleibend"
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
-msgstr[0] "%1/%2 Titel"
-msgstr[1] "%1/%2 Titel"
+msgstr[0] "%1/%2 Elemente"
+msgstr[1] "%1/%2 Elemente"
 
 #: qml/MediaPlayListView.qml:504
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
-msgstr[0] "%1 Titel"
-msgstr[1] "%1 Titel"
+msgstr[0] "%1 Element"
+msgstr[1] "%1 Elemente"
 
 #: qml/MediaPlayListView.qml:505
 #, kde-format
@@ -950,8 +950,8 @@ msgctxt ""
 "duration formatted like hh:mm:ss or mm:ss"
 msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
-msgstr[0] "%1 Titel, %2 gesamt"
-msgstr[1] "%1 Titel, %2 gesamt"
+msgstr[0] "%1 Element, %2 gesamt"
+msgstr[1] "%1 Elemente, %2 gesamt"
 
 #: qml/MediaPlayListView.qml:511
 #, kde-format
@@ -959,7 +959,7 @@ msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
 msgid "1 track, %1min remaining"
-msgstr "1 Titel, %1 min verbleibend"
+msgstr "1 Element, %1 min verbleibend"
 
 #: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
 #: qml/TrackBrowserDelegate.qml:105
@@ -1079,7 +1079,7 @@ msgstr "Vorwärts springen"
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
-msgstr "Titel-Einstellungen"
+msgstr "Lied-Einstellungen"
 
 #: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:365
 #, kde-format
@@ -1200,7 +1200,7 @@ msgstr "Zufällig"
 #, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
-msgstr "Titel"
+msgstr "Lied"
 
 #: qml/NativeGlobalMenu.qml:127
 #, kde-format
@@ -1304,7 +1304,7 @@ msgstr "Als nächstes wiedergeben"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play next in playlist"
-msgstr "Als nächstes in der Wiedergabeliste abspielen"
+msgstr "Nächstes Element in der Wiedergabeliste wiedergeben"
 
 #: qml/NavigationActionBar.qml:161
 #, kde-format
@@ -1378,7 +1378,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
-msgstr "Nach Titelnamen, Interpreten usw. suchen"
+msgstr "Nach Liednamen, Interpreten usw. suchen"
 
 #: qml/NavigationActionBar.qml:430
 #, kde-format
@@ -1402,7 +1402,7 @@ msgstr "Nur Favoriten anzeigen"
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
-msgstr "Titel bewerten"
+msgstr "Lied bewerten"
 
 #: qml/PlayListEntry.qml:128
 #, kde-format
@@ -1472,7 +1472,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
-msgstr "Titel-Bewertungsstil:"
+msgstr "Lied-Bewertungsstil:"
 
 #: qml/SettingsForm.qml:154
 #, kde-format
@@ -1590,7 +1590,7 @@ msgstr "Interpreten"
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
-msgstr "Titel"
+msgstr "Lieder"
 
 #: qml/SettingsForm.qml:295
 #, kde-format
@@ -1716,15 +1716,15 @@ msgstr "%1 – %2"
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"
-msgstr "Titel-Einstellungen"
+msgstr "Lied-Einstellungen"
 
 #: qml/TrackImportNotification.qml:58 qml/TrackImportNotification.qml:76
 #, kde-format
 msgctxt "number of imported tracks"
 msgid "Imported one track"
 msgid_plural "Imported %1 tracks"
-msgstr[0] "Ein Titel importiert"
-msgstr[1] "%1 Titel importiert"
+msgstr[0] "Ein Lied importiert"
+msgstr[1] "%1 Lieder importiert"
 
 #: qml/TrackImportNotification.qml:62
 #, kde-format
@@ -1754,7 +1754,7 @@ msgstr "%1 %"
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
-msgstr "Titelnummer"
+msgstr "Liednummer"
 
 #: viewmanager.cpp:41 viewmanager.cpp:69
 #, kde-format
@@ -1955,7 +1955,7 @@ msgstr "Name"
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
-msgstr "Titel"
+msgstr "Lieder"
 
 #: viewslistdata.cpp:115
 #, kde-format

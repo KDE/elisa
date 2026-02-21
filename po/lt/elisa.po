@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-06 00:44+0000\n"
-"PO-Revision-Date: 2026-01-20 23:54+0200\n"
+"PO-Revision-Date: 2026-02-21 02:28+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: lt\n"
 "Language: lt\n"
@@ -674,9 +674,7 @@ msgid "Exit Full Screen"
 msgstr "Išeiti iš viso ekrano"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
 msgstr "Visas ekranas"

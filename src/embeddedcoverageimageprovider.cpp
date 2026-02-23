@@ -100,7 +100,8 @@ EmbeddedCoverageImageProvider::EmbeddedCoverageImageProvider()
 
 QQuickImageResponse *EmbeddedCoverageImageProvider::requestImageResponse(const QString &id, const QSize &requestedSize)
 {
-    auto response = std::make_unique<AsyncImageResponse>(id, requestedSize);
+    const QString decodedId = QUrl::fromPercentEncoding(id.toUtf8());
+    auto response = std::make_unique<AsyncImageResponse>(decodedId, requestedSize);
     pool.start(response.get());
     return response.release();
 }

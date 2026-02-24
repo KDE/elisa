@@ -269,6 +269,7 @@ SPDX-License-Identifier: CC0-1.0
   <url type="homepage">https://apps.kde.org/elisa</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?product=elisa</url>
   <url type="donation">https://www.kde.org/community/donations/?app=elisa&amp;source=appdata</url>
+  <url type="vcs-browser">https://invent.kde.org/multimedia/elisa</url>
   <screenshots>
     <screenshot type="default">
       <caption>The Elisa music player</caption>

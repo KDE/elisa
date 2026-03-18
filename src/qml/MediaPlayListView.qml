@@ -469,7 +469,7 @@ Kirigami.Page {
                 id: totalDurationIndicator
                 position: durationLabel.totalDuration
             }
-
+            // TODO: Make duration values locale-aware
             TextMetrics {
                 id: longText
                 font.family: durationLabel.font.family

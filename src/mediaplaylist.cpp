@@ -109,7 +109,7 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
         {
             QTime trackDuration = d->mTrackData[index.row()][TrackDataType::key_type::DurationRole].toTime();
             if (trackDuration.hour() == 0) {
-                result = trackDuration.toString(QStringLiteral("mm:ss"));
+                result = QLocale().toString(trackDuration, QStringLiteral("mm:ss"));
             } else {
                 result = trackDuration.toString();
             }

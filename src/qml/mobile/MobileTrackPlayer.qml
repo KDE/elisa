@@ -311,6 +311,7 @@ BasePlayerControl {
             }
 
             // duration slider
+            // TODO: Make duration values locale-aware
             DurationSlider {
                 Layout.fillWidth: true
                 Layout.maximumHeight: Math.floor(Kirigami.Units.gridUnit * 3)

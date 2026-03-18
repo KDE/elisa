@@ -120,6 +120,7 @@ BasePlayerControl {
                     onClicked: musicWidget.playNext()
                 }
 
+                // TODO: Make duration values locale-aware
                 DurationSlider {
                     Layout.alignment: Qt.AlignVCenter
                     Layout.fillWidth: true

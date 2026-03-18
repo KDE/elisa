@@ -188,6 +188,7 @@ BasePlayerControl {
             Layout.fillWidth: true
 
             // duration slider for widescreen
+            // TODO: Make duration values locale-aware
             DurationSlider {
                 anchors.fill: parent
                 Layout.fillWidth: true

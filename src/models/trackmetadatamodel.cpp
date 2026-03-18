@@ -67,6 +67,7 @@ int TrackMetadataModel::rowCount(const QModelIndex &parent) const
 QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant{};
+    QLocale locale;
 
     const auto currentKey = mDisplayKeys[index.row()];
 
@@ -79,7 +80,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         {
             auto trackNumber = mDisplayData.trackNumber();
             if (trackNumber > 0) {
-                result = trackNumber;
+                result = locale.toString(trackNumber);
             }
             break;
         }
@@ -87,7 +88,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         {
             auto discNumber = mDisplayData.discNumber();
             if (discNumber > 0) {
-                result = discNumber;
+                result = locale.toString(discNumber);
             }
             break;
         }
@@ -95,7 +96,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         {
             auto channels = mDisplayData.channels();
             if (channels > 0) {
-                result = channels;
+                result = locale.toString(channels);
             }
             break;
         }
@@ -103,8 +104,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         {
             auto bitRate = mDisplayData.bitRate();
             if (bitRate > 0) {
-                result = KFormat().formatValue(bitRate, QStringLiteral("bit/s"), 0,
-                                               KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
+                result = KFormat().formatValue(bitRate, i18nc("bit/second", "bit/s"), 0, KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
             }
             break;
         }
@@ -121,12 +121,21 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         {
             auto trackDuration = mDisplayData.duration();
             if (trackDuration.hour() == 0) {
-                result = trackDuration.toString(QStringLiteral("mm:ss"));
+                result = locale.toString(trackDuration, QStringLiteral("mm:ss"));
             } else {
                 result = trackDuration.toString();
             }
             break;
         }
+        case DataTypes::YearRole: {
+            if (mDisplayData.hasYear()) {
+                auto year = mDisplayData.year();
+                locale.setNumberOptions(QLocale::OmitGroupSeparator);
+                result = locale.toString(year);
+            }
+            break;
+        }
+        // TODO: Apply locale-aware number formatting for play counter
         default:
             result = mDisplayData[currentKey];
             break;
@@ -525,13 +534,13 @@ QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
         result = i18nc("@label:textbox Album name for track metadata view", "Album");
         break;
     case DataTypes::AlbumArtistRole:
-        result = i18nc("@label:textbox Album artist for track metadata view", "Album Artist");
+        result = i18nc("@label:textbox Album artist for track metadata view", "Album artist");
         break;
     case DataTypes::TrackNumberRole:
-        result = i18nc("@label:textbox Track number for track metadata view", "Track Number");
+        result = i18nc("@label:textbox Track number for track metadata view", "Track number");
         break;
     case DataTypes::DiscNumberRole:
-        result = i18nc("@label:textbox Disc number for track metadata view", "Disc Number");
+        result = i18nc("@label:textbox Disc number for track metadata view", "Disc number");
         break;
     case DataTypes::RatingRole:
         result = i18nc("@label:textbox Rating label for information panel", "Rating");
@@ -555,10 +564,10 @@ QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
         result = i18nc("@label:textbox Channels label for track metadata view", "Channels");
         break;
     case DataTypes::BitRateRole:
-        result = i18nc("@label:textbox Bit rate label for track metadata view", "Bit Rate");
+        result = i18nc("@label:textbox Bit rate label for track metadata view", "Bit rate");
         break;
     case DataTypes::SampleRateRole:
-        result = i18nc("@label:textbox Sample Rate label for track metadata view", "Sample Rate");
+        result = i18nc("@label:textbox Sample Rate label for track metadata view", "Sample rate");
         break;
     case DataTypes::LastPlayDate:
         result = i18nc("@label:textbox Last play date label for track metadata view", "Last played");
@@ -573,10 +582,10 @@ QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
         result = i18nc("@label:textbox Lyrics label for track metadata view", "Lyrics");
         break;
     case DataTypes::ResourceRole:
-        result = i18nc("@label:textbox Radio HTTP address for radio metadata view", "Stream HTTP Address");
+        result = i18nc("@label:textbox Radio HTTP address for radio metadata view", "Stream HTTP address");
         break;
     case DataTypes::ImageUrlRole:
-        result = i18nc("@label:textbox Image address for radio metadata view", "Image Address");
+        result = i18nc("@label:textbox Image address for radio metadata view", "Image address");
         break;
     case DataTypes::SecondaryTextRole:
     case DataTypes::ShadowForImageRole:

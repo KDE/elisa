@@ -499,6 +499,7 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, D
                 durationValue = durationValue.split(QLatin1Char('.')).first();
             }
 
+            // TODO: Make duration values locale-aware
             childData[DataTypes::ColumnsRoles::DurationRole] = QTime::fromString(durationValue, QStringLiteral("mm:ss"));
             if (!childData.duration().isValid()) {
                 childData[DataTypes::ColumnsRoles::DurationRole] = QTime::fromString(durationValue, QStringLiteral("hh:mm:ss"));

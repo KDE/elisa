@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-06 00:44+0000\n"
+"POT-Creation-Date: 2026-03-19 00:44+0000\n"
 "PO-Revision-Date: 2026-02-06 07:17+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -204,136 +204,156 @@ msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
-#: models/trackmetadatamodel.cpp:516
+#: models/trackmetadatamodel.cpp:107
+#, kde-format
+msgctxt "bit/second"
+msgid "bit/s"
+msgstr ""
+
+#: models/trackmetadatamodel.cpp:525
 #, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "Naslov"
 
-#: models/trackmetadatamodel.cpp:519
+#: models/trackmetadatamodel.cpp:528
 #, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "Trajanje"
 
-#: models/trackmetadatamodel.cpp:522
+#: models/trackmetadatamodel.cpp:531
 #, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "Avtor"
 
-#: models/trackmetadatamodel.cpp:525
+#: models/trackmetadatamodel.cpp:534
 #, kde-format
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "Album"
 
-#: models/trackmetadatamodel.cpp:528
-#, kde-format
+#: models/trackmetadatamodel.cpp:537
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Album artist for track metadata view"
+#| msgid "Album Artist"
 msgctxt "@label:textbox Album artist for track metadata view"
-msgid "Album Artist"
+msgid "Album artist"
 msgstr "Avtor albuma"
 
-#: models/trackmetadatamodel.cpp:531
-#, kde-format
+#: models/trackmetadatamodel.cpp:540
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Track number for track metadata view"
+#| msgid "Track Number"
 msgctxt "@label:textbox Track number for track metadata view"
-msgid "Track Number"
+msgid "Track number"
 msgstr "Številka sledi"
 
-#: models/trackmetadatamodel.cpp:534
-#, kde-format
+#: models/trackmetadatamodel.cpp:543
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Disc number for track metadata view"
+#| msgid "Disc Number"
 msgctxt "@label:textbox Disc number for track metadata view"
-msgid "Disc Number"
+msgid "Disc number"
 msgstr "Številka diska"
 
-#: models/trackmetadatamodel.cpp:537
+#: models/trackmetadatamodel.cpp:546
 #, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "Ocena"
 
-#: models/trackmetadatamodel.cpp:540
+#: models/trackmetadatamodel.cpp:549
 #, kde-format
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "Zvrst"
 
-#: models/trackmetadatamodel.cpp:543
+#: models/trackmetadatamodel.cpp:552
 #, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "Avtor besedila"
 
-#: models/trackmetadatamodel.cpp:546
+#: models/trackmetadatamodel.cpp:555
 #, kde-format
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "Skladatelj"
 
-#: models/trackmetadatamodel.cpp:549
+#: models/trackmetadatamodel.cpp:558
 #, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "Komentar"
 
-#: models/trackmetadatamodel.cpp:552
+#: models/trackmetadatamodel.cpp:561
 #, kde-format
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "Leto"
 
-#: models/trackmetadatamodel.cpp:555
+#: models/trackmetadatamodel.cpp:564
 #, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "Kanali"
 
-#: models/trackmetadatamodel.cpp:558
-#, kde-format
+#: models/trackmetadatamodel.cpp:567
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Bit rate label for track metadata view"
+#| msgid "Bit Rate"
 msgctxt "@label:textbox Bit rate label for track metadata view"
-msgid "Bit Rate"
+msgid "Bit rate"
 msgstr "Bitna hitrost"
 
-#: models/trackmetadatamodel.cpp:561
-#, kde-format
+#: models/trackmetadatamodel.cpp:570
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Sample Rate label for track metadata view"
+#| msgid "Sample Rate"
 msgctxt "@label:textbox Sample Rate label for track metadata view"
-msgid "Sample Rate"
+msgid "Sample rate"
 msgstr "Hitrost vzorčenja"
 
-#: models/trackmetadatamodel.cpp:564
+#: models/trackmetadatamodel.cpp:573
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "Zadnjič predvajano"
 
-#: models/trackmetadatamodel.cpp:567
+#: models/trackmetadatamodel.cpp:576
 #, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "Prvič predvajano"
 
-#: models/trackmetadatamodel.cpp:570
+#: models/trackmetadatamodel.cpp:579
 #, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "Število predvajanj"
 
-#: models/trackmetadatamodel.cpp:573
+#: models/trackmetadatamodel.cpp:582
 #, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "Besedilo"
 
-#: models/trackmetadatamodel.cpp:576
-#, kde-format
+#: models/trackmetadatamodel.cpp:585
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
+#| msgid "Stream HTTP Address"
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-msgid "Stream HTTP Address"
+msgid "Stream HTTP address"
 msgstr "HTTP naslov toka"
 
-#: models/trackmetadatamodel.cpp:579
-#, kde-format
+#: models/trackmetadatamodel.cpp:588
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox Image address for radio metadata view"
+#| msgid "Image Address"
 msgctxt "@label:textbox Image address for radio metadata view"
-msgid "Image Address"
+msgid "Image address"
 msgstr "Naslov slike"
 
 #: models/viewsmodel.cpp:106 viewslistdata.cpp:53
@@ -502,7 +522,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Besedilo"
 
-#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:396
+#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:397
 #: qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
@@ -654,7 +674,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Shranjevanje ni uspelo"
 
-#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:263
+#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:264
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
@@ -722,80 +742,80 @@ msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
 msgstr "Preskoči naprej"
 
-#: qml/MediaPlayerControl.qml:146
+#: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
 msgstr "Odutišaj"
 
-#: qml/MediaPlayerControl.qml:147
+#: qml/MediaPlayerControl.qml:148
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr "Utišaj"
 
-#: qml/MediaPlayerControl.qml:175 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr "Trenutno: Ne mešaj"
 
-#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:215
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Trenutno: Mešaj sledi"
 
-#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:216
+#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:216
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Trenutno: Mešaj albume"
 
-#: qml/MediaPlayerControl.qml:205 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Sled"
 
-#: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
-#: qml/MediaPlayerControl.qml:213 qml/MediaPlayerControl.qml:271
+#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Noben"
 
-#: qml/MediaPlayerControl.qml:234 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Trenutno: Ne ponavljaj sledi"
 
-#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Trenutno: Ponovi trenutno sled"
 
-#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Trenutno: Ponovi vse sledi v seznamu predvajanja"
 
-#: qml/MediaPlayerControl.qml:267 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "Ena sled"
 
-#: qml/MediaPlayerControl.qml:299
+#: qml/MediaPlayerControl.qml:300
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"
@@ -1052,29 +1072,29 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:224
-#: qml/mobile/MobileTrackPlayer.qml:356
+#: qml/mobile/MobileMinimizedPlayerControl.qml:225
+#: qml/mobile/MobileTrackPlayer.qml:357
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Preskoči nazaj"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:238
-#: qml/mobile/MobileTrackPlayer.qml:369
+#: qml/mobile/MobileMinimizedPlayerControl.qml:239
+#: qml/mobile/MobileTrackPlayer.qml:370
 #, kde-format
 msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Premor"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:238
-#: qml/mobile/MobileTrackPlayer.qml:369
+#: qml/mobile/MobileMinimizedPlayerControl.qml:239
+#: qml/mobile/MobileTrackPlayer.qml:370
 #, kde-format
 msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Predvajaj"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:252
-#: qml/mobile/MobileTrackPlayer.qml:382
+#: qml/mobile/MobileMinimizedPlayerControl.qml:253
+#: qml/mobile/MobileTrackPlayer.qml:383
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"

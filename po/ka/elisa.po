@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:44+0000\n"
-"PO-Revision-Date: 2026-02-06 06:26+0100\n"
+"PO-Revision-Date: 2026-03-19 04:45+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -207,7 +207,7 @@ msgstr "%1: %2\n"
 #, kde-format
 msgctxt "bit/second"
 msgid "bit/s"
-msgstr ""
+msgstr "ბიტი/წმ"
 
 #: models/trackmetadatamodel.cpp:525
 #, kde-format
@@ -234,25 +234,19 @@ msgid "Album"
 msgstr "ალბომი"
 
 #: models/trackmetadatamodel.cpp:537
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Album artist for track metadata view"
-#| msgid "Album Artist"
+#, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album artist"
-msgstr "ალბომი შემსრულებელი"
+msgstr "ალბომის შემსრულებელი"
 
 #: models/trackmetadatamodel.cpp:540
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track number"
-msgstr "აუდიობილიკი ნომერი"
+msgstr "აუდიობილიკის ნომერი"
 
 #: models/trackmetadatamodel.cpp:543
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Disc number for track metadata view"
-#| msgid "Disc Number"
+#, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc number"
 msgstr "დისკის ნომერი"
@@ -300,20 +294,16 @@ msgid "Channels"
 msgstr "არხები"
 
 #: models/trackmetadatamodel.cpp:567
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Bit rate label for track metadata view"
-#| msgid "Bit Rate"
+#, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit rate"
-msgstr "სიჩქარე"
+msgstr "ბიტური სიჩქარე"
 
 #: models/trackmetadatamodel.cpp:570
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
+#, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample rate"
-msgstr "სემპლების სიჩქარე"
+msgstr "სემპლის სიხშირე"
 
 #: models/trackmetadatamodel.cpp:573
 #, kde-format
@@ -340,17 +330,13 @@ msgid "Lyrics"
 msgstr "ლირიკა"
 
 #: models/trackmetadatamodel.cpp:585
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream HTTP Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP address"
 msgstr "ნაკადის HTTP მისამართი"
 
 #: models/trackmetadatamodel.cpp:588
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Image address for radio metadata view"
-#| msgid "Image Address"
+#, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
 msgstr "გამოსახულების მისამართი"

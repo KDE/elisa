@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:44+0000\n"
-"PO-Revision-Date: 2026-03-18 16:59+0300\n"
+"PO-Revision-Date: 2026-03-19 14:46+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -207,7 +207,7 @@ msgstr "%1: %2\n"
 #, kde-format
 msgctxt "bit/second"
 msgid "bit/s"
-msgstr ""
+msgstr "bit/sn"
 
 #: models/trackmetadatamodel.cpp:525
 #, kde-format
@@ -234,25 +234,19 @@ msgid "Album"
 msgstr "Albüm"
 
 #: models/trackmetadatamodel.cpp:537
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Album artist for track metadata view"
-#| msgid "Album Artist"
+#, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album artist"
 msgstr "Albüm sanatçısı"
 
 #: models/trackmetadatamodel.cpp:540
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track number"
 msgstr "Parça numarası"
 
 #: models/trackmetadatamodel.cpp:543
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Disc number for track metadata view"
-#| msgid "Disc Number"
+#, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc number"
 msgstr "Disk numarası"
@@ -300,17 +294,13 @@ msgid "Channels"
 msgstr "Kanallar"
 
 #: models/trackmetadatamodel.cpp:567
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Bit rate label for track metadata view"
-#| msgid "Bit Rate"
+#, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit rate"
 msgstr "Bit hızı"
 
 #: models/trackmetadatamodel.cpp:570
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
+#, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample rate"
 msgstr "Örnekleme hızı"
@@ -340,17 +330,13 @@ msgid "Lyrics"
 msgstr "Şarkı sözleri"
 
 #: models/trackmetadatamodel.cpp:585
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream HTTP Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP address"
 msgstr "Akış HTTP adresi"
 
 #: models/trackmetadatamodel.cpp:588
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Image address for radio metadata view"
-#| msgid "Image Address"
+#, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
 msgstr "Görsel adresi"

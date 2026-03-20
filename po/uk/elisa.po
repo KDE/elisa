@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:44+0000\n"
-"PO-Revision-Date: 2026-02-06 07:07+0200\n"
+"PO-Revision-Date: 2026-03-19 12:37+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -206,12 +206,10 @@ msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
 #: models/trackmetadatamodel.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "Unit of the bit rate in thousand"
-#| msgid "kbit/s"
+#, kde-format
 msgctxt "bit/second"
 msgid "bit/s"
-msgstr "кбіт/с"
+msgstr "біт/с"
 
 #: models/trackmetadatamodel.cpp:525
 #, kde-format
@@ -238,25 +236,19 @@ msgid "Album"
 msgstr "Альбом"
 
 #: models/trackmetadatamodel.cpp:537
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Album artist for track metadata view"
-#| msgid "Album Artist"
+#, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album artist"
 msgstr "Виконавець альбому"
 
 #: models/trackmetadatamodel.cpp:540
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track number"
 msgstr "Номер доріжки"
 
 #: models/trackmetadatamodel.cpp:543
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Disc number for track metadata view"
-#| msgid "Disc Number"
+#, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc number"
 msgstr "Номер диска"
@@ -304,17 +296,13 @@ msgid "Channels"
 msgstr "Канали"
 
 #: models/trackmetadatamodel.cpp:567
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Bit rate label for track metadata view"
-#| msgid "Bit Rate"
+#, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit rate"
 msgstr "Бітова швидкість"
 
 #: models/trackmetadatamodel.cpp:570
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
+#, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample rate"
 msgstr "Частота дискретизації"
@@ -344,17 +332,13 @@ msgid "Lyrics"
 msgstr "Текст"
 
 #: models/trackmetadatamodel.cpp:585
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream HTTP Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP address"
 msgstr "HTTP-адреса потоку даних"
 
 #: models/trackmetadatamodel.cpp:588
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Image address for radio metadata view"
-#| msgid "Image Address"
+#, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
 msgstr "Адреса зображення"

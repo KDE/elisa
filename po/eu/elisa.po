@@ -237,24 +237,18 @@ msgstr "Albuma"
 
 #: models/trackmetadatamodel.cpp:537
 #, kde-format
-#| msgctxt "@label:textbox Album artist for track metadata view"
-#| msgid "Album Artist"
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album artist"
 msgstr "Albumeko artista"
 
 #: models/trackmetadatamodel.cpp:540
 #, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track number"
 msgstr "Pista-zenbakia"
 
 #: models/trackmetadatamodel.cpp:543
 #, kde-format
-#| msgctxt "@label:textbox Disc number for track metadata view"
-#| msgid "Disc Number"
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc number"
 msgstr "Disko-zenbakia"
@@ -303,16 +297,12 @@ msgstr "Kateak"
 
 #: models/trackmetadatamodel.cpp:567
 #, kde-format
-#| msgctxt "@label:textbox Bit rate label for track metadata view"
-#| msgid "Bit Rate"
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit rate"
 msgstr "Bit-emaria"
 
 #: models/trackmetadatamodel.cpp:570
 #, kde-format
-#| msgctxt "@label:textbox Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample rate"
 msgstr "Lagin-emaria"
@@ -343,16 +333,12 @@ msgstr "Hitzak"
 
 #: models/trackmetadatamodel.cpp:585
 #, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream HTTP Address"
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP address"
 msgstr "Korrontearen HTTP helbidea"
 
 #: models/trackmetadatamodel.cpp:588
 #, kde-format
-#| msgctxt "@label:textbox Image address for radio metadata view"
-#| msgid "Image Address"
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
 msgstr "Irudiaren helbidea"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:44+0000\n"
-"PO-Revision-Date: 2026-02-07 19:58+0100\n"
+"PO-Revision-Date: 2026-03-26 00:15+0100\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -204,12 +204,10 @@ msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
 #: models/trackmetadatamodel.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "Unit of the bit rate in thousand"
-#| msgid "kbit/s"
+#, kde-format
 msgctxt "bit/second"
 msgid "bit/s"
-msgstr "kbit/s"
+msgstr "bit/s"
 
 #: models/trackmetadatamodel.cpp:525
 #, kde-format
@@ -236,25 +234,19 @@ msgid "Album"
 msgstr "Album"
 
 #: models/trackmetadatamodel.cpp:537
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Album artist for track metadata view"
-#| msgid "Album Artist"
+#, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album artist"
 msgstr "Artista dell'album"
 
 #: models/trackmetadatamodel.cpp:540
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track number"
 msgstr "Numero traccia"
 
 #: models/trackmetadatamodel.cpp:543
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Disc number for track metadata view"
-#| msgid "Disc Number"
+#, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc number"
 msgstr "Numero disco"
@@ -302,17 +294,13 @@ msgid "Channels"
 msgstr "Canali"
 
 #: models/trackmetadatamodel.cpp:567
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Bit rate label for track metadata view"
-#| msgid "Bit Rate"
+#, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit rate"
 msgstr "Bitrate"
 
 #: models/trackmetadatamodel.cpp:570
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
+#, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample rate"
 msgstr "Campionamento"
@@ -342,17 +330,13 @@ msgid "Lyrics"
 msgstr "Testo"
 
 #: models/trackmetadatamodel.cpp:585
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream HTTP Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP address"
 msgstr "Indirizzo flusso HTTP"
 
 #: models/trackmetadatamodel.cpp:588
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Image address for radio metadata view"
-#| msgid "Image Address"
+#, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
 msgstr "Indirizzo dell'immagine"

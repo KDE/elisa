@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:44+0000\n"
-"PO-Revision-Date: 2026-02-09 13:22+0000\n"
+"PO-Revision-Date: 2026-03-31 13:49+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -208,7 +208,7 @@ msgstr "%1: %2\n"
 #, kde-format
 msgctxt "bit/second"
 msgid "bit/s"
-msgstr ""
+msgstr "biți/s"
 
 #: models/trackmetadatamodel.cpp:525
 #, kde-format
@@ -226,7 +226,7 @@ msgstr "Durată"
 #, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
-msgstr "Interpret"
+msgstr "Artist"
 
 #: models/trackmetadatamodel.cpp:534
 #, kde-format
@@ -235,25 +235,19 @@ msgid "Album"
 msgstr "Album"
 
 #: models/trackmetadatamodel.cpp:537
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Album artist for track metadata view"
-#| msgid "Album Artist"
+#, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album artist"
-msgstr "Interpret album"
+msgstr "Artist album"
 
 #: models/trackmetadatamodel.cpp:540
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track number"
 msgstr "Număr piesă"
 
 #: models/trackmetadatamodel.cpp:543
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Disc number for track metadata view"
-#| msgid "Disc Number"
+#, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc number"
 msgstr "Număr disc"
@@ -301,17 +295,13 @@ msgid "Channels"
 msgstr "Canale"
 
 #: models/trackmetadatamodel.cpp:567
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Bit rate label for track metadata view"
-#| msgid "Bit Rate"
+#, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit rate"
 msgstr "Rată de biți"
 
 #: models/trackmetadatamodel.cpp:570
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
+#, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample rate"
 msgstr "Rată de eșantionare"
@@ -341,17 +331,13 @@ msgid "Lyrics"
 msgstr "Versuri"
 
 #: models/trackmetadatamodel.cpp:585
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream HTTP Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP address"
 msgstr "Adresă HTTP flux"
 
 #: models/trackmetadatamodel.cpp:588
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Image address for radio metadata view"
-#| msgid "Image Address"
+#, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
 msgstr "Adresa imaginii"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-06 00:44+0000\n"
-"PO-Revision-Date: 2026-01-18 15:47+0100\n"
+"PO-Revision-Date: 2026-04-04 19:11+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -672,9 +672,7 @@ msgid "Exit Full Screen"
 msgstr "Opuść tryb pełnoekranowy"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
 msgstr "Przejdź do trybu pełnoekranowego"

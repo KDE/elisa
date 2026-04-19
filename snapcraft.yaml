@@ -33,6 +33,7 @@ environment:
   GST_PLUGIN_PATH: "$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer-1.0"
   GST_PLUGIN_SCANNER: "$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner"
   QML_IMPORT_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qml:/snap/kf6-core24/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qml"
+  QML2_IMPORT_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qml:/snap/kf6-core24/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qml"
 
 plugs:
   ffmpeg-2404:

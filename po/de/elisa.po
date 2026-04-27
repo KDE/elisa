@@ -1,15 +1,15 @@
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
-# SPDX-FileCopyrightText: 2016, 2018, 2020, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2016, 2018, 2020, 2022-2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2016-2021 Burkhard Lück <lueck@hube-lueck.de>
 # SPDX-FileCopyrightText: 2022 Konstantin Tutsch <konstantin.tutsch@e.email>
 # SPDX-FileCopyrightText: 2023 Jannick Kuhr <opensource@kuhr.org>
-# SPDX-FileCopyrightText: 2024, 2025 Alois Spitzbart <spitz234@hotmail.com>
-# SPDX-FileCopyrightText: 2025, 2026 Philipp Kiemle <l10n.daphipz@fastmail.de>
+# SPDX-FileCopyrightText: 2024-2025 Alois Spitzbart <spitz234@hotmail.com>
+# SPDX-FileCopyrightText: 2025-2026 Philipp Kiemle <l10n.daphipz@fastmail.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-19 00:44+0000\n"
-"PO-Revision-Date: 2026-02-17 16:39+0100\n"
+"PO-Revision-Date: 2026-04-23 20:42+0200\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -98,12 +98,10 @@ msgstr ""
 "Ein einfacher Medienspieler, mit Liebe von der KDE-Gemeinschaft entwickelt"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
-msgstr "© 2015–2020 Elisa-Mitwirkende"
+msgstr "© 2015–2026 Elisa-Mitwirkende"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -208,12 +206,10 @@ msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
 #: models/trackmetadatamodel.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "Unit of the bit rate in thousand"
-#| msgid "kbit/s"
+#, kde-format
 msgctxt "bit/second"
 msgid "bit/s"
-msgstr "kBit/s"
+msgstr "Bit/s"
 
 #: models/trackmetadatamodel.cpp:525
 #, kde-format
@@ -240,25 +236,19 @@ msgid "Album"
 msgstr "Album"
 
 #: models/trackmetadatamodel.cpp:537
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Album artist for track metadata view"
-#| msgid "Album Artist"
+#, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album artist"
 msgstr "Album-Interpret"
 
 #: models/trackmetadatamodel.cpp:540
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track number"
 msgstr "Liednummer"
 
 #: models/trackmetadatamodel.cpp:543
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Disc number for track metadata view"
-#| msgid "Disc Number"
+#, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc number"
 msgstr "CD-Nummer"
@@ -306,17 +296,13 @@ msgid "Channels"
 msgstr "Kanäle"
 
 #: models/trackmetadatamodel.cpp:567
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Bit rate label for track metadata view"
-#| msgid "Bit Rate"
+#, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit rate"
 msgstr "Bitrate"
 
 #: models/trackmetadatamodel.cpp:570
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
+#, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample rate"
 msgstr "Abtastrate"
@@ -346,17 +332,13 @@ msgid "Lyrics"
 msgstr "Liedtext"
 
 #: models/trackmetadatamodel.cpp:585
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream HTTP Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP address"
 msgstr "Stream-HTTP-Adresse"
 
 #: models/trackmetadatamodel.cpp:588
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Image address for radio metadata view"
-#| msgid "Image Address"
+#, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
 msgstr "Bildadresse"
@@ -685,9 +667,7 @@ msgid "Playlist"
 msgstr "Wiedergabeliste"
 
 #: qml/HeaderBar.qml:264
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "Liedtext"
@@ -699,9 +679,7 @@ msgid "Exit Full Screen"
 msgstr "Vollbildmodus beenden"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
 msgstr "Vollbildmodus aktivieren"
@@ -1394,7 +1372,7 @@ msgstr "Werkzeugleiste „Suchen und filtern“ ausblenden"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "Nach Radiosender suchen"
 
 #: qml/NavigationActionBar.qml:429
 #, kde-format

@@ -7847,7 +7847,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
     qulonglong resultId = 0;
 
-    const bool trackHasMetadata = !oneTrack.title().isEmpty();
+    const bool trackHasMetadata = oneTrack.isValid();
 
     auto existingTrackId = internalTrackIdFromFileName(oneTrack.resourceURI());
     bool isModifiedTrack = (existingTrackId != 0);
@@ -7869,6 +7869,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
             QUrl::RemoveScheme | QUrl::RemoveUserInfo;
 
     const auto &trackPath = oneTrack.resourceURI().toString(currentOptions);
+    const auto trackTitle = !oneTrack.title().isEmpty() ? oneTrack.title() : oneTrack.resourceURI().fileName();
 
     auto albumCover = oneTrack.hasEmbeddedCover() ? QUrl{} : oneTrack.albumCover();
 
@@ -7931,11 +7932,16 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         return resultId;
     }
 
-    const auto needsHigherPriority = [this, &oneTrack, &trackPath](const int currentPriority) {
-        return getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(
-            oneTrack.title(), oneTrack.artist(), oneTrack.album(),
-            oneTrack.albumArtist(), trackPath, oneTrack.trackNumber(),
-            oneTrack.discNumber(), currentPriority) != 0;
+    const auto needsHigherPriority = [this, &oneTrack, &trackPath, &trackTitle](const int currentPriority) {
+        return getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(trackTitle,
+                                                                oneTrack.artist(),
+                                                                oneTrack.album(),
+                                                                oneTrack.albumArtist(),
+                                                                trackPath,
+                                                                oneTrack.trackNumber(),
+                                                                oneTrack.discNumber(),
+                                                                currentPriority)
+            != 0;
     };
 
     int priority = 1;
@@ -7951,7 +7957,7 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
 
     d->mInsertTrackQuery.bindValue(QStringLiteral(":priority"), priority);
 
-    d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
+    d->mInsertTrackQuery.bindValue(QStringLiteral(":title"), trackTitle);
 
     d->mInsertTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.hasAlbum() ? oneTrack.album() : QVariant{});
 

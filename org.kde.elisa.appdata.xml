@@ -392,6 +392,7 @@ SPDX-License-Identifier: CC0-1.0
     <color type="primary" scheme_preference="dark">#619d8b</color>
   </branding>
   <releases>
+    <release version="26.04.1" date="2026-05-07"/>
     <release version="26.04.0" date="2026-04-16"/>
     <release version="25.12.3" date="2026-03-05"/>
     <release version="25.12.2" date="2026-02-05"/>

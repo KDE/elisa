@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-19 00:44+0000\n"
+"POT-Creation-Date: 2026-05-04 00:42+0000\n"
 "PO-Revision-Date: 2026-04-04 19:11+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "lukasz.wojnilowicz@gmail.com"
 
-#: databaseinterface.cpp:8053 databaseinterface.cpp:9167
-#: databaseinterface.cpp:9252
+#: databaseinterface.cpp:8059 databaseinterface.cpp:9173
+#: databaseinterface.cpp:9258
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Różni wykonawcy"
 
-#: databaseinterface.cpp:8121
+#: databaseinterface.cpp:8127
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-19 00:44+0000\n"
+"POT-Creation-Date: 2026-05-04 00:42+0000\n"
 "PO-Revision-Date: 2024-09-26 08:21+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "wantoyek@gmail.com"
 
-#: databaseinterface.cpp:8053 databaseinterface.cpp:9167
-#: databaseinterface.cpp:9252
+#: databaseinterface.cpp:8059 databaseinterface.cpp:9173
+#: databaseinterface.cpp:9258
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Berbagai Artis"
 
-#: databaseinterface.cpp:8121
+#: databaseinterface.cpp:8127
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

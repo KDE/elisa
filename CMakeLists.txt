@@ -28,7 +28,6 @@ include(FeatureSummary)
 include(ECMAddAppIcon)
 include(ECMAddTests)
 include(ECMQtDeclareLoggingCategory)
-include(ECMGenerateQmlTypes)
 include(ECMAddAndroidApk)
 include(ECMFindQmlModule)
 

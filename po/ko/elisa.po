@@ -1,14 +1,14 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 # Jung Hee Lee <daemul72@gmail.com>, 2019, 2020, 2021.
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-04 00:42+0000\n"
-"PO-Revision-Date: 2025-07-20 00:54+0200\n"
+"PO-Revision-Date: 2026-05-25 18:44+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -96,12 +96,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "KDE 커뮤니티의 사랑으로 만든 간편한 음악 재생기"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
-msgstr "© 2015–2020, Elisa contributors"
+msgstr "© 2015–2026, Elisa contributors"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -209,7 +207,7 @@ msgstr "%1: %2\n"
 #, kde-format
 msgctxt "bit/second"
 msgid "bit/s"
-msgstr ""
+msgstr "비트/초"
 
 #: models/trackmetadatamodel.cpp:525
 #, kde-format
@@ -236,25 +234,19 @@ msgid "Album"
 msgstr "앨범"
 
 #: models/trackmetadatamodel.cpp:537
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Album artist for track metadata view"
-#| msgid "Album Artist"
+#, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album artist"
 msgstr "앨범 아티스트"
 
 #: models/trackmetadatamodel.cpp:540
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Track number for track metadata view"
-#| msgid "Track Number"
+#, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track number"
 msgstr "트랙 번호"
 
 #: models/trackmetadatamodel.cpp:543
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Disc number for track metadata view"
-#| msgid "Disc Number"
+#, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc number"
 msgstr "디스크 번호"
@@ -302,17 +294,13 @@ msgid "Channels"
 msgstr "채널"
 
 #: models/trackmetadatamodel.cpp:567
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Bit rate label for track metadata view"
-#| msgid "Bit Rate"
+#, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit rate"
 msgstr "비트 전송률"
 
 #: models/trackmetadatamodel.cpp:570
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Sample Rate label for track metadata view"
-#| msgid "Sample Rate"
+#, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample rate"
 msgstr "샘플링 레이트"
@@ -342,20 +330,16 @@ msgid "Lyrics"
 msgstr "가사"
 
 #: models/trackmetadatamodel.cpp:585
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Radio HTTP address for radio metadata view"
-#| msgid "Stream HTTP Address"
+#, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP address"
 msgstr "스트림 HTTP 주소"
 
 #: models/trackmetadatamodel.cpp:588
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Image address for radio metadata view"
-#| msgid "Image Address"
+#, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
-msgstr "이미지 주소"
+msgstr "그림 주소"
 
 #: models/viewsmodel.cpp:106 viewslistdata.cpp:53
 #, kde-format
@@ -648,19 +632,15 @@ msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
 "untranslated file extensions"
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
-msgstr ""
+msgstr "재생 목록 파일과 음악 파일 (%1 %2) (%1 %2)"
 
 #: qml/ElisaMainWindow.qml:298
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@option file type (mime type) for pls playlist file formats; do not "
-#| "translate *.pls"
-#| msgid "pls Playlist File (*.pls)"
+#, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
 "extensions"
 msgid "Playlist files (%1) (%1)"
-msgstr "pls 재생 목록 파일 (*.pls)"
+msgstr "재생 목록 파일 (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:299
 #, kde-format
@@ -668,7 +648,7 @@ msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
 "extensions"
 msgid "Music files (%1) (%1)"
-msgstr ""
+msgstr "음악 파일 (%1) (%1)"
 
 #: qml/ElisaMainWindow.qml:310
 #, kde-format
@@ -684,9 +664,7 @@ msgid "Playlist"
 msgstr "재생 목록"
 
 #: qml/HeaderBar.qml:264
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "가사"
@@ -698,12 +676,10 @@ msgid "Exit Full Screen"
 msgstr "전체 화면 나가기"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
-msgstr "전체 화면 모드 시작"
+msgstr "전체 화면으로 전환"
 
 #: qml/LyricsView.qml:162
 #, kde-format
@@ -854,18 +830,16 @@ msgid "Save…"
 msgstr "저장"
 
 #: qml/MediaPlayListView.qml:102
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open Playlist…"
+#, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
-msgstr "재생 목록 열기…"
+msgstr "열기…"
 
 #: qml/MediaPlayListView.qml:103
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "음악 파일이나 저장한 재생 목록 열기"
 
 #: qml/MediaPlayListView.qml:128
 #, kde-format
@@ -1390,7 +1364,7 @@ msgstr "검색과 필터 도구 모음 숨기기"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "라디오 스테이션 검색"
 
 #: qml/NavigationActionBar.qml:429
 #, kde-format

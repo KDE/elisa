@@ -75,6 +75,34 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
     return result;
 }
 
+bool GridViewProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const
+{
+    bool isLessThan;
+
+    QAbstractItemModel *srcModel = sourceModel();
+    int sr = sortRole();
+    QVariant leftData = srcModel->data(source_left, sr);
+    QVariant rightData = srcModel->data(source_right, sr);
+
+    // Fallback to default implementation when keys are different
+    if (leftData.typeId() != rightData.typeId() || leftData != rightData)
+        return QSortFilterProxyModel::lessThan(source_left, source_right);
+
+    // Primary sort keys are equal: use album ID as secondary sort key
+    int leftAlbumId = srcModel->data(source_left, DataTypes::AlbumIdRole).toInt();
+    int rightAlbumId = srcModel->data(source_right, DataTypes::AlbumIdRole).toInt();
+    if (leftAlbumId != rightAlbumId) {
+        isLessThan = (leftAlbumId < rightAlbumId);
+    } else {
+        // Secondary keys are equal: use track number as tertiary sort key
+        int leftTrackNumber = srcModel->data(source_left, DataTypes::TrackNumberRole).toInt();
+        int rightTrackNumber = srcModel->data(source_right, DataTypes::TrackNumberRole).toInt();
+        isLessThan = (leftTrackNumber < rightTrackNumber);
+    }
+
+    return (sortOrder() == Qt::AscendingOrder) ? isLessThan : !isLessThan;
+}
+
 int GridViewProxyModel::tracksCount() const
 {
     int count = 0;

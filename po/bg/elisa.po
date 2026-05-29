@@ -1959,11 +1959,3 @@ msgstr "Файлове"
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
 msgstr "Радиостанции"
-
-#~ msgctxt "@action:button Pause current track from playlist"
-#~ msgid "Pause"
-#~ msgstr "Пауза"
-
-#~ msgctxt "@action:button Play this track from playlist"
-#~ msgid "Play"
-#~ msgstr "Изпълнение"

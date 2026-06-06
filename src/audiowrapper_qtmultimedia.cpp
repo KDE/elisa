@@ -9,9 +9,11 @@
 
 #include "qtMultimediaLogging.h"
 
-#include <QTimer>
 #include <QAudio>
+#include <QAudioDevice>
 #include <QAudioOutput>
+#include <QMediaDevices>
+#include <QTimer>
 
 #include "config-upnp-qt.h"
 
@@ -37,6 +39,8 @@ public:
     QMediaPlayer::MediaStatus mCurrentMediaStatus = mPlayer.mediaStatus();
 
     bool mQueuedStatusUpdate = false;
+
+    QMediaDevices mMediaDevices;
 };
 
 AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_unique<AudioWrapperPrivate>())
@@ -52,6 +56,11 @@ AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_uniqu
     connect(&d->mPlayer, &QMediaPlayer::durationChanged, this, &AudioWrapper::durationChanged);
     connect(&d->mPlayer, &QMediaPlayer::positionChanged, this, &AudioWrapper::positionChanged);
     connect(&d->mPlayer, &QMediaPlayer::seekableChanged, this, &AudioWrapper::seekableChanged);
+
+    // Signal is emitted whenever the global output device is changed and we must manually move ourselves to that device.
+    connect(&d->mMediaDevices, &QMediaDevices::audioOutputsChanged, this, [this] {
+        d->mOutput.setDevice(QAudioDevice{});
+    });
 }
 
 AudioWrapper::~AudioWrapper()

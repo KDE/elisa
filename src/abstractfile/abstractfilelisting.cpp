@@ -153,24 +153,34 @@ bool AbstractFileListing::canHandleRootPaths() const
     return true;
 }
 
-void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, const QUrl &path, FileSystemWatchingModes watchForFileSystemChanges)
+void AbstractFileListing::scanDirectory(QSet<QString> &guard,
+                                        DataTypes::ListTrackDataType &newFiles,
+                                        const QUrl &path,
+                                        FileSystemWatchingModes watchForFileSystemChanges)
 {
     if (d->mStopRequest == 1) {
         return;
     }
 
-    QDir rootDirectory(path.toLocalFile());
-    rootDirectory.refresh();
+    // if we don't get a local path, we can't handle this
+    if (!path.isLocalFile()) {
+        return;
+    }
 
-    if (rootDirectory.exists()) {
-        if (watchForFileSystemChanges & WatchChangedDirectories) {
-            watchPath(path.toLocalFile());
-        }
+    // we can only handle local dirs, ensure we not recurse infinetely, bug 521095
+    // we check for existence, too (canonicalPath might be empty, too, in that case)
+    const QDir rootDirectory(path.toLocalFile());
+    const QString canonicalDirectoryPath = rootDirectory.canonicalPath();
+    if (!rootDirectory.exists() || canonicalDirectoryPath.isEmpty() || guard.contains(canonicalDirectoryPath)) {
+        return;
+    }
+    guard.insert(canonicalDirectoryPath);
+
+    if (watchForFileSystemChanges & WatchChangedDirectories) {
+        watchPath(path.toLocalFile());
     }
 
     auto currentFilesList = QSet<QUrl>();
-
-    rootDirectory.refresh();
     const auto entryList = rootDirectory.entryInfoList(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs);
     for (const auto &oneEntry : entryList) {
         auto newFilePath = QUrl::fromLocalFile(oneEntry.canonicalFilePath());
@@ -210,7 +220,7 @@ void AbstractFileListing::scanDirectory(DataTypes::ListTrackDataType &newFiles, 
 
         if (oneEntry.isDir()) {
             addFileInDirectory(newFilePath, path, WatchChangedDirectories | WatchChangedFiles);
-            scanDirectory(newFiles, newFilePath, WatchChangedDirectories | WatchChangedFiles);
+            scanDirectory(guard, newFiles, newFilePath, WatchChangedDirectories | WatchChangedFiles);
 
             if (d->mStopRequest == 1) {
                 break;
@@ -392,7 +402,8 @@ void AbstractFileListing::scanDirectoryTree(const QString &path)
 
     qCDebug(orgKdeElisaIndexer()) << "AbstractFileListing::scanDirectoryTree" << path;
 
-    scanDirectory(newFiles, QUrl::fromLocalFile(path), WatchChangedDirectories | WatchChangedFiles);
+    QSet<QString> guard;
+    scanDirectory(guard, newFiles, QUrl::fromLocalFile(path), WatchChangedDirectories | WatchChangedFiles);
 
     if (!newFiles.isEmpty() && d->mStopRequest == 0) {
         emitNewFiles(newFiles);

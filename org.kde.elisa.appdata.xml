@@ -90,6 +90,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="nl">Speel lokaal muziek en luister naar online radio</summary>
   <summary xml:lang="nn">Spel av lokal musikk og lytt på nettradio</summary>
   <summary xml:lang="pl">Odtwarzaj muzykę lokalnie i słuchaj radia z sieci</summary>
+  <summary xml:lang="pt">Reproduzir música local e ouvir rádio pela Internet</summary>
   <summary xml:lang="pt-BR">Reproduza músicas locais e ouça rádios online</summary>
   <summary xml:lang="ro">Redă muzică locală și ascultă stații radio prin Internet</summary>
   <summary xml:lang="ru">Воспроизведение хранящейся локально музыки и прослушивание интернет-радиостанций</summary>
@@ -134,6 +135,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="nl">De Elisa muziekspeler is ontwikkeld door de KDE gemeenschap en streeft er naar om eenvoudig en plezierig in gebruik te zijn.</p>
     <p xml:lang="nn">Musikkspelaren Elisa er utvikla av KDE-fellesskapet, som prøver å gjera han både enkel og kjekk å bruka.</p>
     <p xml:lang="pl">Odtwarzacz muzyki Elisa jest rozwijany przez Społeczność KDE i dąży do bycia prostym i przyjemnym w użyciu.</p>
+    <p xml:lang="pt">O leitor de música Elisa é desenvolvido pela comunidade KDE e procura ser simples e agradável de utilizar.</p>
     <p xml:lang="pt-BR">O reprodutor de música Elisa é desenvolvido pela comunidade KDE e se esforça para ser simples e agradável de usar.</p>
     <p xml:lang="ro">Lectorul de muzică Elisa e dezvoltat de către comunitatea KDE și tinde să fie simplu și plăcut de utilizat.</p>
     <p xml:lang="ru">Elisa — это музыкальный проигрыватель, созданный сообществом KDE, призванный быть простым и удобным в использовании.</p>
@@ -177,6 +179,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="nl">Met Elisa kunt u in uw lokale muziekverzameling bladeren op genre, artiest, album of track, luisteren naar online radio, afspeellijsten aanmaken en beheren, liedteksten tonen en meer.</p>
     <p xml:lang="nn">Med Elisa kan du blant anna finna fram i musikksamlinga di etter sjanger, artist, album og spor, lytta til nettradio, organisera spelelister og visa songtekstar.</p>
     <p xml:lang="pl">Dzięki Elisie, możesz przeglądać swój miejscowy zbiór muzyki po rodzaju, wykonawcy, albumie lub utworze, słuchać radia z sieci, tworzyć i zarządzać listami odtwarzania, wyświetlać napisy i więcej.</p>
+    <p xml:lang="pt">Com o Elisa, pode navegar pela sua coleção de música local por género, artista, álbum ou faixa, ouvir rádio online, criar e gerir listas de reprodução, exibir letras e muito mais.</p>
     <p xml:lang="pt-BR">Com Elisa, você pode navegar em sua coleção de música local por gênero, artista, álbum ou faixa, ouvir rádio online, criar e gerenciar listas de reprodução, exibir letras e muito mais.</p>
     <p xml:lang="ro">Cu Elisa, vă puteți răsfoi colecția locală de muzică după gen, interpret, album sau piesă, puteți asculta radio prin Internet, crea și gestiona liste de redare, afișa versuri, și altele.</p>
     <p xml:lang="ru">Приложение позволяет просматривать коллекцию музыки, используя упорядочивание по жанру, исполнителю, альбомам или дорожкам. Проигрыватель позволяет прослушивать интернет-радиостанции, создавать списки воспроизведения и управлять ими, просматривать тексты песен и многое другое.</p>
@@ -218,6 +221,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="nl">Elisa ondersteunt uw volledige KDE kleurenschema bij gebruik op het Plasma bureaublad of anders de standaard lichte en donkere modi.</p>
     <p xml:lang="nn">Ved bruk i Plasma støttar Elisa standard fargeoppsett, og elles kan du velja mellom eit lyst og eit mørkt tema.</p>
     <p xml:lang="pl">Elisa obsłuży w pełni twój zestaw barw KDE, gdy zostanie uruchomiona na Pulpicie Plazmy lub obsłuży tylko tryb jasny i ciemny.</p>
+    <p xml:lang="pt">O Elisa suporta o seu esquema de cores completo do KDE quando utilizado no ambiente de trabalho Plasma, ou, em alternativa, os modos claro e escuro padrão.</p>
     <p xml:lang="pt-BR">Elisa suporta todo o esquema de cores do KDE quando usado na área de trabalho do Plasma, ou então nos modos claro e escuro padrão.</p>
     <p xml:lang="ro">Elisa susține deplin schema de culori KDE când e folosită pe biroul Plasma, iar în caz contrar oferă regimul luminos și întunecat.</p>
     <p xml:lang="ru">При работе в среде Plasma музыкальный проигрыватель Elisa полностью поддерживает цветовые схемы рабочего стола, а при работе в других окружениях — стандартные тёмное и светлое оформления.</p>
@@ -260,6 +264,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="nl">Ontspan met Party modus, die de illustraties van uw muziekalbum voorop en gecentreerd plaatst.</p>
     <p xml:lang="nn">Slapp av med festmodusen, som framhevar omslagsbileta til albuma dine.</p>
     <p xml:lang="pl">Wyluzuj się w Trybie Imprezy, co umieszcza okładkę twojego albumu na środku.</p>
+    <p xml:lang="pt">Descontraia com o Modo Festa, que coloca a capa do álbum da sua música em destaque.</p>
     <p xml:lang="pt-BR">Relaxe com o Modo Festa, que coloca a arte do álbum da sua música na frente e no centro.</p>
     <p xml:lang="ro">Relaxați-vă cu regimul de petrecere ce pune coperțile albumelor în evidență.</p>
     <p xml:lang="ru">Музыкальный проигрыватель Elisa поддерживает режим вечеринки, в котором на первом плане выводится обложка альбома проигрываемого трека.</p>

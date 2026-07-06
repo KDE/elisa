@@ -353,8 +353,10 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
                                                 newEntry.mTrackNumber,
                                                 newEntry.mDiscNumber);
                 }
-            } else {
+            } else if (entryURL.scheme() == QLatin1String("http") || entryURL.scheme() == QLatin1String("https")) {
                 d->mData.last().mIsValid = true;
+            } else {
+                Q_EMIT newUrlInList(entryURL, ElisaUtils::FileName);
             }
         } else {
             Q_EMIT newTrackByNameInList(newEntry.mTitle,
@@ -594,7 +596,7 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
 
             break;
         } else if (oneEntry.mEntryType != ElisaUtils::Artist && !oneEntry.mIsValid && oneEntry.mTrackUrl.isValid()) {
-            if (track.resourceURI() != oneEntry.mTrackUrl) {
+            if (track.resourceURI() != oneEntry.mTrackUrl.toUrl()) {
                 continue;
             }
 

@@ -8,6 +8,7 @@
 
 #include "dragonLogging.h"
 #include "powermanagementinterface.h"
+#include "kiofusehelper.h"
 
 #include <QTimer>
 
@@ -203,9 +204,11 @@ void AudioWrapper::setVolume(qreal volume)
 
 void AudioWrapper::setSource(const QUrl &source)
 {
-    qCDebug(orgKdeElisaPlayerDragon) << "AudioWrapper::setSource" << source;
+    const QUrl resolvedSource = KioFuseHelper::mostLocalUrl(source);
 
-    d->mPlayer.setSource(source);
+    qCDebug(orgKdeElisaPlayerDragon) << "AudioWrapper::setSource" << source << resolvedSource;
+
+    d->mPlayer.setSource(resolvedSource);
     d->mSavedPosition.reset();
 }
 

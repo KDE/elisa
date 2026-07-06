@@ -171,6 +171,12 @@ void TracksListener::trackByFileNameInList(ElisaUtils::PlayListEntryType type, c
             if (!newRadio.isEmpty()) {
                 Q_EMIT trackHasChanged({newRadio});
             }
+            return;
+        }
+
+        auto newTrack = d->mFileScanner.scanOneFile(fileName);
+        if (newTrack.isValid()) {
+            Q_EMIT trackHasChanged(newTrack);
         }
     }
 }

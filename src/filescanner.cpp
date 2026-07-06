@@ -9,6 +9,7 @@
 #include "config-upnp-qt.h"
 
 #include "abstractfile/indexercommon.h"
+#include "kiofusehelper.h"
 
 #if KFFileMetaData_FOUND
 
@@ -121,6 +122,34 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
     DataTypes::TrackDataType newTrack;
 
     if (!scanFile.isLocalFile() && !scanFile.scheme().isEmpty()) {
+        if (scanFile.scheme() == QLatin1String("http") || scanFile.scheme() == QLatin1String("https")) {
+            return newTrack;
+        }
+
+        const QUrl localUrl = KioFuseHelper::mostLocalUrl(scanFile);
+        if (localUrl.isLocalFile()) {
+            if (!QFileInfo::exists(localUrl.toLocalFile())) {
+                return newTrack;
+            }
+            auto trackData = scanOneFile(localUrl, QFileInfo(localUrl.toLocalFile()));
+            trackData[DataTypes::ResourceRole] = scanFile;
+            return trackData;
+        }
+
+        const auto mimeType = d->mMimeDb.mimeTypeForUrl(scanFile);
+        if (!mimeType.name().startsWith(QLatin1String("audio/"))) {
+            return newTrack;
+        }
+        newTrack[DataTypes::ResourceRole] = scanFile;
+        newTrack[DataTypes::TitleRole] = scanFile.fileName();
+        newTrack[DataTypes::ArtistRole] = QString{};
+        newTrack[DataTypes::AlbumRole] = QString{};
+        newTrack[DataTypes::AlbumArtistRole] = QString{};
+        newTrack[DataTypes::TrackNumberRole] = -1;
+        newTrack[DataTypes::DiscNumberRole] = -1;
+        newTrack[DataTypes::RatingRole] = 0;
+        newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
+        newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(1);
         return newTrack;
     }
 
@@ -178,7 +207,9 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
 DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
 {
-    if (!scanFile.isLocalFile()){
+    if (!scanFile.isLocalFile() && !scanFile.scheme().isEmpty()) {
+        return FileScanner::scanOneFile(scanFile, QFileInfo{});
+    } else if (!scanFile.isLocalFile()) {
         return {};
     } else {
         const QFileInfo scanFileInfo(scanFile.toLocalFile());

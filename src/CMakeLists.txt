@@ -21,6 +21,7 @@ set(elisaLib_SOURCES
     elisaapplication.cpp
     modeldataloader.cpp
     elisautils.cpp
+    kiofusehelper.cpp
     abstractfile/abstractfilelistener.cpp
     abstractfile/abstractfilelisting.cpp
     filescanner.cpp

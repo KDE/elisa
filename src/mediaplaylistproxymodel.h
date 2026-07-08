@@ -13,37 +13,14 @@
 #include "elisautils.h"
 #include "datatypes.h"
 
+#include "playlistparser.h"
 #include <QAbstractProxyModel>
+#include <QFileInfo>
 #include <QMediaPlayer>
 #include <QMimeType>
 #include <QQmlEngine>
-#include <QFileInfo>
 
 #include <memory>
-
-class M3uPlaylistParser
-{
-public:
-    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent);
-    QString toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls);
-};
-
-class PlsPlaylistParser
-{
-public:
-    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent);
-    QString toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls);
-};
-
-class ELISALIB_EXPORT PlaylistParser
-{
-public:
-    QList<QUrl> fromPlaylist(const QUrl &fileName, const QByteArray &fileContent);
-    QString toPlaylist(const QUrl &fileName, const QList<QString> &listOfUrls);
-
-private:
-    int filterImported(QList<QUrl>& result, const QUrl &playlistUrl);
-};
 
 class MediaPlayList;
 class MediaPlayListProxyModelPrivate;
@@ -192,6 +169,8 @@ public:
     [[nodiscard]] bool partiallyLoaded() const;
 
     [[nodiscard]] bool canOpenLoadedPlaylist() const;
+
+    [[nodiscard]] PlaylistModel getPlaylistModel() const;
 
     int mSeekToBeginningDelay = 2000;
 
@@ -349,7 +328,7 @@ private:
 
     void loadLocalFile(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QFileInfo &fileInfo);
 
-    void loadLocalPlayList(DataTypes::EntryDataList &newTracks, QSet<QString> &processedUFiles, const QUrl &fileName, const QByteArray &fileContent);
+    bool loadLocalPlayList(DataTypes::EntryDataList &newTracks, QSet<QString> &processedUFiles, const QUrl &fileName);
 
     void loadLocalDirectory(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &dirName);
 

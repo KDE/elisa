@@ -41,6 +41,7 @@ set(elisaLib_SOURCES
     viewslistdata.cpp
     viewconfigurationdata.cpp
     localFileConfiguration/elisaconfigurationdialog.cpp
+    playlistparser.cpp
 )
 
 set(elisaLib_INCLUDEDIRS

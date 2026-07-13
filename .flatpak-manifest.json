@@ -42,8 +42,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://git.openldap.org/openldap/openldap/-/archive/LMDB_0.9.35/openldap-LMDB_0.9.35.tar.gz",
-                    "sha256": "0d090c6a7c85a4f31a2ab0d734554c21097f24752393a190b0e51996b08f48c4",
+                    "url": "https://git.openldap.org/openldap/openldap/-/archive/LMDB_1.0.0/openldap-LMDB_1.0.0.tar.gz",
+                    "sha256": "a61ded12bd9c670038b77483dda13b50684a93a111e53421dfb979624ae9f72e",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 6974,

@@ -188,7 +188,7 @@ BasePlayerControl {
                             return map[ElisaApplication.mediaPlayListProxyModel.shuffleMode]
                         }
 
-                        down: pressed || menu.visible
+                        down: pressed || shuffleMenu.visible
                         Accessible.role: Accessible.ButtonMenu
 
                         checkable: true
@@ -198,10 +198,13 @@ BasePlayerControl {
                             ElisaApplication.mediaPlayListProxyModel.shuffleMode = (ElisaApplication.mediaPlayListProxyModel.shuffleMode + 1) % 3
                         }
                         onPressAndHold: {
-                            (menu as Menu).popup()
+                            shuffleMenu.popup()
                         }
 
-                        menu: Menu {
+                        ContextMenu.menu: shuffleMenu
+
+                        Menu {
+                            id: shuffleMenu
                             ShuffleModeItem {
                                 text: KI18n.i18nc("@action:inmenu", "Track")
                                 mode: MediaPlayListProxyModel.Track
@@ -247,7 +250,7 @@ BasePlayerControl {
                             return map[ElisaApplication.mediaPlayListProxyModel.repeatMode]
                         }
 
-                        down: pressed || menu.visible
+                        down: pressed || repeatMenu.visible
                         Accessible.role: Accessible.ButtonMenu
 
                         checkable: true
@@ -256,10 +259,13 @@ BasePlayerControl {
                             ElisaApplication.mediaPlayListProxyModel.repeatMode = (ElisaApplication.mediaPlayListProxyModel.repeatMode + 1) % 3
                         }
                         onPressAndHold: {
-                            (menu as Menu).popup()
+                            repeatMenu.popup()
                         }
 
-                        menu: Menu {
+                        ContextMenu.menu: repeatMenu
+
+                        Menu {
+                            id: repeatMenu
                             PlaylistModeItem {
                                 text: KI18n.i18nc("@action:inmenu", "Playlist")
                                 mode: MediaPlayListProxyModel.Playlist

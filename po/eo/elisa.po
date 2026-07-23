@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: desktop files\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:42+0000\n"
+"POT-Creation-Date: 2026-07-23 00:42+0000\n"
 "PO-Revision-Date: 2025-02-12 07:01+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -677,7 +677,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Konservado malsukcesis"
 
-#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:264
+#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:270
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
@@ -779,44 +779,44 @@ msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Aktuala: Hazardordigi albumojn"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Trako"
 
-#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:213 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Albumo"
 
-#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
+#: qml/MediaPlayerControl.qml:217 qml/MediaPlayerControl.qml:278
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Neniu"
 
-#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:238 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Aktuale: Ne ripeti trakojn"
 
-#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Aktuale: Ripeti nunan trakon"
 
-#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:240 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Aktuale: Ripeti ĉiujn trakojn en ludlisto"
 
-#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:274 qml/mobile/MobileTrackPlayer.qml:302
 #, fuzzy, kde-format
 #| msgctxt "@item:intable number of tracks/songs in all albums"
 #| msgid "%1 track"
@@ -825,7 +825,7 @@ msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "%1 trako"
 
-#: qml/MediaPlayerControl.qml:300
+#: qml/MediaPlayerControl.qml:306
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"

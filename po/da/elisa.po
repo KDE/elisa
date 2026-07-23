@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:42+0000\n"
+"POT-Creation-Date: 2026-07-23 00:42+0000\n"
 "PO-Revision-Date: 2025-07-31 11:52+0200\n"
 "Last-Translator: rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -678,7 +678,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Kunne ikke gemme"
 
-#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:264
+#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:270
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
@@ -780,50 +780,50 @@ msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "Nuværende: Bland album"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Nummer"
 
-#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:213 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "Album"
 
-#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
+#: qml/MediaPlayerControl.qml:217 qml/MediaPlayerControl.qml:278
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "Ingen"
 
-#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:238 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Nuværende: Gentag ikke numre"
 
-#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Nuværende: Gentag nuværende nummer"
 
-#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:240 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Nuværende: Gentag alle numre i playliste"
 
-#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:274 qml/mobile/MobileTrackPlayer.qml:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "Én sang"
 
-#: qml/MediaPlayerControl.qml:300
+#: qml/MediaPlayerControl.qml:306
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"

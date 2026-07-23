@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:42+0000\n"
+"POT-Creation-Date: 2026-07-23 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -653,7 +653,7 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "保存失败"
 
-#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:264
+#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:270
 #: qml/mobile/MobileTrackPlayer.qml:298
 #, kde-format
 msgctxt "@action:inmenu"
@@ -751,50 +751,50 @@ msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr "当前：随机播放专辑"
 
-#: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "曲目"
 
-#: qml/MediaPlayerControl.qml:210 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:213 qml/mobile/MobileTrackPlayer.qml:249
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Album"
 msgstr "专辑"
 
-#: qml/MediaPlayerControl.qml:214 qml/MediaPlayerControl.qml:272
+#: qml/MediaPlayerControl.qml:217 qml/MediaPlayerControl.qml:278
 #: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr "不重复"
 
-#: qml/MediaPlayerControl.qml:235 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:238 qml/mobile/MobileTrackPlayer.qml:267
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "当前：不重复播放曲目"
 
-#: qml/MediaPlayerControl.qml:236 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:268
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "当前：重复播放当前曲目"
 
-#: qml/MediaPlayerControl.qml:237 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:240 qml/mobile/MobileTrackPlayer.qml:269
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "当前：重复播放播放列表中的所有曲目"
 
-#: qml/MediaPlayerControl.qml:268 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:274 qml/mobile/MobileTrackPlayer.qml:302
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "One track"
 msgstr "1 首曲目"
 
-#: qml/MediaPlayerControl.qml:300
+#: qml/MediaPlayerControl.qml:306
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Application menu"

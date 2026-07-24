@@ -94,12 +94,9 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
 {
     auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
     configurationFileName += QStringLiteral("/elisarc");
-    Elisa::ElisaConfiguration::instance(configurationFileName);
-    Elisa::ElisaConfiguration::self()->load();
-    Elisa::ElisaConfiguration::self()->save();
     d->mSchemes = KColorSchemeManager::instance();
 
-    d->mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
+    d->mConfigFileWatcher.addPath(configurationFileName);
 
     connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
             this, &ElisaApplication::configChanged);

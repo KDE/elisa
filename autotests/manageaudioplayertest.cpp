@@ -23,7 +23,6 @@ ManageAudioPlayerTest::ManageAudioPlayerTest(QObject *parent) : QObject(parent)
 void ManageAudioPlayerTest::initTestCase()
 {
     QStandardPaths::setTestModeEnabled(true);
-    Elisa::ElisaConfiguration::instance(QStringLiteral("testfoo"));
 }
 
 void ManageAudioPlayerTest::simpleInitialCase()

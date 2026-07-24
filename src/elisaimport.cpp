@@ -31,12 +31,6 @@ int main(int argc, char *argv[])
     parser.addVersionOption();
     parser.process(app);
 
-    auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-    configurationFileName += QStringLiteral("/elisarc");
-    Elisa::ElisaConfiguration::instance(configurationFileName);
-    Elisa::ElisaConfiguration::self()->load();
-    Elisa::ElisaConfiguration::self()->save();
-
     MusicListenersManager myMusicManager;
     ElisaImportApplication myApplication;
 

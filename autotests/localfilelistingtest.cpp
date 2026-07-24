@@ -42,7 +42,6 @@ private Q_SLOTS:
         qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
         qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
-        Elisa::ElisaConfiguration::instance(QStringLiteral("scanAtStartupFeature"));
     }
 
     void initialTestWithNoTrack()

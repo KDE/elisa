@@ -39,7 +39,6 @@ private Q_SLOTS:
         qRegisterMetaType<QAbstractProxyModel*>("QAbstractProxyModel*");
         qRegisterMetaType<DataTypes::DataType>("DataTypes::DataType");
         QStandardPaths::setTestModeEnabled(true);
-        Elisa::ElisaConfiguration::instance(QStringLiteral("testfoo"));
     }
 
     void openAlbumViewTest()

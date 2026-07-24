@@ -64,7 +64,6 @@ void MediaPlayListProxyModelTest::initTestCase()
     qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
     qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
     qRegisterMetaType<ElisaUtils::PlayListEntryType>("PlayListEntryType");
-    Elisa::ElisaConfiguration::instance(QStringLiteral("testfoo"));
 }
 
 void MediaPlayListProxyModelTest::init()

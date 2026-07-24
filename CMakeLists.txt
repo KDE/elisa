@@ -108,6 +108,11 @@ set_package_properties(KF6Crash PROPERTIES
     DESCRIPTION "Graceful handling of application crashes."
     TYPE OPTIONAL)
 
+find_package(KF6KirigamiAddons CONFIG QUIET)
+set_package_properties(KF6KirigamiAddons PROPERTIES
+    DESCRIPTION "Addons for Kirigami applications"
+    TYPE REQUIRED)
+
 if (NOT WIN32 AND NOT ANDROID)
     find_package(KF6DBusAddons ${REQUIRED_KF_VERSION} CONFIG QUIET)
     set_package_properties(KF6DBusAddons PROPERTIES

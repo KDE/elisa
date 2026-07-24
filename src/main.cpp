@@ -28,6 +28,7 @@
 
 #include <KAboutData>
 #include <KIconTheme>
+#include <KirigamiAddons/App/KirigamiAppDefaults>
 
 #if KFCrash_FOUND
 #include <KCrash>
@@ -68,11 +69,6 @@ int __attribute__((visibility("default"))) main(int argc, char *argv[])
 int main(int argc, char *argv[])
 #endif
 {
-    KIconTheme::initTheme();
-    auto format = QSurfaceFormat::defaultFormat();
-    format.setOption(QSurfaceFormat::ResetNotification);
-    QSurfaceFormat::setDefaultFormat(format);
-
 #ifdef Q_OS_ANDROID
     if(argc > 1 && strcmp(argv[1], "-service") == 0){
         QAndroidService app(argc, argv);
@@ -90,20 +86,9 @@ int main(int argc, char *argv[])
     AndroidPlayerJni::registerNativeMethods();
 #endif
 
-#ifdef Q_OS_WIN
-    if (AttachConsole(ATTACH_PARENT_PROCESS)) {
-        freopen("CONOUT$", "w", stdout);
-        freopen("CONOUT$", "w", stderr);
-    }
-#endif
-
     qputenv("QT_GSTREAMER_USE_PLAYBIN_VOLUME", "true");
 
     QApplication app(argc, argv);
-
-#if defined Q_OS_WIN || defined Q_OS_MAC
-    QApplication::setStyle(QStringLiteral("breeze"));
-#endif
 
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("elisa"));
 
@@ -126,27 +111,13 @@ int main(int argc, char *argv[])
     aboutData.addCredit(QStringLiteral("Jérôme Guidon"), i18nc("@label", "Support for online radios"), QStringLiteral("guidon@live.fr"));
 
     KAboutData::setApplicationData(aboutData);
-#if KFCrash_FOUND
-    KCrash::initialize();
-#endif
+
+    KirigamiAppDefaults::apply(&app);
 
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
     parser.process(app);
     aboutData.processCommandLine(&parser);
-
-
-    // If styling has not been set via QT_QUICK_CONTROLS_STYLE, default to some
-    // styles that make sense for desktop and mobile form factors.
-    if (qEnvironmentVariableIsEmpty("QT_QUICK_CONTROLS_STYLE")) {
-#ifdef Q_OS_ANDROID
-        QQuickStyle::setStyle(QStringLiteral("org.kde.breeze"));
-        QQuickStyle::setFallbackStyle(QStringLiteral("Material"));
-#else
-        QQuickStyle::setStyle(QStringLiteral("org.kde.desktop"));
-        QQuickStyle::setFallbackStyle(QStringLiteral("Fusion"));
-#endif
-    }
 
     QQmlApplicationEngine engine;
     engine.addImportPath(QStringLiteral("qrc:/imports"));

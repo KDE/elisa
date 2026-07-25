@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-23 00:42+0000\n"
+"POT-Creation-Date: 2026-07-25 00:43+0000\n"
 "PO-Revision-Date: 2025-03-02 00:31+0700\n"
 "Last-Translator: Pongsakorn S. <kde@xerusion.me>\n"
 "Language-Team: Thai\n"
@@ -40,61 +40,61 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "สถานีวิทยุ"
 
-#: elisaapplication.cpp:184
+#: elisaapplication.cpp:181
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "สลับเพลย์ลิสต์"
 
-#: elisaapplication.cpp:190
+#: elisaapplication.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "ไปข้างหน้า 10 วินาที"
 
-#: elisaapplication.cpp:197
+#: elisaapplication.cpp:194
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "ถอยหลัง 10 วินาที"
 
-#: elisaapplication.cpp:204
+#: elisaapplication.cpp:201
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "ไปเพลงถัดไป"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:208
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "ไปเพลงก่อนหน้า"
 
-#: elisaapplication.cpp:218
+#: elisaapplication.cpp:215
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "เล่น/หยุด"
 
-#: elisaapplication.cpp:231
+#: elisaapplication.cpp:228
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "สลับโหมดปาร์ตี้"
 
-#: main.cpp:113
+#: main.cpp:98
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:115
+#: main.cpp:100
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "เครื่องเล่นเพลงเรียบง่ายที่สร้างด้วยความรักจากชาว KDE"
 
-#: main.cpp:117
+#: main.cpp:102
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid "(c) 2015-2020, Elisa contributors"
@@ -102,43 +102,43 @@ msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa contributors"
 
-#: main.cpp:119 models/lyricsmodel.cpp:165
+#: main.cpp:104 models/lyricsmodel.cpp:165
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "ผู้สร้าง"
 
-#: main.cpp:120
+#: main.cpp:105
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "ผู้เขียน"
 
-#: main.cpp:122
+#: main.cpp:107
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "ผลงานคอนเซ็ปต์และการออกแบบ"
 
-#: main.cpp:123
+#: main.cpp:108
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "การสนับสนุนการแปลเป็นภาษาท้องถิ่น"
 
-#: main.cpp:124
+#: main.cpp:109
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "รองรับอินเทอร์เฟซจากขวาไปซ้าย"
 
-#: main.cpp:125
+#: main.cpp:110
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "การปรับปรุงต่างๆ ให้กับอินเทอร์เฟซ"
 
-#: main.cpp:126
+#: main.cpp:111
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

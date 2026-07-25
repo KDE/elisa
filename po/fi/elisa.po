@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-23 00:42+0000\n"
+"POT-Creation-Date: 2026-07-25 00:43+0000\n"
 "PO-Revision-Date: 2026-01-02 11:48+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -41,62 +41,62 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radioasemat"
 
-#: elisaapplication.cpp:184
+#: elisaapplication.cpp:181
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Näytä tai piilota soittolista"
 
-#: elisaapplication.cpp:190
+#: elisaapplication.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Kelaa eteenpäin 10 sekuntia"
 
-#: elisaapplication.cpp:197
+#: elisaapplication.cpp:194
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Hyppää 1 sekuntia taaksepäin"
 
 # Tämä ilmoitus näkyy kappaleita tuotaessa, ei jälkeenpäin
-#: elisaapplication.cpp:204
+#: elisaapplication.cpp:201
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Siirry seuraavaan kappaleeseen"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:208
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Siirry edelliseen kappaleeseen"
 
-#: elisaapplication.cpp:218
+#: elisaapplication.cpp:215
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Soita/tauko"
 
-#: elisaapplication.cpp:231
+#: elisaapplication.cpp:228
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "Vaihda biletilaa"
 
-#: main.cpp:113
+#: main.cpp:98
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:115
+#: main.cpp:100
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "KDE-yhteisön rakkaudella luoma yksinkertainen musiikkisoitin"
 
-#: main.cpp:117
+#: main.cpp:102
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid "© 2015–2020, Elisa contributors"
@@ -104,43 +104,43 @@ msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
 msgstr "© 2015–2020 Elisan avustajat"
 
-#: main.cpp:119 models/lyricsmodel.cpp:165
+#: main.cpp:104 models/lyricsmodel.cpp:165
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "Luoja"
 
-#: main.cpp:120
+#: main.cpp:105
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "Tekijä"
 
-#: main.cpp:122
+#: main.cpp:107
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "Konsepti ja suunnittelu"
 
-#: main.cpp:123
+#: main.cpp:108
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "Kotoistustuki"
 
-#: main.cpp:124
+#: main.cpp:109
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "Käyttöliittymän oikealta vasemmalle -tekstituki"
 
-#: main.cpp:125
+#: main.cpp:110
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "Monet käyttöliittymäparannukset"
 
-#: main.cpp:126
+#: main.cpp:111
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

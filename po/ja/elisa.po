@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-23 00:42+0000\n"
+"POT-Creation-Date: 2026-07-25 00:43+0000\n"
 "PO-Revision-Date: 2021-10-25 12:54-0700\n"
 "Last-Translator: Teruyoshi Ogawa <terucco@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -40,61 +40,61 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "ラジオ局"
 
-#: elisaapplication.cpp:184
+#: elisaapplication.cpp:181
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "プレイリストを切り替え"
 
-#: elisaapplication.cpp:190
+#: elisaapplication.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10秒進む"
 
-#: elisaapplication.cpp:197
+#: elisaapplication.cpp:194
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "10秒戻す"
 
-#: elisaapplication.cpp:204
+#: elisaapplication.cpp:201
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "次のトラックへ行く"
 
-#: elisaapplication.cpp:211
+#: elisaapplication.cpp:208
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "前のトラックへ行く"
 
-#: elisaapplication.cpp:218
+#: elisaapplication.cpp:215
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "再生/一時停止"
 
-#: elisaapplication.cpp:231
+#: elisaapplication.cpp:228
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
 msgstr "パーティーモードを切り替え"
 
-#: main.cpp:113
+#: main.cpp:98
 #, kde-format
 msgctxt "@title"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: main.cpp:115
+#: main.cpp:100
 #, kde-format
 msgctxt "@info"
 msgid "A Simple Music Player made with love by the KDE community"
 msgstr "KDE コミュニティによって作成されたシンプルな音楽プレーヤー"
 
-#: main.cpp:117
+#: main.cpp:102
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid "(c) 2015-2020, Elisa contributors"
@@ -102,43 +102,43 @@ msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
 msgstr "(c) 2015-2020, Elisa の貢献者"
 
-#: main.cpp:119 models/lyricsmodel.cpp:165
+#: main.cpp:104 models/lyricsmodel.cpp:165
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
 msgstr "作成者"
 
-#: main.cpp:120
+#: main.cpp:105
 #, kde-format
 msgctxt "@label"
 msgid "Author"
 msgstr "作者"
 
-#: main.cpp:122
+#: main.cpp:107
 #, kde-format
 msgctxt "@label"
 msgid "Concept and design work"
 msgstr "コンセプトおよびデザインの仕事"
 
-#: main.cpp:123
+#: main.cpp:108
 #, kde-format
 msgctxt "@label"
 msgid "Localization support"
 msgstr "多言語サポート"
 
-#: main.cpp:124
+#: main.cpp:109
 #, kde-format
 msgctxt "@label"
 msgid "Right to left support in interface"
 msgstr "インターフェースの Right to left (RTL) サポート"
 
-#: main.cpp:125
+#: main.cpp:110
 #, kde-format
 msgctxt "@label"
 msgid "Various improvements to the interface"
 msgstr "インターフェースのさまざまな改善"
 
-#: main.cpp:126
+#: main.cpp:111
 #, kde-format
 msgctxt "@label"
 msgid "Support for online radios"

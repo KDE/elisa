@@ -10,6 +10,7 @@
 #include <QString>
 #include <QMimeDatabase>
 #include <KDirLister>
+#include <qhashfunctions.h>
 
 #include "models/modelLogging.h"
 
@@ -98,8 +99,11 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         KFileItem item = itemForIndex(index);
         if (item.isDir()) {
             result = QUrl(QStringLiteral("image://icon/folder"));
-        } else {
+        } else if (ElisaUtils::isPlayList(item.currentMimeType())) {
             result = QUrl(QStringLiteral("image://icon/audio-x-generic"));
+        } else {
+            const QString encodedPath = QString::fromUtf8(QUrl::toPercentEncoding(item.url().toLocalFile()));
+            result = QUrl(QStringLiteral("image://cover/") + encodedPath);
         }
         break;
     }
@@ -132,6 +136,7 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
                                                                   {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://icon/folder"))}});
         } else {
             auto mimeType = item.currentMimeType();
+            const QString encodedPath = QString::fromUtf8(QUrl::toPercentEncoding(item.url().toLocalFile()));
             if (ElisaUtils::isPlayList(mimeType)) {
                 result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::ResourceRole, item.url()},
                                                                       {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::PlayList},
@@ -141,7 +146,7 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
                 result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::ResourceRole, item.url()},
                                                                       {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::Track},
                                                                       {DataTypes::TitleRole, item.name()},
-                                                                      {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://icon/audio-x-generic"))}});
+                                                                      {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://cover") + encodedPath)}});
             }
         }
         break;

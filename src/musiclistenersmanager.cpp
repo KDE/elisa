@@ -13,7 +13,7 @@
 #if UpnpLibQt_FOUND
 #include "upnp/upnplistener.h"
 #include "upnp/upnpdiscoverallmusic.h"
-#include <KF5/UpnpLibQt/upnpssdpengine.h>
+#include <KF6/UpnpLibQt/upnpssdpengine.h>
 #endif
 
 #ifdef Q_OS_ANDROID

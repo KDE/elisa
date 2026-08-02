@@ -145,6 +145,7 @@ set_package_properties(UpnpLibQt PROPERTIES
 
 if (UpnpLibQt_FOUND)
     message(WARNING "UPnP support is experimental and may not work.")
+    find_package(KDSoap-qt6 1.5.0 CONFIG REQUIRED)
 endif()
 
 find_package(LIBVLC QUIET)

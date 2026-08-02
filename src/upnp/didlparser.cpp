@@ -495,7 +495,7 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, D
             if (durationValue.startsWith(QLatin1String("0:"))) {
                 durationValue.remove(0, 2);
             }
-            if (durationValue.contains(uint('.'))) {
+            if (durationValue.contains(QLatin1Char('.'))) {
                 durationValue = durationValue.split(QLatin1Char('.')).first();
             }
 

@@ -11,6 +11,8 @@
 
 #include "elisautils.h"
 #include "datatypes.h"
+#include "databaseinterface.h"
+#include "upnpcontrolcontentdirectory.h"
 
 #include <QAbstractItemModel>
 #include <QQmlEngine>
@@ -18,9 +20,7 @@
 #include <memory>
 
 class UpnpContentDirectoryModelPrivate;
-class UpnpControlContentDirectory;
 class MusicListenersManager;
-class DatabaseInterface;
 
 class ELISALIB_EXPORT UpnpContentDirectoryModel : public QAbstractItemModel
 {
@@ -151,8 +151,6 @@ private:
     std::unique_ptr<UpnpContentDirectoryModelPrivate> d;
 
 };
-
-Q_DECLARE_METATYPE(UpnpContentDirectoryModel::ItemClass)
 
 #endif // UPNPCONTENTDIRECTORYMODEL_H
 

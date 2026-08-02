@@ -228,6 +228,7 @@ if (UpnpLibQt_FOUND)
         upnp/upnplistener.cpp
         )
     set(elisaLib_INCLUDEDIRS
+        ${elisaLib_INCLUDEDIRS}
         ${CMAKE_CURRENT_SOURCE_DIR}/upnp
     )
 endif()
@@ -304,6 +305,7 @@ if (UpnpLibQt_FOUND)
     target_link_libraries(elisaLib
         LINK_PUBLIC
         UPNP::UpnpLibQt
+        KDSoap::kdsoap
         )
 endif()
 

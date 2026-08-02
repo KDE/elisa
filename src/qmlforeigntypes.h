@@ -9,7 +9,7 @@
 
 #include "config-upnp-qt.h"
 
-#if UPNPQT_FOUND
+#if UpnpLibQt_FOUND
 #include "upnpdevicedescription.h"
 
 #include "upnpssdpengine.h"
@@ -38,7 +38,7 @@ struct ForeignQAbstractProxyModel
     QML_UNCREATABLE("")
 };
 
-#if UPNPQT_FOUND
+#if UpnpLibQt_FOUND
 struct ForeignUpnpSsdpEngine
 {
     Q_GADGET

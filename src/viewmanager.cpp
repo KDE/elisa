@@ -38,7 +38,7 @@ public:
     QMap<ElisaUtils::PlayListEntryType, ViewParameters> mChildViews = {
         {ElisaUtils::Album, {{},
                              QUrl{QStringLiteral("image://icon/view-media-track")},
-                             ViewManager::ListView,
+                             ViewManager::TrackView,
                              ViewManager::GenericDataModelType,
                              ElisaUtils::FilterById,
                              ElisaUtils::Track,
@@ -95,7 +95,7 @@ public:
         {ElisaUtils::Track, {{},
                              QUrl{QStringLiteral("image://icon/view-media-track")},
                              ViewManager::TrackView,
-                             ViewManager::GenericDataModel,
+                             ViewManager::GenericDataModelType,
                              ElisaUtils::FilterByArtist,
                              ElisaUtils::Track,
                              DataTypes::TitleRole,
@@ -125,8 +125,7 @@ public:
                                        {i18n("A-Z"), i18n("Z-A")},
                                        QUrl{QStringLiteral("image://icon/network-server")},
                                        ViewManager::DelegateWithoutSecondaryText,
-                                       ViewManager::ViewHideRating,
-                                       ViewManager::IsFlatModel}},
+                                       ViewManager::ViewHideRating}},
     };
 
     int mViewIndex = -1;

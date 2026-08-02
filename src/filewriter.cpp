@@ -7,7 +7,7 @@
 
 #include "filewriter.h"
 
-#include "trackmetadatamodel.h"
+#include "models/trackmetadatamodel.h"
 
 #include "config-upnp-qt.h"
 #include <QMimeDatabase>

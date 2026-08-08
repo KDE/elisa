@@ -98,8 +98,8 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         KFileItem item = itemForIndex(index);
         if (item.isDir()) {
             result = QUrl(QStringLiteral("image://icon/folder"));
-        } else if (ElisaUtils::isPlayList(item.currentMimeType())) {
-            result = QUrl(QStringLiteral("image://icon/audio-x-generic"));
+        } else if (item.isMimeTypeKnown()) {
+            result = QUrl(QStringLiteral("image://icon/") + item.iconName());
         } else {
             const QString encodedPath = QString::fromUtf8(QUrl::toPercentEncoding(item.url().toLocalFile()));
             result = QUrl(QStringLiteral("image://cover/") + encodedPath);
@@ -140,7 +140,7 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
                 result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::ResourceRole, item.url()},
                                                                       {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::PlayList},
                                                                       {DataTypes::TitleRole, item.name()},
-                                                                      {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://icon/audio-x-generic"))}});
+                                                                      {DataTypes::ImageUrlRole, QUrl(QStringLiteral("image://icon/") + mimeType.iconName())}});
             } else {
                 result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::ResourceRole, item.url()},
                                                                       {DataTypes::ColumnsRoles::ElementTypeRole, ElisaUtils::Track},

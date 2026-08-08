@@ -10,7 +10,6 @@
 #include <QString>
 #include <QMimeDatabase>
 #include <KDirLister>
-#include <qhashfunctions.h>
 
 #include "models/modelLogging.h"
 

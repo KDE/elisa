@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-25 00:43+0000\n"
-"PO-Revision-Date: 2026-03-23 22:30+0400\n"
+"PO-Revision-Date: 2026-08-10 14:12+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -407,7 +407,7 @@ msgstr "أضف إلى قائمة التّشغيل"
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
 msgid "Show in folder"
-msgstr "أعرض في مجلد"
+msgstr "اعرض في مجلد"
 
 #: qml/AbstractBrowserDelegate.qml:85
 #, kde-format
@@ -525,7 +525,7 @@ msgstr "لا يُعزف الآن"
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
-msgstr "أعرض في مجلد"
+msgstr "اعرض في مجلد"
 
 #: qml/DataGridView.qml:162
 #, kde-format
@@ -1417,7 +1417,7 @@ msgstr "رشح حسب التقييم: "
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"
-msgstr "أعرض فقط المفضلات"
+msgstr "اعرض فقط المفضلات"
 
 #: qml/PlayListEntry.qml:104 qml/TrackBrowserDelegate.qml:97
 #, kde-format

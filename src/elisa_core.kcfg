@@ -9,8 +9,6 @@
  <group name="ElisaFileIndexer">
   <entry key="RootPath" type="PathList" >
   </entry>
-  <entry key="ForceUsageOfFastFileSearch" type="Bool" >
-  </entry>
  </group>
  <group name="PlayerSettings">
  <entry key="ShowNowPlayingBackground" type="Bool">

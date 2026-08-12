@@ -1591,7 +1591,7 @@ msgstr "المشغلة حديثا"
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
-msgstr "الأكثر تشغيلاً"
+msgstr "الأكثر تشغيلًا"
 
 #: qml/SettingsForm.qml:292 viewmanager.cpp:216
 #, kde-format
@@ -1839,14 +1839,14 @@ msgstr "السنة"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
-msgstr "الأقدم أولاً"
+msgstr "الأقدم أولًا"
 
 #: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
 #: viewslistdata.cpp:63 viewslistdata.cpp:97 viewslistdata.cpp:98
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
-msgstr "الأحدث أولاً"
+msgstr "الأحدث أولًا"
 
 #: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
 #, kde-format
@@ -1937,19 +1937,19 @@ msgstr "تاريخ آخر تشغيل"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
-msgstr "الأقل تشغيلًا مؤخرًا أولاً"
+msgstr "الأقل تشغيلًا مؤخرًا أولًا"
 
 #: viewslistdata.cpp:37
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
-msgstr "الأكثر تشغيلاً مؤخرًا أولاً"
+msgstr "الأكثر تشغيلًا مؤخرًا أولًا"
 
 #: viewslistdata.cpp:40
 #, kde-format
 msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
-msgstr "الأكثر تشغيلاً"
+msgstr "الأكثر تشغيلًا"
 
 #: viewslistdata.cpp:48
 #, kde-format
@@ -1961,13 +1961,13 @@ msgstr "تردد التشغيل"
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
-msgstr "الأقل تكرارًا للتشغيل أولاً"
+msgstr "الأقل تكرارًا للتشغيل أولًا"
 
 #: viewslistdata.cpp:50
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
-msgstr "الأكثر تكرارًا للتشغيل أولاً"
+msgstr "الأكثر تكرارًا للتشغيل أولًا"
 
 #: viewslistdata.cpp:75 viewslistdata.cpp:134
 #, kde-format

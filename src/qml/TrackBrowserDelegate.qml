@@ -182,6 +182,7 @@ ItemDelegate {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.preferredHeight: Theme.listDelegateButtonHeight
 
                 spacing: Kirigami.Units.smallSpacing / 2
 
@@ -271,6 +272,7 @@ ItemDelegate {
             Loader {
                 id: hoverLoader
                 active: !Kirigami.Settings.isMobile && (mediaTrack.hovered || mediaTrack.hasActiveFocus) && !mediaTrack.editingRating
+                visible: active
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 Layout.preferredHeight: Theme.listDelegateButtonHeight

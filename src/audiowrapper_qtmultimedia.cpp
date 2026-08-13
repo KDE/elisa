@@ -223,14 +223,18 @@ void AudioWrapper::playerVolumeChanged()
 {
     qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerVolumeChanged" << d->mOutput.volume();
 
-    QTimer::singleShot(0, [this]() {Q_EMIT volumeChanged();});
+    QTimer::singleShot(0, this, [this]() {
+        Q_EMIT volumeChanged();
+    });
 }
 
 void AudioWrapper::playerMutedChanged()
 {
     qCDebug(orgKdeElisaPlayerQtMultimedia) << "AudioWrapper::playerMutedChanged";
 
-    QTimer::singleShot(0, [this]() {Q_EMIT mutedChanged(muted());});
+    QTimer::singleShot(0, this, [this]() {
+        Q_EMIT mutedChanged(muted());
+    });
 }
 
 void AudioWrapper::playerStateSignalChanges(QMediaPlayer::PlaybackState newState)

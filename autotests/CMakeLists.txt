@@ -209,3 +209,37 @@ ecm_add_test(lyricsmodeltest.cpp
     TEST_NAME "lyricsModelTest"
     LINK_LIBRARIES Qt::Test elisaLib
 )
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    ecm_add_test(audiowrappertest.cpp
+        TEST_NAME "audioWrapperTest"
+        LINK_LIBRARIES Qt::Test elisaLib
+    )
+
+    target_include_directories(audioWrapperTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+    option(ELISA_CI_PIPEWIRE "Start a headless PipeWire session for audio tests" OFF)
+    if (ELISA_CI_PIPEWIRE)
+        find_program(PIPEWIRE_EXECUTABLE pipewire)
+        find_program(WIREPLUMBER_EXECUTABLE wireplumber)
+        if (PIPEWIRE_EXECUTABLE AND WIREPLUMBER_EXECUTABLE)
+            add_test(NAME elisaPipewireSetup
+                COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/run-with-pipewire.sh start
+            )
+            set_tests_properties(elisaPipewireSetup PROPERTIES
+                FIXTURES_SETUP "elisa_pipewire"
+            )
+
+            add_test(NAME elisaPipewireCleanup
+                COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/run-with-pipewire.sh stop
+            )
+            set_tests_properties(elisaPipewireCleanup PROPERTIES
+                FIXTURES_CLEANUP "elisa_pipewire"
+            )
+
+            set_tests_properties(audioWrapperTest PROPERTIES
+                FIXTURES_REQUIRED "elisa_pipewire"
+            )
+        endif()
+    endif()
+endif()

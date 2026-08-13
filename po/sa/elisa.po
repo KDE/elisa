@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:42+0000\n"
+"POT-Creation-Date: 2026-08-13 02:46+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1449,7 +1449,7 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "निष्कासयतु"
 
-#: qml/PlayListEntry.qml:313 qml/TrackBrowserDelegate.qml:312
+#: qml/PlayListEntry.qml:313 qml/TrackBrowserDelegate.qml:314
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -1731,13 +1731,13 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "इतः वादयन्तु, वर्तमानस्य वादनीयसूची प्रतिस्थाप्य"
 
-#: qml/TrackBrowserDelegate.qml:202 qml/TrackBrowserDelegate.qml:218
+#: qml/TrackBrowserDelegate.qml:203 qml/TrackBrowserDelegate.qml:219
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:213
+#: qml/TrackBrowserDelegate.qml:214
 #, fuzzy, kde-format
 #| msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 #| msgid "%1 - %2 - %3"
@@ -1745,13 +1745,13 @@ msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
 msgstr "%1 - %2 - %3"
 
-#: qml/TrackBrowserDelegate.qml:225
+#: qml/TrackBrowserDelegate.qml:226
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:371
+#: qml/TrackBrowserDelegate.qml:373
 #, kde-format
 msgctxt "@action:button"
 msgid "Song Options"

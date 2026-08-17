@@ -9,6 +9,8 @@
 
 #include <chrono>
 
+#include <KLocalizedString>
+
 #include <QMediaPlayer>
 #include <QSignalSpy>
 #include <QStandardPaths>
@@ -41,6 +43,7 @@ private Q_SLOTS:
     void initTestCase()
     {
         QStandardPaths::setTestModeEnabled(true);
+        KLocalizedString::setApplicationDomain(QByteArrayLiteral("elisa"));
     }
 
     void init()

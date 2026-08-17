@@ -213,7 +213,7 @@ ecm_add_test(lyricsmodeltest.cpp
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     ecm_add_test(audiowrappertest.cpp
         TEST_NAME "audioWrapperTest"
-        LINK_LIBRARIES Qt::Test elisaLib
+        LINK_LIBRARIES Qt::Test elisaLib KF6::I18n
     )
 
     target_include_directories(audioWrapperTest PRIVATE ${CMAKE_SOURCE_DIR}/src)

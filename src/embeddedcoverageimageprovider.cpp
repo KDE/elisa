@@ -10,6 +10,7 @@
 #include <KFileMetaData/ExtractorCollection>
 #include <KFileMetaData/SimpleExtractionResult>
 
+#include <QIcon>
 #include <QImage>
 #include <QMimeDatabase>
 
@@ -20,8 +21,9 @@ class AsyncImageResponse : public QQuickImageResponse, public QRunnable
     Q_OBJECT
 
 public:
-    AsyncImageResponse(QString id, QSize requestedSize)
+    AsyncImageResponse(QString id, QImage fallbackImage, QSize requestedSize)
         : QQuickImageResponse(), mId(std::move(id)), mRequestedSize(requestedSize)
+        , mFallbackImage(std::move(fallbackImage))
     {
         setAutoDelete(false);
 
@@ -56,7 +58,7 @@ public:
         auto imageData = result.imageData();
 
         if (imageData.isEmpty()) {
-          mErrorMessage = QString{QLatin1String{"Unable to load image data from "} + mId};
+          mCoverImage = mFallbackImage;
           Q_EMIT finished();
           return;
         }
@@ -90,6 +92,7 @@ public:
     QString mErrorMessage;
     QSize mRequestedSize;
     QImage mCoverImage;
+    QImage mFallbackImage;
 };
 }
 
@@ -101,7 +104,10 @@ EmbeddedCoverageImageProvider::EmbeddedCoverageImageProvider()
 QQuickImageResponse *EmbeddedCoverageImageProvider::requestImageResponse(const QString &id, const QSize &requestedSize)
 {
     const QString decodedId = QUrl::fromPercentEncoding(id.toUtf8());
-    auto response = std::make_unique<AsyncImageResponse>(decodedId, requestedSize);
+    const QMimeDatabase db;
+    const QMimeType mimeType = db.mimeTypeForFile(decodedId);
+    const QIcon fallbackIcon = QIcon::fromTheme(mimeType.iconName());
+    auto response = std::make_unique<AsyncImageResponse>(decodedId, fallbackIcon.pixmap(requestedSize).toImage(), requestedSize);
     pool.start(response.get());
     return response.release();
 }

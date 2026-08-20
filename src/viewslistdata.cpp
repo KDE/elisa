@@ -118,7 +118,7 @@ public:
                                                ViewManager::FileBrowserModel,
                                                ElisaUtils::NoFilter,
                                                ElisaUtils::FileName,
-                                               QUrl{QStringLiteral("image://icon/document-open-folder")},
+                                               QUrl{QStringLiteral("image://icon/audio-mp3")},
                                                ViewManager::DelegateWithoutSecondaryText,
                                                ViewManager::ViewHideRating,
                                                QUrl::fromLocalFile(QDir::rootPath())

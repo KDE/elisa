@@ -112,7 +112,7 @@ public:
 
     int mInitialIndex = -1;
 
-    QString mInitialFilesViewPath = QDir::rootPath();
+    QString mInitialFilesViewPath = Elisa::ElisaConfiguration::self()->initialFilesViewPath();
 
     QList<ViewParameters> mViewParametersStack = (mViewsListData ? QList<ViewParameters>{mViewsListData->viewParameters(0)} : QList<ViewParameters>{});
 };

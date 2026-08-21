@@ -21,9 +21,9 @@ using namespace Qt::Literals::StringLiterals;
 
 namespace
 {
-constexpr auto kTimeout = std::chrono::seconds(10);
-constexpr auto kEndOfMediaTimeout = std::chrono::seconds(15);
-constexpr auto kSettleWait = std::chrono::milliseconds(300);
+constexpr auto kTimeout = std::chrono::seconds(2);
+constexpr auto kEndOfMediaTimeout = std::chrono::seconds(3);
+constexpr auto kSettleWait = std::chrono::milliseconds(150);
 constexpr auto kSeekTolerance = std::chrono::milliseconds(200);
 constexpr auto kUndoRestoreTolerance = std::chrono::milliseconds(500);
 
@@ -44,11 +44,6 @@ private Q_SLOTS:
     {
         QStandardPaths::setTestModeEnabled(true);
         KLocalizedString::setApplicationDomain(QByteArrayLiteral("elisa"));
-    }
-
-    void init()
-    {
-        mFixtureDir = QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + u"/music"_s;
     }
 
     void constructAndDefaults()
@@ -77,7 +72,7 @@ private Q_SLOTS:
         QSignalSpy stoppedSpy(&wrapper, &AudioWrapper::stopped);
         QSignalSpy playbackStateChangedSpy(&wrapper, &AudioWrapper::playbackStateChanged);
 
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
 
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
@@ -100,7 +95,7 @@ private Q_SLOTS:
     void seekDuringPlayback()
     {
         AudioWrapper wrapper;
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
 
         wrapper.play();
         QTRY_COMPARE_GT_WITH_TIMEOUT(wrapper.position(), 0, kTimeout);
@@ -114,7 +109,7 @@ private Q_SLOTS:
     void setPositionProperty()
     {
         AudioWrapper wrapper;
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
 
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
@@ -134,7 +129,7 @@ private Q_SLOTS:
         QSignalSpy durationChangedSpy(&wrapper, &AudioWrapper::durationChanged);
         QSignalSpy seekableChangedSpy(&wrapper, &AudioWrapper::seekableChanged);
 
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
 
@@ -152,7 +147,7 @@ private Q_SLOTS:
     {
         AudioWrapper wrapper;
         QSignalSpy positionChangedSpy(&wrapper, &AudioWrapper::positionChanged);
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
 
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
@@ -164,13 +159,12 @@ private Q_SLOTS:
     void endOfMedia()
     {
         AudioWrapper wrapper;
-        const QUrl trackUrl = QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s);
-        wrapper.setSource(trackUrl);
+        wrapper.setSource(sTestTrackUrl);
 
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.status(), QMediaPlayer::EndOfMedia, kEndOfMediaTimeout);
 
-        wrapper.setSource(trackUrl);
+        wrapper.setSource(sTestTrackUrl);
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
 
@@ -183,7 +177,7 @@ private Q_SLOTS:
         QSignalSpy errorChangedSpy(&wrapper, &AudioWrapper::errorChanged);
         QSignalSpy statusChangedSpy(&wrapper, &AudioWrapper::statusChanged);
 
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/does-not-exist.ogg"_s));
+        wrapper.setSource(QUrl::fromLocalFile(sFixtureDir + u"/does-not-exist.ogg"_s));
         wrapper.play();
 
         // Backends differ: libvlc reports both an error and InvalidMedia,
@@ -206,7 +200,7 @@ private Q_SLOTS:
         QFETCH(QString, fileName);
 
         AudioWrapper wrapper;
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/"_s + fileName));
+        wrapper.setSource(QUrl::fromLocalFile(sFixtureDir + u"/"_s + fileName));
 
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
@@ -221,7 +215,7 @@ private Q_SLOTS:
     {
         AudioWrapper wrapper;
 
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
 
@@ -240,7 +234,7 @@ private Q_SLOTS:
     void volumeBoundaryValues()
     {
         AudioWrapper wrapper;
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
 
@@ -256,7 +250,7 @@ private Q_SLOTS:
     void undoPositionRestore()
     {
         AudioWrapper wrapper;
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
 
         wrapper.play();
         QTRY_COMPARE_GT_WITH_TIMEOUT(wrapper.position(), 0, kTimeout);
@@ -280,7 +274,7 @@ private Q_SLOTS:
     void clearSource()
     {
         AudioWrapper wrapper;
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
 
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
@@ -295,7 +289,7 @@ private Q_SLOTS:
         AudioWrapper wrapper;
         QSignalSpy playingSpy(&wrapper, &AudioWrapper::playing);
         QSignalSpy stoppedSpy(&wrapper, &AudioWrapper::stopped);
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
 
         wrapper.play();
         QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
@@ -316,7 +310,7 @@ private Q_SLOTS:
     void stopImmediatelyAfterPlay()
     {
         AudioWrapper wrapper;
-        wrapper.setSource(QUrl::fromLocalFile(mFixtureDir + u"/test.ogg"_s));
+        wrapper.setSource(sTestTrackUrl);
 
         // Stop before the backend has reported PlayingState. The player must
         // settle on StoppedState no matter how quickly the stop follows.
@@ -329,8 +323,12 @@ private Q_SLOTS:
     }
 
 private:
-    QString mFixtureDir;
+    static const QString sFixtureDir;
+    static const QUrl sTestTrackUrl;
 };
+
+const QString AudioWrapperTest::sFixtureDir = QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + u"/music"_s;
+const QUrl AudioWrapperTest::sTestTrackUrl = QUrl::fromLocalFile(sFixtureDir + u"/test.ogg"_s);
 
 QTEST_GUILESS_MAIN(AudioWrapperTest)
 

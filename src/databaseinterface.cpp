@@ -3948,7 +3948,7 @@ GROUP BY album.`ID`
         auto result = prepareQuery(d->mSelectAlbumQuery, selectAlbumQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAlbumQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumQuery.lastError();
 
             Q_EMIT databaseError();
@@ -3968,7 +3968,7 @@ ORDER BY genre.`Name` COLLATE NOCASE
         auto result = prepareQuery(d->mSelectAllGenresQuery, selectAllGenresText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllGenresQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllGenresQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllGenresQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4036,7 +4036,7 @@ ORDER BY album.`Title` COLLATE NOCASE
         auto result = prepareQuery(d->mSelectAllAlbumsShortQuery, selectAllAlbumsText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4143,7 +4143,7 @@ ORDER BY album.`Title` COLLATE NOCASE
         auto result = prepareQuery(d->mSelectAllAlbumsShortWithGenreArtistFilterQuery, selectAllAlbumsText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithGenreArtistFilterQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4248,7 +4248,7 @@ ORDER BY album.`Title` COLLATE NOCASE
         auto result = prepareQuery(d->mSelectAllAlbumsShortWithArtistFilterQuery, selectAllAlbumsText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithArtistFilterQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithArtistFilterQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllAlbumsShortWithArtistFilterQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4271,7 +4271,7 @@ ORDER BY artists.`Name` COLLATE NOCASE
         auto result = prepareQuery(d->mSelectAllArtistsQuery, selectAllArtistsWithFilterText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4324,7 +4324,7 @@ ORDER BY artists.`Name` COLLATE NOCASE
         auto result = prepareQuery(d->mSelectAllArtistsWithGenreFilterQuery, selectAllArtistsWithGenreFilterText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsWithGenreFilterQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsWithGenreFilterQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllArtistsWithGenreFilterQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4355,7 +4355,7 @@ artists.`ID` = :databaseId
         auto result = prepareQuery(d->mArtistMatchGenreQuery, artistMatchGenreText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mArtistMatchGenreQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mArtistMatchGenreQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mArtistMatchGenreQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4374,7 +4374,7 @@ ORDER BY `Name` COLLATE NOCASE
         auto result = prepareQuery(d->mSelectAllComposersQuery, selectAllComposersWithFilterText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllComposersQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllComposersQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllComposersQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4393,7 +4393,7 @@ ORDER BY `Name` COLLATE NOCASE
         auto result = prepareQuery(d->mSelectAllLyricistsQuery, selectAllLyricistsWithFilterText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllLyricistsQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllLyricistsQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllLyricistsQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4527,7 +4527,7 @@ tracks.`Priority` = (
         auto result = prepareQuery(d->mSelectAllTracksQuery, selectAllTracksText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4554,7 +4554,7 @@ LEFT JOIN `Genre` trackGenre ON trackGenre.`Name` = radios.`Genre`
         auto result = prepareQuery(d->mSelectAllRadiosQuery, selectAllRadiosText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRadiosQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllRadiosQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRadiosQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4687,7 +4687,7 @@ LIMIT :maximumResults
         auto result = prepareQuery(d->mSelectAllRecentlyPlayedTracksQuery, selectAllTracksText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRecentlyPlayedTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllRecentlyPlayedTracksQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllRecentlyPlayedTracksQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4820,7 +4820,7 @@ LIMIT :maximumResults
         auto result = prepareQuery(d->mSelectAllFrequentlyPlayedTracksQuery, selectAllTracksText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllFrequentlyPlayedTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllFrequentlyPlayedTracksQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllFrequentlyPlayedTracksQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4974,7 +4974,7 @@ tracks.`AlbumPath` = album.`AlbumPath`
         auto result = prepareQuery(d->mSelectAllTracksShortQuery, selectAllTracksShortText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksShortQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksShortQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTracksShortQuery.lastError();
 
             Q_EMIT databaseError();
@@ -4994,7 +4994,7 @@ WHERE
         auto result = prepareQuery(d->mSelectArtistByNameQuery, selectArtistByNameText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistByNameQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectArtistByNameQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistByNameQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5014,7 +5014,7 @@ WHERE
         auto result = prepareQuery(d->mSelectComposerByNameQuery, selectComposerByNameText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerByNameQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectComposerByNameQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerByNameQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5034,7 +5034,7 @@ WHERE
         auto result = prepareQuery(d->mSelectLyricistByNameQuery, selectLyricistByNameText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistByNameQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectLyricistByNameQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistByNameQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5054,7 +5054,7 @@ WHERE
         auto result = prepareQuery(d->mSelectGenreByNameQuery, selectGenreByNameText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreByNameQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectGenreByNameQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreByNameQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5071,7 +5071,7 @@ VALUES (:artistId, :name)
         auto result = prepareQuery(d->mInsertArtistsQuery, insertArtistsText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertArtistsQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mInsertArtistsQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertArtistsQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5088,7 +5088,7 @@ VALUES (:genreId, :name)
         auto result = prepareQuery(d->mInsertGenreQuery, insertGenreText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertGenreQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mInsertGenreQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertGenreQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5105,7 +5105,7 @@ VALUES (:composerId, :name)
         auto result = prepareQuery(d->mInsertComposerQuery, insertComposerText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertComposerQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mInsertComposerQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertComposerQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5122,7 +5122,7 @@ VALUES (:lyricistId, :name)
         auto result = prepareQuery(d->mInsertLyricistQuery, insertLyricistText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertLyricistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mInsertLyricistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertLyricistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5256,7 +5256,7 @@ tracks.`TrackNumber` ASC
         auto result = prepareQuery(d->mSelectTrackQuery, selectTrackQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTrackQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5300,7 +5300,7 @@ tracks.`TrackNumber` ASC
         auto result = prepareQuery(d->mSelectTrackIdQuery, selectTrackQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5420,7 +5420,7 @@ tracksMapping.`FileName` = tracks.`FileName`
         auto result = prepareQuery(d->mSelectTrackFromIdQuery, selectTrackFromIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5541,7 +5541,7 @@ tracksMapping.`FileName` = :trackUrl
         auto result = prepareQuery(d->mSelectTrackFromIdAndUrlQuery, selectTrackFromIdAndUrlQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdAndUrlQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdAndUrlQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackFromIdAndUrlQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5570,7 +5570,7 @@ radios.`ID` = :radioId
         auto result = prepareQuery(d->mSelectRadioFromIdQuery, selectRadioFromIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectRadioFromIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectRadioFromIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectRadioFromIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5587,7 +5587,7 @@ WHERE album.`ArtistName` = :artistName
         const auto result = prepareQuery(d->mSelectCountAlbumsForArtistQuery, selectCountAlbumsQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForArtistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForArtistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5614,7 +5614,7 @@ album.`ArtistName` = :artistName
         const auto result = prepareQuery(d->mSelectGenreForArtistQuery, selectGenreForArtistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectGenreForArtistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForArtistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5641,7 +5641,7 @@ album.`ID` = :albumId
         const auto result = prepareQuery(d->mSelectGenreForAlbumQuery, selectGenreForAlbumQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForAlbumQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectGenreForAlbumQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreForAlbumQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5666,7 +5666,7 @@ albumComposer.`Name` = :artistName
         const auto result = prepareQuery(d->mSelectCountAlbumsForComposerQuery, selectCountAlbumsQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForComposerQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForComposerQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForComposerQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5691,7 +5691,7 @@ albumLyricist.`Name` = :artistName
         const auto result = prepareQuery(d->mSelectCountAlbumsForLyricistQuery, selectCountAlbumsQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForLyricistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForLyricistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectCountAlbumsForLyricistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5713,7 +5713,7 @@ album.`Title` = :title
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleQuery, selectAlbumIdFromTitleQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5736,7 +5736,7 @@ album.`AlbumPath` = :albumPath
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleAndArtistQuery, selectAlbumIdFromTitleAndArtistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleAndArtistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5759,7 +5759,7 @@ album.`ArtistName` IS NULL
         auto result = prepareQuery(d->mSelectAlbumIdFromTitleWithoutArtistQuery, selectAlbumIdFromTitleWithoutArtistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdFromTitleWithoutArtistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5786,7 +5786,7 @@ VALUES
         auto result = prepareQuery(d->mInsertAlbumQuery, insertAlbumQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertAlbumQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mInsertAlbumQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertAlbumQuery.lastError();
 
             Q_EMIT databaseError();
@@ -5808,7 +5808,7 @@ VALUES (:fileName, :mtime, :importDate, 0)
         auto result = prepareQuery(d->mInsertTrackMapping, insertTrackMappingQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackMapping.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mInsertTrackMapping.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackMapping.lastError();
 
             Q_EMIT databaseError();
@@ -5827,7 +5827,7 @@ WHERE `FileName` = :fileName
         auto result = prepareQuery(d->mUpdateTrackFileModifiedTime, initialUpdateTracksValidityQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFileModifiedTime.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFileModifiedTime.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFileModifiedTime.lastError();
 
             Q_EMIT databaseError();
@@ -5846,7 +5846,7 @@ WHERE `FileName` = :fileName
         auto result = prepareQuery(d->mUpdateTrackPriority, initialUpdateTracksValidityQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackPriority.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateTrackPriority.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackPriority.lastError();
 
             Q_EMIT databaseError();
@@ -5863,7 +5863,7 @@ WHERE `FileName` = :fileName
         auto result = prepareQuery(d->mRemoveTracksMappingFromSource, removeTracksMappingFromSourceQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMappingFromSource.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMappingFromSource.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMappingFromSource.lastError();
 
             Q_EMIT databaseError();
@@ -5880,7 +5880,7 @@ WHERE `FileName` = :fileName
         auto result = prepareQuery(d->mRemoveTracksMapping, removeTracksMappingQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMapping.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMapping.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTracksMapping.lastError();
 
             Q_EMIT databaseError();
@@ -5999,7 +5999,7 @@ tracks.`FileName` NOT IN (SELECT tracksMapping2.`FileName` FROM `TracksData` tra
         auto result = prepareQuery(d->mSelectTracksWithoutMappingQuery, selectTracksWithoutMappingQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksWithoutMappingQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTracksWithoutMappingQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksWithoutMappingQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6027,7 +6027,7 @@ trackData.`FileName` = :fileName
         auto result = prepareQuery(d->mSelectTracksMapping, selectTracksMappingQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMapping.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTracksMapping.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMapping.lastError();
 
             Q_EMIT databaseError();
@@ -6048,7 +6048,7 @@ WHERE
         auto result = prepareQuery(d->mSelectRadioIdFromHttpAddress, selectRadioIdFromHttpAddress);
 
         if (!result) {
-            qCInfo(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectRadioIdFromHttpAddress.lastQuery();
+            qCInfo(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectRadioIdFromHttpAddress.lastQuery();
             qCInfo(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectRadioIdFromHttpAddress.lastError();
 
             Q_EMIT databaseError();
@@ -6074,7 +6074,7 @@ tracks.`Title` = :title AND
         auto result = prepareQuery(d->mSelectTracksMappingPriority, selectTracksMappingPriorityQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriority.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriority.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriority.lastError();
 
             Q_EMIT databaseError();
@@ -6097,7 +6097,7 @@ trackData.`FileName` = track.`FileName`
         auto result = prepareQuery(d->mSelectTracksMappingPriorityByTrackId, selectTracksMappingPriorityQueryByTrackIdText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriorityByTrackId.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriorityByTrackId.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksMappingPriorityByTrackId.lastError();
 
             Q_EMIT databaseError();
@@ -6117,7 +6117,7 @@ FROM
         auto result = prepareQuery(d->mSelectAllTrackFilesQuery, selectAllTrackFilesFromSourceQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTrackFilesQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAllTrackFilesQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAllTrackFilesQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6134,7 +6134,7 @@ VALUES (:discoverId, :name)
         auto result = prepareQuery(d->mInsertMusicSource, insertMusicSourceQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertMusicSource.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mInsertMusicSource.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertMusicSource.lastError();
 
             Q_EMIT databaseError();
@@ -6147,7 +6147,7 @@ VALUES (:discoverId, :name)
         auto result = prepareQuery(d->mSelectMusicSource, selectMusicSourceQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectMusicSource.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectMusicSource.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectMusicSource.lastError();
 
             Q_EMIT databaseError();
@@ -6189,7 +6189,7 @@ tracks.`Priority` = (
         auto result = prepareQuery(d->mSelectTrackIdFromTitleAlbumIdArtistQuery, selectTrackQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumIdArtistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6250,7 +6250,7 @@ VALUES
         auto result = prepareQuery(d->mInsertTrackQuery, insertTrackQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mInsertTrackQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertTrackQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6287,7 +6287,7 @@ WHERE
         auto result = prepareQuery(d->mUpdateTrackQuery, updateTrackQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateTrackQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6316,7 +6316,7 @@ VALUES
         auto result = prepareQuery(d->mInsertRadioQuery, insertRadioQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertRadioQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mInsertRadioQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mInsertRadioQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6333,7 +6333,7 @@ WHERE `ID` = :radioId
         auto result = prepareQuery(d->mDeleteRadioQuery, deleteRadioQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mDeleteRadioQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mDeleteRadioQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mDeleteRadioQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6357,7 +6357,7 @@ WHERE
         auto result = prepareQuery(d->mUpdateRadioQuery, updateRadioQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateRadioQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateRadioQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateRadioQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6377,7 +6377,7 @@ WHERE
         auto result = prepareQuery(d->mUpdateAlbumArtistQuery, updateAlbumArtistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6399,7 +6399,7 @@ WHERE
         auto result = prepareQuery(d->mUpdateAlbumArtistInTracksQuery, updateAlbumArtistInTracksQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistInTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistInTracksQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtistInTracksQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6417,7 +6417,7 @@ FROM
         auto result = prepareQuery(d->mQueryMaximumTrackIdQuery, queryMaximumTrackIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumTrackIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mQueryMaximumTrackIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumTrackIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6435,7 +6435,7 @@ FROM
         auto result = prepareQuery(d->mQueryMaximumAlbumIdQuery, queryMaximumAlbumIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumAlbumIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mQueryMaximumAlbumIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumAlbumIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6453,7 +6453,7 @@ FROM
         auto result = prepareQuery(d->mQueryMaximumArtistIdQuery, queryMaximumArtistIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumArtistIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mQueryMaximumArtistIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumArtistIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6471,7 +6471,7 @@ FROM
         auto result = prepareQuery(d->mQueryMaximumLyricistIdQuery, queryMaximumLyricistIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumLyricistIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mQueryMaximumLyricistIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumLyricistIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6489,7 +6489,7 @@ FROM
         auto result = prepareQuery(d->mQueryMaximumComposerIdQuery, queryMaximumComposerIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumComposerIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mQueryMaximumComposerIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumComposerIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6507,7 +6507,7 @@ FROM
         auto result = prepareQuery(d->mQueryMaximumGenreIdQuery, queryMaximumGenreIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumGenreIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mQueryMaximumGenreIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mQueryMaximumGenreIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6532,7 +6532,8 @@ tracks.`ArtistName` = :artist
         auto result = prepareQuery(d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery, selectTrackQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries"
+                                                      << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6562,7 +6563,8 @@ tracks.`Priority` = :priority AND
         auto result = prepareQuery(d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery, selectTrackQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries"
+                                                      << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTrackIdFromTitleAlbumTrackDiscNumberQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6582,7 +6584,7 @@ WHERE
         auto result = prepareQuery(d->mSelectAlbumArtUriFromAlbumIdQuery, selectAlbumArtUriFromAlbumIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumArtUriFromAlbumIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6601,7 +6603,7 @@ WHERE
         auto result = prepareQuery(d->mUpdateAlbumArtUriFromAlbumIdQuery, updateAlbumArtUriFromAlbumIdQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateAlbumArtUriFromAlbumIdQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6636,7 +6638,7 @@ LIMIT 4
         auto result = prepareQuery(d->mSelectUpToFourLatestCoversFromArtistNameQuery, selectUpToFourLatestCoversFromArtistNameQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectUpToFourLatestCoversFromArtistNameQuery.lastError();
 
             Q_EMIT databaseError();
@@ -6773,7 +6775,7 @@ tracks.`Title` ASC
         auto result = prepareQuery(d->mSelectTracksFromArtist, selectTracksFromArtistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtist.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtist.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtist.lastError();
 
             Q_EMIT databaseError();
@@ -6910,7 +6912,7 @@ tracks.`Title` ASC
         auto result = prepareQuery(d->mSelectTracksFromGenre, selectTracksFromGenreQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromGenre.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromGenre.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromGenre.lastError();
 
             Q_EMIT databaseError();
@@ -7048,7 +7050,7 @@ tracks.`Title` ASC
         auto result = prepareQuery(d->mSelectTracksFromArtistAndGenre, selectTracksFromArtistAndGenreQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtistAndGenre.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtistAndGenre.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectTracksFromArtistAndGenre.lastError();
 
             Q_EMIT databaseError();
@@ -7069,7 +7071,7 @@ album.`ArtistName` = :artistName
         auto result = prepareQuery(d->mSelectAlbumIdsFromArtist, selectAlbumIdsFromArtistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdsFromArtist.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdsFromArtist.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectAlbumIdsFromArtist.lastError();
 
             Q_EMIT databaseError();
@@ -7089,7 +7091,7 @@ WHERE
         auto result = prepareQuery(d->mSelectArtistQuery, selectArtistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectArtistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectArtistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7109,7 +7111,7 @@ WHERE
         auto result = prepareQuery(d->mUpdateTrackStartedStatistics, updateTrackStartedStatisticsQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackStartedStatistics.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateTrackStartedStatistics.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackStartedStatistics.lastError();
 
             Q_EMIT databaseError();
@@ -7129,7 +7131,7 @@ WHERE
         auto result = prepareQuery(d->mUpdateTrackFinishedStatistics, updateTrackFinishedStatisticsQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFinishedStatistics.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFinishedStatistics.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFinishedStatistics.lastError();
 
             Q_EMIT databaseError();
@@ -7150,7 +7152,7 @@ WHERE
         auto result = prepareQuery(d->mUpdateTrackFirstPlayStatistics, updateTrackFirstPlayStatisticsQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFirstPlayStatistics.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFirstPlayStatistics.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mUpdateTrackFirstPlayStatistics.lastError();
 
             Q_EMIT databaseError();
@@ -7170,7 +7172,7 @@ WHERE
         auto result = prepareQuery(d->mSelectGenreQuery, selectGenreQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectGenreQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectGenreQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7190,7 +7192,7 @@ WHERE
         auto result = prepareQuery(d->mSelectComposerQuery, selectComposerQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectComposerQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectComposerQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7210,7 +7212,7 @@ WHERE
         auto result = prepareQuery(d->mSelectLyricistQuery, selectLyricistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mSelectLyricistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mSelectLyricistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7228,7 +7230,7 @@ WHERE
         auto result = prepareQuery(d->mRemoveTrackQuery, removeTrackQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTrackQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mRemoveTrackQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveTrackQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7246,7 +7248,7 @@ WHERE
         auto result = prepareQuery(d->mRemoveAlbumQuery, removeAlbumQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveAlbumQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mRemoveAlbumQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveAlbumQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7264,7 +7266,7 @@ WHERE
         auto result = prepareQuery(d->mRemoveArtistQuery, removeArtistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveArtistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mRemoveArtistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveArtistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7282,7 +7284,7 @@ WHERE
         auto result = prepareQuery(d->mRemoveGenreQuery, removeGenreQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveGenreQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mRemoveGenreQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveGenreQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7300,7 +7302,7 @@ WHERE
         auto result = prepareQuery(d->mRemoveComposerQuery, removeComposerQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveComposerQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mRemoveComposerQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveComposerQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7318,7 +7320,7 @@ WHERE
         auto result = prepareQuery(d->mRemoveLyricistQuery, removeLyricistQueryText);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveLyricistQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDataQueries" << d->mRemoveLyricistQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDataQueries" << d->mRemoveLyricistQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7339,7 +7341,7 @@ WHERE artists.`ID` = :artistId)
         const auto result = prepareQuery(d->mArtistHasTracksQuery, artistHasTracks);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mArtistHasTracksQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7359,7 +7361,7 @@ WHERE genres.`ID` = :genreId)
         const auto result = prepareQuery(d->mGenreHasTracksQuery, genreHasTracks);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mGenreHasTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDatabaseVersionQueries" << d->mGenreHasTracksQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mGenreHasTracksQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7379,7 +7381,7 @@ WHERE composers.`ID` = :composerId)
         const auto result = prepareQuery(d->mComposerHasTracksQuery, composerHasTracks);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mComposerHasTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDatabaseVersionQueries" << d->mComposerHasTracksQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mComposerHasTracksQuery.lastError();
 
             Q_EMIT databaseError();
@@ -7399,7 +7401,7 @@ WHERE lyricists.`ID` = :lyricistId)
         const auto result = prepareQuery(d->mLyricistHasTracksQuery, lyricistHasTracks);
 
         if (!result) {
-            qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mLyricistHasTracksQuery.lastQuery();
+            qCCritical(orgKdeElisaDatabase).noquote() << "DatabaseInterface::initDatabaseVersionQueries" << d->mLyricistHasTracksQuery.lastQuery();
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::initDatabaseVersionQueries" << d->mLyricistHasTracksQuery.lastError();
 
             Q_EMIT databaseError();

@@ -416,8 +416,6 @@ if (Qt6Quick_FOUND AND Qt6Widgets_FOUND)
 
     add_executable(elisa ${elisa_SOURCES})
 
-    target_include_directories(elisa PRIVATE ${KDSoap_INCLUDE_DIRS})
-
     target_link_libraries(elisa
         LINK_PRIVATE
         elisaLib

@@ -21,8 +21,6 @@ ecm_add_test(${viewManagerTest_SOURCES}
     LINK_LIBRARIES
         Qt::Test elisaLib)
 
-target_include_directories(viewManagerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
 set(databaseInterfaceTest_SOURCES
     databaseinterfacetest.cpp
     databasetestdata.h
@@ -32,8 +30,6 @@ ecm_add_test(${databaseInterfaceTest_SOURCES}
     TEST_NAME "databaseInterfaceTest"
     LINK_LIBRARIES
         Qt::Test elisaLib Qt::Sql)
-
-target_include_directories(databaseInterfaceTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(managemediaplayercontrolTest_SOURCES
     managemediaplayercontroltest.cpp
@@ -57,8 +53,6 @@ ecm_add_test(${manageheaderbarTest_SOURCES}
         Qt::Test elisaLib
 )
 
-target_include_directories(manageheaderbarTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
 set(manageaudioplayerTest_SOURCES
     manageaudioplayertest.cpp
 )
@@ -67,8 +61,6 @@ ecm_add_test(${manageaudioplayerTest_SOURCES}
     TEST_NAME "manageaudioplayerTest"
     LINK_LIBRARIES Qt::Test elisaLib
 )
-
-target_include_directories(manageaudioplayerTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(mediaplaylistTest_SOURCES
     mediaplaylisttest.cpp
@@ -80,8 +72,6 @@ ecm_add_test(${mediaplaylistTest_SOURCES}
     LINK_LIBRARIES
         Qt::Test elisaLib
 )
-
-target_include_directories(mediaplaylistTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 ecm_qt_declare_logging_category(mediaplaylistproxymodelTest_SOURCES HEADER elisa_debug.h IDENTIFIER lcModelTest CATEGORY_NAME qt.modeltest)
 
@@ -96,8 +86,6 @@ ecm_add_test(${mediaplaylistproxymodelTest_SOURCES}
         Qt::Test elisaLib
 )
 
-target_include_directories(mediaplaylistproxymodelTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
 set(trackslistenertest_SOURCES
     trackslistenertest.cpp
     ../src/elisautils.cpp
@@ -109,8 +97,6 @@ ecm_add_test(${trackslistenertest_SOURCES}
         Qt::Test elisaLib
 )
 
-target_include_directories(trackslistenertest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
 set(datamodeltest_SOURCES
     datamodeltest.cpp
 )
@@ -120,8 +106,6 @@ ecm_add_test(${datamodeltest_SOURCES}
     LINK_LIBRARIES
         Qt::Test elisaLib
 )
-
-target_include_directories(datamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 set(viewsmodeltest_SOURCES
     viewsmodeltest.cpp
@@ -133,8 +117,6 @@ ecm_add_test(${viewsmodeltest_SOURCES}
         Qt::Test elisaLib
 )
 
-target_include_directories(viewsmodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
 set(trackmetadatamodeltest_SOURCES
     trackmetadatamodeltest.cpp
 )
@@ -144,8 +126,6 @@ ecm_add_test(${trackmetadatamodeltest_SOURCES}
     LINK_LIBRARIES
         Qt::Test elisaLib
 )
-
-target_include_directories(trackmetadatamodeltest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 if (KF6FileMetaData_FOUND)
     set(localfilelistingtest_SOURCES
@@ -158,7 +138,6 @@ if (KF6FileMetaData_FOUND)
             Qt::Test elisaLib
     )
 
-    target_include_directories(localfilelistingtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()
 
 if (KF6XmlGui_FOUND AND KF6KCMUtils_FOUND)
@@ -172,8 +151,6 @@ if (KF6XmlGui_FOUND AND KF6KCMUtils_FOUND)
         LINK_LIBRARIES
             Qt::Test elisaLib
     )
-
-    target_include_directories(elisaapplicationtest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 endif()
 
 set(filescannerTest_SOURCES
@@ -215,8 +192,6 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
         TEST_NAME "audioWrapperTest"
         LINK_LIBRARIES Qt::Test elisaLib KF6::I18n
     )
-
-    target_include_directories(audioWrapperTest PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
     option(ELISA_CI_PIPEWIRE "Start a headless PipeWire session for audio tests" OFF)
     if (ELISA_CI_PIPEWIRE)

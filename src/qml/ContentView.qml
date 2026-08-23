@@ -183,12 +183,6 @@ SplitView {
         SplitView.fillWidth: true
         SplitView.minimumWidth: Kirigami.Settings.isMobile ? mainWindow.minimumWidth : Theme.contentViewMinimumSize
 
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.BackButton
-            onClicked: contentViewContainer.goBack()
-        }
-
         StackView {
             id: browseStackView
 
@@ -343,5 +337,11 @@ SplitView {
             onOpenArtist: contentViewContainer.openArtist(artistName)
             onOpenAlbum: contentViewContainer.openAlbum(albumName, albumArtist, albumArtUrl, albumId)
         }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.BackButton
+        onClicked: contentViewContainer.goBack()
     }
 }

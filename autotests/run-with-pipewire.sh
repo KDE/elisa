@@ -88,6 +88,23 @@ start_daemons() {
         exit 1
     fi
 
+
+    # just waiting for the socket to exist isn't enough; WirePlumber still
+    # needs to register the null audio sink node so playback streams can be
+    # created. Poll until the auto_null sink appears.
+    for ((i = 0; i < 100; ++i)); do
+        pw-cli ls 2>/dev/null | grep -q "node.name.*auto_null" && break
+        sleep 0.1
+    done
+
+    if ! pw-cli ls 2>/dev/null | grep -q "node.name.*auto_null"; then
+        echo "PipeWire null audio sink did not appear within 10 seconds" >&2
+        cat "$pw_log" >&2
+        cat "$wp_log" >&2
+        kill "$wp_pid" "$pw_pid" 2>/dev/null || true
+        exit 1
+    fi
+
     echo "PipeWire + WirePlumber started (PIDs $pw_pid, $wp_pid)"
 }
 

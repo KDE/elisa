@@ -8467,9 +8467,10 @@ void DatabaseInterface::removeTrackInDatabase(qulonglong trackId)
 
 void DatabaseInterface::updateTrackInDatabase(const DataTypes::TrackDataType &oneTrack, const QString &albumPath)
 {
+    const auto trackTitle = !oneTrack.title().isEmpty() ? oneTrack.title() : oneTrack.resourceURI().fileName();
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":fileName"), oneTrack.resourceURI());
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":trackId"), oneTrack.databaseId());
-    d->mUpdateTrackQuery.bindValue(QStringLiteral(":title"), oneTrack.title());
+    d->mUpdateTrackQuery.bindValue(QStringLiteral(":title"), trackTitle);
 
     d->mUpdateTrackQuery.bindValue(QStringLiteral(":albumTitle"), oneTrack.hasAlbum() ? oneTrack.album() : QVariant{});
 

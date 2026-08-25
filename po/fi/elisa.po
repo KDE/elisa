@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-13 02:46+0000\n"
-"PO-Revision-Date: 2026-01-02 11:48+0200\n"
+"PO-Revision-Date: 2026-02-25 13:44+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -97,12 +97,10 @@ msgid "A Simple Music Player made with love by the KDE community"
 msgstr "KDE-yhteisön rakkaudella luoma yksinkertainen musiikkisoitin"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "© 2015–2020, Elisa contributors"
+#, kde-format
 msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
-msgstr "© 2015–2020 Elisan avustajat"
+msgstr "© 2015–2026 Elisan avustajat"
 
 #: main.cpp:119 models/lyricsmodel.cpp:165
 #, kde-format
@@ -685,12 +683,10 @@ msgid "Playlist"
 msgstr "Soittolista"
 
 #: qml/HeaderBar.qml:264
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox Lyrics label for track metadata view"
-#| msgid "Lyrics"
+#, kde-format
 msgctxt "@action:button"
 msgid "Lyrics"
-msgstr "Sanoittaja"
+msgstr "Sanat"
 
 #: qml/HeaderBar.qml:287
 #, kde-format
@@ -699,9 +695,7 @@ msgid "Exit Full Screen"
 msgstr "Siirry koko näytölle"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
 msgstr "Siirry koko näytölle"
@@ -1396,7 +1390,7 @@ msgstr "Piilota haku- ja suodatusrivi"
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
-msgstr ""
+msgstr "Etsi radioasemaa"
 
 #: qml/NavigationActionBar.qml:429
 #, kde-format

@@ -5,28 +5,28 @@ Dependencies:
 
  - 'on': ['Linux', 'FreeBSD', 'Windows', 'Android']
    'require':
-    'frameworks/extra-cmake-modules': '@latest-kf6'
-    'frameworks/kcoreaddons': '@latest-kf6'
-    'frameworks/kconfig': '@latest-kf6'
-    'frameworks/ki18n': '@latest-kf6'
-    'frameworks/kirigami': '@latest-kf6'
-    'libraries/kirigami-addons': '@latest-kf6'
-    'frameworks/kiconthemes': '@latest-kf6'
-    'frameworks/kxmlgui': '@latest-kf6'
-    'frameworks/kcolorscheme': '@latest-kf6'
-    'frameworks/kconfigwidgets': '@latest-kf6'
-    'frameworks/kcodecs': '@latest-kf6'
+    'frameworks/extra-cmake-modules': 'Frameworks/6.24'
+    'frameworks/kcoreaddons': 'Frameworks/6.24'
+    'frameworks/kconfig': 'Frameworks/6.24'
+    'frameworks/ki18n': 'Frameworks/6.24'
+    'frameworks/kirigami': 'Frameworks/6.24'
+    'libraries/kirigami-addons': 'v1.11.0'
+    'frameworks/kiconthemes': 'Frameworks/6.24'
+    'frameworks/kxmlgui': 'Frameworks/6.24'
+    'frameworks/kcolorscheme': 'Frameworks/6.24'
+    'frameworks/kconfigwidgets': 'Frameworks/6.24'
+    'frameworks/kcodecs': 'Frameworks/6.24'
 
  - 'on': ['Linux', 'FreeBSD', 'Windows']
    'require':
-    'frameworks/kdoctools': '@latest-kf6'
-    'frameworks/kio': '@latest-kf6'
-    'frameworks/kfilemetadata': '@latest-kf6'
-    'frameworks/qqc2-desktop-style': '@latest-kf6'
+    'frameworks/kdoctools': 'Frameworks/6.24'
+    'frameworks/kio': 'Frameworks/6.24'
+    'frameworks/kfilemetadata': 'Frameworks/6.24'
+    'frameworks/qqc2-desktop-style': 'Frameworks/6.24'
 
  - 'on': ['Linux', 'FreeBSD']
    'require':
-    'frameworks/kdbusaddons': '@latest-kf6'
+    'frameworks/kdbusaddons': 'Frameworks/6.24'
 
 Options:
  per-test-timeout: 120

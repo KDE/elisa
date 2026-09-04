@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-12 00:45+0000\n"
+"POT-Creation-Date: 2026-09-04 00:43+0000\n"
 "PO-Revision-Date: 2026-02-25 13:44+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -28,14 +28,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "translator@legisign.org"
 
-#: databaseinterface.cpp:8059 databaseinterface.cpp:9173
-#: databaseinterface.cpp:9258
+#: databaseinterface.cpp:8061 databaseinterface.cpp:9175
+#: databaseinterface.cpp:9260
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Useita artisteja"
 
-#: databaseinterface.cpp:8127
+#: databaseinterface.cpp:8129
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

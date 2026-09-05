@@ -65,13 +65,14 @@ public:
 class ELISALIB_EXPORT PlaylistParser
 {
 public:
+    using Format = ElisaUtils::PlaylistFormat;
+
+    static std::optional<Format> FormatForType(const QMimeType &type);
     static std::optional<PlaylistModel> Load(const QUrl &path);
     static bool Save(const QUrl &path, const PlaylistModel &playlist);
 
 private:
-    inline static QMap<QString, PlaylistParserBackend *> backends;
     inline static QMimeDatabase mimeDb;
-    static PlaylistParserBackend *GetBackendForType(const QMimeType &type);
 };
 
 class PlsPlaylistLoader : public PlaylistParserBackend

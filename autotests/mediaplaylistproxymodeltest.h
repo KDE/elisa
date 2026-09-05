@@ -48,6 +48,12 @@ private Q_SLOTS:
 
     void plsPlaylistParser_WindowsLineTerminator();
 
+    void playlistParser_UnsupportedMimeTypeCase();
+
+    void playlistParser_SaveUnsupportedMimeTypeCase();
+
+    void playlistParser_SupportedMimeTypeDetection();
+
     void m3uPlaylistParser_ToPlaylist();
 
     void plsPlaylistParser_ToPlaylist();

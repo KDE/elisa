@@ -6,16 +6,26 @@
 
 #include "elisautils.h"
 
+#include <QMimeType>
+
 namespace ElisaUtils
 {
 
+std::optional<PlaylistFormat> playlistFormatForType(const QMimeType &mimeType)
+{
+    if (mimeType.inherits(QStringLiteral("audio/x-scpls"))) {
+        return PlaylistFormat::Pls;
+    }
+    // M3U: checked via name as it can be both m3u and m3u8
+    if (mimeType.name().contains(QStringLiteral("mpegurl"))) {
+        return PlaylistFormat::M3u;
+    }
+    return {};
+}
+
 bool isPlayList(const QMimeType& mimeType)
 {
-    return mimeType.inherits(QStringLiteral("audio/x-ms-wax")) || mimeType.inherits(QStringLiteral("audio/x-scpls"))
-        || mimeType.inherits(QStringLiteral("audio/x-mpegurl")) || mimeType.inherits(QStringLiteral("audio/mpegurl"))
-        || mimeType.inherits(QStringLiteral("application/mpegurl")) || mimeType.inherits(QStringLiteral("application/x-mpegurl"))
-        || mimeType.inherits(QStringLiteral("application/vnd.apple.mpegurl")) || mimeType.inherits(QStringLiteral("application/vnd.apple.mpegurl.audio"))
-        || mimeType.inherits(QStringLiteral("audio/vnd.rn-realaudio")) || mimeType.inherits(QStringLiteral("audio/x-pn-realaudio"));
+    return playlistFormatForType(mimeType).has_value();
 }
 
 }

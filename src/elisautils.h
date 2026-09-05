@@ -16,9 +16,11 @@
 #include <QMimeType>
 #include <QQmlEngine>
 
+#include <optional>
+
 namespace ElisaUtils {
 
-Q_NAMESPACE
+Q_NAMESPACE_EXPORT(ELISALIB_EXPORT)
 
 QML_NAMED_ELEMENT(ElisaUtils)
 
@@ -75,8 +77,14 @@ enum FilterType {
 
 Q_ENUM_NS(FilterType)
 
-bool isPlayList(const QMimeType& mimeType);
+enum class PlaylistFormat {
+    Pls,
+    M3u,
+};
 
+std::optional<PlaylistFormat> ELISALIB_EXPORT playlistFormatForType(const QMimeType &mimeType);
+
+bool ELISALIB_EXPORT isPlayList(const QMimeType &mimeType);
 }
 
 #endif // ELISAUTILS_H

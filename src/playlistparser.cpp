@@ -14,58 +14,72 @@
 #include <qfiledevice.h>
 #include <qmimetype.h>
 
+namespace
+{
+
+std::optional<PlaylistModel> readPlaylist(PlaylistParser::Format format, QTextStream *stream)
+{
+    switch (format) {
+    case PlaylistParser::Format::Pls:
+        return PlsPlaylistLoader{}.read(stream);
+    case PlaylistParser::Format::M3u:
+        return M3uPlaylistLoader{}.read(stream);
+    }
+    return {};
+}
+
+bool writePlaylist(PlaylistParser::Format format, QTextStream *stream, const PlaylistModel *playlist)
+{
+    switch (format) {
+    case PlaylistParser::Format::Pls:
+        return PlsPlaylistLoader{}.write(stream, playlist);
+    case PlaylistParser::Format::M3u:
+        return M3uPlaylistLoader{}.write(stream, playlist);
+    }
+    return false;
+}
+
+}
+
+std::optional<PlaylistParser::Format> PlaylistParser::FormatForType(const QMimeType &type)
+{
+    return ElisaUtils::playlistFormatForType(type);
+}
+
 // TODO: return something that allows to also return (as a string for example) exact full/partial error and errored tracks
 std::optional<PlaylistModel> PlaylistParser::Load(const QUrl &path)
 {
-    QFile file(path.toLocalFile());
     const auto type = mimeDb.mimeTypeForFile(path.toLocalFile());
+    const auto format = FormatForType(type);
+    if (!format) {
+        return {};
+    }
 
+    QFile file(path.toLocalFile());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return {};
     }
 
-    const auto backend = GetBackendForType(type);
-
     QTextStream stream(&file);
-    auto result = backend->read(&stream);
-    return result;
+    return readPlaylist(*format, &stream);
 }
 
 bool PlaylistParser::Save(const QUrl &path, const PlaylistModel &playlist)
 {
-    QFile file(path.toLocalFile());
     const auto type = mimeDb.mimeTypeForFile(path.toLocalFile());
+    const auto format = FormatForType(type);
+    if (!format) {
+        return false;
+    }
 
+    QFile file(path.toLocalFile());
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         return false;
     }
 
-    const auto backend = GetBackendForType(type);
-
     QTextStream stream(&file);
-    return backend->write(&stream, &playlist);
+    return writePlaylist(*format, &stream, &playlist);
 }
-
-PlaylistParserBackend *PlaylistParser::GetBackendForType(const QMimeType &type)
-{
-    PlaylistParserBackend *backend;
-
-    if (const auto mime = type.name(); backends.contains(mime)) {
-        backend = backends[mime];
-    } else {
-        if (type.inherits(QStringLiteral("audio/x-scpls"))) { // PLS
-            backend = new PlsPlaylistLoader();
-        } else if (mime.contains(QStringLiteral("mpegurl"))) { // M3U; is checked this way as it can be both m3u and m3u8
-            backend = new M3uPlaylistLoader();
-        } else {
-            return {};
-        }
-
-        backends.insert(mime, backend);
-    }
-
-    return backend;
-};
 
 std::optional<PlaylistModel> M3uPlaylistLoader::read(QTextStream *stream)
 {

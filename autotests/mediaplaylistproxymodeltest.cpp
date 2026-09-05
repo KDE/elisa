@@ -47,7 +47,7 @@ QList<QString> createdFiles;
 static QUrl createTemporaryFile(const QString &fileName, const QString &contents)
 {
     QFile file(QDir::tempPath() + QStringLiteral("/") + fileName);
-    file.open(QIODeviceBase::WriteOnly | QIODeviceBase::Text | QIODeviceBase::Truncate);
+    file.open(QIODeviceBase::WriteOnly | QIODeviceBase::Truncate);
     file.write(contents.toUtf8());
     const auto url = QUrl::fromLocalFile(file.fileName());
     createdFiles.append(url.toLocalFile());
@@ -296,6 +296,45 @@ Version=2\r
     const auto results = PlaylistParser::Load(createTemporaryFile(QStringLiteral("windowslineterminator.pls"), contents));
 
     QCOMPARE(results.value().tracks.count(), 3);
+}
+
+void MediaPlayListProxyModelTest::playlistParser_UnsupportedMimeTypeCase()
+{
+    // just exercising some odd code paths that used to crash
+    const auto txtFile = createTemporaryFile(QStringLiteral("unsupported.txt"), QStringLiteral("not a playlist\n"));
+    QVERIFY(!PlaylistParser::Load(txtFile).has_value());
+
+    const auto waxFile = createTemporaryFile(QStringLiteral("unsupported.wax"), QStringLiteral("/home/n/Music/1.mp3\n"));
+    QVERIFY(!PlaylistParser::Load(waxFile).has_value());
+}
+
+void MediaPlayListProxyModelTest::playlistParser_SaveUnsupportedMimeTypeCase()
+{
+    const auto playlist = PlaylistModel({MediaPlayListEntry{QUrl::fromLocalFile(QStringLiteral("/home/n/Music/1.mp3"))}});
+
+    const auto txtUrl = createTemporaryFile(QStringLiteral("unsupported.txt"), QStringLiteral("not a playlist\n"));
+    QVERIFY(!PlaylistParser::Save(txtUrl, playlist));
+
+    // a failed Save must not clobber an existing file
+    QFile txtFile(txtUrl.toLocalFile());
+    QVERIFY(txtFile.open(QIODevice::ReadOnly));
+    QCOMPARE(QString::fromUtf8(txtFile.readAll()), QStringLiteral("not a playlist\n"));
+}
+
+void MediaPlayListProxyModelTest::playlistParser_SupportedMimeTypeDetection()
+{
+    const QMimeDatabase mimeDb;
+
+    QCOMPARE(PlaylistParser::FormatForType(mimeDb.mimeTypeForFile(QStringLiteral("foo.m3u"))), PlaylistParser::Format::M3u);
+    QCOMPARE(PlaylistParser::FormatForType(mimeDb.mimeTypeForFile(QStringLiteral("foo.m3u8"))), PlaylistParser::Format::M3u);
+    QCOMPARE(PlaylistParser::FormatForType(mimeDb.mimeTypeForFile(QStringLiteral("foo.pls"))), PlaylistParser::Format::Pls);
+
+    QVERIFY(!PlaylistParser::FormatForType(mimeDb.mimeTypeForFile(QStringLiteral("foo.txt"))));
+    QVERIFY(!PlaylistParser::FormatForType(mimeDb.mimeTypeForFile(QStringLiteral("foo.wax"))));
+    QVERIFY(!PlaylistParser::FormatForType(mimeDb.mimeTypeForFile(QStringLiteral("foo.xml"))));
+
+    QCOMPARE(ElisaUtils::isPlayList(mimeDb.mimeTypeForFile(QStringLiteral("foo.m3u"))), true);
+    QCOMPARE(ElisaUtils::isPlayList(mimeDb.mimeTypeForFile(QStringLiteral("foo.wax"))), false);
 }
 
 void MediaPlayListProxyModelTest::m3uPlaylistParser_ToPlaylist()

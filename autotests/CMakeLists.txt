@@ -13,7 +13,6 @@ include_directories(${elisa_BINARY_DIR}/src)
 
 set(viewManagerTest_SOURCES
     viewmanagertest.cpp
-    ../src/elisautils.cpp
 )
 
 ecm_add_test(${viewManagerTest_SOURCES}
@@ -33,7 +32,6 @@ ecm_add_test(${databaseInterfaceTest_SOURCES}
 
 set(managemediaplayercontrolTest_SOURCES
     managemediaplayercontroltest.cpp
-    ../src/elisautils.cpp
 )
 
 ecm_add_test(${managemediaplayercontrolTest_SOURCES}
@@ -44,7 +42,6 @@ ecm_add_test(${managemediaplayercontrolTest_SOURCES}
 
 set(manageheaderbarTest_SOURCES
     manageheaderbartest.cpp
-    ../src/elisautils.cpp
 )
 
 ecm_add_test(${manageheaderbarTest_SOURCES}
@@ -64,7 +61,6 @@ ecm_add_test(${manageaudioplayerTest_SOURCES}
 
 set(mediaplaylistTest_SOURCES
     mediaplaylisttest.cpp
-    ../src/elisautils.cpp
 )
 
 ecm_add_test(${mediaplaylistTest_SOURCES}
@@ -77,7 +73,6 @@ ecm_qt_declare_logging_category(mediaplaylistproxymodelTest_SOURCES HEADER elisa
 
 set(mediaplaylistproxymodelTest_SOURCES
     mediaplaylistproxymodeltest.cpp
-    ../src/elisautils.cpp
 )
 
 ecm_add_test(${mediaplaylistproxymodelTest_SOURCES}
@@ -88,7 +83,6 @@ ecm_add_test(${mediaplaylistproxymodelTest_SOURCES}
 
 set(trackslistenertest_SOURCES
     trackslistenertest.cpp
-    ../src/elisautils.cpp
 )
 
 ecm_add_test(${trackslistenertest_SOURCES}
@@ -143,7 +137,6 @@ endif()
 if (KF6XmlGui_FOUND AND KF6KCMUtils_FOUND)
     set(elisaapplicationtest_SOURCES
         elisaapplicationtest.cpp
-        ../src/elisautils.cpp
     )
 
     ecm_add_test(${elisaapplicationtest_SOURCES}

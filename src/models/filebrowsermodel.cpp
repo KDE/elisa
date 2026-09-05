@@ -19,7 +19,7 @@ FileBrowserModel::FileBrowserModel(QObject *parent) : KDirModel(parent)
     const QList<QMimeType> mimeList = db.allMimeTypes();
     QStringList mimeTypes = { QStringLiteral("inode/directory") };
     for (const QMimeType &mime : mimeList) {
-        if (mime.name().startsWith(QLatin1String("audio/"))) {
+        if (mime.name().startsWith(QLatin1String("audio/")) || ElisaUtils::isPlayList(mime)) {
             mimeTypes << mime.name();
         }
     }

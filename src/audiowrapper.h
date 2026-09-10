@@ -40,6 +40,8 @@ class ELISALIB_EXPORT AudioWrapper : public QObject
                WRITE setSource
                NOTIFY sourceChanged)
 
+    Q_PROPERTY(QUrl nextSource READ nextSource WRITE setNextSource NOTIFY nextSourceChanged FINAL)
+
     Q_PROPERTY(QMediaPlayer::MediaStatus status
                READ status
                NOTIFY statusChanged)
@@ -77,6 +79,8 @@ public:
 
     [[nodiscard]] QUrl source() const;
 
+    [[nodiscard]] QUrl nextSource() const;
+
     [[nodiscard]] QMediaPlayer::MediaStatus status() const;
 
     [[nodiscard]] QMediaPlayer::PlaybackState playbackState() const;
@@ -97,6 +101,8 @@ Q_SIGNALS:
 
     void sourceChanged();
 
+    void nextSourceChanged();
+
     void statusChanged(QMediaPlayer::MediaStatus status);
 
     void playbackStateChanged(QMediaPlayer::PlaybackState state);
@@ -111,6 +117,10 @@ Q_SIGNALS:
 
     void seekableChanged(bool seekable);
 
+    void aboutToFinish();
+
+    void trackChanged(const QUrl &source);
+
     void playing();
 
     void paused();
@@ -124,6 +134,8 @@ public Q_SLOTS:
     void setVolume(qreal volume);
 
     void setSource(const QUrl &source);
+
+    void setNextSource(const QUrl &source);
 
     void setPosition(qint64 position);
 

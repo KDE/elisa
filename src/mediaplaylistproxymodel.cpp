@@ -800,6 +800,24 @@ void MediaPlayListProxyModel::skipNextTrack(ElisaUtils::SkipReason reason /*= El
     notifyCurrentTrackChanged();
 }
 
+void MediaPlayListProxyModel::prepareGaplessNextSource()
+{
+    if (!d->mCurrentTrack.isValid() || !d->mNextTrack.isValid()) {
+        return;
+    }
+
+    if (d->mNextTrack.data(MediaPlayList::ElementTypeRole).value<ElisaUtils::PlayListEntryType>() == ElisaUtils::Radio) {
+        return;
+    }
+
+    const auto nextSource = d->mNextTrack.data(MediaPlayList::ResourceRole).toUrl();
+    if (!nextSource.isValid()) {
+        return;
+    }
+
+    Q_EMIT gaplessNextSourceReady(nextSource);
+}
+
 void MediaPlayListProxyModel::skipPreviousTrack(qint64 position)
 {
     if (!d->mCurrentTrack.isValid()) {

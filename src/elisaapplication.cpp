@@ -431,6 +431,17 @@ void ElisaApplication::initializePlayer()
 
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::sourceInError, d->mMusicManager.get(), &MusicListenersManager::playBackError);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::playerSourceChanged, d->mAudioWrapper.get(), &AudioWrapper::setSource);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::aboutToFinish, d->mAudioControl.get(), &ManageAudioPlayer::gaplessAboutToFinish);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::trackChanged, d->mAudioControl.get(), &ManageAudioPlayer::gaplessTrackChanged);
+    QObject::connect(d->mAudioControl.get(),
+                     &ManageAudioPlayer::prepareNextSource,
+                     d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::prepareGaplessNextSource);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::gaplessNextSourceReady,
+                     d->mAudioControl.get(),
+                     &ManageAudioPlayer::setPendingNextSource);
+    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::setNextSourceInAudioWrapper, d->mAudioWrapper.get(), &AudioWrapper::setNextSource);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::startedPlayingTrack,
                      d->mMusicManager->viewDatabase(), &DatabaseInterface::trackHasStartedPlaying);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::finishedPlayingTrack,
@@ -457,6 +468,10 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setCurrentTrack);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::previousTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setPreviousTrack);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::nextTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setNextTrack);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::nextTrackChanged,
+                     d->mAudioControl.get(),
+                     &ManageAudioPlayer::gaplessNextTrackChanged);
 
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playing, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerPlaying);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::paused, d->mPlayerControl.get(), &ManageMediaPlayerControl::playerPausedOrStopped);

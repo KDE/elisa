@@ -12,12 +12,12 @@
 
 #include "playerLogging.h"
 
-#include <QTimer>
 #include <QDateTime>
+#include <QTimer>
 
-ManageAudioPlayer::ManageAudioPlayer(QObject *parent) : QObject(parent)
+ManageAudioPlayer::ManageAudioPlayer(QObject *parent)
+    : QObject(parent)
 {
-
 }
 
 QPersistentModelIndex ManageAudioPlayer::currentTrack() const
@@ -142,12 +142,32 @@ void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrac
 
     mPlayerError = QMediaPlayer::NoError;
 
+    if (mOldCurrentTrack != mCurrentTrack && !mGaplessHandoffInProgress) {
+        disarmPendingNextSource();
+    }
+
     if (mOldCurrentTrack != mCurrentTrack || mPlayingState) {
         Q_EMIT currentTrackChanged();
     }
 
+    if (mGaplessHandoffInProgress) {
+        // The audio backend already switched to the next source: only keep the
+        // playing marks of the play list in sync, stopping or reloading the
+        // source would defeat the gapless transition.
+        if (mPlayListModel) {
+            if (mOldCurrentTrack.isValid() && mOldCurrentTrack != mCurrentTrack) {
+                mPlayListModel->setData(mOldCurrentTrack, MediaPlayList::NotPlaying, mIsPlayingRole);
+            }
+            if (mCurrentTrack.isValid()) {
+                mPlayListModel->setData(mCurrentTrack, MediaPlayList::IsPlaying, mIsPlayingRole);
+            }
+        }
+        return;
+    }
+
     switch (mPlayerPlaybackState) {
     case QMediaPlayer::StoppedState:
+        mOldPlayerSource = mCurrentTrack.data(mUrlRole);
         Q_EMIT playerSourceChanged(mCurrentTrack.data(mUrlRole).toUrl());
         break;
     case QMediaPlayer::PlayingState:
@@ -161,14 +181,81 @@ void ManageAudioPlayer::setCurrentTrack(const QPersistentModelIndex &currentTrac
     }
 }
 
-void ManageAudioPlayer::saveForUndoClearPlaylist(){
+void ManageAudioPlayer::gaplessAboutToFinish()
+{
+    if (mPlayerPlaybackState != QMediaPlayer::PlayingState || !mCurrentTrack.isValid()) {
+        return;
+    }
+
+    Q_EMIT prepareNextSource();
+}
+
+void ManageAudioPlayer::setPendingNextSource(const QUrl &nextSource)
+{
+    if (nextSource.isEmpty()) {
+        disarmPendingNextSource();
+        return;
+    }
+
+    mPendingNextSource = nextSource;
+    Q_EMIT setNextSourceInAudioWrapper(nextSource);
+}
+
+void ManageAudioPlayer::gaplessTrackChanged(const QUrl &source)
+{
+    if (source.isEmpty() || source != mPendingNextSource) {
+        return;
+    }
+
+    mPendingNextSource.clear();
+
+    const auto oldSource = playerSource();
+
+    mGaplessHandoffInProgress = true;
+    Q_EMIT finishedPlayingTrack(oldSource, QDateTime::currentDateTime());
+    Q_EMIT skipNextTrack(ElisaUtils::SkipReason::Automatic);
+    mGaplessHandoffInProgress = false;
+
+    const auto newSource = playerSource();
+    mOldPlayerSource = mCurrentTrack.data(mUrlRole);
+    if (newSource != source) {
+        // The play list advanced somewhere else than the armed source, for
+        // example after a repeat mode change or a play list edit: force the
+        // backend onto the track Elisa now considers current.
+        Q_EMIT playerSourceChanged(newSource);
+    } else {
+        Q_EMIT startedPlayingTrack(newSource, QDateTime::currentDateTime());
+    }
+}
+
+void ManageAudioPlayer::gaplessNextTrackChanged(const QPersistentModelIndex &nextTrack)
+{
+    mNextTrack = nextTrack;
+    if (!mGaplessHandoffInProgress) {
+        disarmPendingNextSource();
+    }
+}
+
+void ManageAudioPlayer::disarmPendingNextSource()
+{
+    if (mPendingNextSource.isEmpty()) {
+        return;
+    }
+
+    mPendingNextSource.clear();
+    Q_EMIT setNextSourceInAudioWrapper(QUrl());
+}
+
+void ManageAudioPlayer::saveForUndoClearPlaylist()
+{
     mUndoPlayingState = mPlayingState;
 
     mUndoPlayerPosition = mPlayerPosition;
     Q_EMIT saveUndoPositionInAudioWrapper(mUndoPlayerPosition);
 }
 
-void ManageAudioPlayer::restoreForUndoClearPlaylist(){
+void ManageAudioPlayer::restoreForUndoClearPlaylist()
+{
     mPlayerPosition = mUndoPlayerPosition;
     Q_EMIT seek(mPlayerPosition);
 
@@ -256,7 +343,7 @@ void ManageAudioPlayer::setPlayerPlaybackState(QMediaPlayer::PlaybackState playe
     Q_EMIT playerPlaybackStateChanged();
 
     if (!mSkippingCurrentTrack) {
-        switch(mPlayerPlaybackState) {
+        switch (mPlayerPlaybackState) {
         case QMediaPlayer::StoppedState:
             if (mPlayerStatus == QMediaPlayer::EndOfMedia) {
                 Q_EMIT finishedPlayingTrack(mCurrentTrack.data(mUrlRole).toUrl(), QDateTime::currentDateTime());
@@ -281,7 +368,7 @@ void ManageAudioPlayer::setPlayerPlaybackState(QMediaPlayer::PlaybackState playe
             break;
         }
     } else {
-        switch(mPlayerPlaybackState) {
+        switch (mPlayerPlaybackState) {
         case QMediaPlayer::StoppedState:
             notifyPlayerSourceProperty();
             mSkippingCurrentTrack = false;
@@ -342,7 +429,8 @@ void ManageAudioPlayer::ensurePlay()
     }
 }
 
-void ManageAudioPlayer::requestPlay() {
+void ManageAudioPlayer::requestPlay()
+{
     mPlayingState = true;
 }
 
@@ -409,7 +497,9 @@ void ManageAudioPlayer::setPlayerPosition(qint64 playerPosition)
 
     mPlayerPosition = playerPosition;
     Q_EMIT playerPositionChanged();
-    QTimer::singleShot(0, this, [this]() {Q_EMIT playControlPositionChanged();});
+    QTimer::singleShot(0, this, [this]() {
+        Q_EMIT playControlPositionChanged();
+    });
 }
 
 void ManageAudioPlayer::setCurrentPlayingForRadios(const QString &title, const QString &artistOrStation)
@@ -455,6 +545,8 @@ void ManageAudioPlayer::playerSeek(int position)
 
 void ManageAudioPlayer::playListFinished()
 {
+    disarmPendingNextSource();
+
     mPlayingState = false;
 }
 
@@ -462,6 +554,17 @@ void ManageAudioPlayer::tracksDataChanged(const QModelIndex &topLeft, const QMod
 {
     if (!mCurrentTrack.isValid()) {
         return;
+    }
+
+    if (!mPendingNextSource.isEmpty() && mPlayListModel && (roles.isEmpty() || roles.contains(mUrlRole))) {
+        const QModelIndex nextIndex = mNextTrack.isValid() ? QModelIndex(mNextTrack) : mPlayListModel->index(mCurrentTrack.row() + 1, 0);
+        if (nextIndex.isValid() && nextIndex.row() >= topLeft.row() && nextIndex.row() <= bottomRight.row() && topLeft.column() <= 0
+            && bottomRight.column() >= 0) {
+            const auto nextRowSource = nextIndex.data(mUrlRole).toUrl();
+            if (nextRowSource != mPendingNextSource) {
+                disarmPendingNextSource();
+            }
+        }
     }
 
     if (mCurrentTrack.row() > bottomRight.row() || mCurrentTrack.row() < topLeft.row()) {
@@ -476,7 +579,7 @@ void ManageAudioPlayer::tracksDataChanged(const QModelIndex &topLeft, const QMod
         notifyPlayerSourceProperty();
         restorePreviousState();
     } else {
-        for(auto oneRole : roles) {
+        for (auto oneRole : roles) {
             if (oneRole == mUrlRole) {
                 notifyPlayerSourceProperty();
                 restorePreviousState();
@@ -552,17 +655,23 @@ void ManageAudioPlayer::triggerPlay()
 
 void ManageAudioPlayer::triggerPause()
 {
-    QTimer::singleShot(0, this, [this]() {Q_EMIT playerPause();});
+    QTimer::singleShot(0, this, [this]() {
+        Q_EMIT playerPause();
+    });
 }
 
 void ManageAudioPlayer::triggerStop()
 {
-    QTimer::singleShot(0, this, [this]() {Q_EMIT playerStop();});
+    QTimer::singleShot(0, this, [this]() {
+        Q_EMIT playerStop();
+    });
 }
 
 void ManageAudioPlayer::triggerSkipNextTrack(ElisaUtils::SkipReason reason /*= SkipReason::Automatic */)
 {
-    QTimer::singleShot(0, this, [this, reason]() {Q_EMIT skipNextTrack(reason);});
+    QTimer::singleShot(0, this, [this, reason]() {
+        Q_EMIT skipNextTrack(reason);
+    });
 }
 
 void ManageAudioPlayer::restorePreviousState()
@@ -575,16 +684,14 @@ void ManageAudioPlayer::restorePreviousState()
     auto itArtistName = mPersistentState.find(QStringLiteral("audioPlayerCurrentArtistName"));
     auto itAlbumName = mPersistentState.find(QStringLiteral("audioPlayerCurrentAlbumName"));
 
-    if (itTitle == mPersistentState.end() || itArtistName == mPersistentState.end() ||
-            itAlbumName == mPersistentState.end()) {
+    if (itTitle == mPersistentState.end() || itArtistName == mPersistentState.end() || itAlbumName == mPersistentState.end()) {
         return;
     }
 
-    if (*itTitle != mCurrentTrack.data(mTitleRole) ||
-            (itArtistName->isValid() && *itArtistName != mCurrentTrack.data(mArtistNameRole)) ||
-            (itAlbumName->isValid() && *itAlbumName != mCurrentTrack.data(mAlbumNameRole))) {
-        if (mCurrentTrack.isValid() && mCurrentTrack.data(mTitleRole).isValid() && mCurrentTrack.data(mArtistNameRole).isValid() &&
-                mCurrentTrack.data(mAlbumNameRole).isValid()) {
+    if (*itTitle != mCurrentTrack.data(mTitleRole) || (itArtistName->isValid() && *itArtistName != mCurrentTrack.data(mArtistNameRole))
+        || (itAlbumName->isValid() && *itAlbumName != mCurrentTrack.data(mAlbumNameRole))) {
+        if (mCurrentTrack.isValid() && mCurrentTrack.data(mTitleRole).isValid() && mCurrentTrack.data(mArtistNameRole).isValid()
+            && mCurrentTrack.data(mAlbumNameRole).isValid()) {
             mPersistentState.clear();
         }
 
@@ -614,6 +721,5 @@ void ManageAudioPlayer::restorePreviousState()
 
     mPersistentState.clear();
 }
-
 
 #include "moc_manageaudioplayer.cpp"

@@ -10,12 +10,12 @@
 #include "elisaLib_export.h"
 #include "elisautils.h"
 
+#include <QAbstractItemModel>
+#include <QMediaPlayer>
 #include <QObject>
 #include <QPersistentModelIndex>
 #include <QQmlEngine>
-#include <QAbstractItemModel>
 #include <QUrl>
-#include <QMediaPlayer>
 
 class QDateTime;
 
@@ -170,6 +170,10 @@ Q_SIGNALS:
 
     void skipPreviousTrack(qint64 position);
 
+    void prepareNextSource();
+
+    void setNextSourceInAudioWrapper(const QUrl &url);
+
     void audioDurationChanged();
 
     void playerIsSeekableChanged();
@@ -205,6 +209,14 @@ Q_SIGNALS:
 public Q_SLOTS:
 
     void setCurrentTrack(const QPersistentModelIndex &currentTrack);
+
+    void gaplessAboutToFinish();
+
+    void setPendingNextSource(const QUrl &nextSource);
+
+    void gaplessTrackChanged(const QUrl &source);
+
+    void gaplessNextTrackChanged(const QPersistentModelIndex &nextTrack = {});
 
     void saveForUndoClearPlaylist();
 
@@ -257,6 +269,7 @@ public Q_SLOTS:
     void setAlbumNameRole(int albumNameRole);
 
 private:
+    void disarmPendingNextSource();
 
     void notifyPlayerSourceProperty();
 
@@ -273,6 +286,8 @@ private:
     QPersistentModelIndex mCurrentTrack;
 
     QPersistentModelIndex mOldCurrentTrack;
+
+    QPersistentModelIndex mNextTrack;
 
     QAbstractItemModel *mPlayListModel = nullptr;
 
@@ -297,6 +312,10 @@ private:
     bool mPlayingState = false;
 
     bool mSkippingCurrentTrack = false;
+
+    bool mGaplessHandoffInProgress = false;
+
+    QUrl mPendingNextSource;
 
     int mAudioDuration = 0;
 

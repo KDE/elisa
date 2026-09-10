@@ -200,6 +200,8 @@ public Q_SLOTS:
 
     void skipPreviousTrack(qint64 position);
 
+    void prepareGaplessNextSource();
+
     void switchTo(int row);
 
     void removeSelection(QList<int> selection);
@@ -235,6 +237,8 @@ Q_SIGNALS:
     void currentTrackChanged(const QPersistentModelIndex &currentTrack);
 
     void nextTrackChanged(const QPersistentModelIndex &nextTrack);
+
+    void gaplessNextSourceReady(const QUrl &nextSource);
 
     void previousTrackDataChanged();
 

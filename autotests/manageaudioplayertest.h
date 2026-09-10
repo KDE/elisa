@@ -82,6 +82,16 @@ private Q_SLOTS:
     void switchTrackWhilePaused();
 
     void doubleClickReselectOfCurrentTrack();
+
+    void gaplessHandoffCase();
+
+    void gaplessHandoffWithoutNextTrackCase();
+
+    void gaplessDisarmWhenNextTrackUrlChangedCase();
+
+    void gaplessDisarmWhenNextTrackRemovedCase();
+
+    void gaplessDisarmOnClearPlayListCase();
 };
 
 #endif // MANAGEAUDIOPLAYERTEST_H

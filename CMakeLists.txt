@@ -153,6 +153,32 @@ set_package_properties(LIBVLC PROPERTIES
     URL "https://www.videolan.org/vlc/libvlc.html"
     TYPE RECOMMENDED)
 
+option(USE_DRAGON_MEDIA_BACKEND "Find or fetch the Dragon Media Backend" OFF)
+set(REQUIRED_DRAGON_MEDIA_BACKEND_VERSION "0.81.1")
+
+if (USE_DRAGON_MEDIA_BACKEND)
+    find_package(DragonMediaBackend ${REQUIRED_DRAGON_MEDIA_BACKEND_VERSION} CONFIG QUIET)
+
+    if (NOT DragonMediaBackend_FOUND)
+        message(STATUS "Dragon Media Backend ${REQUIRED_DRAGON_MEDIA_BACKEND_VERSION} not found as installed package, fetching via FetchContent...")
+        include(FetchContent)
+        FetchContent_Declare(
+            DragonMediaBackend
+            GIT_REPOSITORY https://invent.kde.org/ianmonroe/dragon-media-backend.git
+            GIT_TAG v${REQUIRED_DRAGON_MEDIA_BACKEND_VERSION}
+        )
+        block()
+            set(BUILD_EXAMPLES OFF)
+            set(BUILD_TESTING OFF)
+            FetchContent_MakeAvailable(DragonMediaBackend)
+        endblock()
+    else()
+        find_package(DragonMediaBackend ${REQUIRED_DRAGON_MEDIA_BACKEND_VERSION} CONFIG) #run without 'quiet'
+        set_package_properties(DragonMediaBackend PROPERTIES
+            TYPE OPTIONAL)
+    endif()
+endif()
+
 ecm_find_qmlmodule(org.kde.kirigami 2.20)
 ecm_find_qmlmodule(org.kde.kirigamiaddons.formcard 1.0)
 

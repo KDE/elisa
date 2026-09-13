@@ -7,7 +7,7 @@ SPDX-PackageSupplier = "Matthieu Gallien <matthieu_gallien@yahoo.fr>"
 SPDX-PackageDownloadLocation = "https://invent.kde.org/multimedia/elisa"
 
 [[annotations]]
-path = ".flatpak-manifest.json"
+path = [".flatpak-manifest.json", ".flatpak-manifest-dragon.json", ".flatpak-manifest-vlc.json"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2023 Tobias Fella <tobias.fella@kde.org>"
 SPDX-License-Identifier = "BSD-2-Clause"

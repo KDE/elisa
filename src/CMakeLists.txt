@@ -115,7 +115,19 @@ ecm_qt_declare_logging_category(elisaLib_SOURCES
     DEFAULT_SEVERITY Info
     )
 
-if (LIBVLC_FOUND)
+if (USE_DRAGON_MEDIA_BACKEND AND TARGET DragonMediaBackend::DragonMediaBackend)
+    ecm_qt_declare_logging_category(elisaLib_SOURCES
+        HEADER "dragonLogging.h"
+        IDENTIFIER "orgKdeElisaPlayerDragon"
+        CATEGORY_NAME "org.kde.elisa.player.dragon"
+        DEFAULT_SEVERITY Info
+        )
+
+    set(elisaLib_SOURCES
+        ${elisaLib_SOURCES}
+        audiowrapper_dragon.cpp
+        )
+elseif (LIBVLC_FOUND)
     ecm_qt_declare_logging_category(elisaLib_SOURCES
         HEADER "vlcLogging.h"
         IDENTIFIER "orgKdeElisaPlayerVlc"
@@ -287,6 +299,18 @@ if (LIBVLC_FOUND)
         LINK_PRIVATE
         ${LIBVLC_LIBRARY}
         )
+endif()
+
+if (USE_DRAGON_MEDIA_BACKEND AND TARGET DragonMediaBackend::DragonMediaBackend)
+    target_link_libraries(elisaLib
+        LINK_PRIVATE
+        DragonMediaBackend::DragonMediaBackend
+        )
+
+    set_source_files_properties(audiowrapper_dragon.cpp PROPERTIES
+        CXX_STANDARD 23
+        CXX_STANDARD_REQUIRED ON
+    )
 endif()
 
 if (ANDROID)

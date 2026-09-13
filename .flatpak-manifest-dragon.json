@@ -1,0 +1,85 @@
+{
+    "id": "org.kde.elisa",
+    "branch": "master",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "6.11",
+    "sdk": "org.kde.Sdk",
+    "command": "elisa",
+    "rename-icon": "elisa",
+    "tags": [
+        "nightly"
+    ],
+    "desktop-file-name-suffix": " (Dragon Nightly)",
+    "finish-args": [
+        "--device=dri",
+        "--filesystem=xdg-music",
+        "--own-name=org.mpris.MediaPlayer2.elisa",
+        "--share=ipc",
+        "--share=network",
+        "--socket=fallback-x11",
+        "--socket=pulseaudio",
+        "--socket=wayland",
+        "--system-talk-name=org.freedesktop.UDisks2",
+        "--talk-name=org.freedesktop.FileManager1",
+        "--talk-name=org.freedesktop.PowerManagement.Inhibit",
+        "--talk-name=org.kde.StatusNotifierWatcher"
+    ],
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "/lib/cmake",
+        "*.la",
+        "*.a"
+    ],
+    "modules": [
+        {
+            "name": "kissfft",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DKISSFFT_DATATYPE=float",
+                "-DKISSFFT_WITH_OPENMP=OFF"
+            ],
+            "cleanup": [
+                "/bin"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/mborgerding/kissfft.git",
+                    "tag": "131.2.0"
+                }
+            ]
+        },
+        {
+            "name": "dragon-media-backend",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "-DBUILD_EXAMPLES=OFF",
+                "-DBUILD_TESTING=OFF",
+                "-DCMAKE_PREFIX_PATH=/app"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/ianmonroe/dragon-media-backend.git",
+                    "tag": "v0.81.1"
+                }
+            ]
+        },
+        {
+            "name": "elisa",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "-DUSE_DRAGON_MEDIA_BACKEND=true"
+            ],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}

@@ -41,16 +41,16 @@ bool writePlaylist(PlaylistParser::Format format, QTextStream *stream, const Pla
 
 }
 
-std::optional<PlaylistParser::Format> PlaylistParser::FormatForType(const QMimeType &type)
+std::optional<PlaylistParser::Format> PlaylistParser::formatForType(const QMimeType &type)
 {
     return ElisaUtils::playlistFormatForType(type);
 }
 
 // TODO: return something that allows to also return (as a string for example) exact full/partial error and errored tracks
-std::optional<PlaylistModel> PlaylistParser::Load(const QUrl &path)
+std::optional<PlaylistModel> PlaylistParser::load(const QUrl &path)
 {
     const auto type = mimeDb.mimeTypeForFile(path.toLocalFile());
-    const auto format = FormatForType(type);
+    const auto format = formatForType(type);
     if (!format) {
         return {};
     }
@@ -64,10 +64,10 @@ std::optional<PlaylistModel> PlaylistParser::Load(const QUrl &path)
     return readPlaylist(*format, &stream);
 }
 
-bool PlaylistParser::Save(const QUrl &path, const PlaylistModel &playlist)
+bool PlaylistParser::save(const QUrl &path, const PlaylistModel &playlist)
 {
     const auto type = mimeDb.mimeTypeForFile(path.toLocalFile());
-    const auto format = FormatForType(type);
+    const auto format = formatForType(type);
     if (!format) {
         return false;
     }

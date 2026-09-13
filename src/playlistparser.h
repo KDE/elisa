@@ -67,9 +67,9 @@ class ELISALIB_EXPORT PlaylistParser
 public:
     using Format = ElisaUtils::PlaylistFormat;
 
-    static std::optional<Format> FormatForType(const QMimeType &type);
-    static std::optional<PlaylistModel> Load(const QUrl &path);
-    static bool Save(const QUrl &path, const PlaylistModel &playlist);
+    static std::optional<Format> formatForType(const QMimeType &type);
+    static std::optional<PlaylistModel> load(const QUrl &path);
+    static bool save(const QUrl &path, const PlaylistModel &playlist);
 
 private:
     inline static QMimeDatabase mimeDb;

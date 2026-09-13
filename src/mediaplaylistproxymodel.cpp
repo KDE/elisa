@@ -999,7 +999,7 @@ void MediaPlayListProxyModel::determineTracks()
 
 bool MediaPlayListProxyModel::savePlayList(const QUrl &fileName)
 {
-    return PlaylistParser::Save(fileName, getPlaylistModel());
+    return PlaylistParser::save(fileName, getPlaylistModel());
 }
 
 void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName)
@@ -1212,7 +1212,7 @@ void MediaPlayListProxyModel::loadLocalFile(DataTypes::EntryDataList &newTracks,
 
 bool MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &fileName)
 {
-    auto playlist = PlaylistParser::Load(fileName);
+    auto playlist = PlaylistParser::load(fileName);
 
     if (!playlist.has_value()) {
         return false;

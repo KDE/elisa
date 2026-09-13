@@ -8947,6 +8947,7 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(skipNextTrackSpy.wait(300), true);
 }
 
+
 void ManageAudioPlayerTest::switchTrackWhilePaused()
 {
     Elisa::ElisaConfiguration::self()->setDefaults();
@@ -9006,6 +9007,62 @@ void ManageAudioPlayerTest::switchTrackWhilePaused()
     myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
     QTRY_VERIFY(playerPlaySpy.count() > 1);
 }
+
+void ManageAudioPlayerTest::doubleClickReselectOfCurrentTrack()
+{
+    Elisa::ElisaConfiguration::self()->setDefaults();
+    ManageAudioPlayer myPlayer;
+    QStandardItemModel myPlayList;
+
+    QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
+    QSignalSpy playerPlaySpy(&myPlayer, &ManageAudioPlayer::playerPlay);
+    QSignalSpy playerStopSpy(&myPlayer, &ManageAudioPlayer::playerStop);
+
+    myPlayList.appendRow(new QStandardItem);
+    myPlayList.item(0, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///1.mp3")), ManageAudioPlayerTest::ResourceRole);
+
+    myPlayer.setPlayListModel(&myPlayList);
+    myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    QCOMPARE(playerSourceChangedSpy.count(), 0);
+
+    // First click of a double-click: select the track and start playback.
+    myPlayer.setCurrentTrack(myPlayList.index(0, 0));
+
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerPlaySpy.count(), 0);
+    QCOMPARE(playerStopSpy.count(), 0);
+
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
+
+    myPlayer.ensurePlay();
+    QCOMPARE(playerPlaySpy.wait(300), true);
+    QCOMPARE(playerPlaySpy.count(), 1);
+
+    myPlayer.setPlayerPlaybackState(QMediaPlayer::PlayingState);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
+
+    // Second click
+    myPlayer.setCurrentTrack(myPlayList.index(0, 0));
+    QCOMPARE(playerStopSpy.wait(300), true);
+    QCOMPARE(playerStopSpy.count(), 1);
+
+    myPlayer.setPlayerPlaybackState(QMediaPlayer::StoppedState);
+
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
+
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
+
+    QCOMPARE(playerPlaySpy.wait(300), true);
+    QCOMPARE(playerPlaySpy.count(), 2);
+
+    myPlayer.setPlayerPlaybackState(QMediaPlayer::PlayingState);
+    QCOMPARE(myPlayList.data(myPlayList.index(0, 0), ManageAudioPlayerTest::IsPlayingRole).toBool(), true);
+}
+
 
 QTEST_GUILESS_MAIN(ManageAudioPlayerTest)
 

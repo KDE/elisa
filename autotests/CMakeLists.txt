@@ -187,6 +187,12 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     )
 
     option(ELISA_CI_PIPEWIRE "Start a headless PipeWire session for audio tests" OFF)
+    if (DEFINED ELISA_DRAGON_SINK_PLUGIN_DIR)
+        set_property(TEST audioWrapperTest APPEND PROPERTY ENVIRONMENT
+            "DRAGON_AUDIO_SINK_PLUGIN_DIR=${ELISA_DRAGON_SINK_PLUGIN_DIR}"
+        )
+    endif()
+
     if (ELISA_CI_PIPEWIRE)
         find_program(PIPEWIRE_EXECUTABLE pipewire)
         find_program(WIREPLUMBER_EXECUTABLE wireplumber)

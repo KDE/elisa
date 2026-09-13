@@ -166,6 +166,7 @@ if (NOT DragonMediaBackend_FOUND AND (Fetch OR DEFINED FETCHCONTENT_SOURCE_DIR O
         set(BUILD_TESTING OFF)
         FetchContent_MakeAvailable(DragonMediaBackend)
     endblock()
+    set(ELISA_DRAGON_SINK_PLUGIN_DIR "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/DragonMediaBackend/AudioSink")
     # Override the not-found entry the failed QUIET find_package() recorded
     set_property(GLOBAL APPEND PROPERTY PACKAGES_FOUND DragonMediaBackend)
     get_property(_dragon_missing GLOBAL PROPERTY PACKAGES_NOT_FOUND)

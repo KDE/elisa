@@ -7,12 +7,16 @@
 
 #include "audiowrapper.h"
 
+#include "elisa_settings.h"
+#include "manageaudioplayer.h"
+
 #include <chrono>
 
 #include <KLocalizedString>
 
 #include <QMediaPlayer>
 #include <QSignalSpy>
+#include <QStandardItemModel>
 #include <QStandardPaths>
 #include <QTest>
 #include <QUrl>
@@ -31,6 +35,16 @@ void seekToAndVerify(AudioWrapper &wrapper, qint64 target)
 {
     wrapper.seek(target);
     QTRY_COMPARE_LE_WITH_TIMEOUT(std::chrono::milliseconds(qAbs(wrapper.position() - target)), kSeekTolerance, kTimeout);
+}
+
+bool hasReloadedSince(const QSignalSpy &statusChangedSpy, int sinceCount)
+{
+    for (int i = sinceCount; i < statusChangedSpy.count(); ++i) {
+        if (statusChangedSpy.at(i).at(0).value<QMediaPlayer::MediaStatus>() == QMediaPlayer::LoadedMedia) {
+            return true;
+        }
+    }
+    return false;
 }
 }
 
@@ -320,6 +334,78 @@ private Q_SLOTS:
 
         QTest::qWait(kSettleWait);
         QCOMPARE(wrapper.playbackState(), QMediaPlayer::StoppedState);
+    }
+
+    void reselectSameTrackAfterStop()
+    {
+        AudioWrapper wrapper;
+
+        // First click of a double click
+        wrapper.setSource(sTestTrackUrl);
+        wrapper.play();
+        QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
+
+        // Second click
+        wrapper.stop();
+        QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::StoppedState, kTimeout);
+
+        wrapper.setSource(sTestTrackUrl);
+        QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.status(), QMediaPlayer::LoadedMedia, kTimeout);
+        QCOMPARE(wrapper.error(), QMediaPlayer::NoError);
+
+        wrapper.play();
+        QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::PlayingState, kTimeout);
+
+        wrapper.stop();
+        QTRY_COMPARE_EQ_WITH_TIMEOUT(wrapper.playbackState(), QMediaPlayer::StoppedState, kTimeout);
+    }
+
+    void doubleClickReselectRestartsPlayback()
+    {
+        Elisa::ElisaConfiguration::self()->setDefaults();
+
+        // Wire ManageAudioPlayer and AudioWrapper exactly like
+        // ElisaApplication::initUserInterface does.
+        ManageAudioPlayer playerControl;
+        AudioWrapper wrapper;
+
+        QObject::connect(&playerControl, &ManageAudioPlayer::playerPlay, &wrapper, &AudioWrapper::play);
+        QObject::connect(&playerControl, &ManageAudioPlayer::playerPause, &wrapper, &AudioWrapper::pause);
+        QObject::connect(&playerControl, &ManageAudioPlayer::playerStop, &wrapper, &AudioWrapper::stop);
+        QObject::connect(&playerControl, &ManageAudioPlayer::playerSourceChanged, &wrapper, &AudioWrapper::setSource);
+        QObject::connect(&wrapper, &AudioWrapper::playbackStateChanged, &playerControl, &ManageAudioPlayer::setPlayerPlaybackState);
+        QObject::connect(&wrapper, &AudioWrapper::statusChanged, &playerControl, &ManageAudioPlayer::setPlayerStatus);
+        QObject::connect(&wrapper, &AudioWrapper::errorChanged, &playerControl, &ManageAudioPlayer::setPlayerError);
+        QSignalSpy statusChangedSpy(&wrapper, &AudioWrapper::statusChanged);
+
+        QStandardItemModel playList;
+        playList.appendRow(new QStandardItem);
+        playList.item(0, 0)->setData(sTestTrackUrl, Qt::UserRole + 1);
+
+        playerControl.setPlayListModel(&playList);
+        playerControl.setUrlRole(Qt::UserRole + 1);
+        playerControl.setIsPlayingRole(Qt::UserRole + 2);
+
+        const auto trackIndex = playList.index(0, 0);
+
+        // First click of a double-click: select the track and start playback.
+        playerControl.setCurrentTrack(trackIndex);
+        QTRY_COMPARE_EQ_WITH_TIMEOUT(playerControl.playerStatus(), QMediaPlayer::LoadedMedia, kTimeout);
+
+        playerControl.ensurePlay();
+        QTRY_COMPARE_EQ_WITH_TIMEOUT(playerControl.playerPlaybackState(), QMediaPlayer::PlayingState, kTimeout);
+
+        while (statusChangedSpy.wait(150)) { }
+
+        // Second click
+        const auto statusCountBeforeReselect = statusChangedSpy.count();
+        playerControl.setCurrentTrack(QPersistentModelIndex(trackIndex));
+
+        QTRY_VERIFY_WITH_TIMEOUT(hasReloadedSince(statusChangedSpy, statusCountBeforeReselect), kTimeout);
+        QTRY_COMPARE_EQ_WITH_TIMEOUT(playerControl.playerPlaybackState(), QMediaPlayer::PlayingState, kTimeout);
+
+        playerControl.stop();
+        QTRY_COMPARE_EQ_WITH_TIMEOUT(playerControl.playerPlaybackState(), QMediaPlayer::StoppedState, kTimeout);
     }
 
 private:

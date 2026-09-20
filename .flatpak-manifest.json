@@ -33,6 +33,20 @@
     ],
     "modules": [
         {
+            "name": "union",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "config-opts": [
+                "-DBUILD_TESTING=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/plasma/union.git"
+                }
+            ]
+        },
+        {
             "name": "elisa",
             "buildsystem": "cmake-ninja",
             "config-opts": [

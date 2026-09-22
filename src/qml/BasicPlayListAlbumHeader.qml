@@ -46,18 +46,14 @@ Rectangle {
             Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
         }
 
-        ImageWithFallback {
+        Kirigami.Icon {
             Layout.preferredWidth: Theme.coverArtSize
             Layout.preferredHeight: Theme.coverArtSize
 
-            source: root.imageUrl
+            readonly property url image: root.imageUrl
+            source: (image === "" || image === Qt.url("") || image === undefined || image === null) ? "not-an-icon" : image
             fallback: Theme.defaultAlbumImage
-
-            sourceSize.width: height * Screen.devicePixelRatio
-            sourceSize.height: height * Screen.devicePixelRatio
-
-            fillMode: Image.PreserveAspectFit
-            asynchronous: true
+            roundToIconSize: false
         }
 
         ColumnLayout {

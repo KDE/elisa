@@ -109,16 +109,13 @@ Kirigami.FormLayout {
         implicitHeight: Theme.coverImageSize
         implicitWidth: Theme.coverImageSize
 
-        ImageWithFallback {
+        Kirigami.Icon {
             id: metadataImage
 
-            source: form.metadataModel.coverUrl
-            fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
+            readonly property url image: form.metadataModel.coverUrl
+            source: (image === "" || image === Qt.url("") || image === undefined || image === null) ? "not-an-icon" : image
+            fallback: Theme.defaultAlbumImage
 
-            sourceSize.width: Theme.coverImageSize * Screen.devicePixelRatio
-            sourceSize.height: Theme.coverImageSize * Screen.devicePixelRatio
-
-            fillMode: Image.PreserveAspectFit
             anchors.fill: parent
         }
     }

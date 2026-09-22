@@ -126,14 +126,16 @@ Flickable {
             anchors.fill: parent
         }
 
-        component BlurredImage : ImageWithFallback {
-            fallback: Theme.defaultBackgroundImage
-            asynchronous: true
-
+        component BlurredImage : Image {
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
 
-            sourceSize.width: Screen.width
+            onSourceChanged: {
+                //Fallback to default image
+                if (source === Qt.url("") || source === '' || source === undefined || source === null) {
+                    source = Qt.resolvedUrl(Theme.defaultBackgroundImage)
+                }
+            }
 
             opacity: 1
 

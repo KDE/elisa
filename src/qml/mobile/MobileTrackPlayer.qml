@@ -57,7 +57,7 @@ BasePlayerControl {
         }
 
         // album art
-        ImageWithFallback {
+        Kirigami.Icon {
             property double specWidth: {
                 const allowedWidth = mainWindow.width - Kirigami.Units.largeSpacing * 4;
                 const allowedHeight = mainWindow.height - Kirigami.Units.largeSpacing * 8 - (minimizePlayer.height + bottomPlayerControls.height);
@@ -69,18 +69,9 @@ BasePlayerControl {
             Layout.maximumWidth: specWidth
             Layout.preferredHeight: specWidth
 
-            asynchronous: true
-            mipmap: true
-
-            source: trackPlayer.image
-            fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
-
-            sourceSize {
-                width: trackPlayer.imageSourceSize * Screen.devicePixelRatio
-                height: trackPlayer.imageSourceSize * Screen.devicePixelRatio
-            }
-
-            fillMode: Image.PreserveAspectFit
+            readonly property url image: trackPlayer.image
+            source: (image === "" || image === Qt.url("") || image === undefined || image === null) ? "not-an-icon" : image
+            fallback: Theme.defaultAlbumImage
         }
 
         Item { Layout.fillHeight: true }

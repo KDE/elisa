@@ -101,38 +101,34 @@ FocusScope {
     function loadImage() {
         if (background.pendingImageIncubator) {
             background.pendingImageIncubator.forceCompletion();
-            background.pendingImageIncubator.object.statusChanged.disconnect(replaceWhenLoaded);
-            background.pendingImageIncubator.object.destroy();
-            background.pendingImageIncubator = undefined;
         }
 
         if (images.pendingImageIncubator) {
             images.pendingImageIncubator.forceCompletion();
-            images.pendingImageIncubator.object.statusChanged.disconnect(replaceIconWhenLoaded);
-            images.pendingImageIncubator.object.destroy();
-            images.pendingImageIncubator = undefined;
         }
 
         background.doesSkipAnimation = background.currentItem == undefined || !headerBar.transitionsEnabled;
+
+        //if the file does not have embedded cover images, fall back to generic
+        const fallbackBackground = Qt.resolvedUrl(Theme.defaultBackgroundImage);
         background.pendingImageIncubator = backgroundComponent.incubateObject(background, {
-            "source": image,
+            "source": (image === "" || image === Qt.url("") || image === undefined || image === null) ? fallbackBackground : image,
             "opacity": 0,
         });
         images.pendingImageIncubator = mainIconComponent.incubateObject(images, {
-            "source": image,
+            //Kirigami.Icon resolves an empty url as truthy, so it loads nothing for some reason. So load some garbage data instead
+            "source": (image === "" || image === Qt.url("") || image === undefined || image === null) ? "not-an-icon" : image,
             "opacity": 0,
         });
     }
 
-    function replaceWhenLoaded() {
-        background.pendingImageIncubator.object.statusChanged.disconnect(replaceWhenLoaded);
-        background.replace(background.pendingImageIncubator.object, {}, StackView.Transition);
+    function replaceWhenLoaded(item) {
+        background.replace(item, {}, StackView.Transition);
         background.pendingImageIncubator = undefined;
     }
 
-    function replaceIconWhenLoaded() {
-        images.pendingImageIncubator.object.statusChanged.disconnect(replaceIconWhenLoaded);
-        images.replace(images.pendingImageIncubator.object, {}, StackView.Transition);
+    function replaceIconWhenLoaded(item) {
+        images.replace(item, {}, StackView.Transition);
         images.pendingImageIncubator = undefined;
     }
 
@@ -185,16 +181,9 @@ FocusScope {
     Component {
         id: backgroundComponent
 
-        ImageWithFallback {
-            fallback: Qt.resolvedUrl(Theme.defaultBackgroundImage)
-            asynchronous: true
-
+        Image {
             sourceSize.width: Screen.width
             fillMode: Image.PreserveAspectCrop
-
-            StackView.onRemoved: {
-                destroy();
-            }
 
             Rectangle {
                 anchors.fill: parent
@@ -204,9 +193,9 @@ FocusScope {
 
             Component.onCompleted: {
                 if (status === Image.Loading) {
-                    statusChanged.connect(() => { if (status == Image.Ready) { headerBar.replaceWhenLoaded() } });
+                    statusChanged.connect(() => { if (status === Image.Ready || status === Image.Error) { headerBar.replaceWhenLoaded(this) } });
                 } else {
-                    headerBar.replaceWhenLoaded();
+                    headerBar.replaceWhenLoaded(this);
                 }
             }
 
@@ -394,28 +383,19 @@ FocusScope {
             Component {
                 id: mainIconComponent
 
-                ImageWithFallback {
-                    asynchronous: true
-                    mipmap: true
+                Kirigami.Icon {
+                    width: parent ? parent.width : 0
+                    height: parent ? parent.height : 0
 
-                    fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
-
-                    sourceSize {
-                        width: headerBar.imageSourceSize * Screen.devicePixelRatio
-                        height: headerBar.imageSourceSize * Screen.devicePixelRatio
-                    }
-
-                    fillMode: Image.PreserveAspectFit
-
-                    StackView.onRemoved: {
-                        destroy();
-                    }
+                    fallback: Theme.defaultAlbumImage
+                    roundToIconSize: false
+                    smooth: true
 
                     Component.onCompleted: {
-                        if (status === Image.Loading) {
-                            statusChanged.connect(headerBar.replaceIconWhenLoaded);
+                        if (status === Kirigami.Icon.Loading) {
+                            statusChanged.connect(() => { if (status === Kirigami.Icon.Ready || status === Kirigami.Icon.Error) { headerBar.replaceIconWhenLoaded(this) } });
                         } else {
-                            headerBar.replaceIconWhenLoaded();
+                            headerBar.replaceIconWhenLoaded(this);
                         }
                     }
                 }

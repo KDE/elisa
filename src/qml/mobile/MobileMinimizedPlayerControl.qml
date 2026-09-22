@@ -37,11 +37,11 @@ BasePlayerControl {
     property bool isWidescreen: mainWindow.width >= Theme.viewSelectorSmallSizeThreshold
 
     // background image
-    ImageWithFallback {
+    Image {
         id: oldBackground
 
-        source: musicWidget.image
-        fallback: Theme.defaultBackgroundImage
+        readonly property url image: musicWidget.image
+        source: (image === "" || image === Qt.url("") || image === undefined || image === null) ? Theme.defaultBackgroundImage : image
         asynchronous: true
 
         anchors.fill: parent
@@ -115,22 +115,12 @@ BasePlayerControl {
                     Layout.maximumHeight: imageSize
                     Layout.minimumHeight: imageSize
 
-                    ImageWithFallback {
+                    Kirigami.Icon {
                         id: mainIcon
                         anchors.fill: parent
-
-                        asynchronous: true
-                        mipmap: true
-
-                        source: musicWidget.image
-                        fallback: Qt.resolvedUrl(Theme.defaultAlbumImage)
-
-                        sourceSize {
-                            width: musicWidget.imageSourceSize * Screen.devicePixelRatio
-                            height: musicWidget.imageSourceSize * Screen.devicePixelRatio
-                        }
-
-                        fillMode: Image.PreserveAspectFit
+                        readonly property url image: musicWidget.image
+                        source: (image === "" || image === Qt.url("") || image === undefined || image === null) ? "not-an-icon" : image
+                        fallback: Theme.defaultAlbumImage
                     }
                 }
 

@@ -36,23 +36,18 @@ AbstractBrowserDelegate {
             text: mainLabel.text
         }
 
-        component CoverImage: ImageWithFallback {
+        component CoverImage: Kirigami.Icon {
             id: coverImage
             property var imageSource
 
-            sourceSize.width: width * Screen.devicePixelRatio
-            sourceSize.height: height * Screen.devicePixelRatio
-            fillMode: Image.PreserveAspectFit
-
-            source: imageSource ? imageSource : ""
+            source: (imageSource === "" || imageSource === Qt.url("") || imageSource === undefined || imageSource === null) ? "not-an-icon" : imageSource
             fallback: gridEntry.imageFallbackUrl
 
-            asynchronous: true
+            roundToIconSize: false
 
-            layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software && !coverImage.usingFallback && !Kirigami.Settings.isMobile // don't use drop shadow on mobile
+            readonly property bool usingFallback: source === fallback 
+            layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software && !usingFallback && !Kirigami.Settings.isMobile // don't use drop shadow on mobile
             layer.effect: FX.MultiEffect {
-                source: coverImage
-
                 shadowBlur: 0.8
                 shadowEnabled: true
                 shadowColor: palette.shadow

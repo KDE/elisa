@@ -197,7 +197,7 @@ Kirigami.Page {
 
                 doesSkipAnimation = currentItem == undefined;
                 pendingImage = backgroundComponent.createObject(background, {
-                    "source": topItem.albumArtUrl.toString() === "" ? Qt.resolvedUrl(Theme.defaultAlbumImage) : topItem.albumArtUrl,
+                    "source": topItem.albumArtUrl.toString() === "" ? Theme.defaultAlbumImage : topItem.albumArtUrl,
                     "opacity": 0,
                 });
 

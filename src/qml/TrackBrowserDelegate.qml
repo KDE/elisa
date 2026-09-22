@@ -151,24 +151,19 @@ ItemDelegate {
 
                 Layout.alignment: Qt.AlignCenter
 
-                sourceComponent: ImageWithFallback {
+                sourceComponent: Kirigami.Icon {
                     id: coverImageElement
 
-                    sourceSize.width: Theme.listDelegateIconHeight * Screen.devicePixelRatio
-                    sourceSize.height: Theme.listDelegateIconHeight * Screen.devicePixelRatio
-                    fillMode: Image.PreserveAspectFit
-                    smooth: true
-
-                    source: mediaTrack.imageUrl
+                    readonly property url image: mediaTrack.imageUrl
+                    source: (image === "" || image === Qt.url("") || image === undefined || image === null) ? "not-an-icon" : image
                     fallback: Theme.defaultAlbumImage
 
-                    asynchronous: true
+                    roundToIconSize: false
 
+                    readonly property bool usingFallback: source === fallback
                     layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software && !usingFallback && !Kirigami.Settings.isMobile // disable drop shadow for mobile
 
                     layer.effect: FX.MultiEffect {
-                        source: coverImageElement
-
                         blurMax: 8
                         shadowEnabled: true
                         shadowColor: palette.shadow

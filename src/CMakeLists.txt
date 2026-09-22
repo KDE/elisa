@@ -350,7 +350,6 @@ qt_add_qml_module(elisaLib
         qml/FooterBar.qml
         qml/GridBrowserDelegate.qml
         qml/HeaderBar.qml
-        qml/ImageWithFallback.qml
         qml/LabelWithToolTip.qml
         qml/ListBrowserDelegate.qml
         qml/LyricsView.qml

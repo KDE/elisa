@@ -51,19 +51,17 @@ AbstractBrowserDelegate {
                 Layout.preferredWidth: Theme.listDelegateIconHeight
                 Layout.preferredHeight: Theme.listDelegateIconHeight
 
-                sourceComponent: ImageWithFallback {
+                sourceComponent: Kirigami.Icon {
                     id: coverImageElement
 
-                    sourceSize.width: Theme.listDelegateIconHeight * Screen.devicePixelRatio
-                    sourceSize.height: Theme.listDelegateIconHeight * Screen.devicePixelRatio
-                    fillMode: Image.PreserveAspectFit
-                    smooth: true
-
-                    source: listEntry.imageUrl
+                    readonly property url image: listEntry.imageUrl
+                    source: (image === "" || image === Qt.url("") || image === undefined || image === null) ? "not-an-icon" : image
+                    //TODO: change all fallbacks to strings and implement source properly from the model up
                     fallback: listEntry.imageFallbackUrl
 
-                    asynchronous: true
+                    roundToIconSize: false
 
+                    readonly property bool usingFallback: source === fallback
                     layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software && !usingFallback && !Kirigami.Settings.isMobile // disable drop shadow for mobile
 
                     layer.effect: FX.MultiEffect {

@@ -15,7 +15,7 @@ import org.kde.kirigami as Kirigami
 Item {
     id: root
 
-    readonly property string defaultAlbumImage: 'image://icon/media-default-album'
+    readonly property string defaultAlbumImage: 'media-default-album'
     readonly property string defaultBackgroundImage: 'qrc:/qt/qml/org/kde/elisa/background.png'
 
     readonly property string folderIcon: 'image://icon/document-open-folder'

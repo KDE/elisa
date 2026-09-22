@@ -487,15 +487,11 @@ Item {
                 opacity: 0.8
             }
 
-            ImageWithFallback {
+            Image {
                 anchors.fill: parent
 
-                source: ElisaApplication.manageHeaderBar.image
-                fallback: Theme.defaultBackgroundImage
-                asynchronous: true
-
-                sourceSize.width: Screen.width
-                fillMode: Image.PreserveAspectCrop
+                readonly property url image: ElisaApplication.managerHeaderBar.image
+                source: (image === "" || image === Qt.url("") || image === undefined || image === null) ? Theme.defaultBackgroundImage : image
 
                 layer.enabled: GraphicsInfo.api !== GraphicsInfo.Software
                 layer.effect: FX.MultiEffect {

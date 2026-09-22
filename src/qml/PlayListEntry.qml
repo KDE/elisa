@@ -171,15 +171,12 @@ BasePlayListDelegate {
                     opacity: playIcon.visible ? 0.2 : 1
                     anchors.fill: parent
 
-                    sourceComponent: ImageWithFallback {
-                        source: playListEntry.imageUrl
+                    readonly property url imageUrl: playListEntry.imageUrl
+                    sourceComponent: Kirigami.Icon {
+                        source: (imageUrl === "" || imageUrl === Qt.url("") || imageUrl === undefined || imageUrl === null) ? "not-an-icon" : imageUrl
                         fallback: Theme.defaultAlbumImage
 
-                        sourceSize.width: height
-                        sourceSize.height: height
-
-                        fillMode: Image.PreserveAspectFit
-                        asynchronous: true
+                        roundToIconSize: false
                     }
                 }
 

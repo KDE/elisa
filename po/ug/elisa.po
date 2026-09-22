@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-04 00:43+0000\n"
-"PO-Revision-Date: 2026-05-30 16:22-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
@@ -201,7 +201,7 @@ msgstr "نەشرى"
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
-msgstr "%1: %2\n"
+msgstr ""
 
 #: models/trackmetadatamodel.cpp:107
 #, kde-format
@@ -375,13 +375,13 @@ msgstr ""
 #, kde-format
 msgctxt "duration formatted as minutes:seconds"
 msgid "%1:%2"
-msgstr "%1:%2"
+msgstr ""
 
 #: progressindicator.cpp:50
 #, kde-format
 msgctxt "duration formatted as hours:minutes:seconds"
 msgid "%1:%2:%3"
-msgstr "%1:%2:%3"
+msgstr ""
 
 #: qml/AbstractBrowserDelegate.qml:43
 #, kde-format
@@ -545,7 +545,7 @@ msgctxt ""
 "@info:placeholder This is used to preserve a fixed width for the duration "
 "text."
 msgid "00:00:00"
-msgstr "00:00:00"
+msgstr ""
 
 #: qml/DurationSlider.qml:107
 #, kde-format
@@ -989,7 +989,7 @@ msgstr ""
 #, kde-format
 msgctxt "Track metadata form label, e.g. 'Artist:'"
 msgid "%1:"
-msgstr "%1:"
+msgstr ""
 
 #: qml/MediaTrackMetadataView.qml:37
 #: qml/mobile/MobileMediaTrackMetadataView.qml:48
@@ -1724,7 +1724,7 @@ msgstr "ئاۋاز مىقدارى"
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr "%1%"
+msgstr ""
 
 #: viewmanager.cpp:41
 #, kde-format

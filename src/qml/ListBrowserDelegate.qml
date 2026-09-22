@@ -56,7 +56,6 @@ AbstractBrowserDelegate {
 
                     readonly property url image: listEntry.imageUrl
                     source: (image === "" || image === Qt.url("") || image === undefined || image === null) ? "not-an-icon" : image
-                    //TODO: change all fallbacks to strings and implement source properly from the model up
                     fallback: listEntry.imageFallbackUrl
 
                     roundToIconSize: false

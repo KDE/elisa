@@ -196,8 +196,9 @@ Kirigami.Page {
                 }
 
                 doesSkipAnimation = currentItem == undefined;
+                const albumImage = topItem.albumArtUrl;
                 pendingImage = backgroundComponent.createObject(background, {
-                    "source": topItem.albumArtUrl.toString() === "" ? Theme.defaultAlbumImage : topItem.albumArtUrl,
+                    "source": (albumImage === "" || albumImage === Qt.url("") || albumImage === undefined || albumImage === null) ? Theme.defaultBackgroundImage : topItem.albumArtUrl,
                     "opacity": 0,
                 });
 

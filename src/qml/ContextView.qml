@@ -184,12 +184,6 @@ Kirigami.Page {
             onActiveChanged: loadImage()
 
             function loadImage() {
-                if (pendingImage) {
-                    pendingImage.statusChanged.disconnect(replaceWhenLoaded);
-                    pendingImage.destroy();
-                    pendingImage = null;
-                }
-
                 if (!active) {
                     clear();
                     return;
@@ -210,9 +204,10 @@ Kirigami.Page {
             }
 
             function replaceWhenLoaded() {
-                pendingImage.statusChanged.disconnect(replaceWhenLoaded);
-                replace(pendingImage, {}, StackView.Transition);
-                pendingImage = null;
+                if (pendingImage && pendingImage.status === Image.Ready) {
+                    replace(pendingImage, {}, StackView.Transition);
+                    pendingImage = null;
+                }
             }
 
             Component.onCompleted: {
@@ -232,10 +227,6 @@ Kirigami.Page {
                     if (status === Image.Ready && (sourceSize.width > Kirigami.Units.gridUnit * 50 || sourceSize.height > Kirigami.Units.gridUnit * 50)) {
                         sourceSize = Qt.size(Kirigami.Units.gridUnit * 50, Kirigami.Units.gridUnit * 50);
                     }
-                }
-
-                StackView.onRemoved: {
-                    destroy();
                 }
             }
         }

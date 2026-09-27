@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-04 00:43+0000\n"
+"POT-Creation-Date: 2026-09-27 00:44+0000\n"
 "PO-Revision-Date: 2020-10-07 20:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -417,7 +417,7 @@ msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
 msgstr "Pildi aadress"
 
-#: models/viewsmodel.cpp:106 viewslistdata.cpp:53
+#: models/viewsmodel.cpp:106 viewslistdata.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all albums"
 #| msgid "Albums"
@@ -425,7 +425,7 @@ msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Albumid"
 
-#: models/viewsmodel.cpp:109 viewslistdata.cpp:101
+#: models/viewsmodel.cpp:109 viewslistdata.cpp:107
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all genres"
 #| msgid "Genres"
@@ -433,7 +433,7 @@ msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Žanrid"
 
-#: models/viewsmodel.cpp:112 viewslistdata.cpp:67
+#: models/viewsmodel.cpp:112 viewslistdata.cpp:71
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all artists"
 #| msgid "Artists"
@@ -614,7 +614,7 @@ msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Sõnad"
 
-#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:397
+#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:388
 #: qml/NavigationActionBar.qml:176
 #, fuzzy, kde-format
 #| msgid "Show Playlist"
@@ -622,7 +622,7 @@ msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Esitusloendi näitamine"
 
-#: qml/ContextView.qml:362
+#: qml/ContextView.qml:354
 #, fuzzy, kde-format
 #| msgctxt "Title of the context view related to the currently playing track"
 #| msgid "Now Playing"
@@ -630,7 +630,7 @@ msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Praegu esitusel"
 
-#: qml/ContextView.qml:396
+#: qml/ContextView.qml:388
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@action:button"
@@ -794,8 +794,8 @@ msgctxt "@label"
 msgid "Saving failed"
 msgstr "Salvestamine nurjus"
 
-#: qml/HeaderBar.qml:247 qml/MediaPlayerControl.qml:270
-#: qml/mobile/MobileTrackPlayer.qml:298
+#: qml/HeaderBar.qml:236 qml/MediaPlayerControl.qml:270
+#: qml/mobile/MobileTrackPlayer.qml:289
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of the playlist"
 #| msgid "Playlist"
@@ -803,7 +803,7 @@ msgctxt "@action:inmenu"
 msgid "Playlist"
 msgstr "Esitusloend"
 
-#: qml/HeaderBar.qml:264
+#: qml/HeaderBar.qml:253
 #, fuzzy, kde-format
 #| msgctxt "Lyrics label for track metadata view"
 #| msgid "Lyrics"
@@ -811,13 +811,13 @@ msgctxt "@action:button"
 msgid "Lyrics"
 msgstr "Sõnad"
 
-#: qml/HeaderBar.qml:287
+#: qml/HeaderBar.qml:276
 #, kde-format
 msgctxt "@action:button"
 msgid "Exit Full Screen"
 msgstr ""
 
-#: qml/HeaderBar.qml:288
+#: qml/HeaderBar.qml:277
 #, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
@@ -888,26 +888,26 @@ msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:214
+#: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:205
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:215
+#: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:206
 #, fuzzy, kde-format
 #| msgid "No remaining tracks"
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
 msgstr "Radu enam pole"
 
-#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:216
+#: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:207
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:245
+#: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:236
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -915,7 +915,7 @@ msgctxt "@action:inmenu"
 msgid "Track"
 msgstr "Rajad"
 
-#: qml/MediaPlayerControl.qml:213 qml/mobile/MobileTrackPlayer.qml:249
+#: qml/MediaPlayerControl.qml:213 qml/mobile/MobileTrackPlayer.qml:240
 #, fuzzy, kde-format
 #| msgctxt "Album name for track metadata view"
 #| msgid "Album"
@@ -924,20 +924,20 @@ msgid "Album"
 msgstr "Album"
 
 #: qml/MediaPlayerControl.qml:217 qml/MediaPlayerControl.qml:278
-#: qml/mobile/MobileTrackPlayer.qml:253 qml/mobile/MobileTrackPlayer.qml:306
+#: qml/mobile/MobileTrackPlayer.qml:244 qml/mobile/MobileTrackPlayer.qml:297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "None"
 msgstr ""
 
-#: qml/MediaPlayerControl.qml:238 qml/mobile/MobileTrackPlayer.qml:267
+#: qml/MediaPlayerControl.qml:238 qml/mobile/MobileTrackPlayer.qml:258
 #, fuzzy, kde-format
 #| msgid "No remaining tracks"
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
 msgstr "Radu enam pole"
 
-#: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:268
+#: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:259
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current Track"
@@ -945,7 +945,7 @@ msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
 msgstr "Aktiivse raja näitamine"
 
-#: qml/MediaPlayerControl.qml:240 qml/mobile/MobileTrackPlayer.qml:269
+#: qml/MediaPlayerControl.qml:240 qml/mobile/MobileTrackPlayer.qml:260
 #, fuzzy, kde-format
 #| msgctxt "Show currently played track inside playlist"
 #| msgid "Show Current Track"
@@ -953,7 +953,7 @@ msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
 msgstr "Aktiivse raja näitamine"
 
-#: qml/MediaPlayerControl.qml:274 qml/mobile/MobileTrackPlayer.qml:302
+#: qml/MediaPlayerControl.qml:274 qml/mobile/MobileTrackPlayer.qml:293
 #, fuzzy, kde-format
 #| msgid "1 track"
 #| msgid_plural "%1 tracks"
@@ -1197,7 +1197,7 @@ msgctxt "@label"
 msgid "Data is not valid. %1"
 msgstr "Andmed ei ole korrektsed. %1"
 
-#: qml/MediaTrackMetadataForm.qml:148
+#: qml/MediaTrackMetadataForm.qml:145
 #, fuzzy, kde-format
 #| msgctxt "Label for a piece of metadata, e.g. 'Album Artist:'"
 #| msgid "%1:"
@@ -1255,8 +1255,8 @@ msgctxt "@action:button"
 msgid "Cancel"
 msgstr "Loobu"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:225
-#: qml/mobile/MobileTrackPlayer.qml:357
+#: qml/mobile/MobileMinimizedPlayerControl.qml:215
+#: qml/mobile/MobileTrackPlayer.qml:348
 #, fuzzy, kde-format
 #| msgctxt "skip backward in playlists"
 #| msgid "Skip Backward"
@@ -1264,8 +1264,8 @@ msgctxt "@action:button"
 msgid "Skip Backward"
 msgstr "Hüpe tagasi"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:239
-#: qml/mobile/MobileTrackPlayer.qml:370
+#: qml/mobile/MobileMinimizedPlayerControl.qml:229
+#: qml/mobile/MobileTrackPlayer.qml:361
 #, fuzzy, kde-format
 #| msgctxt "Pause current track from play list"
 #| msgid "Pause"
@@ -1273,8 +1273,8 @@ msgctxt "@action:button Pause any media that is playing"
 msgid "Pause"
 msgstr "Paus"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:239
-#: qml/mobile/MobileTrackPlayer.qml:370
+#: qml/mobile/MobileMinimizedPlayerControl.qml:229
+#: qml/mobile/MobileTrackPlayer.qml:361
 #, fuzzy, kde-format
 #| msgctxt "Play this track from play list"
 #| msgid "Play"
@@ -1282,8 +1282,8 @@ msgctxt "@action:button Start playing media"
 msgid "Play"
 msgstr "Esita"
 
-#: qml/mobile/MobileMinimizedPlayerControl.qml:253
-#: qml/mobile/MobileTrackPlayer.qml:383
+#: qml/mobile/MobileMinimizedPlayerControl.qml:243
+#: qml/mobile/MobileTrackPlayer.qml:374
 #, fuzzy, kde-format
 #| msgctxt "skip forward in playlists"
 #| msgid "Skip Forward"
@@ -1291,7 +1291,7 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Hüpe edasi"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:365
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1299,7 +1299,7 @@ msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Rajad"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:365
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
 #, fuzzy, kde-format
 #| msgid "Radios"
 msgctxt "@action:button"
@@ -1333,7 +1333,7 @@ msgctxt "@action:button"
 msgid "Minimize Player"
 msgstr ""
 
-#: qml/mobile/MobileTrackPlayer.qml:199
+#: qml/mobile/MobileTrackPlayer.qml:190
 #, fuzzy, kde-format
 #| msgid "Choose a Folder"
 msgctxt "@action:button show track information"
@@ -1690,7 +1690,7 @@ msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Eemalda"
 
-#: qml/PlayListEntry.qml:313 qml/TrackBrowserDelegate.qml:314
+#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:309
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
@@ -1999,13 +1999,13 @@ msgctxt "@action:button"
 msgid "Play from here, replacing current playlist"
 msgstr "Esitamine kohe senist esitusloendit asendades"
 
-#: qml/TrackBrowserDelegate.qml:203 qml/TrackBrowserDelegate.qml:219
+#: qml/TrackBrowserDelegate.qml:198 qml/TrackBrowserDelegate.qml:214
 #, kde-format
 msgctxt "@item:intable %1: track number. %2: track title."
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:214
+#: qml/TrackBrowserDelegate.qml:209
 #, fuzzy, kde-format
 #| msgctxt "%1: track number. %2: track title"
 #| msgid "%1 - %2"
@@ -2013,13 +2013,13 @@ msgctxt "@item:intable %1: track number. %2: track title. %3: artist name"
 msgid "%1 – %2 – %3"
 msgstr "%1 - %2"
 
-#: qml/TrackBrowserDelegate.qml:226
+#: qml/TrackBrowserDelegate.qml:221
 #, kde-format
 msgctxt "@item:intable %1: track title. %2: artist name"
 msgid "%1 – %2"
 msgstr ""
 
-#: qml/TrackBrowserDelegate.qml:373
+#: qml/TrackBrowserDelegate.qml:368
 #, fuzzy, kde-format
 #| msgctxt "Show filters in the navigation bar"
 #| msgid "Show Search Options"
@@ -2094,18 +2094,18 @@ msgid "Descending"
 msgstr ""
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
-#: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
-#: viewslistdata.cpp:111 viewslistdata.cpp:136
+#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:66
+#: viewslistdata.cpp:81 viewslistdata.cpp:101 viewslistdata.cpp:102
+#: viewslistdata.cpp:117 viewslistdata.cpp:144
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
 msgstr ""
 
 #: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:63
-#: viewslistdata.cpp:77 viewslistdata.cpp:96 viewslistdata.cpp:97
-#: viewslistdata.cpp:111 viewslistdata.cpp:136
+#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:66
+#: viewslistdata.cpp:81 viewslistdata.cpp:101 viewslistdata.cpp:102
+#: viewslistdata.cpp:117 viewslistdata.cpp:144
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
@@ -2133,20 +2133,20 @@ msgid "Year"
 msgstr "Aasta"
 
 #: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
-#: viewslistdata.cpp:63 viewslistdata.cpp:97 viewslistdata.cpp:98
+#: viewslistdata.cpp:66 viewslistdata.cpp:102 viewslistdata.cpp:103
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr ""
 
 #: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
-#: viewslistdata.cpp:63 viewslistdata.cpp:97 viewslistdata.cpp:98
+#: viewslistdata.cpp:66 viewslistdata.cpp:102 viewslistdata.cpp:103
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr ""
 
-#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#: viewmanager.cpp:100 viewslistdata.cpp:64 viewslistdata.cpp:97
 #, fuzzy, kde-format
 #| msgctxt "Track title for track metadata view"
 #| msgid "Title"
@@ -2154,7 +2154,7 @@ msgctxt "@title:menu"
 msgid "Title"
 msgstr "Pealkiri"
 
-#: viewmanager.cpp:100 viewslistdata.cpp:92
+#: viewmanager.cpp:100 viewslistdata.cpp:97
 #, fuzzy, kde-format
 #| msgctxt "Album name for track metadata view"
 #| msgid "Album"
@@ -2162,7 +2162,7 @@ msgctxt "@title:menu"
 msgid "Album"
 msgstr "Album"
 
-#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
+#: viewmanager.cpp:100 viewslistdata.cpp:64 viewslistdata.cpp:97
 #, fuzzy, kde-format
 #| msgctxt "Track artist for track metadata view"
 #| msgid "Artist"
@@ -2170,22 +2170,22 @@ msgctxt "@title:menu"
 msgid "Artist"
 msgstr "Esitaja"
 
-#: viewmanager.cpp:100 viewslistdata.cpp:61 viewslistdata.cpp:92
-#: viewslistdata.cpp:109
+#: viewmanager.cpp:100 viewslistdata.cpp:64 viewslistdata.cpp:97
+#: viewslistdata.cpp:115
 #, fuzzy, kde-format
 #| msgid "Genre"
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Žanr"
 
-#: viewmanager.cpp:101 viewslistdata.cpp:61 viewslistdata.cpp:93
+#: viewmanager.cpp:101 viewslistdata.cpp:64 viewslistdata.cpp:98
 #, fuzzy, kde-format
 #| msgid "Year"
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "Aasta"
 
-#: viewmanager.cpp:101 viewslistdata.cpp:93
+#: viewmanager.cpp:101 viewslistdata.cpp:98
 #, fuzzy, kde-format
 #| msgctxt "Duration label for track metadata view"
 #| msgid "Duration"
@@ -2193,7 +2193,7 @@ msgctxt "@title:menu"
 msgid "Duration"
 msgstr "Kestus"
 
-#: viewmanager.cpp:101 viewslistdata.cpp:93
+#: viewmanager.cpp:101 viewslistdata.cpp:98
 #, fuzzy, kde-format
 #| msgctxt "Composer name for track metadata view"
 #| msgid "Composer"
@@ -2201,7 +2201,7 @@ msgctxt "@title:menu"
 msgid "Composer"
 msgstr "Helilooja"
 
-#: viewmanager.cpp:101 viewslistdata.cpp:93
+#: viewmanager.cpp:101 viewslistdata.cpp:98
 #, fuzzy, kde-format
 #| msgctxt "Lyricist label for track metadata view"
 #| msgid "Lyricist"
@@ -2209,19 +2209,19 @@ msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "Sõnade autor"
 
-#: viewmanager.cpp:102 viewslistdata.cpp:94
+#: viewmanager.cpp:102 viewslistdata.cpp:99
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr ""
 
-#: viewmanager.cpp:105 viewslistdata.cpp:97
+#: viewmanager.cpp:105 viewslistdata.cpp:102
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr ""
 
-#: viewmanager.cpp:105 viewslistdata.cpp:97
+#: viewmanager.cpp:105 viewslistdata.cpp:102
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Longest First"
@@ -2235,7 +2235,7 @@ msgctxt "@title:window Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Praegu esitusel"
 
-#: viewslistdata.cpp:27
+#: viewslistdata.cpp:28
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of recently played tracks"
 #| msgid "Recently Played"
@@ -2243,7 +2243,7 @@ msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Viimati esitatud"
 
-#: viewslistdata.cpp:35
+#: viewslistdata.cpp:36
 #, fuzzy, kde-format
 #| msgctxt "Last play date label for track metadata view"
 #| msgid "Last played"
@@ -2251,7 +2251,7 @@ msgctxt "@title:menu"
 msgid "Last Played Date"
 msgstr "Viimati esitatud"
 
-#: viewslistdata.cpp:37
+#: viewslistdata.cpp:38
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of recently played tracks"
 #| msgid "Recently Played"
@@ -2259,7 +2259,7 @@ msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
 msgstr "Viimati esitatud"
 
-#: viewslistdata.cpp:37
+#: viewslistdata.cpp:38
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of recently played tracks"
 #| msgid "Recently Played"
@@ -2267,7 +2267,7 @@ msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "Viimati esitatud"
 
-#: viewslistdata.cpp:40
+#: viewslistdata.cpp:42
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of frequently played tracks"
 #| msgid "Frequently Played"
@@ -2275,13 +2275,13 @@ msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Sageli esitatud"
 
-#: viewslistdata.cpp:48
+#: viewslistdata.cpp:50
 #, kde-format
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr ""
 
-#: viewslistdata.cpp:50
+#: viewslistdata.cpp:52
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of frequently played tracks"
 #| msgid "Frequently Played"
@@ -2289,7 +2289,7 @@ msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "Sageli esitatud"
 
-#: viewslistdata.cpp:50
+#: viewslistdata.cpp:52
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of frequently played tracks"
 #| msgid "Frequently Played"
@@ -2297,14 +2297,14 @@ msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Sageli esitatud"
 
-#: viewslistdata.cpp:75 viewslistdata.cpp:134
+#: viewslistdata.cpp:79 viewslistdata.cpp:142
 #, fuzzy, kde-format
 #| msgid "Name"
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "Nimi"
 
-#: viewslistdata.cpp:81
+#: viewslistdata.cpp:86
 #, fuzzy, kde-format
 #| msgctxt "Title of the view of all tracks"
 #| msgid "Tracks"
@@ -2312,7 +2312,7 @@ msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Rajad"
 
-#: viewslistdata.cpp:115
+#: viewslistdata.cpp:122
 #, fuzzy, kde-format
 #| msgctxt "Title of the file browser view"
 #| msgid "Files"
@@ -2320,7 +2320,7 @@ msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "Failid"
 
-#: viewslistdata.cpp:126
+#: viewslistdata.cpp:134
 #, fuzzy, kde-format
 #| msgid "Radios"
 msgctxt "@title:window Title of the file radios browser view"

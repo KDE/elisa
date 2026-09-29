@@ -131,6 +131,9 @@ AudioWrapper::AudioWrapper(QObject *parent) : QObject(parent), d(std::make_uniqu
     libvlc_event_attach(d->mPlayerEventManager, libvlc_MediaPlayerAudioDevice, &vlc_callback, d.get());
 
     libvlc_media_player_set_role(d->mPlayer, libvlc_role_Music);
+    connect(this, &AudioWrapper::stopped, this, [this](){
+        Q_EMIT positionChanged(duration());
+    });
 }
 
 AudioWrapper::~AudioWrapper()
@@ -193,7 +196,6 @@ qint64 AudioWrapper::position() const
     if (d->mMediaDuration == -1) {
         return 0;
     }
-
     return qRound64(libvlc_media_player_get_position(d->mPlayer) * d->mMediaDuration);
 }
 

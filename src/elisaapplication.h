@@ -204,6 +204,8 @@ Q_SIGNALS:
 
     void togglePlaylist();
 
+    void clearPlaylist();
+
     void seek();
 
     void scrub();

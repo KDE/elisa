@@ -84,6 +84,10 @@ Kirigami.ApplicationWindow {
             }
         }
 
+        function onClearPlaylist() {
+            ElisaApplication.mediaPlayListProxyModel.clearPlayList();
+        }
+
         function onSeek() {
             console.log("onSeek");
             ElisaApplication.audioControl.seek(mainWindow.mediaPlayerControl.playerControl.position + 10000);
@@ -249,6 +253,10 @@ Kirigami.ApplicationWindow {
     // Setup keyboard shortcuts for actions that aren't used in the GUI
     Kirigami.Action {
         fromQAction: ElisaApplication.action("go_back")
+    }
+
+    Kirigami.Action {
+        fromQAction: ElisaApplication.action("clear_playlist")
     }
 
     Kirigami.Action {

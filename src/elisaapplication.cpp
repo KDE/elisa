@@ -181,6 +181,12 @@ void ElisaApplication::setupActions()
         togglePlaylistAction->setText(i18nc("@action", "Toggle Playlist"));
     }
 
+    actionName = u"clear_playlist"_s;
+    if (KAuthorized::authorizeAction(actionName)) {
+        auto clearPlaylistAction = d->mCollection.addAction(actionName, this, &ElisaApplication::clearPlaylist);
+        clearPlaylistAction->setText(i18nc("@action", "Clear Playlist"));
+    }
+
     actionName = u"Seek"_s;
     if (KAuthorized::authorizeAction(actionName)) {
             auto seekAction = d->mCollection.addAction(actionName, this, &ElisaApplication::seek);

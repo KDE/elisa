@@ -47,6 +47,41 @@
             ]
         },
         {
+            "name": "kissfft",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DKISSFFT_DATATYPE=float",
+                "-DKISSFFT_WITH_OPENMP=OFF"
+            ],
+            "cleanup": [
+                "/bin"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/mborgerding/kissfft.git",
+                    "tag": "131.2.0"
+                }
+            ]
+        },
+        {
+            "name": "dragon-media-backend",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "-DBUILD_EXAMPLES=OFF",
+                "-DBUILD_TESTING=OFF",
+                "-DCMAKE_PREFIX_PATH=/app"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/ianmonroe/dragon-media-backend.git",
+                    "tag": "v0.81.1"
+                }
+            ]
+        },
+        {
             "name": "elisa",
             "buildsystem": "cmake-ninja",
             "config-opts": [

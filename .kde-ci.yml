@@ -16,6 +16,7 @@ Dependencies:
     'frameworks/kcolorscheme': '@latest-kf6'
     'frameworks/kconfigwidgets': '@latest-kf6'
     'frameworks/kcodecs': '@latest-kf6'
+    'libraries/dragon-media-backend': master
 
  - 'on': ['Linux', 'FreeBSD', 'Windows']
    'require':

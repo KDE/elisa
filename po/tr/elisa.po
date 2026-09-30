@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-27 00:44+0000\n"
+"POT-Creation-Date: 2026-09-30 00:45+0000\n"
 "PO-Revision-Date: 2026-03-19 14:46+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -48,36 +48,44 @@ msgid "Toggle Playlist"
 msgstr "Çalma Listesini Aç/Kapat"
 
 #: elisaapplication.cpp:187
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Toggle Playlist"
+msgctxt "@action"
+msgid "Clear Playlist"
+msgstr "Çalma Listesini Aç/Kapat"
+
+#: elisaapplication.cpp:193
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10 saniye ileri git"
 
-#: elisaapplication.cpp:194
+#: elisaapplication.cpp:200
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "10 saniye geri git"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:207
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Sonraki parçaya git"
 
-#: elisaapplication.cpp:208
+#: elisaapplication.cpp:214
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Önceki parçaya git"
 
-#: elisaapplication.cpp:215
+#: elisaapplication.cpp:221
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Çal/Duraklat"
 
-#: elisaapplication.cpp:228
+#: elisaapplication.cpp:234
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
@@ -560,7 +568,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "Yükleme başarısız oldu"
 
-#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:310
+#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:318
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -578,19 +586,19 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "Geri Al"
 
-#: qml/ElisaMainWindow.qml:142
+#: qml/ElisaMainWindow.qml:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "Çalma listesi çekmecesini göster"
 
-#: qml/ElisaMainWindow.qml:143
+#: qml/ElisaMainWindow.qml:147
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Çalma listesi çekmecesini gizle"
 
-#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:623
+#: qml/ElisaMainWindow.qml:183 qml/ElisaMainWindow.qml:631
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -599,19 +607,19 @@ msgstr ""
 "Kimi dosyalar yüklenemedi. Elisa, yalnızca ses ve çalma listesi dosyalarını "
 "açabilir."
 
-#: qml/ElisaMainWindow.qml:238 qml/mobile/MobileSidebar.qml:21
+#: qml/ElisaMainWindow.qml:242 qml/mobile/MobileSidebar.qml:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:238
+#: qml/ElisaMainWindow.qml:242
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:290
+#: qml/ElisaMainWindow.qml:298
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -619,7 +627,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u çalma listesi dosyası (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:290
+#: qml/ElisaMainWindow.qml:298
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -627,7 +635,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls çalma listesi dosyası (*.pls)"
 
-#: qml/ElisaMainWindow.qml:297
+#: qml/ElisaMainWindow.qml:305
 #, kde-format
 msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
@@ -635,7 +643,7 @@ msgctxt ""
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
 msgstr "Çalma listesi ve müzik dosyaları (%1 %2) (%1 %2)"
 
-#: qml/ElisaMainWindow.qml:298
+#: qml/ElisaMainWindow.qml:306
 #, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
@@ -643,7 +651,7 @@ msgctxt ""
 msgid "Playlist files (%1) (%1)"
 msgstr "Çalma listesi dosyaları (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:299
+#: qml/ElisaMainWindow.qml:307
 #, kde-format
 msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
@@ -651,7 +659,7 @@ msgctxt ""
 msgid "Music files (%1) (%1)"
 msgstr "Müzik dosyaları (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:310
+#: qml/ElisaMainWindow.qml:318
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"

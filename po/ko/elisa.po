@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-27 00:44+0000\n"
+"POT-Creation-Date: 2026-09-30 00:45+0000\n"
 "PO-Revision-Date: 2026-05-25 18:44+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -48,36 +48,44 @@ msgid "Toggle Playlist"
 msgstr "재생 목록 전환"
 
 #: elisaapplication.cpp:187
+#, fuzzy, kde-format
+#| msgctxt "@action"
+#| msgid "Toggle Playlist"
+msgctxt "@action"
+msgid "Clear Playlist"
+msgstr "재생 목록 전환"
+
+#: elisaapplication.cpp:193
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10초 앞으로 탐색"
 
-#: elisaapplication.cpp:194
+#: elisaapplication.cpp:200
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "10초 뒤로 탐색"
 
-#: elisaapplication.cpp:201
+#: elisaapplication.cpp:207
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "다음 곡으로 이동"
 
-#: elisaapplication.cpp:208
+#: elisaapplication.cpp:214
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "이전 곡으로 이동"
 
-#: elisaapplication.cpp:215
+#: elisaapplication.cpp:221
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "재생/일시 정지"
 
-#: elisaapplication.cpp:228
+#: elisaapplication.cpp:234
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
@@ -559,7 +567,7 @@ msgctxt "@label"
 msgid "Loading failed"
 msgstr "불러오기 실패"
 
-#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:310
+#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:318
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
@@ -577,19 +585,19 @@ msgctxt "@action:button"
 msgid "Undo"
 msgstr "실행 취소"
 
-#: qml/ElisaMainWindow.qml:142
+#: qml/ElisaMainWindow.qml:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "재생 목록 서랍 표시"
 
-#: qml/ElisaMainWindow.qml:143
+#: qml/ElisaMainWindow.qml:147
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "재생 목록 서랍 숨기기"
 
-#: qml/ElisaMainWindow.qml:179 qml/ElisaMainWindow.qml:623
+#: qml/ElisaMainWindow.qml:183 qml/ElisaMainWindow.qml:631
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -598,19 +606,19 @@ msgstr ""
 "파일을 불러올 수 없습니다. Elisa에서는 오디오 및 재생 목록 파일만 열 수 있습"
 "니다."
 
-#: qml/ElisaMainWindow.qml:238 qml/mobile/MobileSidebar.qml:21
+#: qml/ElisaMainWindow.qml:242 qml/mobile/MobileSidebar.qml:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:238
+#: qml/ElisaMainWindow.qml:242
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:290
+#: qml/ElisaMainWindow.qml:298
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -618,7 +626,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u 재생 목록 파일 (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:290
+#: qml/ElisaMainWindow.qml:298
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -626,7 +634,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls 재생 목록 파일 (*.pls)"
 
-#: qml/ElisaMainWindow.qml:297
+#: qml/ElisaMainWindow.qml:305
 #, kde-format
 msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
@@ -634,7 +642,7 @@ msgctxt ""
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
 msgstr "재생 목록 파일과 음악 파일 (%1 %2) (%1 %2)"
 
-#: qml/ElisaMainWindow.qml:298
+#: qml/ElisaMainWindow.qml:306
 #, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
@@ -642,7 +650,7 @@ msgctxt ""
 msgid "Playlist files (%1) (%1)"
 msgstr "재생 목록 파일 (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:299
+#: qml/ElisaMainWindow.qml:307
 #, kde-format
 msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
@@ -650,7 +658,7 @@ msgctxt ""
 msgid "Music files (%1) (%1)"
 msgstr "음악 파일 (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:310
+#: qml/ElisaMainWindow.qml:318
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"

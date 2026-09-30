@@ -212,6 +212,29 @@ Item {
         }
     }
 
+    // Components to separate out rendering of icons loaded from themes and images used for album art so album art can display with the correct aspect ratio
+
+    Component {
+        id: headerThemeIcon
+        Kirigami.Icon {
+            source: navigationBar.image
+        }
+    }
+
+    component HeaderCoverImage: Image {
+            source: navigationBar.image
+            // Async load as images may be somewhat large
+            asynchronous: true
+            fillMode: Image.PreserveAspectFit
+            sourceSize.height:Kirigami.Units.iconSizes.medium * Screen.devicePixelRatio
+            sourceSize.width:Kirigami.Units.iconSizes.medium * Screen.devicePixelRatio
+    }
+
+    Component {
+        id: headerImageIcon
+        HeaderCoverImage {}
+    }
+
     ToolBar {
         id: toolbar
         anchors.left: parent.left
@@ -253,16 +276,17 @@ Item {
                     icon.name: (Application.layoutDirection === Qt.RightToLeft) ? "go-next" : "go-previous"
                     onClicked: navigationBar.goBack()
                 }
-                Kirigami.Icon {
+                Loader {
                     id: mainIcon
+                    // Check if the image being loaded is a theme icon or an image
+                    readonly property bool isThemeIcon: navigationBar.image.toString().startsWith("image://icon/")
                     visible: navigationBar.image.toString().length > 0
                              && !Kirigami.Settings.isMobile // On mobile, we want more header space
                              && navigationBar.enableGoBack // For top-level pages, the icon is redundant
-                    source: navigationBar.image
-
+                    sourceComponent: isThemeIcon ? headerThemeIcon : headerImageIcon
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.medium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                    Layout.maximumHeight: Kirigami.Units.iconSizes.medium
+                    Layout.maximumWidth: Kirigami.Units.iconSizes.medium
                 }
                 ColumnLayout {
                     id: authorAndAlbumLayout

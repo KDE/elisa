@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-30 00:45+0000\n"
+"POT-Creation-Date: 2026-10-01 00:44+0000\n"
 "PO-Revision-Date: 2024-02-04 09:31-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -512,7 +512,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "ਹੁਣ ਚੱਲ ਰਿਹਾ ਹੈ"
 
-#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:244
+#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:267
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -1459,13 +1459,13 @@ msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "ਵੇਰਵੇ ਵੇਖੋ"
 
-#: qml/NavigationActionBar.qml:252
+#: qml/NavigationActionBar.qml:275
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "ਪਿੱਛੇ"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:357
 #, fuzzy, kde-format
 #| msgctxt "@action:button Show filters in the navigation bar"
 #| msgid "Search and Filter"
@@ -1474,7 +1474,7 @@ msgctxt ""
 msgid "Show search and filter toolbar"
 msgstr "ਖੋਜ ਅਤੇ ਫਿਲਟਰ"
 
-#: qml/NavigationActionBar.qml:334
+#: qml/NavigationActionBar.qml:358
 #, fuzzy, kde-format
 #| msgctxt "@action:button Hide filters in the navigation bar"
 #| msgid "Hide Search and Filter"
@@ -1483,13 +1483,13 @@ msgctxt ""
 msgid "Hide search and filter toolbar"
 msgstr "ਖੋਜ ਅਤੇ ਫਿਲਟਰ ਨੂੰ ਓਹਲੇ ਕਰੋ"
 
-#: qml/NavigationActionBar.qml:427
+#: qml/NavigationActionBar.qml:451
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:429
+#: qml/NavigationActionBar.qml:453
 #, fuzzy, kde-format
 #| msgctxt "@info:placeholder"
 #| msgid "Search for album name, artist, etc."
@@ -1497,7 +1497,7 @@ msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "ਐਲਬਮ ਨਾਂ, ਕਲਾਕਾਰ ਆਦਿ ਲਈ ਖੋਜ ਕਰੋ"
 
-#: qml/NavigationActionBar.qml:430
+#: qml/NavigationActionBar.qml:454
 #, fuzzy, kde-format
 #| msgctxt "@info:placeholder"
 #| msgid "Search for album name, artist, etc."
@@ -1505,13 +1505,13 @@ msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "ਐਲਬਮ ਨਾਂ, ਕਲਾਕਾਰ ਆਦਿ ਲਈ ਖੋਜ ਕਰੋ"
 
-#: qml/NavigationActionBar.qml:438
+#: qml/NavigationActionBar.qml:462
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "ਰੇਟਿੰਗ ਲਈ ਫਿਲਟਰ: "
 
-#: qml/NavigationActionBar.qml:456
+#: qml/NavigationActionBar.qml:480
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

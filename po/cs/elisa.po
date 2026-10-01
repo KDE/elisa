@@ -3,21 +3,22 @@
 # SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2023, 2024, 2026 Vít Pelčák <vit@pelcak.org>
 # SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 Vit Pelcak <vit@pelcak.org>
 # SPDX-FileCopyrightText: 2026 Libor Filípek <filipek.libor@protonmail.com>
+# SPDX-FileCopyrightText: 2026 Libor Filipek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-30 00:45+0000\n"
-"PO-Revision-Date: 2026-04-03 16:04+0200\n"
-"Last-Translator: Libor Filípek <filipek.libor@protonmail.com>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2026-10-01 00:44+0000\n"
+"PO-Revision-Date: 2026-09-30 23:43+0200\n"
+"Last-Translator: Libor Filipek <libor.filipek@gmail.com>\n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -49,12 +50,10 @@ msgid "Toggle Playlist"
 msgstr "Zapnout seznam skladeb"
 
 #: elisaapplication.cpp:187
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
-msgstr "Zapnout seznam skladeb"
+msgstr "Smazat seznam skladeb"
 
 #: elisaapplication.cpp:193
 #, kde-format
@@ -498,7 +497,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Nyní přehrávám"
 
-#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:244
+#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:267
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -1363,51 +1362,51 @@ msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Zobrazit jako seznam"
 
-#: qml/NavigationActionBar.qml:252
+#: qml/NavigationActionBar.qml:275
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Zpět"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:357
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Zobrazit lištu pro hledání a filtrování"
 
-#: qml/NavigationActionBar.qml:334
+#: qml/NavigationActionBar.qml:358
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Skrýt lištu pro hledání a filtrování"
 
-#: qml/NavigationActionBar.qml:427
+#: qml/NavigationActionBar.qml:451
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr "Vyhledávání rádio stanice"
 
-#: qml/NavigationActionBar.qml:429
+#: qml/NavigationActionBar.qml:453
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Hledat název skladby, umělce apod."
 
-#: qml/NavigationActionBar.qml:430
+#: qml/NavigationActionBar.qml:454
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Hledat název alba, umělce apod."
 
-#: qml/NavigationActionBar.qml:438
+#: qml/NavigationActionBar.qml:462
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtrovat podle hodnocení: "
 
-#: qml/NavigationActionBar.qml:456
+#: qml/NavigationActionBar.qml:480
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

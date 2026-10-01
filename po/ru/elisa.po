@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-30 00:45+0000\n"
-"PO-Revision-Date: 2026-04-03 20:21+0200\n"
+"POT-Creation-Date: 2026-10-01 00:44+0000\n"
+"PO-Revision-Date: 2026-09-30 08:30+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -55,12 +55,10 @@ msgid "Toggle Playlist"
 msgstr "Скрыть или показать список воспроизведения"
 
 #: elisaapplication.cpp:187
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
-msgstr "Скрыть или показать список воспроизведения"
+msgstr "Очистить список воспроизведения"
 
 #: elisaapplication.cpp:193
 #, kde-format
@@ -505,7 +503,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Сейчас проигрывается"
 
-#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:244
+#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:267
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -1377,51 +1375,51 @@ msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Просмотр в виде списка"
 
-#: qml/NavigationActionBar.qml:252
+#: qml/NavigationActionBar.qml:275
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Назад"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:357
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Показать панель инструментов поиска и фильтра"
 
-#: qml/NavigationActionBar.qml:334
+#: qml/NavigationActionBar.qml:358
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Скрыть панель инструментов поиска и фильтра"
 
-#: qml/NavigationActionBar.qml:427
+#: qml/NavigationActionBar.qml:451
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr "Поиск по названию радиостанции"
 
-#: qml/NavigationActionBar.qml:429
+#: qml/NavigationActionBar.qml:453
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Поиск по названию дорожки, имени исполнителя…"
 
-#: qml/NavigationActionBar.qml:430
+#: qml/NavigationActionBar.qml:454
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Поиск по названию альбома, имени исполнителя…"
 
-#: qml/NavigationActionBar.qml:438
+#: qml/NavigationActionBar.qml:462
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Фильтр по оценкам: "
 
-#: qml/NavigationActionBar.qml:456
+#: qml/NavigationActionBar.qml:480
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

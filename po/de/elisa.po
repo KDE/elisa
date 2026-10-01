@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-30 00:45+0000\n"
+"POT-Creation-Date: 2026-10-01 00:44+0000\n"
 "PO-Revision-Date: 2026-04-23 20:42+0200\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -499,7 +499,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Aktuelle Wiedergabe"
 
-#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:244
+#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:267
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -1356,51 +1356,51 @@ msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Als Liste anzeigen"
 
-#: qml/NavigationActionBar.qml:252
+#: qml/NavigationActionBar.qml:275
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Zurück"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:357
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Werkzeugleiste „Suchen und filtern“ anzeigen"
 
-#: qml/NavigationActionBar.qml:334
+#: qml/NavigationActionBar.qml:358
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Werkzeugleiste „Suchen und filtern“ ausblenden"
 
-#: qml/NavigationActionBar.qml:427
+#: qml/NavigationActionBar.qml:451
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr "Nach Radiosender suchen"
 
-#: qml/NavigationActionBar.qml:429
+#: qml/NavigationActionBar.qml:453
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Nach Liednamen, Interpreten usw. suchen"
 
-#: qml/NavigationActionBar.qml:430
+#: qml/NavigationActionBar.qml:454
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Nach Albumnamen, Interpreten, usw. suchen"
 
-#: qml/NavigationActionBar.qml:438
+#: qml/NavigationActionBar.qml:462
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Nach Bewertung filtern: "
 
-#: qml/NavigationActionBar.qml:456
+#: qml/NavigationActionBar.qml:480
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

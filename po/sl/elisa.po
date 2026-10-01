@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-30 00:45+0000\n"
-"PO-Revision-Date: 2026-03-19 06:33+0100\n"
+"POT-Creation-Date: 2026-10-01 00:44+0000\n"
+"PO-Revision-Date: 2026-09-30 07:23+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -48,12 +48,10 @@ msgid "Toggle Playlist"
 msgstr "Preklopi seznam predvajanja"
 
 #: elisaapplication.cpp:187
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
-msgstr "Preklopi seznam predvajanja"
+msgstr "Počisti seznam predvajanja"
 
 #: elisaapplication.cpp:193
 #, kde-format
@@ -498,7 +496,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Pravkar se predvaja"
 
-#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:244
+#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:267
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -1367,51 +1365,51 @@ msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Pogled kot seznam"
 
-#: qml/NavigationActionBar.qml:252
+#: qml/NavigationActionBar.qml:275
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Nazaj"
 
-#: qml/NavigationActionBar.qml:333
+#: qml/NavigationActionBar.qml:357
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "Prikaži vrstico iskanja in filtra"
 
-#: qml/NavigationActionBar.qml:334
+#: qml/NavigationActionBar.qml:358
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "Skrij vrstico iskanja in filtra"
 
-#: qml/NavigationActionBar.qml:427
+#: qml/NavigationActionBar.qml:451
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr "Išči radijsko postajo"
 
-#: qml/NavigationActionBar.qml:429
+#: qml/NavigationActionBar.qml:453
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Poišči po imenu skladbe, avtorju, itd."
 
-#: qml/NavigationActionBar.qml:430
+#: qml/NavigationActionBar.qml:454
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Poišči po imenu albuma, avtorju, itd."
 
-#: qml/NavigationActionBar.qml:438
+#: qml/NavigationActionBar.qml:462
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Filtriraj po oceni: "
 
-#: qml/NavigationActionBar.qml:456
+#: qml/NavigationActionBar.qml:480
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

@@ -156,7 +156,7 @@ if (NOT DragonMediaBackend_FOUND)
     include(FetchContent)
     FetchContent_Declare(
         DragonMediaBackend
-        GIT_REPOSITORY https://invent.kde.org/ianmonroe/dragon-media-backend.git
+        GIT_REPOSITORY https://invent.kde.org/libraries/dragon-media-backend.git
         GIT_TAG v${REQUIRED_DRAGON_MEDIA_BACKEND_VERSION}
     )
     block()

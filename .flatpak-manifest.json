@@ -76,7 +76,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://invent.kde.org/ianmonroe/dragon-media-backend.git",
+                    "url": "https://invent.kde.org/libraries/dragon-media-backend.git",
                     "tag": "v0.81.1"
                 }
             ]

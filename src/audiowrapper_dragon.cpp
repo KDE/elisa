@@ -12,9 +12,9 @@
 #include <QLoggingCategory>
 #include <QTimer>
 
-#include <DragonMediaBackend/dragonaudiooutput.h>
-#include <DragonMediaBackend/dragonicymetadata.h>
-#include <DragonMediaBackend/dragonplayer.h>
+#include <DragonAudioOutput>
+#include <DragonIcyMetadata>
+#include <DragonPlayer>
 
 #include <optional>
 

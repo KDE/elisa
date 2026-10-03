@@ -147,7 +147,7 @@ if (UPNPQT_FOUND)
     message(WARNING "UPnP support is experimental and may not work.")
 endif()
 
-set(REQUIRED_DRAGON_MEDIA_BACKEND_VERSION "0.81.1")
+set(REQUIRED_DRAGON_MEDIA_BACKEND_VERSION "0.82.0")
 
 find_package(DragonMediaBackend ${REQUIRED_DRAGON_MEDIA_BACKEND_VERSION} CONFIG QUIET)
 

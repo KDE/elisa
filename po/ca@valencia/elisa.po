@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-01 00:44+0000\n"
+"POT-Creation-Date: 2026-10-04 00:45+0000\n"
 "PO-Revision-Date: 2026-09-30 08:51+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -31,8 +31,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "txemaq@gmail.com"
 
-#: databaseinterface.cpp:8061 databaseinterface.cpp:9175
-#: databaseinterface.cpp:9260
+#: databaseinterface.cpp:8061 databaseinterface.cpp:9176
+#: databaseinterface.cpp:9261
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"

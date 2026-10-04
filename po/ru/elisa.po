@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-01 00:44+0000\n"
+"POT-Creation-Date: 2026-10-04 00:45+0000\n"
 "PO-Revision-Date: 2026-09-30 08:30+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -35,8 +35,8 @@ msgstr ""
 "aspotashev@gmail.com,vitalijrabicev@gmail.com,kekcuha@gmail.com,translation-"
 "team@basealt.ru,translation-team@basealt.ru,farline99@yandex.ru"
 
-#: databaseinterface.cpp:8061 databaseinterface.cpp:9175
-#: databaseinterface.cpp:9260
+#: databaseinterface.cpp:8061 databaseinterface.cpp:9176
+#: databaseinterface.cpp:9261
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"

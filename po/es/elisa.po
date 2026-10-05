@@ -2,14 +2,14 @@
 # Copyright (C) 2016-2026 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019 Eloy Cuadra <ecuadra@eloihr.net>
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Víctor Rodrigo Córdoba <vrcordoba@gmail.com>
+# SPDX-FileCopyrightText: 2016-2019 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2019-2026 Víctor Rodrigo Córdoba <vrcordoba@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-04 00:45+0000\n"
-"PO-Revision-Date: 2026-03-21 19:55+0100\n"
+"PO-Revision-Date: 2026-10-05 00:09+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -49,12 +49,10 @@ msgid "Toggle Playlist"
 msgstr "Cambiar la lista de reproducción"
 
 #: elisaapplication.cpp:187
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
-msgstr "Cambiar la lista de reproducción"
+msgstr "Limpiar lista de reproducción"
 
 #: elisaapplication.cpp:193
 #, kde-format

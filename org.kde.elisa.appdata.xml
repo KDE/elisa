@@ -45,6 +45,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="ko">Elisa</name>
   <name xml:lang="lt">Elisa</name>
   <name xml:lang="lv">Elisa</name>
+  <name xml:lang="nan-Latn-TW">Elisa</name>
   <name xml:lang="nl">Elisa</name>
   <name xml:lang="nn">Elisa</name>
   <name xml:lang="pa">ਇਲੀਸਾ</name>
@@ -89,6 +90,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="ko">로컬 음악 재생 및 온라인 라디오 듣기</summary>
   <summary xml:lang="lt">Atkurti vietinę muziką ir klausytis internetinio radijo</summary>
   <summary xml:lang="lv">Atskaņojiet ierīcē esošo mūziku un klausieties tiešsaistes radiostacijas</summary>
+  <summary xml:lang="nan-Latn-TW">Thiann pún-tē im-ga̍k á-sī suànn-tíng kóng-pòo</summary>
   <summary xml:lang="nl">Speel lokaal muziek en luister naar online radio</summary>
   <summary xml:lang="nn">Spel av lokal musikk og lytt på nettradio</summary>
   <summary xml:lang="pl">Odtwarzaj muzykę lokalnie i słuchaj radia z sieci</summary>
@@ -135,6 +137,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ko">Elisa 음악 재생기는 KDE 커뮤니티에서 개발했으며 간단함과 사용의 편안함을 중점에 두었습니다.</p>
     <p xml:lang="lt">Elisa muzikos grotuvą plėtoja KDE bendruomenė. Grotuvas siekia būti paprastas ir malonus naudoti.</p>
     <p xml:lang="lv">„Elisa“ ir izstrādājusi KDE kopiena ar mērķi izveidot vienkāršu un ērtu mūzikas atskaņotāju.</p>
+    <p xml:lang="nan-Latn-TW">Elisa im-ga̍k hòng-sàng-khì iû KDE siā-kûn khai-huat, hi-bāng iōng khí-lâi kán-tan koh hōo lâng huann-hí.</p>
     <p xml:lang="nl">De Elisa muziekspeler is ontwikkeld door de KDE gemeenschap en streeft er naar om eenvoudig en plezierig in gebruik te zijn.</p>
     <p xml:lang="nn">Musikkspelaren Elisa er utvikla av KDE-fellesskapet, som prøver å gjera han både enkel og kjekk å bruka.</p>
     <p xml:lang="pl">Odtwarzacz muzyki Elisa jest rozwijany przez Społeczność KDE i dąży do bycia prostym i przyjemnym w użyciu.</p>
@@ -180,6 +183,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ko">Elisa를 사용하여 로컬 음악 모음집을 장르, 아티스트, 앨범, 트랙 단위로 탐색하고, 온라인 라디오를 듣고, 재생 목록을 생성 및 관리하고, 가사를 표시할 수 있습니다.</p>
     <p xml:lang="lt">Naudodami Elisa galite naršyti savo vietinę muzikos kolekciją pagal žanrą, atlikėją, albumą ar takelį, galite klausytis internetinių radijų, kurti ir tvarkyti grojaraščius, žiūrėti dainų žodžius ir kt.</p>
     <p xml:lang="lv">Ar „Elisa“ varat pārlūkot savā datorā esošo mūzikas kolekciju pēc žanra, izpildītāja, albuma vai dziesmas, klausīties interneta radiostacijas un pārvaldīt atskaņošanas sarakstus, parādīt dziesmu vārdus un daudz ko citu.</p>
+    <p xml:lang="nan-Latn-TW">Iōng Elisa, lí ē-sái tsiàu khik-hong, gē-jîn, tsuan-tsi̍p, á-sī khik-bo̍k lâi liû-lám lí pún-tē ê im-ga̍k; thiann suànn-tíng kóng-pòo; kiàn-li̍p kap kuán-lí hòng-sàng-tuann; khuànn kua-sû; koh ū kî-thann kong-lîng.</p>
     <p xml:lang="nl">Met Elisa kunt u in uw lokale muziekverzameling bladeren op genre, artiest, album of track, luisteren naar online radio, afspeellijsten aanmaken en beheren, liedteksten tonen en meer.</p>
     <p xml:lang="nn">Med Elisa kan du blant anna finna fram i musikksamlinga di etter sjanger, artist, album og spor, lytta til nettradio, organisera spelelister og visa songtekstar.</p>
     <p xml:lang="pl">Dzięki Elisie, możesz przeglądać swój miejscowy zbiór muzyki po rodzaju, wykonawcy, albumie lub utworze, słuchać radia z sieci, tworzyć i zarządzać listami odtwarzania, wyświetlać napisy i więcej.</p>
@@ -223,6 +227,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ko">Plasma 데스크톱에서 사용 시에는 KDE 색 구성표를 지원하며, 다른 환경에서는 밝음과 어두움 모드를 지원합니다.</p>
     <p xml:lang="lt">Elisa, kai yra naudojama Plasma darbalaukyje, visiškai palaiko KDE spalvų rinkinį, o kitose sistemose palaiko standartinę šviesią ir tamsią veikseną.</p>
     <p xml:lang="lv">„Elisa“ atbalsta pilnu KDE krāsu shēmu, ja to izmanto ar „Plasma“ darbvirsmu, vai citos gadījumos standarta gaišo un tumšo motīvu.</p>
+    <p xml:lang="nan-Latn-TW">Elisa tī Plasma toh-bīn khuân-kíng sú-iōng ê sî-tsūn uân-tsíng tsi-uān jīm-hô KDE phuè-sik hong-àn; nā tī kî-thann khuân-kíng mā tsi-uān piau-tsún ê kng-sik kap àm-sik bôo-sik.</p>
     <p xml:lang="nl">Elisa ondersteunt uw volledige KDE kleurenschema bij gebruik op het Plasma bureaublad of anders de standaard lichte en donkere modi.</p>
     <p xml:lang="nn">Ved bruk i Plasma støttar Elisa standard fargetema, og elles kan du velja mellom eit lyst og eit mørkt tema.</p>
     <p xml:lang="pl">Elisa obsłuży w pełni twój zestaw barw KDE, gdy zostanie uruchomiona na Pulpicie Plazmy lub obsłuży tylko tryb jasny i ciemny.</p>
@@ -267,6 +272,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="ko">파티 모드를 사용하면 앨범 아트를 가운데에 표시합니다.</p>
     <p xml:lang="lt">Atsipalaiduokite naudodami vakarėlio veikseną, kuri jūsų muzikos albumų viršelius patalpina priekyje viduryje.</p>
     <p xml:lang="lv">Relaksējieties ballītes režīmā, priekšplānā un centrā parādot atskaņoto albumu.</p>
+    <p xml:lang="nan-Latn-TW">Party Bôo-sik kā lí ê im-ga̍k ê tsuan-tsi̍p gē-su̍t khǹg tī tiong-ng.</p>
     <p xml:lang="nl">Ontspan met Party modus, die de illustraties van uw muziekalbum voorop en gecentreerd plaatst.</p>
     <p xml:lang="nn">Slapp av med festmodusen, som framhevar omslagsbileta til albuma dine.</p>
     <p xml:lang="pl">Wyluzuj się w Trybie Imprezy, co umieszcza okładkę twojego albumu na środku.</p>
@@ -323,6 +329,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="ko">Elisa 음악 재생기</caption>
       <caption xml:lang="lt">Elisa muzikos grotuvas</caption>
       <caption xml:lang="lv">„Elisa“ mūzikas atskaņotājs</caption>
+      <caption xml:lang="nan-Latn-TW">Elisa im-ga̍k hòng-sàng-khì</caption>
       <caption xml:lang="nl">De muziekspeler Elisa</caption>
       <caption xml:lang="nn">Musikkspelaren Elisa</caption>
       <caption xml:lang="pa">ਇਲੀਸਾ ਸੰਗੀਤ ਪਲੇਅਰ</caption>
@@ -375,6 +382,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="ko">Plasma 모바일의 Elisa</caption>
       <caption xml:lang="lt">Elisa Plasma mobiliuosiuose</caption>
       <caption xml:lang="lv">„Elisa“ „Plasma Mobile“ sistēmā</caption>
+      <caption xml:lang="nan-Latn-TW">Tī Plasma Mobile tíng-kuân ê Elisa</caption>
       <caption xml:lang="nl">Elisa op Plasma Mobile</caption>
       <caption xml:lang="nn">Elisa på Plasma Mobile</caption>
       <caption xml:lang="pa">ਪਲਾਜ਼ਮਾ ਮੋਬਾਇਲ ਲਈ ਇਲੀਸਾ</caption>

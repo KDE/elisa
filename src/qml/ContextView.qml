@@ -66,6 +66,7 @@ Kirigami.Page {
         // to the bottom of the window such that this toolbar touches the window
         // titlebar
         Kirigami.Theme.colorSet: Kirigami.Theme.Window
+        Kirigami.Theme.inherit: false
 
         RowLayout {
             anchors.fill: parent

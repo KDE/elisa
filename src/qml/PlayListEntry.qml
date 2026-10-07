@@ -51,6 +51,11 @@ BasePlayListDelegate {
     leftPadding: mirrored ? Kirigami.Units.smallSpacing : 0
     rightPadding: mirrored ? 0 : Kirigami.Units.smallSpacing
 
+    topInset: 0
+    bottomInset: 0
+    leftInset: 0
+    rightInset: 0
+
     // Set this explicitly since we rely on it; we don't want the theme setting
     // it to false under us!
     hoverEnabled: true

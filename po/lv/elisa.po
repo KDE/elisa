@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:45+0000\n"
+"POT-Creation-Date: 2026-10-08 00:44+0000\n"
 "PO-Revision-Date: 2026-08-08 14:00+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -497,38 +497,38 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Šobrīd skan"
 
-#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:267
+#: qml/ContextView.qml:79 qml/NavigationActionBar.qml:267
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Atvērt sānu joslu"
 
-#: qml/ContextView.qml:114
+#: qml/ContextView.qml:115
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadati"
 
-#: qml/ContextView.qml:125
+#: qml/ContextView.qml:126
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Dziesmu vārdi"
 
-#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:388
+#: qml/ContextView.qml:133 qml/mobile/MobileTrackPlayer.qml:388
 #: qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Parādīt repertuāru"
 
-#: qml/ContextView.qml:354
+#: qml/ContextView.qml:355
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Neko neatskaņo"
 
-#: qml/ContextView.qml:388
+#: qml/ContextView.qml:389
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -821,37 +821,37 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Repertuārs"
 
-#: qml/MediaPlayListView.qml:71
+#: qml/MediaPlayListView.qml:72
 #, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Rādīt pašreizējo"
 
-#: qml/MediaPlayListView.qml:82
+#: qml/MediaPlayListView.qml:83
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Notīrīt visu"
 
-#: qml/MediaPlayListView.qml:92
+#: qml/MediaPlayListView.qml:93
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Saglabāt…"
 
-#: qml/MediaPlayListView.qml:102
+#: qml/MediaPlayListView.qml:103
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
 msgstr "Atvērt…"
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:104
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
 msgstr "Atvērt mūzikas datnes vai saglabātos repertuārus"
 
-#: qml/MediaPlayListView.qml:128
+#: qml/MediaPlayListView.qml:129
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -861,19 +861,19 @@ msgstr ""
 "Neizdevās ielādēt atsevišķus celiņus. Iespējams, tie ir noņemti vai "
 "pārsaukti."
 
-#: qml/MediaPlayListView.qml:134
+#: qml/MediaPlayListView.qml:135
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Rediģēt repertuāra datni"
 
-#: qml/MediaPlayListView.qml:304
+#: qml/MediaPlayListView.qml:305
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Repertuārs ir tukšs"
 
-#: qml/MediaPlayListView.qml:305
+#: qml/MediaPlayListView.qml:306
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -883,13 +883,13 @@ msgstr ""
 "Sāciet ar skaņdarbu pievienošanu. Varat pārlūkot mūziku, izmantojot kreisajā "
 "pusē redzamos."
 
-#: qml/MediaPlayListView.qml:380
+#: qml/MediaPlayListView.qml:381
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Jūsu repertuārs ir tukšs."
 
-#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
+#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -898,14 +898,14 @@ msgstr[0] "Atlicis %1 celiņš no %2"
 msgstr[1] "Atlikuši %1 celiņi no %2"
 msgstr[2] "Atlikuši %1 celiņi no %2"
 
-#: qml/MediaPlayListView.qml:478
+#: qml/MediaPlayListView.qml:479
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 atlikuši, %2 kopā"
 
-#: qml/MediaPlayListView.qml:479 qml/MediaPlayListView.qml:488
-#: qml/MediaPlayListView.qml:497
+#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
+#: qml/MediaPlayListView.qml:498
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -913,13 +913,13 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "Atlicis %1/%2"
 
-#: qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -928,7 +928,7 @@ msgstr[0] "%1/%2 celiņi"
 msgstr[1] "%1/%2 celiņi"
 msgstr[2] "%1/%2 celiņi"
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -937,7 +937,7 @@ msgstr[0] "%1 celiņš"
 msgstr[1] "%1 celiņi"
 msgstr[2] "%1 celiņu"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -946,7 +946,7 @@ msgstr[0] "%1 radio"
 msgstr[1] "%1 radio"
 msgstr[2] "%1 radio"
 
-#: qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:507
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -954,7 +954,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, %2 kopā"
 
-#: qml/MediaPlayListView.qml:509
+#: qml/MediaPlayListView.qml:510
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -965,7 +965,7 @@ msgstr[0] "%1 celiņš, %2 kopā"
 msgstr[1] "%1 celiņi, %2 kopā"
 msgstr[2] "%1 celiņu, %2 kopā"
 
-#: qml/MediaPlayListView.qml:511
+#: qml/MediaPlayListView.qml:512
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
@@ -973,14 +973,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "1 celiņš, %1 min atlicis"
 
-#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Noņemt skaņdarbu no iecienītajiem"
 
-#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
@@ -1087,19 +1087,19 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Iet uz priekšu"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Celiņa iespējas"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Radio opcijas"
 
-#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:90
+#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:95
 #: qml/TrackBrowserDelegate.qml:77
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1410,19 +1410,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Rādīt tikai iecienītākās"
 
-#: qml/PlayListEntry.qml:104 qml/TrackBrowserDelegate.qml:97
+#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:97
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Novērtēt celiņu"
 
-#: qml/PlayListEntry.qml:128
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Noņemt"
 
-#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:309
+#: qml/PlayListEntry.qml:315 qml/TrackBrowserDelegate.qml:309
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"

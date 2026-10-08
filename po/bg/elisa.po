@@ -1,13 +1,13 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the elisa package.
 #
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Mincho Kondarev <mkondarev@yahoo.de>
+# SPDX-FileCopyrightText: 2022-2026 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:45+0000\n"
-"PO-Revision-Date: 2026-04-03 02:26+0200\n"
+"POT-Creation-Date: 2026-10-08 00:44+0000\n"
+"PO-Revision-Date: 2026-10-07 23:42+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.03.70\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -47,12 +47,10 @@ msgid "Toggle Playlist"
 msgstr "Превключване на списъка с песни"
 
 #: elisaapplication.cpp:187
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
-msgstr "Превключване на списъка с песни"
+msgstr "Изчистване на списъка с песни"
 
 #: elisaapplication.cpp:193
 #, kde-format
@@ -496,38 +494,38 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "В момента се изпълнява"
 
-#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:267
+#: qml/ContextView.qml:79 qml/NavigationActionBar.qml:267
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Отваряне на страничната лента"
 
-#: qml/ContextView.qml:114
+#: qml/ContextView.qml:115
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Метаданни"
 
-#: qml/ContextView.qml:125
+#: qml/ContextView.qml:126
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Текстове на песни"
 
-#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:388
+#: qml/ContextView.qml:133 qml/mobile/MobileTrackPlayer.qml:388
 #: qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Списък с песни"
 
-#: qml/ContextView.qml:354
+#: qml/ContextView.qml:355
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Нищо не се изпълнява"
 
-#: qml/ContextView.qml:388
+#: qml/ContextView.qml:389
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -819,37 +817,37 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Списък с песни"
 
-#: qml/MediaPlayListView.qml:71
+#: qml/MediaPlayListView.qml:72
 #, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Текущо изпълнение"
 
-#: qml/MediaPlayListView.qml:82
+#: qml/MediaPlayListView.qml:83
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Изчистване на всичко"
 
-#: qml/MediaPlayListView.qml:92
+#: qml/MediaPlayListView.qml:93
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Запазване…"
 
-#: qml/MediaPlayListView.qml:102
+#: qml/MediaPlayListView.qml:103
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
 msgstr "Отваряне…"
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:104
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
 msgstr "Отваряне на файлове с музика или запазени списъци с песни"
 
-#: qml/MediaPlayListView.qml:128
+#: qml/MediaPlayListView.qml:129
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -859,19 +857,19 @@ msgstr ""
 "Някои песни не успяха да се заредят. Уверете се, че не са били премахнати "
 "или преименувани."
 
-#: qml/MediaPlayListView.qml:134
+#: qml/MediaPlayListView.qml:135
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Редактиране на списъка с песни"
 
-#: qml/MediaPlayListView.qml:304
+#: qml/MediaPlayListView.qml:305
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Списъкът с песни е празен"
 
-#: qml/MediaPlayListView.qml:305
+#: qml/MediaPlayListView.qml:306
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -881,13 +879,13 @@ msgstr ""
 "Добавете песни, за да започнете. Можете да преглеждате вашата музика, "
 "използвайки менютата в ляво."
 
-#: qml/MediaPlayListView.qml:380
+#: qml/MediaPlayListView.qml:381
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Вашият списък с песни е празен."
 
-#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
+#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -895,14 +893,14 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "%1/%2 записа остават"
 msgstr[1] "%1/%2 записа остават"
 
-#: qml/MediaPlayListView.qml:478
+#: qml/MediaPlayListView.qml:479
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 остават, общо %2"
 
-#: qml/MediaPlayListView.qml:479 qml/MediaPlayListView.qml:488
-#: qml/MediaPlayListView.qml:497
+#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
+#: qml/MediaPlayListView.qml:498
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -910,13 +908,13 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1/%2 остават"
 
-#: qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -924,7 +922,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "%1/%2 записа"
 msgstr[1] "%1/%2 записа"
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -932,7 +930,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 запис"
 msgstr[1] "%1 записа"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -940,7 +938,7 @@ msgid_plural "%1 radios"
 msgstr[0] "%1 радио"
 msgstr[1] "%1 радиа"
 
-#: qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:507
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -948,7 +946,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, общо %2"
 
-#: qml/MediaPlayListView.qml:509
+#: qml/MediaPlayListView.qml:510
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -958,7 +956,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 запис, общо %2"
 msgstr[1] "%1 записа, общо %2"
 
-#: qml/MediaPlayListView.qml:511
+#: qml/MediaPlayListView.qml:512
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
@@ -966,14 +964,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "1 запис, остава %1 мин"
 
-#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Премахване от \"любими\""
 
-#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
@@ -1080,19 +1078,19 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Пропускане напред"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Настройки на запис"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Настройки на Радиостанции"
 
-#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:90
+#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:95
 #: qml/TrackBrowserDelegate.qml:77
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1403,19 +1401,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Показване на любими"
 
-#: qml/PlayListEntry.qml:104 qml/TrackBrowserDelegate.qml:97
+#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:97
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Дайте оценка на песента"
 
-#: qml/PlayListEntry.qml:128
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Премахване"
 
-#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:309
+#: qml/PlayListEntry.qml:315 qml/TrackBrowserDelegate.qml:309
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"

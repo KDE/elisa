@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:45+0000\n"
+"POT-Creation-Date: 2026-10-08 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -496,38 +496,38 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "正在播放"
 
-#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:267
+#: qml/ContextView.qml:79 qml/NavigationActionBar.qml:267
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "打开侧边栏"
 
-#: qml/ContextView.qml:114
+#: qml/ContextView.qml:115
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "元数据"
 
-#: qml/ContextView.qml:125
+#: qml/ContextView.qml:126
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "歌词"
 
-#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:388
+#: qml/ContextView.qml:133 qml/mobile/MobileTrackPlayer.qml:388
 #: qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "显示播放列表"
 
-#: qml/ContextView.qml:354
+#: qml/ContextView.qml:355
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "没有正在播放的音乐"
 
-#: qml/ContextView.qml:388
+#: qml/ContextView.qml:389
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -816,37 +816,37 @@ msgctxt ""
 msgid "Playlist"
 msgstr "播放列表"
 
-#: qml/MediaPlayListView.qml:71
+#: qml/MediaPlayListView.qml:72
 #, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "显示当前曲目"
 
-#: qml/MediaPlayListView.qml:82
+#: qml/MediaPlayListView.qml:83
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "全部清除"
 
-#: qml/MediaPlayListView.qml:92
+#: qml/MediaPlayListView.qml:93
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "保存…"
 
-#: qml/MediaPlayListView.qml:102
+#: qml/MediaPlayListView.qml:103
 #, kde-format
 msgctxt "@action:button Load a playlist file"
 msgid "Open…"
 msgstr "打开…"
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:104
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
 msgstr "打开音乐文件或保存的播放列表"
 
-#: qml/MediaPlayListView.qml:128
+#: qml/MediaPlayListView.qml:129
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -854,19 +854,19 @@ msgid ""
 "renamed."
 msgstr "加载某些曲目失败。请检查它们是否已经被移除或重命名。"
 
-#: qml/MediaPlayListView.qml:134
+#: qml/MediaPlayListView.qml:135
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "编辑播放列表文件"
 
-#: qml/MediaPlayListView.qml:304
+#: qml/MediaPlayListView.qml:305
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "播放列表为空"
 
-#: qml/MediaPlayListView.qml:305
+#: qml/MediaPlayListView.qml:306
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -874,27 +874,27 @@ msgid ""
 "the left."
 msgstr "请将几首音乐添加进来即可播放。您可以在左边的视图中浏览您的音乐。"
 
-#: qml/MediaPlayListView.qml:380
+#: qml/MediaPlayListView.qml:381
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "播放列表中没有曲目。"
 
-#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
+#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
 msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "剩余 %1/%2 首曲目"
 
-#: qml/MediaPlayListView.qml:478
+#: qml/MediaPlayListView.qml:479
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "剩余 %1，总共 %2"
 
-#: qml/MediaPlayListView.qml:479 qml/MediaPlayListView.qml:488
-#: qml/MediaPlayListView.qml:497
+#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
+#: qml/MediaPlayListView.qml:498
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -902,34 +902,34 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1，%2"
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "剩余 %1/%2"
 
-#: qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
 msgid_plural "%1/%2 tracks"
 msgstr[0] "%1/%2 首曲目"
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
 msgid_plural "%1 tracks"
 msgstr[0] "%1 首曲目"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
 msgstr[0] "%1 个电台"
 
-#: qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:507
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -937,7 +937,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "总共 %1，%2"
 
-#: qml/MediaPlayListView.qml:509
+#: qml/MediaPlayListView.qml:510
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -946,7 +946,7 @@ msgid "%1 track, %2 total"
 msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 首曲目，总共 %2"
 
-#: qml/MediaPlayListView.qml:511
+#: qml/MediaPlayListView.qml:512
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
@@ -954,14 +954,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "1 首曲目，剩余 %1 分钟"
 
-#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "取消收藏此曲目"
 
-#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
@@ -1068,19 +1068,19 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "下一曲目"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "跟踪选项"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "电台选项"
 
-#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:90
+#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:95
 #: qml/TrackBrowserDelegate.qml:77
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1391,19 +1391,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "仅显示收藏曲目"
 
-#: qml/PlayListEntry.qml:104 qml/TrackBrowserDelegate.qml:97
+#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:97
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "设置曲目评分"
 
-#: qml/PlayListEntry.qml:128
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "移除"
 
-#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:309
+#: qml/PlayListEntry.qml:315 qml/TrackBrowserDelegate.qml:309
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"

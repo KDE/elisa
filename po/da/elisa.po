@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:45+0000\n"
+"POT-Creation-Date: 2026-10-08 00:44+0000\n"
 "PO-Revision-Date: 2025-07-31 11:52+0200\n"
 "Last-Translator: rasmus rosendahl-kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -515,38 +515,38 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "Afspiller nu"
 
-#: qml/ContextView.qml:78 qml/NavigationActionBar.qml:267
+#: qml/ContextView.qml:79 qml/NavigationActionBar.qml:267
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
 msgstr "Åbn sidepanelet"
 
-#: qml/ContextView.qml:114
+#: qml/ContextView.qml:115
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Metadata"
 msgstr "Metadata"
 
-#: qml/ContextView.qml:125
+#: qml/ContextView.qml:126
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
 msgstr "Sangtekster"
 
-#: qml/ContextView.qml:132 qml/mobile/MobileTrackPlayer.qml:388
+#: qml/ContextView.qml:133 qml/mobile/MobileTrackPlayer.qml:388
 #: qml/NavigationActionBar.qml:176
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
 msgstr "Vis playliste"
 
-#: qml/ContextView.qml:354
+#: qml/ContextView.qml:355
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Nothing playing"
 msgstr "Intet afspilles"
 
-#: qml/ContextView.qml:388
+#: qml/ContextView.qml:389
 #, kde-format
 msgctxt "@action:button"
 msgid "Show In Folder"
@@ -845,25 +845,25 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Playliste"
 
-#: qml/MediaPlayListView.qml:71
+#: qml/MediaPlayListView.qml:72
 #, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Vis nuværende"
 
-#: qml/MediaPlayListView.qml:82
+#: qml/MediaPlayListView.qml:83
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Ryd alle"
 
-#: qml/MediaPlayListView.qml:92
+#: qml/MediaPlayListView.qml:93
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Gem..."
 
-#: qml/MediaPlayListView.qml:102
+#: qml/MediaPlayListView.qml:103
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open Playlist…"
@@ -871,13 +871,13 @@ msgctxt "@action:button Load a playlist file"
 msgid "Open…"
 msgstr "Åbn playliste..."
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:104
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:128
+#: qml/MediaPlayListView.qml:129
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -887,19 +887,19 @@ msgstr ""
 "Kunne ikke indlæse visse numre. Sørg for, at de ikke er blevet fjernet eller "
 "omdøbt."
 
-#: qml/MediaPlayListView.qml:134
+#: qml/MediaPlayListView.qml:135
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Redigér playlistefil"
 
-#: qml/MediaPlayListView.qml:304
+#: qml/MediaPlayListView.qml:305
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Playlisten er tom"
 
-#: qml/MediaPlayListView.qml:305
+#: qml/MediaPlayListView.qml:306
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -909,13 +909,13 @@ msgstr ""
 "Tilføj nogen sange for at komme i gang. Du kan gennemgå din musik med "
 "visningerne til venstre."
 
-#: qml/MediaPlayListView.qml:380
+#: qml/MediaPlayListView.qml:381
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Din playliste er tom."
 
-#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
+#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -923,14 +923,14 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "%1/%2 sang tilbage"
 msgstr[1] "%1/%2 sange tilbage"
 
-#: qml/MediaPlayListView.qml:478
+#: qml/MediaPlayListView.qml:479
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 tilbage, %2 i alt"
 
-#: qml/MediaPlayListView.qml:479 qml/MediaPlayListView.qml:488
-#: qml/MediaPlayListView.qml:497
+#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
+#: qml/MediaPlayListView.qml:498
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -938,13 +938,13 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1/%2 tilbage"
 
-#: qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -952,7 +952,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "%1/%2 nummer"
 msgstr[1] "%1/%2 numre"
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -960,7 +960,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 nummer"
 msgstr[1] "%1 numre"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -968,7 +968,7 @@ msgid_plural "%1 radios"
 msgstr[0] "%1 radio"
 msgstr[1] "%1 radioer"
 
-#: qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:507
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -976,7 +976,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr "%1, %2 total"
 
-#: qml/MediaPlayListView.qml:509
+#: qml/MediaPlayListView.qml:510
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -986,7 +986,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 nummer, %2 i alt"
 msgstr[1] "%1 numre, %2 i alt"
 
-#: qml/MediaPlayListView.qml:511
+#: qml/MediaPlayListView.qml:512
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
@@ -994,14 +994,14 @@ msgctxt ""
 msgid "1 track, %1min remaining"
 msgstr "1 nummer, %1 min tilbage"
 
-#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
 msgstr "Fjern favoritmarkeringen for denne sang"
 
-#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:114
+#: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
@@ -1108,19 +1108,19 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "Spring fremad"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Sporindstillinger"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:362
+#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
 #, kde-format
 msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Radioerindstillinger"
 
-#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:90
+#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:95
 #: qml/TrackBrowserDelegate.qml:77
 #, kde-format
 msgctxt "@action:button Show track metadata"
@@ -1431,19 +1431,19 @@ msgctxt "@action:button"
 msgid "Only Show Favorites"
 msgstr "Vis kun favoritter"
 
-#: qml/PlayListEntry.qml:104 qml/TrackBrowserDelegate.qml:97
+#: qml/PlayListEntry.qml:109 qml/TrackBrowserDelegate.qml:97
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
 msgstr "Indstil nummer-rating"
 
-#: qml/PlayListEntry.qml:128
+#: qml/PlayListEntry.qml:133
 #, kde-format
 msgctxt "@action:button Remove current track from play list"
 msgid "Remove"
 msgstr "Fjern"
 
-#: qml/PlayListEntry.qml:310 qml/TrackBrowserDelegate.qml:309
+#: qml/PlayListEntry.qml:315 qml/TrackBrowserDelegate.qml:309
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-08 00:44+0000\n"
-"PO-Revision-Date: 2026-03-22 10:28+0000\n"
+"PO-Revision-Date: 2026-10-12 12:08+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -48,12 +48,10 @@ msgid "Toggle Playlist"
 msgstr "Sýna/fela spilunarlista"
 
 #: elisaapplication.cpp:187
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
-msgstr "Sýna/fela spilunarlista"
+msgstr "Hreinsa spilunarlista"
 
 #: elisaapplication.cpp:193
 #, kde-format

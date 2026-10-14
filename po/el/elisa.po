@@ -4,32 +4,32 @@
 # SPDX-FileCopyrightText: 2023 Geosrge Stefanakis <george.stefanakis@gmail.com>
 # Stelios <sstavra@gmail.com>, 2018, 2019, 2021.
 # George Stefanakis <george.stefanakis@gmail.com>, 2023.
-# Petros Vidalis <pvidalis@gmail.com>, 2023.
+# SPDX-FileCopyrightText: 2023, 2026 Petros Vidalis <pvidalis@gmail.com>
 # SPDX-FileCopyrightText: 2024 Antonis Geralis <capoiosct@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-13 02:46+0000\n"
-"PO-Revision-Date: 2024-09-19 14:44+0300\n"
-"Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
+"PO-Revision-Date: 2026-10-13 21:32+0300\n"
+"Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Γιώργος Στεφανάκης, Stelios"
+msgstr "Γιώργος Στεφανάκης, Στέλιος, Πέτρος Βιδάλης"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "george.stefanakis@gmail.com, sstavra@gmail.com"
+msgstr "george.stefanakis@gmail.com, sstavra@gmail.com, pvidalis@gmail.com"
 
 #: databaseinterface.cpp:8059 databaseinterface.cpp:9173
 #: databaseinterface.cpp:9258
@@ -714,9 +714,7 @@ msgid "Exit Full Screen"
 msgstr "Έξοδος από πλήρη οθόνη"
 
 #: qml/HeaderBar.qml:288
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Enter Full Screen"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enter Full Screen"
 msgstr "Είσοδος σε πλήρη οθόνη"
@@ -776,13 +774,13 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr ""
+msgstr "Σίγαση"
 
 #: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:214
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr ""
+msgstr "Τρέχουσα λειτουργία: Χωρίς τυχαία αναπαραγωγή"
 
 #: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:215
 #, fuzzy, kde-format
@@ -796,7 +794,7 @@ msgstr "Τρέχον: να μην επαναλαμβάνονται κομμάτ�
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr ""
+msgstr "Τρέχουσα λειτουργία: Τυχαία αναπαραγωγή άλμπουμ"
 
 #: qml/MediaPlayerControl.qml:206 qml/mobile/MobileTrackPlayer.qml:245
 #, fuzzy, kde-format
@@ -892,7 +890,7 @@ msgstr "Άνοιγμα λίστας αναπαραγωγής..."
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
-msgstr ""
+msgstr "Άνοιγμα αρχείων μουσικής ή αποθηκευμένων λιστών αναπαραγωγής"
 
 #: qml/MediaPlayListView.qml:128
 #, kde-format
@@ -1344,7 +1342,7 @@ msgstr "Ραδιόφωνα"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr ""
+msgstr "Προσθήκη ραδιοφωνικού σταθμού"
 
 #: qml/NavigationActionBar.qml:121
 #, kde-format
@@ -1408,7 +1406,7 @@ msgstr "Εμφάνιση λίστας αναπαραγωγής"
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
-msgstr ""
+msgstr "Προβολή ως πλέγμα εικονιδίων"
 
 #: qml/NavigationActionBar.qml:189
 #, fuzzy, kde-format
@@ -1422,7 +1420,7 @@ msgstr "Προβολή λεπτομερειών"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
-msgstr ""
+msgstr "Προβολή ως πλέγμα εικονιδίων"
 
 #: qml/NavigationActionBar.qml:192
 #, fuzzy, kde-format
@@ -1715,9 +1713,7 @@ msgid "Choose…"
 msgstr "Επιλογή…"
 
 #: qml/SettingsForm.qml:339 qml/SettingsForm.qml:464
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Choose a Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Choose Folder"
 msgstr "Επιλογή φακέλου"
@@ -1775,7 +1771,7 @@ msgstr "Προσθήκη νέας Τοποθεσίας"
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"
-msgstr ""
+msgstr "Δεν ήταν δυνατή η αναπαραγωγή του «%1»"
 
 #: qml/SortMenu.qml:24
 #, kde-format

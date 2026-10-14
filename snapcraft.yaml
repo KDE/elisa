@@ -21,17 +21,13 @@ apps:
       - home
       - removable-media
       - screen-inhibit-control
-      - pulseaudio
-      - audio-record
+      - audio-playback
+
 environment:
   LD_LIBRARY_PATH: >
-    "$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib:$SNAP/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/elisa:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio${LD_LIBRARY_PATH}:$SNAP/ffmpeg-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR"
+    "$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib:$SNAP/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/elisa${LD_LIBRARY_PATH}:$SNAP/ffmpeg-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR"
   PATH: $SNAP/ffmpeg-platform/usr/bin:${PATH}
   ALSA_CONFIG_PATH: "$SNAP/kf6/etc/asound.conf"
-  QT_MEDIA_BACKEND: "ffmpeg"
-  GST_PLUGIN_SYSTEM_PATH: $SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer-1.0/
-  GST_PLUGIN_PATH: "$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer-1.0"
-  GST_PLUGIN_SCANNER: "$SNAP/kf6/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner"
 
 plugs:
   ffmpeg-2404:
@@ -56,30 +52,87 @@ slots:
     interface: dbus
     name: org.mpris.MediaPlayer2.elisa
     bus: session
+
 parts:
-  elisa:
-    parse-info:
-      - usr/share/metainfo/org.kde.elisa.appdata.xml
+  sdl3:
     plugin: cmake
+    source: https://github.com/libsdl-org/SDL.git
+    source-tag: release-3.4.12
+    build-packages:
+      - libasound2-dev
+      - libpulse-dev
+      - libpipewire-0.3-dev
+      - pkg-config
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DSDL_STATIC=OFF
+      - -DSDL_SHARED=ON
+      - -DSDL_TESTS=OFF
+      - -DSDL_EXAMPLES=OFF
+      - -DSDL_VIDEO=OFF
+      - -DSDL_CAMERA=OFF
+      - -DSDL_JOYSTICK=OFF
+      - -DSDL_HAPTIC=OFF
+      - -DSDL_UNIX_CONSOLE_BUILD=ON
+    prime:
+      - usr/lib/*/libSDL3*.so*
+      - usr/lib/libSDL3*.so*
+
+  dragon-media-backend:
+    after: [sdl3]
+    plugin: cmake
+    source: https://invent.kde.org/libraries/dragon-media-backend.git
+    source-tag: v0.82.1
     build-snaps:
       - kde-qt6-core24-sdk/latest/beta
       - kf6-core24-sdk/latest/beta
     build-packages:
-      - libvlc-dev
-      - libpulse0
+      - libavcodec-dev
+      - libavformat-dev
+      - libswresample-dev
+      - libavutil-dev
+      - libasound2-dev
+      - libpulse-dev
+      - libpipewire-0.3-dev
+      - libkissfft-dev
+      - qcoro-qt6-dev
+      - pkg-config
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_EXAMPLES=OFF
+      - -DBUILD_TESTING=OFF
+    prime:
+      - -usr/lib/*/cmake/*
+      - -usr/include/*
+
+  elisa:
+    after: [dragon-media-backend]
+    parse-info:
+      - usr/share/metainfo/org.kde.elisa.appdata.xml
+    plugin: cmake
+    source: .
+    source-type: local
+    build-snaps:
+      - kde-qt6-core24-sdk/latest/beta
+      - kf6-core24-sdk/latest/beta
+    build-packages:
+      - pkg-config
     stage-packages:
       - libasound2
       - libasound2-plugins
       - libasound2-data
       - libpulse0
-    source: https://invent.kde.org/multimedia/elisa.git
-    source-branch: master
+      - libpipewire-0.3-0
+      - libkissfft-float131
+      - libqcoro6core0t64
+      - libqcoro6network0t64
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
-      - -DQT_MAJOR_VERSION=6
-      - -DBUILD_WITH_QT6=ON
       - -DBUILD_TESTING=OFF
+      - -DBUILD_EXAMPLES=OFF
     prime:
       - -usr/lib/*/cmake/*
       - -usr/include/*
@@ -89,6 +142,7 @@ parts:
       - -usr/lib/gcc/$CRAFT_ARCH_TRIPLET_BUILD_FOR/6.0.0
       - -usr/lib/aspell/*
       - -usr/share/lintian
+
   gpu-2404:
     after: [elisa]
     source: https://github.com/canonical/gpu-snap.git
@@ -98,6 +152,7 @@ parts:
       ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
     prime:
       - bin/gpu-2404-wrapper
+
   cleanup:
     after:
       - elisa
@@ -105,8 +160,9 @@ parts:
     build-snaps:
       - core24
       - kf6-core24
+      - ffmpeg-2404
     override-prime: |
         set -eux
-        for snap in "core24" "kf6-core24"; do
+        for snap in "core24" "kf6-core24" "ffmpeg-2404"; do
             cd "/snap/$snap/current" && find . -type f,l -exec rm -rf "${CRAFT_PRIME}/{}" \;
         done

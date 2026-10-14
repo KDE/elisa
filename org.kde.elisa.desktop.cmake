@@ -8,6 +8,7 @@ Comment[ca@valencia]=Reproduïu música local i escolteu ràdio en línia
 Comment[cs]=Přehrávejte si místní hudbu a poslouchejte online rádia
 Comment[da]=Afspil lokal musik og lyt til onlineradioer
 Comment[de]=Lokal gespeicherte Musik wiedergeben und Online-Radio hören
+Comment[el]=Αναπαραγωγή τοπικής μουσικής και ακρόαση διαδικτυακού ραδιοφώνου
 Comment[eo]=Ludu lokan muzikon kaj aŭskultu al retradio
 Comment[es]=Reproduzca música local y escuche radios en línea
 Comment[eu]=Musika lokala jotzea eta irratiari lerroan entzutea

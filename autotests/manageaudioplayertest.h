@@ -79,6 +79,7 @@ private Q_SLOTS:
 
     void playSingleAndClearPlayListTrack();
 
+    void switchTrackWhilePaused();
 };
 
 #endif // MANAGEAUDIOPLAYERTEST_H

@@ -5389,6 +5389,35 @@ void MediaPlayListProxyModelTest::testMoveCurrentTrack()
     QCOMPARE(mPlayListProxyModel->nextTrack().isValid(), false);
 }
 
+void MediaPlayListProxyModelTest::testRemoveCurrentTrackWithShuffle()
+{
+    for (int trackNumber = 1; trackNumber <= 3; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}}}, {}, {});
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+
+    mPlayListProxyModel->switchTo(1);
+    QCOMPARE(mPlayListProxyModel->currentTrackRow(), 1);
+    const auto removedTitle = mPlayListProxyModel->data(mPlayListProxyModel->index(1, 0), MediaPlayList::TitleRole).toString();
+
+    QSignalSpy currentTrackChangedSpy(mPlayListProxyModel, &MediaPlayListProxyModel::currentTrackChanged);
+
+    mPlayListProxyModel->removeRow(1);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 2);
+    QCOMPARE(currentTrackChangedSpy.count(), 1);
+    QCOMPARE(mPlayListProxyModel->currentTrackRow(), 1);
+    QVERIFY(mPlayListProxyModel->currentTrack().isValid());
+    QVERIFY(mPlayListProxyModel->currentTrack().data(MediaPlayList::TitleRole).toString() != removedTitle);
+}
+
 QTEST_GUILESS_MAIN(MediaPlayListProxyModelTest)
 
 

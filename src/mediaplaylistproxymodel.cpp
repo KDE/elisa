@@ -559,6 +559,8 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
 
 void MediaPlayListProxyModel::sourceRowsAboutToBeRemoved(const QModelIndex &parent, int start, int end)
 {
+    d->mCurrentTrackWasValid = d->mCurrentTrack.isValid();
+
     if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
         if (end - start + 1 == rowCount()) {
             beginRemoveRows(parent, start, end);
@@ -581,7 +583,6 @@ void MediaPlayListProxyModel::sourceRowsAboutToBeRemoved(const QModelIndex &pare
             }
         }
     } else {
-        d->mCurrentTrackWasValid = d->mCurrentTrack.isValid();
         beginRemoveRows(parent, start, end);
     }
 }

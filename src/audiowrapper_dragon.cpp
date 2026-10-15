@@ -9,7 +9,6 @@
 #include "dragonLogging.h"
 #include "powermanagementinterface.h"
 
-#include <QLoggingCategory>
 #include <QTimer>
 
 #include <DragonAudioOutput>
@@ -97,7 +96,6 @@ AudioWrapper::AudioWrapper(QObject *parent)
     : QObject(parent)
     , d(std::make_unique<AudioWrapperPrivate>())
 {
-    QLoggingCategory::setFilterRules(QStringLiteral("org.kde.dragonmediabackend.*.debug=true"));
     connect(&d->mPlayer, &DragonPlayer::stateChanged, this, [this](DragonPlayer::PlaybackState, DragonPlayer::PlaybackState) {
         queueStatusChanged();
     });

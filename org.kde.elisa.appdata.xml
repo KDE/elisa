@@ -73,6 +73,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="cs">Přehrávejte místní hudbu a poslouchejte online rádio</summary>
   <summary xml:lang="da">Afspil lokal musik og lyt til onlineradioer</summary>
   <summary xml:lang="de">Lokal gespeicherte Musik wiedergeben und Online-Radio hören</summary>
+  <summary xml:lang="el">Αναπαραγωγή τοπικής μουσικής και ακρόαση διαδικτυακού ραδιοφώνου</summary>
   <summary xml:lang="en-GB">Play local music and listen to online radio</summary>
   <summary xml:lang="eo">Ludi lokan muzikon kaj aŭskulti enretan radion</summary>
   <summary xml:lang="es">Reproduzca música en local y escuche radios en línea</summary>
@@ -119,6 +120,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="cs">Hudební přehrávač Elisa je vyvíjen komunitou KDE a snaží se být jednoduchý a příjemný na používání.</p>
     <p xml:lang="da">Elisa musikafspilleren er udviklet af KDE-fællesskabet og stræber efter at være simpel og rar at bruge.</p>
     <p xml:lang="de">Die Elisa-Musikwiedergabe wird von der KDE-Gemeinschaft entwickelt und soll einfach und angenehm zu bedienen sein.</p>
+    <p xml:lang="el">Το Elisa είναι ένα πρόγραμμα αναπαραγωγής μουσικής που αναπτύσσεται από την κοινότητα του KDE με στόχο να είναι απλό και ευχάριστο στη χρήση.</p>
     <p xml:lang="en-GB">The Elisa music player is developed by the KDE community and strives to be simple and pleasant to use.</p>
     <p xml:lang="eo">La muzikludilo Elisa estas evoluigita de la KDE-komunumo kaj klopodas esti simpla kaj agrabla por uzi.</p>
     <p xml:lang="es">El reproductor musical Elisa es desarrollado por la comunidad KDE y pretende ser simple y placentero de usar.</p>
@@ -209,6 +211,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="cs">Elisa podporuje vaše kompletní barevné schéma KDE při použití na ploše Plasma, nebo standardní světlý a tmavý režim.</p>
     <p xml:lang="da">Elisa understøtter dit fulde KDE-farvetema, når den er brugt på Plasma-skrivebordet ellers understøtter de standard lys- og mørktilstande.</p>
     <p xml:lang="de">Elisa unterstützt bei Verwendung der Plasma-Umgebung Ihr gesamtes KDE-Farbschema, andernfalls die hellen und dunklen Standarddesigns.</p>
+    <p xml:lang="el">Το Elisa υποστηρίζει πλήρως το χρωματικό θέμα του KDE όταν χρησιμοποιείται στην επιφάνεια εργασίας Plasma και, σε άλλα περιβάλλοντα, τις τυπικές φωτεινές και σκοτεινές λειτουργίες.</p>
     <p xml:lang="en-GB">Elisa supports your full KDE colour scheme when used on the Plasma desktop, or else the standard light and dark modes.</p>
     <p xml:lang="eo">Elisa subtenas vian plenan KDE-kolorskemon kiam ĝi estas uzata sur la Plasma labortablo, aŭ alie la normajn helajn kaj malhelajn reĝimojn</p>
     <p xml:lang="es">Elisa reconoce el esquema de color completo de KDE cuando se usa en el escritorio Plasma, o si no los modos estándar claro y oscuro.</p>
@@ -253,7 +256,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="cs">Uvolněte se s párty režimem, který zobrazuje obaly alb vaší hudby v popředí a uprostřed.</p>
     <p xml:lang="da">Slap af med Party Mode, som sætter din musiks albumcover i centrum.</p>
     <p xml:lang="de">Entspannen Sie mit dem Party-Modus, der die Albumcover ins Rampenlicht rückt.</p>
-    <p xml:lang="el">Χαλαρώστε με τη λειτουργία Party, η οποία βάζει το εξώφυλλο του άλμπουμ της μουσικής σας μπροστά και κέντρο.</p>
+    <p xml:lang="el">Χαλαρώστε με τη λειτουργία πάρτι, η οποία προβάλλει τα εξώφυλλα των άλμπουμ σας σε πρώτο πλάνο.</p>
     <p xml:lang="en-GB">Chill out with Party Mode, which puts your music's album art front and centre.</p>
     <p xml:lang="eo">Malstreĉiĝu kun Party Mode, kiu elstarigas la albumarton de via muziko fronte kaj centre.</p>
     <p xml:lang="es">Relájese con el modo fiesta, el cual pone el arte del álbum que está escuchando al frente y centrado.</p>
@@ -307,7 +310,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="cs">Přehrávač hudby Elisa</caption>
       <caption xml:lang="da">Elisa-musikafspilleren</caption>
       <caption xml:lang="de">Elisa-Musikwiedergabe</caption>
-      <caption xml:lang="el">Η συσκευή αναπαραγωγής μουσικής Elisa</caption>
+      <caption xml:lang="el">Το πρόγραμμα αναπαραγωγής μουσικής Elisa</caption>
       <caption xml:lang="en-GB">The Elisa music player</caption>
       <caption xml:lang="eo">La muzikludilo Elisa</caption>
       <caption xml:lang="es">El reproductor de música Elisa</caption>
@@ -361,7 +364,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="cs">Elisa v Plasma Mobile</caption>
       <caption xml:lang="da">Elisa på Plasma Mobile</caption>
       <caption xml:lang="de">Elisa auf Plasma Mobile</caption>
-      <caption xml:lang="el">Η Elisa στο Plasma Mobile</caption>
+      <caption xml:lang="el">Το Elisa στο Plasma Mobile</caption>
       <caption xml:lang="en-GB">Elisa on Plasma Mobile</caption>
       <caption xml:lang="eo">Elisa sur Plasma Mobile</caption>
       <caption xml:lang="es">Elisa en Plasma Mobile</caption>

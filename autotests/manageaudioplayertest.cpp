@@ -8948,6 +8948,66 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(skipNextTrackSpy.wait(300), true);
 }
 
+void ManageAudioPlayerTest::switchTrackWhilePaused()
+{
+    Elisa::ElisaConfiguration::self()->setDefaults();
+    ManageAudioPlayer myPlayer;
+    QStandardItemModel myPlayList;
+
+    QSignalSpy playerSourceChangedSpy(&myPlayer, &ManageAudioPlayer::playerSourceChanged);
+    QSignalSpy playerPlaySpy(&myPlayer, &ManageAudioPlayer::playerPlay);
+    QSignalSpy playerPauseSpy(&myPlayer, &ManageAudioPlayer::playerPause);
+    QSignalSpy playerStopSpy(&myPlayer, &ManageAudioPlayer::playerStop);
+
+    myPlayList.appendRow(new QStandardItem);
+    myPlayList.appendRow(new QStandardItem);
+
+    myPlayList.item(0, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///1.mp3")), ManageAudioPlayerTest::ResourceRole);
+    myPlayList.item(1, 0)->setData(QUrl::fromUserInput(QStringLiteral("file:///2.mp3")), ManageAudioPlayerTest::ResourceRole);
+
+    myPlayer.setPlayListModel(&myPlayList);
+    myPlayer.setUrlRole(ManageAudioPlayerTest::ResourceRole);
+    myPlayer.setIsPlayingRole(ManageAudioPlayerTest::IsPlayingRole);
+
+    // play the first track
+    myPlayer.setCurrentTrack(myPlayList.index(0, 0));
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.last().at(0).toUrl(), QUrl::fromUserInput(QStringLiteral("file:///1.mp3")));
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
+    myPlayer.ensurePlay();
+    QTRY_COMPARE(playerPlaySpy.count(), 1);
+    myPlayer.setPlayerPlaybackState(QMediaPlayer::PlayingState);
+    myPlayer.setPlayerStatus(QMediaPlayer::BufferedMedia);
+
+    // pause it
+    myPlayer.playPause();
+    QTRY_COMPARE(playerPauseSpy.count(), 1);
+    myPlayer.setPlayerPlaybackState(QMediaPlayer::PausedState);
+
+    // select the second track in the playlist, like a click on a playlist entry does
+    myPlayer.setCurrentTrack(myPlayList.index(1, 0));
+    myPlayer.ensurePlay();
+
+    QTRY_COMPARE(playerStopSpy.count(), 1);
+    QTest::qWait(50);
+
+    // the player still has the first track loaded: asking it to play now would restart the first track
+    QCOMPARE(playerPlaySpy.count(), 1);
+    QCOMPARE(playerSourceChangedSpy.count(), 1);
+
+    // the player reports it has stopped, the second track gets loaded
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
+    myPlayer.setPlayerPlaybackState(QMediaPlayer::StoppedState);
+    QCOMPARE(playerSourceChangedSpy.count(), 2);
+    QCOMPARE(playerSourceChangedSpy.last().at(0).toUrl(), QUrl::fromUserInput(QStringLiteral("file:///2.mp3")));
+
+    // and is played once it is loaded
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadingMedia);
+    myPlayer.setPlayerStatus(QMediaPlayer::LoadedMedia);
+    QTRY_VERIFY(playerPlaySpy.count() > 1);
+}
+
 QTEST_GUILESS_MAIN(ManageAudioPlayerTest)
 
 

@@ -539,7 +539,15 @@ void ManageAudioPlayer::notifyPlayerSourceProperty()
 
 void ManageAudioPlayer::triggerPlay()
 {
-    QTimer::singleShot(0, this, [this]() {Q_EMIT playerPlay();});
+    QTimer::singleShot(0, this, [this]() {
+        // While switching tracks the player still has the previous source loaded. Playing now would restart that
+        // previous track and the backend could report it as playing before we have seen it stop, so the new source
+        // would never be loaded. The new track is started once it has been loaded (see setPlayerStatus).
+        if (mSkippingCurrentTrack) {
+            return;
+        }
+        Q_EMIT playerPlay();
+    });
 }
 
 void ManageAudioPlayer::triggerPause()

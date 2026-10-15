@@ -8,7 +8,9 @@
  */
 
 #include "playlistparser.h"
+#include "elisa_settings.h"
 #include "mediaplaylist.h"
+#include <QDir>
 #include <QFile>
 #include <qdebug.h>
 #include <qfiledevice.h>
@@ -85,15 +87,18 @@ std::optional<PlaylistModel> M3uPlaylistLoader::read(QTextStream *stream)
 {
     stream->setEncoding(QStringConverter::System);
 
+    auto config = Elisa::ElisaConfiguration::self();
+    const QUrl baseUrl = QUrl::fromLocalFile(config->rootPath()[0] + QString::fromUtf8("/"));
+
     QList<MediaPlayListEntry> result;
 
     while (!stream->atEnd()) {
-        QString line = stream->readLine();
+        QString line = stream->readLine().trimmed();
         if (line.isEmpty() || line.startsWith(QStringLiteral("#"))) {
             continue;
         }
 
-        const QUrl url = line.contains(QStringLiteral("://")) ? QUrl(line) : QUrl::fromLocalFile(line);
+        const QUrl url = baseUrl.resolved(QUrl(line));
         result.append(MediaPlayListEntry(url));
     }
 

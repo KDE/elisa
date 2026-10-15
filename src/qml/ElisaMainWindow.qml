@@ -98,7 +98,7 @@ Kirigami.ApplicationWindow {
         }
 
         function onNextTrack() {
-            ElisaApplication.mediaPlayListProxyModel.skipNextTrack(ElisaApplication.audioPlayer.position);
+            ElisaApplication.mediaPlayListProxyModel.skipNextTrack(ElisaUtils.Manual);
         }
 
         function onPreviousTrack() {

@@ -73,6 +73,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="cs">Přehrávejte místní hudbu a poslouchejte online rádio</summary>
   <summary xml:lang="da">Afspil lokal musik og lyt til onlineradioer</summary>
   <summary xml:lang="de">Lokal gespeicherte Musik wiedergeben und Online-Radio hören</summary>
+  <summary xml:lang="el">Αναπαραγωγή τοπικής μουσικής και ακρόαση διαδικτυακού ραδιοφώνου</summary>
   <summary xml:lang="en-GB">Play local music and listen to online radio</summary>
   <summary xml:lang="eo">Ludi lokan muzikon kaj aŭskulti enretan radion</summary>
   <summary xml:lang="es">Reproduzca música en local y escuche radios en línea</summary>
@@ -209,6 +210,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="cs">Elisa podporuje vaše kompletní barevné schéma KDE při použití na ploše Plasma, nebo standardní světlý a tmavý režim.</p>
     <p xml:lang="da">Elisa understøtter dit fulde KDE-farvetema, når den er brugt på Plasma-skrivebordet ellers understøtter de standard lys- og mørktilstande.</p>
     <p xml:lang="de">Elisa unterstützt bei Verwendung der Plasma-Umgebung Ihr gesamtes KDE-Farbschema, andernfalls die hellen und dunklen Standarddesigns.</p>
+    <p xml:lang="el">Το Elisa υποστηρίζει πλήρως το χρωματικό θέμα του KDE όταν χρησιμοποιείται στην επιφάνεια εργασίας Plasma και, σε άλλα περιβάλλοντα, τις τυπικές φωτεινές και σκοτεινές λειτουργίες.</p>
     <p xml:lang="en-GB">Elisa supports your full KDE colour scheme when used on the Plasma desktop, or else the standard light and dark modes.</p>
     <p xml:lang="eo">Elisa subtenas vian plenan KDE-kolorskemon kiam ĝi estas uzata sur la Plasma labortablo, aŭ alie la normajn helajn kaj malhelajn reĝimojn</p>
     <p xml:lang="es">Elisa reconoce el esquema de color completo de KDE cuando se usa en el escritorio Plasma, o si no los modos estándar claro y oscuro.</p>

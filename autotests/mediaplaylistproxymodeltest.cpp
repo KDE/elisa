@@ -5418,6 +5418,32 @@ void MediaPlayListProxyModelTest::testRemoveCurrentTrackWithShuffle()
     QVERIFY(mPlayListProxyModel->currentTrack().data(MediaPlayList::TitleRole).toString() != removedTitle);
 }
 
+void MediaPlayListProxyModelTest::testRemainingDurationWithShuffle()
+{
+    for (int trackNumber = 1; trackNumber <= 3; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}}}, {}, {});
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+    // make sure the shuffled order differs from the order of the source model
+    mPlayListProxyModel->moveRow(2, 0);
+    QVERIFY(mPlayListProxyModel->mapRowToSource(0) != 0);
+
+    mPlayListProxyModel->switchTo(1);
+
+    int expectedRemainingDuration = 0;
+    for (int row = 1; row < mPlayListProxyModel->rowCount(); ++row) {
+        expectedRemainingDuration += mPlayListProxyModel->data(mPlayListProxyModel->index(row, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay();
+    }
+    QCOMPARE(mPlayListProxyModel->remainingTracksDuration(), expectedRemainingDuration);
+}
+
 QTEST_GUILESS_MAIN(MediaPlayListProxyModelTest)
 
 

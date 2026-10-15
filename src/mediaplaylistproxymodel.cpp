@@ -697,7 +697,7 @@ int MediaPlayListProxyModel::remainingTracksDuration() const
 {
     int time = 0;
     for (int i = d->mCurrentTrack.row(); i < rowCount(); i++) {
-        time += d->mPlayListModel->data(index(i, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay();
+        time += data(index(i, 0), MediaPlayList::DurationRole).toTime().msecsSinceStartOfDay();
     }
     return time;
 }

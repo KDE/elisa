@@ -53,8 +53,8 @@ BasePlayListDelegate {
 
     topInset: 0
     bottomInset: 0
-    leftInset: 0
-    rightInset: 0
+    leftInset: Kirigami.Units.smallSpacing
+    rightInset: Kirigami.Units.smallSpacing
 
     // Set this explicitly since we rely on it; we don't want the theme setting
     // it to false under us!

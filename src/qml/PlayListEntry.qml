@@ -53,8 +53,8 @@ BasePlayListDelegate {
 
     topInset: 0
     bottomInset: 0
-    leftInset: 0
-    rightInset: 0
+    leftInset: Math.round(Kirigami.Units.smallSpacing / 2)
+    rightInset: Math.round(Kirigami.Units.smallSpacing / 2)
 
     // Set this explicitly since we rely on it; we don't want the theme setting
     // it to false under us!

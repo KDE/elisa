@@ -10,7 +10,6 @@
 #include "playlistparser.h"
 #include "elisa_settings.h"
 #include "mediaplaylist.h"
-#include <QDir>
 #include <QFile>
 #include <qdebug.h>
 #include <qfiledevice.h>
@@ -88,21 +87,48 @@ std::optional<PlaylistModel> M3uPlaylistLoader::read(QTextStream *stream)
     stream->setEncoding(QStringConverter::System);
 
     auto config = Elisa::ElisaConfiguration::self();
-    const QUrl baseUrl = QUrl::fromLocalFile(config->rootPath()[0] + QStringLiteral("/"));
+    QStringList rootPaths = config->rootPath();
+    if (rootPaths.isEmpty()) {
+        const QString fallback = QStandardPaths::writableLocation(QStandardPaths::MusicLocation);
+        rootPaths.append(fallback);
+    }
 
+    QString rootPath = rootPaths[0];
+    rootPath += QDir::separator();
+
+    const QUrl baseUrl = QUrl::fromLocalFile(rootPath);
     QList<MediaPlayListEntry> result;
 
     while (!stream->atEnd()) {
         QString line = stream->readLine();
+
         if (line.isEmpty() || line.startsWith(QStringLiteral("#"))) {
             continue;
         }
 
-        const QString resolved = baseUrl.resolved(QUrl(line)).toString();
-        const QUrl url = resolved.contains(QStringLiteral("://")) ? QUrl(resolved) : QUrl::fromLocalFile(resolved);
+        line = line.trimmed();
+
+        QUrl url;
+        if (line.contains(QStringLiteral("://"))) {
+            url = QUrl(line);
+        } else {
+            const QUrl candidateUrl = QUrl::fromUserInput(line);
+
+            if (candidateUrl.isLocalFile()) {
+                const QString localPath = candidateUrl.toLocalFile();
+
+                if (!QFileInfo(localPath).isAbsolute()) {
+                    url = baseUrl.resolved(QUrl(line));
+                } else {
+                    url = candidateUrl;
+                }
+            } else {
+                url = baseUrl.resolved(QUrl(line));
+            }
+        }
+
         result.append(MediaPlayListEntry(url));
     }
-
     return PlaylistModel(result);
 }
 

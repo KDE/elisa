@@ -218,7 +218,6 @@ Kirigami.Page {
                         id: playListDelegate
 
                         required property var model
-                        property bool nextDelegateHasSection
 
                         width: playListView.width
                         spacing: 0

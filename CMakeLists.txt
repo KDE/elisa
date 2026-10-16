@@ -149,9 +149,11 @@ endif()
 
 set(REQUIRED_DRAGON_MEDIA_BACKEND_VERSION "0.82.0")
 
+option(Fetch "Allow CMake FetchContent to download Dragon Media Backend when not found installed" OFF)
+
 find_package(DragonMediaBackend ${REQUIRED_DRAGON_MEDIA_BACKEND_VERSION} CONFIG QUIET)
 
-if (NOT DragonMediaBackend_FOUND)
+if (NOT DragonMediaBackend_FOUND AND (Fetch OR DEFINED FETCHCONTENT_SOURCE_DIR OR DEFINED FETCHCONTENT_SOURCE_DIR_DRAGONMEDIABACKEND))
     message(STATUS "Dragon Media Backend ${REQUIRED_DRAGON_MEDIA_BACKEND_VERSION} not found as installed package, fetching via FetchContent...")
     include(FetchContent)
     FetchContent_Declare(
@@ -164,12 +166,16 @@ if (NOT DragonMediaBackend_FOUND)
         set(BUILD_TESTING OFF)
         FetchContent_MakeAvailable(DragonMediaBackend)
     endblock()
-else()
-    find_package(DragonMediaBackend ${REQUIRED_DRAGON_MEDIA_BACKEND_VERSION} CONFIG REQUIRED)
-    set_package_properties(DragonMediaBackend PROPERTIES
-        DESCRIPTION "Dragon Media Backend audio engine for Elisa"
-        TYPE REQUIRED)
+    # Override the not-found entry the failed QUIET find_package() recorded
+    set_property(GLOBAL APPEND PROPERTY PACKAGES_FOUND DragonMediaBackend)
+    get_property(_dragon_missing GLOBAL PROPERTY PACKAGES_NOT_FOUND)
+    list(REMOVE_ITEM _dragon_missing DragonMediaBackend)
+    set_property(GLOBAL PROPERTY PACKAGES_NOT_FOUND "${_dragon_missing}")
 endif()
+
+set_package_properties(DragonMediaBackend PROPERTIES
+	DESCRIPTION "Elisa's audio engine."
+	TYPE REQUIRED)
 
 ecm_find_qmlmodule(org.kde.kirigami 2.20)
 ecm_find_qmlmodule(org.kde.kirigamiaddons.formcard 1.0)

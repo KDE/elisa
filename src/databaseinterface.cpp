@@ -461,7 +461,7 @@ public:
 
     bool mInitFinished = false;
 
-    const DatabaseInterface::DatabaseVersion mLatestDatabaseVersion = DatabaseInterface::V17;
+    const DatabaseInterface::DatabaseVersion mLatestDatabaseVersion = DatabaseInterface::V18;
 
     struct TableSchema {
         QString name;
@@ -3553,6 +3553,39 @@ void DatabaseInterface::upgradeDatabaseV17()
 {
 }
 
+void DatabaseInterface::upgradeDatabaseV18()
+{
+    qCInfo(orgKdeElisaDatabase) << __FUNCTION__ << "begin update to v18 of database schema";
+
+    {
+        QSqlQuery sqlQuery(d->mTracksDatabase);
+
+        const QStringList sqlUpdates =
+            uR"(
+UPDATE Radios SET HttpAddress='https://ice1.somafm.com/groovesalad-256-mp3' WHERE HttpAddress='https://ice1.somafm.com/groovesalad-256.mp3';
+UPDATE Radios SET HttpAddress='https://ice1.somafm.com/dronezone-256-mp3' WHERE HttpAddress='https://ice1.somafm.com/dronezone-256.mp3';
+UPDATE Radios SET HttpAddress='https://ice1.somafm.com/deepspaceone-128-mp3' WHERE HttpAddress='https://ice1.somafm.com/deepspaceone-128.mp3';
+UPDATE Radios SET HttpAddress='https://solid24.streamupsolutions.com/proxy/icfablwz/stream' WHERE HttpAddress='http://ams1.reliastream.com:8054/stream';
+UPDATE Radios SET HttpAddress='https://direct.francemusique.fr/live/francemusique-midfi.mp3', ImageAddress='https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/France_Musique_logo_2021.svg/250px-France_Musique_logo_2021.svg.png' WHERE HttpAddress IN ('https://chai5she.cdn.dvmr.fr/francemusique-lofi.mp3', 'https://icecast.radiofrance.fr/francemusique-lofi.mp3')
+)"_s.split(QStringLiteral(";"));
+
+        for (const QString &oneSqlUpdate : sqlUpdates) {
+            const auto trimmedUpdate = oneSqlUpdate.trimmed();
+            if (trimmedUpdate.isEmpty()) {
+                continue;
+            }
+            if (!sqlQuery.exec(trimmedUpdate)) {
+                qCWarning(orgKdeElisaDatabase) << __FUNCTION__ << sqlQuery.lastQuery();
+                qCWarning(orgKdeElisaDatabase) << __FUNCTION__ << sqlQuery.lastError();
+
+                Q_EMIT databaseError();
+            }
+        }
+    }
+
+    qCInfo(orgKdeElisaDatabase) << __FUNCTION__ << "finished update to v18 of database schema";
+}
+
 DatabaseInterface::DatabaseState DatabaseInterface::checkDatabaseSchema() const
 {
     const auto tables = d->mExpectedTableNamesAndFields;
@@ -3784,6 +3817,9 @@ void DatabaseInterface::callUpgradeFunctionForVersion(DatabaseVersion databaseVe
         break;
     case DatabaseInterface::V17:
         upgradeDatabaseV17();
+        break;
+    case DatabaseInterface::V18:
+        upgradeDatabaseV18();
         break;
     }
 }

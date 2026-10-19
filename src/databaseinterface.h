@@ -46,6 +46,7 @@ public:
         V15 = 15,
         V16 = 16,
         V17 = 17,
+        V18 = 18,
     };
 
     explicit DatabaseInterface(QObject *parent = nullptr);
@@ -186,6 +187,8 @@ private:
     void upgradeDatabaseV16();
 
     void upgradeDatabaseV17();
+
+    void upgradeDatabaseV18();
 
     [[nodiscard]] DatabaseState checkDatabaseSchema() const;
 

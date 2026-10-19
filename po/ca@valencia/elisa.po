@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-13 02:46+0000\n"
-"PO-Revision-Date: 2026-03-19 11:31+0100\n"
+"PO-Revision-Date: 2026-10-15 18:51+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -874,7 +874,7 @@ msgid ""
 "Add some songs to get started. You can browse your music using the views on "
 "the left."
 msgstr ""
-"Per a començar afegiu diverses cançons. Podeu explorar la vostra música "
+"Per a començar, afegiu diverses cançons. Podeu explorar la vostra música "
 "utilitzant les vistes de l'esquerra."
 
 #: qml/MediaPlayListView.qml:380
@@ -1750,7 +1750,7 @@ msgstr "Volum"
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr "%1%"
+msgstr "%1 %"
 
 #: viewmanager.cpp:41
 #, kde-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-08 00:44+0000\n"
+"POT-Creation-Date: 2026-10-20 00:52+0000\n"
 "PO-Revision-Date: 2026-10-02 16:05+0200\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -867,13 +867,13 @@ msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Modifica file di scaletta"
 
-#: qml/MediaPlayListView.qml:305
+#: qml/MediaPlayListView.qml:304
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "La scaletta è vuota"
 
-#: qml/MediaPlayListView.qml:306
+#: qml/MediaPlayListView.qml:305
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -883,13 +883,13 @@ msgstr ""
 "Aggiungi alcune canzoni per iniziare. Puoi sfogliare la tua musica usando le "
 "viste a sinistra."
 
-#: qml/MediaPlayListView.qml:381
+#: qml/MediaPlayListView.qml:380
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "La tua scaletta è vuota."
 
-#: qml/MediaPlayListView.qml:478 qml/MediaPlayListView.qml:487
+#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks remaining"
@@ -897,14 +897,14 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "%1/%2 traccia rimanente"
 msgstr[1] "%1/%2 tracce rimanenti"
 
-#: qml/MediaPlayListView.qml:479
+#: qml/MediaPlayListView.qml:478
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 rimanenti, %2 totali"
 
-#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
-#: qml/MediaPlayListView.qml:498
+#: qml/MediaPlayListView.qml:479 qml/MediaPlayListView.qml:488
+#: qml/MediaPlayListView.qml:497
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -912,7 +912,7 @@ msgctxt ""
 msgid "%1, %2"
 msgstr "%1, %2"
 
-#: qml/MediaPlayListView.qml:488 qml/MediaPlayListView.qml:497
+#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
 #, kde-format
 msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
@@ -921,7 +921,7 @@ msgstr "%1/%2 rimanenti"
 # NOTA: Non togliere %1 dalla forma singola in questo caso,
 # perché la forma plurale richiede due segnaposto e la forma
 # singolare ne deve perciò avere almeno uno.
-#: qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:495
 #, kde-format
 msgctxt "@info:status %2 is always bigger than 1"
 msgid "%1/%2 tracks"
@@ -932,7 +932,7 @@ msgstr[1] "%1/%2 tracce"
 # NOTA: Non togliere %1 dalla forma singola in questo caso,
 # perché la forma plurale richiede due segnaposto e la forma
 # singolare ne deve perciò avere almeno uno.
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:504
 #, kde-format
 msgctxt "@info:status %1 is the total number of tracks of the playlist"
 msgid "%1 track"
@@ -940,7 +940,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 traccia"
 msgstr[1] "%1 tracce"
 
-#: qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:505
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -948,7 +948,7 @@ msgid_plural "%1 radios"
 msgstr[0] "%1 radio"
 msgstr[1] "%1 radio"
 
-#: qml/MediaPlayListView.qml:507
+#: qml/MediaPlayListView.qml:506
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -959,7 +959,7 @@ msgstr "%1, %2 totali"
 # NOTA: Non togliere %1 dalla forma singola in questo caso,
 # perché la forma plurale richiede due segnaposto e la forma
 # singolare ne deve perciò avere almeno uno.
-#: qml/MediaPlayListView.qml:510
+#: qml/MediaPlayListView.qml:509
 #, kde-format
 msgctxt ""
 "@info:status %1 is the total tracks of the playlist. %2 is the total "
@@ -969,7 +969,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 traccia, %2 totali"
 msgstr[1] "%1 tracce, %2 totali"
 
-#: qml/MediaPlayListView.qml:512
+#: qml/MediaPlayListView.qml:511
 #, kde-format
 msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "

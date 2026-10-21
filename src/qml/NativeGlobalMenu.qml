@@ -52,9 +52,8 @@ MenuBar {
         }
 
         NativeMenuItemFromAction {
-            action: Kirigami.Action {
-                fromQAction: ElisaApplication.action("file_quit")
-            }
+            text: ElisaApplication.action("file_quit").text
+            onTriggered: ElisaApplication.action("file_quit").trigger()
         }
     }
     Menu {

@@ -362,7 +362,6 @@ Kirigami.ApplicationWindow {
     Connections {
         target: Application
         function onAboutToQuit() {
-            console.warn("Quitting Elisa...") 
             persistentSettings.playListState = ElisaApplication.mediaPlayListProxyModel.persistentState;
             persistentSettings.audioPlayerState = ElisaApplication.audioControl.persistentState
             persistentSettings.contentViewState = contentView.saveState();
@@ -378,7 +377,6 @@ Kirigami.ApplicationWindow {
             } else {
                 persistentSettings.headerBarIsMaximized = (headerBarLoader.item as HeaderBar).isMaximized
             }
-            console.warn("Elisa exited successfully.") 
         }
     }
 

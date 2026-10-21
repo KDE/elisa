@@ -112,9 +112,9 @@ Menu {
     }
 
     MenuItem {
-        action: Kirigami.Action {
-            fromQAction: ElisaApplication.action("file_quit")
-        }
+        text: ElisaApplication.action("file_quit").text
+        icon.name: "application-exit"
+        onTriggered: ElisaApplication.action("file_quit").trigger()
         visible: ElisaApplication.showSystemTrayIcon
     }
 }

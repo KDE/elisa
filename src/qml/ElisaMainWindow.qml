@@ -252,6 +252,10 @@ Kirigami.ApplicationWindow {
 
     // Setup keyboard shortcuts for actions that aren't used in the GUI
     Kirigami.Action {
+        fromQAction: ElisaApplication.action("file_quit")
+    }
+
+    Kirigami.Action {
         fromQAction: ElisaApplication.action("go_back")
     }
 
@@ -358,6 +362,7 @@ Kirigami.ApplicationWindow {
     Connections {
         target: Application
         function onAboutToQuit() {
+            console.warn("Quitting Elisa...") 
             persistentSettings.playListState = ElisaApplication.mediaPlayListProxyModel.persistentState;
             persistentSettings.audioPlayerState = ElisaApplication.audioControl.persistentState
             persistentSettings.contentViewState = contentView.saveState();
@@ -373,6 +378,7 @@ Kirigami.ApplicationWindow {
             } else {
                 persistentSettings.headerBarIsMaximized = (headerBarLoader.item as HeaderBar).isMaximized
             }
+            console.warn("Elisa exited successfully.") 
         }
     }
 

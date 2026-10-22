@@ -29,7 +29,7 @@ MenuBar {
             text: KI18n.i18nc("@action:inmenu", "Open Playlist…")
             icon.name: "document-open"
             onTriggered: {
-                mainWindow.fileDialog.loadPlaylist()
+                mainWindow.fileDialog.loadPlaylistOrMusicFile()
             }
         }
 
@@ -43,17 +43,16 @@ MenuBar {
         }
 
         NativeMenuItemFromAction {
-            action: Kirigami.Action {
-                fromQAction: ElisaApplication.action("options_configure")
-            }
+            actionName: "options_configure" 
+            icon.name: "configure"
         }
 
         MenuSeparator {
         }
 
         NativeMenuItemFromAction {
-            text: ElisaApplication.action("file_quit").text
-            onTriggered: ElisaApplication.action("file_quit").trigger()
+            actionName: "file_quit"
+            icon.name: "application-exit"
         }
     }
     Menu {
@@ -158,21 +157,19 @@ MenuBar {
         title: KI18n.i18nc("@title:menu", "Help")
 
         NativeMenuItemFromAction {
-            action: Kirigami.Action {
-                fromQAction: ElisaApplication.action("help_about_app")
-            }
+            actionName: "help_about_app"
+            icon.name: "help-about"
         }
 
         NativeMenuItemFromAction {
-            action: Kirigami.Action {
-                fromQAction: ElisaApplication.action("help_about_kde")
-            }
-        }
+            actionName: "help_about_kde"
+            icon.name: "kde"
+        } 
 
         NativeMenuItemFromAction {
-            action: Kirigami.Action {
-                fromQAction: ElisaApplication.action("help_report_bug")
-            }
+            actionName: "help_report_bug"
+            icon.name: "tools-report-bug"
         }
+
     }
 }

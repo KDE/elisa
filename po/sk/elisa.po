@@ -49,12 +49,10 @@ msgid "Toggle Playlist"
 msgstr "Prepnúť zoznam skladieb"
 
 #: elisaapplication.cpp:187
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
-msgstr "Prepnúť zoznam skladieb"
+msgstr "Vyčistiť zoznam skladieb"
 
 #: elisaapplication.cpp:193
 #, kde-format

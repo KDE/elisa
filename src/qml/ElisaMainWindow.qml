@@ -8,6 +8,7 @@ pragma ComponentBehavior: Bound
 
 import QtCore
 import QtQuick
+import QtQml
 import QtQuick.Layouts
 import QtQuick.Window
 import QtQuick.Dialogs as Dialogs
@@ -251,7 +252,7 @@ Kirigami.ApplicationWindow {
     readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > headerBarLoader.toolBarHeight * 2
 
     // Setup keyboard shortcuts for actions that aren't used in the GUI
-    Kirigami.Action {
+    property var quit: Kirigami.Action {
         fromQAction: ElisaApplication.action("file_quit")
     }
 

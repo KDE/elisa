@@ -111,10 +111,7 @@ Menu {
         visible: ElisaApplication.showSystemTrayIcon
     }
 
-    MenuItem {
-        text: ElisaApplication.action("file_quit").text
-        icon.name: "application-exit"
-        onTriggered: ElisaApplication.action("file_quit").trigger()
-        visible: ElisaApplication.showSystemTrayIcon
+    MenuItem { 
+        action: mainWindow.quit
     }
 }

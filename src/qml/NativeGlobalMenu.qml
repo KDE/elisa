@@ -70,10 +70,10 @@ MenuBar {
             onTriggered: mainWindow.visibility === Window.FullScreen ? mainWindow.restorePreviousStateBeforeFullScreen() : mainWindow.goFullScreen()
         }
 
-        Kirigami.Action {
-            fromQAction: ElisaApplication.action("toggle_playlist")
+        MenuItem {
             text: contentView.showPlaylist ? KI18n.i18nc("@action:inmenu", "Hide Playlist") : KI18n.i18nc("@action:inmenu", "Show Playlist")
             icon.name: contentView.showPlaylist ? "show-menu" : "view-media-playlist"
+            onTriggered: ElisaActions.togglePlayListQAction.trigger()
         }
     }
     Menu {

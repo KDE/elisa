@@ -251,45 +251,46 @@ Kirigami.ApplicationWindow {
     readonly property bool isWideScreen: mainWindow.width >= Theme.viewSelectorSmallSizeThreshold
     readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > headerBarLoader.toolBarHeight * 2
 
+    // Override Plasma Global Quit-Shortcut in the case of conflict
+    Kirigami.Action {
+        fromQAction: ElisaActions.quitQAction
+    }
+
     // Setup keyboard shortcuts for actions that aren't used in the GUI
-    property var quit: Kirigami.Action {
-        fromQAction: ElisaApplication.action("file_quit")
+    Kirigami.Action {
+        fromQAction: ElisaActions.goBackQAction
     }
 
     Kirigami.Action {
-        fromQAction: ElisaApplication.action("go_back")
+        fromQAction: ElisaActions.clearPlaylistQAction
     }
 
     Kirigami.Action {
-        fromQAction: ElisaApplication.action("clear_playlist")
+        fromQAction: ElisaActions.seekQAction
     }
 
     Kirigami.Action {
-        fromQAction: ElisaApplication.action("Seek")
+        fromQAction: ElisaActions.scrubQAction
     }
 
     Kirigami.Action {
-        fromQAction: ElisaApplication.action("Scrub")
+        fromQAction: ElisaActions.nextTrackQAction
     }
 
     Kirigami.Action {
-        fromQAction: ElisaApplication.action("NextTrack")
+        fromQAction: ElisaActions.previousTrackQAction
     }
 
     Kirigami.Action {
-        fromQAction: ElisaApplication.action("PreviousTrack")
+        fromQAction: ElisaActions.playPauseQAction
     }
 
     Kirigami.Action {
-        fromQAction: ElisaApplication.action("Play-Pause")
+        fromQAction: ElisaActions.editFindQAction
     }
 
     Kirigami.Action {
-        fromQAction: ElisaApplication.action("edit_find")
-    }
-
-    Kirigami.Action {
-        fromQAction: ElisaApplication.action("togglePartyMode")
+        fromQAction: ElisaActions.toggelePartyModeQAction
     }
 
     Dialogs.FileDialog {

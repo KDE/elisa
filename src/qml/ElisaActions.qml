@@ -1,4 +1,9 @@
-// ElisaActions.qml
+/*
+   SPDX-FileCopyrightText: 2026 (c) Frederick F. Ong <frederick.f.ong@pm.me>
+
+   SPDX-License-Identifier: LGPL-3.0-or-later
+ */
+
 pragma Singleton
 
 import QtQml

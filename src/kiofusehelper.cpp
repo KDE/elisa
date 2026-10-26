@@ -17,7 +17,9 @@
 
 QUrl KioFuseHelper::mostLocalUrl(const QUrl &source)
 {
-    if (source.isLocalFile() || source.scheme().isEmpty() || source.scheme() == QLatin1String("http") || source.scheme() == QLatin1String("https")) {
+    // audiocd:// is handled natively by the Dragon backend through libcdio, kio-fuse would expose transcoded files instead
+    if (source.isLocalFile() || source.scheme().isEmpty() || source.scheme() == QLatin1String("http") || source.scheme() == QLatin1String("https")
+        || source.scheme() == QLatin1String("audiocd")) {
         return source;
     }
 

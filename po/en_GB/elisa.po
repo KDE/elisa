@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-20 00:52+0000\n"
+"POT-Creation-Date: 2026-10-27 00:59+0000\n"
 "PO-Revision-Date: 2024-11-01 14:06+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -27,14 +27,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "steve.allewell@gmail.com"
 
-#: databaseinterface.cpp:8061 databaseinterface.cpp:9176
-#: databaseinterface.cpp:9261
+#: databaseinterface.cpp:8097 databaseinterface.cpp:9212
+#: databaseinterface.cpp:9297
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Various Artists"
 
-#: databaseinterface.cpp:8129
+#: databaseinterface.cpp:8165
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

@@ -39,6 +39,10 @@ Q_SIGNALS:
 
     void PlayPause();
 
+    void Play();
+
+    void Pause();
+
     void Stop();
 
     void Seek(qlonglong offset);
@@ -51,6 +55,10 @@ private:
     static void previous(JNIEnv *, jobject);
 
     static void playPause(JNIEnv *, jobject);
+
+    static void play(JNIEnv *, jobject);
+
+    static void pause(JNIEnv *, jobject);
 
     static void stop(JNIEnv *, jobject);
 

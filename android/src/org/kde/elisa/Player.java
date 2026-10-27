@@ -14,33 +14,40 @@ public final class Player
 {
     private static final String TAG = "org.kde.elisa.Player";
 
-    private static QtSignalListener<Boolean> propertyChangedListener;
+    public static final String PLAYBACK_STATE_PROPERTY = "PlaybackState";
+    public static final String POSITION_PROPERTY = "Position";
+    public static final String METADATA_PROPERTY = "Metadata";
 
-    public static PlaybackState playbackState = PlaybackState.StoppedState;
-    public static long position = 0;
-    public static Metadata metadata = new Metadata();
+    private static volatile QtSignalListener<Boolean> propertyChangedListener;
+
+    public static volatile PlaybackState playbackState = PlaybackState.StoppedState;
+    public static volatile long position = 0;
+    public static volatile Metadata metadata = new Metadata();
 
     public static native void next();
     public static native void previous();
     public static native void playPause();
+    public static native void play();
+    public static native void pause();
     public static native void stop();
     public static native void seek(long offset);
 
-
     public static void propertyChanged(String property, Object value)
     {
-        Log.d(TAG, "propertyChanged: " + property + " - " + value);
+        if (!POSITION_PROPERTY.equals(property)) {
+            Log.d(TAG, "propertyChanged: " + property + " - " + value);
+        }
         boolean shouldUpdate = true;
 
         try {
             switch (property) {
-                case "PlaybackState":
+                case PLAYBACK_STATE_PROPERTY:
                     playbackState = PlaybackState.values[(int) value];
                     break;
-                case "Position":
+                case POSITION_PROPERTY:
                     position = (long) value;
                     break;
-                case "Metadata":
+                case METADATA_PROPERTY:
                     metadata = (Metadata) value;
                     position = 0;
                     break;
@@ -49,10 +56,14 @@ public final class Player
                     break;
             }
         } catch (Exception e) {
+            Log.e(TAG, "propertyChanged: cannot apply " + property + " = " + value, e);
             shouldUpdate = false;
         }
 
-        propertyChangedListener.onSignalEmitted("propertyChanged", shouldUpdate);
+        final QtSignalListener<Boolean> listener = propertyChangedListener;
+        if (listener != null) {
+            listener.onSignalEmitted(property, shouldUpdate);
+        }
     }
 
     public static void setPropertyChangedListener(QtSignalListener<Boolean> listener)

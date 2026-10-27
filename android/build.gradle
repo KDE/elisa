@@ -75,17 +75,27 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
-    lintOptions {
+    androidResources {
+        ignoreAssetsPattern '!*.jar'
+    }
+
+    lint {
         abortOnError false
     }
 
     defaultConfig {
-        minSdkVersion qtMinSdkVersion
+        minSdkVersion Math.max(qtMinSdkVersion.toInteger(), 28)
         targetSdkVersion qtTargetSdkVersion
         applicationId "org.kde.elisa"
         namespace "org.kde.elisa"
         versionCode timestamp
         versionName projectVersionFull
         manifestPlaceholders = [versionName: projectVersionFull, versionCode: timestamp]
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
 }

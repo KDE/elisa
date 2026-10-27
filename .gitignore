@@ -35,3 +35,5 @@ CMakeLists.txt.user*
 /cmake-build*
 .kateproject.build
 /CMakeUserPresets.json
+
+/android/libs/

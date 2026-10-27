@@ -251,6 +251,11 @@ Kirigami.ApplicationWindow {
     readonly property bool isWideScreen: mainWindow.width >= Theme.viewSelectorSmallSizeThreshold
     readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > headerBarLoader.toolBarHeight * 2
 
+    readonly property int safeAreaTop: Kirigami.Settings.isMobile ? (mainWindow.SafeArea?.margins.top ?? 0) : 0
+    readonly property int safeAreaBottom: Kirigami.Settings.isMobile ? (mainWindow.SafeArea?.margins.bottom ?? 0) : 0
+    readonly property int safeAreaLeft: Kirigami.Settings.isMobile ? (mainWindow.SafeArea?.margins.left ?? 0) : 0
+    readonly property int safeAreaRight: Kirigami.Settings.isMobile ? (mainWindow.SafeArea?.margins.right ?? 0) : 0
+
     // Avoid Ambiguity with Plasma Global Quit-Shortcut
     quitAction.enabled: false
 
@@ -438,6 +443,11 @@ Kirigami.ApplicationWindow {
 
             focus: true
 
+            safeAreaTop: mainWindow.safeAreaTop
+            safeAreaBottom: mainWindow.safeAreaBottom
+            safeAreaLeft: mainWindow.safeAreaLeft
+            safeAreaRight: mainWindow.safeAreaRight
+
             album: (ElisaApplication.manageHeaderBar.album !== undefined ? ElisaApplication.manageHeaderBar.album : '')
             title: ElisaApplication.manageHeaderBar.title
             artist: (ElisaApplication.manageHeaderBar.artist !== undefined ? ElisaApplication.manageHeaderBar.artist : '')
@@ -469,11 +479,13 @@ Kirigami.ApplicationWindow {
 
         color: palette.base
         anchors.fill: parent
-        anchors.bottomMargin: Kirigami.Settings.isMobile ? mobileFooterBarLoader.toolBarHeight : 0
-
+        anchors.bottomMargin: mobileFooterBarLoader.toolBarHeight + mainWindow.safeAreaBottom
 
         ColumnLayout {
             anchors.fill: parent
+            anchors.topMargin: mainWindow.safeAreaTop
+            anchors.leftMargin: mainWindow.safeAreaLeft
+            anchors.rightMargin: mainWindow.safeAreaRight
             spacing: 0
 
             // desktop header bar

@@ -455,6 +455,36 @@ endif()
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/bin CACHE INTERNAL "qml import path" FORCE)
 
 if (ANDROID)
+    find_package(SDL3 CONFIG QUIET)
+
+    set(_elisa_sdl3_jar "")
+    if (TARGET SDL3::Jar)
+        get_target_property(_elisa_sdl3_jar SDL3::Jar JAR_FILE)
+    endif()
+
+    if (NOT _elisa_sdl3_jar)
+        message(FATAL_ERROR "SDL3's Java bindings were not found.")
+    endif()
+
+    set(_elisa_android_package_source "${CMAKE_BINARY_DIR}/android-package-source")
+    set(_elisa_android_package_stamp "${CMAKE_BINARY_DIR}/android-package-source.stamp")
+
+    file(COPY "${CMAKE_SOURCE_DIR}/android/" DESTINATION "${_elisa_android_package_source}")
+    file(COPY "${_elisa_sdl3_jar}" DESTINATION "${_elisa_android_package_source}/libs")
+
+    file(GLOB_RECURSE _elisa_android_package_inputs CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/android/*")
+    add_custom_command(
+        OUTPUT "${_elisa_android_package_stamp}"
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${_elisa_android_package_source}"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/android" "${_elisa_android_package_source}"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${_elisa_android_package_source}/libs"
+        COMMAND ${CMAKE_COMMAND} -E copy "${_elisa_sdl3_jar}" "${_elisa_android_package_source}/libs"
+        COMMAND ${CMAKE_COMMAND} -E touch "${_elisa_android_package_stamp}"
+        DEPENDS ${_elisa_android_package_inputs} "${_elisa_sdl3_jar}"
+        COMMENT "Staging the Android package source directory"
+        VERBATIM)
+    add_custom_target(elisaAndroidPackageSource DEPENDS "${_elisa_android_package_stamp}")
+
     kirigami_package_breeze_icons(ICONS
         elisa
         open-menu-symbolic
@@ -518,7 +548,8 @@ if (ANDROID)
         settings-configure
         view-sort
     )
-    ecm_add_android_apk(elisa ANDROID_DIR ${CMAKE_SOURCE_DIR}/android)
+    ecm_add_android_apk(elisa ANDROID_DIR ${_elisa_android_package_source})
+    add_dependencies(create-apk-elisa elisaAndroidPackageSource)
 endif()
 
 install(FILES elisa_core.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})

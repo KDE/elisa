@@ -31,6 +31,11 @@ Flickable {
     property alias trackControl: playControlItem
     property alias playerControl: mobileTrackPlayer
 
+    property int safeAreaTop: 0
+    property int safeAreaBottom: 0
+    property int safeAreaLeft: 0
+    property int safeAreaRight: 0
+
     property bool portrait: (contentZone.height/contentZone.width) > 0.7
 
     signal openArtist()
@@ -176,6 +181,9 @@ Flickable {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.bottomMargin: footerBar.safeAreaBottom
+        anchors.leftMargin: footerBar.safeAreaLeft
+        anchors.rightMargin: footerBar.safeAreaRight
         height: mainWindow.height + playControlItem.height
         spacing: 0
 
@@ -197,6 +205,7 @@ Flickable {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.margins: Kirigami.Units.largeSpacing * 2
+            Layout.topMargin: footerBar.safeAreaTop + Kirigami.Units.largeSpacing * 2
 
             image: footerBar.newImage
             title: footerBar.title

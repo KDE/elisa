@@ -28,6 +28,16 @@ void AndroidPlayerJni::playPause(JNIEnv *, jobject)
     Q_EMIT AndroidPlayerJni::GetInstance().PlayPause();
 }
 
+void AndroidPlayerJni::play(JNIEnv *, jobject)
+{
+    Q_EMIT AndroidPlayerJni::GetInstance().Play();
+}
+
+void AndroidPlayerJni::pause(JNIEnv *, jobject)
+{
+    Q_EMIT AndroidPlayerJni::GetInstance().Pause();
+}
+
 void AndroidPlayerJni::stop(JNIEnv *, jobject)
 {
     Q_EMIT AndroidPlayerJni::GetInstance().Stop();
@@ -89,6 +99,8 @@ void AndroidPlayerJni::registerNativeMethods()
         {"next", "()V", reinterpret_cast<void *>(AndroidPlayerJni::next)},
         {"previous", "()V", reinterpret_cast<void *>(AndroidPlayerJni::previous)},
         {"playPause", "()V", reinterpret_cast<void *>(AndroidPlayerJni::playPause)},
+        {"play", "()V", reinterpret_cast<void *>(AndroidPlayerJni::play)},
+        {"pause", "()V", reinterpret_cast<void *>(AndroidPlayerJni::pause)},
         {"stop", "()V", reinterpret_cast<void *>(AndroidPlayerJni::stop)},
         {"seek", "(J)V", reinterpret_cast<void *>(AndroidPlayerJni::seek)},
     };

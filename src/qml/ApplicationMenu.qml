@@ -33,7 +33,7 @@ Menu {
             : KI18n.i18nc("@action:inmenu", "Show Playlist")
         icon.name: "view-media-playlist"
 
-        fromQAction: ElisaApplication.action("toggle_playlist")
+        fromQAction: ElisaActions.togglePlayListQAction
     }
 
     MenuSeparator {}
@@ -111,8 +111,7 @@ Menu {
         visible: ElisaApplication.showSystemTrayIcon
     }
 
-    // Don't Use Kirigami.Action, because it's already used in MainWindow
-    MenuItem {
-        action: ElisaActions.quit
+    Kirigami.Action {
+        fromQAction: ElisaActions.quitQAction
     }
 }

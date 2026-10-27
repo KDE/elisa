@@ -251,10 +251,8 @@ Kirigami.ApplicationWindow {
     readonly property bool isWideScreen: mainWindow.width >= Theme.viewSelectorSmallSizeThreshold
     readonly property bool spaceForPlayListIconInHeader: headerBarLoader.active && headerBarLoader.height > headerBarLoader.toolBarHeight * 2
 
-    // Override Plasma Global Quit-Shortcut in the case of conflict
-    Kirigami.Action {
-        fromQAction: ElisaActions.quitQAction
-    }
+    // Avoid Ambiguity with Plasma Global Quit-Shortcut
+    quitAction.enabled: false
 
     // Setup keyboard shortcuts for actions that aren't used in the GUI
     Kirigami.Action {
@@ -290,7 +288,7 @@ Kirigami.ApplicationWindow {
     }
 
     Kirigami.Action {
-        fromQAction: ElisaActions.toggelePartyModeQAction
+        fromQAction: ElisaActions.togglePartyModeQAction
     }
 
     Dialogs.FileDialog {

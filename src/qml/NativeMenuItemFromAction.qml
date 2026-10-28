@@ -9,11 +9,12 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Qt.labs.platform
 import org.kde.kirigami as Kirigami
-import org.kde.elisa
 
 MenuItem {
-    property string actionName
+    property Kirigami.Action action
 
-    text: ElisaApplication.action(actionName).text
-    onTriggered: ElisaApplication.action(actionName).trigger()
+    text: action.text
+    icon.name: action.icon.name
+    onTriggered: action.trigger()
+    visible: action.visible
 }

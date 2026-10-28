@@ -43,16 +43,14 @@ MenuBar {
         }
 
         NativeMenuItemFromAction {
-            actionName: "options_configure" 
-            icon.name: "configure"
+            action: ElisaActions.configureElisa 
         }
 
         MenuSeparator {
         }
 
         NativeMenuItemFromAction {
-            actionName: "file_quit"
-            icon.name: "application-exit"
+            action: ElisaActions.quit
         }
     }
     Menu {
@@ -157,18 +155,15 @@ MenuBar {
         title: KI18n.i18nc("@title:menu", "Help")
 
         NativeMenuItemFromAction {
-            actionName: "help_about_app"
-            icon.name: "help-about"
+            action: ElisaActions.aboutElisa
         }
 
         NativeMenuItemFromAction {
-            actionName: "help_about_kde"
-            icon.name: "kde"
+            action: ElisaActions.aboutKDE
         } 
 
         NativeMenuItemFromAction {
-            actionName: "help_report_bug"
-            icon.name: "tools-report-bug"
+            action: ElisaActions.reportBug
         }
 
     }

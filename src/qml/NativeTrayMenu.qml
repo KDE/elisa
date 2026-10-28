@@ -32,36 +32,30 @@ Menu {
     MenuSeparator {
     }
 
-   NativeMenuItemFromAction {
-        actionName: "options_configure"
-        icon.name: "configure"
+    NativeMenuItemFromAction {
+        action: ElisaActions.configureElisa
     }
 
     NativeMenuItemFromAction {
-        actionName: "options_configure_keybinding"
-        icon.name: "configure-shortcuts"
+        action: ElisaActions.configureKeybinding
     }
 
     NativeMenuItemFromAction {
-        actionName: "help_report_bug"
-        icon.name: "tools-report-bug"
+        action: ElisaActions.reportBug
     }
 
     NativeMenuItemFromAction {
-        actionName: "help_about_app"
-        icon.name: "help-about"
+        action: ElisaActions.aboutElisa
     }
 
     NativeMenuItemFromAction {
-        actionName: "help_about_kde"
-        icon.name: "kde"
+        action: ElisaActions.aboutKDE
     }
 
     MenuSeparator {
     }
 
     NativeMenuItemFromAction {
-        actionName: "file_quit"
-        icon.name: "application-exit"
+        action: ElisaActions.quit
     } 
 }

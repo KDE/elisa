@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-27 00:59+0000\n"
+"POT-Creation-Date: 2026-10-29 00:52+0000\n"
 "PO-Revision-Date: 2023-05-29 22:07+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -457,25 +457,25 @@ msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "Tətbiq menyusu"
 
-#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "Tam ekrandan çıxış"
 
-#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "Tam ekran açmaq"
 
-#: qml/ApplicationMenu.qml:32 qml/NativeGlobalMenu.qml:77
+#: qml/ApplicationMenu.qml:32 qml/NativeGlobalMenu.qml:72
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Playlist"
 msgstr "Mahnı siyahısını gizlət"
 
-#: qml/ApplicationMenu.qml:33 qml/NativeGlobalMenu.qml:77
+#: qml/ApplicationMenu.qml:33 qml/NativeGlobalMenu.qml:72
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Playlist"
@@ -514,7 +514,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "İndi səslənir"
 
-#: qml/ContextView.qml:79 qml/NavigationActionBar.qml:267
+#: qml/ContextView.qml:79 qml/NavigationActionBar.qml:265
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -533,7 +533,7 @@ msgid "Lyrics"
 msgstr "Mahnının sözləri"
 
 #: qml/ContextView.qml:133 qml/mobile/MobileTrackPlayer.qml:388
-#: qml/NavigationActionBar.qml:176
+#: qml/NavigationActionBar.qml:174
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -586,31 +586,31 @@ msgctxt "@label"
 msgid "Duration"
 msgstr "Müddət"
 
-#: qml/ElisaMainWindow.qml:31
+#: qml/ElisaMainWindow.qml:32
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "Yükləmək mümkün olmadı"
 
-#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:318
+#: qml/ElisaMainWindow.qml:32 qml/ElisaMainWindow.qml:322
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "Təkrar"
 
-#: qml/ElisaMainWindow.qml:35
+#: qml/ElisaMainWindow.qml:36
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Mahnı siyahısı təmizləndi"
 
-#: qml/ElisaMainWindow.qml:35
+#: qml/ElisaMainWindow.qml:36
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Geri qaytar"
 
-#: qml/ElisaMainWindow.qml:146
+#: qml/ElisaMainWindow.qml:147
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Playlist"
@@ -618,7 +618,7 @@ msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "Mahnı siyahısını göstərmək"
 
-#: qml/ElisaMainWindow.qml:147
+#: qml/ElisaMainWindow.qml:148
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Hide Playlist"
@@ -626,7 +626,7 @@ msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Mahnı siyahısını gizlət"
 
-#: qml/ElisaMainWindow.qml:183 qml/ElisaMainWindow.qml:631
+#: qml/ElisaMainWindow.qml:184 qml/ElisaMainWindow.qml:635
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -635,19 +635,19 @@ msgstr ""
 "Bəzi fayllar yüklənə bilmədi. Elisa yalnız səs və mahnı siyahısı fayllarını "
 "aça bilər."
 
-#: qml/ElisaMainWindow.qml:242 qml/mobile/MobileSidebar.qml:21
+#: qml/ElisaMainWindow.qml:243 qml/mobile/MobileSidebar.qml:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:242
+#: qml/ElisaMainWindow.qml:243
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:298
+#: qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -655,7 +655,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u mahnı siyahısı faylı (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:298
+#: qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -663,7 +663,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls mahnı siyahısı faylı (*.pls)"
 
-#: qml/ElisaMainWindow.qml:305
+#: qml/ElisaMainWindow.qml:309
 #, kde-format
 msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
@@ -671,7 +671,7 @@ msgctxt ""
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:306
+#: qml/ElisaMainWindow.qml:310
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "@option file type (mime type) for pls playlist file formats; do not "
@@ -683,7 +683,7 @@ msgctxt ""
 msgid "Playlist files (%1) (%1)"
 msgstr "pls mahnı siyahısı faylı (*.pls)"
 
-#: qml/ElisaMainWindow.qml:307
+#: qml/ElisaMainWindow.qml:311
 #, kde-format
 msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
@@ -691,7 +691,7 @@ msgctxt ""
 msgid "Music files (%1) (%1)"
 msgstr ""
 
-#: qml/ElisaMainWindow.qml:318
+#: qml/ElisaMainWindow.qml:322
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -1236,61 +1236,61 @@ msgctxt "@action:inmenu"
 msgid "Open Playlist…"
 msgstr "Mahnı siyahısını aç..."
 
-#: qml/NativeGlobalMenu.qml:61
+#: qml/NativeGlobalMenu.qml:57
 #, kde-format
 msgctxt "@title:menu"
 msgid "View"
 msgstr "Görünüş"
 
-#: qml/NativeGlobalMenu.qml:64
+#: qml/NativeGlobalMenu.qml:60
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "Əyləncə rejimi"
 
-#: qml/NativeGlobalMenu.qml:82
+#: qml/NativeGlobalMenu.qml:78
 #, kde-format
 msgctxt "@title:menu"
 msgid "Controls"
 msgstr "İdarəetmə"
 
-#: qml/NativeGlobalMenu.qml:85
+#: qml/NativeGlobalMenu.qml:81
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pause"
 msgstr "Fasilə"
 
-#: qml/NativeGlobalMenu.qml:85
+#: qml/NativeGlobalMenu.qml:81
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Play"
 msgstr "Səsləndir"
 
-#: qml/NativeGlobalMenu.qml:92
+#: qml/NativeGlobalMenu.qml:88
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop"
 msgstr "Dayandır"
 
-#: qml/NativeGlobalMenu.qml:101
+#: qml/NativeGlobalMenu.qml:97
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Increase Volume"
 msgstr "Səsi artır"
 
-#: qml/NativeGlobalMenu.qml:106
+#: qml/NativeGlobalMenu.qml:102
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Decrease Volume"
 msgstr "Səsi azalt"
 
-#: qml/NativeGlobalMenu.qml:116
+#: qml/NativeGlobalMenu.qml:112
 #, kde-format
 msgctxt "@title:menu"
 msgid "Shuffle"
 msgstr "Qarışıq"
 
-#: qml/NativeGlobalMenu.qml:123
+#: qml/NativeGlobalMenu.qml:119
 #, fuzzy, kde-format
 #| msgctxt "@item:inlistbox Title of the view of all tracks"
 #| msgid "Tracks"
@@ -1298,7 +1298,7 @@ msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
 msgstr "Mahnılar"
 
-#: qml/NativeGlobalMenu.qml:127
+#: qml/NativeGlobalMenu.qml:123
 #, fuzzy, kde-format
 #| msgctxt "@label musical album"
 #| msgid "Album"
@@ -1306,7 +1306,7 @@ msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "Albom"
 
-#: qml/NativeGlobalMenu.qml:131
+#: qml/NativeGlobalMenu.qml:127
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu shuffle mode is turned off"
 #| msgid "Off"
@@ -1314,25 +1314,25 @@ msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "Söndür"
 
-#: qml/NativeGlobalMenu.qml:138
+#: qml/NativeGlobalMenu.qml:134
 #, kde-format
 msgctxt "@title:menu"
 msgid "Repeat"
 msgstr "Təkrar"
 
-#: qml/NativeGlobalMenu.qml:145
+#: qml/NativeGlobalMenu.qml:141
 #, kde-format
 msgctxt "@action:inmenu repeat all songs in this playlist"
 msgid "Playlist"
 msgstr "Mahnı siyahısı"
 
-#: qml/NativeGlobalMenu.qml:149
+#: qml/NativeGlobalMenu.qml:145
 #, kde-format
 msgctxt "@action:inmenu repeat this one song"
 msgid "One"
 msgstr "Bir"
 
-#: qml/NativeGlobalMenu.qml:153
+#: qml/NativeGlobalMenu.qml:149
 #, kde-format
 msgctxt ""
 "@action:inmenu no repeat mode set; stop playback after last song in the "
@@ -1340,7 +1340,7 @@ msgctxt ""
 msgid "None"
 msgstr "Heç biri"
 
-#: qml/NativeGlobalMenu.qml:159
+#: qml/NativeGlobalMenu.qml:155
 #, kde-format
 msgctxt "@title:menu"
 msgid "Help"
@@ -1432,7 +1432,7 @@ msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "İfaçını göstər"
 
-#: qml/NavigationActionBar.qml:177
+#: qml/NavigationActionBar.qml:175
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Playlist"
@@ -1440,13 +1440,13 @@ msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "Mahnı siyahısını göstərmək"
 
-#: qml/NavigationActionBar.qml:188
+#: qml/NavigationActionBar.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:189
+#: qml/NavigationActionBar.qml:187
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "View details"
@@ -1454,13 +1454,13 @@ msgctxt "@action:button"
 msgid "View as List"
 msgstr "Təfərrüatlara bax"
 
-#: qml/NavigationActionBar.qml:191
+#: qml/NavigationActionBar.qml:189
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:192
+#: qml/NavigationActionBar.qml:190
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "View details"
@@ -1468,13 +1468,13 @@ msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "Təfərrüatlara bax"
 
-#: qml/NavigationActionBar.qml:275
+#: qml/NavigationActionBar.qml:273
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "Geriyə"
 
-#: qml/NavigationActionBar.qml:357
+#: qml/NavigationActionBar.qml:355
 #, fuzzy, kde-format
 #| msgctxt "@action:button Show filters in the navigation bar"
 #| msgid "Search and Filter"
@@ -1483,7 +1483,7 @@ msgctxt ""
 msgid "Show search and filter toolbar"
 msgstr "Axtarış və Süzgəc"
 
-#: qml/NavigationActionBar.qml:358
+#: qml/NavigationActionBar.qml:356
 #, fuzzy, kde-format
 #| msgctxt "@action:button Hide filters in the navigation bar"
 #| msgid "Hide Search and Filter"
@@ -1492,13 +1492,13 @@ msgctxt ""
 msgid "Hide search and filter toolbar"
 msgstr "Axtarış və Süzgəc sahəsini gizlət"
 
-#: qml/NavigationActionBar.qml:451
+#: qml/NavigationActionBar.qml:449
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr ""
 
-#: qml/NavigationActionBar.qml:453
+#: qml/NavigationActionBar.qml:451
 #, fuzzy, kde-format
 #| msgctxt "@info:placeholder"
 #| msgid "Search for album name, artist, etc."
@@ -1506,7 +1506,7 @@ msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "Albom adı, ifaçı və s. üzrə axtarış"
 
-#: qml/NavigationActionBar.qml:454
+#: qml/NavigationActionBar.qml:452
 #, fuzzy, kde-format
 #| msgctxt "@info:placeholder"
 #| msgid "Search for album name, artist, etc."
@@ -1514,13 +1514,13 @@ msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "Albom adı, ifaçı və s. üzrə axtarış"
 
-#: qml/NavigationActionBar.qml:462
+#: qml/NavigationActionBar.qml:460
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "Reytingə görə ayır: "
 
-#: qml/NavigationActionBar.qml:480
+#: qml/NavigationActionBar.qml:478
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

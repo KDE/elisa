@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-27 00:59+0000\n"
+"POT-Creation-Date: 2026-10-29 00:52+0000\n"
 "PO-Revision-Date: 2026-09-30 08:59+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -438,25 +438,25 @@ msgctxt "@title:menu"
 msgid "Application Menu"
 msgstr "აპლიკაციების მენიუ"
 
-#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Exit Full Screen"
 msgstr "სრული ეკრანიდან გასვლა"
 
-#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:70
+#: qml/ApplicationMenu.qml:22 qml/NativeGlobalMenu.qml:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Enter Full Screen"
 msgstr "სრულ ეკრანზე გადართვა"
 
-#: qml/ApplicationMenu.qml:32 qml/NativeGlobalMenu.qml:77
+#: qml/ApplicationMenu.qml:32 qml/NativeGlobalMenu.qml:72
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide Playlist"
 msgstr "დასაკავი სიის დამალვა"
 
-#: qml/ApplicationMenu.qml:33 qml/NativeGlobalMenu.qml:77
+#: qml/ApplicationMenu.qml:33 qml/NativeGlobalMenu.qml:72
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Playlist"
@@ -495,7 +495,7 @@ msgctxt ""
 msgid "Now Playing"
 msgstr "მიმდინარეობს დაკვრა"
 
-#: qml/ContextView.qml:79 qml/NavigationActionBar.qml:267
+#: qml/ContextView.qml:79 qml/NavigationActionBar.qml:265
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
@@ -514,7 +514,7 @@ msgid "Lyrics"
 msgstr "ლირიკა"
 
 #: qml/ContextView.qml:133 qml/mobile/MobileTrackPlayer.qml:388
-#: qml/NavigationActionBar.qml:176
+#: qml/NavigationActionBar.qml:174
 #, kde-format
 msgctxt "@action:button"
 msgid "Show Playlist"
@@ -560,43 +560,43 @@ msgctxt "@label"
 msgid "Duration"
 msgstr "ხანგრძლოვობა"
 
-#: qml/ElisaMainWindow.qml:31
+#: qml/ElisaMainWindow.qml:32
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "ჩატვირთვის შეცდომა"
 
-#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:318
+#: qml/ElisaMainWindow.qml:32 qml/ElisaMainWindow.qml:322
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "გამეორება"
 
-#: qml/ElisaMainWindow.qml:35
+#: qml/ElisaMainWindow.qml:36
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "დასაკრავი სია გასუფთავდა"
 
-#: qml/ElisaMainWindow.qml:35
+#: qml/ElisaMainWindow.qml:36
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "დაბრუნება"
 
-#: qml/ElisaMainWindow.qml:146
+#: qml/ElisaMainWindow.qml:147
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "დასაკრავი სიის უჯრის ჩვენება"
 
-#: qml/ElisaMainWindow.qml:147
+#: qml/ElisaMainWindow.qml:148
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "დასაკრავი სიის უჯრის დამალვა"
 
-#: qml/ElisaMainWindow.qml:183 qml/ElisaMainWindow.qml:631
+#: qml/ElisaMainWindow.qml:184 qml/ElisaMainWindow.qml:635
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -605,19 +605,19 @@ msgstr ""
 "ზოგიერთი ფაილის ჩატვირთვის შეცდომა. Elisa-ს მხოლოდ აუდიო და დასაკრავი სიის "
 "ფაილების დაკვრა შეუძლია."
 
-#: qml/ElisaMainWindow.qml:242 qml/mobile/MobileSidebar.qml:21
+#: qml/ElisaMainWindow.qml:243 qml/mobile/MobileSidebar.qml:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:242
+#: qml/ElisaMainWindow.qml:243
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:298
+#: qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -625,7 +625,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8, m3u დასაკრავი სია (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:298
+#: qml/ElisaMainWindow.qml:302
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -633,7 +633,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls დასაკრავი სია (*.pls)"
 
-#: qml/ElisaMainWindow.qml:305
+#: qml/ElisaMainWindow.qml:309
 #, kde-format
 msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
@@ -641,7 +641,7 @@ msgctxt ""
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
 msgstr "დასაკრავი სიის ფაილები და მუსიკის ფაილები (%1 %2) (%1 %2)"
 
-#: qml/ElisaMainWindow.qml:306
+#: qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
@@ -649,7 +649,7 @@ msgctxt ""
 msgid "Playlist files (%1) (%1)"
 msgstr "დასაკრავი სიის ფაილები (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:307
+#: qml/ElisaMainWindow.qml:311
 #, kde-format
 msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
@@ -657,7 +657,7 @@ msgctxt ""
 msgid "Music files (%1) (%1)"
 msgstr "მუსიკის ფაილები (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:318
+#: qml/ElisaMainWindow.qml:322
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"
@@ -1146,97 +1146,97 @@ msgctxt "@action:inmenu"
 msgid "Open Playlist…"
 msgstr "დასაკრავი სიის გახსნა…"
 
-#: qml/NativeGlobalMenu.qml:61
+#: qml/NativeGlobalMenu.qml:57
 #, kde-format
 msgctxt "@title:menu"
 msgid "View"
 msgstr "ნახვა"
 
-#: qml/NativeGlobalMenu.qml:64
+#: qml/NativeGlobalMenu.qml:60
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
 msgstr "წვეულების რეჟიმის გადართვა"
 
-#: qml/NativeGlobalMenu.qml:82
+#: qml/NativeGlobalMenu.qml:78
 #, kde-format
 msgctxt "@title:menu"
 msgid "Controls"
 msgstr "მმართველები"
 
-#: qml/NativeGlobalMenu.qml:85
+#: qml/NativeGlobalMenu.qml:81
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pause"
 msgstr "შეჩერება"
 
-#: qml/NativeGlobalMenu.qml:85
+#: qml/NativeGlobalMenu.qml:81
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Play"
 msgstr "დაკვრა"
 
-#: qml/NativeGlobalMenu.qml:92
+#: qml/NativeGlobalMenu.qml:88
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop"
 msgstr "შეჩერება"
 
-#: qml/NativeGlobalMenu.qml:101
+#: qml/NativeGlobalMenu.qml:97
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Increase Volume"
 msgstr "ხმის აწევა"
 
-#: qml/NativeGlobalMenu.qml:106
+#: qml/NativeGlobalMenu.qml:102
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Decrease Volume"
 msgstr "ხმის დაწევა"
 
-#: qml/NativeGlobalMenu.qml:116
+#: qml/NativeGlobalMenu.qml:112
 #, kde-format
 msgctxt "@title:menu"
 msgid "Shuffle"
 msgstr "შემთხვევით"
 
-#: qml/NativeGlobalMenu.qml:123
+#: qml/NativeGlobalMenu.qml:119
 #, kde-format
 msgctxt "@action:inmenu shuffle all tracks in playlist"
 msgid "Track"
 msgstr "ტრეკი"
 
-#: qml/NativeGlobalMenu.qml:127
+#: qml/NativeGlobalMenu.qml:123
 #, kde-format
 msgctxt "@action:inmenu shuffle albums in playlist"
 msgid "Album"
 msgstr "ალბომი"
 
-#: qml/NativeGlobalMenu.qml:131
+#: qml/NativeGlobalMenu.qml:127
 #, kde-format
 msgctxt "@action:inmenu disable shuffle mode"
 msgid "Off"
 msgstr "გამორთვა"
 
-#: qml/NativeGlobalMenu.qml:138
+#: qml/NativeGlobalMenu.qml:134
 #, kde-format
 msgctxt "@title:menu"
 msgid "Repeat"
 msgstr "გამეორება"
 
-#: qml/NativeGlobalMenu.qml:145
+#: qml/NativeGlobalMenu.qml:141
 #, kde-format
 msgctxt "@action:inmenu repeat all songs in this playlist"
 msgid "Playlist"
 msgstr "დასაკრავი სია"
 
-#: qml/NativeGlobalMenu.qml:149
+#: qml/NativeGlobalMenu.qml:145
 #, kde-format
 msgctxt "@action:inmenu repeat this one song"
 msgid "One"
 msgstr "ერთი"
 
-#: qml/NativeGlobalMenu.qml:153
+#: qml/NativeGlobalMenu.qml:149
 #, kde-format
 msgctxt ""
 "@action:inmenu no repeat mode set; stop playback after last song in the "
@@ -1244,7 +1244,7 @@ msgctxt ""
 msgid "None"
 msgstr "არაფერი"
 
-#: qml/NativeGlobalMenu.qml:159
+#: qml/NativeGlobalMenu.qml:155
 #, kde-format
 msgctxt "@title:menu"
 msgid "Help"
@@ -1322,81 +1322,81 @@ msgctxt "@info:tooltip navigate to the view for artist of this album"
 msgid "Display Artist"
 msgstr "შემსრულებლის ჩვენება"
 
-#: qml/NavigationActionBar.qml:177
+#: qml/NavigationActionBar.qml:175
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Show playlist"
 msgstr "დასაკრავი სიის ჩვენება"
 
-#: qml/NavigationActionBar.qml:188
+#: qml/NavigationActionBar.qml:186
 #, kde-format
 msgctxt "@action:button"
 msgid "View as Icon Grid"
 msgstr "ხატულებით ჩვენება ბადის სახით"
 
-#: qml/NavigationActionBar.qml:189
+#: qml/NavigationActionBar.qml:187
 #, kde-format
 msgctxt "@action:button"
 msgid "View as List"
 msgstr "სიის სახით ნახვა"
 
-#: qml/NavigationActionBar.qml:191
+#: qml/NavigationActionBar.qml:189
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as icon grid"
 msgstr "ხატულებით ჩვენება ბადის სახით"
 
-#: qml/NavigationActionBar.qml:192
+#: qml/NavigationActionBar.qml:190
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "View as list"
 msgstr "სიის სახით ნახვა"
 
-#: qml/NavigationActionBar.qml:275
+#: qml/NavigationActionBar.qml:273
 #, kde-format
 msgctxt "@action:button navigate back in the view's stack"
 msgid "Back"
 msgstr "უკან"
 
-#: qml/NavigationActionBar.qml:357
+#: qml/NavigationActionBar.qml:355
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Show filters in the navigation bar"
 msgid "Show search and filter toolbar"
 msgstr "ძებნისა და ფილტრის პანელის ჩვენება"
 
-#: qml/NavigationActionBar.qml:358
+#: qml/NavigationActionBar.qml:356
 #, kde-format
 msgctxt ""
 "@action:button displayed as @info:tooltip Hide filters in the navigation bar"
 msgid "Hide search and filter toolbar"
 msgstr "ძებნისა და ფილტრის პანელის დამალვა"
 
-#: qml/NavigationActionBar.qml:451
+#: qml/NavigationActionBar.qml:449
 #, kde-format
 msgctxt "@info:placeholder radio view filter"
 msgid "Search for radio station"
 msgstr "რადიოსადგურის ძებნა"
 
-#: qml/NavigationActionBar.qml:453
+#: qml/NavigationActionBar.qml:451
 #, kde-format
 msgctxt "@info:placeholder track view filter single album"
 msgid "Search for track name, artist, etc."
 msgstr "მოძებნეთ ტრეკის სახელით, შემსრულებლით და სხვ."
 
-#: qml/NavigationActionBar.qml:454
+#: qml/NavigationActionBar.qml:452
 #, kde-format
 msgctxt "@info:placeholder track view filter general"
 msgid "Search for album name, artist, etc."
 msgstr "მოძებნეთ ალბომის სახელით, შემსრულებლით და სხვ."
 
-#: qml/NavigationActionBar.qml:462
+#: qml/NavigationActionBar.qml:460
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
 msgstr "შეფასებით გაფილტვრა: "
 
-#: qml/NavigationActionBar.qml:480
+#: qml/NavigationActionBar.qml:478
 #, kde-format
 msgctxt "@action:button"
 msgid "Only Show Favorites"

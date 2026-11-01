@@ -518,7 +518,7 @@ Kirigami.Page {
                 }
             }
             elide: Text.ElideRight
-            font.features: { "tnum": 1 }
+            font.features: Object.assign({}, Kirigami.Theme.defaultFont.features, { "tnum": 1 })
         }
     }
 }

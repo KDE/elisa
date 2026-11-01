@@ -351,7 +351,7 @@ ItemDelegate {
 
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
-                font.features: { "tnum": 1 }
+                font.features: Object.assign({}, Kirigami.Theme.defaultFont.features, { "tnum": 1 })
                 color: mediaTrack.textColor
             }
 

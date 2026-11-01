@@ -226,7 +226,7 @@ BasePlayListDelegate {
                         }
                         textFormat: Text.PlainText
                         font.weight: (playListEntry.isPlaying ? Font.Bold : Font.Normal)
-                        font.features: { "tnum": 1 }
+                        font.features: Object.assign({}, Kirigami.Theme.defaultFont.features, { "tnum": 1 })
                         color: playListEntry.textColor
                     }
                 }
@@ -351,7 +351,7 @@ BasePlayListDelegate {
                 id: durationLabel
                 text: playListEntry.duration
                 font.weight: playListEntry.isPlaying ? Font.Bold : Font.Normal
-                font.features: { "tnum": 1 }
+                font.features: Object.assign({}, Kirigami.Theme.defaultFont.features, { "tnum": 1 })
                 color: playListEntry.textColor
             }
 

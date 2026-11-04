@@ -83,7 +83,7 @@ parts:
     after: [sdl3]
     plugin: cmake
     source: https://invent.kde.org/libraries/dragon-media-backend.git
-    source-tag: v0.82.1
+    source-tag: v0.90.0
     build-snaps:
       - kde-qt6-core24-sdk/latest/beta
       - kf6-core24-sdk/latest/beta

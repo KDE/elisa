@@ -154,7 +154,7 @@ if (UPNPQT_FOUND)
     message(WARNING "UPnP support is experimental and may not work.")
 endif()
 
-set(REQUIRED_DRAGON_MEDIA_BACKEND_VERSION "0.82.0")
+set(REQUIRED_DRAGON_MEDIA_BACKEND_VERSION "0.90.0")
 
 option(Fetch "Allow CMake FetchContent to download Dragon Media Backend when not found installed" OFF)
 

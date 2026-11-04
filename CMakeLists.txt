@@ -113,6 +113,13 @@ set_package_properties(KF6KirigamiAddons PROPERTIES
     DESCRIPTION "Addons for Kirigami applications"
     TYPE REQUIRED)
 
+find_package(KF6ImageFormats ${KF6_MIN_VERSION} CONFIG)
+set_package_properties(KF6ImageFormats PROPERTIES
+    DESCRIPTION "Provides support for more image formats in Qt"
+    PURPOSE "Required to load additional image album cover formats"
+    TYPE RUNTIME
+)
+
 if (NOT WIN32 AND NOT ANDROID)
     find_package(KF6DBusAddons ${REQUIRED_KF_VERSION} CONFIG QUIET)
     set_package_properties(KF6DBusAddons PROPERTIES

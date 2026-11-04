@@ -8158,19 +8158,16 @@ DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(con
 
 DataTypes::TrackDataType DatabaseInterface::buildRadioDataFromDatabaseRecord(const QSqlRecord &trackRecord) const
 {
-    DataTypes::TrackDataType result;
+    auto result = DataTypes::radioTrackData(trackRecord.value(DatabaseInterfacePrivate::RadioHttpAddress),
+                                            trackRecord.value(DatabaseInterfacePrivate::RadioTitle).toString());
 
     result[DataTypes::TrackDataType::key_type::DatabaseIdRole] = trackRecord.value(DatabaseInterfacePrivate::RadioId);
-    result[DataTypes::TrackDataType::key_type::TitleRole] = trackRecord.value(DatabaseInterfacePrivate::RadioTitle);
-    result[DataTypes::TrackDataType::key_type::AlbumRole] = i18nc("@item:intable", "Radio Stations");
-    result[DataTypes::TrackDataType::key_type::ResourceRole] = trackRecord.value(DatabaseInterfacePrivate::RadioHttpAddress);
     result[DataTypes::TrackDataType::key_type::ImageUrlRole] = trackRecord.value(DatabaseInterfacePrivate::RadioImageAddress);
     result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(DatabaseInterfacePrivate::RadioRating);
     if (!trackRecord.value(DatabaseInterfacePrivate::RadioGenreName).isNull()) {
         result[DataTypes::TrackDataType::key_type::GenreRole] = trackRecord.value(DatabaseInterfacePrivate::RadioGenreName);
     }
     result[DataTypes::TrackDataType::key_type::CommentRole] = trackRecord.value(DatabaseInterfacePrivate::RadioComment);
-    result[DataTypes::TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
 
     return result;
 }

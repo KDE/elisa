@@ -85,6 +85,8 @@ enum class PlaylistFormat {
 std::optional<PlaylistFormat> ELISALIB_EXPORT playlistFormatForType(const QMimeType &mimeType);
 
 bool ELISALIB_EXPORT isPlayList(const QMimeType &mimeType);
+
+bool ELISALIB_EXPORT isStreamUrl(const QUrl &url);
 }
 
 #endif // ELISAUTILS_H

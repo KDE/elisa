@@ -661,6 +661,9 @@ void MediaPlayListProxyModelTest::enqueueTrackByUrl()
     QCOMPARE(mNewEntryInListSpy->count(), 0);
     QCOMPARE(mNewUrlInListSpy->count(), 1);
 
+    QCOMPARE(mNewUrlInListSpy->at(0).at(0).toUrl(), trackData.resourceURI());
+    QCOMPARE(mNewUrlInListSpy->at(0).at(1).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Track);
+
     QCOMPARE(mDataChangedSpy->wait(), true);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
@@ -674,6 +677,7 @@ void MediaPlayListProxyModelTest::enqueueTrackByUrl()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 0);
     QCOMPARE(mNewUrlInListSpy->count(), 1);
+
 }
 
 void MediaPlayListProxyModelTest::enqueueTracksByUrl()
@@ -699,6 +703,11 @@ void MediaPlayListProxyModelTest::enqueueTracksByUrl()
     QCOMPARE(mNewEntryInListSpy->count(), 0);
     QCOMPARE(mNewUrlInListSpy->count(), 2);
 
+    QCOMPARE(mNewUrlInListSpy->at(0).at(0).toUrl(), firstTrackData.resourceURI());
+    QCOMPARE(mNewUrlInListSpy->at(0).at(1).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Track);
+    QCOMPARE(mNewUrlInListSpy->at(1).at(0).toUrl(), secondTrackData.resourceURI());
+    QCOMPARE(mNewUrlInListSpy->at(1).at(1).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Track);
+
     QCOMPARE(mDataChangedSpy->wait(), true);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
@@ -712,6 +721,87 @@ void MediaPlayListProxyModelTest::enqueueTracksByUrl()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 0);
     QCOMPARE(mNewUrlInListSpy->count(), 2);
+
+}
+
+void MediaPlayListProxyModelTest::enqueueRadioStreamsFromM3uFile()
+{
+    const auto firstStreamUrl = QUrl(QStringLiteral("http://airspectrum.example.com:8114/1648_128"));
+    const auto secondStreamUrl = QUrl(QStringLiteral("https://example.com:7000"));
+
+    const auto m3uUrl = createTemporaryFile(QStringLiteral("radioStreams.m3u"),
+                                            firstStreamUrl.toString() + QLatin1Char('\n') + secondStreamUrl.toString() + QLatin1Char('\n'));
+
+    mPlayListProxyModel->loadPlayList(m3uUrl);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 2);
+    QCOMPARE(mNewUrlInListSpy->count(), 2);
+    QCOMPARE(mNewUrlInListSpy->at(0).at(1).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+    QCOMPARE(mNewUrlInListSpy->at(1).at(1).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+
+
+    const auto firstIndex = mPlayListProxyModel->index(0, 0);
+    const auto secondIndex = mPlayListProxyModel->index(1, 0);
+
+    QTRY_COMPARE(mPlayListProxyModel->data(firstIndex, MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+    QTRY_COMPARE(mPlayListProxyModel->data(secondIndex, MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+
+    QCOMPARE(mPlayListProxyModel->data(firstIndex, MediaPlayList::ColumnsRoles::ElementTypeRole).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+    QCOMPARE(mPlayListProxyModel->data(firstIndex, MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), firstStreamUrl);
+    QCOMPARE(mPlayListProxyModel->data(firstIndex, MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("1648_128"));
+
+    QCOMPARE(mPlayListProxyModel->data(secondIndex, MediaPlayList::ColumnsRoles::ElementTypeRole).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+    QCOMPARE(mPlayListProxyModel->data(secondIndex, MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), secondStreamUrl);
+    QCOMPARE(mPlayListProxyModel->data(secondIndex, MediaPlayList::ColumnsRoles::TitleRole).toString(), secondStreamUrl.toString());
+
+    QTRY_COMPARE(mDataChangedSpy->count(), 2);
+}
+
+void MediaPlayListProxyModelTest::enqueueRadioStreamFromPlsFile()
+{
+    const auto streamUrl = QUrl(QStringLiteral("http://192.0.2.1:8117/stream"));
+
+    const auto plsUrl = createTemporaryFile(QStringLiteral("radioStream.pls"),
+                                            QStringLiteral("[playlist]\nNumberOfEntries=1\nFile1=") + streamUrl.toString() + QStringLiteral("\nTitle1=Extreme Deep House Radio\nLength1=-1\nVersion=2\n"));
+
+    mPlayListProxyModel->loadPlayList(plsUrl);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 1);
+    QCOMPARE(mNewUrlInListSpy->count(), 1);
+    QCOMPARE(mNewUrlInListSpy->at(0).at(1).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+
+
+    const auto index = mPlayListProxyModel->index(0, 0);
+
+    QTRY_COMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+    QTRY_COMPARE(mDataChangedSpy->count(), 1);
+
+    QCOMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::ElementTypeRole).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+    QCOMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), streamUrl);
+}
+
+void MediaPlayListProxyModelTest::enqueueRemoteFileUrlFromM3uFile()
+{
+    const auto remoteFileUrl = QUrl(QStringLiteral("ftp://files.example.com:21/stream.mp3"));
+
+    const auto m3uUrl = createTemporaryFile(QStringLiteral("remoteFile.m3u"), remoteFileUrl.toString() + QLatin1Char('\n'));
+
+    mPlayListProxyModel->loadPlayList(m3uUrl);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 1);
+    QCOMPARE(mNewUrlInListSpy->count(), 1);
+    QCOMPARE(mNewUrlInListSpy->at(0).at(0).toUrl(), remoteFileUrl);
+    QCOMPARE(mNewUrlInListSpy->at(0).at(1).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::FileName);
+
+
+    const auto index = mPlayListProxyModel->index(0, 0);
+
+    QTRY_COMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::IsValidRole).toBool(), true);
+    QTRY_COMPARE(mDataChangedSpy->count(), 1);
+
+    QCOMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::ElementTypeRole).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Track);
+    QCOMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), remoteFileUrl);
+    QCOMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("stream.mp3"));
 }
 
 void MediaPlayListProxyModelTest::enqueueReplaceAndPlay()

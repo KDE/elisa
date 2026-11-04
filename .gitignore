@@ -37,3 +37,4 @@ CMakeLists.txt.user*
 /CMakeUserPresets.json
 
 /android/libs/
+/.qtcreator

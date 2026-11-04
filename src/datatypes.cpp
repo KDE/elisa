@@ -7,6 +7,21 @@
 
 #include "datatypes.h"
 
+#include <KLocalizedString>
+
+DataTypes::TrackDataType DataTypes::radioTrackData(const QVariant &resource, const QString &title)
+{
+    TrackDataType result;
+
+    result[TrackDataType::key_type::TitleRole] = title;
+    result[TrackDataType::key_type::AlbumRole] = i18nc("@item:intable", "Radio Stations");
+    result[TrackDataType::key_type::ResourceRole] = resource;
+    result[TrackDataType::key_type::RatingRole] = 0;
+    result[TrackDataType::key_type::ElementTypeRole] = ElisaUtils::Radio;
+
+    return result;
+}
+
 bool DataTypes::TrackDataType::albumInfoIsSame(const TrackDataType &other) const
 {
     return hasAlbum() == other.hasAlbum() && album() == other.album() &&

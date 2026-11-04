@@ -125,7 +125,8 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             const auto &trackData = d->mTrackData[index.row()];
             auto titleData = trackData[TrackDataType::key_type::TitleRole];
             if (titleData.toString().isEmpty()) {
-                result = trackData[TrackDataType::key_type::ResourceRole].toUrl().fileName();
+                const auto resourceUrl = trackData[TrackDataType::key_type::ResourceRole].toUrl();
+                result = !resourceUrl.fileName().isEmpty() ? resourceUrl.fileName() : resourceUrl.toDisplayString();
             } else {
                 result = titleData;
             }
@@ -333,8 +334,11 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
 
         d->mData.push_back(newEntry);
         d->mTrackData.push_back({});
+        if (newEntry.mEntryType == ElisaUtils::Radio && !restoredTitle.isEmpty()) {
+            d->mTrackData.last()[DataTypes::TitleRole] = restoredTitle;
+        }
 
-        if (newEntry.mEntryType == ElisaUtils::Radio) {
+        if (newEntry.mEntryType == ElisaUtils::Radio && newEntry.mId != 0) {
             Q_EMIT newEntryInList(newEntry.mId, {}, ElisaUtils::Radio);
         } else if (newEntry.mTrackUrl.isValid()) {
             auto entryURL = newEntry.mTrackUrl.toUrl();
@@ -353,10 +357,8 @@ void MediaPlayList::enqueueRestoredEntries(const QVariantList &newEntries)
                                                 newEntry.mTrackNumber,
                                                 newEntry.mDiscNumber);
                 }
-            } else if (entryURL.scheme() == QLatin1String("http") || entryURL.scheme() == QLatin1String("https")) {
-                d->mData.last().mIsValid = true;
             } else {
-                Q_EMIT newUrlInList(entryURL, ElisaUtils::FileName);
+                Q_EMIT newUrlInList(entryURL, newEntry.mEntryType);
             }
         } else {
             Q_EMIT newTrackByNameInList(newEntry.mTitle,
@@ -401,9 +403,10 @@ void MediaPlayList::enqueueMultipleEntries(const DataTypes::EntryDataList &entri
         const auto trackUrl = entryData.url.isValid() ? entryData.url : entryData.musicData[DataTypes::ResourceRole].toUrl();
         if (!entryData.musicData.databaseId() && trackUrl.isValid()) {
             auto newEntry = MediaPlayListEntry{trackUrl};
-            newEntry.mEntryType = ElisaUtils::FileName;
+            newEntry.mTitle = !entryData.title.isEmpty() ? QVariant{entryData.title} : entryData.musicData[DataTypes::TitleRole];
+            newEntry.mEntryType = entryData.musicData.hasElementType() ? entryData.musicData.elementType() : ElisaUtils::FileName;
             d->mData.insert(i, std::move(newEntry));
-            d->mTrackData.insert(i, {});
+            d->mTrackData.insert(i, static_cast<const DataTypes::TrackDataType&>(entryData.musicData));
         } else {
             d->mData.insert(i, MediaPlayListEntry{entryData.musicData.databaseId(), entryData.title, entryData.musicData.elementType()});
             const auto &data = entryData.musicData;
@@ -555,7 +558,8 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
 
             Q_EMIT dataChanged(index(i, 0), index(i, 0), {});
             continue;
-        } else if (oneEntry.mEntryType == ElisaUtils::Radio ) {
+        } else if (oneEntry.mEntryType == ElisaUtils::Radio &&
+                   (oneEntry.mId != 0 || !oneEntry.mTrackUrl.toUrl().isValid())) {
             if (track.databaseId() != oneEntry.mId) {
                 continue;
             }
@@ -599,8 +603,14 @@ void MediaPlayList::trackChanged(const TrackDataType &track)
             if (track.resourceURI() != oneEntry.mTrackUrl.toUrl()) {
                 continue;
             }
-
+            const auto existingTitle = d->mTrackData[i].title();
             d->mTrackData[i] = track;
+            if (!existingTitle.isEmpty()) {
+                d->mTrackData[i][DataTypes::TitleRole] = existingTitle;
+            }
+            if (track.hasElementType()) {
+                oneEntry.mEntryType = track.elementType();
+            }
             oneEntry.mId = track.databaseId();
             oneEntry.mIsValid = true;
 

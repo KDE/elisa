@@ -123,7 +123,10 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
     DataTypes::TrackDataType newTrack;
 
     if (!scanFile.isLocalFile() && !scanFile.scheme().isEmpty()) {
-        if (scanFile.scheme() == QLatin1String("http") || scanFile.scheme() == QLatin1String("https")) {
+        if (ElisaUtils::isStreamUrl(scanFile)) {
+            newTrack = DataTypes::radioTrackData(scanFile,
+                                                 !scanFile.fileName().isEmpty() ? scanFile.fileName() : scanFile.toDisplayString());
+            newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(1);
             return newTrack;
         }
 

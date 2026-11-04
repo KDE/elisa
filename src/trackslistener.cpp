@@ -264,6 +264,11 @@ void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntr
 
         if (!newDatabaseId)
         {
+            auto newTrack = d->mFileScanner.scanOneFile(entryUrl);
+
+            if (newTrack.isValid()) {
+                Q_EMIT trackHasChanged(newTrack);
+            }
             return;
         }
 

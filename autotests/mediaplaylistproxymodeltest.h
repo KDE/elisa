@@ -70,6 +70,12 @@ private Q_SLOTS:
 
     void enqueueTracksByUrl();
 
+    void enqueueRadioStreamsFromM3uFile();
+
+    void enqueueRadioStreamFromPlsFile();
+
+    void enqueueRemoteFileUrlFromM3uFile();
+
     void enqueueReplaceAndPlay();
 
     void enqueueFiles();

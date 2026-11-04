@@ -1700,6 +1700,96 @@ void MediaPlayListTest::restoreLocalTrack()
     QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::IsValidRole).toBool(), true);
 }
 
+void MediaPlayListTest::restoreRadioStreams()
+{
+    const auto firstStreamUrl = QUrl(QStringLiteral("http://stream1.example.com:8000/live"));
+    const auto secondStreamUrl = QUrl(QStringLiteral("http://stream2.example.com:8000/live"));
+
+    mPlayList->enqueueRestoredEntries(
+                QVariantList({QStringList({QStringLiteral("0"), QStringLiteral("First Radio"), {}, {}, {}, {},
+                                           QString::number(ElisaUtils::PlayListEntryType::Radio), firstStreamUrl.toString()}),
+                              QStringList({QStringLiteral("0"), {}, {}, {}, {}, {},
+                                           QString::number(ElisaUtils::PlayListEntryType::FileName), secondStreamUrl.toString()})}));
+
+    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeInsertedSpy->count(), 1);
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 1);
+    QCOMPARE(mDataChangedSpy->count(), 0);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 2);
+
+
+    QCOMPARE(mNewUrlInListSpy->at(0).at(0).toUrl(), firstStreamUrl);
+    QCOMPARE(mNewUrlInListSpy->at(0).at(1).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+    QCOMPARE(mNewUrlInListSpy->at(1).at(0).toUrl(), secondStreamUrl);
+    QCOMPARE(mNewUrlInListSpy->at(1).at(1).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::FileName);
+
+    while (mDataChangedSpy->count() < 2) {
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+
+    QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
+    QCOMPARE(mRowsAboutToBeInsertedSpy->count(), 1);
+    QCOMPARE(mRowsRemovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mRowsInsertedSpy->count(), 1);
+    QCOMPARE(mDataChangedSpy->count(), 2);
+    QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
+    QCOMPARE(mNewEntryInListSpy->count(), 0);
+    QCOMPARE(mNewUrlInListSpy->count(), 2);
+
+
+    QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::IsValidRole).toBool(), true);
+    QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::ElementTypeRole).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+    QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::ResourceRole).toUrl(), firstStreamUrl);
+    QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("First Radio"));
+
+    QCOMPARE(mPlayList->data(mPlayList->index(1, 0), MediaPlayList::IsValidRole).toBool(), true);
+    QCOMPARE(mPlayList->data(mPlayList->index(1, 0), MediaPlayList::ElementTypeRole).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+    QCOMPARE(mPlayList->data(mPlayList->index(1, 0), MediaPlayList::ResourceRole).toUrl(), secondStreamUrl);
+    QCOMPARE(mPlayList->data(mPlayList->index(1, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("live"));
+}
+
+void MediaPlayListTest::restoreExistingRadioWithChangedUrl()
+{
+    const auto oldStreamUrl = QUrl::fromEncoded("http://old.example.com:8000/live");
+    const auto newStreamUrl = QUrl::fromEncoded("http://new.example.com:8000/live");
+
+    auto initialRadio = DataTypes::radioTrackData(oldStreamUrl, QStringLiteral("Test Radio"));
+    mDatabaseContent->insertTracksList({initialRadio});
+
+    const auto radioId = mDatabaseContent->radioIdFromFileName(oldStreamUrl);
+    QVERIFY(radioId != 0);
+
+    auto modifiedRadio = mDatabaseContent->radioDataFromDatabaseId(radioId);
+    modifiedRadio[DataTypes::ResourceRole] = newStreamUrl;
+    mDatabaseContent->insertTracksList({modifiedRadio});
+
+    mPlayList->enqueueRestoredEntries(
+                QVariantList({QStringList({QString::number(radioId), {}, {}, {}, {}, {},
+                                           QString::number(ElisaUtils::PlayListEntryType::Radio), oldStreamUrl.toString()})}));
+
+    QCOMPARE(mRowsInsertedSpy->count(), 1);
+    QCOMPARE(mNewEntryInListSpy->count(), 1);
+    QCOMPARE(mNewUrlInListSpy->count(), 0);
+
+    QCOMPARE(mNewEntryInListSpy->at(0).at(0).toULongLong(), radioId);
+    QCOMPARE(mNewEntryInListSpy->at(0).at(1).toString(), QString());
+    QCOMPARE(mNewEntryInListSpy->at(0).at(2).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::IsValidRole).toBool(), true);
+    QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::ElementTypeRole).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Radio);
+    QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::ResourceRole).toUrl(), newStreamUrl);
+    QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("Test Radio"));
+}
+
 void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
 {
     auto firstTrackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"),

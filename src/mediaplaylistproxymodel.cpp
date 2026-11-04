@@ -1253,7 +1253,10 @@ bool MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTra
             QFileInfo fileInfo(oneUrl.toLocalFile());
             loadLocalFile(newTracks, processedFiles, fileInfo);
         } else {
-            newTracks.push_back({{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, oneUrl}}}, {}, {}});
+            const auto elementType = ElisaUtils::isStreamUrl(oneUrl)
+                ? ElisaUtils::Radio
+                : ElisaUtils::FileName;
+            newTracks.push_back({{{{DataTypes::ElementTypeRole, elementType}, {DataTypes::ResourceRole, oneUrl}}}, {}, {}});
         }
     }
 

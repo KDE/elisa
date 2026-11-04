@@ -433,6 +433,8 @@ public:
     };
     using EntryDataList = QList<EntryData>;
 
+    static TrackDataType radioTrackData(const QVariant &resource, const QString &title);
+
 };
 
 Q_DECLARE_METATYPE(DataTypes::MusicDataType)

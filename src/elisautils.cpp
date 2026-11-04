@@ -28,6 +28,11 @@ bool isPlayList(const QMimeType& mimeType)
     return playlistFormatForType(mimeType).has_value();
 }
 
+bool isStreamUrl(const QUrl &url)
+{
+    return url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https");
+}
+
 }
 
 #include "moc_elisautils.cpp"

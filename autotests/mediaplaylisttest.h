@@ -76,6 +76,10 @@ private Q_SLOTS:
 
     void restoreLocalTrack();
 
+    void restoreRadioStreams();
+
+    void restoreExistingRadioWithChangedUrl();
+
     void testHasHeaderAlbumWithSameTitle();
 
     void testHasHeaderMoveFirstLikeQml();

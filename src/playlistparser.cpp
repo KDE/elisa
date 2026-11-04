@@ -9,6 +9,7 @@
 
 #include "playlistparser.h"
 #include "elisa_settings.h"
+#include "kiofusehelper.h"
 #include "mediaplaylist.h"
 #include <QFile>
 #include <qdebug.h>
@@ -50,13 +51,14 @@ std::optional<PlaylistParser::Format> PlaylistParser::formatForType(const QMimeT
 // TODO: return something that allows to also return (as a string for example) exact full/partial error and errored tracks
 std::optional<PlaylistModel> PlaylistParser::load(const QUrl &path)
 {
-    const auto type = mimeDb.mimeTypeForFile(path.toLocalFile());
+    const QUrl localUrl = KioFuseHelper::mostLocalUrl(path);
+    const auto type = mimeDb.mimeTypeForFile(localUrl.toLocalFile());
     const auto format = formatForType(type);
     if (!format) {
         return {};
     }
 
-    QFile file(path.toLocalFile());
+    QFile file(localUrl.toLocalFile());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return {};
     }
@@ -67,13 +69,14 @@ std::optional<PlaylistModel> PlaylistParser::load(const QUrl &path)
 
 bool PlaylistParser::save(const QUrl &path, const PlaylistModel &playlist)
 {
-    const auto type = mimeDb.mimeTypeForFile(path.toLocalFile());
+    const QUrl localUrl = KioFuseHelper::mostLocalUrl(path);
+    const auto type = mimeDb.mimeTypeForFile(localUrl.toLocalFile());
     const auto format = formatForType(type);
     if (!format) {
         return false;
     }
 
-    QFile file(path.toLocalFile());
+    QFile file(localUrl.toLocalFile());
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         return false;
     }

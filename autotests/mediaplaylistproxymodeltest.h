@@ -58,6 +58,10 @@ private Q_SLOTS:
 
     void plsPlaylistParser_ToPlaylist();
 
+    void playlistParser_KioFuseUrlCase();
+
+    void playlistParser_SaveKioFuseUrlCase();
+
     void simpleInitialCase();
 
     void enqueueAlbumCase();
@@ -75,6 +79,14 @@ private Q_SLOTS:
     void enqueueRadioStreamFromPlsFile();
 
     void enqueueRemoteFileUrlFromM3uFile();
+
+    void testCanOpenLoadedPlaylist();
+
+    void loadPlayList_KioFuseUrl();
+
+    void loadPlayList_CircularProtectionWithKioUrl();
+
+    void loadPlayList_RelativeTracksWithKioUrl();
 
     void enqueueReplaceAndPlay();
 

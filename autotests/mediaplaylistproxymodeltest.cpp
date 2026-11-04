@@ -18,12 +18,15 @@
 #include "elisa_settings.h"
 
 #include "config-upnp-qt.h"
+#include "kiofusehelper.h"
+#include "mockkiofuse.h"
 
+#include <QAbstractItemModelTester>
 #include <QSignalSpy>
+#include <QTemporaryDir>
+#include <QTemporaryFile>
 #include <QTest>
 #include <QUrl>
-#include <QTemporaryFile>
-#include <QAbstractItemModelTester>
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -373,6 +376,57 @@ void MediaPlayListProxyModelTest::plsPlaylistParser_ToPlaylist()
     createdFiles.append(path.toLocalFile());
 
     QCOMPARE(QString::fromUtf8(file.readAll()).count(QStringLiteral("\nFile")), 2);
+}
+
+void MediaPlayListProxyModelTest::playlistParser_KioFuseUrlCase()
+{
+#if QtDBus_FOUND
+    ScopedMockKioFuse scopedKioFuse;
+    if (!scopedKioFuse.isRegistered) {
+        QSKIP("D-Bus session bus unavailable for mock KIOFuse service");
+    }
+
+    const auto localUrl = createTemporaryFile(QStringLiteral("kio_load.m3u"), QStringLiteral("http://example.com/stream1\nhttp://example.com/stream2\n"));
+    const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/kio_load.m3u"));
+    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = localUrl.toLocalFile();
+
+    const auto results = PlaylistParser::load(remoteKioUrl);
+    QVERIFY(results.has_value());
+    QCOMPARE(results.value().tracks.count(), 2);
+    QCOMPARE(results.value().tracks.at(0).mTrackUrl.toUrl(), QUrl(QStringLiteral("http://example.com/stream1")));
+    QCOMPARE(results.value().tracks.at(1).mTrackUrl.toUrl(), QUrl(QStringLiteral("http://example.com/stream2")));
+
+    // When URL cannot be mounted locally, returns nullopt gracefully
+    const QUrl unmountedUrl(QStringLiteral("sftp://unreachable/stream.m3u"));
+    QVERIFY(!PlaylistParser::load(unmountedUrl).has_value());
+#endif
+}
+
+void MediaPlayListProxyModelTest::playlistParser_SaveKioFuseUrlCase()
+{
+#if QtDBus_FOUND
+    ScopedMockKioFuse scopedKioFuse;
+    if (!scopedKioFuse.isRegistered) {
+        QSKIP("D-Bus session bus unavailable for mock KIOFuse service");
+    }
+
+    const auto localUrl = createTemporaryFile(QStringLiteral("kio_save.m3u"), QString{});
+    const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/kio_save.m3u"));
+    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = localUrl.toLocalFile();
+
+    const QList entries{MediaPlayListEntry(QUrl(QStringLiteral("http://example.com/1"))), MediaPlayListEntry(QUrl(QStringLiteral("http://example.com/2")))};
+    const auto playlist = PlaylistModel(entries);
+
+    QVERIFY(PlaylistParser::save(remoteKioUrl, playlist));
+
+    QFile file(localUrl.toLocalFile());
+    QVERIFY(file.open(QIODeviceBase::ReadOnly | QIODeviceBase::Text));
+    QCOMPARE(QString::fromUtf8(file.readAll()).count(QLatin1Char('\n')), 2);
+
+    // When URL cannot be mounted locally, save fails gracefully
+    const QUrl unmountedUrl(QStringLiteral("sftp://unreachable/stream.m3u"));
+    QVERIFY(!PlaylistParser::save(unmountedUrl, playlist));
+#endif
 }
 
 void MediaPlayListProxyModelTest::simpleInitialCase()
@@ -802,6 +856,136 @@ void MediaPlayListProxyModelTest::enqueueRemoteFileUrlFromM3uFile()
     QCOMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::ElementTypeRole).value<ElisaUtils::PlayListEntryType>(), ElisaUtils::Track);
     QCOMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), remoteFileUrl);
     QCOMPARE(mPlayListProxyModel->data(index, MediaPlayList::ColumnsRoles::TitleRole).toString(), QStringLiteral("stream.mp3"));
+}
+
+void MediaPlayListProxyModelTest::testCanOpenLoadedPlaylist()
+{
+    MediaPlayList playList;
+    MediaPlayListProxyModel model;
+    model.setPlayListModel(&playList);
+
+    // Initially false when no playlist is loaded
+    QCOMPARE(model.canOpenLoadedPlaylist(), false);
+
+    // Remote unmounted URL that is not local
+    const QUrl remoteHttp(QStringLiteral("http://example.com/remote.m3u"));
+    model.loadPlayList(remoteHttp);
+    QCOMPARE(model.canOpenLoadedPlaylist(), false);
+
+    // Local playlist file
+    const auto localM3uUrl = createTemporaryFile(QStringLiteral("local_can_open.m3u"), QStringLiteral("http://stream.example.com:8000/1\n"));
+    model.loadPlayList(localM3uUrl);
+    QCOMPARE(model.canOpenLoadedPlaylist(), true);
+
+#if QtDBus_FOUND
+    ScopedMockKioFuse scopedKioFuse;
+    if (!scopedKioFuse.isRegistered) {
+        return;
+    }
+
+    const auto kioMountedFile = createTemporaryFile(QStringLiteral("kio_can_open.m3u"), QStringLiteral("http://stream.example.com:8000/2\n"));
+    const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/kio_can_open.m3u"));
+    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = kioMountedFile.toLocalFile();
+
+    MediaPlayList kioPlayList;
+    MediaPlayListProxyModel kioModel;
+    kioModel.setPlayListModel(&kioPlayList);
+
+    kioModel.loadPlayList(remoteKioUrl);
+    // KioFuseHelper::mostLocalUrl resolves remoteKioUrl to local file, so canOpenLoadedPlaylist is true!
+    QCOMPARE(kioModel.canOpenLoadedPlaylist(), true);
+#endif
+}
+
+void MediaPlayListProxyModelTest::loadPlayList_KioFuseUrl()
+{
+#if QtDBus_FOUND
+    ScopedMockKioFuse scopedKioFuse;
+    if (!scopedKioFuse.isRegistered) {
+        QSKIP("D-Bus session bus unavailable for mock KIOFuse service");
+    }
+
+    const auto streamUrl1 = QUrl(QStringLiteral("http://airspectrum.cdnstream1.com:8114/1648_128"));
+    const auto streamUrl2 = QUrl(QStringLiteral("https://radiointernet.co:7000"));
+
+    const auto localM3u =
+        createTemporaryFile(QStringLiteral("kioRadioStreams.m3u"), streamUrl1.toString() + QLatin1Char('\n') + streamUrl2.toString() + QLatin1Char('\n'));
+
+    const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/kioRadioStreams.m3u"));
+    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = localM3u.toLocalFile();
+
+    mPlayListProxyModel->loadPlayList(remoteKioUrl);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 2);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), streamUrl1);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(1, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), streamUrl2);
+    QCOMPARE(mPlayListProxyModel->canOpenLoadedPlaylist(), true);
+#endif
+}
+
+void MediaPlayListProxyModelTest::loadPlayList_CircularProtectionWithKioUrl()
+{
+#if QtDBus_FOUND
+    ScopedMockKioFuse scopedKioFuse;
+    if (!scopedKioFuse.isRegistered) {
+        QSKIP("D-Bus session bus unavailable for mock KIOFuse service");
+    }
+
+    QTemporaryFile selfRefFile(QDir::tempPath() + QStringLiteral("/circular_XXXXXX.m3u"));
+    QVERIFY(selfRefFile.open());
+    const QString selfRefPath = selfRefFile.fileName();
+    createdFiles.append(selfRefPath);
+
+    selfRefFile.write((selfRefPath + QStringLiteral("\nhttp://stream.example.com/song\n")).toUtf8());
+    selfRefFile.close();
+
+    const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/circular.m3u"));
+    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = selfRefPath;
+
+    // In HEAD, processedFiles is initialized with localUrl.toLocalFile(), preventing infinite recursion
+    mPlayListProxyModel->loadPlayList(remoteKioUrl);
+
+    // Only the stream entry should be loaded, self-reference ignored
+    QCOMPARE(mPlayListProxyModel->rowCount(), 1);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(),
+             QUrl(QStringLiteral("http://stream.example.com/song")));
+#endif
+}
+
+void MediaPlayListProxyModelTest::loadPlayList_RelativeTracksWithKioUrl()
+{
+#if QtDBus_FOUND
+    ScopedMockKioFuse scopedKioFuse;
+    if (!scopedKioFuse.isRegistered) {
+        QSKIP("D-Bus session bus unavailable for mock KIOFuse service");
+    }
+
+    QTemporaryDir tempDir;
+    QVERIFY(tempDir.isValid());
+
+    // Create a dummy track file in the temporary directory
+    const QString trackFileName = QStringLiteral("track.ogg");
+    QFile trackFile(tempDir.filePath(trackFileName));
+    QVERIFY(trackFile.open(QIODeviceBase::WriteOnly));
+    trackFile.write("dummy audio content\n");
+    trackFile.close();
+
+    // Create a PLS playlist file with relative track path in the same directory
+    const QString plsFileName = QStringLiteral("relative.pls");
+    QFile plsFile(tempDir.filePath(plsFileName));
+    QVERIFY(plsFile.open(QIODeviceBase::WriteOnly));
+    plsFile.write(QStringLiteral("[playlist]\nNumberOfEntries=1\nFile1=track.ogg\nTitle1=Test Relative\nLength1=-1\nVersion=2\n").toUtf8());
+    plsFile.close();
+
+    const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/relative.pls"));
+    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = plsFile.fileName();
+
+    mPlayListProxyModel->loadPlayList(remoteKioUrl);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 1);
+    const QUrl resolvedTrackUrl = mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl();
+    QCOMPARE(resolvedTrackUrl, QUrl::fromLocalFile(tempDir.filePath(trackFileName)));
+#endif
 }
 
 void MediaPlayListProxyModelTest::enqueueReplaceAndPlay()

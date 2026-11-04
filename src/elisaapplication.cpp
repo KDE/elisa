@@ -16,6 +16,8 @@
 #include "managemediaplayercontrol.h"
 #include "manageheaderbar.h"
 #include "databaseinterface.h"
+#include "elisautils.h"
+#include "kiofusehelper.h"
 
 #include "elisa_settings.h"
 #include <KAuthorized>
@@ -251,11 +253,15 @@ bool ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workin
     auto audioFiles = DataTypes::EntryDataList{};
     const QMimeDatabase mimeDB;
     for (const auto &file : files) {
-        const QMimeType mime = mimeDB.mimeTypeForUrl(file);
+        const QUrl localUrl = KioFuseHelper::mostLocalUrl(file);
+        const QMimeType mime = mimeDB.mimeTypeForUrl(localUrl);
         if (ElisaUtils::isPlayList(mime)) {
             d->mMediaPlayListProxyModel->loadPlayList(file);
         } else if (mime.name().startsWith(QStringLiteral("audio/"))) {
             audioFiles.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
+                            {DataTypes::ResourceRole, file}}, {}, {}});
+        } else if (ElisaUtils::isStreamUrl(file)) {
+            audioFiles.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Radio},
                             {DataTypes::ResourceRole, file}}, {}, {}});
         }
     }

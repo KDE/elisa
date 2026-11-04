@@ -8,6 +8,7 @@
 
 #include "mediaplaylistproxymodel.h"
 #include "elisautils.h"
+#include "kiofusehelper.h"
 #include "mediaplaylist.h"
 #include "playListLogging.h"
 #include "elisa_settings.h"
@@ -1117,7 +1118,8 @@ void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName,
     resetPartiallyLoaded();
 
     DataTypes::EntryDataList newTracks;
-    QSet processedFiles{fileName.toLocalFile()};
+    const QUrl localUrl = KioFuseHelper::mostLocalUrl(fileName);
+    QSet processedFiles{localUrl.toLocalFile()};
 
     if (loadLocalPlayList(newTracks, processedFiles, fileName)) {
         d->mLoadedPlayListUrl = fileName;
@@ -1240,7 +1242,7 @@ bool MediaPlayListProxyModel::canOpenLoadedPlaylist() const
 #if !KFKIO_FOUND
     return false;
 #endif
-    return d->mLoadedPlayListUrl.isValid() && d->mLoadedPlayListUrl.isLocalFile();
+    return d->mLoadedPlayListUrl.isValid() && KioFuseHelper::mostLocalUrl(d->mLoadedPlayListUrl).isLocalFile();
 }
 
 PlaylistModel MediaPlayListProxyModel::getPlaylistModel() const
@@ -1360,6 +1362,7 @@ void MediaPlayListProxyModel::loadLocalDirectory(DataTypes::EntryDataList &newTr
 int MediaPlayListProxyModel::filterLocalPlayList(QList<QUrl>& result, const QUrl &playlistUrl)
 {
     int filtered = 0;
+    const QUrl localPlaylistUrl = KioFuseHelper::mostLocalUrl(playlistUrl);
 
     for (auto iterator = result.begin(); iterator != result.end();) {
         bool exists = true;
@@ -1369,8 +1372,8 @@ int MediaPlayListProxyModel::filterLocalPlayList(QList<QUrl>& result, const QUrl
             QString file = url.toLocalFile();
 
             QFileInfo fileInfo(file);
-            if (playlistUrl.isLocalFile() && fileInfo.isRelative()) {
-                auto absoluteDir = QFileInfo(playlistUrl.toLocalFile()).absoluteDir();
+            if (localPlaylistUrl.isLocalFile() && fileInfo.isRelative()) {
+                auto absoluteDir = QFileInfo(localPlaylistUrl.toLocalFile()).absoluteDir();
                 if (fileInfo.isDir()) {
                     file = absoluteDir.absolutePath() + QDir::separator() + fileInfo.path();
                 } else {

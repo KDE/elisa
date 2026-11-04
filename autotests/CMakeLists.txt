@@ -73,12 +73,13 @@ ecm_qt_declare_logging_category(mediaplaylistproxymodelTest_SOURCES HEADER elisa
 
 set(mediaplaylistproxymodelTest_SOURCES
     mediaplaylistproxymodeltest.cpp
+    mockkiofuse.cpp
 )
 
 ecm_add_test(${mediaplaylistproxymodelTest_SOURCES}
     TEST_NAME "mediaplaylistproxymodelTest"
     LINK_LIBRARIES
-        Qt::Test elisaLib
+        Qt::Test Qt::DBus elisaLib
 )
 
 set(trackslistenertest_SOURCES
@@ -134,15 +135,16 @@ if (KF6FileMetaData_FOUND)
 
 endif()
 
-if (KF6XmlGui_FOUND AND KF6KCMUtils_FOUND)
+if (KF6XmlGui_FOUND)
     set(elisaapplicationtest_SOURCES
         elisaapplicationtest.cpp
+        mockkiofuse.cpp
     )
 
     ecm_add_test(${elisaapplicationtest_SOURCES}
         TEST_NAME "elisaapplicationtest"
         LINK_LIBRARIES
-            Qt::Test elisaLib
+            Qt::Test Qt::Widgets Qt::DBus elisaLib
     )
 endif()
 

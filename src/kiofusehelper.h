@@ -7,11 +7,12 @@
 #ifndef KIOFUSEHELPER_H
 #define KIOFUSEHELPER_H
 
+#include "elisaLib_export.h"
 #include <QUrl>
 
 namespace KioFuseHelper
 {
-QUrl mostLocalUrl(const QUrl &source);
+ELISALIB_EXPORT QUrl mostLocalUrl(const QUrl &source);
 }
 
 #endif // KIOFUSEHELPER_H

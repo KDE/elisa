@@ -1,21 +1,22 @@
 # Translation of elisa to Norwegian Bokmål
 #
 # Imre Eilertsen <imreeil42@gmail.com>, 2026.
+# Daniel Dybing <daniel.dybing@gmail.com>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-05 00:54+0000\n"
-"PO-Revision-Date: 2026-02-25 11:42+0100\n"
-"Last-Translator: Imre Eilertsen <imreeil42@gmail.com>\n"
+"PO-Revision-Date: 2026-11-07 18:15+0100\n"
+"Last-Translator: Daniel Dybing <daniel.dybing@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@nuug.no>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Lokalize 26.08.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -23,12 +24,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Imre Eilertsen"
+msgstr "Imre Eilertsen,Daniel Dybing"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "dandelionsprout42@eclipso.eu"
+msgstr "dandelionsprout42@eclipso.eu,daniel.dybing@gmail.com"
 
 #: databaseinterface.cpp:8097 databaseinterface.cpp:9212
 #: databaseinterface.cpp:9297
@@ -41,13 +42,13 @@ msgstr "Diverse artister"
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
-msgstr "Radiostasjoner"
+msgstr "Radiokanaler"
 
 #: elisaapplication.cpp:181
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
-msgstr "Skru av/på spilleliste"
+msgstr "Skru på/av spilleliste"
 
 #: elisaapplication.cpp:187
 #, fuzzy, kde-format
@@ -61,13 +62,13 @@ msgstr "Skru av/på spilleliste"
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
-msgstr "Hopp 10 sekunder frem"
+msgstr "Spol 10 sekunder frem"
 
 #: elisaapplication.cpp:200
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
-msgstr "Hopp 10 sekunder bakover"
+msgstr "Spol 10 sekunder bakover"
 
 #: elisaapplication.cpp:207
 #, kde-format
@@ -85,13 +86,13 @@ msgstr "Gå til forrige spor"
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
-msgstr "Spill av/Pause"
+msgstr "Spill av / pause"
 
 #: elisaapplication.cpp:234
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
-msgstr "Skru av/på festmodus"
+msgstr "Skru på/av festmodus"
 
 #: main.cpp:98
 #, kde-format
@@ -329,7 +330,7 @@ msgstr "Samplingsfrekvens"
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
-msgstr "Nyligst spilt"
+msgstr "Sist avspilt"
 
 #: models/trackmetadatamodel.cpp:576
 #, kde-format
@@ -369,13 +370,13 @@ msgstr "Bildeadresse"
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
-msgstr "Albumer"
+msgstr "Album"
 
 #: models/viewsmodel.cpp:109 viewslistdata.cpp:107
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
-msgstr "Sjangere"
+msgstr "Sjangrer"
 
 #: models/viewsmodel.cpp:112 viewslistdata.cpp:71
 #, kde-format
@@ -484,14 +485,14 @@ msgstr "Vis spilleliste"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Scan for New Music"
-msgstr "Skann etter ny musikk"
+msgstr "Søk etter ny musikk"
 
 #: qml/ApplicationMenu.qml:51 qml/NativeGlobalMenu.qml:37
 #: qml/NativeTrayMenu.qml:27
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reset Database and Re-Scan Everything"
-msgstr "Tøm databasen og skann alt på nytt"
+msgstr "Tøm databasen og søk på nytt"
 
 #: qml/ApplicationMenu.qml:62
 #, kde-format
@@ -517,7 +518,7 @@ msgstr "Spiller nå"
 #, kde-format
 msgctxt "@action:button"
 msgid "Open sidebar"
-msgstr "Åpne sidelinje"
+msgstr "Åpne sidestolpe"
 
 #: qml/ContextView.qml:115
 #, kde-format
@@ -529,7 +530,7 @@ msgstr "Metadata"
 #, kde-format
 msgctxt "@option:radio One of the 'now playing' views"
 msgid "Lyrics"
-msgstr "Tekster"
+msgstr "Sangtekst"
 
 #: qml/ContextView.qml:133 qml/mobile/MobileTrackPlayer.qml:388
 #: qml/NavigationActionBar.qml:174
@@ -582,7 +583,7 @@ msgstr "Varighet"
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
-msgstr "Innlasting mislyktes"
+msgstr "Feil ved innlasting"
 
 #: qml/ElisaMainWindow.qml:32 qml/ElisaMainWindow.qml:327
 #, kde-format
@@ -606,7 +607,7 @@ msgstr "Angre"
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
-msgstr "Vis spillelisteskuffe"
+msgstr "Vis spillelisteskuff"
 
 #: qml/ElisaMainWindow.qml:148
 #, kde-format
@@ -633,7 +634,7 @@ msgstr "Elisa"
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
-msgstr "%1 — Elisa"
+msgstr "%1 – Elisa"
 
 #: qml/ElisaMainWindow.qml:307
 #, kde-format
@@ -728,7 +729,7 @@ msgstr "Start festmodus"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Skip backward"
-msgstr "Hopp bakover"
+msgstr "Spol bakover"
 
 #: qml/MediaPlayerControl.qml:109
 #, kde-format
@@ -741,43 +742,43 @@ msgstr "Pause"
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip Start playing media"
 msgid "Play"
-msgstr "Spill av"
+msgstr "Spill"
 
 #: qml/MediaPlayerControl.qml:118
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip skip forward in playlists"
 msgid "Skip forward"
-msgstr "Fremover"
+msgstr "Spol framover"
 
 #: qml/MediaPlayerControl.qml:147
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Unmute"
-msgstr "Opphev demping"
+msgstr "Opphev lyddemping"
 
 #: qml/MediaPlayerControl.qml:148
 #, kde-format
 msgctxt "@action:button displayed as @info:tooltip"
 msgid "Mute"
-msgstr "Demp"
+msgstr "Demp lyden"
 
 #: qml/MediaPlayerControl.qml:176 qml/mobile/MobileTrackPlayer.qml:205
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: No shuffle"
-msgstr "Nåværende: Vanlig sporrekkefølge"
+msgstr "Gjeldende: Vanlig sporrekkefølge"
 
 #: qml/MediaPlayerControl.qml:177 qml/mobile/MobileTrackPlayer.qml:206
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle tracks"
-msgstr "Nåværende: Tilfeldig sporrekkefølge"
+msgstr "Gjeldende: Tilfeldig sporrekkefølge"
 
 #: qml/MediaPlayerControl.qml:178 qml/mobile/MobileTrackPlayer.qml:207
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Shuffle albums"
-msgstr "Nåværende: Tilfeldig albumrekkefølge"
+msgstr "Gjeldende: Tilfeldig albumrekkefølge"
 
 #: qml/MediaPlayerControl.qml:209 qml/mobile/MobileTrackPlayer.qml:236
 #, kde-format
@@ -802,19 +803,19 @@ msgstr "Ingen"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Don't repeat tracks"
-msgstr "Nåværende: Ikke gjenta spor"
+msgstr "Gjeldende: Ikke gjenta spor"
 
 #: qml/MediaPlayerControl.qml:239 qml/mobile/MobileTrackPlayer.qml:259
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat current track"
-msgstr "Nåværende: Gjenta nåværende spor"
+msgstr "Gjeldende: Gjenta gjeldende spor"
 
 #: qml/MediaPlayerControl.qml:240 qml/mobile/MobileTrackPlayer.qml:260
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Current: Repeat all tracks in playlist"
-msgstr "Nåværende: Gjenta alle spor i spillelisten"
+msgstr "Gjeldende: Gjenta alle spor i spillelisten"
 
 #: qml/MediaPlayerControl.qml:274 qml/mobile/MobileTrackPlayer.qml:293
 #, kde-format
@@ -840,13 +841,13 @@ msgstr "Spilleliste"
 #, kde-format
 msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
-msgstr "Vis nåværende"
+msgstr "Vis gjeldende"
 
 #: qml/MediaPlayListView.qml:83
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
-msgstr "Fjern alt"
+msgstr "Fjern alle"
 
 #: qml/MediaPlayListView.qml:93
 #, kde-format
@@ -895,8 +896,8 @@ msgid ""
 "Add some songs to get started. You can browse your music using the views on "
 "the left."
 msgstr ""
-"Legg til noen sanger for å komme i gang. Du kan bla gjennom musikken din "
-"gjennom visningene til venstre."
+"Legg til noen sanger. Du kan finne sanger å legge til via visningene til "
+"venstre."
 
 #: qml/MediaPlayListView.qml:380
 #, kde-format
@@ -954,8 +955,8 @@ msgstr[1] "%1 spor"
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
 msgid_plural "%1 radios"
-msgstr[0] "%1 radio"
-msgstr[1] "%1 radioer"
+msgstr[0] "%1 radiokanal"
+msgstr[1] "%1 radiokanaler"
 
 #: qml/MediaPlayListView.qml:506
 #, kde-format
@@ -981,14 +982,14 @@ msgctxt ""
 "@info:status %1 is the remaining duration of the playlist. It is formatted "
 "like hh:mm:ss or mm:ss"
 msgid "1 track, %1min remaining"
-msgstr "1 spor, %1min igjen"
+msgstr "1 spor, %1 minutt(er) igjen"
 
 #: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
 #, kde-format
 msgctxt "@action:button"
 msgid "Un-mark this song as a favorite"
-msgstr "Opphev denne sangens favorittstatus"
+msgstr "Fjern favorittmerking"
 
 #: qml/MediaTrackMetadataDelegate.qml:156 qml/PlayListEntry.qml:119
 #: qml/TrackBrowserDelegate.qml:105
@@ -1001,7 +1002,7 @@ msgstr "Merk denne sangen som en favoritt"
 #, kde-format
 msgctxt "@action:button remove a metadata tag"
 msgid "Remove this tag"
-msgstr "Fjern dette stikkordet"
+msgstr "Fjern stikkordet"
 
 #: qml/MediaTrackMetadataDelegate.qml:215
 #, kde-format
@@ -1032,7 +1033,7 @@ msgstr "%1:"
 #, kde-format
 msgctxt "@title:window"
 msgid "Create a Radio"
-msgstr "Opprett en radio"
+msgstr "Legg til radiokanal"
 
 #: qml/MediaTrackMetadataView.qml:38
 #: qml/mobile/MobileMediaTrackMetadataView.qml:49
@@ -1074,7 +1075,7 @@ msgstr "Avbryt"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Backward"
-msgstr "Hopp bakover"
+msgstr "Spol bakover"
 
 #: qml/mobile/MobileMinimizedPlayerControl.qml:229
 #: qml/mobile/MobileTrackPlayer.qml:361
@@ -1095,7 +1096,7 @@ msgstr "Spill av"
 #, kde-format
 msgctxt "@action:button"
 msgid "Skip Forward"
-msgstr "Hopp fremover"
+msgstr "Spol framover"
 
 #: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
 #, kde-format
@@ -1138,13 +1139,13 @@ msgstr "Minimer avspiller"
 #, kde-format
 msgctxt "@action:button show track information"
 msgid "Show Info"
-msgstr "Vis info"
+msgstr "Vis informasjon"
 
 #: qml/mobile/MobileVolumeButton.qml:30
 #, kde-format
 msgctxt "@action:button"
 msgid "Change Volume"
-msgstr "Endre volum"
+msgstr "Endre lydstyrke"
 
 #: qml/NativeGlobalMenu.qml:18
 #, kde-format
@@ -1174,7 +1175,7 @@ msgstr "Vis"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Party Mode"
-msgstr "Skru av/på festmodus"
+msgstr "Skru på/av festmodus"
 
 #: qml/NativeGlobalMenu.qml:78
 #, kde-format
@@ -1204,13 +1205,13 @@ msgstr "Stopp"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Increase Volume"
-msgstr "Øk volumet"
+msgstr "Høyere lyd"
 
 #: qml/NativeGlobalMenu.qml:102
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Decrease Volume"
-msgstr "Senk volumet"
+msgstr "Lavere lyd"
 
 #: qml/NativeGlobalMenu.qml:112
 #, kde-format
@@ -1284,13 +1285,13 @@ msgstr "Sorter"
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Radio"
-msgstr "Legg til radio"
+msgstr "Legg til radiokanal"
 
 #: qml/NavigationActionBar.qml:109
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Add radio"
-msgstr "Legg til radio"
+msgstr "Legg til radiokanal"
 
 #: qml/NavigationActionBar.qml:121
 #, kde-format
@@ -1308,13 +1309,13 @@ msgstr "Legg til i spilleliste"
 #, kde-format
 msgctxt "@action:button"
 msgid "Play Now, Replacing Current Playlist"
-msgstr "Spill nå; erstatter gjeldende spilleliste"
+msgstr "Spill nå og bytt ut spillelista"
 
 #: qml/NavigationActionBar.qml:136
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Play now, replacing current playlist"
-msgstr "Spill nå; erstatter gjeldende spilleliste"
+msgstr "Spill nå og bytt ut spillelista"
 
 #: qml/NavigationActionBar.qml:148
 #, kde-format
@@ -1412,7 +1413,7 @@ msgstr "Søk etter albumnavn, artist, osv."
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Filter by rating: "
-msgstr "Filtrer etter rangering: "
+msgstr "Filtrer etter karakter: "
 
 #: qml/NavigationActionBar.qml:478
 #, kde-format
@@ -1424,7 +1425,7 @@ msgstr "Bare vis favoritter"
 #, kde-format
 msgctxt "@action:button"
 msgid "Set track rating"
-msgstr "Angi sporrangering"
+msgstr "Gi karakter"
 
 #: qml/PlayListEntry.qml:133
 #, kde-format
@@ -1436,7 +1437,7 @@ msgstr "Fjern"
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel rating this track"
-msgstr "Avbryt rangeringen av dette sporet"
+msgstr "Avbryt karaktergiving"
 
 #: qml/SettingsForm.qml:70
 #, kde-format
@@ -1454,7 +1455,7 @@ msgstr "Vis bakgrunn på «Spiller nå»-siden"
 #, kde-format
 msgctxt "@option:check"
 msgid "Show progress on task manager entries"
-msgstr "Vis fremgang i oppgavebehandleroppføringer"
+msgstr "Vis avspillingsframgang i oppgavelinja"
 
 #: qml/SettingsForm.qml:98
 #, kde-format
@@ -1472,7 +1473,7 @@ msgstr "Start avspilling ved oppstart"
 #, kde-format
 msgctxt "@option:check"
 msgid "Scan for new music on startup"
-msgstr "Skann etter ny musikk ved oppstart"
+msgstr "Søk etter ny musikk ved oppstart"
 
 #: qml/SettingsForm.qml:139
 #, kde-kuit-format
@@ -1485,14 +1486,14 @@ msgid ""
 msgstr ""
 "Når du bruker denne innstillingen, må du oppdatere musikksamlingen manuelt "
 "hver gang nye filer legges til i konfigurerte musikkmapper. Du kan gjøre "
-"dette ved å velge <interface>Skann etter ny musikk</interface> i Elisas "
+"dette ved å velge <interface>Søk etter ny musikk</interface> i Elisas "
 "hamburgermeny."
 
 #: qml/SettingsForm.qml:150
 #, kde-format
 msgctxt "@title:group"
 msgid "Song rating style:"
-msgstr "Sangrangeringsstil:"
+msgstr "Type sangvurdering:"
 
 #: qml/SettingsForm.qml:154
 #, kde-format
@@ -1504,7 +1505,7 @@ msgstr "0-5 stjerner"
 #, kde-format
 msgctxt "@option:radio"
 msgid "Favorite/not favorite"
-msgstr "Merk/Avmerk som favoritt"
+msgstr "Favoritt/ikke-favoritt"
 
 #: qml/SettingsForm.qml:184
 #, kde-format
@@ -1516,19 +1517,19 @@ msgstr "Fargeskjema:"
 #, kde-format
 msgctxt "@action:button"
 msgid "Scan for New Music"
-msgstr "Skann etter ny musikk"
+msgstr "Søk etter ny musikk"
 
 #: qml/SettingsForm.qml:224 qml/SettingsForm.qml:235
 #, kde-format
 msgctxt "@info"
 msgid "Started scanning for music"
-msgstr "Startet skanning etter musikk"
+msgstr "Søker gjennom musikk"
 
 #: qml/SettingsForm.qml:230
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset Database and Re-Scan Everything"
-msgstr "Tøm databasen og skann alt på nytt"
+msgstr "Tøm databasen og søk på nytt"
 
 #: qml/SettingsForm.qml:234
 #, kde-format
@@ -1540,7 +1541,7 @@ msgstr "Databasen har blitt tilbakestilt"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Embed category in sidebar:"
-msgstr "Legg inn kategori i sidefeltet:"
+msgstr "Legg inn kategori i sidestolpen:"
 
 #: qml/SettingsForm.qml:251
 #, kde-format
@@ -1554,7 +1555,7 @@ msgstr "Ingenting"
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all albums in views navigation list"
 msgid "Albums"
-msgstr "Albumer"
+msgstr "Album"
 
 #: qml/SettingsForm.qml:253
 #, kde-format
@@ -1568,7 +1569,7 @@ msgstr "Artister"
 msgctxt ""
 "@item:inlistbox Configure dialog, embed all genres in views navigation list"
 msgid "Genres"
-msgstr "Sjangere"
+msgstr "Sjangrer"
 
 #: qml/SettingsForm.qml:287
 #, kde-format
@@ -1598,7 +1599,7 @@ msgstr "Ofte spilt"
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
-msgstr "Albumer"
+msgstr "Album"
 
 #: qml/SettingsForm.qml:293 viewmanager.cpp:220
 #, kde-format
@@ -1616,7 +1617,7 @@ msgstr "Spor"
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all genres"
 msgid "Genres"
-msgstr "Sjangere"
+msgstr "Sjangrer"
 
 #: qml/SettingsForm.qml:296
 #, kde-format
@@ -1628,7 +1629,7 @@ msgstr "Filer"
 #, kde-format
 msgctxt "@item:inlistbox Title of the file radios browser view"
 msgid "Radio Stations"
-msgstr "Radiostasjoner"
+msgstr "Radiokanaler"
 
 #: qml/SettingsForm.qml:317
 #, kde-format
@@ -1750,19 +1751,19 @@ msgstr[1] "Importerte %1 spor"
 #, kde-format
 msgctxt "@info:status"
 msgid "Scanning music"
-msgstr "Skanner musikk"
+msgstr "Søker gjennom musikk"
 
 #: qml/TracksDiscHeader.qml:23
 #, kde-format
 msgctxt "@title:row disc header text when showing an album"
 msgid "Disc %1"
-msgstr "Disk %1"
+msgstr "Plate %1"
 
 #: qml/VolumeSlider.qml:32
 #, kde-format
 msgctxt "@label"
 msgid "Volume"
-msgstr "Volum"
+msgstr "Lydstyrke"
 
 #: qml/VolumeSlider.qml:53
 #, kde-format
@@ -1927,7 +1928,7 @@ msgstr "Sist spilt"
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Played Date"
-msgstr "Nyligst spilt dato"
+msgstr "Sist avspilt"
 
 #: viewslistdata.cpp:38
 #, kde-format
@@ -1987,4 +1988,4 @@ msgstr "Filer"
 #, kde-format
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
-msgstr "Radiostasjoner"
+msgstr "Radiokanaler"

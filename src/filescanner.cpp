@@ -28,6 +28,8 @@
 #include <QLocale>
 #include <QMimeDatabase>
 
+#include <utility>
+
 QStringList buildCoverFileNames(const QStringList &fileNames, const QStringList &fileExtensions)
 {
     QStringList covers {};
@@ -96,6 +98,26 @@ public:
         ,QStringLiteral("*[Aa]lbumart*")
     };
 
+#if KFFileMetaData_FOUND
+    std::pair<QMimeType, QMimeType> resolveAudioMimeTypes(const QString &filePath) const
+    {
+        const auto strictMime = KFileMetaData::MimeUtils::strictMimeType(filePath, mMimeDb);
+        if (strictMime.name().startsWith(QLatin1String("audio/"))) {
+            return {strictMime, strictMime};
+        }
+
+        // some m4a files are being picked up as a video/mp4
+        if (strictMime.name().startsWith(QLatin1String("video/"))) {
+            const auto extMime = mMimeDb.mimeTypeForFile(filePath, QMimeDatabase::MatchExtension);
+            if (extMime.name().startsWith(QLatin1String("audio/"))) {
+                return {extMime, strictMime};
+            }
+        }
+
+        return {strictMime, strictMime};
+    }
+#endif
+
     const QStringList coverFileAllImages = buildCoverFileNames({QStringLiteral("*")}, constCoverExtensions);
     const QStringList coverFileNames = buildCoverFileNames(constCoverNames, constCoverExtensions);
     const QStringList coverFileGlobs = buildCoverFileNames(constCoverGlobs, constCoverExtensions);
@@ -108,8 +130,7 @@ FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
 bool FileScanner::shouldScanFile(const QString &scanFile)
 {
 #if KFFileMetaData_FOUND
-    const auto fileMimeType = KFileMetaData::MimeUtils::strictMimeType(scanFile, d->mMimeDb);
-    return fileMimeType.name().startsWith(QLatin1String("audio/"));
+    return d->resolveAudioMimeTypes(scanFile).first.name().startsWith(QLatin1String("audio/"));
 #else
     const auto fileMimeType = d->mMimeDb.mimeTypeForFile(scanFile);
     return fileMimeType.name().startsWith(QLatin1String("audio/"));
@@ -163,10 +184,14 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
     newTrack[DataTypes::ElementTypeRole] = ElisaUtils::Track;
 
 #if KFFileMetaData_FOUND
+    if (!scanFileInfo.exists()) {
+        return newTrack;
+    }
+
     const auto &localFileName = scanFile.toLocalFile();
 
-    const auto fileMimeType = KFileMetaData::MimeUtils::strictMimeType(localFileName, d->mMimeDb);
-    const auto mimetype = fileMimeType.name();
+    const auto [primaryMime, fallbackMime] = d->resolveAudioMimeTypes(localFileName);
+    const auto mimetype = primaryMime.name();
     if (!mimetype.startsWith(QLatin1String("audio/"))) {
         return newTrack;
     }
@@ -177,7 +202,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         // when no extractors exist and we have an audio file, we fallback to filling the minimal
         // set of properties to let Elisa be able to recognise and play the file.
 
-        qCDebug(orgKdeElisaIndexer()) << "FileScanner::shouldScanFile" << scanFile << localFileName << "no extractors" << fileMimeType;
+        qCDebug(orgKdeElisaIndexer()) << "FileScanner::shouldScanFile" << scanFile << localFileName << "no extractors" << primaryMime;
 
         newTrack[DataTypes::FileModificationTime] = scanFileInfo.metadataChangeTime();
         newTrack[DataTypes::ResourceRole] = scanFile;
@@ -195,6 +220,26 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
     ex->extract(&result);
 
     d->mAllProperties = result.properties();
+
+    // If primaryMime came from extension while content matched a container type
+    // (e.g. fragmented .m4a matching video/mp4) and duration was not extracted, query
+    // fallbackMime's extractor (e.g. FFmpegExtractor) for duration.
+    if (!d->mAllProperties.contains(KFileMetaData::Property::Duration)
+        && fallbackMime.name() != mimetype) {
+        const auto fallbackExtractors = d->mAllExtractors.fetchExtractors(fallbackMime.name());
+        if (!fallbackExtractors.isEmpty()) {
+            KFileMetaData::SimpleExtractionResult fallbackResult(localFileName, fallbackMime.name(),
+                                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+            fallbackExtractors.first()->extract(&fallbackResult);
+            const auto durationValues = fallbackResult.properties().values(KFileMetaData::Property::Duration);
+            for (const auto &val : durationValues) {
+                if (val.toDouble() > 0) {
+                    d->mAllProperties.insert(KFileMetaData::Property::Duration, val);
+                    break;
+                }
+            }
+        }
+    }
 
     scanProperties(localFileName, newTrack);
 
@@ -224,37 +269,40 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile)
 void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackDataType &trackData)
 {
 #if KFFileMetaData_FOUND
-    if (d->mAllProperties.isEmpty()) {
-        return;
-    }
-    using entry = std::pair<const KFileMetaData::Property::Property&, const QVariant&>;
+    if (!d->mAllProperties.isEmpty()) {
+        using entry = std::pair<const KFileMetaData::Property::Property&, const QVariant&>;
 
-    auto rangeBegin = d->mAllProperties.constKeyValueBegin();
-    QVariant value;
-    while (rangeBegin != d->mAllProperties.constKeyValueEnd()) {
-        const auto key = (*rangeBegin).first;
+        auto rangeBegin = d->mAllProperties.constKeyValueBegin();
+        QVariant value;
+        while (rangeBegin != d->mAllProperties.constKeyValueEnd()) {
+            const auto key = (*rangeBegin).first;
 
-        const auto rangeEnd = std::find_if(rangeBegin, d->mAllProperties.constKeyValueEnd(),
-                                     [key](entry e) { return e.first != key; });
+            const auto rangeEnd = std::find_if(rangeBegin, d->mAllProperties.constKeyValueEnd(),
+                                         [key](entry e) { return e.first != key; });
 
-        const auto distance = std::distance(rangeBegin, rangeEnd);
-        if (distance > 1) {
-            QStringList list;
-            list.reserve(static_cast<int>(distance));
-            std::for_each(rangeBegin, rangeEnd, [&list](entry s) { list.append(s.second.toString()); });
-            value = QLocale().createSeparatedList(list);
-        } else {
-            value = (*rangeBegin).second;
-        }
-        if (d->propertyTranslation.contains(key)) {
-            const auto &translatedKey = d->propertyTranslation.find(key);
-            if (translatedKey.value() == DataTypes::DurationRole) {
-                trackData.insert(translatedKey.value(), QTime::fromMSecsSinceStartOfDay(int(1000 * (*rangeBegin).second.toDouble())));
-            } else if (translatedKey != d->propertyTranslation.end()) {
-                trackData.insert(translatedKey.value(), (*rangeBegin).second);
+            const auto distance = std::distance(rangeBegin, rangeEnd);
+            if (distance > 1) {
+                QStringList list;
+                list.reserve(static_cast<int>(distance));
+                std::for_each(rangeBegin, rangeEnd, [&list](entry s) { list.append(s.second.toString()); });
+                value = QLocale().createSeparatedList(list);
+            } else {
+                value = (*rangeBegin).second;
             }
+            if (d->propertyTranslation.contains(key)) {
+                const auto &translatedKey = d->propertyTranslation.find(key);
+                if (translatedKey.value() == DataTypes::DurationRole) {
+                    trackData.insert(translatedKey.value(), QTime::fromMSecsSinceStartOfDay(int(1000 * (*rangeBegin).second.toDouble())));
+                } else if (translatedKey != d->propertyTranslation.end()) {
+                    trackData.insert(translatedKey.value(), (*rangeBegin).second);
+                }
+            }
+            rangeBegin = rangeEnd;
         }
-        rangeBegin = rangeEnd;
+    }
+
+    if (!trackData.duration().isValid() || trackData.duration() <= QTime(0, 0, 0)) {
+        trackData[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(1);
     }
 
     if (!trackData.isValid()) {
@@ -344,8 +392,7 @@ QUrl FileScanner::searchForCoverFile(const QString &localFileName)
 bool FileScanner::checkEmbeddedCoverImage(const QString &localFileName)
 {
 #if KFFileMetaData_FOUND
-    const auto fileMimeType = KFileMetaData::MimeUtils::strictMimeType(localFileName, d->mMimeDb);
-    const auto mimeType = fileMimeType.name();
+    const auto mimeType = d->resolveAudioMimeTypes(localFileName).first.name();
     const auto extractors = d->mAllExtractors.fetchExtractors(mimeType);
 
     for (const auto &extractor : extractors) {

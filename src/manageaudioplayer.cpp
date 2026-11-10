@@ -13,6 +13,7 @@
 #include "playerLogging.h"
 
 #include <QDateTime>
+#include <QTime>
 #include <QTimer>
 
 ManageAudioPlayer::ManageAudioPlayer(QObject *parent)
@@ -477,6 +478,16 @@ void ManageAudioPlayer::setAudioDuration(qint64 audioDuration)
 
     mAudioDuration = audioDuration;
     Q_EMIT audioDurationChanged();
+
+    if (mPlayListModel && mCurrentTrack.isValid() && audioDuration > 0) {
+        const auto type = mCurrentTrack.data(MediaPlayList::ElementTypeRole).value<ElisaUtils::PlayListEntryType>();
+        if (type != ElisaUtils::Radio) {
+            const auto currentDuration = mCurrentTrack.data(MediaPlayList::DurationRole).toTime();
+            if (!currentDuration.isValid() || currentDuration <= QTime::fromMSecsSinceStartOfDay(1)) {
+                Q_EMIT updateData(mCurrentTrack, QTime::fromMSecsSinceStartOfDay(audioDuration), MediaPlayList::DurationRole);
+            }
+        }
+    }
 }
 
 void ManageAudioPlayer::setPlayerIsSeekable(bool playerIsSeekable)

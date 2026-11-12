@@ -209,7 +209,7 @@ Kirigami.Page {
                     Accessible.role: Accessible.List
                     Accessible.name: topItem.title
 
-                    section.property: 'albumSection'
+                    section.property: 'albumGroup'
                     section.criteria: ViewSection.FullString
 
                     model: ElisaApplication.mediaPlayListProxyModel
@@ -234,7 +234,7 @@ Kirigami.Page {
                             visible: active
                             Layout.fillWidth: true
                             sourceComponent: BasicPlayListAlbumHeader {
-                                headerData: JSON.parse(playListDelegate.ListView.section)
+                                headerData: JSON.parse(playListDelegate.model.albumSection)
                             }
                         }
 

@@ -54,7 +54,7 @@ ScrollView {
         highlightMoveVelocity: -1
         highlight: Item {}
 
-        section.property: 'albumSection'
+        section.property: 'albumGroup'
         section.criteria: ViewSection.FullString
 
         delegate: Column {
@@ -76,7 +76,7 @@ ScrollView {
                 active: entry.sectionVisible
                 visible: active
                 sourceComponent: BasicPlayListAlbumHeader {
-                    headerData: JSON.parse(playListDelegate.ListView.section)
+                    headerData: JSON.parse(playListDelegate.model.albumSection)
                     width: playListView.width
                     simpleMode: true
                 }

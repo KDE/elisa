@@ -26,12 +26,12 @@ BasePlayListDelegate {
 
     property var listDelegate
 
-    readonly property string previousAlbum: listDelegate.ListView.previousSection ? JSON.parse(listDelegate.ListView.previousSection)[0] : null
-    readonly property string currentAlbum: model.album || null
-    readonly property string nextAlbum: listDelegate.ListView.nextSection ? JSON.parse(listDelegate.ListView.nextSection)[0] : null
+    readonly property string previousAlbum: listDelegate.ListView.previousSection || null
+    readonly property string currentAlbum: listDelegate.ListView.section || null
+    readonly property string nextAlbum: listDelegate.ListView.nextSection || null
 
     readonly property bool grouped: currentAlbum && (previousAlbum === currentAlbum || nextAlbum === currentAlbum)
-    readonly property bool sectionVisible: currentAlbum && (previousAlbum !== currentAlbum && nextAlbum === currentAlbum)
+    readonly property bool sectionVisible: grouped && previousAlbum !== currentAlbum
 
     readonly property bool hasActiveFocus: playListEntry.activeFocus || entryFocusScope.activeFocus
 

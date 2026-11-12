@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-05 00:54+0000\n"
-"PO-Revision-Date: 2026-09-30 08:30+0200\n"
-"Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
+"POT-Creation-Date: 2026-11-12 00:59+0000\n"
+"PO-Revision-Date: 2026-11-11 22:59+0200\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -35,14 +35,14 @@ msgstr ""
 "aspotashev@gmail.com,vitalijrabicev@gmail.com,kekcuha@gmail.com,translation-"
 "team@basealt.ru,translation-team@basealt.ru,farline99@yandex.ru"
 
-#: databaseinterface.cpp:8097 databaseinterface.cpp:9212
-#: databaseinterface.cpp:9297
+#: databaseinterface.cpp:8097 databaseinterface.cpp:9209
+#: databaseinterface.cpp:9294
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "Различные исполнители"
 
-#: databaseinterface.cpp:8165
+#: datatypes.cpp:17
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"
@@ -1778,7 +1778,7 @@ msgstr "Громкость"
 #, kde-format
 msgctxt "Volume as a percentage"
 msgid "%1%"
-msgstr "%1%"
+msgstr "%1 %"
 
 #: viewmanager.cpp:41
 #, kde-format

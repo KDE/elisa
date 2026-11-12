@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-05 00:54+0000\n"
+"POT-Creation-Date: 2026-11-12 00:59+0000\n"
 "PO-Revision-Date: 2026-05-10 16:19+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -27,14 +27,14 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Kde-l10n-ta@kde.org"
 
-#: databaseinterface.cpp:8097 databaseinterface.cpp:9212
-#: databaseinterface.cpp:9297
+#: databaseinterface.cpp:8097 databaseinterface.cpp:9209
+#: databaseinterface.cpp:9294
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
 msgstr "பல பாடகர்கள்"
 
-#: databaseinterface.cpp:8165
+#: datatypes.cpp:17
 #, kde-format
 msgctxt "@item:intable"
 msgid "Radio Stations"

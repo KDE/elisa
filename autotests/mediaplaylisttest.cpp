@@ -14,6 +14,8 @@
 #include "config-upnp-qt.h"
 
 #include <QAbstractItemModelTester>
+#include <QJsonArray>
+#include <QJsonDocument>
 #include <QSignalSpy>
 #include <QTemporaryFile>
 #include <QTest>
@@ -2032,9 +2034,10 @@ void MediaPlayListTest::testAlbumGroupKeyFallback()
         fallbackEntry(QStringLiteral("track5"), QStringLiteral("artist1"), QString(), QStringLiteral("albumArtist1")),
         fallbackEntry(QStringLiteral("track6"), QStringLiteral("artist1"), QStringLiteral("albumY"), QStringLiteral("albumArtist1")),
         fallbackEntry(QStringLiteral("track7"), QStringLiteral("artist1"), QStringLiteral("   "), QStringLiteral("albumArtist1")),
+        fallbackEntry(QStringLiteral("track8"), QStringLiteral("artist1"), QStringLiteral("albumZ"), QString()),
     });
 
-    QCOMPARE(mPlayList->rowCount(), 7);
+    QCOMPARE(mPlayList->rowCount(), 8);
 
     const auto groupKey = [this](int row) {
         return mPlayList->data(mPlayList->index(row, 0), MediaPlayList::AlbumGroupRole).toString();
@@ -2059,6 +2062,11 @@ void MediaPlayListTest::testAlbumGroupKeyFallback()
 
     // Whitespace-only album title also means no grouping.
     QVERIFY(groupKey(6).isEmpty());
+
+    // The header falls back to the track artist when album artist is empty.
+    const auto sectionData = QJsonDocument::fromJson(mPlayList->data(mPlayList->index(7, 0), MediaPlayList::AlbumSectionRole).toByteArray()).array();
+    QCOMPARE(sectionData.at(0).toString(), QStringLiteral("albumZ"));
+    QCOMPARE(sectionData.at(1).toString(), QStringLiteral("artist1"));
 
     mPlayList->clearPlayList();
     mDatabaseContent->clearData();

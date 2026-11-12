@@ -141,11 +141,14 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             }
             break;
         }
-        case ColumnsRoles::AlbumSectionRole:
-            result = QJsonDocument{QJsonArray{d->mTrackData[index.row()][TrackDataType::key_type::AlbumRole].toString(),
-                    d->mTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole].toString(),
-                    d->mTrackData[index.row()][TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}.toJson();
+        case ColumnsRoles::AlbumSectionRole: {
+            const auto &trackData = d->mTrackData[index.row()];
+            result = QJsonDocument{QJsonArray{trackData[TrackDataType::key_type::AlbumRole].toString(),
+                                              effectiveAlbumArtist(trackData),
+                                              trackData[TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}
+                         .toJson();
             break;
+        }
         case ColumnsRoles::AlbumGroupRole: {
             const auto &trackData = d->mTrackData[index.row()];
             result = albumGroupKey(trackData.album(), effectiveAlbumArtist(trackData), trackData.albumId());

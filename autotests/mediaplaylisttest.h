@@ -82,6 +82,10 @@ private Q_SLOTS:
 
     void testHasHeaderAlbumWithSameTitle();
 
+    void testAlbumGroupKeyWithDatabaseId();
+
+    void testAlbumGroupKeyFallback();
+
     void testHasHeaderMoveFirstLikeQml();
 
     void testHasHeaderMoveAnotherLikeQml();

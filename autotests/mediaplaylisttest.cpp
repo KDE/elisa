@@ -13,12 +13,12 @@
 
 #include "config-upnp-qt.h"
 
-#include <QSignalSpy>
-#include <QTest>
-#include <QUrl>
-#include <QTime>
-#include <QTemporaryFile>
 #include <QAbstractItemModelTester>
+#include <QSignalSpy>
+#include <QTemporaryFile>
+#include <QTest>
+#include <QTime>
+#include <QUrl>
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -1947,6 +1947,140 @@ void MediaPlayListTest::testHasHeaderAlbumWithSameTitle()
     QCOMPARE(mDataChangedSpy->count(), 6);
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 6);
+}
+
+void MediaPlayListTest::testAlbumGroupKeyWithDatabaseId()
+{
+    const auto trackEntry = [this](qulonglong trackId) {
+        auto trackData = mDatabaseContent->trackDataFromDatabaseId(trackId);
+        return DataTypes::EntryData{trackData, trackData.title(), {}};
+    };
+
+    const auto album2Track1 =
+        mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
+    const auto album2Track6 =
+        mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track6"), QStringLiteral("artist1 and artist2"), QStringLiteral("album2"), 6, 1);
+    const auto album3Artist2Track1 =
+        mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist2"), QStringLiteral("album3"), 1, 1);
+    const auto album3Artist2Track2 =
+        mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track2"), QStringLiteral("artist2"), QStringLiteral("album3"), 2, 1);
+    const auto album3Artist7Track1 =
+        mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist7"), QStringLiteral("album3"), 1, 1);
+    const auto album1Track1 =
+        mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
+
+    auto album2Track1WithOtherCover = mDatabaseContent->trackDataFromDatabaseId(album2Track1);
+    album2Track1WithOtherCover[DataTypes::ImageUrlRole] = QUrl(QStringLiteral("image://cover/other"));
+
+    mPlayList->enqueueMultipleEntries({
+        trackEntry(album2Track1),
+        trackEntry(album2Track6),
+        trackEntry(album3Artist2Track1),
+        trackEntry(album3Artist2Track2),
+        trackEntry(album3Artist7Track1),
+        trackEntry(album1Track1),
+        DataTypes::EntryData{album2Track1WithOtherCover, album2Track1WithOtherCover.title(), {}},
+    });
+
+    QCOMPARE(mPlayList->rowCount(), 7);
+
+    const auto groupKey = [this](int row) {
+        return mPlayList->data(mPlayList->index(row, 0), MediaPlayList::AlbumGroupRole).toString();
+    };
+
+    QVERIFY(groupKey(0).startsWith(QStringLiteral("db:")));
+
+    // Same album ID, different track artists.
+    QCOMPARE(groupKey(0), groupKey(1));
+
+    // Same album ID for two tracks of one album.
+    QCOMPARE(groupKey(2), groupKey(3));
+
+    // Same album title, different album artist, therefore different album IDs.
+    QVERIFY(groupKey(2) != groupKey(4));
+
+    // Different albums.
+    QVERIFY(groupKey(0) != groupKey(2));
+
+    // Cover art is not part of the grouping key.
+    QCOMPARE(groupKey(0), groupKey(6));
+
+    // Different album.
+    QVERIFY(groupKey(5) != groupKey(0));
+}
+
+void MediaPlayListTest::testAlbumGroupKeyFallback()
+{
+    const auto album2Track1 =
+        mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album2"), 1, 1);
+
+    const auto fallbackEntry = [this, album2Track1](const QString &title, const QString &artist, const QString &album, const QString &albumArtist) {
+        auto trackData = mDatabaseContent->trackDataFromDatabaseId(album2Track1);
+        trackData.remove(DataTypes::AlbumIdRole);
+        trackData[DataTypes::TitleRole] = title;
+        trackData[DataTypes::ArtistRole] = artist;
+        trackData[DataTypes::AlbumRole] = album;
+        trackData[DataTypes::AlbumArtistRole] = albumArtist;
+        return DataTypes::EntryData{trackData, title, {}};
+    };
+
+    mPlayList->enqueueMultipleEntries({
+        fallbackEntry(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("albumX"), QStringLiteral("albumArtist1")),
+        fallbackEntry(QStringLiteral("track2"), QStringLiteral("artist2"), QStringLiteral("albumX"), QStringLiteral("albumArtist1")),
+        fallbackEntry(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("albumX"), QStringLiteral("albumArtist2")),
+        fallbackEntry(QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("  ALBUMX  "), QStringLiteral(" albumartist1 ")),
+        fallbackEntry(QStringLiteral("track5"), QStringLiteral("artist1"), QString(), QStringLiteral("albumArtist1")),
+        fallbackEntry(QStringLiteral("track6"), QStringLiteral("artist1"), QStringLiteral("albumY"), QStringLiteral("albumArtist1")),
+        fallbackEntry(QStringLiteral("track7"), QStringLiteral("artist1"), QStringLiteral("   "), QStringLiteral("albumArtist1")),
+    });
+
+    QCOMPARE(mPlayList->rowCount(), 7);
+
+    const auto groupKey = [this](int row) {
+        return mPlayList->data(mPlayList->index(row, 0), MediaPlayList::AlbumGroupRole).toString();
+    };
+
+    QVERIFY(groupKey(0).startsWith(QStringLiteral("tag:")));
+
+    // Same album and album artist, different track artists.
+    QCOMPARE(groupKey(0), groupKey(1));
+
+    // Different album artist.
+    QVERIFY(groupKey(0) != groupKey(2));
+
+    // Case and whitespace are normalized.
+    QCOMPARE(groupKey(0), groupKey(3));
+
+    // No album title means no grouping.
+    QVERIFY(groupKey(4).isEmpty());
+
+    // Different album.
+    QVERIFY(groupKey(0) != groupKey(5));
+
+    // Whitespace-only album title also means no grouping.
+    QVERIFY(groupKey(6).isEmpty());
+
+    mPlayList->clearPlayList();
+    mDatabaseContent->clearData();
+
+    mPlayList->enqueueRestoredEntries(QVariantList({
+        QStringList({{}, QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("albumX"), QStringLiteral("1"), QStringLiteral("1"), {}}),
+        QStringList({{}, QStringLiteral("track2"), QStringLiteral("artist1"), QStringLiteral("albumX"), QStringLiteral("2"), QStringLiteral("1"), {}}),
+        QStringList({{}, QStringLiteral("track3"), QStringLiteral("artist2"), QStringLiteral("albumX"), QStringLiteral("3"), QStringLiteral("1"), {}}),
+        QStringList({{}, QStringLiteral("track4"), QStringLiteral("artist1"), QStringLiteral("  ALBUMX  "), QStringLiteral("4"), QStringLiteral("1"), {}}),
+        QStringList({{}, QStringLiteral("track5"), QStringLiteral("artist1"), {}, QStringLiteral("5"), QStringLiteral("1"), {}}),
+        QStringList({{}, QStringLiteral("track6"), QStringLiteral("artist1"), QStringLiteral("albumY"), QStringLiteral("6"), QStringLiteral("1"), {}}),
+        QStringList({{}, QStringLiteral("track7"), QStringLiteral("artist1"), QStringLiteral("   "), QStringLiteral("7"), QStringLiteral("1"), {}}),
+    }));
+
+    QCOMPARE(mPlayList->rowCount(), 7);
+    QVERIFY(groupKey(0).startsWith(QStringLiteral("tag:")));
+    QCOMPARE(groupKey(0), groupKey(1));
+    QVERIFY(groupKey(0) != groupKey(2));
+    QCOMPARE(groupKey(0), groupKey(3));
+    QVERIFY(groupKey(4).isEmpty());
+    QVERIFY(groupKey(0) != groupKey(5));
+    QVERIFY(groupKey(6).isEmpty());
 }
 
 void MediaPlayListTest::testHasHeaderMoveFirstLikeQml()

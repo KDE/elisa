@@ -81,6 +81,7 @@ public:
         CountRole,
         IsPlayingRole,
         AlbumSectionRole,
+        AlbumGroupRole,
         MetadataModifiableRole,
     };
 

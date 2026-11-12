@@ -17,6 +17,31 @@
 
 #include <algorithm>
 
+namespace
+{
+// Identity used to group contiguous playlist rows. Use the database album ID
+// when available, otherwise fall back to normalized album and artist tags.
+QString effectiveAlbumArtist(const DataTypes::TrackDataType &trackData)
+{
+    const auto albumArtist = trackData.albumArtist();
+    return albumArtist.isEmpty() ? trackData.artist() : albumArtist;
+}
+
+QString albumGroupKey(const QString &album, const QString &albumArtist, qulonglong albumId)
+{
+    if (albumId != 0) {
+        return QStringLiteral("db:") + QString::number(albumId);
+    }
+
+    const auto normalizedAlbum = album.simplified().toCaseFolded();
+    if (normalizedAlbum.isEmpty()) {
+        return {};
+    }
+
+    return QStringLiteral("tag:") + normalizedAlbum + QChar(0x1f) + albumArtist.simplified().toCaseFolded();
+}
+}
+
 class MediaPlayListPrivate
 {
 public:
@@ -76,6 +101,7 @@ QHash<int, QByteArray> MediaPlayList::roleNames() const
     roles[static_cast<int>(ColumnsRoles::FullDataRole)] = "trackData";
     roles[static_cast<int>(ColumnsRoles::AlbumIdRole)] = "albumId";
     roles[static_cast<int>(ColumnsRoles::AlbumSectionRole)] = "albumSection";
+    roles[static_cast<int>(ColumnsRoles::AlbumGroupRole)] = "albumGroup";
     roles[static_cast<int>(ColumnsRoles::ElementTypeRole)] = "entryType";
     roles[static_cast<int>(ColumnsRoles::MetadataModifiableRole)] = "metadataModifiableRole";
 
@@ -120,6 +146,11 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
                     d->mTrackData[index.row()][TrackDataType::key_type::AlbumArtistRole].toString(),
                     d->mTrackData[index.row()][TrackDataType::key_type::ImageUrlRole].toUrl().toString()}}.toJson();
             break;
+        case ColumnsRoles::AlbumGroupRole: {
+            const auto &trackData = d->mTrackData[index.row()];
+            result = albumGroupKey(trackData.album(), effectiveAlbumArtist(trackData), trackData.albumId());
+            break;
+        }
         case ColumnsRoles::TitleRole:
         {
             const auto &trackData = d->mTrackData[index.row()];
@@ -204,6 +235,9 @@ QVariant MediaPlayList::data(const QModelIndex &index, int role) const
             result = QJsonDocument{QJsonArray{d->mData[index.row()].mAlbum.toString(),
                     d->mData[index.row()].mArtist.toString(),
                     QUrl(QStringLiteral("image://icon/error")).toString()}}.toJson();
+            break;
+        case ColumnsRoles::AlbumGroupRole:
+            result = albumGroupKey(d->mData[index.row()].mAlbum.toString(), d->mData[index.row()].mArtist.toString(), 0);
             break;
         case ColumnsRoles::ResourceRole:
             result = d->mData[index.row()].mTrackUrl;

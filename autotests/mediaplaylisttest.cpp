@@ -2477,6 +2477,30 @@ void MediaPlayListTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(mNewEntryInListSpy->count(), 4);
 }
 
+void MediaPlayListTest::moveRowsBackwardMultipleRows()
+{
+    for (int trackNumber = 1; trackNumber <= 4; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayList->enqueueOneEntry({{{DataTypes::DatabaseIdRole, trackId}, {DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, {}});
+        QVERIFY(mDataChangedSpy->wait());
+    }
+
+    QCOMPARE(mPlayList->rowCount(), 4);
+
+    mPlayList->moveRows({}, 2, 2, {}, 0);
+
+    QCOMPARE(mRowsMovedSpy->count(), 1);
+    QCOMPARE(mPlayList->rowCount(), 4);
+    QCOMPARE(mPlayList->data(mPlayList->index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track3"));
+    QCOMPARE(mPlayList->data(mPlayList->index(1, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track4"));
+    QCOMPARE(mPlayList->data(mPlayList->index(2, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
+    QCOMPARE(mPlayList->data(mPlayList->index(3, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track2"));
+}
+
 CrashEnqueuePlayList::CrashEnqueuePlayList(MediaPlayList *list, QObject *parent) : QObject(parent), mList(list)
 {
 }

@@ -340,8 +340,8 @@ bool MediaPlayList::moveRows(const QModelIndex &sourceParent, int sourceRow, int
             d->mData.move(sourceRow, destinationChild - 1);
             d->mTrackData.move(sourceRow, destinationChild - 1);
         } else {
-            d->mData.move(sourceRow, destinationChild);
-            d->mTrackData.move(sourceRow, destinationChild);
+            d->mData.move(sourceRow + cptItem, destinationChild + cptItem);
+            d->mTrackData.move(sourceRow + cptItem, destinationChild + cptItem);
         }
     }
 

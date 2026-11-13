@@ -92,6 +92,8 @@ private Q_SLOTS:
 
     void testHasHeaderYetAnotherMoveLikeQml();
 
+    void moveRowsBackwardMultipleRows();
+
     void crashOnEnqueue();
 
 private:

@@ -194,6 +194,8 @@ private Q_SLOTS:
 
     void testMoveRowsInvalidInput();
 
+    void testRemoveRows();
+
     void testAlbumBlockAt();
 
     void testRemoveCurrentTrackWithShuffle();

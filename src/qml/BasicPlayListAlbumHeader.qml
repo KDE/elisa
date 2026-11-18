@@ -9,6 +9,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Window
 import QtQuick.Layouts
+import org.kde.ki18n
 import org.kde.kirigami as Kirigami
 
 import org.kde.elisa
@@ -27,6 +28,10 @@ Rectangle {
 
     property bool showDragHandle: false
 
+    property bool showRemoveButton: false
+
+    signal removeRequested()
+
     visible: !beingDragged
 
     function dragHandleContains(x, y) {
@@ -41,6 +46,10 @@ Rectangle {
     implicitHeight: contentLayout.height + contentLayout.anchors.topMargin * 2
 
     color: simpleMode ? "transparent" : palette.window
+
+    HoverHandler {
+        id: headerHover
+    }
 
     RowLayout {
         id: contentLayout
@@ -114,6 +123,19 @@ Rectangle {
                 text: root.albumArtist
                 type: Kirigami.Heading.Type.Secondary
             }
+        }
+
+        FlatButtonWithToolTip {
+            visible: root.showRemoveButton && headerHover.hovered
+
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            Layout.preferredWidth: Theme.listDelegateButtonHeight
+            Layout.preferredHeight: Theme.listDelegateButtonHeight
+
+            text: KI18n.i18nc("@action:button Remove album from play list", "Remove Album")
+            icon.name: "edit-delete-remove"
+
+            onClicked: root.removeRequested()
         }
     }
 }

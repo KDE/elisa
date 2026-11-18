@@ -231,6 +231,8 @@ public Q_SLOTS:
 
     void removeRow(int row);
 
+    void removeRows(int row, int count);
+
     void moveRow(int from, int to);
 
     void moveRows(int from, int count, int to);

@@ -5671,6 +5671,45 @@ void MediaPlayListProxyModelTest::testMoveRowsInvalidInput()
     }
 }
 
+void MediaPlayListProxyModelTest::testRemoveRows()
+{
+    for (int trackNumber = 1; trackNumber <= 5; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}}}, {}, {});
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+
+    mPlayListProxyModel->removeRows(0, 2);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 3);
+    for (int trackNumber = 3; trackNumber <= 5; ++trackNumber) {
+        QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(trackNumber - 3, 0), MediaPlayList::TitleRole).toString(),
+                 QStringLiteral("track%1").arg(trackNumber));
+    }
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+    if (mPlayListProxyModel->mapRowToSource(0) == 0) {
+        mPlayListProxyModel->moveRow(0, 1);
+    }
+    QVERIFY(mPlayListProxyModel->mapRowToSource(0) != 0);
+
+    const auto remainingTitle = mPlayListProxyModel->data(mPlayListProxyModel->index(2, 0), MediaPlayList::TitleRole).toString();
+    mPlayListProxyModel->removeRows(0, 2);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 1);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::TitleRole).toString(), remainingTitle);
+
+    mPlayListProxyModel->removeRows(-1, 1);
+    mPlayListProxyModel->removeRows(0, 0);
+    mPlayListProxyModel->removeRows(0, 2);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 1);
+}
+
 void MediaPlayListProxyModelTest::testAlbumBlockAt()
 {
     const auto groupAt = [this](int row) {

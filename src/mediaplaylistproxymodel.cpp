@@ -866,6 +866,17 @@ void MediaPlayListProxyModel::removeRow(int row)
     d->mPlayListModel->removeRows(mapRowToSource(row), 1);
 }
 
+void MediaPlayListProxyModel::removeRows(int row, int count)
+{
+    if (count <= 0 || row < 0 || row + count > rowCount()) {
+        return;
+    }
+
+    for (auto currentRow = row + count - 1; currentRow >= row; --currentRow) {
+        removeRow(currentRow);
+    }
+}
+
 void MediaPlayListProxyModel::moveRow(int from, int to)
 {
     moveRows(from, 1, to);

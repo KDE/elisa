@@ -241,6 +241,14 @@ Kirigami.Page {
                                 headerData: playListDelegate.albumHeaderData
                                 beingDragged: playListDelegate.model.index === albumDrag.dragRow
                                 showDragHandle: ElisaApplication.mediaPlayListProxyModel.shuffleMode !== MediaPlayListProxyModel.Track
+                                showRemoveButton: true
+
+                                onRemoveRequested: {
+                                    const block = ElisaApplication.mediaPlayListProxyModel.albumBlockAt(playListDelegate.model.index)
+                                    if (block.isValid) {
+                                        ElisaApplication.mediaPlayListProxyModel.removeRows(block.firstRow, block.count)
+                                    }
+                                }
                             }
                         }
 

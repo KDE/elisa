@@ -175,6 +175,11 @@ if (KF6KIO_FOUND)
     )
 endif()
 
+ecm_add_test(gridviewproxymodeltest.cpp
+    TEST_NAME "gridViewProxyModelTest"
+    LINK_LIBRARIES Qt::Test elisaLib
+)
+
 ecm_add_test(lyricsmodeltest.cpp
     TEST_NAME "lyricsModelTest"
     LINK_LIBRARIES Qt::Test elisaLib

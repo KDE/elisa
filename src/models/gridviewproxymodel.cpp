@@ -10,6 +10,8 @@
 #include "datatypes.h"
 #include "elisautils.h"
 
+#include <array>
+
 
 GridViewProxyModel::GridViewProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
@@ -77,8 +79,6 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
 
 bool GridViewProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const
 {
-    bool isLessThan;
-
     QAbstractItemModel *srcModel = sourceModel();
     int sr = sortRole();
     QVariant leftData = srcModel->data(source_left, sr);
@@ -88,19 +88,20 @@ bool GridViewProxyModel::lessThan(const QModelIndex &source_left, const QModelIn
     if (leftData.typeId() != rightData.typeId() || leftData != rightData)
         return QSortFilterProxyModel::lessThan(source_left, source_right);
 
-    // Primary sort keys are equal: use album ID as secondary sort key
-    int leftAlbumId = srcModel->data(source_left, DataTypes::AlbumIdRole).toInt();
-    int rightAlbumId = srcModel->data(source_right, DataTypes::AlbumIdRole).toInt();
-    if (leftAlbumId != rightAlbumId) {
-        isLessThan = (leftAlbumId < rightAlbumId);
-    } else {
-        // Secondary keys are equal: use track number as tertiary sort key
-        int leftTrackNumber = srcModel->data(source_left, DataTypes::TrackNumberRole).toInt();
-        int rightTrackNumber = srcModel->data(source_right, DataTypes::TrackNumberRole).toInt();
-        isLessThan = (leftTrackNumber < rightTrackNumber);
+    // Primary sort keys are equal: order by album, then disc number, then track number
+    static constexpr std::array tieBreakRoles{DataTypes::AlbumIdRole, DataTypes::DiscNumberRole, DataTypes::TrackNumberRole};
+    for (const auto role : tieBreakRoles) {
+        const int leftValue = srcModel->data(source_left, role).toInt();
+        const int rightValue = srcModel->data(source_right, role).toInt();
+        if (leftValue != rightValue) {
+            // The proxy swaps the operands when sorting in descending order: invert the
+            // comparison so that tracks of a same album stay in their natural order
+            return (sortOrder() == Qt::AscendingOrder) ? (leftValue < rightValue) : (leftValue > rightValue);
+        }
     }
 
-    return (sortOrder() == Qt::AscendingOrder) ? isLessThan : !isLessThan;
+    // Every key is equal: neither item is less than the other
+    return false;
 }
 
 int GridViewProxyModel::tracksCount() const

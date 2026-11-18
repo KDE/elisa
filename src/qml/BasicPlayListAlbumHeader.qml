@@ -23,6 +23,21 @@ Rectangle {
 
     property bool simpleMode: false
 
+    property bool beingDragged: false
+
+    property bool showDragHandle: false
+
+    visible: !beingDragged
+
+    function dragHandleContains(x, y) {
+        if (!dragHandleIcon.visible || x < 0 || x > width || y < 0 || y > height) {
+            return false
+        }
+
+        const point = dragHandleIcon.mapFromItem(root, x, y)
+        return point.x >= 0 && point.x <= dragHandleIcon.width
+    }
+
     implicitHeight: contentLayout.height + contentLayout.anchors.topMargin * 2
 
     color: simpleMode ? "transparent" : palette.window
@@ -41,9 +56,27 @@ Rectangle {
 
         // keep section's elements aligned with playlistEntry's ones
         Item {
-            visible: !root.simpleMode
+            visible: !root.simpleMode && !root.showDragHandle
             Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
             Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+        }
+
+        Kirigami.Icon {
+            id: dragHandleIcon
+
+            visible: root.showDragHandle && !root.simpleMode
+
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
+            Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
+
+            source: "handle-sort"
+
+            HoverHandler {
+                id: dragHandleHover
+            }
+
+            opacity: dragHandleHover.hovered ? 1 : 0.6
         }
 
         Kirigami.Icon {

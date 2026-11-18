@@ -219,6 +219,9 @@ Kirigami.Page {
 
                         required property var model
 
+                        readonly property var albumHeaderData: playListDelegate.model.albumSection ? JSON.parse(playListDelegate.model.albumSection) : ['', '', '']
+                        readonly property var albumHeader: albumSection.item
+
                         width: playListView.width
                         spacing: 0
 
@@ -230,11 +233,14 @@ Kirigami.Page {
 
                         Loader {
                             id: albumSection
+			    // must remain visible to prevent the layout collapsing during a drag
                             active: entry.sectionVisible
                             visible: active
                             Layout.fillWidth: true
                             sourceComponent: BasicPlayListAlbumHeader {
-                                headerData: JSON.parse(playListDelegate.model.albumSection)
+                                headerData: playListDelegate.albumHeaderData
+                                beingDragged: playListDelegate.model.index === albumDrag.dragRow
+                                showDragHandle: ElisaApplication.mediaPlayListProxyModel.shuffleMode !== MediaPlayListProxyModel.Track
                             }
                         }
 
@@ -304,6 +310,12 @@ Kirigami.Page {
                             text: KI18n.i18nc("@info:placeholder", "Playlist is empty")
                             explanation: KI18n.i18nc("@info:usagetip", "Add some songs to get started. You can browse your music using the views on the left.")
                         }
+                    }
+
+                    AlbumDragArea {
+                        id: albumDrag
+
+                        listView: playListView
                     }
 
                     /* currently disabled animations due to display corruption

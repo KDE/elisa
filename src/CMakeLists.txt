@@ -319,6 +319,7 @@ qt_add_qml_module(elisaLib
         qml/AbstractBrowserDelegate.qml
         qml/AbstractDataView.qml
         qml/AccessibleSlider.qml
+        qml/AlbumDragArea.qml
         qml/ApplicationMenu.qml
         qml/Theme.qml
         qml/BasicPlayListAlbumHeader.qml

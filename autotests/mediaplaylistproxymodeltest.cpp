@@ -5479,6 +5479,198 @@ void MediaPlayListProxyModelTest::testMoveCurrentTrack()
     QCOMPARE(mPlayListProxyModel->nextTrack().isValid(), false);
 }
 
+void MediaPlayListProxyModelTest::testMoveRowsUpdatesNextTrack()
+{
+    for (int trackNumber = 1; trackNumber <= 5; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}}}, {}, {});
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+
+    QCOMPARE(mPlayListProxyModel->currentTrack().row(), 0);
+    QCOMPARE(mPlayListProxyModel->nextTrack().row(), 1);
+    QCOMPARE(mPlayListProxyModel->nextTrack().data(MediaPlayList::TitleRole).toString(), QStringLiteral("track2"));
+
+    QSignalSpy currentTrackRowChangedSpy(mPlayListProxyModel, &MediaPlayListProxyModel::currentTrackRowChanged);
+    const auto nextTrackChangedCount = mNextTrackChangedSpy->count();
+    const auto previousTrackChangedCount = mPreviousTrackChangedSpy->count();
+
+    // moving a block that follows the current track replaces its next track
+    mPlayListProxyModel->moveRows(1, 2, 3);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack().row(), 0);
+    QCOMPARE(mPlayListProxyModel->nextTrack().row(), 1);
+    QCOMPARE(mPlayListProxyModel->nextTrack().data(MediaPlayList::TitleRole).toString(), QStringLiteral("track4"));
+    QCOMPARE(currentTrackRowChangedSpy.count(), 0);
+    QCOMPARE(mNextTrackChangedSpy->count(), nextTrackChangedCount + 1);
+    QCOMPARE(mPreviousTrackChangedSpy->count(), previousTrackChangedCount);
+}
+
+void MediaPlayListProxyModelTest::testMoveRows()
+{
+    for (int trackNumber = 1; trackNumber <= 4; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}}}, {}, {});
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 4);
+
+    mPlayListProxyModel->moveRows(0, 2, 2);
+
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
+    QCOMPARE(mRowsMovedSpy->count(), 1);
+    QCOMPARE(mRowsAboutToBeMovedSpy->at(0).at(1).toInt(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->at(0).at(2).toInt(), 1);
+    QCOMPARE(mRowsAboutToBeMovedSpy->at(0).at(4).toInt(), 4);
+    QCOMPARE(mPersistentStateChangedSpy->count(), 5);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 4);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track3"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(1, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track4"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(2, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(3, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track2"));
+
+    mPlayListProxyModel->moveRows(2, 2, 0);
+
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 2);
+    QCOMPARE(mRowsMovedSpy->count(), 2);
+    QCOMPARE(mRowsAboutToBeMovedSpy->at(1).at(1).toInt(), 2);
+    QCOMPARE(mRowsAboutToBeMovedSpy->at(1).at(2).toInt(), 3);
+    QCOMPARE(mRowsAboutToBeMovedSpy->at(1).at(4).toInt(), 0);
+    QCOMPARE(mPersistentStateChangedSpy->count(), 6);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 4);
+    for (int trackNumber = 1; trackNumber <= 4; ++trackNumber) {
+        QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(trackNumber - 1, 0), MediaPlayList::TitleRole).toString(),
+                 QStringLiteral("track%1").arg(trackNumber));
+    }
+}
+
+void MediaPlayListProxyModelTest::testMoveRowsAndShuffle()
+{
+    for (int trackNumber = 1; trackNumber <= 4; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}}}, {}, {});
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+
+    QList<int> initialMapping;
+    for (int row = 0; row < mPlayListProxyModel->rowCount(); ++row) {
+        initialMapping.append(mPlayListProxyModel->mapRowToSource(row));
+    }
+
+    mPlayListProxyModel->moveRows(0, 2, 2);
+
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
+    QCOMPARE(mRowsMovedSpy->count(), 1);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 4);
+    QCOMPARE(mPlayListProxyModel->mapRowToSource(0), initialMapping.at(2));
+    QCOMPARE(mPlayListProxyModel->mapRowToSource(1), initialMapping.at(3));
+    QCOMPARE(mPlayListProxyModel->mapRowToSource(2), initialMapping.at(0));
+    QCOMPARE(mPlayListProxyModel->mapRowToSource(3), initialMapping.at(1));
+
+    // the source model order is untouched while shuffling
+    for (int trackNumber = 1; trackNumber <= 4; ++trackNumber) {
+        QCOMPARE(mPlayList->data(mPlayList->index(trackNumber - 1, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track%1").arg(trackNumber));
+    }
+
+    mPlayListProxyModel->moveRows(2, 2, 0);
+
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 2);
+    QCOMPARE(mRowsMovedSpy->count(), 2);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 4);
+    for (int row = 0; row < mPlayListProxyModel->rowCount(); ++row) {
+        QCOMPARE(mPlayListProxyModel->mapRowToSource(row), initialMapping.at(row));
+    }
+}
+
+void MediaPlayListProxyModelTest::testMoveRowsCurrentTrack()
+{
+    for (int trackNumber = 1; trackNumber <= 4; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}}}, {}, {});
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+
+    mPlayListProxyModel->switchTo(0);
+
+    QSignalSpy currentTrackRowChangedSpy(mPlayListProxyModel, &MediaPlayListProxyModel::currentTrackRowChanged);
+
+    // Move the block containing the current track
+    mPlayListProxyModel->moveRows(0, 2, 2);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack().row(), 2);
+    QCOMPARE(mPlayListProxyModel->previousTrack().row(), 1);
+    QCOMPARE(mPlayListProxyModel->nextTrack().row(), 3);
+    QCOMPARE(currentTrackRowChangedSpy.count(), 1);
+
+    // Move it back
+    mPlayListProxyModel->moveRows(2, 2, 0);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack().row(), 0);
+    QCOMPARE(currentTrackRowChangedSpy.count(), 2);
+
+    // Move a block across the current track
+    mPlayListProxyModel->switchTo(3);
+    mPlayListProxyModel->moveRows(0, 2, 2);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack().row(), 1);
+    QCOMPARE(currentTrackRowChangedSpy.count(), 4);
+
+    // Move a block that does not affect the current track
+    mPlayListProxyModel->switchTo(0);
+    mPlayListProxyModel->moveRows(2, 2, 1);
+
+    QCOMPARE(mPlayListProxyModel->currentTrack().row(), 0);
+    QCOMPARE(currentTrackRowChangedSpy.count(), 5);
+}
+
+void MediaPlayListProxyModelTest::testMoveRowsInvalidInput()
+{
+    for (int trackNumber = 1; trackNumber <= 3; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}}}, {}, {});
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+
+    mPlayListProxyModel->moveRows(0, 0, 1);
+    mPlayListProxyModel->moveRows(0, -1, 1);
+    mPlayListProxyModel->moveRows(1, 1, 1);
+    mPlayListProxyModel->moveRows(-1, 1, 0);
+    mPlayListProxyModel->moveRows(0, 1, -1);
+    mPlayListProxyModel->moveRows(2, 2, 0);
+    mPlayListProxyModel->moveRows(0, 2, 2);
+
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 0);
+    QCOMPARE(mRowsMovedSpy->count(), 0);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 3);
+    for (int trackNumber = 1; trackNumber <= 3; ++trackNumber) {
+        QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(trackNumber - 1, 0), MediaPlayList::TitleRole).toString(),
+                 QStringLiteral("track%1").arg(trackNumber));
+    }
+}
+
 void MediaPlayListProxyModelTest::testRemoveCurrentTrackWithShuffle()
 {
     for (int trackNumber = 1; trackNumber <= 3; ++trackNumber) {

@@ -210,6 +210,10 @@ public Q_SLOTS:
 
     void moveRow(int from, int to);
 
+    void moveRows(int from, int count, int to);
+
+    void moveRowsBefore(int from, int count, int insertBefore);
+
     void clearPlayList();
 
     void undoClearPlayList();

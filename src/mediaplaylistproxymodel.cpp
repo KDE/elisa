@@ -868,19 +868,48 @@ void MediaPlayListProxyModel::removeRow(int row)
 
 void MediaPlayListProxyModel::moveRow(int from, int to)
 {
-    const bool currentTrackIndexChanged = from < to ? (from <= d->mCurrentTrack.row() && d->mCurrentTrack.row() <= to)
-                                                    : (to <= d->mCurrentTrack.row() && d->mCurrentTrack.row() <= from);
+    moveRows(from, 1, to);
+}
+
+void MediaPlayListProxyModel::moveRows(int from, int count, int to)
+{
+    if (count <= 0 || from < 0 || to < 0 || from == to || from + count > rowCount() || to + count > rowCount()) {
+        return;
+    }
+
+    const auto firstAffectedRow = std::min(from, to);
+    const auto lastAffectedRow = std::max(from, to) + count - 1;
+    const bool currentTrackIndexChanged = firstAffectedRow <= d->mCurrentTrack.row() && d->mCurrentTrack.row() <= lastAffectedRow;
 
     if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
-        beginMoveRows({}, from, from, {}, from < to ? to + 1 : to);
-        d->mRandomMapping.move(from, to);
+        beginMoveRows({}, from, from + count - 1, {}, from < to ? to + count : to);
+        const auto movedRows = d->mRandomMapping.mid(from, count);
+        d->mRandomMapping.remove(from, count);
+        for (auto i = 0; i < count; ++i) {
+            d->mRandomMapping.insert(to + i, movedRows.at(i));
+        }
         endMoveRows();
     } else {
-        d->mPlayListModel->moveRows({}, from, 1, {}, from < to ? to + 1 : to);
+        d->mPlayListModel->moveRows({}, from, count, {}, from < to ? to + count : to);
     }
 
     if (currentTrackIndexChanged) {
         notifyCurrentTrackRowChanged();
+    } else if (d->mCurrentTrack.isValid()) {
+        determineAndNotifyPreviousAndNextTracks();
+    }
+}
+
+void MediaPlayListProxyModel::moveRowsBefore(int from, int count, int insertBefore)
+{
+    if (count <= 0 || from < 0 || insertBefore < 0 || insertBefore > rowCount()) {
+        return;
+    }
+
+    if (insertBefore < from) {
+        moveRows(from, count, insertBefore);
+    } else if (insertBefore > from + count) {
+        moveRows(from, count, insertBefore - count);
     }
 }
 

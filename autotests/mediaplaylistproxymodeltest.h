@@ -184,6 +184,16 @@ private Q_SLOTS:
 
     void testMoveCurrentTrack();
 
+    void testMoveRows();
+
+    void testMoveRowsAndShuffle();
+
+    void testMoveRowsCurrentTrack();
+
+    void testMoveRowsUpdatesNextTrack();
+
+    void testMoveRowsInvalidInput();
+
     void testRemoveCurrentTrackWithShuffle();
 
     void testRemainingDurationWithShuffle();

@@ -5671,6 +5671,109 @@ void MediaPlayListProxyModelTest::testMoveRowsInvalidInput()
     }
 }
 
+void MediaPlayListProxyModelTest::testAlbumBlockAt()
+{
+    const auto groupAt = [this](int row) {
+        return mPlayListProxyModel->data(mPlayListProxyModel->index(row, 0), MediaPlayList::AlbumGroupRole).toString();
+    };
+    const auto checkBlocks = [this, groupAt]() {
+        const auto rowCount = mPlayListProxyModel->rowCount();
+        for (int row = 0; row < rowCount; ++row) {
+            const auto block = mPlayListProxyModel->albumBlockAt(row);
+            QVERIFY(block.isValid);
+
+            const auto firstRow = block.firstRow;
+            const auto count = block.count;
+            QVERIFY(firstRow >= 0);
+            QVERIFY(count > 0);
+            QVERIFY(firstRow <= row);
+            QVERIFY(row < firstRow + count);
+
+            const auto group = groupAt(row);
+            if (group.isEmpty()) {
+                QCOMPARE(firstRow, row);
+                QCOMPARE(count, 1);
+                continue;
+            }
+            for (int blockRow = firstRow; blockRow < firstRow + count; ++blockRow) {
+                QCOMPARE(groupAt(blockRow), group);
+            }
+            if (firstRow > 0) {
+                QVERIFY(groupAt(firstRow - 1) != group);
+            }
+            if (firstRow + count < rowCount) {
+                QVERIFY(groupAt(firstRow + count) != group);
+            }
+        }
+    };
+
+    for (int trackNumber = 1; trackNumber <= 2; ++trackNumber) {
+        auto trackId = mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track%1").arg(trackNumber),
+                                                                              QStringLiteral("artist1"),
+                                                                              QStringLiteral("album2"),
+                                                                              trackNumber,
+                                                                              1);
+        mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}}}, {}, {});
+        QCOMPARE(mDataChangedSpy->wait(), true);
+    }
+    auto album1TrackId =
+        mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, album1TrackId}}, {}, {}}}, {}, {});
+    QCOMPARE(mDataChangedSpy->wait(), true);
+    auto album2TrackId =
+        mDatabaseContent->trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track3"), QStringLiteral("artist1"), QStringLiteral("album2"), 3, 1);
+    mPlayListProxyModel->enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, album2TrackId}}, {}, {}}}, {}, {});
+    QCOMPARE(mDataChangedSpy->wait(), true);
+
+    QCOMPARE(mPlayListProxyModel->rowCount(), 4);
+
+    const auto compareBlock = [this](int row, int firstRow, int count) {
+        const auto block = mPlayListProxyModel->albumBlockAt(row);
+        QVERIFY(block.isValid);
+        QCOMPARE(block.firstRow, firstRow);
+        QCOMPARE(block.count, count);
+    };
+    const auto verifyInvalidBlock = [this](int row) {
+        QVERIFY(!mPlayListProxyModel->albumBlockAt(row).isValid);
+    };
+
+    compareBlock(0, 0, 2);
+    compareBlock(1, 0, 2);
+    compareBlock(2, 2, 1);
+    compareBlock(3, 3, 1);
+    verifyInvalidBlock(-1);
+    verifyInvalidBlock(4);
+
+    checkBlocks();
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
+    checkBlocks();
+    verifyInvalidBlock(4);
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Album);
+    checkBlocks();
+    const auto firstBlock = mPlayListProxyModel->albumBlockAt(0);
+    const auto secondBlock = mPlayListProxyModel->albumBlockAt(firstBlock.firstRow + firstBlock.count);
+    QCOMPARE(firstBlock.count + secondBlock.count, 4);
+    QCOMPARE(std::min(firstBlock.count, secondBlock.count), 1);
+    QCOMPARE(std::max(firstBlock.count, secondBlock.count), 3);
+
+    mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::NoShuffle);
+
+    const QList<DataTypes::EntryData> radioEntries = {
+        {{{DataTypes::ResourceRole, QUrl(QStringLiteral("http://airspectrum.example.com:8114/1648_128"))}}, {}, {}},
+        {{{DataTypes::ResourceRole, QUrl(QStringLiteral("https://example.com:7000"))}}, {}, {}},
+    };
+
+    mPlayListProxyModel->enqueue(radioEntries, {}, {});
+    QTRY_COMPARE(mPlayListProxyModel->rowCount(), 6);
+
+    compareBlock(4, 4, 1);
+    compareBlock(5, 5, 1);
+
+    checkBlocks();
+}
+
 void MediaPlayListProxyModelTest::testRemoveCurrentTrackWithShuffle()
 {
     for (int trackNumber = 1; trackNumber <= 3; ++trackNumber) {

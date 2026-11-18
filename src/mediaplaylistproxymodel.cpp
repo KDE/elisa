@@ -913,6 +913,36 @@ void MediaPlayListProxyModel::moveRowsBefore(int from, int count, int insertBefo
     }
 }
 
+AlbumBlock MediaPlayListProxyModel::albumBlockAt(int row) const
+{
+    if (!d->mPlayListModel || row < 0 || row >= rowCount()) {
+        return {};
+    }
+
+    const auto groupAt = [this](int proxyRow) {
+        return d->mPlayListModel->data(d->mPlayListModel->index(mapRowToSource(proxyRow), 0), MediaPlayList::AlbumGroupRole).toString();
+    };
+
+    const auto group = groupAt(row);
+
+    if (group.isEmpty()) {
+        return AlbumBlock(row, 1);
+    }
+
+    auto firstRow = row;
+    while (firstRow > 0 && groupAt(firstRow - 1) == group) {
+        --firstRow;
+    }
+
+    auto lastRow = row;
+    const auto lastPossibleRow = rowCount() - 1;
+    while (lastRow < lastPossibleRow && groupAt(lastRow + 1) == group) {
+        ++lastRow;
+    }
+
+    return AlbumBlock(firstRow, lastRow - firstRow + 1);
+}
+
 void MediaPlayListProxyModel::notifyCurrentTrackRowChanged()
 {
     if (d->mCurrentTrack.isValid()) {

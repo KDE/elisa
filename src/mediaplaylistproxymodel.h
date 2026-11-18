@@ -25,6 +25,29 @@
 class MediaPlayList;
 class MediaPlayListProxyModelPrivate;
 
+struct AlbumBlock {
+    Q_GADGET
+    QML_VALUE_TYPE(albumBlock)
+
+    Q_PROPERTY(int firstRow MEMBER firstRow)
+    Q_PROPERTY(int count MEMBER count)
+    Q_PROPERTY(bool isValid MEMBER isValid)
+
+public:
+    AlbumBlock() = default;
+
+    AlbumBlock(int firstRow, int count)
+        : firstRow(firstRow)
+        , count(count)
+        , isValid(true)
+    {
+    }
+
+    int firstRow = -1;
+    int count = 0;
+    bool isValid = false;
+};
+
 class ELISALIB_EXPORT MediaPlayListProxyModel : public QAbstractProxyModel
 {
 
@@ -213,6 +236,8 @@ public Q_SLOTS:
     void moveRows(int from, int count, int to);
 
     void moveRowsBefore(int from, int count, int insertBefore);
+
+    [[nodiscard]] AlbumBlock albumBlockAt(int row) const;
 
     void clearPlayList();
 

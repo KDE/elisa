@@ -98,7 +98,7 @@ AudioWrapper::AudioWrapper(QObject *parent)
     : QObject(parent)
     , d(std::make_unique<AudioWrapperPrivate>())
 {
-    connect(&d->mPlayer, &DragonPlayer::stateChanged, this, [this](DragonPlayer::PlaybackState, DragonPlayer::PlaybackState) {
+    connect(&d->mPlayer, &DragonPlayer::playbackStateChanged, this, [this](DragonPlayer::PlaybackState, DragonPlayer::PlaybackState) {
         queueStatusChanged();
     });
     connect(&d->mPlayer, &DragonPlayer::statusChanged, this, [this](DragonPlayer::MediaStatus) {
@@ -135,7 +135,7 @@ AudioWrapper::~AudioWrapper()
 
 bool AudioWrapper::muted() const
 {
-    return d->mPlayer.audioOutput()->muted();
+    return d->mPlayer.audioOutput()->isMuted();
 }
 
 qreal AudioWrapper::volume() const
@@ -185,7 +185,7 @@ qint64 AudioWrapper::position() const
 
 bool AudioWrapper::seekable() const
 {
-    return d->mPlayer.seekable();
+    return d->mPlayer.isSeekable();
 }
 
 void AudioWrapper::setMuted(bool muted)

@@ -10,8 +10,6 @@
 #include "datatypes.h"
 #include "elisautils.h"
 
-#include <array>
-
 
 GridViewProxyModel::GridViewProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
 {
@@ -89,15 +87,28 @@ bool GridViewProxyModel::lessThan(const QModelIndex &source_left, const QModelIn
         return QSortFilterProxyModel::lessThan(source_left, source_right);
 
     // Primary sort keys are equal: order by album, then disc number, then track number
-    static constexpr std::array tieBreakRoles{DataTypes::AlbumIdRole, DataTypes::DiscNumberRole, DataTypes::TrackNumberRole};
-    for (const auto role : tieBreakRoles) {
-        const int leftValue = srcModel->data(source_left, role).toInt();
-        const int rightValue = srcModel->data(source_right, role).toInt();
-        if (leftValue != rightValue) {
-            // The proxy swaps the operands when sorting in descending order: invert the
-            // comparison so that tracks of a same album stay in their natural order
-            return (sortOrder() == Qt::AscendingOrder) ? (leftValue < rightValue) : (leftValue > rightValue);
-        }
+    const auto isLessThan = [this](bool lessThanResult) {
+        // The proxy swaps the operands when sorting in descending order: invert the
+        // comparison so that tracks of a same album stay in their natural order
+        return (sortOrder() == Qt::AscendingOrder) ? lessThanResult : !lessThanResult;
+    };
+
+    const auto leftAlbumId = srcModel->data(source_left, DataTypes::AlbumIdRole).toULongLong();
+    const auto rightAlbumId = srcModel->data(source_right, DataTypes::AlbumIdRole).toULongLong();
+    if (leftAlbumId != rightAlbumId) {
+        return isLessThan(leftAlbumId < rightAlbumId);
+    }
+
+    const auto leftDiscNumber = srcModel->data(source_left, DataTypes::DiscNumberRole).toInt();
+    const auto rightDiscNumber = srcModel->data(source_right, DataTypes::DiscNumberRole).toInt();
+    if (leftDiscNumber != rightDiscNumber) {
+        return isLessThan(leftDiscNumber < rightDiscNumber);
+    }
+
+    const auto leftTrackNumber = srcModel->data(source_left, DataTypes::TrackNumberRole).toInt();
+    const auto rightTrackNumber = srcModel->data(source_right, DataTypes::TrackNumberRole).toInt();
+    if (leftTrackNumber != rightTrackNumber) {
+        return isLessThan(leftTrackNumber < rightTrackNumber);
     }
 
     // Every key is equal: neither item is less than the other

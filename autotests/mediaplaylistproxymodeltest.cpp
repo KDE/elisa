@@ -4245,7 +4245,7 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirst()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 4);
 
-    mPlayListProxyModel->moveRow(0, 3);
+    mPlayListProxyModel->moveRowTo(0, 3);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
@@ -4373,7 +4373,7 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnother()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 4);
 
-    mPlayListProxyModel->moveRow(3, 0);
+    mPlayListProxyModel->moveRowTo(3, 0);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
@@ -4678,7 +4678,7 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveFirstLikeQml()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 4);
 
-    mPlayListProxyModel->moveRow(0, 3);
+    mPlayListProxyModel->moveRowTo(0, 3);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
@@ -4806,7 +4806,7 @@ void MediaPlayListProxyModelTest::testHasHeaderMoveAnotherLikeQml()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 4);
 
-    mPlayListProxyModel->moveRow(3, 0);
+    mPlayListProxyModel->moveRowTo(3, 0);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
@@ -4934,7 +4934,7 @@ void MediaPlayListProxyModelTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 4);
 
-    mPlayListProxyModel->moveRow(0, 2);
+    mPlayListProxyModel->moveRowTo(0, 2);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
@@ -4947,7 +4947,7 @@ void MediaPlayListProxyModelTest::testHasHeaderYetAnotherMoveLikeQml()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 4);
 
-    mPlayListProxyModel->moveRow(2, 0);
+    mPlayListProxyModel->moveRowTo(2, 0);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 2);
@@ -5371,7 +5371,7 @@ void MediaPlayListProxyModelTest::testMoveAndShuffle()
     QCOMPARE(mNewTrackByNameInListSpy->count(), 0);
     QCOMPARE(mNewEntryInListSpy->count(), 3);
 
-    mPlayListProxyModel->moveRow(2, 0);
+    mPlayListProxyModel->moveRowTo(2, 0);
 
     QCOMPARE(mRowsAboutToBeRemovedSpy->count(), 0);
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
@@ -5416,7 +5416,7 @@ void MediaPlayListProxyModelTest::testMoveCurrentTrack()
     QCOMPARE(mPlayListProxyModel->nextTrack().row(), 2);
 
     // Move current track
-    mPlayListProxyModel->moveRow(1, 2);
+    mPlayListProxyModel->moveRowTo(1, 2);
 
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
     QCOMPARE(mRowsMovedSpy->count(), 1);
@@ -5425,7 +5425,7 @@ void MediaPlayListProxyModelTest::testMoveCurrentTrack()
     QCOMPARE(mPlayListProxyModel->nextTrack().row(), 3);
 
     // Move previous track to after current track
-    mPlayListProxyModel->moveRow(1, 3);
+    mPlayListProxyModel->moveRowTo(1, 3);
 
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 2);
     QCOMPARE(mRowsMovedSpy->count(), 2);
@@ -5434,7 +5434,7 @@ void MediaPlayListProxyModelTest::testMoveCurrentTrack()
     QCOMPARE(mPlayListProxyModel->nextTrack().row(), 2);
 
     // Move next track to before current track
-    mPlayListProxyModel->moveRow(2, 0);
+    mPlayListProxyModel->moveRowTo(2, 0);
 
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 3);
     QCOMPARE(mRowsMovedSpy->count(), 3);
@@ -5443,7 +5443,7 @@ void MediaPlayListProxyModelTest::testMoveCurrentTrack()
     QCOMPARE(mPlayListProxyModel->nextTrack().row(), 3);
 
     // Move into position of current track (from below)
-    mPlayListProxyModel->moveRow(0, 2);
+    mPlayListProxyModel->moveRowTo(0, 2);
 
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 4);
     QCOMPARE(mRowsMovedSpy->count(), 4);
@@ -5452,7 +5452,7 @@ void MediaPlayListProxyModelTest::testMoveCurrentTrack()
     QCOMPARE(mPlayListProxyModel->nextTrack().row(), 2);
 
     // Move into position of current track (from above)
-    mPlayListProxyModel->moveRow(3, 1);
+    mPlayListProxyModel->moveRowTo(3, 1);
 
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 5);
     QCOMPARE(mRowsMovedSpy->count(), 5);
@@ -5461,7 +5461,7 @@ void MediaPlayListProxyModelTest::testMoveCurrentTrack()
     QCOMPARE(mPlayListProxyModel->nextTrack().row(), 3);
 
     // Move current track to start
-    mPlayListProxyModel->moveRow(2, 0);
+    mPlayListProxyModel->moveRowTo(2, 0);
 
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 6);
     QCOMPARE(mRowsMovedSpy->count(), 6);
@@ -5470,7 +5470,7 @@ void MediaPlayListProxyModelTest::testMoveCurrentTrack()
     QCOMPARE(mPlayListProxyModel->nextTrack().row(), 1);
 
     // Move current track to end
-    mPlayListProxyModel->moveRow(0, 3);
+    mPlayListProxyModel->moveRowTo(0, 3);
 
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 7);
     QCOMPARE(mRowsMovedSpy->count(), 7);
@@ -5500,7 +5500,7 @@ void MediaPlayListProxyModelTest::testMoveRowsUpdatesNextTrack()
     const auto previousTrackChangedCount = mPreviousTrackChangedSpy->count();
 
     // moving a block that follows the current track replaces its next track
-    mPlayListProxyModel->moveRows(1, 2, 3);
+    mPlayListProxyModel->moveRows(1, 2, 5);
 
     QCOMPARE(mPlayListProxyModel->currentTrack().row(), 0);
     QCOMPARE(mPlayListProxyModel->nextTrack().row(), 1);
@@ -5524,7 +5524,7 @@ void MediaPlayListProxyModelTest::testMoveRows()
 
     QCOMPARE(mPlayListProxyModel->rowCount(), 4);
 
-    mPlayListProxyModel->moveRows(0, 2, 2);
+    mPlayListProxyModel->moveRows(0, 2, 4);
 
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
     QCOMPARE(mRowsMovedSpy->count(), 1);
@@ -5551,6 +5551,21 @@ void MediaPlayListProxyModelTest::testMoveRows()
         QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(trackNumber - 1, 0), MediaPlayList::TitleRole).toString(),
                  QStringLiteral("track%1").arg(trackNumber));
     }
+
+    // moving a block to the end of the list, destinationChild == rowCount
+    mPlayListProxyModel->moveRows(0, 2, 4);
+
+    QCOMPARE(mRowsAboutToBeMovedSpy->count(), 3);
+    QCOMPARE(mRowsMovedSpy->count(), 3);
+    QCOMPARE(mRowsAboutToBeMovedSpy->at(2).at(1).toInt(), 0);
+    QCOMPARE(mRowsAboutToBeMovedSpy->at(2).at(2).toInt(), 1);
+    QCOMPARE(mRowsAboutToBeMovedSpy->at(2).at(4).toInt(), 4);
+    QCOMPARE(mPersistentStateChangedSpy->count(), 7);
+    QCOMPARE(mPlayListProxyModel->rowCount(), 4);
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track3"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(1, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track4"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(2, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track1"));
+    QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(3, 0), MediaPlayList::TitleRole).toString(), QStringLiteral("track2"));
 }
 
 void MediaPlayListProxyModelTest::testMoveRowsAndShuffle()
@@ -5572,7 +5587,7 @@ void MediaPlayListProxyModelTest::testMoveRowsAndShuffle()
         initialMapping.append(mPlayListProxyModel->mapRowToSource(row));
     }
 
-    mPlayListProxyModel->moveRows(0, 2, 2);
+    mPlayListProxyModel->moveRows(0, 2, 4);
 
     QCOMPARE(mRowsAboutToBeMovedSpy->count(), 1);
     QCOMPARE(mRowsMovedSpy->count(), 1);
@@ -5614,7 +5629,7 @@ void MediaPlayListProxyModelTest::testMoveRowsCurrentTrack()
     QSignalSpy currentTrackRowChangedSpy(mPlayListProxyModel, &MediaPlayListProxyModel::currentTrackRowChanged);
 
     // Move the block containing the current track
-    mPlayListProxyModel->moveRows(0, 2, 2);
+    mPlayListProxyModel->moveRows(0, 2, 4);
 
     QCOMPARE(mPlayListProxyModel->currentTrack().row(), 2);
     QCOMPARE(mPlayListProxyModel->previousTrack().row(), 1);
@@ -5629,7 +5644,7 @@ void MediaPlayListProxyModelTest::testMoveRowsCurrentTrack()
 
     // Move a block across the current track
     mPlayListProxyModel->switchTo(3);
-    mPlayListProxyModel->moveRows(0, 2, 2);
+    mPlayListProxyModel->moveRows(0, 2, 4);
 
     QCOMPARE(mPlayListProxyModel->currentTrack().row(), 1);
     QCOMPARE(currentTrackRowChangedSpy.count(), 4);
@@ -5659,6 +5674,8 @@ void MediaPlayListProxyModelTest::testMoveRowsInvalidInput()
     mPlayListProxyModel->moveRows(1, 1, 1);
     mPlayListProxyModel->moveRows(-1, 1, 0);
     mPlayListProxyModel->moveRows(0, 1, -1);
+    mPlayListProxyModel->moveRows(0, 1, 4);
+    mPlayListProxyModel->moveRows(1, 2, 2);
     mPlayListProxyModel->moveRows(2, 2, 0);
     mPlayListProxyModel->moveRows(0, 2, 2);
 
@@ -5693,7 +5710,7 @@ void MediaPlayListProxyModelTest::testRemoveRows()
 
     mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
     if (mPlayListProxyModel->mapRowToSource(0) == 0) {
-        mPlayListProxyModel->moveRow(0, 1);
+        mPlayListProxyModel->moveRowTo(0, 1);
     }
     QVERIFY(mPlayListProxyModel->mapRowToSource(0) != 0);
 
@@ -5856,7 +5873,7 @@ void MediaPlayListProxyModelTest::testRemainingDurationWithShuffle()
 
     mPlayListProxyModel->setShuffleMode(MediaPlayListProxyModel::Shuffle::Track);
     // make sure the shuffled order differs from the order of the source model
-    mPlayListProxyModel->moveRow(2, 0);
+    mPlayListProxyModel->moveRowTo(2, 0);
     QVERIFY(mPlayListProxyModel->mapRowToSource(0) != 0);
 
     mPlayListProxyModel->switchTo(1);

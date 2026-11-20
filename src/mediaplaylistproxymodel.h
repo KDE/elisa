@@ -163,6 +163,10 @@ public:
 
     [[nodiscard]] bool hasChildren(const QModelIndex &parent) const override;
 
+    bool removeRows(int row, int count, const QModelIndex &parent) override;
+
+    bool moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild) override;
+
     void setPlayListModel(MediaPlayList* playListModel);
 
     [[nodiscard]] QPersistentModelIndex previousTrack() const;
@@ -233,11 +237,9 @@ public Q_SLOTS:
 
     void removeRows(int row, int count);
 
-    void moveRow(int from, int to);
+    void moveRowTo(int from, int to);
 
-    void moveRows(int from, int count, int to);
-
-    void moveRowsBefore(int from, int count, int insertBefore);
+    void moveRows(int from, int count, int destinationChild);
 
     [[nodiscard]] AlbumBlock albumBlockAt(int row) const;
 

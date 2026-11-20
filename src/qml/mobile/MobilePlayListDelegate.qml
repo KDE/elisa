@@ -78,7 +78,7 @@ BasePlayListDelegate {
                 listItem: playListEntry
                 listView: playListEntry.listView
                 onMoveRequested: (oldIndex, newIndex) => {
-                    ElisaApplication.mediaPlayListProxyModel.moveRow(oldIndex, newIndex);
+                    ElisaApplication.mediaPlayListProxyModel.moveRowTo(oldIndex, newIndex);
                 }
             }
 

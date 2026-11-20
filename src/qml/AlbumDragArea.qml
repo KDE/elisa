@@ -106,7 +106,7 @@ Item {
             return
         }
 
-        ElisaApplication.mediaPlayListProxyModel.moveRowsBefore(dragRow, blockCount, insertBeforeRow)
+        ElisaApplication.mediaPlayListProxyModel.moveRows(dragRow, blockCount, insertBeforeRow)
         reset()
     }
 

@@ -866,42 +866,67 @@ void MediaPlayListProxyModel::removeRow(int row)
     d->mPlayListModel->removeRows(mapRowToSource(row), 1);
 }
 
-void MediaPlayListProxyModel::removeRows(int row, int count)
+bool MediaPlayListProxyModel::removeRows(int row, int count, const QModelIndex &parent)
 {
+    if (parent != QModelIndex()) {
+        return false;
+    }
+
     if (count <= 0 || row < 0 || row + count > rowCount()) {
-        return;
+        return false;
     }
 
     for (auto currentRow = row + count - 1; currentRow >= row; --currentRow) {
         removeRow(currentRow);
     }
+
+    return true;
 }
 
-void MediaPlayListProxyModel::moveRow(int from, int to)
+void MediaPlayListProxyModel::removeRows(int row, int count)
 {
-    moveRows(from, 1, to);
+    removeRows(row, count, QModelIndex());
 }
 
-void MediaPlayListProxyModel::moveRows(int from, int count, int to)
+void MediaPlayListProxyModel::moveRowTo(int from, int to)
 {
-    if (count <= 0 || from < 0 || to < 0 || from == to || from + count > rowCount() || to + count > rowCount()) {
-        return;
+    moveRows(from, 1, from < to ? to + 1 : to);
+}
+
+void MediaPlayListProxyModel::moveRows(int from, int count, int destinationChild)
+{
+    moveRows(QModelIndex(), from, count, QModelIndex(), destinationChild);
+}
+
+bool MediaPlayListProxyModel::moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild)
+{
+    if (sourceParent != QModelIndex() || destinationParent != QModelIndex()) {
+        return false;
     }
 
-    const auto firstAffectedRow = std::min(from, to);
-    const auto lastAffectedRow = std::max(from, to) + count - 1;
+    if (count <= 0 || sourceRow < 0 || sourceRow + count > rowCount() || destinationChild < 0 || destinationChild > rowCount()) {
+        return false;
+    }
+
+    if (destinationChild >= sourceRow && destinationChild <= sourceRow + count) {
+        return false;
+    }
+
+    const auto targetRow = destinationChild > sourceRow ? destinationChild - count : destinationChild;
+    const auto firstAffectedRow = std::min(sourceRow, targetRow);
+    const auto lastAffectedRow = std::max(sourceRow, targetRow) + count - 1;
     const bool currentTrackIndexChanged = firstAffectedRow <= d->mCurrentTrack.row() && d->mCurrentTrack.row() <= lastAffectedRow;
 
     if (d->mShuffleMode != MediaPlayListProxyModel::Shuffle::NoShuffle) {
-        beginMoveRows({}, from, from + count - 1, {}, from < to ? to + count : to);
-        const auto movedRows = d->mRandomMapping.mid(from, count);
-        d->mRandomMapping.remove(from, count);
+        beginMoveRows(sourceParent, sourceRow, sourceRow + count - 1, destinationParent, destinationChild);
+        const auto movedRows = d->mRandomMapping.mid(sourceRow, count);
+        d->mRandomMapping.remove(sourceRow, count);
         for (auto i = 0; i < count; ++i) {
-            d->mRandomMapping.insert(to + i, movedRows.at(i));
+            d->mRandomMapping.insert(targetRow + i, movedRows.at(i));
         }
         endMoveRows();
     } else {
-        d->mPlayListModel->moveRows({}, from, count, {}, from < to ? to + count : to);
+        d->mPlayListModel->moveRows({}, sourceRow, count, {}, destinationChild);
     }
 
     if (currentTrackIndexChanged) {
@@ -909,19 +934,8 @@ void MediaPlayListProxyModel::moveRows(int from, int count, int to)
     } else if (d->mCurrentTrack.isValid()) {
         determineAndNotifyPreviousAndNextTracks();
     }
-}
 
-void MediaPlayListProxyModel::moveRowsBefore(int from, int count, int insertBefore)
-{
-    if (count <= 0 || from < 0 || insertBefore < 0 || insertBefore > rowCount()) {
-        return;
-    }
-
-    if (insertBefore < from) {
-        moveRows(from, count, insertBefore);
-    } else if (insertBefore > from + count) {
-        moveRows(from, count, insertBefore - count);
-    }
+    return true;
 }
 
 AlbumBlock MediaPlayListProxyModel::albumBlockAt(int row) const

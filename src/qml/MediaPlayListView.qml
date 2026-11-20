@@ -36,6 +36,96 @@ Kirigami.Page {
     Accessible.role: Accessible.Pane
     Accessible.name: topItem.title
 
+    component PlayListDelegate: ColumnLayout {
+        id: playListDelegate
+
+        required property var model
+        required property ListView playList
+        required property AlbumDragArea albumDragArea
+
+        readonly property var albumHeaderData: playListDelegate.model.albumSection ? JSON.parse(playListDelegate.model.albumSection) : ['', '', '']
+        readonly property var albumHeader: albumSection.item
+
+        width: playListDelegate.playList.width
+        spacing: 0
+
+        onFocusChanged: {
+            if (focus) {
+                entry.forceActiveFocus()
+            }
+        }
+
+        Loader {
+            id: albumSection
+            // must remain visible to prevent the layout collapsing during a drag
+            active: entry.sectionVisible
+            visible: active
+            Layout.fillWidth: true
+            sourceComponent: BasicPlayListAlbumHeader {
+                headerData: playListDelegate.albumHeaderData
+                beingDragged: playListDelegate.model.index === playListDelegate.albumDragArea.dragRow
+                showDragHandle: ElisaApplication.mediaPlayListProxyModel.shuffleMode !== MediaPlayListProxyModel.Track
+                showRemoveButton: true
+
+                onRemoveRequested: {
+                    const block = ElisaApplication.mediaPlayListProxyModel.albumBlockAt(playListDelegate.model.index)
+                    if (block.isValid) {
+                        ElisaApplication.mediaPlayListProxyModel.removeRows(block.firstRow, block.count)
+                    }
+                }
+            }
+        }
+
+        // entry's placeholder
+        // otherwise the layout is broken while dragging
+        FocusScope {
+            implicitWidth: entry.width
+            // the height must be set because entry's parent
+            // will be changed while dragging
+            implicitHeight: entry.height
+
+            // because this is a FocusScope, clicking on any button inside PlayListEntry
+            // will change this activeFocus
+            onActiveFocusChanged: {
+                if (activeFocus) {
+                    playListDelegate.playList.currentIndex = playListDelegate.model.index
+                    entry.forceActiveFocus()
+                }
+            }
+
+            // ListItemDragHandle requires listItem
+            // to be a child of delegate
+            PlayListEntry {
+                id: entry
+
+                width: playListDelegate.playList.width
+
+                index: playListDelegate.model.index
+                isSelected: playListDelegate.playList.currentIndex === index
+
+                databaseId: playListDelegate.model.databaseId ? playListDelegate.model.databaseId : 0
+                entryType: playListDelegate.model.entryType ? playListDelegate.model.entryType : ElisaUtils.Unknown
+                title: playListDelegate.model.title ? playListDelegate.model.title : ''
+                artist: playListDelegate.model.artist ? playListDelegate.model.artist : ''
+                album: playListDelegate.model.album ? playListDelegate.model.album : ''
+                albumArtist: playListDelegate.model.albumArtist ? playListDelegate.model.albumArtist : ''
+                duration: playListDelegate.model.duration ? playListDelegate.model.duration : ''
+                fileName: playListDelegate.model.trackResource ? playListDelegate.model.trackResource : ''
+                imageUrl: playListDelegate.model.imageUrl ? playListDelegate.model.imageUrl : ''
+                trackNumber: playListDelegate.model.trackNumber ? playListDelegate.model.trackNumber : -1
+                discNumber: playListDelegate.model.discNumber ? playListDelegate.model.discNumber : -1
+                rating: playListDelegate.model.rating ? playListDelegate.model.rating : 0
+                isSingleDiscAlbum: playListDelegate.model.isSingleDiscAlbum !== undefined ? playListDelegate.model.isSingleDiscAlbum : true
+                isValid: playListDelegate.model.isValid
+                isPlaying: playListDelegate.model.isPlaying
+                metadataModifiableRole: playListDelegate.model.metadataModifiableRole ? playListDelegate.model.metadataModifiableRole : false
+                listView: playListDelegate.playList
+                listDelegate: playListDelegate
+                showDragHandle: playListDelegate.playList.count > 1
+            }
+        }
+    }
+
     // Header with title and actions
     globalToolBarStyle: Kirigami.ApplicationHeaderStyle.None
     header: ToolBar {
@@ -214,92 +304,9 @@ Kirigami.Page {
 
                     model: ElisaApplication.mediaPlayListProxyModel
 
-                    delegate: ColumnLayout {
-                        id: playListDelegate
-
-                        required property var model
-
-                        readonly property var albumHeaderData: playListDelegate.model.albumSection ? JSON.parse(playListDelegate.model.albumSection) : ['', '', '']
-                        readonly property var albumHeader: albumSection.item
-
-                        width: playListView.width
-                        spacing: 0
-
-                        onFocusChanged: {
-                            if (focus) {
-                                entry.forceActiveFocus()
-                            }
-                        }
-
-                        Loader {
-                            id: albumSection
-			    // must remain visible to prevent the layout collapsing during a drag
-                            active: entry.sectionVisible
-                            visible: active
-                            Layout.fillWidth: true
-                            sourceComponent: BasicPlayListAlbumHeader {
-                                headerData: playListDelegate.albumHeaderData
-                                beingDragged: playListDelegate.model.index === albumDrag.dragRow
-                                showDragHandle: ElisaApplication.mediaPlayListProxyModel.shuffleMode !== MediaPlayListProxyModel.Track
-                                showRemoveButton: true
-
-                                onRemoveRequested: {
-                                    const block = ElisaApplication.mediaPlayListProxyModel.albumBlockAt(playListDelegate.model.index)
-                                    if (block.isValid) {
-                                        ElisaApplication.mediaPlayListProxyModel.removeRows(block.firstRow, block.count)
-                                    }
-                                }
-                            }
-                        }
-
-                        // entry's placeholder
-                        // otherwise the layout is broken while dragging
-                        FocusScope {
-                            implicitWidth: entry.width
-                            // the height must be set because entry's parent
-                            // will be changed while dragging
-                            implicitHeight: entry.height
-
-                            // because this is a FocusScope, clicking on any button inside PlayListEntry
-                            // will change this activeFocus
-                            onActiveFocusChanged: {
-                                if (activeFocus) {
-                                    playListView.currentIndex = playListDelegate.model.index
-                                    entry.forceActiveFocus()
-                                }
-                            }
-
-                            // ListItemDragHandle requires listItem
-                            // to be a child of delegate
-                            PlayListEntry {
-                                id: entry
-
-                                width: playListView.width
-
-                                index: playListDelegate.model.index
-                                isSelected: playListView.currentIndex === index
-
-                                databaseId: playListDelegate.model.databaseId ? playListDelegate.model.databaseId : 0
-                                entryType: playListDelegate.model.entryType ? playListDelegate.model.entryType : ElisaUtils.Unknown
-                                title: playListDelegate.model.title ? playListDelegate.model.title : ''
-                                artist: playListDelegate.model.artist ? playListDelegate.model.artist : ''
-                                album: playListDelegate.model.album ? playListDelegate.model.album : ''
-                                albumArtist: playListDelegate.model.albumArtist ? playListDelegate.model.albumArtist : ''
-                                duration: playListDelegate.model.duration ? playListDelegate.model.duration : ''
-                                fileName: playListDelegate.model.trackResource ? playListDelegate.model.trackResource : ''
-                                imageUrl: playListDelegate.model.imageUrl ? playListDelegate.model.imageUrl : ''
-                                trackNumber: playListDelegate.model.trackNumber ? playListDelegate.model.trackNumber : -1
-                                discNumber: playListDelegate.model.discNumber ? playListDelegate.model.discNumber : -1
-                                rating: playListDelegate.model.rating ? playListDelegate.model.rating : 0
-                                isSingleDiscAlbum: playListDelegate.model.isSingleDiscAlbum !== undefined ? playListDelegate.model.isSingleDiscAlbum : true
-                                isValid: playListDelegate.model.isValid
-                                isPlaying: playListDelegate.model.isPlaying
-                                metadataModifiableRole: playListDelegate.model.metadataModifiableRole ? playListDelegate.model.metadataModifiableRole : false
-                                listView: playListView
-                                listDelegate: playListDelegate
-                                showDragHandle: playListView.count > 1
-                            }
-                        }
+                    delegate: PlayListDelegate {
+                        playList: playListView
+                        albumDragArea: albumDrag
                     }
 
                     onCountChanged: if (count === 0) {

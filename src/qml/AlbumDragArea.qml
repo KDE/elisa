@@ -24,6 +24,10 @@ Item {
 
     anchors.fill: parent
 
+    function playListDelegateAt(row: int): MediaPlayListView.PlayListDelegate {
+        return listView.itemAtIndex(row)
+    }
+
     function startAlbumDrag(row, headerData, cursorX, cursorY) {
         if (dragRow >= 0) {
             return false
@@ -144,10 +148,8 @@ Item {
                 return -1
             }
 
-            const rowItem = root.listView.itemAtIndex(row)
-            // The delegate is an inline component, so itemAtIndex() is typed
-            // as returning Item and the custom members are invisible to qmllint.
-            const headerItem = rowItem ? rowItem.albumHeader : null // qmllint disable missing-property
+            const rowItem = root.playListDelegateAt(row)
+            const headerItem = rowItem?.albumHeader ?? null
             if (!headerItem) {
                 return -1
             }
@@ -167,7 +169,8 @@ Item {
                 return
             }
 
-            root.startAlbumDrag(row, root.listView.itemAtIndex(row).albumHeaderData, mouse.x, mouse.y) // qmllint disable missing-property
+            const rowItem = root.playListDelegateAt(row)
+            root.startAlbumDrag(row, rowItem.albumHeaderData, mouse.x, mouse.y)
         }
 
         onPositionChanged: (mouse) => {

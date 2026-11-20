@@ -19,6 +19,7 @@ set(elisaLib_SOURCES
     manageaudioplayer.cpp
     trackslistener.cpp
     elisaapplication.cpp
+    elisafiledialog.cpp
     modeldataloader.cpp
     elisautils.cpp
     kiofusehelper.cpp

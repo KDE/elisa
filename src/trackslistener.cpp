@@ -175,6 +175,7 @@ void TracksListener::trackByFileNameInList(ElisaUtils::PlayListEntryType type, c
         }
 
         auto newTrack = d->mFileScanner.scanOneFile(fileName);
+        qCDebug(orgKdeElisaPlayList()) << "TracksListener::trackByFileNameInList" << type << fileName << "valid:" << newTrack.isValid();
         if (newTrack.isValid()) {
             Q_EMIT trackHasChanged(newTrack);
         }

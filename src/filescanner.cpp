@@ -152,12 +152,14 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         }
 
         const QUrl localUrl = KioFuseHelper::mostLocalUrl(scanFile);
+        qCDebug(orgKdeElisaIndexer()) << "FileScanner::scanOneFile" << scanFile << "localUrl:" << localUrl << "isLocalFile:" << localUrl.isLocalFile() << "exists:" << (localUrl.isLocalFile() ? QFileInfo::exists(localUrl.toLocalFile()) : false);
         if (localUrl.isLocalFile()) {
             if (!QFileInfo::exists(localUrl.toLocalFile())) {
                 return newTrack;
             }
             auto trackData = scanOneFile(localUrl, QFileInfo(localUrl.toLocalFile()));
             trackData[DataTypes::ResourceRole] = scanFile;
+            qCDebug(orgKdeElisaIndexer()) << "FileScanner::scanOneFile kio-fuse result" << scanFile << "valid:" << trackData.isValid();
             return trackData;
         }
 
@@ -245,8 +247,10 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "using KFileMetaData" << newTrack;
 #else
-    Q_UNUSED(scanFile)
-    Q_UNUSED(scanFileInfo)
+    if (scanFileInfo.exists() && d->mMimeDb.mimeTypeForFile(scanFileInfo.filePath()).name().startsWith(QLatin1String("audio/"))) {
+        newTrack[DataTypes::TitleRole] = scanFile.fileName();
+        newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(1);
+    }
 
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "no metadata provider" << newTrack;
 #endif

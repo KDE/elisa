@@ -296,7 +296,7 @@ Kirigami.ApplicationWindow {
         fromQAction: ElisaActions.togglePartyModeQAction
     }
 
-    Dialogs.FileDialog {
+    ElisaFileDialog {
         id: fileDialog
 
         // Keep these in sync with MIME types listed in org.kde.elisa.desktop.cmake
@@ -306,7 +306,7 @@ Kirigami.ApplicationWindow {
         function savePlaylist() {
             nameFilters = [ KI18n.i18nc("@option file type (mime type) for m3u, m3u8 playlist file formats; do not translate *.m3u*", "m3u8, m3u Playlist File (*.m3u*)"), KI18n.i18nc("@option file type (mime type) for pls playlist file formats; do not translate *.pls", "pls Playlist File (*.pls)")]
             defaultSuffix = 'm3u8'
-            fileMode = FileDialog.SaveFile
+            fileMode = ElisaFileDialog.SaveFile
             open()
         }
         function loadPlaylistOrMusicFile() {
@@ -315,20 +315,23 @@ Kirigami.ApplicationWindow {
                 KI18n.i18nc("@option Allow opening playlist files. %1 is an untranslated list of file extensions", "Playlist files (%1) (%1)", playlistFormats),
                 KI18n.i18nc("@option Allow opening music files. %1 is an untranslated list of file extensions", "Music files (%1) (%1)", musicFormats)
             ]
-            fileMode = FileDialog.OpenFile
+            fileMode = ElisaFileDialog.OpenFiles
             open()
         }
 
+        transientParent: mainWindow
         currentFolder: StandardPaths.writableLocation(StandardPaths.MusicLocation)
 
         onAccepted: {
-            if (fileMode === FileDialog.SaveFile) {
+            if (fileMode === ElisaFileDialog.SaveFile) {
                 if (!ElisaApplication.mediaPlayListProxyModel.savePlayList(selectedFile)) {
                     mainWindow.showPassiveNotification(KI18n.i18nc("@label", "Saving failed"), 7000, KI18n.i18nc("@action:button", "Retry"), () => savePlaylistButton.clicked())
                 }
             } else {
-                let selectedFileExtension = selectedFile.toString().split('.').pop()
-                if (playlistFormats.includes(selectedFileExtension)) {
+                const selectedFileStr = selectedFile.toString()
+                const dotIndex = selectedFileStr.lastIndexOf('.')
+                const selectedFileExtension = dotIndex !== -1 ? selectedFileStr.slice(dotIndex + 1) : ""
+                if (selectedFiles.length === 1 && selectedFileExtension.length > 0 && playlistFormats.includes(selectedFileExtension)) {
                     ElisaApplication.mediaPlayListProxyModel.loadPlayList(selectedFile)
                 } else {
                     ElisaApplication.openFiles(selectedFiles)

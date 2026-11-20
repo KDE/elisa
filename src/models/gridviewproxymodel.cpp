@@ -93,20 +93,20 @@ bool GridViewProxyModel::lessThan(const QModelIndex &source_left, const QModelIn
         return (sortOrder() == Qt::AscendingOrder) ? lessThanResult : !lessThanResult;
     };
 
-    const auto leftAlbumId = srcModel->data(source_left, DataTypes::AlbumIdRole).toULongLong();
-    const auto rightAlbumId = srcModel->data(source_right, DataTypes::AlbumIdRole).toULongLong();
+    const auto leftAlbumId = srcModel->data(source_left, DataTypes::AlbumIdRole).toLongLong();
+    const auto rightAlbumId = srcModel->data(source_right, DataTypes::AlbumIdRole).toLongLong();
     if (leftAlbumId != rightAlbumId) {
         return isLessThan(leftAlbumId < rightAlbumId);
     }
 
-    const auto leftDiscNumber = srcModel->data(source_left, DataTypes::DiscNumberRole).toInt();
-    const auto rightDiscNumber = srcModel->data(source_right, DataTypes::DiscNumberRole).toInt();
+    const auto leftDiscNumber = srcModel->data(source_left, DataTypes::DiscNumberRole).toLongLong();
+    const auto rightDiscNumber = srcModel->data(source_right, DataTypes::DiscNumberRole).toLongLong();
     if (leftDiscNumber != rightDiscNumber) {
         return isLessThan(leftDiscNumber < rightDiscNumber);
     }
 
-    const auto leftTrackNumber = srcModel->data(source_left, DataTypes::TrackNumberRole).toInt();
-    const auto rightTrackNumber = srcModel->data(source_right, DataTypes::TrackNumberRole).toInt();
+    const auto leftTrackNumber = srcModel->data(source_left, DataTypes::TrackNumberRole).toLongLong();
+    const auto rightTrackNumber = srcModel->data(source_right, DataTypes::TrackNumberRole).toLongLong();
     if (leftTrackNumber != rightTrackNumber) {
         return isLessThan(leftTrackNumber < rightTrackNumber);
     }

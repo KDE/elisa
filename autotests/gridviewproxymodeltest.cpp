@@ -22,7 +22,7 @@ class GridViewProxyModelTest : public QObject
 private:
     struct Entry {
         QString artist;
-        int albumId;
+        qlonglong albumId;
         int discNumber;
         int trackNumber;
     };
@@ -42,7 +42,7 @@ private:
         for (int row = 0; row < mProxyModel->rowCount(); ++row) {
             const auto index = mProxyModel->index(row, 0);
             result.push_back({index.data(Qt::DisplayRole).toString(),
-                              index.data(DataTypes::AlbumIdRole).toInt(),
+                              index.data(DataTypes::AlbumIdRole).toLongLong(),
                               index.data(DataTypes::DiscNumberRole).toInt(),
                               index.data(DataTypes::TrackNumberRole).toInt()});
         }

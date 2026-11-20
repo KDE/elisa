@@ -1309,6 +1309,7 @@ void MediaPlayListProxyModel::loadLocalFile(DataTypes::EntryDataList &newTracks,
         }
         loadLocalDirectory(newTracks, processedFiles, fileUrl);
     } else {
+        mimeType = ElisaUtils::resolveAudioMimeType(mimeType, fileInfo.filePath(), d->mMimeDb);
         if (!mimeType.name().startsWith(QLatin1String("audio/"))) {
             return;
         }

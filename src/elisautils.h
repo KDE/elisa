@@ -18,7 +18,10 @@
 
 #include <optional>
 
+class QMimeDatabase;
+
 namespace ElisaUtils {
+
 
 Q_NAMESPACE_EXPORT(ELISALIB_EXPORT)
 
@@ -87,6 +90,8 @@ std::optional<PlaylistFormat> ELISALIB_EXPORT playlistFormatForType(const QMimeT
 bool ELISALIB_EXPORT isPlayList(const QMimeType &mimeType);
 
 bool ELISALIB_EXPORT isStreamUrl(const QUrl &url);
+
+QMimeType ELISALIB_EXPORT resolveAudioMimeType(const QMimeType &detectedMime, const QString &filePath, const QMimeDatabase &mimeDb);
 }
 
 #endif // ELISAUTILS_H

@@ -102,19 +102,7 @@ public:
     std::pair<QMimeType, QMimeType> resolveAudioMimeTypes(const QString &filePath) const
     {
         const auto strictMime = KFileMetaData::MimeUtils::strictMimeType(filePath, mMimeDb);
-        if (strictMime.name().startsWith(QLatin1String("audio/"))) {
-            return {strictMime, strictMime};
-        }
-
-        // some m4a files are being picked up as a video/mp4
-        if (strictMime.name().startsWith(QLatin1String("video/"))) {
-            const auto extMime = mMimeDb.mimeTypeForFile(filePath, QMimeDatabase::MatchExtension);
-            if (extMime.name().startsWith(QLatin1String("audio/"))) {
-                return {extMime, strictMime};
-            }
-        }
-
-        return {strictMime, strictMime};
+        return {ElisaUtils::resolveAudioMimeType(strictMime, filePath, mMimeDb), strictMime};
     }
 #endif
 
@@ -132,7 +120,7 @@ bool FileScanner::shouldScanFile(const QString &scanFile)
 #if KFFileMetaData_FOUND
     return d->resolveAudioMimeTypes(scanFile).first.name().startsWith(QLatin1String("audio/"));
 #else
-    const auto fileMimeType = d->mMimeDb.mimeTypeForFile(scanFile);
+    const auto fileMimeType = ElisaUtils::resolveAudioMimeType(d->mMimeDb.mimeTypeForFile(scanFile), scanFile, d->mMimeDb);
     return fileMimeType.name().startsWith(QLatin1String("audio/"));
 #endif
 }
@@ -245,7 +233,10 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
     qCDebug(orgKdeElisaIndexer()) << "scanOneFile" << scanFile << "using KFileMetaData" << newTrack;
 #else
-    if (scanFileInfo.exists() && d->mMimeDb.mimeTypeForFile(scanFileInfo.filePath()).name().startsWith(QLatin1String("audio/"))) {
+    if (scanFileInfo.exists()
+        && ElisaUtils::resolveAudioMimeType(d->mMimeDb.mimeTypeForFile(scanFileInfo.filePath()), scanFileInfo.filePath(), d->mMimeDb)
+               .name()
+               .startsWith(QLatin1String("audio/"))) {
         newTrack[DataTypes::TitleRole] = scanFile.fileName();
         newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(1);
     }

@@ -6,6 +6,7 @@
 
 #include "elisautils.h"
 
+#include <QMimeDatabase>
 #include <QMimeType>
 
 namespace ElisaUtils
@@ -31,6 +32,18 @@ bool isPlayList(const QMimeType& mimeType)
 bool isStreamUrl(const QUrl &url)
 {
     return url.scheme() == QLatin1String("http") || url.scheme() == QLatin1String("https");
+}
+
+QMimeType resolveAudioMimeType(const QMimeType &detectedMime, const QString &filePath, const QMimeDatabase &mimeDb)
+{
+    // some m4a files are being picked up as a video/mp4
+    if (detectedMime.name().startsWith(QLatin1String("video/"))) {
+        const auto extMime = mimeDb.mimeTypeForFile(filePath, QMimeDatabase::MatchExtension);
+        if (extMime.name().startsWith(QLatin1String("audio/"))) {
+            return extMime;
+        }
+    }
+    return detectedMime;
 }
 
 }

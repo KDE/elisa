@@ -92,6 +92,9 @@ void FileBrowserProxyModel::listRecursiveNewEntries(KIO::Job *job, const KIO::UD
         }
 
         auto mimeType = mMimeDatabase.mimeTypeForUrl(fullPathUrl);
+        if (mCurentUrl.isLocalFile()) {
+            mimeType = ElisaUtils::resolveAudioMimeType(mimeType, fullPath, mMimeDatabase);
+        }
 
         if (!mimeType.name().startsWith(QLatin1String("audio/")) || ElisaUtils::isPlayList(mimeType)) {
             continue;

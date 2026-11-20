@@ -255,11 +255,8 @@ bool ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workin
     for (const auto &file : files) {
         const QUrl localUrl = KioFuseHelper::mostLocalUrl(file);
         QMimeType mime = mimeDB.mimeTypeForUrl(localUrl);
-        if (mime.name().startsWith(QStringLiteral("video/")) && localUrl.isLocalFile()) {
-            const QMimeType extMime = mimeDB.mimeTypeForFile(localUrl.toLocalFile(), QMimeDatabase::MatchExtension);
-            if (extMime.name().startsWith(QStringLiteral("audio/"))) {
-                mime = extMime;
-            }
+        if (localUrl.isLocalFile()) {
+            mime = ElisaUtils::resolveAudioMimeType(mime, localUrl.toLocalFile(), mimeDB);
         }
         if (ElisaUtils::isPlayList(mime)) {
             d->mMediaPlayListProxyModel->loadPlayList(file);

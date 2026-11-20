@@ -69,20 +69,29 @@ std::optional<PlaylistModel> PlaylistParser::load(const QUrl &path)
 
 bool PlaylistParser::save(const QUrl &path, const PlaylistModel &playlist)
 {
-    const QUrl localUrl = KioFuseHelper::mostLocalUrl(path);
-    const auto type = mimeDb.mimeTypeForFile(localUrl.toLocalFile());
+    const auto type = path.isLocalFile() ? mimeDb.mimeTypeForFile(path.toLocalFile()) : mimeDb.mimeTypeForFile(path.fileName(), QMimeDatabase::MatchExtension);
     const auto format = formatForType(type);
-    if (!format) {
+    if (!format || path.fileName().isEmpty()) {
         return false;
     }
 
-    QFile file(localUrl.toLocalFile());
+    const QUrl parentUrl = path.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash);
+    const QUrl localParentUrl = KioFuseHelper::mostLocalUrl(parentUrl);
+    if (!localParentUrl.isLocalFile()) {
+        return false;
+    }
+
+    QFile file(QDir(localParentUrl.toLocalFile()).filePath(path.fileName()));
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         return false;
     }
 
     QTextStream stream(&file);
-    return writePlaylist(*format, &stream, &playlist);
+    if (!writePlaylist(*format, &stream, &playlist)) {
+        return false;
+    }
+    stream.flush();
+    return stream.status() == QTextStream::Ok && file.error() == QFileDevice::NoError;
 }
 
 std::optional<PlaylistModel> M3uPlaylistLoader::read(QTextStream *stream)

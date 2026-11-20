@@ -412,7 +412,7 @@ void MediaPlayListProxyModelTest::playlistParser_SaveKioFuseUrlCase()
 
     const auto localUrl = createTemporaryFile(QStringLiteral("kio_save.m3u"), QString{});
     const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/kio_save.m3u"));
-    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = localUrl.toLocalFile();
+    scopedKioFuse.mock.mountMappings[QStringLiteral("smb://nas/music")] = QFileInfo(localUrl.toLocalFile()).absolutePath();
 
     const QList entries{MediaPlayListEntry(QUrl(QStringLiteral("http://example.com/1"))), MediaPlayListEntry(QUrl(QStringLiteral("http://example.com/2")))};
     const auto playlist = PlaylistModel(entries);
@@ -422,6 +422,19 @@ void MediaPlayListProxyModelTest::playlistParser_SaveKioFuseUrlCase()
     QFile file(localUrl.toLocalFile());
     QVERIFY(file.open(QIODeviceBase::ReadOnly | QIODeviceBase::Text));
     QCOMPARE(QString::fromUtf8(file.readAll()).count(QLatin1Char('\n')), 2);
+
+    // When saving a new remote file that does not exist yet, only the parent directory needs to be mounted
+    QTemporaryDir tempDir;
+    QVERIFY(tempDir.isValid());
+    const QUrl remoteParentUrl(QStringLiteral("sftp://dev/home/ian"));
+    const QUrl newRemoteFileUrl(QStringLiteral("sftp://dev/home/ian/boom.m3u8"));
+    scopedKioFuse.mock.mountMappings[remoteParentUrl.toString()] = tempDir.path();
+
+    QVERIFY(PlaylistParser::save(newRemoteFileUrl, playlist));
+
+    QFile newFile(QDir(tempDir.path()).filePath(QStringLiteral("boom.m3u8")));
+    QVERIFY(newFile.open(QIODeviceBase::ReadOnly | QIODeviceBase::Text));
+    QCOMPARE(QString::fromUtf8(newFile.readAll()).count(QLatin1Char('\n')), 2);
 
     // When URL cannot be mounted locally, save fails gracefully
     const QUrl unmountedUrl(QStringLiteral("sftp://unreachable/stream.m3u"));

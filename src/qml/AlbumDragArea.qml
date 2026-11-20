@@ -139,13 +139,15 @@ Item {
                 return -1
             }
 
-            const row = listView.indexAt(x, y + listView.contentY)
+            const row = root.listView.indexAt(x, y + root.listView.contentY)
             if (row < 0) {
                 return -1
             }
 
-            const rowItem = listView.itemAtIndex(row)
-            const headerItem = rowItem ? rowItem.albumHeader : null
+            const rowItem = root.listView.itemAtIndex(row)
+            // The delegate is an inline component, so itemAtIndex() is typed
+            // as returning Item and the custom members are invisible to qmllint.
+            const headerItem = rowItem ? rowItem.albumHeader : null // qmllint disable missing-property
             if (!headerItem) {
                 return -1
             }
@@ -165,7 +167,7 @@ Item {
                 return
             }
 
-            root.startAlbumDrag(row, listView.itemAtIndex(row).albumHeaderData, mouse.x, mouse.y)
+            root.startAlbumDrag(row, root.listView.itemAtIndex(row).albumHeaderData, mouse.x, mouse.y) // qmllint disable missing-property
         }
 
         onPositionChanged: (mouse) => {
@@ -209,10 +211,10 @@ Item {
             }
 
             const scrollZone = Kirigami.Units.gridUnit * 2
-            if (root.lastCursorY < scrollZone && !listView.atYBeginning) {
-                listView.contentY -= Kirigami.Units.gridUnit
-            } else if (root.lastCursorY > listView.height - scrollZone && !listView.atYEnd) {
-                listView.contentY += Kirigami.Units.gridUnit
+            if (root.lastCursorY < scrollZone && !root.listView.atYBeginning) {
+                root.listView.contentY -= Kirigami.Units.gridUnit
+            } else if (root.lastCursorY > root.listView.height - scrollZone && !root.listView.atYEnd) {
+                root.listView.contentY += Kirigami.Units.gridUnit
             } else {
                 running = false
                 return

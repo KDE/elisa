@@ -5,7 +5,6 @@
 */
 
 #include "elisafiledialog.h"
-#include "playerLogging.h"
 
 #include <QFileDialog>
 
@@ -14,7 +13,14 @@ ElisaFileDialog::ElisaFileDialog(QObject *parent)
 {
 }
 
-ElisaFileDialog::~ElisaFileDialog() = default;
+ElisaFileDialog::~ElisaFileDialog()
+{
+    if (mDialog) {
+        mDialog->disconnect(this);
+        mDialog->close();
+        delete mDialog;
+    }
+}
 
 ElisaFileDialog::FileMode ElisaFileDialog::fileMode() const
 {
@@ -96,10 +102,21 @@ void ElisaFileDialog::setTransientParent(QWindow *parent)
     Q_EMIT transientParentChanged();
 }
 
+bool ElisaFileDialog::isOpened() const
+{
+    return !mDialog.isNull();
+}
+
 void ElisaFileDialog::open()
 {
+    if (mDialog) {
+        mDialog->raise();
+        mDialog->activateWindow();
+        return;
+    }
+
     auto *dialog = new QFileDialog();
-    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    mDialog = dialog;
 
     switch (mFileMode) {
     case OpenFile:
@@ -139,7 +156,6 @@ void ElisaFileDialog::open()
 
     connect(dialog, &QFileDialog::accepted, this, [this, dialog]() {
         const QList<QUrl> urls = dialog->selectedUrls();
-        qCDebug(orgKdeElisaPlayer()) << "ElisaFileDialog accepted" << "mode:" << mFileMode << "selectedUrls:" << urls << "directoryUrl:" << dialog->directoryUrl();
         if (mSelectedFiles != urls) {
             const bool firstChanged = selectedFile() != urls.value(0);
             mSelectedFiles = urls;
@@ -157,6 +173,15 @@ void ElisaFileDialog::open()
 
     connect(dialog, &QFileDialog::rejected, this, &ElisaFileDialog::rejected);
 
+    connect(dialog, &QFileDialog::finished, this, [this, dialog]() {
+        if (mDialog == dialog) {
+            mDialog.clear();
+            Q_EMIT openedChanged();
+        }
+        dialog->deleteLater();
+    });
+
+    Q_EMIT openedChanged();
     dialog->open();
 }
 

@@ -62,6 +62,8 @@ public:
 
     bool mPartiallyLoaded = false;
 
+    bool mCanOpenLoadedPlaylist = false;
+
     QUrl mLoadedPlayListUrl;
 
     QTimer mDurationChangedTimer;
@@ -1119,10 +1121,17 @@ void MediaPlayListProxyModel::loadPlayList(const QUrl &fileName,
 
     DataTypes::EntryDataList newTracks;
     const QUrl localUrl = KioFuseHelper::mostLocalUrl(fileName);
-    QSet processedFiles{localUrl.toLocalFile()};
+    QSet<QString> processedFiles;
+    if (localUrl.isLocalFile()) {
+        const QString canonicalPath = QFileInfo(localUrl.toLocalFile()).canonicalFilePath();
+        if (!canonicalPath.isEmpty()) {
+            processedFiles.insert(canonicalPath);
+        }
+    }
 
-    if (loadLocalPlayList(newTracks, processedFiles, fileName)) {
+    if (loadLocalPlayList(newTracks, processedFiles, fileName, localUrl)) {
         d->mLoadedPlayListUrl = fileName;
+        d->mCanOpenLoadedPlaylist = localUrl.isLocalFile();
 
         if (enqueueMode == ElisaUtils::ReplacePlayList) {
             clearPlayList();
@@ -1241,8 +1250,9 @@ bool MediaPlayListProxyModel::canOpenLoadedPlaylist() const
 {
 #if !KFKIO_FOUND
     return false;
+#else
+    return d->mLoadedPlayListUrl.isValid() && d->mCanOpenLoadedPlaylist;
 #endif
-    return d->mLoadedPlayListUrl.isValid() && KioFuseHelper::mostLocalUrl(d->mLoadedPlayListUrl).isLocalFile();
 }
 
 PlaylistModel MediaPlayListProxyModel::getPlaylistModel() const
@@ -1308,16 +1318,17 @@ void MediaPlayListProxyModel::loadLocalFile(DataTypes::EntryDataList &newTracks,
                 d->mPartiallyLoaded = true;
                 return;
             }
-            loadLocalPlayList(newTracks, processedFiles, fileUrl);
+            loadLocalPlayList(newTracks, processedFiles, fileUrl, fileUrl);
             return;
         }
         newTracks.push_back({{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, fileUrl}}, {}, {}});
     }
 }
 
-bool MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &fileName)
+bool MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &fileName, const QUrl &localUrl)
 {
-    auto playlist = PlaylistParser::load(fileName);
+    const QUrl resolvedUrl = localUrl.isLocalFile() ? localUrl : fileName;
+    auto playlist = PlaylistParser::load(resolvedUrl);
 
     if (!playlist.has_value()) {
         return false;
@@ -1329,7 +1340,7 @@ bool MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTra
         listOfUrls.append(track.mTrackUrl.toUrl());
     }
 
-    int filtered = filterLocalPlayList(listOfUrls, fileName);
+    int filtered = filterLocalPlayList(listOfUrls, resolvedUrl);
     if (filtered != 0) {
         d->mPartiallyLoaded = true;
     }
@@ -1359,10 +1370,9 @@ void MediaPlayListProxyModel::loadLocalDirectory(DataTypes::EntryDataList &newTr
     }
 }
 
-int MediaPlayListProxyModel::filterLocalPlayList(QList<QUrl>& result, const QUrl &playlistUrl)
+int MediaPlayListProxyModel::filterLocalPlayList(QList<QUrl>& result, const QUrl &localPlaylistUrl)
 {
     int filtered = 0;
-    const QUrl localPlaylistUrl = KioFuseHelper::mostLocalUrl(playlistUrl);
 
     for (auto iterator = result.begin(); iterator != result.end();) {
         bool exists = true;

@@ -11,7 +11,6 @@ import QtQuick
 import QtQml
 import QtQuick.Layouts
 import QtQuick.Window
-import QtQuick.Dialogs as Dialogs
 import org.kde.config as KConfig
 import org.kde.ki18n
 import org.kde.kirigami as Kirigami
@@ -304,12 +303,20 @@ Kirigami.ApplicationWindow {
         readonly property string musicFormats: "*.aac *.m4a *.ra *.rax *.oga *.ogg *.opus *.spx *.flac *.mp3 *.wma *.mpc *.mpp *.mp+ *.wav *.ogm"
 
         function savePlaylist() {
+            if (opened) {
+                open()
+                return
+            }
             nameFilters = [ KI18n.i18nc("@option file type (mime type) for m3u, m3u8 playlist file formats; do not translate *.m3u*", "m3u8, m3u Playlist File (*.m3u*)"), KI18n.i18nc("@option file type (mime type) for pls playlist file formats; do not translate *.pls", "pls Playlist File (*.pls)")]
             defaultSuffix = 'm3u8'
             fileMode = ElisaFileDialog.SaveFile
             open()
         }
         function loadPlaylistOrMusicFile() {
+            if (opened) {
+                open()
+                return
+            }
             nameFilters = [
                 KI18n.i18nc("@option Allow opening music and playlist files. %1 and %2 are lists of untranslated file extensions", "Playlist files and music files (%1 %2) (%1 %2)", playlistFormats, musicFormats),
                 KI18n.i18nc("@option Allow opening playlist files. %1 is an untranslated list of file extensions", "Playlist files (%1) (%1)", playlistFormats),
@@ -328,14 +335,7 @@ Kirigami.ApplicationWindow {
                     mainWindow.showPassiveNotification(KI18n.i18nc("@label", "Saving failed"), 7000, KI18n.i18nc("@action:button", "Retry"), () => savePlaylistButton.clicked())
                 }
             } else {
-                const selectedFileStr = selectedFile.toString()
-                const dotIndex = selectedFileStr.lastIndexOf('.')
-                const selectedFileExtension = dotIndex !== -1 ? selectedFileStr.slice(dotIndex + 1) : ""
-                if (selectedFiles.length === 1 && selectedFileExtension.length > 0 && playlistFormats.includes(selectedFileExtension)) {
-                    ElisaApplication.mediaPlayListProxyModel.loadPlayList(selectedFile)
-                } else {
-                    ElisaApplication.openFiles(selectedFiles)
-                }
+                ElisaApplication.openFiles(selectedFiles)
             }
         }
     }

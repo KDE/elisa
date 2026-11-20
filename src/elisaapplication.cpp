@@ -18,7 +18,6 @@
 #include "databaseinterface.h"
 #include "elisautils.h"
 #include "kiofusehelper.h"
-#include "playerLogging.h"
 
 #include "elisa_settings.h"
 #include <KAuthorized>
@@ -255,8 +254,13 @@ bool ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workin
     const QMimeDatabase mimeDB;
     for (const auto &file : files) {
         const QUrl localUrl = KioFuseHelper::mostLocalUrl(file);
-        const QMimeType mime = mimeDB.mimeTypeForUrl(localUrl);
-        qCDebug(orgKdeElisaPlayer()) << "ElisaApplication::openFiles" << "file:" << file << "localUrl:" << localUrl << "mime:" << mime.name();
+        QMimeType mime = mimeDB.mimeTypeForUrl(localUrl);
+        if (mime.name().startsWith(QStringLiteral("video/")) && localUrl.isLocalFile()) {
+            const QMimeType extMime = mimeDB.mimeTypeForFile(localUrl.toLocalFile(), QMimeDatabase::MatchExtension);
+            if (extMime.name().startsWith(QStringLiteral("audio/"))) {
+                mime = extMime;
+            }
+        }
         if (ElisaUtils::isPlayList(mime)) {
             d->mMediaPlayListProxyModel->loadPlayList(file);
         } else if (mime.name().startsWith(QStringLiteral("audio/"))) {
@@ -268,7 +272,6 @@ bool ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workin
         }
     }
     auto filesToOpen = checkFileListAndMakeAbsolute(audioFiles, workingDirectory);
-    qCDebug(orgKdeElisaPlayer()) << "ElisaApplication::openFiles" << "audioFiles:" << audioFiles.count() << "filesToOpen:" << filesToOpen.count();
     if (!filesToOpen.isEmpty()) {
         Q_EMIT enqueue(filesToOpen,
                        ElisaUtils::PlayListEnqueueMode::AppendPlayList,

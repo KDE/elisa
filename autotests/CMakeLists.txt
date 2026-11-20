@@ -79,8 +79,11 @@ set(mediaplaylistproxymodelTest_SOURCES
 ecm_add_test(${mediaplaylistproxymodelTest_SOURCES}
     TEST_NAME "mediaplaylistproxymodelTest"
     LINK_LIBRARIES
-        Qt::Test Qt::DBus elisaLib
+        Qt::Test elisaLib
 )
+if (Qt6DBus_FOUND)
+    target_link_libraries(mediaplaylistproxymodelTest Qt::DBus)
+endif()
 
 set(trackslistenertest_SOURCES
     trackslistenertest.cpp
@@ -144,9 +147,18 @@ if (KF6XmlGui_FOUND)
     ecm_add_test(${elisaapplicationtest_SOURCES}
         TEST_NAME "elisaapplicationtest"
         LINK_LIBRARIES
-            Qt::Test Qt::Widgets Qt::DBus elisaLib
+            Qt::Test Qt::Widgets elisaLib
     )
+    if (Qt6DBus_FOUND)
+        target_link_libraries(elisaapplicationtest Qt::DBus)
+    endif()
 endif()
+
+ecm_add_test(elisafiledialogtest.cpp
+    TEST_NAME "elisafiledialogTest"
+    LINK_LIBRARIES
+        Qt::Test Qt::Widgets elisaLib
+)
 
 set(filescannerTest_SOURCES
     filescannertest.cpp

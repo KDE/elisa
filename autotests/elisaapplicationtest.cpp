@@ -15,6 +15,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QSignalSpy>
+#include <QStandardPaths>
 #include <QString>
 #include <QTemporaryDir>
 #include <QTemporaryFile>
@@ -29,6 +30,7 @@ private Q_SLOTS:
 
     void initTestCase()
     {
+        QStandardPaths::setTestModeEnabled(true);
         qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
         qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
         qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
@@ -175,7 +177,11 @@ private Q_SLOTS:
         app.openFiles({playlistUrl});
 
         QTRY_COMPARE(playListLoadedSpy.count(), 1);
+#if KFKIO_FOUND
         QVERIFY(app.mediaPlayListProxyModel()->canOpenLoadedPlaylist());
+#else
+        QVERIFY(!app.mediaPlayListProxyModel()->canOpenLoadedPlaylist());
+#endif
         QCOMPARE(app.mediaPlayListProxyModel()->rowCount(), 1);
     }
 
@@ -202,7 +208,11 @@ private Q_SLOTS:
         app.openFiles({remoteKioUrl});
 
         QTRY_COMPARE(playListLoadedSpy.count(), 1);
+#if KFKIO_FOUND
         QVERIFY(app.mediaPlayListProxyModel()->canOpenLoadedPlaylist());
+#else
+        QVERIFY(!app.mediaPlayListProxyModel()->canOpenLoadedPlaylist());
+#endif
         QCOMPARE(app.mediaPlayListProxyModel()->rowCount(), 1);
 #endif
     }

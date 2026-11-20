@@ -152,14 +152,12 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         }
 
         const QUrl localUrl = KioFuseHelper::mostLocalUrl(scanFile);
-        qCDebug(orgKdeElisaIndexer()) << "FileScanner::scanOneFile" << scanFile << "localUrl:" << localUrl << "isLocalFile:" << localUrl.isLocalFile() << "exists:" << (localUrl.isLocalFile() ? QFileInfo::exists(localUrl.toLocalFile()) : false);
         if (localUrl.isLocalFile()) {
             if (!QFileInfo::exists(localUrl.toLocalFile())) {
                 return newTrack;
             }
             auto trackData = scanOneFile(localUrl, QFileInfo(localUrl.toLocalFile()));
             trackData[DataTypes::ResourceRole] = scanFile;
-            qCDebug(orgKdeElisaIndexer()) << "FileScanner::scanOneFile kio-fuse result" << scanFile << "valid:" << trackData.isValid();
             return trackData;
         }
 

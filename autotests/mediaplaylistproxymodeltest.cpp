@@ -888,12 +888,16 @@ void MediaPlayListProxyModelTest::testCanOpenLoadedPlaylist()
     // Local playlist file
     const auto localM3uUrl = createTemporaryFile(QStringLiteral("local_can_open.m3u"), QStringLiteral("http://stream.example.com:8000/1\n"));
     model.loadPlayList(localM3uUrl);
+#if KFKIO_FOUND
     QCOMPARE(model.canOpenLoadedPlaylist(), true);
+#else
+    QCOMPARE(model.canOpenLoadedPlaylist(), false);
+#endif
 
 #if QtDBus_FOUND
     ScopedMockKioFuse scopedKioFuse;
     if (!scopedKioFuse.isRegistered) {
-        return;
+        QSKIP("D-Bus session bus unavailable for mock KIOFuse service");
     }
 
     const auto kioMountedFile = createTemporaryFile(QStringLiteral("kio_can_open.m3u"), QStringLiteral("http://stream.example.com:8000/2\n"));
@@ -905,8 +909,12 @@ void MediaPlayListProxyModelTest::testCanOpenLoadedPlaylist()
     kioModel.setPlayListModel(&kioPlayList);
 
     kioModel.loadPlayList(remoteKioUrl);
-    // KioFuseHelper::mostLocalUrl resolves remoteKioUrl to local file, so canOpenLoadedPlaylist is true!
+    // KioFuseHelper::mostLocalUrl resolves remoteKioUrl to local file, so canOpenLoadedPlaylist is true when KIO is enabled
+#if KFKIO_FOUND
     QCOMPARE(kioModel.canOpenLoadedPlaylist(), true);
+#else
+    QCOMPARE(kioModel.canOpenLoadedPlaylist(), false);
+#endif
 #endif
 }
 
@@ -932,7 +940,11 @@ void MediaPlayListProxyModelTest::loadPlayList_KioFuseUrl()
     QCOMPARE(mPlayListProxyModel->rowCount(), 2);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(0, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), streamUrl1);
     QCOMPARE(mPlayListProxyModel->data(mPlayListProxyModel->index(1, 0), MediaPlayList::ColumnsRoles::ResourceRole).toUrl(), streamUrl2);
+#if KFKIO_FOUND
     QCOMPARE(mPlayListProxyModel->canOpenLoadedPlaylist(), true);
+#else
+    QCOMPARE(mPlayListProxyModel->canOpenLoadedPlaylist(), false);
+#endif
 #endif
 }
 

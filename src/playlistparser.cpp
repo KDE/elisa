@@ -11,6 +11,7 @@
 #include "elisa_settings.h"
 #include "kiofusehelper.h"
 #include "mediaplaylist.h"
+#include <QDir>
 #include <QFile>
 #include <qdebug.h>
 #include <qfiledevice.h>
@@ -52,6 +53,10 @@ std::optional<PlaylistParser::Format> PlaylistParser::formatForType(const QMimeT
 std::optional<PlaylistModel> PlaylistParser::load(const QUrl &path)
 {
     const QUrl localUrl = KioFuseHelper::mostLocalUrl(path);
+    if (!localUrl.isLocalFile()) {
+        return {};
+    }
+
     const auto type = mimeDb.mimeTypeForFile(localUrl.toLocalFile());
     const auto format = formatForType(type);
     if (!format) {
@@ -75,13 +80,19 @@ bool PlaylistParser::save(const QUrl &path, const PlaylistModel &playlist)
         return false;
     }
 
-    const QUrl parentUrl = path.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash);
-    const QUrl localParentUrl = KioFuseHelper::mostLocalUrl(parentUrl);
-    if (!localParentUrl.isLocalFile()) {
-        return false;
+    QString localFilePath;
+    if (path.isLocalFile()) {
+        localFilePath = path.toLocalFile();
+    } else {
+        const QUrl parentUrl = path.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash);
+        const QUrl localParentUrl = KioFuseHelper::mostLocalUrl(parentUrl);
+        if (!localParentUrl.isLocalFile()) {
+            return false;
+        }
+        localFilePath = QDir(localParentUrl.toLocalFile()).filePath(path.fileName());
     }
 
-    QFile file(QDir(localParentUrl.toLocalFile()).filePath(path.fileName()));
+    QFile file(localFilePath);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         return false;
     }
@@ -91,7 +102,9 @@ bool PlaylistParser::save(const QUrl &path, const PlaylistModel &playlist)
         return false;
     }
     stream.flush();
-    return stream.status() == QTextStream::Ok && file.error() == QFileDevice::NoError;
+    const bool ok = stream.status() == QTextStream::Ok && file.flush();
+    file.close();
+    return ok && file.error() == QFileDevice::NoError;
 }
 
 std::optional<PlaylistModel> M3uPlaylistLoader::read(QTextStream *stream)

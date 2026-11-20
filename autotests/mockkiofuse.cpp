@@ -24,10 +24,14 @@ bool MockKioFuse::registerService()
     if (!QDBusConnection::sessionBus().registerService(QStringLiteral("org.kde.KIOFuse"))) {
         return false;
     }
-    return QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/kde/KIOFuse"),
+    if (!QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/kde/KIOFuse"),
                                                         QStringLiteral("org.kde.KIOFuse.VFS"),
                                                         this,
-                                                        QDBusConnection::ExportAllSlots);
+                                                        QDBusConnection::ExportAllSlots)) {
+        QDBusConnection::sessionBus().unregisterService(QStringLiteral("org.kde.KIOFuse"));
+        return false;
+    }
+    return true;
 }
 
 void MockKioFuse::unregisterService()

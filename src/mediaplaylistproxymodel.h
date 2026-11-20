@@ -365,11 +365,11 @@ private:
 
     void loadLocalFile(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QFileInfo &fileInfo);
 
-    bool loadLocalPlayList(DataTypes::EntryDataList &newTracks, QSet<QString> &processedUFiles, const QUrl &fileName);
+    bool loadLocalPlayList(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &fileName, const QUrl &localUrl);
 
     void loadLocalDirectory(DataTypes::EntryDataList &newTracks, QSet<QString> &processedFiles, const QUrl &dirName);
 
-    int filterLocalPlayList(QList<QUrl>& result, const QUrl &playlistUrl);
+    int filterLocalPlayList(QList<QUrl>& result, const QUrl &localPlaylistUrl);
 
     std::unique_ptr<MediaPlayListProxyModelPrivate> d;
 };

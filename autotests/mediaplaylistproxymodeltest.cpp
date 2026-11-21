@@ -388,7 +388,7 @@ void MediaPlayListProxyModelTest::playlistParser_KioFuseUrlCase()
 
     const auto localUrl = createTemporaryFile(QStringLiteral("kio_load.m3u"), QStringLiteral("http://example.com/stream1\nhttp://example.com/stream2\n"));
     const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/kio_load.m3u"));
-    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = localUrl.toLocalFile();
+    scopedKioFuse.setMountMapping(remoteKioUrl.toString(), localUrl.toLocalFile());
 
     const auto results = PlaylistParser::load(remoteKioUrl);
     QVERIFY(results.has_value());
@@ -412,7 +412,7 @@ void MediaPlayListProxyModelTest::playlistParser_SaveKioFuseUrlCase()
 
     const auto localUrl = createTemporaryFile(QStringLiteral("kio_save.m3u"), QString{});
     const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/kio_save.m3u"));
-    scopedKioFuse.mock.mountMappings[QStringLiteral("smb://nas/music")] = QFileInfo(localUrl.toLocalFile()).absolutePath();
+    scopedKioFuse.setMountMapping(QStringLiteral("smb://nas/music"), QFileInfo(localUrl.toLocalFile()).absolutePath());
 
     const QList entries{MediaPlayListEntry(QUrl(QStringLiteral("http://example.com/1"))), MediaPlayListEntry(QUrl(QStringLiteral("http://example.com/2")))};
     const auto playlist = PlaylistModel(entries);
@@ -428,7 +428,7 @@ void MediaPlayListProxyModelTest::playlistParser_SaveKioFuseUrlCase()
     QVERIFY(tempDir.isValid());
     const QUrl remoteParentUrl(QStringLiteral("sftp://dev/home/ian"));
     const QUrl newRemoteFileUrl(QStringLiteral("sftp://dev/home/ian/boom.m3u8"));
-    scopedKioFuse.mock.mountMappings[remoteParentUrl.toString()] = tempDir.path();
+    scopedKioFuse.setMountMapping(remoteParentUrl.toString(), tempDir.path());
 
     QVERIFY(PlaylistParser::save(newRemoteFileUrl, playlist));
 
@@ -902,7 +902,7 @@ void MediaPlayListProxyModelTest::testCanOpenLoadedPlaylist()
 
     const auto kioMountedFile = createTemporaryFile(QStringLiteral("kio_can_open.m3u"), QStringLiteral("http://stream.example.com:8000/2\n"));
     const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/kio_can_open.m3u"));
-    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = kioMountedFile.toLocalFile();
+    scopedKioFuse.setMountMapping(remoteKioUrl.toString(), kioMountedFile.toLocalFile());
 
     MediaPlayList kioPlayList;
     MediaPlayListProxyModel kioModel;
@@ -933,7 +933,7 @@ void MediaPlayListProxyModelTest::loadPlayList_KioFuseUrl()
         createTemporaryFile(QStringLiteral("kioRadioStreams.m3u"), streamUrl1.toString() + QLatin1Char('\n') + streamUrl2.toString() + QLatin1Char('\n'));
 
     const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/kioRadioStreams.m3u"));
-    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = localM3u.toLocalFile();
+    scopedKioFuse.setMountMapping(remoteKioUrl.toString(), localM3u.toLocalFile());
 
     mPlayListProxyModel->loadPlayList(remoteKioUrl);
 
@@ -965,7 +965,7 @@ void MediaPlayListProxyModelTest::loadPlayList_CircularProtectionWithKioUrl()
     selfRefFile.close();
 
     const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/circular.m3u"));
-    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = selfRefPath;
+    scopedKioFuse.setMountMapping(remoteKioUrl.toString(), selfRefPath);
 
     // In HEAD, processedFiles is initialized with localUrl.toLocalFile(), preventing infinite recursion
     mPlayListProxyModel->loadPlayList(remoteKioUrl);
@@ -1003,7 +1003,7 @@ void MediaPlayListProxyModelTest::loadPlayList_RelativeTracksWithKioUrl()
     plsFile.close();
 
     const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/relative.pls"));
-    scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = plsFile.fileName();
+    scopedKioFuse.setMountMapping(remoteKioUrl.toString(), plsFile.fileName());
 
     mPlayListProxyModel->loadPlayList(remoteKioUrl);
 

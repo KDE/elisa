@@ -8,60 +8,106 @@
 
 #if QtDBus_FOUND
 #include <QDBusConnection>
+#include <QMetaObject>
+#include <QMutexLocker>
 
-MockKioFuse::MockKioFuse(QObject *parent)
+#include <atomic>
+#include <utility>
+
+MockKioFuse::MockKioFuse(QString connectionName, QObject *parent)
     : QObject(parent)
+    , m_connectionName(std::move(connectionName))
 {
 }
 
 MockKioFuse::~MockKioFuse() = default;
 
+void MockKioFuse::setMountMapping(const QString &remoteUrl, const QString &localPath)
+{
+    const QMutexLocker lock(&m_mutex);
+    m_mountMappings[remoteUrl] = localPath;
+}
+
 bool MockKioFuse::registerService()
 {
-    if (!QDBusConnection::sessionBus().isConnected()) {
-        return false;
+    {
+        auto bus = QDBusConnection::connectToBus(QDBusConnection::SessionBus, m_connectionName);
+        if (bus.isConnected() && bus.registerService(QStringLiteral("org.kde.KIOFuse"))) {
+            if (bus.registerObject(QStringLiteral("/org/kde/KIOFuse"), QStringLiteral("org.kde.KIOFuse.VFS"), this, QDBusConnection::ExportAllSlots)) {
+                return true;
+            }
+            bus.unregisterService(QStringLiteral("org.kde.KIOFuse"));
+        }
     }
-    if (!QDBusConnection::sessionBus().registerService(QStringLiteral("org.kde.KIOFuse"))) {
-        return false;
-    }
-    if (!QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/kde/KIOFuse"),
-                                                        QStringLiteral("org.kde.KIOFuse.VFS"),
-                                                        this,
-                                                        QDBusConnection::ExportAllSlots)) {
-        QDBusConnection::sessionBus().unregisterService(QStringLiteral("org.kde.KIOFuse"));
-        return false;
-    }
-    return true;
+    QDBusConnection::disconnectFromBus(m_connectionName);
+    return false;
 }
 
 void MockKioFuse::unregisterService()
 {
-    if (QDBusConnection::sessionBus().isConnected()) {
-        QDBusConnection::sessionBus().unregisterObject(QStringLiteral("/org/kde/KIOFuse"));
-        QDBusConnection::sessionBus().unregisterService(QStringLiteral("org.kde.KIOFuse"));
+    {
+        auto bus = QDBusConnection(m_connectionName);
+        if (bus.isConnected()) {
+            bus.unregisterObject(QStringLiteral("/org/kde/KIOFuse"));
+            bus.unregisterService(QStringLiteral("org.kde.KIOFuse"));
+        }
     }
+    QDBusConnection::disconnectFromBus(m_connectionName);
 }
 
 QString MockKioFuse::mountUrl(const QString &remoteUrl, const QDBusMessage &message)
 {
-    if (mountMappings.contains(remoteUrl)) {
-        return mountMappings.value(remoteUrl);
+    {
+        const QMutexLocker lock(&m_mutex);
+        if (m_mountMappings.contains(remoteUrl)) {
+            return m_mountMappings.value(remoteUrl);
+        }
     }
     message.setDelayedReply(true);
     auto errorReply = message.createErrorReply(QStringLiteral("org.kde.KIOFuse.VFS.Error.CannotMount"), QStringLiteral("Mount failed"));
-    QDBusConnection::sessionBus().send(errorReply);
+    QDBusConnection(m_connectionName).send(errorReply);
     return {};
 }
 
 ScopedMockKioFuse::ScopedMockKioFuse()
 {
-    isRegistered = mock.registerService();
+    static std::atomic<int> connectionCounter{0};
+    const QString connectionName = QStringLiteral("mock-kiofuse-%1").arg(++connectionCounter);
+
+    m_mock = new MockKioFuse(connectionName);
+    m_mock->moveToThread(&m_thread);
+    m_thread.start();
+
+    QMetaObject::invokeMethod(
+        m_mock,
+        [this]() {
+            isRegistered = m_mock->registerService();
+        },
+        Qt::BlockingQueuedConnection);
 }
 
 ScopedMockKioFuse::~ScopedMockKioFuse()
 {
-    if (isRegistered) {
-        mock.unregisterService();
+    if (m_mock) {
+        QMetaObject::invokeMethod(
+            m_mock,
+            [this]() {
+                if (isRegistered) {
+                    m_mock->unregisterService();
+                }
+                delete m_mock;
+                m_mock = nullptr;
+            },
+            Qt::BlockingQueuedConnection);
+    }
+    m_thread.quit();
+    m_thread.wait();
+}
+
+void ScopedMockKioFuse::setMountMapping(const QString &remoteUrl, const QString &localPath)
+{
+    if (m_mock) {
+        m_mock->setMountMapping(remoteUrl, localPath);
     }
 }
 

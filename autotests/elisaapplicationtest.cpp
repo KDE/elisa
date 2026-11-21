@@ -70,7 +70,7 @@ private Q_SLOTS:
 
         const QString remoteStr = QStringLiteral("smb://nas/music/song.mp3");
         const QString mountedStr = QStringLiteral("/run/user/1000/kio-fuse-xyz/smb/nas/music/song.mp3");
-        scopedKioFuse.mock.mountMappings[remoteStr] = mountedStr;
+        scopedKioFuse.setMountMapping(remoteStr, mountedStr);
 
         QUrl resolved = KioFuseHelper::mostLocalUrl(QUrl(remoteStr));
         QCOMPARE(resolved, QUrl::fromLocalFile(mountedStr));
@@ -143,7 +143,7 @@ private Q_SLOTS:
         QVERIFY(localFile.open());
 
         const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/song.ogg"));
-        scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = localFile.fileName();
+        scopedKioFuse.setMountMapping(remoteKioUrl.toString(), localFile.fileName());
 
         ElisaApplication app;
         app.initialize();
@@ -199,7 +199,7 @@ private Q_SLOTS:
         localPlaylist.close();
 
         const QUrl remoteKioUrl(QStringLiteral("smb://nas/music/stream_playlist.m3u"));
-        scopedKioFuse.mock.mountMappings[remoteKioUrl.toString()] = localPlaylist.fileName();
+        scopedKioFuse.setMountMapping(remoteKioUrl.toString(), localPlaylist.fileName());
 
         ElisaApplication app;
         app.initialize();

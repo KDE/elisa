@@ -13,28 +13,30 @@ import org.kde.ki18n
 import org.kde.elisa
 
 QQC2.ItemDelegate {
-    property var index
-    property bool isSingleDiscAlbum
-    property int isPlaying
+    required property var model
+
+    property var index: model.index
+    property bool isSingleDiscAlbum: model.isSingleDiscAlbum ?? true
+    property int isPlaying: model.isPlaying ?? 0
     property bool isSelected
-    property bool isValid
+    property bool isValid: model.isValid ?? false
     property bool isAlternateColor
-    property int databaseId: 0
-    property var entryType
-    property string title
-    property string artist
-    property string album
-    property string albumArtist
-    property string duration
+    property int databaseId: model.databaseId ?? 0
+    property var entryType: model.entryType ?? ElisaUtils.Unknown
+    property string title: model.title ?? ''
+    property string artist: model.artist ?? ''
+    property string album: model.album ?? ''
+    property string albumArtist: model.albumArtist ?? ''
+    property string duration: model.duration ?? ''
     property bool hideDiscNumber
-    property url fileName
-    property url imageUrl
-    property int trackNumber
+    property url fileName: model.trackResource ?? ''
+    property url imageUrl: model.imageUrl ?? ''
+    property int trackNumber: model.trackNumber ?? -1
     property url trackUrl
-    property int discNumber
-    property int rating
+    property int discNumber: model.discNumber ?? -1
+    property int rating: model.rating ?? 0
     property bool hasValidDiscNumber: true
-    property bool metadataModifiableRole: false
+    property bool metadataModifiableRole: model.metadataModifiableRole ?? false
     readonly property bool isFavorite: rating === 10
 
     property var listView

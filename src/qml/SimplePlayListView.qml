@@ -88,27 +88,10 @@ ScrollView {
                 focus: true
                 width: playListView.width
 
-                index: playListDelegate.model.index
+                model: playListDelegate.model
                 simpleMode: true
                 listView: playListView
                 listDelegate: playListDelegate
-
-                databaseId: playListDelegate.model.databaseId ? playListDelegate.model.databaseId : 0
-                entryType: playListDelegate.model.entryType ? playListDelegate.model.entryType : ElisaUtils.Unknown
-                title: playListDelegate.model.title ? playListDelegate.model.title : ''
-                artist: playListDelegate.model.artist ? playListDelegate.model.artist : ''
-                album: playListDelegate.model.album ? playListDelegate.model.album : ''
-                albumArtist: playListDelegate.model.albumArtist ? playListDelegate.model.albumArtist : ''
-                duration: playListDelegate.model.duration ? playListDelegate.model.duration : ''
-                fileName: playListDelegate.model.trackResource ? playListDelegate.model.trackResource : ''
-                imageUrl: playListDelegate.model.imageUrl ? playListDelegate.model.imageUrl : ''
-                trackNumber: playListDelegate.model.trackNumber ? playListDelegate.model.trackNumber : -1
-                discNumber: playListDelegate.model.discNumber ? playListDelegate.model.discNumber : -1
-                rating: playListDelegate.model.rating ? playListDelegate.model.rating : 0
-                isSingleDiscAlbum: playListDelegate.model.isSingleDiscAlbum !== undefined ? playListDelegate.model.isSingleDiscAlbum : true
-                isValid: playListDelegate.model.isValid
-                isPlaying: playListDelegate.model.isPlaying
-                metadataModifiableRole: playListDelegate.model.metadataModifiableRole ? playListDelegate.model.metadataModifiableRole : false
             }
         }
         /* Disable animations until https://bugreports.qt.io/browse/QTBUG-49868 is fixed

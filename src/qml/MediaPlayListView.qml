@@ -100,25 +100,9 @@ Kirigami.Page {
 
                 width: playListDelegate.playList.width
 
-                index: playListDelegate.model.index
+                model: playListDelegate.model
                 isSelected: playListDelegate.playList.currentIndex === index
 
-                databaseId: playListDelegate.model.databaseId ? playListDelegate.model.databaseId : 0
-                entryType: playListDelegate.model.entryType ? playListDelegate.model.entryType : ElisaUtils.Unknown
-                title: playListDelegate.model.title ? playListDelegate.model.title : ''
-                artist: playListDelegate.model.artist ? playListDelegate.model.artist : ''
-                album: playListDelegate.model.album ? playListDelegate.model.album : ''
-                albumArtist: playListDelegate.model.albumArtist ? playListDelegate.model.albumArtist : ''
-                duration: playListDelegate.model.duration ? playListDelegate.model.duration : ''
-                fileName: playListDelegate.model.trackResource ? playListDelegate.model.trackResource : ''
-                imageUrl: playListDelegate.model.imageUrl ? playListDelegate.model.imageUrl : ''
-                trackNumber: playListDelegate.model.trackNumber ? playListDelegate.model.trackNumber : -1
-                discNumber: playListDelegate.model.discNumber ? playListDelegate.model.discNumber : -1
-                rating: playListDelegate.model.rating ? playListDelegate.model.rating : 0
-                isSingleDiscAlbum: playListDelegate.model.isSingleDiscAlbum !== undefined ? playListDelegate.model.isSingleDiscAlbum : true
-                isValid: playListDelegate.model.isValid
-                isPlaying: playListDelegate.model.isPlaying
-                metadataModifiableRole: playListDelegate.model.metadataModifiableRole ? playListDelegate.model.metadataModifiableRole : false
                 listView: playListDelegate.playList
                 listDelegate: playListDelegate
                 showDragHandle: playListDelegate.playList.count > 1
@@ -427,26 +411,8 @@ Kirigami.Page {
                             id: entry
                             width: playListView.width
 
-                            index: mobileDelegate.model.index
+                            model: mobileDelegate.model
                             isSelected: playListView.currentIndex === index
-
-                            databaseId: mobileDelegate.model.databaseId ?? 0
-                            entryType: mobileDelegate.model.entryType ?? ElisaUtils.Unknown
-                            title: mobileDelegate.model.title ?? ''
-                            artist: mobileDelegate.model.artist ?? ''
-                            album: mobileDelegate.model.album ?? ''
-                            albumArtist: mobileDelegate.model.albumArtist ?? ''
-                            duration: mobileDelegate.model.duration ?? ''
-                            fileName: mobileDelegate.model.trackResource ?? ''
-                            imageUrl: mobileDelegate.model.imageUrl ?? ''
-                            trackNumber: mobileDelegate.model.trackNumber ?? -1
-                            discNumber: mobileDelegate.model.discNumber ?? -1
-                            rating: mobileDelegate.model.rating ?? 0
-                            isSingleDiscAlbum: mobileDelegate.model.isSingleDiscAlbum ?? true
-                            isValid: mobileDelegate.model.isValid
-                            isPlaying: mobileDelegate.model.isPlaying ?? false
-                            metadataModifiableRole: mobileDelegate.model.metadataModifiableRole ?? false
-                            hideDiscNumber: isSingleDiscAlbum
                             showDragHandle: playListView.count > 1
 
                             listView: playListView

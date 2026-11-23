@@ -20,6 +20,8 @@ import "../shared"
 BasePlayListDelegate {
     id: playListEntry
 
+    hideDiscNumber: isSingleDiscAlbum
+
     Accessible.role: Accessible.ListItem
     Accessible.name: title + ' ' + album + ' ' + artist
 

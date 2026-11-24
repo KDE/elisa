@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: elisa\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-12 00:59+0000\n"
+"POT-Creation-Date: 2026-11-24 01:02+0000\n"
 "PO-Revision-Date: 2023-05-29 22:07+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -426,7 +426,7 @@ msgctxt "@action:button"
 msgid "Add to playlist"
 msgstr "Mahnı siyahısına əlavə et"
 
-#: qml/AbstractBrowserDelegate.qml:63 qml/mobile/MobilePlayListDelegate.qml:169
+#: qml/AbstractBrowserDelegate.qml:63 qml/mobile/MobilePlayListDelegate.qml:171
 #: qml/TrackBrowserDelegate.qml:70
 #, kde-format
 msgctxt "@action:button Show the file for this song in the file manager"
@@ -499,6 +499,14 @@ msgstr "Verilənlər bazası sıfırlansın və hər yerdə axtarılsın"
 msgctxt "@action:inmenu this has child menu items"
 msgid "Color Scheme"
 msgstr "Rəng Seçimi"
+
+#: qml/BasicPlayListAlbumHeader.qml:135
+#, fuzzy, kde-format
+#| msgctxt "@action:button Remove current track from play list"
+#| msgid "Remove"
+msgctxt "@action:button Remove album from play list"
+msgid "Remove Album"
+msgstr "Sil"
 
 #: qml/ConfigurationDialog.qml:22
 #, kde-format
@@ -877,7 +885,7 @@ msgctxt ""
 msgid "Playlist"
 msgstr "Mahnı siyahısı"
 
-#: qml/MediaPlayListView.qml:72
+#: qml/MediaPlayListView.qml:146
 #, fuzzy, kde-format
 #| msgctxt "@action:button"
 #| msgid "Show Current"
@@ -885,19 +893,19 @@ msgctxt "@action:button Show current track in playlist"
 msgid "Show Current"
 msgstr "Hazırkı mahnı"
 
-#: qml/MediaPlayListView.qml:83
+#: qml/MediaPlayListView.qml:157
 #, kde-format
 msgctxt "@action:button Remove all tracks from play list"
 msgid "Clear All"
 msgstr "Hamısını silin"
 
-#: qml/MediaPlayListView.qml:93
+#: qml/MediaPlayListView.qml:167
 #, kde-format
 msgctxt "@action:button Save a playlist file"
 msgid "Save…"
 msgstr "Saxla..."
 
-#: qml/MediaPlayListView.qml:103
+#: qml/MediaPlayListView.qml:177
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open Playlist…"
@@ -905,13 +913,13 @@ msgctxt "@action:button Load a playlist file"
 msgid "Open…"
 msgstr "Mahnı siyahısını aç..."
 
-#: qml/MediaPlayListView.qml:104
+#: qml/MediaPlayListView.qml:178
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Open music files or saved playlists"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:129
+#: qml/MediaPlayListView.qml:203
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -921,19 +929,19 @@ msgstr ""
 "Bəzi mahnıları yükləmək mümkün olmadı. Onların silinməməsini və ya adının "
 "dəyişdirilməməsini yoxla."
 
-#: qml/MediaPlayListView.qml:135
+#: qml/MediaPlayListView.qml:209
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit Playlist File"
 msgstr "Mahnı siyahısına düzəliş et"
 
-#: qml/MediaPlayListView.qml:304
+#: qml/MediaPlayListView.qml:309
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Playlist is empty"
 msgstr "Mahnı siyahısı boşdur"
 
-#: qml/MediaPlayListView.qml:305
+#: qml/MediaPlayListView.qml:310
 #, kde-format
 msgctxt "@info:usagetip"
 msgid ""
@@ -943,13 +951,13 @@ msgstr ""
 "Başlamaq üçün bir neçə mahnı əlavə edin. Sol tərfdəki paneldən "
 "musiqilərinizə baxa bilərsiniz."
 
-#: qml/MediaPlayListView.qml:380
+#: qml/MediaPlayListView.qml:391
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Your playlist is empty."
 msgstr "Mahnı siyahınız boşdur."
 
-#: qml/MediaPlayListView.qml:477 qml/MediaPlayListView.qml:486
+#: qml/MediaPlayListView.qml:470 qml/MediaPlayListView.qml:479
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -960,7 +968,7 @@ msgid_plural "%1/%2 tracks remaining"
 msgstr[0] "%1 mahnı qalır"
 msgstr[1] "%1 mahnı qalır"
 
-#: qml/MediaPlayListView.qml:478
+#: qml/MediaPlayListView.qml:471
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -969,8 +977,8 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1 remaining, %2 total"
 msgstr "%1 mahnı qalır"
 
-#: qml/MediaPlayListView.qml:479 qml/MediaPlayListView.qml:488
-#: qml/MediaPlayListView.qml:497
+#: qml/MediaPlayListView.qml:472 qml/MediaPlayListView.qml:481
+#: qml/MediaPlayListView.qml:490
 #, kde-format
 msgctxt ""
 "@info:status %1 is total tracks and tracks remaining. %2 is total time and "
@@ -978,7 +986,7 @@ msgctxt ""
 msgid "%1, %2"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:487 qml/MediaPlayListView.qml:496
+#: qml/MediaPlayListView.qml:480 qml/MediaPlayListView.qml:489
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -987,7 +995,7 @@ msgctxt "@info:status %1 and %2 are formatted like hh:mm:ss or mm:ss"
 msgid "%1/%2 remaining"
 msgstr "%1 mahnı qalır"
 
-#: qml/MediaPlayListView.qml:495
+#: qml/MediaPlayListView.qml:488
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -998,7 +1006,7 @@ msgid_plural "%1/%2 tracks"
 msgstr[0] "%1 mahnı"
 msgstr[1] "%1 mahnı"
 
-#: qml/MediaPlayListView.qml:504
+#: qml/MediaPlayListView.qml:497
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -1009,7 +1017,7 @@ msgid_plural "%1 tracks"
 msgstr[0] "%1 mahnı"
 msgstr[1] "%1 mahnı"
 
-#: qml/MediaPlayListView.qml:505
+#: qml/MediaPlayListView.qml:498
 #, kde-format
 msgctxt "@info:status %1 is the total number of radios of the playlist"
 msgid "%1 radio"
@@ -1017,7 +1025,7 @@ msgid_plural "%1 radios"
 msgstr[0] ""
 msgstr[1] ""
 
-#: qml/MediaPlayListView.qml:506
+#: qml/MediaPlayListView.qml:499
 #, kde-format
 msgctxt ""
 "@info:status %1 is the translation of tracks, %2 is the translation of total "
@@ -1025,7 +1033,7 @@ msgctxt ""
 msgid "%1, %2 total"
 msgstr ""
 
-#: qml/MediaPlayListView.qml:509
+#: qml/MediaPlayListView.qml:502
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "%1 track"
@@ -1038,7 +1046,7 @@ msgid_plural "%1 tracks, %2 total"
 msgstr[0] "%1 mahnı"
 msgstr[1] "%1 mahnı"
 
-#: qml/MediaPlayListView.qml:511
+#: qml/MediaPlayListView.qml:504
 #, fuzzy, kde-format
 #| msgctxt "@info:status number of tracks remaining"
 #| msgid "%1 remaining"
@@ -1167,13 +1175,13 @@ msgctxt "@action:button"
 msgid "Skip Forward"
 msgstr "İrəli sürüşdür"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
+#: qml/mobile/MobilePlayListDelegate.qml:149 qml/PlayListEntry.qml:367
 #, kde-format
 msgctxt "@action:button"
 msgid "Track Options"
 msgstr "Cığır üçün seçimlər"
 
-#: qml/mobile/MobilePlayListDelegate.qml:147 qml/PlayListEntry.qml:367
+#: qml/mobile/MobilePlayListDelegate.qml:149 qml/PlayListEntry.qml:367
 #, fuzzy, kde-format
 #| msgctxt "@item:intable"
 #| msgid "Radio Stations"
@@ -1181,14 +1189,14 @@ msgctxt "@action:button"
 msgid "Radio Options"
 msgstr "Radio stansiyaları"
 
-#: qml/mobile/MobilePlayListDelegate.qml:175 qml/PlayListEntry.qml:95
+#: qml/mobile/MobilePlayListDelegate.qml:177 qml/PlayListEntry.qml:95
 #: qml/TrackBrowserDelegate.qml:77
 #, kde-format
 msgctxt "@action:button Show track metadata"
 msgid "View details"
 msgstr "Təfərrüatları göstərmək"
 
-#: qml/mobile/MobilePlayListDelegate.qml:188
+#: qml/mobile/MobilePlayListDelegate.qml:190
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove from queue"
@@ -1814,7 +1822,7 @@ msgctxt "@action:button"
 msgid "Add New Location"
 msgstr "Yeni məkan əlavə et"
 
-#: qml/shared/BasePlayListDelegate.qml:68
+#: qml/shared/BasePlayListDelegate.qml:70
 #, kde-format
 msgctxt "@info:status"
 msgid "\"%1\" could not be played"

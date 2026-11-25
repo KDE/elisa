@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-24 01:02+0000\n"
-"PO-Revision-Date: 2026-09-30 13:25+0200\n"
-"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
+"POT-Creation-Date: 2026-11-25 01:24+0000\n"
+"PO-Revision-Date: 2026-11-24 23:24+0100\n"
+"Last-Translator: freek <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 26.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -40,49 +40,49 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radiostations"
 
-#: elisaapplication.cpp:181
+#: elisaapplication.cpp:183
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Afspeellijst omschakelen"
 
-#: elisaapplication.cpp:187
+#: elisaapplication.cpp:189
 #, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
 msgstr "Afspeellijst wissen"
 
-#: elisaapplication.cpp:193
+#: elisaapplication.cpp:195
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "10 seconden vooruit spoelen"
 
-#: elisaapplication.cpp:200
+#: elisaapplication.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "10 seconden terugspoelen"
 
-#: elisaapplication.cpp:207
+#: elisaapplication.cpp:209
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Ga naar volgende track"
 
-#: elisaapplication.cpp:214
+#: elisaapplication.cpp:216
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Ga naar vorige track"
 
-#: elisaapplication.cpp:221
+#: elisaapplication.cpp:223
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Afspelen/pauzeren"
 
-#: elisaapplication.cpp:234
+#: elisaapplication.cpp:236
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
@@ -481,12 +481,10 @@ msgid "Color Scheme"
 msgstr "Kleurenschema"
 
 #: qml/BasicPlayListAlbumHeader.qml:135
-#, fuzzy, kde-format
-#| msgctxt "@action:button Remove current track from play list"
-#| msgid "Remove"
+#, kde-format
 msgctxt "@action:button Remove album from play list"
 msgid "Remove Album"
-msgstr "Verwijderen"
+msgstr "Album verwijderen"
 
 #: qml/ConfigurationDialog.qml:22
 #, kde-format
@@ -567,43 +565,43 @@ msgctxt "@label"
 msgid "Duration"
 msgstr "Tijdsduur"
 
-#: qml/ElisaMainWindow.qml:32
+#: qml/ElisaMainWindow.qml:31
 #, kde-format
 msgctxt "@label"
 msgid "Loading failed"
 msgstr "Laden is mislukt"
 
-#: qml/ElisaMainWindow.qml:32 qml/ElisaMainWindow.qml:327
+#: qml/ElisaMainWindow.qml:31 qml/ElisaMainWindow.qml:335
 #, kde-format
 msgctxt "@action:button"
 msgid "Retry"
 msgstr "Opnieuw proberen"
 
-#: qml/ElisaMainWindow.qml:36
+#: qml/ElisaMainWindow.qml:35
 #, kde-format
 msgctxt "@label"
 msgid "Playlist cleared"
 msgstr "Afspeellijst gewist"
 
-#: qml/ElisaMainWindow.qml:36
+#: qml/ElisaMainWindow.qml:35
 #, kde-format
 msgctxt "@action:button"
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: qml/ElisaMainWindow.qml:147
+#: qml/ElisaMainWindow.qml:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Show playlist drawer"
 msgstr "Afspeellade tonen"
 
-#: qml/ElisaMainWindow.qml:148
+#: qml/ElisaMainWindow.qml:147
 #, kde-format
 msgctxt "@action:button"
 msgid "Hide playlist drawer"
 msgstr "Afspeellade verbergen"
 
-#: qml/ElisaMainWindow.qml:184 qml/ElisaMainWindow.qml:647
+#: qml/ElisaMainWindow.qml:183 qml/ElisaMainWindow.qml:650
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -612,19 +610,19 @@ msgstr ""
 "Kon sommige bestanden niet laden. Elisa kan alleen audio- en "
 "afspeellijstbestanden openen."
 
-#: qml/ElisaMainWindow.qml:243 qml/mobile/MobileSidebar.qml:21
+#: qml/ElisaMainWindow.qml:242 qml/mobile/MobileSidebar.qml:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Elisa"
 msgstr "Elisa"
 
-#: qml/ElisaMainWindow.qml:243
+#: qml/ElisaMainWindow.qml:242
 #, kde-format
 msgctxt "@title:window"
 msgid "%1 — Elisa"
 msgstr "%1 — Elisa"
 
-#: qml/ElisaMainWindow.qml:307
+#: qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for m3u, m3u8 playlist file formats; do not "
@@ -632,7 +630,7 @@ msgctxt ""
 msgid "m3u8, m3u Playlist File (*.m3u*)"
 msgstr "m3u8-, m3u-afspeelbestand (*.m3u*)"
 
-#: qml/ElisaMainWindow.qml:307
+#: qml/ElisaMainWindow.qml:310
 #, kde-format
 msgctxt ""
 "@option file type (mime type) for pls playlist file formats; do not "
@@ -640,7 +638,7 @@ msgctxt ""
 msgid "pls Playlist File (*.pls)"
 msgstr "pls-afspeelbestand (*.pls)"
 
-#: qml/ElisaMainWindow.qml:314
+#: qml/ElisaMainWindow.qml:321
 #, kde-format
 msgctxt ""
 "@option Allow opening music and playlist files. %1 and %2 are lists of "
@@ -648,7 +646,7 @@ msgctxt ""
 msgid "Playlist files and music files (%1 %2) (%1 %2)"
 msgstr "Afspeellijstbestanden en muziekbestanden (%1 %2) (%1 %2)"
 
-#: qml/ElisaMainWindow.qml:315
+#: qml/ElisaMainWindow.qml:322
 #, kde-format
 msgctxt ""
 "@option Allow opening playlist files. %1 is an untranslated list of file "
@@ -656,7 +654,7 @@ msgctxt ""
 msgid "Playlist files (%1) (%1)"
 msgstr "Afspeellijstbestanden (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:316
+#: qml/ElisaMainWindow.qml:323
 #, kde-format
 msgctxt ""
 "@option Allow opening music files. %1 is an untranslated list of file "
@@ -664,7 +662,7 @@ msgctxt ""
 msgid "Music files (%1) (%1)"
 msgstr "Muziekbestanden (%1) (%1)"
 
-#: qml/ElisaMainWindow.qml:327
+#: qml/ElisaMainWindow.qml:335
 #, kde-format
 msgctxt "@label"
 msgid "Saving failed"

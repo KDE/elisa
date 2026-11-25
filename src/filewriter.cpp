@@ -26,7 +26,6 @@
 class FileWriterPrivate
 {
 public:
-
 #if KFFileMetaData_FOUND
     KFileMetaData::WriterCollection mAllWriters;
 
@@ -48,10 +47,10 @@ public:
 #endif
 
     QMimeDatabase mMimeDb;
-
 };
 
-FileWriter::FileWriter() : d(std::make_unique<FileWriterPrivate>())
+FileWriter::FileWriter()
+    : d(std::make_unique<FileWriterPrivate>())
 {
 }
 
@@ -71,7 +70,7 @@ bool FileWriter::writeSingleMetaDataToFile(const QUrl &url, const DataTypes::Col
         return false;
     }
 
-    const QList<KFileMetaData::Writer*> &writerList = d->mAllWriters.fetchWriters(mimetype);
+    const QList<KFileMetaData::Writer *> &writerList = d->mAllWriters.fetchWriters(mimetype);
 
     if (writerList.isEmpty()) {
         return false;
@@ -124,7 +123,7 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
     md.setUserComment(data.value(DataTypes::ColumnsRoles::CommentRole).toString());
     md.setRating(data.value(DataTypes::ColumnsRoles::RatingRole).toInt());
 
-    const QList<KFileMetaData::Writer*> &writerList = d->mAllWriters.fetchWriters(mimetype);
+    const QList<KFileMetaData::Writer *> &writerList = d->mAllWriters.fetchWriters(mimetype);
 
     if (writerList.isEmpty()) {
         return false;
@@ -162,4 +161,3 @@ bool FileWriter::writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackD
     return false;
 #endif
 }
-

@@ -16,15 +16,11 @@
 
 class ELISALIB_EXPORT GridViewProxyModel : public AbstractMediaProxyModel
 {
-
     Q_OBJECT
 
-    Q_PROPERTY(int tracksCount
-               READ tracksCount
-               NOTIFY tracksCountChanged)
+    Q_PROPERTY(int tracksCount READ tracksCount NOTIFY tracksCountChanged)
 
 public:
-
     explicit GridViewProxyModel(QObject *parent = nullptr);
 
     ~GridViewProxyModel() override;
@@ -38,7 +34,6 @@ Q_SIGNALS:
 public Q_SLOTS:
 
 protected:
-
     [[nodiscard]] bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
     [[nodiscard]] bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const override;

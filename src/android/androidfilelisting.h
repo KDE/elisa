@@ -11,10 +11,10 @@
 
 #include "datatypes.h"
 
+#include <QHash>
 #include <QObject>
 #include <QString>
 #include <QUrl>
-#include <QHash>
 
 #include <memory>
 
@@ -23,7 +23,6 @@ class MusicAudioTrack;
 
 class AndroidFileListing : public AbstractFileListing
 {
-
     Q_OBJECT
 
 public:
@@ -35,7 +34,7 @@ public:
 
     static void registerNativeMethods();
 
-    static AndroidFileListing* currentInstance();
+    static AndroidFileListing *currentInstance();
 
     void androidMusicTracksScanStarted();
 
@@ -66,10 +65,9 @@ private:
 
     DataTypes::TrackDataType scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo, FileSystemWatchingModes watchForFileSystemChanges) override;
 
-    static AndroidFileListing* mCurrentInstance;
+    static AndroidFileListing *mCurrentInstance;
 
     std::unique_ptr<AndroidFileListingPrivate> d;
-
 };
 
 #endif // ANDROIDFILELISTING_H

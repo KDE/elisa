@@ -7,14 +7,14 @@
 #ifndef ABSTRACTFILELISTING_H
 #define ABSTRACTFILELISTING_H
 
-#include "elisaLib_export.h"
 #include "datatypes.h"
+#include "elisaLib_export.h"
 
+#include <QDateTime>
+#include <QHash>
 #include <QObject>
 #include <QString>
 #include <QUrl>
-#include <QHash>
-#include <QDateTime>
 
 #include <memory>
 
@@ -24,11 +24,9 @@ class QFileInfo;
 
 class ELISALIB_EXPORT AbstractFileListing : public QObject
 {
-
     Q_OBJECT
 
 public:
-
     enum FileSystemWatchingMode {
         DoNotWatchFileSystemChanges,
         WatchChangedDirectories = 1 << 0,
@@ -43,7 +41,7 @@ public:
 
     virtual void applicationAboutToQuit();
 
-    [[nodiscard]] const QStringList& allRootPaths() const;
+    [[nodiscard]] const QStringList &allRootPaths() const;
 
     [[nodiscard]] virtual bool canHandleRootPaths() const;
 
@@ -99,7 +97,6 @@ protected Q_SLOTS:
     void fileChanged(const QString &modifiedFileName);
 
 protected:
-
     virtual void executeInit(const QHash<QUrl, QDateTime> &allFiles);
 
     virtual void triggerRefreshOfContent();
@@ -124,7 +121,7 @@ protected:
 
     void removeFile(const QUrl &oneRemovedTrack, QList<QUrl> &allRemovedFiles);
 
-    FileScanner& fileScanner();
+    FileScanner &fileScanner();
 
     [[nodiscard]] bool waitEndTrackRemoval() const;
 
@@ -135,9 +132,7 @@ protected:
     [[nodiscard]] bool fileModifiedSinceLastScan(const QUrl &path, const QUrl &parentPath, const QDateTime &lastModified) const;
 
 private:
-
     std::unique_ptr<AbstractFileListingPrivate> d;
-
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(AbstractFileListing::FileSystemWatchingModes)

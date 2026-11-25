@@ -33,7 +33,6 @@ static HICON hiconFromTheme(const QIcon::ThemeIcon iconName)
 class TaskBarManagerPrivate
 {
 public:
-
     ITaskbarList3 *taskBar = nullptr;
     HWND hwnd = nullptr;
 
@@ -67,11 +66,7 @@ public:
         HICON icon = nullptr;
         bool enabled = false;
     };
-    std::array<ButtonData, numOfButtons> buttonData = {{
-        {skipBackwardIcon, false},
-        {playIcon, false},
-        {skipForwardIcon, false}
-    }};
+    std::array<ButtonData, numOfButtons> buttonData = {{{skipBackwardIcon, false}, {playIcon, false}, {skipForwardIcon, false}}};
 
     /**
      * For convenience when reading code
@@ -84,10 +79,7 @@ public:
 
     TaskBarManagerPrivate()
     {
-        HRESULT result = CoCreateInstance(CLSID_TaskbarList,
-                                          nullptr,
-                                          CLSCTX_INPROC_SERVER,
-                                          IID_PPV_ARGS(&taskBar));
+        HRESULT result = CoCreateInstance(CLSID_TaskbarList, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&taskBar));
         if (FAILED(result)) {
             taskBar = nullptr;
             qCWarning(orgKdeElisaWindows) << "Failed to create Windows taskbar instance";
@@ -205,7 +197,8 @@ private:
             initThumbButton(currButton++, static_cast<ButtonID>(i));
         }
 
-        // win32 api reference says we should pass &thumbButtons but this doesn't compile
+        // win32 api reference says we should pass &thumbButtons but this doesn't
+        // compile
         HRESULT result = taskBar->ThumbBarAddButtons(hwnd, numOfButtons, thumbButtons);
         if (FAILED(result)) {
             qCWarning(orgKdeElisaWindows) << "Failed to create Windows taskbar buttons";
@@ -295,8 +288,7 @@ void TaskBarManager::setPlaybackState(const QMediaPlayer::PlaybackState newPlayb
     d->playbackState = newPlaybackState;
     Q_EMIT playbackStateChanged();
 
-    d->buttonData.at(TaskBarManagerPrivate::TogglePlayback).icon =
-        d->playbackState == QMediaPlayer::PlayingState ? d->pauseIcon : d->playIcon;
+    d->buttonData.at(TaskBarManagerPrivate::TogglePlayback).icon = d->playbackState == QMediaPlayer::PlayingState ? d->pauseIcon : d->playIcon;
     d->updateButton(TaskBarManagerPrivate::TogglePlayback);
     d->updateProgressFlags();
 }

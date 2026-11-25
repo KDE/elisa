@@ -20,7 +20,6 @@ class FileScannerPrivate;
 class ELISALIB_EXPORT FileScanner
 {
 public:
-
     FileScanner();
 
     ~FileScanner();
@@ -34,13 +33,11 @@ public:
     QUrl searchForCoverFile(const QString &localFileName);
 
 private:
-
     void scanProperties(const QString &localFileName, DataTypes::TrackDataType &trackData);
 
     bool checkEmbeddedCoverImage(const QString &localFileName);
 
     std::unique_ptr<FileScannerPrivate> d;
-
 };
 
 #endif // FILESCANNER_H

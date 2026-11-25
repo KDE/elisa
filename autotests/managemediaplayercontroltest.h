@@ -11,14 +11,11 @@
 
 #include "databasetestdata.h"
 
-
 class ManageMediaPlayerControlTest : public QObject, public DatabaseTestData
 {
-
     Q_OBJECT
 
 public:
-
     explicit ManageMediaPlayerControlTest(QObject *parent = nullptr);
 
 Q_SIGNALS:

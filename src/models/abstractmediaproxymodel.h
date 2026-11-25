@@ -10,43 +10,33 @@
 
 #include "elisaLib_export.h"
 
-#include "elisautils.h"
 #include "datatypes.h"
+#include "elisautils.h"
 
-#include <QSortFilterProxyModel>
-#include <QRegularExpression>
-#include <QReadWriteLock>
-#include <QThreadPool>
 #include <QFuture>
 #include <QFutureWatcher>
+#include <QReadWriteLock>
+#include <QRegularExpression>
+#include <QSortFilterProxyModel>
+#include <QThreadPool>
 
 class MediaPlayListProxyModel;
 
 class ELISALIB_EXPORT AbstractMediaProxyModel : public QSortFilterProxyModel
 {
-
     Q_OBJECT
 
-    Q_PROPERTY(QString filterText
-               READ filterText
-               WRITE setFilterText
-               NOTIFY filterTextChanged)
+    Q_PROPERTY(QString filterText READ filterText WRITE setFilterText NOTIFY filterTextChanged)
 
-    Q_PROPERTY(int filterRating
-               READ filterRating
-               WRITE setFilterRating
-               NOTIFY filterRatingChanged)
+    Q_PROPERTY(int filterRating READ filterRating WRITE setFilterRating NOTIFY filterRatingChanged)
 
-    Q_PROPERTY(bool sortedAscending
-               READ sortedAscending
-               NOTIFY sortedAscendingChanged)
+    Q_PROPERTY(bool sortedAscending READ sortedAscending NOTIFY sortedAscendingChanged)
 
     Q_PROPERTY(ElisaUtils::PlayListEntryType dataType READ dataType WRITE setDataType NOTIFY dataTypeChanged)
 
-    Q_PROPERTY(MediaPlayListProxyModel* playList READ playList WRITE setPlayList NOTIFY playListChanged)
+    Q_PROPERTY(MediaPlayListProxyModel *playList READ playList WRITE setPlayList NOTIFY playListChanged)
 
 public:
-
     explicit AbstractMediaProxyModel(QObject *parent = nullptr);
 
     ~AbstractMediaProxyModel() override;
@@ -59,7 +49,7 @@ public:
 
     [[nodiscard]] ElisaUtils::PlayListEntryType dataType() const;
 
-    [[nodiscard]] MediaPlayListProxyModel* playList() const;
+    [[nodiscard]] MediaPlayListProxyModel *playList() const;
 
 public Q_SLOTS:
 
@@ -71,7 +61,7 @@ public Q_SLOTS:
 
     void setDataType(ElisaUtils::PlayListEntryType dataType);
 
-    void setPlayList(MediaPlayListProxyModel* playList);
+    void setPlayList(MediaPlayListProxyModel *playList);
 
     void enqueueAll(ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
@@ -103,7 +93,6 @@ Q_SIGNALS:
     void switchToTrackUrl(const QUrl &url, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
 protected:
-
     [[nodiscard]] bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override = 0;
 
     void disconnectPlayList();
@@ -122,19 +111,15 @@ protected:
 
     QThreadPool mThreadPool;
 
-    MediaPlayListProxyModel* mPlayList = nullptr;
+    MediaPlayListProxyModel *mPlayList = nullptr;
 
     QFutureWatcher<void> mEnqueueWatcher;
 
     QUrl mEnqueueWatcherTrackUrl;
 
-
 private:
-
-    QFuture<void> genericEnqueueToPlayList(const QModelIndex &rootIndex,
-                                  ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
-
+    QFuture<void>
+    genericEnqueueToPlayList(const QModelIndex &rootIndex, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 };
 
 #endif // ABSTRACTMEDIAPROXYMODEL_H

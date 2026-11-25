@@ -12,8 +12,8 @@
 
 #include <array>
 
-
-GridViewProxyModel::GridViewProxyModel(QObject *parent) : AbstractMediaProxyModel(parent)
+GridViewProxyModel::GridViewProxyModel(QObject *parent)
+    : AbstractMediaProxyModel(parent)
 {
     setSortRole(Qt::DisplayRole);
     setSortCaseSensitivity(Qt::CaseInsensitive);
@@ -36,11 +36,10 @@ bool GridViewProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
     bool maximumRatingValueIsValid = false;
     const auto maximumRatingValue = sourceModel()->data(currentIndex, DataTypes::RatingRole).toInt(&maximumRatingValueIsValid);
 
-    if ((collectionMaximumRatingValueIsValid && maximumRatingValueIsValid &&
-            collectionMaximumRatingValue < mFilterRating && maximumRatingValue < mFilterRating) ||
-        (collectionMaximumRatingValueIsValid && !maximumRatingValueIsValid && collectionMaximumRatingValue < mFilterRating) ||
-        (!collectionMaximumRatingValueIsValid && maximumRatingValueIsValid && maximumRatingValue < mFilterRating) ||
-        (!collectionMaximumRatingValueIsValid && !maximumRatingValueIsValid && mFilterRating)) {
+    if ((collectionMaximumRatingValueIsValid && maximumRatingValueIsValid && collectionMaximumRatingValue < mFilterRating && maximumRatingValue < mFilterRating)
+        || (collectionMaximumRatingValueIsValid && !maximumRatingValueIsValid && collectionMaximumRatingValue < mFilterRating)
+        || (!collectionMaximumRatingValueIsValid && maximumRatingValueIsValid && maximumRatingValue < mFilterRating)
+        || (!collectionMaximumRatingValueIsValid && !maximumRatingValueIsValid && mFilterRating)) {
         result = false;
         return result;
     }
@@ -88,14 +87,16 @@ bool GridViewProxyModel::lessThan(const QModelIndex &source_left, const QModelIn
     if (leftData.typeId() != rightData.typeId() || leftData != rightData)
         return QSortFilterProxyModel::lessThan(source_left, source_right);
 
-    // Primary sort keys are equal: order by album, then disc number, then track number
+    // Primary sort keys are equal: order by album, then disc number, then track
+    // number
     static constexpr std::array tieBreakRoles{DataTypes::AlbumIdRole, DataTypes::DiscNumberRole, DataTypes::TrackNumberRole};
     for (const auto role : tieBreakRoles) {
         const auto leftValue = srcModel->data(source_left, role).toLongLong();
         const auto rightValue = srcModel->data(source_right, role).toLongLong();
         if (leftValue != rightValue) {
-            // The proxy swaps the operands when sorting in descending order: invert the
-            // comparison so that tracks of a same album stay in their natural order
+            // The proxy swaps the operands when sorting in descending order: invert
+            // the comparison so that tracks of a same album stay in their natural
+            // order
             return (sortOrder() == Qt::AscendingOrder) ? (leftValue < rightValue) : (leftValue > rightValue);
         }
     }

@@ -11,80 +11,44 @@
 
 #include "elisautils.h"
 
-#include <QStringList>
 #include <QFileSystemWatcher>
 #include <QQmlEngine>
+#include <QStringList>
 
 class ELISALIB_EXPORT ElisaConfigurationDialog : public QObject
 {
-
     Q_OBJECT
 
     QML_ELEMENT
 
     QML_SINGLETON
 
-    Q_PROPERTY(QStringList rootPath
-               READ rootPath
-               WRITE setRootPath
-               NOTIFY rootPathChanged)
+    Q_PROPERTY(QStringList rootPath READ rootPath WRITE setRootPath NOTIFY rootPathChanged)
 
-    Q_PROPERTY(bool alwaysUseAbsolutePlaylistPaths
-               READ alwaysUseAbsolutePlaylistPaths
-               WRITE setAlwaysUseAbsolutePlaylistPaths
-               NOTIFY alwaysUseAbsolutePlaylistPathsChanged)
+    Q_PROPERTY(bool alwaysUseAbsolutePlaylistPaths READ alwaysUseAbsolutePlaylistPaths WRITE setAlwaysUseAbsolutePlaylistPaths NOTIFY
+                   alwaysUseAbsolutePlaylistPathsChanged)
 
-    Q_PROPERTY(bool showNowPlayingBackground
-               READ showNowPlayingBackground
-               WRITE setShowNowPlayingBackground
-               NOTIFY showNowPlayingBackgroundChanged)
+    Q_PROPERTY(bool showNowPlayingBackground READ showNowPlayingBackground WRITE setShowNowPlayingBackground NOTIFY showNowPlayingBackgroundChanged)
 
-    Q_PROPERTY(bool showProgressInTaskBar
-               READ showProgressInTaskBar
-               WRITE setShowProgressInTaskBar
-               NOTIFY showProgressInTaskBarChanged)
+    Q_PROPERTY(bool showProgressInTaskBar READ showProgressInTaskBar WRITE setShowProgressInTaskBar NOTIFY showProgressInTaskBarChanged)
 
-    Q_PROPERTY(bool showSystemTrayIcon
-               READ showSystemTrayIcon
-               WRITE setShowSystemTrayIcon
-               NOTIFY showSystemTrayIconChanged)
+    Q_PROPERTY(bool showSystemTrayIcon READ showSystemTrayIcon WRITE setShowSystemTrayIcon NOTIFY showSystemTrayIconChanged)
 
-    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedView
-               READ embeddedView
-               WRITE setEmbeddedView
-               NOTIFY embeddedViewChanged)
+    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedView READ embeddedView WRITE setEmbeddedView NOTIFY embeddedViewChanged)
 
-    Q_PROPERTY(int initialViewIndex
-               READ initialViewIndex
-               WRITE setInitialViewIndex
-               NOTIFY initialViewIndexChanged)
+    Q_PROPERTY(int initialViewIndex READ initialViewIndex WRITE setInitialViewIndex NOTIFY initialViewIndexChanged)
 
-    Q_PROPERTY(QString initialFilesViewPath
-               READ initialFilesViewPath
-               WRITE setInitialFilesViewPath
-               NOTIFY initialFilesViewPathChanged)
+    Q_PROPERTY(QString initialFilesViewPath READ initialFilesViewPath WRITE setInitialFilesViewPath NOTIFY initialFilesViewPathChanged)
 
-    Q_PROPERTY(bool isDirty
-               READ isDirty
-               NOTIFY isDirtyChanged)
+    Q_PROPERTY(bool isDirty READ isDirty NOTIFY isDirtyChanged)
 
-    Q_PROPERTY(bool playAtStartup
-               READ playAtStartup
-               WRITE setPlayAtStartup
-               NOTIFY playAtStartupChanged)
+    Q_PROPERTY(bool playAtStartup READ playAtStartup WRITE setPlayAtStartup NOTIFY playAtStartupChanged)
 
-    Q_PROPERTY(bool scanAtStartup
-               READ scanAtStartup
-               WRITE setScanAtStartup
-               NOTIFY scanAtStartupChanged)
+    Q_PROPERTY(bool scanAtStartup READ scanAtStartup WRITE setScanAtStartup NOTIFY scanAtStartupChanged)
 
-    Q_PROPERTY(bool useFavoriteStyleRatings
-               READ useFavoriteStyleRatings
-               WRITE setUseFavoriteStyleRatings
-               NOTIFY useFavoriteStyleRatingsChanged)
+    Q_PROPERTY(bool useFavoriteStyleRatings READ useFavoriteStyleRatings WRITE setUseFavoriteStyleRatings NOTIFY useFavoriteStyleRatingsChanged)
 
 public:
-
     static ElisaConfigurationDialog *create(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
@@ -107,7 +71,6 @@ public:
     {
         return mShowNowPlayingBackground;
     }
-
 
     [[nodiscard]] bool showProgressInTaskBar() const
     {
@@ -155,7 +118,6 @@ public:
     }
 
     Q_INVOKABLE void removeMusicLocation(const QString &location);
-
 
 Q_SIGNALS:
 
@@ -216,7 +178,6 @@ private Q_SLOTS:
     void configChanged();
 
 private:
-
     void setDirty();
 
     QStringList mRootPath;

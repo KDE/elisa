@@ -14,7 +14,6 @@
 class ModelDataLoaderPrivate
 {
 public:
-
     DatabaseInterface *mDatabase = nullptr;
 
     ElisaUtils::PlayListEntryType mModelType = ElisaUtils::Unknown;
@@ -36,7 +35,9 @@ public:
     FileWriter mFileWriter;
 };
 
-ModelDataLoader::ModelDataLoader(QObject *parent) : QObject(parent), d(std::make_unique<ModelDataLoaderPrivate>())
+ModelDataLoader::ModelDataLoader(QObject *parent)
+    : QObject(parent)
+    , d(std::make_unique<ModelDataLoaderPrivate>())
 {
 }
 
@@ -46,37 +47,22 @@ void ModelDataLoader::setDatabase(DatabaseInterface *database)
 {
     d->mDatabase = database;
 
-    connect(database, &DatabaseInterface::genresAdded,
-            this, &ModelDataLoader::genresAdded);
+    connect(database, &DatabaseInterface::genresAdded, this, &ModelDataLoader::genresAdded);
     connect(database, &DatabaseInterface::genreRemoved, this, &ModelDataLoader::genreRemoved);
-    connect(database, &DatabaseInterface::albumsAdded,
-            this, &ModelDataLoader::databaseAlbumsAdded);
-    connect(database, &DatabaseInterface::albumModified,
-            this, &ModelDataLoader::albumModified);
-    connect(database, &DatabaseInterface::albumRemoved,
-            this, &ModelDataLoader::albumRemoved);
-    connect(database, &DatabaseInterface::tracksAdded,
-            this, &ModelDataLoader::databaseTracksAdded);
-    connect(database, &DatabaseInterface::trackModified,
-            this, &ModelDataLoader::trackModified);
-    connect(database, &DatabaseInterface::trackRemoved,
-            this, &ModelDataLoader::trackRemoved);
-    connect(database, &DatabaseInterface::artistsAdded,
-            this, &ModelDataLoader::databaseArtistsAdded);
-    connect(database, &DatabaseInterface::artistRemoved,
-            this, &ModelDataLoader::artistRemoved);
-    connect(this, &ModelDataLoader::saveTrackModified,
-            database, &DatabaseInterface::insertTracksList);
-    connect(this, &ModelDataLoader::removeRadio,
-            database, &DatabaseInterface::removeRadio);
-    connect(database, &DatabaseInterface::radioAdded,
-            this, &ModelDataLoader::radioAdded);
-    connect(database, &DatabaseInterface::radioModified,
-            this, &ModelDataLoader::radioModified);
-    connect(database, &DatabaseInterface::radioRemoved,
-            this, &ModelDataLoader::radioRemoved);
-    connect(database, &DatabaseInterface::cleanedDatabase,
-            this, &ModelDataLoader::clearedDatabase);
+    connect(database, &DatabaseInterface::albumsAdded, this, &ModelDataLoader::databaseAlbumsAdded);
+    connect(database, &DatabaseInterface::albumModified, this, &ModelDataLoader::albumModified);
+    connect(database, &DatabaseInterface::albumRemoved, this, &ModelDataLoader::albumRemoved);
+    connect(database, &DatabaseInterface::tracksAdded, this, &ModelDataLoader::databaseTracksAdded);
+    connect(database, &DatabaseInterface::trackModified, this, &ModelDataLoader::trackModified);
+    connect(database, &DatabaseInterface::trackRemoved, this, &ModelDataLoader::trackRemoved);
+    connect(database, &DatabaseInterface::artistsAdded, this, &ModelDataLoader::databaseArtistsAdded);
+    connect(database, &DatabaseInterface::artistRemoved, this, &ModelDataLoader::artistRemoved);
+    connect(this, &ModelDataLoader::saveTrackModified, database, &DatabaseInterface::insertTracksList);
+    connect(this, &ModelDataLoader::removeRadio, database, &DatabaseInterface::removeRadio);
+    connect(database, &DatabaseInterface::radioAdded, this, &ModelDataLoader::radioAdded);
+    connect(database, &DatabaseInterface::radioModified, this, &ModelDataLoader::radioModified);
+    connect(database, &DatabaseInterface::radioRemoved, this, &ModelDataLoader::radioRemoved);
+    connect(database, &DatabaseInterface::cleanedDatabase, this, &ModelDataLoader::clearedDatabase);
 }
 
 void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
@@ -87,8 +73,7 @@ void ModelDataLoader::loadData(ElisaUtils::PlayListEntryType dataType)
 
     d->mFilterType = ModelDataLoader::FilterType::NoFilter;
 
-    switch (dataType)
-    {
+    switch (dataType) {
     case ElisaUtils::Album:
         Q_EMIT allAlbumsData(d->mDatabase->allAlbumsData());
         break;
@@ -125,8 +110,7 @@ void ModelDataLoader::loadDataByAlbumId(ElisaUtils::PlayListEntryType dataType, 
     d->mFilterType = ModelDataLoader::FilterType::FilterById;
     d->mDatabaseId = databaseId;
 
-    switch (dataType)
-    {
+    switch (dataType) {
     case ElisaUtils::Album:
         break;
     case ElisaUtils::Artist:
@@ -158,8 +142,7 @@ void ModelDataLoader::loadDataByGenre(ElisaUtils::PlayListEntryType dataType, co
     d->mFilterType = ModelDataLoader::FilterType::FilterByGenre;
     d->mGenre = genre;
 
-    switch (dataType)
-    {
+    switch (dataType) {
     case ElisaUtils::Artist:
         Q_EMIT allArtistsData(d->mDatabase->allArtistsDataByGenre(genre));
         break;
@@ -188,8 +171,7 @@ void ModelDataLoader::loadDataByArtist(ElisaUtils::PlayListEntryType dataType, c
     d->mFilterType = ModelDataLoader::FilterType::FilterByArtist;
     d->mArtist = artist;
 
-    switch (dataType)
-    {
+    switch (dataType) {
     case ElisaUtils::Album:
         Q_EMIT allAlbumsData(d->mDatabase->allAlbumsDataByArtist(artist));
         break;
@@ -219,8 +201,7 @@ void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dat
     d->mArtist = artist;
     d->mGenre = genre;
 
-    switch (dataType)
-    {
+    switch (dataType) {
     case ElisaUtils::Album:
         Q_EMIT allAlbumsData(d->mDatabase->allAlbumsDataByGenreAndArtist(genre, artist));
         break;
@@ -240,8 +221,7 @@ void ModelDataLoader::loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dat
     }
 }
 
-void ModelDataLoader::loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType dataType,
-                                                 qulonglong databaseId, const QUrl &url)
+void ModelDataLoader::loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId, const QUrl &url)
 {
     if (!d->mDatabase) {
         return;
@@ -250,8 +230,7 @@ void ModelDataLoader::loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType d
     d->mFilterType = ModelDataLoader::FilterType::FilterById;
     d->mDatabaseId = databaseId;
 
-    switch (dataType)
-    {
+    switch (dataType) {
     case ElisaUtils::FileName:
     case ElisaUtils::Track:
         Q_EMIT allTrackData(d->mDatabase->trackDataFromDatabaseIdAndUrl(databaseId, url));
@@ -279,11 +258,9 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
 
     d->mFilterType = ModelDataLoader::FilterType::UnknownFilter;
 
-    switch (dataType)
-    {
+    switch (dataType) {
     case ElisaUtils::FileName:
-    case ElisaUtils::Track:
-    {
+    case ElisaUtils::Track: {
         auto databaseId = d->mDatabase->trackIdFromFileName(url);
         if (databaseId != 0) {
             Q_EMIT allTrackData(d->mDatabase->trackDataFromDatabaseIdAndUrl(databaseId, url));
@@ -293,8 +270,7 @@ void ModelDataLoader::loadDataByUrl(ElisaUtils::PlayListEntryType dataType, cons
         }
         break;
     }
-    case ElisaUtils::Radio:
-    {
+    case ElisaUtils::Radio: {
         auto databaseId = d->mDatabase->radioIdFromFileName(url);
         if (databaseId != 0) {
             Q_EMIT allRadioData(d->mDatabase->radioDataFromDatabaseId(databaseId));
@@ -324,8 +300,7 @@ void ModelDataLoader::loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataT
 
     d->mFilterType = ModelDataLoader::FilterType::FilterByRecentlyPlayed;
 
-    switch (dataType)
-    {
+    switch (dataType) {
     case ElisaUtils::Track:
         Q_EMIT allTracksData(d->mDatabase->recentlyPlayedTracksData(50));
         break;
@@ -351,8 +326,7 @@ void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dat
 
     d->mFilterType = ModelDataLoader::FilterType::FilterByFrequentlyPlayed;
 
-    switch (dataType)
-    {
+    switch (dataType) {
     case ElisaUtils::Track:
         Q_EMIT allTracksData(d->mDatabase->frequentlyPlayedTracksData(50));
         break;
@@ -372,16 +346,16 @@ void ModelDataLoader::loadFrequentlyPlayedData(ElisaUtils::PlayListEntryType dat
 
 void ModelDataLoader::databaseTracksAdded(const ListTrackDataType &newData)
 {
-    switch(d->mFilterType) {
+    switch (d->mFilterType) {
     case ModelDataLoader::FilterType::NoFilter:
         Q_EMIT tracksAdded(newData);
         break;
-    case ModelDataLoader::FilterType::FilterById:
-    {
+    case ModelDataLoader::FilterType::FilterById: {
         auto filteredData = newData;
 
-        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(),
-                                      [&](const auto &oneTrack) { return oneTrack.albumId() != d->mDatabaseId; });
+        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(), [&](const auto &oneTrack) {
+            return oneTrack.albumId() != d->mDatabaseId;
+        });
         filteredData.erase(new_end, filteredData.end());
 
         Q_EMIT tracksAdded(filteredData);
@@ -400,12 +374,12 @@ void ModelDataLoader::databaseTracksAdded(const ListTrackDataType &newData)
 
 void ModelDataLoader::databaseArtistsAdded(const ListArtistDataType &newData)
 {
-    switch(d->mFilterType) {
-    case ModelDataLoader::FilterType::FilterByGenre:
-    {
+    switch (d->mFilterType) {
+    case ModelDataLoader::FilterType::FilterByGenre: {
         auto filteredData = newData;
-        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(),
-                                      [&](const auto &oneArtist){return !d->mDatabase->internalArtistMatchGenre(oneArtist.databaseId(), d->mGenre);});
+        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(), [&](const auto &oneArtist) {
+            return !d->mDatabase->internalArtistMatchGenre(oneArtist.databaseId(), d->mGenre);
+        });
         filteredData.erase(new_end, filteredData.end());
 
         Q_EMIT artistsAdded(filteredData);
@@ -428,12 +402,12 @@ void ModelDataLoader::databaseArtistsAdded(const ListArtistDataType &newData)
 
 void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
 {
-    switch(d->mFilterType) {
-    case ModelDataLoader::FilterType::FilterByArtist:
-    {
+    switch (d->mFilterType) {
+    case ModelDataLoader::FilterType::FilterByArtist: {
         auto filteredData = newData;
-        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(),
-                                      [&](const auto &oneAlbum){return oneAlbum.artist() != d->mArtist;});
+        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(), [&](const auto &oneAlbum) {
+            return oneAlbum.artist() != d->mArtist;
+        });
         filteredData.erase(new_end, filteredData.end());
 
         Q_EMIT albumsAdded(filteredData);
@@ -443,14 +417,12 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
     case ModelDataLoader::FilterType::NoFilter:
         Q_EMIT albumsAdded(newData);
         break;
-    case ModelDataLoader::FilterType::FilterByGenreAndArtist:
-    {
+    case ModelDataLoader::FilterType::FilterByGenreAndArtist: {
         auto filteredData = newData;
-        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(),
-                                      [&](const auto &oneAlbum){
-                                        const auto &allGenres = oneAlbum.genres();
-                                        return oneAlbum.artist() != d->mArtist || !allGenres.contains(d->mGenre);
-                                      });
+        auto new_end = std::remove_if(filteredData.begin(), filteredData.end(), [&](const auto &oneAlbum) {
+            const auto &allGenres = oneAlbum.genres();
+            return oneAlbum.artist() != d->mArtist || !allGenres.contains(d->mGenre);
+        });
         filteredData.erase(new_end, filteredData.end());
 
         Q_EMIT albumsAdded(filteredData);
@@ -469,7 +441,7 @@ void ModelDataLoader::databaseAlbumsAdded(const ListAlbumDataType &newData)
 
 void ModelDataLoader::trackHasBeenModified(ModelDataLoader::ListTrackDataType trackDataType)
 {
-    for(auto &oneTrack : trackDataType) {
+    for (auto &oneTrack : trackDataType) {
         if (oneTrack.elementType() == ElisaUtils::Track) {
             d->mFileWriter.writeAllMetaDataToFile(oneTrack.resourceURI(), oneTrack);
 
@@ -477,7 +449,9 @@ void ModelDataLoader::trackHasBeenModified(ModelDataLoader::ListTrackDataType tr
 
             oneTrack[DataTypes::FileModificationTime] = trackFile.fileTime(QFileDevice::FileModificationTime);
 
-            erase_if(oneTrack, [](const auto &trackDataItr) {return trackDataItr->isNull();});
+            erase_if(oneTrack, [](const auto &trackDataItr) {
+                return trackDataItr->isNull();
+            });
         }
     }
 

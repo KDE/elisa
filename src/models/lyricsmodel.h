@@ -17,12 +17,14 @@ class ELISALIB_EXPORT LyricsModel : public QAbstractListModel
 
     QML_ELEMENT
 
-    Q_PROPERTY(int highlightedIndex
-               READ highlightedIndex
-               NOTIFY highlightedIndexChanged)
+    Q_PROPERTY(int highlightedIndex READ highlightedIndex NOTIFY highlightedIndexChanged)
     Q_PROPERTY(bool isLRC READ isLRC NOTIFY isLRCChanged)
 public:
-    enum LyricsRole {Lyric = Qt::UserRole, TimeStamp, IsHighlighted};
+    enum LyricsRole {
+        Lyric = Qt::UserRole,
+        TimeStamp,
+        IsHighlighted
+    };
     LyricsModel(QObject *parent = nullptr);
     ~LyricsModel() override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;

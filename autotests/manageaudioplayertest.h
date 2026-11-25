@@ -11,11 +11,9 @@
 
 class ManageAudioPlayerTest : public QObject
 {
-
     Q_OBJECT
 
 public:
-
     enum ColumnsRoles {
         IsValidRole = Qt::UserRole + 1,
         TitleRole = IsValidRole + 1,

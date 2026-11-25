@@ -6,11 +6,11 @@
 
 #include "viewmanager.h"
 
-#include "viewslistdata.h"
-#include "viewconfigurationdata.h"
-#include "viewsLogging.h"
 #include "models/datamodel.h"
 #include "models/gridviewproxymodel.h"
+#include "viewconfigurationdata.h"
+#include "viewsLogging.h"
+#include "viewslistdata.h"
 
 #if KFKIO_FOUND
 #include "models/filebrowsermodel.h"
@@ -21,8 +21,8 @@
 
 #include <KLocalizedString>
 
-#include <QQmlEngine>
 #include <QMetaEnum>
+#include <QQmlEngine>
 
 class ViewManagerPrivate
 {
@@ -30,82 +30,117 @@ public:
     ViewsListData *mViewsListData = nullptr;
 
     QMap<ElisaUtils::PlayListEntryType, ViewParameters> mChildViews = {
-        {ElisaUtils::Album, {{},
-                             QUrl{QStringLiteral("image://icon/view-media-track")},
-                             ViewManager::TrackView,
-                             ViewManager::GenericDataModel,
-                             ElisaUtils::FilterById,
-                             ElisaUtils::Track,
-                             DataTypes::TrackNumberRole,
-                             {DataTypes::TrackNumberRole, Qt::DisplayRole},
-                             {i18nc("@title:inmenu", "Track Number"), i18nc("@title:inmenu", "Title")},
-                             Qt::AscendingOrder,
-                             {i18nc("@item:inmenu", "Ascending"), i18nc("@item:inmenu", "Descending"),
-                              i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
-                             ViewManager::SingleAlbum,
-                             ViewManager::DiscHeaders}},
-        {ElisaUtils::Genre, {{},
-                             QUrl{QStringLiteral("image://icon/view-media-artist")},
-                             ViewManager::GridView,
-                             ViewManager::GenericDataModel,
-                             ElisaUtils::FilterByGenre,
-                             ElisaUtils::Artist,
-                             Qt::DisplayRole,
-                             {Qt::DisplayRole},
-                             {i18nc("@title:inmenu", "Name")},
-                             Qt::AscendingOrder,
-                             {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
-                             QUrl{QStringLiteral("image://icon/view-media-artist")},
-                             ViewManager::DelegateWithoutSecondaryText,
-                             ViewManager::ViewHideRating}},
-        {ElisaUtils::Artist, {{},
-                              QUrl{QStringLiteral("image://icon/view-media-album-cover")},
-                              ViewManager::GridView,
-                              ViewManager::GenericDataModel,
-                              ElisaUtils::FilterByArtist,
-                              ElisaUtils::Album,
-                              DataTypes::TitleRole,
-                              {DataTypes::TitleRole, DataTypes::GenreRole, DataTypes::YearRole},
-                              {i18nc("@title:inmenu", "Title"), i18nc("@title:inmenu", "Genre"), i18nc("@title:inmenu", "Year")},
-                              Qt::AscendingOrder,
-                              {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
-                              QUrl{QStringLiteral("image://icon/media-default-album")},
-                              ViewManager::DelegateWithSecondaryText,
-                              ViewManager::ViewShowRating}},
-        {ElisaUtils::Container, {{},
-                                 QUrl{QStringLiteral("image://icon/folder")},
-                                 ViewManager::GridView,
-                                 ViewManager::FileBrowserModel,
-                                 ElisaUtils::FilterByPath,
-                                 ElisaUtils::FileName,
-                                 Qt::DisplayRole,
-                                 {Qt::DisplayRole},
-                                 {i18nc("@title:inmenu", "Name")},
-                                 Qt::AscendingOrder,
-                                 {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
-                                 QUrl{QStringLiteral("image://icon/folder")},
-                                 ViewManager::DelegateWithoutSecondaryText,
-                                 ViewManager::ViewHideRating}},
-        {ElisaUtils::Track, {{},
-                             QUrl{QStringLiteral("image://icon/view-media-track")},
-                             ViewManager::TrackView,
-                             ViewManager::GenericDataModel,
-                             ElisaUtils::FilterByArtist,
-                             ElisaUtils::Track,
-                             DataTypes::TitleRole,
-                             {DataTypes::TitleRole, DataTypes::AlbumRole, DataTypes::ArtistRole,
-                             DataTypes::GenreRole, DataTypes::YearRole, DataTypes::DurationRole,
-                             DataTypes::ComposerRole, DataTypes::LyricistRole,
-                             DataTypes::FileModificationTime},
-                             {i18nc("@title:menu", "Title"), i18nc("@title:menu", "Album"), i18nc("@title:menu", "Artist"), i18nc("@title:menu", "Genre"),
-                             i18nc("@title:menu", "Year"), i18nc("@title:menu", "Duration"), i18nc("@title:menu", "Composer"), i18nc("@title:menu", "Lyricist"),
-                             i18nc("@title:menu", "Last Modified")},
-                             Qt::AscendingOrder,
-                             {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"),
-                             i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First"), i18nc("@item:inmenu", "Shortest First"), i18nc("@item:inmenu", "Longest First"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"),
-                             i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
-                             ViewManager::MultipleAlbum,
-                             ViewManager::NoDiscHeaders}},
+        {ElisaUtils::Album,
+         {{},
+          QUrl{QStringLiteral("image://icon/view-media-track")},
+          ViewManager::TrackView,
+          ViewManager::GenericDataModel,
+          ElisaUtils::FilterById,
+          ElisaUtils::Track,
+          DataTypes::TrackNumberRole,
+          {DataTypes::TrackNumberRole, Qt::DisplayRole},
+          {i18nc("@title:inmenu", "Track Number"), i18nc("@title:inmenu", "Title")},
+          Qt::AscendingOrder,
+          {i18nc("@item:inmenu", "Ascending"), i18nc("@item:inmenu", "Descending"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
+          ViewManager::SingleAlbum,
+          ViewManager::DiscHeaders}},
+        {ElisaUtils::Genre,
+         {{},
+          QUrl{QStringLiteral("image://icon/view-media-artist")},
+          ViewManager::GridView,
+          ViewManager::GenericDataModel,
+          ElisaUtils::FilterByGenre,
+          ElisaUtils::Artist,
+          Qt::DisplayRole,
+          {Qt::DisplayRole},
+          {i18nc("@title:inmenu", "Name")},
+          Qt::AscendingOrder,
+          {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
+          QUrl{QStringLiteral("image://icon/view-media-artist")},
+          ViewManager::DelegateWithoutSecondaryText,
+          ViewManager::ViewHideRating}},
+        {ElisaUtils::Artist,
+         {{},
+          QUrl{QStringLiteral("image://icon/view-media-album-cover")},
+          ViewManager::GridView,
+          ViewManager::GenericDataModel,
+          ElisaUtils::FilterByArtist,
+          ElisaUtils::Album,
+          DataTypes::TitleRole,
+          {DataTypes::TitleRole, DataTypes::GenreRole, DataTypes::YearRole},
+          {i18nc("@title:inmenu", "Title"), i18nc("@title:inmenu", "Genre"), i18nc("@title:inmenu", "Year")},
+          Qt::AscendingOrder,
+          {i18nc("@item:inmenu", "A–Z"),
+           i18nc("@item:inmenu", "Z–A"),
+           i18nc("@item:inmenu", "A–Z"),
+           i18nc("@item:inmenu", "Z–A"),
+           i18nc("@item:inmenu", "Oldest First"),
+           i18nc("@item:inmenu", "Newest First")},
+          QUrl{QStringLiteral("image://icon/media-default-album")},
+          ViewManager::DelegateWithSecondaryText,
+          ViewManager::ViewShowRating}},
+        {ElisaUtils::Container,
+         {{},
+          QUrl{QStringLiteral("image://icon/folder")},
+          ViewManager::GridView,
+          ViewManager::FileBrowserModel,
+          ElisaUtils::FilterByPath,
+          ElisaUtils::FileName,
+          Qt::DisplayRole,
+          {Qt::DisplayRole},
+          {i18nc("@title:inmenu", "Name")},
+          Qt::AscendingOrder,
+          {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
+          QUrl{QStringLiteral("image://icon/folder")},
+          ViewManager::DelegateWithoutSecondaryText,
+          ViewManager::ViewHideRating}},
+        {ElisaUtils::Track,
+         {{},
+          QUrl{QStringLiteral("image://icon/view-media-track")},
+          ViewManager::TrackView,
+          ViewManager::GenericDataModel,
+          ElisaUtils::FilterByArtist,
+          ElisaUtils::Track,
+          DataTypes::TitleRole,
+          {DataTypes::TitleRole,
+           DataTypes::AlbumRole,
+           DataTypes::ArtistRole,
+           DataTypes::GenreRole,
+           DataTypes::YearRole,
+           DataTypes::DurationRole,
+           DataTypes::ComposerRole,
+           DataTypes::LyricistRole,
+           DataTypes::FileModificationTime},
+          {i18nc("@title:menu", "Title"),
+           i18nc("@title:menu", "Album"),
+           i18nc("@title:menu", "Artist"),
+           i18nc("@title:menu", "Genre"),
+           i18nc("@title:menu", "Year"),
+           i18nc("@title:menu", "Duration"),
+           i18nc("@title:menu", "Composer"),
+           i18nc("@title:menu", "Lyricist"),
+           i18nc("@title:menu", "Last Modified")},
+          Qt::AscendingOrder,
+          {i18nc("@item:inmenu", "A–Z"),
+           i18nc("@item:inmenu", "Z–A"),
+           i18nc("@item:inmenu", "A–Z"),
+           i18nc("@item:inmenu", "Z–A"),
+           i18nc("@item:inmenu", "A–Z"),
+           i18nc("@item:inmenu", "Z–A"),
+           i18nc("@item:inmenu", "A–Z"),
+           i18nc("@item:inmenu", "Z–A"),
+           i18nc("@item:inmenu", "Oldest First"),
+           i18nc("@item:inmenu", "Newest First"),
+           i18nc("@item:inmenu", "Shortest First"),
+           i18nc("@item:inmenu", "Longest First"),
+           i18nc("@item:inmenu", "A–Z"),
+           i18nc("@item:inmenu", "Z–A"),
+           i18nc("@item:inmenu", "A–Z"),
+           i18nc("@item:inmenu", "Z–A"),
+           i18nc("@item:inmenu", "Oldest First"),
+           i18nc("@item:inmenu", "Newest First")},
+          ViewManager::MultipleAlbum,
+          ViewManager::NoDiscHeaders}},
     };
 
     int mViewIndex = -1;
@@ -175,15 +210,9 @@ void ViewManager::openView(int viewIndex)
 
 void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
 {
-    qCDebug(orgKdeElisaViews()) << "ViewManager::openChildView"
-                                << fullData[DataTypes::TitleRole]
-                                << fullData[DataTypes::SecondaryTextRole]
-                                << fullData[DataTypes::ImageUrlRole]
-                                << fullData[DataTypes::DatabaseIdRole]
-                                << fullData[DataTypes::FilePathRole]
-                                << fullData[DataTypes::ElementTypeRole]
-                                << fullData[DataTypes::IsSingleDiscAlbumRole]
-                                << d->mViewParametersStack.size();
+    qCDebug(orgKdeElisaViews()) << "ViewManager::openChildView" << fullData[DataTypes::TitleRole] << fullData[DataTypes::SecondaryTextRole]
+                                << fullData[DataTypes::ImageUrlRole] << fullData[DataTypes::DatabaseIdRole] << fullData[DataTypes::FilePathRole]
+                                << fullData[DataTypes::ElementTypeRole] << fullData[DataTypes::IsSingleDiscAlbumRole] << d->mViewParametersStack.size();
 
     if (!d->mViewParametersStack.size()) {
         return;
@@ -236,8 +265,7 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
         }
     }
 
-    if (dataType == ElisaUtils::Album && nextViewParameters.mDataFilter[DataTypes::IsSingleDiscAlbumRole].toBool())
-    {
+    if (dataType == ElisaUtils::Album && nextViewParameters.mDataFilter[DataTypes::IsSingleDiscAlbumRole].toBool()) {
         nextViewParameters.mAlbumViewStyle = NoDiscHeaders;
     }
 
@@ -246,17 +274,21 @@ void ViewManager::openChildView(const DataTypes::MusicDataType &fullData)
 
 void ViewManager::openAlbumView(const QString &title, const QString &artist, qulonglong databaseId, const QUrl &albumCoverUrl)
 {
-    openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Album},
-                   {DataTypes::DatabaseIdRole, databaseId},
-                   {DataTypes::TitleRole, title},
-                   {DataTypes::ArtistRole, artist},
-                   {DataTypes::ImageUrlRole, albumCoverUrl},});
+    openChildView({
+        {DataTypes::ElementTypeRole, ElisaUtils::Album},
+        {DataTypes::DatabaseIdRole, databaseId},
+        {DataTypes::TitleRole, title},
+        {DataTypes::ArtistRole, artist},
+        {DataTypes::ImageUrlRole, albumCoverUrl},
+    });
 }
 
 void ViewManager::openArtistView(const QString &artist)
 {
-    openChildView({{DataTypes::ElementTypeRole, ElisaUtils::Artist},
-                   {DataTypes::TitleRole, artist},});
+    openChildView({
+        {DataTypes::ElementTypeRole, ElisaUtils::Artist},
+        {DataTypes::TitleRole, artist},
+    });
 }
 
 void ViewManager::openTracksView(const QString &title)
@@ -282,10 +314,8 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
     QAbstractItemModel *newModel = nullptr;
     QAbstractProxyModel *proxyModel = nullptr;
 
-    switch (viewParamaters.mModelType)
-    {
-    case FileBrowserModel:
-    {
+    switch (viewParamaters.mModelType) {
+    case FileBrowserModel: {
 #if KFKIO_FOUND
         newModel = new ::FileBrowserModel;
         auto *realProxyModel = new FileBrowserProxyModel;
@@ -309,28 +339,30 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
     QQmlEngine::setObjectOwnership(proxyModel, QQmlEngine::JavaScriptOwnership);
 
     d->mViewParametersStack.push_back(viewParamaters);
-    switch (viewParamaters.mViewPresentationType)
-    {
-    case ViewPresentationType::GridView:
-    {
-        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewPresentationType
-                                    << viewParamaters.mFilterType
-                                    << viewParamaters.mDepth << viewParamaters.mMainTitle << viewParamaters.mSecondaryTitle
-                                    << viewParamaters.mMainImage << viewParamaters.mDataType
-                                    << viewParamaters.mModelType << viewParamaters.mFallbackItemIcon
-                                    << viewParamaters.mDataFilter
+    switch (viewParamaters.mViewPresentationType) {
+    case ViewPresentationType::GridView: {
+        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewPresentationType << viewParamaters.mFilterType
+                                    << viewParamaters.mDepth << viewParamaters.mMainTitle << viewParamaters.mSecondaryTitle << viewParamaters.mMainImage
+                                    << viewParamaters.mDataType << viewParamaters.mModelType << viewParamaters.mFallbackItemIcon << viewParamaters.mDataFilter
                                     << viewParamaters.mViewCanBeRated << viewParamaters.mShowSecondaryTextOnDelegates;
 
-        auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType, viewParamaters.mDepth,
-                                                                         viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
-                                                                         viewParamaters.mMainImage, viewParamaters.mDataType,
-                                                                         newModel, proxyModel, viewParamaters.mFallbackItemIcon,
+        auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType,
+                                                                         viewParamaters.mDepth,
+                                                                         viewParamaters.mMainTitle,
+                                                                         viewParamaters.mSecondaryTitle,
+                                                                         viewParamaters.mMainImage,
+                                                                         viewParamaters.mDataType,
+                                                                         newModel,
+                                                                         proxyModel,
+                                                                         viewParamaters.mFallbackItemIcon,
                                                                          viewParamaters.mDataFilter,
                                                                          computePreferredSortRole(viewParamaters.mSortRole, viewParamaters.mFilterType),
-                                                                         viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
+                                                                         viewParamaters.mSortRoles,
+                                                                         viewParamaters.mSortRoleNames,
                                                                          computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortOrderNames,
-                                                                         viewParamaters.mViewCanBeRated, viewParamaters.mShowSecondaryTextOnDelegates,
+                                                                         viewParamaters.mViewCanBeRated,
+                                                                         viewParamaters.mShowSecondaryTextOnDelegates,
                                                                          computePreferredViewStyle(GridStyle, viewParamaters.mDataType));
 
         QQmlEngine::setObjectOwnership(configurationData.get(), QQmlEngine::JavaScriptOwnership);
@@ -338,25 +370,28 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
         Q_EMIT openGridView(configurationData.release());
         break;
     }
-    case ViewPresentationType::TrackView:
-    {
-        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mFilterType
-                                    << viewParamaters.mDepth << viewParamaters.mMainTitle << viewParamaters.mSecondaryTitle
-                                    << viewParamaters.mDataFilter[DataTypes::DatabaseIdRole] << viewParamaters.mMainImage
-                                    << viewParamaters.mModelType << viewParamaters.mDataType
-                                    << viewParamaters.mDataFilter << viewParamaters.mSortRole
-                                    << viewParamaters.mSortOrder << viewParamaters.mAlbumCardinality
-                                    << viewParamaters.mAlbumViewStyle;
+    case ViewPresentationType::TrackView: {
+        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mFilterType << viewParamaters.mDepth << viewParamaters.mMainTitle
+                                    << viewParamaters.mSecondaryTitle << viewParamaters.mDataFilter[DataTypes::DatabaseIdRole] << viewParamaters.mMainImage
+                                    << viewParamaters.mModelType << viewParamaters.mDataType << viewParamaters.mDataFilter << viewParamaters.mSortRole
+                                    << viewParamaters.mSortOrder << viewParamaters.mAlbumCardinality << viewParamaters.mAlbumViewStyle;
 
-        auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType, viewParamaters.mDepth,
-                                                                         viewParamaters.mMainTitle, viewParamaters.mSecondaryTitle,
-                                                                         viewParamaters.mMainImage, viewParamaters.mDataType,
-                                                                         newModel, proxyModel, viewParamaters.mDataFilter,
+        auto configurationData = std::make_unique<ViewConfigurationData>(viewParamaters.mFilterType,
+                                                                         viewParamaters.mDepth,
+                                                                         viewParamaters.mMainTitle,
+                                                                         viewParamaters.mSecondaryTitle,
+                                                                         viewParamaters.mMainImage,
+                                                                         viewParamaters.mDataType,
+                                                                         newModel,
+                                                                         proxyModel,
+                                                                         viewParamaters.mDataFilter,
                                                                          computePreferredSortRole(viewParamaters.mSortRole, viewParamaters.mFilterType),
-                                                                         viewParamaters.mSortRoles, viewParamaters.mSortRoleNames,
+                                                                         viewParamaters.mSortRoles,
+                                                                         viewParamaters.mSortRoleNames,
                                                                          computePreferredSortOrder(viewParamaters.mSortOrder, viewParamaters.mFilterType),
                                                                          viewParamaters.mSortOrderNames,
-                                                                         viewParamaters.mAlbumCardinality, viewParamaters.mAlbumViewStyle);
+                                                                         viewParamaters.mAlbumCardinality,
+                                                                         viewParamaters.mAlbumViewStyle);
 
         QQmlEngine::setObjectOwnership(configurationData.get(), QQmlEngine::JavaScriptOwnership);
 
@@ -364,9 +399,8 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
         break;
     }
     case ContextView:
-        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewPresentationType
-                                    << viewParamaters.mDepth << viewParamaters.mMainTitle
-                                    << viewParamaters.mMainImage;
+        qCDebug(orgKdeElisaViews()) << "ViewManager::openViewFromData" << viewParamaters.mViewPresentationType << viewParamaters.mDepth
+                                    << viewParamaters.mMainTitle << viewParamaters.mMainImage;
         Q_EMIT switchContextView(viewParamaters.mDepth, viewParamaters.mMainTitle, viewParamaters.mMainImage);
         break;
     case UnknownViewPresentation:
@@ -375,11 +409,9 @@ void ViewManager::openViewFromData(const ViewParameters &viewParamaters)
     }
 }
 
-void ViewManager::applyFilter(ViewParameters &nextViewParameters,
-                              QString title, const ViewParameters &lastView) const
+void ViewManager::applyFilter(ViewParameters &nextViewParameters, QString title, const ViewParameters &lastView) const
 {
-    switch (nextViewParameters.mFilterType)
-    {
+    switch (nextViewParameters.mFilterType) {
     case ElisaUtils::NoFilter:
     case ElisaUtils::FilterByRecentlyPlayed:
     case ElisaUtils::FilterByFrequentlyPlayed:
@@ -413,7 +445,7 @@ QString ViewManager::buildViewId() const
 QStringList::iterator ViewManager::findViewPreference(QStringList &list, const QString &viewId) const
 {
     auto itViewPreference = list.end();
-    for(itViewPreference = list.begin(); itViewPreference != list.end(); ++itViewPreference) {
+    for (itViewPreference = list.begin(); itViewPreference != list.end(); ++itViewPreference) {
         auto parts = QStringView(*itViewPreference).split(QStringLiteral("=="));
         if (parts.size() != 2) {
             continue;
@@ -469,8 +501,7 @@ void ViewManager::updateViewPreference(const T newValue, QStringList &preference
 
 bool ViewManager::viewHasDefaultSortRole(const ElisaUtils::FilterType filterType) const
 {
-    switch (filterType)
-    {
+    switch (filterType) {
     case ElisaUtils::FilterByRecentlyPlayed:
     case ElisaUtils::FilterByFrequentlyPlayed:
     case ElisaUtils::FilterById: // Tracks in album view
@@ -481,8 +512,7 @@ bool ViewManager::viewHasDefaultSortRole(const ElisaUtils::FilterType filterType
 }
 bool ViewManager::viewHasDefaultViewStyle(const ElisaUtils::PlayListEntryType entryType) const
 {
-    switch (entryType)
-    {
+    switch (entryType) {
     case ElisaUtils::Track:
     case ElisaUtils::Radio:
         return true;
@@ -523,8 +553,7 @@ ViewManager::ViewStyle ViewManager::computePreferredViewStyle(ViewStyle initialV
 
 void ViewManager::goBack()
 {
-    qCDebug(orgKdeElisaViews()) << "ViewManager::goBack" << d->mViewParametersStack.size()
-                                << d->mViewsListData;
+    qCDebug(orgKdeElisaViews()) << "ViewManager::goBack" << d->mViewParametersStack.size() << d->mViewsListData;
 
     if (d->mViewParametersStack.size() <= 1) {
         return;
@@ -629,7 +658,8 @@ void ViewManager::setViewStyle(const ViewStyle viewStyle)
     Elisa::ElisaConfiguration::self()->save();
 }
 
-bool ViewManager::isSameView(const ViewParameters &currentView, const ViewParameters &otherView) const {
+bool ViewManager::isSameView(const ViewParameters &currentView, const ViewParameters &otherView) const
+{
     if (currentView.mDataType != otherView.mDataType) {
         return false;
     }
@@ -639,15 +669,15 @@ bool ViewManager::isSameView(const ViewParameters &currentView, const ViewParame
         return currentView.mDataFilter.databaseId() == otherView.mDataFilter.databaseId();
     }
 
-    // Unfortunately we don't have access to database ids for most of these types, so handle specific types differently.
+    // Unfortunately we don't have access to database ids for most of these types,
+    // so handle specific types differently.
     switch (currentView.mDataType) {
-        case ElisaUtils::PlayListEntryType::Album:
-        case ElisaUtils::PlayListEntryType::Artist:
-            return currentView.mMainTitle == otherView.mMainTitle;
-        default:
-            return false;
+    case ElisaUtils::PlayListEntryType::Album:
+    case ElisaUtils::PlayListEntryType::Artist:
+        return currentView.mMainTitle == otherView.mMainTitle;
+    default:
+        return false;
     }
 }
-
 
 #include "moc_viewmanager.cpp"

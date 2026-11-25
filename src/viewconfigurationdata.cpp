@@ -9,17 +9,24 @@
 class ViewConfigurationDataPrivate
 {
 public:
-    ViewConfigurationDataPrivate()
-    = default;
+    ViewConfigurationDataPrivate() = default;
 
     // Grid/List views
-    ViewConfigurationDataPrivate(ElisaUtils::FilterType filterType, int expectedDepth,
-                                 QString mainTitle, QString secondaryTitle,
-                                 QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                 QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
-                                 QUrl viewDefaultIcon, DataTypes::DataType dataFilter,
-                                 int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
-                                 Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+    ViewConfigurationDataPrivate(ElisaUtils::FilterType filterType,
+                                 int expectedDepth,
+                                 QString mainTitle,
+                                 QString secondaryTitle,
+                                 QUrl imageUrl,
+                                 ElisaUtils::PlayListEntryType dataType,
+                                 QAbstractItemModel *model,
+                                 QAbstractProxyModel *associatedProxyModel,
+                                 QUrl viewDefaultIcon,
+                                 DataTypes::DataType dataFilter,
+                                 int sortRole,
+                                 QList<int> sortRoles,
+                                 QList<QString> sortRoleNames,
+                                 Qt::SortOrder sortOrder,
+                                 QList<QString> sortOrderNames,
                                  ViewManager::ViewCanBeRated viewShowRating,
                                  ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
                                  ViewManager::ViewStyle viewStyle)
@@ -45,13 +52,20 @@ public:
     }
 
     // Track views
-    ViewConfigurationDataPrivate(ElisaUtils::FilterType filterType, int expectedDepth,
-                                 QString mainTitle, QString secondaryTitle,
-                                 QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                 QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
+    ViewConfigurationDataPrivate(ElisaUtils::FilterType filterType,
+                                 int expectedDepth,
+                                 QString mainTitle,
+                                 QString secondaryTitle,
+                                 QUrl imageUrl,
+                                 ElisaUtils::PlayListEntryType dataType,
+                                 QAbstractItemModel *model,
+                                 QAbstractProxyModel *associatedProxyModel,
                                  DataTypes::DataType dataFilter,
-                                 int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
-                                 Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                                 int sortRole,
+                                 QList<int> sortRoles,
+                                 QList<QString> sortRoleNames,
+                                 Qt::SortOrder sortOrder,
+                                 QList<QString> sortOrderNames,
                                  ViewManager::AlbumCardinality displaySingleAlbum,
                                  ViewManager::AlbumViewStyle showDiscHeaders)
         : mFilterType(filterType)
@@ -85,9 +99,9 @@ public:
 
     ElisaUtils::PlayListEntryType mDataType;
 
-    QAbstractItemModel * mModel;
+    QAbstractItemModel *mModel;
 
-    QAbstractProxyModel * mAssociatedProxyModel;
+    QAbstractProxyModel *mAssociatedProxyModel;
 
     QUrl mViewDefaultIcon;
 
@@ -121,46 +135,82 @@ ViewConfigurationData::ViewConfigurationData(QObject *parent)
 }
 
 // Grid/List views
-ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
-                                             QString mainTitle, QString secondaryTitle,
-                                             QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                             QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
-                                             QUrl viewDefaultIcon, DataTypes::DataType dataFilter,
-                                             int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
-                                             Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType,
+                                             int expectedDepth,
+                                             QString mainTitle,
+                                             QString secondaryTitle,
+                                             QUrl imageUrl,
+                                             ElisaUtils::PlayListEntryType dataType,
+                                             QAbstractItemModel *model,
+                                             QAbstractProxyModel *associatedProxyModel,
+                                             QUrl viewDefaultIcon,
+                                             DataTypes::DataType dataFilter,
+                                             int sortRole,
+                                             QList<int> sortRoles,
+                                             QList<QString> sortRoleNames,
+                                             Qt::SortOrder sortOrder,
+                                             QList<QString> sortOrderNames,
                                              ViewManager::ViewCanBeRated viewShowRating,
                                              ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
                                              ViewManager::ViewStyle viewStyle,
                                              QObject *parent)
     : QObject(parent)
-    , d(std::make_unique<ViewConfigurationDataPrivate>(filterType, expectedDepth, std::move(mainTitle),
-                                                       std::move(secondaryTitle), std::move(imageUrl),
-                                                       dataType, model, associatedProxyModel,
-                                                       std::move(viewDefaultIcon), std::move(dataFilter),
-                                                       sortRole, std::move(sortRoles), std::move(sortRoleNames),
-                                                       sortOrder, std::move(sortOrderNames),
-                                                       viewShowRating, viewDelegateDisplaySecondaryText,
+    , d(std::make_unique<ViewConfigurationDataPrivate>(filterType,
+                                                       expectedDepth,
+                                                       std::move(mainTitle),
+                                                       std::move(secondaryTitle),
+                                                       std::move(imageUrl),
+                                                       dataType,
+                                                       model,
+                                                       associatedProxyModel,
+                                                       std::move(viewDefaultIcon),
+                                                       std::move(dataFilter),
+                                                       sortRole,
+                                                       std::move(sortRoles),
+                                                       std::move(sortRoleNames),
+                                                       sortOrder,
+                                                       std::move(sortOrderNames),
+                                                       viewShowRating,
+                                                       viewDelegateDisplaySecondaryText,
                                                        viewStyle))
 {
 }
 
 // Track views
-ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
-                                             QString mainTitle, QString secondaryTitle,
-                                             QUrl imageUrl, ElisaUtils::PlayListEntryType dataType,
-                                             QAbstractItemModel *model, QAbstractProxyModel *associatedProxyModel,
+ViewConfigurationData::ViewConfigurationData(ElisaUtils::FilterType filterType,
+                                             int expectedDepth,
+                                             QString mainTitle,
+                                             QString secondaryTitle,
+                                             QUrl imageUrl,
+                                             ElisaUtils::PlayListEntryType dataType,
+                                             QAbstractItemModel *model,
+                                             QAbstractProxyModel *associatedProxyModel,
                                              DataTypes::DataType dataFilter,
-                                             int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
-                                             Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                                             int sortRole,
+                                             QList<int> sortRoles,
+                                             QList<QString> sortRoleNames,
+                                             Qt::SortOrder sortOrder,
+                                             QList<QString> sortOrderNames,
                                              ViewManager::AlbumCardinality displaySingleAlbum,
                                              ViewManager::AlbumViewStyle showDiscHeaders,
                                              QObject *parent)
     : QObject(parent)
-    , d(std::make_unique<ViewConfigurationDataPrivate>(filterType, expectedDepth, std::move(mainTitle),
-                                                       std::move(secondaryTitle), std::move(imageUrl),
-                                                       dataType, model, associatedProxyModel, std::move(dataFilter),
-                                                       sortRole, std::move(sortRoles), std::move(sortRoleNames),
-                                                       sortOrder, std::move(sortOrderNames), displaySingleAlbum, showDiscHeaders))
+    , d(std::make_unique<ViewConfigurationDataPrivate>(filterType,
+                                                       expectedDepth,
+                                                       std::move(mainTitle),
+                                                       std::move(secondaryTitle),
+                                                       std::move(imageUrl),
+                                                       dataType,
+                                                       model,
+                                                       associatedProxyModel,
+                                                       std::move(dataFilter),
+                                                       sortRole,
+                                                       std::move(sortRoles),
+                                                       std::move(sortRoleNames),
+                                                       sortOrder,
+                                                       std::move(sortOrderNames),
+                                                       displaySingleAlbum,
+                                                       showDiscHeaders))
 {
 }
 

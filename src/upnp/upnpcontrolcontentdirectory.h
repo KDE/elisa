@@ -7,8 +7,8 @@
 #ifndef UPNPCONTROLCONTENTDIRECTORY_H
 #define UPNPCONTROLCONTENTDIRECTORY_H
 
-#include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
+#include "upnpcontrolabstractservice.h"
 
 #include <QQmlEngine>
 
@@ -23,57 +23,44 @@ class UpnpControlContentDirectory : public UpnpControlAbstractService
 
     QML_ELEMENT
 
-    Q_PROPERTY(QString searchCapabilities
-               READ searchCapabilities
-               NOTIFY searchCapabilitiesChanged)
+    Q_PROPERTY(QString searchCapabilities READ searchCapabilities NOTIFY searchCapabilitiesChanged)
 
-    Q_PROPERTY(QString transferIDs
-               READ transferIDs
-               NOTIFY transferIDsChanged)
+    Q_PROPERTY(QString transferIDs READ transferIDs NOTIFY transferIDsChanged)
 
-    Q_PROPERTY(bool hasTransferIDs
-               READ hasTransferIDs
-               NOTIFY hasTransferIDsChanged)
+    Q_PROPERTY(bool hasTransferIDs READ hasTransferIDs NOTIFY hasTransferIDsChanged)
 
-    Q_PROPERTY(QString sortCapabilities
-               READ sortCapabilities
-               NOTIFY sortCapabilitiesChanged)
+    Q_PROPERTY(QString sortCapabilities READ sortCapabilities NOTIFY sortCapabilitiesChanged)
 
-    Q_PROPERTY(int systemUpdateID
-               READ systemUpdateID
-               NOTIFY systemUpdateIDChanged)
+    Q_PROPERTY(int systemUpdateID READ systemUpdateID NOTIFY systemUpdateIDChanged)
 
 public:
-
     explicit UpnpControlContentDirectory(QObject *parent = nullptr);
 
     ~UpnpControlContentDirectory() override;
 
-    [[nodiscard]] const QString& searchCapabilities() const;
+    [[nodiscard]] const QString &searchCapabilities() const;
 
-    [[nodiscard]] const QString& transferIDs() const;
+    [[nodiscard]] const QString &transferIDs() const;
 
     [[nodiscard]] bool hasTransferIDs() const;
 
-    [[nodiscard]] const QString& sortCapabilities() const;
+    [[nodiscard]] const QString &sortCapabilities() const;
 
     [[nodiscard]] int systemUpdateID() const;
 
 public Q_SLOTS:
 
-    UpnpControlAbstractServiceReply* getSearchCapabilities();
+    UpnpControlAbstractServiceReply *getSearchCapabilities();
 
-    UpnpControlAbstractServiceReply* getSortCapabilities();
+    UpnpControlAbstractServiceReply *getSortCapabilities();
 
-    UpnpControlAbstractServiceReply* getSystemUpdateID();
+    UpnpControlAbstractServiceReply *getSystemUpdateID();
 
-    UpnpControlAbstractServiceReply* search(const QString &objectID, const QString &searchCriteria,
-                const QString &filter, int startingIndex,
-                int requestedCount, const QString &sortCriteria);
+    UpnpControlAbstractServiceReply *
+    search(const QString &objectID, const QString &searchCriteria, const QString &filter, int startingIndex, int requestedCount, const QString &sortCriteria);
 
-    UpnpControlAbstractServiceReply* browse(const QString &objectID, const QString &browseFlag,
-                const QString &filter, int startingIndex,
-                int requestedCount, const QString &sortCriteria);
+    UpnpControlAbstractServiceReply *
+    browse(const QString &objectID, const QString &browseFlag, const QString &filter, int startingIndex, int requestedCount, const QString &sortCriteria);
 
 Q_SIGNALS:
 
@@ -90,16 +77,12 @@ Q_SIGNALS:
 private Q_SLOTS:
 
 protected:
-
     void parseServiceDescription(QIODevice *serviceDescriptionContent) override;
 
     void parseEventNotification(const QString &eventName, const QString &eventValue) override;
 
 private:
-
     std::unique_ptr<UpnpControlContentDirectoryPrivate> d;
-
 };
 
 #endif // UPNPCONTROLCONTENTDIRECTORY_H
-

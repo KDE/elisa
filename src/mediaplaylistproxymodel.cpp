@@ -7,19 +7,19 @@
  */
 
 #include "mediaplaylistproxymodel.h"
+#include "config-upnp-qt.h"
+#include "elisa_settings.h"
 #include "elisautils.h"
 #include "kiofusehelper.h"
 #include "mediaplaylist.h"
 #include "playListLogging.h"
-#include "elisa_settings.h"
-#include "config-upnp-qt.h"
-#include <QItemSelection>
-#include <QList>
-#include <QRandomGenerator>
+#include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QDir>
+#include <QItemSelection>
+#include <QList>
 #include <QMimeDatabase>
+#include <QRandomGenerator>
 #include <QTimer>
 
 #if KFKIO_FOUND
@@ -33,8 +33,7 @@ using namespace Qt::Literals::StringLiterals;
 class MediaPlayListProxyModelPrivate
 {
 public:
-
-    MediaPlayList* mPlayListModel;
+    MediaPlayList *mPlayListModel;
 
     QPersistentModelIndex mPreviousTrack;
 
@@ -69,8 +68,9 @@ public:
     QTimer mDurationChangedTimer;
 };
 
-MediaPlayListProxyModel::MediaPlayListProxyModel(QObject *parent) : QAbstractProxyModel (parent),
-    d(std::make_unique<MediaPlayListProxyModelPrivate>())
+MediaPlayListProxyModel::MediaPlayListProxyModel(QObject *parent)
+    : QAbstractProxyModel(parent)
+    , d(std::make_unique<MediaPlayListProxyModelPrivate>())
 {
     d->mRandomGenerator.seed(static_cast<unsigned int>(QTime::currentTime().msec()));
 
@@ -82,8 +82,7 @@ MediaPlayListProxyModel::MediaPlayListProxyModel(QObject *parent) : QAbstractPro
     });
 }
 
-MediaPlayListProxyModel::~MediaPlayListProxyModel()
-=default;
+MediaPlayListProxyModel::~MediaPlayListProxyModel() = default;
 
 QModelIndex MediaPlayListProxyModel::index(int row, int column, const QModelIndex &parent) const
 {
@@ -181,8 +180,7 @@ bool MediaPlayListProxyModel::hasChildren(const QModelIndex &parent) const
 
 void MediaPlayListProxyModel::setPlayListModel(MediaPlayList *playListModel)
 {
-    if (d->mPlayListModel)
-    {
+    if (d->mPlayListModel) {
         disconnect(playListModel, &QAbstractItemModel::rowsAboutToBeInserted, this, &MediaPlayListProxyModel::sourceRowsAboutToBeInserted);
         disconnect(playListModel, &QAbstractItemModel::rowsAboutToBeRemoved, this, &MediaPlayListProxyModel::sourceRowsAboutToBeRemoved);
         disconnect(playListModel, &QAbstractItemModel::rowsAboutToBeMoved, this, &MediaPlayListProxyModel::sourceRowsAboutToBeMoved);
@@ -287,7 +285,7 @@ void MediaPlayListProxyModel::setShuffleMode(const MediaPlayListProxyModel::Shuf
 
                 for (int i = 0; i < playListSize; ++i) {
                     d->mRandomMapping.append(i);
-                    to.append(index(i,0));
+                    to.append(index(i, 0));
                 }
 
                 if (value == MediaPlayListProxyModel::Shuffle::Track) { // shuffle tracks
@@ -299,7 +297,7 @@ void MediaPlayListProxyModel::setShuffleMode(const MediaPlayListProxyModel::Shuf
                         from.append(index(d->mRandomMapping.at(0), 0));
                     }
                     // Fisher-Yates algorithm
-                    for (int i = 1;  i < playListSize - 1; ++i) {
+                    for (int i = 1; i < playListSize - 1; ++i) {
                         const int swapIndex = d->mRandomGenerator.bounded(i, playListSize);
                         std::swap(d->mRandomMapping[i], d->mRandomMapping[swapIndex]);
                         from.append(index(d->mRandomMapping.at(i), 0));
@@ -307,7 +305,7 @@ void MediaPlayListProxyModel::setShuffleMode(const MediaPlayListProxyModel::Shuf
                     from.append(index(d->mRandomMapping.at(playListSize - 1), 0));
                 } else if (value == MediaPlayListProxyModel::Shuffle::Album) { // album shuffle
                     QHash<int, QList<int>> indexPerAlbumId;
-                    int currentAlbumId = data(d->mCurrentTrack,  MediaPlayList::AlbumIdRole).toInt();
+                    int currentAlbumId = data(d->mCurrentTrack, MediaPlayList::AlbumIdRole).toInt();
 
                     // Adding the album of the current track first
                     QList<int> albumIds = {currentAlbumId};
@@ -329,7 +327,7 @@ void MediaPlayListProxyModel::setShuffleMode(const MediaPlayListProxyModel::Shuf
                             indexPerAlbumId[albumId].append(i);
                         } else {
                             albumIds.append(albumId);
-                            QList<int> tracks = { i };
+                            QList<int> tracks = {i};
                             indexPerAlbumId[albumId] = tracks;
                         }
                     }
@@ -390,8 +388,8 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
         if (rowCount() == 0) {
             beginInsertRows(parent, start, end);
             for (int i = 0; i < newItemsCount; ++i) {
-                //QRandomGenerator.bounded(int) is exclusive, thus + 1
-                const auto random = d->mRandomGenerator.bounded(d->mRandomMapping.count()+1);
+                // QRandomGenerator.bounded(int) is exclusive, thus + 1
+                const auto random = d->mRandomGenerator.bounded(d->mRandomMapping.count() + 1);
                 d->mRandomMapping.insert(random, start + i);
             }
             endInsertRows();
@@ -406,7 +404,8 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
             const bool enqueueAfterCurrentTrack = mapRowFromSource(start - 1) == d->mCurrentTrack.row();
 
             if (enqueueAfterCurrentTrack) {
-                // Internally shuffle the new tracks then enqueue them all immediately after the current track
+                // Internally shuffle the new tracks then enqueue them all immediately
+                // after the current track
                 QList<int> shuffledSourceRows(newItemsCount);
                 std::iota(shuffledSourceRows.begin(), shuffledSourceRows.end(), start);
                 std::shuffle(shuffledSourceRows.begin(), shuffledSourceRows.end(), d->mRandomGenerator);
@@ -419,7 +418,7 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
             } else {
                 const int lowerBound = d->mCurrentTrack.row() + 1;
                 for (int i = 0; i < newItemsCount; ++i) {
-                    //QRandomGenerator.bounded(int) is exclusive, thus + 1
+                    // QRandomGenerator.bounded(int) is exclusive, thus + 1
                     const auto random = d->mRandomGenerator.bounded(lowerBound, rowCount() + 1);
                     beginInsertRows(parent, random, random);
                     d->mRandomMapping.insert(random, start + i);
@@ -450,7 +449,7 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
                 newIndexPerAlbumId[albumId].append(i);
             } else {
                 newAlbumIds.append(albumId);
-                QList<int> tracks = { i };
+                QList<int> tracks = {i};
                 newIndexPerAlbumId[albumId] = tracks;
             }
         }
@@ -473,7 +472,8 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
             const bool enqueueAfterCurrentTrack = mapRowFromSource(start - 1) == d->mCurrentTrack.row();
 
             if (enqueueAfterCurrentTrack) {
-                // Internally shuffle the new albums then enqueue them all immediately after the current track
+                // Internally shuffle the new albums then enqueue them all immediately
+                // after the current track
                 std::shuffle(newAlbumIds.begin(), newAlbumIds.end(), d->mRandomGenerator);
                 int proxyRow = d->mCurrentTrack.row() + 1;
                 beginInsertRows(parent, proxyRow, proxyRow + newItemsCount - 1);
@@ -491,7 +491,8 @@ void MediaPlayListProxyModel::sourceRowsInserted(const QModelIndex &parent, int 
                 // Only insert after the current album
                 const int currentAlbumId = data(d->mCurrentTrack, MediaPlayList::AlbumIdRole).toInt();
                 int lowerBound = d->mCurrentTrack.row() + 1;
-                // 0 album ID means there is no associated album, therefore we can insert directly after the current track
+                // 0 album ID means there is no associated album, therefore we can
+                // insert directly after the current track
                 if (currentAlbumId != 0) {
                     while (lowerBound < rowCount() && data(index(lowerBound, 0), MediaPlayList::AlbumIdRole).toInt() == currentAlbumId) {
                         ++lowerBound;
@@ -573,7 +574,7 @@ void MediaPlayListProxyModel::sourceRowsAboutToBeRemoved(const QModelIndex &pare
         int row = 0;
         auto it = d->mRandomMapping.begin();
         while (it != d->mRandomMapping.end()) {
-            if (*it >= start && *it <= end){
+            if (*it >= start && *it <= end) {
                 beginRemoveRows(parent, row, row);
                 it = d->mRandomMapping.erase(it);
                 endRemoveRows();
@@ -735,22 +736,22 @@ int MediaPlayListProxyModel::currentTrackRow() const
     return d->mCurrentTrack.row();
 }
 
-void MediaPlayListProxyModel::enqueue(const DataTypes::MusicDataType &newEntry, const QString &newEntryTitle,
-                                      ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+void MediaPlayListProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
+                                      const QString &newEntryTitle,
+                                      ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                      ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     enqueue({{newEntry, newEntryTitle, {}}}, enqueueMode, triggerPlay);
 }
 
-void MediaPlayListProxyModel::enqueue(const QUrl &entryUrl,
-                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+void MediaPlayListProxyModel::enqueue(const QUrl &entryUrl, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     enqueue({{{{DataTypes::ElementTypeRole, ElisaUtils::Track}}, {}, entryUrl}}, enqueueMode, triggerPlay);
 }
 
 void MediaPlayListProxyModel::enqueue(const DataTypes::EntryDataList &newEntries,
-                            ElisaUtils::PlayListEnqueueMode enqueueMode,
-                            ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+                                      ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                      ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     if (newEntries.isEmpty()) {
         return;
@@ -1041,7 +1042,7 @@ void MediaPlayListProxyModel::determineAndNotifyPreviousAndNextTracks()
 int MediaPlayListProxyModel::indexForTrackUrl(const QUrl &url)
 {
     for (int i = 0; i < rowCount(); ++i) {
-        const QUrl thisTrackUrl = data(index(i,0), MediaPlayList::ResourceRole).toUrl();
+        const QUrl thisTrackUrl = data(index(i, 0), MediaPlayList::ResourceRole).toUrl();
         if (thisTrackUrl == url) {
             return i;
         }
@@ -1086,8 +1087,8 @@ void MediaPlayListProxyModel::determineTracks()
         for (int row = 0; row < rowCount(); ++row) {
             auto candidateTrack = index(row, 0);
             const auto type = candidateTrack.data(MediaPlayList::ElementTypeRole).value<ElisaUtils::PlayListEntryType>();
-            if (candidateTrack.isValid() && candidateTrack.data(MediaPlayList::IsValidRole).toBool() &&
-                    (type == ElisaUtils::Track || type == ElisaUtils::Radio || type == ElisaUtils::FileName)) {
+            if (candidateTrack.isValid() && candidateTrack.data(MediaPlayList::IsValidRole).toBool()
+                && (type == ElisaUtils::Track || type == ElisaUtils::Radio || type == ElisaUtils::FileName)) {
                 d->mCurrentTrack = candidateTrack;
                 notifyCurrentTrackChanged();
                 if (d->mTriggerPlay == ElisaUtils::TriggerPlay) {
@@ -1351,9 +1352,7 @@ bool MediaPlayListProxyModel::loadLocalPlayList(DataTypes::EntryDataList &newTra
             QFileInfo fileInfo(oneUrl.toLocalFile());
             loadLocalFile(newTracks, processedFiles, fileInfo);
         } else {
-            const auto elementType = ElisaUtils::isStreamUrl(oneUrl)
-                ? ElisaUtils::Radio
-                : ElisaUtils::FileName;
+            const auto elementType = ElisaUtils::isStreamUrl(oneUrl) ? ElisaUtils::Radio : ElisaUtils::FileName;
             newTracks.push_back({{{{DataTypes::ElementTypeRole, elementType}, {DataTypes::ResourceRole, oneUrl}}}, {}, {}});
         }
     }
@@ -1371,7 +1370,7 @@ void MediaPlayListProxyModel::loadLocalDirectory(DataTypes::EntryDataList &newTr
     }
 }
 
-int MediaPlayListProxyModel::filterLocalPlayList(QList<QUrl>& result, const QUrl &localPlaylistUrl)
+int MediaPlayListProxyModel::filterLocalPlayList(QList<QUrl> &result, const QUrl &localPlaylistUrl)
 {
     int filtered = 0;
 

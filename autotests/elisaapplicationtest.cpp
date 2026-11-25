@@ -22,7 +22,7 @@
 #include <QTest>
 #include <QUrl>
 
-class ElisaApplicationTests: public QObject
+class ElisaApplicationTests : public QObject
 {
     Q_OBJECT
 
@@ -31,10 +31,10 @@ private Q_SLOTS:
     void initTestCase()
     {
         QStandardPaths::setTestModeEnabled(true);
-        qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
-        qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
+        qRegisterMetaType<QHash<qulonglong, int>>("QHash<qulonglong,int>");
+        qRegisterMetaType<QHash<QString, QUrl>>("QHash<QString,QUrl>");
         qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
-        qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
+        qRegisterMetaType<QHash<qlonglong, int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
         qRegisterMetaType<DataTypes::EntryDataList>("DataTypes::EntryDataList");
         qRegisterMetaType<ElisaUtils::PlayListEntryType>("ElisaUtils::PlayListEntryType");

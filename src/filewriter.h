@@ -8,8 +8,8 @@
 #ifndef FILEWRITER_H
 #define FILEWRITER_H
 
-#include "elisaLib_export.h"
 #include "datatypes.h"
+#include "elisaLib_export.h"
 
 #include <memory>
 
@@ -18,7 +18,6 @@ class FileWriterPrivate;
 class ELISALIB_EXPORT FileWriter
 {
 public:
-
     FileWriter();
 
     ~FileWriter();
@@ -28,9 +27,7 @@ public:
     bool writeAllMetaDataToFile(const QUrl &url, const DataTypes::TrackDataType &data);
 
 private:
-
     std::unique_ptr<FileWriterPrivate> d;
-
 };
 
 #endif // FILEWRITER_H

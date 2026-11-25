@@ -1,7 +1,8 @@
 /***************************************************************************
-   SPDX-FileCopyrightText: 2014 (c) Sujith Haridasan <sujith.haridasan@kdemail.net>
-   SPDX-FileCopyrightText: 2014 (c) Ashish Madeti <ashishmadeti@gmail.com>
-   SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2014 (c) Sujith Haridasan
+ <sujith.haridasan@kdemail.net> SPDX-FileCopyrightText: 2014 (c) Ashish Madeti
+ <ashishmadeti@gmail.com> SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien
+ <matthieu_gallien@yahoo.fr>
 
    SPDX-License-Identifier: GPL-3.0-or-later
  ***************************************************************************/
@@ -11,66 +12,66 @@
 #include "mediaplayer2player.h"
 #include "mpris2.h"
 
-#include "mediaplaylistproxymodel.h"
-#include "manageaudioplayer.h"
-#include "managemediaplayercontrol.h"
-#include "manageheaderbar.h"
 #include "audiowrapper.h"
+#include "manageaudioplayer.h"
+#include "manageheaderbar.h"
+#include "managemediaplayercontrol.h"
+#include "mediaplaylistproxymodel.h"
 
 #if KFFileMetaData_FOUND
-#include <KFileMetaData/ExtractorCollection>
-#include <KFileMetaData/Extractor>
-#include <KFileMetaData/SimpleExtractionResult>
 #include <KFileMetaData/EmbeddedImageData>
+#include <KFileMetaData/Extractor>
+#include <KFileMetaData/ExtractorCollection>
+#include <KFileMetaData/SimpleExtractionResult>
 #include <QMimeDatabase>
 #endif
 
 #include <QCryptographicHash>
-#include <QStringList>
 #include <QDBusConnection>
-
+#include <QStringList>
 
 static const double MAX_RATE = 1.0;
 static const double MIN_RATE = 1.0;
 
-MediaPlayer2Player::MediaPlayer2Player(MediaPlayListProxyModel *playListControler, ManageAudioPlayer *manageAudioPlayer,
-                                       ManageMediaPlayerControl *manageMediaPlayerControl, ManageHeaderBar *manageHeaderBar,
-                                       AudioWrapper *audioPlayer, bool showProgressOnTaskBar, QObject* parent)
-    : QDBusAbstractAdaptor(parent), m_playListControler(playListControler), m_manageAudioPlayer(manageAudioPlayer),
-      m_manageMediaPlayerControl(manageMediaPlayerControl), m_manageHeaderBar(manageHeaderBar), m_audioPlayer(audioPlayer),
-      mProgressIndicatorSignal(QDBusMessage::createSignal(QStringLiteral("/org/kde/elisa"),
-                                                          QStringLiteral("com.canonical.Unity.LauncherEntry"),
-                                                          QStringLiteral("Update"))),
-      mShowProgressOnTaskBar(showProgressOnTaskBar)
+MediaPlayer2Player::MediaPlayer2Player(MediaPlayListProxyModel *playListControler,
+                                       ManageAudioPlayer *manageAudioPlayer,
+                                       ManageMediaPlayerControl *manageMediaPlayerControl,
+                                       ManageHeaderBar *manageHeaderBar,
+                                       AudioWrapper *audioPlayer,
+                                       bool showProgressOnTaskBar,
+                                       QObject *parent)
+    : QDBusAbstractAdaptor(parent)
+    , m_playListControler(playListControler)
+    , m_manageAudioPlayer(manageAudioPlayer)
+    , m_manageMediaPlayerControl(manageMediaPlayerControl)
+    , m_manageHeaderBar(manageHeaderBar)
+    , m_audioPlayer(audioPlayer)
+    , mProgressIndicatorSignal(
+          QDBusMessage::createSignal(QStringLiteral("/org/kde/elisa"), QStringLiteral("com.canonical.Unity.LauncherEntry"), QStringLiteral("Update")))
+    , mShowProgressOnTaskBar(showProgressOnTaskBar)
 {
     if (!m_playListControler) {
         return;
     }
 
-    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerSourceChanged,
-            this, &MediaPlayer2Player::playerSourceChanged, Qt::QueuedConnection);
-    connect(m_manageMediaPlayerControl, &ManageMediaPlayerControl::playControlEnabledChanged,
-            this, &MediaPlayer2Player::playControlEnabledChanged);
-    connect(m_manageMediaPlayerControl, &ManageMediaPlayerControl::skipBackwardControlEnabledChanged,
-            this, &MediaPlayer2Player::skipBackwardControlEnabledChanged);
-    connect(m_manageMediaPlayerControl, &ManageMediaPlayerControl::skipForwardControlEnabledChanged,
-            this, &MediaPlayer2Player::skipForwardControlEnabledChanged);
-    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerPlaybackStateChanged,
-            this, &MediaPlayer2Player::playerPlaybackStateChanged);
-    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerIsSeekableChanged,
-            this, &MediaPlayer2Player::playerIsSeekableChanged);
-    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerPositionChanged,
-            this, &MediaPlayer2Player::audioPositionChanged);
-    connect(m_manageAudioPlayer, &ManageAudioPlayer::seek,
-            this, &MediaPlayer2Player::playerSeeked);
-    connect(m_manageAudioPlayer, &ManageAudioPlayer::audioDurationChanged,
-            this, &MediaPlayer2Player::audioDurationChanged);
-    connect(m_audioPlayer, &AudioWrapper::volumeChanged,
-            this, &MediaPlayer2Player::playerVolumeChanged);
-    connect(m_playListControler, &MediaPlayListProxyModel::shuffleModeChanged,
-            this, &MediaPlayer2Player::shuffleModeChanged);
-    connect(m_playListControler, &MediaPlayListProxyModel::repeatModeChanged,
-            this, &MediaPlayer2Player::repeatModeChanged);
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerSourceChanged, this, &MediaPlayer2Player::playerSourceChanged, Qt::QueuedConnection);
+    connect(m_manageMediaPlayerControl, &ManageMediaPlayerControl::playControlEnabledChanged, this, &MediaPlayer2Player::playControlEnabledChanged);
+    connect(m_manageMediaPlayerControl,
+            &ManageMediaPlayerControl::skipBackwardControlEnabledChanged,
+            this,
+            &MediaPlayer2Player::skipBackwardControlEnabledChanged);
+    connect(m_manageMediaPlayerControl,
+            &ManageMediaPlayerControl::skipForwardControlEnabledChanged,
+            this,
+            &MediaPlayer2Player::skipForwardControlEnabledChanged);
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerPlaybackStateChanged, this, &MediaPlayer2Player::playerPlaybackStateChanged);
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerIsSeekableChanged, this, &MediaPlayer2Player::playerIsSeekableChanged);
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::playerPositionChanged, this, &MediaPlayer2Player::audioPositionChanged);
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::seek, this, &MediaPlayer2Player::playerSeeked);
+    connect(m_manageAudioPlayer, &ManageAudioPlayer::audioDurationChanged, this, &MediaPlayer2Player::audioDurationChanged);
+    connect(m_audioPlayer, &AudioWrapper::volumeChanged, this, &MediaPlayer2Player::playerVolumeChanged);
+    connect(m_playListControler, &MediaPlayListProxyModel::shuffleModeChanged, this, &MediaPlayer2Player::shuffleModeChanged);
+    connect(m_playListControler, &MediaPlayListProxyModel::repeatModeChanged, this, &MediaPlayer2Player::repeatModeChanged);
 
     m_volume = m_audioPlayer->volume() / 100;
     m_canPlay = m_manageMediaPlayerControl->playControlEnabled();
@@ -79,8 +80,7 @@ MediaPlayer2Player::MediaPlayer2Player(MediaPlayListProxyModel *playListControle
     m_mediaPlayerPresent = 1;
 }
 
-MediaPlayer2Player::~MediaPlayer2Player()
-= default;
+MediaPlayer2Player::~MediaPlayer2Player() = default;
 
 QString MediaPlayer2Player::PlaybackStatus() const
 {
@@ -195,7 +195,7 @@ double MediaPlayer2Player::Volume() const
 
 void MediaPlayer2Player::setVolume(double volume)
 {
-    m_volume= qBound(0.0, volume, 1.0);
+    m_volume = qBound(0.0, volume, 1.0);
     Q_EMIT volumeChanged(m_volume);
 
     m_audioPlayer->setVolume(100 * m_volume);
@@ -221,8 +221,7 @@ void MediaPlayer2Player::setPropertyPosition(int newPositionInMs)
      * to limit DBus traffic
      */
     const auto incrementalProgress = static_cast<double>(newPositionInMs - mPreviousProgressPosition) / m_audioPlayer->duration();
-    if (mShowProgressOnTaskBar && (incrementalProgress > 0.01 || incrementalProgress < 0))
-    {
+    if (mShowProgressOnTaskBar && (incrementalProgress > 0.01 || incrementalProgress < 0)) {
         mPreviousProgressPosition = newPositionInMs;
         QVariantMap parameters;
         parameters.insert(QStringLiteral("progress-visible"), true);
@@ -408,7 +407,7 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
 
     result[QStringLiteral("mpris:trackid")] = QVariant::fromValue<QDBusObjectPath>(QDBusObjectPath(m_currentTrackId));
     result[QStringLiteral("mpris:length")] = qlonglong(m_manageAudioPlayer->audioDuration()) * 1000;
-    //convert milli-seconds into micro-seconds
+    // convert milli-seconds into micro-seconds
     if (!m_manageHeaderBar->title().isNull() && !m_manageHeaderBar->title().toString().isEmpty()) {
         result[QStringLiteral("xesam:title")] = m_manageHeaderBar->title();
     }
@@ -424,8 +423,9 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
     }
     if (!m_manageHeaderBar->image().isEmpty() && !m_manageHeaderBar->image().toString().isEmpty()) {
         if (m_manageHeaderBar->image().scheme() == QStringLiteral("image")) {
-            // adding a special case for image:// URLs that are only valid because Elisa installs a special handler for them
-            // converting those URL to data URLs with embedded image data
+            // adding a special case for image:// URLs that are only valid because
+            // Elisa installs a special handler for them converting those URL to data
+            // URLs with embedded image data
 #if KFFileMetaData_FOUND
 
             const auto &mimeType = QMimeDatabase().mimeTypeForFile(m_manageHeaderBar->image().toString().mid(14)).name();
@@ -434,7 +434,9 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
 
             QMap<KFileMetaData::EmbeddedImageData::ImageType, QByteArray> imageData;
             for (const auto &extractor : extractors) {
-                KFileMetaData::SimpleExtractionResult result(m_manageHeaderBar->image().toString().mid(14), mimeType, KFileMetaData::ExtractionResult::ExtractImageData);
+                KFileMetaData::SimpleExtractionResult result(m_manageHeaderBar->image().toString().mid(14),
+                                                             mimeType,
+                                                             KFileMetaData::ExtractionResult::ExtractImageData);
                 extractor->extract(&result);
                 if (!result.imageData().isEmpty()) {
                     imageData = result.imageData();
@@ -442,7 +444,8 @@ QVariantMap MediaPlayer2Player::getMetadataOfCurrentTrack()
             }
 
             if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-                result[QStringLiteral("mpris:artUrl")] = QString{QStringLiteral("data:image/png;base64,") + QLatin1String{imageData[KFileMetaData::EmbeddedImageData::FrontCover].toBase64()}};
+                result[QStringLiteral("mpris:artUrl")] =
+                    QString{QStringLiteral("data:image/png;base64,") + QLatin1String{imageData[KFileMetaData::EmbeddedImageData::FrontCover].toBase64()}};
             }
 #endif
         } else {
@@ -522,7 +525,7 @@ void MediaPlayer2Player::shuffleModeChanged()
     signalPropertiesChange(QStringLiteral("Shuffle"), Shuffle());
 }
 
-void MediaPlayer2Player::setLoopStatus(const QString& loopStatus)
+void MediaPlayer2Player::setLoopStatus(const QString &loopStatus)
 {
     MediaPlayListProxyModel::Repeat repeatMode;
 
@@ -545,13 +548,13 @@ QString MediaPlayer2Player::LoopStatus() const
     if (m_playListControler) {
         const auto repeatMode = m_playListControler->repeatMode();
         switch (repeatMode) {
-            case MediaPlayListProxyModel::Playlist:
-                return QStringLiteral("Playlist");
-            case MediaPlayListProxyModel::One:
-                return QStringLiteral("Track");
-            case MediaPlayListProxyModel::None:
-            default:
-                return QStringLiteral("None");
+        case MediaPlayListProxyModel::Playlist:
+            return QStringLiteral("Playlist");
+        case MediaPlayListProxyModel::One:
+            return QStringLiteral("Track");
+        case MediaPlayListProxyModel::None:
+        default:
+            return QStringLiteral("None");
         }
     }
 
@@ -569,7 +572,8 @@ void MediaPlayer2Player::signalPropertiesChange(const QString &property, const Q
     properties[property] = value;
     const int ifaceIndex = metaObject()->indexOfClassInfo("D-Bus Interface");
     QDBusMessage msg = QDBusMessage::createSignal(QStringLiteral("/org/mpris/MediaPlayer2"),
-                                                  QStringLiteral("org.freedesktop.DBus.Properties"), QStringLiteral("PropertiesChanged"));
+                                                  QStringLiteral("org.freedesktop.DBus.Properties"),
+                                                  QStringLiteral("PropertiesChanged"));
 
     msg << QLatin1String(metaObject()->classInfo(ifaceIndex).value());
     msg << properties;

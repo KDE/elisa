@@ -6,30 +6,30 @@
 
 #include "managemediaplayercontroltest.h"
 
+#include "databaseinterface.h"
 #include "managemediaplayercontrol.h"
 #include "mediaplaylist.h"
-#include "databaseinterface.h"
 #include "trackslistener.h"
 
+#include <QList>
 #include <QString>
 #include <QUrl>
-#include <QList>
 
 #include <QStringListModel>
 
 #include <QSignalSpy>
 #include <QTest>
 
-ManageMediaPlayerControlTest::ManageMediaPlayerControlTest(QObject *parent) : QObject(parent)
+ManageMediaPlayerControlTest::ManageMediaPlayerControlTest(QObject *parent)
+    : QObject(parent)
 {
-
 }
 
 void ManageMediaPlayerControlTest::initTestCase()
 {
-    qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
+    qRegisterMetaType<QHash<QString, QUrl>>("QHash<QString,QUrl>");
     qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
-    qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
+    qRegisterMetaType<QHash<qlonglong, int>>("QHash<qlonglong,int>");
 }
 
 void ManageMediaPlayerControlTest::simpleInitialCase()
@@ -154,6 +154,5 @@ void ManageMediaPlayerControlTest::testTracksCase()
 }
 
 QTEST_GUILESS_MAIN(ManageMediaPlayerControlTest)
-
 
 #include "moc_managemediaplayercontroltest.cpp"

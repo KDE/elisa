@@ -6,21 +6,21 @@
 
 #include "databasetestdata.h"
 
-#include "file/localfilelisting.h"
 #include "elisa_settings.h"
+#include "file/localfilelisting.h"
 
 #include "config-upnp-qt.h"
 
-#include <QObject>
-#include <QUrl>
-#include <QString>
-#include <QStringList>
-#include <QHash>
-#include <QList>
-#include <QThread>
-#include <QStandardPaths>
 #include <QDir>
 #include <QFile>
+#include <QHash>
+#include <QList>
+#include <QObject>
+#include <QStandardPaths>
+#include <QString>
+#include <QStringList>
+#include <QThread>
+#include <QUrl>
 
 #include <QSignalSpy>
 #include <QTest>
@@ -29,7 +29,7 @@
 
 using namespace Qt::Literals::StringLiterals;
 
-class LocalFileListingTests: public QObject, public DatabaseTestData
+class LocalFileListingTests : public QObject, public DatabaseTestData
 {
     Q_OBJECT
 
@@ -37,10 +37,10 @@ private Q_SLOTS:
 
     void initTestCase()
     {
-        qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
-        qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
+        qRegisterMetaType<QHash<qulonglong, int>>("QHash<qulonglong,int>");
+        qRegisterMetaType<QHash<QString, QUrl>>("QHash<QString,QUrl>");
         qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
-        qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
+        qRegisterMetaType<QHash<qlonglong, int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
     }
 
@@ -131,7 +131,7 @@ private Q_SLOTS:
         QCOMPARE(tracksListSpy.count(), 0);
         QCOMPARE(removedTracksListSpy.count(), 0);
 
-        //QCOMPARE(myListing.rootPath(), musicPath);
+        // QCOMPARE(myListing.rootPath(), musicPath);
 
         myListing.refreshContent();
 
@@ -601,9 +601,7 @@ private Q_SLOTS:
 
         // Set the file modified time to some point in the future to ensure
         // the file does not get re-indexed
-        myListing.setIndexedTracks({
-            {QUrl::fromLocalFile(trackOggPath), QDateTime::currentDateTime().addYears(1)}
-        });
+        myListing.setIndexedTracks({{QUrl::fromLocalFile(trackOggPath), QDateTime::currentDateTime().addYears(1)}});
 
         QCOMPARE(tracksListSpy.count(), 1);
         QCOMPARE(removedTracksListSpy.count(), 0);
@@ -654,6 +652,5 @@ private Q_SLOTS:
 };
 
 QTEST_GUILESS_MAIN(LocalFileListingTests)
-
 
 #include "localfilelistingtest.moc"

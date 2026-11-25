@@ -150,8 +150,7 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
     mPendingEntries = {};
     mAllData.clear();
 
-    switch (newEntry.elementType())
-    {
+    switch (newEntry.elementType()) {
     case ElisaUtils::Container:
         mPendingEntries.emplace(newEntry[DataTypes::FilePathRole].toUrl(), true);
         break;
@@ -191,16 +190,24 @@ void FileBrowserProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
 void FileBrowserProxyModel::disconnectPlayList()
 {
     if (mPlayList) {
-        disconnect(this, &FileBrowserProxyModel::entriesToEnqueue,
-                   mPlayList, static_cast<void (MediaPlayListProxyModel::*)(const DataTypes::EntryDataList &, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+        disconnect(this,
+                   &FileBrowserProxyModel::entriesToEnqueue,
+                   mPlayList,
+                   static_cast<void (
+                       MediaPlayListProxyModel::*)(const DataTypes::EntryDataList &, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(
+                       &MediaPlayListProxyModel::enqueue));
     }
 }
 
 void FileBrowserProxyModel::connectPlayList()
 {
     if (mPlayList) {
-        connect(this, &FileBrowserProxyModel::entriesToEnqueue,
-                mPlayList, static_cast<void (MediaPlayListProxyModel::*)(const DataTypes::EntryDataList &, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+        connect(this,
+                &FileBrowserProxyModel::entriesToEnqueue,
+                mPlayList,
+                static_cast<void (
+                    MediaPlayListProxyModel::*)(const DataTypes::EntryDataList &, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(
+                    &MediaPlayListProxyModel::enqueue));
     }
 }
 
@@ -221,12 +228,11 @@ void FileBrowserProxyModel::recursiveEnqueue()
     mPendingEntries.pop();
     if (isDirectory) {
         mCurentUrl = rootUrl;
-        mCurrentJob = KIO::listRecursive(rootUrl, { KIO::HideProgressInfo });
+        mCurrentJob = KIO::listRecursive(rootUrl, {KIO::HideProgressInfo});
 
         connect(mCurrentJob, &KJob::result, this, &FileBrowserProxyModel::listRecursiveResult);
 
-        connect(dynamic_cast<KIO::ListJob*>(mCurrentJob), &KIO::ListJob::entries,
-                this, &FileBrowserProxyModel::listRecursiveNewEntries);
+        connect(dynamic_cast<KIO::ListJob *>(mCurrentJob), &KIO::ListJob::entries, this, &FileBrowserProxyModel::listRecursiveNewEntries);
     } else {
         if (mPlayList) {
             if (!ElisaUtils::isPlayList(mMimeDatabase.mimeTypeForUrl(rootUrl))) {

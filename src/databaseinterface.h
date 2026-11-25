@@ -9,16 +9,16 @@
 
 #include "elisaLib_export.h"
 
-#include "elisautils.h"
 #include "datatypes.h"
+#include "elisautils.h"
 
+#include <QDateTime>
+#include <QHash>
+#include <QList>
 #include <QObject>
 #include <QQmlEngine>
 #include <QString>
-#include <QHash>
-#include <QList>
 #include <QUrl>
-#include <QDateTime>
 
 #include <memory>
 #include <optional>
@@ -36,7 +36,6 @@ class ELISALIB_EXPORT DatabaseInterface : public QObject
     QML_UNCREATABLE("")
 
 public:
-
     enum DatabaseVersion {
         V9 = 9,
         V11 = 11,
@@ -99,7 +98,11 @@ public:
 
     DataTypes::TrackDataType radioDataFromDatabaseId(qulonglong id);
 
-    qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album, std::optional<int> trackNumber, std::optional<int> discNumber);
+    qulonglong trackIdFromTitleAlbumTrackDiscNumber(const QString &title,
+                                                    const QString &artist,
+                                                    const std::optional<QString> &album,
+                                                    std::optional<int> trackNumber,
+                                                    std::optional<int> discNumber);
 
     qulonglong trackIdFromFileName(const QUrl &fileName);
 
@@ -158,7 +161,6 @@ public Q_SLOTS:
     void removeRadio(qulonglong radioId);
 
 private:
-
     enum class DatabaseState {
         GoodState,
         BadState,
@@ -238,12 +240,20 @@ private:
 
     DataTypes::TrackDataType internalTrackFromDatabaseId(qulonglong id);
 
-    qulonglong internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
-                                                           std::optional<int> trackNumber, std::optional<int> discNumber);
+    qulonglong internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title,
+                                                           const QString &artist,
+                                                           const std::optional<QString> &album,
+                                                           std::optional<int> trackNumber,
+                                                           std::optional<int> discNumber);
 
-    qulonglong getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &trackArtist, const QString &album,
-                                                                const QString &albumArtist, const QString &trackPath, int trackNumber,
-                                                                int discNumber, int priority);
+    qulonglong getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title,
+                                                                const QString &trackArtist,
+                                                                const QString &album,
+                                                                const QString &albumArtist,
+                                                                const QString &trackPath,
+                                                                int trackNumber,
+                                                                int discNumber,
+                                                                int priority);
 
     qulonglong internalTrackIdFromFileName(const QUrl &fileName);
 
@@ -257,11 +267,9 @@ private:
 
     QList<qulonglong> internalAlbumIdsFromAuthor(const QString &artistName);
 
-    qulonglong insertAlbum(const QString &title, const QString &albumArtist,
-                           const QString &trackPath, const QUrl &albumArtURI);
+    qulonglong insertAlbum(const QString &title, const QString &albumArtist, const QString &trackPath, const QUrl &albumArtURI);
 
-    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri,
-                           const DataTypes::TrackDataType &currentTrack, const QString &albumPath);
+    bool updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const DataTypes::TrackDataType &currentTrack, const QString &albumPath);
 
     qulonglong insertArtist(const QString &name);
     qulonglong insertGenre(const QString &name);
@@ -344,12 +352,11 @@ private:
 
     DataTypes::ListArtistDataType internalAllLyricistsPartialData();
 
-    void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath,
-                           const QString &artistName);
+    void updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath, const QString &artistName);
 
     bool updateAlbumCover(qulonglong albumId, const QUrl &albumArtUri);
 
-    QVariantList internalGetLatestFourCoversForArtist(const QString& artistName);
+    QVariantList internalGetLatestFourCoversForArtist(const QString &artistName);
 
     void updateTrackStartedStatistics(const QUrl &fileName, const QDateTime &time);
 
@@ -376,7 +383,6 @@ private:
     void pruneLyricists();
 
     std::unique_ptr<DatabaseInterfacePrivate> d;
-
 };
 
 #endif // DATABASEINTERFACE_H

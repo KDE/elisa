@@ -6,25 +6,25 @@
 
 #include "databasetestdata.h"
 
-#include "trackslistener.h"
-#include "mediaplaylist.h"
 #include "databaseinterface.h"
 #include "datatypes.h"
+#include "mediaplaylist.h"
+#include "trackslistener.h"
 
 #include "config-upnp-qt.h"
 
-#include <QObject>
-#include <QUrl>
-#include <QString>
 #include <QHash>
 #include <QList>
-#include <QThread>
+#include <QObject>
 #include <QStandardPaths>
+#include <QString>
+#include <QThread>
+#include <QUrl>
 
 #include <QSignalSpy>
 #include <QTest>
 
-class TracksListenerTests: public QObject, public DatabaseTestData
+class TracksListenerTests : public QObject, public DatabaseTestData
 {
     Q_OBJECT
 
@@ -32,10 +32,10 @@ private Q_SLOTS:
 
     void initTestCase()
     {
-        qRegisterMetaType<QHash<qulonglong,int>>("QHash<qulonglong,int>");
-        qRegisterMetaType<QHash<QString,QUrl>>("QHash<QString,QUrl>");
+        qRegisterMetaType<QHash<qulonglong, int>>("QHash<qulonglong,int>");
+        qRegisterMetaType<QHash<QString, QUrl>>("QHash<QString,QUrl>");
         qRegisterMetaType<QList<qlonglong>>("QList<qlonglong>");
-        qRegisterMetaType<QHash<qlonglong,int>>("QHash<qlonglong,int>");
+        qRegisterMetaType<QHash<qlonglong, int>>("QHash<qlonglong,int>");
         qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
         qRegisterMetaType<DataTypes::ListTrackDataType>("ListTrackDataType");
         qRegisterMetaType<DataTypes::ListAlbumDataType>("ListAlbumDataType");
@@ -215,13 +215,12 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        auto trackId = myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"),
-                                                                              QStringLiteral("album1"), 1, 1);
+        auto trackId =
+            myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1);
 
         QCOMPARE(trackId != 0, true);
 
-        myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                                         {DataTypes::DatabaseIdRole, trackId}}, {}, {}});
+        myPlayList.enqueueOneEntry(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Track}, {DataTypes::DatabaseIdRole, trackId}}, {}, {}});
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -283,9 +282,12 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueueOneEntry({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                     {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
-                                    QStringLiteral("track1"), {}});
+        myPlayList.enqueueOneEntry(
+            {{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+              {DataTypes::DatabaseIdRole,
+               myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
+             QStringLiteral("track1"),
+             {}});
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -341,7 +343,8 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueueRestoredEntries(QVariantList({QStringList({{}, QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("1"), QStringLiteral("1"), {}})}));
+        myPlayList.enqueueRestoredEntries(QVariantList(
+            {QStringList({{}, QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("1"), QStringLiteral("1"), {}})}));
 
         QCOMPARE(trackHasChangedSpy.count(), 0);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -416,9 +419,12 @@ private Q_SLOTS:
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
         QCOMPARE(tracksListAddedSpy.count(), 0);
 
-        myPlayList.enqueueOneEntry({{{DataTypes::ElementTypeRole, ElisaUtils::Track},
-                                     {DataTypes::DatabaseIdRole, myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
-                                    QStringLiteral("track1"), {}});
+        myPlayList.enqueueOneEntry(
+            {{{DataTypes::ElementTypeRole, ElisaUtils::Track},
+              {DataTypes::DatabaseIdRole,
+               myDatabaseContent.trackIdFromTitleAlbumTrackDiscNumber(QStringLiteral("track1"), QStringLiteral("artist1"), QStringLiteral("album1"), 1, 1)}},
+             QStringLiteral("track1"),
+             {}});
 
         QCOMPARE(trackHasChangedSpy.count(), 1);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -433,14 +439,25 @@ private Q_SLOTS:
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::TrackNumberRole).toInt(), 1);
         QCOMPARE(myPlayList.data(myPlayList.index(0, 0), MediaPlayList::ColumnsRoles::DiscNumberRole).toInt(), 1);
 
-        myDatabaseContent.insertTracksList({
-                                               {true, QStringLiteral("$1"), QStringLiteral("0"), QStringLiteral("track1"),
-                                                QStringLiteral("artist1"), QStringLiteral("album1"), QStringLiteral("Various Artists"),
-                                                2, 3, QTime::fromMSecsSinceStartOfDay(1000), {QUrl::fromLocalFile(QStringLiteral("/$1"))},
-                                                QDateTime::fromMSecsSinceEpoch(1),
-                                                {QUrl::fromLocalFile(QStringLiteral("file://image$1"))}, 1, false,
-                                                {}, {}, QStringLiteral("lyricist1"), false}
-                                           });
+        myDatabaseContent.insertTracksList({{true,
+                                             QStringLiteral("$1"),
+                                             QStringLiteral("0"),
+                                             QStringLiteral("track1"),
+                                             QStringLiteral("artist1"),
+                                             QStringLiteral("album1"),
+                                             QStringLiteral("Various Artists"),
+                                             2,
+                                             3,
+                                             QTime::fromMSecsSinceStartOfDay(1000),
+                                             {QUrl::fromLocalFile(QStringLiteral("/$1"))},
+                                             QDateTime::fromMSecsSinceEpoch(1),
+                                             {QUrl::fromLocalFile(QStringLiteral("file://image$1"))},
+                                             1,
+                                             false,
+                                             {},
+                                             {},
+                                             QStringLiteral("lyricist1"),
+                                             false}});
 
         QCOMPARE(trackHasChangedSpy.count(), 2);
         QCOMPARE(trackHasBeenRemovedSpy.count(), 0);
@@ -473,6 +490,5 @@ private Q_SLOTS:
 };
 
 QTEST_GUILESS_MAIN(TracksListenerTests)
-
 
 #include "trackslistenertest.moc"

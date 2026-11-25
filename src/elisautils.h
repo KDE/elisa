@@ -10,18 +10,18 @@
 #include "elisaLib_export.h"
 
 #include <QList>
-#include <QUrl>
-#include <QString>
 #include <QMetaType>
 #include <QMimeType>
 #include <QQmlEngine>
+#include <QString>
+#include <QUrl>
 
 #include <optional>
 
 class QMimeDatabase;
 
-namespace ElisaUtils {
-
+namespace ElisaUtils
+{
 
 Q_NAMESPACE_EXPORT(ELISALIB_EXPORT)
 
@@ -43,9 +43,8 @@ enum PlayListEnqueueTriggerPlay {
 Q_ENUM_NS(PlayListEnqueueTriggerPlay)
 
 enum SkipReason {
-    Automatic,  // e.g. song ended
-    Manual,     // e.g. user pressed skip forward button
-
+    Automatic, // e.g. song ended
+    Manual, // e.g. user pressed skip forward button
 };
 
 Q_ENUM_NS(SkipReason)
@@ -92,6 +91,6 @@ bool ELISALIB_EXPORT isPlayList(const QMimeType &mimeType);
 bool ELISALIB_EXPORT isStreamUrl(const QUrl &url);
 
 QMimeType ELISALIB_EXPORT resolveAudioMimeType(const QMimeType &detectedMime, const QString &filePath, const QMimeDatabase &mimeDb);
-}
+} // namespace ElisaUtils
 
 #endif // ELISAUTILS_H

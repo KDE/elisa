@@ -22,19 +22,16 @@ class AbstractFileListener : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(DatabaseInterface* databaseInterface
-               READ databaseInterface
-               WRITE setDatabaseInterface
-               NOTIFY databaseInterfaceChanged)
+    Q_PROPERTY(DatabaseInterface *databaseInterface READ databaseInterface WRITE setDatabaseInterface NOTIFY databaseInterfaceChanged)
 
 public:
     explicit AbstractFileListener(QObject *parent = nullptr);
 
     ~AbstractFileListener() override;
 
-    [[nodiscard]] DatabaseInterface* databaseInterface() const;
+    [[nodiscard]] DatabaseInterface *databaseInterface() const;
 
-    [[nodiscard]] AbstractFileListing* fileListing() const;
+    [[nodiscard]] AbstractFileListing *fileListing() const;
 
     [[nodiscard]] bool canHandleRootPaths() const;
 
@@ -54,7 +51,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void setDatabaseInterface(DatabaseInterface* databaseInterface);
+    void setDatabaseInterface(DatabaseInterface *databaseInterface);
 
     void applicationAboutToQuit();
 
@@ -63,13 +60,10 @@ public Q_SLOTS:
     void setAllRootPaths(const QStringList &allRootPaths);
 
 protected:
-
     void setFileListing(AbstractFileListing *fileIndexer);
 
 private:
-
     std::unique_ptr<AbstractFileListenerPrivate> d;
-
 };
 
 #endif // ABSTRACTFILELISTENER_H

@@ -15,21 +15,17 @@
 
 class ELISALIB_EXPORT TrackContextMetaDataModel : public TrackMetadataModel
 {
-
     Q_OBJECT
 
     QML_ELEMENT
 
 public:
-
     explicit TrackContextMetaDataModel(QObject *parent = nullptr);
 
 protected:
-
     void filterDataFromTrackData() override;
 
     void fillLyricsDataFromTrack() override;
-
 };
 
 #endif // TRACKCONTEXTMETADATAMODEL_H

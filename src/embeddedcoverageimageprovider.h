@@ -15,15 +15,12 @@
 class ELISALIB_EXPORT EmbeddedCoverageImageProvider : public QQuickAsyncImageProvider
 {
 public:
-
     EmbeddedCoverageImageProvider();
 
     QQuickImageResponse *requestImageResponse(const QString &id, const QSize &requestedSize) override;
 
 private:
-
     QThreadPool pool;
-
 };
 
 #endif // EMBEDDEDCOVERAGEIMAGEPROVIDER_H

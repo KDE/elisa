@@ -20,7 +20,6 @@ Q_SIGNALS:
 public Q_SLOTS:
 
     void indexingChanged();
-
 };
 
 #endif // ELISAIMPORTAPPLICATION_H

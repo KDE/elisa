@@ -9,8 +9,8 @@
 
 #include "elisaLib_export.h"
 
-#include "elisautils.h"
 #include "datatypes.h"
+#include "elisautils.h"
 
 #include <QAbstractListModel>
 #include <QHash>
@@ -29,18 +29,13 @@ class ELISALIB_EXPORT DataModel : public QAbstractListModel
 
     QML_ELEMENT
 
-    Q_PROPERTY(QString title
-               READ title
-               NOTIFY titleChanged)
+    Q_PROPERTY(QString title READ title NOTIFY titleChanged)
 
-    Q_PROPERTY(QString author
-               READ author
-               NOTIFY authorChanged)
+    Q_PROPERTY(QString author READ author NOTIFY authorChanged)
 
     Q_PROPERTY(bool isBusy READ isBusy NOTIFY isBusyChanged)
 
 public:
-
     using ListRadioDataType = DataTypes::ListRadioDataType;
 
     using ListTrackDataType = DataTypes::ListTrackDataType;
@@ -97,8 +92,7 @@ Q_SIGNALS:
 
     void needDataByArtist(ElisaUtils::PlayListEntryType dataType, const QString &artist);
 
-    void needDataByGenreAndArtist(ElisaUtils::PlayListEntryType dataType,
-                                  const QString &genre, const QString &artist);
+    void needDataByGenreAndArtist(ElisaUtils::PlayListEntryType dataType, const QString &genre, const QString &artist);
 
     void needRecentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 
@@ -132,13 +126,19 @@ public Q_SLOTS:
 
     void albumModified(const DataModel::AlbumDataType &modifiedAlbum);
 
-    void initialize(MusicListenersManager *manager, DatabaseInterface *database,
-                    ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
-                    const QString &genre, const QString &artist, qulonglong databaseId,
+    void initialize(MusicListenersManager *manager,
+                    DatabaseInterface *database,
+                    ElisaUtils::PlayListEntryType modelType,
+                    ElisaUtils::FilterType filter,
+                    const QString &genre,
+                    const QString &artist,
+                    qulonglong databaseId,
                     const QUrl &pathFilter);
 
-    void initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
-                          ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+    void initializeByData(MusicListenersManager *manager,
+                          DatabaseInterface *database,
+                          ElisaUtils::PlayListEntryType modelType,
+                          ElisaUtils::FilterType filter,
                           const DataTypes::DataType &dataFilter);
 
 private Q_SLOTS:
@@ -146,7 +146,6 @@ private Q_SLOTS:
     void cleanedDatabase();
 
 private:
-
     void radioAdded(const TrackDataType &radiosData);
 
     void radioModified(const DataModel::TrackDataType &modifiedRadio);
@@ -157,15 +156,13 @@ private:
 
     void setBusy(bool value);
 
-    void initializeModel(MusicListenersManager *manager, DatabaseInterface *database,
-                         ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType type);
+    void initializeModel(MusicListenersManager *manager, DatabaseInterface *database, ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType type);
 
     void askModelData();
 
     void removeRadios();
 
     std::unique_ptr<DataModelPrivate> d;
-
 };
 
 #endif // DATAMODEL_H

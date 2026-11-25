@@ -11,8 +11,8 @@
 
 #include "config-upnp-qt.h"
 
-#include "elisautils.h"
 #include "datatypes.h"
+#include "elisautils.h"
 
 #include <QObject>
 #include <QQmlEngine>
@@ -35,87 +35,50 @@ class QAbstractItemModel;
 
 class ELISALIB_EXPORT ElisaApplication : public QObject
 {
-
     Q_OBJECT
 
     QML_ELEMENT
 
     QML_SINGLETON
 
-    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedView
-               READ embeddedView
-               NOTIFY embeddedViewChanged)
+    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedView READ embeddedView NOTIFY embeddedViewChanged)
 
-    Q_PROPERTY(MusicListenersManager *musicManager
-               READ musicManager
-               NOTIFY musicManagerChanged)
+    Q_PROPERTY(MusicListenersManager *musicManager READ musicManager NOTIFY musicManagerChanged)
 
-    Q_PROPERTY(MediaPlayList *mediaPlayList
-               READ mediaPlayList
-               NOTIFY mediaPlayListChanged)
+    Q_PROPERTY(MediaPlayList *mediaPlayList READ mediaPlayList NOTIFY mediaPlayListChanged)
 
+    Q_PROPERTY(MediaPlayListProxyModel *mediaPlayListProxyModel READ mediaPlayListProxyModel NOTIFY mediaPlayListProxyModelChanged)
 
-    Q_PROPERTY(MediaPlayListProxyModel *mediaPlayListProxyModel
-               READ mediaPlayListProxyModel
-               NOTIFY mediaPlayListProxyModelChanged)
+    Q_PROPERTY(AudioWrapper *audioPlayer READ audioPlayer NOTIFY audioPlayerChanged)
 
+    Q_PROPERTY(ManageAudioPlayer *audioControl READ audioControl NOTIFY audioControlChanged)
 
-    Q_PROPERTY(AudioWrapper *audioPlayer
-               READ audioPlayer
-               NOTIFY audioPlayerChanged)
+    Q_PROPERTY(ManageMediaPlayerControl *playerControl READ playerControl NOTIFY playerControlChanged)
 
-    Q_PROPERTY(ManageAudioPlayer *audioControl
-               READ audioControl
-               NOTIFY audioControlChanged)
+    Q_PROPERTY(ManageHeaderBar *manageHeaderBar READ manageHeaderBar NOTIFY manageHeaderBarChanged)
 
-    Q_PROPERTY(ManageMediaPlayerControl *playerControl
-               READ playerControl
-               NOTIFY playerControlChanged)
+    Q_PROPERTY(bool showNowPlayingBackground READ showNowPlayingBackground NOTIFY showNowPlayingBackgroundChanged)
 
-    Q_PROPERTY(ManageHeaderBar *manageHeaderBar
-               READ manageHeaderBar
-               NOTIFY manageHeaderBarChanged)
+    Q_PROPERTY(bool showProgressOnTaskBar READ showProgressOnTaskBar NOTIFY showProgressOnTaskBarChanged)
 
-    Q_PROPERTY(bool showNowPlayingBackground
-               READ showNowPlayingBackground
-               NOTIFY showNowPlayingBackgroundChanged)
+    Q_PROPERTY(bool showSystemTrayIcon READ showSystemTrayIcon NOTIFY showSystemTrayIconChanged)
 
-    Q_PROPERTY(bool showProgressOnTaskBar
-               READ showProgressOnTaskBar
-               NOTIFY showProgressOnTaskBarChanged)
+    Q_PROPERTY(bool useFavoriteStyleRatings READ useFavoriteStyleRatings NOTIFY useFavoriteStyleRatingsChanged)
 
-    Q_PROPERTY(bool showSystemTrayIcon
-               READ showSystemTrayIcon
-               NOTIFY showSystemTrayIconChanged)
+    Q_PROPERTY(QAbstractItemModel *colorSchemesModel READ colorSchemesModel CONSTANT)
 
-    Q_PROPERTY(bool useFavoriteStyleRatings
-               READ useFavoriteStyleRatings
-               NOTIFY useFavoriteStyleRatingsChanged)
+    Q_PROPERTY(QString activeColorSchemeName READ activeColorSchemeName WRITE setActiveColorSchemeName NOTIFY activeColorSchemeNameChanged)
 
-    Q_PROPERTY(QAbstractItemModel* colorSchemesModel
-               READ colorSchemesModel
-               CONSTANT)
+    Q_PROPERTY(int initialViewIndex READ initialViewIndex NOTIFY initialViewIndexChanged)
 
-    Q_PROPERTY(QString activeColorSchemeName
-               READ activeColorSchemeName
-               WRITE setActiveColorSchemeName
-               NOTIFY activeColorSchemeNameChanged)
-
-    Q_PROPERTY(int initialViewIndex
-               READ initialViewIndex
-               NOTIFY initialViewIndexChanged)
-
-    Q_PROPERTY(QString initialFilesViewPath
-               READ initialFilesViewPath
-               NOTIFY initialFilesViewPathChanged)
+    Q_PROPERTY(QString initialFilesViewPath READ initialFilesViewPath NOTIFY initialFilesViewPathChanged)
 
 public:
-
     explicit ElisaApplication(QObject *parent = nullptr);
 
     ~ElisaApplication() override;
 
-    Q_INVOKABLE QAction* action(const QString& name);
+    Q_INVOKABLE QAction *action(const QString &name);
 
     Q_INVOKABLE void showInFolder(const QUrl &filePath);
 
@@ -166,9 +129,7 @@ Q_SIGNALS:
 
     void manageHeaderBarChanged();
 
-    void enqueue(const DataTypes::EntryDataList &newEntries,
-                 ElisaUtils::PlayListEnqueueMode enqueueMode,
-                 ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+    void enqueue(const DataTypes::EntryDataList &newEntries, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void initializationDone();
 
@@ -242,20 +203,17 @@ private Q_SLOTS:
     void configChanged();
 
 private:
-
     void initializeModels();
 
     void initializePlayer();
 
     void setupActions();
 
-    [[nodiscard]] DataTypes::EntryDataList checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
-                                                              const QString &workingDirectory) const;
+    [[nodiscard]] DataTypes::EntryDataList checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList, const QString &workingDirectory) const;
 
     QAbstractItemModel *colorSchemesModel();
 
     std::unique_ptr<ElisaApplicationPrivate> d;
-
 };
 
 #endif // ELISAAPPLICATION_H

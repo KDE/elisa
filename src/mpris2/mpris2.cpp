@@ -1,7 +1,8 @@
 /***************************************************************************
-   SPDX-FileCopyrightText: 2014 (c) Sujith Haridasan <sujith.haridasan@kdemail.net>
-   SPDX-FileCopyrightText: 2014 (c) Ashish Madeti <ashishmadeti@gmail.com>
-   SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2014 (c) Sujith Haridasan
+ <sujith.haridasan@kdemail.net> SPDX-FileCopyrightText: 2014 (c) Ashish Madeti
+ <ashishmadeti@gmail.com> SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien
+ <matthieu_gallien@yahoo.fr>
 
    SPDX-License-Identifier: GPL-3.0-or-later
  ***************************************************************************/
@@ -13,14 +14,13 @@
 
 #include <QDBusConnection>
 
-
 #if defined Q_OS_WIN
 #include <Windows.h>
 #else
 #include <unistd.h>
 #endif
 
-Mpris2::Mpris2(QObject* parent)
+Mpris2::Mpris2(QObject *parent)
     : QObject(parent)
 {
 }
@@ -44,7 +44,13 @@ void Mpris2::initDBusService()
 
     if (success) {
         m_mp2 = std::make_unique<MediaPlayer2>(this);
-        m_mp2p = std::make_unique<MediaPlayer2Player>(m_playListModel, m_manageAudioPlayer, m_manageMediaPlayerControl, m_manageHeaderBar, m_audioPlayer, mShowProgressOnTaskBar, this);
+        m_mp2p = std::make_unique<MediaPlayer2Player>(m_playListModel,
+                                                      m_manageAudioPlayer,
+                                                      m_manageMediaPlayerControl,
+                                                      m_manageHeaderBar,
+                                                      m_audioPlayer,
+                                                      mShowProgressOnTaskBar,
+                                                      this);
 
         QDBusConnection::sessionBus().registerObject(QStringLiteral("/org/mpris/MediaPlayer2"), this, QDBusConnection::ExportAdaptors);
 
@@ -52,8 +58,7 @@ void Mpris2::initDBusService()
     }
 }
 
-Mpris2::~Mpris2()
-= default;
+Mpris2::~Mpris2() = default;
 
 QString Mpris2::playerName() const
 {

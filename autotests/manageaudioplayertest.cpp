@@ -11,12 +11,13 @@
 #include "elisa_settings.h"
 
 #include <QSignalSpy>
-#include <QTest>
-#include <QStandardItemModel>
 #include <QStandardItem>
+#include <QStandardItemModel>
+#include <QTest>
 #include <QUrl>
 
-ManageAudioPlayerTest::ManageAudioPlayerTest(QObject *parent) : QObject(parent)
+ManageAudioPlayerTest::ManageAudioPlayerTest(QObject *parent)
+    : QObject(parent)
 {
 }
 
@@ -8947,7 +8948,6 @@ void ManageAudioPlayerTest::testRestorePlayListAndSettingsAutomaticPlay()
     QCOMPARE(skipNextTrackSpy.wait(300), true);
 }
 
-
 void ManageAudioPlayerTest::switchTrackWhilePaused()
 {
     Elisa::ElisaConfiguration::self()->setDefaults();
@@ -8985,14 +8985,16 @@ void ManageAudioPlayerTest::switchTrackWhilePaused()
     QTRY_COMPARE(playerPauseSpy.count(), 1);
     myPlayer.setPlayerPlaybackState(QMediaPlayer::PausedState);
 
-    // select the second track in the playlist, like a click on a playlist entry does
+    // select the second track in the playlist, like a click on a playlist entry
+    // does
     myPlayer.setCurrentTrack(myPlayList.index(1, 0));
     myPlayer.ensurePlay();
 
     QTRY_COMPARE(playerStopSpy.count(), 1);
     QTest::qWait(50);
 
-    // the player still has the first track loaded: asking it to play now would restart the first track
+    // the player still has the first track loaded: asking it to play now would
+    // restart the first track
     QCOMPARE(playerPlaySpy.count(), 1);
     QCOMPARE(playerSourceChangedSpy.count(), 1);
 
@@ -9127,7 +9129,7 @@ void endGaplessPlayback(ManageAudioPlayer &player)
     player.setPlayerStatus(QMediaPlayer::EndOfMedia);
     player.setPlayerPlaybackState(QMediaPlayer::StoppedState);
 }
-}
+} // namespace
 
 void ManageAudioPlayerTest::gaplessHandoffCase()
 {
@@ -9357,8 +9359,6 @@ void ManageAudioPlayerTest::gaplessDisarmOnClearPlayListCase()
     QCOMPARE(myPlayer.currentTrack(), QPersistentModelIndex());
 }
 
-
 QTEST_GUILESS_MAIN(ManageAudioPlayerTest)
-
 
 #include "moc_manageaudioplayertest.cpp"

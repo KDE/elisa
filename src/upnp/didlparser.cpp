@@ -6,11 +6,11 @@
 
 #include "didlparser.h"
 
-#include "upnpcontrolcontentdirectory.h"
-#include "upnpcontrolabstractservicereply.h"
-#include "upnpservicedescription.h"
-#include "upnpdevicedescription.h"
 #include "elisautils.h"
+#include "upnpcontrolabstractservicereply.h"
+#include "upnpcontrolcontentdirectory.h"
+#include "upnpdevicedescription.h"
+#include "upnpservicedescription.h"
 
 #include "upnpLogging.h"
 
@@ -23,7 +23,6 @@
 class DidlParserPrivate
 {
 public:
-
     QString mBrowseFlag = QStringLiteral("*");
 
     QString mFilter = QStringLiteral("*");
@@ -47,15 +46,15 @@ public:
     QHash<QString, QUrl> mCovers;
 
     bool mIsDataValid = false;
-
 };
 
-DidlParser::DidlParser(QObject *parent) : QObject(parent), d(new DidlParserPrivate)
+DidlParser::DidlParser(QObject *parent)
+    : QObject(parent)
+    , d(new DidlParserPrivate)
 {
 }
 
-DidlParser::~DidlParser()
-= default;
+DidlParser::~DidlParser() = default;
 
 const QString &DidlParser::browseFlag() const
 {
@@ -166,7 +165,8 @@ void DidlParser::systemUpdateIDChanged()
 
 void DidlParser::browse(int startIndex, int maximumNmberOfResults)
 {
-    qCDebug(orgKdeElisaUpnp()) << "DidlParser::browse" << d->mParentId << d->mBrowseFlag << d->mFilter << startIndex << maximumNmberOfResults << d->mSortCriteria;
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::browse" << d->mParentId << d->mBrowseFlag << d->mFilter << startIndex << maximumNmberOfResults
+                               << d->mSortCriteria;
 
     auto upnpAnswer = d->mContentDirectory->browse(d->mParentId, d->mBrowseFlag, d->mFilter, startIndex, maximumNmberOfResults, d->mSortCriteria);
 
@@ -294,7 +294,7 @@ void DidlParser::browseFinished(UpnpControlAbstractServiceReply *self)
 void DidlParser::groupNewTracksByAlbums()
 {
     d->mNewTracksByAlbums.clear();
-    for(const auto &newTrack : std::as_const(d->mNewMusicTracks)) {
+    for (const auto &newTrack : std::as_const(d->mNewMusicTracks)) {
         d->mNewTracksByAlbums[newTrack.album()].push_back(newTrack);
     }
 }
@@ -373,14 +373,13 @@ void DidlParser::searchFinished(UpnpControlAbstractServiceReply *self)
     Q_EMIT isDataValidChanged(d->mParentId);
 }
 
-void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData,
-                                     QList<QString> &newDataIds)
+void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData, QList<QString> &newDataIds)
 {
     qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode";
 
     auto allChilds = containerNode.childNodes();
 
-    for(int i = 0; i < allChilds.count(); ++i) {
+    for (int i = 0; i < allChilds.count(); ++i) {
         const auto &oneChild = allChilds.at(i);
         qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode" << oneChild.nodeName();
     }
@@ -413,15 +412,24 @@ void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QStrin
     }
 
     const QDomNode &classNode = containerNode.firstChildElement(QStringLiteral("upnp:class"));
-    qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode" << "upnp:class" << classNode.toElement().text();
-//    if (classNode.toElement().text().startsWith(QLatin1String("object.container.album.musicAlbum"))) {
-//        childData[DataTypes::ElementTypeRole] = QVariant::fromValue(ElisaUtils::Album);
-//    } else if (classNode.toElement().text().startsWith(QLatin1String("object.container.person.musicArtist"))) {
-//        childData[DataTypes::ElementTypeRole] = QVariant::fromValue(ElisaUtils::Artist);
-//    } else if (classNode.toElement().text().startsWith(QLatin1String("object.container"))) {
-        childData[DataTypes::ElementTypeRole] = QVariant::fromValue(ElisaUtils::UpnpMediaServer);
-        childData[DataTypes::UUIDRole] = d->mDeviceUUID;
-//    }
+    qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode"
+                               << "upnp:class" << classNode.toElement().text();
+    //    if
+    //    (classNode.toElement().text().startsWith(QLatin1String("object.container.album.musicAlbum")))
+    //    {
+    //        childData[DataTypes::ElementTypeRole] =
+    //        QVariant::fromValue(ElisaUtils::Album);
+    //    } else if
+    //    (classNode.toElement().text().startsWith(QLatin1String("object.container.person.musicArtist")))
+    //    {
+    //        childData[DataTypes::ElementTypeRole] =
+    //        QVariant::fromValue(ElisaUtils::Artist);
+    //    } else if
+    //    (classNode.toElement().text().startsWith(QLatin1String("object.container")))
+    //    {
+    childData[DataTypes::ElementTypeRole] = QVariant::fromValue(ElisaUtils::UpnpMediaServer);
+    childData[DataTypes::UUIDRole] = d->mDeviceUUID;
+    //    }
 
     const QDomNode &albumArtNode = containerNode.firstChildElement(QStringLiteral("upnp:albumArtURI"));
     if (!albumArtNode.isNull()) {
@@ -431,14 +439,13 @@ void DidlParser::decodeContainerNode(const QDomNode &containerNode, QHash<QStrin
     qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeContainerNode" << childData;
 }
 
-void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData,
-                                      QList<QString> &newDataIds)
+void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, DataTypes::UpnpTrackDataType> &newData, QList<QString> &newDataIds)
 {
     qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeAudioTrackNode";
 
     auto allChilds = itemNode.childNodes();
 
-    for(int i = 0; i < allChilds.count(); ++i) {
+    for (int i = 0; i < allChilds.count(); ++i) {
         const auto &oneChild = allChilds.at(i);
         qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeAudioTrackNode" << oneChild.nodeName();
     }
@@ -523,6 +530,4 @@ void DidlParser::decodeAudioTrackNode(const QDomNode &itemNode, QHash<QString, D
     qCDebug(orgKdeElisaUpnp()) << "DidlParser::decodeAudioTrackNode" << childData;
 }
 
-
 #include "moc_didlparser.cpp"
-

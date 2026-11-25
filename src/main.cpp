@@ -8,8 +8,8 @@
 #include "elisa-version.h"
 
 #include "colorschemepreviewimageprovider.h"
-#include "elisaapplication.h"
 #include "elisa_settings.h"
+#include "elisaapplication.h"
 
 #include "localFileConfiguration/elisaconfigurationdialog.h"
 
@@ -21,7 +21,7 @@
 #include "embeddedcoverageimageprovider.h"
 #endif
 
-//#define QT_QML_DEBUG
+// #define QT_QML_DEBUG
 
 #include <KLocalizedQmlContext>
 #include <KLocalizedString>
@@ -37,12 +37,12 @@
 #include <KQuickIconProvider>
 #include <QIcon>
 
-#include <QQmlContext>
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QDir>
+#include <QQmlContext>
 #include <QStandardPaths>
 #include <QSurfaceFormat>
-#include <QDir>
 
 #include <QQmlApplicationEngine>
 #include <QQmlFileSelector>
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 #endif
 {
 #ifdef Q_OS_ANDROID
-    if(argc > 1 && strcmp(argv[1], "-service") == 0){
+    if (argc > 1 && strcmp(argv[1], "-service") == 0) {
         QAndroidService app(argc, argv);
         qInfo() << "Service starting...";
 
@@ -94,14 +94,14 @@ int main(int argc, char *argv[])
 
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("elisa")));
 
-    KAboutData aboutData( QStringLiteral("elisa"),
-                          i18nc("@title", "Elisa"),
-                          QStringLiteral(ELISA_VERSION_STRING),
-                          i18nc("@info", "A Simple Music Player made with love by the KDE community"),
-                          KAboutLicense::LGPL_V3,
-                          i18nc("@info", "© 2015–2026, Elisa contributors"));
+    KAboutData aboutData(QStringLiteral("elisa"),
+                         i18nc("@title", "Elisa"),
+                         QStringLiteral(ELISA_VERSION_STRING),
+                         i18nc("@info", "A Simple Music Player made with love by the KDE community"),
+                         KAboutLicense::LGPL_V3,
+                         i18nc("@info", "© 2015–2026, Elisa contributors"));
 
-    aboutData.addAuthor(QStringLiteral("Matthieu Gallien"),i18nc("@label", "Creator"), QStringLiteral("mgallien@mgallien.fr"));
+    aboutData.addAuthor(QStringLiteral("Matthieu Gallien"), i18nc("@label", "Creator"), QStringLiteral("mgallien@mgallien.fr"));
     aboutData.addAuthor(QStringLiteral("Nate Graham"), i18nc("@label", "Author"), QStringLiteral("nate@kde.org"));
 
     aboutData.addCredit(QStringLiteral("Andrew Lake"), i18nc("@label", "Concept and design work"), QStringLiteral("jamboarder@gmail.com"));

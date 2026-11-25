@@ -9,9 +9,9 @@
 
 #include "elisaLib_export.h"
 
-#include "elisautils.h"
 #include "databaseinterface.h"
 #include "datatypes.h"
+#include "elisautils.h"
 #include "musiclistenersmanager.h"
 
 #include <KDirModel>
@@ -27,7 +27,6 @@ class ELISALIB_EXPORT FileBrowserModel : public KDirModel
     Q_PROPERTY(bool isBusy READ isBusy NOTIFY isBusyChanged)
 
 public:
-
     explicit FileBrowserModel(QObject *parent = nullptr);
 
     ~FileBrowserModel() override;
@@ -46,16 +45,20 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void initialize(MusicListenersManager *manager, DatabaseInterface *database,
-                    ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
-                    const QString &genre, const QString &artist, qulonglong databaseId,
+    void initialize(MusicListenersManager *manager,
+                    DatabaseInterface *database,
+                    ElisaUtils::PlayListEntryType modelType,
+                    ElisaUtils::FilterType filter,
+                    const QString &genre,
+                    const QString &artist,
+                    qulonglong databaseId,
                     const QUrl &pathFilter);
 
-    void initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
-                          ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+    void initializeByData(MusicListenersManager *manager,
+                          DatabaseInterface *database,
+                          ElisaUtils::PlayListEntryType modelType,
+                          ElisaUtils::FilterType filter,
                           const DataTypes::DataType &dataFilter);
 };
 
-
-
-#endif //FILEBROWSERMODEL_H
+#endif // FILEBROWSERMODEL_H

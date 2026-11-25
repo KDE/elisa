@@ -9,8 +9,8 @@
 
 #include <QAbstractNativeEventFilter>
 #include <QMediaPlayer>
-#include <QQuickItem>
 #include <QQmlEngine>
+#include <QQuickItem>
 
 #include <memory>
 
@@ -21,7 +21,6 @@ class TaskBarManagerPrivate;
  */
 class TaskBarManager : public QQuickItem, public QAbstractNativeEventFilter
 {
-
     Q_OBJECT
 
     QML_ELEMENT
@@ -29,61 +28,40 @@ class TaskBarManager : public QQuickItem, public QAbstractNativeEventFilter
     /**
      * Whether the media is playing, paused, or stopped
      */
-    Q_PROPERTY(QMediaPlayer::PlaybackState playbackState
-               READ playbackState
-               WRITE setPlaybackState
-               NOTIFY playbackStateChanged)
+    Q_PROPERTY(QMediaPlayer::PlaybackState playbackState READ playbackState WRITE setPlaybackState NOTIFY playbackStateChanged)
 
     /**
      * Whether to show track progress on the taskbar
      */
-    Q_PROPERTY(bool showProgress
-               READ showProgress
-               WRITE setShowProgress
-               NOTIFY showProgressChanged)
+    Q_PROPERTY(bool showProgress READ showProgress WRITE setShowProgress NOTIFY showProgressChanged)
 
     /**
      * Maximum possible progress
      */
-    Q_PROPERTY(qulonglong progressMaximum
-               READ progressMaximum
-               WRITE setProgressMaximum
-               NOTIFY progressMaximumChanged)
+    Q_PROPERTY(qulonglong progressMaximum READ progressMaximum WRITE setProgressMaximum NOTIFY progressMaximumChanged)
 
     /**
-     * Current progress; this is always clamped to be in the range [0, progressMaximum]
+     * Current progress; this is always clamped to be in the range [0,
+     * progressMaximum]
      */
-    Q_PROPERTY(qulonglong progressValue
-               READ progressValue
-               WRITE setProgressValue
-               NOTIFY progressValueChanged)
+    Q_PROPERTY(qulonglong progressValue READ progressValue WRITE setProgressValue NOTIFY progressValueChanged)
 
     /**
      * Whether the "Skip Backward" button is enabled
      */
-    Q_PROPERTY(bool canSkipBackward
-               READ canSkipBackward
-               WRITE setCanSkipBackward
-               NOTIFY canSkipBackwardChanged)
+    Q_PROPERTY(bool canSkipBackward READ canSkipBackward WRITE setCanSkipBackward NOTIFY canSkipBackwardChanged)
 
     /**
      * Whether the "Skip Forward" button is enabled
      */
-    Q_PROPERTY(bool canSkipForward
-               READ canSkipForward
-               WRITE setCanSkipForward
-               NOTIFY canSkipForwardChanged)
+    Q_PROPERTY(bool canSkipForward READ canSkipForward WRITE setCanSkipForward NOTIFY canSkipForwardChanged)
 
     /**
      * Whether the "Toggle Playback" button is enabled
      */
-    Q_PROPERTY(bool canTogglePlayback
-               READ canTogglePlayback
-               WRITE setCanTogglePlayback
-               NOTIFY canTogglePlaybackChanged)
+    Q_PROPERTY(bool canTogglePlayback READ canTogglePlayback WRITE setCanTogglePlayback NOTIFY canTogglePlaybackChanged)
 
 public:
-
     explicit TaskBarManager(QQuickItem *parent = nullptr);
 
     ~TaskBarManager() override;
@@ -143,9 +121,7 @@ public Q_SLOTS:
     void setCanTogglePlayback(bool canToggle);
 
 private:
-
     std::unique_ptr<TaskBarManagerPrivate> d;
-
 };
 
 #endif // TASKBAR_H

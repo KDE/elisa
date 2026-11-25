@@ -140,7 +140,8 @@ bool AudioWrapper::muted() const
 
 qreal AudioWrapper::volume() const
 {
-    // DragonMediaBackend returns 0.0-1.0 slider position, convert to Elisa's 0-100 range
+    // DragonMediaBackend returns 0.0-1.0 slider position, convert to Elisa's
+    // 0-100 range
     return d->mPlayer.audioOutput()->volume() * 100.0;
 }
 
@@ -197,7 +198,8 @@ void AudioWrapper::setVolume(qreal volume)
 {
     qCDebug(orgKdeElisaPlayerDragon) << "AudioWrapper::setVolume" << volume;
 
-    // DragonMediaBackend expects 0.0-1.0 slider position and handles dB conversion internally
+    // DragonMediaBackend expects 0.0-1.0 slider position and handles dB
+    // conversion internally
     d->mPlayer.audioOutput()->setVolume(volume / 100.0);
 }
 

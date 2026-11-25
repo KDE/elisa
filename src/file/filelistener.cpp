@@ -6,31 +6,29 @@
 
 #include "filelistener.h"
 
-#include "localfilelisting.h"
 #include "databaseinterface.h"
+#include "localfilelisting.h"
 
 #include <QThread>
 
 class FileListenerPrivate
 {
 public:
-
     LocalFileListing mLocalFileIndexer;
-
 };
 
-FileListener::FileListener(QObject *parent) : AbstractFileListener(parent), d(std::make_unique<FileListenerPrivate>())
+FileListener::FileListener(QObject *parent)
+    : AbstractFileListener(parent)
+    , d(std::make_unique<FileListenerPrivate>())
 {
     setFileListing(&d->mLocalFileIndexer);
 }
 
-FileListener::~FileListener()
-= default;
+FileListener::~FileListener() = default;
 
-const LocalFileListing& FileListener::localFileIndexer() const
+const LocalFileListing &FileListener::localFileIndexer() const
 {
     return d->mLocalFileIndexer;
 }
-
 
 #include "moc_filelistener.cpp"

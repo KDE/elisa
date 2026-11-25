@@ -8,7 +8,8 @@
 
 #include <QCoreApplication>
 
-ElisaImportApplication::ElisaImportApplication(QObject *parent) : QObject(parent)
+ElisaImportApplication::ElisaImportApplication(QObject *parent)
+    : QObject(parent)
 {
 }
 
@@ -22,6 +23,5 @@ void ElisaImportApplication::indexingChanged()
         QCoreApplication::quit();
     }
 }
-
 
 #include "moc_elisaimportapplication.cpp"

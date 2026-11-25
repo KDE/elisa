@@ -22,6 +22,7 @@
 
 #if defined Q_OS_WIN
 #include <windows.h>
+
 #include <winbase.h>
 #endif
 
@@ -29,20 +30,19 @@
 
 #include <QGuiApplication>
 
-
 class PowerManagementInterfacePrivate
 {
 public:
-
     bool mPreventSleep = false;
 
     bool mInhibitedSleep = false;
 
     uint mInhibitSleepCookie = 0;
-
 };
 
-PowerManagementInterface::PowerManagementInterface(QObject *parent) : QObject(parent), d(std::make_unique<PowerManagementInterfacePrivate>())
+PowerManagementInterface::PowerManagementInterface(QObject *parent)
+    : QObject(parent)
+    , d(std::make_unique<PowerManagementInterfacePrivate>())
 {
 #if QtDBus_FOUND
     auto sessionBus = QDBusConnection::sessionBus();
@@ -50,7 +50,9 @@ PowerManagementInterface::PowerManagementInterface(QObject *parent) : QObject(pa
     sessionBus.connect(QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
                        QStringLiteral("/org/freedesktop/PowerManagement/Inhibit"),
                        QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
-                       QStringLiteral("HasInhibitChanged"), this, SLOT(hostSleepInhibitChanged()));
+                       QStringLiteral("HasInhibitChanged"),
+                       this,
+                       SLOT(hostSleepInhibitChanged()));
 #endif
 }
 
@@ -176,14 +178,14 @@ void PowerManagementInterface::inhibitSleepPlasmaWorkspace()
                                                       QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
                                                       QStringLiteral("Inhibit"));
 
-    inhibitCall.setArguments({{QGuiApplication::desktopFileName()}, {i18nc("@info:status  explanation for sleep inhibit during play of music", "Playing music")}});
+    inhibitCall.setArguments(
+        {{QGuiApplication::desktopFileName()}, {i18nc("@info:status  explanation for sleep inhibit during play of music", "Playing music")}});
 
     auto asyncReply = sessionBus.asyncCall(inhibitCall);
 
     auto replyWatcher = new QDBusPendingCallWatcher(asyncReply, this);
 
-    QObject::connect(replyWatcher, &QDBusPendingCallWatcher::finished,
-                     this, &PowerManagementInterface::inhibitDBusCallFinishedPlasmaWorkspace);
+    QObject::connect(replyWatcher, &QDBusPendingCallWatcher::finished, this, &PowerManagementInterface::inhibitDBusCallFinishedPlasmaWorkspace);
 #endif
 }
 
@@ -193,9 +195,9 @@ void PowerManagementInterface::uninhibitSleepPlasmaWorkspace()
     auto sessionBus = QDBusConnection::sessionBus();
 
     auto uninhibitCall = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
-                                                      QStringLiteral("/org/freedesktop/PowerManagement/Inhibit"),
-                                                      QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
-                                                      QStringLiteral("UnInhibit"));
+                                                        QStringLiteral("/org/freedesktop/PowerManagement/Inhibit"),
+                                                        QStringLiteral("org.freedesktop.PowerManagement.Inhibit"),
+                                                        QStringLiteral("UnInhibit"));
 
     uninhibitCall.setArguments({{d->mInhibitSleepCookie}});
 
@@ -203,8 +205,7 @@ void PowerManagementInterface::uninhibitSleepPlasmaWorkspace()
 
     auto replyWatcher = new QDBusPendingCallWatcher(asyncReply, this);
 
-    QObject::connect(replyWatcher, &QDBusPendingCallWatcher::finished,
-                     this, &PowerManagementInterface::uninhibitDBusCallFinishedPlasmaWorkspace);
+    QObject::connect(replyWatcher, &QDBusPendingCallWatcher::finished, this, &PowerManagementInterface::uninhibitDBusCallFinishedPlasmaWorkspace);
 #endif
 }
 
@@ -218,22 +219,24 @@ void PowerManagementInterface::inhibitSleepGnomeWorkspace()
                                                       QStringLiteral("org.gnome.SessionManager"),
                                                       QStringLiteral("Inhibit"));
 
-    // See: https://gitlab.gnome.org/GNOME/gnome-session/-/blob/master/gnome-session/org.gnome.SessionManager.xml
+    // See:
+    // https://gitlab.gnome.org/GNOME/gnome-session/-/blob/master/gnome-session/org.gnome.SessionManager.xml
     // The last argument are flag settings to specify what should be inhibited:
     //    1  = Inhibit logging out
     //    2  = Inhibit user switching
     //    4  = Inhibit suspending the session or computer
     //    8  = Inhibit the session being marked as idle
     //    16 = Inhibit auto-mounting removable media for the session
-    inhibitCall.setArguments({{QCoreApplication::applicationName()}, {uint(0)},
-                              {i18nc("@info:status explanation for sleep inhibit during play of music", "Playing music")}, {uint(12)}});
+    inhibitCall.setArguments({{QCoreApplication::applicationName()},
+                              {uint(0)},
+                              {i18nc("@info:status explanation for sleep inhibit during play of music", "Playing music")},
+                              {uint(12)}});
 
     auto asyncReply = sessionBus.asyncCall(inhibitCall);
 
     auto replyWatcher = new QDBusPendingCallWatcher(asyncReply, this);
 
-    QObject::connect(replyWatcher, &QDBusPendingCallWatcher::finished,
-                     this, &PowerManagementInterface::inhibitDBusCallFinishedGnomeWorkspace);
+    QObject::connect(replyWatcher, &QDBusPendingCallWatcher::finished, this, &PowerManagementInterface::inhibitDBusCallFinishedGnomeWorkspace);
 #endif
 }
 
@@ -253,8 +256,7 @@ void PowerManagementInterface::uninhibitSleepGnomeWorkspace()
 
     auto replyWatcher = new QDBusPendingCallWatcher(asyncReply, this);
 
-    QObject::connect(replyWatcher, &QDBusPendingCallWatcher::finished,
-                     this, &PowerManagementInterface::uninhibitDBusCallFinishedGnomeWorkspace);
+    QObject::connect(replyWatcher, &QDBusPendingCallWatcher::finished, this, &PowerManagementInterface::uninhibitDBusCallFinishedGnomeWorkspace);
 #endif
 }
 
@@ -271,6 +273,5 @@ void PowerManagementInterface::uninhibitSleepWindowsWorkspace()
     SetThreadExecutionState(ES_CONTINUOUS);
 #endif
 }
-
 
 #include "moc_powermanagementinterface.cpp"

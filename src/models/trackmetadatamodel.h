@@ -9,17 +9,17 @@
 
 #include "elisaLib_export.h"
 
-#include "elisautils.h"
-#include "trackslistener.h"
 #include "datatypes.h"
-#include "modeldataloader.h"
+#include "elisautils.h"
 #include "filescanner.h"
+#include "modeldataloader.h"
+#include "trackslistener.h"
 
-#include <QQmlEngine>
-#include <QUrl>
 #include <QAbstractListModel>
 #include <QFutureWatcher>
 #include <QMutex>
+#include <QQmlEngine>
+#include <QUrl>
 
 class MusicListenersManager;
 
@@ -29,30 +29,18 @@ class ELISALIB_EXPORT TrackMetadataModel : public QAbstractListModel
 
     QML_ELEMENT
 
-    Q_PROPERTY(QUrl coverUrl
-               READ coverUrl
-               NOTIFY coverUrlChanged)
+    Q_PROPERTY(QUrl coverUrl READ coverUrl NOTIFY coverUrlChanged)
 
-    Q_PROPERTY(QString fileUrl
-               READ fileUrl
-               NOTIFY fileUrlChanged)
+    Q_PROPERTY(QString fileUrl READ fileUrl NOTIFY fileUrlChanged)
 
-    Q_PROPERTY(qulonglong databaseId
-               READ databaseId
-               NOTIFY databaseIdChanged)
+    Q_PROPERTY(qulonglong databaseId READ databaseId NOTIFY databaseIdChanged)
 
-    Q_PROPERTY(MusicListenersManager* manager
-               READ manager
-               WRITE setManager
-               NOTIFY managerChanged)
+    Q_PROPERTY(MusicListenersManager *manager READ manager WRITE setManager NOTIFY managerChanged)
 
-    Q_PROPERTY(QString lyrics
-               READ lyrics
-               NOTIFY lyricsChanged)
+    Q_PROPERTY(QString lyrics READ lyrics NOTIFY lyricsChanged)
 
 public:
-    enum ColumnRoles
-    {
+    enum ColumnRoles {
         ItemNameRole = Qt::UserRole + 1,
         ItemTypeRole,
         HasDataRole,
@@ -60,8 +48,7 @@ public:
 
     Q_ENUM(ColumnRoles)
 
-    enum ItemType
-    {
+    enum ItemType {
         TextEntry,
         UrlEntry,
         IntegerEntry,
@@ -83,8 +70,7 @@ public:
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-    bool setData(const QModelIndex &index, const QVariant &value,
-                 int role = Qt::EditRole) override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
     QHash<int, QByteArray> roleNames() const override;
 
@@ -92,7 +78,7 @@ public:
 
     QString fileUrl() const;
 
-    MusicListenersManager* manager() const;
+    MusicListenersManager *manager() const;
 
     QString lyrics() const;
     QString lyricsLocation() const;
@@ -132,7 +118,6 @@ public Q_SLOTS:
     void radioData(const TrackMetadataModel::TrackDataType &radiosData);
 
 protected:
-
     void saveChanges();
 
     void undoChanges();
@@ -149,14 +134,13 @@ protected:
 
     virtual void fillLyricsDataFromTrack();
 
-    const TrackDataType& allTrackData() const;
+    const TrackDataType &allTrackData() const;
 
-    virtual void initialize(MusicListenersManager *newManager,
-                            DatabaseInterface *trackDatabase);
+    virtual void initialize(MusicListenersManager *newManager, DatabaseInterface *trackDatabase);
 
-    ModelDataLoader& modelDataLoader();
+    ModelDataLoader &modelDataLoader();
 
-    const TrackDataType& displayedTrackData() const;
+    const TrackDataType &displayedTrackData() const;
 
     DataTypes::ColumnsRoles trackKey(int index) const;
 
@@ -173,7 +157,6 @@ private Q_SLOTS:
     void lyricsValueIsReady();
 
 private:
-
     void fetchLyrics();
 
     void resetDisplayData();
@@ -198,7 +181,8 @@ private:
 
     QMutex mFileScannerMutex;
 
-    // std::pair<LyricsContent, LyricsLocation>, LyricsLocation should be empty if lyrics is embedded
+    // std::pair<LyricsContent, LyricsLocation>, LyricsLocation should be empty if
+    // lyrics is embedded
     QFutureWatcher<std::pair<QString, QString>> mLyricsValueWatcher;
 };
 

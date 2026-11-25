@@ -32,7 +32,7 @@
 
 QStringList buildCoverFileNames(const QStringList &fileNames, const QStringList &fileExtensions)
 {
-    QStringList covers {};
+    QStringList covers{};
     for (const auto &fileName : fileNames) {
         for (const auto &fileExtension : fileExtensions) {
             covers.push_back(fileName + fileExtension);
@@ -76,27 +76,21 @@ public:
     };
 #endif
 
-    const QStringList constCoverExtensions {
-        QStringLiteral(".jpg")
-        ,QStringLiteral(".jpeg")
-        ,QStringLiteral(".png")
-        ,QStringLiteral(".webp")
-        ,QStringLiteral(".jxl")
-    };
+    const QStringList constCoverExtensions{QStringLiteral(".jpg"),
+                                           QStringLiteral(".jpeg"),
+                                           QStringLiteral(".png"),
+                                           QStringLiteral(".webp"),
+                                           QStringLiteral(".jxl")};
 
-    const QStringList constCoverNames {
-        QStringLiteral("[Cc]over")
-        ,QStringLiteral("[Cc]over[Ii]mage")
-        ,QStringLiteral("[Ff]older")
-        ,QStringLiteral("[Aa]lbumart")
-    };
+    const QStringList constCoverNames{QStringLiteral("[Cc]over"),
+                                      QStringLiteral("[Cc]over[Ii]mage"),
+                                      QStringLiteral("[Ff]older"),
+                                      QStringLiteral("[Aa]lbumart")};
 
-    const QStringList constCoverGlobs = {
-        QStringLiteral("*[Cc]over*")
-        ,QStringLiteral("*[Ff]older*")
-        ,QStringLiteral("*[Ff]ront*")
-        ,QStringLiteral("*[Aa]lbumart*")
-    };
+    const QStringList constCoverGlobs = {QStringLiteral("*[Cc]over*"),
+                                         QStringLiteral("*[Ff]older*"),
+                                         QStringLiteral("*[Ff]ront*"),
+                                         QStringLiteral("*[Aa]lbumart*")};
 
 #if KFFileMetaData_FOUND
     std::pair<QMimeType, QMimeType> resolveAudioMimeTypes(const QString &filePath) const
@@ -111,7 +105,8 @@ public:
     const QStringList coverFileGlobs = buildCoverFileNames(constCoverGlobs, constCoverExtensions);
 };
 
-FileScanner::FileScanner() : d(std::make_unique<FileScannerPrivate>())
+FileScanner::FileScanner()
+    : d(std::make_unique<FileScannerPrivate>())
 {
 }
 
@@ -133,8 +128,7 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
 
     if (!scanFile.isLocalFile() && !scanFile.scheme().isEmpty()) {
         if (ElisaUtils::isStreamUrl(scanFile)) {
-            newTrack = DataTypes::radioTrackData(scanFile,
-                                                 !scanFile.fileName().isEmpty() ? scanFile.fileName() : scanFile.toDisplayString());
+            newTrack = DataTypes::radioTrackData(scanFile, !scanFile.fileName().isEmpty() ? scanFile.fileName() : scanFile.toDisplayString());
             newTrack[DataTypes::DurationRole] = QTime::fromMSecsSinceStartOfDay(1);
             return newTrack;
         }
@@ -184,11 +178,12 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         return newTrack;
     }
 
-    const QList<KFileMetaData::Extractor*> &exList = d->mAllExtractors.fetchExtractors(mimetype);
+    const QList<KFileMetaData::Extractor *> &exList = d->mAllExtractors.fetchExtractors(mimetype);
 
     if (exList.isEmpty()) {
-        // when no extractors exist and we have an audio file, we fallback to filling the minimal
-        // set of properties to let Elisa be able to recognise and play the file.
+        // when no extractors exist and we have an audio file, we fallback to
+        // filling the minimal set of properties to let Elisa be able to recognise
+        // and play the file.
 
         qCDebug(orgKdeElisaIndexer()) << "FileScanner::shouldScanFile" << scanFile << localFileName << "no extractors" << primaryMime;
 
@@ -201,23 +196,20 @@ DataTypes::TrackDataType FileScanner::scanOneFile(const QUrl &scanFile, const QF
         return newTrack;
     }
 
-    KFileMetaData::Extractor* ex = exList.first();
-    KFileMetaData::SimpleExtractionResult result(localFileName, mimetype,
-                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+    KFileMetaData::Extractor *ex = exList.first();
+    KFileMetaData::SimpleExtractionResult result(localFileName, mimetype, KFileMetaData::ExtractionResult::ExtractMetaData);
 
     ex->extract(&result);
 
     d->mAllProperties = result.properties();
 
     // If primaryMime came from extension while content matched a container type
-    // (e.g. fragmented .m4a matching video/mp4) and duration was not extracted, query
-    // fallbackMime's extractor (e.g. FFmpegExtractor) for duration.
-    if (!d->mAllProperties.contains(KFileMetaData::Property::Duration)
-        && fallbackMime.name() != mimetype) {
+    // (e.g. fragmented .m4a matching video/mp4) and duration was not extracted,
+    // query fallbackMime's extractor (e.g. FFmpegExtractor) for duration.
+    if (!d->mAllProperties.contains(KFileMetaData::Property::Duration) && fallbackMime.name() != mimetype) {
         const auto fallbackExtractors = d->mAllExtractors.fetchExtractors(fallbackMime.name());
         if (!fallbackExtractors.isEmpty()) {
-            KFileMetaData::SimpleExtractionResult fallbackResult(localFileName, fallbackMime.name(),
-                                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+            KFileMetaData::SimpleExtractionResult fallbackResult(localFileName, fallbackMime.name(), KFileMetaData::ExtractionResult::ExtractMetaData);
             fallbackExtractors.first()->extract(&fallbackResult);
             const auto durationValues = fallbackResult.properties().values(KFileMetaData::Property::Duration);
             for (const auto &val : durationValues) {
@@ -263,21 +255,24 @@ void FileScanner::scanProperties(const QString &localFileName, DataTypes::TrackD
 {
 #if KFFileMetaData_FOUND
     if (!d->mAllProperties.isEmpty()) {
-        using entry = std::pair<const KFileMetaData::Property::Property&, const QVariant&>;
+        using entry = std::pair<const KFileMetaData::Property::Property &, const QVariant &>;
 
         auto rangeBegin = d->mAllProperties.constKeyValueBegin();
         QVariant value;
         while (rangeBegin != d->mAllProperties.constKeyValueEnd()) {
             const auto key = (*rangeBegin).first;
 
-            const auto rangeEnd = std::find_if(rangeBegin, d->mAllProperties.constKeyValueEnd(),
-                                         [key](entry e) { return e.first != key; });
+            const auto rangeEnd = std::find_if(rangeBegin, d->mAllProperties.constKeyValueEnd(), [key](entry e) {
+                return e.first != key;
+            });
 
             const auto distance = std::distance(rangeBegin, rangeEnd);
             if (distance > 1) {
                 QStringList list;
                 list.reserve(static_cast<int>(distance));
-                std::for_each(rangeBegin, rangeEnd, [&list](entry s) { list.append(s.second.toString()); });
+                std::for_each(rangeBegin, rangeEnd, [&list](entry s) {
+                    list.append(s.second.toString());
+                });
                 value = QLocale().createSeparatedList(list);
             } else {
                 value = (*rangeBegin).second;

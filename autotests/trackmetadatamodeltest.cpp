@@ -18,13 +18,13 @@
 
 constexpr auto trackRowCount = 19;
 
-class TrackMetadataModelTests: public QObject, public DatabaseTestData
+class TrackMetadataModelTests : public QObject, public DatabaseTestData
 {
     Q_OBJECT
 
 public:
-
-    explicit TrackMetadataModelTests(QObject *aParent = nullptr) : QObject(aParent)
+    explicit TrackMetadataModelTests(QObject *aParent = nullptr)
+        : QObject(aParent)
     {
     }
 
@@ -154,6 +154,5 @@ private Q_SLOTS:
 };
 
 QTEST_GUILESS_MAIN(TrackMetadataModelTests)
-
 
 #include "trackmetadatamodeltest.moc"

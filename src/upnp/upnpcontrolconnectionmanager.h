@@ -7,8 +7,8 @@
 #ifndef UPNPCONTROLCONNECTIONMANAGER_H
 #define UPNPCONTROLCONNECTIONMANAGER_H
 
-#include "upnpcontrolabstractservice.h"
 #include "upnpbasictypes.h"
+#include "upnpcontrolabstractservice.h"
 
 #include <QQmlEngine>
 
@@ -22,37 +22,26 @@ class UpnpControlConnectionManager : public UpnpControlAbstractService
 
     QML_ELEMENT
 
-    Q_PROPERTY(QString sourceProtocolInfo
-               READ sourceProtocolInfo
-               NOTIFY sourceProtocolInfoChanged)
+    Q_PROPERTY(QString sourceProtocolInfo READ sourceProtocolInfo NOTIFY sourceProtocolInfoChanged)
 
-    Q_PROPERTY(QString sinkProtocolInfo
-               READ sinkProtocolInfo
-               NOTIFY sinkProtocolInfoChanged)
+    Q_PROPERTY(QString sinkProtocolInfo READ sinkProtocolInfo NOTIFY sinkProtocolInfoChanged)
 
-    Q_PROPERTY(QString currentConnectionIDs
-               READ currentConnectionIDs
-               NOTIFY currentConnectionIDsChanged)
+    Q_PROPERTY(QString currentConnectionIDs READ currentConnectionIDs NOTIFY currentConnectionIDsChanged)
 
-    Q_PROPERTY(bool hasPrepareForConnection
-               READ hasPrepareForConnection
-               NOTIFY hasPrepareForConnectionChanged)
+    Q_PROPERTY(bool hasPrepareForConnection READ hasPrepareForConnection NOTIFY hasPrepareForConnectionChanged)
 
-    Q_PROPERTY(bool hasConnectionComplete
-               READ hasConnectionComplete
-               NOTIFY hasConnectionCompleteChanged)
+    Q_PROPERTY(bool hasConnectionComplete READ hasConnectionComplete NOTIFY hasConnectionCompleteChanged)
 
 public:
-
     explicit UpnpControlConnectionManager(QObject *parent = nullptr);
 
     ~UpnpControlConnectionManager() override;
 
-    [[nodiscard]] const QString& sourceProtocolInfo() const;
+    [[nodiscard]] const QString &sourceProtocolInfo() const;
 
-    [[nodiscard]] const QString& sinkProtocolInfo() const;
+    [[nodiscard]] const QString &sinkProtocolInfo() const;
 
-    [[nodiscard]] const QString& currentConnectionIDs() const;
+    [[nodiscard]] const QString &currentConnectionIDs() const;
 
     [[nodiscard]] bool hasPrepareForConnection() const;
 
@@ -62,7 +51,11 @@ public Q_SLOTS:
 
     UpnpControlAbstractServiceReply *getProtocolInfo();
 
-    UpnpControlAbstractServiceReply *prepareForConnection(const QString &remoteProtocolInfo, const QString &remoteUDN, const QString &remoteServiceID, int remotePeerConnectionID, const QString &connectionDirection);
+    UpnpControlAbstractServiceReply *prepareForConnection(const QString &remoteProtocolInfo,
+                                                          const QString &remoteUDN,
+                                                          const QString &remoteServiceID,
+                                                          int remotePeerConnectionID,
+                                                          const QString &connectionDirection);
 
     UpnpControlAbstractServiceReply *connectionComplete(int currentConnectionID);
 
@@ -85,15 +78,12 @@ Q_SIGNALS:
 private Q_SLOTS:
 
 protected:
-
     void parseServiceDescription(QIODevice *serviceDescriptionContent) override;
 
     void parseEventNotification(const QString &eventName, const QString &eventValue) override;
 
 private:
-
     std::unique_ptr<UpnpControlConnectionManagerPrivate> d;
-
 };
 
 #endif // UPNPCONTROLCONNECTIONMANAGER_H

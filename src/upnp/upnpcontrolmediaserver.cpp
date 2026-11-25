@@ -10,30 +10,33 @@
 class UpnpControlMediaServerPrivate
 {
 public:
-
     bool mHasAVTransport;
 };
 
-UpnpControlMediaServer::UpnpControlMediaServer(QObject *parent) : UpnpControlAbstractDevice(parent), d(new UpnpControlMediaServerPrivate)
+UpnpControlMediaServer::UpnpControlMediaServer(QObject *parent)
+    : UpnpControlAbstractDevice(parent)
+    , d(new UpnpControlMediaServerPrivate)
 {
     d->mHasAVTransport = false;
 }
 
-UpnpControlMediaServer::~UpnpControlMediaServer()
-= default;
+UpnpControlMediaServer::~UpnpControlMediaServer() = default;
 
 bool UpnpControlMediaServer::hasAVTransport() const
 {
     return d->mHasAVTransport;
 }
 
-/*void UpnpControlMediaServer::parseDeviceDescription(QIODevice *deviceDescriptionContent, const QString &fallBackURLBase)
+/*void UpnpControlMediaServer::parseDeviceDescription(QIODevice
+*deviceDescriptionContent, const QString &fallBackURLBase)
 {
-    UpnpControlAbstractDevice::parseDeviceDescription(deviceDescriptionContent, fallBackURLBase);
+    UpnpControlAbstractDevice::parseDeviceDescription(deviceDescriptionContent,
+fallBackURLBase);
 
     auto servicesList(servicesName());
 
-    d->mHasAVTransport = servicesList.contains(QLatin1String("urn:schemas-upnp-org:service:AVTransport:1.0"));
+    d->mHasAVTransport =
+servicesList.contains(QLatin1String("urn:schemas-upnp-org:service:AVTransport:1.0"));
     Q_EMIT hasAVTransportChanged();
 }*/
 

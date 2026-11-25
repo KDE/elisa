@@ -14,22 +14,15 @@
 
 class ELISALIB_EXPORT ProgressIndicator : public QObject
 {
-
     Q_OBJECT
 
     QML_ELEMENT
 
-    Q_PROPERTY(int position
-               READ position
-               WRITE setPosition
-               NOTIFY positionChanged)
+    Q_PROPERTY(int position READ position WRITE setPosition NOTIFY positionChanged)
 
-    Q_PROPERTY(QString progressDuration
-               READ progressDuration
-               NOTIFY progressDurationChanged)
+    Q_PROPERTY(QString progressDuration READ progressDuration NOTIFY progressDurationChanged)
 
 public:
-
     explicit ProgressIndicator(QObject *parent = nullptr);
 
     ~ProgressIndicator() override;
@@ -49,11 +42,9 @@ public Q_SLOTS:
     void setPosition(int position);
 
 private:
-
     int mPosition = 0;
 
     QString mProgressDuration;
-
 };
 
 #endif // PROGRESSINDICATOR_H

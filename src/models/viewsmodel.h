@@ -9,8 +9,8 @@
 
 #include "elisaLib_export.h"
 
-#include "elisautils.h"
 #include "datatypes.h"
+#include "elisautils.h"
 
 #include <QAbstractListModel>
 #include <QQmlEngine>
@@ -26,7 +26,7 @@ class ELISALIB_EXPORT ViewsModel : public QAbstractListModel
 
     QML_ELEMENT
 
-    Q_PROPERTY(ViewsListData* viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
+    Q_PROPERTY(ViewsListData *viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
 
 public:
     enum ColumnRoles {
@@ -55,7 +55,7 @@ public:
 
     [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override;
 
-    [[nodiscard]] ViewsListData* viewsData() const;
+    [[nodiscard]] ViewsListData *viewsData() const;
 
 Q_SIGNALS:
 
@@ -63,7 +63,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void setViewsData(ViewsListData* viewsData);
+    void setViewsData(ViewsListData *viewsData);
 
 private Q_SLOTS:
 
@@ -82,7 +82,6 @@ private Q_SLOTS:
     void dataReset();
 
 private:
-
     std::unique_ptr<ViewsModelPrivate> d;
 };
 

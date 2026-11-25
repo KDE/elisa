@@ -1,7 +1,8 @@
 /***************************************************************************
-   SPDX-FileCopyrightText: 2014 (c) Sujith Haridasan <sujith.haridasan@kdemail.net>
-   SPDX-FileCopyrightText: 2014 (c) Ashish Madeti <ashishmadeti@gmail.com>
-   SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2014 (c) Sujith Haridasan
+ <sujith.haridasan@kdemail.net> SPDX-FileCopyrightText: 2014 (c) Ashish Madeti
+ <ashishmadeti@gmail.com> SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien
+ <matthieu_gallien@yahoo.fr>
 
    SPDX-License-Identifier: GPL-3.0-or-later
  ***************************************************************************/
@@ -12,8 +13,8 @@
 #include "elisaLib_export.h"
 
 #include <QDBusAbstractAdaptor>
-#include <QDBusObjectPath>
 #include <QDBusMessage>
+#include <QDBusObjectPath>
 
 #include "audiowrapper.h"
 
@@ -25,7 +26,9 @@ class ManageHeaderBar;
 class ELISALIB_EXPORT MediaPlayer2Player : public QDBusAbstractAdaptor
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.mpris.MediaPlayer2.Player") // Docs: https://specifications.freedesktop.org/mpris-spec/latest/Player_Interface.html
+    Q_CLASSINFO("D-Bus Interface",
+                "org.mpris.MediaPlayer2.Player") // Docs:
+                                                 // https://specifications.freedesktop.org/mpris-spec/latest/Player_Interface.html
 
     Q_PROPERTY(QString PlaybackStatus READ PlaybackStatus NOTIFY playbackStatusChanged)
     Q_PROPERTY(double Rate READ Rate WRITE setRate NOTIFY rateChanged)
@@ -48,11 +51,11 @@ class ELISALIB_EXPORT MediaPlayer2Player : public QDBusAbstractAdaptor
 public:
     explicit MediaPlayer2Player(MediaPlayListProxyModel *playListControler,
                                 ManageAudioPlayer *manageAudioPlayer,
-                                ManageMediaPlayerControl* manageMediaPlayerControl,
-                                ManageHeaderBar * manageHeaderBar,
+                                ManageMediaPlayerControl *manageMediaPlayerControl,
+                                ManageHeaderBar *manageHeaderBar,
                                 AudioWrapper *audioPlayer,
                                 bool showProgressOnTaskBar,
-                                QObject* parent = nullptr);
+                                QObject *parent = nullptr);
     ~MediaPlayer2Player() override;
 
     QString PlaybackStatus() const;
@@ -144,7 +147,7 @@ private:
     void setPropertyPosition(int newPositionInMs);
     void setCurrentTrack(int newTrackPosition);
     void setShuffle(bool shuffle);
-    void setLoopStatus(const QString& loopStatus);
+    void setLoopStatus(const QString &loopStatus);
 
     QVariantMap getMetadataOfCurrentTrack();
 
@@ -160,9 +163,9 @@ private:
     qlonglong m_position = 0;
     MediaPlayListProxyModel *m_playListControler = nullptr;
     bool m_playerIsSeekableChanged = false;
-    ManageAudioPlayer* m_manageAudioPlayer = nullptr;
-    ManageMediaPlayerControl* m_manageMediaPlayerControl = nullptr;
-    ManageHeaderBar * m_manageHeaderBar = nullptr;
+    ManageAudioPlayer *m_manageAudioPlayer = nullptr;
+    ManageMediaPlayerControl *m_manageMediaPlayerControl = nullptr;
+    ManageHeaderBar *m_manageHeaderBar = nullptr;
     AudioWrapper *m_audioPlayer = nullptr;
     mutable QDBusMessage mProgressIndicatorSignal;
     int mPreviousProgressPosition = 0;

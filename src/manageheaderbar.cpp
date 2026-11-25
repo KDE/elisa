@@ -6,7 +6,6 @@
 
 #include "manageheaderbar.h"
 
-
 ManageHeaderBar::ManageHeaderBar(QObject *parent)
     : QObject(parent)
 {

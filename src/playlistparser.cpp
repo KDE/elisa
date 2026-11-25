@@ -2,7 +2,8 @@
    SPDX-FileCopyrightText: 2015 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
    SPDX-FileCopyrightText: 2019 (c) Alexander Stippich <a.stippich@gmx.net>
    SPDX-FileCopyrightText: 2020 (c) Carson Black <uhhadd@gmail.com>
-   SPDX-FileCopyrightText: 2026 (c) Dina Sakharova <d.sakharova@notquiteloona.dev>
+   SPDX-FileCopyrightText: 2026 (c) Dina Sakharova
+   <d.sakharova@notquiteloona.dev>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -42,14 +43,15 @@ bool writePlaylist(PlaylistParser::Format format, QTextStream *stream, const Pla
     return false;
 }
 
-}
+} // namespace
 
 std::optional<PlaylistParser::Format> PlaylistParser::formatForType(const QMimeType &type)
 {
     return ElisaUtils::playlistFormatForType(type);
 }
 
-// TODO: return something that allows to also return (as a string for example) exact full/partial error and errored tracks
+// TODO: return something that allows to also return (as a string for example)
+// exact full/partial error and errored tracks
 std::optional<PlaylistModel> PlaylistParser::load(const QUrl &path)
 {
     const QUrl localUrl = KioFuseHelper::mostLocalUrl(path);

@@ -46,7 +46,7 @@ bool hasReloadedSince(const QSignalSpy &statusChangedSpy, int sinceCount)
     }
     return false;
 }
-}
+} // namespace
 
 class AudioWrapperTest : public QObject
 {

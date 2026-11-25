@@ -9,11 +9,11 @@
 
 #include "elisaLib_export.h"
 
+#include <QMediaPlayer>
 #include <QObject>
 #include <QQmlEngine>
-#include <QUrl>
-#include <QMediaPlayer>
 #include <QString>
+#include <QUrl>
 
 #include <memory>
 
@@ -25,50 +25,27 @@ class ELISALIB_EXPORT AudioWrapper : public QObject
 
     QML_ELEMENT
 
-    Q_PROPERTY(bool muted
-               READ muted
-               WRITE setMuted
-               NOTIFY mutedChanged)
+    Q_PROPERTY(bool muted READ muted WRITE setMuted NOTIFY mutedChanged)
 
-    Q_PROPERTY(qreal volume
-               READ volume
-               WRITE setVolume
-               NOTIFY volumeChanged)
+    Q_PROPERTY(qreal volume READ volume WRITE setVolume NOTIFY volumeChanged)
 
-    Q_PROPERTY(QUrl source
-               READ source
-               WRITE setSource
-               NOTIFY sourceChanged)
+    Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)
 
     Q_PROPERTY(QUrl nextSource READ nextSource WRITE setNextSource NOTIFY nextSourceChanged FINAL)
 
-    Q_PROPERTY(QMediaPlayer::MediaStatus status
-               READ status
-               NOTIFY statusChanged)
+    Q_PROPERTY(QMediaPlayer::MediaStatus status READ status NOTIFY statusChanged)
 
-    Q_PROPERTY(QMediaPlayer::PlaybackState playbackState
-               READ playbackState
-               NOTIFY playbackStateChanged)
+    Q_PROPERTY(QMediaPlayer::PlaybackState playbackState READ playbackState NOTIFY playbackStateChanged)
 
-    Q_PROPERTY(QMediaPlayer::Error error
-               READ error
-               NOTIFY errorChanged)
+    Q_PROPERTY(QMediaPlayer::Error error READ error NOTIFY errorChanged)
 
-    Q_PROPERTY(qint64 duration
-               READ duration
-               NOTIFY durationChanged)
+    Q_PROPERTY(qint64 duration READ duration NOTIFY durationChanged)
 
-    Q_PROPERTY(qint64 position
-               READ position
-               WRITE setPosition
-               NOTIFY positionChanged)
+    Q_PROPERTY(qint64 position READ position WRITE setPosition NOTIFY positionChanged)
 
-    Q_PROPERTY(bool seekable
-               READ seekable
-               NOTIFY seekableChanged)
+    Q_PROPERTY(bool seekable READ seekable NOTIFY seekableChanged)
 
 public:
-
     explicit AudioWrapper(QObject *parent = nullptr);
 
     ~AudioWrapper() override;
@@ -187,7 +164,6 @@ private:
     friend class AudioWrapperPrivate;
 
     std::unique_ptr<AudioWrapperPrivate> d;
-
 };
 
 #endif // AUDIOWRAPPER_H

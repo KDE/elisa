@@ -19,28 +19,27 @@
 #endif
 
 #include "databaseinterface.h"
-#include "mediaplaylist.h"
+#include "elisa_settings.h"
+#include "elisaapplication.h"
 #include "file/filelistener.h"
 #include "file/localfilelisting.h"
-#include "trackslistener.h"
-#include "elisaapplication.h"
-#include "elisa_settings.h"
+#include "mediaplaylist.h"
 #include "modeldataloader.h"
+#include "trackslistener.h"
 
 #include <KLocalizedString>
 
-#include <QThread>
-#include <QStandardPaths>
-#include <QDir>
 #include <QCoreApplication>
+#include <QDir>
 #include <QFileSystemWatcher>
+#include <QStandardPaths>
+#include <QThread>
 
 #include <list>
 
 class MusicListenersManagerPrivate
 {
 public:
-
     QThread mDatabaseThread;
 
     QThread mListenerThread;
@@ -74,32 +73,25 @@ public:
     bool mAndroidIndexerActive = false;
 
     bool mAndroidIndexerAvailable = false;
-
 };
 
 MusicListenersManager::MusicListenersManager(QObject *parent)
-    : QObject(parent), d(std::make_unique<MusicListenersManagerPrivate>())
+    : QObject(parent)
+    , d(std::make_unique<MusicListenersManagerPrivate>())
 {
-    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded,
-            this, &MusicListenersManager::increaseImportedTracksCount);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded, this, &MusicListenersManager::increaseImportedTracksCount);
 
-    connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone,
-            this, &MusicListenersManager::databaseReady);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::requestsInitDone, this, &MusicListenersManager::databaseReady);
 
-    connect(this, &MusicListenersManager::clearDatabase,
-            &d->mDatabaseInterface, &DatabaseInterface::clearData);
+    connect(this, &MusicListenersManager::clearDatabase, &d->mDatabaseInterface, &DatabaseInterface::clearData);
 
-    connect(&d->mDatabaseInterface, &DatabaseInterface::cleanedDatabase,
-            this, &MusicListenersManager::cleanedDatabase);
+    connect(&d->mDatabaseInterface, &DatabaseInterface::cleanedDatabase, this, &MusicListenersManager::cleanedDatabase);
 
-    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
-            this, &MusicListenersManager::applicationAboutToQuit);
+    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &MusicListenersManager::applicationAboutToQuit);
 
-    connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
-            this, &MusicListenersManager::configChanged);
+    connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged, this, &MusicListenersManager::configChanged);
 
-    connect(this, &MusicListenersManager::refreshDatabase,
-            &d->mDatabaseInterface, &DatabaseInterface::askRestoredTracks);
+    connect(this, &MusicListenersManager::refreshDatabase, &d->mDatabaseInterface, &DatabaseInterface::askRestoredTracks);
 
     d->mListenerThread.start();
     d->mDatabaseThread.start();
@@ -114,8 +106,11 @@ MusicListenersManager::MusicListenersManager(QObject *parent)
         databaseFileName = localDataPaths.first() + QStringLiteral("/elisaDatabase.db");
     }
 
-    QMetaObject::invokeMethod(&d->mDatabaseInterface, "init", Qt::QueuedConnection,
-                              Q_ARG(QString, QStringLiteral("listeners")), Q_ARG(QString, databaseFileName));
+    QMetaObject::invokeMethod(&d->mDatabaseInterface,
+                              "init",
+                              Qt::QueuedConnection,
+                              Q_ARG(QString, QStringLiteral("listeners")),
+                              Q_ARG(QString, databaseFileName));
 
     qCInfo(orgKdeElisaIndexersManager) << "Local file system indexer is inactive";
 }
@@ -246,11 +241,9 @@ void MusicListenersManager::playBackError(const QUrl &sourceInError, QMediaPlaye
 
 void MusicListenersManager::deleteElementById(ElisaUtils::PlayListEntryType entryType, qulonglong databaseId)
 {
-    switch(entryType)
-    {
+    switch (entryType) {
     case ElisaUtils::Radio:
-        QMetaObject::invokeMethod(&d->mDatabaseInterface, "removeRadio", Qt::QueuedConnection,
-                                  Q_ARG(qulonglong, databaseId));
+        QMetaObject::invokeMethod(&d->mDatabaseInterface, "removeRadio", Qt::QueuedConnection, Q_ARG(qulonglong, databaseId));
         break;
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
@@ -273,8 +266,7 @@ void MusicListenersManager::connectModel(ModelDataLoader *dataLoader)
 
 void MusicListenersManager::scanCollection(CollectionScan scantype)
 {
-    switch (scantype)
-    {
+    switch (scantype) {
     case CollectionScan::Hard:
         Q_EMIT clearDatabase();
         break;
@@ -304,7 +296,7 @@ void MusicListenersManager::configChanged()
         return;
     }
 
-    //resolve symlinks
+    // resolve symlinks
     QStringList allRootPaths;
     for (const auto &onePath : std::as_const(inputRootPath)) {
         auto workPath = onePath;
@@ -316,8 +308,7 @@ void MusicListenersManager::configChanged()
         QFileInfo pathFileInfo(workPath);
         auto directoryPath = pathFileInfo.canonicalFilePath();
         if (!directoryPath.isEmpty()) {
-            if (QStringView(directoryPath).right(1) != QLatin1Char('/'))
-            {
+            if (QStringView(directoryPath).right(1) != QLatin1Char('/')) {
                 directoryPath.append(QLatin1Char('/'));
             }
             allRootPaths.push_back(directoryPath);
@@ -346,10 +337,8 @@ void MusicListenersManager::configChanged()
 #if UPNPQT_FOUND
     d->mUpnpListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mUpnpListener.moveToThread(&d->mDatabaseThread);
-    connect(this, &MusicListenersManager::applicationIsTerminating,
-            &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::DirectConnection);
+    connect(this, &MusicListenersManager::applicationIsTerminating, &d->mUpnpListener, &UpnpListener::applicationAboutToQuit, Qt::DirectConnection);
 #endif
-
 }
 
 void MusicListenersManager::increaseImportedTracksCount(const DataTypes::ListTrackDataType &allTracks)
@@ -393,12 +382,9 @@ void MusicListenersManager::startLocalFileSystemIndexing()
 
     d->mFileListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mFileListener.moveToThread(&d->mListenerThread);
-    connect(this, &MusicListenersManager::applicationIsTerminating,
-            &d->mFileListener, &FileListener::applicationAboutToQuit, Qt::DirectConnection);
-    connect(&d->mFileListener, &FileListener::indexingStarted,
-            this, &MusicListenersManager::monitorStartingListeners);
-    connect(&d->mFileListener, &FileListener::indexingFinished,
-            this, &MusicListenersManager::monitorEndingListeners);
+    connect(this, &MusicListenersManager::applicationIsTerminating, &d->mFileListener, &FileListener::applicationAboutToQuit, Qt::DirectConnection);
+    connect(&d->mFileListener, &FileListener::indexingStarted, this, &MusicListenersManager::monitorStartingListeners);
+    connect(&d->mFileListener, &FileListener::indexingFinished, this, &MusicListenersManager::monitorEndingListeners);
 
     qCInfo(orgKdeElisaIndexersManager) << "Local file system indexer is active";
 
@@ -416,12 +402,13 @@ void MusicListenersManager::startAndroidIndexing()
 
     d->mAndroidMusicListener.setDatabaseInterface(&d->mDatabaseInterface);
     d->mAndroidMusicListener.moveToThread(&d->mListenerThread);
-    connect(this, &MusicListenersManager::applicationIsTerminating,
-            &d->mAndroidMusicListener, &AndroidMusicListener::applicationAboutToQuit, Qt::DirectConnection);
-    connect(&d->mAndroidMusicListener, &AndroidMusicListener::indexingStarted,
-            this, &MusicListenersManager::monitorStartingListeners);
-    connect(&d->mAndroidMusicListener, &AndroidMusicListener::indexingFinished,
-            this, &MusicListenersManager::monitorEndingListeners);
+    connect(this,
+            &MusicListenersManager::applicationIsTerminating,
+            &d->mAndroidMusicListener,
+            &AndroidMusicListener::applicationAboutToQuit,
+            Qt::DirectConnection);
+    connect(&d->mAndroidMusicListener, &AndroidMusicListener::indexingStarted, this, &MusicListenersManager::monitorStartingListeners);
+    connect(&d->mAndroidMusicListener, &AndroidMusicListener::indexingFinished, this, &MusicListenersManager::monitorEndingListeners);
 
     qCInfo(orgKdeElisaIndexersManager) << "Android indexer is active";
 
@@ -436,8 +423,7 @@ void MusicListenersManager::createTracksListener()
         d->mTracksListener = std::make_unique<TracksListener>(&d->mDatabaseInterface);
         d->mTracksListener->moveToThread(&d->mDatabaseThread);
 
-        connect(this, &MusicListenersManager::removeTracksInError,
-                &d->mDatabaseInterface, &DatabaseInterface::removeTracksList);
+        connect(this, &MusicListenersManager::removeTracksInError, &d->mDatabaseInterface, &DatabaseInterface::removeTracksList);
 
         connect(&d->mDatabaseInterface, &DatabaseInterface::trackRemoved, d->mTracksListener.get(), &TracksListener::trackRemoved);
         connect(&d->mDatabaseInterface, &DatabaseInterface::tracksAdded, d->mTracksListener.get(), &TracksListener::tracksAdded);

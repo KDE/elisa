@@ -12,26 +12,24 @@
 #if UPNPQT_FOUND
 #include "upnpdevicedescription.h"
 
-#include "upnpssdpengine.h"
 #include "upnpabstractservice.h"
+#include "upnpbasictypes.h"
 #include "upnpcontrolabstractdevice.h"
 #include "upnpcontrolabstractservice.h"
-#include "upnpbasictypes.h"
+#include "upnpssdpengine.h"
 #endif
 
 #include <QAbstractProxyModel>
 #include <QQmlEngine>
 
-struct ForeignQAbstractItemModel
-{
+struct ForeignQAbstractItemModel {
     Q_GADGET
     QML_FOREIGN(QAbstractItemModel)
     QML_NAMED_ELEMENT(AbstractItemModel)
     QML_UNCREATABLE("")
 };
 
-struct ForeignQAbstractProxyModel
-{
+struct ForeignQAbstractProxyModel {
     Q_GADGET
     QML_FOREIGN(QAbstractProxyModel)
     QML_NAMED_ELEMENT(AbstractProxyModel)
@@ -39,43 +37,37 @@ struct ForeignQAbstractProxyModel
 };
 
 #if UPNPQT_FOUND
-struct ForeignUpnpSsdpEngine
-{
+struct ForeignUpnpSsdpEngine {
     Q_GADGET
     QML_FOREIGN(UpnpSsdpEngine)
     QML_ELEMENT
 };
 
-struct ForeignUpnpAbstractDevice
-{
+struct ForeignUpnpAbstractDevice {
     Q_GADGET
     QML_FOREIGN(UpnpAbstractDevice)
     QML_ELEMENT
 };
 
-struct ForeignUpnpAbstractService
-{
+struct ForeignUpnpAbstractService {
     Q_GADGET
     QML_FOREIGN(UpnpAbstractService)
     QML_ELEMENT
 };
 
-struct ForeignUpnpControlAbstractDevice
-{
+struct ForeignUpnpControlAbstractDevice {
     Q_GADGET
     QML_FOREIGN(UpnpControlAbstractDevice)
     QML_ELEMENT
 };
 
-struct ForeignUpnpControlAbstractService
-{
+struct ForeignUpnpControlAbstractService {
     Q_GADGET
     QML_FOREIGN(UpnpControlAbstractService)
     QML_ELEMENT
 };
 
-struct ForeignUpnpDeviceDescription
-{
+struct ForeignUpnpDeviceDescription {
     Q_GADGET
     QML_FOREIGN(UpnpDeviceDescription)
     QML_ELEMENT

@@ -51,11 +51,9 @@ private Q_SLOTS:
                                                                       {u"Lyric 3"_s, 3min + 30s + 460ms}}
                                                  << true;
 
-        QTest::addRow("Timestamps with different length") << u"[01:23.4]Lyric 1\n[01:23.45]Lyric 2\n[01:23.456]Lyric 3"_s
-                                                 << QList<LyricsData>{{u"Lyric 1"_s, 1min + 23s + 400ms},
-                                                                      {u"Lyric 2"_s, 1min + 23s + 450ms},
-                                                                      {u"Lyric 3"_s, 1min + 23s + 456ms}}
-                                                 << true;
+        QTest::addRow("Timestamps with different length")
+            << u"[01:23.4]Lyric 1\n[01:23.45]Lyric 2\n[01:23.456]Lyric 3"_s
+            << QList<LyricsData>{{u"Lyric 1"_s, 1min + 23s + 400ms}, {u"Lyric 2"_s, 1min + 23s + 450ms}, {u"Lyric 3"_s, 1min + 23s + 456ms}} << true;
 
         QTest::addRow("Repeated lyric") << u"[01:33.82][03:30.46]Chorus\n[02:06.81]Lyric 2\n"_s
                                         << QList<LyricsData>{{u"Chorus"_s, 1min + 33s + 820ms},
@@ -121,15 +119,17 @@ private Q_SLOTS:
         QTest::addColumn<QString>("lyrics");
         QTest::addColumn<QList<ExpectedHighlightedIndex>>("expectedHighlightedIndexes");
 
-        QList<ExpectedHighlightedIndex> expectedHighlightedIndexes = {{0s, -1},
-                                                                      {1min + 40s, 0},
-                                                                      {3min + 40s, 2},
-                                                                      {2min + 6s + 810ms, 1},
-                                                                      {2min + 6s + 800ms, 0},
-                                                                      {1min + 33s + 810ms, -1},
-                                                                      {1min + 33s + 820ms, 0},
-                                                                      {3min + 30s + 460ms, 2},
-                                                                      {3min + 30s + 450ms, 1}};
+        QList<ExpectedHighlightedIndex> expectedHighlightedIndexes = {
+            {0s, -1},
+            {1min + 40s, 0},
+            {3min + 40s, 2},
+            {2min + 6s + 810ms, 1},
+            {2min + 6s + 800ms, 0},
+            {1min + 33s + 810ms, -1},
+            {1min + 33s + 820ms, 0},
+            {3min + 30s + 460ms, 2},
+            {3min + 30s + 450ms, 1},
+        };
 
         QTest::addRow("Simple") << u"[01:33.82]Lyric 1\n[02:06.81]Lyric 2\n[03:30.46]Lyric 3\n"_s << expectedHighlightedIndexes;
 
@@ -229,7 +229,8 @@ private Q_SLOTS:
             QCOMPARE(lyricsModel.data(idx, LyricsModel::IsHighlighted).toBool(), expected);
         }
 
-        // Jump to second group (00:21.94) -> two dataChanged events: [0,2] and [3,5]
+        // Jump to second group (00:21.94) -> two dataChanged events: [0,2] and
+        // [3,5]
         lyricsModel.setPosition((21s + 940ms).count());
         QCOMPARE(lyricsModel.highlightedIndex(), 3);
         QCOMPARE(indexSpy.count(), 1);

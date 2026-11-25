@@ -1,6 +1,7 @@
 /*
    SPDX-FileCopyrightText: 2017 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
-   SPDX-FileCopyrightText: 2012 (c) Aleix Pol Gonzalez <aleixpol@blue-systems.com>
+   SPDX-FileCopyrightText: 2012 (c) Aleix Pol Gonzalez
+   <aleixpol@blue-systems.com>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
@@ -9,15 +10,15 @@
 
 #include "musiclistenersmanager.h"
 
-#include "mediaplaylist.h"
-#include "mediaplaylistproxymodel.h"
 #include "audiowrapper.h"
-#include "manageaudioplayer.h"
-#include "managemediaplayercontrol.h"
-#include "manageheaderbar.h"
 #include "databaseinterface.h"
 #include "elisautils.h"
 #include "kiofusehelper.h"
+#include "manageaudioplayer.h"
+#include "manageheaderbar.h"
+#include "managemediaplayercontrol.h"
+#include "mediaplaylist.h"
+#include "mediaplaylistproxymodel.h"
 
 #include "elisa_settings.h"
 #include <KAuthorized>
@@ -26,41 +27,39 @@
 
 #if KFXmlGui_FOUND
 #include <KActionCollection>
-#include <KHelpMenu>
 #include <KBugReport>
+#include <KHelpMenu>
 #include <KShortcutsDialog>
 #endif
 
-#include <KColorSchemeManager>
 #include <KAboutData>
+#include <KColorSchemeManager>
 
 #if KFKIO_FOUND
 #include <KIO/OpenFileManagerWindowJob>
 #endif
 
-#include <QQmlEngine>
-#include <QQmlComponent>
-#include <QGuiApplication>
+#include <QAction>
 #include <QDesktopServices>
 #include <QDialog>
-#include <QPointer>
-#include <QIcon>
-#include <QAction>
-#include <QUrl>
-#include <QFileInfo>
 #include <QDir>
+#include <QFileInfo>
 #include <QFileSystemWatcher>
+#include <QGuiApplication>
+#include <QIcon>
 #include <QKeyEvent>
-#include <QFileSystemWatcher>
 #include <QMimeDatabase>
 #include <QMimeType>
+#include <QPointer>
+#include <QQmlComponent>
+#include <QQmlEngine>
+#include <QUrl>
 
 using namespace Qt::Literals::StringLiterals;
 
 class ElisaApplicationPrivate
 {
 public:
-
     explicit ElisaApplicationPrivate(QObject *parent)
 #if KFXmlGui_FOUND
         : mCollection(parent)
@@ -92,7 +91,9 @@ public:
     KColorSchemeManager *mSchemes = nullptr;
 };
 
-ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::make_unique<ElisaApplicationPrivate>(this))
+ElisaApplication::ElisaApplication(QObject *parent)
+    : QObject(parent)
+    , d(std::make_unique<ElisaApplicationPrivate>(this))
 {
     auto configurationFileName = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
     configurationFileName += QStringLiteral("/elisarc");
@@ -100,20 +101,16 @@ ElisaApplication::ElisaApplication(QObject *parent) : QObject(parent), d(std::ma
 
     d->mConfigFileWatcher.addPath(configurationFileName);
 
-    connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
-            this, &ElisaApplication::configChanged);
+    connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged, this, &ElisaApplication::configChanged);
 
-    connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
-            this, &ElisaApplication::configChanged);
+    connect(&d->mConfigFileWatcher, &QFileSystemWatcher::fileChanged, this, &ElisaApplication::configChanged);
 
-    connect(static_cast<QGuiApplication*>(QCoreApplication::instance()), &QGuiApplication::commitDataRequest,
-            this, &ElisaApplication::commitDataRequest);
+    connect(static_cast<QGuiApplication *>(QCoreApplication::instance()), &QGuiApplication::commitDataRequest, this, &ElisaApplication::commitDataRequest);
 
     setupActions();
 }
 
-ElisaApplication::~ElisaApplication()
-= default;
+ElisaApplication::~ElisaApplication() = default;
 
 QAbstractItemModel *ElisaApplication::colorSchemesModel()
 {
@@ -191,37 +188,37 @@ void ElisaApplication::setupActions()
 
     actionName = u"Seek"_s;
     if (KAuthorized::authorizeAction(actionName)) {
-            auto seekAction = d->mCollection.addAction(actionName, this, &ElisaApplication::seek);
-            seekAction->setText(i18nc("@action", "Seek forward 10 seconds"));
-            d->mCollection.setDefaultShortcut(seekAction, QKeySequence(Qt::SHIFT | Qt::Key_Right));
+        auto seekAction = d->mCollection.addAction(actionName, this, &ElisaApplication::seek);
+        seekAction->setText(i18nc("@action", "Seek forward 10 seconds"));
+        d->mCollection.setDefaultShortcut(seekAction, QKeySequence(Qt::SHIFT | Qt::Key_Right));
     }
 
     actionName = u"Scrub"_s;
     if (KAuthorized::authorizeAction(actionName)) {
-            auto scrubAction = d->mCollection.addAction(actionName, this, &ElisaApplication::scrub);
-            scrubAction->setText(i18nc("@action", "Scrub backwards 10 seconds"));
-            d->mCollection.setDefaultShortcut(scrubAction, QKeySequence(Qt::SHIFT | Qt::Key_Left));
+        auto scrubAction = d->mCollection.addAction(actionName, this, &ElisaApplication::scrub);
+        scrubAction->setText(i18nc("@action", "Scrub backwards 10 seconds"));
+        d->mCollection.setDefaultShortcut(scrubAction, QKeySequence(Qt::SHIFT | Qt::Key_Left));
     }
 
     actionName = u"NextTrack"_s;
     if (KAuthorized::authorizeAction(actionName)) {
-            auto nextTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::nextTrack);
-            nextTrackAction->setText(i18nc("@action", "Go to next track"));
-            d->mCollection.setDefaultShortcut(nextTrackAction, QKeySequence(Qt::CTRL | Qt::Key_Right));
+        auto nextTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::nextTrack);
+        nextTrackAction->setText(i18nc("@action", "Go to next track"));
+        d->mCollection.setDefaultShortcut(nextTrackAction, QKeySequence(Qt::CTRL | Qt::Key_Right));
     }
 
     actionName = u"PreviousTrack"_s;
     if (KAuthorized::authorizeAction(actionName)) {
-            auto previousTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::previousTrack);
-            previousTrackAction->setText(i18nc("@action", "Go to previous track"));
-            d->mCollection.setDefaultShortcut(previousTrackAction, QKeySequence(Qt::CTRL | Qt::Key_Left));
+        auto previousTrackAction = d->mCollection.addAction(actionName, this, &ElisaApplication::previousTrack);
+        previousTrackAction->setText(i18nc("@action", "Go to previous track"));
+        d->mCollection.setDefaultShortcut(previousTrackAction, QKeySequence(Qt::CTRL | Qt::Key_Left));
     }
 
     actionName = u"Play-Pause"_s;
     if (KAuthorized::authorizeAction(actionName)) {
-            auto playPauseAction = d->mCollection.addAction(actionName, this, &ElisaApplication::playPause);
-            playPauseAction->setText(i18nc("@action", "Play/pause"));
-            d->mCollection.setDefaultShortcut(playPauseAction, QKeySequence(Qt::Key_Space));
+        auto playPauseAction = d->mCollection.addAction(actionName, this, &ElisaApplication::playPause);
+        playPauseAction->setText(i18nc("@action", "Play/pause"));
+        d->mCollection.setDefaultShortcut(playPauseAction, QKeySequence(Qt::Key_Space));
     }
 
     actionName = u"edit_find"_s;
@@ -261,18 +258,14 @@ bool ElisaApplication::openFiles(const QList<QUrl> &files, const QString &workin
         if (ElisaUtils::isPlayList(mime)) {
             d->mMediaPlayListProxyModel->loadPlayList(file);
         } else if (mime.name().startsWith(QStringLiteral("audio/"))) {
-            audioFiles.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName},
-                            {DataTypes::ResourceRole, file}}, {}, {}});
+            audioFiles.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::FileName}, {DataTypes::ResourceRole, file}}, {}, {}});
         } else if (ElisaUtils::isStreamUrl(file)) {
-            audioFiles.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Radio},
-                            {DataTypes::ResourceRole, file}}, {}, {}});
+            audioFiles.push_back(DataTypes::EntryData{{{DataTypes::ElementTypeRole, ElisaUtils::Radio}, {DataTypes::ResourceRole, file}}, {}, {}});
         }
     }
     auto filesToOpen = checkFileListAndMakeAbsolute(audioFiles, workingDirectory);
     if (!filesToOpen.isEmpty()) {
-        Q_EMIT enqueue(filesToOpen,
-                       ElisaUtils::PlayListEnqueueMode::AppendPlayList,
-                       ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
+        Q_EMIT enqueue(filesToOpen, ElisaUtils::PlayListEnqueueMode::AppendPlayList, ElisaUtils::PlayListEnqueueTriggerPlay::TriggerPlay);
     }
     return (audioFiles.count() == filesToOpen.count());
 }
@@ -346,8 +339,7 @@ void ElisaApplication::configChanged()
     Q_EMIT initialFilesViewPathChanged();
 }
 
-DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList,
-                                                                         const QString &workingDirectory) const
+DataTypes::EntryDataList ElisaApplication::checkFileListAndMakeAbsolute(const DataTypes::EntryDataList &filesList, const QString &workingDirectory) const
 {
     auto filesToOpen = DataTypes::EntryDataList{};
 
@@ -403,10 +395,13 @@ void ElisaApplication::initializeModels()
 
     d->mMusicManager->setElisaApplication(this);
 
-    QObject::connect(this, &ElisaApplication::enqueue,
-                     d->mMediaPlayListProxyModel.get(), static_cast<void (MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&,
-                                                                                            ElisaUtils::PlayListEnqueueMode,
-                                                                                            ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
+    QObject::connect(
+        this,
+        &ElisaApplication::enqueue,
+        d->mMediaPlayListProxyModel.get(),
+        static_cast<void (
+            MediaPlayListProxyModel::*)(const DataTypes::EntryDataList &, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(
+            &MediaPlayListProxyModel::enqueue));
 }
 
 void ElisaApplication::initializePlayer()
@@ -435,7 +430,10 @@ void ElisaApplication::initializePlayer()
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::restoreUndoPositionInAudioWrapper, d->mAudioWrapper.get(), &AudioWrapper::restoreUndoPosition);
 
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::skipNextTrack, d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::skipNextTrack);
-    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::skipPreviousTrack, d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::skipPreviousTrack);
+    QObject::connect(d->mAudioControl.get(),
+                     &ManageAudioPlayer::skipPreviousTrack,
+                     d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::skipPreviousTrack);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::sourceInError, d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::trackInError);
 
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::sourceInError, d->mMusicManager.get(), &MusicListenersManager::playBackError);
@@ -451,32 +449,59 @@ void ElisaApplication::initializePlayer()
                      d->mAudioControl.get(),
                      &ManageAudioPlayer::setPendingNextSource);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::setNextSourceInAudioWrapper, d->mAudioWrapper.get(), &AudioWrapper::setNextSource);
-    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::startedPlayingTrack,
-                     d->mMusicManager->viewDatabase(), &DatabaseInterface::trackHasStartedPlaying);
-    QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::finishedPlayingTrack,
-                     d->mMusicManager->viewDatabase(), &DatabaseInterface::trackHasFinishedPlaying);
+    QObject::connect(d->mAudioControl.get(),
+                     &ManageAudioPlayer::startedPlayingTrack,
+                     d->mMusicManager->viewDatabase(),
+                     &DatabaseInterface::trackHasStartedPlaying);
+    QObject::connect(d->mAudioControl.get(),
+                     &ManageAudioPlayer::finishedPlayingTrack,
+                     d->mMusicManager->viewDatabase(),
+                     &DatabaseInterface::trackHasFinishedPlaying);
     QObject::connect(d->mAudioControl.get(), &ManageAudioPlayer::updateData, d->mMediaPlayList.get(), &MediaPlayList::setData);
 
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::ensurePlay, d->mAudioControl.get(), &ManageAudioPlayer::ensurePlay);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::requestPlay, d->mAudioControl.get(), &ManageAudioPlayer::requestPlay);
-    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::playListFinished, d->mAudioControl.get(), &ManageAudioPlayer::playListFinished);
-    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackChanged, d->mAudioControl.get(), &ManageAudioPlayer::setCurrentTrack);
-    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::clearPlayListPlayer, d->mAudioControl.get(), &ManageAudioPlayer::saveForUndoClearPlaylist);
-    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::undoClearPlayListPlayer, d->mAudioControl.get(), &ManageAudioPlayer::restoreForUndoClearPlaylist);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::playListFinished,
+                     d->mAudioControl.get(),
+                     &ManageAudioPlayer::playListFinished);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::currentTrackChanged,
+                     d->mAudioControl.get(),
+                     &ManageAudioPlayer::setCurrentTrack);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::clearPlayListPlayer,
+                     d->mAudioControl.get(),
+                     &ManageAudioPlayer::saveForUndoClearPlaylist);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::undoClearPlayListPlayer,
+                     d->mAudioControl.get(),
+                     &ManageAudioPlayer::restoreForUndoClearPlaylist);
     QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::seek, d->mAudioWrapper.get(), &AudioWrapper::seek);
 
-    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playbackStateChanged,
-                     d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPlaybackState);
+    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::playbackStateChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPlaybackState);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::statusChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerStatus);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::errorChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerError);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::durationChanged, d->mAudioControl.get(), &ManageAudioPlayer::setAudioDuration);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::seekableChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerIsSeekable);
     QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::positionChanged, d->mAudioControl.get(), &ManageAudioPlayer::setPlayerPosition);
-    QObject::connect(d->mAudioWrapper.get(), &AudioWrapper::currentPlayingForRadiosChanged, d->mAudioControl.get(), &ManageAudioPlayer::setCurrentPlayingForRadios);
+    QObject::connect(d->mAudioWrapper.get(),
+                     &AudioWrapper::currentPlayingForRadiosChanged,
+                     d->mAudioControl.get(),
+                     &ManageAudioPlayer::setCurrentPlayingForRadios);
 
-    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setCurrentTrack);
-    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::previousTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setPreviousTrack);
-    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::nextTrackChanged, d->mPlayerControl.get(), &ManageMediaPlayerControl::setNextTrack);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::currentTrackChanged,
+                     d->mPlayerControl.get(),
+                     &ManageMediaPlayerControl::setCurrentTrack);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::previousTrackChanged,
+                     d->mPlayerControl.get(),
+                     &ManageMediaPlayerControl::setPreviousTrack);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::nextTrackChanged,
+                     d->mPlayerControl.get(),
+                     &ManageMediaPlayerControl::setNextTrack);
     QObject::connect(d->mMediaPlayListProxyModel.get(),
                      &MediaPlayListProxyModel::nextTrackChanged,
                      d->mAudioControl.get(),
@@ -496,11 +521,17 @@ void ElisaApplication::initializePlayer()
     d->mManageHeaderBar->setTrackTypeRole(MediaPlayList::ElementTypeRole);
     d->mManageHeaderBar->setAlbumIdRole(MediaPlayList::AlbumIdRole);
     d->mManageHeaderBar->setIsValidRole(MediaPlayList::IsValidRole);
-    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::setCurrentTrack);
-    QObject::connect(d->mMediaPlayListProxyModel.get(), &MediaPlayListProxyModel::currentTrackDataChanged, d->mManageHeaderBar.get(), &ManageHeaderBar::updateCurrentTrackData);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::currentTrackChanged,
+                     d->mManageHeaderBar.get(),
+                     &ManageHeaderBar::setCurrentTrack);
+    QObject::connect(d->mMediaPlayListProxyModel.get(),
+                     &MediaPlayListProxyModel::currentTrackDataChanged,
+                     d->mManageHeaderBar.get(),
+                     &ManageHeaderBar::updateCurrentTrackData);
 }
 
-QAction * ElisaApplication::action(const QString& name)
+QAction *ElisaApplication::action(const QString &name)
 {
 #if KFXmlGui_FOUND
     auto resultAction = d->mCollection.action(name);
@@ -537,7 +568,6 @@ MediaPlayListProxyModel *ElisaApplication::mediaPlayListProxyModel() const
     return d->mMediaPlayListProxyModel.get();
 }
 
-
 AudioWrapper *ElisaApplication::audioPlayer() const
 {
     return d->mAudioWrapper.get();
@@ -557,7 +587,6 @@ ManageHeaderBar *ElisaApplication::manageHeaderBar() const
 {
     return d->mManageHeaderBar.get();
 }
-
 
 bool ElisaApplication::showNowPlayingBackground() const
 {
@@ -590,8 +619,7 @@ ElisaUtils::PlayListEntryType ElisaApplication::embeddedView() const
 {
     ElisaUtils::PlayListEntryType result = ElisaUtils::Unknown;
 
-    switch (Elisa::ElisaConfiguration::self()->embeddedView())
-    {
+    switch (Elisa::ElisaConfiguration::self()->embeddedView()) {
     case 0:
         result = ElisaUtils::Unknown;
         break;
@@ -620,6 +648,5 @@ QString ElisaApplication::initialFilesViewPath() const
 {
     return Elisa::ElisaConfiguration::initialFilesViewPath();
 }
-
 
 #include "moc_elisaapplication.cpp"

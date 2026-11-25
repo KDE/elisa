@@ -6,20 +6,19 @@
 
 #include "trackslistener.h"
 
-#include "playListLogging.h"
 #include "filescanner.h"
 #include "filewriter.h"
+#include "playListLogging.h"
 
-#include <QSet>
 #include <QList>
+#include <QSet>
 
-#include <array>
 #include <algorithm>
+#include <array>
 
 class TracksListenerPrivate
 {
 public:
-
     QSet<qulonglong> mTracksByIdSet;
 
     QSet<qulonglong> mRadiosByIdSet;
@@ -35,13 +34,14 @@ public:
     FileWriter mFileWriter;
 };
 
-TracksListener::TracksListener(DatabaseInterface *database, QObject *parent) : QObject(parent), d(std::make_unique<TracksListenerPrivate>())
+TracksListener::TracksListener(DatabaseInterface *database, QObject *parent)
+    : QObject(parent)
+    , d(std::make_unique<TracksListenerPrivate>())
 {
     d->mDatabase = database;
 }
 
-TracksListener::~TracksListener()
-= default;
+TracksListener::~TracksListener() = default;
 
 void TracksListener::tracksAdded(const ListTrackDataType &allTracks)
 {
@@ -54,7 +54,7 @@ void TracksListener::tracksAdded(const ListTrackDataType &allTracks)
             return;
         }
 
-        for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end(); ) {
+        for (auto itTrack = d->mTracksByNameSet.begin(); itTrack != d->mTracksByNameSet.end();) {
             if (!std::get<0>(*itTrack).isEmpty() && std::get<0>(*itTrack) != oneTrack.title()) {
                 ++itTrack;
                 continue;
@@ -102,8 +102,11 @@ void TracksListener::trackModified(const TrackDataType &modifiedTrack)
     }
 }
 
-void TracksListener::trackByNameInList(const QVariant &title, const QVariant &artist, const QVariant &album,
-                                       const QVariant &trackNumber, const QVariant &discNumber)
+void TracksListener::trackByNameInList(const QVariant &title,
+                                       const QVariant &artist,
+                                       const QVariant &album,
+                                       const QVariant &trackNumber,
+                                       const QVariant &discNumber)
 {
     const auto realTitle = title.toString();
     const auto realArtist = artist.toString();
@@ -125,8 +128,7 @@ void TracksListener::trackByNameInList(const QVariant &title, const QVariant &ar
         realDiscNumber = discNumberValue;
     }
 
-    auto newTrackId = d->mDatabase->trackIdFromTitleAlbumTrackDiscNumber(realTitle, realArtist, realAlbum,
-                                                                         realTrackNumber, realDiscNumber);
+    auto newTrackId = d->mDatabase->trackIdFromTitleAlbumTrackDiscNumber(realTitle, realArtist, realAlbum, realTrackNumber, realDiscNumber);
     if (newTrackId == 0) {
         auto newTrack = std::tuple<QString, QString, QString, int, int>(realTitle, realArtist, album.toString(), trackNumber.toInt(), discNumber.toInt());
         d->mTracksByNameSet.push_back(newTrack);
@@ -187,15 +189,11 @@ void TracksListener::newAlbumInList(qulonglong newDatabaseId, const QString &ent
     Q_EMIT tracksListAdded(newDatabaseId, entryTitle, ElisaUtils::Album, d->mDatabase->albumData(newDatabaseId));
 }
 
-void TracksListener::newEntryInList(qulonglong newDatabaseId,
-                                    const QString &entryTitle,
-                                    ElisaUtils::PlayListEntryType databaseIdType)
+void TracksListener::newEntryInList(qulonglong newDatabaseId, const QString &entryTitle, ElisaUtils::PlayListEntryType databaseIdType)
 {
     qCDebug(orgKdeElisaPlayList()) << "TracksListener::newEntryInList" << newDatabaseId << entryTitle << databaseIdType;
-    switch (databaseIdType)
-    {
-    case ElisaUtils::Track:
-    {
+    switch (databaseIdType) {
+    case ElisaUtils::Track: {
         d->mTracksByIdSet.insert(newDatabaseId);
 
         auto newTrack = d->mDatabase->trackDataFromDatabaseId(newDatabaseId);
@@ -204,8 +202,7 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
         }
         break;
     }
-    case ElisaUtils::Radio:
-    {
+    case ElisaUtils::Radio: {
         d->mRadiosByIdSet.insert(newDatabaseId);
 
         auto newRadio = d->mDatabase->radioDataFromDatabaseId(newDatabaseId);
@@ -237,15 +234,12 @@ void TracksListener::newEntryInList(qulonglong newDatabaseId,
 
 void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntryType databaseIdType)
 {
-    switch (databaseIdType)
-    {
+    switch (databaseIdType) {
     case ElisaUtils::Track:
-    case ElisaUtils::FileName:
-    {
+    case ElisaUtils::FileName: {
         auto newDatabaseId = d->mDatabase->trackIdFromFileName(entryUrl);
 
-        if (!newDatabaseId)
-        {
+        if (!newDatabaseId) {
             trackByFileNameInList(databaseIdType, entryUrl);
             return;
         }
@@ -258,12 +252,10 @@ void TracksListener::newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntr
         }
         break;
     }
-    case ElisaUtils::Radio:
-    {
+    case ElisaUtils::Radio: {
         auto newDatabaseId = d->mDatabase->radioIdFromFileName(entryUrl);
 
-        if (!newDatabaseId)
-        {
+        if (!newDatabaseId) {
             auto newTrack = d->mFileScanner.scanOneFile(entryUrl);
 
             if (newTrack.isValid()) {

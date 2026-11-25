@@ -14,28 +14,25 @@
 class UpnpListenerPrivate
 {
 public:
-
     UpnpDiscoverAllMusic mUpnpManager;
 
     UpnpSsdpEngine mSsdpEngine;
-
 };
 
-UpnpListener::UpnpListener(QObject *parent) : QObject(parent), d(new UpnpListenerPrivate)
+UpnpListener::UpnpListener(QObject *parent)
+    : QObject(parent)
+    , d(new UpnpListenerPrivate)
 {
     d->mSsdpEngine.initialize();
     d->mSsdpEngine.searchAllUpnpDevice();
 
     d->mUpnpManager.setDeviceId(QStringLiteral("urn:schemas-upnp-org:service:ContentDirectory:1"));
 
-    connect(&d->mSsdpEngine, &UpnpSsdpEngine::newService,
-            &d->mUpnpManager, &UpnpDiscoverAllMusic::newDevice);
-    connect(&d->mSsdpEngine, &UpnpSsdpEngine::removedService,
-            &d->mUpnpManager, &UpnpDiscoverAllMusic::removedDevice);
+    connect(&d->mSsdpEngine, &UpnpSsdpEngine::newService, &d->mUpnpManager, &UpnpDiscoverAllMusic::newDevice);
+    connect(&d->mSsdpEngine, &UpnpSsdpEngine::removedService, &d->mUpnpManager, &UpnpDiscoverAllMusic::removedDevice);
 }
 
-UpnpListener::~UpnpListener()
-= default;
+UpnpListener::~UpnpListener() = default;
 
 DatabaseInterface *UpnpListener::databaseInterface() const
 {
@@ -52,6 +49,5 @@ void UpnpListener::setDatabaseInterface(DatabaseInterface *model)
 void UpnpListener::applicationAboutToQuit()
 {
 }
-
 
 #include "moc_upnplistener.cpp"

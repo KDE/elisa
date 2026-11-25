@@ -18,7 +18,7 @@ constexpr QLatin1StringView positionProperty{"Position"};
 constexpr QLatin1StringView metadataProperty{"Metadata"};
 
 constexpr qint64 positionReportIntervalMs = 1000;
-}
+} // namespace
 
 AndroidPlayer::AndroidPlayer(QObject *parent)
     : QObject(parent)

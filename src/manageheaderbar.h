@@ -22,103 +22,49 @@ class ELISALIB_EXPORT ManageHeaderBar : public QObject
 
     QML_ELEMENT
 
-    Q_PROPERTY(QPersistentModelIndex currentTrack
-               READ currentTrack
-               WRITE setCurrentTrack
-               NOTIFY currentTrackChanged)
+    Q_PROPERTY(QPersistentModelIndex currentTrack READ currentTrack WRITE setCurrentTrack NOTIFY currentTrackChanged)
 
-    Q_PROPERTY(int artistRole
-               READ artistRole
-               WRITE setArtistRole
-               NOTIFY artistRoleChanged)
+    Q_PROPERTY(int artistRole READ artistRole WRITE setArtistRole NOTIFY artistRoleChanged)
 
-    Q_PROPERTY(int titleRole
-               READ titleRole
-               WRITE setTitleRole
-               NOTIFY titleRoleChanged)
+    Q_PROPERTY(int titleRole READ titleRole WRITE setTitleRole NOTIFY titleRoleChanged)
 
-    Q_PROPERTY(int albumRole
-               READ albumRole
-               WRITE setAlbumRole
-               NOTIFY albumRoleChanged)
+    Q_PROPERTY(int albumRole READ albumRole WRITE setAlbumRole NOTIFY albumRoleChanged)
 
-    Q_PROPERTY(int albumArtistRole
-               READ albumArtistRole
-               WRITE setAlbumArtistRole
-               NOTIFY albumArtistRoleChanged)
+    Q_PROPERTY(int albumArtistRole READ albumArtistRole WRITE setAlbumArtistRole NOTIFY albumArtistRoleChanged)
 
-    Q_PROPERTY(int fileNameRole
-               READ fileNameRole
-               WRITE setFileNameRole
-               NOTIFY fileNameRoleChanged)
+    Q_PROPERTY(int fileNameRole READ fileNameRole WRITE setFileNameRole NOTIFY fileNameRoleChanged)
 
-    Q_PROPERTY(int imageRole
-               READ imageRole
-               WRITE setImageRole
-               NOTIFY imageRoleChanged)
+    Q_PROPERTY(int imageRole READ imageRole WRITE setImageRole NOTIFY imageRoleChanged)
 
-    Q_PROPERTY(int databaseIdRole
-               READ databaseIdRole
-               WRITE setDatabaseIdRole
-               NOTIFY databaseIdRoleChanged)
+    Q_PROPERTY(int databaseIdRole READ databaseIdRole WRITE setDatabaseIdRole NOTIFY databaseIdRoleChanged)
 
-    Q_PROPERTY(int trackTypeRole
-               READ trackTypeRole
-               WRITE setTrackTypeRole
-               NOTIFY trackTypeRoleChanged)
+    Q_PROPERTY(int trackTypeRole READ trackTypeRole WRITE setTrackTypeRole NOTIFY trackTypeRoleChanged)
 
-    Q_PROPERTY(int albumIdRole
-               READ albumIdRole
-               WRITE setAlbumIdRole
-               NOTIFY albumIdRoleChanged)
+    Q_PROPERTY(int albumIdRole READ albumIdRole WRITE setAlbumIdRole NOTIFY albumIdRoleChanged)
 
-    Q_PROPERTY(int isValidRole
-               READ isValidRole
-               WRITE setIsValidRole
-               NOTIFY isValidRoleChanged)
+    Q_PROPERTY(int isValidRole READ isValidRole WRITE setIsValidRole NOTIFY isValidRoleChanged)
 
-    Q_PROPERTY(QVariant artist
-               READ artist
-               NOTIFY artistChanged)
+    Q_PROPERTY(QVariant artist READ artist NOTIFY artistChanged)
 
-    Q_PROPERTY(QVariant title
-               READ title
-               NOTIFY titleChanged)
+    Q_PROPERTY(QVariant title READ title NOTIFY titleChanged)
 
-    Q_PROPERTY(QVariant album
-               READ album
-               NOTIFY albumChanged)
+    Q_PROPERTY(QVariant album READ album NOTIFY albumChanged)
 
-    Q_PROPERTY(QVariant albumArtist
-               READ albumArtist
-               NOTIFY albumArtistChanged)
+    Q_PROPERTY(QVariant albumArtist READ albumArtist NOTIFY albumArtistChanged)
 
-    Q_PROPERTY(QUrl fileUrl
-               READ fileUrl
-               NOTIFY fileUrlChanged)
+    Q_PROPERTY(QUrl fileUrl READ fileUrl NOTIFY fileUrlChanged)
 
-    Q_PROPERTY(QUrl image
-               READ image
-               NOTIFY imageChanged)
+    Q_PROPERTY(QUrl image READ image NOTIFY imageChanged)
 
-    Q_PROPERTY(qulonglong databaseId
-               READ databaseId
-               NOTIFY databaseIdChanged)
+    Q_PROPERTY(qulonglong databaseId READ databaseId NOTIFY databaseIdChanged)
 
-    Q_PROPERTY(ElisaUtils::PlayListEntryType trackType
-               READ trackType
-               NOTIFY trackTypeChanged)
+    Q_PROPERTY(ElisaUtils::PlayListEntryType trackType READ trackType NOTIFY trackTypeChanged)
 
-    Q_PROPERTY(qulonglong albumId
-               READ albumId
-               NOTIFY albumIdChanged)
+    Q_PROPERTY(qulonglong albumId READ albumId NOTIFY albumIdChanged)
 
-    Q_PROPERTY(bool isValid
-               READ isValid
-               NOTIFY isValidChanged)
+    Q_PROPERTY(bool isValid READ isValid NOTIFY isValidChanged)
 
 public:
-
     explicit ManageHeaderBar(QObject *parent = nullptr);
 
     [[nodiscard]] QPersistentModelIndex currentTrack() const;
@@ -234,7 +180,6 @@ public Q_SLOTS:
     void setIsValidRole(int isValidRole);
 
 private:
-
     void notifyArtistProperty();
 
     void notifyTitleProperty();
@@ -296,9 +241,6 @@ private:
     qulonglong mOldAlbumId = 0;
 
     bool mOldIsValid = false;
-
 };
-
-
 
 #endif // MANAGEHEADERBAR_H

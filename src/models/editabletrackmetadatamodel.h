@@ -19,17 +19,11 @@ class ELISALIB_EXPORT EditableTrackMetadataModel : public TrackMetadataModel
 
     QML_ELEMENT
 
-    Q_PROPERTY(bool isDataValid
-               READ isDataValid
-               NOTIFY isDataValidChanged)
+    Q_PROPERTY(bool isDataValid READ isDataValid NOTIFY isDataValidChanged)
 
-    Q_PROPERTY(QString errorMessage
-               READ errorMessage
-               NOTIFY errorMessageChanged)
+    Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY errorMessageChanged)
 
-    Q_PROPERTY(bool isDirty
-               READ isDirty
-               NOTIFY isDirtyChanged)
+    Q_PROPERTY(bool isDirty READ isDirty NOTIFY isDirtyChanged)
 
 public:
     enum EditableColumnRoles {
@@ -48,8 +42,7 @@ public:
         return mIsDataValid;
     }
 
-    bool setData(const QModelIndex &index, const QVariant &value,
-                 int role = Qt::EditRole) override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
     bool isDirty() const
     {
@@ -87,7 +80,6 @@ public Q_SLOTS:
     void addData(int index);
 
 protected:
-
     void fillDataFromTrackData(const TrackMetadataModel::TrackDataType &trackData) override;
 
     void filterDataFromTrackData() override;
@@ -96,10 +88,9 @@ protected:
 
     void fillDataForNewRadio() override;
 
-    void initialize(MusicListenersManager *newManager,
-                    DatabaseInterface *trackDatabase) override;
-private:
+    void initialize(MusicListenersManager *newManager, DatabaseInterface *trackDatabase) override;
 
+private:
     void validData();
 
     void modelHasBeenModified();
@@ -114,7 +105,5 @@ private:
 
     QStringList mExtraMetadata;
 };
-
-
 
 #endif // EDITABLETRACKMETADATAMODEL_H

@@ -10,17 +10,16 @@
 
 #include "abstractfile/indexercommon.h"
 
-#include "filescanner.h"
 #include "elisa_settings.h"
+#include "filescanner.h"
 
-#include <QThread>
-#include <QFileInfo>
-#include <QFile>
+#include <QAtomicInt>
 #include <QDir>
+#include <QFile>
+#include <QFileInfo>
 #include <QFileSystemWatcher>
 #include <QSet>
-#include <QAtomicInt>
-
+#include <QThread>
 
 #include <algorithm>
 #include <utility>
@@ -49,7 +48,6 @@ inline size_t qHash(const FileSystemPath &fileSystemPath, size_t seed = 0)
 class AbstractFileListingPrivate
 {
 public:
-
     QStringList mAllRootPaths;
 
     QFileSystemWatcher mFileSystemWatcher;
@@ -73,19 +71,17 @@ public:
     bool mErrorWatchingFileSystemChanges = false;
 
     bool mIsActive = false;
-
 };
 
-AbstractFileListing::AbstractFileListing(QObject *parent) : QObject(parent), d(std::make_unique<AbstractFileListingPrivate>())
+AbstractFileListing::AbstractFileListing(QObject *parent)
+    : QObject(parent)
+    , d(std::make_unique<AbstractFileListingPrivate>())
 {
-    connect(&d->mFileSystemWatcher, &QFileSystemWatcher::directoryChanged,
-            this, &AbstractFileListing::directoryChanged);
-    connect(&d->mFileSystemWatcher, &QFileSystemWatcher::fileChanged,
-            this, &AbstractFileListing::fileChanged);
+    connect(&d->mFileSystemWatcher, &QFileSystemWatcher::directoryChanged, this, &AbstractFileListing::directoryChanged);
+    connect(&d->mFileSystemWatcher, &QFileSystemWatcher::fileChanged, this, &AbstractFileListing::fileChanged);
 }
 
-AbstractFileListing::~AbstractFileListing()
-= default;
+AbstractFileListing::~AbstractFileListing() = default;
 
 void AbstractFileListing::init()
 {
@@ -168,7 +164,8 @@ void AbstractFileListing::scanDirectory(QSet<QString> &guard,
     }
 
     // we can only handle local dirs, ensure we not recurse infinetely, bug 521095
-    // we check for existence, too (canonicalPath might be empty, too, in that case)
+    // we check for existence, too (canonicalPath might be empty, too, in that
+    // case)
     const QDir rootDirectory(path.toLocalFile());
     const QString canonicalDirectoryPath = rootDirectory.canonicalPath();
     if (!rootDirectory.exists() || canonicalDirectoryPath.isEmpty() || guard.contains(canonicalDirectoryPath)) {
@@ -294,8 +291,7 @@ void AbstractFileListing::executeInit(const QHash<QUrl, QDateTime> &allFiles)
     for (const auto &pathInfo : allFiles.asKeyValueRange()) {
         const auto &pathToBeIndexed = pathInfo.first;
         const auto &lastModified = pathInfo.second;
-        bool indexThisPath = std::any_of(d->mAllRootPaths.cbegin(), d->mAllRootPaths.cend(),
-                                         [&](const auto &rootPath) {
+        bool indexThisPath = std::any_of(d->mAllRootPaths.cbegin(), d->mAllRootPaths.cend(), [&](const auto &rootPath) {
             return QUrl::fromLocalFile(rootPath).isParentOf(pathToBeIndexed);
         });
 
@@ -332,7 +328,8 @@ void AbstractFileListing::refreshContent()
     triggerRefreshOfContent();
 }
 
-DataTypes::TrackDataType AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo, FileSystemWatchingModes watchForFileSystemChanges)
+DataTypes::TrackDataType
+AbstractFileListing::scanOneFile(const QUrl &scanFile, const QFileInfo &scanFileInfo, FileSystemWatchingModes watchForFileSystemChanges)
 {
     DataTypes::TrackDataType newTrack;
 
@@ -475,14 +472,14 @@ bool AbstractFileListing::fileModifiedSinceLastScan(const QUrl &path, const QUrl
         return true;
     }
 
-    const auto itPath = std::find_if(parentDir->cbegin(), parentDir->cend(),
-                                     [&](const auto &onePath) { return onePath.path == path; });
+    const auto itPath = std::find_if(parentDir->cbegin(), parentDir->cend(), [&](const auto &onePath) {
+        return onePath.path == path;
+    });
     if (itPath == parentDir->cend()) {
         return true;
     }
 
     return itPath->lastModified < lastModified;
 }
-
 
 #include "moc_abstractfilelisting.cpp"

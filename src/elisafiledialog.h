@@ -20,11 +20,13 @@
 class QFileDialog;
 
 /**
- * QML-accessible wrapper around QFileDialog so non-local KIO URLs (e.g. sftp://)
- * are preserved without QtQuick.Dialogs::FileDialog's local-file-only check.
+ * QML-accessible wrapper around QFileDialog so non-local KIO URLs (e.g.
+ * sftp://) are preserved without QtQuick.Dialogs::FileDialog's local-file-only
+ * check.
  *
- * This is fixed in Qt 6.13. ElisaFileDialog should be replaced with QtQuick.Dialogs.FileDialog
- * when Qt 6.13 is the minimum requried version. Use the fileMode FileDialog.OpenUrls.
+ * This is fixed in Qt 6.13. ElisaFileDialog should be replaced with
+ * QtQuick.Dialogs.FileDialog when Qt 6.13 is the minimum requried version. Use
+ * the fileMode FileDialog.OpenUrls.
  */
 class ELISALIB_EXPORT ElisaFileDialog : public QObject
 {

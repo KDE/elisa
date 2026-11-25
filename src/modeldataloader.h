@@ -9,9 +9,9 @@
 
 #include "elisaLib_export.h"
 
-#include "elisautils.h"
 #include "databaseinterface.h"
 #include "datatypes.h"
+#include "elisautils.h"
 #include "models/datamodel.h"
 
 #include <QObject>
@@ -22,11 +22,9 @@ class ModelDataLoaderPrivate;
 
 class ELISALIB_EXPORT ModelDataLoader : public QObject
 {
-
     Q_OBJECT
 
 public:
-
     using ListAlbumDataType = DataTypes::ListAlbumDataType;
     using ListArtistDataType = DataTypes::ListArtistDataType;
     using ListGenreDataType = DataTypes::ListGenreDataType;
@@ -97,20 +95,15 @@ public Q_SLOTS:
 
     void loadDataByAlbumId(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId);
 
-    void loadDataByGenre(ElisaUtils::PlayListEntryType dataType,
-                         const QString &genre);
+    void loadDataByGenre(ElisaUtils::PlayListEntryType dataType, const QString &genre);
 
-    void loadDataByArtist(ElisaUtils::PlayListEntryType dataType,
-                          const QString &artist);
+    void loadDataByArtist(ElisaUtils::PlayListEntryType dataType, const QString &artist);
 
-    void loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dataType,
-                                  const QString &genre, const QString &artist);
+    void loadDataByGenreAndArtist(ElisaUtils::PlayListEntryType dataType, const QString &genre, const QString &artist);
 
-    void loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType dataType,
-                                    qulonglong databaseId, const QUrl &url);
+    void loadDataByDatabaseIdAndUrl(ElisaUtils::PlayListEntryType dataType, qulonglong databaseId, const QUrl &url);
 
-    void loadDataByUrl(ElisaUtils::PlayListEntryType dataType,
-                       const QUrl &url);
+    void loadDataByUrl(ElisaUtils::PlayListEntryType dataType, const QUrl &url);
 
     void loadRecentlyPlayedData(ElisaUtils::PlayListEntryType dataType);
 
@@ -131,9 +124,7 @@ private Q_SLOTS:
     void databaseAlbumsAdded(const ModelDataLoader::ListAlbumDataType &newData);
 
 private:
-
     std::unique_ptr<ModelDataLoaderPrivate> d;
-
 };
 
 #endif // MODELDATALOADER_H

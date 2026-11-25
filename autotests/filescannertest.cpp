@@ -7,26 +7,25 @@
 #include "filescanner.h"
 #include "config-upnp-qt.h"
 
-#include <QObject>
 #include <QList>
+#include <QObject>
 #include <QUrl>
-
 
 #include <QTest>
 
-class FileScannerTest: public QObject
+class FileScannerTest : public QObject
 {
     Q_OBJECT
 
 public:
-
-    explicit FileScannerTest(QObject *aParent = nullptr) : QObject(aParent)
+    explicit FileScannerTest(QObject *aParent = nullptr)
+        : QObject(aParent)
     {
     }
 
 public:
-
-    QString createTrackUrl(const QString &subpath) {
+    QString createTrackUrl(const QString &subpath)
+    {
         return QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/cover_art") + subpath;
     }
 
@@ -52,13 +51,13 @@ private Q_SLOTS:
 
     void initTestCase()
     {
-
     }
 
     void testFileMetaDataScan()
     {
         FileScanner fileScanner;
-        auto scannedTrack = fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/test.ogg")));
+        auto scannedTrack =
+            fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/test.ogg")));
         QCOMPARE(scannedTrack.title(), QStringLiteral("Title"));
         QCOMPARE(scannedTrack.genre(), QStringLiteral("Genre"));
         QCOMPARE(scannedTrack.album(), QStringLiteral("Test"));
@@ -72,7 +71,6 @@ private Q_SLOTS:
 
         auto scannedTrackCover3 = fileScanner.scanOneFile(QUrl::fromLocalFile(mTestTracksForMetaData.at(2)));
         QCOMPARE(scannedTrackCover2.hasEmbeddedCover(), true);
-
     }
 
     void testFindCoverInDirectory()
@@ -104,9 +102,12 @@ private Q_SLOTS:
         FileScanner fileScanner;
         QBENCHMARK {
             for (int i = 0; i < 100; i++) {
-                auto scannedTrack = fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/test.ogg")));
-                auto scannedTrack2 = fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/testMultiple.ogg")));
-                auto scannedTrack3 = fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/testMany.ogg")));
+                auto scannedTrack =
+                    fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/test.ogg")));
+                auto scannedTrack2 = fileScanner.scanOneFile(
+                    QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/testMultiple.ogg")));
+                auto scannedTrack3 =
+                    fileScanner.scanOneFile(QUrl::fromLocalFile(QStringLiteral(LOCAL_FILE_TESTS_SAMPLE_FILES_PATH) + QStringLiteral("/music/testMany.ogg")));
             }
         }
     }
@@ -129,6 +130,5 @@ private Q_SLOTS:
 };
 
 QTEST_GUILESS_MAIN(FileScannerTest)
-
 
 #include "filescannertest.moc"

@@ -1,7 +1,8 @@
 /***************************************************************************
-   SPDX-FileCopyrightText: 2014 (c) Sujith Haridasan <sujith.haridasan@kdemail.net>
-   SPDX-FileCopyrightText: 2014 (c) Ashish Madeti <ashishmadeti@gmail.com>
-   SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
+   SPDX-FileCopyrightText: 2014 (c) Sujith Haridasan
+ <sujith.haridasan@kdemail.net> SPDX-FileCopyrightText: 2014 (c) Ashish Madeti
+ <ashishmadeti@gmail.com> SPDX-FileCopyrightText: 2016 (c) Matthieu Gallien
+ <matthieu_gallien@yahoo.fr>
 
    SPDX-License-Identifier: GPL-3.0-or-later
  ***************************************************************************/
@@ -14,13 +15,12 @@
 
 #include <KAboutData>
 
-MediaPlayer2::MediaPlayer2(QObject* parent)
+MediaPlayer2::MediaPlayer2(QObject *parent)
     : QDBusAbstractAdaptor(parent)
 {
 }
 
-MediaPlayer2::~MediaPlayer2()
-= default;
+MediaPlayer2::~MediaPlayer2() = default;
 
 bool MediaPlayer2::CanQuit() const
 {
@@ -63,11 +63,12 @@ QStringList MediaPlayer2::SupportedUriSchemes() const
 
 QStringList MediaPlayer2::SupportedMimeTypes() const
 {
-//    KService::Ptr app = KService::serviceByDesktopName(KCmdLineArgs::aboutData()->appName());
+    //    KService::Ptr app =
+    //    KService::serviceByDesktopName(KCmdLineArgs::aboutData()->appName());
 
-//    if (app) {
-//        return app->mimeTypes();
-//    }
+    //    if (app) {
+    //        return app->mimeTypes();
+    //    }
 
     return QStringList();
 }

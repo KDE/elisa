@@ -9,15 +9,15 @@
 
 #include "elisaLib_export.h"
 
-#include "elisautils.h"
 #include "datatypes.h"
+#include "elisautils.h"
 #include "viewmanager.h"
 
+#include <QAbstractProxyModel>
 #include <QObject>
 #include <QQmlEngine>
 #include <QString>
 #include <QUrl>
-#include <QAbstractProxyModel>
 
 #include <memory>
 
@@ -30,109 +30,85 @@ class ELISALIB_EXPORT ViewConfigurationData : public QObject
 
     QML_ELEMENT
 
-    Q_PROPERTY(ElisaUtils::FilterType filterType
-               READ filterType
-               CONSTANT)
+    Q_PROPERTY(ElisaUtils::FilterType filterType READ filterType CONSTANT)
 
-    Q_PROPERTY(int expectedDepth
-               READ expectedDepth
-               CONSTANT)
+    Q_PROPERTY(int expectedDepth READ expectedDepth CONSTANT)
 
-    Q_PROPERTY(QString mainTitle
-               READ mainTitle
-               CONSTANT)
+    Q_PROPERTY(QString mainTitle READ mainTitle CONSTANT)
 
-    Q_PROPERTY(QString secondaryTitle
-               READ secondaryTitle
-               CONSTANT)
+    Q_PROPERTY(QString secondaryTitle READ secondaryTitle CONSTANT)
 
-    Q_PROPERTY(QUrl imageUrl
-               READ imageUrl
-               CONSTANT)
+    Q_PROPERTY(QUrl imageUrl READ imageUrl CONSTANT)
 
-    Q_PROPERTY(ElisaUtils::PlayListEntryType dataType
-               READ dataType
-               CONSTANT)
+    Q_PROPERTY(ElisaUtils::PlayListEntryType dataType READ dataType CONSTANT)
 
-    Q_PROPERTY(QAbstractItemModel *model
-               READ model
-               CONSTANT)
+    Q_PROPERTY(QAbstractItemModel *model READ model CONSTANT)
 
-    Q_PROPERTY(QAbstractProxyModel *associatedProxyModel
-               READ associatedProxyModel
-               CONSTANT)
+    Q_PROPERTY(QAbstractProxyModel *associatedProxyModel READ associatedProxyModel CONSTANT)
 
-    Q_PROPERTY(QUrl viewDefaultIcon
-               READ viewDefaultIcon
-               CONSTANT)
+    Q_PROPERTY(QUrl viewDefaultIcon READ viewDefaultIcon CONSTANT)
 
-    Q_PROPERTY(DataTypes::DataType dataFilter
-               READ dataFilter
-               CONSTANT)
+    Q_PROPERTY(DataTypes::DataType dataFilter READ dataFilter CONSTANT)
 
-    Q_PROPERTY(ViewManager::ViewCanBeRated viewShowRating
-               READ viewShowRating
-               CONSTANT)
+    Q_PROPERTY(ViewManager::ViewCanBeRated viewShowRating READ viewShowRating CONSTANT)
 
-    Q_PROPERTY(ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText
-               READ viewDelegateDisplaySecondaryText
-               CONSTANT)
+    Q_PROPERTY(ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText READ viewDelegateDisplaySecondaryText CONSTANT)
 
-    Q_PROPERTY(int sortRole
-               READ sortRole
-               CONSTANT)
+    Q_PROPERTY(int sortRole READ sortRole CONSTANT)
 
-    Q_PROPERTY(QList<int> sortRoles
-               READ sortRoles
-               CONSTANT)
+    Q_PROPERTY(QList<int> sortRoles READ sortRoles CONSTANT)
 
-    Q_PROPERTY(QList<QString> sortRoleNames
-               READ sortRoleNames
-               CONSTANT)
+    Q_PROPERTY(QList<QString> sortRoleNames READ sortRoleNames CONSTANT)
 
-    Q_PROPERTY(Qt::SortOrder sortOrder
-               READ sortOrder
-               CONSTANT)
+    Q_PROPERTY(Qt::SortOrder sortOrder READ sortOrder CONSTANT)
 
-    Q_PROPERTY(QList<QString> sortOrderNames
-               READ sortOrderNames
-               CONSTANT)
+    Q_PROPERTY(QList<QString> sortOrderNames READ sortOrderNames CONSTANT)
 
-    Q_PROPERTY(ViewManager::AlbumCardinality displaySingleAlbum
-               READ displaySingleAlbum
-               CONSTANT)
+    Q_PROPERTY(ViewManager::AlbumCardinality displaySingleAlbum READ displaySingleAlbum CONSTANT)
 
-    Q_PROPERTY(ViewManager::AlbumViewStyle showDiscHeaders
-               READ showDiscHeaders
-               CONSTANT)
+    Q_PROPERTY(ViewManager::AlbumViewStyle showDiscHeaders READ showDiscHeaders CONSTANT)
 
-    Q_PROPERTY(ViewManager::ViewStyle viewStyle
-               READ viewStyle
-               CONSTANT)
+    Q_PROPERTY(ViewManager::ViewStyle viewStyle READ viewStyle CONSTANT)
 
 public:
     explicit ViewConfigurationData(QObject *parent = nullptr);
 
     // Grid/List views
-    explicit ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
-                                   QString mainTitle, QString secondaryTitle, QUrl imageUrl,
-                                   ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
-                                   QAbstractProxyModel *associatedProxyModel, QUrl viewDefaultIcon,
+    explicit ViewConfigurationData(ElisaUtils::FilterType filterType,
+                                   int expectedDepth,
+                                   QString mainTitle,
+                                   QString secondaryTitle,
+                                   QUrl imageUrl,
+                                   ElisaUtils::PlayListEntryType dataType,
+                                   QAbstractItemModel *model,
+                                   QAbstractProxyModel *associatedProxyModel,
+                                   QUrl viewDefaultIcon,
                                    DataTypes::DataType dataFilter,
-                                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
-                                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                                   int sortRole,
+                                   QList<int> sortRoles,
+                                   QList<QString> sortRoleNames,
+                                   Qt::SortOrder sortOrder,
+                                   QList<QString> sortOrderNames,
                                    ViewManager::ViewCanBeRated viewShowRating,
                                    ViewManager::DelegateUseSecondaryText viewDelegateDisplaySecondaryText,
                                    ViewManager::ViewStyle viewStyle,
                                    QObject *parent = nullptr);
 
     // Track views
-    explicit ViewConfigurationData(ElisaUtils::FilterType filterType, int expectedDepth,
-                                   QString mainTitle, QString secondaryTitle,
-                                   QUrl imageUrl, ElisaUtils::PlayListEntryType dataType, QAbstractItemModel *model,
-                                   QAbstractProxyModel *associatedProxyModel, DataTypes::DataType dataFilter,
-                                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
-                                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+    explicit ViewConfigurationData(ElisaUtils::FilterType filterType,
+                                   int expectedDepth,
+                                   QString mainTitle,
+                                   QString secondaryTitle,
+                                   QUrl imageUrl,
+                                   ElisaUtils::PlayListEntryType dataType,
+                                   QAbstractItemModel *model,
+                                   QAbstractProxyModel *associatedProxyModel,
+                                   DataTypes::DataType dataFilter,
+                                   int sortRole,
+                                   QList<int> sortRoles,
+                                   QList<QString> sortRoleNames,
+                                   Qt::SortOrder sortOrder,
+                                   QList<QString> sortOrderNames,
                                    ViewManager::AlbumCardinality displaySingleAlbum,
                                    ViewManager::AlbumViewStyle showDiscHeaders,
                                    QObject *parent = nullptr);
@@ -151,9 +127,9 @@ public:
 
     [[nodiscard]] ElisaUtils::PlayListEntryType dataType() const;
 
-    [[nodiscard]] QAbstractItemModel * model() const;
+    [[nodiscard]] QAbstractItemModel *model() const;
 
-    [[nodiscard]] QAbstractProxyModel * associatedProxyModel() const;
+    [[nodiscard]] QAbstractProxyModel *associatedProxyModel() const;
 
     [[nodiscard]] QUrl viewDefaultIcon() const;
 
@@ -180,7 +156,6 @@ public:
     [[nodiscard]] ViewManager::ViewStyle viewStyle() const;
 
 private:
-
     std::unique_ptr<ViewConfigurationDataPrivate> d;
 };
 

@@ -6,150 +6,186 @@
 
 #include "viewslistdata.h"
 
-#include "modeldataloader.h"
 #include "databaseinterface.h"
+#include "modeldataloader.h"
 #include "musiclistenersmanager.h"
 
 #include "viewsLogging.h"
 
 #include <KLocalizedString>
 
-#include <QUrl>
 #include <QDir>
 #include <QStandardPaths>
+#include <QUrl>
 
 class ViewsListDataPrivate
 {
 public:
-    QList<ViewParameters> mViewsParameters = {{{i18nc("@title:window Title of the view of the playlist", "Now Playing")},
-                                               QUrl{QStringLiteral("image://icon/view-media-lyrics")},
-                                               ViewManager::ContextView},
+    QList<ViewParameters> mViewsParameters = {
+        {{i18nc("@title:window Title of the view of the playlist", "Now Playing")},
+         QUrl{QStringLiteral("image://icon/view-media-lyrics")},
+         ViewManager::ContextView},
 
-                                              {{i18nc("@title:window Title of the view of recently played tracks", "Recently Played")},
-                                               QUrl{QStringLiteral("image://icon/media-playlist-play")},
-                                               ViewManager::TrackView,
-                                               ViewManager::GenericDataModel,
-                                               ElisaUtils::FilterByRecentlyPlayed,
-                                               ElisaUtils::Track,
-                                               DataTypes::LastPlayDate,
-                                               {DataTypes::LastPlayDate},
-                                               {i18nc("@title:menu", "Last Played Date")},
-                                               Qt::DescendingOrder,
-                                               {i18nc("@item:inmenu", "Least Recently Played First"), i18nc("@item:inmenu", "Most Recently Played First")},
-                                               ViewManager::MultipleAlbum,
-                                               ViewManager::NoDiscHeaders},
+        {{i18nc("@title:window Title of the view of recently played tracks", "Recently Played")},
+         QUrl{QStringLiteral("image://icon/media-playlist-play")},
+         ViewManager::TrackView,
+         ViewManager::GenericDataModel,
+         ElisaUtils::FilterByRecentlyPlayed,
+         ElisaUtils::Track,
+         DataTypes::LastPlayDate,
+         {DataTypes::LastPlayDate},
+         {i18nc("@title:menu", "Last Played Date")},
+         Qt::DescendingOrder,
+         {i18nc("@item:inmenu", "Least Recently Played First"), i18nc("@item:inmenu", "Most Recently Played First")},
+         ViewManager::MultipleAlbum,
+         ViewManager::NoDiscHeaders},
 
-                                              {{i18nc("@title:window Title of the view of frequently played tracks", "Frequently Played")},
-                                               QUrl{QStringLiteral("image://icon/view-media-playcount")},
-                                               ViewManager::TrackView,
-                                               ViewManager::GenericDataModel,
-                                               ElisaUtils::FilterByFrequentlyPlayed,
-                                               ElisaUtils::Track,
-                                               DataTypes::PlayCounter,
-                                               {DataTypes::PlayCounter},
-                                               {i18nc("@title:menu", "Play Frequency")},
-                                               Qt::DescendingOrder,
-                                               {i18nc("@item:inmenu", "Least Frequently Played First"), i18nc("@item:inmenu", "Most Frequently Played First")},
-                                               ViewManager::MultipleAlbum,
-                                               ViewManager::NoDiscHeaders},
+        {{i18nc("@title:window Title of the view of frequently played tracks", "Frequently Played")},
+         QUrl{QStringLiteral("image://icon/view-media-playcount")},
+         ViewManager::TrackView,
+         ViewManager::GenericDataModel,
+         ElisaUtils::FilterByFrequentlyPlayed,
+         ElisaUtils::Track,
+         DataTypes::PlayCounter,
+         {DataTypes::PlayCounter},
+         {i18nc("@title:menu", "Play Frequency")},
+         Qt::DescendingOrder,
+         {i18nc("@item:inmenu", "Least Frequently Played First"), i18nc("@item:inmenu", "Most Frequently Played First")},
+         ViewManager::MultipleAlbum,
+         ViewManager::NoDiscHeaders},
 
-                                              {{i18nc("@title:window Title of the view of all albums", "Albums")},
-                                               QUrl{QStringLiteral("image://icon/view-media-album-cover")},
-                                               ViewManager::GridView,
-                                               ViewManager::GenericDataModel,
-                                               ElisaUtils::NoFilter,
-                                               ElisaUtils::Album,
-                                               DataTypes::TitleRole,
-                                               {DataTypes::TitleRole, DataTypes::ArtistRole, DataTypes::GenreRole, DataTypes::YearRole},
-                                               {i18nc("@title:menu", "Title"), i18nc("@title:menu", "Artist"), i18nc("@title:menu", "Genre"), i18nc("@title:menu", "Year")},
-                                               Qt::AscendingOrder,
-                                               {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
-                                               QUrl{QStringLiteral("media-default-album")},
-                                               ViewManager::DelegateWithSecondaryText,
-                                               ViewManager::ViewShowRating},
+        {{i18nc("@title:window Title of the view of all albums", "Albums")},
+         QUrl{QStringLiteral("image://icon/view-media-album-cover")},
+         ViewManager::GridView,
+         ViewManager::GenericDataModel,
+         ElisaUtils::NoFilter,
+         ElisaUtils::Album,
+         DataTypes::TitleRole,
+         {DataTypes::TitleRole, DataTypes::ArtistRole, DataTypes::GenreRole, DataTypes::YearRole},
+         {i18nc("@title:menu", "Title"), i18nc("@title:menu", "Artist"), i18nc("@title:menu", "Genre"), i18nc("@title:menu", "Year")},
+         Qt::AscendingOrder,
+         {i18nc("@item:inmenu", "A–Z"),
+          i18nc("@item:inmenu", "Z–A"),
+          i18nc("@item:inmenu", "A–Z"),
+          i18nc("@item:inmenu", "Z–A"),
+          i18nc("@item:inmenu", "A–Z"),
+          i18nc("@item:inmenu", "Z–A"),
+          i18nc("@item:inmenu", "Oldest First"),
+          i18nc("@item:inmenu", "Newest First")},
+         QUrl{QStringLiteral("media-default-album")},
+         ViewManager::DelegateWithSecondaryText,
+         ViewManager::ViewShowRating},
 
-                                              {{i18nc("@title:window Title of the view of all artists", "Artists")},
-                                               QUrl{QStringLiteral("image://icon/view-media-artist")},
-                                               ViewManager::GridView,
-                                               ViewManager::GenericDataModel,
-                                               ElisaUtils::NoFilter,
-                                               ElisaUtils::Artist,
-                                               Qt::DisplayRole,
-                                               {Qt::DisplayRole},
-                                               {i18nc("@title:menu", "Name")},
-                                               Qt::AscendingOrder,
-                                               {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
-                                               QUrl{QStringLiteral("view-media-artist")},
-                                               ViewManager::DelegateWithoutSecondaryText,
-                                               ViewManager::ViewHideRating},
+        {{i18nc("@title:window Title of the view of all artists", "Artists")},
+         QUrl{QStringLiteral("image://icon/view-media-artist")},
+         ViewManager::GridView,
+         ViewManager::GenericDataModel,
+         ElisaUtils::NoFilter,
+         ElisaUtils::Artist,
+         Qt::DisplayRole,
+         {Qt::DisplayRole},
+         {i18nc("@title:menu", "Name")},
+         Qt::AscendingOrder,
+         {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
+         QUrl{QStringLiteral("view-media-artist")},
+         ViewManager::DelegateWithoutSecondaryText,
+         ViewManager::ViewHideRating},
 
-                                              {{i18nc("@title:window Title of the view of all tracks", "Tracks")},
-                                               QUrl{QStringLiteral("image://icon/view-media-track")},
-                                               ViewManager::TrackView,
-                                               ViewManager::GenericDataModel,
-                                               ElisaUtils::NoFilter,
-                                               ElisaUtils::Track,
-                                               DataTypes::TitleRole,
-                                               {DataTypes::TitleRole, DataTypes::AlbumRole, DataTypes::ArtistRole,
-                                                DataTypes::GenreRole, DataTypes::YearRole, DataTypes::DurationRole,
-                                                DataTypes::ComposerRole, DataTypes::LyricistRole,
-                                                DataTypes::FileModificationTime},
-                                               {i18nc("@title:menu", "Title"), i18nc("@title:menu", "Album"), i18nc("@title:menu", "Artist"), i18nc("@title:menu", "Genre"),
-                                                i18nc("@title:menu", "Year"), i18nc("@title:menu", "Duration"), i18nc("@title:menu", "Composer"), i18nc("@title:menu", "Lyricist"),
-                                                i18nc("@title:menu", "Last Modified")},
-                                               Qt::AscendingOrder,
-                                               {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"),
-                                                i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First"), i18nc("@item:inmenu", "Shortest First"), i18nc("@item:inmenu", "Longest First"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"), i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A"),
-                                                i18nc("@item:inmenu", "Oldest First"), i18nc("@item:inmenu", "Newest First")},
-                                               ViewManager::MultipleAlbum,
-                                               ViewManager::NoDiscHeaders},
+        {{i18nc("@title:window Title of the view of all tracks", "Tracks")},
+         QUrl{QStringLiteral("image://icon/view-media-track")},
+         ViewManager::TrackView,
+         ViewManager::GenericDataModel,
+         ElisaUtils::NoFilter,
+         ElisaUtils::Track,
+         DataTypes::TitleRole,
+         {DataTypes::TitleRole,
+          DataTypes::AlbumRole,
+          DataTypes::ArtistRole,
+          DataTypes::GenreRole,
+          DataTypes::YearRole,
+          DataTypes::DurationRole,
+          DataTypes::ComposerRole,
+          DataTypes::LyricistRole,
+          DataTypes::FileModificationTime},
+         {i18nc("@title:menu", "Title"),
+          i18nc("@title:menu", "Album"),
+          i18nc("@title:menu", "Artist"),
+          i18nc("@title:menu", "Genre"),
+          i18nc("@title:menu", "Year"),
+          i18nc("@title:menu", "Duration"),
+          i18nc("@title:menu", "Composer"),
+          i18nc("@title:menu", "Lyricist"),
+          i18nc("@title:menu", "Last Modified")},
+         Qt::AscendingOrder,
+         {i18nc("@item:inmenu", "A–Z"),
+          i18nc("@item:inmenu", "Z–A"),
+          i18nc("@item:inmenu", "A–Z"),
+          i18nc("@item:inmenu", "Z–A"),
+          i18nc("@item:inmenu", "A–Z"),
+          i18nc("@item:inmenu", "Z–A"),
+          i18nc("@item:inmenu", "A–Z"),
+          i18nc("@item:inmenu", "Z–A"),
+          i18nc("@item:inmenu", "Oldest First"),
+          i18nc("@item:inmenu", "Newest First"),
+          i18nc("@item:inmenu", "Shortest First"),
+          i18nc("@item:inmenu", "Longest First"),
+          i18nc("@item:inmenu", "A–Z"),
+          i18nc("@item:inmenu", "Z–A"),
+          i18nc("@item:inmenu", "A–Z"),
+          i18nc("@item:inmenu", "Z–A"),
+          i18nc("@item:inmenu", "Oldest First"),
+          i18nc("@item:inmenu", "Newest First")},
+         ViewManager::MultipleAlbum,
+         ViewManager::NoDiscHeaders},
 
-                                              {{i18nc("@title:window Title of the view of all genres", "Genres")},
-                                               QUrl{QStringLiteral("image://icon/view-media-genre")},
-                                               ViewManager::GridView,
-                                               ViewManager::GenericDataModel,
-                                               ElisaUtils::NoFilter,
-                                               ElisaUtils::Genre,
-                                               Qt::DisplayRole,
-                                               {Qt::DisplayRole},
-                                               {i18nc("@title:menu", "Genre")},
-                                               Qt::AscendingOrder,
-                                               {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
-                                               QUrl{QStringLiteral("view-media-genre")},
-                                               ViewManager::DelegateWithoutSecondaryText,
-                                               ViewManager::ViewHideRating},
+        {{i18nc("@title:window Title of the view of all genres", "Genres")},
+         QUrl{QStringLiteral("image://icon/view-media-genre")},
+         ViewManager::GridView,
+         ViewManager::GenericDataModel,
+         ElisaUtils::NoFilter,
+         ElisaUtils::Genre,
+         Qt::DisplayRole,
+         {Qt::DisplayRole},
+         {i18nc("@title:menu", "Genre")},
+         Qt::AscendingOrder,
+         {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
+         QUrl{QStringLiteral("view-media-genre")},
+         ViewManager::DelegateWithoutSecondaryText,
+         ViewManager::ViewHideRating},
 
-                                              {{i18nc("@title:window Title of the file browser view", "Files")},
-                                               QUrl{QStringLiteral("image://icon/document-open-folder")},
-                                               ViewManager::GridView,
-                                               ViewManager::FileBrowserModel,
-                                               ElisaUtils::NoFilter,
-                                               ElisaUtils::FileName,
-                                               QUrl{QStringLiteral("audio-mp3")},
-                                               ViewManager::DelegateWithoutSecondaryText,
-                                               ViewManager::ViewHideRating,
-                                               QUrl::fromLocalFile(QDir::rootPath())
-                                              },
+        {{i18nc("@title:window Title of the file browser view", "Files")},
+         QUrl{QStringLiteral("image://icon/document-open-folder")},
+         ViewManager::GridView,
+         ViewManager::FileBrowserModel,
+         ElisaUtils::NoFilter,
+         ElisaUtils::FileName,
+         QUrl{QStringLiteral("audio-mp3")},
+         ViewManager::DelegateWithoutSecondaryText,
+         ViewManager::ViewHideRating,
+         QUrl::fromLocalFile(QDir::rootPath())},
 
-                                              {{i18nc("@title:window Title of the file radios browser view", "Radio Stations")},
-                                               QUrl{QStringLiteral("image://icon/radio")},
-                                               ViewManager::TrackView,
-                                               ViewManager::GenericDataModel,
-                                               ElisaUtils::NoFilter,
-                                               ElisaUtils::Radio,
-                                               Qt::DisplayRole,
-                                               {Qt::DisplayRole},
-                                               {i18nc("@title:menu", "Name")},
-                                               Qt::AscendingOrder,
-                                               {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
-                                               ViewManager::MultipleAlbum,
-                                               ViewManager::NoDiscHeaders}};
+        {{i18nc("@title:window Title of the file radios browser view", "Radio Stations")},
+         QUrl{QStringLiteral("image://icon/radio")},
+         ViewManager::TrackView,
+         ViewManager::GenericDataModel,
+         ElisaUtils::NoFilter,
+         ElisaUtils::Radio,
+         Qt::DisplayRole,
+         {Qt::DisplayRole},
+         {i18nc("@title:menu", "Name")},
+         Qt::AscendingOrder,
+         {i18nc("@item:inmenu", "A–Z"), i18nc("@item:inmenu", "Z–A")},
+         ViewManager::MultipleAlbum,
+         ViewManager::NoDiscHeaders},
+    };
 
     const int mNumOfBaseViews = mViewsParameters.count();
 
-    QMap<ElisaUtils::PlayListEntryType, QUrl> mDefaultIcons = {{ElisaUtils::Album, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
-                                                               {ElisaUtils::Artist, QUrl{QStringLiteral("image://icon/view-media-artist")}},
-                                                               {ElisaUtils::Genre, QUrl{QStringLiteral("image://icon/view-media-genre")}},};
+    QMap<ElisaUtils::PlayListEntryType, QUrl> mDefaultIcons = {
+        {ElisaUtils::Album, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
+        {ElisaUtils::Artist, QUrl{QStringLiteral("image://icon/view-media-artist")}},
+        {ElisaUtils::Genre, QUrl{QStringLiteral("image://icon/view-media-genre")}},
+    };
 
     ElisaUtils::PlayListEntryType mEmbeddedCategory = ElisaUtils::Unknown;
 
@@ -389,8 +425,7 @@ void ViewsListData::refreshEmbeddedCategory()
 {
     clearEmbeddedItems();
 
-    switch (d->mEmbeddedCategory)
-    {
+    switch (d->mEmbeddedCategory) {
     case ElisaUtils::Album:
     case ElisaUtils::Artist:
     case ElisaUtils::Genre:
@@ -408,7 +443,7 @@ void ViewsListData::refreshEmbeddedCategory()
     }
 }
 
-MusicListenersManager* ViewsListData::manager() const
+MusicListenersManager *ViewsListData::manager() const
 {
     return d->mManager;
 }
@@ -423,7 +458,7 @@ void ViewsListData::setManager(MusicListenersManager *aManager)
     }
 }
 
-DatabaseInterface* ViewsListData::database() const
+DatabaseInterface *ViewsListData::database() const
 {
     return d->mDatabase;
 }
@@ -436,38 +471,28 @@ void ViewsListData::setDatabase(DatabaseInterface *aDatabase)
 
         d->mDataLoader->setDatabase(aDatabase);
 
-        connect(d->mDataLoader, &ModelDataLoader::allAlbumsData,
-                this, &ViewsListData::albumsAdded);
-        connect(d->mDataLoader, &ModelDataLoader::allArtistsData,
-                this, &ViewsListData::artistsAdded);
-        connect(d->mDataLoader, &ModelDataLoader::allGenresData,
-                this, &ViewsListData::genresAdded);
-        connect(d->mDatabase, &DatabaseInterface::genresAdded,
-                this, &ViewsListData::genresAdded);
+        connect(d->mDataLoader, &ModelDataLoader::allAlbumsData, this, &ViewsListData::albumsAdded);
+        connect(d->mDataLoader, &ModelDataLoader::allArtistsData, this, &ViewsListData::artistsAdded);
+        connect(d->mDataLoader, &ModelDataLoader::allGenresData, this, &ViewsListData::genresAdded);
+        connect(d->mDatabase, &DatabaseInterface::genresAdded, this, &ViewsListData::genresAdded);
         connect(d->mDatabase, &DatabaseInterface::genreRemoved, this, [this](qulonglong databaseId) {
             databaseEntryRemoved(databaseId, ElisaUtils::Genre);
         });
-        connect(d->mDatabase, &DatabaseInterface::artistsAdded,
-                this, &ViewsListData::artistsAdded);
+        connect(d->mDatabase, &DatabaseInterface::artistsAdded, this, &ViewsListData::artistsAdded);
         connect(d->mDatabase, &DatabaseInterface::artistRemoved, this, [this](qulonglong databaseId) {
             databaseEntryRemoved(databaseId, ElisaUtils::Artist);
         });
-        connect(d->mDatabase, &DatabaseInterface::albumsAdded,
-                this, &ViewsListData::albumsAdded);
+        connect(d->mDatabase, &DatabaseInterface::albumsAdded, this, &ViewsListData::albumsAdded);
         connect(d->mDatabase, &DatabaseInterface::albumRemoved, this, [this](qulonglong databaseId) {
             databaseEntryRemoved(databaseId, ElisaUtils::Album);
         });
-        connect(d->mDatabase, &DatabaseInterface::albumModified,
-                this, &ViewsListData::albumModified);
-        connect(d->mDatabase, &DatabaseInterface::cleanedDatabase,
-                this, &ViewsListData::cleanedDatabase);
+        connect(d->mDatabase, &DatabaseInterface::albumModified, this, &ViewsListData::albumModified);
+        connect(d->mDatabase, &DatabaseInterface::cleanedDatabase, this, &ViewsListData::cleanedDatabase);
 
-        connect(this, &ViewsListData::needData,
-                d->mDataLoader, &ModelDataLoader::loadData);
+        connect(this, &ViewsListData::needData, d->mDataLoader, &ModelDataLoader::loadData);
 
         refreshEmbeddedCategory();
     }
 }
-
 
 #include "moc_viewslistdata.cpp"

@@ -21,11 +21,9 @@ class TracksListener;
 
 class MediaPlayListProxyModelTest : public QObject, public DatabaseTestData
 {
-
     Q_OBJECT
 
 public:
-
     explicit MediaPlayListProxyModelTest(QObject *parent = nullptr);
 
 Q_SIGNALS:
@@ -215,7 +213,6 @@ private Q_SLOTS:
     void testRemainingDurationWithShuffle();
 
 private:
-
     MediaPlayList *mPlayList = nullptr;
     MediaPlayListProxyModel *mPlayListProxyModel = nullptr;
     QAbstractItemModelTester *mModelTester = nullptr;

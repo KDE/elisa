@@ -22,18 +22,16 @@ class UpnpDeviceDescription;
 
 class UpnpDiscoverAllMusic : public QObject
 {
-
     Q_OBJECT
 
     QML_ELEMENT
 
 public:
-
     explicit UpnpDiscoverAllMusic(QObject *parent = nullptr);
 
     ~UpnpDiscoverAllMusic() override;
 
-    [[nodiscard]] [[nodiscard]] const DataTypes::ListNetworkServiceDataType& existingMediaServers() const;
+    [[nodiscard]] [[nodiscard]] const DataTypes::ListNetworkServiceDataType &existingMediaServers() const;
 
     [[nodiscard]] [[nodiscard]] const UpnpDeviceDescription &deviceDescriptionByUdn(const QString &udn) const;
 
@@ -60,9 +58,7 @@ private Q_SLOTS:
     void descriptionParsed(const QString &UDN);
 
 private:
-
     std::unique_ptr<UpnpDiscoverAllMusicPrivate> d;
-
 };
 
 #endif // UPNPDISCOVERALLMUSIC_H

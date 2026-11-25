@@ -19,11 +19,9 @@ class TracksListener;
 
 class MediaPlayListTest : public QObject, public DatabaseTestData
 {
-
     Q_OBJECT
 
 public:
-
     explicit MediaPlayListTest(QObject *parent = nullptr);
 
 Q_SIGNALS:
@@ -97,7 +95,6 @@ private Q_SLOTS:
     void crashOnEnqueue();
 
 private:
-
     MediaPlayList *mPlayList = nullptr;
     QAbstractItemModelTester *mModelTester = nullptr;
     DatabaseInterface *mDatabaseContent = nullptr;
@@ -114,7 +111,6 @@ private:
     QSignalSpy *mNewEntryInListSpy = nullptr;
     QSignalSpy *mNewTrackByNameInListSpy = nullptr;
     QSignalSpy *mNewUrlInListSpy = nullptr;
-
 };
 
 class CrashEnqueuePlayList : public QObject
@@ -122,7 +118,6 @@ class CrashEnqueuePlayList : public QObject
     Q_OBJECT
 
 public:
-
     explicit CrashEnqueuePlayList(MediaPlayList *list, QObject *parent = nullptr);
 
 public Q_SLOTS:
@@ -130,7 +125,6 @@ public Q_SLOTS:
     void crashMediaPlayList();
 
 private:
-
     MediaPlayList *mList = nullptr;
 };
 

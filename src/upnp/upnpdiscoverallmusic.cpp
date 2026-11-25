@@ -14,15 +14,15 @@
 
 #include <QNetworkAccessManager>
 
+#include "didlparser.h"
+#include "upnpcontrolcontentdirectory.h"
 #include "upnpdevicedescription.h"
+#include "upnpdevicedescriptionparser.h"
 #include "upnpdiscoveryresult.h"
 #include "upnpservicedescription.h"
-#include "upnpdevicedescriptionparser.h"
-#include "upnpcontrolcontentdirectory.h"
-#include "didlparser.h"
 
-#include <QList>
 #include <QHash>
+#include <QList>
 #include <QString>
 
 #include <QLoggingCategory>
@@ -30,7 +30,6 @@
 class UpnpDiscoverAllMusicPrivate
 {
 public:
-
     QHash<QString, UpnpDiscoveryResult> mAllDeviceDiscoveryResults;
 
     QHash<QString, UpnpDeviceDescription> mAllHostsDescription;
@@ -42,10 +41,11 @@ public:
     QNetworkAccessManager mNetworkAccess;
 
     DataTypes::ListNetworkServiceDataType mAllServices;
-
 };
 
-UpnpDiscoverAllMusic::UpnpDiscoverAllMusic(QObject *parent) : QObject(parent), d(new UpnpDiscoverAllMusicPrivate)
+UpnpDiscoverAllMusic::UpnpDiscoverAllMusic(QObject *parent)
+    : QObject(parent)
+    , d(new UpnpDiscoverAllMusicPrivate)
 {
 }
 
@@ -60,8 +60,7 @@ const UpnpDeviceDescription &UpnpDiscoverAllMusic::deviceDescriptionByUdn(const 
     return d->mAllHostsDescription[udn];
 }
 
-UpnpDiscoverAllMusic::~UpnpDiscoverAllMusic()
-= default;
+UpnpDiscoverAllMusic::~UpnpDiscoverAllMusic() = default;
 
 void UpnpDiscoverAllMusic::newDevice(const UpnpDiscoveryResult &newService)
 {
@@ -79,8 +78,14 @@ void UpnpDiscoverAllMusic::newDevice(const UpnpDiscoveryResult &newService)
 
         d->mDeviceDescriptionParsers[decodedUdn].reset(new UpnpDeviceDescriptionParser(&d->mNetworkAccess, d->mAllHostsDescription[decodedUdn]));
 
-        connect(&d->mNetworkAccess, &QNetworkAccessManager::finished, d->mDeviceDescriptionParsers[decodedUdn].data(), &UpnpDeviceDescriptionParser::finishedDownload);
-        connect(d->mDeviceDescriptionParsers[decodedUdn].data(), &UpnpDeviceDescriptionParser::descriptionParsed, this, &UpnpDiscoverAllMusic::descriptionParsed);
+        connect(&d->mNetworkAccess,
+                &QNetworkAccessManager::finished,
+                d->mDeviceDescriptionParsers[decodedUdn].data(),
+                &UpnpDeviceDescriptionParser::finishedDownload);
+        connect(d->mDeviceDescriptionParsers[decodedUdn].data(),
+                &UpnpDeviceDescriptionParser::descriptionParsed,
+                this,
+                &UpnpDiscoverAllMusic::descriptionParsed);
 
         d->mDeviceDescriptionParsers[decodedUdn]->downloadDeviceDescription(QUrl(newService.location()));
     } else {
@@ -105,7 +110,8 @@ void UpnpDiscoverAllMusic::removedDevice(const UpnpDiscoveryResult &removedServi
 
     d->mAllDeviceDiscoveryResults.remove(deviceUuid);
 
-    qCInfo(orgKdeElisaUpnp()) << "UpnpDiscoverAllMusic::removedDevice" << "number of services" << d->mAllServices.count();
+    qCInfo(orgKdeElisaUpnp()) << "UpnpDiscoverAllMusic::removedDevice"
+                              << "number of services" << d->mAllServices.count();
 
     qCInfo(orgKdeElisaUpnp()) << "UpnpDiscoverAllMusic::removedDevice" << d->mAllHostsDescription[deviceUuid].friendlyName();
     Q_EMIT removedUpnpContentDirectoryService(d->mAllHostsDescription[deviceUuid].friendlyName());
@@ -154,9 +160,11 @@ void UpnpDiscoverAllMusic::descriptionParsed(const QString &UDN)
 
     qCDebug(orgKdeElisaUpnp()) << "UpnpDiscoverAllMusic::descriptionParsed" << d->mAllHostsDescription[uuid].friendlyName();
 
-    d->mAllServices.push_back({{DataTypes::ElementTypeRole, QVariant::fromValue(ElisaUtils::UpnpMediaServer)},
-                               {DataTypes::TitleRole, d->mAllHostsDescription[uuid].friendlyName()},
-                               {DataTypes::UUIDRole, uuid},});
+    d->mAllServices.push_back({
+        {DataTypes::ElementTypeRole, QVariant::fromValue(ElisaUtils::UpnpMediaServer)},
+        {DataTypes::TitleRole, d->mAllHostsDescription[uuid].friendlyName()},
+        {DataTypes::UUIDRole, uuid},
+    });
 
     Q_EMIT newUpnpContentDirectoryService(d->mAllHostsDescription[uuid].friendlyName(), uuid);
 }

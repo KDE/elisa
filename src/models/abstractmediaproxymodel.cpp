@@ -9,11 +9,12 @@
 
 #include "mediaplaylistproxymodel.h"
 
-#include <QWriteLocker>
 #include <QReadLocker>
+#include <QWriteLocker>
 #include <QtConcurrentRun>
 
-AbstractMediaProxyModel::AbstractMediaProxyModel(QObject *parent) : QSortFilterProxyModel(parent)
+AbstractMediaProxyModel::AbstractMediaProxyModel(QObject *parent)
+    : QSortFilterProxyModel(parent)
 {
     setFilterCaseSensitivity(Qt::CaseInsensitive);
     mThreadPool.setMaxThreadCount(1);
@@ -117,28 +118,42 @@ void AbstractMediaProxyModel::setPlayList(MediaPlayListProxyModel *playList)
 void AbstractMediaProxyModel::disconnectPlayList()
 {
     if (mPlayList) {
-        disconnect(this, &AbstractMediaProxyModel::entriesToEnqueue,
-                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
-        disconnect(this, &AbstractMediaProxyModel::switchToTrackUrl,
-                   mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const QUrl &url, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::switchToTrackUrl));
+        disconnect(this,
+                   &AbstractMediaProxyModel::entriesToEnqueue,
+                   mPlayList,
+                   static_cast<void (
+                       MediaPlayListProxyModel::*)(const DataTypes::EntryDataList &, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(
+                       &MediaPlayListProxyModel::enqueue));
+        disconnect(this,
+                   &AbstractMediaProxyModel::switchToTrackUrl,
+                   mPlayList,
+                   static_cast<void (MediaPlayListProxyModel::*)(const QUrl &url, ElisaUtils::PlayListEnqueueTriggerPlay)>(
+                       &MediaPlayListProxyModel::switchToTrackUrl));
     }
 }
 
 void AbstractMediaProxyModel::connectPlayList()
 {
     if (mPlayList) {
-        connect(this, &AbstractMediaProxyModel::entriesToEnqueue,
-                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const DataTypes::EntryDataList&, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::enqueue));
-        connect(this, &AbstractMediaProxyModel::switchToTrackUrl,
-                mPlayList, static_cast<void(MediaPlayListProxyModel::*)(const QUrl &url, ElisaUtils::PlayListEnqueueTriggerPlay)>(&MediaPlayListProxyModel::switchToTrackUrl));
+        connect(this,
+                &AbstractMediaProxyModel::entriesToEnqueue,
+                mPlayList,
+                static_cast<void (
+                    MediaPlayListProxyModel::*)(const DataTypes::EntryDataList &, ElisaUtils::PlayListEnqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay)>(
+                    &MediaPlayListProxyModel::enqueue));
+        connect(this,
+                &AbstractMediaProxyModel::switchToTrackUrl,
+                mPlayList,
+                static_cast<void (MediaPlayListProxyModel::*)(const QUrl &url, ElisaUtils::PlayListEnqueueTriggerPlay)>(
+                    &MediaPlayListProxyModel::switchToTrackUrl));
     }
 }
 
 QFuture<void> AbstractMediaProxyModel::genericEnqueueToPlayList(const QModelIndex &rootIndex,
-                                                       ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                                       ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+                                                                ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                                                ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
-    return QtConcurrent::run(&mThreadPool, [=, this] () {
+    return QtConcurrent::run(&mThreadPool, [=, this]() {
         QReadLocker locker(&mDataLock);
         auto allData = DataTypes::EntryDataList{};
         allData.reserve(rowCount());
@@ -146,7 +161,8 @@ QFuture<void> AbstractMediaProxyModel::genericEnqueueToPlayList(const QModelInde
             auto currentIndex = index(rowIndex, 0, rootIndex);
 
             allData.push_back(DataTypes::EntryData{data(currentIndex, DataTypes::FullDataRole).value<DataTypes::MusicDataType>(),
-                                                   data(currentIndex, Qt::DisplayRole).toString(), {}});
+                                                   data(currentIndex, Qt::DisplayRole).toString(),
+                                                   {}});
         }
         Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
     });
@@ -178,7 +194,10 @@ void AbstractMediaProxyModel::afterPlaylistEnqueue()
     mEnqueueWatcherTrackUrl = QUrl();
 }
 
-void AbstractMediaProxyModel::enqueue(const DataTypes::MusicDataType &newEntry, const QString &newEntryTitle, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
+void AbstractMediaProxyModel::enqueue(const DataTypes::MusicDataType &newEntry,
+                                      const QString &newEntryTitle,
+                                      ElisaUtils::PlayListEnqueueMode enqueueMode,
+                                      ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay)
 {
     auto allData = DataTypes::EntryDataList{};
 
@@ -186,6 +205,5 @@ void AbstractMediaProxyModel::enqueue(const DataTypes::MusicDataType &newEntry, 
 
     Q_EMIT entriesToEnqueue(allData, enqueueMode, triggerPlay);
 }
-
 
 #include "moc_abstractmediaproxymodel.cpp"

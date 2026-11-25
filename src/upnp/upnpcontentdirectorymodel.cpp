@@ -14,10 +14,9 @@
 #include "upnpcontrolcontentdirectory.h"
 #include "upnpdiscoverallmusic.h"
 
+#include <UpnpActionDescription>
 #include <UpnpDeviceDescription>
 #include <UpnpServiceDescription>
-#include <UpnpActionDescription>
-
 
 #include <QHash>
 #include <QString>
@@ -26,7 +25,6 @@
 class UpnpContentDirectoryModelPrivate
 {
 public:
-
     UpnpControlContentDirectory *mContentDirectory;
 
     DidlParser mDidlParser;
@@ -43,7 +41,7 @@ public:
 
     QHash<QString, quintptr> mUpnpIds;
 
-    QHash<quintptr, QList<quintptr> > mChilds;
+    QHash<quintptr, QList<quintptr>> mChilds;
 
     QHash<quintptr, DataTypes::UpnpTrackDataType> mAllTrackData;
 
@@ -52,19 +50,18 @@ public:
     bool mUseLocalIcons = false;
 
     bool mIsBusy = false;
-
 };
 
 UpnpContentDirectoryModel::UpnpContentDirectoryModel(QObject *parent)
-    : QAbstractItemModel(parent), d(new UpnpContentDirectoryModelPrivate)
+    : QAbstractItemModel(parent)
+    , d(new UpnpContentDirectoryModelPrivate)
 {
     d->mContentDirectory = nullptr;
 
     connect(&d->mDidlParser, &DidlParser::isDataValidChanged, this, &UpnpContentDirectoryModel::contentChanged);
 }
 
-UpnpContentDirectoryModel::~UpnpContentDirectoryModel()
-= default;
+UpnpContentDirectoryModel::~UpnpContentDirectoryModel() = default;
 
 int UpnpContentDirectoryModel::rowCount(const QModelIndex &parent) const
 {
@@ -159,8 +156,7 @@ QVariant UpnpContentDirectoryModel::data(const QModelIndex &index, int role) con
 
     auto convertedRole = static_cast<DataTypes::ColumnsRoles>(role);
 
-    switch(role)
-    {
+    switch (role) {
     case Qt::DisplayRole:
         result = d->mAllTrackData[index.internalId()][DataTypes::TitleRole];
         break;
@@ -180,8 +176,7 @@ QVariant UpnpContentDirectoryModel::data(const QModelIndex &index, int role) con
         result = QUrl{};
         break;
     case DataTypes::ImageUrlRole:
-        switch (d->mAllTrackData[index.internalId()][DataTypes::ElementTypeRole].value<ElisaUtils::PlayListEntryType>())
-        {
+        switch (d->mAllTrackData[index.internalId()][DataTypes::ElementTypeRole].value<ElisaUtils::PlayListEntryType>()) {
         case ElisaUtils::Album:
             if (!d->mAllTrackData[index.internalId()][DataTypes::ImageUrlRole].toString().isEmpty()) {
                 result = d->mAllTrackData[index.internalId()][DataTypes::ImageUrlRole].toUrl();
@@ -362,11 +357,10 @@ bool UpnpContentDirectoryModel::canFetchMore(const QModelIndex &parent) const
         parentInternalId = d->mUpnpIds[parentId()];
     }
 
-    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::canFetchMore" << parent
-                               << parentInternalId << !d->mChilds.contains(parentInternalId)
-                               <<  d->mChilds[parentInternalId].isEmpty();
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::canFetchMore" << parent << parentInternalId << !d->mChilds.contains(parentInternalId)
+                               << d->mChilds[parentInternalId].isEmpty();
 
-    result = !d->mChilds.contains(parentInternalId) ||  d->mChilds[parentInternalId].isEmpty();
+    result = !d->mChilds.contains(parentInternalId) || d->mChilds[parentInternalId].isEmpty();
 
     qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::canFetchMore" << parent << result;
 
@@ -478,8 +472,7 @@ void UpnpContentDirectoryModel::setContentDirectory(UpnpControlContentDirectory 
     if (directory) {
         beginResetModel();
     }
-    if (d->mContentDirectory) {
-    }
+    if (d->mContentDirectory) { }
 
     d->mContentDirectory = directory;
 
@@ -515,15 +508,18 @@ bool UpnpContentDirectoryModel::isBusy() const
     return d->mIsBusy;
 }
 
-void UpnpContentDirectoryModel::initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
-                                                 ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+void UpnpContentDirectoryModel::initializeByData(MusicListenersManager *manager,
+                                                 DatabaseInterface *database,
+                                                 ElisaUtils::PlayListEntryType modelType,
+                                                 ElisaUtils::FilterType filter,
                                                  const DataTypes::DataType &dataFilter)
 {
     Q_UNUSED(database)
     Q_UNUSED(modelType)
     Q_UNUSED(filter)
 
-    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::initializeByData" << modelType << filter << dataFilter << dataFilter[DataTypes::UUIDRole].toString() << dataFilter[DataTypes::IdRole].toString();
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::initializeByData" << modelType << filter << dataFilter
+                               << dataFilter[DataTypes::UUIDRole].toString() << dataFilter[DataTypes::IdRole].toString();
 
     if (manager && manager->ssdpEngine() && manager->upnpServiceDiscovery()) {
         auto *newContentDirectory = new UpnpControlContentDirectory;
@@ -560,9 +556,11 @@ void UpnpContentDirectoryModel::setParentId(QString parentId)
 
     d->mChilds[d->mLastInternalId] = QList<quintptr>();
 
-    d->mAllTrackData[d->mLastInternalId] = {{DataTypes::IdRole, d->mParentId},
-                                            {DataTypes::ElementTypeRole, QVariant::fromValue(ElisaUtils::Container)},
-                                            {DataTypes::TitleRole, QStringLiteral("Root")},};
+    d->mAllTrackData[d->mLastInternalId] = {
+        {DataTypes::IdRole, d->mParentId},
+        {DataTypes::ElementTypeRole, QVariant::fromValue(ElisaUtils::Container)},
+        {DataTypes::TitleRole, QStringLiteral("Root")},
+    };
 
     ++d->mLastInternalId;
 
@@ -637,15 +635,13 @@ void UpnpContentDirectoryModel::contentChanged(const QString &parentId)
 
     auto parentInternalId = d->mUpnpIds[parentId];
 
-    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::contentChanged" << parentId
-                               << parentInternalId
-                               << indexFromInternalId(parentInternalId)
-                               << 0 << d->mDidlParser.newMusicTracks().size() - 1;
+    qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::contentChanged" << parentId << parentInternalId << indexFromInternalId(parentInternalId) << 0
+                               << d->mDidlParser.newMusicTracks().size() - 1;
     beginInsertRows(indexFromInternalId(parentInternalId), 0, d->mDidlParser.newMusicTracks().size() - 1);
 
     qCDebug(orgKdeElisaUpnp()) << "UpnpContentDirectoryModel::contentChanged" << parentId << parentInternalId;
 
-    for(const auto &oneUpnpTrack : std::as_const(d->mDidlParser.newMusicTracks())) {
+    for (const auto &oneUpnpTrack : std::as_const(d->mDidlParser.newMusicTracks())) {
         d->mAllTrackData[d->mLastInternalId] = oneUpnpTrack;
         d->mUpnpIds[oneUpnpTrack[DataTypes::IdRole].toString()] = d->mLastInternalId;
         d->mChilds[parentInternalId].push_back(d->mLastInternalId);

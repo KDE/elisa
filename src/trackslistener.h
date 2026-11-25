@@ -24,7 +24,6 @@ class ELISALIB_EXPORT TracksListener : public QObject
     Q_OBJECT
 
 public:
-
     using ListTrackDataType = DataTypes::ListTrackDataType;
 
     using TrackDataType = DataTypes::TrackDataType;
@@ -54,28 +53,22 @@ public Q_SLOTS:
 
     void trackByNameInList(const QVariant &title, const QVariant &artist, const QVariant &album, const QVariant &trackNumber, const QVariant &discNumber);
 
-    void newEntryInList(qulonglong newDatabaseId,
-                        const QString &entryTitle,
-                        ElisaUtils::PlayListEntryType databaseIdType);
+    void newEntryInList(qulonglong newDatabaseId, const QString &entryTitle, ElisaUtils::PlayListEntryType databaseIdType);
 
     void trackByFileNameInList(ElisaUtils::PlayListEntryType type, const QUrl &fileName);
 
-    void newUrlInList(const QUrl &entryUrl,
-                      ElisaUtils::PlayListEntryType databaseIdType);
+    void newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntryType databaseIdType);
 
     void updateSingleFileMetaData(const QUrl &url, DataTypes::ColumnsRoles role, const QVariant &data);
 
 private:
-
     void newArtistInList(qulonglong newDatabaseId, const QString &artist);
 
     void newGenreInList(qulonglong newDatabaseId, const QString &entryTitle);
 
-    void newAlbumInList(qulonglong newDatabaseId,
-                        const QString &entryTitle);
+    void newAlbumInList(qulonglong newDatabaseId, const QString &entryTitle);
 
     std::unique_ptr<TracksListenerPrivate> d;
-
 };
 
 #endif // TRACKSLISTENER_H

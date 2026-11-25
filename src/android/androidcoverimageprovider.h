@@ -15,15 +15,12 @@
 class ELISALIB_EXPORT AndroidCoverImageProvider : public QQuickAsyncImageProvider
 {
 public:
-
     AndroidCoverImageProvider();
 
     QQuickImageResponse *requestImageResponse(const QString &id, const QSize &requestedSize) override;
 
 private:
-
     QThreadPool pool;
-
 };
 
 #endif // ANDROIDCOVERIMAGEPROVIDER_H

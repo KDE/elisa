@@ -71,54 +71,45 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
 
     const auto currentKey = mDisplayKeys[index.row()];
 
-    switch (role)
-    {
+    switch (role) {
     case Qt::DisplayRole:
-        switch (currentKey)
-        {
-        case DataTypes::TrackNumberRole:
-        {
+        switch (currentKey) {
+        case DataTypes::TrackNumberRole: {
             auto trackNumber = mDisplayData.trackNumber();
             if (trackNumber > 0) {
                 result = locale.toString(trackNumber);
             }
             break;
         }
-        case DataTypes::DiscNumberRole:
-        {
+        case DataTypes::DiscNumberRole: {
             auto discNumber = mDisplayData.discNumber();
             if (discNumber > 0) {
                 result = locale.toString(discNumber);
             }
             break;
         }
-        case DataTypes::ChannelsRole:
-        {
+        case DataTypes::ChannelsRole: {
             auto channels = mDisplayData.channels();
             if (channels > 0) {
                 result = locale.toString(channels);
             }
             break;
         }
-        case DataTypes::BitRateRole:
-        {
+        case DataTypes::BitRateRole: {
             auto bitRate = mDisplayData.bitRate();
             if (bitRate > 0) {
                 result = KFormat().formatValue(bitRate, i18nc("bit/second", "bit/s"), 0, KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
             }
             break;
         }
-        case DataTypes::SampleRateRole:
-        {
+        case DataTypes::SampleRateRole: {
             auto sampleRate = mDisplayData.sampleRate();
             if (sampleRate > 0) {
-                result = KFormat().formatValue(sampleRate, KFormat::Unit::Hertz, 1,
-                                               KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
+                result = KFormat().formatValue(sampleRate, KFormat::Unit::Hertz, 1, KFormat::UnitPrefix::Kilo, KFormat::MetricBinaryDialect);
             }
             break;
         }
-        case DataTypes::DurationRole:
-        {
+        case DataTypes::DurationRole: {
             auto trackDuration = mDisplayData.duration();
             if (trackDuration.hour() == 0) {
                 result = locale.toString(trackDuration, QStringLiteral("mm:ss"));
@@ -145,8 +136,7 @@ QVariant TrackMetadataModel::data(const QModelIndex &index, int role) const
         result = nameFromRole(currentKey);
         break;
     case ItemTypeRole:
-        switch (currentKey)
-        {
+        switch (currentKey) {
         case DataTypes::TitleRole:
             result = TextEntry;
             break;
@@ -457,20 +447,13 @@ void TrackMetadataModel::initialize(MusicListenersManager *newManager, DatabaseI
         mManager->connectModel(&mDataLoader);
     }
 
-    connect(this, &TrackMetadataModel::needDataByDatabaseIdAndUrl,
-            &mDataLoader, &ModelDataLoader::loadDataByDatabaseIdAndUrl);
-    connect(this, &TrackMetadataModel::needDataByUrl,
-            &mDataLoader, &ModelDataLoader::loadDataByUrl);
-    connect(&mDataLoader, &ModelDataLoader::trackModified,
-            this, &TrackMetadataModel::trackData);
-    connect(&mDataLoader, &ModelDataLoader::allTrackData,
-            this, &TrackMetadataModel::trackData);
-    connect(&mDataLoader, &ModelDataLoader::allRadioData,
-            this, &TrackMetadataModel::radioData);
-    connect(&mDataLoader, &ModelDataLoader::radioAdded,
-            this, &TrackMetadataModel::radioData);
-    connect(&mDataLoader, &ModelDataLoader::radioModified,
-            this, &TrackMetadataModel::radioData);
+    connect(this, &TrackMetadataModel::needDataByDatabaseIdAndUrl, &mDataLoader, &ModelDataLoader::loadDataByDatabaseIdAndUrl);
+    connect(this, &TrackMetadataModel::needDataByUrl, &mDataLoader, &ModelDataLoader::loadDataByUrl);
+    connect(&mDataLoader, &ModelDataLoader::trackModified, this, &TrackMetadataModel::trackData);
+    connect(&mDataLoader, &ModelDataLoader::allTrackData, this, &TrackMetadataModel::trackData);
+    connect(&mDataLoader, &ModelDataLoader::allRadioData, this, &TrackMetadataModel::radioData);
+    connect(&mDataLoader, &ModelDataLoader::radioAdded, this, &TrackMetadataModel::radioData);
+    connect(&mDataLoader, &ModelDataLoader::radioModified, this, &TrackMetadataModel::radioData);
 }
 
 ModelDataLoader &TrackMetadataModel::modelDataLoader()
@@ -519,8 +502,7 @@ void TrackMetadataModel::addDataByIndex(int index)
 QString TrackMetadataModel::nameFromRole(DataTypes::ColumnsRoles role)
 {
     auto result = QString{};
-    switch (role)
-    {
+    switch (role) {
     case DataTypes::TitleRole:
         result = i18nc("@label:textbox Track title for track metadata view", "Title");
         break;
@@ -649,7 +631,7 @@ void TrackMetadataModel::fetchLyrics()
                 prober.feed(fileContent);
                 const QByteArray encoding(prober.encoding());
                 QString decodedContent;
-                
+
                 QStringDecoder toUtf16;
                 if (prober.confidence() > 0.5 && prober.state() != KEncodingProber::Probing) {
 
@@ -662,13 +644,16 @@ void TrackMetadataModel::fetchLyrics()
                 } else {
                     toUtf16 = QStringDecoder(QStringDecoder::Utf8);
                 }
-                // Don't use `QStringConverter::availableCodecs().contains(QString(encoding))` here, since the charset
-                // encoding name might not match, e.g. GB18030 (from availableCodecs) != gb18030 (from KEncodingProber)
+                // Don't use
+                // `QStringConverter::availableCodecs().contains(QString(encoding))`
+                // here, since the charset encoding name might not match, e.g.
+                // GB18030 (from availableCodecs) != gb18030 (from KEncodingProber)
                 if (toUtf16.isValid()) {
                     decodedContent = toUtf16(fileContent);
                 } else {
-                    // Developers who attempted to build Elisa against Qt without ICU feature enabled might facing this issue.
-                    // Qt's official binary release didn't have ICU enabled, while KDE Craft do.
+                    // Developers who attempted to build Elisa against Qt without ICU
+                    // feature enabled might facing this issue. Qt's official binary
+                    // release didn't have ICU enabled, while KDE Craft do.
                     qCDebug(orgKdeElisaLyrics) << "No codec for the detected encoding:" << encoding
                                                << ", Available codecs are:" << QStringConverter::availableCodecs();
                     decodedContent = QString::fromLocal8Bit(fileContent);
@@ -701,8 +686,7 @@ void TrackMetadataModel::fillDataForNewRadio()
     mDisplayData.clear();
     mDisplayKeys.clear();
 
-    auto allRoles = {DataTypes::TitleRole, DataTypes::ResourceRole,
-                     DataTypes::CommentRole, DataTypes::ImageUrlRole};
+    auto allRoles = {DataTypes::TitleRole, DataTypes::ResourceRole, DataTypes::CommentRole, DataTypes::ImageUrlRole};
 
     for (auto role : allRoles) {
         mDisplayKeys.push_back(role);
@@ -744,8 +728,7 @@ void TrackMetadataModel::setDatabase(DatabaseInterface *trackDatabase)
 
 void TrackMetadataModel::radioData(const TrackDataType &radiosData)
 {
-    if (!mFullData.isEmpty() && mFullData[DataTypes::DatabaseIdRole].toInt() != -1 &&
-            mFullData.databaseId() != radiosData.databaseId()) {
+    if (!mFullData.isEmpty() && mFullData[DataTypes::DatabaseIdRole].toInt() != -1 && mFullData.databaseId() != radiosData.databaseId()) {
         return;
     }
 

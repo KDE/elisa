@@ -14,16 +14,16 @@
 
 #include <QSqlDatabase>
 #include <QSqlDriver>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>
-#include <QSqlError>
 
+#include <QAtomicInt>
+#include <QDebug>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QMutex>
 #include <QVariant>
-#include <QAtomicInt>
-#include <QElapsedTimer>
-#include <QDebug>
 
 #ifdef Q_OS_ANDROID
 #include <QOperatingSystemVersion>
@@ -36,9 +36,7 @@ using namespace Qt::Literals::StringLiterals;
 class DatabaseInterfacePrivate
 {
 public:
-
-    enum TrackRecordColumns
-    {
+    enum TrackRecordColumns {
         TrackId,
         TrackTitle,
         TrackAlbumId,
@@ -71,8 +69,7 @@ public:
         TrackEmbeddedCover,
     };
 
-    enum RadioRecordColumns
-    {
+    enum RadioRecordColumns {
         RadioId,
         RadioTitle,
         RadioHttpAddress,
@@ -82,8 +79,7 @@ public:
         RadioComment,
     };
 
-    enum AlbumsRecordColumns
-    {
+    enum AlbumsRecordColumns {
         AlbumsId,
         AlbumsTitle,
         AlbumsSecondaryText,
@@ -99,8 +95,7 @@ public:
         AlbumsTracksCount,
     };
 
-    enum SingleAlbumRecordColumns
-    {
+    enum SingleAlbumRecordColumns {
         SingleAlbumId,
         SingleAlbumTitle,
         SingleAlbumArtistName,
@@ -468,51 +463,63 @@ public:
         QStringList fields;
     };
 
-    const QList<TableSchema> mExpectedTableNamesAndFields {
-        {QStringLiteral("Albums"), {
-            QStringLiteral("ID"), QStringLiteral("Title"),
-            QStringLiteral("ArtistName"), QStringLiteral("AlbumPath"),
-            QStringLiteral("CoverFileName")}},
+    const QList<TableSchema> mExpectedTableNamesAndFields{
+        {QStringLiteral("Albums"),
+         {QStringLiteral("ID"), QStringLiteral("Title"), QStringLiteral("ArtistName"), QStringLiteral("AlbumPath"), QStringLiteral("CoverFileName")}},
 
-        {QStringLiteral("Artists"), {
-            QStringLiteral("ID"), QStringLiteral("Name")}},
+        {QStringLiteral("Artists"), {QStringLiteral("ID"), QStringLiteral("Name")}},
 
-        {QStringLiteral("Composer"), {
-            QStringLiteral("ID"), QStringLiteral("Name")}},
+        {QStringLiteral("Composer"), {QStringLiteral("ID"), QStringLiteral("Name")}},
 
-        {QStringLiteral("Genre"), {
-            QStringLiteral("ID"), QStringLiteral("Name")}},
+        {QStringLiteral("Genre"), {QStringLiteral("ID"), QStringLiteral("Name")}},
 
-        {QStringLiteral("Lyricist"), {
-            QStringLiteral("ID"), QStringLiteral("Name")}},
+        {QStringLiteral("Lyricist"), {QStringLiteral("ID"), QStringLiteral("Name")}},
 
-        {QStringLiteral("Radios"), {
-            QStringLiteral("ID"), QStringLiteral("HttpAddress"),
-            QStringLiteral("ImageAddress"), QStringLiteral("Title"),
-            QStringLiteral("Rating"), QStringLiteral("Genre"),
-            QStringLiteral("Comment")}},
+        {QStringLiteral("Radios"),
+         {QStringLiteral("ID"),
+          QStringLiteral("HttpAddress"),
+          QStringLiteral("ImageAddress"),
+          QStringLiteral("Title"),
+          QStringLiteral("Rating"),
+          QStringLiteral("Genre"),
+          QStringLiteral("Comment")}},
 
-        {QStringLiteral("Tracks"), {
-            QStringLiteral("ID"), QStringLiteral("FileName"),
-            QStringLiteral("Priority"), QStringLiteral("Title"),
-            QStringLiteral("ArtistName"), QStringLiteral("AlbumTitle"),
-            QStringLiteral("AlbumArtistName"), QStringLiteral("AlbumPath"),
-            QStringLiteral("TrackNumber"), QStringLiteral("DiscNumber"),
-            QStringLiteral("Duration"), QStringLiteral("Rating"),
-            QStringLiteral("Genre"), QStringLiteral("Composer"),
-            QStringLiteral("Lyricist"), QStringLiteral("Comment"),
-            QStringLiteral("Year"), QStringLiteral("Channels"),
-            QStringLiteral("BitRate"), QStringLiteral("SampleRate"),
-            QStringLiteral("HasEmbeddedCover")}},
+        {QStringLiteral("Tracks"),
+         {QStringLiteral("ID"),
+          QStringLiteral("FileName"),
+          QStringLiteral("Priority"),
+          QStringLiteral("Title"),
+          QStringLiteral("ArtistName"),
+          QStringLiteral("AlbumTitle"),
+          QStringLiteral("AlbumArtistName"),
+          QStringLiteral("AlbumPath"),
+          QStringLiteral("TrackNumber"),
+          QStringLiteral("DiscNumber"),
+          QStringLiteral("Duration"),
+          QStringLiteral("Rating"),
+          QStringLiteral("Genre"),
+          QStringLiteral("Composer"),
+          QStringLiteral("Lyricist"),
+          QStringLiteral("Comment"),
+          QStringLiteral("Year"),
+          QStringLiteral("Channels"),
+          QStringLiteral("BitRate"),
+          QStringLiteral("SampleRate"),
+          QStringLiteral("HasEmbeddedCover")}},
 
-        {QStringLiteral("TracksData"), {
-            QStringLiteral("FileName"), QStringLiteral("FileModifiedTime"),
-            QStringLiteral("ImportDate"), QStringLiteral("FirstPlayDate"),
-            QStringLiteral("LastPlayDate"), QStringLiteral("PlayCounter")}},
+        {QStringLiteral("TracksData"),
+         {QStringLiteral("FileName"),
+          QStringLiteral("FileModifiedTime"),
+          QStringLiteral("ImportDate"),
+          QStringLiteral("FirstPlayDate"),
+          QStringLiteral("LastPlayDate"),
+          QStringLiteral("PlayCounter")}},
     };
 };
 
-DatabaseInterface::DatabaseInterface(QObject *parent) : QObject(parent), d(nullptr)
+DatabaseInterface::DatabaseInterface(QObject *parent)
+    : QObject(parent)
+    , d(nullptr)
 {
 }
 
@@ -1051,8 +1058,11 @@ DataTypes::TrackDataType DatabaseInterface::radioDataFromDatabaseId(qulonglong i
     return result;
 }
 
-qulonglong DatabaseInterface::trackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
-                                                                     std::optional<int> trackNumber, std::optional<int> discNumber)
+qulonglong DatabaseInterface::trackIdFromTitleAlbumTrackDiscNumber(const QString &title,
+                                                                   const QString &artist,
+                                                                   const std::optional<QString> &album,
+                                                                   std::optional<int> trackNumber,
+                                                                   std::optional<int> discNumber)
 {
     auto result = qulonglong(0);
 
@@ -1142,17 +1152,14 @@ void DatabaseInterface::insertTracksList(const DataTypes::ListTrackDataType &tra
 
     initChangesTrackers();
 
-    for(const auto &oneTrack : tracks) {
-        switch (oneTrack.elementType())
-        {
-        case ElisaUtils::Track:
-        {
+    for (const auto &oneTrack : tracks) {
+        switch (oneTrack.elementType()) {
+        case ElisaUtils::Track: {
             qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "insert one track";
             internalInsertOneTrack(oneTrack);
             break;
         }
-        case ElisaUtils::Radio:
-        {
+        case ElisaUtils::Radio: {
             qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::insertTracksList" << "insert one radio";
             internalInsertOneRadio(oneTrack);
             break;
@@ -1464,7 +1471,9 @@ void DatabaseInterface::initConnection(const QString &connectionName, const QStr
     } else {
         tracksDatabase.setDatabaseName(QStringLiteral("file:memdb1?mode=memory"));
     }
-    tracksDatabase.setConnectOptions(QStringLiteral("foreign_keys = ON;locking_mode = EXCLUSIVE;QSQLITE_OPEN_URI;QSQLITE_BUSY_TIMEOUT=500000"));
+    tracksDatabase.setConnectOptions(
+        QStringLiteral("foreign_keys = ON;locking_mode = "
+                       "EXCLUSIVE;QSQLITE_OPEN_URI;QSQLITE_BUSY_TIMEOUT=500000"));
 
     auto result = tracksDatabase.open();
     if (result) {
@@ -1483,36 +1492,33 @@ bool DatabaseInterface::initDatabase()
 {
     auto listTables = d->mTracksDatabase.tables();
 
-    if (listTables.contains(QLatin1String("DatabaseVersionV2")) ||
-        listTables.contains(QLatin1String("DatabaseVersionV3")) ||
-        listTables.contains(QLatin1String("DatabaseVersionV4")) ||
-        listTables.contains(QLatin1String("DatabaseVersionV6")) ||
-        listTables.contains(QLatin1String("DatabaseVersionV7")) ||
-        listTables.contains(QLatin1String("DatabaseVersionV8")) ||
-        listTables.contains(QLatin1String("DatabaseVersionV10"))) {
-
+    if (listTables.contains(QLatin1String("DatabaseVersionV2")) || listTables.contains(QLatin1String("DatabaseVersionV3"))
+        || listTables.contains(QLatin1String("DatabaseVersionV4")) || listTables.contains(QLatin1String("DatabaseVersionV6"))
+        || listTables.contains(QLatin1String("DatabaseVersionV7")) || listTables.contains(QLatin1String("DatabaseVersionV8"))
+        || listTables.contains(QLatin1String("DatabaseVersionV10"))) {
         qCDebug(orgKdeElisaDatabase()) << "Old database schema unsupported: delete and start from scratch";
         qCDebug(orgKdeElisaDatabase()) << "list of old tables" << d->mTracksDatabase.tables();
 
         const QStringList oldTables = {
-                QStringLiteral("DatabaseVersionV2"),
-                QStringLiteral("DatabaseVersionV3"),
-                QStringLiteral("DatabaseVersionV4"),
-                QStringLiteral("DatabaseVersionV5"),
-                QStringLiteral("DatabaseVersionV6"),
-                QStringLiteral("DatabaseVersionV7"),
-                QStringLiteral("DatabaseVersionV8"),
-                QStringLiteral("DatabaseVersionV10"),
-                QStringLiteral("AlbumsArtists"),
-                QStringLiteral("TracksArtists"),
-                QStringLiteral("TracksMapping"),
-                QStringLiteral("Tracks"),
-                QStringLiteral("Composer"),
-                QStringLiteral("Genre"),
-                QStringLiteral("Lyricist"),
-                QStringLiteral("Albums"),
-                QStringLiteral("DiscoverSource"),
-                QStringLiteral("Artists"),};
+            QStringLiteral("DatabaseVersionV2"),
+            QStringLiteral("DatabaseVersionV3"),
+            QStringLiteral("DatabaseVersionV4"),
+            QStringLiteral("DatabaseVersionV5"),
+            QStringLiteral("DatabaseVersionV6"),
+            QStringLiteral("DatabaseVersionV7"),
+            QStringLiteral("DatabaseVersionV8"),
+            QStringLiteral("DatabaseVersionV10"),
+            QStringLiteral("AlbumsArtists"),
+            QStringLiteral("TracksArtists"),
+            QStringLiteral("TracksMapping"),
+            QStringLiteral("Tracks"),
+            QStringLiteral("Composer"),
+            QStringLiteral("Genre"),
+            QStringLiteral("Lyricist"),
+            QStringLiteral("Albums"),
+            QStringLiteral("DiscoverSource"),
+            QStringLiteral("Artists"),
+        };
         for (const auto &oneTable : oldTables) {
             if (listTables.indexOf(oneTable) == -1) {
                 continue;
@@ -1541,7 +1547,9 @@ void DatabaseInterface::createDatabaseV9()
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV9` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result =
+            createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV9` (`Version` INTEGER "
+                                                  "PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseV9" << createSchemaQuery.lastQuery();
@@ -1864,7 +1872,9 @@ void DatabaseInterface::upgradeDatabaseV9()
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV9` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result =
+            createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV9` (`Version` INTEGER "
+                                                  "PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV9" << createSchemaQuery.lastQuery();
@@ -2156,7 +2166,9 @@ void DatabaseInterface::upgradeDatabaseV11()
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV11` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result =
+            createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV11` (`Version` INTEGER "
+                                                  "PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV11" << createSchemaQuery.lastQuery();
@@ -2616,7 +2628,9 @@ void DatabaseInterface::upgradeDatabaseV12()
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV12` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result =
+            createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV12` (`Version` INTEGER "
+                                                  "PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV12" << createSchemaQuery.lastQuery();
@@ -2975,7 +2989,9 @@ void DatabaseInterface::upgradeDatabaseV13()
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV13` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result =
+            createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV13` (`Version` INTEGER "
+                                                  "PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV13" << createSchemaQuery.lastQuery();
@@ -3263,7 +3279,9 @@ void DatabaseInterface::upgradeDatabaseV14()
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV14` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result =
+            createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV14` (`Version` INTEGER "
+                                                  "PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV14" << createSchemaQuery.lastQuery();
@@ -3321,8 +3339,9 @@ CONSTRAINT fk_tracks_genre FOREIGN KEY (`Genre`) REFERENCES `Genre`(`Name`))
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        //Find webradios (french): https://doc.ubuntu-fr.org/liste_radio_france
-        //English: https://www.radio.fr/language/english (to get the link play a radio and look for streamUrl in the html elements page).
+        // Find webradios (french): https://doc.ubuntu-fr.org/liste_radio_france
+        // English: https://www.radio.fr/language/english (to get the link play a
+        // radio and look for streamUrl in the html elements page).
         const auto &result = createSchemaQuery.exec(
             uR"(
 INSERT INTO `Radios` (`HttpAddress`, `Priority`, `Title`) 
@@ -3368,7 +3387,9 @@ void DatabaseInterface::upgradeDatabaseV15()
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV15` (`Version` INTEGER PRIMARY KEY NOT NULL)"));
+        const auto &result =
+            createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersionV15` (`Version` INTEGER "
+                                                  "PRIMARY KEY NOT NULL)"));
 
         if (!result) {
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
@@ -3426,7 +3447,9 @@ CONSTRAINT fk_tracks_genre FOREIGN KEY (`Genre`) REFERENCES `Genre`(`Name`))
     {
         QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-        const auto &result = createSchemaQuery.exec(QStringLiteral("INSERT INTO RadiosNew SELECT ID, HttpAddress, '', Title, Rating, Genre, Comment FROM Radios"));
+        const auto &result =
+            createSchemaQuery.exec(QStringLiteral("INSERT INTO RadiosNew SELECT ID, HttpAddress, '', "
+                                                  "Title, Rating, Genre, Comment FROM Radios"));
 
         if (!result) {
             qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::upgradeDatabaseV15" << createSchemaQuery.lastQuery();
@@ -3513,7 +3536,9 @@ void DatabaseInterface::upgradeDatabaseV16()
     {
         QSqlQuery sqlQuery(d->mTracksDatabase);
 
-        bool resultOfSqlQuery = sqlQuery.exec(QStringLiteral("DELETE FROM Radios WHERE Title='Nostalgie' OR Title='Nostalgie Johnny'"));
+        bool resultOfSqlQuery =
+            sqlQuery.exec(QStringLiteral("DELETE FROM Radios WHERE Title='Nostalgie' OR "
+                                         "Title='Nostalgie Johnny'"));
 
         if (!resultOfSqlQuery) {
             qCWarning(orgKdeElisaDatabase) << __FUNCTION__ << sqlQuery.lastQuery();
@@ -3535,8 +3560,7 @@ UPDATE Radios SET HttpAddress='https://quincy.torontocast.com:1925/stream' WHERE
 UPDATE Radios SET HttpAddress='https://icecast.radiofrance.fr/francemusique-lofi.mp3' WHERE HttpAddress='https://chai5she.cdn.dvmr.fr/francemusique-lofi.mp3'
 )"_s.split(QStringLiteral(";"));
 
-        for (const QString& oneSqlUpdate : sqlUpdates)
-        {
+        for (const QString &oneSqlUpdate : sqlUpdates) {
             if (!sqlQuery.exec(oneSqlUpdate)) {
                 qCWarning(orgKdeElisaDatabase) << __FUNCTION__ << sqlQuery.lastQuery();
                 qCWarning(orgKdeElisaDatabase) << __FUNCTION__ << sqlQuery.lastError();
@@ -3651,19 +3675,18 @@ DatabaseInterface::DatabaseVersion DatabaseInterface::currentDatabaseVersion()
             Q_EMIT databaseError();
         }
 
-        if(d->mSelectDatabaseVersionQuery.next()) {
+        if (d->mSelectDatabaseVersionQuery.next()) {
             const auto &currentRecord = d->mSelectDatabaseVersionQuery.record();
 
             version = currentRecord.value(0).toInt();
         }
-    } else if (listTables.contains(QLatin1String("DatabaseVersionV5")) &&
-               !listTables.contains(QLatin1String("DatabaseVersionV9"))) {
+    } else if (listTables.contains(QLatin1String("DatabaseVersionV5")) && !listTables.contains(QLatin1String("DatabaseVersionV9"))) {
         version = DatabaseInterface::V9;
     } else {
         createDatabaseVersionTable();
         initDatabaseVersionQueries();
 
-        if(listTables.contains(QLatin1String("DatabaseVersionV9"))) {
+        if (listTables.contains(QLatin1String("DatabaseVersionV9"))) {
             if (!listTables.contains(QLatin1String("DatabaseVersionV11"))) {
                 version = DatabaseInterface::V11;
             } else if (!listTables.contains(QLatin1String("DatabaseVersionV12"))) {
@@ -3689,11 +3712,11 @@ bool DatabaseInterface::upgradeDatabaseToLatestVersion()
     auto versionBegin = currentDatabaseVersion();
 
     int version = versionBegin;
-    for (; version-1 != d->mLatestDatabaseVersion; version++) {
+    for (; version - 1 != d->mLatestDatabaseVersion; version++) {
         callUpgradeFunctionForVersion(static_cast<DatabaseVersion>(version));
     }
 
-    if (version-1 != versionBegin) {
+    if (version - 1 != versionBegin) {
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV9"));
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV11"));
         dropTable(QStringLiteral("DROP TABLE DatabaseVersionV12"));
@@ -3743,7 +3766,9 @@ void DatabaseInterface::createDatabaseVersionTable()
     qCInfo(orgKdeElisaDatabase) << "begin creation of DatabaseVersion table";
     QSqlQuery createSchemaQuery(d->mTracksDatabase);
 
-    const auto &result = createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersion` (`Version` INTEGER PRIMARY KEY NOT NULL default 0)"));
+    const auto &result =
+        createSchemaQuery.exec(QStringLiteral("CREATE TABLE `DatabaseVersion` (`Version` INTEGER "
+                                              "PRIMARY KEY NOT NULL default 0)"));
 
     if (!result) {
         qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::createDatabaseVersionTable" << createSchemaQuery.lastQuery();
@@ -3764,7 +3789,7 @@ void DatabaseInterface::createDatabaseVersionTable()
 void DatabaseInterface::initDatabaseVersionQueries()
 {
     {
-        auto  initDatabaseVersionQuery = QStringLiteral("UPDATE `DatabaseVersion` set `Version` = :version ");
+        auto initDatabaseVersionQuery = QStringLiteral("UPDATE `DatabaseVersion` set `Version` = :version ");
 
         auto result = prepareQuery(d->mUpdateDatabaseVersionQuery, initDatabaseVersionQuery);
 
@@ -3777,7 +3802,7 @@ void DatabaseInterface::initDatabaseVersionQueries()
     }
 
     {
-        auto  selectDatabaseVersionQuery = QStringLiteral("SELECT versionTable.`Version` FROM `DatabaseVersion` versionTable");
+        auto selectDatabaseVersionQuery = QStringLiteral("SELECT versionTable.`Version` FROM `DatabaseVersion` versionTable");
 
         auto result = prepareQuery(d->mSelectDatabaseVersionQuery, selectDatabaseVersionQuery);
 
@@ -3792,8 +3817,7 @@ void DatabaseInterface::initDatabaseVersionQueries()
 
 void DatabaseInterface::callUpgradeFunctionForVersion(DatabaseVersion databaseVersion)
 {
-    switch(databaseVersion)
-    {
+    switch (databaseVersion) {
     case DatabaseInterface::V9:
         upgradeDatabaseV9();
         break;
@@ -7541,8 +7565,7 @@ void DatabaseInterface::internalInsertOneTrack(const DataTypes::TrackDataType &o
     bool isNewTrack = !d->mSelectTracksMapping.next();
 
     if (isNewTrack) {
-        insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(),
-                          QDateTime::currentDateTime());
+        insertTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime(), QDateTime::currentDateTime());
     } else if (!d->mSelectTracksMapping.record().value(0).isNull() && d->mSelectTracksMapping.record().value(0).toULongLong() != 0) {
         updateTrackOrigin(oneTrack.resourceURI(), oneTrack.fileModificationTime());
     }
@@ -7588,8 +7611,7 @@ void DatabaseInterface::internalInsertOneRadio(const DataTypes::TrackDataType &o
     query.finish();
 }
 
-qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &albumArtist,
-                                          const QString &trackPath, const QUrl &albumArtURI)
+qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &albumArtist, const QString &trackPath, const QUrl &albumArtURI)
 {
     auto result = qulonglong(0);
 
@@ -7669,8 +7691,7 @@ qulonglong DatabaseInterface::insertAlbum(const QString &title, const QString &a
     return result;
 }
 
-bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri,
-                                          const DataTypes::TrackDataType &currentTrack, const QString &albumPath)
+bool DatabaseInterface::updateAlbumFromId(qulonglong albumId, const QUrl &albumArtUri, const DataTypes::TrackDataType &currentTrack, const QString &albumPath)
 {
     auto modifiedAlbum = false;
 
@@ -7750,7 +7771,6 @@ qulonglong DatabaseInterface::insertComposer(const QString &name)
 
         return result;
     }
-
 
     if (d->mSelectComposerByNameQuery.next()) {
         result = d->mSelectComposerByNameQuery.record().value(0).toULongLong();
@@ -7832,8 +7852,7 @@ qulonglong DatabaseInterface::insertGenre(const QString &name)
     return result;
 }
 
-void DatabaseInterface::insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime,
-                                          const QDateTime &importDate)
+void DatabaseInterface::insertTrackOrigin(const QUrl &fileNameURI, const QDateTime &fileModifiedTime, const QDateTime &importDate)
 {
     d->mInsertTrackMapping.bindValue(QStringLiteral(":fileName"), fileNameURI);
     d->mInsertTrackMapping.bindValue(QStringLiteral(":priority"), 1);
@@ -7901,22 +7920,18 @@ qulonglong DatabaseInterface::internalInsertTrack(const DataTypes::TrackDataType
         return resultId;
     }
 
-    QUrl::FormattingOptions currentOptions = QUrl::PreferLocalFile |
-            QUrl::RemoveAuthority | QUrl::RemoveFilename | QUrl::RemoveFragment |
-            QUrl::RemovePassword | QUrl::RemovePort | QUrl::RemoveQuery |
-            QUrl::RemoveScheme | QUrl::RemoveUserInfo;
+    QUrl::FormattingOptions currentOptions = QUrl::PreferLocalFile | QUrl::RemoveAuthority | QUrl::RemoveFilename | QUrl::RemoveFragment | QUrl::RemovePassword
+        | QUrl::RemovePort | QUrl::RemoveQuery | QUrl::RemoveScheme | QUrl::RemoveUserInfo;
 
     const auto &trackPath = oneTrack.resourceURI().toString(currentOptions);
     const auto trackTitle = !oneTrack.title().isEmpty() ? oneTrack.title() : oneTrack.resourceURI().fileName();
 
     auto albumCover = oneTrack.hasEmbeddedCover() ? QUrl{} : oneTrack.albumCover();
 
-    auto albumId = insertAlbum(oneTrack.album(), (oneTrack.hasAlbumArtist() ? oneTrack.albumArtist() : QString()),
-                               trackPath, albumCover);
+    auto albumId = insertAlbum(oneTrack.album(), (oneTrack.hasAlbumArtist() ? oneTrack.albumArtist() : QString()), trackPath, albumCover);
 
     if (isModifiedTrack) {
         resultId = existingTrackId;
-
 
         auto oldTrack = internalTrackFromDatabaseId(existingTrackId);
         qCDebug(orgKdeElisaDatabase()) << "DatabaseInterface::internalInsertTrack" << existingTrackId << oldTrack;
@@ -8105,12 +8120,14 @@ DataTypes::TrackDataType DatabaseInterface::buildTrackDataFromDatabaseRecord(con
     if (!trackRecord.value(DatabaseInterfacePrivate::TrackDiscNumber).isNull()) {
         result[DataTypes::TrackDataType::key_type::DiscNumberRole] = trackRecord.value(DatabaseInterfacePrivate::TrackDiscNumber);
     }
-    result[DataTypes::TrackDataType::key_type::DurationRole] = QTime::fromMSecsSinceStartOfDay(trackRecord.value(DatabaseInterfacePrivate::TrackDuration).toInt());
+    result[DataTypes::TrackDataType::key_type::DurationRole] =
+        QTime::fromMSecsSinceStartOfDay(trackRecord.value(DatabaseInterfacePrivate::TrackDuration).toInt());
     result[DataTypes::TrackDataType::key_type::RatingRole] = trackRecord.value(DatabaseInterfacePrivate::TrackRating);
     if (!trackRecord.value(DatabaseInterfacePrivate::TrackCoverFileName).toString().isEmpty()) {
         result[DataTypes::TrackDataType::key_type::ImageUrlRole] = QUrl(trackRecord.value(DatabaseInterfacePrivate::TrackCoverFileName).toString());
     } else if (!trackRecord.value(DatabaseInterfacePrivate::TrackEmbeddedCover).toString().isEmpty()) {
-        result[DataTypes::TrackDataType::key_type::ImageUrlRole] = QUrl{QLatin1String("image://cover/") + trackRecord.value(DatabaseInterfacePrivate::TrackEmbeddedCover).toUrl().toLocalFile()};
+        result[DataTypes::TrackDataType::key_type::ImageUrlRole] =
+            QUrl{QLatin1String("image://cover/") + trackRecord.value(DatabaseInterfacePrivate::TrackEmbeddedCover).toUrl().toLocalFile()};
     }
     result[DataTypes::TrackDataType::key_type::IsSingleDiscAlbumRole] = trackRecord.value(DatabaseInterfacePrivate::TrackIsSingleDiscAlbum);
     if (!trackRecord.value(DatabaseInterfacePrivate::TrackComment).isNull()) {
@@ -8176,10 +8193,8 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
 {
     QSet<qulonglong> modifiedAlbums;
 
-    QUrl::FormattingOptions currentOptions = QUrl::PreferLocalFile |
-            QUrl::RemoveAuthority | QUrl::RemoveFilename | QUrl::RemoveFragment |
-            QUrl::RemovePassword | QUrl::RemovePort | QUrl::RemoveQuery |
-            QUrl::RemoveScheme | QUrl::RemoveUserInfo;
+    QUrl::FormattingOptions currentOptions = QUrl::PreferLocalFile | QUrl::RemoveAuthority | QUrl::RemoveFilename | QUrl::RemoveFragment | QUrl::RemovePassword
+        | QUrl::RemovePort | QUrl::RemoveQuery | QUrl::RemoveScheme | QUrl::RemoveUserInfo;
 
     for (const auto &removedTrackFileName : removedTracks) {
         auto removedTrackId = internalTrackIdFromFileName(removedTrackFileName);
@@ -8230,7 +8245,10 @@ void DatabaseInterface::internalRemoveTracksList(const QList<QUrl> &removedTrack
 
         if (!modifiedAlbumData.isEmpty() && tracksCount) {
             const auto modifiedAlbum = internalOneAlbumData(modifiedAlbumId);
-            if (updateAlbumFromId(modifiedAlbumId, modifiedAlbum.at(0).albumCover(), modifiedAlbum.at(0), modifiedAlbum.at(0).resourceURI().toString(currentOptions))) {
+            if (updateAlbumFromId(modifiedAlbumId,
+                                  modifiedAlbum.at(0).albumCover(),
+                                  modifiedAlbum.at(0),
+                                  modifiedAlbum.at(0).resourceURI().toString(currentOptions))) {
                 for (const auto &oneTrack : modifiedAlbum) {
                     recordModifiedTrack(oneTrack.databaseId());
                 }
@@ -8418,7 +8436,7 @@ QHash<QUrl, QDateTime> DatabaseInterface::internalAllFileName()
         return allFileNames;
     }
 
-    while(d->mSelectAllTrackFilesQuery.next()) {
+    while (d->mSelectAllTrackFilesQuery.next()) {
         auto fileName = d->mSelectAllTrackFilesQuery.record().value(0).toUrl();
         auto fileModificationTime = d->mSelectAllTrackFilesQuery.record().value(1).toDateTime();
 
@@ -8857,8 +8875,11 @@ DataTypes::TrackDataType DatabaseInterface::internalTrackFromDatabaseId(qulonglo
     return result;
 }
 
-qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title, const QString &artist, const std::optional<QString> &album,
-                                                                          std::optional<int> trackNumber, std::optional<int> discNumber)
+qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const QString &title,
+                                                                          const QString &artist,
+                                                                          const std::optional<QString> &album,
+                                                                          std::optional<int> trackNumber,
+                                                                          std::optional<int> discNumber)
 {
     auto result = qulonglong(0);
 
@@ -8886,7 +8907,8 @@ qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const 
 
     auto queryResult = execQuery(d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery);
 
-    if (!queryResult || !d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.isSelect() || !d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.isActive()) {
+    if (!queryResult || !d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.isSelect()
+        || !d->mSelectTrackIdFromTitleArtistAlbumTrackDiscNumberQuery.isActive()) {
         Q_EMIT databaseError();
 
         qCCritical(orgKdeElisaDatabase) << "DatabaseInterface::trackIdFromTitleAlbumArtist"
@@ -8910,10 +8932,14 @@ qulonglong DatabaseInterface::internalTrackIdFromTitleAlbumTracDiscNumber(const 
     return result;
 }
 
-qulonglong DatabaseInterface::getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title, const QString &trackArtist,
-                                                                               const QString &album, const QString &albumArtist,
-                                                                               const QString &trackPath, int trackNumber,
-                                                                               int discNumber, int priority)
+qulonglong DatabaseInterface::getDuplicateTrackIdFromTitleAlbumTrackDiscNumber(const QString &title,
+                                                                               const QString &trackArtist,
+                                                                               const QString &album,
+                                                                               const QString &albumArtist,
+                                                                               const QString &trackPath,
+                                                                               int trackNumber,
+                                                                               int discNumber,
+                                                                               int priority)
 {
     auto result = qulonglong(0);
 
@@ -9151,7 +9177,7 @@ DataTypes::ListArtistDataType DatabaseInterface::internalAllArtistsPartialData(Q
         return result;
     }
 
-    while(artistsQuery.next()) {
+    while (artistsQuery.next()) {
         auto newData = DataTypes::ArtistDataType{};
 
         const auto &currentRecord = artistsQuery.record();
@@ -9183,7 +9209,7 @@ DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSq
         return result;
     }
 
-    while(query.next()) {
+    while (query.next()) {
         auto newData = DataTypes::AlbumDataType{};
 
         const auto &currentRecord = query.record();
@@ -9193,7 +9219,8 @@ DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSq
         if (!currentRecord.value(DatabaseInterfacePrivate::AlbumsCoverFileName).toString().isEmpty()) {
             newData[DataTypes::ImageUrlRole] = currentRecord.value(DatabaseInterfacePrivate::AlbumsCoverFileName);
         } else if (!currentRecord.value(DatabaseInterfacePrivate::AlbumsEmbeddedCover).toString().isEmpty()) {
-            newData[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(DatabaseInterfacePrivate::AlbumsEmbeddedCover).toUrl().toLocalFile()};
+            newData[DataTypes::ImageUrlRole] =
+                QVariant{QLatin1String("image://cover/") + currentRecord.value(DatabaseInterfacePrivate::AlbumsEmbeddedCover).toUrl().toLocalFile()};
         }
         auto allArtists = currentRecord.value(DatabaseInterfacePrivate::AlbumsAllArtists).toString().split(QStringLiteral(", "));
         allArtists.removeDuplicates();
@@ -9212,7 +9239,8 @@ DataTypes::ListAlbumDataType DatabaseInterface::internalAllAlbumsPartialData(QSq
         newData[DataTypes::ArtistRole] = newData[DataTypes::SecondaryTextRole];
         newData[DataTypes::HighestTrackRating] = currentRecord.value(DatabaseInterfacePrivate::AlbumsHighestRating);
         newData[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(DatabaseInterfacePrivate::AlbumsIsSingleDiscAlbum);
-        newData[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(DatabaseInterfacePrivate::AlbumsAllGenres).toString().split(QStringLiteral(", ")));
+        newData[DataTypes::GenreRole] =
+            QVariant::fromValue(currentRecord.value(DatabaseInterfacePrivate::AlbumsAllGenres).toString().split(QStringLiteral(", ")));
         auto allYears = currentRecord.value(DatabaseInterfacePrivate::AlbumsYear).toString().split(QStringLiteral(", "));
         allYears.removeDuplicates();
         if (allYears.size() == 1) {
@@ -9276,7 +9304,8 @@ DataTypes::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(qulonglo
         if (!currentRecord.value(DatabaseInterfacePrivate::SingleAlbumCoverFileName).toString().isEmpty()) {
             result[DataTypes::ImageUrlRole] = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumCoverFileName);
         } else if (!currentRecord.value(DatabaseInterfacePrivate::SingleAlbumEmbeddedCover).toString().isEmpty()) {
-            result[DataTypes::ImageUrlRole] = QVariant{QLatin1String("image://cover/") + currentRecord.value(DatabaseInterfacePrivate::SingleAlbumEmbeddedCover).toUrl().toLocalFile()};
+            result[DataTypes::ImageUrlRole] =
+                QVariant{QLatin1String("image://cover/") + currentRecord.value(DatabaseInterfacePrivate::SingleAlbumEmbeddedCover).toUrl().toLocalFile()};
         }
 
         auto allArtists = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumAllArtists).toString().split(QStringLiteral(", "));
@@ -9297,9 +9326,9 @@ DataTypes::AlbumDataType DatabaseInterface::internalOneAlbumPartialData(qulonglo
         result[DataTypes::ArtistRole] = result[DataTypes::SecondaryTextRole];
         result[DataTypes::HighestTrackRating] = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumHighestRating);
         result[DataTypes::IsSingleDiscAlbumRole] = currentRecord.value(DatabaseInterfacePrivate::SingleAlbumIsSingleDiscAlbum);
-        result[DataTypes::GenreRole] = QVariant::fromValue(currentRecord.value(DatabaseInterfacePrivate::SingleAlbumAllGenres).toString().split(QStringLiteral(", ")));
+        result[DataTypes::GenreRole] =
+            QVariant::fromValue(currentRecord.value(DatabaseInterfacePrivate::SingleAlbumAllGenres).toString().split(QStringLiteral(", ")));
         result[DataTypes::ElementTypeRole] = ElisaUtils::Album;
-
     }
 
     d->mSelectAlbumQuery.finish();
@@ -9413,7 +9442,7 @@ DataTypes::ListTrackDataType DatabaseInterface::internalAllTracksPartialData()
         return result;
     }
 
-    while(d->mSelectAllTracksQuery.next()) {
+    while (d->mSelectAllTracksQuery.next()) {
         const auto &currentRecord = d->mSelectAllTracksQuery.record();
 
         auto newData = buildTrackDataFromDatabaseRecord(currentRecord);
@@ -9434,7 +9463,7 @@ DataTypes::ListRadioDataType DatabaseInterface::internalAllRadiosPartialData()
         return result;
     }
 
-    while(d->mSelectAllRadiosQuery.next()) {
+    while (d->mSelectAllRadiosQuery.next()) {
         const auto &currentRecord = d->mSelectAllRadiosQuery.record();
 
         auto newData = buildRadioDataFromDatabaseRecord(currentRecord);
@@ -9457,7 +9486,7 @@ DataTypes::ListTrackDataType DatabaseInterface::internalRecentlyPlayedTracksData
         return result;
     }
 
-    while(d->mSelectAllRecentlyPlayedTracksQuery.next()) {
+    while (d->mSelectAllRecentlyPlayedTracksQuery.next()) {
         const auto &currentRecord = d->mSelectAllRecentlyPlayedTracksQuery.record();
 
         auto newData = buildTrackDataFromDatabaseRecord(currentRecord);
@@ -9480,7 +9509,7 @@ DataTypes::ListTrackDataType DatabaseInterface::internalFrequentlyPlayedTracksDa
         return result;
     }
 
-    while(d->mSelectAllFrequentlyPlayedTracksQuery.next()) {
+    while (d->mSelectAllFrequentlyPlayedTracksQuery.next()) {
         const auto &currentRecord = d->mSelectAllFrequentlyPlayedTracksQuery.record();
 
         auto newData = buildTrackDataFromDatabaseRecord(currentRecord);
@@ -9565,7 +9594,7 @@ DataTypes::ListGenreDataType DatabaseInterface::internalAllGenresPartialData()
         return result;
     }
 
-    while(d->mSelectAllGenresQuery.next()) {
+    while (d->mSelectAllGenresQuery.next()) {
         auto newData = DataTypes::GenreDataType{};
 
         const auto &currentRecord = d->mSelectAllGenresQuery.record();
@@ -9590,7 +9619,7 @@ DataTypes::ListArtistDataType DatabaseInterface::internalAllComposersPartialData
         return result;
     }
 
-    while(d->mSelectAllComposersQuery.next()) {
+    while (d->mSelectAllComposersQuery.next()) {
         auto newData = DataTypes::ArtistDataType{};
 
         const auto &currentRecord = d->mSelectAllComposersQuery.record();
@@ -9615,7 +9644,7 @@ DataTypes::ListArtistDataType DatabaseInterface::internalAllLyricistsPartialData
         return result;
     }
 
-    while(d->mSelectAllLyricistsQuery.next()) {
+    while (d->mSelectAllLyricistsQuery.next()) {
         auto newData = DataTypes::ArtistDataType{};
 
         const auto &currentRecord = d->mSelectAllLyricistsQuery.record();
@@ -9632,9 +9661,7 @@ DataTypes::ListArtistDataType DatabaseInterface::internalAllLyricistsPartialData
     return result;
 }
 
-void DatabaseInterface::updateAlbumArtist(qulonglong albumId, const QString &title,
-                                          const QString &albumPath,
-                                          const QString &artistName)
+void DatabaseInterface::updateAlbumArtist(qulonglong albumId, const QString &title, const QString &albumPath, const QString &artistName)
 {
     d->mUpdateAlbumArtistQuery.bindValue(QStringLiteral(":albumId"), albumId);
     insertArtist(artistName);
@@ -9709,7 +9736,8 @@ bool DatabaseInterface::updateAlbumCover(qulonglong albumId, const QUrl &albumAr
     return modifiedAlbum;
 }
 
-QVariantList DatabaseInterface::internalGetLatestFourCoversForArtist(const QString& artistName) {
+QVariantList DatabaseInterface::internalGetLatestFourCoversForArtist(const QString &artistName)
+{
     auto covers = QList<QVariant>{};
 
     d->mSelectUpToFourLatestCoversFromArtistNameQuery.bindValue(QStringLiteral(":artistName"), artistName);
@@ -9732,10 +9760,10 @@ QVariantList DatabaseInterface::internalGetLatestFourCoversForArtist(const QStri
     }
 
     while (d->mSelectUpToFourLatestCoversFromArtistNameQuery.next()) {
-        const auto& cover = d->mSelectUpToFourLatestCoversFromArtistNameQuery.record().value(0).toUrl();
-        const auto& isTrackCover = d->mSelectUpToFourLatestCoversFromArtistNameQuery.record().value(1).toBool();
+        const auto &cover = d->mSelectUpToFourLatestCoversFromArtistNameQuery.record().value(0).toUrl();
+        const auto &isTrackCover = d->mSelectUpToFourLatestCoversFromArtistNameQuery.record().value(1).toBool();
         if (isTrackCover) {
-            covers.push_back(QVariant {QLatin1String {"image://cover/"} + cover.toLocalFile()}.toUrl());
+            covers.push_back(QVariant{QLatin1String{"image://cover/"} + cover.toLocalFile()}.toUrl());
         } else {
             covers.push_back(cover);
         }

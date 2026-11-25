@@ -4,9 +4,9 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 #include "lyricsmodel.h"
+#include <KLocalizedString>
 #include <algorithm>
 #include <unordered_map>
-#include <KLocalizedString>
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -16,7 +16,7 @@ public:
     bool parse(const QString &lyric);
     int highlightedIndex{-1};
     qint64 highlightedTimestamp{-1};
-    bool isLRC {false};
+    bool isLRC{false};
 
     std::vector<std::pair<QString, qint64>> lyrics;
 
@@ -32,9 +32,7 @@ private:
  * if successful, return timestamp in milliseconds
  * otherwise return -1
  * */
-qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
-    QString::const_iterator &begin,
-    QString::const_iterator end)
+qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(QString::const_iterator &begin, QString::const_iterator end)
 {
     /* Example of LRC format and corresponding states
      *
@@ -53,7 +51,17 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
      * |LeftBracket
      * Start
      * */
-    enum States {Start, LeftBracket, Minutes, Colon, Seconds, Period, Milliseconds, RightBracket, End};
+    enum States {
+        Start,
+        LeftBracket,
+        Minutes,
+        Colon,
+        Seconds,
+        Period,
+        Milliseconds,
+        RightBracket,
+        End
+    };
 
     // Keep caller iterator intact unless we successfully parse a timestamp
     auto current = begin;
@@ -128,9 +136,7 @@ qint64 LyricsModel::LyricsModelPrivate::parseOneTimeStamp(
     return -1;
 }
 
-QString
-LyricsModel::LyricsModelPrivate::parseOneLine(QString::const_iterator &begin,
-                                              QString::const_iterator end)
+QString LyricsModel::LyricsModelPrivate::parseOneLine(QString::const_iterator &begin, QString::const_iterator end)
 {
     auto size{0};
     auto it = begin;
@@ -166,7 +172,8 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
         {QStringLiteral("length"), i18nc("@label song length", "Length")},
         {QStringLiteral("by"), i18nc("@label as in 'Created by: Joe'", "Created by")},
         {QStringLiteral("re"), i18nc("@label as in 'a person who edits'", "Editor")},
-        {QStringLiteral("ve"), i18nc("@label", "Version")}};
+        {QStringLiteral("ve"), i18nc("@label", "Version")},
+    };
     QString tags;
 
     auto rollback = begin;
@@ -182,8 +189,7 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
 
         auto tagIdEnd = std::find(begin, end, ':'_L1);
         auto tagId = QString(begin, std::distance(begin, tagIdEnd));
-        if (tagIdEnd != end &&
-            (map.count(tagId) || tagId == QStringLiteral("offset"))) {
+        if (tagIdEnd != end && (map.count(tagId) || tagId == QStringLiteral("offset"))) {
             ++tagIdEnd;
 
             auto tagContentEnd = std::find(tagIdEnd, end, ']'_L1);
@@ -204,9 +210,9 @@ QString LyricsModel::LyricsModelPrivate::parseTags(QString::const_iterator &begi
                 break;
             }
         } else {
-          // No tag, we step rollback to compensate the '[' we step over
-          begin = rollback;
-          break;
+            // No tag, we step rollback to compensate the '[' we step over
+            begin = rollback;
+            break;
         }
     }
     return tags;
@@ -227,10 +233,10 @@ bool LyricsModel::LyricsModelPrivate::parse(const QString &lyric)
     while (begin != lyric.end()) {
         auto timeStamp = parseOneTimeStamp(begin, end);
         while (timeStamp >= 0) {
-          // one line can have multiple timestamps
-          // [00:12.00][00:15.30]Some more lyrics ...
-          timeStamps.push_back(timeStamp);
-          timeStamp = parseOneTimeStamp(begin, end);
+            // one line can have multiple timestamps
+            // [00:12.00][00:15.30]Some more lyrics ...
+            timeStamps.push_back(timeStamp);
+            timeStamp = parseOneTimeStamp(begin, end);
         }
         auto string = parseOneLine(begin, end);
         if (!timeStamps.empty()) {
@@ -247,12 +253,10 @@ bool LyricsModel::LyricsModelPrivate::parse(const QString &lyric)
         return lhs.second < rhs.second;
     });
     if (offset) {
-      std::transform(lyrics.begin(), lyrics.end(),
-                     lyrics.begin(),
-                     [this](std::pair<QString, qint64> &element) {
-                       element.second = std::max(element.second - offset, 0ll);
-                       return element;
-                     });
+        std::transform(lyrics.begin(), lyrics.end(), lyrics.begin(), [this](std::pair<QString, qint64> &element) {
+            element.second = std::max(element.second - offset, 0ll);
+            return element;
+        });
     }
     // insert tags to first lyric front
     if (!lyrics.empty() && !tag.isEmpty()) {
@@ -348,13 +352,9 @@ void LyricsModel::setPosition(qint64 position)
     };
 
     // do binary search
-    auto result =
-        std::lower_bound(d->lyrics.begin(),
-                         d->lyrics.end(),
-                         position,
-                         [](const std::pair<QString, qint64> &lhs, qint64 value) {
-                             return lhs.second < value;
-                         });
+    auto result = std::lower_bound(d->lyrics.begin(), d->lyrics.end(), position, [](const std::pair<QString, qint64> &lhs, qint64 value) {
+        return lhs.second < value;
+    });
 
     int highlightedIndex = -1;
     qint64 highlightedTimestamp = -1;
@@ -364,8 +364,9 @@ void LyricsModel::setPosition(qint64 position)
         highlightedIndex = std::distance(d->lyrics.begin(), result);
         highlightedTimestamp = result->second;
     } else if (result != d->lyrics.begin()) {
-        // otherwise highlight the previous timestamp group (last item in that group visually,
-        // but we expose timestamp so all items with same timestamp can react)
+        // otherwise highlight the previous timestamp group (last item in that group
+        // visually, but we expose timestamp so all items with same timestamp can
+        // react)
         --result;
         highlightedIndex = std::distance(d->lyrics.begin(), result);
         highlightedTimestamp = result->second;

@@ -11,14 +11,11 @@
 
 #include "databasetestdata.h"
 
-
 class ManageHeaderBarTest : public QObject, public DatabaseTestData
 {
-
     Q_OBJECT
 
 public:
-
     enum ColumnsRoles {
         IsValidRole = Qt::UserRole + 1,
         TitleRole = IsValidRole + 1,
@@ -50,7 +47,6 @@ private Q_SLOTS:
     void setCurrentTrackWithInvalidData();
 
     void setCurrentTrackWithData();
-
 };
 
 #endif // MANAGEHEADERBARTEST_H

@@ -12,9 +12,9 @@
 #include "datatypes.h"
 #include "elisautils.h"
 
+#include <QMediaPlayer>
 #include <QObject>
 #include <QQmlEngine>
-#include <QMediaPlayer>
 
 #include <memory>
 
@@ -27,46 +27,27 @@ class TracksListener;
 
 class ELISALIB_EXPORT MusicListenersManager : public QObject
 {
-
     Q_OBJECT
 
     QML_ELEMENT
 
-    Q_PROPERTY(DatabaseInterface* viewDatabase
-               READ viewDatabase
-               NOTIFY viewDatabaseChanged)
+    Q_PROPERTY(DatabaseInterface *viewDatabase READ viewDatabase NOTIFY viewDatabaseChanged)
 
-    Q_PROPERTY(int importedTracksCount
-               READ importedTracksCount
-               NOTIFY importedTracksCountChanged)
+    Q_PROPERTY(int importedTracksCount READ importedTracksCount NOTIFY importedTracksCountChanged)
 
-    Q_PROPERTY(ElisaApplication* elisaApplication
-               READ elisaApplication
-               WRITE setElisaApplication
-               NOTIFY elisaApplicationChanged)
+    Q_PROPERTY(ElisaApplication *elisaApplication READ elisaApplication WRITE setElisaApplication NOTIFY elisaApplicationChanged)
 
-    Q_PROPERTY(TracksListener* tracksListener
-               READ tracksListener
-               NOTIFY tracksListenerChanged)
+    Q_PROPERTY(TracksListener *tracksListener READ tracksListener NOTIFY tracksListenerChanged)
 
-    Q_PROPERTY(bool indexerBusy
-               READ indexerBusy
-               NOTIFY indexerBusyChanged)
+    Q_PROPERTY(bool indexerBusy READ indexerBusy NOTIFY indexerBusyChanged)
 
-    Q_PROPERTY(bool fileSystemIndexerActive
-               READ fileSystemIndexerActive
-               NOTIFY fileSystemIndexerActiveChanged)
+    Q_PROPERTY(bool fileSystemIndexerActive READ fileSystemIndexerActive NOTIFY fileSystemIndexerActiveChanged)
 
-    Q_PROPERTY(bool androidIndexerActive
-               READ androidIndexerActive
-               NOTIFY androidIndexerActiveChanged)
+    Q_PROPERTY(bool androidIndexerActive READ androidIndexerActive NOTIFY androidIndexerActiveChanged)
 
-    Q_PROPERTY(bool androidIndexerAvailable
-               READ androidIndexerAvailable
-               NOTIFY androidIndexerAvailableChanged)
+    Q_PROPERTY(bool androidIndexerAvailable READ androidIndexerAvailable NOTIFY androidIndexerAvailableChanged)
 
 public:
-
     enum class CollectionScan {
         Soft,
         Hard,
@@ -77,15 +58,15 @@ public:
 
     ~MusicListenersManager() override;
 
-    [[nodiscard]] DatabaseInterface* viewDatabase() const;
+    [[nodiscard]] DatabaseInterface *viewDatabase() const;
 
     void subscribeForTracks(MediaPlayList *client);
 
     [[nodiscard]] int importedTracksCount() const;
 
-    [[nodiscard]] ElisaApplication* elisaApplication() const;
+    [[nodiscard]] ElisaApplication *elisaApplication() const;
 
-    [[nodiscard]] TracksListener* tracksListener() const;
+    [[nodiscard]] TracksListener *tracksListener() const;
 
     [[nodiscard]] bool indexerBusy() const;
 
@@ -131,7 +112,7 @@ public Q_SLOTS:
 
     void applicationAboutToQuit();
 
-    void setElisaApplication(ElisaApplication* elisaApplication);
+    void setElisaApplication(ElisaApplication *elisaApplication);
 
     void playBackError(const QUrl &sourceInError, QMediaPlayer::Error playerError);
 
@@ -158,7 +139,6 @@ private Q_SLOTS:
     void cleanedDatabase();
 
 private:
-
     void startLocalFileSystemIndexing();
 
     void startAndroidIndexing();
@@ -168,7 +148,6 @@ private:
     std::unique_ptr<MusicListenersManagerPrivate> d;
 
     void createTracksListener();
-
 };
 
 #endif // MUSICLISTENERSMANAGER_H

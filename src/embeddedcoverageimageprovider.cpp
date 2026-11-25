@@ -22,7 +22,9 @@ class AsyncImageResponse : public QQuickImageResponse, public QRunnable
 
 public:
     AsyncImageResponse(QString id, QImage fallbackImage, QSize requestedSize)
-        : QQuickImageResponse(), mId(std::move(id)), mRequestedSize(requestedSize)
+        : QQuickImageResponse()
+        , mId(std::move(id))
+        , mRequestedSize(requestedSize)
         , mFallbackImage(std::move(fallbackImage))
     {
         setAutoDelete(false);
@@ -51,33 +53,33 @@ public:
         mErrorMessage = QLatin1String{""};
 
         const auto extractors = ec.fetchExtractors(fileMimeType);
-        for (const auto& ex : extractors) {
+        for (const auto &ex : extractors) {
             ex->extract(&result);
         }
 
         auto imageData = result.imageData();
 
         if (imageData.isEmpty()) {
-          mCoverImage = mFallbackImage;
-          Q_EMIT finished();
-          return;
+            mCoverImage = mFallbackImage;
+            Q_EMIT finished();
+            return;
         }
 
         if (imageData.contains(KFileMetaData::EmbeddedImageData::FrontCover)) {
-          mCoverImage = QImage::fromData(imageData[KFileMetaData::EmbeddedImageData::FrontCover]);
+            mCoverImage = QImage::fromData(imageData[KFileMetaData::EmbeddedImageData::FrontCover]);
         } else {
-          mCoverImage = QImage::fromData(imageData.first());
+            mCoverImage = QImage::fromData(imageData.first());
         }
 
         if (mCoverImage.isNull()) {
-          mErrorMessage = QString{QLatin1String{"Invalid embedded cover image in "} + mId};
-          Q_EMIT finished();
-          return;
+            mErrorMessage = QString{QLatin1String{"Invalid embedded cover image in "} + mId};
+            Q_EMIT finished();
+            return;
         }
 
         auto newCoverImage = mCoverImage.scaled(mRequestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         if (!newCoverImage.isNull()) {
-          mCoverImage = std::move(newCoverImage);
+            mCoverImage = std::move(newCoverImage);
         }
 
         Q_EMIT finished();
@@ -85,7 +87,7 @@ public:
 
     QString errorString() const override
     {
-      return mErrorMessage;
+        return mErrorMessage;
     }
 
     QString mId;
@@ -94,7 +96,7 @@ public:
     QImage mCoverImage;
     QImage mFallbackImage;
 };
-}
+} // namespace
 
 EmbeddedCoverageImageProvider::EmbeddedCoverageImageProvider()
     : QQuickAsyncImageProvider()

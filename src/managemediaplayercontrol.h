@@ -8,51 +8,31 @@
 #define MANAGEMEDIAPLAYERCONTROL_H
 
 #include "elisaLib_export.h"
-#include <QPersistentModelIndex>
 #include <QObject>
+#include <QPersistentModelIndex>
 #include <QQmlEngine>
-
 
 class ELISALIB_EXPORT ManageMediaPlayerControl : public QObject
 {
-
     Q_OBJECT
 
     QML_ELEMENT
 
-    Q_PROPERTY(bool playControlEnabled
-               READ playControlEnabled
-               NOTIFY playControlEnabledChanged)
+    Q_PROPERTY(bool playControlEnabled READ playControlEnabled NOTIFY playControlEnabledChanged)
 
-    Q_PROPERTY(bool skipBackwardControlEnabled
-               READ skipBackwardControlEnabled
-               NOTIFY skipBackwardControlEnabledChanged)
+    Q_PROPERTY(bool skipBackwardControlEnabled READ skipBackwardControlEnabled NOTIFY skipBackwardControlEnabledChanged)
 
-    Q_PROPERTY(bool skipForwardControlEnabled
-               READ skipForwardControlEnabled
-               NOTIFY skipForwardControlEnabledChanged)
+    Q_PROPERTY(bool skipForwardControlEnabled READ skipForwardControlEnabled NOTIFY skipForwardControlEnabledChanged)
 
-    Q_PROPERTY(bool musicPlaying
-               READ musicPlaying
-               NOTIFY musicPlayingChanged)
+    Q_PROPERTY(bool musicPlaying READ musicPlaying NOTIFY musicPlayingChanged)
 
-    Q_PROPERTY(QPersistentModelIndex previousTrack
-               READ previousTrack
-               WRITE setPreviousTrack
-               NOTIFY previousTrackChanged)
+    Q_PROPERTY(QPersistentModelIndex previousTrack READ previousTrack WRITE setPreviousTrack NOTIFY previousTrackChanged)
 
-    Q_PROPERTY(QPersistentModelIndex currentTrack
-               READ currentTrack
-               WRITE setCurrentTrack
-               NOTIFY currentTrackChanged)
+    Q_PROPERTY(QPersistentModelIndex currentTrack READ currentTrack WRITE setCurrentTrack NOTIFY currentTrackChanged)
 
-    Q_PROPERTY(QPersistentModelIndex nextTrack
-               READ nextTrack
-               WRITE setNextTrack
-               NOTIFY nextTrackChanged)
+    Q_PROPERTY(QPersistentModelIndex nextTrack READ nextTrack WRITE setNextTrack NOTIFY nextTrackChanged)
 
 public:
-
     explicit ManageMediaPlayerControl(QObject *parent = nullptr);
 
     [[nodiscard]] bool playControlEnabled() const;
@@ -98,7 +78,6 @@ public Q_SLOTS:
     void setNextTrack(const QPersistentModelIndex &nextTrack);
 
 private:
-
     QPersistentModelIndex mPreviousTrack;
 
     QPersistentModelIndex mCurrentTrack;
@@ -106,7 +85,6 @@ private:
     QPersistentModelIndex mNextTrack;
 
     bool mIsInPlayingState = false;
-
 };
 
 #endif // MANAGEMEDIAPLAYERCONTROL_H

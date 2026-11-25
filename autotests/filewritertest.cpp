@@ -4,23 +4,23 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-#include "filescanner.h"
 #include "filewriter.h"
 #include "config-upnp-qt.h"
+#include "filescanner.h"
 
+#include <QFile>
 #include <QObject>
 #include <QUrl>
-#include <QFile>
 
 #include <QTest>
 
-class FileWriterTest: public QObject
+class FileWriterTest : public QObject
 {
     Q_OBJECT
 
 public:
-
-    explicit FileWriterTest(QObject *aParent = nullptr) : QObject(aParent)
+    explicit FileWriterTest(QObject *aParent = nullptr)
+        : QObject(aParent)
     {
     }
 
@@ -28,7 +28,6 @@ private Q_SLOTS:
 
     void initTestCase()
     {
-
     }
 
     void testFileAllMetaDataWrite()
@@ -46,11 +45,12 @@ private Q_SLOTS:
         QCOMPARE(scannedTrackBefore.artist(), QStringLiteral("Artist"));
         QCOMPARE(scannedTrackBefore.year(), 2015);
 
-        fileWriter.writeAllMetaDataToFile(testFileUrl, {{DataTypes::AlbumRole, QStringLiteral("testAlbum")},
-                                                        {DataTypes::GenreRole, QStringLiteral("testGenre")},
-                                                        {DataTypes::YearRole, 1999},
-                                                        {DataTypes::TitleRole, QStringLiteral("testTitle")},
-                                                        {DataTypes::ArtistRole, QStringLiteral("testArtist")}});
+        fileWriter.writeAllMetaDataToFile(testFileUrl,
+                                          {{DataTypes::AlbumRole, QStringLiteral("testAlbum")},
+                                           {DataTypes::GenreRole, QStringLiteral("testGenre")},
+                                           {DataTypes::YearRole, 1999},
+                                           {DataTypes::TitleRole, QStringLiteral("testTitle")},
+                                           {DataTypes::ArtistRole, QStringLiteral("testArtist")}});
         auto scannedTrackAfter = fileScanner.scanOneFile(testFileUrl);
         QCOMPARE(scannedTrackAfter.title(), QStringLiteral("testTitle"));
         QCOMPARE(scannedTrackAfter.genre(), QStringLiteral("testGenre"));
@@ -89,6 +89,5 @@ private Q_SLOTS:
 };
 
 QTEST_GUILESS_MAIN(FileWriterTest)
-
 
 #include "filewritertest.moc"

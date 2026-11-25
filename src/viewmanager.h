@@ -11,8 +11,8 @@
 
 #include "config-upnp-qt.h"
 
-#include "elisautils.h"
 #include "datatypes.h"
+#include "elisautils.h"
 
 #include <QObject>
 #include <QQmlEngine>
@@ -32,24 +32,15 @@ class ELISALIB_EXPORT ViewManager : public QObject
 
     QML_ELEMENT
 
-    Q_PROPERTY(int viewIndex
-               READ viewIndex
-               NOTIFY viewIndexChanged)
+    Q_PROPERTY(int viewIndex READ viewIndex NOTIFY viewIndexChanged)
 
-    Q_PROPERTY(int initialIndex
-               READ initialIndex
-               WRITE setInitialIndex
-               NOTIFY initialIndexChanged)
+    Q_PROPERTY(int initialIndex READ initialIndex WRITE setInitialIndex NOTIFY initialIndexChanged)
 
-    Q_PROPERTY(QString initialFilesViewPath
-               READ initialFilesViewPath
-               WRITE setInitialFilesViewPath
-               NOTIFY initialFilesViewPathChanged)
+    Q_PROPERTY(QString initialFilesViewPath READ initialFilesViewPath WRITE setInitialFilesViewPath NOTIFY initialFilesViewPathChanged)
 
-    Q_PROPERTY(ViewsListData* viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
+    Q_PROPERTY(ViewsListData *viewsData READ viewsData WRITE setViewsData NOTIFY viewsDataChanged)
 
 public:
-
     enum AlbumCardinality {
         SingleAlbum = true,
         MultipleAlbum = false,
@@ -112,7 +103,7 @@ public:
 
     [[nodiscard]] QString initialFilesViewPath() const;
 
-    [[nodiscard]] ViewsListData* viewsData() const;
+    [[nodiscard]] ViewsListData *viewsData() const;
 
 Q_SIGNALS:
 
@@ -148,7 +139,7 @@ public Q_SLOTS:
 
     void goBack();
 
-    void setViewsData(ViewsListData* viewsData);
+    void setViewsData(ViewsListData *viewsData);
 
     void sortOrderChanged(Qt::SortOrder sortOrder);
 
@@ -165,11 +156,9 @@ private Q_SLOTS:
     void openInitialView();
 
 private:
-
     void openViewFromData(const ViewParameters &viewParamaters);
 
-    void applyFilter(ViewParameters &nextViewParameters,
-                     QString title, const ViewParameters &lastView) const;
+    void applyFilter(ViewParameters &nextViewParameters, QString title, const ViewParameters &lastView) const;
 
     [[nodiscard]] QString buildViewId() const;
 
@@ -192,7 +181,6 @@ private:
     [[nodiscard]] ViewStyle computePreferredViewStyle(ViewStyle initialValue, ElisaUtils::PlayListEntryType dataType) const;
 
 private:
-
     std::unique_ptr<ViewManagerPrivate> d;
 
     bool isSameView(const ViewParameters &currentView, const ViewParameters &otherView) const;

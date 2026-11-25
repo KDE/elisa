@@ -50,8 +50,7 @@ int ViewsProxyModel::mapRowFromSource(int row) const
 bool ViewsProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const
 {
     if (source_right.data(ViewsModel::EntryCategoryRole).toString() == QStringLiteral("default")) {
-        switch (sortOrder())
-        {
+        switch (sortOrder()) {
         case Qt::AscendingOrder:
             return false;
         case Qt::DescendingOrder:
@@ -60,8 +59,7 @@ bool ViewsProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex
     }
 
     if (source_left.data(ViewsModel::EntryCategoryRole).toString() == QStringLiteral("default")) {
-        switch (sortOrder())
-        {
+        switch (sortOrder()) {
         case Qt::AscendingOrder:
             return true;
         case Qt::DescendingOrder:
@@ -90,6 +88,5 @@ bool ViewsProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source
     const bool isEmbeddedCategory = dataType != d->mEmbeddedCategory;
     return isEmbeddedCategory;
 }
-
 
 #include "moc_viewsproxymodel.cpp"

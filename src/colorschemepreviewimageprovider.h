@@ -14,11 +14,9 @@
 class ELISALIB_EXPORT ColorSchemePreviewImageProvider : public QQuickImageProvider
 {
 public:
-
     ColorSchemePreviewImageProvider();
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) override;
-
 };
 
 #endif // COLORSCHEMEPREVIEWIMAGEPROVIDER_H

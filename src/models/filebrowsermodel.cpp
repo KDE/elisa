@@ -6,18 +6,19 @@
 
 #include "filebrowsermodel.h"
 
-#include <QUrl>
-#include <QString>
-#include <QMimeDatabase>
 #include <KDirLister>
+#include <QMimeDatabase>
+#include <QString>
+#include <QUrl>
 
 #include "models/modelLogging.h"
 
-FileBrowserModel::FileBrowserModel(QObject *parent) : KDirModel(parent)
+FileBrowserModel::FileBrowserModel(QObject *parent)
+    : KDirModel(parent)
 {
     QMimeDatabase db;
     const QList<QMimeType> mimeList = db.allMimeTypes();
-    QStringList mimeTypes = { QStringLiteral("inode/directory") };
+    QStringList mimeTypes = {QStringLiteral("inode/directory")};
     for (const QMimeType &mime : mimeList) {
         if (mime.name().startsWith(QLatin1String("audio/")) || ElisaUtils::isPlayList(mime)) {
             mimeTypes << mime.name();
@@ -27,8 +28,7 @@ FileBrowserModel::FileBrowserModel(QObject *parent) : KDirModel(parent)
     dirLister()->setMimeFilter(mimeTypes);
 }
 
-FileBrowserModel::~FileBrowserModel()
-= default;
+FileBrowserModel::~FileBrowserModel() = default;
 
 void FileBrowserModel::setUrl(const QUrl &url)
 {
@@ -85,16 +85,13 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
 {
     auto result = QVariant();
 
-    switch(role)
-    {
-    case DataTypes::ColumnsRoles::ResourceRole:
-    {
+    switch (role) {
+    case DataTypes::ColumnsRoles::ResourceRole: {
         KFileItem item = itemForIndex(index);
         result = item.url();
         break;
     }
-    case DataTypes::ColumnsRoles::ImageUrlRole:
-    {
+    case DataTypes::ColumnsRoles::ImageUrlRole: {
         KFileItem item = itemForIndex(index);
         if (item.isDir()) {
             result = QUrl(QStringLiteral("image://icon/folder"));
@@ -105,26 +102,22 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         break;
     }
     case DataTypes::ColumnsRoles::IsDirectoryRole:
-    case DataTypes::ColumnsRoles::HasChildrenRole:
-    {
+    case DataTypes::ColumnsRoles::HasChildrenRole: {
         KFileItem item = itemForIndex(index);
         result = item.isDir();
         break;
     }
-    case DataTypes::ColumnsRoles::IsPlayListRole:
-    {
+    case DataTypes::ColumnsRoles::IsPlayListRole: {
         KFileItem item = itemForIndex(index);
         result = (ElisaUtils::isPlayList(item.currentMimeType()));
         break;
     }
-    case DataTypes::ColumnsRoles::ElementTypeRole:
-    {
+    case DataTypes::ColumnsRoles::ElementTypeRole: {
         KFileItem item = itemForIndex(index);
         result = (item.isDir() ? ElisaUtils::Container : ElisaUtils::FileName);
         break;
     }
-    case DataTypes::ColumnsRoles::FullDataRole:
-    {
+    case DataTypes::ColumnsRoles::FullDataRole: {
         KFileItem item = itemForIndex(index);
         if (item.isDir()) {
             result = QVariant::fromValue(DataTypes::MusicDataType{{DataTypes::ColumnsRoles::FilePathRole, item.url()},
@@ -148,22 +141,25 @@ QVariant FileBrowserModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case DataTypes::ColumnsRoles::FilePathRole:
-    {
+    case DataTypes::ColumnsRoles::FilePathRole: {
         KFileItem item = itemForIndex(index);
         result = item.url();
         break;
     }
     default:
-        result = KDirModel::data(index,role);
+        result = KDirModel::data(index, role);
     }
 
     return result;
 }
 
-void FileBrowserModel::initialize(MusicListenersManager *manager, DatabaseInterface *database,
-                                  ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
-                                  const QString &genre, const QString &artist, qulonglong databaseId,
+void FileBrowserModel::initialize(MusicListenersManager *manager,
+                                  DatabaseInterface *database,
+                                  ElisaUtils::PlayListEntryType modelType,
+                                  ElisaUtils::FilterType filter,
+                                  const QString &genre,
+                                  const QString &artist,
+                                  qulonglong databaseId,
                                   const QUrl &pathFilter)
 {
     Q_UNUSED(manager)
@@ -177,8 +173,10 @@ void FileBrowserModel::initialize(MusicListenersManager *manager, DatabaseInterf
     setUrl(pathFilter);
 }
 
-void FileBrowserModel::initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
-                                        ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+void FileBrowserModel::initializeByData(MusicListenersManager *manager,
+                                        DatabaseInterface *database,
+                                        ElisaUtils::PlayListEntryType modelType,
+                                        ElisaUtils::FilterType filter,
                                         const DataTypes::DataType &dataFilter)
 {
     Q_UNUSED(manager)
@@ -188,6 +186,5 @@ void FileBrowserModel::initializeByData(MusicListenersManager *manager, Database
 
     setUrl(dataFilter[DataTypes::FilePathRole].toUrl());
 }
-
 
 #include "moc_filebrowsermodel.cpp"

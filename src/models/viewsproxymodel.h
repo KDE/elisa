@@ -24,10 +24,7 @@ class ELISALIB_EXPORT ViewsProxyModel : public QSortFilterProxyModel
 
     QML_ELEMENT
 
-    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedCategory
-               READ embeddedCategory
-               WRITE setEmbeddedCategory
-               NOTIFY embeddedCategoryChanged)
+    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedCategory READ embeddedCategory WRITE setEmbeddedCategory NOTIFY embeddedCategoryChanged)
 
 public:
     explicit ViewsProxyModel(QObject *parent = nullptr);
@@ -47,7 +44,6 @@ public Q_SLOTS:
     void setEmbeddedCategory(const ElisaUtils::PlayListEntryType category);
 
 protected:
-
     [[nodiscard]] bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const override;
 
     [[nodiscard]] bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;

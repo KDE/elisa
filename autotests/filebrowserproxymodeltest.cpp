@@ -4,9 +4,9 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
+#include "models/filebrowserproxymodel.h"
 #include "config-upnp-qt.h"
 #include "models/filebrowsermodel.h"
-#include "models/filebrowserproxymodel.h"
 
 #include <QAbstractItemModelTester>
 #include <QSignalSpy>

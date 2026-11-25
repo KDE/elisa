@@ -22,18 +22,14 @@ class UpnpListener : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(DatabaseInterface* databaseInterface
-               READ databaseInterface
-               WRITE setDatabaseInterface
-               NOTIFY databaseInterfaceChanged)
+    Q_PROPERTY(DatabaseInterface *databaseInterface READ databaseInterface WRITE setDatabaseInterface NOTIFY databaseInterfaceChanged)
 
 public:
-
     explicit UpnpListener(QObject *parent = nullptr);
 
     ~UpnpListener() override;
 
-    DatabaseInterface* databaseInterface() const;
+    DatabaseInterface *databaseInterface() const;
 
 Q_SIGNALS:
 
@@ -47,14 +43,12 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void setDatabaseInterface(DatabaseInterface* databaseInterface);
+    void setDatabaseInterface(DatabaseInterface *databaseInterface);
 
     void applicationAboutToQuit();
 
 private:
-
     std::unique_ptr<UpnpListenerPrivate> d;
-
 };
 
 #endif // UPNPLISTENER_H

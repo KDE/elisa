@@ -12,20 +12,21 @@
 
 class ViewsModelPrivate
 {
-
 public:
-
     ViewsListData *mViewsData = nullptr;
 
     ElisaUtils::PlayListEntryType mEmbeddedCategory = ElisaUtils::Unknown;
 
-    QMap<ElisaUtils::PlayListEntryType, QUrl> mDefaultIcons = {{ElisaUtils::Album, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
-                                                               {ElisaUtils::Artist, QUrl{QStringLiteral("image://icon/view-media-artist")}},
-                                                               {ElisaUtils::Genre, QUrl{QStringLiteral("image://icon/view-media-genre")}},};
+    QMap<ElisaUtils::PlayListEntryType, QUrl> mDefaultIcons = {
+        {ElisaUtils::Album, QUrl{QStringLiteral("image://icon/view-media-album-cover")}},
+        {ElisaUtils::Artist, QUrl{QStringLiteral("image://icon/view-media-artist")}},
+        {ElisaUtils::Genre, QUrl{QStringLiteral("image://icon/view-media-genre")}},
+    };
 };
 
 ViewsModel::ViewsModel(QObject *parent)
-    : QAbstractListModel(parent), d(std::make_unique<ViewsModelPrivate>())
+    : QAbstractListModel(parent)
+    , d(std::make_unique<ViewsModelPrivate>())
 {
 }
 
@@ -79,8 +80,7 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    switch(role)
-    {
+    switch (role) {
     case Qt::DisplayRole:
         result = d->mViewsData->title(index.row());
         break;
@@ -100,8 +100,7 @@ QVariant ViewsModel::data(const QModelIndex &index, int role) const
         if (d->mViewsData->defaultEntry(index.row())) {
             result = QStringLiteral("default");
         } else {
-            switch (d->mViewsData->embeddedCategory())
-            {
+            switch (d->mViewsData->embeddedCategory()) {
             case ElisaUtils::Album:
                 result = i18nc("@title:window Title of the view of all albums", "Albums");
                 break;
@@ -176,20 +175,13 @@ void ViewsModel::setViewsData(ViewsListData *viewsData)
     Q_EMIT viewsDataChanged();
 
     if (d->mViewsData) {
-        connect(d->mViewsData, &ViewsListData::dataAboutToBeAdded,
-                this, &ViewsModel::dataAboutToBeAdded);
-        connect(d->mViewsData, &ViewsListData::dataAdded,
-                this, &ViewsModel::dataAdded);
-        connect(d->mViewsData, &ViewsListData::dataAboutToBeRemoved,
-                this, &ViewsModel::dataAboutToBeRemoved);
-        connect(d->mViewsData, &ViewsListData::dataRemoved,
-                this, &ViewsModel::dataRemoved);
-        connect(d->mViewsData, &ViewsListData::dataModified,
-                this, &ViewsModel::dataModified);
-        connect(d->mViewsData, &ViewsListData::dataAboutToBeReset,
-                this, &ViewsModel::dataAboutToBeReset);
-        connect(d->mViewsData, &ViewsListData::dataReset,
-                this, &ViewsModel::dataReset);
+        connect(d->mViewsData, &ViewsListData::dataAboutToBeAdded, this, &ViewsModel::dataAboutToBeAdded);
+        connect(d->mViewsData, &ViewsListData::dataAdded, this, &ViewsModel::dataAdded);
+        connect(d->mViewsData, &ViewsListData::dataAboutToBeRemoved, this, &ViewsModel::dataAboutToBeRemoved);
+        connect(d->mViewsData, &ViewsListData::dataRemoved, this, &ViewsModel::dataRemoved);
+        connect(d->mViewsData, &ViewsListData::dataModified, this, &ViewsModel::dataModified);
+        connect(d->mViewsData, &ViewsListData::dataAboutToBeReset, this, &ViewsModel::dataAboutToBeReset);
+        connect(d->mViewsData, &ViewsListData::dataReset, this, &ViewsModel::dataReset);
 
         endResetModel();
     }
@@ -229,6 +221,5 @@ void ViewsModel::dataReset()
 {
     endResetModel();
 }
-
 
 #include "moc_viewsmodel.cpp"

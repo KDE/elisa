@@ -10,12 +10,12 @@
 
 using namespace Qt::StringLiterals;
 
-ProgressIndicator::ProgressIndicator(QObject *parent) : QObject(parent)
+ProgressIndicator::ProgressIndicator(QObject *parent)
+    : QObject(parent)
 {
 }
 
-ProgressIndicator::~ProgressIndicator()
-= default;
+ProgressIndicator::~ProgressIndicator() = default;
 
 int ProgressIndicator::position() const
 {
@@ -54,6 +54,5 @@ void ProgressIndicator::setPosition(int position)
     Q_EMIT positionChanged();
     Q_EMIT progressDurationChanged();
 }
-
 
 #include "moc_progressindicator.cpp"

@@ -10,26 +10,22 @@
 
 #include "elisa_settings.h"
 
-
-#include <QStandardPaths>
 #include <QFileInfo>
+#include <QStandardPaths>
 #include <QTimer>
 
-ElisaConfigurationDialog::ElisaConfigurationDialog(QObject* parent)
+ElisaConfigurationDialog::ElisaConfigurationDialog(QObject *parent)
     : QObject(parent)
 {
-    connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged,
-            this, &ElisaConfigurationDialog::configChanged);
-    connect(&mConfigFileWatcher, &QFileSystemWatcher::fileChanged,
-            this, &ElisaConfigurationDialog::configChanged);
+    connect(Elisa::ElisaConfiguration::self(), &Elisa::ElisaConfiguration::configChanged, this, &ElisaConfigurationDialog::configChanged);
+    connect(&mConfigFileWatcher, &QFileSystemWatcher::fileChanged, this, &ElisaConfigurationDialog::configChanged);
 
     configChanged();
 
     mConfigFileWatcher.addPath(Elisa::ElisaConfiguration::self()->config()->name());
 }
 
-ElisaConfigurationDialog::~ElisaConfigurationDialog()
-= default;
+ElisaConfigurationDialog::~ElisaConfigurationDialog() = default;
 
 QStringList ElisaConfigurationDialog::rootPath() const
 {
@@ -81,8 +77,7 @@ void ElisaConfigurationDialog::save()
     Elisa::ElisaConfiguration::setUseFavoriteStyleRatings(mUseFavoriteStyleRatings);
 
     Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::NoView);
-    switch (mEmbeddedView)
-    {
+    switch (mEmbeddedView) {
     case ElisaUtils::Unknown:
         Elisa::ElisaConfiguration::setEmbeddedView(Elisa::ElisaConfiguration::EnumEmbeddedView::NoView);
         break;
@@ -273,8 +268,7 @@ void ElisaConfigurationDialog::configChanged()
     mAlwaysUseAbsolutePlaylistPaths = Elisa::ElisaConfiguration::alwaysUseAbsolutePlaylistPaths();
     Q_EMIT alwaysUseAbsolutePlaylistPathsChanged();
 
-    switch (Elisa::ElisaConfiguration::embeddedView())
-    {
+    switch (Elisa::ElisaConfiguration::embeddedView()) {
     case Elisa::ElisaConfiguration::EnumEmbeddedView::NoView:
         mEmbeddedView = ElisaUtils::Unknown;
         break;
@@ -302,6 +296,5 @@ void ElisaConfigurationDialog::setDirty()
     mIsDirty = true;
     Q_EMIT isDirtyChanged();
 }
-
 
 #include "moc_elisaconfigurationdialog.cpp"

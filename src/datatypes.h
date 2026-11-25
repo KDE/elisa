@@ -12,14 +12,14 @@
 
 #include "elisautils.h"
 
+#include <QDateTime>
+#include <QList>
+#include <QMap>
 #include <QObject>
 #include <QQmlEngine>
 #include <QString>
-#include <QList>
-#include <QVariant>
 #include <QUrl>
-#include <QDateTime>
-#include <QMap>
+#include <QVariant>
 
 class ELISALIB_EXPORT DataTypes : public QObject
 {
@@ -85,7 +85,6 @@ public:
     using DataType = QMap<ColumnsRoles, QVariant>;
 
 public:
-
     class MusicDataType : public DataType
     {
     public:
@@ -115,23 +114,48 @@ public:
     class TrackDataType : public MusicDataType
     {
     public:
-
         using MusicDataType::MusicDataType;
 
-        TrackDataType(bool aValid, QString aId, QString aParentId, QString aTitle, QString aArtist, QString aAlbumName,
-                      QString aAlbumArtist, int aTrackNumber, int aDiscNumber, QTime aDuration, QUrl aResourceURI,
-                      const QDateTime &fileModificationTime, QUrl aAlbumCover, int rating, bool aIsSingleDiscAlbum,
-                      QString aGenre, QString aComposer, QString aLyricist, bool aHasEmbeddedCover)
-            : MusicDataType({{key_type::TitleRole, std::move(aTitle)}, {key_type::AlbumRole, std::move(aAlbumName)},
-                             {key_type::ArtistRole, std::move(aArtist)}, {key_type::AlbumArtistRole, std::move(aAlbumArtist)},
-                             {key_type::IdRole, std::move(aId)}, {key_type::ParentIdRole, std::move(aParentId)},
-                             {key_type::TrackNumberRole, aTrackNumber}, {key_type::DiscNumberRole, aDiscNumber},
-                             {key_type::DurationRole, aDuration}, {key_type::ResourceRole, std::move(aResourceURI)},
-                             {key_type::FileModificationTime, fileModificationTime}, {key_type::ImageUrlRole, std::move(aAlbumCover)},
-                             {key_type::RatingRole, rating}, {key_type::IsSingleDiscAlbumRole, aIsSingleDiscAlbum},
-                             {key_type::GenreRole, std::move(aGenre)}, {key_type::ComposerRole, std::move(aComposer)},
-                             {key_type::LyricistRole, std::move(aLyricist)}, {key_type::HasEmbeddedCover, aHasEmbeddedCover},
-                             {key_type::ElementTypeRole, ElisaUtils::Track},})
+        TrackDataType(bool aValid,
+                      QString aId,
+                      QString aParentId,
+                      QString aTitle,
+                      QString aArtist,
+                      QString aAlbumName,
+                      QString aAlbumArtist,
+                      int aTrackNumber,
+                      int aDiscNumber,
+                      QTime aDuration,
+                      QUrl aResourceURI,
+                      const QDateTime &fileModificationTime,
+                      QUrl aAlbumCover,
+                      int rating,
+                      bool aIsSingleDiscAlbum,
+                      QString aGenre,
+                      QString aComposer,
+                      QString aLyricist,
+                      bool aHasEmbeddedCover)
+            : MusicDataType({
+                  {key_type::TitleRole, std::move(aTitle)},
+                  {key_type::AlbumRole, std::move(aAlbumName)},
+                  {key_type::ArtistRole, std::move(aArtist)},
+                  {key_type::AlbumArtistRole, std::move(aAlbumArtist)},
+                  {key_type::IdRole, std::move(aId)},
+                  {key_type::ParentIdRole, std::move(aParentId)},
+                  {key_type::TrackNumberRole, aTrackNumber},
+                  {key_type::DiscNumberRole, aDiscNumber},
+                  {key_type::DurationRole, aDuration},
+                  {key_type::ResourceRole, std::move(aResourceURI)},
+                  {key_type::FileModificationTime, fileModificationTime},
+                  {key_type::ImageUrlRole, std::move(aAlbumCover)},
+                  {key_type::RatingRole, rating},
+                  {key_type::IsSingleDiscAlbumRole, aIsSingleDiscAlbum},
+                  {key_type::GenreRole, std::move(aGenre)},
+                  {key_type::ComposerRole, std::move(aComposer)},
+                  {key_type::LyricistRole, std::move(aLyricist)},
+                  {key_type::HasEmbeddedCover, aHasEmbeddedCover},
+                  {key_type::ElementTypeRole, ElisaUtils::Track},
+              })
         {
             Q_UNUSED(aValid)
         }
@@ -316,7 +340,6 @@ public:
             return find(key_type::SampleRateRole) != end();
         }
 
-
         [[nodiscard]] bool hasEmbeddedCover() const
         {
             return operator[](key_type::HasEmbeddedCover).toBool();
@@ -339,7 +362,6 @@ public:
     class AlbumDataType : public MusicDataType
     {
     public:
-
         using MusicDataType::MusicDataType;
 
         [[nodiscard]] QString title() const
@@ -377,7 +399,6 @@ public:
         {
             return !isEmpty();
         }
-
     };
 
     using ListAlbumDataType = QList<AlbumDataType>;
@@ -385,7 +406,6 @@ public:
     class ArtistDataType : public MusicDataType
     {
     public:
-
         using MusicDataType::MusicDataType;
 
         [[nodiscard]] QString name() const
@@ -398,7 +418,7 @@ public:
             return operator[](key_type::DatabaseIdRole).toULongLong();
         }
 
-       [[nodiscard]] QUrl artistArtURI() const
+        [[nodiscard]] QUrl artistArtURI() const
         {
             return operator[](key_type::ImageUrlRole).toUrl();
         }
@@ -409,14 +429,12 @@ public:
     class GenreDataType : public MusicDataType
     {
     public:
-
         using MusicDataType::MusicDataType;
 
         [[nodiscard]] QString title() const
         {
             return operator[](key_type::TitleRole).toString();
         }
-
     };
 
     using ListGenreDataType = QList<GenreDataType>;
@@ -434,7 +452,6 @@ public:
     using EntryDataList = QList<EntryData>;
 
     static TrackDataType radioTrackData(const QVariant &resource, const QString &title);
-
 };
 
 Q_DECLARE_METATYPE(DataTypes::MusicDataType)

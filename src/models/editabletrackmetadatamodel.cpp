@@ -8,7 +8,6 @@
 
 #include <KLocalizedString>
 
-
 EditableTrackMetadataModel::EditableTrackMetadataModel(QObject *parent)
     : TrackMetadataModel(parent)
 {
@@ -20,17 +19,14 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
 
     const auto currentKey = trackKey(index.row());
 
-    switch (role)
-    {
+    switch (role) {
     case ReadOnlyRole:
-        switch (currentKey)
-        {
+        switch (currentKey) {
         case DataTypes::TitleRole:
             result = false;
             break;
         case DataTypes::ResourceRole:
-            switch (allTrackData().elementType())
-            {
+            switch (allTrackData().elementType()) {
             case ElisaUtils::Track:
                 result = true;
                 break;
@@ -107,11 +103,9 @@ QVariant EditableTrackMetadataModel::data(const QModelIndex &index, int role) co
         }
         break;
     case RemovableFieldRole:
-        switch (allTrackData().elementType())
-        {
+        switch (allTrackData().elementType()) {
         case ElisaUtils::Track:
-            switch (currentKey)
-            {
+            switch (currentKey) {
             case DataTypes::TitleRole:
             case DataTypes::BitRateRole:
             case DataTypes::ChannelsRole:
@@ -220,10 +214,8 @@ void EditableTrackMetadataModel::saveData()
     newTrackData[DataTypes::ResourceRole] = QUrl::fromUserInput(newTrackData[DataTypes::ResourceRole].toString());
 
     QString imageUrl = dataFromType(DataTypes::ImageUrlRole).toString();
-    if (!imageUrl.isEmpty()
-            && !imageUrl.startsWith(QStringLiteral("http://"))
-            && !imageUrl.startsWith(QStringLiteral("https://"))
-            && !imageUrl.startsWith(QStringLiteral("file://"))) {
+    if (!imageUrl.isEmpty() && !imageUrl.startsWith(QStringLiteral("http://")) && !imageUrl.startsWith(QStringLiteral("https://"))
+        && !imageUrl.startsWith(QStringLiteral("file://"))) {
         newTrackData[DataTypes::ImageUrlRole] = QUrl::fromUserInput(QStringLiteral("file:/").append(imageUrl));
     }
 
@@ -293,10 +285,8 @@ void EditableTrackMetadataModel::initialize(MusicListenersManager *newManager, D
 {
     TrackMetadataModel::initialize(newManager, trackDatabase);
 
-    connect(this, &EditableTrackMetadataModel::saveTrackModified,
-            &modelDataLoader(), &ModelDataLoader::trackHasBeenModified);
-    connect(this, &EditableTrackMetadataModel::deleteRadioData,
-            &modelDataLoader(), &ModelDataLoader::removeRadio);
+    connect(this, &EditableTrackMetadataModel::saveTrackModified, &modelDataLoader(), &ModelDataLoader::trackHasBeenModified);
+    connect(this, &EditableTrackMetadataModel::deleteRadioData, &modelDataLoader(), &ModelDataLoader::removeRadio);
 }
 
 void EditableTrackMetadataModel::validData()
@@ -342,6 +332,5 @@ void EditableTrackMetadataModel::modelHasBeenModified()
         Q_EMIT isDirtyChanged();
     }
 }
-
 
 #include "moc_editabletrackmetadatamodel.cpp"

@@ -18,7 +18,6 @@
 class UpnpControlContentDirectoryPrivate
 {
 public:
-
     QString mSearchCapabilities;
 
     QString mTransferIDs;
@@ -28,15 +27,15 @@ public:
     int mSystemUpdateID;
 
     bool mHasTransferIDs;
-
 };
 
-UpnpControlContentDirectory::UpnpControlContentDirectory(QObject *parent) : UpnpControlAbstractService(parent), d(new UpnpControlContentDirectoryPrivate)
+UpnpControlContentDirectory::UpnpControlContentDirectory(QObject *parent)
+    : UpnpControlAbstractService(parent)
+    , d(new UpnpControlContentDirectoryPrivate)
 {
 }
 
-UpnpControlContentDirectory::~UpnpControlContentDirectory()
-= default;
+UpnpControlContentDirectory::~UpnpControlContentDirectory() = default;
 
 const QString &UpnpControlContentDirectory::searchCapabilities() const
 {
@@ -84,31 +83,34 @@ UpnpControlAbstractServiceReply *UpnpControlContentDirectory::getSystemUpdateID(
     return pendingAnswer;
 }
 
-UpnpControlAbstractServiceReply *UpnpControlContentDirectory::search(const QString &objectID, const QString &searchCriteria,
-                                         const QString &filter, int startingIndex,
-                                         int requestedCount, const QString &sortCriteria)
+UpnpControlAbstractServiceReply *UpnpControlContentDirectory::search(const QString &objectID,
+                                                                     const QString &searchCriteria,
+                                                                     const QString &filter,
+                                                                     int startingIndex,
+                                                                     int requestedCount,
+                                                                     const QString &sortCriteria)
 {
     qDebug() << "UpnpControlContentDirectory::search" << objectID << searchCriteria << filter << startingIndex << requestedCount << sortCriteria;
-    auto pendingAnswer = callAction(QStringLiteral("Search"), {{{}, objectID},
-                                                               {{}, searchCriteria},
-                                                               {{}, filter},
-                                                               {{}, startingIndex},
-                                                               {{}, requestedCount},
-                                                               {{}, sortCriteria}});
+    auto pendingAnswer = callAction(QStringLiteral("Search"),
+                                    {{{}, objectID}, {{}, searchCriteria}, {{}, filter}, {{}, startingIndex}, {{}, requestedCount}, {{}, sortCriteria}});
 
     return pendingAnswer;
 }
 
-UpnpControlAbstractServiceReply *UpnpControlContentDirectory::browse(const QString &objectID, const QString &browseFlag,
-                                         const QString &filter, int startingIndex,
-                                         int requestedCount, const QString &sortCriteria)
+UpnpControlAbstractServiceReply *UpnpControlContentDirectory::browse(const QString &objectID,
+                                                                     const QString &browseFlag,
+                                                                     const QString &filter,
+                                                                     int startingIndex,
+                                                                     int requestedCount,
+                                                                     const QString &sortCriteria)
 {
-    auto pendingAnswer = callAction(QStringLiteral("Browse"), {{QStringLiteral("ObjectID"), objectID},
-                                                               {QStringLiteral("BrowseFlag"), browseFlag},
-                                                               {QStringLiteral("Filter"), filter},
-                                                               {QStringLiteral("StartingIndex"), startingIndex},
-                                                               {QStringLiteral("RequestedCount"), requestedCount},
-                                                               {QStringLiteral("SortCriteria"), sortCriteria}});
+    auto pendingAnswer = callAction(QStringLiteral("Browse"),
+                                    {{QStringLiteral("ObjectID"), objectID},
+                                     {QStringLiteral("BrowseFlag"), browseFlag},
+                                     {QStringLiteral("Filter"), filter},
+                                     {QStringLiteral("StartingIndex"), startingIndex},
+                                     {QStringLiteral("RequestedCount"), requestedCount},
+                                     {QStringLiteral("SortCriteria"), sortCriteria}});
 
     return pendingAnswer;
 }
@@ -247,7 +249,7 @@ void UpnpControlContentDirectory::parseServiceDescription(QIODevice *serviceDesc
     d->mHasTransferIDs = allVariables.contains(QStringLiteral("TransferIDs"));
     Q_EMIT hasTransferIDsChanged();
 
-    //const QList<QString> &allActions(actions());
+    // const QList<QString> &allActions(actions());
 }
 
 void UpnpControlContentDirectory::parseEventNotification(const QString &eventName, const QString &eventValue)

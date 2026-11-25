@@ -9,16 +9,16 @@
 
 #include "elisaLib_export.h"
 
-#include "elisautils.h"
 #include "datatypes.h"
+#include "elisautils.h"
 
 #include <QAbstractListModel>
 #include <QMediaPlayer>
 #include <QQmlEngine>
 
-#include <utility>
-#include <tuple>
 #include <memory>
+#include <tuple>
+#include <utility>
 
 class MediaPlayListPrivate;
 class MediaPlayListEntry;
@@ -31,7 +31,6 @@ class ELISALIB_EXPORT MediaPlayList : public QAbstractListModel
     QML_ELEMENT
 
 public:
-
     enum ColumnsRoles {
         TitleRole = DataTypes::TitleRole,
         SecondaryTextRole,
@@ -125,12 +124,9 @@ Q_SIGNALS:
 
     void newTrackByNameInList(const QVariant &title, const QVariant &artist, const QVariant &album, const QVariant &trackNumber, const QVariant &discNumber);
 
-    void newEntryInList(qulonglong newDatabaseId,
-                        const QString &entryTitle,
-                        ElisaUtils::PlayListEntryType databaseIdType);
+    void newEntryInList(qulonglong newDatabaseId, const QString &entryTitle, ElisaUtils::PlayListEntryType databaseIdType);
 
-    void newUrlInList(const QUrl &entryUrl,
-                      ElisaUtils::PlayListEntryType databaseIdType);
+    void newUrlInList(const QUrl &entryUrl, ElisaUtils::PlayListEntryType databaseIdType);
 
 public Q_SLOTS:
 
@@ -156,40 +152,54 @@ public Q_SLOTS:
     void enqueueMultipleEntries(const DataTypes::EntryDataList &entriesData, int insertAt = -1);
 
 private:
-
     std::unique_ptr<MediaPlayListPrivate> d;
 };
 
 class MediaPlayListEntry
 {
 public:
-
     MediaPlayListEntry() = default;
 
-    MediaPlayListEntry(qulonglong id, QVariant title, QVariant artist,
-                       QVariant album, QVariant trackUrl,
-                       QVariant trackNumber, QVariant discNumber,
+    MediaPlayListEntry(qulonglong id,
+                       QVariant title,
+                       QVariant artist,
+                       QVariant album,
+                       QVariant trackUrl,
+                       QVariant trackNumber,
+                       QVariant discNumber,
                        ElisaUtils::PlayListEntryType entryType = ElisaUtils::Unknown)
-        : mTitle(std::move(title)), mAlbum(std::move(album)), mArtist(std::move(artist)), mTrackUrl(std::move(trackUrl)),
-          mTrackNumber(std::move(trackNumber)), mDiscNumber(std::move(discNumber)), mId(id), mEntryType(entryType) {
+        : mTitle(std::move(title))
+        , mAlbum(std::move(album))
+        , mArtist(std::move(artist))
+        , mTrackUrl(std::move(trackUrl))
+        , mTrackNumber(std::move(trackNumber))
+        , mDiscNumber(std::move(discNumber))
+        , mId(id)
+        , mEntryType(entryType)
+    {
     }
 
     explicit MediaPlayListEntry(const MediaPlayList::TrackDataType &track)
-        : mTitle(track[DataTypes::TitleRole]),
-          mAlbum(track[DataTypes::AlbumRole]),
-          mTrackNumber(track[DataTypes::TrackNumberRole]),
-          mDiscNumber(track[DataTypes::DiscNumberRole]),
-          mId(track[DataTypes::DatabaseIdRole].toULongLong()),
-          mIsValid(true) {
+        : mTitle(track[DataTypes::TitleRole])
+        , mAlbum(track[DataTypes::AlbumRole])
+        , mTrackNumber(track[DataTypes::TrackNumberRole])
+        , mDiscNumber(track[DataTypes::DiscNumberRole])
+        , mId(track[DataTypes::DatabaseIdRole].toULongLong())
+        , mIsValid(true)
+    {
     }
 
-    explicit MediaPlayListEntry(QUrl fileName) : mTrackUrl(std::move(fileName)) {
+    explicit MediaPlayListEntry(QUrl fileName)
+        : mTrackUrl(std::move(fileName))
+    {
     }
 
-    explicit MediaPlayListEntry(qulonglong id,
-                                const QString &entryTitle,
-                                ElisaUtils::PlayListEntryType type)
-        : mTitle(entryTitle), mId(id), mIsValid(true), mEntryType(type) {
+    explicit MediaPlayListEntry(qulonglong id, const QString &entryTitle, ElisaUtils::PlayListEntryType type)
+        : mTitle(entryTitle)
+        , mId(id)
+        , mIsValid(true)
+        , mEntryType(type)
+    {
     }
 
     QVariant mTitle;
@@ -211,11 +221,8 @@ public:
     ElisaUtils::PlayListEntryType mEntryType = ElisaUtils::PlayListEntryType::Unknown;
 
     MediaPlayList::PlayState mIsPlaying = MediaPlayList::NotPlaying;
-
 };
 
 QDebug operator<<(const QDebug &stream, const MediaPlayListEntry &data);
-
-
 
 #endif // MEDIAPLAYLIST_H

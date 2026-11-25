@@ -18,16 +18,13 @@
 class ELISALIB_EXPORT AndroidPlayer : public QObject
 {
     Q_OBJECT
-    
+
     QML_ELEMENT
 
-    Q_PROPERTY(ManageAudioPlayer* audioPlayerManager
-               READ audioPlayerManager
-               WRITE setAudioPlayerManager
-               NOTIFY audioPlayerManagerChanged)
+    Q_PROPERTY(ManageAudioPlayer *audioPlayerManager READ audioPlayerManager WRITE setAudioPlayerManager NOTIFY audioPlayerManagerChanged)
 
 public:
-    explicit AndroidPlayer(QObject* parent = nullptr);
+    explicit AndroidPlayer(QObject *parent = nullptr);
     ~AndroidPlayer() override;
 
     [[nodiscard]] ManageAudioPlayer *audioPlayerManager() const;
@@ -69,7 +66,7 @@ private Q_SLOTS:
 private:
     void pushMetadata();
 
-    AndroidPlayerJni* m_androidplayerjni = &AndroidPlayerJni::GetInstance();
+    AndroidPlayerJni *m_androidplayerjni = &AndroidPlayerJni::GetInstance();
 
     ManageAudioPlayer *m_manageAudioPlayer = nullptr;
 

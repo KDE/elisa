@@ -6,7 +6,8 @@
 
 #include "trackcontextmetadatamodel.h"
 
-TrackContextMetaDataModel::TrackContextMetaDataModel(QObject *parent) : TrackMetadataModel(parent)
+TrackContextMetaDataModel::TrackContextMetaDataModel(QObject *parent)
+    : TrackMetadataModel(parent)
 {
 }
 
@@ -15,8 +16,7 @@ void TrackContextMetaDataModel::filterDataFromTrackData()
     removeMetaData(DataTypes::AlbumArtistRole);
     removeMetaData(DataTypes::LyricsRole);
 
-    if (dataFromType(DataTypes::IsSingleDiscAlbumRole).toBool() &&
-            dataFromType(DataTypes::DiscNumberRole).toInt() == 1) {
+    if (dataFromType(DataTypes::IsSingleDiscAlbumRole).toBool() && dataFromType(DataTypes::DiscNumberRole).toInt() == 1) {
         removeMetaData(DataTypes::DiscNumberRole);
     }
 }
@@ -24,6 +24,5 @@ void TrackContextMetaDataModel::filterDataFromTrackData()
 void TrackContextMetaDataModel::fillLyricsDataFromTrack()
 {
 }
-
 
 #include "moc_trackcontextmetadatamodel.cpp"

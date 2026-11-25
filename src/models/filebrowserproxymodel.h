@@ -10,20 +10,20 @@
 
 #include "elisaLib_export.h"
 
-#include "filescanner.h"
 #include "elisautils.h"
+#include "filescanner.h"
 
 #include <KDirSortFilterProxyModel>
-#include <KJob>
 #include <KIO/ListJob>
 #include <KIO/UDSEntry>
+#include <KJob>
 
 #include <QMimeDatabase>
 #include <QQmlEngine>
 #include <QRegularExpression>
 
-#include <queue>
 #include <memory>
+#include <queue>
 
 class MediaPlayListProxyModel;
 
@@ -33,24 +33,15 @@ class ELISALIB_EXPORT FileBrowserProxyModel : public KDirSortFilterProxyModel
 
     QML_ELEMENT
 
-    Q_PROPERTY(QString filterText
-               READ filterText
-               WRITE setFilterText
-               NOTIFY filterTextChanged)
+    Q_PROPERTY(QString filterText READ filterText WRITE setFilterText NOTIFY filterTextChanged)
 
-    Q_PROPERTY(int filterRating
-               READ filterRating
-               WRITE setFilterRating
-               NOTIFY filterRatingChanged)
+    Q_PROPERTY(int filterRating READ filterRating WRITE setFilterRating NOTIFY filterRatingChanged)
 
-    Q_PROPERTY(bool sortedAscending
-               READ sortedAscending
-               NOTIFY sortedAscendingChanged)
+    Q_PROPERTY(bool sortedAscending READ sortedAscending NOTIFY sortedAscendingChanged)
 
-    Q_PROPERTY(MediaPlayListProxyModel* playList READ playList WRITE setPlayList NOTIFY playListChanged)
+    Q_PROPERTY(MediaPlayListProxyModel *playList READ playList WRITE setPlayList NOTIFY playListChanged)
 
 public:
-
     explicit FileBrowserProxyModel(QObject *parent = nullptr);
 
     ~FileBrowserProxyModel() override;
@@ -61,7 +52,7 @@ public:
 
     [[nodiscard]] bool sortedAscending() const;
 
-    [[nodiscard]] MediaPlayListProxyModel* playList() const;
+    [[nodiscard]] MediaPlayListProxyModel *playList() const;
 
 public Q_SLOTS:
 
@@ -76,7 +67,7 @@ public Q_SLOTS:
 
     void setFilterRating(int filterRating);
 
-    void setPlayList(MediaPlayListProxyModel* playList);
+    void setPlayList(MediaPlayListProxyModel *playList);
 
     void sortModel(Qt::SortOrder order);
 
@@ -101,10 +92,8 @@ private Q_SLOTS:
     void listRecursiveNewEntries(KIO::Job *job, const KIO::UDSEntryList &list);
 
 private:
-
-    void genericEnqueueToPlayList(const QModelIndex &rootIndex,
-                                  ElisaUtils::PlayListEnqueueMode enqueueMode,
-                                  ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
+    void
+    genericEnqueueToPlayList(const QModelIndex &rootIndex, ElisaUtils::PlayListEnqueueMode enqueueMode, ElisaUtils::PlayListEnqueueTriggerPlay triggerPlay);
 
     void disconnectPlayList();
 
@@ -116,7 +105,7 @@ private:
 
     QRegularExpression mFilterExpression;
 
-    MediaPlayListProxyModel* mPlayList = nullptr;
+    MediaPlayListProxyModel *mPlayList = nullptr;
 
     int mFilterRating = 0;
 
@@ -135,7 +124,6 @@ private:
     QUrl mCurentUrl;
 
     KIO::Job *mCurrentJob = nullptr;
-
 };
 
 #endif // FILEBROWSERPROXYMODEL_H

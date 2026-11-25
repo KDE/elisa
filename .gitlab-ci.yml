@@ -5,6 +5,7 @@ include:
   - project: sysadmin/ci-utilities
     file:
       - /gitlab-templates/android-qt6.yml
+      - /gitlab-templates/clang-format.yml
       - /gitlab-templates/craft-android-qt6-apks.yml
       - /gitlab-templates/linux-qt6.yml
       - /gitlab-templates/linux-qt6-next.yml

@@ -6,9 +6,9 @@
 
 #include "manageheaderbartest.h"
 
+#include "databaseinterface.h"
 #include "manageheaderbar.h"
 #include "mediaplaylist.h"
-#include "databaseinterface.h"
 #include "trackslistener.h"
 
 #include <QString>
@@ -18,14 +18,13 @@
 #include <QSignalSpy>
 #include <QTest>
 
-ManageHeaderBarTest::ManageHeaderBarTest(QObject *parent) : QObject(parent)
+ManageHeaderBarTest::ManageHeaderBarTest(QObject *parent)
+    : QObject(parent)
 {
-
 }
 
 void ManageHeaderBarTest::initTestCase()
 {
-
 }
 
 void ManageHeaderBarTest::simpleInitialCase()
@@ -185,12 +184,12 @@ void ManageHeaderBarTest::setCurrentTrackWithData()
     QCOMPARE(albumChangedSpy.count(), 1);
     QCOMPARE(imageChangedSpy.count(), 1);
     QCOMPARE(albumIdChangedSpy.count(), 0);
-    QCOMPARE(isValidChangedSpy.count(), 0);;
+    QCOMPARE(isValidChangedSpy.count(), 0);
+    ;
 
     QCOMPARE(myControl.currentTrack(), QPersistentModelIndex(myPlayList.index(0, 0)));
 }
 
 QTEST_GUILESS_MAIN(ManageHeaderBarTest)
-
 
 #include "moc_manageheaderbartest.cpp"

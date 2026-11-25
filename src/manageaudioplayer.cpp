@@ -517,8 +517,9 @@ void ManageAudioPlayer::setCurrentPlayingForRadios(const QString &title, const Q
 {
     if (mPlayListModel && mCurrentTrack.isValid()) {
         const auto type = mCurrentTrack.data(MediaPlayList::ElementTypeRole).value<ElisaUtils::PlayListEntryType>();
-        // WORKAROUND: Don't update metadata if the title is the last subpath of the stream URL. This is an unresolved issue with libVLC,
-        // see issue 21057 here: https://code.videolan.org/videolan/vlc/-/issues/21057
+        // WORKAROUND: Don't update metadata if the title is the last subpath of the
+        // stream URL. This is an unresolved issue with libVLC, see issue 21057
+        // here: https://code.videolan.org/videolan/vlc/-/issues/21057
         bool suppressMetadataUpdate = type != ElisaUtils::Radio || (!title.isEmpty() && mCurrentTrack.data(mUrlRole).toString().endsWith(title));
         if (!suppressMetadataUpdate) {
             Q_EMIT updateData(mCurrentTrack, title, MediaPlayList::TitleRole);
@@ -654,9 +655,11 @@ void ManageAudioPlayer::notifyPlayerSourceProperty()
 void ManageAudioPlayer::triggerPlay()
 {
     QTimer::singleShot(0, this, [this]() {
-        // While switching tracks the player still has the previous source loaded. Playing now would restart that
-        // previous track and the backend could report it as playing before we have seen it stop, so the new source
-        // would never be loaded. The new track is started once it has been loaded (see setPlayerStatus).
+        // While switching tracks the player still has the previous source loaded.
+        // Playing now would restart that previous track and the backend could
+        // report it as playing before we have seen it stop, so the new source would
+        // never be loaded. The new track is started once it has been loaded (see
+        // setPlayerStatus).
         if (mSkippingCurrentTrack) {
             return;
         }

@@ -6,10 +6,9 @@
 
 #include "managemediaplayercontrol.h"
 
-
-ManageMediaPlayerControl::ManageMediaPlayerControl(QObject *parent) : QObject(parent)
+ManageMediaPlayerControl::ManageMediaPlayerControl(QObject *parent)
+    : QObject(parent)
 {
-
 }
 
 bool ManageMediaPlayerControl::playControlEnabled() const

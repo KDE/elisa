@@ -2,7 +2,8 @@
    SPDX-FileCopyrightText: 2015 (c) Matthieu Gallien <matthieu_gallien@yahoo.fr>
    SPDX-FileCopyrightText: 2019 (c) Alexander Stippich <a.stippich@gmx.net>
    SPDX-FileCopyrightText: 2020 (c) Carson Black <uhhadd@gmail.com>
-   SPDX-FileCopyrightText: 2026 (c) Dina Sakharova <d.sakharova@notquiteloona.dev>
+   SPDX-FileCopyrightText: 2026 (c) Dina Sakharova
+   <d.sakharova@notquiteloona.dev>
 
    SPDX-License-Identifier: LGPL-3.0-or-later
  */

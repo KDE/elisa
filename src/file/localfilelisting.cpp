@@ -6,28 +6,27 @@
 
 #include "localfilelisting.h"
 
-#include "filescanner.h"
 #include "abstractfile/indexercommon.h"
+#include "filescanner.h"
 
-#include <QThread>
 #include <QHash>
 #include <QStandardPaths>
-
+#include <QThread>
 
 #include <algorithm>
 
 class LocalFileListingPrivate
 {
 public:
-
 };
 
-LocalFileListing::LocalFileListing(QObject *parent) : AbstractFileListing(parent), d(std::make_unique<LocalFileListingPrivate>())
+LocalFileListing::LocalFileListing(QObject *parent)
+    : AbstractFileListing(parent)
+    , d(std::make_unique<LocalFileListingPrivate>())
 {
 }
 
-LocalFileListing::~LocalFileListing()
-= default;
+LocalFileListing::~LocalFileListing() = default;
 
 void LocalFileListing::executeInit(const QHash<QUrl, QDateTime> &allFiles)
 {
@@ -83,6 +82,5 @@ DataTypes::TrackDataType LocalFileListing::scanOneFile(const QUrl &scanFile, con
 
     return trackData;
 }
-
 
 #include "moc_localfilelisting.cpp"

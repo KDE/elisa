@@ -16,7 +16,6 @@
 class DataModelPrivate
 {
 public:
-
     DataModel::ListTrackDataType mAllTrackData;
 
     DataModel::ListRadioDataType mAllRadiosData;
@@ -44,17 +43,17 @@ public:
     qulonglong mDatabaseId = 0;
 
     bool mIsBusy = false;
-
 };
 
-DataModel::DataModel(QObject *parent) : QAbstractListModel(parent), d(std::make_unique<DataModelPrivate>())
+DataModel::DataModel(QObject *parent)
+    : QAbstractListModel(parent)
+    , d(std::make_unique<DataModelPrivate>())
 {
     d->mDataLoader = new ModelDataLoader;
     connect(this, &DataModel::destroyed, d->mDataLoader, &ModelDataLoader::deleteLater);
 }
 
-DataModel::~DataModel()
-= default;
+DataModel::~DataModel() = default;
 
 int DataModel::rowCount(const QModelIndex &parent) const
 {
@@ -118,7 +117,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         return result;
     }
 
-    const auto dataCount = d->mModelType == ElisaUtils::Radio ? d->mAllRadiosData.size() : d->mAllTrackData.size() + d->mAllAlbumData.size() + d->mAllArtistData.size() + d->mAllGenreData.size();
+    const auto dataCount = d->mModelType == ElisaUtils::Radio
+        ? d->mAllRadiosData.size()
+        : d->mAllTrackData.size() + d->mAllAlbumData.size() + d->mAllArtistData.size() + d->mAllGenreData.size();
 
     Q_ASSERT(index.isValid());
     Q_ASSERT(index.column() == 0);
@@ -127,11 +128,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
     Q_ASSERT(index.internalId() == 0);
     Q_ASSERT(index.row() >= 0 && index.row() < dataCount);
 
-    switch(role)
-    {
+    switch (role) {
     case Qt::DisplayRole:
-        switch(d->mModelType)
-        {
+        switch (d->mModelType) {
         case ElisaUtils::Track:
             result = d->mAllTrackData[index.row()][TrackDataType::key_type::TitleRole];
             if (result.toString().isEmpty()) {
@@ -159,12 +158,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case DataTypes::ColumnsRoles::StringDurationRole:
-    {
-        switch (d->mModelType)
-        {
-        case ElisaUtils::Track:
-        {
+    case DataTypes::ColumnsRoles::StringDurationRole: {
+        switch (d->mModelType) {
+        case ElisaUtils::Track: {
             auto trackDuration = d->mAllTrackData[index.row()][TrackDataType::key_type::DurationRole].toTime();
             if (trackDuration.hour() == 0) {
                 result = QLocale().toString(trackDuration, QStringLiteral("mm:ss"));
@@ -187,10 +183,8 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case DataTypes::ColumnsRoles::IsSingleDiscAlbumRole:
-    {
-        switch (d->mModelType)
-        {
+    case DataTypes::ColumnsRoles::IsSingleDiscAlbumRole: {
+        switch (d->mModelType) {
         case ElisaUtils::Track:
             result = d->mAllTrackData[index.row()][TrackDataType::key_type::IsSingleDiscAlbumRole];
             break;
@@ -212,12 +206,9 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case DataTypes::ColumnsRoles::ArtistRole:
-    {
-        switch (d->mModelType)
-        {
-        case ElisaUtils::Track:
-        {
+    case DataTypes::ColumnsRoles::ArtistRole: {
+        switch (d->mModelType) {
+        case ElisaUtils::Track: {
             auto itArtist = d->mAllTrackData[index.row()].find(TrackDataType::key_type::ArtistRole);
             if (itArtist != d->mAllTrackData[index.row()].end()) {
                 result = d->mAllTrackData[index.row()][TrackDataType::key_type::ArtistRole];
@@ -249,8 +240,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         break;
     }
     case DataTypes::ColumnsRoles::FullDataRole:
-        switch (d->mModelType)
-        {
+        switch (d->mModelType) {
         case ElisaUtils::Track:
             result = QVariant::fromValue(static_cast<DataTypes::MusicDataType>(d->mAllTrackData[index.row()]));
             break;
@@ -275,10 +265,8 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
             break;
         }
         break;
-    case DataTypes::ColumnsRoles::ResourceRole:
-    {
-        switch (d->mModelType)
-        {
+    case DataTypes::ColumnsRoles::ResourceRole: {
+        switch (d->mModelType) {
         case ElisaUtils::Track:
         case ElisaUtils::FileName:
             result = d->mAllTrackData[index.row()][TrackDataType::key_type::ResourceRole];
@@ -299,10 +287,8 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case DataTypes::ColumnsRoles::HasChildrenRole:
-    {
-        switch (d->mModelType)
-        {
+    case DataTypes::ColumnsRoles::HasChildrenRole: {
+        switch (d->mModelType) {
         case ElisaUtils::Track:
         case ElisaUtils::FileName:
         case ElisaUtils::Radio:
@@ -322,8 +308,7 @@ QVariant DataModel::data(const QModelIndex &index, int role) const
         break;
     }
     default:
-        switch(d->mModelType)
-        {
+        switch (d->mModelType) {
         case ElisaUtils::Track:
             result = d->mAllTrackData[index.row()][static_cast<TrackDataType::key_type>(role)];
             break;
@@ -393,8 +378,10 @@ bool DataModel::isBusy() const
     return d->mIsBusy;
 }
 
-void DataModel::initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
-                                 ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+void DataModel::initializeByData(MusicListenersManager *manager,
+                                 DatabaseInterface *database,
+                                 ElisaUtils::PlayListEntryType modelType,
+                                 ElisaUtils::FilterType filter,
                                  const DataTypes::DataType &dataFilter)
 {
     qCDebug(orgKdeElisaModel()) << "DataModel::initialize" << modelType << filter << dataFilter;
@@ -416,8 +403,10 @@ void DataModel::setBusy(bool value)
     Q_EMIT isBusyChanged();
 }
 
-void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterface *database,
-                                ElisaUtils::PlayListEntryType modelType, DataModel::FilterType type)
+void DataModel::initializeModel(MusicListenersManager *manager,
+                                DatabaseInterface *database,
+                                ElisaUtils::PlayListEntryType modelType,
+                                DataModel::FilterType type)
 {
     d->mModelType = modelType;
     d->mFilterType = type;
@@ -434,35 +423,27 @@ void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterfac
         return;
     }
 
-    switch(d->mFilterType)
-    {
+    switch (d->mFilterType) {
     case ElisaUtils::NoFilter:
-        connect(this, &DataModel::needData,
-                d->mDataLoader, &ModelDataLoader::loadData);
+        connect(this, &DataModel::needData, d->mDataLoader, &ModelDataLoader::loadData);
         break;
     case ElisaUtils::FilterById:
-        connect(this, &DataModel::needDataById,
-                d->mDataLoader, &ModelDataLoader::loadDataByAlbumId);
+        connect(this, &DataModel::needDataById, d->mDataLoader, &ModelDataLoader::loadDataByAlbumId);
         break;
     case ElisaUtils::FilterByGenre:
-        connect(this, &DataModel::needDataByGenre,
-                d->mDataLoader, &ModelDataLoader::loadDataByGenre);
+        connect(this, &DataModel::needDataByGenre, d->mDataLoader, &ModelDataLoader::loadDataByGenre);
         break;
     case ElisaUtils::FilterByArtist:
-        connect(this, &DataModel::needDataByArtist,
-                d->mDataLoader, &ModelDataLoader::loadDataByArtist);
+        connect(this, &DataModel::needDataByArtist, d->mDataLoader, &ModelDataLoader::loadDataByArtist);
         break;
     case ElisaUtils::FilterByGenreAndArtist:
-        connect(this, &DataModel::needDataByGenreAndArtist,
-                d->mDataLoader, &ModelDataLoader::loadDataByGenreAndArtist);
+        connect(this, &DataModel::needDataByGenreAndArtist, d->mDataLoader, &ModelDataLoader::loadDataByGenreAndArtist);
         break;
     case ElisaUtils::FilterByRecentlyPlayed:
-        connect(this, &DataModel::needRecentlyPlayedData,
-                d->mDataLoader, &ModelDataLoader::loadRecentlyPlayedData);
+        connect(this, &DataModel::needRecentlyPlayedData, d->mDataLoader, &ModelDataLoader::loadRecentlyPlayedData);
         break;
     case ElisaUtils::FilterByFrequentlyPlayed:
-        connect(this, &DataModel::needFrequentlyPlayedData,
-                d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
+        connect(this, &DataModel::needFrequentlyPlayedData, d->mDataLoader, &ModelDataLoader::loadFrequentlyPlayedData);
         break;
     case ElisaUtils::FilterByPath:
     case ElisaUtils::UnknownFilter:
@@ -476,8 +457,7 @@ void DataModel::initializeModel(MusicListenersManager *manager, DatabaseInterfac
 
 void DataModel::askModelData()
 {
-    switch(d->mFilterType)
-    {
+    switch (d->mFilterType) {
     case ElisaUtils::NoFilter:
         Q_EMIT needData(d->mModelType);
         break;
@@ -508,7 +488,7 @@ void DataModel::askModelData()
 int DataModel::indexFromId(qulonglong id) const
 {
     int result;
-    DataModel::ListTrackDataType mAllData = d->mModelType == ElisaUtils::Radio ? d->mAllRadiosData: d->mAllTrackData;
+    DataModel::ListTrackDataType mAllData = d->mModelType == ElisaUtils::Radio ? d->mAllRadiosData : d->mAllTrackData;
 
     for (result = 0; result < mAllData.size(); ++result) {
         if (mAllData[result].databaseId() == id) {
@@ -525,43 +505,25 @@ void DataModel::connectModel(DatabaseInterface *database)
 {
     d->mDataLoader->setDatabase(database);
 
-    connect(d->mDataLoader, &ModelDataLoader::allTracksData,
-            this, &DataModel::tracksAdded);
-    connect(d->mDataLoader, &ModelDataLoader::allRadiosData,
-            this, &DataModel::radiosAdded);
-    connect(d->mDataLoader, &ModelDataLoader::allAlbumsData,
-            this, &DataModel::albumsAdded);
-    connect(d->mDataLoader, &ModelDataLoader::allArtistsData,
-            this, &DataModel::artistsAdded);
-    connect(d->mDataLoader, &ModelDataLoader::allGenresData,
-            this, &DataModel::genresAdded);
-    connect(d->mDataLoader, &ModelDataLoader::genresAdded,
-            this, &DataModel::genresAdded);
+    connect(d->mDataLoader, &ModelDataLoader::allTracksData, this, &DataModel::tracksAdded);
+    connect(d->mDataLoader, &ModelDataLoader::allRadiosData, this, &DataModel::radiosAdded);
+    connect(d->mDataLoader, &ModelDataLoader::allAlbumsData, this, &DataModel::albumsAdded);
+    connect(d->mDataLoader, &ModelDataLoader::allArtistsData, this, &DataModel::artistsAdded);
+    connect(d->mDataLoader, &ModelDataLoader::allGenresData, this, &DataModel::genresAdded);
+    connect(d->mDataLoader, &ModelDataLoader::genresAdded, this, &DataModel::genresAdded);
     connect(d->mDataLoader, &ModelDataLoader::genreRemoved, this, &DataModel::genreRemoved);
-    connect(d->mDataLoader, &ModelDataLoader::albumsAdded,
-            this, &DataModel::albumsAdded);
-    connect(d->mDataLoader, &ModelDataLoader::albumModified,
-            this, &DataModel::albumModified);
-    connect(d->mDataLoader, &ModelDataLoader::albumRemoved,
-            this, &DataModel::albumRemoved);
-    connect(d->mDataLoader, &ModelDataLoader::tracksAdded,
-            this, &DataModel::tracksAdded);
-    connect(d->mDataLoader, &ModelDataLoader::trackModified,
-            this, &DataModel::trackModified);
-    connect(d->mDataLoader, &ModelDataLoader::trackRemoved,
-            this, &DataModel::trackRemoved);
-    connect(d->mDataLoader, &ModelDataLoader::artistsAdded,
-            this, &DataModel::artistsAdded);
-    connect(d->mDataLoader, &ModelDataLoader::artistRemoved,
-            this, &DataModel::artistRemoved);
-    connect(d->mDataLoader, &ModelDataLoader::radioAdded,
-            this, &DataModel::radioAdded);
-    connect(d->mDataLoader, &ModelDataLoader::radioModified,
-            this, &DataModel::radioModified);
-    connect(d->mDataLoader, &ModelDataLoader::radioRemoved,
-            this, &DataModel::radioRemoved);
-    connect(d->mDataLoader, &ModelDataLoader::clearedDatabase,
-            this, &DataModel::cleanedDatabase);
+    connect(d->mDataLoader, &ModelDataLoader::albumsAdded, this, &DataModel::albumsAdded);
+    connect(d->mDataLoader, &ModelDataLoader::albumModified, this, &DataModel::albumModified);
+    connect(d->mDataLoader, &ModelDataLoader::albumRemoved, this, &DataModel::albumRemoved);
+    connect(d->mDataLoader, &ModelDataLoader::tracksAdded, this, &DataModel::tracksAdded);
+    connect(d->mDataLoader, &ModelDataLoader::trackModified, this, &DataModel::trackModified);
+    connect(d->mDataLoader, &ModelDataLoader::trackRemoved, this, &DataModel::trackRemoved);
+    connect(d->mDataLoader, &ModelDataLoader::artistsAdded, this, &DataModel::artistsAdded);
+    connect(d->mDataLoader, &ModelDataLoader::artistRemoved, this, &DataModel::artistRemoved);
+    connect(d->mDataLoader, &ModelDataLoader::radioAdded, this, &DataModel::radioAdded);
+    connect(d->mDataLoader, &ModelDataLoader::radioModified, this, &DataModel::radioModified);
+    connect(d->mDataLoader, &ModelDataLoader::radioRemoved, this, &DataModel::radioRemoved);
+    connect(d->mDataLoader, &ModelDataLoader::clearedDatabase, this, &DataModel::cleanedDatabase);
 }
 
 void DataModel::tracksAdded(ListTrackDataType newData)
@@ -706,8 +668,7 @@ void DataModel::trackModified(const TrackDataType &modifiedTrack)
         d->mAllTrackData[trackIndex] = modifiedTrack;
         Q_EMIT dataChanged(index(trackIndex, 0), index(trackIndex, 0));
     } else {
-        auto itTrack = std::find_if(d->mAllTrackData.begin(), d->mAllTrackData.end(),
-                                    [modifiedTrack](auto track) {
+        auto itTrack = std::find_if(d->mAllTrackData.begin(), d->mAllTrackData.end(), [modifiedTrack](auto track) {
             return track.databaseId() == modifiedTrack.databaseId();
         });
 
@@ -756,8 +717,9 @@ void DataModel::trackRemoved(qulonglong removedTrackId)
         d->mAllTrackData.removeAt(trackIndex);
         endRemoveRows();
     } else {
-        const auto itTrack = std::find_if(d->mAllTrackData.cbegin(), d->mAllTrackData.cend(),
-                                         [removedTrackId](auto track) {return track.databaseId() == removedTrackId;});
+        const auto itTrack = std::find_if(d->mAllTrackData.cbegin(), d->mAllTrackData.cend(), [removedTrackId](auto track) {
+            return track.databaseId() == removedTrackId;
+        });
 
         if (itTrack == d->mAllTrackData.cend()) {
             return;
@@ -777,9 +739,9 @@ void DataModel::radioRemoved(qulonglong removedRadioId)
         return;
     }
 
-
-    const auto itRadio = std::find_if(d->mAllRadiosData.cbegin(), d->mAllRadiosData.cend(),
-                                      [removedRadioId](auto track) {return track.databaseId() == removedRadioId;});
+    const auto itRadio = std::find_if(d->mAllRadiosData.cbegin(), d->mAllRadiosData.cend(), [removedRadioId](auto track) {
+        return track.databaseId() == removedRadioId;
+    });
 
     if (itRadio == d->mAllRadiosData.cend()) {
         return;
@@ -889,8 +851,9 @@ void DataModel::artistRemoved(qulonglong removedDatabaseId)
         return;
     }
 
-    const auto removedDataIterator = std::find_if(d->mAllArtistData.cbegin(), d->mAllArtistData.cend(),
-                                                  [removedDatabaseId](auto album) {return album.databaseId() == removedDatabaseId;});
+    const auto removedDataIterator = std::find_if(d->mAllArtistData.cbegin(), d->mAllArtistData.cend(), [removedDatabaseId](auto album) {
+        return album.databaseId() == removedDatabaseId;
+    });
 
     if (removedDataIterator == d->mAllArtistData.cend()) {
         return;
@@ -936,8 +899,9 @@ void DataModel::albumRemoved(qulonglong removedDatabaseId)
 
     auto removedDataIterator = d->mAllAlbumData.cend();
 
-    removedDataIterator = std::find_if(d->mAllAlbumData.cbegin(), d->mAllAlbumData.cend(),
-                                       [removedDatabaseId](auto album) {return album.databaseId() == removedDatabaseId;});
+    removedDataIterator = std::find_if(d->mAllAlbumData.cbegin(), d->mAllAlbumData.cend(), [removedDatabaseId](auto album) {
+        return album.databaseId() == removedDatabaseId;
+    });
 
     if (removedDataIterator == d->mAllAlbumData.cend()) {
         return;
@@ -958,8 +922,7 @@ void DataModel::albumModified(const DataModel::AlbumDataType &modifiedAlbum)
         return;
     }
 
-    auto modifiedAlbumIterator = std::find_if(d->mAllAlbumData.begin(), d->mAllAlbumData.end(),
-                                              [modifiedAlbum](auto album) {
+    auto modifiedAlbumIterator = std::find_if(d->mAllAlbumData.begin(), d->mAllAlbumData.end(), [modifiedAlbum](auto album) {
         return album.databaseId() == modifiedAlbum.databaseId();
     });
 
@@ -972,9 +935,13 @@ void DataModel::albumModified(const DataModel::AlbumDataType &modifiedAlbum)
     Q_EMIT dataChanged(index(albumIndex, 0), index(albumIndex, 0));
 }
 
-void DataModel::initialize(MusicListenersManager *manager, DatabaseInterface *database,
-                           ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
-                           const QString &genre, const QString &artist, qulonglong databaseId,
+void DataModel::initialize(MusicListenersManager *manager,
+                           DatabaseInterface *database,
+                           ElisaUtils::PlayListEntryType modelType,
+                           ElisaUtils::FilterType filter,
+                           const QString &genre,
+                           const QString &artist,
+                           qulonglong databaseId,
                            const QUrl &pathFilter)
 {
     Q_UNUSED(pathFilter)

@@ -4,8 +4,8 @@
    SPDX-License-Identifier: LGPL-3.0-or-later
  */
 
-#include "datatypes.h"
 #include "models/gridviewproxymodel.h"
+#include "datatypes.h"
 
 #include <QAbstractItemModelTester>
 #include <QStandardItemModel>
@@ -95,9 +95,9 @@ private Q_SLOTS:
 
         mProxyModel->sort(0, sortOrder);
 
-        // the secondary keys always use their natural order, even when the primary key is sorted in descending order
-        QCOMPARE(describe(sortedEntries()),
-                 (QStringList{u"artist/1/1/1"_s, u"artist/1/1/2"_s, u"artist/1/2/1"_s, u"artist/1/2/2"_s, u"artist/2/1/1"_s}));
+        // the secondary keys always use their natural order, even when the primary
+        // key is sorted in descending order
+        QCOMPARE(describe(sortedEntries()), (QStringList{u"artist/1/1/1"_s, u"artist/1/1/2"_s, u"artist/1/2/1"_s, u"artist/1/2/2"_s, u"artist/2/1/1"_s}));
     }
 
     void differentPrimaryKeysTakePrecedence_data()
@@ -105,10 +105,8 @@ private Q_SLOTS:
         QTest::addColumn<Qt::SortOrder>("sortOrder");
         QTest::addColumn<QStringList>("expected");
 
-        QTest::addRow("ascending") << Qt::AscendingOrder
-                                   << QStringList{u"a/2/1/2"_s, u"a/2/1/3"_s, u"b/1/1/1"_s, u"b/1/2/1"_s};
-        QTest::addRow("descending") << Qt::DescendingOrder
-                                    << QStringList{u"b/1/1/1"_s, u"b/1/2/1"_s, u"a/2/1/2"_s, u"a/2/1/3"_s};
+        QTest::addRow("ascending") << Qt::AscendingOrder << QStringList{u"a/2/1/2"_s, u"a/2/1/3"_s, u"b/1/1/1"_s, u"b/1/2/1"_s};
+        QTest::addRow("descending") << Qt::DescendingOrder << QStringList{u"b/1/1/1"_s, u"b/1/2/1"_s, u"a/2/1/2"_s, u"a/2/1/3"_s};
     }
 
     void differentPrimaryKeysTakePrecedence()

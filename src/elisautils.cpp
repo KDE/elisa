@@ -24,7 +24,7 @@ std::optional<PlaylistFormat> playlistFormatForType(const QMimeType &mimeType)
     return {};
 }
 
-bool isPlayList(const QMimeType& mimeType)
+bool isPlayList(const QMimeType &mimeType)
 {
     return playlistFormatForType(mimeType).has_value();
 }
@@ -46,6 +46,6 @@ QMimeType resolveAudioMimeType(const QMimeType &detectedMime, const QString &fil
     return detectedMime;
 }
 
-}
+} // namespace ElisaUtils
 
 #include "moc_elisautils.cpp"

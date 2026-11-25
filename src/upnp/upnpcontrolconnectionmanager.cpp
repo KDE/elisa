@@ -11,11 +11,9 @@
 #include <KDSoapClient/KDSoapPendingCall.h>
 #include <KDSoapClient/KDSoapPendingCallWatcher.h>
 
-
 class UpnpControlConnectionManagerPrivate
 {
 public:
-
     QString mSourceProtocolInfo;
 
     QString mSinkProtocolInfo;
@@ -25,15 +23,15 @@ public:
     bool mHasPrepareForConnection;
 
     bool mHasConnectionComplete;
-
 };
 
-UpnpControlConnectionManager::UpnpControlConnectionManager(QObject *parent) : UpnpControlAbstractService(parent), d(new UpnpControlConnectionManagerPrivate)
+UpnpControlConnectionManager::UpnpControlConnectionManager(QObject *parent)
+    : UpnpControlAbstractService(parent)
+    , d(new UpnpControlConnectionManagerPrivate)
 {
 }
 
-UpnpControlConnectionManager::~UpnpControlConnectionManager()
-= default;
+UpnpControlConnectionManager::~UpnpControlConnectionManager() = default;
 
 const QString &UpnpControlConnectionManager::sourceProtocolInfo() const
 {
@@ -77,8 +75,8 @@ UpnpControlAbstractServiceReply *UpnpControlConnectionManager::prepareForConnect
 
     const QString &remoteConnectionManager(remoteUDN + QStringLiteral("/") + remoteServiceID);
 
-    auto pendingAnswer = callAction(QStringLiteral("PrepareForConnection"),
-        {{{}, remoteConnectionManager}, {{}, remotePeerConnectionID}, {{}, connectionDirection}});
+    auto pendingAnswer =
+        callAction(QStringLiteral("PrepareForConnection"), {{{}, remoteConnectionManager}, {{}, remotePeerConnectionID}, {{}, connectionDirection}});
 
     return pendingAnswer;
 }

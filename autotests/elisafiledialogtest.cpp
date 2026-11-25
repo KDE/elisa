@@ -68,7 +68,8 @@ private Q_SLOTS:
         QCOMPARE(dialog->isOpened(), true);
         QCOMPARE(openedSpy.count(), 1);
 
-        // Calling open() again while already open must not spawn a second QFileDialog
+        // Calling open() again while already open must not spawn a second
+        // QFileDialog
         dialog->open();
         QCOMPARE(openedSpy.count(), 1);
         int openFileDialogs = 0;
@@ -79,7 +80,8 @@ private Q_SLOTS:
         }
         QCOMPARE(openFileDialogs, 1);
 
-        // Destroying ElisaFileDialog while open must close and clean up the underlying QFileDialog
+        // Destroying ElisaFileDialog while open must close and clean up the
+        // underlying QFileDialog
         delete dialog;
         QCOMPARE(rejectedSpy.count(), 0);
         QCoreApplication::processEvents();

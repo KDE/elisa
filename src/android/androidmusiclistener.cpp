@@ -13,18 +13,16 @@
 class AndroidMusicListenerPrivate
 {
 public:
-
     AndroidFileListing mAndroidFileIndexer;
-
 };
 
 AndroidMusicListener::AndroidMusicListener(QObject *parent)
-    : AbstractFileListener(parent), d(std::make_unique<AndroidMusicListenerPrivate>())
+    : AbstractFileListener(parent)
+    , d(std::make_unique<AndroidMusicListenerPrivate>())
 {
     setFileListing(&d->mAndroidFileIndexer);
 }
 
-AndroidMusicListener::~AndroidMusicListener()
-= default;
+AndroidMusicListener::~AndroidMusicListener() = default;
 
 #include "moc_androidmusiclistener.cpp"

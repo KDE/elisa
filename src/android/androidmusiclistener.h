@@ -17,11 +17,9 @@ class AndroidMusicListenerPrivate;
 
 class AndroidMusicListener : public AbstractFileListener
 {
-
     Q_OBJECT
 
 public:
-
     explicit AndroidMusicListener(QObject *parent = nullptr);
 
     ~AndroidMusicListener() override;
@@ -31,9 +29,7 @@ Q_SIGNALS:
 public Q_SLOTS:
 
 private:
-
     std::unique_ptr<AndroidMusicListenerPrivate> d;
-
 };
 
 #endif // ANDROIDMUSICLISTENER_H

@@ -7,8 +7,8 @@
 #ifndef UPNPCONTENTDIRECTORYMODEL_H
 #define UPNPCONTENTDIRECTORYMODEL_H
 
-#include "elisautils.h"
 #include "datatypes.h"
+#include "elisautils.h"
 
 #include <QAbstractItemModel>
 #include <QQmlEngine>
@@ -26,40 +26,21 @@ class UpnpContentDirectoryModel : public QAbstractItemModel
 
     QML_ELEMENT
 
-    Q_PROPERTY(QString parentId
-               READ parentId
-               WRITE setParentId
-               NOTIFY parentIdChanged)
+    Q_PROPERTY(QString parentId READ parentId WRITE setParentId NOTIFY parentIdChanged)
 
-    Q_PROPERTY(QString browseFlag
-               READ browseFlag
-               WRITE setBrowseFlag
-               NOTIFY browseFlagChanged)
+    Q_PROPERTY(QString browseFlag READ browseFlag WRITE setBrowseFlag NOTIFY browseFlagChanged)
 
-    Q_PROPERTY(QString filter
-               READ filter
-               WRITE setFilter
-               NOTIFY filterChanged)
+    Q_PROPERTY(QString filter READ filter WRITE setFilter NOTIFY filterChanged)
 
-    Q_PROPERTY(QString sortCriteria
-               READ sortCriteria
-               WRITE setSortCriteria
-               NOTIFY sortCriteriaChanged)
+    Q_PROPERTY(QString sortCriteria READ sortCriteria WRITE setSortCriteria NOTIFY sortCriteriaChanged)
 
-    Q_PROPERTY(UpnpControlContentDirectory* contentDirectory
-               READ contentDirectory
-               WRITE setContentDirectory
-               NOTIFY contentDirectoryChanged)
+    Q_PROPERTY(UpnpControlContentDirectory *contentDirectory READ contentDirectory WRITE setContentDirectory NOTIFY contentDirectoryChanged)
 
-    Q_PROPERTY(bool useLocalIcons
-               READ useLocalIcons
-               WRITE setUseLocalIcons
-               NOTIFY useLocalIconsChanged)
+    Q_PROPERTY(bool useLocalIcons READ useLocalIcons WRITE setUseLocalIcons NOTIFY useLocalIconsChanged)
 
     Q_PROPERTY(bool isBusy READ isBusy NOTIFY isBusyChanged)
 
 public:
-
     enum ItemClass {
         Container = 0,
         Album = 1,
@@ -90,21 +71,21 @@ public:
 
     void fetchMore(const QModelIndex &parent) override;
 
-    [[nodiscard]] const QString& parentId() const;
+    [[nodiscard]] const QString &parentId() const;
 
-    [[nodiscard]] const QString& browseFlag() const;
+    [[nodiscard]] const QString &browseFlag() const;
 
     void setBrowseFlag(const QString &flag);
 
-    [[nodiscard]] const QString& filter() const;
+    [[nodiscard]] const QString &filter() const;
 
     void setFilter(const QString &flag);
 
-    [[nodiscard]] const QString& sortCriteria() const;
+    [[nodiscard]] const QString &sortCriteria() const;
 
     void setSortCriteria(const QString &criteria);
 
-    [[nodiscard]] UpnpControlContentDirectory* contentDirectory() const;
+    [[nodiscard]] UpnpControlContentDirectory *contentDirectory() const;
 
     void setContentDirectory(UpnpControlContentDirectory *directory);
 
@@ -132,8 +113,10 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 
-    void initializeByData(MusicListenersManager *manager, DatabaseInterface *database,
-                          ElisaUtils::PlayListEntryType modelType, ElisaUtils::FilterType filter,
+    void initializeByData(MusicListenersManager *manager,
+                          DatabaseInterface *database,
+                          ElisaUtils::PlayListEntryType modelType,
+                          ElisaUtils::FilterType filter,
                           const DataTypes::DataType &dataFilter);
 
     void setParentId(QString parentId);
@@ -143,14 +126,11 @@ private Q_SLOTS:
     void contentChanged(const QString &parentId);
 
 private:
-
     [[nodiscard]] QModelIndex indexFromInternalId(quintptr internalId) const;
 
     std::unique_ptr<UpnpContentDirectoryModelPrivate> d;
-
 };
 
 Q_DECLARE_METATYPE(UpnpContentDirectoryModel::ItemClass)
 
 #endif // UPNPCONTENTDIRECTORYMODEL_H
-

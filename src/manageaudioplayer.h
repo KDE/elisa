@@ -25,92 +25,44 @@ class ELISALIB_EXPORT ManageAudioPlayer : public QObject
 
     QML_ELEMENT
 
-    Q_PROPERTY(QPersistentModelIndex currentTrack
-               READ currentTrack
-               WRITE setCurrentTrack
-               NOTIFY currentTrackChanged)
+    Q_PROPERTY(QPersistentModelIndex currentTrack READ currentTrack WRITE setCurrentTrack NOTIFY currentTrackChanged)
 
-    Q_PROPERTY(QAbstractItemModel* playListModel
-               READ playListModel
-               WRITE setPlayListModel
-               NOTIFY playListModelChanged)
+    Q_PROPERTY(QAbstractItemModel *playListModel READ playListModel WRITE setPlayListModel NOTIFY playListModelChanged)
 
-    Q_PROPERTY(QUrl playerSource
-               READ playerSource
-               NOTIFY playerSourceChanged)
+    Q_PROPERTY(QUrl playerSource READ playerSource NOTIFY playerSourceChanged)
 
-    Q_PROPERTY(int titleRole
-               READ titleRole
-               WRITE setTitleRole
-               NOTIFY titleRoleChanged)
+    Q_PROPERTY(int titleRole READ titleRole WRITE setTitleRole NOTIFY titleRoleChanged)
 
-    Q_PROPERTY(int artistNameRole
-               READ artistNameRole
-               WRITE setArtistNameRole
-               NOTIFY artistNameRoleChanged)
+    Q_PROPERTY(int artistNameRole READ artistNameRole WRITE setArtistNameRole NOTIFY artistNameRoleChanged)
 
-    Q_PROPERTY(int albumNameRole
-               READ albumNameRole
-               WRITE setAlbumNameRole
-               NOTIFY albumNameRoleChanged)
+    Q_PROPERTY(int albumNameRole READ albumNameRole WRITE setAlbumNameRole NOTIFY albumNameRoleChanged)
 
-    Q_PROPERTY(int urlRole
-               READ urlRole
-               WRITE setUrlRole
-               NOTIFY urlRoleChanged)
+    Q_PROPERTY(int urlRole READ urlRole WRITE setUrlRole NOTIFY urlRoleChanged)
 
-    Q_PROPERTY(int isPlayingRole
-               READ isPlayingRole
-               WRITE setIsPlayingRole
-               NOTIFY isPlayingRoleChanged)
+    Q_PROPERTY(int isPlayingRole READ isPlayingRole WRITE setIsPlayingRole NOTIFY isPlayingRoleChanged)
 
-    Q_PROPERTY(QMediaPlayer::MediaStatus playerStatus
-               READ playerStatus
-               WRITE setPlayerStatus
-               NOTIFY playerStatusChanged)
+    Q_PROPERTY(QMediaPlayer::MediaStatus playerStatus READ playerStatus WRITE setPlayerStatus NOTIFY playerStatusChanged)
 
-    Q_PROPERTY(QMediaPlayer::PlaybackState playerPlaybackState
-               READ playerPlaybackState
-               WRITE setPlayerPlaybackState
-               NOTIFY playerPlaybackStateChanged)
+    Q_PROPERTY(QMediaPlayer::PlaybackState playerPlaybackState READ playerPlaybackState WRITE setPlayerPlaybackState NOTIFY playerPlaybackStateChanged)
 
-    Q_PROPERTY(QMediaPlayer::Error playerError
-               READ playerError
-               WRITE setPlayerError
-               NOTIFY playerErrorChanged)
+    Q_PROPERTY(QMediaPlayer::Error playerError READ playerError WRITE setPlayerError NOTIFY playerErrorChanged)
 
-    Q_PROPERTY(qint64 audioDuration
-               READ audioDuration
-               WRITE setAudioDuration
-               NOTIFY audioDurationChanged)
+    Q_PROPERTY(qint64 audioDuration READ audioDuration WRITE setAudioDuration NOTIFY audioDurationChanged)
 
-    Q_PROPERTY(bool playerIsSeekable
-               READ playerIsSeekable
-               WRITE setPlayerIsSeekable
-               NOTIFY playerIsSeekableChanged)
+    Q_PROPERTY(bool playerIsSeekable READ playerIsSeekable WRITE setPlayerIsSeekable NOTIFY playerIsSeekableChanged)
 
-    Q_PROPERTY(qint64 playerPosition
-               READ playerPosition
-               WRITE setPlayerPosition
-               NOTIFY playerPositionChanged)
+    Q_PROPERTY(qint64 playerPosition READ playerPosition WRITE setPlayerPosition NOTIFY playerPositionChanged)
 
-    Q_PROPERTY(qint64 playControlPosition
-               READ playControlPosition
-               WRITE setPlayControlPosition
-               NOTIFY playControlPositionChanged)
+    Q_PROPERTY(qint64 playControlPosition READ playControlPosition WRITE setPlayControlPosition NOTIFY playControlPositionChanged)
 
-    Q_PROPERTY(QVariantMap persistentState
-               READ persistentState
-               WRITE setPersistentState
-               NOTIFY persistentStateChanged)
+    Q_PROPERTY(QVariantMap persistentState READ persistentState WRITE setPersistentState NOTIFY persistentStateChanged)
 
 public:
-
     explicit ManageAudioPlayer(QObject *parent = nullptr);
 
     [[nodiscard]] QPersistentModelIndex currentTrack() const;
 
-    [[nodiscard]] QAbstractItemModel* playListModel() const;
+    [[nodiscard]] QAbstractItemModel *playListModel() const;
 
     [[nodiscard]] int urlRole() const;
 
@@ -222,7 +174,7 @@ public Q_SLOTS:
 
     void restoreForUndoClearPlaylist();
 
-    void setPlayListModel(QAbstractItemModel* aPlayListModel);
+    void setPlayListModel(QAbstractItemModel *aPlayListModel);
 
     void setUrlRole(int value);
 
@@ -237,7 +189,7 @@ public Q_SLOTS:
     void ensurePause();
 
     void ensurePlay();
-    
+
     void requestPlay();
 
     void playPause();
@@ -328,7 +280,6 @@ private:
     bool mUndoPlayingState = false;
 
     qint64 mUndoPlayerPosition = 0;
-
 };
 
 #endif // MANAGEAUDIOPLAYER_H

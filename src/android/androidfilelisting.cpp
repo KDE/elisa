@@ -15,16 +15,16 @@
 
 #include <KLocalizedString>
 
-#include <QThread>
-#include <QFileInfo>
 #include <QAtomicInt>
+#include <QFileInfo>
+#include <QThread>
 
 // C++ code
-#include <jni.h>
 #include <QCoreApplication>
 #include <QJniObject>
-#include <QtCore/private/qandroidextras_p.h>
 #include <QOperatingSystemVersion>
+#include <QtCore/private/qandroidextras_p.h>
+#include <jni.h>
 
 #include <algorithm>
 
@@ -41,7 +41,8 @@ public:
 };
 
 AndroidFileListing::AndroidFileListing(QObject *parent)
-    : AbstractFileListing(parent), d(std::make_unique<AndroidFileListingPrivate>())
+    : AbstractFileListing(parent)
+    , d(std::make_unique<AndroidFileListingPrivate>())
 {
     AndroidFileListing::mCurrentInstance = this;
 
@@ -79,24 +80,28 @@ void AndroidFileListing::triggerRefreshOfContent()
     Q_EMIT indexingStarted();
 
     if (QOperatingSystemVersion::current() >= QOperatingSystemVersion(QOperatingSystemVersion::Android, 13)) {
-        qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent" << "detected android version >=13";
+        qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent"
+                                     << "detected android version >=13";
         const auto audioPermissionCheck = QtAndroidPrivate::checkPermission(QStringLiteral("android.permission.READ_MEDIA_AUDIO"));
 
         if (audioPermissionCheck.result() == QtAndroidPrivate::PermissionResult::Denied) {
             const auto audioPermissionRequest = QtAndroidPrivate::requestPermission(QStringLiteral("android.permission.READ_MEDIA_AUDIO"));
             if (audioPermissionRequest.result() == QtAndroidPrivate::PermissionResult::Denied) {
-                qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent" << "not scanning files due to missing permission";
+                qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent"
+                                             << "not scanning files due to missing permission";
                 return;
             }
         }
     } else {
-        qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent" << "detected android version <13";
+        qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent"
+                                     << "detected android version <13";
         const auto storagePermissionCheck = QtAndroidPrivate::checkPermission(QStringLiteral("android.permission.READ_EXTERNAL_STORAGE"));
 
         if (storagePermissionCheck.result() == QtAndroidPrivate::PermissionResult::Denied) {
             const auto storagePermissionRequest = QtAndroidPrivate::requestPermission(QStringLiteral("android.permission.READ_EXTERNAL_STORAGE"));
             if (storagePermissionRequest.result() == QtAndroidPrivate::PermissionResult::Denied) {
-                qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent" << "not scanning files due to missing permission";
+                qCInfo(orgKdeElisaAndroid()) << "AndroidFileListing::triggerRefreshOfContent"
+                                             << "not scanning files due to missing permission";
                 return;
             }
         }
@@ -105,11 +110,15 @@ void AndroidFileListing::triggerRefreshOfContent()
     AbstractFileListing::triggerRefreshOfContent();
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    QJniObject musicList = QJniObject::callStaticObjectMethod(
-        "org/kde/elisa/FileListing", "listAudioFiles", "(Landroid/content/Context;)Ljava/util/ArrayList;", QNativeInterface::QAndroidApplication::context());
+    QJniObject musicList = QJniObject::callStaticObjectMethod("org/kde/elisa/FileListing",
+                                                              "listAudioFiles",
+                                                              "(Landroid/content/Context;)Ljava/util/ArrayList;",
+                                                              QNativeInterface::QAndroidApplication::context());
 #else
-    QJniObject musicList = QJniObject::callStaticObjectMethod(
-        "org/kde/elisa/FileListing", "listAudioFiles", "(Landroid/content/Context;)Ljava/util/ArrayList;", QNativeInterface::QAndroidApplication::context().object<jobject>());
+    QJniObject musicList = QJniObject::callStaticObjectMethod("org/kde/elisa/FileListing",
+                                                              "listAudioFiles",
+                                                              "(Landroid/content/Context;)Ljava/util/ArrayList;",
+                                                              QNativeInterface::QAndroidApplication::context().object<jobject>());
 #endif
 
     auto nbTracks = musicList.callMethod<jint>("size");

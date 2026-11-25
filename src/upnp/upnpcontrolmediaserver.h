@@ -13,19 +13,15 @@
 
 #include <memory>
 
-
 class UpnpControlMediaServerPrivate;
 
 class UpnpControlMediaServer : public UpnpControlAbstractDevice
 {
-
     Q_OBJECT
 
     QML_ELEMENT
 
-    Q_PROPERTY(bool hasAVTransport
-               READ hasAVTransport
-               NOTIFY hasAVTransportChanged)
+    Q_PROPERTY(bool hasAVTransport READ hasAVTransport NOTIFY hasAVTransportChanged)
 
 public:
     explicit UpnpControlMediaServer(QObject *parent = nullptr);
@@ -39,13 +35,11 @@ Q_SIGNALS:
     void hasAVTransportChanged();
 
 protected:
-
-    //void parseDeviceDescription(QIODevice *deviceDescriptionContent, const QString &fallBackURLBase) override;
+    // void parseDeviceDescription(QIODevice *deviceDescriptionContent, const
+    // QString &fallBackURLBase) override;
 
 private:
-
     std::unique_ptr<UpnpControlMediaServerPrivate> d;
-
 };
 
 #endif // UPNPCONTROLMEDIASERVER_H

@@ -23,12 +23,10 @@ public:
 
     ~FileListener() override;
 
-    [[nodiscard]] const LocalFileListing& localFileIndexer() const;
+    [[nodiscard]] const LocalFileListing &localFileIndexer() const;
 
 private:
-
     std::unique_ptr<FileListenerPrivate> d;
-
 };
 
 #endif // FILELISTENER_H

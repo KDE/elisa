@@ -12,9 +12,9 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "viewmanager.h"
 #include "datatypes.h"
 #include "elisautils.h"
+#include "viewmanager.h"
 
 #include <memory>
 
@@ -29,9 +29,7 @@ class ViewParameters
 public:
     ViewParameters() = default;
 
-    ViewParameters(QString mainTitle,
-                   QUrl mainImage,
-                   ViewManager::ViewPresentationType viewPresentationType)
+    ViewParameters(QString mainTitle, QUrl mainImage, ViewManager::ViewPresentationType viewPresentationType)
         : mMainTitle(std::move(mainTitle))
         , mMainImage(std::move(mainImage))
         , mViewPresentationType(viewPresentationType)
@@ -44,8 +42,11 @@ public:
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
-                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
-                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                   int sortRole,
+                   QList<int> sortRoles,
+                   QList<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder,
+                   QList<QString> sortOrderNames,
                    QUrl fallbackItemIcon,
                    ViewManager::DelegateUseSecondaryText showSecondaryTextOnDelegates,
                    ViewManager::ViewCanBeRated viewCanBeRated)
@@ -95,8 +96,11 @@ public:
                    ViewManager::ModelType modelType,
                    ElisaUtils::FilterType filterType,
                    ElisaUtils::PlayListEntryType dataType,
-                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
-                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                   int sortRole,
+                   QList<int> sortRoles,
+                   QList<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder,
+                   QList<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle)
         : mMainTitle(std::move(mainTitle))
@@ -148,8 +152,11 @@ public:
                    qulonglong databaseId,
                    ElisaUtils::PlayListEntryType dataType,
                    ElisaUtils::PlayListEntryType entryType,
-                   int sortRole, QList<int> sortRoles, QList<QString> sortRoleNames,
-                   Qt::SortOrder sortOrder, QList<QString> sortOrderNames,
+                   int sortRole,
+                   QList<int> sortRoles,
+                   QList<QString> sortRoleNames,
+                   Qt::SortOrder sortOrder,
+                   QList<QString> sortOrderNames,
                    ViewManager::AlbumCardinality albumCardinality,
                    ViewManager::AlbumViewStyle albumViewStyle)
         : mMainTitle(std::move(mainTitle))
@@ -170,30 +177,26 @@ public:
         mDataFilter = {{DataTypes::DatabaseIdRole, databaseId}};
     }
 
-    bool operator==(const ViewParameters &other) const {
-        return mMainTitle == other.mMainTitle && mMainImage == other.mMainImage &&
-                mSecondaryTitle == other.mSecondaryTitle && mViewPresentationType == other.mViewPresentationType &&
-                mModelType == other.mModelType && mFilterType == other.mFilterType &&
-                mDataType == other.mDataType && mFallbackItemIcon == other.mFallbackItemIcon &&
-                mShowSecondaryTextOnDelegates == other.mShowSecondaryTextOnDelegates && mViewCanBeRated == other.mViewCanBeRated &&
-                mSortRole == other.mSortRole && mSortRoles == other.mSortRoles && mSortRoleNames == other.mSortRoleNames &&
-                mSortOrder == other.mSortOrder && mSortOrderNames == other.mSortOrderNames &&
-                mAlbumCardinality == other.mAlbumCardinality && mAlbumViewStyle == other.mAlbumViewStyle &&
-                mDepth == other.mDepth &&
-                mDataFilter == other.mDataFilter;
+    bool operator==(const ViewParameters &other) const
+    {
+        return mMainTitle == other.mMainTitle && mMainImage == other.mMainImage && mSecondaryTitle == other.mSecondaryTitle
+            && mViewPresentationType == other.mViewPresentationType && mModelType == other.mModelType && mFilterType == other.mFilterType
+            && mDataType == other.mDataType && mFallbackItemIcon == other.mFallbackItemIcon
+            && mShowSecondaryTextOnDelegates == other.mShowSecondaryTextOnDelegates && mViewCanBeRated == other.mViewCanBeRated && mSortRole == other.mSortRole
+            && mSortRoles == other.mSortRoles && mSortRoleNames == other.mSortRoleNames && mSortOrder == other.mSortOrder
+            && mSortOrderNames == other.mSortOrderNames && mAlbumCardinality == other.mAlbumCardinality && mAlbumViewStyle == other.mAlbumViewStyle
+            && mDepth == other.mDepth && mDataFilter == other.mDataFilter;
     }
 
-    bool operator!=(const ViewParameters &other) const {
-        return mMainTitle != other.mMainTitle || mMainImage != other.mMainImage ||
-                mSecondaryTitle != other.mSecondaryTitle || mViewPresentationType != other.mViewPresentationType ||
-                mModelType != other.mModelType || mFilterType != other.mFilterType ||
-                mDataType != other.mDataType || mFallbackItemIcon != other.mFallbackItemIcon ||
-                mShowSecondaryTextOnDelegates != other.mShowSecondaryTextOnDelegates || mViewCanBeRated != other.mViewCanBeRated ||
-                mSortRole != other.mSortRole || mSortRoles != other.mSortRoles || mSortRoleNames != other.mSortRoleNames ||
-                mSortOrder != other.mSortOrder || mSortOrderNames != other.mSortOrderNames ||
-                mAlbumCardinality != other.mAlbumCardinality || mAlbumViewStyle != other.mAlbumViewStyle ||
-                mDepth != other.mDepth ||
-                mDataFilter != other.mDataFilter;
+    bool operator!=(const ViewParameters &other) const
+    {
+        return mMainTitle != other.mMainTitle || mMainImage != other.mMainImage || mSecondaryTitle != other.mSecondaryTitle
+            || mViewPresentationType != other.mViewPresentationType || mModelType != other.mModelType || mFilterType != other.mFilterType
+            || mDataType != other.mDataType || mFallbackItemIcon != other.mFallbackItemIcon
+            || mShowSecondaryTextOnDelegates != other.mShowSecondaryTextOnDelegates || mViewCanBeRated != other.mViewCanBeRated || mSortRole != other.mSortRole
+            || mSortRoles != other.mSortRoles || mSortRoleNames != other.mSortRoleNames || mSortOrder != other.mSortOrder
+            || mSortOrderNames != other.mSortOrderNames || mAlbumCardinality != other.mAlbumCardinality || mAlbumViewStyle != other.mAlbumViewStyle
+            || mDepth != other.mDepth || mDataFilter != other.mDataFilter;
     }
 
     QString mMainTitle;
@@ -245,20 +248,11 @@ class ELISALIB_EXPORT ViewsListData : public QObject
 
     QML_ELEMENT
 
-    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedCategory
-               READ embeddedCategory
-               WRITE setEmbeddedCategory
-               NOTIFY embeddedCategoryChanged)
+    Q_PROPERTY(ElisaUtils::PlayListEntryType embeddedCategory READ embeddedCategory WRITE setEmbeddedCategory NOTIFY embeddedCategoryChanged)
 
-    Q_PROPERTY(MusicListenersManager* manager
-               READ manager
-               WRITE setManager
-               NOTIFY managerChanged)
+    Q_PROPERTY(MusicListenersManager *manager READ manager WRITE setManager NOTIFY managerChanged)
 
-    Q_PROPERTY(DatabaseInterface* database
-               READ database
-               WRITE setDatabase
-               NOTIFY databaseChanged)
+    Q_PROPERTY(DatabaseInterface *database READ database WRITE setDatabase NOTIFY databaseChanged)
 
 public:
     explicit ViewsListData(QObject *parent = nullptr);
@@ -269,13 +263,13 @@ public:
 
     [[nodiscard]] bool isEmpty() const;
 
-    [[nodiscard]] const ViewParameters& viewParameters(int index) const;
+    [[nodiscard]] const ViewParameters &viewParameters(int index) const;
 
-    [[nodiscard]] const QString& title(int index) const;
+    [[nodiscard]] const QString &title(int index) const;
 
-    [[nodiscard]] const QUrl& iconUrl(int index) const;
+    [[nodiscard]] const QUrl &iconUrl(int index) const;
 
-    [[nodiscard]] const QString& secondTitle(int index) const;
+    [[nodiscard]] const QString &secondTitle(int index) const;
 
     [[nodiscard]] bool useSecondTitle(int index) const;
 
@@ -287,9 +281,9 @@ public:
 
     [[nodiscard]] ElisaUtils::PlayListEntryType embeddedCategory() const;
 
-    [[nodiscard]] MusicListenersManager* manager() const;
+    [[nodiscard]] MusicListenersManager *manager() const;
 
-    [[nodiscard]] DatabaseInterface* database() const;
+    [[nodiscard]] DatabaseInterface *database() const;
 
 Q_SIGNALS:
 
@@ -336,7 +330,6 @@ public Q_SLOTS:
     void cleanedDatabase();
 
 private:
-
     void clearEmbeddedItems();
 
     void refreshEmbeddedCategory();

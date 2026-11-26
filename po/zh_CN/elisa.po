@@ -484,7 +484,7 @@ msgstr "配色方案"
 #, kde-format
 msgctxt "@action:button Remove album from play list"
 msgid "Remove Album"
-msgstr ""
+msgstr "移除专辑"
 
 #: qml/ConfigurationDialog.qml:22
 #, kde-format

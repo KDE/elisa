@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/elisa/elisa.pot\n"
-"X-Crowdin-File-ID: 45003\n"
+"X-Crowdin-File: /kf6-stable/messages/elisa/elisa.pot\n"
+"X-Crowdin-File-ID: 52426\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -47,12 +47,10 @@ msgid "Toggle Playlist"
 msgstr "播放列表开关"
 
 #: elisaapplication.cpp:187
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle Playlist"
+#, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
-msgstr "播放列表开关"
+msgstr "清空播放列表"
 
 #: elisaapplication.cpp:193
 #, kde-format
@@ -214,7 +212,7 @@ msgstr "%1：%2\n"
 #, kde-format
 msgctxt "bit/second"
 msgid "bit/s"
-msgstr "比特/秒"
+msgstr "bit/s"
 
 #: models/trackmetadatamodel.cpp:525
 #, kde-format

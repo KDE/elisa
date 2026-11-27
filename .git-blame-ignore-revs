@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: None
+# SPDX-License-Identifier: CC0-1.0
+
+# use `git config blame.ignoreRevsFile .git-blame-ignore-revs` to ignore clang-format commits
+
+86abb20419db7f4fb7df630f3feed2f1bf441eb7

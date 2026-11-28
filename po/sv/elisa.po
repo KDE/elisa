@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-25 01:24+0000\n"
+"POT-Creation-Date: 2026-11-28 01:08+0000\n"
 "PO-Revision-Date: 2026-09-30 21:10+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -27,8 +27,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "stefan.asserhall@gmail.com"
 
-#: databaseinterface.cpp:8097 databaseinterface.cpp:9209
-#: databaseinterface.cpp:9294
+#: databaseinterface.cpp:8112 databaseinterface.cpp:9236
+#: databaseinterface.cpp:9323
 #, kde-format
 msgctxt "@item:intable"
 msgid "Various Artists"
@@ -40,49 +40,49 @@ msgctxt "@item:intable"
 msgid "Radio Stations"
 msgstr "Radiostationer"
 
-#: elisaapplication.cpp:183
+#: elisaapplication.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Playlist"
 msgstr "Ändra spellista"
 
-#: elisaapplication.cpp:189
+#: elisaapplication.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "Clear Playlist"
 msgstr "Rensa spellista"
 
-#: elisaapplication.cpp:195
+#: elisaapplication.cpp:192
 #, kde-format
 msgctxt "@action"
 msgid "Seek forward 10 seconds"
 msgstr "Sök framåt 10 sekunder"
 
-#: elisaapplication.cpp:202
+#: elisaapplication.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "Scrub backwards 10 seconds"
 msgstr "Spola bakåt 10 sekunder"
 
-#: elisaapplication.cpp:209
+#: elisaapplication.cpp:206
 #, kde-format
 msgctxt "@action"
 msgid "Go to next track"
 msgstr "Gå till nästa spår"
 
-#: elisaapplication.cpp:216
+#: elisaapplication.cpp:213
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous track"
 msgstr "Gå till föregående spår"
 
-#: elisaapplication.cpp:223
+#: elisaapplication.cpp:220
 #, kde-format
 msgctxt "@action"
 msgid "Play/pause"
 msgstr "Spela/paus"
 
-#: elisaapplication.cpp:236
+#: elisaapplication.cpp:233
 #, kde-format
 msgctxt "@action"
 msgid "Toggle Party Mode"
@@ -106,7 +106,7 @@ msgctxt "@info"
 msgid "© 2015–2026, Elisa contributors"
 msgstr "© 2015–2026, Bidragsgivare till Elisa"
 
-#: main.cpp:104 models/lyricsmodel.cpp:165
+#: main.cpp:104 models/lyricsmodel.cpp:171
 #, kde-format
 msgctxt "@label"
 msgid "Creator"
@@ -148,229 +148,229 @@ msgctxt "@label"
 msgid "Support for online radios"
 msgstr "Stöd för nätradio"
 
-#: models/editabletrackmetadatamodel.cpp:316
+#: models/editabletrackmetadatamodel.cpp:306
 #, kde-format
 msgctxt "@info:status Error message when track URL is invalid"
 msgid "Invalid URL."
 msgstr "Ogiltig webbadress."
 
-#: models/editabletrackmetadatamodel.cpp:326
+#: models/editabletrackmetadatamodel.cpp:316
 #, kde-format
 msgctxt "@info:status Error message when track title is empty"
 msgid "Empty title."
 msgstr "Namnlös."
 
-#: models/lyricsmodel.cpp:162
+#: models/lyricsmodel.cpp:168
 #, kde-format
 msgctxt "@label musical artist"
 msgid "Artist"
 msgstr "Artist"
 
-#: models/lyricsmodel.cpp:163
+#: models/lyricsmodel.cpp:169
 #, kde-format
 msgctxt "@label musical album"
 msgid "Album"
 msgstr "Album"
 
-#: models/lyricsmodel.cpp:164
+#: models/lyricsmodel.cpp:170
 #, kde-format
 msgctxt "@label song title"
 msgid "Title"
 msgstr "Titel"
 
-#: models/lyricsmodel.cpp:166
+#: models/lyricsmodel.cpp:172
 #, kde-format
 msgctxt "@label song length"
 msgid "Length"
 msgstr "Längd"
 
-#: models/lyricsmodel.cpp:167
+#: models/lyricsmodel.cpp:173
 #, kde-format
 msgctxt "@label as in 'Created by: Joe'"
 msgid "Created by"
 msgstr "Skapad av"
 
-#: models/lyricsmodel.cpp:168
+#: models/lyricsmodel.cpp:174
 #, kde-format
 msgctxt "@label as in 'a person who edits'"
 msgid "Editor"
 msgstr "Editor"
 
-#: models/lyricsmodel.cpp:169
+#: models/lyricsmodel.cpp:175
 #, kde-format
 msgctxt "@label"
 msgid "Version"
 msgstr "Version"
 
-#: models/lyricsmodel.cpp:192
+#: models/lyricsmodel.cpp:198
 #, kde-format
 msgctxt "@label this is a key => value map"
 msgid "%1: %2\n"
 msgstr "%1: %2\n"
 
-#: models/trackmetadatamodel.cpp:107
+#: models/trackmetadatamodel.cpp:101
 #, kde-format
 msgctxt "bit/second"
 msgid "bit/s"
 msgstr "bit/s"
 
-#: models/trackmetadatamodel.cpp:525
+#: models/trackmetadatamodel.cpp:507
 #, kde-format
 msgctxt "@label:textbox Track title for track metadata view"
 msgid "Title"
 msgstr "Titel"
 
-#: models/trackmetadatamodel.cpp:528
+#: models/trackmetadatamodel.cpp:510
 #, kde-format
 msgctxt "@label:textbox Duration label for track metadata view"
 msgid "Duration"
 msgstr "Längd"
 
-#: models/trackmetadatamodel.cpp:531
+#: models/trackmetadatamodel.cpp:513
 #, kde-format
 msgctxt "@label:textbox Track artist for track metadata view"
 msgid "Artist"
 msgstr "Artist"
 
-#: models/trackmetadatamodel.cpp:534
+#: models/trackmetadatamodel.cpp:516
 #, kde-format
 msgctxt "@label:textbox Album name for track metadata view"
 msgid "Album"
 msgstr "Album"
 
-#: models/trackmetadatamodel.cpp:537
+#: models/trackmetadatamodel.cpp:519
 #, kde-format
 msgctxt "@label:textbox Album artist for track metadata view"
 msgid "Album artist"
 msgstr "Albumartist"
 
-#: models/trackmetadatamodel.cpp:540
+#: models/trackmetadatamodel.cpp:522
 #, kde-format
 msgctxt "@label:textbox Track number for track metadata view"
 msgid "Track number"
 msgstr "Spårnummer"
 
-#: models/trackmetadatamodel.cpp:543
+#: models/trackmetadatamodel.cpp:525
 #, kde-format
 msgctxt "@label:textbox Disc number for track metadata view"
 msgid "Disc number"
 msgstr "Skivnummer"
 
-#: models/trackmetadatamodel.cpp:546
+#: models/trackmetadatamodel.cpp:528
 #, kde-format
 msgctxt "@label:textbox Rating label for information panel"
 msgid "Rating"
 msgstr "Betyg"
 
-#: models/trackmetadatamodel.cpp:549
+#: models/trackmetadatamodel.cpp:531
 #, kde-format
 msgctxt "@label:textbox Genre label for track metadata view"
 msgid "Genre"
 msgstr "Genre"
 
-#: models/trackmetadatamodel.cpp:552
+#: models/trackmetadatamodel.cpp:534
 #, kde-format
 msgctxt "@label:textbox Lyricist label for track metadata view"
 msgid "Lyricist"
 msgstr "Textförfattare"
 
-#: models/trackmetadatamodel.cpp:555
+#: models/trackmetadatamodel.cpp:537
 #, kde-format
 msgctxt "@label:textbox Composer name for track metadata view"
 msgid "Composer"
 msgstr "Tonsättare"
 
-#: models/trackmetadatamodel.cpp:558
+#: models/trackmetadatamodel.cpp:540
 #, kde-format
 msgctxt "@label:textbox Comment label for track metadata view"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: models/trackmetadatamodel.cpp:561
+#: models/trackmetadatamodel.cpp:543
 #, kde-format
 msgctxt "@label:textbox Year label for track metadata view"
 msgid "Year"
 msgstr "År"
 
-#: models/trackmetadatamodel.cpp:564
+#: models/trackmetadatamodel.cpp:546
 #, kde-format
 msgctxt "@label:textbox Channels label for track metadata view"
 msgid "Channels"
 msgstr "Kanaler"
 
-#: models/trackmetadatamodel.cpp:567
+#: models/trackmetadatamodel.cpp:549
 #, kde-format
 msgctxt "@label:textbox Bit rate label for track metadata view"
 msgid "Bit rate"
 msgstr "Bithastighet"
 
-#: models/trackmetadatamodel.cpp:570
+#: models/trackmetadatamodel.cpp:552
 #, kde-format
 msgctxt "@label:textbox Sample Rate label for track metadata view"
 msgid "Sample rate"
 msgstr "Samplingsfrekvens"
 
-#: models/trackmetadatamodel.cpp:573
+#: models/trackmetadatamodel.cpp:555
 #, kde-format
 msgctxt "@label:textbox Last play date label for track metadata view"
 msgid "Last played"
 msgstr "Senast spelad"
 
-#: models/trackmetadatamodel.cpp:576
+#: models/trackmetadatamodel.cpp:558
 #, kde-format
 msgctxt "@label:textbox First play date label for track metadata view"
 msgid "First played"
 msgstr "Först spelad"
 
-#: models/trackmetadatamodel.cpp:579
+#: models/trackmetadatamodel.cpp:561
 #, kde-format
 msgctxt "@label:textbox Play counter label for track metadata view"
 msgid "Play count"
 msgstr "Antal spelade"
 
-#: models/trackmetadatamodel.cpp:582
+#: models/trackmetadatamodel.cpp:564
 #, kde-format
 msgctxt "@label:textbox Lyrics label for track metadata view"
 msgid "Lyrics"
 msgstr "Sångtext"
 
-#: models/trackmetadatamodel.cpp:585
+#: models/trackmetadatamodel.cpp:567
 #, kde-format
 msgctxt "@label:textbox Radio HTTP address for radio metadata view"
 msgid "Stream HTTP address"
 msgstr "HTTP-strömadress"
 
-#: models/trackmetadatamodel.cpp:588
+#: models/trackmetadatamodel.cpp:570
 #, kde-format
 msgctxt "@label:textbox Image address for radio metadata view"
 msgid "Image address"
 msgstr "Bildadress"
 
-#: models/viewsmodel.cpp:106 viewslistdata.cpp:56
+#: models/viewsmodel.cpp:105 viewslistdata.cpp:57
 #, kde-format
 msgctxt "@title:window Title of the view of all albums"
 msgid "Albums"
 msgstr "Album"
 
-#: models/viewsmodel.cpp:109 viewslistdata.cpp:107
+#: models/viewsmodel.cpp:108 viewslistdata.cpp:141
 #, kde-format
 msgctxt "@title:window Title of the view of all genres"
 msgid "Genres"
 msgstr "Genrer"
 
-#: models/viewsmodel.cpp:112 viewslistdata.cpp:71
+#: models/viewsmodel.cpp:111 viewslistdata.cpp:79
 #, kde-format
 msgctxt "@title:window Title of the view of all artists"
 msgid "Artists"
 msgstr "Artister"
 
-#: powermanagementinterface.cpp:179
+#: powermanagementinterface.cpp:182
 #, kde-format
 msgctxt "@info:status  explanation for sleep inhibit during play of music"
 msgid "Playing music"
 msgstr "Spelar musik"
 
-#: powermanagementinterface.cpp:229
+#: powermanagementinterface.cpp:232
 #, kde-format
 msgctxt "@info:status explanation for sleep inhibit during play of music"
 msgid "Playing music"
@@ -1583,19 +1583,19 @@ msgctxt "@item:inlistbox Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Ofta spelade"
 
-#: qml/SettingsForm.qml:292 viewmanager.cpp:216
+#: qml/SettingsForm.qml:292 viewmanager.cpp:245
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all albums"
 msgid "Albums"
 msgstr "Album"
 
-#: qml/SettingsForm.qml:293 viewmanager.cpp:220
+#: qml/SettingsForm.qml:293 viewmanager.cpp:249
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all artists"
 msgid "Artists"
 msgstr "Artister"
 
-#: qml/SettingsForm.qml:294 viewmanager.cpp:218
+#: qml/SettingsForm.qml:294 viewmanager.cpp:247
 #, kde-format
 msgctxt "@item:inlistbox Title of the view of all tracks"
 msgid "Tracks"
@@ -1759,220 +1759,228 @@ msgctxt "Volume as a percentage"
 msgid "%1%"
 msgstr "%1 %"
 
-#: viewmanager.cpp:41
+#: viewmanager.cpp:42
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Track Number"
 msgstr "Spårnummer"
 
-#: viewmanager.cpp:41 viewmanager.cpp:69
+#: viewmanager.cpp:42 viewmanager.cpp:71
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Title"
 msgstr "Titel"
 
-#: viewmanager.cpp:43
+#: viewmanager.cpp:44
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Ascending"
 msgstr "Stigande"
 
-#: viewmanager.cpp:43
+#: viewmanager.cpp:44
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Descending"
 msgstr "Fallande"
 
-#: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:66
-#: viewslistdata.cpp:81 viewslistdata.cpp:101 viewslistdata.cpp:102
-#: viewslistdata.cpp:117 viewslistdata.cpp:144
+#: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:73 viewmanager.cpp:75
+#: viewmanager.cpp:93 viewmanager.cpp:124 viewmanager.cpp:126
+#: viewmanager.cpp:128 viewmanager.cpp:130 viewmanager.cpp:136
+#: viewmanager.cpp:138 viewslistdata.cpp:67 viewslistdata.cpp:69
+#: viewslistdata.cpp:71 viewslistdata.cpp:89 viewslistdata.cpp:120
+#: viewslistdata.cpp:122 viewslistdata.cpp:124 viewslistdata.cpp:126
+#: viewslistdata.cpp:132 viewslistdata.cpp:134 viewslistdata.cpp:151
+#: viewslistdata.cpp:177
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "A–Z"
 msgstr "A–Z"
 
-#: viewmanager.cpp:44 viewmanager.cpp:57 viewmanager.cpp:71 viewmanager.cpp:85
-#: viewmanager.cpp:104 viewmanager.cpp:105 viewslistdata.cpp:66
-#: viewslistdata.cpp:81 viewslistdata.cpp:101 viewslistdata.cpp:102
-#: viewslistdata.cpp:117 viewslistdata.cpp:144
+#: viewmanager.cpp:44 viewmanager.cpp:58 viewmanager.cpp:74 viewmanager.cpp:76
+#: viewmanager.cpp:93 viewmanager.cpp:125 viewmanager.cpp:127
+#: viewmanager.cpp:129 viewmanager.cpp:131 viewmanager.cpp:137
+#: viewmanager.cpp:139 viewslistdata.cpp:68 viewslistdata.cpp:70
+#: viewslistdata.cpp:72 viewslistdata.cpp:89 viewslistdata.cpp:121
+#: viewslistdata.cpp:123 viewslistdata.cpp:125 viewslistdata.cpp:127
+#: viewslistdata.cpp:133 viewslistdata.cpp:135 viewslistdata.cpp:151
+#: viewslistdata.cpp:177
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Z–A"
 msgstr "Z–A"
 
-#: viewmanager.cpp:55 viewmanager.cpp:83
+#: viewmanager.cpp:56 viewmanager.cpp:91
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Name"
 msgstr "Namn"
 
-#: viewmanager.cpp:69
+#: viewmanager.cpp:71
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Genre"
 msgstr "Genre"
 
-#: viewmanager.cpp:69
+#: viewmanager.cpp:71
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Year"
 msgstr "År"
 
-#: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
-#: viewslistdata.cpp:66 viewslistdata.cpp:102 viewslistdata.cpp:103
+#: viewmanager.cpp:77 viewmanager.cpp:132 viewmanager.cpp:140
+#: viewslistdata.cpp:73 viewslistdata.cpp:128 viewslistdata.cpp:136
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Oldest First"
 msgstr "Äldsta först"
 
-#: viewmanager.cpp:71 viewmanager.cpp:105 viewmanager.cpp:106
-#: viewslistdata.cpp:66 viewslistdata.cpp:102 viewslistdata.cpp:103
+#: viewmanager.cpp:78 viewmanager.cpp:133 viewmanager.cpp:141
+#: viewslistdata.cpp:74 viewslistdata.cpp:129 viewslistdata.cpp:137
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Newest First"
 msgstr "Nyaste först"
 
-#: viewmanager.cpp:100 viewslistdata.cpp:64 viewslistdata.cpp:97
+#: viewmanager.cpp:114 viewslistdata.cpp:65 viewslistdata.cpp:110
 #, kde-format
 msgctxt "@title:menu"
 msgid "Title"
 msgstr "Titel"
 
-#: viewmanager.cpp:100 viewslistdata.cpp:97
+#: viewmanager.cpp:115 viewslistdata.cpp:111
 #, kde-format
 msgctxt "@title:menu"
 msgid "Album"
 msgstr "Album"
 
-#: viewmanager.cpp:100 viewslistdata.cpp:64 viewslistdata.cpp:97
+#: viewmanager.cpp:116 viewslistdata.cpp:65 viewslistdata.cpp:112
 #, kde-format
 msgctxt "@title:menu"
 msgid "Artist"
 msgstr "Artist"
 
-#: viewmanager.cpp:100 viewslistdata.cpp:64 viewslistdata.cpp:97
-#: viewslistdata.cpp:115
+#: viewmanager.cpp:117 viewslistdata.cpp:65 viewslistdata.cpp:113
+#: viewslistdata.cpp:149
 #, kde-format
 msgctxt "@title:menu"
 msgid "Genre"
 msgstr "Genre"
 
-#: viewmanager.cpp:101 viewslistdata.cpp:64 viewslistdata.cpp:98
+#: viewmanager.cpp:118 viewslistdata.cpp:65 viewslistdata.cpp:114
 #, kde-format
 msgctxt "@title:menu"
 msgid "Year"
 msgstr "År"
 
-#: viewmanager.cpp:101 viewslistdata.cpp:98
+#: viewmanager.cpp:119 viewslistdata.cpp:115
 #, kde-format
 msgctxt "@title:menu"
 msgid "Duration"
 msgstr "Längd"
 
-#: viewmanager.cpp:101 viewslistdata.cpp:98
+#: viewmanager.cpp:120 viewslistdata.cpp:116
 #, kde-format
 msgctxt "@title:menu"
 msgid "Composer"
 msgstr "Tonsättare"
 
-#: viewmanager.cpp:101 viewslistdata.cpp:98
+#: viewmanager.cpp:121 viewslistdata.cpp:117
 #, kde-format
 msgctxt "@title:menu"
 msgid "Lyricist"
 msgstr "Textförfattare"
 
-#: viewmanager.cpp:102 viewslistdata.cpp:99
+#: viewmanager.cpp:122 viewslistdata.cpp:118
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Modified"
 msgstr "Senast ändrad"
 
-#: viewmanager.cpp:105 viewslistdata.cpp:102
+#: viewmanager.cpp:134 viewslistdata.cpp:130
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Shortest First"
 msgstr "Kortaste först"
 
-#: viewmanager.cpp:105 viewslistdata.cpp:102
+#: viewmanager.cpp:135 viewslistdata.cpp:131
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Longest First"
 msgstr "Längsta först"
 
-#: viewslistdata.cpp:24
+#: viewslistdata.cpp:25
 #, kde-format
 msgctxt "@title:window Title of the view of the playlist"
 msgid "Now Playing"
 msgstr "Spelar nu"
 
-#: viewslistdata.cpp:28
+#: viewslistdata.cpp:29
 #, kde-format
 msgctxt "@title:window Title of the view of recently played tracks"
 msgid "Recently Played"
 msgstr "Senast spelade"
 
-#: viewslistdata.cpp:36
+#: viewslistdata.cpp:37
 #, kde-format
 msgctxt "@title:menu"
 msgid "Last Played Date"
 msgstr "Datum senast spelad"
 
-#: viewslistdata.cpp:38
+#: viewslistdata.cpp:39
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Recently Played First"
 msgstr "Tidigast spelade först"
 
-#: viewslistdata.cpp:38
+#: viewslistdata.cpp:39
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Recently Played First"
 msgstr "Senast spelade först"
 
-#: viewslistdata.cpp:42
+#: viewslistdata.cpp:43
 #, kde-format
 msgctxt "@title:window Title of the view of frequently played tracks"
 msgid "Frequently Played"
 msgstr "Ofta spelade"
 
-#: viewslistdata.cpp:50
+#: viewslistdata.cpp:51
 #, kde-format
 msgctxt "@title:menu"
 msgid "Play Frequency"
 msgstr "Uppspelningsfrekvens"
 
-#: viewslistdata.cpp:52
+#: viewslistdata.cpp:53
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Least Frequently Played First"
 msgstr "Minst ofta spelade först"
 
-#: viewslistdata.cpp:52
+#: viewslistdata.cpp:53
 #, kde-format
 msgctxt "@item:inmenu"
 msgid "Most Frequently Played First"
 msgstr "Oftast spelade först"
 
-#: viewslistdata.cpp:79 viewslistdata.cpp:142
+#: viewslistdata.cpp:87 viewslistdata.cpp:175
 #, kde-format
 msgctxt "@title:menu"
 msgid "Name"
 msgstr "Namn"
 
-#: viewslistdata.cpp:86
+#: viewslistdata.cpp:94
 #, kde-format
 msgctxt "@title:window Title of the view of all tracks"
 msgid "Tracks"
 msgstr "Spår"
 
-#: viewslistdata.cpp:122
+#: viewslistdata.cpp:156
 #, kde-format
 msgctxt "@title:window Title of the file browser view"
 msgid "Files"
 msgstr "Filer"
 
-#: viewslistdata.cpp:134
+#: viewslistdata.cpp:167
 #, kde-format
 msgctxt "@title:window Title of the file radios browser view"
 msgid "Radio Stations"
